@@ -1,7 +1,6 @@
 from gi_stub_generator.parse import parse_constant, parse_function
 from gi_stub_generator.schema import (
-    Attribute,
-    CallbackSchema,
+    Constant,
     FunctionArgumentSchema,
     FunctionSchema,
     Module,
@@ -68,7 +67,7 @@ def check_module(
     module_attributes = dir(m)
 
     module_name = m.__name__.split(".")[-1]
-    module_constants: list[Attribute] = []
+    module_constants: list[Constant] = []
     module_functions: list[FunctionSchema] = []
     module_used_callbacks: list[FunctionSchema] = []
     # module_genums: list[Attribute] = []
@@ -114,17 +113,26 @@ def check_module(
         if f:
             module_functions.append(f)
             callbacks_found.extend(f._gi_callbacks)
+            continue
 
-        # Check if it is a function ####################################################################################
+        # Check if it is a class ####################################################################################
         # gi.types.StructMeta
-        #  ->  'AllocatorClass'
+        #  ->  AllocationParams, AllocatorClass, AllocatorPrivate
+        # sono classi che estendono un gi class
 
+        # Check if it is a class ####################################################################################
         # gi.types.GObjectMeta
-        # ->  'Bin'
+        # ->  Allocator, Bin
+        # sono classi che estendono python Object
 
+        # Check if it is a class ####################################################################################
         # type (enum and flags here)
         # -> 'BinFlags', 'BufferCopyFlags', 'BufferFlags', 'BufferPoolAcquireFlags', 'BufferingMode'
         # prova .__info__.get_g_type().parent.name
+        # sono generalmente enum e flags
+
+        # Check if it is a class ####################################################################################
+        # _lock -> viene ignorato?
 
         # check if the attribute is an enum
         attribute_type_name = attribute_type.__name__
@@ -203,6 +211,13 @@ def main():
     # )
     # print(module_map_types)
     # print(data.function)
+
+    print("#" * 80)
+    print("# constants")
+    print("#" * 80)
+    for f in data.constant:
+        print(f)
+
     print("#" * 80)
     print("# callbacks")
     print("#" * 80)

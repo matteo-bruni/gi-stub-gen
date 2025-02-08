@@ -1,5 +1,5 @@
 from gi.repository import GObject
-from gi_stub_generator.schema import Attribute, FunctionArgumentSchema, FunctionSchema
+from gi_stub_generator.schema import Constant, FunctionArgumentSchema, FunctionSchema
 import gi._gi as GIRepository  # type: ignore
 from gi._gi import Repository
 from typing import Any, Literal
@@ -31,7 +31,7 @@ def parse_constant(
     """
 
     if obj_type in (int, str, float):
-        return Attribute(
+        return Constant(
             _type=obj_type,
             parent=parent,
             name=name,
@@ -50,7 +50,7 @@ def parse_constant(
             if isinstance(obj, (GObject.GFlags, GObject.GEnum)):
                 # or info.get_g_type().parent.name == "GFlags"
                 assert obj.is_integer(), f"{name} is not an enum/flag?"
-                return Attribute(
+                return Constant(
                     _type=obj_type,
                     parent=parent,
                     name=name,

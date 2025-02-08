@@ -1,3 +1,4 @@
+import keyword
 from gi_stub_generator.utils import gi_type_is_callback, gi_type_to_py_type
 from pydantic import BaseModel, PrivateAttr
 import gi._gi as GIRepository  # type: ignore
@@ -6,7 +7,7 @@ import gi._gi as GIRepository  # type: ignore
 from typing import Any, Literal
 
 
-class Attribute(BaseModel):
+class Constant(BaseModel):
     parent: str
     name: str
     _type: Any = PrivateAttr()  # actual type object
@@ -33,26 +34,35 @@ class Attribute(BaseModel):
         super().__init__(**data)
         self._type = _type
 
+    def __str__(self):
+        return (
+            f"parent={self.parent} "
+            f"name={self.name} "
+            f"type={self.type} "
+            f"value={self.value} "
+            f"value_repr={self.value_repr}"
+        )
 
-class CallbackSchema(BaseModel):
-    _gi_type: Any
-    name: str
-    namespace: str
 
-    def __init__(self, _gi_type, **data):
-        super().__init__(**data)
+# class CallbackSchema(BaseModel):
+#     _gi_type: Any
+#     name: str
+#     namespace: str
 
-        if not gi_type_is_callback(_gi_type):
-            raise ValueError("Not a callback")
-        self._gi_type = _gi_type
+#     def __init__(self, _gi_type, **data):
+#         super().__init__(**data)
 
-    # @property
-    # def namespace(self):
-    #     return self._gi_type.get_interface().get_namespace()
+#         if not gi_type_is_callback(_gi_type):
+#             raise ValueError("Not a callback")
+#         self._gi_type = _gi_type
 
-    # @property
-    # def name(self):
-    #     return self._gi_type.get_interface().get_name()
+# @property
+# def namespace(self):
+#     return self._gi_type.get_interface().get_namespace()
+
+# @property
+# def name(self):
+#     return self._gi_type.get_interface().get_name()
 
 
 class FunctionArgumentSchema(BaseModel):
@@ -63,6 +73,10 @@ class FunctionArgumentSchema(BaseModel):
     is_optional: bool
     direction: Literal["IN", "OUT", "INOUT"]
     _gi_type: Any
+
+    @property
+    def name_is_keyword(self):
+        return keyword.iskeyword(self.name)
 
     @property
     def py_type(self):
@@ -102,7 +116,7 @@ class FunctionArgumentSchema(BaseModel):
 
     def __str__(self):
         return (
-            f"name={self.name} "
+            f"name={self.name} [keyword={self.name_is_keyword}] "
             f"is_optional={self.is_optional} "
             # f"_gi_type={self._gi_type} "
             f"direction={self.direction} "
@@ -133,6 +147,8 @@ class FunctionSchema(BaseModel):
 
     @property
     def is_method(self) -> bool:
+        if self.is_callback:
+            return False
         return self._gi_type.is_method()
 
     @property
@@ -165,6 +181,7 @@ class FunctionSchema(BaseModel):
         output_args = "\n".join(output_args)
         return (
             f"{self.namespace}.{self.name} {callback_str}\n"
+            f"  namespace={self.namespace} name={self.name} is_method={self.is_method} \n"
             f"  return_type={self.py_return_type} get_array_length={self._gi_type.get_return_type().get_array_length()} may_return_null={self.may_return_null} skip_return={self.skip_return}\n"
             f"  Input Args:\n"
             f"{input_args}\n"
@@ -173,11 +190,21 @@ class FunctionSchema(BaseModel):
         )
 
 
+class ClassSchema(BaseModel):
+    parents: list[str]
+    attributes: list[Constant]
+    methods: list[FunctionSchema]
+
+    # capire se un method è statico
+    # capire se un method è di classe o di istanza
+    # cosa succede alle sotto classi? i.e Allocator.Props
+
+
 class Module(BaseModel):
     name: str
     version: int = 1
     # attributes: list[Attribute]
-    constant: list[Attribute]
+    constant: list[Constant]
     # enum: list[Attribute]
     function: list[FunctionSchema]
     used_callbacks: list[FunctionSchema]
