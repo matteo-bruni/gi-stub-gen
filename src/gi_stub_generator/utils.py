@@ -1,4 +1,5 @@
-import gi._gi as GIRepository  # type: ignore
+import builtins
+import gi._gi as GI  # type: ignore
 from gi._gi import Repository
 from gi.repository import GObject
 from typing import Sequence, Mapping
@@ -12,55 +13,60 @@ repository = Repository.get_default()
 
 map_gi_tag_to_type = {
     # bool
-    GIRepository.TypeTag.BOOLEAN: bool,
+    GI.TypeTag.BOOLEAN: bool,  # 1
     # int
-    GIRepository.TypeTag.INT8: int,
-    GIRepository.TypeTag.INT16: int,
-    GIRepository.TypeTag.INT32: int,
-    GIRepository.TypeTag.INT64: int,  # 8
-    GIRepository.TypeTag.UINT8: int,
-    GIRepository.TypeTag.UINT16: int,
-    GIRepository.TypeTag.UINT32: int,
-    GIRepository.TypeTag.UINT64: int,  # 9
+    GI.TypeTag.INT8: int,  # 2
+    GI.TypeTag.INT16: int,  # 4
+    GI.TypeTag.INT32: int,  # 6
+    GI.TypeTag.INT64: int,  # 8
+    GI.TypeTag.UINT8: int,  # 3
+    GI.TypeTag.UINT16: int,  # 5
+    GI.TypeTag.UINT32: int,  # 7
+    GI.TypeTag.UINT64: int,  # 9
     # float
-    GIRepository.TypeTag.FLOAT: float,  # 10
-    GIRepository.TypeTag.DOUBLE: float,  # 11
+    GI.TypeTag.FLOAT: float,  # 10
+    GI.TypeTag.DOUBLE: float,  # 11
     # str
-    GIRepository.TypeTag.UTF8: str,  # 13
-    GIRepository.TypeTag.FILENAME: str,  # 14
-    GIRepository.TypeTag.UNICHAR: str,  # 21
+    GI.TypeTag.UTF8: str,  # 13
+    GI.TypeTag.FILENAME: str,  # 14
+    GI.TypeTag.UNICHAR: str,  # 21
     # map
-    GIRepository.TypeTag.GHASH: dict,  # 19 or dict?Mapping
+    GI.TypeTag.GHASH: dict,  # 19 or dict?Mapping
     # list
-    GIRepository.TypeTag.GLIST: list,  # 17 or list?Sequence
-    GIRepository.TypeTag.GSLIST: list,  # 18 or list?Sequence
-    GIRepository.TypeTag.ARRAY: list,  # 15 or list? Sequence
+    GI.TypeTag.GLIST: list,  # 17 or list?Sequence
+    GI.TypeTag.GSLIST: list,  # 18 or list?Sequence
+    GI.TypeTag.ARRAY: list,  # 15 or list? Sequence
     # no match with python?
-    GIRepository.TypeTag.VOID: None,  # 0 can be a pointer to an object or None
-    GIRepository.TypeTag.INTERFACE: None,  # 16 can be a function/callback/struct
-    GIRepository.TypeTag.ERROR: None,  # 20
-    GIRepository.TypeTag.GTYPE: GObject.GType,  # 12 use string? the resolved type has lowercase gobject
+    GI.TypeTag.VOID: None,  # 0 can be a pointer to an object or None
+    GI.TypeTag.INTERFACE: None,  # 16 can be a function/callback/struct
+    GI.TypeTag.ERROR: None,  # 20
+    GI.TypeTag.GTYPE: GObject.GType,  # 12 use string? the resolved type has lowercase gobject
 }
-# NDR: should use Mapping/Sequence for args and dict/list for return type
+# TODO: should use Mapping/Sequence for args and dict/list for return type
 
 
-def gi_type_is_callback(gi_type_info: GIRepository.TypeInfo):
+def is_py_builtin_type(py_type):
+    return py_type in (int, str, float, dict, tuple, list)
+    # return py_type.__name__ in dir(builtins)
+
+
+def gi_type_is_callback(gi_type_info: GI.TypeInfo):
     """
     Check if the gi type is a callback.
 
     Args:
-        gi_type_info (GIRepository.TypeInfo): type info object
+        gi_type_info (GI.TypeInfo): type info object
 
     Returns:
         bool: True if the type is a callback
 
     """
-    return gi_type_info.get_tag() == GIRepository.TypeTag.INTERFACE and isinstance(
-        gi_type_info.get_interface(), GIRepository.CallbackInfo
+    return gi_type_info.get_tag() == GI.TypeTag.INTERFACE and isinstance(
+        gi_type_info.get_interface(), GI.CallbackInfo
     )
 
 
-def gi_callback_to_py_type(gi_type_info: GIRepository.TypeInfo):
+def gi_callback_to_py_type(gi_type_info: GI.TypeInfo):
     """
     Map a gi callback type to a python type
 
@@ -77,7 +83,7 @@ def gi_callback_to_py_type(gi_type_info: GIRepository.TypeInfo):
     https://peps.python.org/pep-0544/#callback-protocols
 
     Args:
-        gi_type_info (GIRepository.TypeInfo): type info object
+        gi_type_info (GI.TypeInfo): type info object
 
     Returns:
         python type object
@@ -92,16 +98,16 @@ def gi_callback_to_py_type(gi_type_info: GIRepository.TypeInfo):
 
 
 def gi_type_to_py_type(
-    gi_type_info: GIRepository.TypeInfo,
+    gi_type_info: GI.TypeInfo,
 ):
     """
     Map a gi type to a python type
 
     each type is represented by a unique integer and mapped to a type object
-    https://docs.gtk.org/girepository/enum.TypeTag.html
+    https://docs.gtk.org/GI/enum.TypeTag.html
 
     Args:
-        gi_type_info (GIRepository.TypeInfo): type info object
+        gi_type_info (GI.TypeInfo): type info object
 
     Returns:
         python type object
@@ -115,7 +121,7 @@ def gi_type_to_py_type(
     # if py_type is None and tag_as_string == "void":
     #     return object
     # if py_type is None and tag_as_string == "interface":
-    if py_type is None and tag == GIRepository.TypeTag.INTERFACE:
+    if py_type is None and tag == GI.TypeTag.INTERFACE:
         # TODO: return parse_struct_info_schema
         # with namespace
         iface = gi_type_info.get_interface()
@@ -125,7 +131,7 @@ def gi_type_to_py_type(
             raise ValueError("Invalid interface")
 
         # TODO: decide whether to return the interface name or the interface itself
-        # if isinstance(iface, GIRepository.CallbackInfo):
+        # if isinstance(iface, GI.CallbackInfo):
         #     return iface
 
         # TODO: make sure it is accessible with try catch
@@ -133,7 +139,7 @@ def gi_type_to_py_type(
         # and we can type it with a protocol
         return f"{ns}.{iface_name}"
 
-    if py_type is None and tag == GIRepository.TypeTag.VOID:
+    if py_type is None and tag == GI.TypeTag.VOID:
         # TODO: how to handle void?
         # in Gst.is_caps_features.get_arguments()[0].get_type() it is an object
         # in Gst.init.get_return_type().get_tag_as_string() it is None ??

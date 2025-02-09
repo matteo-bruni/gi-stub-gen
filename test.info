@@ -1,0 +1,2817 @@
+################################################################################
+# enum/flags
+################################################################################
+namespace=Gst name=AllocatorFlags mro=[<class 'gi.repository.Gst.AllocatorFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=CUSTOM_ALLOC value=16 
+   - name=NO_COPY value=32 
+   - name=LAST value=1048576 
+namespace=Gst name=BinFlags mro=[<class 'gi.repository.Gst.BinFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NO_RESYNC value=16384 
+   - name=STREAMS_AWARE value=32768 
+   - name=LAST value=524288 
+namespace=Gst name=BufferCopyFlags mro=[<class 'gi.repository.Gst.BufferCopyFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=FLAGS value=1 
+   - name=TIMESTAMPS value=2 
+   - name=META value=4 
+   - name=MEMORY value=8 
+   - name=MERGE value=16 
+   - name=DEEP value=32 
+namespace=Gst name=BufferFlags mro=[<class 'gi.repository.Gst.BufferFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=LIVE value=16 
+   - name=DECODE_ONLY value=32 
+   - name=DISCONT value=64 
+   - name=RESYNC value=128 
+   - name=CORRUPTED value=256 
+   - name=MARKER value=512 
+   - name=HEADER value=1024 
+   - name=GAP value=2048 
+   - name=DROPPABLE value=4096 
+   - name=DELTA_UNIT value=8192 
+   - name=TAG_MEMORY value=16384 
+   - name=SYNC_AFTER value=32768 
+   - name=NON_DROPPABLE value=65536 
+   - name=LAST value=1048576 
+namespace=Gst name=BufferPoolAcquireFlags mro=[<class 'gi.repository.Gst.BufferPoolAcquireFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=KEY_UNIT value=1 
+   - name=DONTWAIT value=2 
+   - name=DISCONT value=4 
+   - name=LAST value=65536 
+namespace=Gst name=BufferingMode mro=[<class 'gi.repository.Gst.BufferingMode'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=STREAM value=0 
+   - name=DOWNLOAD value=1 
+   - name=TIMESHIFT value=2 
+   - name=LIVE value=3 
+namespace=Gst name=BusFlags mro=[<class 'gi.repository.Gst.BusFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=FLUSHING value=16 
+   - name=FLAG_LAST value=32 
+namespace=Gst name=BusSyncReply mro=[<class 'gi.repository.Gst.BusSyncReply'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=DROP value=0 
+   - name=PASS_ value=1 
+   - name=ASYNC value=2 
+namespace=Gst name=CapsFlags mro=[<class 'gi.repository.Gst.CapsFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=ANY value=16 
+namespace=Gst name=CapsIntersectMode mro=[<class 'gi.repository.Gst.CapsIntersectMode'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=ZIG_ZAG value=0 
+   - name=FIRST value=1 
+namespace=Gst name=ClockEntryType mro=[<class 'gi.repository.Gst.ClockEntryType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=SINGLE value=0 
+   - name=PERIODIC value=1 
+namespace=Gst name=ClockFlags mro=[<class 'gi.repository.Gst.ClockFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=CAN_DO_SINGLE_SYNC value=16 
+   - name=CAN_DO_SINGLE_ASYNC value=32 
+   - name=CAN_DO_PERIODIC_SYNC value=64 
+   - name=CAN_DO_PERIODIC_ASYNC value=128 
+   - name=CAN_SET_RESOLUTION value=256 
+   - name=CAN_SET_MASTER value=512 
+   - name=NEEDS_STARTUP_SYNC value=1024 
+   - name=LAST value=4096 
+namespace=Gst name=ClockReturn mro=[<class 'gi.repository.Gst.ClockReturn'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=OK value=0 
+   - name=EARLY value=1 
+   - name=UNSCHEDULED value=2 
+   - name=BUSY value=3 
+   - name=BADTIME value=4 
+   - name=ERROR value=5 
+   - name=UNSUPPORTED value=6 
+   - name=DONE value=7 
+namespace=Gst name=ClockType mro=[<class 'gi.repository.Gst.ClockType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=REALTIME value=0 
+   - name=MONOTONIC value=1 
+   - name=OTHER value=2 
+   - name=TAI value=3 
+namespace=Gst name=CoreError mro=[<class 'gi.repository.Gst.CoreError'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=FAILED value=1 
+   - name=TOO_LAZY value=2 
+   - name=NOT_IMPLEMENTED value=3 
+   - name=STATE_CHANGE value=4 
+   - name=PAD value=5 
+   - name=THREAD value=6 
+   - name=NEGOTIATION value=7 
+   - name=EVENT value=8 
+   - name=SEEK value=9 
+   - name=CAPS value=10 
+   - name=TAG value=11 
+   - name=MISSING_PLUGIN value=12 
+   - name=CLOCK value=13 
+   - name=DISABLED value=14 
+   - name=NUM_ERRORS value=15 
+namespace=Gst name=DebugColorFlags mro=[<class 'gi.repository.Gst.DebugColorFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=FG_BLACK value=0 
+   - name=FG_RED value=1 
+   - name=FG_GREEN value=2 
+   - name=FG_YELLOW value=3 
+   - name=FG_BLUE value=4 
+   - name=FG_MAGENTA value=5 
+   - name=FG_CYAN value=6 
+   - name=FG_WHITE value=7 
+   - name=BG_BLACK value=0 
+   - name=BG_RED value=16 
+   - name=BG_GREEN value=32 
+   - name=BG_YELLOW value=48 
+   - name=BG_BLUE value=64 
+   - name=BG_MAGENTA value=80 
+   - name=BG_CYAN value=96 
+   - name=BG_WHITE value=112 
+   - name=BOLD value=256 
+   - name=UNDERLINE value=512 
+namespace=Gst name=DebugColorMode mro=[<class 'gi.repository.Gst.DebugColorMode'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=OFF value=0 
+   - name=ON value=1 
+   - name=UNIX value=2 
+namespace=Gst name=DebugGraphDetails mro=[<class 'gi.repository.Gst.DebugGraphDetails'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=MEDIA_TYPE value=1 
+   - name=CAPS_DETAILS value=2 
+   - name=NON_DEFAULT_PARAMS value=4 
+   - name=STATES value=8 
+   - name=FULL_PARAMS value=16 
+   - name=ALL value=15 
+   - name=VERBOSE value=4294967295 
+namespace=Gst name=DebugLevel mro=[<class 'gi.repository.Gst.DebugLevel'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=ERROR value=1 
+   - name=WARNING value=2 
+   - name=FIXME value=3 
+   - name=INFO value=4 
+   - name=DEBUG value=5 
+   - name=LOG value=6 
+   - name=TRACE value=7 
+   - name=MEMDUMP value=9 
+   - name=COUNT value=10 
+namespace=Gst name=ElementFlags mro=[<class 'gi.repository.Gst.ElementFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=LOCKED_STATE value=16 
+   - name=SINK value=32 
+   - name=SOURCE value=64 
+   - name=PROVIDE_CLOCK value=128 
+   - name=REQUIRE_CLOCK value=256 
+   - name=INDEXABLE value=512 
+   - name=LAST value=16384 
+namespace=Gst name=EventType mro=[<class 'gi.repository.Gst.EventType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=UNKNOWN value=0 
+   - name=FLUSH_START value=2563 
+   - name=FLUSH_STOP value=5127 
+   - name=STREAM_START value=10254 
+   - name=CAPS value=12814 
+   - name=SEGMENT value=17934 
+   - name=STREAM_COLLECTION value=19230 
+   - name=TAG value=20510 
+   - name=BUFFERSIZE value=23054 
+   - name=SINK_MESSAGE value=25630 
+   - name=STREAM_GROUP_DONE value=26894 
+   - name=EOS value=28174 
+   - name=TOC value=30750 
+   - name=PROTECTION value=33310 
+   - name=SEGMENT_DONE value=38406 
+   - name=GAP value=40966 
+   - name=INSTANT_RATE_CHANGE value=46090 
+   - name=QOS value=48641 
+   - name=SEEK value=51201 
+   - name=NAVIGATION value=53761 
+   - name=LATENCY value=56321 
+   - name=STEP value=58881 
+   - name=RECONFIGURE value=61441 
+   - name=TOC_SELECT value=64001 
+   - name=SELECT_STREAMS value=66561 
+   - name=INSTANT_RATE_SYNC_TIME value=66817 
+   - name=CUSTOM_UPSTREAM value=69121 
+   - name=CUSTOM_DOWNSTREAM value=71686 
+   - name=CUSTOM_DOWNSTREAM_OOB value=74242 
+   - name=CUSTOM_DOWNSTREAM_STICKY value=76830 
+   - name=CUSTOM_BOTH value=79367 
+   - name=CUSTOM_BOTH_OOB value=81923 
+namespace=Gst name=EventTypeFlags mro=[<class 'gi.repository.Gst.EventTypeFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=UPSTREAM value=1 
+   - name=DOWNSTREAM value=2 
+   - name=SERIALIZED value=4 
+   - name=STICKY value=8 
+   - name=STICKY_MULTI value=16 
+namespace=Gst name=FlowReturn mro=[<class 'gi.repository.Gst.FlowReturn'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=CUSTOM_SUCCESS_2 value=102 
+   - name=CUSTOM_SUCCESS_1 value=101 
+   - name=CUSTOM_SUCCESS value=100 
+   - name=OK value=0 
+   - name=NOT_LINKED value=-1 
+   - name=FLUSHING value=-2 
+   - name=EOS value=-3 
+   - name=NOT_NEGOTIATED value=-4 
+   - name=ERROR value=-5 
+   - name=NOT_SUPPORTED value=-6 
+   - name=CUSTOM_ERROR value=-100 
+   - name=CUSTOM_ERROR_1 value=-101 
+   - name=CUSTOM_ERROR_2 value=-102 
+namespace=Gst name=Format mro=[<class 'gi.repository.Gst.Format'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=UNDEFINED value=0 
+   - name=DEFAULT value=1 
+   - name=BYTES value=2 
+   - name=TIME value=3 
+   - name=BUFFERS value=4 
+   - name=PERCENT value=5 
+namespace=Gst name=GapFlags mro=[<class 'gi.repository.Gst.GapFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=DATA value=1 
+namespace=Gst name=IteratorItem mro=[<class 'gi.repository.Gst.IteratorItem'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=SKIP value=0 
+   - name=PASS_ value=1 
+   - name=END value=2 
+namespace=Gst name=IteratorResult mro=[<class 'gi.repository.Gst.IteratorResult'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=DONE value=0 
+   - name=OK value=1 
+   - name=RESYNC value=2 
+   - name=ERROR value=3 
+namespace=Gst name=LibraryError mro=[<class 'gi.repository.Gst.LibraryError'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=FAILED value=1 
+   - name=TOO_LAZY value=2 
+   - name=INIT value=3 
+   - name=SHUTDOWN value=4 
+   - name=SETTINGS value=5 
+   - name=ENCODE value=6 
+   - name=NUM_ERRORS value=7 
+namespace=Gst name=LockFlags mro=[<class 'gi.repository.Gst.LockFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=READ value=1 
+   - name=WRITE value=2 
+   - name=EXCLUSIVE value=4 
+   - name=LAST value=256 
+namespace=Gst name=MapFlags mro=[<class 'gi.repository.Gst.MapFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=READ value=1 
+   - name=WRITE value=2 
+   - name=FLAG_LAST value=65536 
+namespace=Gst name=MemoryFlags mro=[<class 'gi.repository.Gst.MemoryFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=READONLY value=2 
+   - name=NO_SHARE value=16 
+   - name=ZERO_PREFIXED value=32 
+   - name=ZERO_PADDED value=64 
+   - name=PHYSICALLY_CONTIGUOUS value=128 
+   - name=NOT_MAPPABLE value=256 
+   - name=LAST value=1048576 
+namespace=Gst name=MessageType mro=[<class 'gi.repository.Gst.MessageType'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=UNKNOWN value=0 
+   - name=EOS value=1 
+   - name=ERROR value=2 
+   - name=WARNING value=4 
+   - name=INFO value=8 
+   - name=TAG value=16 
+   - name=BUFFERING value=32 
+   - name=STATE_CHANGED value=64 
+   - name=STATE_DIRTY value=128 
+   - name=STEP_DONE value=256 
+   - name=CLOCK_PROVIDE value=512 
+   - name=CLOCK_LOST value=1024 
+   - name=NEW_CLOCK value=2048 
+   - name=STRUCTURE_CHANGE value=4096 
+   - name=STREAM_STATUS value=8192 
+   - name=APPLICATION value=16384 
+   - name=ELEMENT value=32768 
+   - name=SEGMENT_START value=65536 
+   - name=SEGMENT_DONE value=131072 
+   - name=DURATION_CHANGED value=262144 
+   - name=LATENCY value=524288 
+   - name=ASYNC_START value=1048576 
+   - name=ASYNC_DONE value=2097152 
+   - name=REQUEST_STATE value=4194304 
+   - name=STEP_START value=8388608 
+   - name=QOS value=16777216 
+   - name=PROGRESS value=33554432 
+   - name=TOC value=67108864 
+   - name=RESET_TIME value=134217728 
+   - name=STREAM_START value=268435456 
+   - name=NEED_CONTEXT value=536870912 
+   - name=HAVE_CONTEXT value=1073741824 
+   - name=EXTENDED value=2147483648 
+   - name=DEVICE_ADDED value=2147483649 
+   - name=DEVICE_REMOVED value=2147483650 
+   - name=PROPERTY_NOTIFY value=2147483651 
+   - name=STREAM_COLLECTION value=2147483652 
+   - name=STREAMS_SELECTED value=2147483653 
+   - name=REDIRECT value=2147483654 
+   - name=DEVICE_CHANGED value=2147483655 
+   - name=INSTANT_RATE_REQUEST value=2147483656 
+   - name=ANY value=4294967295 
+namespace=Gst name=MetaFlags mro=[<class 'gi.repository.Gst.MetaFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=READONLY value=1 
+   - name=POOLED value=2 
+   - name=LOCKED value=4 
+   - name=LAST value=65536 
+namespace=Gst name=MiniObjectFlags mro=[<class 'gi.repository.Gst.MiniObjectFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=LOCKABLE value=1 
+   - name=LOCK_READONLY value=2 
+   - name=MAY_BE_LEAKED value=4 
+   - name=LAST value=16 
+namespace=Gst name=ObjectFlags mro=[<class 'gi.repository.Gst.ObjectFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=MAY_BE_LEAKED value=1 
+   - name=CONSTRUCTED value=2 
+   - name=LAST value=16 
+namespace=Gst name=PadDirection mro=[<class 'gi.repository.Gst.PadDirection'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=UNKNOWN value=0 
+   - name=SRC value=1 
+   - name=SINK value=2 
+namespace=Gst name=PadFlags mro=[<class 'gi.repository.Gst.PadFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=BLOCKED value=16 
+   - name=FLUSHING value=32 
+   - name=EOS value=64 
+   - name=BLOCKING value=128 
+   - name=NEED_PARENT value=256 
+   - name=NEED_RECONFIGURE value=512 
+   - name=PENDING_EVENTS value=1024 
+   - name=FIXED_CAPS value=2048 
+   - name=PROXY_CAPS value=4096 
+   - name=PROXY_ALLOCATION value=8192 
+   - name=PROXY_SCHEDULING value=16384 
+   - name=ACCEPT_INTERSECT value=32768 
+   - name=ACCEPT_TEMPLATE value=65536 
+   - name=LAST value=1048576 
+namespace=Gst name=PadLinkCheck mro=[<class 'gi.repository.Gst.PadLinkCheck'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NOTHING value=0 
+   - name=HIERARCHY value=1 
+   - name=TEMPLATE_CAPS value=2 
+   - name=CAPS value=4 
+   - name=NO_RECONFIGURE value=8 
+   - name=DEFAULT value=5 
+namespace=Gst name=PadLinkReturn mro=[<class 'gi.repository.Gst.PadLinkReturn'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=OK value=0 
+   - name=WRONG_HIERARCHY value=-1 
+   - name=WAS_LINKED value=-2 
+   - name=WRONG_DIRECTION value=-3 
+   - name=NOFORMAT value=-4 
+   - name=NOSCHED value=-5 
+   - name=REFUSED value=-6 
+namespace=Gst name=PadMode mro=[<class 'gi.repository.Gst.PadMode'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=PUSH value=1 
+   - name=PULL value=2 
+namespace=Gst name=PadPresence mro=[<class 'gi.repository.Gst.PadPresence'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=ALWAYS value=0 
+   - name=SOMETIMES value=1 
+   - name=REQUEST value=2 
+namespace=Gst name=PadProbeReturn mro=[<class 'gi.repository.Gst.PadProbeReturn'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=DROP value=0 
+   - name=OK value=1 
+   - name=REMOVE value=2 
+   - name=PASS_ value=3 
+   - name=HANDLED value=4 
+namespace=Gst name=PadProbeType mro=[<class 'gi.repository.Gst.PadProbeType'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=INVALID value=0 
+   - name=IDLE value=1 
+   - name=BLOCK value=2 
+   - name=BUFFER value=16 
+   - name=BUFFER_LIST value=32 
+   - name=EVENT_DOWNSTREAM value=64 
+   - name=EVENT_UPSTREAM value=128 
+   - name=EVENT_FLUSH value=256 
+   - name=QUERY_DOWNSTREAM value=512 
+   - name=QUERY_UPSTREAM value=1024 
+   - name=PUSH value=4096 
+   - name=PULL value=8192 
+   - name=BLOCKING value=3 
+   - name=DATA_DOWNSTREAM value=112 
+   - name=DATA_UPSTREAM value=128 
+   - name=DATA_BOTH value=240 
+   - name=BLOCK_DOWNSTREAM value=114 
+   - name=BLOCK_UPSTREAM value=130 
+   - name=EVENT_BOTH value=192 
+   - name=QUERY_BOTH value=1536 
+   - name=ALL_BOTH value=1776 
+   - name=SCHEDULING value=12288 
+namespace=Gst name=PadTemplateFlags mro=[<class 'gi.repository.Gst.PadTemplateFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=LAST value=256 
+namespace=Gst name=ParseError mro=[<class 'gi.repository.Gst.ParseError'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=SYNTAX value=0 
+   - name=NO_SUCH_ELEMENT value=1 
+   - name=NO_SUCH_PROPERTY value=2 
+   - name=LINK value=3 
+   - name=COULD_NOT_SET_PROPERTY value=4 
+   - name=EMPTY_BIN value=5 
+   - name=EMPTY value=6 
+   - name=DELAYED_LINK value=7 
+namespace=Gst name=ParseFlags mro=[<class 'gi.repository.Gst.ParseFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=FATAL_ERRORS value=1 
+   - name=NO_SINGLE_ELEMENT_BINS value=2 
+   - name=PLACE_IN_BIN value=4 
+namespace=Gst name=PipelineFlags mro=[<class 'gi.repository.Gst.PipelineFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=FIXED_CLOCK value=524288 
+   - name=LAST value=8388608 
+namespace=Gst name=PluginAPIFlags mro=[<class 'gi.repository.Gst.PluginAPIFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=MEMBERS value=1 
+namespace=Gst name=PluginDependencyFlags mro=[<class 'gi.repository.Gst.PluginDependencyFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=RECURSE value=1 
+   - name=PATHS_ARE_DEFAULT_ONLY value=2 
+   - name=FILE_NAME_IS_SUFFIX value=4 
+   - name=FILE_NAME_IS_PREFIX value=8 
+   - name=PATHS_ARE_RELATIVE_TO_EXE value=16 
+namespace=Gst name=PluginError mro=[<class 'gi.repository.Gst.PluginError'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=MODULE value=0 
+   - name=DEPENDENCIES value=1 
+   - name=NAME_MISMATCH value=2 
+namespace=Gst name=PluginFlags mro=[<class 'gi.repository.Gst.PluginFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=CACHED value=16 
+   - name=BLACKLISTED value=32 
+namespace=Gst name=ProgressType mro=[<class 'gi.repository.Gst.ProgressType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=START value=0 
+   - name=CONTINUE_ value=1 
+   - name=COMPLETE value=2 
+   - name=CANCELED value=3 
+   - name=ERROR value=4 
+namespace=Gst name=PromiseResult mro=[<class 'gi.repository.Gst.PromiseResult'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=PENDING value=0 
+   - name=INTERRUPTED value=1 
+   - name=REPLIED value=2 
+   - name=EXPIRED value=3 
+namespace=Gst name=QOSType mro=[<class 'gi.repository.Gst.QOSType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=OVERFLOW value=0 
+   - name=UNDERFLOW value=1 
+   - name=THROTTLE value=2 
+namespace=Gst name=QueryType mro=[<class 'gi.repository.Gst.QueryType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=UNKNOWN value=0 
+   - name=POSITION value=2563 
+   - name=DURATION value=5123 
+   - name=LATENCY value=7683 
+   - name=JITTER value=10243 
+   - name=RATE value=12803 
+   - name=SEEKING value=15363 
+   - name=SEGMENT value=17923 
+   - name=CONVERT value=20483 
+   - name=FORMATS value=23043 
+   - name=BUFFERING value=28163 
+   - name=CUSTOM value=30723 
+   - name=URI value=33283 
+   - name=ALLOCATION value=35846 
+   - name=SCHEDULING value=38401 
+   - name=ACCEPT_CAPS value=40963 
+   - name=CAPS value=43523 
+   - name=DRAIN value=46086 
+   - name=CONTEXT value=48643 
+   - name=BITRATE value=51202 
+   - name=SELECTABLE value=53763 
+namespace=Gst name=QueryTypeFlags mro=[<class 'gi.repository.Gst.QueryTypeFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=UPSTREAM value=1 
+   - name=DOWNSTREAM value=2 
+   - name=SERIALIZED value=4 
+namespace=Gst name=Rank mro=[<class 'gi.repository.Gst.Rank'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=MARGINAL value=64 
+   - name=SECONDARY value=128 
+   - name=PRIMARY value=256 
+namespace=Gst name=ResourceError mro=[<class 'gi.repository.Gst.ResourceError'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=FAILED value=1 
+   - name=TOO_LAZY value=2 
+   - name=NOT_FOUND value=3 
+   - name=BUSY value=4 
+   - name=OPEN_READ value=5 
+   - name=OPEN_WRITE value=6 
+   - name=OPEN_READ_WRITE value=7 
+   - name=CLOSE value=8 
+   - name=READ value=9 
+   - name=WRITE value=10 
+   - name=SEEK value=11 
+   - name=SYNC value=12 
+   - name=SETTINGS value=13 
+   - name=NO_SPACE_LEFT value=14 
+   - name=NOT_AUTHORIZED value=15 
+   - name=NUM_ERRORS value=16 
+namespace=Gst name=SchedulingFlags mro=[<class 'gi.repository.Gst.SchedulingFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=SEEKABLE value=1 
+   - name=SEQUENTIAL value=2 
+   - name=BANDWIDTH_LIMITED value=4 
+namespace=Gst name=SearchMode mro=[<class 'gi.repository.Gst.SearchMode'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=EXACT value=0 
+   - name=BEFORE value=1 
+   - name=AFTER value=2 
+namespace=Gst name=SeekFlags mro=[<class 'gi.repository.Gst.SeekFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=FLUSH value=1 
+   - name=ACCURATE value=2 
+   - name=KEY_UNIT value=4 
+   - name=SEGMENT value=8 
+   - name=TRICKMODE value=16 
+   - name=SKIP value=16 
+   - name=SNAP_BEFORE value=32 
+   - name=SNAP_AFTER value=64 
+   - name=SNAP_NEAREST value=96 
+   - name=TRICKMODE_KEY_UNITS value=128 
+   - name=TRICKMODE_NO_AUDIO value=256 
+   - name=TRICKMODE_FORWARD_PREDICTED value=512 
+   - name=INSTANT_RATE_CHANGE value=1024 
+namespace=Gst name=SeekType mro=[<class 'gi.repository.Gst.SeekType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=SET value=1 
+   - name=END value=2 
+namespace=Gst name=SegmentFlags mro=[<class 'gi.repository.Gst.SegmentFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=RESET value=1 
+   - name=TRICKMODE value=16 
+   - name=SKIP value=16 
+   - name=SEGMENT value=8 
+   - name=TRICKMODE_KEY_UNITS value=128 
+   - name=TRICKMODE_FORWARD_PREDICTED value=512 
+   - name=TRICKMODE_NO_AUDIO value=256 
+namespace=Gst name=SerializeFlags mro=[<class 'gi.repository.Gst.SerializeFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=BACKWARD_COMPAT value=1 
+   - name=STRICT value=2 
+namespace=Gst name=StackTraceFlags mro=[<class 'gi.repository.Gst.StackTraceFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=FULL value=1 
+namespace=Gst name=State mro=[<class 'gi.repository.Gst.State'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=VOID_PENDING value=0 
+   - name=NULL value=1 
+   - name=READY value=2 
+   - name=PAUSED value=3 
+   - name=PLAYING value=4 
+namespace=Gst name=StateChange mro=[<class 'gi.repository.Gst.StateChange'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=NULL_TO_READY value=10 
+   - name=READY_TO_PAUSED value=19 
+   - name=PAUSED_TO_PLAYING value=28 
+   - name=PLAYING_TO_PAUSED value=35 
+   - name=PAUSED_TO_READY value=26 
+   - name=READY_TO_NULL value=17 
+   - name=NULL_TO_NULL value=9 
+   - name=READY_TO_READY value=18 
+   - name=PAUSED_TO_PAUSED value=27 
+   - name=PLAYING_TO_PLAYING value=36 
+namespace=Gst name=StateChangeReturn mro=[<class 'gi.repository.Gst.StateChangeReturn'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=FAILURE value=0 
+   - name=SUCCESS value=1 
+   - name=ASYNC value=2 
+   - name=NO_PREROLL value=3 
+namespace=Gst name=StreamError mro=[<class 'gi.repository.Gst.StreamError'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=FAILED value=1 
+   - name=TOO_LAZY value=2 
+   - name=NOT_IMPLEMENTED value=3 
+   - name=TYPE_NOT_FOUND value=4 
+   - name=WRONG_TYPE value=5 
+   - name=CODEC_NOT_FOUND value=6 
+   - name=DECODE value=7 
+   - name=ENCODE value=8 
+   - name=DEMUX value=9 
+   - name=MUX value=10 
+   - name=FORMAT value=11 
+   - name=DECRYPT value=12 
+   - name=DECRYPT_NOKEY value=13 
+   - name=NUM_ERRORS value=14 
+namespace=Gst name=StreamFlags mro=[<class 'gi.repository.Gst.StreamFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=SPARSE value=1 
+   - name=SELECT value=2 
+   - name=UNSELECT value=4 
+namespace=Gst name=StreamStatusType mro=[<class 'gi.repository.Gst.StreamStatusType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=CREATE value=0 
+   - name=ENTER value=1 
+   - name=LEAVE value=2 
+   - name=DESTROY value=3 
+   - name=START value=8 
+   - name=PAUSE value=9 
+   - name=STOP value=10 
+namespace=Gst name=StreamType mro=[<class 'gi.repository.Gst.StreamType'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=UNKNOWN value=1 
+   - name=AUDIO value=2 
+   - name=VIDEO value=4 
+   - name=CONTAINER value=8 
+   - name=TEXT value=16 
+namespace=Gst name=StructureChangeType mro=[<class 'gi.repository.Gst.StructureChangeType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=LINK value=0 
+   - name=UNLINK value=1 
+namespace=Gst name=TagFlag mro=[<class 'gi.repository.Gst.TagFlag'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=UNDEFINED value=0 
+   - name=META value=1 
+   - name=ENCODED value=2 
+   - name=DECODED value=3 
+   - name=COUNT value=4 
+namespace=Gst name=TagMergeMode mro=[<class 'gi.repository.Gst.TagMergeMode'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=UNDEFINED value=0 
+   - name=REPLACE_ALL value=1 
+   - name=REPLACE value=2 
+   - name=APPEND value=3 
+   - name=PREPEND value=4 
+   - name=KEEP value=5 
+   - name=KEEP_ALL value=6 
+   - name=COUNT value=7 
+namespace=Gst name=TagScope mro=[<class 'gi.repository.Gst.TagScope'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=STREAM value=0 
+   - name=GLOBAL_ value=1 
+namespace=Gst name=TaskState mro=[<class 'gi.repository.Gst.TaskState'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=STARTED value=0 
+   - name=STOPPED value=1 
+   - name=PAUSED value=2 
+namespace=Gst name=TocEntryType mro=[<class 'gi.repository.Gst.TocEntryType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=ANGLE value=-3 
+   - name=VERSION value=-2 
+   - name=EDITION value=-1 
+   - name=INVALID value=0 
+   - name=TITLE value=1 
+   - name=TRACK value=2 
+   - name=CHAPTER value=3 
+namespace=Gst name=TocLoopType mro=[<class 'gi.repository.Gst.TocLoopType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=FORWARD value=1 
+   - name=REVERSE value=2 
+   - name=PING_PONG value=3 
+namespace=Gst name=TocScope mro=[<class 'gi.repository.Gst.TocScope'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=GLOBAL_ value=1 
+   - name=CURRENT value=2 
+namespace=Gst name=TracerValueFlags mro=[<class 'gi.repository.Gst.TracerValueFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=OPTIONAL value=1 
+   - name=AGGREGATED value=2 
+namespace=Gst name=TracerValueScope mro=[<class 'gi.repository.Gst.TracerValueScope'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=PROCESS value=0 
+   - name=THREAD value=1 
+   - name=ELEMENT value=2 
+   - name=PAD value=3 
+namespace=Gst name=TypeFindProbability mro=[<class 'gi.repository.Gst.TypeFindProbability'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=NONE value=0 
+   - name=MINIMUM value=1 
+   - name=POSSIBLE value=50 
+   - name=LIKELY value=80 
+   - name=NEARLY_CERTAIN value=99 
+   - name=MAXIMUM value=100 
+namespace=Gst name=URIError mro=[<class 'gi.repository.Gst.URIError'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=UNSUPPORTED_PROTOCOL value=0 
+   - name=BAD_URI value=1 
+   - name=BAD_STATE value=2 
+   - name=BAD_REFERENCE value=3 
+namespace=Gst name=URIType mro=[<class 'gi.repository.Gst.URIType'>, <class 'gobject.GEnum'>, <class 'int'>, <class 'object'>]
+   - name=UNKNOWN value=0 
+   - name=SINK value=1 
+   - name=SRC value=2 
+################################################################################
+# constants
+################################################################################
+namespace=Gst name=ALLOCATOR_SYSMEM type=str value=SystemMemory value_repr='SystemMemory'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=BUFFER_COPY_ALL type=BufferCopyFlags value=0 value_repr=BufferCopyFlags(0)  mro=[<class 'gi.repository.Gst.BufferCopyFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+namespace=Gst name=BUFFER_COPY_METADATA type=BufferCopyFlags value=0 value_repr=BufferCopyFlags(0)  mro=[<class 'gi.repository.Gst.BufferCopyFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+namespace=Gst name=BUFFER_OFFSET_NONE type=int value=18446744073709551615 value_repr=18446744073709551615  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=CAN_INLINE type=int value=1 value_repr=1  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=CAPS_FEATURE_MEMORY_SYSTEM_MEMORY type=str value=memory:SystemMemory value_repr='memory:SystemMemory'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=CLOCK_TIME_NONE type=int value=18446744073709551615 value_repr=18446744073709551615  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=DEBUG_BG_MASK type=int value=240 value_repr=240  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=DEBUG_FG_MASK type=int value=15 value_repr=15  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=DEBUG_FORMAT_MASK type=int value=65280 value_repr=65280  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_DECODER type=str value=Decoder value_repr='Decoder'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_DECRYPTOR type=str value=Decryptor value_repr='Decryptor'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_DEMUXER type=str value=Demuxer value_repr='Demuxer'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_DEPAYLOADER type=str value=Depayloader value_repr='Depayloader'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_ENCODER type=str value=Encoder value_repr='Encoder'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_ENCRYPTOR type=str value=Encryptor value_repr='Encryptor'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_FORMATTER type=str value=Formatter value_repr='Formatter'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_HARDWARE type=str value=Hardware value_repr='Hardware'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_MEDIA_AUDIO type=str value=Audio value_repr='Audio'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_MEDIA_IMAGE type=str value=Image value_repr='Image'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_MEDIA_METADATA type=str value=Metadata value_repr='Metadata'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_MEDIA_SUBTITLE type=str value=Subtitle value_repr='Subtitle'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_MEDIA_VIDEO type=str value=Video value_repr='Video'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_MUXER type=str value=Muxer value_repr='Muxer'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_PARSER type=str value=Parser value_repr='Parser'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_PAYLOADER type=str value=Payloader value_repr='Payloader'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_SINK type=str value=Sink value_repr='Sink'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_KLASS_SRC type=str value=Source value_repr='Source'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_ANY type=int value=562949953421311 value_repr=562949953421311  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_AUDIOVIDEO_SINKS type=int value=3940649673949188 value_repr=3940649673949188  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_AUDIO_ENCODER type=int value=1125899906842626 value_repr=1125899906842626  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_DECODABLE type=int value=1377 value_repr=1377  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_DECODER type=int value=1 value_repr=1  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_DECRYPTOR type=int value=1024 value_repr=1024  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_DEMUXER type=int value=32 value_repr=32  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_DEPAYLOADER type=int value=256 value_repr=256  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_ENCODER type=int value=2 value_repr=2  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_ENCRYPTOR type=int value=2048 value_repr=2048  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_FORMATTER type=int value=512 value_repr=512  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_HARDWARE type=int value=4096 value_repr=4096  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_MAX_ELEMENTS type=int value=281474976710656 value_repr=281474976710656  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_MEDIA_ANY type=int value=18446462598732840960 value_repr=18446462598732840960  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_MEDIA_AUDIO type=int value=1125899906842624 value_repr=1125899906842624  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_MEDIA_IMAGE type=int value=2251799813685248 value_repr=2251799813685248  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_MEDIA_METADATA type=int value=9007199254740992 value_repr=9007199254740992  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_MEDIA_SUBTITLE type=int value=4503599627370496 value_repr=4503599627370496  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_MEDIA_VIDEO type=int value=562949953421312 value_repr=562949953421312  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_MUXER type=int value=16 value_repr=16  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_PARSER type=int value=64 value_repr=64  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_PAYLOADER type=int value=128 value_repr=128  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_SINK type=int value=4 value_repr=4  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_SRC type=int value=8 value_repr=8  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_TIMESTAMPER type=int value=8192 value_repr=8192  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_FACTORY_TYPE_VIDEO_ENCODER type=int value=2814749767106562 value_repr=2814749767106562  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=ELEMENT_METADATA_AUTHOR type=str value=author value_repr='author'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_METADATA_DESCRIPTION type=str value=description value_repr='description'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_METADATA_DOC_URI type=str value=doc-uri value_repr='doc-uri'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_METADATA_ICON_NAME type=str value=icon-name value_repr='icon-name'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_METADATA_KLASS type=str value=klass value_repr='klass'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=ELEMENT_METADATA_LONGNAME type=str value=long-name value_repr='long-name'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=EVENT_NUM_SHIFT type=int value=8 value_repr=8  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=EVENT_TYPE_BOTH type=EventTypeFlags value=0 value_repr=EventTypeFlags(0)  mro=[<class 'gi.repository.Gst.EventTypeFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+namespace=Gst name=FLAG_SET_MASK_EXACT type=int value=4294967295 value_repr=4294967295  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=FORMAT_PERCENT_MAX type=int value=1000000 value_repr=1000000  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=FORMAT_PERCENT_SCALE type=int value=10000 value_repr=10000  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=GROUP_ID_INVALID type=int value=0 value_repr=0  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=LICENSE_UNKNOWN type=str value=unknown value_repr='unknown'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=LOCK_FLAG_READWRITE type=LockFlags value=0 value_repr=LockFlags(0)  mro=[<class 'gi.repository.Gst.LockFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+namespace=Gst name=MAP_READWRITE type=MapFlags value=0 value_repr=MapFlags(0)  mro=[<class 'gi.repository.Gst.MapFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+namespace=Gst name=META_TAG_MEMORY_REFERENCE_STR type=str value=memory-reference value_repr='memory-reference'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=META_TAG_MEMORY_STR type=str value=memory value_repr='memory'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=MSECOND type=int value=1000000 value_repr=1000000  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=NSECOND type=int value=1 value_repr=1  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=PARAM_CONDITIONALLY_AVAILABLE type=int value=16384 value_repr=16384  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=PARAM_CONTROLLABLE type=int value=512 value_repr=512  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=PARAM_DOC_SHOW_DEFAULT type=int value=8192 value_repr=8192  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=PARAM_MUTABLE_PAUSED type=int value=2048 value_repr=2048  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=PARAM_MUTABLE_PLAYING type=int value=4096 value_repr=4096  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=PARAM_MUTABLE_READY type=int value=1024 value_repr=1024  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=PARAM_USER_SHIFT type=int value=65536 value_repr=65536  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=PROTECTION_SYSTEM_ID_CAPS_FIELD type=str value=protection-system value_repr='protection-system'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=PROTECTION_UNSPECIFIED_SYSTEM_ID type=str value=unspecified-system-id value_repr='unspecified-system-id'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=QUERY_NUM_SHIFT type=int value=8 value_repr=8  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=QUERY_TYPE_BOTH type=QueryTypeFlags value=0 value_repr=QueryTypeFlags(0)  mro=[<class 'gi.repository.Gst.QueryTypeFlags'>, <class 'gobject.GFlags'>, <class 'int'>, <class 'object'>]
+namespace=Gst name=SECOND type=int value=1000000000 value_repr=1000000000  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=SEGMENT_INSTANT_FLAGS type=int value=912 value_repr=912  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=SEQNUM_INVALID type=int value=0 value_repr=0  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=TAG_ALBUM type=str value=album value_repr='album'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ALBUM_ARTIST type=str value=album-artist value_repr='album-artist'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ALBUM_ARTIST_SORTNAME type=str value=album-artist-sortname value_repr='album-artist-sortname'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ALBUM_GAIN type=str value=replaygain-album-gain value_repr='replaygain-album-gain'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ALBUM_PEAK type=str value=replaygain-album-peak value_repr='replaygain-album-peak'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ALBUM_SORTNAME type=str value=album-sortname value_repr='album-sortname'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ALBUM_VOLUME_COUNT type=str value=album-disc-count value_repr='album-disc-count'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ALBUM_VOLUME_NUMBER type=str value=album-disc-number value_repr='album-disc-number'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_APPLICATION_DATA type=str value=application-data value_repr='application-data'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_APPLICATION_NAME type=str value=application-name value_repr='application-name'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ARTIST type=str value=artist value_repr='artist'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ARTIST_SORTNAME type=str value=artist-sortname value_repr='artist-sortname'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ATTACHMENT type=str value=attachment value_repr='attachment'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_AUDIO_CODEC type=str value=audio-codec value_repr='audio-codec'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_BEATS_PER_MINUTE type=str value=beats-per-minute value_repr='beats-per-minute'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_BITRATE type=str value=bitrate value_repr='bitrate'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_CODEC type=str value=codec value_repr='codec'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_COMMENT type=str value=comment value_repr='comment'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_COMPOSER type=str value=composer value_repr='composer'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_COMPOSER_SORTNAME type=str value=composer-sortname value_repr='composer-sortname'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_CONDUCTOR type=str value=conductor value_repr='conductor'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_CONTACT type=str value=contact value_repr='contact'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_CONTAINER_FORMAT type=str value=container-format value_repr='container-format'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_CONTAINER_SPECIFIC_TRACK_ID type=str value=container-specific-track-id value_repr='container-specific-track-id'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_COPYRIGHT type=str value=copyright value_repr='copyright'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_COPYRIGHT_URI type=str value=copyright-uri value_repr='copyright-uri'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_DATE type=str value=date value_repr='date'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_DATE_TIME type=str value=datetime value_repr='datetime'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_DESCRIPTION type=str value=description value_repr='description'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_DEVICE_MANUFACTURER type=str value=device-manufacturer value_repr='device-manufacturer'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_DEVICE_MODEL type=str value=device-model value_repr='device-model'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_DURATION type=str value=duration value_repr='duration'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ENCODED_BY type=str value=encoded-by value_repr='encoded-by'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ENCODER type=str value=encoder value_repr='encoder'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ENCODER_VERSION type=str value=encoder-version value_repr='encoder-version'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_EXTENDED_COMMENT type=str value=extended-comment value_repr='extended-comment'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GENRE type=str value=genre value_repr='genre'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_CAPTURE_DIRECTION type=str value=geo-location-capture-direction value_repr='geo-location-capture-direction'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_CITY type=str value=geo-location-city value_repr='geo-location-city'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_COUNTRY type=str value=geo-location-country value_repr='geo-location-country'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_ELEVATION type=str value=geo-location-elevation value_repr='geo-location-elevation'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_HORIZONTAL_ERROR type=str value=geo-location-horizontal-error value_repr='geo-location-horizontal-error'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_LATITUDE type=str value=geo-location-latitude value_repr='geo-location-latitude'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_LONGITUDE type=str value=geo-location-longitude value_repr='geo-location-longitude'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_MOVEMENT_DIRECTION type=str value=geo-location-movement-direction value_repr='geo-location-movement-direction'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_MOVEMENT_SPEED type=str value=geo-location-movement-speed value_repr='geo-location-movement-speed'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_NAME type=str value=geo-location-name value_repr='geo-location-name'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GEO_LOCATION_SUBLOCATION type=str value=geo-location-sublocation value_repr='geo-location-sublocation'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_GROUPING type=str value=grouping value_repr='grouping'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_HOMEPAGE type=str value=homepage value_repr='homepage'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_IMAGE type=str value=image value_repr='image'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_IMAGE_ORIENTATION type=str value=image-orientation value_repr='image-orientation'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_INTERPRETED_BY type=str value=interpreted-by value_repr='interpreted-by'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ISRC type=str value=isrc value_repr='isrc'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_KEYWORDS type=str value=keywords value_repr='keywords'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_LANGUAGE_CODE type=str value=language-code value_repr='language-code'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_LANGUAGE_NAME type=str value=language-name value_repr='language-name'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_LICENSE type=str value=license value_repr='license'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_LICENSE_URI type=str value=license-uri value_repr='license-uri'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_LOCATION type=str value=location value_repr='location'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_LYRICS type=str value=lyrics value_repr='lyrics'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_MAXIMUM_BITRATE type=str value=maximum-bitrate value_repr='maximum-bitrate'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_MIDI_BASE_NOTE type=str value=midi-base-note value_repr='midi-base-note'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_MINIMUM_BITRATE type=str value=minimum-bitrate value_repr='minimum-bitrate'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_NOMINAL_BITRATE type=str value=nominal-bitrate value_repr='nominal-bitrate'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_ORGANIZATION type=str value=organization value_repr='organization'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_PERFORMER type=str value=performer value_repr='performer'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_PREVIEW_IMAGE type=str value=preview-image value_repr='preview-image'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_PRIVATE_DATA type=str value=private-data value_repr='private-data'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_PUBLISHER type=str value=publisher value_repr='publisher'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_REFERENCE_LEVEL type=str value=replaygain-reference-level value_repr='replaygain-reference-level'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_SERIAL type=str value=serial value_repr='serial'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_SHOW_EPISODE_NUMBER type=str value=show-episode-number value_repr='show-episode-number'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_SHOW_NAME type=str value=show-name value_repr='show-name'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_SHOW_SEASON_NUMBER type=str value=show-season-number value_repr='show-season-number'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_SHOW_SORTNAME type=str value=show-sortname value_repr='show-sortname'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_SUBTITLE_CODEC type=str value=subtitle-codec value_repr='subtitle-codec'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_TITLE type=str value=title value_repr='title'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_TITLE_SORTNAME type=str value=title-sortname value_repr='title-sortname'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_TRACK_COUNT type=str value=track-count value_repr='track-count'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_TRACK_GAIN type=str value=replaygain-track-gain value_repr='replaygain-track-gain'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_TRACK_NUMBER type=str value=track-number value_repr='track-number'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_TRACK_PEAK type=str value=replaygain-track-peak value_repr='replaygain-track-peak'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_USER_RATING type=str value=user-rating value_repr='user-rating'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_VERSION type=str value=version value_repr='version'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TAG_VIDEO_CODEC type=str value=video-codec value_repr='video-codec'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=TOC_REPEAT_COUNT_INFINITE type=int value=-1 value_repr=-1  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=URI_NO_PORT type=int value=0 value_repr=0  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=USECOND type=int value=1000 value_repr=1000  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=VALUE_EQUAL type=int value=0 value_repr=0  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=VALUE_GREATER_THAN type=int value=1 value_repr=1  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=VALUE_LESS_THAN type=int value=-1 value_repr=-1  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=VALUE_UNORDERED type=int value=2 value_repr=2  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=VERSION_MAJOR type=int value=1 value_repr=1  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=VERSION_MICRO type=int value=2 value_repr=2  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=VERSION_MINOR type=int value=24 value_repr=24  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=VERSION_NANO type=int value=0 value_repr=0  mro=[<class 'int'>, <class 'object'>]
+namespace=Gst name=_namespace type=str value=Gst value_repr='Gst'  mro=[<class 'str'>, <class 'object'>]
+namespace=Gst name=_version type=str value=1.0 value_repr='1.0'  mro=[<class 'str'>, <class 'object'>]
+################################################################################
+# callbacks
+################################################################################
+Gst.LogFunction [CallbackInfo] 
+  namespace=Gst name=LogFunction is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=category [keyword=False] is_optional=False direction=IN py_type=Gst.DebugCategory is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=level [keyword=False] is_optional=False direction=IN py_type=Gst.DebugLevel is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=file [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=function [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=line [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=object [keyword=False] is_optional=False direction=IN py_type=GObject.Object is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=message [keyword=False] is_optional=False direction=IN py_type=Gst.DebugMessage is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=user_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+GLib.DestroyNotify [CallbackInfo] 
+  namespace=GLib name=DestroyNotify is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.LogFunction [CallbackInfo] 
+  namespace=Gst name=LogFunction is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=category [keyword=False] is_optional=False direction=IN py_type=Gst.DebugCategory is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=level [keyword=False] is_optional=False direction=IN py_type=Gst.DebugLevel is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=file [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=function [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=line [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=object [keyword=False] is_optional=False direction=IN py_type=GObject.Object is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=message [keyword=False] is_optional=False direction=IN py_type=Gst.DebugMessage is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=user_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.CustomMetaTransformFunction [CallbackInfo] 
+  namespace=Gst name=CustomMetaTransformFunction is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=transbuf [keyword=False] is_optional=False direction=IN py_type=Gst.Buffer is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=meta [keyword=False] is_optional=False direction=IN py_type=Gst.CustomMeta is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=buffer [keyword=False] is_optional=False direction=IN py_type=Gst.Buffer is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=type [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+   - name=user_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+GLib.DestroyNotify [CallbackInfo] 
+  namespace=GLib name=DestroyNotify is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+GObject.Callback [CallbackInfo] 
+  namespace=GObject name=Callback is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - None nullable=False
+
+Gst.TypeFindFunction [CallbackInfo] 
+  namespace=Gst name=TypeFindFunction is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=find [keyword=False] is_optional=False direction=IN py_type=Gst.TypeFind is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=user_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+GLib.DestroyNotify [CallbackInfo] 
+  namespace=GLib name=DestroyNotify is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+GLib.CompareDataFunc [CallbackInfo] 
+  namespace=GLib name=CompareDataFunc is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=a [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+   - name=b [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+   - name=user_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+################################################################################
+# builtin functions
+################################################################################
+################################################################################
+# functions
+################################################################################
+Gst.buffer_get_max_memory [FunctionInfo] 
+  namespace=Gst name=buffer_get_max_memory is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.caps_features_from_string [FunctionInfo] 
+  namespace=Gst name=caps_features_from_string is_method=False 
+  return_type=Gst.CapsFeatures get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=features [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.CapsFeatures nullable=True
+
+Gst.caps_from_string [FunctionInfo] 
+  namespace=Gst name=caps_from_string is_method=False 
+  return_type=Gst.Caps get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=string [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.Caps nullable=True
+
+Gst.core_error_quark [FunctionInfo] 
+  namespace=Gst name=core_error_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.debug_add_log_function [FunctionInfo] 
+  namespace=Gst name=debug_add_log_function is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=func [keyword=False] is_optional=False direction=IN py_type=Protocol(Gst.LogFunction) is_callback=True tag_as_string=interface get_array_length=-1 
+   - name=user_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+   - name=notify [keyword=False] is_optional=False direction=IN py_type=Protocol(GLib.DestroyNotify) is_callback=True tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_add_ring_buffer_logger [FunctionInfo] 
+  namespace=Gst name=debug_add_ring_buffer_logger is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=max_size_per_thread [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=thread_timeout [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_bin_to_dot_data [FunctionInfo] 
+  namespace=Gst name=debug_bin_to_dot_data is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=bin [keyword=False] is_optional=False direction=IN py_type=Gst.Bin is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=details [keyword=False] is_optional=False direction=IN py_type=Gst.DebugGraphDetails is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.debug_bin_to_dot_file [FunctionInfo] 
+  namespace=Gst name=debug_bin_to_dot_file is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=bin [keyword=False] is_optional=False direction=IN py_type=Gst.Bin is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=details [keyword=False] is_optional=False direction=IN py_type=Gst.DebugGraphDetails is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=file_name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=filename get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_bin_to_dot_file_with_ts [FunctionInfo] 
+  namespace=Gst name=debug_bin_to_dot_file_with_ts is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=bin [keyword=False] is_optional=False direction=IN py_type=Gst.Bin is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=details [keyword=False] is_optional=False direction=IN py_type=Gst.DebugGraphDetails is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=file_name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=filename get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_construct_term_color [FunctionInfo] 
+  namespace=Gst name=debug_construct_term_color is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=colorinfo [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.debug_construct_win_color [FunctionInfo] 
+  namespace=Gst name=debug_construct_win_color is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=colorinfo [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.debug_get_all_categories [FunctionInfo] 
+  namespace=Gst name=debug_get_all_categories is_method=False 
+  return_type=list['Gst.DebugCategory'] get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - list['Gst.DebugCategory'] nullable=False
+
+Gst.debug_get_color_mode [FunctionInfo] 
+  namespace=Gst name=debug_get_color_mode is_method=False 
+  return_type=Gst.DebugColorMode get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - Gst.DebugColorMode nullable=False
+
+Gst.debug_get_default_threshold [FunctionInfo] 
+  namespace=Gst name=debug_get_default_threshold is_method=False 
+  return_type=Gst.DebugLevel get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - Gst.DebugLevel nullable=False
+
+Gst.debug_get_stack_trace [FunctionInfo] 
+  namespace=Gst name=debug_get_stack_trace is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=flags [keyword=False] is_optional=False direction=IN py_type=Gst.StackTraceFlags is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.debug_is_active [FunctionInfo] 
+  namespace=Gst name=debug_is_active is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.debug_is_colored [FunctionInfo] 
+  namespace=Gst name=debug_is_colored is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.debug_level_get_name [FunctionInfo] 
+  namespace=Gst name=debug_level_get_name is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=level [keyword=False] is_optional=False direction=IN py_type=Gst.DebugLevel is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.debug_log_default [FunctionInfo] 
+  namespace=Gst name=debug_log_default is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=category [keyword=False] is_optional=False direction=IN py_type=Gst.DebugCategory is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=level [keyword=False] is_optional=False direction=IN py_type=Gst.DebugLevel is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=file [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=function [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=line [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=object [keyword=False] is_optional=False direction=IN py_type=GObject.Object is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=message [keyword=False] is_optional=False direction=IN py_type=Gst.DebugMessage is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=user_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_log_get_line [FunctionInfo] 
+  namespace=Gst name=debug_log_get_line is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=category [keyword=False] is_optional=False direction=IN py_type=Gst.DebugCategory is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=level [keyword=False] is_optional=False direction=IN py_type=Gst.DebugLevel is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=file [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=function [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=line [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=object [keyword=False] is_optional=False direction=IN py_type=GObject.Object is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=message [keyword=False] is_optional=False direction=IN py_type=Gst.DebugMessage is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.debug_log_id_literal [FunctionInfo] 
+  namespace=Gst name=debug_log_id_literal is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=category [keyword=False] is_optional=False direction=IN py_type=Gst.DebugCategory is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=level [keyword=False] is_optional=False direction=IN py_type=Gst.DebugLevel is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=file [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=function [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=line [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=id [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=message_string [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_log_literal [FunctionInfo] 
+  namespace=Gst name=debug_log_literal is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=category [keyword=False] is_optional=False direction=IN py_type=Gst.DebugCategory is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=level [keyword=False] is_optional=False direction=IN py_type=Gst.DebugLevel is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=file [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=function [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=line [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=object [keyword=False] is_optional=False direction=IN py_type=GObject.Object is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=message_string [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_print_stack_trace [FunctionInfo] 
+  namespace=Gst name=debug_print_stack_trace is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - None nullable=False
+
+Gst.debug_remove_log_function [FunctionInfo] 
+  namespace=Gst name=debug_remove_log_function is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=func [keyword=False] is_optional=False direction=IN py_type=Protocol(Gst.LogFunction) is_callback=True tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.debug_remove_log_function_by_data [FunctionInfo] 
+  namespace=Gst name=debug_remove_log_function_by_data is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.debug_remove_ring_buffer_logger [FunctionInfo] 
+  namespace=Gst name=debug_remove_ring_buffer_logger is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - None nullable=False
+
+Gst.debug_ring_buffer_logger_get_logs [FunctionInfo] 
+  namespace=Gst name=debug_ring_buffer_logger_get_logs is_method=False 
+  return_type=list[str] get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - list[str] nullable=False
+
+Gst.debug_set_active [FunctionInfo] 
+  namespace=Gst name=debug_set_active is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=active [keyword=False] is_optional=False direction=IN py_type=<class 'bool'> is_callback=False tag_as_string=gboolean get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_set_color_mode [FunctionInfo] 
+  namespace=Gst name=debug_set_color_mode is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=mode [keyword=False] is_optional=False direction=IN py_type=Gst.DebugColorMode is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_set_color_mode_from_string [FunctionInfo] 
+  namespace=Gst name=debug_set_color_mode_from_string is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=mode [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_set_colored [FunctionInfo] 
+  namespace=Gst name=debug_set_colored is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=colored [keyword=False] is_optional=False direction=IN py_type=<class 'bool'> is_callback=False tag_as_string=gboolean get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_set_default_threshold [FunctionInfo] 
+  namespace=Gst name=debug_set_default_threshold is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=level [keyword=False] is_optional=False direction=IN py_type=Gst.DebugLevel is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_set_threshold_for_name [FunctionInfo] 
+  namespace=Gst name=debug_set_threshold_for_name is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=level [keyword=False] is_optional=False direction=IN py_type=Gst.DebugLevel is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_set_threshold_from_string [FunctionInfo] 
+  namespace=Gst name=debug_set_threshold_from_string is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=list [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=reset [keyword=False] is_optional=False direction=IN py_type=<class 'bool'> is_callback=False tag_as_string=gboolean get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.debug_unset_threshold_for_name [FunctionInfo] 
+  namespace=Gst name=debug_unset_threshold_for_name is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.deinit [FunctionInfo] 
+  namespace=Gst name=deinit is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - None nullable=False
+
+Gst.dynamic_type_register [FunctionInfo] 
+  namespace=Gst name=dynamic_type_register is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=plugin [keyword=False] is_optional=False direction=IN py_type=Gst.Plugin is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=type [keyword=False] is_optional=False direction=IN py_type=<class 'gobject.GType'> is_callback=False tag_as_string=GType get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.error_get_message [FunctionInfo] 
+  namespace=Gst name=error_get_message is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=domain [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=code [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.event_type_get_flags [FunctionInfo] 
+  namespace=Gst name=event_type_get_flags is_method=False 
+  return_type=Gst.EventTypeFlags get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.EventType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.EventTypeFlags nullable=False
+
+Gst.event_type_get_name [FunctionInfo] 
+  namespace=Gst name=event_type_get_name is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.EventType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.event_type_to_quark [FunctionInfo] 
+  namespace=Gst name=event_type_to_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.EventType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.event_type_to_sticky_ordering [FunctionInfo] 
+  namespace=Gst name=event_type_to_sticky_ordering is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.EventType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.filename_to_uri [FunctionInfo] [CAN_THROW_GERROR]
+  namespace=Gst name=filename_to_uri is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=filename [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=filename get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.flow_get_name [FunctionInfo] 
+  namespace=Gst name=flow_get_name is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=ret [keyword=False] is_optional=False direction=IN py_type=Gst.FlowReturn is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.flow_to_quark [FunctionInfo] 
+  namespace=Gst name=flow_to_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=ret [keyword=False] is_optional=False direction=IN py_type=Gst.FlowReturn is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.format_get_by_nick [FunctionInfo] 
+  namespace=Gst name=format_get_by_nick is_method=False 
+  return_type=Gst.Format get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=nick [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.Format nullable=False
+
+Gst.format_get_details [FunctionInfo] 
+  namespace=Gst name=format_get_details is_method=False 
+  return_type=Gst.FormatDefinition get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=format [keyword=False] is_optional=False direction=IN py_type=Gst.Format is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.FormatDefinition nullable=True
+
+Gst.format_get_name [FunctionInfo] 
+  namespace=Gst name=format_get_name is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=format [keyword=False] is_optional=False direction=IN py_type=Gst.Format is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.format_iterate_definitions [FunctionInfo] 
+  namespace=Gst name=format_iterate_definitions is_method=False 
+  return_type=Gst.Iterator get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - Gst.Iterator nullable=False
+
+Gst.format_register [FunctionInfo] 
+  namespace=Gst name=format_register is_method=False 
+  return_type=Gst.Format get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=nick [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=description [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.Format nullable=False
+
+Gst.format_to_quark [FunctionInfo] 
+  namespace=Gst name=format_to_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=format [keyword=False] is_optional=False direction=IN py_type=Gst.Format is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.formats_contains [FunctionInfo] 
+  namespace=Gst name=formats_contains is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=formats [keyword=False] is_optional=False direction=IN py_type=list['Gst.Format'] is_callback=False tag_as_string=array get_array_length=-1 
+   - name=format [keyword=False] is_optional=False direction=IN py_type=Gst.Format is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.get_main_executable_path [FunctionInfo] 
+  namespace=Gst name=get_main_executable_path is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.init [FunctionInfo] 
+  namespace=Gst name=init is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=argc [keyword=False] is_optional=True direction=INOUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=argv [keyword=False] is_optional=True direction=INOUT py_type=list[str] is_callback=False tag_as_string=array get_array_length=0 
+  Output Args:
+   - None nullable=False
+   - name=argc [keyword=False] is_optional=True direction=INOUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=argv [keyword=False] is_optional=True direction=INOUT py_type=list[str] is_callback=False tag_as_string=array get_array_length=0 
+
+Gst.init_check [FunctionInfo] [CAN_THROW_GERROR]
+  namespace=Gst name=init_check is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=argc [keyword=False] is_optional=True direction=INOUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=argv [keyword=False] is_optional=True direction=INOUT py_type=list[str] is_callback=False tag_as_string=array get_array_length=0 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=argc [keyword=False] is_optional=True direction=INOUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=argv [keyword=False] is_optional=True direction=INOUT py_type=list[str] is_callback=False tag_as_string=array get_array_length=0 
+
+Gst.is_caps_features [FunctionInfo] 
+  namespace=Gst name=is_caps_features is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=obj [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.is_initialized [FunctionInfo] 
+  namespace=Gst name=is_initialized is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.library_error_quark [FunctionInfo] 
+  namespace=Gst name=library_error_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.message_type_get_name [FunctionInfo] 
+  namespace=Gst name=message_type_get_name is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.MessageType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.message_type_to_quark [FunctionInfo] 
+  namespace=Gst name=message_type_to_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.MessageType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.meta_api_type_get_tags [FunctionInfo] 
+  namespace=Gst name=meta_api_type_get_tags is_method=False 
+  return_type=list[str] get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=api [keyword=False] is_optional=False direction=IN py_type=<class 'gobject.GType'> is_callback=False tag_as_string=GType get_array_length=-1 
+  Output Args:
+   - list[str] nullable=False
+
+Gst.meta_api_type_has_tag [FunctionInfo] 
+  namespace=Gst name=meta_api_type_has_tag is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=api [keyword=False] is_optional=False direction=IN py_type=<class 'gobject.GType'> is_callback=False tag_as_string=GType get_array_length=-1 
+   - name=tag [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.meta_api_type_register [FunctionInfo] 
+  namespace=Gst name=meta_api_type_register is_method=False 
+  return_type=<class 'gobject.GType'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=api [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=tags [keyword=False] is_optional=False direction=IN py_type=list[str] is_callback=False tag_as_string=array get_array_length=-1 
+  Output Args:
+   - <class 'gobject.GType'> nullable=False
+
+Gst.meta_deserialize [FunctionInfo] 
+  namespace=Gst name=meta_deserialize is_method=False 
+  return_type=Gst.Meta get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=buffer [keyword=False] is_optional=False direction=IN py_type=Gst.Buffer is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=data [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint8 get_array_length=-1 
+   - name=size [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+  Output Args:
+   - Gst.Meta nullable=True
+   - name=consumed [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+
+Gst.meta_get_info [FunctionInfo] 
+  namespace=Gst name=meta_get_info is_method=False 
+  return_type=Gst.MetaInfo get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=impl [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.MetaInfo nullable=True
+
+Gst.meta_register_custom [FunctionInfo] 
+  namespace=Gst name=meta_register_custom is_method=False 
+  return_type=Gst.MetaInfo get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=tags [keyword=False] is_optional=False direction=IN py_type=list[str] is_callback=False tag_as_string=array get_array_length=-1 
+   - name=transform_func [keyword=False] is_optional=False direction=IN py_type=Protocol(Gst.CustomMetaTransformFunction) is_callback=True tag_as_string=interface get_array_length=-1 
+   - name=user_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+   - name=destroy_data [keyword=False] is_optional=False direction=IN py_type=Protocol(GLib.DestroyNotify) is_callback=True tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.MetaInfo nullable=False
+
+Gst.meta_register_custom_simple [FunctionInfo] 
+  namespace=Gst name=meta_register_custom_simple is_method=False 
+  return_type=Gst.MetaInfo get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.MetaInfo nullable=False
+
+Gst.mini_object_replace [FunctionInfo] 
+  namespace=Gst name=mini_object_replace is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=olddata [keyword=False] is_optional=True direction=INOUT py_type=Gst.MiniObject is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=newdata [keyword=False] is_optional=False direction=IN py_type=Gst.MiniObject is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=olddata [keyword=False] is_optional=True direction=INOUT py_type=Gst.MiniObject is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.mini_object_take [FunctionInfo] 
+  namespace=Gst name=mini_object_take is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=olddata [keyword=False] is_optional=False direction=INOUT py_type=Gst.MiniObject is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=newdata [keyword=False] is_optional=False direction=IN py_type=Gst.MiniObject is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=olddata [keyword=False] is_optional=False direction=INOUT py_type=Gst.MiniObject is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.pad_mode_get_name [FunctionInfo] 
+  namespace=Gst name=pad_mode_get_name is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=mode [keyword=False] is_optional=False direction=IN py_type=Gst.PadMode is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.param_spec_array [FunctionInfo] 
+  namespace=Gst name=param_spec_array is_method=False 
+  return_type=GObject.ParamSpec get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=nick [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=blurb [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=element_spec [keyword=False] is_optional=False direction=IN py_type=GObject.ParamSpec is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=flags [keyword=False] is_optional=False direction=IN py_type=GObject.ParamFlags is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - GObject.ParamSpec nullable=False
+
+Gst.param_spec_fraction [FunctionInfo] 
+  namespace=Gst name=param_spec_fraction is_method=False 
+  return_type=GObject.ParamSpec get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=nick [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=blurb [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=min_num [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=min_denom [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=max_num [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=max_denom [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=default_num [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=default_denom [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=flags [keyword=False] is_optional=False direction=IN py_type=GObject.ParamFlags is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - GObject.ParamSpec nullable=True
+
+Gst.parent_buffer_meta_api_get_type [FunctionInfo] 
+  namespace=Gst name=parent_buffer_meta_api_get_type is_method=False 
+  return_type=<class 'gobject.GType'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'gobject.GType'> nullable=False
+
+Gst.parent_buffer_meta_get_info [FunctionInfo] 
+  namespace=Gst name=parent_buffer_meta_get_info is_method=False 
+  return_type=Gst.MetaInfo get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - Gst.MetaInfo nullable=False
+
+Gst.parse_bin_from_description [FunctionInfo] [CAN_THROW_GERROR]
+  namespace=Gst name=parse_bin_from_description is_method=False 
+  return_type=Gst.Bin get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=bin_description [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=ghost_unlinked_pads [keyword=False] is_optional=False direction=IN py_type=<class 'bool'> is_callback=False tag_as_string=gboolean get_array_length=-1 
+  Output Args:
+   - Gst.Bin nullable=False
+
+Gst.parse_bin_from_description_full [FunctionInfo] [CAN_THROW_GERROR]
+  namespace=Gst name=parse_bin_from_description_full is_method=False 
+  return_type=Gst.Element get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=bin_description [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=ghost_unlinked_pads [keyword=False] is_optional=False direction=IN py_type=<class 'bool'> is_callback=False tag_as_string=gboolean get_array_length=-1 
+   - name=context [keyword=False] is_optional=False direction=IN py_type=Gst.ParseContext is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=flags [keyword=False] is_optional=False direction=IN py_type=Gst.ParseFlags is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.Element nullable=False
+
+Gst.parse_error_quark [FunctionInfo] 
+  namespace=Gst name=parse_error_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.parse_launch [FunctionInfo] [CAN_THROW_GERROR]
+  namespace=Gst name=parse_launch is_method=False 
+  return_type=Gst.Element get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=pipeline_description [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.Element nullable=False
+
+Gst.parse_launch_full [FunctionInfo] [CAN_THROW_GERROR]
+  namespace=Gst name=parse_launch_full is_method=False 
+  return_type=Gst.Element get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=pipeline_description [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=context [keyword=False] is_optional=False direction=IN py_type=Gst.ParseContext is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=flags [keyword=False] is_optional=False direction=IN py_type=Gst.ParseFlags is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.Element nullable=False
+
+Gst.parse_launchv [FunctionInfo] [CAN_THROW_GERROR]
+  namespace=Gst name=parse_launchv is_method=False 
+  return_type=Gst.Element get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=argv [keyword=False] is_optional=False direction=IN py_type=list[str] is_callback=False tag_as_string=array get_array_length=-1 
+  Output Args:
+   - Gst.Element nullable=False
+
+Gst.parse_launchv_full [FunctionInfo] [CAN_THROW_GERROR]
+  namespace=Gst name=parse_launchv_full is_method=False 
+  return_type=Gst.Element get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=argv [keyword=False] is_optional=False direction=IN py_type=list[str] is_callback=False tag_as_string=array get_array_length=-1 
+   - name=context [keyword=False] is_optional=False direction=IN py_type=Gst.ParseContext is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=flags [keyword=False] is_optional=False direction=IN py_type=Gst.ParseFlags is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.Element nullable=False
+
+Gst.plugin_error_quark [FunctionInfo] 
+  namespace=Gst name=plugin_error_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.preset_get_app_dir [FunctionInfo] 
+  namespace=Gst name=preset_get_app_dir is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.preset_set_app_dir [FunctionInfo] 
+  namespace=Gst name=preset_set_app_dir is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=app_dir [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=filename get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.protection_filter_systems_by_available_decryptors [FunctionInfo] 
+  namespace=Gst name=protection_filter_systems_by_available_decryptors is_method=False 
+  return_type=list[str] get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=system_identifiers [keyword=False] is_optional=False direction=IN py_type=list[str] is_callback=False tag_as_string=array get_array_length=-1 
+  Output Args:
+   - list[str] nullable=True
+
+Gst.protection_meta_api_get_type [FunctionInfo] 
+  namespace=Gst name=protection_meta_api_get_type is_method=False 
+  return_type=<class 'gobject.GType'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'gobject.GType'> nullable=False
+
+Gst.protection_meta_get_info [FunctionInfo] 
+  namespace=Gst name=protection_meta_get_info is_method=False 
+  return_type=Gst.MetaInfo get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - Gst.MetaInfo nullable=False
+
+Gst.protection_select_system [FunctionInfo] 
+  namespace=Gst name=protection_select_system is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=system_identifiers [keyword=False] is_optional=False direction=IN py_type=list[str] is_callback=False tag_as_string=array get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.query_type_get_flags [FunctionInfo] 
+  namespace=Gst name=query_type_get_flags is_method=False 
+  return_type=Gst.QueryTypeFlags get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.QueryType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.QueryTypeFlags nullable=False
+
+Gst.query_type_get_name [FunctionInfo] 
+  namespace=Gst name=query_type_get_name is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.QueryType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.query_type_to_quark [FunctionInfo] 
+  namespace=Gst name=query_type_to_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.QueryType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.reference_timestamp_meta_api_get_type [FunctionInfo] 
+  namespace=Gst name=reference_timestamp_meta_api_get_type is_method=False 
+  return_type=<class 'gobject.GType'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'gobject.GType'> nullable=False
+
+Gst.reference_timestamp_meta_get_info [FunctionInfo] 
+  namespace=Gst name=reference_timestamp_meta_get_info is_method=False 
+  return_type=Gst.MetaInfo get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - Gst.MetaInfo nullable=False
+
+Gst.resource_error_quark [FunctionInfo] 
+  namespace=Gst name=resource_error_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.segtrap_is_enabled [FunctionInfo] 
+  namespace=Gst name=segtrap_is_enabled is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.segtrap_set_enabled [FunctionInfo] 
+  namespace=Gst name=segtrap_set_enabled is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=enabled [keyword=False] is_optional=False direction=IN py_type=<class 'bool'> is_callback=False tag_as_string=gboolean get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.state_change_get_name [FunctionInfo] 
+  namespace=Gst name=state_change_get_name is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=transition [keyword=False] is_optional=False direction=IN py_type=Gst.StateChange is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.static_caps_get_type [FunctionInfo] 
+  namespace=Gst name=static_caps_get_type is_method=False 
+  return_type=<class 'gobject.GType'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'gobject.GType'> nullable=False
+
+Gst.static_pad_template_get_type [FunctionInfo] 
+  namespace=Gst name=static_pad_template_get_type is_method=False 
+  return_type=<class 'gobject.GType'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'gobject.GType'> nullable=False
+
+Gst.stream_error_quark [FunctionInfo] 
+  namespace=Gst name=stream_error_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.stream_type_get_name [FunctionInfo] 
+  namespace=Gst name=stream_type_get_name is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=stype [keyword=False] is_optional=False direction=IN py_type=Gst.StreamType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.structure_take [FunctionInfo] 
+  namespace=Gst name=structure_take is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=oldstr_ptr [keyword=False] is_optional=True direction=INOUT py_type=Gst.Structure is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=newstr [keyword=False] is_optional=False direction=IN py_type=Gst.Structure is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=oldstr_ptr [keyword=False] is_optional=True direction=INOUT py_type=Gst.Structure is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.tag_exists [FunctionInfo] 
+  namespace=Gst name=tag_exists is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=tag [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.tag_get_description [FunctionInfo] 
+  namespace=Gst name=tag_get_description is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=tag [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.tag_get_flag [FunctionInfo] 
+  namespace=Gst name=tag_get_flag is_method=False 
+  return_type=Gst.TagFlag get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=tag [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.TagFlag nullable=False
+
+Gst.tag_get_nick [FunctionInfo] 
+  namespace=Gst name=tag_get_nick is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=tag [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.tag_get_type [FunctionInfo] 
+  namespace=Gst name=tag_get_type is_method=False 
+  return_type=<class 'gobject.GType'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=tag [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'gobject.GType'> nullable=False
+
+Gst.tag_is_fixed [FunctionInfo] 
+  namespace=Gst name=tag_is_fixed is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=tag [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.tag_list_copy_value [FunctionInfo] 
+  namespace=Gst name=tag_list_copy_value is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=list [keyword=False] is_optional=False direction=IN py_type=Gst.TagList is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=tag [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=dest [keyword=False] is_optional=False direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.tag_merge_strings_with_comma [FunctionInfo] 
+  namespace=Gst name=tag_merge_strings_with_comma is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=src [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+   - name=dest [keyword=False] is_optional=False direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.tag_merge_use_first [FunctionInfo] 
+  namespace=Gst name=tag_merge_use_first is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=src [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+   - name=dest [keyword=False] is_optional=False direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.toc_entry_type_get_nick [FunctionInfo] 
+  namespace=Gst name=toc_entry_type_get_nick is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.TocEntryType is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.tracing_get_active_tracers [FunctionInfo] 
+  namespace=Gst name=tracing_get_active_tracers is_method=False 
+  return_type=list['Gst.Tracer'] get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - list['Gst.Tracer'] nullable=False
+
+Gst.tracing_register_hook [FunctionInfo] 
+  namespace=Gst name=tracing_register_hook is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=tracer [keyword=False] is_optional=False direction=IN py_type=Gst.Tracer is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=detail [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=func [keyword=False] is_optional=False direction=IN py_type=Protocol(GObject.Callback) is_callback=True tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.type_find_get_type [FunctionInfo] 
+  namespace=Gst name=type_find_get_type is_method=False 
+  return_type=<class 'gobject.GType'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'gobject.GType'> nullable=False
+
+Gst.type_find_register [FunctionInfo] 
+  namespace=Gst name=type_find_register is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=plugin [keyword=False] is_optional=False direction=IN py_type=Gst.Plugin is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=rank [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=func [keyword=False] is_optional=False direction=IN py_type=Protocol(Gst.TypeFindFunction) is_callback=True tag_as_string=interface get_array_length=-1 
+   - name=extensions [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=possible_caps [keyword=False] is_optional=False direction=IN py_type=Gst.Caps is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+   - name=data_notify [keyword=False] is_optional=False direction=IN py_type=Protocol(GLib.DestroyNotify) is_callback=True tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.type_is_plugin_api [FunctionInfo] 
+  namespace=Gst name=type_is_plugin_api is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=<class 'gobject.GType'> is_callback=False tag_as_string=GType get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=flags [keyword=False] is_optional=True direction=OUT py_type=Gst.PluginAPIFlags is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.type_mark_as_plugin_api [FunctionInfo] 
+  namespace=Gst name=type_mark_as_plugin_api is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=<class 'gobject.GType'> is_callback=False tag_as_string=GType get_array_length=-1 
+   - name=flags [keyword=False] is_optional=False direction=IN py_type=Gst.PluginAPIFlags is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.update_registry [FunctionInfo] 
+  namespace=Gst name=update_registry is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.uri_construct [FunctionInfo] [DEPRECATED]
+  namespace=Gst name=uri_construct is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=protocol [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=location [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=False
+
+Gst.uri_error_quark [FunctionInfo] 
+  namespace=Gst name=uri_error_quark is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.uri_from_string [FunctionInfo] 
+  namespace=Gst name=uri_from_string is_method=False 
+  return_type=Gst.Uri get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=uri [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.Uri nullable=True
+
+Gst.uri_from_string_escaped [FunctionInfo] 
+  namespace=Gst name=uri_from_string_escaped is_method=False 
+  return_type=Gst.Uri get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=uri [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - Gst.Uri nullable=True
+
+Gst.uri_get_location [FunctionInfo] 
+  namespace=Gst name=uri_get_location is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=uri [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.uri_get_protocol [FunctionInfo] 
+  namespace=Gst name=uri_get_protocol is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=uri [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.uri_has_protocol [FunctionInfo] 
+  namespace=Gst name=uri_has_protocol is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=uri [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=protocol [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.uri_is_valid [FunctionInfo] 
+  namespace=Gst name=uri_is_valid is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=uri [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.uri_join_strings [FunctionInfo] 
+  namespace=Gst name=uri_join_strings is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=base_uri [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=ref_uri [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.uri_protocol_is_supported [FunctionInfo] 
+  namespace=Gst name=uri_protocol_is_supported is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=type [keyword=False] is_optional=False direction=IN py_type=Gst.URIType is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=protocol [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.uri_protocol_is_valid [FunctionInfo] 
+  namespace=Gst name=uri_protocol_is_valid is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=protocol [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.util_array_binary_search [FunctionInfo] 
+  namespace=Gst name=util_array_binary_search is_method=False 
+  return_type=<class 'object'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=array [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+   - name=num_elements [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=element_size [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=search_func [keyword=False] is_optional=False direction=IN py_type=Protocol(GLib.CompareDataFunc) is_callback=True tag_as_string=interface get_array_length=-1 
+   - name=mode [keyword=False] is_optional=False direction=IN py_type=Gst.SearchMode is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=search_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+   - name=user_data [keyword=False] is_optional=False direction=IN py_type=<class 'object'> is_callback=False tag_as_string=void get_array_length=-1 
+  Output Args:
+   - <class 'object'> nullable=True
+
+Gst.util_ceil_log2 [FunctionInfo] 
+  namespace=Gst name=util_ceil_log2 is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=v [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_double_to_fraction [FunctionInfo] 
+  namespace=Gst name=util_double_to_fraction is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=src [keyword=False] is_optional=False direction=IN py_type=<class 'float'> is_callback=False tag_as_string=gdouble get_array_length=-1 
+  Output Args:
+   - None nullable=False
+   - name=dest_n [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=dest_d [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+
+Gst.util_dump_buffer [FunctionInfo] 
+  namespace=Gst name=util_dump_buffer is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=buf [keyword=False] is_optional=False direction=IN py_type=Gst.Buffer is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.util_dump_mem [FunctionInfo] 
+  namespace=Gst name=util_dump_mem is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=mem [keyword=False] is_optional=False direction=IN py_type=list[int] is_callback=False tag_as_string=array get_array_length=1 
+   - name=size [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.util_filename_compare [FunctionInfo] 
+  namespace=Gst name=util_filename_compare is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=a [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=filename get_array_length=-1 
+   - name=b [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=filename get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_fraction_add [FunctionInfo] 
+  namespace=Gst name=util_fraction_add is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=a_n [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=a_d [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=b_n [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=b_d [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=res_n [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=res_d [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+
+Gst.util_fraction_compare [FunctionInfo] 
+  namespace=Gst name=util_fraction_compare is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=a_n [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=a_d [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=b_n [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=b_d [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_fraction_multiply [FunctionInfo] 
+  namespace=Gst name=util_fraction_multiply is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=a_n [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=a_d [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=b_n [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=b_d [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=res_n [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=res_d [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+
+Gst.util_fraction_to_double [FunctionInfo] 
+  namespace=Gst name=util_fraction_to_double is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=src_n [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=src_d [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+   - name=dest [keyword=False] is_optional=False direction=OUT py_type=<class 'float'> is_callback=False tag_as_string=gdouble get_array_length=-1 
+
+Gst.util_gdouble_to_guint64 [FunctionInfo] 
+  namespace=Gst name=util_gdouble_to_guint64 is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=<class 'float'> is_callback=False tag_as_string=gdouble get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_get_object_array [FunctionInfo] 
+  namespace=Gst name=util_get_object_array is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=object [keyword=False] is_optional=False direction=IN py_type=GObject.Object is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=array [keyword=False] is_optional=False direction=OUT py_type=GObject.ValueArray is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.util_get_timestamp [FunctionInfo] 
+  namespace=Gst name=util_get_timestamp is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_greatest_common_divisor [FunctionInfo] 
+  namespace=Gst name=util_greatest_common_divisor is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=a [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=b [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_greatest_common_divisor_int64 [FunctionInfo] 
+  namespace=Gst name=util_greatest_common_divisor_int64 is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=a [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint64 get_array_length=-1 
+   - name=b [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint64 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_group_id_next [FunctionInfo] 
+  namespace=Gst name=util_group_id_next is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_guint64_to_gdouble [FunctionInfo] 
+  namespace=Gst name=util_guint64_to_gdouble is_method=False 
+  return_type=<class 'float'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+  Output Args:
+   - <class 'float'> nullable=False
+
+Gst.util_seqnum_compare [FunctionInfo] 
+  namespace=Gst name=util_seqnum_compare is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=s1 [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=s2 [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_seqnum_next [FunctionInfo] 
+  namespace=Gst name=util_seqnum_next is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_set_object_arg [FunctionInfo] 
+  namespace=Gst name=util_set_object_arg is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=object [keyword=False] is_optional=False direction=IN py_type=GObject.Object is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=value [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.util_set_object_array [FunctionInfo] 
+  namespace=Gst name=util_set_object_array is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=object [keyword=False] is_optional=False direction=IN py_type=GObject.Object is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=name [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=array [keyword=False] is_optional=False direction=IN py_type=GObject.ValueArray is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.util_set_value_from_string [FunctionInfo] 
+  namespace=Gst name=util_set_value_from_string is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value_str [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+   - name=value [keyword=False] is_optional=False direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.util_simplify_fraction [FunctionInfo] 
+  namespace=Gst name=util_simplify_fraction is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=numerator [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=denominator [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=n_terms [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=threshold [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.util_uint64_scale [FunctionInfo] 
+  namespace=Gst name=util_uint64_scale is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=val [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=num [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=denom [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_uint64_scale_ceil [FunctionInfo] 
+  namespace=Gst name=util_uint64_scale_ceil is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=val [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=num [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=denom [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_uint64_scale_int [FunctionInfo] 
+  namespace=Gst name=util_uint64_scale_int is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=val [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=num [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=denom [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_uint64_scale_int_ceil [FunctionInfo] 
+  namespace=Gst name=util_uint64_scale_int_ceil is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=val [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=num [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=denom [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_uint64_scale_int_round [FunctionInfo] 
+  namespace=Gst name=util_uint64_scale_int_round is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=val [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=num [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=denom [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.util_uint64_scale_round [FunctionInfo] 
+  namespace=Gst name=util_uint64_scale_round is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=val [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=num [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+   - name=denom [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_can_compare [FunctionInfo] 
+  namespace=Gst name=value_can_compare is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value1 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=value2 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.value_can_intersect [FunctionInfo] 
+  namespace=Gst name=value_can_intersect is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value1 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=value2 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.value_can_subtract [FunctionInfo] 
+  namespace=Gst name=value_can_subtract is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=minuend [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=subtrahend [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.value_can_union [FunctionInfo] 
+  namespace=Gst name=value_can_union is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value1 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=value2 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.value_compare [FunctionInfo] 
+  namespace=Gst name=value_compare is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value1 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=value2 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_deserialize [FunctionInfo] 
+  namespace=Gst name=value_deserialize is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=src [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=dest [keyword=False] is_optional=False direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.value_deserialize_with_pspec [FunctionInfo] 
+  namespace=Gst name=value_deserialize_with_pspec is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=src [keyword=False] is_optional=False direction=IN py_type=<class 'str'> is_callback=False tag_as_string=utf8 get_array_length=-1 
+   - name=pspec [keyword=False] is_optional=False direction=IN py_type=GObject.ParamSpec is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=dest [keyword=False] is_optional=False direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.value_fixate [FunctionInfo] 
+  namespace=Gst name=value_fixate is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=dest [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=src [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.value_fraction_multiply [FunctionInfo] 
+  namespace=Gst name=value_fraction_multiply is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=product [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=factor1 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=factor2 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.value_fraction_subtract [FunctionInfo] 
+  namespace=Gst name=value_fraction_subtract is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=dest [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=minuend [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=subtrahend [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.value_get_bitmask [FunctionInfo] 
+  namespace=Gst name=value_get_bitmask is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_caps [FunctionInfo] 
+  namespace=Gst name=value_get_caps is_method=False 
+  return_type=Gst.Caps get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.Caps nullable=False
+
+Gst.value_get_caps_features [FunctionInfo] 
+  namespace=Gst name=value_get_caps_features is_method=False 
+  return_type=Gst.CapsFeatures get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.CapsFeatures nullable=False
+
+Gst.value_get_double_range_max [FunctionInfo] 
+  namespace=Gst name=value_get_double_range_max is_method=False 
+  return_type=<class 'float'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'float'> nullable=False
+
+Gst.value_get_double_range_min [FunctionInfo] 
+  namespace=Gst name=value_get_double_range_min is_method=False 
+  return_type=<class 'float'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'float'> nullable=False
+
+Gst.value_get_flagset_flags [FunctionInfo] 
+  namespace=Gst name=value_get_flagset_flags is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_flagset_mask [FunctionInfo] 
+  namespace=Gst name=value_get_flagset_mask is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_fraction_denominator [FunctionInfo] 
+  namespace=Gst name=value_get_fraction_denominator is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_fraction_numerator [FunctionInfo] 
+  namespace=Gst name=value_get_fraction_numerator is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_fraction_range_max [FunctionInfo] 
+  namespace=Gst name=value_get_fraction_range_max is_method=False 
+  return_type=GObject.Value get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - GObject.Value nullable=True
+
+Gst.value_get_fraction_range_min [FunctionInfo] 
+  namespace=Gst name=value_get_fraction_range_min is_method=False 
+  return_type=GObject.Value get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - GObject.Value nullable=True
+
+Gst.value_get_int64_range_max [FunctionInfo] 
+  namespace=Gst name=value_get_int64_range_max is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_int64_range_min [FunctionInfo] 
+  namespace=Gst name=value_get_int64_range_min is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_int64_range_step [FunctionInfo] 
+  namespace=Gst name=value_get_int64_range_step is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_int_range_max [FunctionInfo] 
+  namespace=Gst name=value_get_int_range_max is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_int_range_min [FunctionInfo] 
+  namespace=Gst name=value_get_int_range_min is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_int_range_step [FunctionInfo] 
+  namespace=Gst name=value_get_int_range_step is_method=False 
+  return_type=<class 'int'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'int'> nullable=False
+
+Gst.value_get_structure [FunctionInfo] 
+  namespace=Gst name=value_get_structure is_method=False 
+  return_type=Gst.Structure get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - Gst.Structure nullable=False
+
+Gst.value_init_and_copy [FunctionInfo] 
+  namespace=Gst name=value_init_and_copy is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=src [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+   - name=dest [keyword=False] is_optional=False direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.value_intersect [FunctionInfo] 
+  namespace=Gst name=value_intersect is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value1 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=value2 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=dest [keyword=False] is_optional=True direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.value_is_fixed [FunctionInfo] 
+  namespace=Gst name=value_is_fixed is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.value_is_subset [FunctionInfo] 
+  namespace=Gst name=value_is_subset is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value1 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=value2 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+
+Gst.value_register [FunctionInfo] 
+  namespace=Gst name=value_register is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=table [keyword=False] is_optional=False direction=IN py_type=Gst.ValueTable is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_serialize [FunctionInfo] 
+  namespace=Gst name=value_serialize is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=True skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'str'> nullable=True
+
+Gst.value_set_bitmask [FunctionInfo] 
+  namespace=Gst name=value_set_bitmask is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=bitmask [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint64 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_caps [FunctionInfo] 
+  namespace=Gst name=value_set_caps is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=caps [keyword=False] is_optional=False direction=IN py_type=Gst.Caps is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_caps_features [FunctionInfo] 
+  namespace=Gst name=value_set_caps_features is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=features [keyword=False] is_optional=False direction=IN py_type=Gst.CapsFeatures is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_double_range [FunctionInfo] 
+  namespace=Gst name=value_set_double_range is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=start [keyword=False] is_optional=False direction=IN py_type=<class 'float'> is_callback=False tag_as_string=gdouble get_array_length=-1 
+   - name=end [keyword=False] is_optional=False direction=IN py_type=<class 'float'> is_callback=False tag_as_string=gdouble get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_flagset [FunctionInfo] 
+  namespace=Gst name=value_set_flagset is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=flags [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=mask [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_fraction [FunctionInfo] 
+  namespace=Gst name=value_set_fraction is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=numerator [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=denominator [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_fraction_range [FunctionInfo] 
+  namespace=Gst name=value_set_fraction_range is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=start [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=end [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_fraction_range_full [FunctionInfo] 
+  namespace=Gst name=value_set_fraction_range_full is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=numerator_start [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=denominator_start [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=numerator_end [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=denominator_end [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_int64_range [FunctionInfo] 
+  namespace=Gst name=value_set_int64_range is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=start [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint64 get_array_length=-1 
+   - name=end [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint64 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_int64_range_step [FunctionInfo] 
+  namespace=Gst name=value_set_int64_range_step is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=start [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint64 get_array_length=-1 
+   - name=end [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint64 get_array_length=-1 
+   - name=step [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint64 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_int_range [FunctionInfo] 
+  namespace=Gst name=value_set_int_range is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=start [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=end [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_int_range_step [FunctionInfo] 
+  namespace=Gst name=value_set_int_range_step is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=start [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=end [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+   - name=step [keyword=False] is_optional=False direction=IN py_type=<class 'int'> is_callback=False tag_as_string=gint32 get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_set_structure [FunctionInfo] 
+  namespace=Gst name=value_set_structure is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=structure [keyword=False] is_optional=False direction=IN py_type=Gst.Structure is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - None nullable=False
+
+Gst.value_subtract [FunctionInfo] 
+  namespace=Gst name=value_subtract is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=minuend [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=subtrahend [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=dest [keyword=False] is_optional=True direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.value_union [FunctionInfo] 
+  namespace=Gst name=value_union is_method=False 
+  return_type=<class 'bool'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+   - name=value1 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+   - name=value2 [keyword=False] is_optional=False direction=IN py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+  Output Args:
+   - <class 'bool'> nullable=False
+   - name=dest [keyword=False] is_optional=False direction=OUT py_type=GObject.Value is_callback=False tag_as_string=interface get_array_length=-1 
+
+Gst.version [FunctionInfo] 
+  namespace=Gst name=version is_method=False 
+  return_type=None get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - None nullable=False
+   - name=major [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=minor [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=micro [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+   - name=nano [keyword=False] is_optional=False direction=OUT py_type=<class 'int'> is_callback=False tag_as_string=guint32 get_array_length=-1 
+
+Gst.version_string [FunctionInfo] 
+  namespace=Gst name=version_string is_method=False 
+  return_type=<class 'str'> get_array_length=-1 may_return_null=False skip_return=False
+  Input Args:
+
+  Output Args:
+   - <class 'str'> nullable=False
+
+################################################################################
+# Unknown/Not parsed elements
+################################################################################
+- lock[<class '_thread.lock'>]: 
+['_lock']
+
+
