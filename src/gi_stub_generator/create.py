@@ -1,6 +1,8 @@
 import inspect
+from pathlib import Path
 
 from pydantic import BaseModel
+from gi_stub_generator.gir_parser import gir_docs
 from gi_stub_generator.parse import (
     parse_class,
     parse_constant,
@@ -18,6 +20,7 @@ from gi_stub_generator.schema import (
     FunctionSchema,
     Module,
 )
+from gi_stub_generator.template import TEMPLATE
 from gi_stub_generator.utils import gi_callback_to_py_type, gi_type_to_py_type
 import jinja2
 from enum import Enum
@@ -36,7 +39,6 @@ from .docstring import generate_doc_string, _generate_callable_info_doc
 
 gi.require_version("Gst", "1.0")
 
-GObject.child_watch_add
 # Resources
 # https://developer.gnome.org/documentation/guidelines/programming/introspection.html
 # https://gi.readthedocs.io/en/latest/annotations/giannotations.html
@@ -47,38 +49,6 @@ from gi.repository import (  # noqa: E402, F401
     GObject,
 )
 
-# _build(m, args.module, overrides)
-# m=Gst, module=Gst as string,
-# build(parent: ObjectT, namespace: str, overrides: dict[str, str])
-# Gst, Gst:str, dir(Gst)
-
-
-# print(dir(Gst))
-
-TEMPLATE = """from typing import Any
-from typing import Callable
-from typing import Literal
-from typing import Optional
-from typing import Sequence
-from typing import Tuple
-from typing import Type
-from typing import TypeVar
-
-from gi.repository import GLib
-from gi.repository import GObject
-
-{% for c in constants -%}
-{{c.name}}: {{c.type}} = {{c.value_repr}}
-{% endfor %}
-
-{% for f in functions -%}
-def {{f}}: ...
-{% endfor %}
-
-
-"""
-
-
 # TODO
 # loop class
 # inspect.getmembers(Gst, inspect.isclass)
@@ -87,6 +57,7 @@ def {{f}}: ...
 
 def check_module(
     m: ModuleType,
+    gir_f_docs: dict[str, str],
 ):
     module_attributes = dir(m)
     module_name = m.__name__.split(".")[-1]
@@ -201,6 +172,8 @@ def check_module(
             raise NotImplementedError("VFuncInfo not implemented")
 
         if f := parse_function(attribute):
+            if f.name in gir_f_docs["functions"]:
+                f.docstring = gir_f_docs["functions"][f.name]
             module_functions.append(f)
             # callbacks can be found as arguments of functions, save them to be parsed later
             callbacks_found.extend(f._gi_callbacks)
@@ -211,6 +184,8 @@ def check_module(
         #########################################################################
 
         if e := parse_enum(attribute):
+            if e.name in gir_f_docs["enums"]:
+                e.docstring = gir_f_docs["enums"][e.name]
             module_enums.append(e)
             continue
 
@@ -264,20 +239,25 @@ def check_module(
 
 
 def main():
-    # data, unknown_module_map_types = check_module(GObject)
-    data, unknown_module_map_types = check_module(Gst)
+    module = GObject
+
+    # obtain docs from gir if available
+    docs = gir_docs(Path("/usr/share/gir-1.0/GObject-2.0.gir"))
+
+    data, unknown_module_map_types = check_module(module, docs)
+    # data, unknown_module_map_types = check_module(Gst)
     environment = jinja2.Environment()
     output = environment.from_string(TEMPLATE)
 
-    # print(
-    #     output.render(
-    #         constants=data.constant,
-    #         # enums=data.enum,
-    #         functions=data.function,
-    #     )
-    # )
-    # print(module_map_types)
-    # print(data.function)
+    print(
+        output.render(
+            module=module.__name__.split(".")[-1],
+            constants=data.constant,
+            enums=data.enum,
+            functions=data.function,
+        )
+    )
+    return
 
     print("#" * 80)
     print("# enum/flags")

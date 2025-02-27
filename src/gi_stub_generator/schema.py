@@ -5,7 +5,7 @@ from gi_stub_generator.utils import (
     is_py_builtin_type,
 )
 from pydantic import BaseModel, PrivateAttr, computed_field
-
+import gi._gi as GI
 
 from typing import Any, Literal
 
@@ -15,8 +15,13 @@ class VariableSchema(BaseModel):
         str  # need to be passed since it is not available in the python std types
     )
     name: str
-    _gi_type: Any = PrivateAttr()  # actual type object
     value: Any | None = None
+    _object: Any = PrivateAttr()  # object to parse as constant
+    # _gi_type: Any = PrivateAttr()  # actual type object
+
+    @property
+    def _gi_type(self):
+        return type(self._object)
 
     @computed_field
     @property
@@ -25,23 +30,52 @@ class VariableSchema(BaseModel):
 
     @computed_field
     @property
+    def type_namespace(self) -> str | None:
+        """
+        Return the namespace of the type of the variable if not builtin
+        """
+        if hasattr(self._object, "__info__"):
+            return self._object.__info__.get_namespace()
+        return None
+
+    @computed_field
+    @property
     def value_repr(self) -> str:
-        # if self._gi_type in (int, str, float):
+        """
+        value representation in template
+        """
         if is_py_builtin_type(self._gi_type):
             return repr(self.value)
 
-        # TODO: check the type if it is an enum/flag
-        # TODO: enum/flags should have
-        # CONSTANT_NAME: EnumType = EnumType(VALUE)
-        # or
-        # CONSTANT_NAME: EnumType = VALUE ???
-        # return f"{self.value}"
-        # return f"{self.parent}.{self._type.__name__}({self.value})"
+        if hasattr(self._object, "__info__"):
+            if type(self._object.__info__) is GI.EnumInfo:
+                is_flags = self._object.__info__.is_flags()
+                namespace = ""
+                if self.namespace != self._object.__info__.get_namespace():
+                    namespace = f"{self._object.__info__.get_namespace()}."
+                if is_flags and self._object.first_value_nick is not None:
+                    return f"{namespace}{self._gi_type.__name__}.{self._object.first_value_nick.upper()}"
+                if not is_flags:
+                    # it is an enum
+                    return f"{namespace}{self._gi_type.__name__}.{self._object.value_nick.upper()}"
+
+        # Fallback to using the real value
         return f"{self._gi_type.__name__}({self.value})"
 
-    def __init__(self, _gi_type, **data):
+    @computed_field
+    @property
+    def type_repr(self) -> str:
+        """
+        type representation in template
+        """
+        # {% if c.type_namespace and c.type_namespace != module %}{{c.type_namespace}}.{% endif %}{{c.type}}
+        if self.type_namespace and self.type_namespace != self.namespace:
+            return f"{self.type_namespace}.{self.type}"
+        return self.type
+
+    def __init__(self, _object, **data):
         super().__init__(**data)
-        self._gi_type = _gi_type
+        self._object = _object
 
     @computed_field
     @property
@@ -67,12 +101,20 @@ class VariableSchema(BaseModel):
 
 class EnumFieldSchema(BaseModel):
     @computed_field
+    @property
     def name(self) -> int:
         return self._gi_info.get_name().upper()
 
+    docstring: str | None = None
+
     @computed_field
+    @property
     def value(self) -> int:
         return self._gi_info.get_value()
+
+    @property
+    def value_repr(self) -> str:
+        return repr(self.value)
 
     @computed_field
     @property
@@ -81,7 +123,7 @@ class EnumFieldSchema(BaseModel):
 
     def __init__(self, _gi_info, **data):
         super().__init__(**data)
-        self._gi_info = _gi_info
+        self._gi_info = _gi_info  # ie gi.EnumInfo
 
     def __str__(self):
         deprecated = "[DEPRECATED] " if self.is_deprecated else ""
@@ -91,10 +133,13 @@ class EnumFieldSchema(BaseModel):
 class EnumSchema(BaseModel):
     _gi_type: Any
     enum_type: Literal["enum", "flags"]
+    docstring: str | None = None
 
-    values: list[EnumFieldSchema]
+    fields: list[EnumFieldSchema]
 
-    def py_super_type_str(self):
+    @computed_field
+    @property
+    def py_super_type_str(self) -> str:
         """Return the python type as a string (otherwise capitalization is wrong)"""
         return "GObject.GFlags" if self.enum_type == "flags" else "GObject.GEnum"
 
@@ -123,7 +168,7 @@ class EnumSchema(BaseModel):
 
     def __str__(self):
         deprecated = "[DEPRECATED]" if self.is_deprecated else ""
-        args_str = "\n".join([f"   - {arg}" for arg in self.values])
+        args_str = "\n".join([f"   - {arg}" for arg in self.fields])
         mro = f"mro={self._gi_type.mro()}"
         return (
             f"{deprecated}namespace={self.namespace} name={self.name} {mro}\n{args_str}"
@@ -137,7 +182,11 @@ class FunctionArgumentSchema(BaseModel):
     name: str
     is_optional: bool
     direction: Literal["IN", "OUT", "INOUT"]
-    _gi_type: Any
+    _object: Any
+
+    @property
+    def _gi_type(self):
+        return self._object.get_type()
 
     @property
     def name_is_keyword(self):
@@ -150,26 +199,52 @@ class FunctionArgumentSchema(BaseModel):
 
     # @computed_field
     @property
+    def py_type_namespace(self) -> str | None:
+        if hasattr(self.py_type, "__info__"):
+            return f"{self.py_type.__info__.get_namespace()}"
+
+        return None
+
+    @property
+    def type_repr(self):
+        """
+        type representation in template
+        """
+        # {% if a.py_type_namespace and a.py_type_name != module %}{{a.py_type_namespace}}.{% endif %}{{a.py_type_name}} {% if a.may_be_null %}| None {% endif %}
+
+        is_nullable = " | None" if self.may_be_null else ""
+        if self.py_type_namespace and self.py_type_namespace != self.namespace:
+            return f"{self.py_type_namespace}.{self.py_type_name}{is_nullable}"
+        return f"{self.py_type_name}{is_nullable}"
+
+    @property
+    def py_type_name(self):
+        if gi_type_is_callback(self._gi_type):
+            # TODO: registrare protocollo
+            return f"TODOProtocol({self.py_type})"
+
+        if hasattr(self.py_type, "__info__"):
+            return f"{self.py_type.__info__.get_name()}"
+
+        if hasattr(self.py_type, "__name__"):
+            return self.py_type.__name__
+
+        return self.py_type
+
+    @property
     def py_type(self):
         py_type = gi_type_to_py_type(self._gi_type)
 
-        # if self._gi_type.get_tag() == GIRepository.TypeTag.INTERFACE and isinstance(
-        #     self._gi_type.get_interface(), GIRepository.CallbackInfo
-        # ):
-        if gi_type_is_callback(self._gi_type):
-            # TODO: registrare protocollo
-            return f"Protocol({py_type})"
-        # if isinstance(py_type, GIRepository.CallbackInfo):
-        #     print(
-        #         f"{self._gi_type.get_name()} py_type={py_type}, {self._gi_type.get_type()}"
-        #     )
-        #     print(f"{self._gi_type}")
-        #     return py_type
-        #     return self._gi_type.get_name()
-        #     # TODO: crash su int perchè
-        #     if self._gi_type.get_type().get_tag() == GIRepository.TypeTag.INTERFACE:
-        #         # TODO: return Protocol typed since it is a virtual function
-        #         raise ValueError("Callback not supported")
+        # if gi_type_is_callback(self._gi_type):
+        #     # TODO: registrare protocollo
+        #     return f"Protocol({py_type})"
+
+        return py_type
+        if hasattr(py_type, "__info__"):
+            return f"{py_type.__info__.get_namespace()}.{py_type.__info__.get_name()}"
+
+        if hasattr(py_type, "__name__"):
+            return py_type.__name__
 
         return py_type
 
@@ -177,6 +252,11 @@ class FunctionArgumentSchema(BaseModel):
     @property
     def is_deprecated(self) -> bool:
         return self._gi_type.is_deprecated()
+
+    @computed_field
+    @property
+    def may_be_null(self) -> bool:
+        return self._object.may_be_null()
 
     @computed_field
     @property
@@ -188,15 +268,16 @@ class FunctionArgumentSchema(BaseModel):
     def get_array_length(self) -> int:
         return self._gi_type.get_array_length()
 
-    def __init__(self, _gi_type, **data):
+    def __init__(self, _object, **data):
         super().__init__(**data)
-        self._gi_type = _gi_type
+        self._object = _object
 
     def __str__(self):
         deprecated = "[DEPRECATED]" if self.is_deprecated else ""
         return (
             f"name={self.name} [keyword={self.name_is_keyword}] {deprecated}"
             f"is_optional={self.is_optional} "
+            f"may_be_null={self.may_be_null} "
             # f"_gi_type={self._gi_type} "
             f"direction={self.direction} "
             f"py_type={self.py_type} "
@@ -217,6 +298,7 @@ class FunctionSchema(BaseModel):
     namespace: str
     name: str
     args: list[FunctionArgumentSchema]
+    docstring: str | None = None
 
     is_callback: bool
     """Whether this function is a callback"""
@@ -254,6 +336,50 @@ class FunctionSchema(BaseModel):
     @property
     def py_return_type(self):
         return gi_type_to_py_type(self._gi_type.get_return_type())
+
+    @property
+    def py_return_type_namespace(self) -> str | None:
+        if hasattr(self.py_return_type, "__info__"):
+            return f"{self.py_return_type.__info__.get_namespace()}"
+        return None
+
+    @property
+    def py_return_type_name(self):
+        if hasattr(self.py_return_type, "__info__"):
+            return f"{self.py_return_type.__info__.get_name()}"
+
+        if hasattr(self.py_return_type, "__name__"):
+            return self.py_return_type.__name__
+
+        return self.py_return_type
+
+    @property
+    def return_repr(self):
+        """
+        type representation in template
+        """
+        # {% if a.py_type_namespace and a.py_type_name != module %}{{a.py_type_namespace}}.{% endif %}{{a.py_type_name}} {% if a.may_be_null %}| None {% endif %}
+
+        is_nullable = " | None" if self.may_return_null else ""
+        if (
+            self.py_return_type_namespace
+            and self.py_return_type_namespace != self.namespace
+        ):
+            return f"{self.py_return_type_namespace}.{self.py_return_type_name}{is_nullable}"
+        return f"{self.py_return_type_name}{is_nullable}"
+
+    # @property
+    # def return_repr(self):
+    #     """
+    #     type representation in template
+    #     """
+
+    #     nullable = " | None" if self.may_return_null else ""
+    #     return_types: list[str] = [f"{self.py_return_type}{nullable}"]
+    #     for arg in self.output:
+    #         return_types.append(arg.type_repr)
+
+    #     return ", ".join(return_types)
 
     @property
     def input_args(self):

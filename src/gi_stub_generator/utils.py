@@ -50,6 +50,14 @@ def is_py_builtin_type(py_type):
     # return py_type.__name__ in dir(builtins)
 
 
+def is_genum(attribute):
+    return isinstance(attribute, type) and issubclass(attribute, GObject.GEnum)
+
+
+def is_gflags(attribute):
+    return isinstance(attribute, type) and issubclass(attribute, GObject.GFlags)
+
+
 def gi_type_is_callback(gi_type_info: GI.TypeInfo):
     """
     Check if the gi type is a callback.

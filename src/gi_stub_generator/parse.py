@@ -34,20 +34,18 @@ def parse_constant(
     parent: str,
     name: str,  # name of the attribute
     obj: Any,  # actual object to be parsed
-    # _gi_type: Any,  # the actual type object
 ):
     """
-    Parse values and return an Attribute.
+    Parse values and return a VariableSchema.
     Return None if the object is not a module constant.
 
     Args:
         parent (str): parent module name
         name (str): name of the attribute
         obj (Any): object to be parsed
-        obj_type (Any): the actual type object
 
     Returns:
-        Attribute | None
+        VariableSchema | None
     """
 
     _gi_type = type(obj)
@@ -55,7 +53,8 @@ def parse_constant(
     if _gi_type in (int, str, float, dict, tuple, list):
         # if is_py_builtin_type(_gi_type):
         return VariableSchema(
-            _gi_type=_gi_type,
+            # _gi_type=_gi_type,
+            _object=obj,
             namespace=parent,
             name=name,
             value=obj,
@@ -65,6 +64,8 @@ def parse_constant(
     if hasattr(obj, "__info__"):
         info = getattr(obj, "__info__")
         # both enums and flags have __info__ attribute of type EnumInfo
+        # example, this is a flag:
+        # type(getattr(Gst.BUFFER_COPY_METADATA, "__info__")) == GI.EnumInfo
         if type(info) is GI.EnumInfo:
             # if info.is_flags():
             # at this point this can be the "flags" class or an atribute
@@ -74,7 +75,8 @@ def parse_constant(
                 # or info.get_g_type().parent.name == "GFlags"
                 assert obj.is_integer(), f"{name} is not an enum/flag?"
                 return VariableSchema(
-                    _gi_type=_gi_type,
+                    # _gi_type=_gi_type,
+                    _object=obj,
                     namespace=parent,
                     name=name,
                     value=obj.real,
@@ -93,8 +95,6 @@ def parse_enum(attribute: Any) -> EnumSchema | None:
             for v in _type_info.get_values():
                 args.append(
                     EnumFieldSchema(
-                        # name=v.get_name(),
-                        # value=v.get_value(),
                         _gi_info=v,
                     )
                 )
@@ -102,7 +102,7 @@ def parse_enum(attribute: Any) -> EnumSchema | None:
                 # _gi_info=_type_info,
                 _gi_type=attribute,
                 enum_type="flags" if is_flags else "enum",
-                values=args,
+                fields=args,
             )
 
     return None
@@ -155,7 +155,7 @@ def parse_function(
                 namespace=arg.get_namespace(),
                 name=arg.get_name(),
                 is_optional=arg.is_optional(),
-                _gi_type=arg.get_type(),
+                _object=arg,
                 direction=direction,
                 maybe_null=arg.may_be_null(),
             )
@@ -174,20 +174,27 @@ def parse_function(
     )
 
 
-def get_super_class_name(obj, start_pos=1):
-    """
-    The first element in mro is the class itself, so to get the super class
-    we need to start from the second element.
-    If the super class is from gi, we need to skip it and get the next one.
+def get_super_class_name(obj):
+    super_class = obj.mro()[1]
+    super_module = super_class.__module__
+    if str(super_module) == "gi":
+        super_module = "GI"
+    return f"{super_module}.{super_class.__name__}"
 
-    Get as super class the first class that is not from gi
-    (gi.Something are not importable)
-    """
-    mro = obj.mro()
-    mro_pos = start_pos
-    if mro[mro_pos].__module__ == "gi":
-        return get_super_class_name(obj, mro_pos + 1)
-    return f"{mro[mro_pos].__module__}.{mro[mro_pos].__name__}"
+
+# def get_super_class_name(obj, start_pos=1):
+#     """
+#     The first element in mro is the class itself, so to get the super class
+#     we need to start from the second element.
+#     If the super class is from gi, we need to skip it and get the next one.
+#     (gi.Something are not importable)
+#     """
+#     mro = obj.mro()
+#     mro_pos = start_pos
+#     # print(mro[mro_pos], f"{mro[mro_pos].__module__}.{mro[mro_pos].__name__}")
+#     if mro[mro_pos].__module__ == "gi":
+#         return get_super_class_name(obj, mro_pos + 1)
+#     return f"{mro[mro_pos].__module__}.{mro[mro_pos].__name__}"
 
 
 def parse_class(
@@ -275,7 +282,10 @@ def parse_class(
     return ClassSchema(
         namespace=namespace,
         name=class_to_parse.__name__,
-        super=[get_super_class_name(class_to_parse)],
+        # super=[get_super_class_name(class_to_parse)],
+        super=[
+            get_super_class_name(class_to_parse),
+        ],
         attributes=class_attributes,
         methods=class_methods,
         extra=extra,
