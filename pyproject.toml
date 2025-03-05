@@ -25,3 +25,15 @@ dev = ["cmake>=3.31.4", "ipython>=8.31.0"]
 
 [project.scripts]
 gi_stub_gen = "gi_stub_generator.create:main"
+
+[tool.pyright]
+typeCheckingMode = "standard"
+reportMissingTypeStubs = "none"
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/ignore",
+    "**/.venv",
+    ".venv",
+]
+ignore = ["**/ignore", "**/.venv", ".venv"]

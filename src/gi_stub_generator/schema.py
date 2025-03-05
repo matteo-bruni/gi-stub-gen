@@ -1,11 +1,12 @@
 import keyword
+from gi_stub_generator.gir_parser import ClassDocs, FunctionDocs
 from gi_stub_generator.utils import (
     gi_type_is_callback,
     gi_type_to_py_type,
     is_py_builtin_type,
 )
 from pydantic import BaseModel, PrivateAttr, computed_field
-import gi._gi as GI
+import gi._gi as GI  # pyright: ignore[reportMissingImports]
 
 from typing import Any, Literal
 
@@ -201,7 +202,18 @@ class FunctionArgumentSchema(BaseModel):
     @property
     def py_type_namespace(self) -> str | None:
         if hasattr(self.py_type, "__info__"):
-            return f"{self.py_type.__info__.get_namespace()}"
+            return f"{self.py_type.__info__.get_namespace()}"  # pyright: ignore[reportAttributeAccessIssue, reportOptionalMemberAccess]
+        from inspect import getmodule
+
+        if str(self.py_type) == "Gst.Bin":
+            breakpoint()
+        if module_namespace := getmodule(self.py_type):
+            name = module_namespace.__name__
+            # manual fix for some modules, how to get the correct namespace?
+            name = name.replace("gobject", "GObject")
+            if name == "builtins":
+                return None
+            return name
 
         return None
 
@@ -224,10 +236,10 @@ class FunctionArgumentSchema(BaseModel):
             return f"TODOProtocol({self.py_type})"
 
         if hasattr(self.py_type, "__info__"):
-            return f"{self.py_type.__info__.get_name()}"
+            return f"{self.py_type.__info__.get_name()}"  # type: ignore
 
         if hasattr(self.py_type, "__name__"):
-            return self.py_type.__name__
+            return self.py_type.__name__  # type: ignore
 
         return self.py_type
 
@@ -298,7 +310,7 @@ class FunctionSchema(BaseModel):
     namespace: str
     name: str
     args: list[FunctionArgumentSchema]
-    docstring: str | None = None
+    docstring: FunctionDocs | None
 
     is_callback: bool
     """Whether this function is a callback"""
@@ -340,16 +352,16 @@ class FunctionSchema(BaseModel):
     @property
     def py_return_type_namespace(self) -> str | None:
         if hasattr(self.py_return_type, "__info__"):
-            return f"{self.py_return_type.__info__.get_namespace()}"
+            return f"{self.py_return_type.__info__.get_namespace()}"  # type: ignore
         return None
 
     @property
     def py_return_type_name(self):
         if hasattr(self.py_return_type, "__info__"):
-            return f"{self.py_return_type.__info__.get_name()}"
+            return f"{self.py_return_type.__info__.get_name()}"  # type: ignore
 
         if hasattr(self.py_return_type, "__name__"):
-            return self.py_return_type.__name__
+            return self.py_return_type.__name__  # type: ignore
 
         return self.py_return_type
 
@@ -434,6 +446,7 @@ class ClassSchema(BaseModel):
     namespace: str
     name: str
     super: list[str]
+    docstring: ClassDocs | None
 
     props: list[ClassPropSchema]
     attributes: list[VariableSchema]

@@ -1,8 +1,9 @@
 import gi
 import gi._gi as GI  # type: ignore
-from gi._gi import Repository
+from gi._gi import Repository  # type: ignore
 from gi.repository import GObject
 
+from gi_stub_generator.gir_parser import ClassDocs, FunctionDocs, ModuleDocs
 from gi_stub_generator.schema import (
     ClassPropSchema,
     ClassSchema,
@@ -84,18 +85,34 @@ def parse_constant(
     return None
 
 
-def parse_enum(attribute: Any) -> EnumSchema | None:
+def parse_enum(
+    attribute: Any,
+    docs: dict[str, ClassDocs],
+) -> EnumSchema | None:
     is_flags = isinstance(attribute, type) and issubclass(attribute, GObject.GFlags)
     is_enum = isinstance(attribute, type) and issubclass(attribute, GObject.GEnum)
     if is_flags or is_enum:
         # GObject.Enum and Gobject.Flags do not have __info__ attribute
         if hasattr(attribute, "__info__"):
-            _type_info = attribute.__info__
-            args: list[FunctionArgumentSchema] = []
+            _type_info = attribute.__info__  # type: ignore
+
+            class_name = attribute.__info__.get_name()  # type: ignore
+            class_doc_data = docs.get(class_name, None)
+            class_docstring = None
+
+            if class_doc_data:
+                class_docstring = class_doc_data.class_docstring
+
+            args: list[EnumFieldSchema] = []
             for v in _type_info.get_values():
+                element_docstring = None
+                if class_doc_data:
+                    element_docstring = class_doc_data.fields.get(v.get_name(), None)
+
                 args.append(
                     EnumFieldSchema(
                         _gi_info=v,
+                        docstring=element_docstring,
                     )
                 )
             return EnumSchema(
@@ -103,13 +120,14 @@ def parse_enum(attribute: Any) -> EnumSchema | None:
                 _gi_type=attribute,
                 enum_type="flags" if is_flags else "enum",
                 fields=args,
+                docstring=class_docstring,
             )
 
     return None
 
 
 def parse_function(
-    attribute: Any,
+    attribute: Any, docstring: dict[str, FunctionDocs]
 ) -> FunctionSchema | None:
     is_callback = isinstance(attribute, GI.CallbackInfo)
     is_function = isinstance(attribute, GI.FunctionInfo)
@@ -164,6 +182,7 @@ def parse_function(
         if gi_type_is_callback(arg.get_type()):
             callback_found.append(arg.get_type())
 
+    docstring_field = docstring.get(attribute.get_name(), None)
     return FunctionSchema(
         namespace=attribute.get_namespace(),
         name=attribute.get_name(),
@@ -171,6 +190,7 @@ def parse_function(
         _gi_type=attribute,
         _gi_callbacks=callback_found,
         is_callback=is_callback,
+        docstring=docstring_field,
     )
 
 
@@ -179,6 +199,10 @@ def get_super_class_name(obj):
     super_module = super_class.__module__
     if str(super_module) == "gi":
         super_module = "GI"
+    if super_module == "builtins":
+        return super_class.__name__
+    # in typing it is uppercase
+    super_module = super_module.replace("gobject", "GObject")
     return f"{super_module}.{super_class.__name__}"
 
 
@@ -200,15 +224,16 @@ def get_super_class_name(obj):
 def parse_class(
     namespace: str,
     class_to_parse: Any,
+    module_docs: ModuleDocs,
 ) -> ClassSchema | None:
     # Check if it is a class #################
-    if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):
+    if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
         return None
 
     callbacks_found: list[GI.TypeInfo] = []
     """callbacks found during class parsing, saved to be parsed later"""
 
-    class_props: list[VariableSchema] = []
+    class_props: list[ClassPropSchema] = []
     class_attributes: list[VariableSchema] = []
     class_methods: list[FunctionSchema] = []
     class_parsed_elements: list[str] = []
@@ -231,7 +256,7 @@ def parse_class(
                 class_parsed_elements.append(prop.get_name())
         if hasattr(class_to_parse.__info__, "get_methods"):
             for met in class_to_parse.__info__.get_methods():
-                parsed_method = parse_function(met)
+                parsed_method = parse_function(met, module_docs.functions)
                 if parsed_method:
                     # save callbacks to be parsed later
                     callbacks_found.extend(parsed_method._gi_callbacks)
@@ -271,7 +296,7 @@ def parse_class(
                 # cant obtain args/return type
                 # inspect does not work on builting
                 extra.append(f"property: {attribute_name}")
-            elif f := parse_function(attribute):
+            elif f := parse_function(attribute, module_docs.functions):
                 class_methods.append(f)
                 # print("function", f)
                 # callbacks can be found as arguments of functions, save them to be parsed later
@@ -292,6 +317,7 @@ def parse_class(
         props=class_props,
         _gi_type=class_to_parse,
         _gi_callbacks=callbacks_found,
+        docstring=module_docs.classes.get(class_to_parse.__name__, None),
     )
     # print("***** start")
     # print(class_schema)

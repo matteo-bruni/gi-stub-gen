@@ -23,4 +23,9 @@
     }
   },
   "python.defaultInterpreterPath": "./venv/bin/python3",
+  "cSpell.words": [
+    "ipython",
+    "pydantic",
+    "pygobject"
+  ],
 }

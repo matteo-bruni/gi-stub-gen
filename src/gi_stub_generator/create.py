@@ -2,7 +2,7 @@ import inspect
 from pathlib import Path
 
 from pydantic import BaseModel
-from gi_stub_generator.gir_parser import gir_docs
+from gi_stub_generator.gir_parser import ModuleDocs, gir_docs
 from gi_stub_generator.parse import (
     parse_class,
     parse_constant,
@@ -33,9 +33,8 @@ from types import (
 )
 from typing import Any, Literal
 import gi
-import gi._gi as GI
+import gi._gi as GI  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject, GIRepository
-from .docstring import generate_doc_string, _generate_callable_info_doc
 
 gi.require_version("Gst", "1.0")
 
@@ -47,17 +46,15 @@ from gi.repository import (  # noqa: E402, F401
     GLib,
     Gst,
     GObject,
+    GstVideo,  # pyright: ignore[reportAttributeAccessIssue]
 )
 
-# TODO
-# loop class
-# inspect.getmembers(Gst, inspect.isclass)
-# inspect.getmembers(Gst, inspect.isbuiltin)
+#
 
 
 def check_module(
     m: ModuleType,
-    gir_f_docs: dict[str, str],
+    gir_f_docs: ModuleDocs,
 ):
     module_attributes = dir(m)
     module_name = m.__name__.split(".")[-1]
@@ -65,7 +62,7 @@ def check_module(
     module_functions: list[FunctionSchema] = []
     module_builtin_functions: list[BuiltinFunctionSchema] = []
     module_used_callbacks: list[FunctionSchema] = []
-    module_enums: list[EnumFieldSchema] = []
+    module_enums: list[EnumSchema] = []
     module_classes: list[ClassSchema] = []
 
     # map all module attributes to their types
@@ -83,37 +80,36 @@ def check_module(
         # check for basic types if we are parsing GObject
         #########################################################################
         # these should be parsed as classes and not as their types
-        if module_name == "GObject":
-            # ['GBoxed', 'GEnum', 'GFlags', 'GInterface', 'GObject',
-            # 'GObjectWeakRef', 'GPointer', 'GType', 'Warning']
-            if attribute_name in (
-                "GObject",
-                "Object",
-                "GType",
-                "GFlags",
-                "GEnum",
-                "Warning",
-                "GInterface",
-                "GBoxed",
-                "GObjectWeakRef",
-            ):
-                # TODO:
-                # custom parsing for the default types
-
-                # GEnum and GFlags need to add Enum to super and than can be parsed as class
-                # -> (int, Enum)
-                # GObject -> punta a GObject.Object
-                # -> (Object)
-                # Object
-                # -> (object)
-                # GInterface
-                # -> (Protocol)
-                # GType -> object ok mro()[1]
-                # GObjectWeakRef -> object ok mro()[1]
-                # GPointer -> object ok mro()[1]
-                # Warning -> object ok mro()[1] (Warnign che è una Exception)
-                # can be parsed as a class??
-                continue
+        # if module_name == "GObject":
+        #     # ['GBoxed', 'GEnum', 'GFlags', 'GInterface', 'GObject',
+        #     # 'GObjectWeakRef', 'GPointer', 'GType', 'Warning']
+        #     if attribute_name in (
+        #         "GObject",
+        #         "Object",
+        #         "GType",
+        #         "GFlags",
+        #         "GEnum",
+        #         "Warning",
+        #         "GInterface",
+        #         "GBoxed",
+        #         "GObjectWeakRef",
+        #     ):
+        #         # TODO:
+        #         # custom parsing for the default types
+        #         # GEnum and GFlags need to add Enum to super and than can be parsed as class
+        #         # -> (int, Enum)
+        #         # GObject -> punta a GObject.Object
+        #         # -> (Object)
+        #         # Object
+        #         # -> (object)
+        #         # GInterface
+        #         # -> (Protocol)
+        #         # GType -> object ok mro()[1]
+        #         # GObjectWeakRef -> object ok mro()[1]
+        #         # GPointer -> object ok mro()[1]
+        #         # Warning -> object ok mro()[1] (Warnign che è una Exception)
+        #         # can be parsed as a class??
+        #         continue
 
         #########################################################################
         # check if the attribute is a constant
@@ -171,9 +167,7 @@ def check_module(
             # TODO: could not find any example of this
             raise NotImplementedError("VFuncInfo not implemented")
 
-        if f := parse_function(attribute):
-            if f.name in gir_f_docs["functions"]:
-                f.docstring = gir_f_docs["functions"][f.name]
+        if f := parse_function(attribute, gir_f_docs.functions):
             module_functions.append(f)
             # callbacks can be found as arguments of functions, save them to be parsed later
             callbacks_found.extend(f._gi_callbacks)
@@ -183,9 +177,12 @@ def check_module(
         # check if the attribute is an Enum/Flags
         #########################################################################
 
-        if e := parse_enum(attribute):
-            if e.name in gir_f_docs["enums"]:
-                e.docstring = gir_f_docs["enums"][e.name]
+        # if attribute_name == "GType":
+        #     breakpoint()
+
+        if e := parse_enum(attribute, gir_f_docs.enums):
+            # if e.name in gir_f_docs["enums"]:
+            #    e.docstring = gir_f_docs["enums"][e.name]
             module_enums.append(e)
             continue
 
@@ -196,6 +193,7 @@ def check_module(
         if parsed_class := parse_class(
             namespace=module_name,
             class_to_parse=attribute,
+            module_docs=gir_f_docs,
         ):
             module_classes.append(parsed_class)
             callbacks_found.extend(parsed_class._gi_callbacks)
@@ -216,8 +214,8 @@ def check_module(
     for c in callbacks_found:
         # print("parsing callback")
 
-        f = parse_function(gi_callback_to_py_type(c))
-        if len(f._gi_callbacks) > 0:
+        f = parse_function(gi_callback_to_py_type(c), gir_f_docs.functions)
+        if f and len(f._gi_callbacks) > 0:
             raise NotImplementedError("Nested callbacks not implemented")
         if f:
             module_used_callbacks.append(f)
@@ -239,10 +237,13 @@ def check_module(
 
 
 def main():
-    module = GObject
+    # module = GstVideo
+    module = Gst
+    docs = gir_docs(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
 
     # obtain docs from gir if available
-    docs = gir_docs(Path("/usr/share/gir-1.0/GObject-2.0.gir"))
+    # module = GObject
+    # docs = gir_docs(Path("/usr/share/gir-1.0/GObject-2.0.gir"))
 
     data, unknown_module_map_types = check_module(module, docs)
     # data, unknown_module_map_types = check_module(Gst)
@@ -255,8 +256,16 @@ def main():
             constants=data.constant,
             enums=data.enum,
             functions=data.function,
+            classes=data.classes,
         )
     )
+
+    print("#" * 80)
+    print("# Unknown/Not parsed elements")
+    print("#" * 80)
+    for key, value in unknown_module_map_types.items():
+        print(f"- {key=}: \n{value=}")
+        print("\n")
     return
 
     print("#" * 80)

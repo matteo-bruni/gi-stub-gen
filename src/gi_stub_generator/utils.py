@@ -1,6 +1,6 @@
-import builtins
+import importlib
 import gi._gi as GI  # type: ignore
-from gi._gi import Repository
+from gi._gi import Repository  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject
 from typing import Sequence, Mapping
 
@@ -139,13 +139,23 @@ def gi_type_to_py_type(
             raise ValueError("Invalid interface")
 
         # TODO: decide whether to return the interface name or the interface itself
-        # if isinstance(iface, GI.CallbackInfo):
-        #     return iface
+        if isinstance(iface, GI.CallbackInfo):
+            # return gi_callback_to_py_type(iface)
+            # cant return the type, will not work since it is not implemented
+            # raise NotImplementedError
+            # we can return a Protocol or a Callable.. TODO: Protocol of the callback
+            return f"{ns}.{iface_name}"
 
         # TODO: make sure it is accessible with try catch
         # if the interface is a callback it will raise a NotImplementedError
         # and we can type it with a protocol
-        return f"{ns}.{iface_name}"
+
+        # should be importable via python
+        # from gi.repository import ns
+        # return ns.iface_name
+        # return f"{ns}.{iface_name}"
+
+        return getattr(importlib.import_module(f"gi.repository.{ns}"), iface_name)
 
     if py_type is None and tag == GI.TypeTag.VOID:
         # TODO: how to handle void?
