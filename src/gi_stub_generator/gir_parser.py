@@ -18,9 +18,23 @@ class ClassDocs(BaseModel):
 
 
 class ModuleDocs(BaseModel):
+    constants: dict[str, str]
     functions: dict[str, FunctionDocs]
     enums: dict[str, ClassDocs]
     classes: dict[str, ClassDocs]
+
+
+def parse_constant(path: str, root: etree._ElementTree, namespace: dict[str, str]):
+    constant_docs: dict[str, str] = {}
+    for f in root.xpath(path, namespaces=namespace):  # type: ignore
+        name = f.attrib.get("name", None)
+        if name:
+            doc = f.find("core:doc", namespace)
+            constant_docstring = ""
+            if doc is not None:
+                constant_docstring = str(doc.text)
+            constant_docs[str(name)] = constant_docstring
+    return constant_docs
 
 
 def parse_function(path: str, root: etree._ElementTree, namespace: dict[str, str]):
@@ -98,6 +112,7 @@ def gir_docs(
 ):
     if not path.exists():
         return ModuleDocs(
+            constants={},
             functions={},
             enums={},
             classes={},
@@ -113,6 +128,7 @@ def gir_docs(
         "glib": "http://www.gtk.org/introspection/glib/1.0",
     }
 
+    constant_docs = parse_constant("core:namespace/core:constant", root, ns)
     function_docs = parse_function("core:namespace/core:function", root, ns)
     # these are enum flags
     # flags have docs for class and for each bitfield
@@ -121,6 +137,7 @@ def gir_docs(
     class_docs = parse_class("core:namespace/core:class", root, ns)
 
     return ModuleDocs(
+        constants=constant_docs,
         functions=function_docs,
         enums={**bifield_docs, **enumeration_docs},
         classes=class_docs,

@@ -119,6 +119,7 @@ def check_module(
             parent=module_name,
             name=attribute_name,
             obj=attribute,
+            docstring=gir_f_docs.constants.get(attribute_name, None),
             # _gi_type=attribute_type,
         ):
             module_constants.append(c)
@@ -236,83 +237,83 @@ def check_module(
     #     print("\n")
 
 
-def main():
-    # module = GstVideo
-    module = Gst
-    docs = gir_docs(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
+# def main():
+#     # module = GstVideo
+#     module = Gst
+#     docs = gir_docs(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
 
-    # obtain docs from gir if available
-    # module = GObject
-    # docs = gir_docs(Path("/usr/share/gir-1.0/GObject-2.0.gir"))
+#     # obtain docs from gir if available
+#     # module = GObject
+#     # docs = gir_docs(Path("/usr/share/gir-1.0/GObject-2.0.gir"))
 
-    data, unknown_module_map_types = check_module(module, docs)
-    # data, unknown_module_map_types = check_module(Gst)
-    environment = jinja2.Environment()
-    output = environment.from_string(TEMPLATE)
+#     data, unknown_module_map_types = check_module(module, docs)
+#     # data, unknown_module_map_types = check_module(Gst)
+#     environment = jinja2.Environment()
+#     output = environment.from_string(TEMPLATE)
 
-    print(
-        output.render(
-            module=module.__name__.split(".")[-1],
-            constants=data.constant,
-            enums=data.enum,
-            functions=data.function,
-            classes=data.classes,
-        )
-    )
+#     print(
+#         output.render(
+#             module=module.__name__.split(".")[-1],
+#             constants=data.constant,
+#             enums=data.enum,
+#             functions=data.function,
+#             classes=data.classes,
+#         )
+#     )
 
-    print("#" * 80)
-    print("# Unknown/Not parsed elements")
-    print("#" * 80)
-    for key, value in unknown_module_map_types.items():
-        print(f"- {key=}: \n{value=}")
-        print("\n")
-    return
+#     print("#" * 80)
+#     print("# Unknown/Not parsed elements")
+#     print("#" * 80)
+#     for key, value in unknown_module_map_types.items():
+#         print(f"- {key=}: \n{value=}")
+#         print("\n")
+#     return
 
-    print("#" * 80)
-    print("# enum/flags")
-    print("#" * 80)
-    for f in data.enum:
-        print(f)
+#     print("#" * 80)
+#     print("# enum/flags")
+#     print("#" * 80)
+#     for f in data.enum:
+#         print(f)
 
-    print("#" * 80)
-    print("# constants")
-    print("#" * 80)
-    for f in data.constant:
-        print(f)
+#     print("#" * 80)
+#     print("# constants")
+#     print("#" * 80)
+#     for f in data.constant:
+#         print(f)
 
-    print("#" * 80)
-    print("# callbacks")
-    print("#" * 80)
-    for f in data.used_callbacks:
-        print(f)
+#     print("#" * 80)
+#     print("# callbacks")
+#     print("#" * 80)
+#     for f in data.used_callbacks:
+#         print(f)
 
-    print("#" * 80)
-    print("# builtin functions")
-    print("#" * 80)
-    for f in data.builtin_function:
-        print(f)
+#     print("#" * 80)
+#     print("# builtin functions")
+#     print("#" * 80)
+#     for f in data.builtin_function:
+#         print(f)
 
-    print("#" * 80)
-    print("# functions")
-    print("#" * 80)
-    for f in data.function:
-        print(f)
+#     print("#" * 80)
+#     print("# functions")
+#     print("#" * 80)
+#     for f in data.function:
+#         print(f)
 
-    print("#" * 80)
-    print("# classes")
-    print("#" * 80)
-    for f in data.classes:
-        print(f)
+#     print("#" * 80)
+#     print("# classes")
+#     print("#" * 80)
+#     for f in data.classes:
+#         print(f)
 
-    print("#" * 80)
-    print("# Unknown/Not parsed elements")
-    print("#" * 80)
-    for key, value in unknown_module_map_types.items():
-        print(f"- {key}: \n{value}")
-        print("\n")
+#     print("#" * 80)
+#     print("# Unknown/Not parsed elements")
+#     print("#" * 80)
+#     for key, value in unknown_module_map_types.items():
+#         print(f"- {key}: \n{value}")
+#         print("\n")
 
-    # print(data.model_dump_json(indent=2))
+#     # print(data.model_dump_json(indent=2))
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

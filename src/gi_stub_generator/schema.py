@@ -26,12 +26,15 @@ class VariableSchema(BaseModel):
     value_repr: str
     """value representation in template"""
 
+    docstring: str | None
+
     @classmethod
     def from_gi_object(
         cls,
         obj,
         namespace: str,  # need to be passed since it is not available for python std types
         name: str,
+        docstring: str | None,
     ):
         object_type = type(obj)
         object_type_namespace: str | None = None
@@ -82,6 +85,7 @@ class VariableSchema(BaseModel):
             value=obj,
             value_repr=value_repr,
             is_deprecated=is_deprecated,
+            docstring=docstring,
         )
 
     model_config = ConfigDict(use_attribute_docstrings=True)
