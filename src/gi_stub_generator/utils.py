@@ -1,8 +1,8 @@
 import importlib
 import gi._gi as GI  # type: ignore
 from gi._gi import Repository  # pyright: ignore[reportMissingImports]
-from gi.repository import GObject
-from typing import Sequence, Mapping
+from gi.repository import GObject  # pyright: ignore[reportMissingModuleSource]
+# from typing import Sequence, Mapping
 
 repository = Repository.get_default()
 

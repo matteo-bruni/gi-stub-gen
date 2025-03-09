@@ -1,7 +1,8 @@
 from pathlib import Path
 from typing_extensions import TypedDict
-import xml.etree.ElementTree as ET
 
+# import xml.etree.ElementTree as ET
+from lxml import etree
 from pydantic import BaseModel
 
 
@@ -22,11 +23,11 @@ class ModuleDocs(BaseModel):
     classes: dict[str, ClassDocs]
 
 
-def parse_function(path: str, root: ET.Element, namespace: dict[str, str]):
+def parse_function(path: str, root: etree._ElementTree, namespace: dict[str, str]):
     function_docs: dict[str, FunctionDocs] = {}
 
     # find the functions
-    for f in root.findall(path, namespace):
+    for f in root.xpath(path, namespaces=namespace):  # type: ignore
         name = f.attrib.get("name", None)
         if name:
             doc = f.find("core:doc", namespace)
@@ -36,18 +37,22 @@ def parse_function(path: str, root: ET.Element, namespace: dict[str, str]):
 
             # get params docs
             class_params_docs: dict[str, str] = {}
-            for param in f.findall("core:parameters/core:parameter", namespace):
+            for param in f.xpath(
+                "core:parameters/core:parameter", namespaces=namespace
+            ):
                 param_name = param.attrib.get("name", None)
                 if param_name:
-                    param_doc = param.find("core:doc", namespace)
-                    if param_doc is not None:
-                        class_params_docs[str(param_name)] = str(param_doc.text)
+                    param_doc = param.xpath("core:doc", namespaces=namespace)
+                    assert len(param_doc) <= 1, f"more than one param doc {name}"
+                    if len(param_doc) == 1:
+                        class_params_docs[str(param_name)] = str(param_doc[0].text)
 
             # get return docs
-            return_doc = f.find("core:return-value/core:doc", namespace)
+            return_doc = f.xpath("core:return-value/core:doc", namespaces=namespace)
             return_docstring = ""
-            if return_doc is not None:
-                return_docstring = str(return_doc.text)
+            assert len(return_doc) <= 1, f"more than one return doc {name}"
+            if len(return_doc) == 1:
+                return_docstring = str(return_doc[0].text)
 
             function_docs[str(name)] = FunctionDocs(
                 docstring=function_docstring,
@@ -60,24 +65,26 @@ def parse_function(path: str, root: ET.Element, namespace: dict[str, str]):
     return function_docs
 
 
-def parse_class(path: str, root: ET.Element, namespace: dict[str, str]):
+def parse_class(path: str, root: etree._ElementTree, namespace: dict[str, str]):
     docs: dict[str, ClassDocs] = {}
-    for f in root.findall(path, namespace):
+    for f in root.xpath(path, namespaces=namespace):  # type: ignore
         name = f.attrib.get("name", None)
         if name:
-            doc = f.find("core:doc", namespace)
+            doc = f.xpath("core:doc", namespaces=namespace)
             class_docstring: str = ""
-            if doc is not None:
-                class_docstring = str(doc.text)
+            assert len(doc) <= 1, f"more than one class doc {name}"
+            if len(doc) == 1:
+                class_docstring = str(doc[0].text)
 
             # get member docs
             class_fields_docs: dict[str, str] = {}
-            for field in f.findall("core:member", namespace):
+            for field in f.xpath("core:member", namespaces=namespace):
                 field_name = field.attrib.get("name", None)
                 if field_name:
-                    field_doc = field.find("core:doc", namespace)
-                    if field_doc is not None:
-                        class_fields_docs[str(field_name)] = str(field_doc.text)
+                    field_doc = field.xpath("core:doc", namespaces=namespace)
+                    assert len(field_doc) <= 1, f"more than one field_doc {name}"
+                    if len(field_doc) == 1:
+                        class_fields_docs[str(field_name)] = str(field_doc[0].text)
 
             docs[name] = ClassDocs(
                 class_docstring=class_docstring,
@@ -96,8 +103,9 @@ def gir_docs(
             classes={},
         )
 
-    tree = ET.parse(path)
-    root = tree.getroot()
+    root = etree.parse(path, parser=etree.XMLParser(recover=True))
+    # tree = ET.parse(path)
+    # root = tree.getroot()
 
     ns = {
         "core": "http://www.gtk.org/introspection/core/1.0",
@@ -147,3 +155,15 @@ if __name__ == "__main__":
     # {http://www.gtk.org/introspection/core/1.0}record
     # {http://www.gtk.org/introspection/core/1.0}union
     # {http://www.gtk.org/introspection/glib/1.0}boxed
+
+
+# from lxml import etree
+
+# ns = {
+#     "core": "http://www.gtk.org/introspection/core/1.0",
+#     "c": "http://www.gtk.org/introspection/c/1.0",
+#     "glib": "http://www.gtk.org/introspection/glib/1.0",
+# }
+# path = Path("/usr/share/gir-1.0/GObject-2.0.gir")
+# root = etree.parse(path, parser=etree.XMLParser(recover=True))
+# g = root.xpath("core:namespace/core:class/core:doc", namespaces=ns)

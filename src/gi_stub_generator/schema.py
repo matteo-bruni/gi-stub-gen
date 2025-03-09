@@ -5,7 +5,7 @@ from gi_stub_generator.utils import (
     gi_type_to_py_type,
     is_py_builtin_type,
 )
-from pydantic import BaseModel, PrivateAttr, computed_field
+from pydantic import BaseModel, ConfigDict, PrivateAttr, computed_field
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 
 from typing import Any, Literal
@@ -16,76 +16,75 @@ class VariableSchema(BaseModel):
         str  # need to be passed since it is not available in the python std types
     )
     name: str
-    value: Any | None = None
-    _object: Any = PrivateAttr()  # object to parse as constant
-    # _gi_type: Any = PrivateAttr()  # actual type object
+    value: Any | None
 
-    @property
-    def _gi_type(self):
-        return type(self._object)
+    is_deprecated: bool
 
-    @computed_field
-    @property
-    def type(self) -> str:
-        return self._gi_type.__name__
+    type_repr: str
+    """type representation in template"""
 
-    @computed_field
-    @property
-    def type_namespace(self) -> str | None:
-        """
-        Return the namespace of the type of the variable if not builtin
-        """
-        if hasattr(self._object, "__info__"):
-            return self._object.__info__.get_namespace()
-        return None
+    value_repr: str
+    """value representation in template"""
 
-    @computed_field
-    @property
-    def value_repr(self) -> str:
-        """
-        value representation in template
-        """
-        if is_py_builtin_type(self._gi_type):
-            return repr(self.value)
+    @classmethod
+    def from_gi_object(
+        cls,
+        obj,
+        namespace: str,  # need to be passed since it is not available for python std types
+        name: str,
+    ):
+        object_type = type(obj)
+        object_type_namespace: str | None = None
+        if hasattr(obj, "__info__"):
+            if obj.__info__.get_namespace() != namespace:
+                object_type_namespace = str(obj.__info__.get_namespace())
 
-        if hasattr(self._object, "__info__"):
-            if type(self._object.__info__) is GI.EnumInfo:
-                is_flags = self._object.__info__.is_flags()
-                namespace = ""
-                if self.namespace != self._object.__info__.get_namespace():
-                    namespace = f"{self._object.__info__.get_namespace()}."
-                if is_flags and self._object.first_value_nick is not None:
-                    return f"{namespace}{self._gi_type.__name__}.{self._object.first_value_nick.upper()}"
+        # type representation in template should include namespace only if
+        # it is different from the current namespace
+        object_type_repr = object_type.__name__
+        if object_type_namespace and object_type_namespace != namespace:
+            object_type_repr = f"{object_type_namespace}.{object_type_repr}"
+
+        # get value representation in template
+        value_repr: str = ""
+        if is_py_builtin_type(object_type):
+            value_repr = repr(obj)
+
+        elif hasattr(obj, "__info__"):
+            # value is from gi: can be an enum or flags
+            if type(obj.__info__) is GI.EnumInfo:
+                is_flags = obj.__info__.is_flags()
+
+                if is_flags:
+                    if obj.first_value_nick is not None:
+                        value_repr = (
+                            f"{object_type_repr}.{obj.first_value_nick.upper()}"
+                        )
+                    else:
+                        # Fallback to using the real value
+                        value_repr = f"{object_type_repr}({obj.real})"
+
                 if not is_flags:
                     # it is an enum
-                    return f"{namespace}{self._gi_type.__name__}.{self._object.value_nick.upper()}"
+                    value_repr = f"{object_type_repr}.{obj.value_nick.upper()}"
+        else:
+            # Fallback to using the real value
+            value_repr = f"{object_type_repr}({obj}) # TODO: not found ??"
 
-        # Fallback to using the real value
-        return f"{self._gi_type.__name__}({self.value})"
+        is_deprecated = False
+        if hasattr(object_type, "is_deprecated"):
+            is_deprecated = object_type.is_deprecated()
 
-    @computed_field
-    @property
-    def type_repr(self) -> str:
-        """
-        type representation in template
-        """
-        # {% if c.type_namespace and c.type_namespace != module %}{{c.type_namespace}}.{% endif %}{{c.type}}
-        if self.type_namespace and self.type_namespace != self.namespace:
-            return f"{self.type_namespace}.{self.type}"
-        return self.type
+        return cls(
+            namespace=namespace,
+            name=name,
+            type_repr=object_type_repr,
+            value=obj,
+            value_repr=value_repr,
+            is_deprecated=is_deprecated,
+        )
 
-    def __init__(self, _object, **data):
-        super().__init__(**data)
-        self._object = _object
-
-    @computed_field
-    @property
-    def is_deprecated(self) -> bool:
-        if is_py_builtin_type(self._gi_type):
-            return False
-        if not hasattr(self._gi_type, "is_deprecated"):
-            return False
-        return self._gi_type.is_deprecated()
+    model_config = ConfigDict(use_attribute_docstrings=True)
 
     def __str__(self):
         # print(self.value_repr, self.type)
@@ -93,10 +92,9 @@ class VariableSchema(BaseModel):
         return (
             f"namespace={self.namespace} "
             f"name={self.name} "
-            f"type={self.type} "
+            f"type={type(self.value)} "
             f"value={self.value} "
             f"value_repr={self.value_repr} {deprecated} "
-            # f"mro={self._gi_type.mro()}"
         )
 
 

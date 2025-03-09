@@ -53,13 +53,13 @@ def parse_constant(
 
     if _gi_type in (int, str, float, dict, tuple, list):
         # if is_py_builtin_type(_gi_type):
-        return VariableSchema(
-            # _gi_type=_gi_type,
-            _object=obj,
-            namespace=parent,
-            name=name,
-            value=obj,
-        )
+        return VariableSchema.from_gi_object(obj=obj, namespace=parent, name=name)
+        #     # _gi_type=_gi_type,
+        #     _object=obj,
+        #     namespace=parent,
+        #     name=name,
+        #     value=obj,
+        # )
 
     # check if it is a constant from an enum/flag
     if hasattr(obj, "__info__"):
@@ -75,6 +75,9 @@ def parse_constant(
             if isinstance(obj, (GObject.GFlags, GObject.GEnum)):
                 # or info.get_g_type().parent.name == "GFlags"
                 assert obj.is_integer(), f"{name} is not an enum/flag?"
+                return VariableSchema.from_gi_object(
+                    obj=obj, namespace=parent, name=name
+                )
                 return VariableSchema(
                     # _gi_type=_gi_type,
                     _object=obj,
