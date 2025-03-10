@@ -11,7 +11,11 @@ import gi._gi as GI  # pyright: ignore[reportMissingImports]
 from typing import Any, Literal
 
 
-class VariableSchema(BaseModel):
+class BaseSchema(BaseModel):
+    model_config = ConfigDict(use_attribute_docstrings=True)
+
+
+class VariableSchema(BaseSchema):
     namespace: (
         str  # need to be passed since it is not available in the python std types
     )
@@ -102,43 +106,69 @@ class VariableSchema(BaseModel):
         )
 
 
-class EnumFieldSchema(BaseModel):
-    @computed_field
-    @property
-    def name(self) -> int:
-        return self._gi_info.get_name().upper()
+class EnumFieldSchema(BaseSchema):
+    name: str
+    value: int
+    value_repr: str
+    """value representation in template"""
 
+    is_deprecated: bool
     docstring: str | None = None
 
-    @computed_field
-    @property
-    def value(self) -> int:
-        return self._gi_info.get_value()
-
-    @property
-    def value_repr(self) -> str:
-        return repr(self.value)
-
-    @computed_field
-    @property
-    def is_deprecated(self) -> bool:
-        return self._gi_info.is_deprecated()
-
-    def __init__(self, _gi_info, **data):
-        super().__init__(**data)
-        self._gi_info = _gi_info  # ie gi.EnumInfo
+    @classmethod
+    def from_gi_value_info(
+        cls,
+        value_info: GI.ValueInfo,
+        docstring: str | None,
+    ):
+        return cls(
+            name=value_info.get_name().upper(),
+            value=value_info.get_value(),
+            value_repr=repr(value_info.get_value()),
+            is_deprecated=value_info.is_deprecated(),
+            docstring=docstring,
+        )
 
     def __str__(self):
         deprecated = "[DEPRECATED] " if self.is_deprecated else ""
         return f"name={self.name} value={self.value} {deprecated}"
 
 
-class EnumSchema(BaseModel):
-    _gi_type: Any
+class EnumSchema(BaseSchema):
     enum_type: Literal["enum", "flags"]
+
+    name: str
+    namespace: str
+    is_deprecated: bool
+    fields: list[EnumFieldSchema]
     docstring: str | None = None
 
-    fields: list[EnumFieldSchema]
+    mro: list[str]
+    """Used for debugging purposes"""
+
+    @classmethod
+    def from_gi_object(
+        cls,
+        obj: Any,
+        enum_type: Literal["enum", "flags"],
+        fields: list[EnumFieldSchema],
+        docstring: str | None,
+    ):
+        assert hasattr(obj, "__info__"), (
+            "An Enum/Flags Object must have __info__ attribute"
+        )
+
+        gi_info = obj.__info__
+
+        return cls(
+            namespace=gi_info.get_namespace(),
+            name=gi_info.get_name(),
+            enum_type=enum_type,
+            docstring=docstring,
+            fields=fields,
+            is_deprecated=gi_info.is_deprecated(),
+            mro=[f"{o.__module__}.{o.__name__}" for o in obj.mro()],
+        )
 
     @computed_field
     @property
@@ -146,39 +176,16 @@ class EnumSchema(BaseModel):
         """Return the python type as a string (otherwise capitalization is wrong)"""
         return "GObject.GFlags" if self.enum_type == "flags" else "GObject.GEnum"
 
-    @computed_field
-    @property
-    def is_deprecated(self) -> bool:
-        return self._gi_info.is_deprecated()
-
-    @property
-    def _gi_info(self):
-        return self._gi_type.__info__
-
-    def __init__(self, _gi_type, **data):
-        super().__init__(**data)
-        self._gi_type = _gi_type
-
-    @computed_field
-    @property
-    def namespace(self) -> str:
-        return self._gi_info.get_namespace()
-
-    @computed_field
-    @property
-    def name(self) -> str:
-        return self._gi_info.get_name()
-
     def __str__(self):
         deprecated = "[DEPRECATED]" if self.is_deprecated else ""
         args_str = "\n".join([f"   - {arg}" for arg in self.fields])
-        mro = f"mro={self._gi_type.mro()}"
+        mro = f"mro={self.mro}"
         return (
             f"{deprecated}namespace={self.namespace} name={self.name} {mro}\n{args_str}"
         )
 
 
-class FunctionArgumentSchema(BaseModel):
+class FunctionArgumentSchema(BaseSchema):
     """gi.ArgInfo"""
 
     namespace: str
@@ -301,14 +308,14 @@ class FunctionArgumentSchema(BaseModel):
         )
 
 
-class BuiltinFunctionSchema(BaseModel):
+class BuiltinFunctionSchema(BaseSchema):
     name: str
     namespace: str
     signature: str
     docstring: str
 
 
-class FunctionSchema(BaseModel):
+class FunctionSchema(BaseSchema):
     namespace: str
     name: str
     args: list[FunctionArgumentSchema]
@@ -436,7 +443,7 @@ class FunctionSchema(BaseModel):
         )
 
 
-class ClassPropSchema(BaseModel):
+class ClassPropSchema(BaseSchema):
     name: str
     type: str
     is_deprecated: bool
@@ -444,7 +451,7 @@ class ClassPropSchema(BaseModel):
     writable: bool
 
 
-class ClassSchema(BaseModel):
+class ClassSchema(BaseSchema):
     namespace: str
     name: str
     super: list[str]
@@ -499,7 +506,7 @@ class ClassSchema(BaseModel):
 # cosa succede alle sotto classi? i.e Allocator.Props
 
 
-class Module(BaseModel):
+class Module(BaseSchema):
     name: str
     version: int = 1
     # attributes: list[Attribute]
