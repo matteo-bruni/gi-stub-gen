@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 import keyword
 from gi_stub_generator.gir_parser import ClassDocs, FunctionDocs
+from gi_stub_generator.utils import get_super_class_name
 from gi_stub_generator.utils import (
     gi_type_is_callback,
     gi_type_to_py_type,
     is_py_builtin_type,
 )
-from pydantic import BaseModel, ConfigDict, PrivateAttr, computed_field
+from pydantic import BaseModel, ConfigDict, computed_field
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 
 from typing import Any, Literal
@@ -143,7 +146,7 @@ class EnumSchema(BaseSchema):
     fields: list[EnumFieldSchema]
     docstring: str | None = None
 
-    mro: list[str]
+    py_mro: list[str]
     """Used for debugging purposes"""
 
     @classmethod
@@ -167,7 +170,7 @@ class EnumSchema(BaseSchema):
             docstring=docstring,
             fields=fields,
             is_deprecated=gi_info.is_deprecated(),
-            mro=[f"{o.__module__}.{o.__name__}" for o in obj.mro()],
+            py_mro=[f"{o.__module__}.{o.__name__}" for o in obj.mro()],
         )
 
     @computed_field
@@ -179,7 +182,7 @@ class EnumSchema(BaseSchema):
     def __str__(self):
         deprecated = "[DEPRECATED]" if self.is_deprecated else ""
         args_str = "\n".join([f"   - {arg}" for arg in self.fields])
-        mro = f"mro={self.mro}"
+        mro = f"mro={self.py_mro}"
         return (
             f"{deprecated}namespace={self.namespace} name={self.name} {mro}\n{args_str}"
         )
@@ -462,24 +465,37 @@ class ClassSchema(BaseSchema):
     methods: list[FunctionSchema]
     extra: list[str]
 
-    _gi_callbacks: list[Any]
+    is_deprecated: bool
 
-    def __init__(self, _gi_type, _gi_callbacks, **data):
-        super().__init__(**data)
-        self._gi_type = _gi_type
-        self._gi_callbacks = _gi_callbacks
+    @classmethod
+    def from_gi_object(
+        cls,
+        namespace: str,
+        obj: Any,
+        docstring: ClassDocs | None,
+        props: list[ClassPropSchema],
+        attributes: list[VariableSchema],
+        methods: list[FunctionSchema],
+        extra: list[str],
+    ):
+        gi_info = None
+        if hasattr(obj, "__info__"):
+            gi_info = obj.__info__
 
-    @property
-    def _gi_info(self):
-        if hasattr(self._gi_type, "__info__"):
-            return self._gi_type.__info__
-        return None
+        is_deprecated = gi_info.is_deprecated() if gi_info else False
 
-    @property
-    def is_deprecated(self):
-        if self._gi_info:
-            return self._gi_info.is_deprecated()
-        return False
+        return cls(
+            namespace=namespace,
+            name=obj.__name__,
+            super=[get_super_class_name(obj, current_namespace=namespace)],
+            docstring=docstring,
+            props=props,
+            attributes=attributes,
+            methods=methods,
+            extra=extra,
+            is_deprecated=is_deprecated,
+            # _gi_callbacks=gi_callbacks,
+        )
 
     def __str__(self):
         attributes_str = "\n".join([f"   - {a}" for a in self.attributes])

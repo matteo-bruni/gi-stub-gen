@@ -101,6 +101,14 @@ class {{c.name}}({{','.join(c.super)}}):
     {%- if c.docstring and c.docstring.class_docstring %}
     \"\"\"
     {{c.docstring.class_docstring}}
+
+    {%- if c.docstring.extra %}
+    #####
+    unknown fields (remove me):
+    {% for k, v in c.docstring.extra.items() %}
+    {{k}}: {{v}}
+    {% endfor %}
+    {% endif %}
     \"\"\"
     {% endif -%}
     ...

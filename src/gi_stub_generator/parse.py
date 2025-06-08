@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import gi
 import gi._gi as GI  # type: ignore
 from gi._gi import Repository  # type: ignore
@@ -197,18 +199,6 @@ def parse_function(
     )
 
 
-def get_super_class_name(obj):
-    super_class = obj.mro()[1]
-    super_module = super_class.__module__
-    if str(super_module) == "gi":
-        super_module = "GI"
-    if super_module == "builtins":
-        return super_class.__name__
-    # in typing it is uppercase
-    super_module = super_module.replace("gobject", "GObject")
-    return f"{super_module}.{super_class.__name__}"
-
-
 # def get_super_class_name(obj, start_pos=1):
 #     """
 #     The first element in mro is the class itself, so to get the super class
@@ -228,10 +218,10 @@ def parse_class(
     namespace: str,
     class_to_parse: Any,
     module_docs: ModuleDocs,
-) -> ClassSchema | None:
+) -> tuple[ClassSchema | None, list[GI.TypeInfo]]:
     # Check if it is a class #################
     if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
-        return None
+        return None, []
 
     callbacks_found: list[GI.TypeInfo] = []
     """callbacks found during class parsing, saved to be parsed later"""
@@ -309,21 +299,31 @@ def parse_class(
             else:
                 extra.append(f"unknown: {attribute_name}")
 
-    return ClassSchema(
+    return ClassSchema.from_gi_object(
         namespace=namespace,
-        name=class_to_parse.__name__,
-        # super=[get_super_class_name(class_to_parse)],
-        super=[
-            get_super_class_name(class_to_parse),
-        ],
+        obj=class_to_parse,
+        docstring=module_docs.classes.get(class_to_parse.__name__, None),
+        props=class_props,
         attributes=class_attributes,
         methods=class_methods,
         extra=extra,
-        props=class_props,
-        _gi_type=class_to_parse,
-        _gi_callbacks=callbacks_found,
-        docstring=module_docs.classes.get(class_to_parse.__name__, None),
-    )
+    ), callbacks_found
+
+    # return ClassSchema(
+    #     namespace=namespace,
+    #     name=class_to_parse.__name__,
+    #     # super=[get_super_class_name(class_to_parse)],
+    #     super=[
+    #         get_super_class_name(class_to_parse),
+    #     ],
+    #     attributes=class_attributes,
+    #     methods=class_methods,
+    #     extra=extra,
+    #     props=class_props,
+    #     _gi_type=class_to_parse,
+    #     _gi_callbacks=callbacks_found,
+    #     docstring=module_docs.classes.get(class_to_parse.__name__, None),
+    # )
     # print("***** start")
     # print(class_schema)
     # print("***** end")

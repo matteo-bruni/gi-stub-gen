@@ -22,32 +22,28 @@ from gi_stub_generator.schema import (
 )
 from gi_stub_generator.template import TEMPLATE
 from gi_stub_generator.utils import gi_callback_to_py_type, gi_type_to_py_type
-import jinja2
-from enum import Enum
 from types import (
     FunctionType,
     ModuleType,
     BuiltinFunctionType,
-    MethodDescriptorType,
-    MethodType,
 )
-from typing import Any, Literal
-import gi
-import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from gi.repository import GObject, GIRepository
 
-gi.require_version("Gst", "1.0")
+# import gi
+import gi._gi as GI  # pyright: ignore[reportMissingImports]
+# from gi.repository import GObject, GIRepository
+
+# gi.require_version("Gst", "1.0")
 
 # Resources
 # https://developer.gnome.org/documentation/guidelines/programming/introspection.html
 # https://gi.readthedocs.io/en/latest/annotations/giannotations.html
 
-from gi.repository import (  # noqa: E402, F401
-    GLib,
-    Gst,
-    GObject,
-    GstVideo,  # pyright: ignore[reportAttributeAccessIssue]
-)
+# from gi.repository import (  # noqa: E402, F401
+#     GLib,
+#     Gst,
+#     GObject,
+#     GstVideo,  # pyright: ignore[reportAttributeAccessIssue]
+# )
 
 #
 
@@ -191,13 +187,14 @@ def check_module(
         # check if the attribute is a class (GObjectMeta, StructMeta and type)
         #########################################################################
 
-        if parsed_class := parse_class(
+        class_schema, class_callbacks_found = parse_class(
             namespace=module_name,
             class_to_parse=attribute,
             module_docs=gir_f_docs,
-        ):
-            module_classes.append(parsed_class)
-            callbacks_found.extend(parsed_class._gi_callbacks)
+        )
+        if class_schema:
+            module_classes.append(class_schema)
+            callbacks_found.extend(class_callbacks_found)
             continue
 
         #########################################################################

@@ -185,3 +185,28 @@ def gi_type_to_py_type(
     # TODO: how to handle map key value?
 
     return py_type
+
+
+def get_super_class_name(obj, current_namespace: str | None = None):
+    """
+    Get the super class name of an object
+    If current namespace is the same as the super class namespace
+    it will return the class name only
+    """
+    super_class = obj.mro()[1]
+    super_module = super_class.__module__
+    super_module_name = (
+        str(super_module).removeprefix("gi.repository.").removeprefix("gi.overrides.")
+    )
+    if super_module_name == "gi":
+        super_module_name = "GI"
+    if super_module_name == "builtins":
+        return super_class.__name__
+
+    # if the super class is in the same namespace as the current class
+    # return only the class name
+    if super_module_name == current_namespace:
+        return super_class.__name__
+    # in typing it is uppercase
+    super_module_name = super_module_name.replace("gobject", "GObject")
+    return f"{super_module_name}.{super_class.__name__}"

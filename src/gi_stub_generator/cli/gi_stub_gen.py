@@ -19,13 +19,8 @@ def main(
     version: Annotated[str, typer.Argument()] = "1.0",
 ):
     gi.require_version(name, version)
-    # module = GstVideo
-    module = getattr(importlib.import_module("gi.repository"), name)
+    module = importlib.import_module(f".{name}", "gi.repository")
     docs = gir_docs(Path(f"/usr/share/gir-1.0/{name}-{version}.gir"))
-
-    # obtain docs from gir if available
-    # module = GObject
-    # docs = gir_docs(Path("/usr/share/gir-1.0/GObject-2.0.gir"))
 
     data, unknown_module_map_types = check_module(module, docs)
     # data, unknown_module_map_types = check_module(Gst)

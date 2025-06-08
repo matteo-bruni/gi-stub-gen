@@ -111,6 +111,7 @@ def gir_docs(
     path: Path,
 ):
     if not path.exists():
+        print(f"Path {path} does not exist, returning empty docs.")
         return ModuleDocs(
             constants={},
             functions={},
@@ -119,8 +120,6 @@ def gir_docs(
         )
 
     root = etree.parse(path, parser=etree.XMLParser(recover=True))
-    # tree = ET.parse(path)
-    # root = tree.getroot()
 
     ns = {
         "core": "http://www.gtk.org/introspection/core/1.0",
