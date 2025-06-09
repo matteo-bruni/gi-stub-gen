@@ -1,4 +1,5 @@
 import importlib
+from typing import Any
 import gi._gi as GI  # type: ignore
 from gi._gi import Repository  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject  # pyright: ignore[reportMissingModuleSource]
@@ -83,10 +84,12 @@ def gi_callback_to_py_type(gi_type_info: GI.TypeInfo):
     (no direct python equivalent)
 
     We can work around this by querying the repository, i.e
+    ```
     repository = Repository.get_default()
     repository.find_by_name("Gst", "LogFunction")
+    ```
 
-    It should be represented as a Callable Type using Callable from typing
+    TODO: It should be represented as a Callable Type using Callable from typing
     or a protocol from PEP 544
     https://peps.python.org/pep-0544/#callback-protocols
 
@@ -210,3 +213,30 @@ def get_super_class_name(obj, current_namespace: str | None = None):
     # in typing it is uppercase
     super_module_name = super_module_name.replace("gobject", "GObject")
     return f"{super_module_name}.{super_class.__name__}"
+
+
+def get_py_type_namespace(py_type: Any) -> str | None:
+    """
+    Get the namespace of a python type or object
+    """
+
+    # if the type has a __info__ attribute, it is a GObject type
+    # and we can get the namespace from it
+    if hasattr(py_type, "__info__"):
+        return f"{py_type.__info__.get_namespace()}"  # pyright: ignore[reportAttributeAccessIssue, reportOptionalMemberAccess]
+
+    from inspect import getmodule
+    # TODO: What was debugging for?
+    # if str(py_type) == "Gst.Bin":
+    #     breakpoint()
+
+    # we can use getmodule to get the module of the type
+    if module_namespace := getmodule(py_type):
+        name = module_namespace.__name__
+        # manual fix for some modules, how to get the correct namespace?
+        name = name.replace("gobject", "GObject")
+        if name == "builtins":
+            return None
+        return name
+
+    return None

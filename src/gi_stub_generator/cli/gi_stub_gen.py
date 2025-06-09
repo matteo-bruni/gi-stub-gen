@@ -16,10 +16,11 @@ app = typer.Typer()
 @app.command()
 def main(
     name: str,
-    version: Annotated[str, typer.Argument()] = "1.0",
+    version: Annotated[str, typer.Argument(help="Library version")] = "1.0",
 ):
     gi.require_version(name, version)
     module = importlib.import_module(f".{name}", "gi.repository")
+    # try to find the module documentation
     docs = gir_docs(Path(f"/usr/share/gir-1.0/{name}-{version}.gir"))
 
     data, unknown_module_map_types = check_module(module, docs)

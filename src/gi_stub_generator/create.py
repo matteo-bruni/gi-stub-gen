@@ -28,43 +28,48 @@ from types import (
     BuiltinFunctionType,
 )
 
-# import gi
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 # from gi.repository import GObject, GIRepository
-
-# gi.require_version("Gst", "1.0")
-
-# Resources
-# https://developer.gnome.org/documentation/guidelines/programming/introspection.html
-# https://gi.readthedocs.io/en/latest/annotations/giannotations.html
-
-# from gi.repository import (  # noqa: E402, F401
-#     GLib,
-#     Gst,
-#     GObject,
-#     GstVideo,  # pyright: ignore[reportAttributeAccessIssue]
-# )
-
-#
 
 
 def check_module(
     m: ModuleType,
     gir_f_docs: ModuleDocs,
-):
+) -> tuple[Module, dict[str, list[str]]]:
+    """
+    Check the module and parse its attributes into a Module object.
+
+    Args:
+        m (ModuleType): The module to check.
+        gir_f_docs (ModuleDocs): The documentation for the module (parsed from gir files).
+
+    Returns:
+        tuple[Module, dict[str, list[str]]]: A tuple containing the parsed Module object and a dictionary of unknown types.
+
+    """
     module_attributes = dir(m)
     module_name = m.__name__.split(".")[-1]
     module_constants: list[VariableSchema] = []
+    """Constants found in the module, parsed as VariableSchema objects"""
+
     module_functions: list[FunctionSchema] = []
+    """Functions found in the module, parsed as FunctionSchema objects"""
+
     module_builtin_functions: list[BuiltinFunctionSchema] = []
-    module_used_callbacks: list[FunctionSchema] = []
+    """Builtin functions found in the module, parsed as BuiltinFunctionSchema objects"""
+
     module_enums: list[EnumSchema] = []
+    """Enums found in the module, parsed as EnumSchema objects"""
+
     module_classes: list[ClassSchema] = []
+    """Classes found in the module, parsed as ClassSchema objects"""
+
+    callbacks_found: list[GI.TypeInfo] = []
+    """callback can be found in module functions or in class methods """
+
+    unknown_module_map_types: dict[str, list[str]] = {}
 
     # map all module attributes to their types
-    # has_info: dict[str, list[str]] = {}
-    callbacks_found: list[GI.TypeInfo] = []
-    unknown_module_map_types: dict[str, list[str]] = {}
     for attribute_name in module_attributes:
         if attribute_name.startswith("__"):
             continue
@@ -75,6 +80,7 @@ def check_module(
         #########################################################################
         # check for basic types if we are parsing GObject
         #########################################################################
+        # TODO:
         # these should be parsed as classes and not as their types
         # if module_name == "GObject":
         #     # ['GBoxed', 'GEnum', 'GFlags', 'GInterface', 'GObject',
@@ -138,6 +144,7 @@ def check_module(
                 )
             )
             continue
+
         if attribute_type == BuiltinFunctionType:
             # Inspect do not work
             # TODO: is there a way to get the signature of a builtin function?
@@ -161,22 +168,22 @@ def check_module(
             # represents a virtual function.
             # A virtual function is a callable object that belongs to either a
             # GIObjectInfo or a GIInterfaceInfo.
-            # TODO: could not find any example of this
-            raise NotImplementedError("VFuncInfo not implemented")
+            # TODO: could not find any example of this ??
+            raise NotImplementedError("VFuncInfo not implemented, open an issue?")
 
         if f := parse_function(attribute, gir_f_docs.functions):
             module_functions.append(f)
             # callbacks can be found as arguments of functions, save them to be parsed later
             callbacks_found.extend(f._gi_callbacks)
+            # if f.name == "meta_api_type_register":
+            #     breakpoint()
             continue
 
         #########################################################################
         # check if the attribute is an Enum/Flags
         #########################################################################
-
         # if attribute_name == "GType":
         #     breakpoint()
-
         if e := parse_enum(attribute, gir_f_docs.enums):
             # if e.name in gir_f_docs["enums"]:
             #    e.docstring = gir_f_docs["enums"][e.name]
@@ -186,7 +193,6 @@ def check_module(
         #########################################################################
         # check if the attribute is a class (GObjectMeta, StructMeta and type)
         #########################################################################
-
         class_schema, class_callbacks_found = parse_class(
             namespace=module_name,
             class_to_parse=attribute,
@@ -200,8 +206,6 @@ def check_module(
         #########################################################################
         # unknown/not parsed types
         #########################################################################
-
-        # check if the attribute is an enum
         attribute_type_name = attribute_type.__name__
         unknown_key = f"{attribute_type_name}[{attribute_type}]"
         if unknown_key in unknown_module_map_types:
@@ -209,9 +213,9 @@ def check_module(
         else:
             unknown_module_map_types[unknown_key] = [attribute_name]
 
+    # just filter only the callbacks used in the module
+    module_used_callbacks: list[FunctionSchema] = []
     for c in callbacks_found:
-        # print("parsing callback")
-
         f = parse_function(gi_callback_to_py_type(c), gir_f_docs.functions)
         if f and len(f._gi_callbacks) > 0:
             raise NotImplementedError("Nested callbacks not implemented")

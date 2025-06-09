@@ -52,7 +52,7 @@ class {{e.name}}({{e.py_super_type_str}}):
 {% for c in constants -%}
 {{c.name}}: {{c.type_repr}} = {{c.value_repr}}
 {% if c.docstring -%}
-\"\"\"{{c.docstring}}\"\"\"
+\"\"\"{{c.docstring}} \"\"\"
 
 {% endif -%}
 {% endfor %}

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import keyword
 from gi_stub_generator.gir_parser import ClassDocs, FunctionDocs
-from gi_stub_generator.utils import get_super_class_name
+from gi_stub_generator.utils import get_py_type_namespace, get_super_class_name
 from gi_stub_generator.utils import (
     gi_type_is_callback,
     gi_type_to_py_type,
@@ -19,6 +19,10 @@ class BaseSchema(BaseModel):
 
 
 class VariableSchema(BaseSchema):
+    """
+    Represents a variable in the gi repository, can be a constant or a variable
+    """
+
     namespace: (
         str  # need to be passed since it is not available in the python std types
     )
@@ -62,6 +66,7 @@ class VariableSchema(BaseSchema):
 
         elif hasattr(obj, "__info__"):
             # value is from gi: can be an enum or flags
+            # both are GI.EnumInfo
             if type(obj.__info__) is GI.EnumInfo:
                 is_flags = obj.__info__.is_flags()
 
@@ -213,21 +218,24 @@ class FunctionArgumentSchema(BaseSchema):
     # @computed_field
     @property
     def py_type_namespace(self) -> str | None:
-        if hasattr(self.py_type, "__info__"):
-            return f"{self.py_type.__info__.get_namespace()}"  # pyright: ignore[reportAttributeAccessIssue, reportOptionalMemberAccess]
-        from inspect import getmodule
+        return get_py_type_namespace(self.py_type)
+        # if hasattr(self.py_type, "__info__"):
+        #     return f"{self.py_type.__info__.get_namespace()}"  # pyright: ignore[reportAttributeAccessIssue, reportOptionalMemberAccess]
+        # from inspect import getmodule
 
-        if str(self.py_type) == "Gst.Bin":
-            breakpoint()
-        if module_namespace := getmodule(self.py_type):
-            name = module_namespace.__name__
-            # manual fix for some modules, how to get the correct namespace?
-            name = name.replace("gobject", "GObject")
-            if name == "builtins":
-                return None
-            return name
+        # # TODO: What was debugging for?
+        # if str(self.py_type) == "Gst.Bin":
+        #     breakpoint()
 
-        return None
+        # if module_namespace := getmodule(self.py_type):
+        #     name = module_namespace.__name__
+        #     # manual fix for some modules, how to get the correct namespace?
+        #     name = name.replace("gobject", "GObject")
+        #     if name == "builtins":
+        #         return None
+        #     return name
+
+        # return None
 
     @property
     def type_repr(self):
@@ -308,6 +316,7 @@ class FunctionArgumentSchema(BaseSchema):
             f"is_callback={self.is_callback} "
             f"tag_as_string={self.tag_as_string} "
             f"get_array_length={self.get_array_length} "
+            f"repr={self.type_repr} "
         )
 
 
@@ -363,9 +372,10 @@ class FunctionSchema(BaseSchema):
 
     @property
     def py_return_type_namespace(self) -> str | None:
-        if hasattr(self.py_return_type, "__info__"):
-            return f"{self.py_return_type.__info__.get_namespace()}"  # type: ignore
-        return None
+        return get_py_type_namespace(self.py_return_type)
+        # if hasattr(self.py_return_type, "__info__"):
+        #     return f"{self.py_return_type.__info__.get_namespace()}"  # type: ignore
+        # return None
 
     @property
     def py_return_type_name(self):
@@ -432,7 +442,9 @@ class FunctionSchema(BaseSchema):
         )
         input_args = "\n".join([f"   - {arg}" for arg in self.input_args])
         callback_str = "[CallbackInfo]" if self.is_callback else "[FunctionInfo]"
-        output_args = [f"   - {self.py_return_type} nullable={self.may_return_null}"]
+        output_args = [
+            f"   - {self.py_return_type} nullable={self.may_return_null} repr={self.return_repr}"
+        ]
         output_args.extend([f"   - {arg}" for arg in self.output])
         output_args = "\n".join(output_args)
         return (
