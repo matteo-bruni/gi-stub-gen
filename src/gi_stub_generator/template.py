@@ -1,11 +1,3 @@
-# _build(m, args.module, overrides)
-# m=Gst, module=Gst as string,
-# build(parent: ObjectT, namespace: str, overrides: dict[str, str])
-# Gst, Gst:str, dir(Gst)
-
-
-# print(dir(Gst))
-
 TEMPLATE = """from typing import Any
 from typing import Callable
 from typing import Literal
@@ -14,6 +6,7 @@ from typing import Sequence
 from typing import Tuple
 from typing import Type
 from typing import TypeVar
+from typing_extensions import deprecated
 
 import gi
 import gi._gi as GI # type: ignore
@@ -50,9 +43,17 @@ class {{e.name}}({{e.py_super_type_str}}):
 ##############################################################
 
 {% for c in constants -%}
+{%- if debug %}# Debug: {{c}} {% endif %}
 {{c.name}}: {{c.type_repr}} = {{c.value_repr}}
-{% if c.docstring -%}
-\"\"\"{{c.docstring}} \"\"\"
+{% if c.docstring or c.deprecation_warnings -%}
+\"\"\"
+{%- if c.deprecation_warnings %}
+DEPRECATED: {{c.deprecation_warnings}}
+{% endif -%}
+{%- if c.docstring %}
+{{c.docstring}}
+{% endif -%}
+\"\"\"
 
 {% endif -%}
 {% endfor %}
@@ -102,6 +103,12 @@ class {{c.name}}({{','.join(c.super)}}):
     \"\"\"
     {{c.docstring.class_docstring}}
 
+    {%- if debug %}
+    Debug info:
+
+    {{c}}
+    
+    {% endif -%}
     {%- if c.docstring.extra %}
     #####
     unknown fields (remove me):

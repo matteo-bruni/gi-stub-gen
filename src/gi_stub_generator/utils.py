@@ -196,7 +196,20 @@ def get_super_class_name(obj, current_namespace: str | None = None):
     If current namespace is the same as the super class namespace
     it will return the class name only
     """
-    super_class = obj.mro()[1]
+    # usually the first class in the mro is the object class
+    # the second class is the super class
+    # but if there is an override, the first class is the override
+    # so the super class is the second class in the mro
+    # loop all mro until we find a class with __name__ different from obj.__name__
+    super_class = next(
+        (
+            cls
+            for cls in obj.mro()
+            if cls.__name__ != obj.__name__ and str(cls.__module__) != "gi._gi"
+        ),
+        object,
+    )
+
     super_module = super_class.__module__
     super_module_name = (
         str(super_module).removeprefix("gi.repository.").removeprefix("gi.overrides.")

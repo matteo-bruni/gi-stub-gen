@@ -17,6 +17,9 @@ app = typer.Typer()
 def main(
     name: str,
     version: Annotated[str, typer.Argument(help="Library version")] = "1.0",
+    debug: Annotated[
+        bool, typer.Option("--debug", "-d", help="Enable debug mode")
+    ] = False,
 ):
     gi.require_version(name, version)
     module = importlib.import_module(f".{name}", "gi.repository")
@@ -35,6 +38,7 @@ def main(
             enums=data.enum,
             functions=data.function,
             classes=data.classes,
+            debug=debug,
         )
     )
 
@@ -44,7 +48,7 @@ def main(
     # for key, value in unknown_module_map_types.items():
     #     print(f"- {key=}: \n{value=}")
     #     print("\n")
-    # # return
+    # return
 
     # print("#" * 80)
     # print("# constants")

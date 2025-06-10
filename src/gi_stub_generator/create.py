@@ -69,14 +69,34 @@ def check_module(
 
     unknown_module_map_types: dict[str, list[str]] = {}
 
+    import warnings
+    import gi
+
     # map all module attributes to their types
-    for attribute_name in module_attributes:
+    for attribute_idx, attribute_name in enumerate(module_attributes):
         if attribute_name.startswith("__"):
             continue
 
-        attribute = getattr(m, attribute_name)
-        attribute_type = type(attribute)
+        attribute_deprecation_warnings: str | None = None
+        # check if the attribute is deprecated
+        with warnings.catch_warnings(record=True) as captured_warnings:
+            warnings.simplefilter("always", category=gi.PyGIDeprecationWarning)  # type: ignore
 
+            # actually get the attribute
+            # only when doing this we can catch deprecation warnings
+            attribute = getattr(m, attribute_name)
+            attribute_type = type(attribute)
+
+            for warning in captured_warnings:
+                if issubclass(warning.category, gi.PyGIDeprecationWarning):  # type: ignore
+                    attribute_deprecation_warnings = (
+                        f"{attribute_deprecation_warnings}. {warning.message}"
+                        if attribute_deprecation_warnings
+                        else str(warning.message)
+                    )
+
+        # attribute = getattr(m, attribute_name)
+        # attribute_type = type(attribute)
         #########################################################################
         # check for basic types if we are parsing GObject
         #########################################################################
@@ -122,6 +142,7 @@ def check_module(
             name=attribute_name,
             obj=attribute,
             docstring=gir_f_docs.constants.get(attribute_name, None),
+            deprecation_warnings=attribute_deprecation_warnings,
             # _gi_type=attribute_type,
         ):
             module_constants.append(c)
@@ -171,7 +192,11 @@ def check_module(
             # TODO: could not find any example of this ??
             raise NotImplementedError("VFuncInfo not implemented, open an issue?")
 
-        if f := parse_function(attribute, gir_f_docs.functions):
+        if f := parse_function(
+            attribute,
+            gir_f_docs.functions,
+            attribute_deprecation_warnings,
+        ):
             module_functions.append(f)
             # callbacks can be found as arguments of functions, save them to be parsed later
             callbacks_found.extend(f._gi_callbacks)
@@ -184,7 +209,7 @@ def check_module(
         #########################################################################
         # if attribute_name == "GType":
         #     breakpoint()
-        if e := parse_enum(attribute, gir_f_docs.enums):
+        if e := parse_enum(attribute, gir_f_docs.enums, attribute_deprecation_warnings):
             # if e.name in gir_f_docs["enums"]:
             #    e.docstring = gir_f_docs["enums"][e.name]
             module_enums.append(e)
@@ -197,10 +222,19 @@ def check_module(
             namespace=module_name,
             class_to_parse=attribute,
             module_docs=gir_f_docs,
+            deprecation_warnings=attribute_deprecation_warnings,
         )
         if class_schema:
             module_classes.append(class_schema)
             callbacks_found.extend(class_callbacks_found)
+            # if class_schema.name == "Error":
+            #     print(attribute_idx, "Found Error class", attribute_name)
+            # if class_schema.name in unique_classes:
+            #     raise ValueError(
+            #         f"Class {class_schema.name} already exists in the module {module_name}. "
+            #         "This is likely a bug in the gir parser, please open an issue."
+            #     )
+            # unique_classes.add(class_schema.name)
             continue
 
         #########################################################################
@@ -216,7 +250,7 @@ def check_module(
     # just filter only the callbacks used in the module
     module_used_callbacks: list[FunctionSchema] = []
     for c in callbacks_found:
-        f = parse_function(gi_callback_to_py_type(c), gir_f_docs.functions)
+        f = parse_function(gi_callback_to_py_type(c), gir_f_docs.functions, None)
         if f and len(f._gi_callbacks) > 0:
             raise NotImplementedError("Nested callbacks not implemented")
         if f:

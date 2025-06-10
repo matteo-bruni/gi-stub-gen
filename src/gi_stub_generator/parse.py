@@ -38,6 +38,7 @@ def parse_constant(
     name: str,  # name of the attribute
     obj: Any,  # actual object to be parsed
     docstring: str | None,
+    deprecation_warnings: str | None,  # deprecation warnings if any
 ):
     """
     Parse values and return a VariableSchema.
@@ -61,6 +62,7 @@ def parse_constant(
             namespace=parent,
             name=name,
             docstring=docstring,
+            deprecation_warnings=deprecation_warnings,
         )
 
     # check if it is a constant from an enum/flag
@@ -82,6 +84,7 @@ def parse_constant(
                     namespace=parent,
                     name=name,
                     docstring=docstring,
+                    deprecation_warnings=deprecation_warnings,
                 )
 
     return None
@@ -90,6 +93,7 @@ def parse_constant(
 def parse_enum(
     attribute: Any,
     docs: dict[str, ClassDocs],
+    deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> EnumSchema | None:
     is_flags = isinstance(attribute, type) and issubclass(attribute, GObject.GFlags)
     is_enum = isinstance(attribute, type) and issubclass(attribute, GObject.GEnum)
@@ -119,6 +123,7 @@ def parse_enum(
                     EnumFieldSchema.from_gi_value_info(
                         value_info=v,
                         docstring=element_docstring,
+                        deprecation_warnings=deprecation_warnings,
                     )
                 )
             return EnumSchema.from_gi_object(
@@ -132,7 +137,9 @@ def parse_enum(
 
 
 def parse_function(
-    attribute: Any, docstring: dict[str, FunctionDocs]
+    attribute: Any,
+    docstring: dict[str, FunctionDocs],
+    deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> FunctionSchema | None:
     is_callback = isinstance(attribute, GI.CallbackInfo)
     is_function = isinstance(attribute, GI.FunctionInfo)
@@ -218,6 +225,7 @@ def parse_class(
     namespace: str,
     class_to_parse: Any,
     module_docs: ModuleDocs,
+    deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> tuple[ClassSchema | None, list[GI.TypeInfo]]:
     # Check if it is a class #################
     if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
@@ -249,7 +257,7 @@ def parse_class(
                 class_parsed_elements.append(prop.get_name())
         if hasattr(class_to_parse.__info__, "get_methods"):
             for met in class_to_parse.__info__.get_methods():
-                parsed_method = parse_function(met, module_docs.functions)
+                parsed_method = parse_function(met, module_docs.functions, None)
                 if parsed_method:
                     # save callbacks to be parsed later
                     callbacks_found.extend(parsed_method._gi_callbacks)
@@ -278,6 +286,7 @@ def parse_class(
                 name=attribute_name,
                 obj=attribute,
                 docstring=None,  # TODO: retrieve docstring
+                deprecation_warnings=None,  # TODO: retrieve deprecation warnings
                 # docstring=module_docs.constants.get(attribute_name, None),
             ):
                 class_attributes.append(c)
@@ -291,7 +300,11 @@ def parse_class(
                 # cant obtain args/return type
                 # inspect does not work on builting
                 extra.append(f"property: {attribute_name}")
-            elif f := parse_function(attribute, module_docs.functions):
+            elif f := parse_function(
+                attribute,
+                module_docs.functions,
+                None,  # TODO: retrieve?
+            ):
                 class_methods.append(f)
                 # print("function", f)
                 # callbacks can be found as arguments of functions, save them to be parsed later

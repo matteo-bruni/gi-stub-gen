@@ -30,6 +30,10 @@ class VariableSchema(BaseSchema):
     value: Any | None
 
     is_deprecated: bool
+    """Whether this variable is deprecated (from info)"""
+
+    deprecation_warnings: str | None
+    """Deprecation warning message, if any captured from PyGIDeprecationWarning"""
 
     type_repr: str
     """type representation in template"""
@@ -46,6 +50,7 @@ class VariableSchema(BaseSchema):
         namespace: str,  # need to be passed since it is not available for python std types
         name: str,
         docstring: str | None,
+        deprecation_warnings: str | None,
     ):
         object_type = type(obj)
         object_type_namespace: str | None = None
@@ -61,10 +66,15 @@ class VariableSchema(BaseSchema):
 
         # get value representation in template
         value_repr: str = ""
+        is_deprecated = False
+
         if is_py_builtin_type(object_type):
             value_repr = repr(obj)
 
         elif hasattr(obj, "__info__"):
+            if hasattr(obj.__info__, "is_deprecated"):
+                is_deprecated = obj.__info__.is_deprecated()
+
             # value is from gi: can be an enum or flags
             # both are GI.EnumInfo
             if type(obj.__info__) is GI.EnumInfo:
@@ -86,10 +96,6 @@ class VariableSchema(BaseSchema):
             # Fallback to using the real value
             value_repr = f"{object_type_repr}({obj}) # TODO: not found ??"
 
-        is_deprecated = False
-        if hasattr(object_type, "is_deprecated"):
-            is_deprecated = object_type.is_deprecated()
-
         return cls(
             namespace=namespace,
             name=name,
@@ -98,6 +104,7 @@ class VariableSchema(BaseSchema):
             value_repr=value_repr,
             is_deprecated=is_deprecated,
             docstring=docstring,
+            deprecation_warnings=deprecation_warnings,
         )
 
     model_config = ConfigDict(use_attribute_docstrings=True)
@@ -111,6 +118,8 @@ class VariableSchema(BaseSchema):
             f"type={type(self.value)} "
             f"value={self.value} "
             f"value_repr={self.value_repr} {deprecated} "
+            f"is_deprecated={self.is_deprecated} "
+            f"deprecation_warnings={self.deprecation_warnings} "
         )
 
 
@@ -121,6 +130,10 @@ class EnumFieldSchema(BaseSchema):
     """value representation in template"""
 
     is_deprecated: bool
+
+    deprecation_warnings: str | None
+    """Deprecation warning message, if any captured from PyGIDeprecationWarning"""
+
     docstring: str | None = None
 
     @classmethod
@@ -128,6 +141,7 @@ class EnumFieldSchema(BaseSchema):
         cls,
         value_info: GI.ValueInfo,
         docstring: str | None,
+        deprecation_warnings: str | None,
     ):
         return cls(
             name=value_info.get_name().upper(),
@@ -135,6 +149,7 @@ class EnumFieldSchema(BaseSchema):
             value_repr=repr(value_info.get_value()),
             is_deprecated=value_info.is_deprecated(),
             docstring=docstring,
+            deprecation_warnings=deprecation_warnings,
         )
 
     def __str__(self):
@@ -242,8 +257,6 @@ class FunctionArgumentSchema(BaseSchema):
         """
         type representation in template
         """
-        # {% if a.py_type_namespace and a.py_type_name != module %}{{a.py_type_namespace}}.{% endif %}{{a.py_type_name}} {% if a.may_be_null %}| None {% endif %}
-
         is_nullable = " | None" if self.may_be_null else ""
         if self.py_type_namespace and self.py_type_namespace != self.namespace:
             return f"{self.py_type_namespace}.{self.py_type_name}{is_nullable}"
@@ -402,19 +415,6 @@ class FunctionSchema(BaseSchema):
             return f"{self.py_return_type_namespace}.{self.py_return_type_name}{is_nullable}"
         return f"{self.py_return_type_name}{is_nullable}"
 
-    # @property
-    # def return_repr(self):
-    #     """
-    #     type representation in template
-    #     """
-
-    #     nullable = " | None" if self.may_return_null else ""
-    #     return_types: list[str] = [f"{self.py_return_type}{nullable}"]
-    #     for arg in self.output:
-    #         return_types.append(arg.type_repr)
-
-    #     return ", ".join(return_types)
-
     @property
     def input_args(self):
         return [arg for arg in self.args if arg.direction in ("IN", "INOUT")]
@@ -479,6 +479,8 @@ class ClassSchema(BaseSchema):
 
     is_deprecated: bool
 
+    debug_extra: list[str] = []  # used for debugging purposes
+
     @classmethod
     def from_gi_object(
         cls,
@@ -506,6 +508,7 @@ class ClassSchema(BaseSchema):
             methods=methods,
             extra=extra,
             is_deprecated=is_deprecated,
+            debug_extra=[f"mro={obj.mro()}"],
             # _gi_callbacks=gi_callbacks,
         )
 
@@ -515,12 +518,14 @@ class ClassSchema(BaseSchema):
         methods_str = "\n".join([f"   - {m.name}" for m in self.methods])
         extra_str = "\n".join([f"   - {e}" for e in self.extra])
         props_str = "\n".join([f"   - {p}" for p in self.props])
+        debug = "\n".join([f"   - {d}" for d in self.debug_extra])
         return (
             f"Class {self.name}({self.super})\n"
-            f"\t Props: \n{props_str}\n"
-            f"\t Attributes: \n{attributes_str}\n"
-            f"\t Methods: \n{methods_str}\n"
-            f"\t Extra: \n{extra_str}\n"
+            f"\t Props: \n{props_str}\n\n"
+            f"\t Attributes: \n{attributes_str}\n\n"
+            f"\t Methods: \n{methods_str}\n\n"
+            f"\t Extra: \n{extra_str}\n\n"
+            f"\t DEBUG: \n{debug}\n\n"
         )
 
 
