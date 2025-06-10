@@ -146,7 +146,8 @@ def gi_type_to_py_type(
             # return gi_callback_to_py_type(iface)
             # cant return the type, will not work since it is not implemented
             # raise NotImplementedError
-            # we can return a Protocol or a Callable.. TODO: Protocol of the callback
+            # we can return a Protocol or a Callable..
+            # TODO: Protocol of the callback
             return f"{ns}.{iface_name}"
 
         # TODO: make sure it is accessible with try catch
@@ -228,9 +229,9 @@ def get_super_class_name(obj, current_namespace: str | None = None):
     return f"{super_module_name}.{super_class.__name__}"
 
 
-def get_py_type_namespace(py_type: Any) -> str | None:
+def get_py_type_namespace_repr(py_type: Any) -> str | None:
     """
-    Get the namespace of a python type or object
+    Get the namespace repr of a python type or object
     """
 
     # if the type has a __info__ attribute, it is a GObject type
@@ -253,3 +254,67 @@ def get_py_type_namespace(py_type: Any) -> str | None:
         return name
 
     return None
+
+
+def get_py_type_name_repr(py_type: Any) -> str:
+    """
+    Get the string representation of a python type or object
+    """
+    # if gi_type_is_callback(self._gi_type):
+    #     # TODO: registrare protocollo
+    #     return f"TODOProtocol({py_type})"
+
+    # if it is a GObject
+    if hasattr(py_type, "__info__"):
+        # assert False, f"which type is this? {py_type}: {py_type.__info__.get_name()}"
+        return f"{py_type.__info__.get_name()}"
+
+    if hasattr(py_type, "__name__"):
+        # assert False, f"which type is this? {py_type}: {py_type.__name__}"
+        return py_type.__name__
+
+    return str(py_type)
+
+
+def catch_gi_deprecation_warnings(obj: Any, attribute_name: str) -> str | None:
+    """
+    This will catch deprecation warnings for a gi object attribute
+    This will re-instantiate the module and try to access the attribute
+    to trigger the deprecation warning, if any.
+    We need to pass the attribute name as a string because its easier than trying
+    to dig through the object to find the attribute name.
+
+
+    Args:
+        obj (Any): The object to check for deprecation warnings.
+        attribute_name (str): The name of the attribute to check.
+    """
+    import importlib
+    import warnings
+    import gi
+
+    if not hasattr(obj, "__info__"):
+        return None
+
+    module = importlib.import_module(
+        f".{obj.__info__.get_namespace()}",
+        "gi.repository",
+    )
+
+    attribute_deprecation_warnings: str | None = None
+    with warnings.catch_warnings(record=True) as captured_warnings:
+        warnings.simplefilter("always", category=gi.PyGIDeprecationWarning)  # type: ignore
+
+        # actually get the attribute
+        # only when doing this we can catch deprecation warnings
+        getattr(module, attribute_name)
+
+        for warning in captured_warnings:
+            if issubclass(warning.category, gi.PyGIDeprecationWarning):  # type: ignore
+                attribute_deprecation_warnings = (
+                    f"{attribute_deprecation_warnings}. {warning.message}"
+                    if attribute_deprecation_warnings
+                    else str(warning.message)
+                )
+
+    return attribute_deprecation_warnings

@@ -43,18 +43,15 @@ class {{e.name}}({{e.py_super_type_str}}):
 ##############################################################
 
 {% for c in constants -%}
-{%- if debug %}# Debug: {{c}} {% endif %}
 {{c.name}}: {{c.type_repr}} = {{c.value_repr}}
-{% if c.docstring or c.deprecation_warnings -%}
+{% if debug -%}
 \"\"\"
-{%- if c.deprecation_warnings %}
-DEPRECATED: {{c.deprecation_warnings}}
-{% endif -%}
-{%- if c.docstring %}
+{{c.debug}}
+\"\"\"
+{% elif c.docstring -%}
+\"\"\"
 {{c.docstring}}
-{% endif -%}
 \"\"\"
-
 {% endif -%}
 {% endfor %}
 

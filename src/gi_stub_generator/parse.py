@@ -38,7 +38,7 @@ def parse_constant(
     name: str,  # name of the attribute
     obj: Any,  # actual object to be parsed
     docstring: str | None,
-    deprecation_warnings: str | None,  # deprecation warnings if any
+    # deprecation_warnings: str | None,  # deprecation warnings if any
 ):
     """
     Parse values and return a VariableSchema.
@@ -62,7 +62,7 @@ def parse_constant(
             namespace=parent,
             name=name,
             docstring=docstring,
-            deprecation_warnings=deprecation_warnings,
+            # deprecation_warnings=deprecation_warnings,
         )
 
     # check if it is a constant from an enum/flag
@@ -84,7 +84,7 @@ def parse_constant(
                     namespace=parent,
                     name=name,
                     docstring=docstring,
-                    deprecation_warnings=deprecation_warnings,
+                    # deprecation_warnings=deprecation_warnings,
                 )
 
     return None
@@ -181,13 +181,17 @@ def parse_function(
         # Gst.debug_log_default.get_arguments()[7]
 
         function_args.append(
-            FunctionArgumentSchema(
-                namespace=arg.get_namespace(),
-                name=arg.get_name(),
-                is_optional=arg.is_optional(),
-                _object=arg,
+            # FunctionArgumentSchema(
+            #     namespace=arg.get_namespace(),
+            #     name=arg.get_name(),
+            #     is_optional=arg.is_optional(),
+            #     _object=arg,
+            #     direction=direction,
+            #     maybe_null=arg.may_be_null(),
+            # )
+            FunctionArgumentSchema.from_gi_object(
+                obj=arg,
                 direction=direction,
-                maybe_null=arg.may_be_null(),
             )
         )
         # if any of the arguments is a callback, store it to be later parsed
@@ -286,7 +290,7 @@ def parse_class(
                 name=attribute_name,
                 obj=attribute,
                 docstring=None,  # TODO: retrieve docstring
-                deprecation_warnings=None,  # TODO: retrieve deprecation warnings
+                # deprecation_warnings=None,  # TODO: retrieve deprecation warnings
                 # docstring=module_docs.constants.get(attribute_name, None),
             ):
                 class_attributes.append(c)

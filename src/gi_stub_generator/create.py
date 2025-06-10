@@ -20,7 +20,8 @@ from gi_stub_generator.schema import (
     FunctionSchema,
     Module,
 )
-from gi_stub_generator.template import TEMPLATE
+
+# from gi_stub_generator.template import TEMPLATE
 from gi_stub_generator.utils import gi_callback_to_py_type, gi_type_to_py_type
 from types import (
     FunctionType,
@@ -79,24 +80,24 @@ def check_module(
 
         attribute_deprecation_warnings: str | None = None
         # check if the attribute is deprecated
-        with warnings.catch_warnings(record=True) as captured_warnings:
-            warnings.simplefilter("always", category=gi.PyGIDeprecationWarning)  # type: ignore
+        # with warnings.catch_warnings(record=True) as captured_warnings:
+        #     warnings.simplefilter("always", category=gi.PyGIDeprecationWarning)  # type: ignore
 
-            # actually get the attribute
-            # only when doing this we can catch deprecation warnings
-            attribute = getattr(m, attribute_name)
-            attribute_type = type(attribute)
+        #     # actually get the attribute
+        #     # only when doing this we can catch deprecation warnings
+        #     attribute = getattr(m, attribute_name)
+        #     attribute_type = type(attribute)
 
-            for warning in captured_warnings:
-                if issubclass(warning.category, gi.PyGIDeprecationWarning):  # type: ignore
-                    attribute_deprecation_warnings = (
-                        f"{attribute_deprecation_warnings}. {warning.message}"
-                        if attribute_deprecation_warnings
-                        else str(warning.message)
-                    )
+        #     for warning in captured_warnings:
+        #         if issubclass(warning.category, gi.PyGIDeprecationWarning):  # type: ignore
+        #             attribute_deprecation_warnings = (
+        #                 f"{attribute_deprecation_warnings}. {warning.message}"
+        #                 if attribute_deprecation_warnings
+        #                 else str(warning.message)
+        #             )
 
-        # attribute = getattr(m, attribute_name)
-        # attribute_type = type(attribute)
+        attribute = getattr(m, attribute_name)
+        attribute_type = type(attribute)
         #########################################################################
         # check for basic types if we are parsing GObject
         #########################################################################
@@ -142,7 +143,7 @@ def check_module(
             name=attribute_name,
             obj=attribute,
             docstring=gir_f_docs.constants.get(attribute_name, None),
-            deprecation_warnings=attribute_deprecation_warnings,
+            # deprecation_warnings=attribute_deprecation_warnings,
             # _gi_type=attribute_type,
         ):
             module_constants.append(c)
@@ -209,7 +210,11 @@ def check_module(
         #########################################################################
         # if attribute_name == "GType":
         #     breakpoint()
-        if e := parse_enum(attribute, gir_f_docs.enums, attribute_deprecation_warnings):
+        if e := parse_enum(
+            attribute,
+            gir_f_docs.enums,
+            attribute_deprecation_warnings,
+        ):
             # if e.name in gir_f_docs["enums"]:
             #    e.docstring = gir_f_docs["enums"][e.name]
             module_enums.append(e)
