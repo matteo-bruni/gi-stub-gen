@@ -133,7 +133,7 @@ class VariableSchema(BaseSchema):
             deprecation_warnings=deprecation_warnings,
         )
 
-    model_config = ConfigDict(use_attribute_docstrings=True)
+    # model_config = ConfigDict(use_attribute_docstrings=True)
 
     # def __str__(self):
     #     # print(self.value_repr, self.type)
@@ -413,71 +413,71 @@ class FunctionSchema(BaseSchema):
     is_callback: bool
     """Whether this function is a callback"""
 
-    _gi_type: Any
-    _gi_callbacks: list[Any]
+    _gi_callbacks: list[Any] = []
+    """Callbacks found during function argument parsing, if any"""
 
-    @computed_field
-    @property
-    def can_throw_gerror(self) -> bool:
-        return self._gi_type.can_throw_gerror()
+    # @computed_field
+    # @property
+    # def can_throw_gerror(self) -> bool:
+    #     return self._gi_type.can_throw_gerror()
 
-    @computed_field
-    @property
-    def is_deprecated(self) -> bool:
-        return self._gi_type.is_deprecated()
+    # @computed_field
+    # @property
+    # def is_deprecated(self) -> bool:
+    #     return self._gi_type.is_deprecated()
 
-    @computed_field
-    @property
-    def skip_return(self) -> bool:
-        return self._gi_type.skip_return()
+    # @computed_field
+    # @property
+    # def skip_return(self) -> bool:
+    #     return self._gi_type.skip_return()
+    skip_return: bool
 
-    @computed_field
-    @property
-    def may_return_null(self) -> bool:
-        return self._gi_type.may_return_null()
+    is_deprecated: bool
+    can_throw_gerror: bool
+    """Whether this function can throw a GError"""
+    may_return_null: bool
+    # @computed_field
+    # @property
+    # def may_return_null(self) -> bool:
+    #     return self._gi_type.may_return_null()
+    is_method: bool
+    """Whether this function is a method of a class"""
+    # @computed_field
+    # @property
+    # def is_method(self) -> bool:
+    #     if self.is_callback:
+    #         return False
+    #     return self._gi_type.is_method()
+    # @property
+    # def py_return_type_namespace(self) -> str | None:
+    #     return get_py_type_namespace_repr(self.py_return_type)
+    #     # if hasattr(self.py_return_type, "__info__"):
+    #     #     return f"{self.py_return_type.__info__.get_namespace()}"  # type: ignore
+    #     # return None
+    # @property
+    # def py_return_type_name(self):
+    #     if hasattr(self.py_return_type, "__info__"):
+    #         return f"{self.py_return_type.__info__.get_name()}"  # type: ignore
+    #     if hasattr(self.py_return_type, "__name__"):
+    #         return self.py_return_type.__name__  # type: ignore
+    #     return self.py_return_type
+    # @property
+    # def return_repr(self):
+    #     """
+    #     type representation in template
+    #     """
+    #     # {% if a.py_type_namespace and a.py_type_name != module %}{{a.py_type_namespace}}.{% endif %}{{a.py_type_name}} {% if a.may_be_null %}| None {% endif %}
 
-    @computed_field
-    @property
-    def is_method(self) -> bool:
-        if self.is_callback:
-            return False
-        return self._gi_type.is_method()
+    #     is_nullable = " | None" if self.may_return_null else ""
+    #     if (
+    #         self.py_return_type_namespace
+    #         and self.py_return_type_namespace != self.namespace
+    #     ):
+    #         return f"{self.py_return_type_namespace}.{self.py_return_type_name}{is_nullable}"
+    #     return f"{self.py_return_type_name}{is_nullable}"
 
-    @property
-    def py_return_type(self):
-        return gi_type_to_py_type(self._gi_type.get_return_type())
-
-    @property
-    def py_return_type_namespace(self) -> str | None:
-        return get_py_type_namespace_repr(self.py_return_type)
-        # if hasattr(self.py_return_type, "__info__"):
-        #     return f"{self.py_return_type.__info__.get_namespace()}"  # type: ignore
-        # return None
-
-    @property
-    def py_return_type_name(self):
-        if hasattr(self.py_return_type, "__info__"):
-            return f"{self.py_return_type.__info__.get_name()}"  # type: ignore
-
-        if hasattr(self.py_return_type, "__name__"):
-            return self.py_return_type.__name__  # type: ignore
-
-        return self.py_return_type
-
-    @property
-    def return_repr(self):
-        """
-        type representation in template
-        """
-        # {% if a.py_type_namespace and a.py_type_name != module %}{{a.py_type_namespace}}.{% endif %}{{a.py_type_name}} {% if a.may_be_null %}| None {% endif %}
-
-        is_nullable = " | None" if self.may_return_null else ""
-        if (
-            self.py_return_type_namespace
-            and self.py_return_type_namespace != self.namespace
-        ):
-            return f"{self.py_return_type_namespace}.{self.py_return_type_name}{is_nullable}"
-        return f"{self.py_return_type_name}{is_nullable}"
+    return_repr: str
+    """The return type representation in template"""
 
     @property
     def input_args(self):
@@ -487,39 +487,128 @@ class FunctionSchema(BaseSchema):
     def output(self):
         return [arg for arg in self.args if arg.direction in ("OUT", "INOUT")]
 
-    def __init__(
-        self,
-        _gi_type,
-        _gi_callbacks,
-        **data,
-    ):
-        super().__init__(**data)
-        self._gi_type = _gi_type
-        self._gi_callbacks = _gi_callbacks
+    # def __init__(
+    #     self,
+    #     _gi_type,
+    #     _gi_callbacks,
+    #     **data,
+    # ):
+    #     super().__init__(**data)
+    #     self._gi_type = _gi_type
+    #     self._gi_callbacks = _gi_callbacks
 
-    def __str__(self):
-        deprecated = "[DEPRECATED]" if self.is_deprecated else ""
-        can_throw_gerror = (
-            "can_throw_gerror=True"
-            if self.can_throw_gerror
-            else "can_throw_gerror=False"
+    # return FunctionSchema(
+    #         namespace=attribute.get_namespace(),
+    #         name=attribute.get_name(),
+    #         _gi_type=attribute,
+    #         _gi_callbacks=callback_found,
+
+    #         args=function_args,
+    #         is_callback=is_callback,
+    #         docstring=docstring_field,
+    #     )gi_type = obj.get_type()
+    @classmethod
+    def from_gi_object(
+        cls,
+        obj: Any,
+        docstring: FunctionDocs | None = None,
+    ):
+        assert isinstance(obj, GI.CallbackInfo) or isinstance(obj, GI.FunctionInfo), (
+            "Not a valid GI function or callback object"
         )
-        input_args = "\n".join([f"   - {arg}" for arg in self.input_args])
-        callback_str = "[CallbackInfo]" if self.is_callback else "[FunctionInfo]"
-        output_args = [
-            f"   - {self.py_return_type} nullable={self.may_return_null} repr={self.return_repr}"
-        ]
-        output_args.extend([f"   - {arg}" for arg in self.output])
-        output_args = "\n".join(output_args)
-        return (
-            f"{self.namespace}.{self.name} {callback_str} {deprecated}\n"
-            f"  namespace={self.namespace} name={self.name} is_method={self.is_method} {can_throw_gerror}\n"
-            f"  return_type={self.py_return_type} get_array_length={self._gi_type.get_return_type().get_array_length()} may_return_null={self.may_return_null} skip_return={self.skip_return}\n"
-            f"  Input Args:\n"
-            f"{input_args}\n"
-            f"  Output Args:\n"
-            f"{output_args}\n"
+
+        function_args: list[FunctionArgumentSchema] = []
+
+        # keep track of callbacks found during function argument parsing
+        callback_found: list[GI.TypeInfo] = []
+        """callbacks found during function argument parsing"""
+
+        for arg in obj.get_arguments():
+            direction: Literal["IN", "OUT", "INOUT"]
+            if arg.get_direction() == GI.Direction.OUT:
+                direction = "OUT"
+            elif arg.get_direction() == GI.Direction.IN:
+                direction = "IN"
+            elif arg.get_direction() == GI.Direction.INOUT:
+                direction = "INOUT"
+            else:
+                raise ValueError("Invalid direction")
+
+            function_args.append(
+                FunctionArgumentSchema.from_gi_object(
+                    obj=arg,
+                    direction=direction,
+                )
+            )
+            # if any of the arguments is a callback, store it to be later parsed
+            if gi_type_is_callback(arg.get_type()):
+                callback_found.append(arg.get_type())
+
+        py_return_type = gi_type_to_py_type(obj.get_return_type())
+
+        # get the repr of the return type
+        py_return_type_namespace = get_py_type_namespace_repr(py_return_type)
+        py_return_type_name = get_py_type_name_repr(py_return_type)
+
+        namespace = obj.get_namespace()
+        may_return_null = obj.may_return_null()
+        is_callback = isinstance(obj, GI.CallbackInfo)
+
+        # get the return repr for the template
+        is_nullable = " | None" if may_return_null else ""
+        return_repr = f"{py_return_type_name}{is_nullable}"
+
+        # add namespace if it is different from the current namespace
+        if py_return_type_namespace and py_return_type_namespace != namespace:
+            return_repr = f"{py_return_type_namespace}.{return_repr}"
+
+        return cls(
+            namespace=namespace,
+            name=obj.get_name(),
+            args=function_args,
+            is_callback=is_callback,
+            docstring=docstring,
+            may_return_null=may_return_null,
+            is_method=obj.is_method(),
+            can_throw_gerror=obj.can_throw_gerror(),
+            is_deprecated=obj.is_deprecated(),
+            skip_return=obj.skip_return(),
+            return_repr=return_repr,
+            _gi_callbacks=callback_found,
         )
+
+    #     FunctionSchema(
+    #     namespace=attribute.get_namespace(),
+    #     name=attribute.get_name(),
+    #     args=function_args,
+    #     _gi_type=attribute,
+    #     _gi_callbacks=callback_found,  # TODO: viene usato solo per salvarle e recuperarle fuori, ritornarle direttamente?
+    #     is_callback=is_callback,
+    #     docstring=docstring_field,
+    # )
+    # def __str__(self):
+    #     deprecated = "[DEPRECATED]" if self.is_deprecated else ""
+    #     can_throw_gerror = (
+    #         "can_throw_gerror=True"
+    #         if self.can_throw_gerror
+    #         else "can_throw_gerror=False"
+    #     )
+    #     input_args = "\n".join([f"   - {arg}" for arg in self.input_args])
+    #     callback_str = "[CallbackInfo]" if self.is_callback else "[FunctionInfo]"
+    #     output_args = [
+    #         f"   - {self.py_return_type} nullable={self.may_return_null} repr={self.return_repr}"
+    #     ]
+    #     output_args.extend([f"   - {arg}" for arg in self.output])
+    #     output_args = "\n".join(output_args)
+    #     return (
+    #         f"{self.namespace}.{self.name} {callback_str} {deprecated}\n"
+    #         f"  namespace={self.namespace} name={self.name} is_method={self.is_method} {can_throw_gerror}\n"
+    #         f"  return_type={self.py_return_type} get_array_length={self._gi_type.get_return_type().get_array_length()} may_return_null={self.may_return_null} skip_return={self.skip_return}\n"
+    #         f"  Input Args:\n"
+    #         f"{input_args}\n"
+    #         f"  Output Args:\n"
+    #         f"{output_args}\n"
+    #     )
 
 
 class ClassPropSchema(BaseSchema):

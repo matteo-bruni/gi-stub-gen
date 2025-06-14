@@ -59,7 +59,7 @@ def is_gflags(attribute):
     return isinstance(attribute, type) and issubclass(attribute, GObject.GFlags)
 
 
-def gi_type_is_callback(gi_type_info: GI.TypeInfo):
+def gi_type_is_callback(gi_type_info: GI.TypeInfo) -> bool:
     """
     Check if the gi type is a callback.
 

@@ -141,12 +141,18 @@ def parse_function(
     docstring: dict[str, FunctionDocs],
     deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> FunctionSchema | None:
+    
     is_callback = isinstance(attribute, GI.CallbackInfo)
     is_function = isinstance(attribute, GI.FunctionInfo)
 
     if not is_callback and not is_function:
         # print("not a callback or function skip", type(attribute))
         return None
+
+    return FunctionSchema.from_gi_object(
+        obj=attribute,
+        docstring=docstring.get(attribute.get_name(), None),
+    )
 
     # GIFunctionInfo
     # represents a function, method or constructor.
@@ -155,59 +161,51 @@ def parse_function(
     # See also GICallableInfo for information on how to retrieve arguments
     # and other metadata.
 
-    # check whether the function is a method (i.e. has a self argument)
-    function_args: list[FunctionArgumentSchema] = []
+    # # check whether the function is a method (i.e. has a self argument)
+    # function_args: list[FunctionArgumentSchema] = []
 
-    callback_found: list[GI.TypeInfo] = []
-    """callbacks found during function argument parsing"""
+    # callback_found: list[GI.TypeInfo] = []
+    # """callbacks found during function argument parsing"""
 
-    # function_return_type = []
-    # function_in_out = []
-    for arg in attribute.get_arguments():
-        direction: Literal["IN", "OUT", "INOUT"]
-        if arg.get_direction() == GI.Direction.OUT:
-            direction = "OUT"
-        elif arg.get_direction() == GI.Direction.IN:
-            direction = "IN"
-        elif arg.get_direction() == GI.Direction.INOUT:
-            direction = "INOUT"
-        else:
-            raise ValueError("Invalid direction")
+    # # function_return_type = []
+    # # function_in_out = []
+    # for arg in attribute.get_arguments():
+    #     direction: Literal["IN", "OUT", "INOUT"]
+    #     if arg.get_direction() == GI.Direction.OUT:
+    #         direction = "OUT"
+    #     elif arg.get_direction() == GI.Direction.IN:
+    #         direction = "IN"
+    #     elif arg.get_direction() == GI.Direction.INOUT:
+    #         direction = "INOUT"
+    #     else:
+    #         raise ValueError("Invalid direction")
 
-        # in Gst.debug_log_default,
-        # user_data args is void but
-        # https://gstreamer.freedesktop.org/documentation/gstreamer/gstinfo.html?gi-language=python#gst_debug_log_default
-        # says it is a object
-        # Gst.debug_log_default.get_arguments()[7]
+    #     # in Gst.debug_log_default,
+    #     # user_data args is void but
+    #     # https://gstreamer.freedesktop.org/documentation/gstreamer/gstinfo.html?gi-language=python#gst_debug_log_default
+    #     # says it is a object
+    #     # Gst.debug_log_default.get_arguments()[7]
 
-        function_args.append(
-            # FunctionArgumentSchema(
-            #     namespace=arg.get_namespace(),
-            #     name=arg.get_name(),
-            #     is_optional=arg.is_optional(),
-            #     _object=arg,
-            #     direction=direction,
-            #     maybe_null=arg.may_be_null(),
-            # )
-            FunctionArgumentSchema.from_gi_object(
-                obj=arg,
-                direction=direction,
-            )
-        )
-        # if any of the arguments is a callback, store it to be later parsed
-        if gi_type_is_callback(arg.get_type()):
-            callback_found.append(arg.get_type())
+    #     function_args.append(
+    #         FunctionArgumentSchema.from_gi_object(
+    #             obj=arg,
+    #             direction=direction,
+    #         )
+    #     )
+    #     # if any of the arguments is a callback, store it to be later parsed
+    #     if gi_type_is_callback(arg.get_type()):
+    #         callback_found.append(arg.get_type())
 
-    docstring_field = docstring.get(attribute.get_name(), None)
-    return FunctionSchema(
-        namespace=attribute.get_namespace(),
-        name=attribute.get_name(),
-        args=function_args,
-        _gi_type=attribute,
-        _gi_callbacks=callback_found,
-        is_callback=is_callback,
-        docstring=docstring_field,
-    )
+    # docstring_field = docstring.get(attribute.get_name(), None)
+    # return FunctionSchema(
+    #     namespace=attribute.get_namespace(),
+    #     name=attribute.get_name(),
+    #     args=function_args,
+    #     _gi_type=attribute,
+    #     _gi_callbacks=callback_found,  # TODO: viene usato solo per salvarle e recuperarle fuori, ritornarle direttamente?
+    #     is_callback=is_callback,
+    #     docstring=docstring_field,
+    # )
 
 
 # def get_super_class_name(obj, start_pos=1):
