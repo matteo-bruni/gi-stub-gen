@@ -56,5 +56,10 @@ gi_stub_gen <library_name> <library_version> > test.pyi
 
 # TODO
 - [ ] Add support for deprecated
-- [ ] Fix the issue with the `Error` class being duplicated in the module (Error and GError)
+- [X] Fix the issue with the `Error` class being duplicated in the module (Error and GError)
+- [ ] Add Callbacks via Protocol
+- [ ] Add support for `gi._gi`
+- [ ] Add support Classes
+- [ ] Add support for GType constant
+- [ ] Rename
 

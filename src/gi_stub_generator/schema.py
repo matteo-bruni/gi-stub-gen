@@ -1,26 +1,88 @@
 from __future__ import annotations
 
 import keyword
+import logging
 from gi_stub_generator.gir_parser import ClassDocs, FunctionDocs
 from gi_stub_generator.utils import (
     catch_gi_deprecation_warnings,
     get_py_type_name_repr,
     get_py_type_namespace_repr,
     get_super_class_name,
+    sanitize_module_name,
 )
 from gi_stub_generator.utils import (
     gi_type_is_callback,
     gi_type_to_py_type,
     is_py_builtin_type,
 )
-from pydantic import BaseModel, ConfigDict, computed_field
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    computed_field,
+    SerializerFunctionWrapHandler,
+    model_validator,
+)
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
+from gi.repository import GObject
+from pydantic.functional_serializers import WrapSerializer
+from typing import Annotated, Literal, Any
 
-from typing import Any, Literal
+logger = logging.getLogger(__name__)
 
 
 class BaseSchema(BaseModel):
     model_config = ConfigDict(use_attribute_docstrings=True)
+
+
+# Custom Type Value Any for Any or None type
+# we add a custom serializer to handle the serialization of Any type
+# if it not serializable, it will fallback to str(v)
+# used for debugging purposes, i.e a variable = dict(gobject_values)
+# this is due to some classes having attributes that are not serializable
+def ser_variable_wrap(v: Any, fun: SerializerFunctionWrapHandler):
+    # return f'{nxt(v + 1):,}'
+    try:
+        return fun(v)
+    except Exception as e:
+        # logger.warning(f"[WARNING] Error serializing variable: {e}: {v}")
+        # print("[DEBUG] Variable value:", v)
+        return str(v)  # Fallback to string representation
+    # return fun(v)
+
+
+ValueAny = Annotated[Any | None, WrapSerializer(ser_variable_wrap, when_used="json")]
+
+
+class AliasSchema(BaseSchema):
+    """
+    Represents an alias in the current gi repository,
+    i.e. a class or a function that is an alias for another repository object
+    """
+
+    name: str
+    target_name: str | None
+    target_namespace: str | None
+    deprecation_warning: str | None
+    line_comment: str | None
+
+    @property
+    def target_repr(self):
+        """
+        Return the target representation in template
+        """
+        if self.target_namespace and self.target_name:
+            return f"{self.target_namespace}.{self.target_name}"
+        elif self.target_name:
+            return self.target_name
+
+        return "..."
+
+    @property
+    def docstring(self):
+        if self.deprecation_warning:
+            return f"[DEPRECATED] {self.deprecation_warning}"
+
+        return None
 
 
 class VariableSchema(BaseSchema):
@@ -32,7 +94,8 @@ class VariableSchema(BaseSchema):
         str  # need to be passed since it is not available in the python std types
     )
     name: str
-    value: Any | None
+    value: ValueAny
+    # value: Any | None
 
     is_deprecated: bool
     """Whether this variable is deprecated (from info)"""
@@ -47,6 +110,9 @@ class VariableSchema(BaseSchema):
     """value representation in template"""
 
     gir_docstring: str | None
+
+    is_enum_or_flags: bool
+    """Whether this variable is an enum or flags (we avoid writing the type in the template)"""
 
     @property
     def docstring(self):
@@ -76,22 +142,25 @@ class VariableSchema(BaseSchema):
         namespace: str,  # need to be passed since it is not available for python std types
         name: str,
         docstring: str | None,
+        deprecation_warnings: str | None = None,
     ):
+        sanitized_namespace = sanitize_module_name(namespace)
         object_type = type(obj)
         object_type_namespace: str | None = None
         if hasattr(obj, "__info__"):
-            if obj.__info__.get_namespace() != namespace:
+            if obj.__info__.get_namespace() != sanitized_namespace:
                 object_type_namespace = str(obj.__info__.get_namespace())
 
         # type representation in template should include namespace only if
         # it is different from the current namespace
         object_type_repr = object_type.__name__
-        if object_type_namespace and object_type_namespace != namespace:
+        if object_type_namespace and object_type_namespace != sanitized_namespace:
             object_type_repr = f"{object_type_namespace}.{object_type_repr}"
 
         # get value representation in template
         value_repr: str = ""
         is_deprecated = False
+        is_enum_or_flags = False
 
         if is_py_builtin_type(object_type):
             value_repr = repr(obj)
@@ -104,6 +173,7 @@ class VariableSchema(BaseSchema):
             # both are GI.EnumInfo
             if type(obj.__info__) is GI.EnumInfo:
                 is_flags = obj.__info__.is_flags()
+                is_enum_or_flags = True
 
                 if is_flags:
                     if obj.first_value_nick is not None:
@@ -117,13 +187,18 @@ class VariableSchema(BaseSchema):
                 if not is_flags:
                     # it is an enum
                     value_repr = f"{object_type_repr}.{obj.value_nick.upper()}"
+        elif isinstance(obj, GObject.GType):
+            value_repr = "..."
         else:
             # Fallback to using the real value
+            print("[WARNING] Object representation not found, using real value")
             value_repr = f"{object_type_repr}({obj}) # TODO: not found ??"
 
-        deprecation_warnings = catch_gi_deprecation_warnings(obj, name)
+        # if name == "SIGNAL_ACTION":
+        #     breakpoint()
+        # deprecation_warnings = catch_gi_deprecation_warnings(obj, name)
         return cls(
-            namespace=namespace,
+            namespace=sanitized_namespace,
             name=name,
             type_repr=object_type_repr,
             value=obj,
@@ -131,6 +206,7 @@ class VariableSchema(BaseSchema):
             is_deprecated=is_deprecated,
             gir_docstring=docstring,
             deprecation_warnings=deprecation_warnings,
+            is_enum_or_flags=is_enum_or_flags,
         )
 
     # model_config = ConfigDict(use_attribute_docstrings=True)
@@ -223,6 +299,9 @@ class EnumSchema(BaseSchema):
     @property
     def py_super_type_str(self) -> str:
         """Return the python type as a string (otherwise capitalization is wrong)"""
+        if self.namespace == "GObject":
+            return "GFlags" if self.enum_type == "flags" else "GEnum"
+
         return "GObject.GFlags" if self.enum_type == "flags" else "GObject.GEnum"
 
     def __str__(self):
@@ -618,6 +697,10 @@ class ClassPropSchema(BaseSchema):
     readable: bool
     writable: bool
 
+    line_comment: str | None
+    type_repr: str
+    """type representation in template"""
+
 
 class ClassSchema(BaseSchema):
     namespace: str
@@ -631,8 +714,6 @@ class ClassSchema(BaseSchema):
     extra: list[str]
 
     is_deprecated: bool
-
-    debug_extra: list[str] = []  # used for debugging purposes
 
     @classmethod
     def from_gi_object(
@@ -650,6 +731,16 @@ class ClassSchema(BaseSchema):
             gi_info = obj.__info__
 
         is_deprecated = gi_info.is_deprecated() if gi_info else False
+        try:
+            extra.extend(
+                [
+                    f"mro={obj.__mro__}",
+                    # f"mro={obj.mro()}",
+                    f"self={obj.__module__}.{obj.__name__}",
+                ]
+            )
+        except Exception as e:
+            breakpoint()
 
         return cls(
             namespace=namespace,
@@ -659,27 +750,22 @@ class ClassSchema(BaseSchema):
             props=props,
             attributes=attributes,
             methods=methods,
-            extra=extra,
             is_deprecated=is_deprecated,
-            debug_extra=[f"mro={obj.mro()}"],
+            extra=extra,
             # _gi_callbacks=gi_callbacks,
         )
 
-    def __str__(self):
-        attributes_str = "\n".join([f"   - {a}" for a in self.attributes])
-        # methods_str = "\n".join([f"   - {m}" for m in self.methods])
-        methods_str = "\n".join([f"   - {m.name}" for m in self.methods])
-        extra_str = "\n".join([f"   - {e}" for e in self.extra])
-        props_str = "\n".join([f"   - {p}" for p in self.props])
-        debug = "\n".join([f"   - {d}" for d in self.debug_extra])
-        return (
-            f"Class {self.name}({self.super})\n"
-            f"\t Props: \n{props_str}\n\n"
-            f"\t Attributes: \n{attributes_str}\n\n"
-            f"\t Methods: \n{methods_str}\n\n"
-            f"\t Extra: \n{extra_str}\n\n"
-            f"\t DEBUG: \n{debug}\n\n"
-        )
+    @property
+    def debug(self):
+        """
+        Debug docstring
+        """
+
+        data = ""
+        if self.docstring:
+            data = f"{self.docstring}"
+
+        return f"{data}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
 
 
 # class ClassSchema(BaseModel):
@@ -702,3 +788,4 @@ class Module(BaseSchema):
     function: list[FunctionSchema]
     builtin_function: list[BuiltinFunctionSchema]
     used_callbacks: list[FunctionSchema]
+    aliases: list[AliasSchema]

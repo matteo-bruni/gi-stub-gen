@@ -4,7 +4,7 @@ import gi
 import gi._gi as GI  # type: ignore
 from gi._gi import Repository  # type: ignore
 from gi.repository import GObject
-
+import logging
 from gi_stub_generator.gir_parser import ClassDocs, FunctionDocs, ModuleDocs
 from gi_stub_generator.schema import (
     ClassPropSchema,
@@ -24,12 +24,16 @@ from types import (
 )
 from typing import Any, Literal
 from gi_stub_generator.utils import (
+    get_py_type_name_repr,
+    get_py_type_namespace_repr,
     gi_type_is_callback,
     gi_type_to_py_type,
     is_py_builtin_type,
+    sanitize_module_name,
+    sanitize_variable_name,
 )
 
-
+logger = logging.getLogger(__name__)
 repository = Repository.get_default()
 
 
@@ -38,7 +42,7 @@ def parse_constant(
     name: str,  # name of the attribute
     obj: Any,  # actual object to be parsed
     docstring: str | None,
-    # deprecation_warnings: str | None,  # deprecation warnings if any
+    deprecation_warnings: str | None,  # deprecation warnings if any
 ):
     """
     Parse values and return a VariableSchema.
@@ -62,7 +66,7 @@ def parse_constant(
             namespace=parent,
             name=name,
             docstring=docstring,
-            # deprecation_warnings=deprecation_warnings,
+            deprecation_warnings=deprecation_warnings,
         )
 
     # check if it is a constant from an enum/flag
@@ -84,8 +88,21 @@ def parse_constant(
                     namespace=parent,
                     name=name,
                     docstring=docstring,
-                    # deprecation_warnings=deprecation_warnings,
+                    deprecation_warnings=deprecation_warnings,
                 )
+
+    # TODO: handle GType elements (which lacks __info__ attribute)
+    if isinstance(obj, GObject.GType):
+        # GType is a type, not a value
+        # so we can not parse it as a constant
+        # but we can parse it as an enum/flag
+        return VariableSchema.from_gi_object(
+            obj=obj,
+            namespace=parent,
+            name=name,
+            docstring=docstring,
+            deprecation_warnings=deprecation_warnings,
+        )
 
     return None
 
@@ -141,7 +158,6 @@ def parse_function(
     docstring: dict[str, FunctionDocs],
     deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> FunctionSchema | None:
-    
     is_callback = isinstance(attribute, GI.CallbackInfo)
     is_function = isinstance(attribute, GI.FunctionInfo)
 
@@ -154,74 +170,6 @@ def parse_function(
         docstring=docstring.get(attribute.get_name(), None),
     )
 
-    # GIFunctionInfo
-    # represents a function, method or constructor.
-    # To find out what kind of entity a GIFunctionInfo represents,
-    # call gi_function_info_get_flags().
-    # See also GICallableInfo for information on how to retrieve arguments
-    # and other metadata.
-
-    # # check whether the function is a method (i.e. has a self argument)
-    # function_args: list[FunctionArgumentSchema] = []
-
-    # callback_found: list[GI.TypeInfo] = []
-    # """callbacks found during function argument parsing"""
-
-    # # function_return_type = []
-    # # function_in_out = []
-    # for arg in attribute.get_arguments():
-    #     direction: Literal["IN", "OUT", "INOUT"]
-    #     if arg.get_direction() == GI.Direction.OUT:
-    #         direction = "OUT"
-    #     elif arg.get_direction() == GI.Direction.IN:
-    #         direction = "IN"
-    #     elif arg.get_direction() == GI.Direction.INOUT:
-    #         direction = "INOUT"
-    #     else:
-    #         raise ValueError("Invalid direction")
-
-    #     # in Gst.debug_log_default,
-    #     # user_data args is void but
-    #     # https://gstreamer.freedesktop.org/documentation/gstreamer/gstinfo.html?gi-language=python#gst_debug_log_default
-    #     # says it is a object
-    #     # Gst.debug_log_default.get_arguments()[7]
-
-    #     function_args.append(
-    #         FunctionArgumentSchema.from_gi_object(
-    #             obj=arg,
-    #             direction=direction,
-    #         )
-    #     )
-    #     # if any of the arguments is a callback, store it to be later parsed
-    #     if gi_type_is_callback(arg.get_type()):
-    #         callback_found.append(arg.get_type())
-
-    # docstring_field = docstring.get(attribute.get_name(), None)
-    # return FunctionSchema(
-    #     namespace=attribute.get_namespace(),
-    #     name=attribute.get_name(),
-    #     args=function_args,
-    #     _gi_type=attribute,
-    #     _gi_callbacks=callback_found,  # TODO: viene usato solo per salvarle e recuperarle fuori, ritornarle direttamente?
-    #     is_callback=is_callback,
-    #     docstring=docstring_field,
-    # )
-
-
-# def get_super_class_name(obj, start_pos=1):
-#     """
-#     The first element in mro is the class itself, so to get the super class
-#     we need to start from the second element.
-#     If the super class is from gi, we need to skip it and get the next one.
-#     (gi.Something are not importable)
-#     """
-#     mro = obj.mro()
-#     mro_pos = start_pos
-#     # print(mro[mro_pos], f"{mro[mro_pos].__module__}.{mro[mro_pos].__name__}")
-#     if mro[mro_pos].__module__ == "gi":
-#         return get_super_class_name(obj, mro_pos + 1)
-#     return f"{mro[mro_pos].__module__}.{mro[mro_pos].__name__}"
-
 
 def parse_class(
     namespace: str,
@@ -231,6 +179,17 @@ def parse_class(
 ) -> tuple[ClassSchema | None, list[GI.TypeInfo]]:
     # Check if it is a class #################
     if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
+        return None, []
+
+    if (
+        namespace.split(".")[-1].lower()
+        != str(class_to_parse.__module__).split(".")[-1].lower()
+    ):
+        # if the class is not in the same namespace as the module, skip it
+        # this can happen with classes from gi.repository that are not in the same namespace
+        logger.warning(
+            f"[SKIP][CLASS_IN_OTHER_NS]{class_to_parse}, {class_to_parse.__name__}, {str(class_to_parse.__module__)}"
+        )
         return None, []
 
     callbacks_found: list[GI.TypeInfo] = []
@@ -248,12 +207,29 @@ def parse_class(
         # Parse Props (they have a getter/setter depending on the flags)
         if hasattr(class_to_parse.__info__, "get_properties"):
             for prop in class_to_parse.__info__.get_properties():
+                # breakpoint()
+
+                prop_type = gi_type_to_py_type(prop.get_type())
+                prop_type_repr_namespace = get_py_type_namespace_repr(prop_type)
+                prop_type_repr_name = get_py_type_name_repr(prop_type)
+
+                prop_type_repr = prop_type_repr_name
+                if (
+                    prop_type_repr_namespace
+                    and prop_type_repr_namespace != sanitize_module_name(namespace)
+                ):
+                    prop_type_repr = f"{prop_type_repr_namespace}.{prop_type_repr_name}"
+
+                sanitized_name, comment = sanitize_variable_name(prop.get_name())
+
                 c = ClassPropSchema(
-                    name=prop.get_name(),
-                    type=str(gi_type_to_py_type(prop.get_type())),
+                    name=sanitized_name,
+                    type=str(prop_type),
                     is_deprecated=prop.is_deprecated(),
                     readable=bool(prop.get_flags() & GObject.ParamFlags.READABLE),
                     writable=bool(prop.get_flags() & GObject.ParamFlags.WRITABLE),
+                    type_repr=prop_type_repr,
+                    line_comment=f"#{comment}" if comment else None,
                 )
                 class_props.append(c)
                 class_parsed_elements.append(prop.get_name())
@@ -269,7 +245,17 @@ def parse_class(
     # do a second pass to get all the attributes not parsed by get_properties/get_methods
     # i.e class not from GI but added in overrides
     for attribute_name in dir(class_to_parse):
-        attribute = getattr(class_to_parse, attribute_name)
+        if attribute_name.startswith("__"):
+            # skip dunder methods
+            continue
+        try:
+            attribute = getattr(class_to_parse, attribute_name)
+        except AttributeError as e:
+            logger.warning(
+                f"Could not get attribute {attribute_name} from {class_to_parse.__name__}: {e}"
+            )
+            breakpoint()
+            continue
         attribute_type = type(attribute)
 
         # could not find any example of this but should work like this if present
@@ -288,7 +274,7 @@ def parse_class(
                 name=attribute_name,
                 obj=attribute,
                 docstring=None,  # TODO: retrieve docstring
-                # deprecation_warnings=None,  # TODO: retrieve deprecation warnings
+                deprecation_warnings=None,  # TODO: retrieve deprecation warnings
                 # docstring=module_docs.constants.get(attribute_name, None),
             ):
                 class_attributes.append(c)

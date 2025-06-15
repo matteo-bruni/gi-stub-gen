@@ -10,6 +10,7 @@ from gi_stub_generator.parse import (
     parse_function,
 )
 from gi_stub_generator.schema import (
+    AliasSchema,
     BuiltinFunctionSchema,
     ClassPropSchema,
     ClassSchema,
@@ -20,9 +21,16 @@ from gi_stub_generator.schema import (
     FunctionSchema,
     Module,
 )
+import logging
 
 # from gi_stub_generator.template import TEMPLATE
-from gi_stub_generator.utils import gi_callback_to_py_type, gi_type_to_py_type
+from gi_stub_generator.utils import (
+    catch_gi_deprecation_warnings,
+    get_symbol_name,
+    gi_callback_to_py_type,
+    gi_type_to_py_type,
+    sanitize_module_name,
+)
 from types import (
     FunctionType,
     ModuleType,
@@ -31,6 +39,8 @@ from types import (
 
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 # from gi.repository import GObject, GIRepository
+
+logger = logging.getLogger(__name__)
 
 
 def check_module(
@@ -49,7 +59,8 @@ def check_module(
 
     """
     module_attributes = dir(m)
-    module_name = m.__name__.split(".")[-1]
+    module_name = m.__name__
+    # module_name = m.__name__.split(".")[-1]
     module_constants: list[VariableSchema] = []
     """Constants found in the module, parsed as VariableSchema objects"""
 
@@ -70,34 +81,115 @@ def check_module(
 
     unknown_module_map_types: dict[str, list[str]] = {}
 
-    import warnings
-    import gi
+    module_aliases: list[AliasSchema] = []
+    """Aliases found in the module, parsed as AliasSchema objects"""
+
+    # processed_classes = {}
 
     # map all module attributes to their types
     for attribute_idx, attribute_name in enumerate(module_attributes):
+        logger.debug(
+            f"[{module_name}] ({attribute_idx + 1}/{len(module_attributes)}) checking {module_name}.{attribute_name}"
+        )
+
         if attribute_name.startswith("__"):
+            logger.warning(
+                f"\t[SKIP][{module_name}] skipping dunder attribute {attribute_name}"
+            )
             continue
-
+        # if attribute_idx > 4:
+        #     exit()
         attribute_deprecation_warnings: str | None = None
-        # check if the attribute is deprecated
-        # with warnings.catch_warnings(record=True) as captured_warnings:
-        #     warnings.simplefilter("always", category=gi.PyGIDeprecationWarning)  # type: ignore
-
-        #     # actually get the attribute
-        #     # only when doing this we can catch deprecation warnings
-        #     attribute = getattr(m, attribute_name)
-        #     attribute_type = type(attribute)
-
-        #     for warning in captured_warnings:
-        #         if issubclass(warning.category, gi.PyGIDeprecationWarning):  # type: ignore
-        #             attribute_deprecation_warnings = (
-        #                 f"{attribute_deprecation_warnings}. {warning.message}"
-        #                 if attribute_deprecation_warnings
-        #                 else str(warning.message)
-        #             )
 
         attribute = getattr(m, attribute_name)
         attribute_type = type(attribute)
+
+        ########################################################################
+        # check for aliases in same or other modules
+        ########################################################################
+        # alias in the same module
+        actual_attribute_name = (
+            attribute.__name__.split(".")[-1]
+            if hasattr(attribute, "__name__")
+            else attribute_name
+        )
+        if actual_attribute_name != attribute_name:
+            # we found an alias, ie GObject.Object is an alias for GObject.GObject
+
+            line_comment = None
+            if hasattr(attribute, "__module__"):
+                sanitized_module_name = sanitize_module_name(str(attribute.__module__))
+
+                if str(attribute.__module__).startswith(("gi.", "_thread")):
+                    line_comment = "# type: ignore"
+            else:
+                sanitized_module_name = module_name
+
+            module_aliases.append(
+                AliasSchema(
+                    name=attribute_name,
+                    target_name=attribute.__name__,
+                    target_namespace=sanitized_module_name,
+                    deprecation_warning=catch_gi_deprecation_warnings(
+                        module_name,
+                        attribute_name,
+                    ),
+                    line_comment=line_comment,
+                )
+            )
+
+            logger.debug(
+                f"\t[ALIAS][SAME_NS] {module_name}.{attribute_name} -> {attribute.__name__}\n"
+            )
+            continue
+
+        actual_attribute_module = (
+            (str(attribute.__module__)) if hasattr(attribute, "__module__") else None
+        )
+
+        # alias to another module
+        if (
+            actual_attribute_module
+            and module_name.split(".")[-1].lower()
+            != actual_attribute_module.split(".")[-1].lower()
+        ):
+            # warnings are caught on the expected module and attribute
+            w = catch_gi_deprecation_warnings(module_name, attribute_name)
+
+            sanitized_module_name = sanitized_module_name = sanitize_module_name(
+                str(attribute.__module__)
+            )
+
+            if sanitized_module_name == "gi" or sanitized_module_name == "builtins":
+                # many object have a gi. module (i.e. gi._gi.RegisteredTypeInfo -> gi.RegisteredTypeInfo)
+                # but any gi.<XX> in reality does not exist
+                module_aliases.append(
+                    AliasSchema(
+                        name=attribute_name,
+                        target_namespace=None,
+                        target_name=None,
+                        deprecation_warning=w,
+                        line_comment="# alias to gi.<XX> module or builtins that does not exist",
+                    )
+                )
+            else:
+                module_aliases.append(
+                    AliasSchema(
+                        name=attribute_name,
+                        target_namespace=sanitized_module_name,
+                        target_name=actual_attribute_name,
+                        deprecation_warning=w,
+                        line_comment="# type: ignore"
+                        if str(attribute.__module__).startswith(("gi.", "_thread"))
+                        else None,
+                    )
+                )
+
+            logger.debug(
+                f"\t[ALIAS][OTHER_NS] skipping {module_name}.{attribute_name} -> {attribute.__module__}.{attribute_name}\n"
+            )
+            continue
+
         #########################################################################
         # check for basic types if we are parsing GObject
         #########################################################################
@@ -143,10 +235,12 @@ def check_module(
             name=attribute_name,
             obj=attribute,
             docstring=gir_f_docs.constants.get(attribute_name, None),
-            # deprecation_warnings=attribute_deprecation_warnings,
-            # _gi_type=attribute_type,
+            deprecation_warnings=catch_gi_deprecation_warnings(
+                module_name, attribute_name
+            ),
         ):
             module_constants.append(c)
+            logger.debug(f"\t[CONSTANT] {attribute_name}\n")
             continue
 
         #########################################################################
@@ -165,6 +259,7 @@ def check_module(
                     docstring="TODO:",
                 )
             )
+            logger.debug(f"\t[FUNCTION][BUILTIN] {attribute_name}\n")
             continue
 
         if attribute_type == BuiltinFunctionType:
@@ -178,6 +273,7 @@ def check_module(
                     docstring="cant inspect builtin functions",
                 )
             )
+            logger.debug(f"\t[FUNCTION][BUILTIN] {attribute_name}\n")
             continue
             # i.e  GObject.add_emission_hook
 
@@ -196,20 +292,21 @@ def check_module(
         if f := parse_function(
             attribute,
             gir_f_docs.functions,
-            attribute_deprecation_warnings,
+            deprecation_warnings=catch_gi_deprecation_warnings(
+                module_name, attribute_name
+            ),
         ):
             module_functions.append(f)
             # callbacks can be found as arguments of functions, save them to be parsed later
             callbacks_found.extend(f._gi_callbacks)
-            # if f.name == "meta_api_type_register":
-            #     breakpoint()
+
+            logger.debug(f"\t[FUNCTION] {attribute_name}\n")
             continue
 
         #########################################################################
         # check if the attribute is an Enum/Flags
         #########################################################################
-        # if attribute_name == "GType":
-        #     breakpoint()
+
         if e := parse_enum(
             attribute,
             gir_f_docs.enums,
@@ -218,6 +315,7 @@ def check_module(
             # if e.name in gir_f_docs["enums"]:
             #    e.docstring = gir_f_docs["enums"][e.name]
             module_enums.append(e)
+            logger.debug(f"\t[ENUM] {attribute_name}\n")
             continue
 
         #########################################################################
@@ -230,6 +328,17 @@ def check_module(
             deprecation_warnings=attribute_deprecation_warnings,
         )
         if class_schema:
+            # if f"{attribute}" in processed_classes:
+            #     logger.warning(
+            #         f"[DUPLICATE]"
+            #         f"<{attribute.__module__}.{attribute.__name__}> "
+            #         f"vs "
+            #         f"<{processed_classes[f'{attribute}'].__module__}.{processed_classes[f'{attribute}'].__name__}> "
+            #         f"Class {class_schema.name} already exists in the module {module_name}. "
+            #     )
+            # else:
+            #     processed_classes[f"{attribute}"] = attribute
+
             module_classes.append(class_schema)
             callbacks_found.extend(class_callbacks_found)
             # if class_schema.name == "Error":
@@ -240,6 +349,7 @@ def check_module(
             #         "This is likely a bug in the gir parser, please open an issue."
             #     )
             # unique_classes.add(class_schema.name)
+            logger.debug(f"\t[CLASS] {attribute_name}\n")
             continue
 
         #########################################################################
@@ -252,6 +362,8 @@ def check_module(
         else:
             unknown_module_map_types[unknown_key] = [attribute_name]
 
+        logger.warning(f"\t[??][UNKNOWN] {attribute_name}\n")
+
     # just filter only the callbacks used in the module
     module_used_callbacks: list[FunctionSchema] = []
     for c in callbacks_found:
@@ -260,6 +372,16 @@ def check_module(
             raise NotImplementedError("Nested callbacks not implemented")
         if f:
             module_used_callbacks.append(f)
+
+    # log the unknown types
+    if len(unknown_module_map_types) > 0:
+        logger.warning("" + "#" * 80)
+        logger.warning(f"[{module_name}] Unknown types found in the module:")
+        for unknown_type, attributes in unknown_module_map_types.items():
+            logger.warning(f"- {unknown_type}: {attributes}")
+
+    else:
+        logger.info(f"[{module_name}] No unknown types found in the module")
 
     return Module(
         name=module_name,
@@ -270,90 +392,9 @@ def check_module(
         builtin_function=module_builtin_functions,
         used_callbacks=module_used_callbacks,
         classes=module_classes,
+        aliases=module_aliases,
     ), unknown_module_map_types
     # print("Has Info")
     # for key, value in has_info.items():
     #     print(f"- {key}: {value}")
     #     print("\n")
-
-
-# def main():
-#     # module = GstVideo
-#     module = Gst
-#     docs = gir_docs(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
-
-#     # obtain docs from gir if available
-#     # module = GObject
-#     # docs = gir_docs(Path("/usr/share/gir-1.0/GObject-2.0.gir"))
-
-#     data, unknown_module_map_types = check_module(module, docs)
-#     # data, unknown_module_map_types = check_module(Gst)
-#     environment = jinja2.Environment()
-#     output = environment.from_string(TEMPLATE)
-
-#     print(
-#         output.render(
-#             module=module.__name__.split(".")[-1],
-#             constants=data.constant,
-#             enums=data.enum,
-#             functions=data.function,
-#             classes=data.classes,
-#         )
-#     )
-
-#     print("#" * 80)
-#     print("# Unknown/Not parsed elements")
-#     print("#" * 80)
-#     for key, value in unknown_module_map_types.items():
-#         print(f"- {key=}: \n{value=}")
-#         print("\n")
-#     return
-
-#     print("#" * 80)
-#     print("# enum/flags")
-#     print("#" * 80)
-#     for f in data.enum:
-#         print(f)
-
-#     print("#" * 80)
-#     print("# constants")
-#     print("#" * 80)
-#     for f in data.constant:
-#         print(f)
-
-#     print("#" * 80)
-#     print("# callbacks")
-#     print("#" * 80)
-#     for f in data.used_callbacks:
-#         print(f)
-
-#     print("#" * 80)
-#     print("# builtin functions")
-#     print("#" * 80)
-#     for f in data.builtin_function:
-#         print(f)
-
-#     print("#" * 80)
-#     print("# functions")
-#     print("#" * 80)
-#     for f in data.function:
-#         print(f)
-
-#     print("#" * 80)
-#     print("# classes")
-#     print("#" * 80)
-#     for f in data.classes:
-#         print(f)
-
-#     print("#" * 80)
-#     print("# Unknown/Not parsed elements")
-#     print("#" * 80)
-#     for key, value in unknown_module_map_types.items():
-#         print(f"- {key}: \n{value}")
-#         print("\n")
-
-#     # print(data.model_dump_json(indent=2))
-
-
-# if __name__ == "__main__":
-#     main()

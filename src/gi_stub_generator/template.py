@@ -7,9 +7,11 @@ from typing import Tuple
 from typing import Type
 from typing import TypeVar
 from typing_extensions import deprecated
-
+import types
+import pkgutil
 import gi
 import gi._gi as GI # type: ignore
+import _thread
 from gi.repository import GLib
 from gi.repository import GObject
 
@@ -43,7 +45,11 @@ class {{e.name}}({{e.py_super_type_str}}):
 ##############################################################
 
 {% for c in constants -%}
+{% if c.is_enum_or_flags -%}
+{{c.name}} = {{c.value_repr}}
+{% else -%}
 {{c.name}}: {{c.type_repr}} = {{c.value_repr}}
+{% endif -%}
 {% if debug -%}
 \"\"\"
 {{c.debug}}
@@ -95,28 +101,44 @@ def {{f.name}}(
 
 {% for c in classes -%}
 class {{c.name}}({{','.join(c.super)}}):
-
-    {%- if c.docstring and c.docstring.class_docstring %}
+    {% if debug -%}
+    \"\"\"
+    {{c.debug}}
+    \"\"\"
+    {% elif c.docstring and c.docstring.class_docstring -%}
     \"\"\"
     {{c.docstring.class_docstring}}
-
-    {%- if debug %}
-    Debug info:
-
-    {{c}}
-    
-    {% endif -%}
-    {%- if c.docstring.extra %}
-    #####
-    unknown fields (remove me):
-    {% for k, v in c.docstring.extra.items() %}
-    {{k}}: {{v}}
-    {% endfor %}
-    {% endif %}
     \"\"\"
     {% endif -%}
+
+    {% if c.props -%}
+    class Props:
+        {% for p in c.props %}
+        {% if p.is_deprecated -%}
+        @deprecated(reason="TODO??")
+        {% endif -%}
+        {{p.name}}: {{p.type_repr}} {% if p.line_comment %}{{ p.line_comment }}{% endif %}
+        {%- endfor %}
+        
+    props: Props = ...
+    {% endif -%}
+
     ...
 
+{% endfor %}
+
+
+##############################################################
+# Aliases
+##############################################################
+
+{% for a in aliases -%}
+{{a.name}} = {{a.target_repr}} {% if a.line_comment %}{{ a.line_comment }}{% endif %}
+{% if a.docstring -%}
+\"\"\"
+{{a.docstring}}
+\"\"\"
+{% endif -%}
 {% endfor %}
 
 """

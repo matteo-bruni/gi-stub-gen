@@ -1,10 +1,15 @@
 import importlib
+import keyword
 from typing import Any
+import ast
+import logging
+import gi
 import gi._gi as GI  # type: ignore
 from gi._gi import Repository  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject  # pyright: ignore[reportMissingModuleSource]
 # from typing import Sequence, Mapping
 
+logger = logging.getLogger(__name__)
 repository = Repository.get_default()
 
 # references
@@ -202,30 +207,36 @@ def get_super_class_name(obj, current_namespace: str | None = None):
     # but if there is an override, the first class is the override
     # so the super class is the second class in the mro
     # loop all mro until we find a class with __name__ different from obj.__name__
+    # TODO: should we skip gi._gi module?
     super_class = next(
         (
             cls
-            for cls in obj.mro()
+            for cls in obj.__mro__
+            # for cls in obj.mro()
             if cls.__name__ != obj.__name__ and str(cls.__module__) != "gi._gi"
         ),
         object,
     )
 
     super_module = super_class.__module__
-    super_module_name = (
-        str(super_module).removeprefix("gi.repository.").removeprefix("gi.overrides.")
-    )
+    super_module_name = sanitize_module_name(str(super_module))
+
     if super_module_name == "gi":
         super_module_name = "GI"
-    if super_module_name == "builtins":
+    # elif super_module_name == "module":
+    #     super_module_name = "types.ModuleType"
+    elif super_module_name == "builtins":
+        if super_class.__name__ == "module":
+            # if the super class is a module, return types.ModuleType
+            return "types.ModuleType"
         return super_class.__name__
 
     # if the super class is in the same namespace as the current class
     # return only the class name
-    if super_module_name == current_namespace:
+    if super_module_name == sanitize_module_name(current_namespace):
         return super_class.__name__
     # in typing it is uppercase
-    super_module_name = super_module_name.replace("gobject", "GObject")
+    # super_module_name = super_module_name.replace("gobject", "GObject")
     return f"{super_module_name}.{super_class.__name__}"
 
 
@@ -240,9 +251,6 @@ def get_py_type_namespace_repr(py_type: Any) -> str | None:
         return f"{py_type.__info__.get_namespace()}"  # pyright: ignore[reportAttributeAccessIssue, reportOptionalMemberAccess]
 
     from inspect import getmodule
-    # TODO: What was debugging for?
-    # if str(py_type) == "Gst.Bin":
-    #     breakpoint()
 
     # we can use getmodule to get the module of the type
     if module_namespace := getmodule(py_type):
@@ -276,7 +284,10 @@ def get_py_type_name_repr(py_type: Any) -> str:
     return str(py_type)
 
 
-def catch_gi_deprecation_warnings(obj: Any, attribute_name: str) -> str | None:
+def catch_gi_deprecation_warnings(
+    attribute_module: Any,
+    attribute_name: str,
+) -> str | None:
     """
     This will catch deprecation warnings for a gi object attribute
     This will re-instantiate the module and try to access the attribute
@@ -293,13 +304,11 @@ def catch_gi_deprecation_warnings(obj: Any, attribute_name: str) -> str | None:
     import warnings
     import gi
 
-    if not hasattr(obj, "__info__"):
-        return None
+    # if not hasattr(obj, "__info__"):
+    #     return None
 
-    module = importlib.import_module(
-        f".{obj.__info__.get_namespace()}",
-        "gi.repository",
-    )
+    # we dont pass version because at this point it was already requested
+    module = get_module_from_name(attribute_module, None)
 
     attribute_deprecation_warnings: str | None = None
     with warnings.catch_warnings(record=True) as captured_warnings:
@@ -307,6 +316,8 @@ def catch_gi_deprecation_warnings(obj: Any, attribute_name: str) -> str | None:
 
         # actually get the attribute
         # only when doing this we can catch deprecation warnings
+        # getattr(module, attribute_name)
+        # getattr(module, get_name(obj))
         getattr(module, attribute_name)
 
         for warning in captured_warnings:
@@ -318,3 +329,83 @@ def catch_gi_deprecation_warnings(obj: Any, attribute_name: str) -> str | None:
                 )
 
     return attribute_deprecation_warnings
+
+
+def get_symbol_name(obj):
+    """
+    retrieve the variable name of the object
+    """
+    frame = inspect.currentframe().f_back  # type: ignore
+    call_line = inspect.getframeinfo(frame).code_context[0].strip()  # type: ignore
+    tree = ast.parse(call_line)
+
+    class Visitor(ast.NodeVisitor):
+        def __init__(self):
+            self.symbol = None
+
+        def visit_Call(self, node):
+            if hasattr(node, "args") and node.args:
+                arg = node.args[0]
+                if isinstance(arg, ast.Attribute):
+                    self.symbol = arg.attr  # <--- Qui ottieni "IO_ERR"
+            self.generic_visit(node)
+
+    visitor = Visitor()
+    visitor.visit(tree)
+    return visitor.symbol
+
+
+def get_module_from_name(
+    module_name: str,
+    version: str | None,
+) -> Any:
+    """
+    Get the module from its name.
+    This is useful to get the module from a string representation of the module name.
+    """
+
+    if version:
+        gi.require_version(module_name, version)
+
+    if module_name.startswith("gi"):
+        return importlib.import_module(f"{module_name}")
+
+    # we got only the final part of the module name
+    return importlib.import_module(f".{module_name}", "gi.repository")
+
+
+def sanitize_module_name(module_name: Any) -> str:
+    """
+    Sanitize the module name to be used in the gi.repository namespace.
+    This will remove the gi.repository prefix and return the module name.
+    """
+    return (
+        str(module_name)
+        .removeprefix("gi.repository.")
+        .removeprefix("gi.overrides.")
+        .replace("gobject", "GObject")
+        .replace("glib", "GLib")
+    )
+
+
+def sanitize_variable_name(name: str) -> tuple[str, str | None]:
+    """
+    Sanitize a variable name to be a valid Python identifier.
+    This will replace hyphens with underscores, check if the name is a keyword,
+    and ensure it is a valid identifier.
+    If the name is a keyword, it will prepend an underscore to it.
+    If the name is not a valid identifier, it will prepend an underscore to it.
+    Args:
+        name (str): The name to sanitize.
+    Returns:
+        tuple[str, bool]: A tuple containing the sanitized name and a boolean indicating
+                          if the name was modified to be valid.
+    """
+    name = name.replace("-", "_")
+    if keyword.iskeyword(name):
+        return f"_{name}", "changed due to name is a python keyword"
+
+    if name.isidentifier():
+        return name, None
+
+    return f"_{name}", "changed due to not a valid identifier"  
