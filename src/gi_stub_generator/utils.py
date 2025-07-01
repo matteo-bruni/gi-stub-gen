@@ -155,6 +155,10 @@ def gi_type_to_py_type(
             # TODO: Protocol of the callback
             return f"{ns}.{iface_name}"
 
+        elif isinstance(iface, GI.UnresolvedInfo):
+            # TODO: like Callback cannot be resolved, create a Protocol
+            return f"{ns}.{iface_name} # TODO: unresolved"
+
         # TODO: make sure it is accessible with try catch
         # if the interface is a callback it will raise a NotImplementedError
         # and we can type it with a protocol
@@ -408,4 +412,4 @@ def sanitize_variable_name(name: str) -> tuple[str, str | None]:
     if name.isidentifier():
         return name, None
 
-    return f"_{name}", "changed due to not a valid identifier"  
+    return f"_{name}", "changed due to not a valid identifier"
