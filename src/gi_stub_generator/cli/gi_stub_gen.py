@@ -47,6 +47,7 @@ def main(
                 constants=data.constant,
                 enums=data.enum,
                 functions=data.function,
+                builtin_function=data.builtin_function,
                 classes=data.classes,
                 debug=debug,
                 aliases=data.aliases,

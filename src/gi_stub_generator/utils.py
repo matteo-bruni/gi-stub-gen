@@ -335,28 +335,28 @@ def catch_gi_deprecation_warnings(
     return attribute_deprecation_warnings
 
 
-def get_symbol_name(obj):
-    """
-    retrieve the variable name of the object
-    """
-    frame = inspect.currentframe().f_back  # type: ignore
-    call_line = inspect.getframeinfo(frame).code_context[0].strip()  # type: ignore
-    tree = ast.parse(call_line)
+# def get_symbol_name(obj):
+#     """
+#     retrieve the variable name of the object
+#     """
+#     frame = inspect.currentframe().f_back  # type: ignore
+#     call_line = inspect.getframeinfo(frame).code_context[0].strip()  # type: ignore
+#     tree = ast.parse(call_line)
 
-    class Visitor(ast.NodeVisitor):
-        def __init__(self):
-            self.symbol = None
+#     class Visitor(ast.NodeVisitor):
+#         def __init__(self):
+#             self.symbol = None
 
-        def visit_Call(self, node):
-            if hasattr(node, "args") and node.args:
-                arg = node.args[0]
-                if isinstance(arg, ast.Attribute):
-                    self.symbol = arg.attr  # <--- Qui ottieni "IO_ERR"
-            self.generic_visit(node)
+#         def visit_Call(self, node):
+#             if hasattr(node, "args") and node.args:
+#                 arg = node.args[0]
+#                 if isinstance(arg, ast.Attribute):
+#                     self.symbol = arg.attr  # <--- Qui ottieni "IO_ERR"
+#             self.generic_visit(node)
 
-    visitor = Visitor()
-    visitor.visit(tree)
-    return visitor.symbol
+#     visitor = Visitor()
+#     visitor.visit(tree)
+#     return visitor.symbol
 
 
 def get_module_from_name(

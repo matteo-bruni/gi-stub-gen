@@ -481,6 +481,22 @@ class BuiltinFunctionSchema(BaseSchema):
     namespace: str
     signature: str
     docstring: str
+    return_repr: str
+    params: list[str]
+
+    # @property
+    # def return_repr(self):
+    #     """
+    #     Return the return type representation in template
+    #     """
+    #     return self.signature
+
+    @property
+    def debug(self):
+        """
+        Debug docstring
+        """
+        return f"{self.docstring}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
 
 
 class FunctionSchema(BaseSchema):

@@ -26,9 +26,9 @@ import logging
 # from gi_stub_generator.template import TEMPLATE
 from gi_stub_generator.utils import (
     catch_gi_deprecation_warnings,
-    get_symbol_name,
+    # get_symbol_name,
     gi_callback_to_py_type,
-    gi_type_to_py_type,
+    # gi_type_to_py_type,
     sanitize_module_name,
 )
 from types import (
@@ -251,15 +251,24 @@ def check_module(
         if attribute_type == FunctionType:
             # if std python function are found, parse via inspect
             # https://docs.python.org/3/library/inspect.html#inspect.getargvalues
+
+            # breakpoint()
             module_builtin_functions.append(
                 BuiltinFunctionSchema(
                     name=attribute_name,
                     namespace=module_name,
                     signature=str(inspect.signature(attribute)),
-                    docstring="TODO:",
+                    docstring=inspect.getdoc(attribute) or "No docstring",
+                    return_repr="None"
+                    if inspect.signature(attribute).return_annotation == inspect._empty
+                    else str(inspect.signature(attribute).return_annotation),
+                    params=[
+                        f"{p}: {v}"
+                        for p, v in inspect.signature(attribute).parameters.items()
+                    ],
                 )
             )
-            logger.debug(f"\t[FUNCTION][BUILTIN] {attribute_name}\n")
+            logger.debug(f"\t[FUNCTION][FunctionType] {attribute_name}\n")
             continue
 
         if attribute_type == BuiltinFunctionType:
@@ -271,9 +280,11 @@ def check_module(
                     namespace=module_name,
                     signature="(*args, **kwargs)",
                     docstring="cant inspect builtin functions",
+                    return_repr="Unknown",
+                    params=["*args, **kwargs"],
                 )
             )
-            logger.debug(f"\t[FUNCTION][BUILTIN] {attribute_name}\n")
+            logger.debug(f"\t[FUNCTION][BuiltinFunctionType] {attribute_name}\n")
             continue
             # i.e  GObject.add_emission_hook
 
