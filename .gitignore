@@ -11,3 +11,6 @@ wheels/
 
 ignore/
 test.pyi
+stubs/
+zold/
+.ruff_cache/

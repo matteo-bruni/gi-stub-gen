@@ -2,7 +2,7 @@ import inspect
 from pathlib import Path
 
 from pydantic import BaseModel
-from gi_stub_generator.gir_parser import ModuleDocs, gir_docs
+from gi_stub_generator.parser.gir import ModuleDocs, gir_docs
 from gi_stub_generator.parse import (
     parse_class,
     parse_constant,
@@ -19,7 +19,7 @@ from gi_stub_generator.schema import (
     VariableSchema,
     FunctionArgumentSchema,
     FunctionSchema,
-    Module,
+    ModuleSchema,
 )
 import logging
 
@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 def check_module(
     m: ModuleType,
     gir_f_docs: ModuleDocs,
-) -> tuple[Module, dict[str, list[str]]]:
+) -> tuple[ModuleSchema, dict[str, list[str]]]:
     """
     Check the module and parse its attributes into a Module object.
 
@@ -394,7 +394,7 @@ def check_module(
     else:
         logger.info(f"[{module_name}] No unknown types found in the module")
 
-    return Module(
+    return ModuleSchema(
         name=module_name,
         constant=module_constants,
         enum=module_enums,

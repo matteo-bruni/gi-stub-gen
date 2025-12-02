@@ -5,7 +5,7 @@ import gi._gi as GI  # type: ignore
 from gi._gi import Repository  # type: ignore
 from gi.repository import GObject
 import logging
-from gi_stub_generator.gir_parser import ClassDocs, FunctionDocs, ModuleDocs
+from gi_stub_generator.parser.gir import ClassDocs, FunctionDocs, ModuleDocs
 from gi_stub_generator.schema import (
     ClassPropSchema,
     ClassSchema,
@@ -77,7 +77,7 @@ def parse_constant(
         # type(getattr(Gst.BUFFER_COPY_METADATA, "__info__")) == GI.EnumInfo
         if type(info) is GI.EnumInfo:
             # if info.is_flags():
-            # at this point this can be the "flags" class or an atribute
+            # at this point this can be the "flags" class or an attribute
             # with a value of the flag class
             # if it is an attribute it is an instance of GObject.GFlags
             if isinstance(obj, (GObject.GFlags, GObject.GEnum)):
@@ -177,6 +177,17 @@ def parse_class(
     module_docs: ModuleDocs,
     deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> tuple[ClassSchema | None, list[GI.TypeInfo]]:
+    """
+    Parse a class and return a ClassSchema.
+
+    Args:
+        namespace (str): namespace of the class
+        class_to_parse (Any): class to be parsed
+        module_docs (ModuleDocs): module documentation
+    Returns:
+        ClassSchema | None: parsed class schema or None if the class is not parsable
+    """
+    ###############
     # Check if it is a class #################
     if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
         return None, []

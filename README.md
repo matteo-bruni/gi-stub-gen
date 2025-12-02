@@ -50,7 +50,7 @@ sudo apt install \
 
 TODO CHANGEME
 ```
-gi_stub_gen <library_name> <library_version> > test.pyi
+gi_stub_gen <library_name> <gi_version> > test.pyi
 ```
 
 
@@ -62,4 +62,5 @@ gi_stub_gen <library_name> <library_version> > test.pyi
 - [ ] Add support Classes
 - [ ] Add support for GType constant
 - [ ] Rename
+- [ ] Add tests
 

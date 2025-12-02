@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import keyword
 import logging
-from gi_stub_generator.gir_parser import ClassDocs, FunctionDocs
+from gi_stub_generator.parser.gir import ClassDocs, FunctionDocs
 from gi_stub_generator.utils import (
     catch_gi_deprecation_warnings,
     get_py_type_name_repr,
@@ -311,6 +311,13 @@ class EnumSchema(BaseSchema):
         return (
             f"{deprecated}namespace={self.namespace} name={self.name} {mro}\n{args_str}"
         )
+
+    @property
+    def debug(self):
+        """
+        Debug docstring
+        """
+        return f"{self.docstring}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
 
 
 class FunctionArgumentSchema(BaseSchema):
@@ -794,7 +801,7 @@ class ClassSchema(BaseSchema):
 # cosa succede alle sotto classi? i.e Allocator.Props
 
 
-class Module(BaseSchema):
+class ModuleSchema(BaseSchema):
     name: str
     version: int = 1
     # attributes: list[Attribute]
@@ -805,3 +812,27 @@ class Module(BaseSchema):
     builtin_function: list[BuiltinFunctionSchema]
     used_callbacks: list[FunctionSchema]
     aliases: list[AliasSchema]
+
+    def to_pyi(self, debug=False) -> str:
+        """
+        Return the module as a pyi file
+        """
+        import jinja2
+        from gi_stub_generator.template import TEMPLATE
+
+        environment = jinja2.Environment()
+        output_template = environment.from_string(TEMPLATE)
+
+        sanitized_module_name = sanitize_module_name(self.name)
+
+        return output_template.render(
+            module=sanitized_module_name,
+            # module=module.__name__.split(".")[-1],
+            constants=self.constant,
+            enums=self.enum,
+            functions=self.function,
+            builtin_function=self.builtin_function,
+            classes=self.classes,
+            debug=debug,
+            aliases=self.aliases,
+        )

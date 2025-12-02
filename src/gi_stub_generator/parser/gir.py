@@ -1,3 +1,7 @@
+"""
+Parser for GIR files to extract documentation.
+"""
+
 from pathlib import Path
 from typing_extensions import TypedDict
 

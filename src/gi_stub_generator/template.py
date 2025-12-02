@@ -21,6 +21,11 @@ from gi.repository import GObject
 
 {% for e in enums -%}
 {% if e.namespace == module -%}
+{% if debug -%}
+\"\"\"
+{{e.debug}}
+\"\"\"
+{% endif -%}
 class {{e.name}}({{e.py_super_type_str}}):
     {% if e.docstring -%}
     \"\"\"

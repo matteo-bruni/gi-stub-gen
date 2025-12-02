@@ -1,7 +1,6 @@
 import importlib
 import keyword
 from typing import Any
-import ast
 import logging
 import gi
 import gi._gi as GI  # type: ignore
@@ -361,15 +360,20 @@ def catch_gi_deprecation_warnings(
 
 def get_module_from_name(
     module_name: str,
-    version: str | None,
+    gi_version: str | None,
 ) -> Any:
     """
     Get the module from its name.
     This is useful to get the module from a string representation of the module name.
     """
 
-    if version:
-        gi.require_version(module_name, version)
+    if gi_version:
+        try:
+            gi.require_version(module_name, gi_version)
+        except ValueError:
+            logger.warning(
+                f"Could not require gi version {gi_version} for module {module_name}"
+            )
 
     if module_name.startswith("gi"):
         return importlib.import_module(f"{module_name}")
