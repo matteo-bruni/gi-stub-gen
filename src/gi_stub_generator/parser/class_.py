@@ -2,173 +2,32 @@ from __future__ import annotations
 
 import gi
 import gi._gi as GI  # type: ignore
-from gi._gi import Repository  # type: ignore
 from gi.repository import GObject
-import logging
-from gi_stub_generator.parser.gir import ClassDocs, FunctionDocs, ModuleDocs
+
+from typing import Any
+from types import MethodDescriptorType
+
+from gi_stub_generator.parser.constant import parse_constant
+from gi_stub_generator.parser.function import parse_function
+from gi_stub_generator.parser.gir import ModuleDocs
 from gi_stub_generator.schema import (
     ClassPropSchema,
     ClassSchema,
-    EnumFieldSchema,
-    EnumSchema,
-    VariableSchema,
-    FunctionArgumentSchema,
     FunctionSchema,
+    VariableSchema,
 )
-from types import (
-    FunctionType,
-    ModuleType,
-    BuiltinFunctionType,
-    MethodDescriptorType,
-    MethodType,
-)
-from typing import Any, Literal
 from gi_stub_generator.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
-    gi_type_is_callback,
     gi_type_to_py_type,
-    is_py_builtin_type,
     sanitize_module_name,
     sanitize_variable_name,
 )
 
+
+import logging
+
 logger = logging.getLogger(__name__)
-repository = Repository.get_default()
-
-
-def parse_constant(
-    parent: str,
-    name: str,  # name of the attribute
-    obj: Any,  # actual object to be parsed
-    docstring: str | None,
-    deprecation_warnings: str | None,  # deprecation warnings if any
-):
-    """
-    Parse values and return a VariableSchema.
-    Return None if the object is not a module constant.
-
-    Args:
-        parent (str): parent module name
-        name (str): name of the attribute
-        obj (Any): object to be parsed
-
-    Returns:
-        VariableSchema | None
-    """
-
-    _gi_type = type(obj)
-
-    if _gi_type in (int, str, float, dict, tuple, list):
-        # if is_py_builtin_type(_gi_type):
-        return VariableSchema.from_gi_object(
-            obj=obj,
-            namespace=parent,
-            name=name,
-            docstring=docstring,
-            deprecation_warnings=deprecation_warnings,
-        )
-
-    # check if it is a constant from an enum/flag
-    if hasattr(obj, "__info__"):
-        info = getattr(obj, "__info__")
-        # both enums and flags have __info__ attribute of type EnumInfo
-        # example, this is a flag:
-        # type(getattr(Gst.BUFFER_COPY_METADATA, "__info__")) == GI.EnumInfo
-        if type(info) is GI.EnumInfo:
-            # if info.is_flags():
-            # at this point this can be the "flags" class or an attribute
-            # with a value of the flag class
-            # if it is an attribute it is an instance of GObject.GFlags
-            if isinstance(obj, (GObject.GFlags, GObject.GEnum)):
-                # or info.get_g_type().parent.name == "GFlags"
-                assert obj.is_integer(), f"{name} is not an enum/flag?"
-                return VariableSchema.from_gi_object(
-                    obj=obj,
-                    namespace=parent,
-                    name=name,
-                    docstring=docstring,
-                    deprecation_warnings=deprecation_warnings,
-                )
-
-    # TODO: handle GType elements (which lacks __info__ attribute)
-    if isinstance(obj, GObject.GType):
-        # GType is a type, not a value
-        # so we can not parse it as a constant
-        # but we can parse it as an enum/flag
-        return VariableSchema.from_gi_object(
-            obj=obj,
-            namespace=parent,
-            name=name,
-            docstring=docstring,
-            deprecation_warnings=deprecation_warnings,
-        )
-
-    return None
-
-
-def parse_enum(
-    attribute: Any,
-    docs: dict[str, ClassDocs],
-    deprecation_warnings: str | None,  # deprecation warnings if any
-) -> EnumSchema | None:
-    is_flags = isinstance(attribute, type) and issubclass(attribute, GObject.GFlags)
-    is_enum = isinstance(attribute, type) and issubclass(attribute, GObject.GEnum)
-
-    if is_flags or is_enum:
-        # GObject.Enum and Gobject.Flags do not have __info__ attribute
-        if hasattr(attribute, "__info__"):
-            _type_info = attribute.__info__  # type: ignore
-
-            # to retrieve its docstring we need to get the name of the class
-            class_name = attribute.__info__.get_name()  # type: ignore
-            class_doc_data = docs.get(class_name, None)
-
-            # class docstring
-            class_docstring = None
-            if class_doc_data:
-                class_docstring = class_doc_data.class_docstring
-
-            # parse all possible enum/flag values
-            # and retrieve their docstrings
-            args: list[EnumFieldSchema] = []
-            for v in _type_info.get_values():
-                element_docstring = None
-                if class_doc_data:
-                    element_docstring = class_doc_data.fields.get(v.get_name(), None)
-                args.append(
-                    EnumFieldSchema.from_gi_value_info(
-                        value_info=v,
-                        docstring=element_docstring,
-                        deprecation_warnings=deprecation_warnings,
-                    )
-                )
-            return EnumSchema.from_gi_object(
-                obj=attribute,
-                enum_type="flags" if is_flags else "enum",
-                fields=args,
-                docstring=class_docstring,
-            )
-
-    return None
-
-
-def parse_function(
-    attribute: Any,
-    docstring: dict[str, FunctionDocs],
-    deprecation_warnings: str | None,  # deprecation warnings if any
-) -> FunctionSchema | None:
-    is_callback = isinstance(attribute, GI.CallbackInfo)
-    is_function = isinstance(attribute, GI.FunctionInfo)
-
-    if not is_callback and not is_function:
-        # print("not a callback or function skip", type(attribute))
-        return None
-
-    return FunctionSchema.from_gi_object(
-        obj=attribute,
-        docstring=docstring.get(attribute.get_name(), None),
-    )
 
 
 def parse_class(
@@ -320,22 +179,3 @@ def parse_class(
         methods=class_methods,
         extra=extra,
     ), callbacks_found
-
-    # return ClassSchema(
-    #     namespace=namespace,
-    #     name=class_to_parse.__name__,
-    #     # super=[get_super_class_name(class_to_parse)],
-    #     super=[
-    #         get_super_class_name(class_to_parse),
-    #     ],
-    #     attributes=class_attributes,
-    #     methods=class_methods,
-    #     extra=extra,
-    #     props=class_props,
-    #     _gi_type=class_to_parse,
-    #     _gi_callbacks=callbacks_found,
-    #     docstring=module_docs.classes.get(class_to_parse.__name__, None),
-    # )
-    # print("***** start")
-    # print(class_schema)
-    # print("***** end")

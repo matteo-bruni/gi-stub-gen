@@ -19,7 +19,7 @@ gi_stub_gen \
 #     GstVideo \
 #     --pkg-name gi-gstreamer-stub \
 #     --pkg-version 0.0.1 \
-#     --gi-version 2.0 \
+#     --gi-version 1.0 \
 #     --output ./stubs \
 #     --gir-folder /usr/share/gir-1.0 \
 #     --debug \

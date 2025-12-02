@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 
 from gi_stub_generator.package import create_stub_package
-from gi_stub_generator.parser.module import check_module
+from gi_stub_generator.parser.module import parse_module
 from gi_stub_generator.parser.gir import gir_docs
 
 import typer
@@ -79,21 +79,12 @@ def main(
         module = get_module_from_name(module_name=module_name, gi_version=gi_version)
         docs = gir_docs(Path(f"{gir_folder}/{module_name}-{gi_version}.gir"))
 
-        parsed_module, unknown_module_map_types = check_module(module, docs)
+        parsed_module, unknown_module_map_types = parse_module(module, docs)
         stubs[module_name] = parsed_module.to_pyi(debug=debug)
-
-        # environment = jinja2.Environment()
-        # output_template = environment.from_string(TEMPLATE)
-        # stubs[module_name] = output_template.render(
-        #     module=module.__name__.split(".")[-1],
-        #     constants=parsed_module.constant,
-        #     enums=parsed_module.enum,
-        #     functions=parsed_module.function,
-        #     builtin_function=parsed_module.builtin_function,
-        #     classes=parsed_module.classes,
-        #     debug=debug,
-        #     aliases=parsed_module.aliases,
-        # )
+        if unknown_module_map_types:
+            logger.warning(
+                f"Unknown/Not parsed elements for module {module_name}: {unknown_module_map_types}"
+            )
 
     create_stub_package(
         root_folder=output,

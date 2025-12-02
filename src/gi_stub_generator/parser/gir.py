@@ -2,6 +2,8 @@
 Parser for GIR files to extract documentation.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
 from typing_extensions import TypedDict
 

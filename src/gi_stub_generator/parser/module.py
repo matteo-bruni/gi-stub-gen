@@ -1,13 +1,15 @@
+from __future__ import annotations
+
 import inspect
 from pathlib import Path
 
 from pydantic import BaseModel
+from gi_stub_generator.parser.constant import parse_constant
+from gi_stub_generator.parser.enum import parse_enum
+from gi_stub_generator.parser.function import parse_function
 from gi_stub_generator.parser.gir import ModuleDocs, gir_docs
-from gi_stub_generator.parse import (
+from gi_stub_generator.parser.class_ import (
     parse_class,
-    parse_constant,
-    parse_enum,
-    parse_function,
 )
 from gi_stub_generator.schema import (
     AliasSchema,
@@ -43,7 +45,7 @@ import gi._gi as GI  # pyright: ignore[reportMissingImports]
 logger = logging.getLogger(__name__)
 
 
-def check_module(
+def parse_module(
     m: ModuleType,
     gir_f_docs: ModuleDocs,
 ) -> tuple[ModuleSchema, dict[str, list[str]]]:
