@@ -78,8 +78,16 @@ def parse_class(
         if hasattr(class_to_parse.__info__, "get_properties"):
             for prop in class_to_parse.__info__.get_properties():
                 # breakpoint()
+                try:
+                    prop_type = gi_type_to_py_type(prop.get_type())
+                except AttributeError as e:
+                    # removed in pygobject 3.54.0?? was present in 3.50.0
+                    logger.warning(
+                        f"Could not get type for property {prop.get_name()} of class {class_to_parse.__name__}: {e}"
+                        "\nfalling back to type_info"
+                    )
+                    prop_type = gi_type_to_py_type(prop.get_type_info())
 
-                prop_type = gi_type_to_py_type(prop.get_type())
                 prop_type_repr_namespace = get_py_type_namespace_repr(prop_type)
                 prop_type_repr_name = get_py_type_name_repr(prop_type)
 

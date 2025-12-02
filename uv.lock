@@ -111,7 +111,7 @@ requires-dist = [
     { name = "jinja2", specifier = ">=3.1.5" },
     { name = "lxml", specifier = ">=5.3.1" },
     { name = "pydantic", specifier = ">=2.10.6" },
-    { name = "pygobject", specifier = "==3.50.0" },
+    { name = "pygobject", specifier = "==3.54.0" },
     { name = "pygobject-stubs", specifier = ">=2.12.0" },
     { name = "tomlkit", specifier = ">=0.13.3" },
     { name = "typer", specifier = ">=0.15.1" },
@@ -417,12 +417,12 @@ wheels = [
 
 [[package]]
 name = "pygobject"
-version = "3.50.0"
+version = "3.54.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pycairo" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2b/58/d34e67a79631177e3c08e7d02b5165147f590171f2cae6769502af5f7f7e/pygobject-3.50.0.tar.gz", hash = "sha256:4500ad3dbf331773d8dedf7212544c999a76fc96b63a91b3dcac1e5925a1d103", size = 1080367, upload-time = "2024-09-12T12:05:22.579Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/14/4a/69211cbd13b48f00f2e4bdeb6f2c3867854987e2727b1853b7d1b624d6e0/pygobject-3.54.0.tar.gz", hash = "sha256:4652a7cc7ff950a5099d56ac61a78c144629c20f8855a1306933b46b10f3b417", size = 1271756, upload-time = "2025-09-06T13:24:24.524Z" }
 
 [[package]]
 name = "pygobject-stubs"

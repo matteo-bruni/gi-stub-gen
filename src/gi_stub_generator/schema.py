@@ -356,7 +356,13 @@ class FunctionArgumentSchema(BaseSchema):
         obj: Any,
         direction: Literal["IN", "OUT", "INOUT"],
     ):
-        gi_type = obj.get_type()
+        try:
+            gi_type = obj.get_type()
+        except AttributeError as e:
+            # removed in pygobject 3.54.0?? was present in 3.50.0
+            logger.warning(f"Could not get gi type for argument {obj.get_name()}: {e}")
+            gi_type = obj.get_type_info()
+
         py_type = gi_type_to_py_type(gi_type)
 
         # TODO: create a protocol for callbacks
@@ -365,6 +371,19 @@ class FunctionArgumentSchema(BaseSchema):
             if gi_type_is_callback(gi_type)
             else get_py_type_name_repr(py_type)
         )
+
+        try:
+            array_length: int = gi_type.get_array_length()
+        except AttributeError as e:
+            # removed in pygobject 3.54.0?? was present in 3.50.0
+            logger.warning(
+                f"Could not get array length for argument {obj.get_name()}: {e}"
+            )
+            # https://valadoc.org/gobject-introspection-1.0/GI.TypeInfo.get_array_length.html
+            # the array length, or -1 if the type is not an array
+            # somehow in the newer pygobject this method is missing if not an array
+            array_length = -1
+            # breakpoint()
 
         return cls(
             namespace=obj.get_namespace(),
@@ -377,7 +396,7 @@ class FunctionArgumentSchema(BaseSchema):
             py_type_name=py_type_name_repr,
             is_deprecated=gi_type.is_deprecated(),
             tag_as_string=gi_type.get_tag_as_string(),
-            get_array_length=gi_type.get_array_length(),
+            get_array_length=array_length,
         )
 
     # def __init__(self, _object, **data):
@@ -643,8 +662,18 @@ class FunctionSchema(BaseSchema):
                 )
             )
             # if any of the arguments is a callback, store it to be later parsed
-            if gi_type_is_callback(arg.get_type()):
-                callback_found.append(arg.get_type())
+            try:
+                if gi_type_is_callback(arg.get_type()):
+                    callback_found.append(arg.get_type())
+
+            except AttributeError as e:
+                # removed in pygobject 3.54.0?? was present in 3.50.0
+                logger.warning(
+                    f"Could not get gi type for argument {arg.get_name()}: {e}"
+                )
+                gi_type_info = arg.get_type_info()
+                if gi_type_is_callback(gi_type_info):
+                    callback_found.append(gi_type_info)
 
         py_return_type = gi_type_to_py_type(obj.get_return_type())
 
