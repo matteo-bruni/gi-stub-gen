@@ -245,8 +245,15 @@ class EnumFieldSchema(BaseSchema):
         docstring: str | None,
         deprecation_warnings: str | None,
     ):
+        # TODO:
+        # value_info.get_name() != value_info.get_name_unescaped()
+        # example: GLib.IOCondition.IN_ vs GLib.IOCondition.IN
+        # gobject escape the name in get_name because "in" is a keyword in python
+        # for now we just use the unescaped name
+        # field_name = value_info.get_name()
+        field_name = value_info.get_name_unescaped()
         return cls(
-            name=value_info.get_name().upper(),
+            name=field_name.upper(),
             value=value_info.get_value(),
             value_repr=repr(value_info.get_value()),
             is_deprecated=value_info.is_deprecated(),
@@ -299,10 +306,14 @@ class EnumSchema(BaseSchema):
     @property
     def py_super_type_str(self) -> str:
         """Return the python type as a string (otherwise capitalization is wrong)"""
+
+        # in pygobject 3.50.0 GFlags and GEnum are in GObject namespace
         if self.namespace == "GObject":
             return "GFlags" if self.enum_type == "flags" else "GEnum"
 
         return "GObject.GFlags" if self.enum_type == "flags" else "GObject.GEnum"
+
+        # after pygobject 3.54.0 GFlags and GEnum are normal classes so we can
 
     def __str__(self):
         deprecated = "[DEPRECATED]" if self.is_deprecated else ""
@@ -360,7 +371,7 @@ class FunctionArgumentSchema(BaseSchema):
             gi_type = obj.get_type()
         except AttributeError as e:
             # removed in pygobject 3.54.0?? was present in 3.50.0
-            logger.warning(f"Could not get gi type for argument {obj.get_name()}: {e}")
+            # logger.warning(f"Could not get gi type for argument {obj.get_name()}: {e}")
             gi_type = obj.get_type_info()
 
         py_type = gi_type_to_py_type(gi_type)
@@ -376,9 +387,9 @@ class FunctionArgumentSchema(BaseSchema):
             array_length: int = gi_type.get_array_length()
         except AttributeError as e:
             # removed in pygobject 3.54.0?? was present in 3.50.0
-            logger.warning(
-                f"Could not get array length for argument {obj.get_name()}: {e}"
-            )
+            # logger.warning(
+            #     f"Could not get array length for argument {obj.get_name()}: {e}"
+            # )
             # https://valadoc.org/gobject-introspection-1.0/GI.TypeInfo.get_array_length.html
             # the array length, or -1 if the type is not an array
             # somehow in the newer pygobject this method is missing if not an array
@@ -537,66 +548,14 @@ class FunctionSchema(BaseSchema):
     _gi_callbacks: list[Any] = []
     """Callbacks found during function argument parsing, if any"""
 
-    # @computed_field
-    # @property
-    # def can_throw_gerror(self) -> bool:
-    #     return self._gi_type.can_throw_gerror()
-
-    # @computed_field
-    # @property
-    # def is_deprecated(self) -> bool:
-    #     return self._gi_type.is_deprecated()
-
-    # @computed_field
-    # @property
-    # def skip_return(self) -> bool:
-    #     return self._gi_type.skip_return()
     skip_return: bool
 
     is_deprecated: bool
     can_throw_gerror: bool
     """Whether this function can throw a GError"""
     may_return_null: bool
-    # @computed_field
-    # @property
-    # def may_return_null(self) -> bool:
-    #     return self._gi_type.may_return_null()
     is_method: bool
     """Whether this function is a method of a class"""
-    # @computed_field
-    # @property
-    # def is_method(self) -> bool:
-    #     if self.is_callback:
-    #         return False
-    #     return self._gi_type.is_method()
-    # @property
-    # def py_return_type_namespace(self) -> str | None:
-    #     return get_py_type_namespace_repr(self.py_return_type)
-    #     # if hasattr(self.py_return_type, "__info__"):
-    #     #     return f"{self.py_return_type.__info__.get_namespace()}"  # type: ignore
-    #     # return None
-    # @property
-    # def py_return_type_name(self):
-    #     if hasattr(self.py_return_type, "__info__"):
-    #         return f"{self.py_return_type.__info__.get_name()}"  # type: ignore
-    #     if hasattr(self.py_return_type, "__name__"):
-    #         return self.py_return_type.__name__  # type: ignore
-    #     return self.py_return_type
-    # @property
-    # def return_repr(self):
-    #     """
-    #     type representation in template
-    #     """
-    #     # {% if a.py_type_namespace and a.py_type_name != module %}{{a.py_type_namespace}}.{% endif %}{{a.py_type_name}} {% if a.may_be_null %}| None {% endif %}
-
-    #     is_nullable = " | None" if self.may_return_null else ""
-    #     if (
-    #         self.py_return_type_namespace
-    #         and self.py_return_type_namespace != self.namespace
-    #     ):
-    #         return f"{self.py_return_type_namespace}.{self.py_return_type_name}{is_nullable}"
-    #     return f"{self.py_return_type_name}{is_nullable}"
-
     return_repr: str
     """The return type representation in template"""
 
@@ -608,26 +567,6 @@ class FunctionSchema(BaseSchema):
     def output(self):
         return [arg for arg in self.args if arg.direction in ("OUT", "INOUT")]
 
-    # def __init__(
-    #     self,
-    #     _gi_type,
-    #     _gi_callbacks,
-    #     **data,
-    # ):
-    #     super().__init__(**data)
-    #     self._gi_type = _gi_type
-    #     self._gi_callbacks = _gi_callbacks
-
-    # return FunctionSchema(
-    #         namespace=attribute.get_namespace(),
-    #         name=attribute.get_name(),
-    #         _gi_type=attribute,
-    #         _gi_callbacks=callback_found,
-
-    #         args=function_args,
-    #         is_callback=is_callback,
-    #         docstring=docstring_field,
-    #     )gi_type = obj.get_type()
     @classmethod
     def from_gi_object(
         cls,
@@ -668,9 +607,9 @@ class FunctionSchema(BaseSchema):
 
             except AttributeError as e:
                 # removed in pygobject 3.54.0?? was present in 3.50.0
-                logger.warning(
-                    f"Could not get gi type for argument {arg.get_name()}: {e}"
-                )
+                # logger.warning(
+                #     f"Could not get gi type for argument {arg.get_name()}: {e}"
+                # )
                 gi_type_info = arg.get_type_info()
                 if gi_type_is_callback(gi_type_info):
                     callback_found.append(gi_type_info)
@@ -708,38 +647,17 @@ class FunctionSchema(BaseSchema):
             _gi_callbacks=callback_found,
         )
 
-    #     FunctionSchema(
-    #     namespace=attribute.get_namespace(),
-    #     name=attribute.get_name(),
-    #     args=function_args,
-    #     _gi_type=attribute,
-    #     _gi_callbacks=callback_found,  # TODO: viene usato solo per salvarle e recuperarle fuori, ritornarle direttamente?
-    #     is_callback=is_callback,
-    #     docstring=docstring_field,
-    # )
-    # def __str__(self):
-    #     deprecated = "[DEPRECATED]" if self.is_deprecated else ""
-    #     can_throw_gerror = (
-    #         "can_throw_gerror=True"
-    #         if self.can_throw_gerror
-    #         else "can_throw_gerror=False"
-    #     )
-    #     input_args = "\n".join([f"   - {arg}" for arg in self.input_args])
-    #     callback_str = "[CallbackInfo]" if self.is_callback else "[FunctionInfo]"
-    #     output_args = [
-    #         f"   - {self.py_return_type} nullable={self.may_return_null} repr={self.return_repr}"
-    #     ]
-    #     output_args.extend([f"   - {arg}" for arg in self.output])
-    #     output_args = "\n".join(output_args)
-    #     return (
-    #         f"{self.namespace}.{self.name} {callback_str} {deprecated}\n"
-    #         f"  namespace={self.namespace} name={self.name} is_method={self.is_method} {can_throw_gerror}\n"
-    #         f"  return_type={self.py_return_type} get_array_length={self._gi_type.get_return_type().get_array_length()} may_return_null={self.may_return_null} skip_return={self.skip_return}\n"
-    #         f"  Input Args:\n"
-    #         f"{input_args}\n"
-    #         f"  Output Args:\n"
-    #         f"{output_args}\n"
-    #     )
+    @property
+    def debug(self):
+        """
+        Debug docstring
+        """
+
+        data = ""
+        if self.docstring:
+            data = f"{self.docstring}"
+
+        return f"{data}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
 
 
 class ClassPropSchema(BaseSchema):

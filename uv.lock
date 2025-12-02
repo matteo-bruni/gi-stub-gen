@@ -95,6 +95,7 @@ dependencies = [
     { name = "pydantic" },
     { name = "pygobject" },
     { name = "pygobject-stubs" },
+    { name = "rich" },
     { name = "tomlkit" },
     { name = "typer" },
 ]
@@ -113,6 +114,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.10.6" },
     { name = "pygobject", specifier = "==3.54.0" },
     { name = "pygobject-stubs", specifier = ">=2.12.0" },
+    { name = "rich", specifier = ">=13.9.4" },
     { name = "tomlkit", specifier = ">=0.13.3" },
     { name = "typer", specifier = ">=0.15.1" },
 ]

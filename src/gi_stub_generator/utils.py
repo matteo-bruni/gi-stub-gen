@@ -271,10 +271,6 @@ def get_py_type_name_repr(py_type: Any) -> str:
     """
     Get the string representation of a python type or object
     """
-    # if gi_type_is_callback(self._gi_type):
-    #     # TODO: registrare protocollo
-    #     return f"TODOProtocol({py_type})"
-
     # if it is a GObject
     if hasattr(py_type, "__info__"):
         # assert False, f"which type is this? {py_type}: {py_type.__info__.get_name()}"

@@ -77,7 +77,11 @@ def {{f.name}}(
     {{a.name}}: {{a.type_repr}},
     {% endfor -%}
 ) -> {{f.return_repr}}:
-    {%- if f.docstring %}
+    {% if debug -%}
+    \"\"\"
+    {{f.debug}}
+    \"\"\"
+    {% elif f.docstring -%} 
     \"\"\"
     {{f.docstring.docstring}}
 

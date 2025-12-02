@@ -1,4 +1,6 @@
 import logging
+
+from rich.logging import RichHandler
 from pathlib import Path
 
 from gi_stub_generator.package import create_stub_package
@@ -94,9 +96,16 @@ def main(
     ] = False,
 ):
     # setup logging
-    logging.basicConfig(level=logging.DEBUG if debug else logging.INFO)
+    handler = RichHandler()
+    logging.basicConfig(
+        level=logging.DEBUG if debug else logging.INFO,
+        format="%(message)s",
+        datefmt="[%X]",
+        handlers=[handler],
+    )
 
     stubs: dict[str, str] = {}
+    unknown: dict[str, dict[str, list[str]]] = {}
     # gather info for all modules in this stub package
     # we assume all modules share the same gi version
     for module_name in name:
@@ -105,10 +114,23 @@ def main(
 
         parsed_module, unknown_module_map_types = parse_module(module, docs)
         stubs[module_name] = parsed_module.to_pyi(debug=debug)
-        if unknown_module_map_types:
-            logger.warning(
-                f"Unknown/Not parsed elements for module {module_name}: {unknown_module_map_types}"
-            )
+        unknown[module_name] = unknown_module_map_types
+        # if unknown_module_map_types:
+        #     logger.warning(
+        #         f"Unknown/Not parsed elements for module {module_name}: {unknown_module_map_types}"
+        #     )
+
+    logger.warning("#" * 80)
+    logger.warning("# Unknown/Not parsed elements")
+    logger.warning("#" * 80)
+    for module_name, unknown_module_map_types in unknown.items():
+        if len(unknown_module_map_types) > 0:
+            logger.warning(f"##### Module {module_name} #####")
+
+        for unknown_key, attributes in unknown_module_map_types.items():
+            logger.warning(f"\t- {unknown_key}")
+            for attribute in attributes:
+                logger.warning(f"\t\t{module_name}.{unknown_key}: {attribute}")
 
     create_stub_package(
         root_folder=output,

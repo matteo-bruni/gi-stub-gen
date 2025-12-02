@@ -82,10 +82,10 @@ def parse_class(
                     prop_type = gi_type_to_py_type(prop.get_type())
                 except AttributeError as e:
                     # removed in pygobject 3.54.0?? was present in 3.50.0
-                    logger.warning(
-                        f"Could not get type for property {prop.get_name()} of class {class_to_parse.__name__}: {e}"
-                        "\nfalling back to type_info"
-                    )
+                    # logger.warning(
+                    #     f"Could not get type for property {prop.get_name()} of class {class_to_parse.__name__}: {e}"
+                    #     "\nfalling back to type_info"
+                    # )
                     prop_type = gi_type_to_py_type(prop.get_type_info())
 
                 prop_type_repr_namespace = get_py_type_namespace_repr(prop_type)

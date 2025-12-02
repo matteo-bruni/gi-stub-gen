@@ -1,10 +1,15 @@
 from __future__ import annotations
 
+import logging
+from enum import Enum
 from typing import Any
+from venv import logger
 from gi.repository import GObject
 
 from gi_stub_generator.parser.gir import ClassDocs
 from gi_stub_generator.schema import EnumFieldSchema, EnumSchema
+
+logger = logging.getLogger(__name__)
 
 
 def parse_enum(
@@ -13,7 +18,10 @@ def parse_enum(
     deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> EnumSchema | None:
     is_flags = isinstance(attribute, type) and issubclass(attribute, GObject.GFlags)
-    is_enum = isinstance(attribute, type) and issubclass(attribute, GObject.GEnum)
+    is_enum = isinstance(attribute, type) and (
+        issubclass(attribute, GObject.GEnum)
+        or issubclass(attribute, Enum)  # due to new pygobject Enum support
+    )
 
     if is_flags or is_enum:
         # GObject.Enum and Gobject.Flags do not have __info__ attribute
@@ -48,6 +56,10 @@ def parse_enum(
                 enum_type="flags" if is_flags else "enum",
                 fields=args,
                 docstring=class_docstring,
+            )
+        else:
+            logger.warning(
+                f"Attribute {attribute} is an enum/flag but has no __info__ attribute. Skipping."
             )
 
     return None
