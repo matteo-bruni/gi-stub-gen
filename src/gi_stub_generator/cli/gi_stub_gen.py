@@ -34,6 +34,30 @@ def main(
             "Gstreamer version for Gst, GstVideo, etc...)"
         ),
     ],
+    pkg_author: Annotated[
+        str,
+        typer.Option(
+            help="Stub Package author name.",
+        ),
+    ] = "Name Surname",
+    pkg_author_email: Annotated[
+        str,
+        typer.Option(
+            help="Stub Package author email.",
+        ),
+    ] = "author@example.com",
+    pkg_description: Annotated[
+        str,
+        typer.Option(
+            help="Stub Package description.",
+        ),
+    ] = "Type stubs for GI libraries",
+    pkg_min_python_version: Annotated[
+        str,
+        typer.Option(
+            help="Minimum Python version required for the stub package.",
+        ),
+    ] = "3.12",
     gi_version: Annotated[
         str | None,
         typer.Option(help="GI Library version"),
@@ -91,10 +115,10 @@ def main(
         stubs=stubs,
         name=pkg_name,
         version=pkg_version,
-        description=f"Type stubs for {name} GI module",
-        author_name="Name Surname",
-        author_email="author@example.com",
-        min_python_version="3.12",
+        description=pkg_description,
+        author_name=pkg_author,
+        author_email=pkg_author_email,
+        min_python_version=pkg_min_python_version,
         overwrite=overwrite,
     )
 
