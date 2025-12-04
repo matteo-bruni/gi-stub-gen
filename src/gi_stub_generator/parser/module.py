@@ -56,6 +56,7 @@ logger = logging.getLogger(__name__)
 def parse_module(
     m: ModuleType,
     gir_f_docs: ModuleDocs,
+    debug: bool = False,
 ) -> tuple[ModuleSchema, dict[str, list[str]]]:
     """
     Check the module and parse its attributes into a Module object.
@@ -113,7 +114,11 @@ def parse_module(
         TextColumn("[progress.description]{task.description}"),
     ]
 
-    with Progress(*progress_columns, console=logging_console) as progress:
+    with Progress(
+        *progress_columns,
+        console=logging_console,
+        disable=debug,
+    ) as progress:
         task = progress.add_task("[red]Processing...", total=len(module_attributes))
 
         for attribute_idx, attribute_name in enumerate(module_attributes):

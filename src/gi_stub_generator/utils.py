@@ -6,7 +6,10 @@ import gi
 import gi._gi as GI  # type: ignore
 from gi._gi import Repository  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject  # pyright: ignore[reportMissingModuleSource]
+
 # from typing import Sequence, Mapping
+from pathlib import Path
+import typing
 
 logger = logging.getLogger(__name__)
 repository = Repository.get_default()
@@ -354,6 +357,17 @@ def catch_gi_deprecation_warnings(
 #     return visitor.symbol
 
 
+def split_gi_name_version(name_version: str) -> tuple[str, str | None]:
+    """
+    Split a name:version string into a tuple of name and version.
+    If the version is not present, return None for the version.
+    """
+    if ":" in name_version:
+        module_name, gi_version = name_version.split(":", maxsplit=1)
+        return module_name, gi_version
+    return name_version, None
+
+
 def get_module_from_name(
     module_name: str,
     gi_version: str | None,
@@ -363,7 +377,7 @@ def get_module_from_name(
     This is useful to get the module from a string representation of the module name.
     """
 
-    if gi_version:
+    if gi_version is not None:
         try:
             gi.require_version(module_name, gi_version)
         except ValueError:
@@ -413,3 +427,163 @@ def sanitize_variable_name(name: str) -> tuple[str, str | None]:
         return name, None
 
     return f"_{name}", "changed due to not a valid identifier"
+
+
+import typing
+
+
+def infer_type_str(obj) -> str:
+    """
+    Restituisce una stringa rappresentante il type hint dell'oggetto passato.
+    """
+    if obj is None:
+        return "None"
+
+    # Ottieni il tipo base
+    t_name = type(obj).__name__
+
+    # Gestione Dizionari: dict[KeyType, ValueType]
+    if isinstance(obj, dict):
+        if not obj:
+            return "dict[typing.Any, typing.Any]"  # O semplicemente dict
+
+        # Raccogli i tipi unici delle chiavi e dei valori
+        key_types = sorted(list(set(infer_type_str(k) for k in obj.keys())))
+        val_types = sorted(list(set(infer_type_str(v) for v in obj.values())))
+
+        k_str = " | ".join(key_types) if len(key_types) > 1 else key_types[0]
+        v_str = " | ".join(val_types) if len(val_types) > 1 else val_types[0]
+
+        # Aggiungi Union se necessario (o usa la sintassi | per Python 3.10+)
+        if len(key_types) > 1:
+            k_str = f"typing.Union[{', '.join(key_types)}]"
+        if len(val_types) > 1:
+            v_str = f"typing.Union[{', '.join(val_types)}]"
+
+        return f"dict[{k_str}, {v_str}]"
+
+    # Gestione Tuple: tuple[Type1, Type2, ...]
+    elif isinstance(obj, tuple):
+        if not obj:
+            return "tuple[()]"
+        # Per le tuple, mappiamo ogni singolo elemento in ordine
+        elem_types = [infer_type_str(e) for e in obj]
+        return f"tuple[{', '.join(elem_types)}]"
+
+    # Gestione Liste: list[Type] (assumiamo liste omogenee o Union)
+    elif isinstance(obj, list):
+        if not obj:
+            return "list[typing.Any]"
+        elem_types = sorted(list(set(infer_type_str(e) for e in obj)))
+
+        if len(elem_types) > 1:
+            union_content = ", ".join(elem_types)
+            return f"list[typing.Union[{union_content}]]"
+        else:
+            return f"list[{elem_types[0]}]"
+
+    # Gestione Tipi Primitivi (int, str, bool, float)
+    # Nota: bool è sottoclasse di int, ma type(True) è 'bool', quindi funziona.
+    return t_name
+
+
+def _get_union_str(type_list: list[str]) -> str:
+    """
+    Helper to create a sorted, deduplicated Union string using modern syntax (|).
+    Example: ['int', 'str', 'int'] -> 'int | str'
+    """
+    unique_types = sorted(list(set(type_list)))
+    return " | ".join(unique_types)
+
+
+def get_type_hint(obj) -> str:
+    """
+    Recursively infers the type hint of a runtime object,
+    generating a string suitable for .pyi stubs.
+    Uses modern syntax (dict, list, tuple, |).
+    """
+    # 1. Handle None
+    if obj is None:
+        return "None"
+
+    # 2. Handle Dictionaries: dict[KeyType, ValueType]
+    if isinstance(obj, dict):
+        if not obj:
+            return "dict[typing.Any, typing.Any]"
+
+        # Recursively get types for all keys and values
+        key_hint = _get_union_str([get_type_hint(k) for k in obj.keys()])
+        val_hint = _get_union_str([get_type_hint(v) for v in obj.values()])
+
+        return f"dict[{key_hint}, {val_hint}]"
+
+    # 3. Handle Lists: list[Type] (treated as homogenous or Union)
+    elif isinstance(obj, list):
+        if not obj:
+            return "list[typing.Any]"
+
+        elem_hint = _get_union_str([get_type_hint(e) for e in obj])
+        return f"list[{elem_hint}]"
+
+    # 4. Handle Tuples: tuple[Type1, Type2, ...] (treated as fixed structure)
+    elif isinstance(obj, tuple):
+        if not obj:
+            return "tuple[()]"
+
+        # Tuples preserve order and allow duplicates (e.g. tuple[int, int])
+        elem_hints = [get_type_hint(e) for e in obj]
+        return f"tuple[{', '.join(elem_hints)}]"
+
+    # 5. Handle Primitives and Instances
+    return type(obj).__name__
+
+
+def redact_stub_value(obj: typing.Any) -> str:
+    """
+    Recursively redacts sensitive or overly specific values in stub representations.
+    This includes:
+    - Absolute file paths (replaced with "...")
+    - Primitive values (int, float, bool, None) are kept as-is
+    - Collections (list, tuple, set, dict) are recursively redacted
+    Args:
+        obj (typing.Any): The object to redact.
+    Returns:
+        str: The redacted string representation.
+    """
+    # 1. Strings: Censor existing absolute paths
+    if isinstance(obj, str):
+        try:
+            if Path(obj).is_absolute() and Path(obj).exists():
+                return "..."
+        except (OSError, ValueError):
+            pass
+        return repr(obj)
+
+    # 2. Primitives & Ellipsis
+    if obj is Ellipsis:
+        return "..."
+    if isinstance(obj, (int, float, bool, type(None))):
+        return repr(obj)
+
+    # 3. Collections (Recursive)
+    fmt = redact_stub_value  # Short alias for recursion
+
+    if isinstance(obj, (list, tuple, set)):
+        # Sort sets for deterministic output, keep others ordered
+        items = sorted(obj, key=str) if isinstance(obj, set) else obj
+        # Map all items recursively
+        parts = [fmt(x) for x in items]
+        body = ", ".join(parts)
+
+        if isinstance(obj, list):
+            return f"[{body}]"
+        if isinstance(obj, set):
+            return f"{{{body}}}" if body else "set()"
+        # Tuple: needs trailing comma if singleton
+        return f"({body}{',' if len(parts) == 1 else ''})"
+
+    if isinstance(obj, dict):
+        body = ", ".join(f"{fmt(k)}: {fmt(v)}" for k, v in obj.items())
+        return f"{{{body}}}"
+
+    return repr(obj)

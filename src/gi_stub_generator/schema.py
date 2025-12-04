@@ -8,6 +8,9 @@ from gi_stub_generator.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
     get_super_class_name,
+    get_type_hint,
+    infer_type_str,
+    redact_stub_value,
     sanitize_module_name,
 )
 from gi_stub_generator.utils import (
@@ -143,7 +146,9 @@ class VariableSchema(BaseSchema):
         name: str,
         docstring: str | None,
         deprecation_warnings: str | None = None,
+        keep_builtin_value: bool = False,
     ):
+        # breakpoint()
         sanitized_namespace = sanitize_module_name(namespace)
         object_type = type(obj)
         object_type_namespace: str | None = None
@@ -163,7 +168,19 @@ class VariableSchema(BaseSchema):
         is_enum_or_flags = False
 
         if is_py_builtin_type(object_type):
-            value_repr = repr(obj)
+            # remove sensitive information from value representation
+            # i.e paths from string or
+            if keep_builtin_value:
+                value_repr = redact_stub_value(obj)
+            else:
+                value_repr = "..."
+            # or remove directly the value from builtin types
+            # value_repr = "..."
+            # value_repr = repr(obj)
+            if isinstance(obj, (dict, list, tuple)):
+                # for dicts we also include the type representation
+                # value_repr = "..."
+                object_type_repr = get_type_hint(obj)
 
         elif hasattr(obj, "__info__"):
             if hasattr(obj.__info__, "is_deprecated"):
