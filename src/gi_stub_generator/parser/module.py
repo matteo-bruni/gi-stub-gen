@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import inspect
-from pathlib import Path
 
-from pydantic import BaseModel
+from gi_stub_generator.parser.builtin_function import parse_builtin_function
 from gi_stub_generator.parser.constant import parse_constant
 from gi_stub_generator.parser.enum import parse_enum
 from gi_stub_generator.parser.function import parse_function
@@ -11,18 +9,7 @@ from gi_stub_generator.parser.gir import ModuleDocs, gir_docs
 from gi_stub_generator.parser.class_ import (
     parse_class,
 )
-from gi_stub_generator.schema import (
-    AliasSchema,
-    BuiltinFunctionSchema,
-    ClassPropSchema,
-    ClassSchema,
-    EnumFieldSchema,
-    EnumSchema,
-    VariableSchema,
-    FunctionArgumentSchema,
-    FunctionSchema,
-    ModuleSchema,
-)
+
 import logging
 from rich.progress import (
     Progress,
@@ -41,14 +28,21 @@ from gi_stub_generator.utils import (
     # gi_type_to_py_type,
     sanitize_module_name,
 )
-from types import (
-    FunctionType,
-    ModuleType,
-    BuiltinFunctionType,
-)
+from types import ModuleType
 
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 # from gi.repository import GObject, GIRepository
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from gi_stub_generator.schema.module import ModuleSchema
+    from gi_stub_generator.schema.alias import AliasSchema
+    from gi_stub_generator.schema.class_ import ClassSchema
+    from gi_stub_generator.schema.constant import VariableSchema
+    from gi_stub_generator.schema.enum import EnumSchema
+    from gi_stub_generator.schema.function import BuiltinFunctionSchema, FunctionSchema
+
 
 logger = logging.getLogger(__name__)
 
@@ -114,6 +108,8 @@ def parse_module(
         TextColumn("[progress.description]{task.description}"),
     ]
 
+    from gi_stub_generator.schema.alias import AliasSchema
+
     with Progress(
         *progress_columns,
         console=logging_console,
@@ -143,6 +139,7 @@ def parse_module(
             ########################################################################
             # check for aliases in same or other modules
             ########################################################################
+
             # alias in the same module
             actual_attribute_name = (
                 attribute.__name__.split(".")[-1]
@@ -288,47 +285,52 @@ def parse_module(
             #########################################################################
 
             # builtin functions
-            if attribute_type == FunctionType:
-                # if std python function are found, parse via inspect
-                # https://docs.python.org/3/library/inspect.html#inspect.getargvalues
+            # if attribute_type == FunctionType:
+            #     # if std python function are found, parse via inspect
+            #     # https://docs.python.org/3/library/inspect.html#inspect.getargvalues
 
-                # breakpoint()
-                module_builtin_functions.append(
-                    BuiltinFunctionSchema(
-                        name=attribute_name,
-                        namespace=module_name,
-                        signature=str(inspect.signature(attribute)),
-                        docstring=inspect.getdoc(attribute) or "No docstring",
-                        return_repr="None"
-                        if inspect.signature(attribute).return_annotation
-                        == inspect._empty
-                        else str(inspect.signature(attribute).return_annotation),
-                        params=[
-                            f"{p}: {v}"
-                            for p, v in inspect.signature(attribute).parameters.items()
-                        ],
-                    )
-                )
-                # logger.debug(f"\t[FUNCTION][FunctionType] {attribute_name}\n")
+            #     breakpoint()
+            #     module_builtin_functions.append(
+            #         BuiltinFunctionSchema(
+            #             name=attribute_name,
+            #             namespace=module_name,
+            #             signature=str(inspect.signature(attribute)),
+            #             docstring=inspect.getdoc(attribute) or "No docstring",
+            #             return_repr="None"
+            #             if inspect.signature(attribute).return_annotation
+            #             == inspect._empty
+            #             else str(inspect.signature(attribute).return_annotation),
+            #             params=[
+            #                 f"{p}: {v}"
+            #                 for p, v in inspect.signature(attribute).parameters.items()
+            #             ],
+            #         )
+            #     )
+            #     # logger.debug(f"\t[FUNCTION][FunctionType] {attribute_name}\n")
+            #     continue
+
+            # if attribute_type == BuiltinFunctionType:
+            #     # Inspect do not work
+            #     # TODO: is there a way to get the signature of a builtin function?
+            #     module_builtin_functions.append(
+            #         BuiltinFunctionSchema(
+            #             name=attribute_name,
+            #             namespace=module_name,
+            #             signature="(*args, **kwargs)",
+            #             docstring="cant inspect builtin functions",
+            #             return_repr="Unknown",
+            #             params=["*args, **kwargs"],
+            #         )
+            #     )
+            #     # logger.debug(f"\t[FUNCTION][BuiltinFunctionType] {attribute_name}\n")
+            #     continue
+            # i.e  GObject.add_emission_hook
+            if f := parse_builtin_function(
+                attribute,
+                module_name,
+            ):
+                module_builtin_functions.append(f)
                 continue
-
-            if attribute_type == BuiltinFunctionType:
-                # Inspect do not work
-                # TODO: is there a way to get the signature of a builtin function?
-                module_builtin_functions.append(
-                    BuiltinFunctionSchema(
-                        name=attribute_name,
-                        namespace=module_name,
-                        signature="(*args, **kwargs)",
-                        docstring="cant inspect builtin functions",
-                        return_repr="Unknown",
-                        params=["*args, **kwargs"],
-                    )
-                )
-                # logger.debug(f"\t[FUNCTION][BuiltinFunctionType] {attribute_name}\n")
-                continue
-                # i.e  GObject.add_emission_hook
-
             #########################################################################
             # check if the attribute is a function
             #########################################################################
@@ -428,6 +430,8 @@ def parse_module(
         if f:
             module_used_callbacks.append(f)
 
+    from gi_stub_generator.schema.module import ModuleSchema
+
     return ModuleSchema(
         name=module_name,
         constant=module_constants,
@@ -435,7 +439,8 @@ def parse_module(
         # function=module_gflags,
         function=module_functions,
         builtin_function=module_builtin_functions,
-        used_callbacks=module_used_callbacks,
+        used_callbacks=callbacks_found,
+        # used_callbacks=module_used_callbacks,
         classes=module_classes,
         aliases=module_aliases,
     ), unknown_module_map_types

@@ -310,7 +310,7 @@ def catch_gi_deprecation_warnings(
     #     return None
 
     # we dont pass version because at this point it was already requested
-    module = get_module_from_name(attribute_module, None)
+    module = get_gi_module_from_name(attribute_module, None)
 
     attribute_deprecation_warnings: str | None = None
     with warnings.catch_warnings(record=True) as captured_warnings:
@@ -333,30 +333,6 @@ def catch_gi_deprecation_warnings(
     return attribute_deprecation_warnings
 
 
-# def get_symbol_name(obj):
-#     """
-#     retrieve the variable name of the object
-#     """
-#     frame = inspect.currentframe().f_back  # type: ignore
-#     call_line = inspect.getframeinfo(frame).code_context[0].strip()  # type: ignore
-#     tree = ast.parse(call_line)
-
-#     class Visitor(ast.NodeVisitor):
-#         def __init__(self):
-#             self.symbol = None
-
-#         def visit_Call(self, node):
-#             if hasattr(node, "args") and node.args:
-#                 arg = node.args[0]
-#                 if isinstance(arg, ast.Attribute):
-#                     self.symbol = arg.attr  # <--- Qui ottieni "IO_ERR"
-#             self.generic_visit(node)
-
-#     visitor = Visitor()
-#     visitor.visit(tree)
-#     return visitor.symbol
-
-
 def split_gi_name_version(name_version: str) -> tuple[str, str | None]:
     """
     Split a name:version string into a tuple of name and version.
@@ -368,7 +344,7 @@ def split_gi_name_version(name_version: str) -> tuple[str, str | None]:
     return name_version, None
 
 
-def get_module_from_name(
+def get_gi_module_from_name(
     module_name: str,
     gi_version: str | None,
 ) -> Any:
@@ -427,9 +403,6 @@ def sanitize_variable_name(name: str) -> tuple[str, str | None]:
         return name, None
 
     return f"_{name}", "changed due to not a valid identifier"
-
-
-import typing
 
 
 def infer_type_str(obj) -> str:
@@ -538,7 +511,7 @@ def get_type_hint(obj) -> str:
     return type(obj).__name__
 
 
-def redact_stub_value(obj: typing.Any) -> str:
+def get_redacted_stub_value(obj: typing.Any) -> str:
     """
     Recursively redacts sensitive or overly specific values in stub representations.
     This includes:
@@ -566,7 +539,7 @@ def redact_stub_value(obj: typing.Any) -> str:
         return repr(obj)
 
     # 3. Collections (Recursive)
-    fmt = redact_stub_value  # Short alias for recursion
+    fmt = get_redacted_stub_value  # Short alias for recursion
 
     if isinstance(obj, (list, tuple, set)):
         # Sort sets for deterministic output, keep others ordered
@@ -587,3 +560,16 @@ def redact_stub_value(obj: typing.Any) -> str:
         return f"{{{body}}}"
 
     return repr(obj)
+
+
+def get_callback_repr(gi_type_info) -> str:
+    """
+    Tenta di ricostruire una firma Callable[..., Ret]
+    """
+    interface = gi_type_info.get_interface()  # Questo è il CallbackInfo
+    if not interface:
+        return "Callable[..., Any]"  # Fallback sicuro
+
+    # Qui dovresti ricorsivamente chiamare la tua logica di parsing argomenti
+    # Ma per evitare ricorsione infinita o complessità, puoi iniziare semplice:
+    return f"Callable[..., {gi_type_to_py_type(interface.get_return_type())}]"

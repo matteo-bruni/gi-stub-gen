@@ -15,9 +15,8 @@ gi_stub_gen \
     --pkg-version 0.0.1 \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
-    --overwrite 
-    # \
-    # --debug
+    --overwrite \
+    --debug
 
 # gi_stub_gen \
 #     Gdk:4.0 \

@@ -4,18 +4,14 @@ import gi
 import gi._gi as GI  # type: ignore
 from gi.repository import GObject
 
-from typing import Any
+from typing import Any, TYPE_CHECKING
 from types import MethodDescriptorType
 
 from gi_stub_generator.parser.constant import parse_constant
 from gi_stub_generator.parser.function import parse_function
 from gi_stub_generator.parser.gir import ModuleDocs
-from gi_stub_generator.schema import (
-    ClassPropSchema,
-    ClassSchema,
-    FunctionSchema,
-    VariableSchema,
-)
+
+
 from gi_stub_generator.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
@@ -24,6 +20,10 @@ from gi_stub_generator.utils import (
     sanitize_variable_name,
 )
 
+if TYPE_CHECKING:
+    from gi_stub_generator.schema.class_ import ClassSchema
+    from gi_stub_generator.schema.constant import VariableSchema
+    from gi_stub_generator.schema.function import FunctionSchema
 
 import logging
 
@@ -46,6 +46,8 @@ def parse_class(
     Returns:
         ClassSchema | None: parsed class schema or None if the class is not parsable
     """
+    from gi_stub_generator.schema.class_ import ClassPropSchema, ClassSchema
+
     ###############
     # Check if it is a class #################
     if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
@@ -177,6 +179,8 @@ def parse_class(
                 callbacks_found.extend(f._gi_callbacks)
             else:
                 extra.append(f"unknown: {attribute_name}")
+
+    from gi_stub_generator.schema.class_ import ClassSchema
 
     return ClassSchema.from_gi_object(
         namespace=namespace,

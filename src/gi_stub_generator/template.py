@@ -1,15 +1,8 @@
 TEMPLATE = """from __future__ import annotations
-from typing import Any
-from typing import Callable
-from typing import Literal
-from typing import Optional
-from typing import Sequence
-from typing import Tuple
-from typing import Type
-from typing import TypeVar
+import typing
 from typing_extensions import deprecated
 import types
-import pkgutil
+import pkgutil # needed by gi
 import gi
 import gi._gi as GI # type: ignore
 import _thread
@@ -75,9 +68,9 @@ class {{e.name}}({{e.py_super_type_str}}):
 {% for f in functions -%}
 def {{f.name}}(
     {% for a in f.input_args -%}
-    {{a.name}}: {{a.type_repr}},
+    {{a.name}}: {{a.type_hint}},
     {% endfor -%}
-) -> {{f.return_repr}}:
+) -> {{f.complete_return_hint}}:
     {% if debug -%}
     \"\"\"
     {{f.debug}}
@@ -110,11 +103,11 @@ def {{f.name}}(
 ##############################################################
 
 {% for f in builtin_function -%}
-def {{f.name}}(
-    {% for a in f.params -%}
+{% if f.is_async %}async{% endif %}def {{f.name}}(
+    {% for a in f.param_signature -%}
     {{a}},
     {% endfor -%}
-) -> {{f.return_repr}}:
+) -> {{f.return_hint}}:
     {% if debug -%}
     \"\"\"
     {{f.debug}}
@@ -157,6 +150,25 @@ class {{c.name}}({{','.join(c.super)}}):
 
     ...
 
+{% endfor %}
+
+
+##############################################################
+# Callbacks
+##############################################################
+
+{% for cb in callbacks -%}
+def {{cb.name}}():
+    {% if debug -%}
+    \"\"\"
+    {{cb.debug}}
+    \"\"\"
+    {% elif cb.docstring -%}
+    \"\"\"
+    {{cb.docstring}}
+    \"\"\"
+    {% endif -%}
+    ...
 {% endfor %}
 
 

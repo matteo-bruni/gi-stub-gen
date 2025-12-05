@@ -4,7 +4,7 @@ import gi._gi as GI  # type: ignore
 from typing import Any
 
 from gi_stub_generator.parser.gir import FunctionDocs
-from gi_stub_generator.schema import FunctionSchema
+from gi_stub_generator.schema.function import FunctionSchema, FunctionArgumentSchema
 
 
 def parse_function(

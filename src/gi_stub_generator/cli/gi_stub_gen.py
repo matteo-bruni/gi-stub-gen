@@ -10,7 +10,7 @@ from gi_stub_generator.parser.gir import gir_docs
 import typer
 from typing_extensions import Annotated
 
-from gi_stub_generator.utils import get_module_from_name, split_gi_name_version
+from gi_stub_generator.utils import get_gi_module_from_name, split_gi_name_version
 
 
 app = typer.Typer(pretty_exceptions_enable=False)
@@ -118,7 +118,7 @@ def main(
         module_name, gi_version = split_gi_name_version(n)
 
         print(f"Preloading module {module_name} gi_version={gi_version}")
-        m = get_module_from_name(module_name=module_name, gi_version=gi_version)
+        m = get_gi_module_from_name(module_name=module_name, gi_version=gi_version)
 
         # special cases for modules that need init called
         if module_name == "Gst":
@@ -131,7 +131,7 @@ def main(
     for n in name:
         module_name, gi_version = split_gi_name_version(n)
 
-        module = get_module_from_name(module_name=module_name, gi_version=gi_version)
+        module = get_gi_module_from_name(module_name=module_name, gi_version=gi_version)
         docs = gir_docs(Path(f"{gir_folder}/{module_name}-{gi_version}.gir"))
 
         parsed_module, unknown_module_map_types = parse_module(
