@@ -184,12 +184,37 @@ class FunctionArgumentSchema(BaseSchema):
         gi_type = get_gi_type_info(obj)
         py_type = gi_type_to_py_type(gi_type)
 
+        py_type_name_repr = "Any"  # default
+
+        # Check if it is a Callback
+        if gi_type_is_callback(gi_type):
+            # It is a callback!
+            # 1. Get the interface (The actual CallbackInfo)
+            cb_info = gi_type.get_interface()
+            cb_name = cb_info.get_name()
+
+            from gi_stub_generator.schema.callback import CallbackSchema
+
+            # 2. Generate the Schema if not already done
+            if cb_name not in found_callbacks_registry:
+                cb_schema = CallbackSchema.from_gi_object(cb_info)
+                found_callbacks_registry[cb_name] = cb_schema
+
+            # 3. Use the callback name as the type
+            py_type_name_repr = cb_name
+            # Optional: handle quotes if the callback is defined later in the file
+            # py_type_name_repr = f'"{cb_name}"'
+
+        else:
+            # Standard type logic
+            py_type = gi_type_to_py_type(gi_type)
+            py_type_name_repr = get_py_type_name_repr(py_type)
         # TODO: create a protocol for callbacks
-        py_type_name_repr = (
-            f"TODOProtocol({py_type})"
-            if gi_type_is_callback(gi_type)
-            else get_py_type_name_repr(py_type)
-        )
+        # py_type_name_repr = (
+        #     f"TODOProtocol({py_type})"
+        #     if gi_type_is_callback(gi_type)
+        #     else get_py_type_name_repr(py_type)
+        # )
 
         array_length: int = get_safe_gi_array_length(gi_type)
 
