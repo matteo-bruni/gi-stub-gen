@@ -6,12 +6,12 @@ from typing import Any
 import inspect
 
 
-from gi_stub_generator.schema.function import (
+from gi_stub_gen.schema.function import (
     ArgKind,
     BuiltinFunctionArgumentSchema,
     BuiltinFunctionSchema,
 )
-from gi_stub_generator.utils import get_redacted_stub_value
+from gi_stub_gen.utils import get_redacted_stub_value
 
 
 def _format_type(t) -> str:

@@ -2,11 +2,11 @@ from __future__ import annotations
 
 
 import logging
-from gi_stub_generator.parser.gir import ClassDocs
-from gi_stub_generator.schema import BaseSchema
-from gi_stub_generator.schema.function import FunctionSchema
-from gi_stub_generator.schema.constant import VariableSchema
-from gi_stub_generator.utils import get_super_class_name
+from gi_stub_gen.parser.gir import ClassDocs
+from gi_stub_gen.schema import BaseSchema
+from gi_stub_gen.schema.function import FunctionSchema
+from gi_stub_gen.schema.constant import VariableSchema
+from gi_stub_gen.utils import get_super_class_name
 
 
 import gi._gi as GI  # pyright: ignore[reportMissingImports]

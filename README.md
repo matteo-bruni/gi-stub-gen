@@ -21,6 +21,8 @@ The types are discovered using importing the libraries from `gi.repository`.
 The `pygobject-stubs` project while a neat project was quite difficult to understand and contribute to for someone not familiar with the GI internals. There is not separation between the parsing and the template generation, making it difficult to extend or fix issues. Also the generated stubs collect all the libraries in a single monolithic package. Instead i prefer to have a separate package for each library, so that is possible to install only the needed stubs and maybe the stubs for a particular library can be maintained by the library maintainers. Also from my understanding a lot the stubs are manually fixed, which is not very maintainable.
 The focus of this project is to split the parsing and the template generation, so that is possible to extend or fix issues more easily. When parsing all the information is collected in Pydantic models, that can be easily inspected or modified before generating the stubs. Also the generated stubs are separated in different packages, one for each library. In my idea there will be a base package `gi-base-stub` that will contain the common stubs for all the libraries (like `GObject`, `GLib`, etc...) and then a package for each library that will depend on the base package.
 In the first development phase the generated stubs will be uploaded in `stubs/` folder, but maybe in the future they can be uploaded to PyPI or another package index.
+- dont like to pick the version at runtime for each library, just publish stubs for each version and install the needed one.
+
 
 ### Why not from gir files?
 
@@ -61,11 +63,15 @@ gi_stub_gen <library_name> <gi_version> > test.pyi
 
 # TODO
 - [ ] Add support for deprecated
-- [X] Fix the issue with the `Error` class being duplicated in the module (Error and GError)
-- [ ] Add Callbacks via Protocol
-- [ ] Add support for `gi._gi`
 - [ ] Add support Classes
 - [ ] Add support for GType constant
 - [ ] Rename
 - [ ] Add tests
 
+# gi-stubgen
+# gi-stub-gen
+# gi-stub-craft
+# gi-stubcraft
+# gi-stub-crafter
+# stubulus
+# stubcraft

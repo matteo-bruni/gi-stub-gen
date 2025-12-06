@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from gi_stub_generator.schema.function import FunctionArgumentSchema
+    from gi_stub_gen.schema.function import FunctionArgumentSchema
 
 logger = logging.getLogger(__name__)
 

@@ -8,6 +8,7 @@ import gi._gi as GI # type: ignore
 import _thread
 from gi.repository import GLib
 from gi.repository import GObject
+from gi.repository import GioUnix
 
 ##############################################################
 # Enums/Flags

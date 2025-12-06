@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 
-from gi_stub_generator.parser.builtin_function import parse_builtin_function
-from gi_stub_generator.parser.constant import parse_constant
-from gi_stub_generator.parser.enum import parse_enum
-from gi_stub_generator.parser.function import parse_function
-from gi_stub_generator.parser.gir import ModuleDocs
-from gi_stub_generator.parser.class_ import (
+from gi_stub_gen.parser.builtin_function import parse_builtin_function
+from gi_stub_gen.parser.constant import parse_constant
+from gi_stub_gen.parser.enum import parse_enum
+from gi_stub_gen.parser.function import parse_function
+from gi_stub_gen.parser.gir import ModuleDocs
+from gi_stub_gen.parser.class_ import (
     parse_class,
 )
 
@@ -20,12 +20,8 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 
-# from gi_stub_generator.template import TEMPLATE
-from gi_stub_generator.utils import (
+from gi_stub_gen.utils import (
     catch_gi_deprecation_warnings,
-    # get_symbol_name,
-    gi_callback_to_py_type,
-    # gi_type_to_py_type,
     sanitize_module_name,
 )
 from types import ModuleType
@@ -36,12 +32,12 @@ from gi.repository import GObject, GIRepository
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from gi_stub_generator.schema.module import ModuleSchema
-    from gi_stub_generator.schema.alias import AliasSchema
-    from gi_stub_generator.schema.class_ import ClassSchema
-    from gi_stub_generator.schema.constant import VariableSchema
-    from gi_stub_generator.schema.enum import EnumSchema
-    from gi_stub_generator.schema.function import (
+    from gi_stub_gen.schema.module import ModuleSchema
+    from gi_stub_gen.schema.alias import AliasSchema
+    from gi_stub_gen.schema.class_ import ClassSchema
+    from gi_stub_gen.schema.constant import VariableSchema
+    from gi_stub_gen.schema.enum import EnumSchema
+    from gi_stub_gen.schema.function import (
         BuiltinFunctionSchema,
         FunctionSchema,
         CallbackSchema,
@@ -112,7 +108,7 @@ def parse_module(
         TextColumn("[progress.description]{task.description}"),
     ]
 
-    from gi_stub_generator.schema.alias import AliasSchema
+    from gi_stub_gen.schema.alias import AliasSchema
 
     with Progress(
         *progress_columns,
@@ -370,7 +366,7 @@ def parse_module(
             # we merge
             existing_cb.originated_from.update(cb.originated_from)
 
-    from gi_stub_generator.schema.module import ModuleSchema
+    from gi_stub_gen.schema.module import ModuleSchema
 
     return ModuleSchema(
         name=module_name,

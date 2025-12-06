@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from gi_stub_generator.schema import BaseSchema
+from gi_stub_gen.schema import BaseSchema
 
 
 # GObject.remove_emission_hook

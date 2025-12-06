@@ -1,3 +1,5 @@
+# Copyright (c) 2025 Matteo Bruni
+
 import logging
 from typing import Literal
 
@@ -67,6 +69,12 @@ def main(
             help="Minimum Python version required by the stub package.",
         ),
     ] = "3.10",
+    pkg_dependencies: Annotated[
+        list[str],
+        typer.Option(
+            help="List of dependencies for the stub package.",
+        ),
+    ] = [],
     debug: Annotated[
         bool,
         typer.Option("--debug", "-d", help="Enable debug mode"),
@@ -113,7 +121,7 @@ def main(
         handlers=[RichHandler(show_path=debug)],
     )
 
-    from gi_stub_generator.utils import get_gi_module_from_name, split_gi_name_version
+    from gi_stub_gen.utils import get_gi_module_from_name, split_gi_name_version
 
     logger.info(f"Generating stub package for modules: {name}")
     # preload all modules to avoid runtime gi.require_version issues
@@ -129,9 +137,9 @@ def main(
         if module_name == "Gst":
             m.init(None)
 
-    from gi_stub_generator.package import create_stub_package
-    from gi_stub_generator.parser.module import parse_module
-    from gi_stub_generator.parser.gir import gir_docs
+    from gi_stub_gen.package import create_stub_package
+    from gi_stub_gen.parser.module import parse_module
+    from gi_stub_gen.parser.gir import gir_docs
 
     stubs: dict[str, str] = {}
     unknown: dict[str, dict[str, list[str]]] = {}
@@ -180,6 +188,7 @@ def main(
         author_email=pkg_author_email,
         min_python_version=pkg_min_python_version,
         overwrite=overwrite,
+        dependencies=pkg_dependencies,
     )
 
     logger.info(f"Stub Package generated for {pkg_name} in {output}")

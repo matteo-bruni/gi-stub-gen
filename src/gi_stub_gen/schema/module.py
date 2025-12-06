@@ -2,18 +2,18 @@ from __future__ import annotations
 
 import logging
 
-from gi_stub_generator.utils import sanitize_module_name
+from gi_stub_gen.utils import sanitize_module_name
 
-from gi_stub_generator.schema import BaseSchema
-from gi_stub_generator.schema.alias import AliasSchema
-from gi_stub_generator.schema.constant import VariableSchema
-from gi_stub_generator.schema.function import (
+from gi_stub_gen.schema import BaseSchema
+from gi_stub_gen.schema.alias import AliasSchema
+from gi_stub_gen.schema.constant import VariableSchema
+from gi_stub_gen.schema.function import (
     BuiltinFunctionSchema,
     FunctionSchema,
     CallbackSchema,
 )
-from gi_stub_generator.schema.class_ import ClassSchema
-from gi_stub_generator.schema.enum import EnumSchema
+from gi_stub_gen.schema.class_ import ClassSchema
+from gi_stub_gen.schema.enum import EnumSchema
 
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject
@@ -39,7 +39,7 @@ class ModuleSchema(BaseSchema):
         Return the module as a pyi file
         """
         import jinja2
-        from gi_stub_generator.template import TEMPLATE
+        from gi_stub_gen.template import TEMPLATE
 
         environment = jinja2.Environment()
         output_template = environment.from_string(TEMPLATE)

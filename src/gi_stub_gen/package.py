@@ -15,6 +15,7 @@ def create_stub_package(
     author_email: str = "",
     min_python_version: str = "3.12",
     overwrite: bool = False,
+    dependencies: list[str] | None = None,
 ):
     folder = root_folder / name
     if not folder.exists():
@@ -48,7 +49,17 @@ authors = [
     {author_entry}
 ]
 requires-python = ">={min_python_version}"
-dependencies = []
+dependencies = [{", ".join(f'"{dep}"' for dep in (dependencies or []))}]
+keywords = ["types", "stub", "gi", "gobject", "introspection"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
 
 [build-system]
 requires = ["hatchling"]

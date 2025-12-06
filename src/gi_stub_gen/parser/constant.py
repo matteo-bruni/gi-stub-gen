@@ -9,7 +9,7 @@ from gi.repository import GObject
 from typing import Any
 
 
-from gi_stub_generator.schema.constant import VariableSchema
+from gi_stub_gen.schema.constant import VariableSchema
 
 
 def parse_constant(

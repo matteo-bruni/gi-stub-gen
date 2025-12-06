@@ -6,10 +6,10 @@ import gi._gi as GI  # type: ignore
 
 from typing import Any
 
-from gi_stub_generator.gi_utils import get_gi_type_info
-from gi_stub_generator.parser.gir import FunctionDocs
-from gi_stub_generator.schema.function import FunctionSchema, FunctionArgumentSchema
-from gi_stub_generator.utils import gi_type_is_callback
+from gi_stub_gen.gi_utils import get_gi_type_info
+from gi_stub_gen.parser.gir import FunctionDocs
+from gi_stub_gen.schema.function import FunctionSchema, FunctionArgumentSchema
+from gi_stub_gen.utils import gi_type_is_callback
 
 
 def parse_function(

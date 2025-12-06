@@ -4,10 +4,10 @@ from enum import StrEnum
 import inspect
 import keyword
 import logging
-from gi_stub_generator.gi_utils import get_gi_type_info, get_safe_gi_array_length
-from gi_stub_generator.parser.gir import ClassDocs, FunctionDocs
-from gi_stub_generator.schema import BaseSchema
-from gi_stub_generator.utils import (
+from gi_stub_gen.gi_utils import get_gi_type_info, get_safe_gi_array_length
+from gi_stub_gen.parser.gir import ClassDocs, FunctionDocs
+from gi_stub_gen.schema import BaseSchema
+from gi_stub_gen.utils import (
     catch_gi_deprecation_warnings,
     get_py_type_name_repr,
     get_py_type_namespace_repr,
@@ -17,7 +17,7 @@ from gi_stub_generator.utils import (
     get_redacted_stub_value,
     sanitize_module_name,
 )
-from gi_stub_generator.utils import (
+from gi_stub_gen.utils import (
     gi_type_is_callback,
     gi_type_to_py_type,
     is_py_builtin_type,

@@ -86,8 +86,8 @@ wheels = [
 ]
 
 [[package]]
-name = "gi-stub-generator"
-version = "0.1.0"
+name = "gi-stub-gen"
+version = "0.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "jinja2" },

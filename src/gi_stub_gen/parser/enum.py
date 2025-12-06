@@ -6,8 +6,8 @@ from typing import Any
 from venv import logger
 from gi.repository import GObject
 
-from gi_stub_generator.parser.gir import ClassDocs
-from gi_stub_generator.schema.enum import EnumFieldSchema, EnumSchema
+from gi_stub_gen.parser.gir import ClassDocs
+from gi_stub_gen.schema.enum import EnumFieldSchema, EnumSchema
 
 logger = logging.getLogger(__name__)
 

@@ -7,12 +7,12 @@ from gi.repository import GObject
 from typing import Any, TYPE_CHECKING
 from types import MethodDescriptorType
 
-from gi_stub_generator.parser.constant import parse_constant
-from gi_stub_generator.parser.function import parse_function
-from gi_stub_generator.parser.gir import ModuleDocs
+from gi_stub_gen.parser.constant import parse_constant
+from gi_stub_gen.parser.function import parse_function
+from gi_stub_gen.parser.gir import ModuleDocs
 
 
-from gi_stub_generator.utils import (
+from gi_stub_gen.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
     gi_type_to_py_type,
@@ -21,9 +21,9 @@ from gi_stub_generator.utils import (
 )
 
 if TYPE_CHECKING:
-    from gi_stub_generator.schema.class_ import ClassSchema
-    from gi_stub_generator.schema.constant import VariableSchema
-    from gi_stub_generator.schema.function import FunctionSchema
+    from gi_stub_gen.schema.class_ import ClassSchema
+    from gi_stub_gen.schema.constant import VariableSchema
+    from gi_stub_gen.schema.function import FunctionSchema
 
 import logging
 
@@ -46,7 +46,7 @@ def parse_class(
     Returns:
         ClassSchema | None: parsed class schema or None if the class is not parsable
     """
-    from gi_stub_generator.schema.class_ import ClassPropSchema, ClassSchema
+    from gi_stub_gen.schema.class_ import ClassPropSchema, ClassSchema
 
     ###############
     # Check if it is a class #################
@@ -186,7 +186,7 @@ def parse_class(
             else:
                 extra.append(f"unknown: {attribute_name}")
 
-    from gi_stub_generator.schema.class_ import ClassSchema
+    from gi_stub_gen.schema.class_ import ClassSchema
 
     return ClassSchema.from_gi_object(
         namespace=namespace,

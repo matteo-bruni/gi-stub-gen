@@ -3,14 +3,14 @@ from __future__ import annotations
 
 import logging
 
-from gi_stub_generator.schema import BaseSchema
-from gi_stub_generator.schema.utils import ValueAny
-from gi_stub_generator.utils import (
+from gi_stub_gen.schema import BaseSchema
+from gi_stub_gen.schema.utils import ValueAny
+from gi_stub_gen.utils import (
     get_type_hint,
     get_redacted_stub_value,
     sanitize_module_name,
 )
-from gi_stub_generator.utils import (
+from gi_stub_gen.utils import (
     is_py_builtin_type,
 )
 
