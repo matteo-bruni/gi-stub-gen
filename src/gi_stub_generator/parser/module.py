@@ -5,7 +5,7 @@ from gi_stub_generator.parser.builtin_function import parse_builtin_function
 from gi_stub_generator.parser.constant import parse_constant
 from gi_stub_generator.parser.enum import parse_enum
 from gi_stub_generator.parser.function import parse_function
-from gi_stub_generator.parser.gir import ModuleDocs, gir_docs
+from gi_stub_generator.parser.gir import ModuleDocs
 from gi_stub_generator.parser.class_ import (
     parse_class,
 )
@@ -31,7 +31,7 @@ from gi_stub_generator.utils import (
 from types import ModuleType
 
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
-# from gi.repository import GObject, GIRepository
+from gi.repository import GObject, GIRepository
 
 from typing import TYPE_CHECKING
 
@@ -41,7 +41,11 @@ if TYPE_CHECKING:
     from gi_stub_generator.schema.class_ import ClassSchema
     from gi_stub_generator.schema.constant import VariableSchema
     from gi_stub_generator.schema.enum import EnumSchema
-    from gi_stub_generator.schema.function import BuiltinFunctionSchema, FunctionSchema
+    from gi_stub_generator.schema.function import (
+        BuiltinFunctionSchema,
+        FunctionSchema,
+        CallbackSchema,
+    )
 
 
 logger = logging.getLogger(__name__)
@@ -81,7 +85,7 @@ def parse_module(
     module_classes: list[ClassSchema] = []
     """Classes found in the module, parsed as ClassSchema objects"""
 
-    callbacks_found: list[GI.TypeInfo] = []
+    callbacks_found: list[CallbackSchema] = []
     """callback can be found in module functions or in class methods """
 
     unknown_module_map_types: dict[str, list[str]] = {}
@@ -228,42 +232,6 @@ def parse_module(
                 continue
 
             #########################################################################
-            # check for basic types if we are parsing GObject
-            #########################################################################
-            # TODO:
-            # these should be parsed as classes and not as their types
-            # if module_name == "GObject":
-            #     # ['GBoxed', 'GEnum', 'GFlags', 'GInterface', 'GObject',
-            #     # 'GObjectWeakRef', 'GPointer', 'GType', 'Warning']
-            #     if attribute_name in (
-            #         "GObject",
-            #         "Object",
-            #         "GType",
-            #         "GFlags",
-            #         "GEnum",
-            #         "Warning",
-            #         "GInterface",
-            #         "GBoxed",
-            #         "GObjectWeakRef",
-            #     ):
-            #         # TODO:
-            #         # custom parsing for the default types
-            #         # GEnum and GFlags need to add Enum to super and than can be parsed as class
-            #         # -> (int, Enum)
-            #         # GObject -> punta a GObject.Object
-            #         # -> (Object)
-            #         # Object
-            #         # -> (object)
-            #         # GInterface
-            #         # -> (Protocol)
-            #         # GType -> object ok mro()[1]
-            #         # GObjectWeakRef -> object ok mro()[1]
-            #         # GPointer -> object ok mro()[1]
-            #         # Warning -> object ok mro()[1] (Warnign che è una Exception)
-            #         # can be parsed as a class??
-            #         continue
-
-            #########################################################################
             # check if the attribute is a constant
             #########################################################################
 
@@ -284,47 +252,6 @@ def parse_module(
             # check if builtin function
             #########################################################################
 
-            # builtin functions
-            # if attribute_type == FunctionType:
-            #     # if std python function are found, parse via inspect
-            #     # https://docs.python.org/3/library/inspect.html#inspect.getargvalues
-
-            #     breakpoint()
-            #     module_builtin_functions.append(
-            #         BuiltinFunctionSchema(
-            #             name=attribute_name,
-            #             namespace=module_name,
-            #             signature=str(inspect.signature(attribute)),
-            #             docstring=inspect.getdoc(attribute) or "No docstring",
-            #             return_repr="None"
-            #             if inspect.signature(attribute).return_annotation
-            #             == inspect._empty
-            #             else str(inspect.signature(attribute).return_annotation),
-            #             params=[
-            #                 f"{p}: {v}"
-            #                 for p, v in inspect.signature(attribute).parameters.items()
-            #             ],
-            #         )
-            #     )
-            #     # logger.debug(f"\t[FUNCTION][FunctionType] {attribute_name}\n")
-            #     continue
-
-            # if attribute_type == BuiltinFunctionType:
-            #     # Inspect do not work
-            #     # TODO: is there a way to get the signature of a builtin function?
-            #     module_builtin_functions.append(
-            #         BuiltinFunctionSchema(
-            #             name=attribute_name,
-            #             namespace=module_name,
-            #             signature="(*args, **kwargs)",
-            #             docstring="cant inspect builtin functions",
-            #             return_repr="Unknown",
-            #             params=["*args, **kwargs"],
-            #         )
-            #     )
-            #     # logger.debug(f"\t[FUNCTION][BuiltinFunctionType] {attribute_name}\n")
-            #     continue
-            # i.e  GObject.add_emission_hook
             if f := parse_builtin_function(
                 attribute,
                 module_name,
@@ -422,13 +349,26 @@ def parse_module(
     #########################################################################
 
     # just filter only the callbacks used in the module
-    module_used_callbacks: list[FunctionSchema] = []
-    for c in callbacks_found:
-        f = parse_function(gi_callback_to_py_type(c), gir_f_docs.functions, None)
-        if f and len(f._gi_callbacks) > 0:
-            raise NotImplementedError("Nested callbacks not implemented")
-        if f:
-            module_used_callbacks.append(f)
+    module_callbacks: dict[str, CallbackSchema] = {}
+    for cb in callbacks_found:
+        assert cb.function.is_callback, "Expected a callback function schema"
+
+        if cb.name not in module_callbacks:
+            module_callbacks[cb.name] = cb
+        else:
+            # check if the existing callback is the same as the new one
+            existing_cb = module_callbacks[cb.name]
+            assert existing_cb.function == cb.function, (
+                f"Expected same function schema for the same callback name but {cb.function} != {existing_cb.function}"
+            )
+            assert existing_cb.originated_from is not None, (
+                "Expected originated_from to be not None"
+            )
+            assert cb.originated_from is not None, (
+                "Expected originated_from to be not None"
+            )
+            # we merge
+            existing_cb.originated_from.update(cb.originated_from)
 
     from gi_stub_generator.schema.module import ModuleSchema
 
@@ -436,15 +376,9 @@ def parse_module(
         name=module_name,
         constant=module_constants,
         enum=module_enums,
-        # function=module_gflags,
         function=module_functions,
         builtin_function=module_builtin_functions,
-        used_callbacks=callbacks_found,
-        # used_callbacks=module_used_callbacks,
+        callbacks=[v for v in module_callbacks.values()],
         classes=module_classes,
         aliases=module_aliases,
     ), unknown_module_map_types
-    # print("Has Info")
-    # for key, value in has_info.items():
-    #     print(f"- {key}: {value}")
-    #     print("\n")

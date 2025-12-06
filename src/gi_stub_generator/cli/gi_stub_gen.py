@@ -1,16 +1,12 @@
 import logging
+from typing import Literal
 
 from rich.logging import RichHandler
 from pathlib import Path
 
-from gi_stub_generator.package import create_stub_package
-from gi_stub_generator.parser.module import parse_module
-from gi_stub_generator.parser.gir import gir_docs
 
 import typer
 from typing_extensions import Annotated
-
-from gi_stub_generator.utils import get_gi_module_from_name, split_gi_name_version
 
 
 app = typer.Typer(pretty_exceptions_enable=False)
@@ -101,28 +97,41 @@ def main(
             help="Overwrite existing files in the output folder",
         ),
     ] = False,
+    log_level: Annotated[
+        Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+        typer.Option(
+            help="Set the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)",
+        ),
+    ] = "INFO",
 ):
     # setup logging
-    handler = RichHandler()
     logging.basicConfig(
-        level=logging.DEBUG if debug else logging.INFO,
+        # level=logging.ERROR,
+        level=log_level,
         format="%(message)s",
         datefmt="[%X]",
-        handlers=[handler],
+        handlers=[RichHandler(show_path=debug)],
     )
 
+    from gi_stub_generator.utils import get_gi_module_from_name, split_gi_name_version
+
+    logger.info(f"Generating stub package for modules: {name}")
     # preload all modules to avoid runtime gi.require_version issues
     # some modules require other modules to be loaded first
     module_to_preload = preload + name if preload is not None else name
     for n in module_to_preload:
         module_name, gi_version = split_gi_name_version(n)
 
-        print(f"Preloading module {module_name} gi_version={gi_version}")
+        logger.info(f"Preloading module {module_name} gi_version={gi_version}")
         m = get_gi_module_from_name(module_name=module_name, gi_version=gi_version)
 
         # special cases for modules that need init called
         if module_name == "Gst":
             m.init(None)
+
+    from gi_stub_generator.package import create_stub_package
+    from gi_stub_generator.parser.module import parse_module
+    from gi_stub_generator.parser.gir import gir_docs
 
     stubs: dict[str, str] = {}
     unknown: dict[str, dict[str, list[str]]] = {}
@@ -174,17 +183,3 @@ def main(
     )
 
     logger.info(f"Stub Package generated for {pkg_name} in {output}")
-
-    # print("#" * 80)
-    # print("# Unknown/Not parsed elements")
-    # print("#" * 80)
-    # for key, value in unknown_module_map_types.items():
-    #     print(f"- {key=}: \n{value=}")
-    #     print("\n")
-    # return
-
-    # print("#" * 80)
-    # print("# constants")
-    # print("#" * 80)
-    # for f in data.constant:
-    #     print(f)

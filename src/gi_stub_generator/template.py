@@ -158,7 +158,7 @@ class {{c.name}}({{','.join(c.super)}}):
 ##############################################################
 
 {% for cb in callbacks -%}
-def {{cb.name}}():
+class {{cb.name}}(typing.Protocol):
     {% if debug -%}
     \"\"\"
     {{cb.debug}}
@@ -168,6 +168,14 @@ def {{cb.name}}():
     {{cb.docstring}}
     \"\"\"
     {% endif -%}
+
+    def __call__(
+        self,
+        {% for a in cb.function.input_args -%}
+        {{a.name}}: {{a.type_hint}},
+        {% endfor -%}
+    ) -> {{cb.function.complete_return_hint}}:
+        ...
     ...
 {% endfor %}
 

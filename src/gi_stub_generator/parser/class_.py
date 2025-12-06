@@ -177,6 +177,12 @@ def parse_class(
                 # print("function", f)
                 # callbacks can be found as arguments of functions, save them to be parsed later
                 callbacks_found.extend(f._gi_callbacks)
+                # if f.is_callback:
+                #     print(f"!!!!!!!!!!!!!!!!!!! callback: {attribute_name}")
+                # if len(f._gi_callbacks) > 0:
+                #     print(
+                #         f"@@@@@@@@@@@@@@@@@@@ callbacks found in method {attribute_name}: {[cb.get_name() for cb in f._gi_callbacks]}"
+                #     )
             else:
                 extra.append(f"unknown: {attribute_name}")
 

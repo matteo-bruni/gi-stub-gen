@@ -3,19 +3,20 @@
 
 
 gi_stub_gen \
+    GioUnix:2.0 \
+    Gio:2.0 \
     gi \
     gi._gi \
     gi.repository \
     GObject:2.0 \
     GLib:2.0 \
-    GioUnix:2.0 \
-    Gio:2.0 \
     GIRepository:3.0 \
     --pkg-name gi-base-stub \
     --pkg-version 0.0.1 \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
     --overwrite \
+    --log-level INFO \
     --debug
 
 # gi_stub_gen \

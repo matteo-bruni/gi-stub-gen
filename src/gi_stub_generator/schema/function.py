@@ -26,14 +26,15 @@ from pydantic import (
     BaseModel,
     ConfigDict,
     Field,
+    PrivateAttr,
     computed_field,
     SerializerFunctionWrapHandler,
     model_validator,
 )
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject
-from pydantic.functional_serializers import WrapSerializer
-from typing import Annotated, Literal, Any
+from typing import Literal, Any, Self
+
 
 # GObject.remove_emission_hook
 logger = logging.getLogger(__name__)
@@ -180,35 +181,35 @@ class FunctionArgumentSchema(BaseSchema):
         cls,
         obj: Any,
         direction: Literal["IN", "OUT", "INOUT"],
-    ):
+    ) -> tuple[Self, CallbackSchema | None]:
+        found_callback: CallbackSchema | None = None
+
         gi_type = get_gi_type_info(obj)
         py_type = gi_type_to_py_type(gi_type)
 
         py_type_name_repr = "Any"  # default
 
+        is_callback = gi_type_is_callback(gi_type)
         # Check if it is a Callback
-        if gi_type_is_callback(gi_type):
-            # It is a callback!
-            # 1. Get the interface (The actual CallbackInfo)
+        if is_callback:
+            # Get the interface (The actual CallbackInfo)
             cb_info = gi_type.get_interface()
-            cb_name = cb_info.get_name()
+            cb_name = f"{cb_info.get_name()}Callback"
 
-            from gi_stub_generator.schema.callback import CallbackSchema
+            cb_schema = FunctionSchema.from_gi_object(cb_info)
+            found_callback = CallbackSchema(
+                name=cb_name,
+                function=cb_schema,
+            )
 
-            # 2. Generate the Schema if not already done
-            if cb_name not in found_callbacks_registry:
-                cb_schema = CallbackSchema.from_gi_object(cb_info)
-                found_callbacks_registry[cb_name] = cb_schema
-
-            # 3. Use the callback name as the type
+            # use the callback name as the type
             py_type_name_repr = cb_name
-            # Optional: handle quotes if the callback is defined later in the file
-            # py_type_name_repr = f'"{cb_name}"'
 
         else:
             # Standard type logic
             py_type = gi_type_to_py_type(gi_type)
             py_type_name_repr = get_py_type_name_repr(py_type)
+
         # TODO: create a protocol for callbacks
         # py_type_name_repr = (
         #     f"TODOProtocol({py_type})"
@@ -217,11 +218,10 @@ class FunctionArgumentSchema(BaseSchema):
         # )
 
         array_length: int = get_safe_gi_array_length(gi_type)
-
         return cls(
             namespace=obj.get_namespace(),
             name=obj.get_name(),
-            is_callback=gi_type_is_callback(gi_type),
+            is_callback=is_callback,
             is_optional=obj.is_optional(),
             may_be_null=obj.may_be_null(),
             direction=direction,
@@ -230,7 +230,7 @@ class FunctionArgumentSchema(BaseSchema):
             is_deprecated=gi_type.is_deprecated(),
             tag_as_string=gi_type.get_tag_as_string(),
             get_array_length=array_length,
-        )
+        ), found_callback
 
     @property
     def name_is_keyword(self):
@@ -298,7 +298,8 @@ class FunctionSchema(BaseSchema):
     is_callback: bool
     """Whether this function is a callback"""
 
-    _gi_callbacks: list[Any] = []
+    # Keep track of callbacks found during function argument parsing
+    _gi_callbacks: list[CallbackSchema] = PrivateAttr(default_factory=list)
     """Callbacks found during function argument parsing, if any"""
 
     skip_return: bool
@@ -368,7 +369,7 @@ class FunctionSchema(BaseSchema):
         indices_to_skip: set[int] = set()
 
         # keep track of callbacks found during function argument parsing
-        callback_found: list[GI.TypeInfo] = []
+        args_as_callbacks_found: list[CallbackSchema] = []
         """callbacks found during function argument parsing"""
 
         # first loop to identify indices to skip
@@ -404,34 +405,26 @@ class FunctionSchema(BaseSchema):
             if direction == "OUT":
                 continue
 
-            function_args.append(
-                FunctionArgumentSchema.from_gi_object(
-                    obj=arg,
-                    direction=direction,
-                )
+            function_arg, found_callback = FunctionArgumentSchema.from_gi_object(
+                obj=arg,
+                direction=direction,
             )
-            # if any of the arguments is a callback, store it to be later parsed
-            try:
-                if gi_type_is_callback(arg.get_type()):
-                    callback_found.append(arg.get_type())
-            except AttributeError as e:
-                # removed in pygobject 3.54.0?? was present in 3.50.0
-                # logger.warning(
-                #     f"Could not get gi type for argument {arg.get_name()}: {e}"
-                # )
-                gi_type_info = arg.get_type_info()
-                if gi_type_is_callback(gi_type_info):
-                    callback_found.append(gi_type_info)
+            function_args.append(function_arg)
+            if found_callback:
+                # Found a callback argument
+                # append to its originated_from info
+                found_callback.originated_from = {
+                    f"{obj.get_namespace()}.{obj.get_name()}"
+                }
+                args_as_callbacks_found.append(found_callback)
 
         py_return_type = gi_type_to_py_type(obj.get_return_type())
-
         # get the repr of the return type
         py_return_type_namespace = get_py_type_namespace_repr(py_return_type)
         py_return_type_name = get_py_type_name_repr(py_return_type)
 
         namespace = obj.get_namespace()
         may_return_null = obj.may_return_null()
-
         is_callback = isinstance(obj, GI.CallbackInfo)
 
         # get the return hint for the template
@@ -444,20 +437,28 @@ class FunctionSchema(BaseSchema):
         if py_return_type_namespace and py_return_type_namespace != namespace:
             return_hint = f"{py_return_type_namespace}.{return_hint}"
 
-        return cls(
+        # if len(args_as_callbacks_found) > 0:
+        #     print(
+        #         f"Function {namespace}.{obj.get_name()} has callbacks as argument: {[cb[0] for cb in args_as_callbacks_found]}"
+        #     )
+        # if is_callback:
+        #     print(f"Function {namespace}.{obj.get_name()} is a callback )")
+
+        to_return = cls(
             namespace=namespace,
             name=obj.get_name(),
             args=function_args,
             is_callback=is_callback,
             docstring=docstring,
             may_return_null=may_return_null,
-            is_method=obj.is_method(),
+            is_method=False if is_callback else obj.is_method(),
             can_throw_gerror=obj.can_throw_gerror(),
             is_deprecated=obj.is_deprecated(),
             skip_return=obj.skip_return(),
             return_hint=return_hint,
-            _gi_callbacks=callback_found,
         )
+        to_return._gi_callbacks = args_as_callbacks_found
+        return to_return
 
     @property
     def debug(self):
@@ -470,3 +471,59 @@ class FunctionSchema(BaseSchema):
             data = f"{self.docstring}"
 
         return f"{data}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
+
+
+class CallbackSchema(BaseSchema):
+    name: str
+    """Callback name"""
+
+    # docstring: str | None = None
+    function: FunctionSchema
+
+    originated_from: set[str] | None = None
+    """Module or class where the callback was found, if any"""
+
+    @property
+    def docstring(self) -> str | None:
+        docstring: str | None = None
+
+        if self.originated_from is not None:
+            docstring = (
+                f"This callback was used in: \n\t\t\t{', '.join(self.originated_from)}"
+            )
+
+        # func_docstring = self.function.docstring
+        # if func_docstring is None:
+        #     return None
+
+        return docstring
+
+    @property
+    def debug(self):
+        """
+        Debug docstring
+        """
+
+        data = ""
+        if self.docstring:
+            data = f"{self.docstring}"
+
+        return f"{data}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
+        # return f"[DEBUG]\n{self.model_dump_json(indent=2)}"
+
+
+#     def render_protocol(self) -> str:
+#         """
+#         Renders the Python Protocol definition.
+#         """
+#         # Filter arguments for the __call__ method (usually only IN and INOUT matter for input)
+#         # Note: In Python Protocols for callbacks, you usually define the input signature.
+#         input_args_str = ", ".join(
+#             f"{arg.name}: {arg.type_hint}" for arg in self.function.args
+#         )
+
+#         return f"""
+# class {self.name}(typing.Protocol):
+#     def __call__(self, {input_args_str}) -> {self.function.return_hint}:
+#         ...
+# """

@@ -142,7 +142,9 @@ class VariableSchema(BaseSchema):
             value_repr = "..."
         else:
             # Fallback to using the real value
-            print("[WARNING] Object representation not found, using real value")
+            logger.warning(
+                "[WARNING] Object representation not found, using real value"
+            )
             value_repr = f"{object_type_repr}({obj}) # TODO: not found ??"
 
         # if name == "SIGNAL_ACTION":

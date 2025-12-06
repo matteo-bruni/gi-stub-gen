@@ -1,10 +1,15 @@
 from __future__ import annotations
 
+import gi
 import gi._gi as GI  # type: ignore
+
+
 from typing import Any
 
+from gi_stub_generator.gi_utils import get_gi_type_info
 from gi_stub_generator.parser.gir import FunctionDocs
 from gi_stub_generator.schema.function import FunctionSchema, FunctionArgumentSchema
+from gi_stub_generator.utils import gi_type_is_callback
 
 
 def parse_function(
@@ -12,11 +17,12 @@ def parse_function(
     docstring: dict[str, FunctionDocs],
     deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> FunctionSchema | None:
-    is_callback = isinstance(attribute, GI.CallbackInfo)
+    # if it is a class exit
+
     is_function = isinstance(attribute, GI.FunctionInfo)
 
-    if not is_callback and not is_function:
-        # print("not a callback or function skip", type(attribute))
+    # if not is_callback and not is_function:
+    if not is_function:
         return None
 
     return FunctionSchema.from_gi_object(

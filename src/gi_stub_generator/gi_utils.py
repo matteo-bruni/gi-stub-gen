@@ -71,7 +71,10 @@ def get_gi_type_info(obj: GI.ArgInfo) -> GI.TypeInfo:
     # Tentativo 3: Se l'oggetto è già un TypeInfo (caso ricorsivo o errore chiamante)
     if isinstance(obj, GIRepository.TypeInfo):  # type: ignore
         return obj
+    # if hasattr(obj, "__info__"):
+    #     return obj.__info__
 
+    # breakpoint()
     raise AttributeError(
         f"Impossibile recuperare TypeInfo dall'oggetto: {obj} ({type(obj)})"
     )

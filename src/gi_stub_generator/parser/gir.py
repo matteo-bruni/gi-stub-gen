@@ -5,11 +5,13 @@ Parser for GIR files to extract documentation.
 from __future__ import annotations
 
 from pathlib import Path
-from typing_extensions import TypedDict
 
 # import xml.etree.ElementTree as ET
 from lxml import etree
 from pydantic import BaseModel
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class FunctionDocs(BaseModel):
@@ -117,7 +119,7 @@ def gir_docs(
     path: Path,
 ):
     if not path.exists():
-        print(f"Path {path} does not exist, returning empty docs.")
+        logger.warning(f"Path {path} does not exist, returning empty docs.")
         return ModuleDocs(
             constants={},
             functions={},

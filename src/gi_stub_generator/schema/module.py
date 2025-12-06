@@ -7,7 +7,11 @@ from gi_stub_generator.utils import sanitize_module_name
 from gi_stub_generator.schema import BaseSchema
 from gi_stub_generator.schema.alias import AliasSchema
 from gi_stub_generator.schema.constant import VariableSchema
-from gi_stub_generator.schema.function import BuiltinFunctionSchema, FunctionSchema
+from gi_stub_generator.schema.function import (
+    BuiltinFunctionSchema,
+    FunctionSchema,
+    CallbackSchema,
+)
 from gi_stub_generator.schema.class_ import ClassSchema
 from gi_stub_generator.schema.enum import EnumSchema
 
@@ -27,7 +31,7 @@ class ModuleSchema(BaseSchema):
     enum: list[EnumSchema]
     function: list[FunctionSchema]
     builtin_function: list[BuiltinFunctionSchema]
-    used_callbacks: list[FunctionSchema]
+    callbacks: list[CallbackSchema]
     aliases: list[AliasSchema]
 
     def to_pyi(self, debug=False) -> str:
@@ -39,9 +43,9 @@ class ModuleSchema(BaseSchema):
 
         environment = jinja2.Environment()
         output_template = environment.from_string(TEMPLATE)
-
         sanitized_module_name = sanitize_module_name(self.name)
 
+        # print(self.callbacks)
         return output_template.render(
             module=sanitized_module_name,
             # module=module.__name__.split(".")[-1],
@@ -52,5 +56,5 @@ class ModuleSchema(BaseSchema):
             classes=self.classes,
             debug=debug,
             aliases=self.aliases,
-            callbacks=self.used_callbacks,
+            callbacks=self.callbacks,
         )

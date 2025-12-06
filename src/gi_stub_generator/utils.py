@@ -352,7 +352,6 @@ def get_gi_module_from_name(
     Get the module from its name.
     This is useful to get the module from a string representation of the module name.
     """
-
     if gi_version is not None:
         try:
             gi.require_version(module_name, gi_version)
