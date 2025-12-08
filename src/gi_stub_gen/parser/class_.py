@@ -22,7 +22,6 @@ from gi_stub_gen.utils import (
 )
 
 if TYPE_CHECKING:
-    from gi_stub_gen.schema.constant import VariableSchema
     from gi_stub_gen.schema.function import FunctionSchema
 
 import logging
@@ -34,7 +33,6 @@ def parse_class(
     namespace: str,
     class_to_parse: Any,
     module_docs: ModuleDocs,
-    deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> tuple[ClassSchema | None, list[GI.TypeInfo]]:
     """
     Parse a class and return a ClassSchema.
@@ -86,7 +84,7 @@ def parse_class(
                 # breakpoint()
                 try:
                     prop_type = gi_type_to_py_type(prop.get_type())
-                except AttributeError as e:
+                except AttributeError:
                     # removed in pygobject 3.54.0?? was present in 3.50.0
                     # logger.warning(
                     #     f"Could not get type for property {prop.get_name()} of class {class_to_parse.__name__}: {e}"
@@ -115,6 +113,7 @@ def parse_class(
                     type_hint=prop_type_repr,
                     line_comment=f"#{comment}" if comment else None,
                     docstring=None,  # TODO: retrieve docstring
+                    required_gi_import=prop_type_repr_namespace,
                 )
                 class_props.append(c)
                 class_parsed_elements.append(prop.get_name())
@@ -123,7 +122,6 @@ def parse_class(
                 parsed_method = parse_function(
                     met,
                     docstring=module_docs.get_function_docstring(met.get_name()),
-                    deprecation_warnings=None,
                 )
                 if parsed_method:
                     # save callbacks to be parsed later
@@ -163,7 +161,6 @@ def parse_class(
                 name=attribute_name,
                 obj=attribute,
                 docstring=None,  # TODO: retrieve docstring with inspect??
-                deprecation_warnings=None,  # TODO: retrieve deprecation warnings
             ):
                 extra.append(f"constant: {attribute_name}")
                 # class_attributes.append(c)
@@ -181,15 +178,12 @@ def parse_class(
             elif f := parse_function(
                 attribute,
                 module_docs.get_function_docstring(attribute_name),
-                deprecation_warnings=None,  # TODO: retrieve?
             ):
                 class_methods.append(f)
                 # callbacks can be found as arguments of functions, save them to be parsed later
                 callbacks_found.extend(f._gi_callbacks)
             else:
                 extra.append(f"unknown: {attribute_name}")
-
-    from gi_stub_gen.schema.class_ import ClassSchema
 
     return ClassSchema.from_gi_object(
         namespace=namespace,

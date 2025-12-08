@@ -3,18 +3,12 @@ from __future__ import annotations
 
 import logging
 
-import jinja2
+from typing import Any
 from gi_stub_gen.manager import TemplateManager
 from gi_stub_gen.parser.gir import GirClassDocs
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import FunctionSchema
-from gi_stub_gen.schema.constant import VariableSchema
-from gi_stub_gen.utils import get_super_class_name
-
-
-import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from gi.repository import GObject
-from typing import Any, TYPE_CHECKING
+from gi_stub_gen.utils import get_super_class_name, sanitize_gi_module_name
 
 
 # GObject.remove_emission_hook
@@ -43,6 +37,9 @@ class ClassPropSchema(BaseSchema):
     type_hint: str
     """type hint in template"""
 
+    required_gi_import: str | None
+    """required gi.repository<NAME> import for the property type, if any"""
+
 
 class ClassAttributeSchema(BaseSchema):
     name: str
@@ -54,6 +51,9 @@ class ClassAttributeSchema(BaseSchema):
     """Deprecation warning message, if any captured from PyGIDeprecationWarning"""
 
     docstring: str | None
+
+    required_gi_import: str | None
+    """required gi.repository<NAME> import for the property type, if any"""
 
     # @classmethod
     # def from_gi_value_info(
@@ -87,6 +87,26 @@ class ClassSchema(BaseSchema):
     methods: list[FunctionSchema]
     extra: list[str]
     is_deprecated: bool
+
+    required_gi_import: str | None
+    """required gi.repository<NAME> import for the property type, if any"""
+
+    @property
+    def required_gi_imports(self) -> set[str]:
+        """
+        Required gi.repository<NAME> import for the class, if any.
+        Gather from properties and attributes.
+        """
+        gi_imports: set[str] = set()
+        if self.required_gi_import:
+            gi_imports.add(self.required_gi_import)
+        for prop in self.props:
+            if prop.required_gi_import:
+                gi_imports.add(prop.required_gi_import)
+        for attr in self.attributes:
+            if attr.required_gi_import:
+                gi_imports.add(attr.required_gi_import)
+        return gi_imports
 
     @classmethod
     def from_gi_object(
@@ -122,16 +142,45 @@ class ClassSchema(BaseSchema):
         if docstring:
             class_docstring = docstring.class_docstring
 
+        base_class_namespace, base_class_name = get_super_class_name(
+            obj,
+            current_namespace=namespace,
+        )
+
+        sane_namespace = sanitize_gi_module_name(namespace)
+        sane_super_namespace = (
+            sanitize_gi_module_name(base_class_namespace)
+            if base_class_namespace
+            else None
+        )
+
+        # build the super class name in the template
+        required_gi_import = None
+        base_class = base_class_name
+        if sane_namespace != sane_super_namespace and sane_super_namespace is not None:
+            # they are in different namespaces
+            # so we add it to the repr
+            base_class = f"{sane_super_namespace}.{base_class_name}"
+            if sane_super_namespace != "GI":
+                # we exclude GI which is from "import gi._gi as GI" which is always imported
+                required_gi_import = sane_super_namespace
+
+        # if "." in base_class:
+        #     base_module = base_class.split(".")[0]
+        #     if base_module != namespace:
+        #         required_gi_import = base_module
+
         return cls(
             namespace=namespace,
             name=obj.__name__,
-            bases=[get_super_class_name(obj, current_namespace=namespace)],
+            bases=[base_class],
             docstring=class_docstring,
             props=props,
             attributes=attributes,
             methods=methods,
             is_deprecated=is_deprecated,
             extra=extra,
+            required_gi_import=required_gi_import,
             # _gi_callbacks=gi_callbacks,
         )
 

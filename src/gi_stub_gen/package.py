@@ -78,7 +78,7 @@ packages = ["src/gi-stubs"]"""
         with open(folder / "README.md", "w") as f:
             f.write(readme_template)
 
-    package_folder = folder / "src" / "gi-stubs" / "repository"
+    package_folder = folder / "src" / "gi-stubs"
     if not package_folder.exists():
         package_folder.mkdir(parents=True)
     elif overwrite:
@@ -88,8 +88,17 @@ packages = ["src/gi-stubs"]"""
         package_folder.mkdir(parents=True)
 
     for stub_name, stub_content in stubs.items():
-        logger.info(
-            f"Creating stub file for {stub_name} at {package_folder / f'{stub_name}.pyi'}"
-        )
-        with open(package_folder / f"{stub_name}.pyi", "w") as f:
+        # if / "repository"
+
+        if stub_name == "gi":
+            pyi_path = package_folder / "__init__.pyi"
+        elif stub_name.startswith("gi."):
+            pyi_path = package_folder / "repository" / f"{stub_name[3:]}.pyi"
+            pyi_path.parent.mkdir(parents=True, exist_ok=True)
+        else:
+            pyi_path = package_folder / "repository" / f"{stub_name}.pyi"
+            pyi_path.parent.mkdir(parents=True, exist_ok=True)
+
+        logger.info(f"Creating stub file for {stub_name} at {pyi_path}")
+        with open(pyi_path, "w") as f:
             f.write(stub_content)

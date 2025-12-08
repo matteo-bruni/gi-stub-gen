@@ -11,17 +11,7 @@ from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.alias import AliasSchema
 from gi_stub_gen.schema.function import BuiltinFunctionSchema, FunctionSchema
 from gi_stub_gen.schema.utils import ValueAny
-from gi_stub_gen.utils import (
-    catch_gi_deprecation_warnings,
-    get_py_type_name_repr,
-    get_py_type_namespace_repr,
-    get_super_class_name,
-    get_type_hint,
-    infer_type_str,
-    get_redacted_stub_value,
-    sanitize_gi_module_name,
-    sanitize_variable_name,
-)
+from gi_stub_gen.utils import sanitize_variable_name
 from gi_stub_gen.utils import (
     gi_type_is_callback,
     gi_type_to_py_type,

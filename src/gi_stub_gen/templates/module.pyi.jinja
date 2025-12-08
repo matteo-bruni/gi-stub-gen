@@ -8,26 +8,27 @@ Date: {{ generation_date }}
 
 from __future__ import annotations
 from typing_extensions import deprecated
-import typing
-import types
-import pkgutil # needed by gi
-import gi
+import typing # noqa: F401
+import gi # noqa: F401
 import gi._gi as GI # type: ignore
-import _thread
-import enum
-from gi.repository import GLib
-from gi.repository import GObject
 
-{# Extra stub required in this module #}
+
+{% if extra_imports|length > 0 -%}
+{% for i in extra_imports -%}
+import {{i}}
+{% endfor -%}
+{% endif -%}
+
+{# Extra stub required in this module -#}
 {% if extra_gi_repository_import|length > 0 -%}
-# Used in this Stub
-{% for extra_import in extra_gi_repository_import -%}
-from gi.repository import {{extra_import.split('.')[-1]}}
+# gi.repository imports needed by this Stub
+{% for gi_import in extra_gi_repository_import -%}
+from gi.repository import {{gi_import.split('.')[-1]}}
 {% endfor -%}
 {% endif -%}
 
 
-{# FUNCTIONS ----------------------------------------------- #}
+{# FUNCTIONS ---------------------------------------------- -#}
 {% if functions|length > 0 -%}
 ###############################################################
 # Functions
@@ -38,10 +39,10 @@ from gi.repository import {{extra_import.split('.')[-1]}}
 
 {% endfor %}
 {% endif -%}
-{# ------------------------------------------- END FUNCTIONS #}
+{# ------------------------------------------ END FUNCTIONS -#}
 
 
-{# BUILTIN_FUNCTIONS --------------------------------------- #}
+{# BUILTIN_FUNCTIONS -------------------------------------- -#}
 {% if builtin_functions|length > 0 -%}
 ###############################################################
 # builtin_functions
@@ -52,10 +53,10 @@ from gi.repository import {{extra_import.split('.')[-1]}}
 
 {% endfor %}
 {% endif -%}
-{# ----------------------------------- END BUILTIN_FUNCTIONS #}
+{# ---------------------------------- END BUILTIN_FUNCTIONS -#}
 
 
-{# ENUMS/FLAGS --------------------------------------------- #}
+{# ENUMS/FLAGS -------------------------------------------- -#}
 {% if enums|length > 0 -%}
 ###############################################################
 # Enums/Flags
@@ -66,10 +67,10 @@ from gi.repository import {{extra_import.split('.')[-1]}}
 
 {% endfor %}
 {% endif -%}
-{# ----------------------------------------- END ENUMS/FLAGS #}
+{# ---------------------------------------- END ENUMS/FLAGS -#}
 
 
-{# CLASSES ------------------------------------------------- #}
+{# CLASSES ------------------------------------------------ -#}
 {% if classes|length > 0 -%}
 ###############################################################
 # classes
@@ -80,10 +81,10 @@ from gi.repository import {{extra_import.split('.')[-1]}}
 
 {% endfor %}
 {% endif -%}
-{# --------------------------------------------- END CLASSES #}
+{# --------------------------------------------- END CLASSES -#}
 
 
-{# CALLBACKS ----------------------------------------------- #}
+{# CALLBACKS ---------------------------------------------- -#}
 {% if callbacks|length > 0 -%}
 ###############################################################
 # Callbacks
@@ -94,10 +95,10 @@ from gi.repository import {{extra_import.split('.')[-1]}}
 
 {% endfor %}
 {% endif -%}
-{# ------------------------------------------- END CALLBACKS #}
+{# ------------------------------------------ END CALLBACKS -#}
 
 
-{# ALIASES ------------------------------------------------- #}
+{# ALIASES ------------------------------------------------ -#}
 {% if aliases|length > 0 -%}
 ###############################################################
 # Aliases
@@ -107,10 +108,10 @@ from gi.repository import {{extra_import.split('.')[-1]}}
 {{ a.render() }}
 {% endfor %}
 {% endif -%}
-{# --------------------------------------------- END ALIASES #}
+{# -------------------------------------------- END ALIASES -#}
 
 
-{# CONSTANTS ----------------------------------------------- #}
+{# CONSTANTS ---------------------------------------------- -#}
 {% if constants|length > 0 -%}
 ###############################################################
 # Constants
@@ -120,7 +121,7 @@ from gi.repository import {{extra_import.split('.')[-1]}}
 {{ c.render() }}
 {% endfor %}
 {% endif -%}
-{# ------------------------------------------  END CONSTANTS #}
+{# -----------------------------------------  END CONSTANTS -#}
 
 
 ###############################################################

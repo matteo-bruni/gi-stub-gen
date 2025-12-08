@@ -40,7 +40,7 @@ def parse_alias(
         line_comment = None
         if hasattr(attribute, "__module__"):
             sanitized_module_name = sanitize_gi_module_name(str(attribute.__module__))
-            if str(attribute.__module__).startswith(("gi.", "_thread")):
+            if str(sanitized_module_name).startswith(("gi.", "_thread")):
                 line_comment = "type: ignore"
         else:
             # if no module is present, we assume it is in the same module
@@ -49,8 +49,9 @@ def parse_alias(
             line_comment = "type: ignore  # no __module__ attribute"
         return AliasSchema(
             name=attribute_name,
-            target_name=attribute.__name__,
-            target_namespace=sanitized_module_name,
+            target_name=sanitize_gi_module_name(attribute.__name__),
+            target_namespace=None,  # we assume same module so no need to specify
+            # target_namespace=sanitized_module_name,
             deprecation_warning=catch_gi_deprecation_warnings(
                 module_name,
                 attribute_name,

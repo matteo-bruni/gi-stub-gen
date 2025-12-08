@@ -10,6 +10,10 @@ PYGOBJECT_VERSION=3.54
 PYGOBJECT_STUB_VERSION=0
 PKG_GI_BASE_STUBS_VERSION=${PYGOBJECT_VERSION}.${PYGOBJECT_STUB_VERSION}
 gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
+    gi \
+    gi._enum \
+    gi._gi \
+    gi.repository \
     GioUnix:2.0 \
     Gio:2.0 \
     GObject:2.0 \
@@ -17,8 +21,6 @@ gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     GIRepository:3.0 \
     --pkg-name gi-base-stubs \
     --pkg-version ${PKG_GI_BASE_STUBS_VERSION} \
-    --stub-gi-include GioUnix:Gio \
-    --stub-gi-include Gio:GioUnix \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
     --overwrite \

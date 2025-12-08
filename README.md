@@ -3,6 +3,9 @@ A stub generator for GObject Introspection (GI) libraries.
 The types are discovered using importing the libraries from `gi.repository`.
 
 ### Why ?
+
+started developing with gstreamer python binding and found the lack of type hints quite annoying. Additionally looking at the existing `pygobject-stubs` i found quite difficult to understand and contribute to it, so decided to start a new project.
+
 The `pygobject-stubs` project while a neat project was quite difficult to understand and contribute to for someone not familiar with the GI internals. There is not separation between the parsing and the template generation, making it difficult to extend or fix issues. Also the generated stubs collect all the libraries in a single monolithic package. Instead i prefer to have a separate package for each library, so that is possible to install only the needed stubs and maybe the stubs for a particular library can be maintained by the library maintainers. Also from my understanding a lot the stubs are manually fixed, which is not very maintainable.
 The focus of this project is to split the parsing and the template generation, so that is possible to extend or fix issues more easily. When parsing all the information is collected in Pydantic models, that can be easily inspected or modified before generating the stubs. Also the generated stubs are separated in different packages, one for each library. In my idea there will be a base package `gi-base-stub` that will contain the common stubs for all the libraries (like `GObject`, `GLib`, etc...) and then a package for each library that will depend on the base package.
 In the first development phase the generated stubs will be uploaded in `stubs/` folder, but maybe in the future they can be uploaded to PyPI or another package index.
@@ -59,39 +62,3 @@ gi_stub_gen <library_name> <gi_version> > test.pyi
 - [ ] Auto add import for other gi.repository modules used in type hints
 
 
-
-# possibile bug
-ndr magari quando si fanno alias va tutto
-
-in GObject.DestroyNotifyCB
-
-in realtà è 
-DestroyNotifyCB = GLib.DestroyNotifyCB
-
-ma in funzione 
-
-def signal_add_emission_hook(
-    signal_id: int,
-    detail: int,
-    hook_func: SignalEmissionHookCB,
-    hook_data: object | None,
-    data_destroy: DestroyNotifyCB | None,
-) -> int:
-
-dice che 
-{
-          "namespace": "GObject",
-          "name": "data_destroy",
-          "is_optional": false,
-          "direction": "IN",
-          "is_callback": true,
-          "may_be_null": true,
-          "is_deprecated": false,
-          "tag_as_string": "interface",
-          "get_array_length": -1,
-          "py_type_name": "DestroyNotifyCB",
-          "py_type_namespace": null,
-          "line_comment": null
-        }
-
-sembra di GObject e non di Glib?

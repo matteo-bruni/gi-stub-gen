@@ -1,6 +1,9 @@
-{# callback can be of other modules, we can't detect early but they are effectively aliases #}
+{#-
+callback can be of other modules, we can't detect early but they are effectively aliases.
+We add type ignore because if they are not parsed in their namespace they will not exist.
+-#}
 {% if cb.function.namespace != module_name %}
-{{cb.name}} = {{ cb.function.namespace}}.{{cb.name}}
+{{cb.name}} = {{ cb.function.namespace}}.{{cb.name}} # type: ignore
 {% if debug %}
 """
 {{ cb.debug }}

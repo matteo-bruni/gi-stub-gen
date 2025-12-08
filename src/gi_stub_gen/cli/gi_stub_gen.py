@@ -1,16 +1,12 @@
 # Copyright (c) 2025 Matteo Bruni
 
-import logging
-from typing import Literal
-
-from rich.logging import RichHandler
-from pathlib import Path
-
-
 import typer
-from typing_extensions import Annotated
+import logging
 
-from gi_stub_gen.manager import TemplateManager
+from pathlib import Path
+from typing import Literal
+from rich.logging import RichHandler
+from typing_extensions import Annotated
 
 
 app = typer.Typer(pretty_exceptions_enable=False)

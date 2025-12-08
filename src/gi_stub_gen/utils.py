@@ -202,11 +202,20 @@ def gi_type_to_py_type(
     return py_type
 
 
-def get_super_class_name(obj, current_namespace: str | None = None):
+def get_super_class_name(
+    obj,
+    current_namespace: str | None = None,
+) -> tuple[str | None, str]:
     """
     Get the super class name of an object
     If current namespace is the same as the super class namespace
-    it will return the class name only
+    it will return namespace, classname of the super class
+
+    Args:
+        obj (Any): object to get the super class name from
+        current_namespace (str | None): current namespace of the object
+    Returns:
+        tuple[str | None, str]: super class name and its module name
     """
     # usually the first class in the mro is the object class
     # the second class is the super class
@@ -224,26 +233,27 @@ def get_super_class_name(obj, current_namespace: str | None = None):
         object,
     )
 
-    super_module = super_class.__module__
-    super_module_name = sanitize_gi_module_name(str(super_module))
+    super_module = str(super_class.__module__)
+    # sanitized_super_module_name = sanitize_gi_module_name(super_module)
 
-    if super_module_name == "gi":
-        super_module_name = "GI"
-    # elif super_module_name == "module":
-    #     super_module_name = "types.ModuleType"
-    elif super_module_name == "builtins":
+    # if sanitized_super_module_name == "gi":
+    #     sanitized_super_module_name = "GI"
+
+    if super_module == "builtins":
         if super_class.__name__ == "module":
-            # if the super class is a module, return types.ModuleType
-            return "types.ModuleType"
-        return super_class.__name__
+            # if the super class is a module, return types.ModuleType ??
+            return None, "type"
+            # return "types", "ModuleType"
+        return None, super_class.__name__
 
+    return super_module, super_class.__name__
     # if the super class is in the same namespace as the current class
     # return only the class name
-    if super_module_name == sanitize_gi_module_name(current_namespace):
-        return super_class.__name__
-    # in typing it is uppercase
-    # super_module_name = super_module_name.replace("gobject", "GObject")
-    return f"{super_module_name}.{super_class.__name__}"
+    # if sanitized_super_module_name == sanitize_gi_module_name(current_namespace):
+    #     return super_module, super_class.__name__
+
+    # # in typing it is uppercase
+    # return f"{sanitized_super_module_name}.{super_class.__name__}", super_module
 
 
 def get_py_type_namespace_repr(py_type: Any) -> str | None:
@@ -320,7 +330,10 @@ def catch_gi_deprecation_warnings(
         # only when doing this we can catch deprecation warnings
         # getattr(module, attribute_name)
         # getattr(module, get_name(obj))
-        getattr(module, attribute_name)
+        try:
+            getattr(module, attribute_name)
+        except (AttributeError, NotImplementedError):
+            return None
 
         for warning in captured_warnings:
             if issubclass(warning.category, gi.PyGIDeprecationWarning):  # type: ignore
@@ -367,17 +380,20 @@ def get_gi_module_from_name(
     return importlib.import_module(f".{module_name}", "gi.repository")
 
 
-def sanitize_gi_module_name(module_name: Any) -> str:
+def sanitize_gi_module_name(module_name: str) -> str:
     """
     Sanitize the module name to be used in the gi.repository namespace.
     This will remove the gi.repository prefix and return the module name.
     """
+    if not isinstance(module_name, str):
+        raise ValueError("module_name must be a string")
     return (
         str(module_name)
         .removeprefix("gi.repository.")
         .removeprefix("gi.overrides.")
         .replace("gobject", "GObject")
         .replace("glib", "GLib")
+        .replace("gi", "GI")
     )
 
 

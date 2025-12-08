@@ -74,8 +74,8 @@ ignore = ["**/ignore", "**/.venv", ".venv"]
 reportMissingModuleSource = "none"
 # generated stubs will be placed in these folders so we 
 # dont need to install them while developing gi-stub-gen
-extraPaths = [
-    "stubs/gi-base-stubs/src",
-    "stubs/gi-gst-stubs/src",
-    "stubs/gi-gtk-stubs/src",
-]
+# extraPaths = [
+#     "stubs/gi-base-stubs/src",
+#     "stubs/gi-gstreamer-stubs/src",
+#     # "stubs/gi-gtk-stubs/src",
+# ]

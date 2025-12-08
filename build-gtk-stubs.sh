@@ -12,6 +12,10 @@ GTK_STUB_VERSION=0
 PKG_GTK_STUBS_VERSION=${GTK_VERSION}.${GTK_STUB_VERSION}
 
 gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
+    cairo:1.0 \
+    Pango:1.0 \
+    GdkPixbuf:2.0 \
+    Gsk:4.0 \
     Gdk:4.0 \
     Gtk:4.0 \
     --preload GioUnix:2.0 \

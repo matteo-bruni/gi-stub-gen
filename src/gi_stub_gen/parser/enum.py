@@ -3,7 +3,6 @@ from __future__ import annotations
 import logging
 from enum import Enum, Flag
 from typing import Any
-from venv import logger
 from gi.repository import GObject
 
 from gi_stub_gen.parser.gir import GirClassDocs
@@ -15,7 +14,6 @@ logger = logging.getLogger(__name__)
 def parse_enum(
     attribute: Any,
     docs: dict[str, GirClassDocs],
-    deprecation_warnings: str | None,  # deprecation warnings if any
 ) -> EnumSchema | None:
     """
     Parse a GI enum/flag class.
@@ -55,7 +53,8 @@ def parse_enum(
                 parsed_field = EnumFieldSchema.from_gi_value_info(
                     value_info=v,
                     docstring=element_docstring,
-                    deprecation_warnings=deprecation_warnings,
+                    deprecation_warnings=None,
+                    # deprecation_warnings=deprecation_warnings,
                 )
 
                 if parsed_field.name in args:

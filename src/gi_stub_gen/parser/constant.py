@@ -3,6 +3,7 @@ from __future__ import annotations
 # import gi
 
 import gi._gi as GI  # type: ignore
+from gi_stub_gen.utils import catch_gi_deprecation_warnings  # type: ignore
 
 # from gi._gi import Repository  # type: ignore
 from gi.repository import GObject
@@ -17,7 +18,6 @@ def parse_constant(
     name: str,  # name of the attribute
     obj: Any,  # actual object to be parsed
     docstring: str | None,
-    deprecation_warnings: str | None,  # deprecation warnings if any
 ):
     """
     Parse values and return a VariableSchema.
@@ -41,9 +41,10 @@ def parse_constant(
             namespace=parent,
             name=name,
             docstring=docstring,
-            deprecation_warnings=deprecation_warnings,
+            deprecation_warnings=None,
         )
 
+    w = catch_gi_deprecation_warnings(parent, name)
     # check if it is a constant from an enum/flag
     if hasattr(obj, "__info__"):
         info = getattr(obj, "__info__")
@@ -63,7 +64,7 @@ def parse_constant(
                     namespace=parent,
                     name=name,
                     docstring=docstring,
-                    deprecation_warnings=deprecation_warnings,
+                    deprecation_warnings=w,
                 )
 
     # TODO: handle GType elements (which lacks __info__ attribute)
@@ -76,7 +77,7 @@ def parse_constant(
             namespace=parent,
             name=name,
             docstring=docstring,
-            deprecation_warnings=deprecation_warnings,
+            deprecation_warnings=w,
         )
 
     return None

@@ -28,8 +28,6 @@ gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     --pkg-name gi-gstreamer-stubs \
     --pkg-version ${PKG_GST_STUBS_VERSION} \
     --pkg-dependencies gi-base-stubs \
-    --stub-gi-include GstVideo:Gst \
-    --stub-gi-include GstVideo:GstBase \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
     --overwrite

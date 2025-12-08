@@ -1,8 +1,6 @@
 from enum import IntEnum, IntFlag
 
 from gi.repository import GObject
-
-from gi_stub_gen.parser.gir import GirClassDocs
 from gi_stub_gen.schema.class_ import ClassAttributeSchema, ClassSchema
 
 
@@ -27,6 +25,7 @@ MANUAL_GENUM_SCHEMA = ClassSchema(
     docstring="From pygobject 3.52 GEnum are integrated with enum.IntEnum"
     " see https://pygobject.gnome.org/changelog.html",
     props=[],
+    required_gi_import="GObject",
     attributes=[
         ClassAttributeSchema(
             name="__gtype__",
@@ -34,6 +33,7 @@ MANUAL_GENUM_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The GType of the enum.",
+            required_gi_import="GObject",
         ),
         ClassAttributeSchema(
             name="value_name",
@@ -41,6 +41,7 @@ MANUAL_GENUM_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The name of the value.",
+            required_gi_import=None,
         ),
         ClassAttributeSchema(
             name="value_nick",
@@ -48,6 +49,7 @@ MANUAL_GENUM_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The nickname of the value.",
+            required_gi_import=None,
         ),
     ],
     methods=[],
@@ -76,6 +78,7 @@ MANUAL_GFLAG_SCHEMA = ClassSchema(
     docstring="From pygobject 3.52 GFlags "
     "are integrated with enum.Flag"
     " see https://pygobject.gnome.org/changelog.html",
+    required_gi_import="GObject",
     props=[],
     attributes=[
         ClassAttributeSchema(
@@ -84,6 +87,7 @@ MANUAL_GFLAG_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The GType of the flags.",
+            required_gi_import="GObject",
         ),
         ClassAttributeSchema(
             name="first_value_name",
@@ -91,6 +95,7 @@ MANUAL_GFLAG_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The name of the first value.",
+            required_gi_import=None,
         ),
         ClassAttributeSchema(
             name="first_value_nick",
@@ -98,6 +103,7 @@ MANUAL_GFLAG_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The nickname of the first value.",
+            required_gi_import=None,
         ),
         ClassAttributeSchema(
             name="value_names",
@@ -105,6 +111,7 @@ MANUAL_GFLAG_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The names of the values.",
+            required_gi_import=None,
         ),
         ClassAttributeSchema(
             name="value_nicks",
@@ -112,6 +119,7 @@ MANUAL_GFLAG_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The nicknames of the values.",
+            required_gi_import=None,
         ),
     ],
     methods=[],

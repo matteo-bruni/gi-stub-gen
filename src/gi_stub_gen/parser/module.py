@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 
-from gi_stub_gen.manual_overrides import MANUAL_GENUM_SCHEMA, MANUAL_GFLAG_SCHEMA
 from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.builtin_function import parse_builtin_function
 from gi_stub_gen.parser.constant import parse_constant
@@ -22,14 +21,8 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 
-from gi_stub_gen.utils import (
-    catch_gi_deprecation_warnings,
-    sanitize_gi_module_name,
-)
 from types import ModuleType
-
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from gi.repository import GObject, GIRepository
 
 from typing import TYPE_CHECKING
 
@@ -133,7 +126,6 @@ def parse_module(
                 )
                 continue
 
-            attribute_deprecation_warnings: str | None = None
             attribute = getattr(m, attribute_name)
             attribute_type = type(attribute)
 
@@ -156,104 +148,6 @@ def parse_module(
 
                 continue
 
-            # # alias in the same module
-            # actual_attribute_name = (
-            #     attribute.__name__.split(".")[-1]
-            #     if hasattr(attribute, "__name__")
-            #     else attribute_name
-            # )
-            # if actual_attribute_name != attribute_name:
-            #     # we found an alias, ie GObject.Object is an alias for GObject.GObject
-
-            #     line_comment = None
-            #     if hasattr(attribute, "__module__"):
-            #         sanitized_module_name = sanitize_module_name(
-            #             str(attribute.__module__)
-            #         )
-
-            #         if str(attribute.__module__).startswith(("gi.", "_thread")):
-            #             line_comment = "type: ignore"
-            #     else:
-            #         sanitized_module_name = module_name
-
-            #     module_aliases.append(
-            #         AliasSchema(
-            #             name=attribute_name,
-            #             target_name=attribute.__name__,
-            #             target_namespace=sanitized_module_name,
-            #             deprecation_warning=catch_gi_deprecation_warnings(
-            #                 module_name,
-            #                 attribute_name,
-            #             ),
-            #             line_comment=line_comment,
-            #         )
-            #     )
-
-            #     # logger.debug(
-            #     #     f"\t[ALIAS][SAME_NS] {module_name}.{attribute_name} -> {attribute.__name__}\n"
-            #     # )
-            #     continue
-
-            # actual_attribute_module = (
-            #     (str(attribute.__module__))
-            #     if hasattr(attribute, "__module__")
-            #     else None
-            # )
-
-            # # alias to another module
-            # if (
-            #     actual_attribute_module
-            #     and module_name.split(".")[-1].lower()
-            #     != actual_attribute_module.split(".")[-1].lower()
-            # ):
-            #     # warnings are caught on the expected module and attribute
-            #     w = catch_gi_deprecation_warnings(module_name, attribute_name)
-
-            #     sanitized_module_name = sanitized_module_name = sanitize_module_name(
-            #         str(attribute.__module__)
-            #     )
-            #     #######################################################################
-            #     # manual override just for GEnum and Flags.
-            #     # they are in GObject.GEnum / GObject.GFlags
-            #     # but are aliases to gi._gi.GEnum / gi._gi.GFlags
-            #     #######################################################################
-            #     if attribute_name == "GEnum" and sanitized_module_name == "gi._gi":
-            #         module_classes.append(MANUAL_GENUM_SCHEMA)
-            #         continue
-            #     elif attribute_name == "GFlags" and sanitized_module_name == "gi._gi":
-            #         module_classes.append(MANUAL_GFLAG_SCHEMA)
-            #         continue
-
-            #     if sanitized_module_name == "gi" or sanitized_module_name == "builtins":
-            #         # many object have a gi. module (i.e. gi._gi.RegisteredTypeInfo -> gi.RegisteredTypeInfo)
-            #         # but any gi.<XX> in reality does not exist
-            #         module_aliases.append(
-            #             AliasSchema(
-            #                 name=attribute_name,
-            #                 target_namespace=None,
-            #                 target_name=None,
-            #                 deprecation_warning=w,
-            #                 line_comment="alias to gi.<XX> module or builtins that does not exist",
-            #             )
-            #         )
-            #     else:
-            #         module_aliases.append(
-            #             AliasSchema(
-            #                 name=attribute_name,
-            #                 target_namespace=sanitized_module_name,
-            #                 target_name=actual_attribute_name,
-            #                 deprecation_warning=w,
-            #                 line_comment="type: ignore"
-            #                 if str(attribute.__module__).startswith(("gi.", "_thread"))
-            #                 else None,
-            #             )
-            #         )
-
-            #     # logger.debug(
-            #     #     f"\t[ALIAS][OTHER_NS] skipping {module_name}.{attribute_name} -> {attribute.__module__}.{attribute_name}\n"
-            #     # )
-            #     continue
-
             #########################################################################
             # check if the attribute is a constant
             #########################################################################
@@ -263,9 +157,6 @@ def parse_module(
                 name=attribute_name,
                 obj=attribute,
                 docstring=gir_module_docs.constants.get(attribute_name, None),
-                deprecation_warnings=catch_gi_deprecation_warnings(
-                    module_name, attribute_name
-                ),
             ):
                 module_constants.append(c)
                 # logger.debug(f"\t[CONSTANT] {attribute_name}\n")
@@ -300,9 +191,6 @@ def parse_module(
                     attribute_name,
                     # attribute.get_name(),
                 ),
-                deprecation_warnings=catch_gi_deprecation_warnings(
-                    module_name, attribute_name
-                ),
             ):
                 module_functions.append(f)
                 # callbacks can be found as arguments of functions,
@@ -317,7 +205,6 @@ def parse_module(
             if e := parse_enum(
                 attribute,
                 gir_module_docs.enums,
-                attribute_deprecation_warnings,
             ):
                 # if e.name in gir_f_docs["enums"]:
                 #    e.docstring = gir_f_docs["enums"][e.name]
@@ -332,31 +219,10 @@ def parse_module(
                 namespace=module_name,
                 class_to_parse=attribute,
                 module_docs=gir_module_docs,
-                deprecation_warnings=attribute_deprecation_warnings,
             )
             if class_schema:
-                # if f"{attribute}" in processed_classes:
-                #     logger.warning(
-                #         f"[DUPLICATE]"
-                #         f"<{attribute.__module__}.{attribute.__name__}> "
-                #         f"vs "
-                #         f"<{processed_classes[f'{attribute}'].__module__}.{processed_classes[f'{attribute}'].__name__}> "
-                #         f"Class {class_schema.name} already exists in the module {module_name}. "
-                #     )
-                # else:
-                #     processed_classes[f"{attribute}"] = attribute
-
                 module_classes.append(class_schema)
                 callbacks_found.extend(class_callbacks_found)
-                # if class_schema.name == "Error":
-                #     print(attribute_idx, "Found Error class", attribute_name)
-                # if class_schema.name in unique_classes:
-                #     raise ValueError(
-                #         f"Class {class_schema.name} already exists in the module {module_name}. "
-                #         "This is likely a bug in the gir parser, please open an issue."
-                #     )
-                # unique_classes.add(class_schema.name)
-                # logger.debug(f"\t[CLASS] {attribute_name}\n")
                 continue
 
             #########################################################################
@@ -370,8 +236,6 @@ def parse_module(
                 unknown_module_map_types[unknown_key].append(attribute_name)
             else:
                 unknown_module_map_types[unknown_key] = [attribute_name]
-
-            # logger.warning(f"\t[??][UNKNOWN] {module_name}.{attribute_name}")
 
     # end for attribute in module_attributes
     #########################################################################

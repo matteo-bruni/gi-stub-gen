@@ -6,34 +6,22 @@ import keyword
 import logging
 from gi_stub_gen.gi_utils import get_gi_type_info, get_safe_gi_array_length
 from gi_stub_gen.manager import TemplateManager
-from gi_stub_gen.parser.gir import GirClassDocs, GirFunctionDocs
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.utils import (
     catch_gi_deprecation_warnings,
     get_py_type_name_repr,
     get_py_type_namespace_repr,
-    get_super_class_name,
-    get_type_hint,
-    infer_type_str,
-    get_redacted_stub_value,
-    sanitize_gi_module_name,
 )
 from gi_stub_gen.utils import (
     gi_type_is_callback,
     gi_type_to_py_type,
-    is_py_builtin_type,
 )
 from pydantic import (
     BaseModel,
-    ConfigDict,
     Field,
     PrivateAttr,
-    computed_field,
-    SerializerFunctionWrapHandler,
-    model_validator,
 )
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from gi.repository import GObject
 from typing import Literal, Any, Self
 
 
@@ -192,20 +180,26 @@ class FunctionArgumentSchema(BaseSchema):
 
         is_callback = gi_type_is_callback(gi_type)
         argument_namespace = obj.get_namespace()
+        line_comment = None
         # Check if it is a Callback
         if is_callback:
             # Get the interface (The actual CallbackInfo)
             cb_info = gi_type.get_interface()
-            cb_name = f"{cb_info.get_name()}CB"
+            cb_name = f"{cb_info.get_name()}"
+            cb_namespace = cb_info.get_namespace()
+            # cb_name = f"{cb_info.get_name()}CB"
             # if parent_namespace == "":
-            # breakpoint()
-
-            if argument_namespace != parent_namespace:
+            # if cb_name == "Gio.DestroyNotify":
+            #     breakpoint()
+            py_type_namespace = cb_namespace
+            if cb_namespace != parent_namespace:
                 # The callback is defined in another namespace
                 # use the fully qualified name
-                py_type_name_repr = f"{argument_namespace}.{cb_name}"
-
+                # since we don't know it is defined there we just add a line comment
+                line_comment = "type: ignore"
             else:
+                # if cb_name == "DestroyNotify":
+                #     breakpoint()
                 # the callback is defined in the same namespace
                 # create the CallbackSchema
 
@@ -215,11 +209,12 @@ class FunctionArgumentSchema(BaseSchema):
                     function=cb_schema,
                 )
                 # use the callback name as the type
-                py_type_name_repr = cb_name
+            py_type_name_repr = cb_name
 
         else:
             # Standard type logic
             py_type = gi_type_to_py_type(gi_type)
+            py_type_namespace = get_py_type_namespace_repr(py_type)
             py_type_name_repr = get_py_type_name_repr(py_type)
 
         # TODO: create a protocol for callbacks
@@ -230,6 +225,7 @@ class FunctionArgumentSchema(BaseSchema):
         # )
 
         array_length: int = get_safe_gi_array_length(gi_type)
+
         return cls(
             namespace=argument_namespace,
             name=obj.get_name(),
@@ -237,12 +233,12 @@ class FunctionArgumentSchema(BaseSchema):
             is_optional=obj.is_optional(),
             may_be_null=obj.may_be_null(),
             direction=direction,
-            py_type_namespace=get_py_type_namespace_repr(py_type),
+            py_type_namespace=py_type_namespace,
             py_type_name=py_type_name_repr,
             is_deprecated=gi_type.is_deprecated(),
             tag_as_string=gi_type.get_tag_as_string(),
             get_array_length=array_length,
-            line_comment=None,
+            line_comment=line_comment,
         ), found_callback
 
     @property
@@ -258,15 +254,8 @@ class FunctionArgumentSchema(BaseSchema):
         """
         type representation in template
         """
-        # is_nullable = " | None" if self.may_be_null else ""
-        # if self.py_type_namespace and self.py_type_namespace != self.namespace:
-        #     return f"{self.py_type_namespace}.{self.py_type_name}{is_nullable}"
-        # return f"{self.py_type_name}{is_nullable}"
 
         base_type = self.py_type_name
-
-        # Se è un array, la rappresentazione dovrebbe probabilmente essere list[...]
-        # Nota: questo richiede che py_type_name sia stato risolto correttamente prima
 
         if self.direction == "INOUT":
             # INOUT in Python non è tipato diversamente in ingresso,
@@ -278,9 +267,6 @@ class FunctionArgumentSchema(BaseSchema):
         if self.py_type_namespace and self.py_type_namespace != self.namespace:
             full_type = f"{self.py_type_namespace}.{base_type}"
 
-        # Gestione Optional
-        # In Python, un argomento opzionale (con valore di default) non è per forza Nullable.
-        # Ma may_be_null significa che accetta None.
         if self.may_be_null:
             full_type = f"{full_type} | None"
 
@@ -326,6 +312,12 @@ class FunctionSchema(BaseSchema):
     return_hint: str
     """Just the return type hint from GI. Does not include OUT arguments."""
 
+    deprecation_warnings: str | None
+    """Deprecation warning message, if any captured """
+
+    required_gi_import: str | None
+    """required gi.repository<NAME> import for the property type, if any"""
+
     @property
     def input_args(self):
         return [arg for arg in self.args if arg.direction in ("IN", "INOUT")]
@@ -333,6 +325,18 @@ class FunctionSchema(BaseSchema):
     @property
     def output(self):
         return [arg for arg in self.args if arg.direction in ("OUT", "INOUT")]
+
+    @property
+    def required_gi_imports(self) -> set[str]:
+        gi_imports: set[str] = set()
+        # check return type
+        if self.required_gi_import:
+            gi_imports.add(self.required_gi_import)
+        # check arguments
+        for arg in self.args:
+            if arg.py_type_namespace:
+                gi_imports.add(arg.py_type_namespace)
+        return gi_imports
 
     @property
     def complete_return_hint(self) -> str:
@@ -435,6 +439,8 @@ class FunctionSchema(BaseSchema):
                 }
                 args_as_callbacks_found.append(found_callback)
 
+        # TODO: what happen if return type is another gi type?
+        # i.e can a function return a Gst.Caps() object?
         py_return_type = gi_type_to_py_type(obj.get_return_type())
         # get the repr of the return type
         py_return_type_namespace = get_py_type_namespace_repr(py_return_type)
@@ -454,13 +460,6 @@ class FunctionSchema(BaseSchema):
         if py_return_type_namespace and py_return_type_namespace != namespace:
             return_hint = f"{py_return_type_namespace}.{return_hint}"
 
-        # if len(args_as_callbacks_found) > 0:
-        #     print(
-        #         f"Function {namespace}.{obj.get_name()} has callbacks as argument: {[cb[0] for cb in args_as_callbacks_found]}"
-        #     )
-        # if is_callback:
-        #     print(f"Function {namespace}.{obj.get_name()} is a callback )")
-
         to_return = cls(
             namespace=namespace,
             name=obj.get_name(),
@@ -473,6 +472,10 @@ class FunctionSchema(BaseSchema):
             is_deprecated=obj.is_deprecated(),
             skip_return=obj.skip_return(),
             return_hint=return_hint,
+            deprecation_warnings=catch_gi_deprecation_warnings(
+                namespace, obj.get_name()
+            ),
+            required_gi_import=py_return_type_namespace,
         )
         to_return._gi_callbacks = args_as_callbacks_found
         return to_return

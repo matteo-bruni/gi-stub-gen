@@ -1,12 +1,16 @@
 def {{fun.name}}(
     {% for a in fun.input_args %}
-    {{a.name}}: {{a.type_hint}},
+    {{a.name}}: {{a.type_hint}}, {{ a.line_comment | if_exists('# ') }}
     {% endfor %}
 ) -> {{fun.complete_return_hint}}:
     {% if fun.docstring or debug %}
     """
     {{ fun.debug | if_true(debug, "{}\n") | trim | indent(4, blank=True) -}}
     {{ fun.docstring | if_exists | trim | indent(4, blank=True) }}
+    {% if fun.deprecation_warnings -%}
+    .. deprecated::
+        {{ fun.deprecation_warnings | trim | indent(8, blank=True) }}
+    {%- endif -%}
     """
     {% endif %}
     ...
