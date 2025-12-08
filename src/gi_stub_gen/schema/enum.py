@@ -5,7 +5,8 @@ import inspect
 import keyword
 import logging
 from gi_stub_gen.gi_utils import get_safe_gi_array_length
-from gi_stub_gen.parser.gir import ClassDocs, FunctionDocs
+from gi_stub_gen.manager import TemplateManager
+from gi_stub_gen.parser.gir import GirClassDocs, GirFunctionDocs
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.alias import AliasSchema
 from gi_stub_gen.schema.function import BuiltinFunctionSchema, FunctionSchema
@@ -18,7 +19,8 @@ from gi_stub_gen.utils import (
     get_type_hint,
     infer_type_str,
     get_redacted_stub_value,
-    sanitize_module_name,
+    sanitize_gi_module_name,
+    sanitize_variable_name,
 )
 from gi_stub_gen.utils import (
     gi_type_is_callback,
@@ -53,6 +55,11 @@ class EnumFieldSchema(BaseSchema):
     deprecation_warnings: str | None
     """Deprecation warning message, if any captured from PyGIDeprecationWarning"""
 
+    line_comment: str | None
+    """line comment for the enum field.
+    Can be used to add annotations like # type: ignore
+    or to explain if the name was sanitized."""
+
     docstring: str | None = None
 
     @classmethod
@@ -67,8 +74,21 @@ class EnumFieldSchema(BaseSchema):
         # example: GLib.IOCondition.IN_ vs GLib.IOCondition.IN
         # gobject escape the name in get_name because "in" is a keyword in python
         # for now we just use the unescaped name
-        # field_name = value_info.get_name()
-        field_name = value_info.get_name_unescaped()
+        # field_name, line_comment = sanitize_variable_name(value_info.get_name())
+        # NOW IT IS DONE DIRECTLY BY THE GI TOOLKIT
+        # KEEPING THIS CODE FOR FUTURE REFERENCE
+
+        field_name = value_info.get_name()
+        line_comment = None
+        if value_info.get_name_unescaped() != value_info.get_name():
+            line_comment = f"real value: ({value_info.get_name_unescaped()}) changed due to name being a python keyword"
+
+        else:
+            # some fields are not escaped by GI
+            # i.e. GLIB.SpawnError.2BIG
+            # so we add a generic sanitization step
+            field_name, line_comment = sanitize_variable_name(value_info.get_name())
+
         return cls(
             name=field_name.upper(),
             value=value_info.get_value(),
@@ -76,6 +96,7 @@ class EnumFieldSchema(BaseSchema):
             is_deprecated=value_info.is_deprecated(),
             docstring=docstring,
             deprecation_warnings=deprecation_warnings,
+            line_comment=line_comment,
         )
 
     def __str__(self):
@@ -86,14 +107,17 @@ class EnumFieldSchema(BaseSchema):
 class EnumSchema(BaseSchema):
     enum_type: Literal["enum", "flags"]
 
-    name: str
-    namespace: str
-    is_deprecated: bool
-    fields: list[EnumFieldSchema]
-    docstring: str | None = None
-
     py_mro: list[str]
     """Used for debugging purposes"""
+
+    namespace: str
+    name: str
+    docstring: str | None = None
+    is_deprecated: bool
+    fields: list[EnumFieldSchema]
+
+    def render(self) -> str:
+        return TemplateManager.render_master("enum.jinja", enum=self)
 
     @classmethod
     def from_gi_object(
@@ -130,8 +154,6 @@ class EnumSchema(BaseSchema):
 
         return "GObject.GFlags" if self.enum_type == "flags" else "GObject.GEnum"
 
-        # after pygobject 3.54.0 GFlags and GEnum are normal classes so we can
-
     def __str__(self):
         deprecated = "[DEPRECATED]" if self.is_deprecated else ""
         args_str = "\n".join([f"   - {arg}" for arg in self.fields])
@@ -139,10 +161,3 @@ class EnumSchema(BaseSchema):
         return (
             f"{deprecated}namespace={self.namespace} name={self.name} {mro}\n{args_str}"
         )
-
-    @property
-    def debug(self):
-        """
-        Debug docstring
-        """
-        return f"{self.docstring}\n[DEBUG]\n{self.model_dump_json(indent=2)}"

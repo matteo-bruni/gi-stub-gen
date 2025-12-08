@@ -11,18 +11,17 @@ version = "0.0.1"
 description = "A type hint/stub generator for GObject Introspection libraries"
 readme = "README.md"
 authors = [{ name = "Matteo Bruni", email = "matteo.bruni@gmail.com" }]
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 dependencies = [
     "jinja2>=3.1.5",
     "lxml>=5.3.1",
     "pydantic>=2.10.6",
     "pygobject==3.54.0",
-    "pygobject-stubs>=2.12.0",
     "rich>=13.9.4",
     "tomlkit>=0.13.3",
     "typer>=0.15.1",
 ]
-license = { text = "MIT" }
+license = { file = "LICENSE" }
 keywords = [
     "pygobject",
     "gobject",
@@ -71,3 +70,12 @@ exclude = [
     ".venv",
 ]
 ignore = ["**/ignore", "**/.venv", ".venv"]
+# ignore missing source for modules like gi.repository
+reportMissingModuleSource = "none"
+# generated stubs will be placed in these folders so we 
+# dont need to install them while developing gi-stub-gen
+extraPaths = [
+    "stubs/gi-base-stubs/src",
+    "stubs/gi-gst-stubs/src",
+    "stubs/gi-gtk-stubs/src",
+]

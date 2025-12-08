@@ -1,14 +1,18 @@
 from __future__ import annotations
 
 
+import enum
+import keyword
 import logging
 
+from gi_stub_gen.manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.utils import ValueAny
 from gi_stub_gen.utils import (
     get_type_hint,
     get_redacted_stub_value,
-    sanitize_module_name,
+    sanitize_gi_module_name,
+    sanitize_variable_name,
 )
 from gi_stub_gen.utils import (
     is_py_builtin_type,
@@ -20,6 +24,13 @@ from gi.repository import GObject
 
 # GObject.remove_emission_hook
 logger = logging.getLogger(__name__)
+
+
+class VariableType(enum.Enum):
+    PYTHON_TYPE = "PYTHON_TYPE"  # i.e int, str, float, dict, list, tuple
+    GENUM = "GENUM"
+    GFLAGS = "GFLAGS"
+    UNKNOWN = "UNKNOWN"  # fallback type
 
 
 class VariableSchema(BaseSchema):
@@ -40,7 +51,7 @@ class VariableSchema(BaseSchema):
     deprecation_warnings: str | None
     """Deprecation warning message, if any captured from PyGIDeprecationWarning"""
 
-    type_repr: str
+    type_hint: str
     """type representation in template"""
 
     value_repr: str
@@ -51,26 +62,27 @@ class VariableSchema(BaseSchema):
     is_enum_or_flags: bool
     """Whether this variable is an enum or flags (we avoid writing the type in the template)"""
 
+    line_comment: str | None
+    """line comment for the alias.
+    Can be used to add annotations like # type: ignore
+    or to explain if the name was sanitized."""
+
+    variable_type: VariableType
+    """Type of the variable, used mainly for debugging purposes"""
+
     @property
     def docstring(self):
         docstring_str: list[str] = []
         if self.deprecation_warnings:
-            docstring_str.append(f"[DEPRECATED] {self.deprecation_warnings}")
+            docstring_str.append(f"[DEPRECATED] {self.deprecation_warnings.strip()}")
 
         if self.gir_docstring:
             docstring_str.append(f"{self.gir_docstring}")
 
         return "\n".join(docstring_str) or None
 
-    @property
-    def debug(self):
-        """
-        Debug docstring
-        """
-        if self.docstring:
-            return f"{self.docstring}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
-
-        return f"[DEBUG]\n{self.model_dump_json(indent=2)}"
+    def render(self) -> str:
+        return TemplateManager.render_master("constant.jinja", constant=self)
 
     @classmethod
     def from_gi_object(
@@ -83,7 +95,7 @@ class VariableSchema(BaseSchema):
         keep_builtin_value: bool = False,
     ):
         # breakpoint()
-        sanitized_namespace = sanitize_module_name(namespace)
+        sanitized_namespace = sanitize_gi_module_name(namespace)
         object_type = type(obj)
         object_type_namespace: str | None = None
         if hasattr(obj, "__info__"):
@@ -100,17 +112,17 @@ class VariableSchema(BaseSchema):
         value_repr: str = ""
         is_deprecated = False
         is_enum_or_flags = False
+        line_comment: str | None = None
+        variable_type: VariableType = VariableType.UNKNOWN
 
         if is_py_builtin_type(object_type):
+            variable_type = VariableType.PYTHON_TYPE
             # remove sensitive information from value representation
             # i.e paths from string or
             if keep_builtin_value:
                 value_repr = get_redacted_stub_value(obj)
             else:
                 value_repr = "..."
-            # or remove directly the value from builtin types
-            # value_repr = "..."
-            # value_repr = repr(obj)
             if isinstance(obj, (dict, list, tuple)):
                 # for dicts we also include the type representation
                 # value_repr = "..."
@@ -127,17 +139,44 @@ class VariableSchema(BaseSchema):
                 is_enum_or_flags = True
 
                 if is_flags:
-                    if obj.first_value_nick is not None:
-                        value_repr = (
-                            f"{object_type_repr}.{obj.first_value_nick.upper()}"
+                    variable_type = VariableType.GFLAGS
+                    flags_field_name = obj.first_value_nick
+                    # check if valid identifier
+
+                    # if flags_field_name.upper() == "IN":
+                    #     breakpoint()
+
+                    if flags_field_name is not None:
+                        is_valid = (
+                            flags_field_name.isidentifier()
+                            and not keyword.iskeyword(flags_field_name)
                         )
+                        if is_valid:
+                            value_repr = (
+                                f"{object_type_repr}.{flags_field_name.upper()}"
+                            )
+                        else:
+                            # Fallback to using the real value
+                            value_repr = f"{object_type_repr}({obj.real})"
+                            line_comment = f"nick: ({object_type_repr}.{flags_field_name.upper()}) changed due to name being a python keyword or invalid identifier"
                     else:
                         # Fallback to using the real value
                         value_repr = f"{object_type_repr}({obj.real})"
 
                 if not is_flags:
+                    variable_type = VariableType.GENUM
                     # it is an enum
-                    value_repr = f"{object_type_repr}.{obj.value_nick.upper()}"
+                    enum_field_name = obj.value_nick.upper()
+
+                    # the value of the enum could be invalid due to not being
+                    # a valid python identifier
+                    # we apply the same logic when parsing enum/flags fields
+                    sanitized_name, line_comment = sanitize_variable_name(
+                        enum_field_name
+                    )
+
+                    value_repr = f"{object_type_repr}.{sanitized_name}"
+
         elif isinstance(obj, GObject.GType):
             value_repr = "..."
         else:
@@ -145,19 +184,19 @@ class VariableSchema(BaseSchema):
             logger.warning(
                 "[WARNING] Object representation not found, using real value"
             )
-            value_repr = f"{object_type_repr}({obj}) # TODO: not found ??"
+            value_repr = f"{object_type_repr}({obj})"
+            line_comment = "TODO: not found ??"
 
-        # if name == "SIGNAL_ACTION":
-        #     breakpoint()
-        # deprecation_warnings = catch_gi_deprecation_warnings(obj, name)
         return cls(
             namespace=sanitized_namespace,
             name=name,
-            type_repr=object_type_repr,
+            type_hint=object_type_repr,
             value=obj,
             value_repr=value_repr,
             is_deprecated=is_deprecated,
             gir_docstring=docstring,
             deprecation_warnings=deprecation_warnings,
             is_enum_or_flags=is_enum_or_flags,
+            line_comment=line_comment,
+            variable_type=variable_type,
         )

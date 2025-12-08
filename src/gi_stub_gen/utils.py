@@ -225,7 +225,7 @@ def get_super_class_name(obj, current_namespace: str | None = None):
     )
 
     super_module = super_class.__module__
-    super_module_name = sanitize_module_name(str(super_module))
+    super_module_name = sanitize_gi_module_name(str(super_module))
 
     if super_module_name == "gi":
         super_module_name = "GI"
@@ -239,7 +239,7 @@ def get_super_class_name(obj, current_namespace: str | None = None):
 
     # if the super class is in the same namespace as the current class
     # return only the class name
-    if super_module_name == sanitize_module_name(current_namespace):
+    if super_module_name == sanitize_gi_module_name(current_namespace):
         return super_class.__name__
     # in typing it is uppercase
     # super_module_name = super_module_name.replace("gobject", "GObject")
@@ -367,7 +367,7 @@ def get_gi_module_from_name(
     return importlib.import_module(f".{module_name}", "gi.repository")
 
 
-def sanitize_module_name(module_name: Any) -> str:
+def sanitize_gi_module_name(module_name: Any) -> str:
     """
     Sanitize the module name to be used in the gi.repository namespace.
     This will remove the gi.repository prefix and return the module name.
@@ -391,17 +391,18 @@ def sanitize_variable_name(name: str) -> tuple[str, str | None]:
     Args:
         name (str): The name to sanitize.
     Returns:
-        tuple[str, bool]: A tuple containing the sanitized name and a boolean indicating
-                          if the name was modified to be valid.
+        tuple[str, str]:
+            A tuple containing the sanitized name
+            and an optional reason for the change.
     """
     name = name.replace("-", "_")
     if keyword.iskeyword(name):
-        return f"_{name}", "changed due to name is a python keyword"
+        return f"{name}_", f"[{name}]: changed, name is a python keyword"
 
     if name.isidentifier():
         return name, None
 
-    return f"_{name}", "changed due to not a valid identifier"
+    return f"_{name}", f"[{name}]: changed, not a valid identifier"
 
 
 def infer_type_str(obj) -> str:

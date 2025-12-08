@@ -1,4 +1,5 @@
 import logging
+import shutil
 import tomlkit
 from pathlib import Path
 
@@ -9,9 +10,9 @@ def create_stub_package(
     root_folder: Path,
     name: str,
     stubs: dict[str, str],  # file_name -> stub_content
-    version: str = "0.1.0",
-    description: str = "Add your description here",
-    author_name: str = "Matteo Bruni",
+    version: str,
+    description: str,
+    author_name: str,
     author_email: str = "",
     min_python_version: str = "3.12",
     overwrite: bool = False,
@@ -66,7 +67,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/gi_stub"]"""
+packages = ["src/gi-stubs"]"""
 
     with open(pyproject_toml_path, "w") as f:
         f.write(pyproject_template)
@@ -79,6 +80,11 @@ packages = ["src/gi_stub"]"""
 
     package_folder = folder / "src" / "gi-stubs" / "repository"
     if not package_folder.exists():
+        package_folder.mkdir(parents=True)
+    elif overwrite:
+        logger.info(f"Overwriting existing package folder at {package_folder}")
+        # remove all files in the package folder
+        shutil.rmtree(package_folder)
         package_folder.mkdir(parents=True)
 
     for stub_name, stub_content in stubs.items():

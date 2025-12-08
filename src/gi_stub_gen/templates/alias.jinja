@@ -1,0 +1,7 @@
+{{alias.name}} = {{alias.target_repr}} {{ alias.line_comment | if_exists("# ") }}
+{% if alias.docstring or debug -%}
+"""
+{{ alias.debug | if_true(debug, "{}\n\n") -}}
+{{alias.docstring | if_exists }}
+"""
+{% endif -%}

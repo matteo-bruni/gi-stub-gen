@@ -1,0 +1,25 @@
+{# callback can be of other modules, we can't detect early but they are effectively aliases #}
+{% if cb.function.namespace != module_name %}
+{{cb.name}} = {{ cb.function.namespace}}.{{cb.name}}
+{% if debug %}
+"""
+{{ cb.debug }}
+"""
+{% endif %}
+{% else %}
+class {{cb.name}}(typing.Protocol):
+    {% if cb.docstring or debug %}
+    """
+    {{ cb.debug | if_true(debug, "{}\n\n") | indent(4, blank=True) -}}
+    {{ cb.docstring | if_exists | trim | indent(4, blank=True) }}
+    """
+    {% endif %}
+
+    def __call__(
+        self,
+        {% for a in cb.function.input_args %}
+        {{a.name}}: {{a.type_hint}},
+        {% endfor %}
+    ) -> {{cb.function.complete_return_hint}}:
+        ...
+{% endif %}

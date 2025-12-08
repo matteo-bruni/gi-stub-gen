@@ -12,16 +12,16 @@ from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.parser.gir import ModuleDocs
 
 
+from gi_stub_gen.schema.class_ import ClassAttributeSchema, ClassSchema
 from gi_stub_gen.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
     gi_type_to_py_type,
-    sanitize_module_name,
+    sanitize_gi_module_name,
     sanitize_variable_name,
 )
 
 if TYPE_CHECKING:
-    from gi_stub_gen.schema.class_ import ClassSchema
     from gi_stub_gen.schema.constant import VariableSchema
     from gi_stub_gen.schema.function import FunctionSchema
 
@@ -53,6 +53,10 @@ def parse_class(
     if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
         return None, []
 
+    # assert hasattr(class_to_parse, "__gtype__"), (
+    #     f"Class {class_to_parse} has no __gtype__ attribute"
+    # )
+
     if (
         namespace.split(".")[-1].lower()
         != str(class_to_parse.__module__).split(".")[-1].lower()
@@ -68,7 +72,7 @@ def parse_class(
     """callbacks found during class parsing, saved to be parsed later"""
 
     class_props: list[ClassPropSchema] = []
-    class_attributes: list[VariableSchema] = []
+    class_attributes: list[ClassAttributeSchema] = []
     class_methods: list[FunctionSchema] = []
     class_parsed_elements: list[str] = []
     extra: list[str] = []
@@ -96,7 +100,7 @@ def parse_class(
                 prop_type_repr = prop_type_repr_name
                 if (
                     prop_type_repr_namespace
-                    and prop_type_repr_namespace != sanitize_module_name(namespace)
+                    and prop_type_repr_namespace != sanitize_gi_module_name(namespace)
                 ):
                     prop_type_repr = f"{prop_type_repr_namespace}.{prop_type_repr_name}"
 
@@ -108,14 +112,19 @@ def parse_class(
                     is_deprecated=prop.is_deprecated(),
                     readable=bool(prop.get_flags() & GObject.ParamFlags.READABLE),
                     writable=bool(prop.get_flags() & GObject.ParamFlags.WRITABLE),
-                    type_repr=prop_type_repr,
+                    type_hint=prop_type_repr,
                     line_comment=f"#{comment}" if comment else None,
+                    docstring=None,  # TODO: retrieve docstring
                 )
                 class_props.append(c)
                 class_parsed_elements.append(prop.get_name())
         if hasattr(class_to_parse.__info__, "get_methods"):
             for met in class_to_parse.__info__.get_methods():
-                parsed_method = parse_function(met, module_docs.functions, None)
+                parsed_method = parse_function(
+                    met,
+                    docstring=module_docs.get_function_docstring(met.get_name()),
+                    deprecation_warnings=None,
+                )
                 if parsed_method:
                     # save callbacks to be parsed later
                     callbacks_found.extend(parsed_method._gi_callbacks)
@@ -153,11 +162,11 @@ def parse_class(
                 parent="",
                 name=attribute_name,
                 obj=attribute,
-                docstring=None,  # TODO: retrieve docstring
+                docstring=None,  # TODO: retrieve docstring with inspect??
                 deprecation_warnings=None,  # TODO: retrieve deprecation warnings
-                # docstring=module_docs.constants.get(attribute_name, None),
             ):
-                class_attributes.append(c)
+                extra.append(f"constant: {attribute_name}")
+                # class_attributes.append(c)
             elif attribute_type is MethodDescriptorType:
                 # TODO: how to parse this??
                 # cant obtain args/return type
@@ -168,21 +177,15 @@ def parse_class(
                 # cant obtain args/return type
                 # inspect does not work on builting
                 extra.append(f"property: {attribute_name}")
+
             elif f := parse_function(
                 attribute,
-                module_docs.functions,
-                None,  # TODO: retrieve?
+                module_docs.get_function_docstring(attribute_name),
+                deprecation_warnings=None,  # TODO: retrieve?
             ):
                 class_methods.append(f)
-                # print("function", f)
                 # callbacks can be found as arguments of functions, save them to be parsed later
                 callbacks_found.extend(f._gi_callbacks)
-                # if f.is_callback:
-                #     print(f"!!!!!!!!!!!!!!!!!!! callback: {attribute_name}")
-                # if len(f._gi_callbacks) > 0:
-                #     print(
-                #         f"@@@@@@@@@@@@@@@@@@@ callbacks found in method {attribute_name}: {[cb.get_name() for cb in f._gi_callbacks]}"
-                #     )
             else:
                 extra.append(f"unknown: {attribute_name}")
 

@@ -1,0 +1,13 @@
+{{ docs.docstring }}
+{% if docs.params %}
+
+Parameters:
+{% for param_name, param_doc in docs.params.items() %}
+    {{ param_name }}: {{ param_doc }}
+{% endfor %}
+{% endif %}
+{% if docs.return_doc %}
+
+Returns:
+    {{ docs.return_doc }}
+{% endif %}

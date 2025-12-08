@@ -1,0 +1,12 @@
+{% if constant.is_enum_or_flags -%}
+{# in enum/flags we don't need to specify the type #}
+{{constant.name}} = {{constant.value_repr}} {{ constant.line_comment | if_exists("# ") }}
+{% else -%}
+{{constant.name}}: {{constant.type_hint}} = {{constant.value_repr}} {{ constant.line_comment | if_exists("#") }}
+{% endif -%}
+{% if constant.docstring or debug -%}
+"""
+{{ constant.debug | if_true(debug, "{}\n\n") -}}
+{{constant.docstring ~ " "| if_exists }}
+"""
+{% endif -%}

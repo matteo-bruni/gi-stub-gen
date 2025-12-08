@@ -1,0 +1,17 @@
+class {{enum.name}}({{enum.py_super_type_str}}):
+    {% if enum.docstring or debug %}
+    """
+    {{ enum.debug | if_true(debug, "{}\n") | indent(4, blank=True) -}}
+    {{enum.docstring | if_exists | trim | indent(4, blank=True) -}}
+    """
+    {% endif %}
+
+    {% for f in enum.fields %}
+    {{f.name}} = {{f.value_repr}} {{ f.line_comment | if_exists("# ") }}
+    {% if f.docstring %}
+    """
+    {{f.docstring | trim | indent(4, blank=True) }}
+    """
+    {% endif %}
+    {% endfor %}
+

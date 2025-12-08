@@ -6,9 +6,14 @@ import pkgutil # needed by gi
 import gi
 import gi._gi as GI # type: ignore
 import _thread
+import enum
 from gi.repository import GLib
 from gi.repository import GObject
-from gi.repository import GioUnix
+{% if extra_gi_repository_import|length > 0 -%}
+{% for extra_import in extra_gi_repository_import -%}
+from gi.repository import {{extra_import.split('.')[-1]}}
+{% endfor -%}
+{% endif -%}
 
 ##############################################################
 # Enums/Flags
@@ -125,8 +130,13 @@ def {{f.name}}(
 # classes
 ##############################################################
 
-{% for c in classes -%}
-class {{c.name}}({{','.join(c.super)}}):
+{% for cls in classes %}
+{{ cls.render() }}
+{% endfor %}
+
+
+{% for c in classesNO -%}
+class {{c.name}}({{','.join(c.bases)}}):
     {% if debug -%}
     \"\"\"
     {{c.debug}}
@@ -192,6 +202,17 @@ class {{cb.name}}(typing.Protocol):
 {{a.docstring}}
 \"\"\"
 {% endif -%}
+{% endfor %}
+
+##############################################################
+# Unknowns/Not Parsed
+##############################################################
+
+{% for u_t, u_values in unknowns.items() -%}
+# type: {{u_t}}, element not parsed are:
+{% for v in u_values -%}
+#     - {{v}}
+{% endfor %}
 {% endfor %}
 
 """

@@ -1,11 +1,10 @@
 from __future__ import annotations
+from typing import Literal
 
-import logging
+from gi_stub_gen.manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 
-
-# GObject.remove_emission_hook
-logger = logging.getLogger(__name__)
+__all__ = ["AliasSchema"]
 
 
 class AliasSchema(BaseSchema):
@@ -15,10 +14,23 @@ class AliasSchema(BaseSchema):
     """
 
     name: str
+    """name of the alias"""
+
     target_name: str | None
+    """name of the target object"""
+
     target_namespace: str | None
+    """namespace of the target object"""
+
     deprecation_warning: str | None
+    """Deprecation warning message, if any captured from PyGIDeprecationWarning"""
+
     line_comment: str | None
+    """line comment for the alias.
+    Can be used to add annotations like # type: ignore
+    or to explain if the name was sanitized."""
+
+    alias_to: Literal["same_module", "other_module"]
 
     @property
     def target_repr(self):
@@ -38,3 +50,6 @@ class AliasSchema(BaseSchema):
             return f"[DEPRECATED] {self.deprecation_warning}"
 
         return None
+
+    def render(self) -> str:
+        return TemplateManager.render_master("alias.jinja", alias=self)

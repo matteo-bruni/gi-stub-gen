@@ -1,0 +1,8 @@
+class {{ cls_.name }}{{ cls_.bases | join(', ') | if_true(cls_.bases, '({})') }}:
+    {% if cls_.docstring or debug %}
+    """
+    {{ cls_.debug | if_true(debug, "{}\n") | indent(4, blank=True) -}}
+    {{ cls_.docstring | if_exists | indent(4, blank=True) -}}
+    """
+    {% endif %}
+    ...

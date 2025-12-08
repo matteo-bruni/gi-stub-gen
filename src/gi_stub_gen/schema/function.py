@@ -5,7 +5,8 @@ import inspect
 import keyword
 import logging
 from gi_stub_gen.gi_utils import get_gi_type_info, get_safe_gi_array_length
-from gi_stub_gen.parser.gir import ClassDocs, FunctionDocs
+from gi_stub_gen.manager import TemplateManager
+from gi_stub_gen.parser.gir import GirClassDocs, GirFunctionDocs
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.utils import (
     catch_gi_deprecation_warnings,
@@ -15,7 +16,7 @@ from gi_stub_gen.utils import (
     get_type_hint,
     infer_type_str,
     get_redacted_stub_value,
-    sanitize_module_name,
+    sanitize_gi_module_name,
 )
 from gi_stub_gen.utils import (
     gi_type_is_callback,
@@ -99,7 +100,7 @@ class BuiltinFunctionArgumentSchema(BaseModel):
         return f"{prefix}{self.name}: {self.type_hint}{default}"
 
 
-class BuiltinFunctionSchema(BaseModel):
+class BuiltinFunctionSchema(BaseSchema):
     name: str
     namespace: str
     is_async: bool = False
@@ -107,12 +108,8 @@ class BuiltinFunctionSchema(BaseModel):
     return_hint: str
     params: list[BuiltinFunctionArgumentSchema]
 
-    @property
-    def debug(self):
-        """
-        Debug docstring
-        """
-        return f"{self.docstring}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
+    def render(self) -> str:
+        return TemplateManager.render_master("builtin_function.jinja", fun=self)
 
     @property
     def param_signature(self) -> list[str]:
@@ -176,11 +173,15 @@ class FunctionArgumentSchema(BaseSchema):
     py_type_namespace: str | None
     """The python type namespace of the argument to be used in templates"""
 
+    line_comment: str | None
+    """line comment for the argument."""
+
     @classmethod
     def from_gi_object(
         cls,
         obj: Any,
         direction: Literal["IN", "OUT", "INOUT"],
+        parent_namespace: str,  # namespace of the function parent
     ) -> tuple[Self, CallbackSchema | None]:
         found_callback: CallbackSchema | None = None
 
@@ -190,20 +191,31 @@ class FunctionArgumentSchema(BaseSchema):
         py_type_name_repr = "Any"  # default
 
         is_callback = gi_type_is_callback(gi_type)
+        argument_namespace = obj.get_namespace()
         # Check if it is a Callback
         if is_callback:
             # Get the interface (The actual CallbackInfo)
             cb_info = gi_type.get_interface()
-            cb_name = f"{cb_info.get_name()}Callback"
+            cb_name = f"{cb_info.get_name()}CB"
+            # if parent_namespace == "":
+            # breakpoint()
 
-            cb_schema = FunctionSchema.from_gi_object(cb_info)
-            found_callback = CallbackSchema(
-                name=cb_name,
-                function=cb_schema,
-            )
+            if argument_namespace != parent_namespace:
+                # The callback is defined in another namespace
+                # use the fully qualified name
+                py_type_name_repr = f"{argument_namespace}.{cb_name}"
 
-            # use the callback name as the type
-            py_type_name_repr = cb_name
+            else:
+                # the callback is defined in the same namespace
+                # create the CallbackSchema
+
+                cb_schema = FunctionSchema.from_gi_object(cb_info)
+                found_callback = CallbackSchema(
+                    name=cb_name,
+                    function=cb_schema,
+                )
+                # use the callback name as the type
+                py_type_name_repr = cb_name
 
         else:
             # Standard type logic
@@ -219,7 +231,7 @@ class FunctionArgumentSchema(BaseSchema):
 
         array_length: int = get_safe_gi_array_length(gi_type)
         return cls(
-            namespace=obj.get_namespace(),
+            namespace=argument_namespace,
             name=obj.get_name(),
             is_callback=is_callback,
             is_optional=obj.is_optional(),
@@ -230,6 +242,7 @@ class FunctionArgumentSchema(BaseSchema):
             is_deprecated=gi_type.is_deprecated(),
             tag_as_string=gi_type.get_tag_as_string(),
             get_array_length=array_length,
+            line_comment=None,
         ), found_callback
 
     @property
@@ -293,7 +306,7 @@ class FunctionSchema(BaseSchema):
     namespace: str
     name: str
     args: list[FunctionArgumentSchema]
-    docstring: FunctionDocs | None
+    docstring: str | None
 
     is_callback: bool
     """Whether this function is a callback"""
@@ -350,11 +363,14 @@ class FunctionSchema(BaseSchema):
 
         return f"tuple[{', '.join(return_parts)}]"
 
+    def render(self) -> str:
+        return TemplateManager.render_master("function.jinja", fun=self)
+
     @classmethod
     def from_gi_object(
         cls,
         obj: Any,
-        docstring: FunctionDocs | None = None,
+        docstring: str | None = None,
     ):
         assert isinstance(obj, GI.CallbackInfo) or isinstance(obj, GI.FunctionInfo), (
             "Not a valid GI function or callback object"
@@ -408,6 +424,7 @@ class FunctionSchema(BaseSchema):
             function_arg, found_callback = FunctionArgumentSchema.from_gi_object(
                 obj=arg,
                 direction=direction,
+                parent_namespace=obj.get_namespace(),
             )
             function_args.append(function_arg)
             if found_callback:
@@ -460,18 +477,6 @@ class FunctionSchema(BaseSchema):
         to_return._gi_callbacks = args_as_callbacks_found
         return to_return
 
-    @property
-    def debug(self):
-        """
-        Debug docstring
-        """
-
-        data = ""
-        if self.docstring:
-            data = f"{self.docstring}"
-
-        return f"{data}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
-
 
 class CallbackSchema(BaseSchema):
     name: str
@@ -498,32 +503,5 @@ class CallbackSchema(BaseSchema):
 
         return docstring
 
-    @property
-    def debug(self):
-        """
-        Debug docstring
-        """
-
-        data = ""
-        if self.docstring:
-            data = f"{self.docstring}"
-
-        return f"{data}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
-        # return f"[DEBUG]\n{self.model_dump_json(indent=2)}"
-
-
-#     def render_protocol(self) -> str:
-#         """
-#         Renders the Python Protocol definition.
-#         """
-#         # Filter arguments for the __call__ method (usually only IN and INOUT matter for input)
-#         # Note: In Python Protocols for callbacks, you usually define the input signature.
-#         input_args_str = ", ".join(
-#             f"{arg.name}: {arg.type_hint}" for arg in self.function.args
-#         )
-
-#         return f"""
-# class {self.name}(typing.Protocol):
-#     def __call__(self, {input_args_str}) -> {self.function.return_hint}:
-#         ...
-# """
+    def render(self) -> str:
+        return TemplateManager.render_master("callback.jinja", cb=self)

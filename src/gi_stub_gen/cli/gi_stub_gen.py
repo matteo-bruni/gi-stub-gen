@@ -10,6 +10,8 @@ from pathlib import Path
 import typer
 from typing_extensions import Annotated
 
+from gi_stub_gen.manager import TemplateManager
+
 
 app = typer.Typer(pretty_exceptions_enable=False)
 logger = logging.getLogger(__name__)
@@ -73,6 +75,14 @@ def main(
         list[str],
         typer.Option(
             help="List of dependencies for the stub package.",
+        ),
+    ] = [],
+    stub_gi_include: Annotated[
+        list[str],
+        typer.Option(
+            help="List of additional gi.repository.<module_name> to include in the stubs. "
+            "The syntax is <module_stub>:<gi_module_to_include>."
+            "(i.e Gio:GioUnix to include gi.repository.GioUnix in the Gio stubs).",
         ),
     ] = [],
     debug: Annotated[
@@ -141,6 +151,19 @@ def main(
     from gi_stub_gen.parser.module import parse_module
     from gi_stub_gen.parser.gir import gir_docs
 
+    # get extra import to add to each stub file
+    extra_include_per_stub: dict[str, list[str]] = {}
+    for s in stub_gi_include:
+        if ":" not in s or len(s.split(":")) != 2:
+            logger.error(
+                f"Invalid stub_gi_include format: {s}. Expected format is <module_stub>:<gi_module_to_include>"
+            )
+            continue
+        module_stub, gi_module_to_include = s.split(":")
+        if module_stub not in extra_include_per_stub:
+            extra_include_per_stub[module_stub] = []
+        extra_include_per_stub[module_stub].append(gi_module_to_include)
+
     stubs: dict[str, str] = {}
     unknown: dict[str, dict[str, list[str]]] = {}
     # gather info for all modules in this stub package
@@ -154,12 +177,15 @@ def main(
         parsed_module, unknown_module_map_types = parse_module(
             module, docs, debug=debug
         )
-        stubs[module_name] = parsed_module.to_pyi(debug=debug)
         unknown[module_name] = unknown_module_map_types
-        # if unknown_module_map_types:
-        #     logger.warning(
-        #         f"Unknown/Not parsed elements for module {module_name}: {unknown_module_map_types}"
-        #     )
+        stub_file_name = module_name
+        # if stub_file_name == "gi":
+        #     stub_file_name = "__init__"
+        stubs[stub_file_name] = parsed_module.to_pyi(
+            extra_gi_repository_import=extra_include_per_stub.get(module_name, []),
+            debug=debug,
+            unknowns=unknown_module_map_types,
+        )
 
     total_unknown = sum(
         len(attributes)

@@ -1,0 +1,12 @@
+def {{fun.name}}(
+    {% for a in fun.input_args %}
+    {{a.name}}: {{a.type_hint}},
+    {% endfor %}
+) -> {{fun.complete_return_hint}}:
+    {% if fun.docstring or debug %}
+    """
+    {{ fun.debug | if_true(debug, "{}\n") | trim | indent(4, blank=True) -}}
+    {{ fun.docstring | if_exists | trim | indent(4, blank=True) }}
+    """
+    {% endif %}
+    ...

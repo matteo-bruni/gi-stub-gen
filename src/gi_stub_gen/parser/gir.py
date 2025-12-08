@@ -11,25 +11,56 @@ from lxml import etree
 from pydantic import BaseModel
 import logging
 
+from gi_stub_gen.manager import TemplateManager
+
 logger = logging.getLogger(__name__)
 
 
-class FunctionDocs(BaseModel):
+class GirFunctionDocs(BaseModel):
+    """Function documentation extracted from GIR."""
+
     docstring: str
     params: dict[str, str]
     return_doc: str
 
+    def full_docstring(self) -> str:
+        """
+        Construct the full docstring including parameters and return value.
+        """
+        return TemplateManager.render_master("function_docstring.jinja", docs=self)
+        doc = self.docstring
+        if self.params:
+            doc += "\n\nParameters:\n"
+            for param_name, param_doc in self.params.items():
+                doc += f"    {param_name}: {param_doc}\n"
+        if self.return_doc:
+            doc += f"\n\nReturns:\n    {self.return_doc}\n"
+        return doc
 
-class ClassDocs(BaseModel):
+
+class GirClassDocs(BaseModel):
+    """Class documentation extracted from GIR."""
+
     class_docstring: str
     fields: dict[str, str]
 
 
 class ModuleDocs(BaseModel):
     constants: dict[str, str]
-    functions: dict[str, FunctionDocs]
-    enums: dict[str, ClassDocs]
-    classes: dict[str, ClassDocs]
+    functions: dict[str, GirFunctionDocs]
+    enums: dict[str, GirClassDocs]
+    classes: dict[str, GirClassDocs]
+
+    def get_function_docstring(self, function_name: str) -> str | None:
+        """
+        Get the docstring for a function by name.
+        """
+        func_docs = self.functions.get(function_name, None)
+        if func_docs:
+            return func_docs.full_docstring()
+        return None
+
+    # def get_class_docstring(self, class_name: str) -> str | None:
 
 
 def parse_constant(path: str, root: etree._ElementTree, namespace: dict[str, str]):
@@ -46,7 +77,7 @@ def parse_constant(path: str, root: etree._ElementTree, namespace: dict[str, str
 
 
 def parse_function(path: str, root: etree._ElementTree, namespace: dict[str, str]):
-    function_docs: dict[str, FunctionDocs] = {}
+    function_docs: dict[str, GirFunctionDocs] = {}
 
     # find the functions
     for f in root.xpath(path, namespaces=namespace):  # type: ignore
@@ -76,7 +107,7 @@ def parse_function(path: str, root: etree._ElementTree, namespace: dict[str, str
             if len(return_doc) == 1:
                 return_docstring = str(return_doc[0].text)
 
-            function_docs[str(name)] = FunctionDocs(
+            function_docs[str(name)] = GirFunctionDocs(
                 docstring=function_docstring,
                 params=class_params_docs,
                 return_doc=return_docstring,
@@ -88,7 +119,7 @@ def parse_function(path: str, root: etree._ElementTree, namespace: dict[str, str
 
 
 def parse_class(path: str, root: etree._ElementTree, namespace: dict[str, str]):
-    docs: dict[str, ClassDocs] = {}
+    docs: dict[str, GirClassDocs] = {}
     for f in root.xpath(path, namespaces=namespace):  # type: ignore
         name = f.attrib.get("name", None)
         if name:
@@ -108,7 +139,7 @@ def parse_class(path: str, root: etree._ElementTree, namespace: dict[str, str]):
                     if len(field_doc) == 1:
                         class_fields_docs[str(field_name)] = str(field_doc[0].text)
 
-            docs[name] = ClassDocs(
+            docs[name] = GirClassDocs(
                 class_docstring=class_docstring,
                 fields=class_fields_docs,
             )
