@@ -22,7 +22,7 @@ class ClassPropSchema(BaseSchema):
     """
 
     name: str
-    type: str
+    # type: str
     is_deprecated: bool
     readable: bool
     writable: bool
@@ -34,11 +34,17 @@ class ClassPropSchema(BaseSchema):
     Can be used to add annotations like # type: ignore
     or to explain if the name was sanitized."""
 
-    type_hint: str
-    """type hint in template"""
+    type_hint_full: str
+    """type hint in template (with namespace if different from parent)"""
 
-    required_gi_import: str | None
-    """required gi.repository<NAME> import for the property type, if any"""
+    type_hint_namespace: str | None
+    """type hint namespace, if any"""
+
+    type_hint_name: str
+    """type hint name (without namespace)"""
+
+    may_be_null: bool
+    """True if the property may be None, False otherwise."""
 
 
 class ClassAttributeSchema(BaseSchema):
@@ -101,11 +107,13 @@ class ClassSchema(BaseSchema):
         if self.required_gi_import:
             gi_imports.add(self.required_gi_import)
         for prop in self.props:
-            if prop.required_gi_import:
-                gi_imports.add(prop.required_gi_import)
+            if prop.type_hint_namespace:
+                gi_imports.add(prop.type_hint_namespace)
         for attr in self.attributes:
             if attr.required_gi_import:
                 gi_imports.add(attr.required_gi_import)
+        for method in self.methods:
+            gi_imports.update(method.required_gi_imports)
         return gi_imports
 
     @classmethod
@@ -153,6 +161,22 @@ class ClassSchema(BaseSchema):
             if base_class_namespace
             else None
         )
+        # some super classes are in "gi" namespace
+        # which is actually gi._gi hidden in the C modules
+        # to use it in python we import it as: import gi._gi as GI
+        # for example the actual base classed of
+        # gi.Struct is actually in gi._gi.Struct
+        # gi.Boxed is actually in gi._gi.Boxed
+        # we map them to the closes objects in GObject
+        if sane_super_namespace == "gi" and base_class_name == "Boxed":
+            sane_super_namespace = "GObject"
+            base_class_name = "GBoxed"
+        if sane_super_namespace == "gi" and base_class_name == "Struct":
+            sane_super_namespace = "GObject"
+            base_class_name = "GPointer"
+        if sane_super_namespace == "gi" and base_class_name == "Fundamental":
+            sane_super_namespace = None
+            base_class_name = "object"
 
         # build the super class name in the template
         required_gi_import = None
@@ -183,6 +207,13 @@ class ClassSchema(BaseSchema):
             required_gi_import=required_gi_import,
             # _gi_callbacks=gi_callbacks,
         )
+
+    @property
+    def super_class(self) -> str | None:
+        """
+        Get the super class name, if any.
+        """
+        return ", ".join(self.bases)
 
     @property
     def debug(self):

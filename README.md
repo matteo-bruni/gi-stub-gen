@@ -14,6 +14,9 @@ feature:
 - dont like to pick the version at runtime for each library, just publish stubs for each version and install the needed one.
 - try to catch pydeprecation warnings for aliases and attributes and add to their docstring
 - try to add deprecated decorator to deprecated functions and methods
+- do not manually fix the generated stubs, try to improve the generator instead.
+- signal
+- gerror
 
 
 ### Why not from gir files?
@@ -52,6 +55,11 @@ TODO CHANGEME
 gi_stub_gen <library_name> <gi_version> > test.pyi
 ```
 
+## stub folder
+the generated stub in `stubs/` folder are generated using the `build-all.sh` script.
+These can be seen as examples of the generated stubs. 
+Ideally these can be published to PyPI or another package index in the future.
+In my idea each project should maintain the stubs for their own library, and link the stub version to the library version.
 
 # TODO
 - [ ] Add support for deprecated function and methods
@@ -62,3 +70,14 @@ gi_stub_gen <library_name> <gi_version> > test.pyi
 - [ ] Auto add import for other gi.repository modules used in type hints
 
 
+in Gio
+class BufferedInputStream 
+
+ props: Props = ...
+
+ sono incompatibili col figlio?
+
+
+
+- gi._gi.OptionGroup in Gio, dovrebbe esere GLib.OptionGroup
+ - default a funzioni in classi

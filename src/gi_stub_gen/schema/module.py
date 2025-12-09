@@ -43,7 +43,10 @@ class ModuleSchema(BaseSchema):
     callbacks: list[CallbackSchema]
     aliases: list[AliasSchema]
 
-    def collect_imports(self) -> tuple[set[str], set[str]]:
+    def collect_imports(
+        self,
+        extra_imports: list[str] | None = None,
+    ) -> tuple[set[str], set[str]]:
         sane_module_name = sanitize_gi_module_name(self.name)
 
         gi_imports: set[str] = set()
@@ -55,41 +58,59 @@ class ModuleSchema(BaseSchema):
             if a.target_namespace is not None:
                 gi_imports.add(a.target_namespace)
 
+        # Add Manually GObject if in current pyi
+        # there are any GEnum and GFlags (they are in GObject)
+        if len(self.enum) > 0:
+            gi_imports.add("GObject")
+
         # remove current module name from imports
         if sane_module_name in gi_imports:
             gi_imports.remove(sane_module_name)
+
+        if extra_imports:
+            for extra_import in extra_imports:
+                if extra_import.startswith("gi.repository."):
+                    gi_imports.add(extra_import.removeprefix("gi.repository."))
+                else:
+                    gi_imports.add(extra_import)
 
         # some non gi.repository imports can be slipped in the set
         # we just try to import and remove the ones that fail
         valid_gi_imports: set[str] = set()
         not_gi_imports: set[str] = set()
         for gi_import in gi_imports:
+            if gi_import.startswith("gi._"):
+                logger.debug(f"Skipping private gi module: {gi_import}")
+                # skip private gi modules
+                continue
             try:
                 get_gi_module_from_name(gi_import, None)
+                # if valid gi
                 valid_gi_imports.add(gi_import)
             except ImportError:
                 logger.warning(
                     f"Invalid gi.repository import {gi_import} in module {self.name}"
                 )
-                if not gi_import.startswith("GI."):
+                if not gi_import.startswith("GI.") and not gi_import == "GI":
                     not_gi_imports.add(gi_import)
 
-        # logger.error(
-        #     f"Module {self.name} - Removed invalid gi.repository imports: {not_gi_imports}"
-        # )
-
+        logger.info(f"Module: {self.name}")
+        logger.info(f"Importing gi.repository imports: {valid_gi_imports}")
+        logger.info(f"Not gi.repository imports: {not_gi_imports}")
         return valid_gi_imports, not_gi_imports
 
     def to_pyi(
         self,
-        extra_gi_repository_import: list[str],
+        extra_imports: list[str],
         unknowns: dict[str, list[str]],
         debug=False,
     ) -> str:
         sane_module_name = sanitize_gi_module_name(self.name)
 
         # add all the gi.repository imports needed
-        gi_imports, not_gi_imports = self.collect_imports()
+        gi_imports, not_gi_imports = self.collect_imports(
+            extra_imports=extra_imports,
+        )
 
         # this is needed to set the module name in the template manager
         TemplateManager.set_debug(debug=debug)
@@ -133,6 +154,6 @@ class ModuleSchema(BaseSchema):
             debug=debug,
             aliases=self.aliases,
             callbacks=self.callbacks,
-            extra_gi_repository_import=extra_gi_repository_import,
+            extra_gi_repository_import=extra_imports,
             unknowns=unknowns,
         )

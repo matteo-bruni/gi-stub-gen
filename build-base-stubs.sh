@@ -21,6 +21,7 @@ gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     GIRepository:3.0 \
     --pkg-name gi-base-stubs \
     --pkg-version ${PKG_GI_BASE_STUBS_VERSION} \
+    --stub-include GObject:enum \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
     --overwrite \

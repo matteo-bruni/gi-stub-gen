@@ -47,9 +47,17 @@ def parse_alias(
             # these are most likely overrides
             sanitized_module_name = module_name
             line_comment = "type: ignore  # no __module__ attribute"
+
+        target = sanitize_gi_module_name(attribute.__name__)
+
+        # _overrides are in the same module
+        if target == sanitize_gi_module_name(module_name):
+            target = "..."
+            line_comment = f"this very module {target}"
+
         return AliasSchema(
             name=attribute_name,
-            target_name=sanitize_gi_module_name(attribute.__name__),
+            target_name=target,
             target_namespace=None,  # we assume same module so no need to specify
             # target_namespace=sanitized_module_name,
             deprecation_warning=catch_gi_deprecation_warnings(

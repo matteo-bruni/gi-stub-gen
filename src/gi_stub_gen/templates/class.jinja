@@ -1,8 +1,58 @@
-class {{ cls_.name }}{{ cls_.bases | join(', ') | if_true(cls_.bases, '({})') }}:
+class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% if cls_.docstring or debug %}
     """
     {{ cls_.debug | if_true(debug, "{}\n") | indent(4, blank=True) -}}
     {{ cls_.docstring | if_exists | indent(4, blank=True) -}}
     """
     {% endif %}
+    {% if cls_.props %}
+
+    class Props{{ cls_.super_class | if_exists('({}.Props)') }}:
+        {% if cls_.props.docstring %}
+        """
+        {{ cls_.props.docstring | if_exists -}}
+        """
+        {% endif %}
+        {% for prop in cls_.props %}
+        {{ prop.name }}: {{ prop.type_hint_full }} {{ prop.line_comment | if_exists("# ") }}
+        {% if prop.docstring or prop.is_deprecated %} 
+        """
+        {{ prop.docstring | if_exist -}}
+        {{ "@deprecated" if prop.is_deprecated else ""  | indent(12, blank=True) -}}
+        """
+        {% endif %}
+        {% endfor %}
+
+    {% if not cls_.super_class %}props: Props = ...{% endif -%}
+    {% elif cls_.super_class == "object" %}
+    {# we add Props, inherited class, here we add a fake empty since someone might inherit from this class #}
+    class Props: 
+        ...
+    props: Props = ...
+    {% endif %}
+
+    # methods
+    {% if cls_.methods %}
+
+    {% for method in cls_.methods %}
+    {{ method.render_compact() | indent(4, first=False) }}
+    {# {% for d in method.decorators %}
+    {{ d }}
+    {% endfor %}
+    {{ 'async ' | if_true(method.is_async) }}def {{ method.name }}({{ method.first_arg | if_exists }}{{ ',' | if_true(method.args and method.first_arg) }}{% for param in method.args %}{{ param.name }}: {{ param.type_hint }}{{ ", " if not loop.last }}{% endfor %}) -> {{ method.complete_return_hint }}: {{ '...' | if_true( not method.docstring)}} 
+        {% if method.docstring -%}
+        """
+        {{ method.docstring | if_exists -}}
+        """
+        {% endif -%} #}
+    {% endfor %}
+    {% endif %}
+    {% if cls_.extra %}
+    """
+    {% for e in cls_.extra %}
+    {{ e }}
+    {% endfor %}
+    """
+    {% endif %}
+
     ...

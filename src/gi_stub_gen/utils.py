@@ -393,7 +393,7 @@ def sanitize_gi_module_name(module_name: str) -> str:
         .removeprefix("gi.overrides.")
         .replace("gobject", "GObject")
         .replace("glib", "GLib")
-        .replace("gi", "GI")
+        # .replace("gi", "GI")
     )
 
 

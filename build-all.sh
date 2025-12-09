@@ -8,7 +8,7 @@ export ENABLE_DEBUG
 
 bash build-base-stubs.sh
 bash build-gst-stubs.sh
-bash build-gtk-stubs.sh
+# bash build-gtk-stubs.sh
 
 
 # install so we can test the stubs
@@ -16,4 +16,4 @@ bash build-gtk-stubs.sh
 # not addedd to the dependencies as they are only needed for testing
 uv pip install stubs/gi-base-stubs
 uv pip install stubs/gi-gstreamer-stubs
-uv pip install stubs/gi-gtk-stubs
+# uv pip install stubs/gi-gtk-stubs

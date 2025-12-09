@@ -21,6 +21,7 @@ from pydantic import (
     Field,
     PrivateAttr,
 )
+from gi.repository import GIRepository
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 from typing import Literal, Any, Self
 
@@ -217,13 +218,6 @@ class FunctionArgumentSchema(BaseSchema):
             py_type_namespace = get_py_type_namespace_repr(py_type)
             py_type_name_repr = get_py_type_name_repr(py_type)
 
-        # TODO: create a protocol for callbacks
-        # py_type_name_repr = (
-        #     f"TODOProtocol({py_type})"
-        #     if gi_type_is_callback(gi_type)
-        #     else get_py_type_name_repr(py_type)
-        # )
-
         array_length: int = get_safe_gi_array_length(gi_type)
 
         return cls(
@@ -249,10 +243,12 @@ class FunctionArgumentSchema(BaseSchema):
         """
         return keyword.iskeyword(self.name)
 
-    @property
-    def type_hint(self):
+    def type_hint(self, namespace: str) -> str:
         """
-        type representation in template
+        type representation in template.
+        computed with respect to the given namespace.
+
+        if is in the same we avoid adding the namespace prefix.
         """
 
         base_type = self.py_type_name
@@ -264,7 +260,10 @@ class FunctionArgumentSchema(BaseSchema):
             pass
 
         full_type = base_type
-        if self.py_type_namespace and self.py_type_namespace != self.namespace:
+        # if self.py_type_namespace and self.py_type_namespace != self.namespace:
+        #     full_type = f"{self.py_type_namespace}.{base_type}"
+
+        if self.py_type_namespace and self.py_type_namespace != namespace:
             full_type = f"{self.py_type_namespace}.{base_type}"
 
         if self.may_be_null:
@@ -272,20 +271,20 @@ class FunctionArgumentSchema(BaseSchema):
 
         return full_type
 
-    def __str__(self):
-        deprecated = "[DEPRECATED]" if self.is_deprecated else ""
-        return (
-            f"name={self.name} [keyword={self.name_is_keyword}] {deprecated}"
-            f"is_optional={self.is_optional} "
-            f"may_be_null={self.may_be_null} "
-            # f"_gi_type={self._gi_type} "
-            f"direction={self.direction} "
-            # f"py_type={self.py_type} "
-            f"is_callback={self.is_callback} "
-            f"tag_as_string={self.tag_as_string} "
-            f"get_array_length={self.get_array_length} "
-            f"repr={self.type_hint} "
-        )
+    # def __str__(self):
+    #     deprecated = "[DEPRECATED]" if self.is_deprecated else ""
+    #     return (
+    #         f"name={self.name} [keyword={self.name_is_keyword}] {deprecated}"
+    #         f"is_optional={self.is_optional} "
+    #         f"may_be_null={self.may_be_null} "
+    #         # f"_gi_type={self._gi_type} "
+    #         f"direction={self.direction} "
+    #         # f"py_type={self.py_type} "
+    #         f"is_callback={self.is_callback} "
+    #         f"tag_as_string={self.tag_as_string} "
+    #         f"get_array_length={self.get_array_length} "
+    #         f"repr={self.type_hint} "
+    #     )
 
 
 class FunctionSchema(BaseSchema):
@@ -307,16 +306,59 @@ class FunctionSchema(BaseSchema):
     can_throw_gerror: bool
     """Whether this function can throw a GError"""
     may_return_null: bool
-    is_method: bool
-    """Whether this function is a method of a class"""
+
     return_hint: str
     """Just the return type hint from GI. Does not include OUT arguments."""
 
     deprecation_warnings: str | None
     """Deprecation warning message, if any captured """
 
-    required_gi_import: str | None
-    """required gi.repository<NAME> import for the property type, if any"""
+    return_hint_namespace: str | None
+    """namespace of the return hint, e.g. gi.repository<NAME> import for the property type, if any"""
+
+    is_method: bool
+    """Whether this function is a method of a class"""
+
+    is_async: bool
+    """Whether this function is asynchronous (i.e., has a _async variant)"""
+
+    is_getter: bool
+    """Whether this function is a getter method"""
+
+    is_setter: bool
+    """Whether this function is a setter method"""
+
+    is_constructor: bool
+    """Whether this function is a constructor method"""
+
+    wrap_vfunc: bool
+    """Whether this function Represents a virtual function."""
+
+    @property
+    def decorators(self) -> list[str]:
+        """
+        Generate decorators for the function based on its properties.
+        """
+        decs = []
+        if self.is_deprecated:
+            deprecation_msg = self.deprecation_warnings or "deprecated"
+            decs.append(f'@deprecated("{deprecation_msg}")')
+
+        if self.is_constructor:
+            decs.append("@classmethod")
+
+        if not self.is_constructor and not self.is_method:
+            decs.append("@staticmethod")
+
+        return decs
+
+    @property
+    def first_arg(self) -> str | None:
+        if self.is_method:
+            return "self"
+        elif self.is_constructor:
+            return "cls"
+        return None
 
     @property
     def input_args(self):
@@ -330,34 +372,39 @@ class FunctionSchema(BaseSchema):
     def required_gi_imports(self) -> set[str]:
         gi_imports: set[str] = set()
         # check return type
-        if self.required_gi_import:
-            gi_imports.add(self.required_gi_import)
+        if self.return_hint_namespace:
+            gi_imports.add(self.return_hint_namespace)
         # check arguments
         for arg in self.args:
             if arg.py_type_namespace:
                 gi_imports.add(arg.py_type_namespace)
         return gi_imports
 
-    @property
-    def complete_return_hint(self) -> str:
+    def complete_return_hint(self, namespace: str) -> str:
         """
         Compute the real Python return hint combining C return and OUT arguments.
+
+        is computed with respect to the given namespace.
+        if is in the same we avoid adding the namespace prefix.
         """
 
         return_parts = []
-
         # add c return type if not skipped
         if not self.skip_return:
-            return_parts.append(
-                self.return_hint
-            )  # Già calcolato come nullable se serve
+            return_value = self.return_hint
+
+            if self.return_hint_namespace and self.return_hint_namespace != namespace:
+                return_value = f"{self.return_hint_namespace}.{return_value}"
+
+            if self.may_return_null:
+                return_value = f"{return_value} | None"
+
+            return_parts.append(return_value)
 
         # if direction is out or inout, add to return type
         for i, arg in enumerate(self.args):
             if arg.direction in ("OUT", "INOUT"):
-                # Nota: per gli INOUT, Python accetta il valore in input
-                # e lo restituisce (modificato) in output nella tupla di ritorno.
-                return_parts.append(arg.type_hint)
+                return_parts.append(arg.type_hint(namespace=namespace))
 
         if not return_parts:
             return "None"
@@ -369,6 +416,9 @@ class FunctionSchema(BaseSchema):
 
     def render(self) -> str:
         return TemplateManager.render_master("function.jinja", fun=self)
+
+    def render_compact(self) -> str:
+        return TemplateManager.render_master("function_compact.jinja", fun=self)
 
     @classmethod
     def from_gi_object(
@@ -452,13 +502,33 @@ class FunctionSchema(BaseSchema):
 
         # get the return hint for the template
         return_hint = py_return_type_name
-        if may_return_null:
-            return_hint = f"{return_hint} | None"
+        # if may_return_null:
+        #     return_hint = f"{return_hint} | None"
+
+        # if obj.get_name() == "get_redirect_target":
+        #     breakpoint()
 
         # add namespace if it is different from the current namespace
         # (e.g., returning 'Gdk.Event' inside 'Gtk' module)
-        if py_return_type_namespace and py_return_type_namespace != namespace:
-            return_hint = f"{py_return_type_namespace}.{return_hint}"
+        # if py_return_type_namespace and py_return_type_namespace != namespace:
+        #     return_hint = f"{py_return_type_namespace}.{return_hint}"
+
+        if not is_callback:
+            flags = obj.get_flags()
+            is_constructor = bool(flags & GIRepository.FunctionInfoFlags.IS_CONSTRUCTOR)
+            is_getter = bool(flags & GIRepository.FunctionInfoFlags.IS_GETTER)
+            is_setter = bool(flags & GIRepository.FunctionInfoFlags.IS_SETTER)
+            is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)
+            wrap_vfunc = bool(flags & GIRepository.FunctionInfoFlags.WRAPS_VFUNC)
+            is_method = obj.is_method()
+        else:
+            # Callbacks do not have these flags
+            is_constructor = False
+            is_getter = False
+            is_setter = False
+            is_async = False
+            wrap_vfunc = False
+            is_method = False
 
         to_return = cls(
             namespace=namespace,
@@ -467,7 +537,6 @@ class FunctionSchema(BaseSchema):
             is_callback=is_callback,
             docstring=docstring,
             may_return_null=may_return_null,
-            is_method=False if is_callback else obj.is_method(),
             can_throw_gerror=obj.can_throw_gerror(),
             is_deprecated=obj.is_deprecated(),
             skip_return=obj.skip_return(),
@@ -475,7 +544,13 @@ class FunctionSchema(BaseSchema):
             deprecation_warnings=catch_gi_deprecation_warnings(
                 namespace, obj.get_name()
             ),
-            required_gi_import=py_return_type_namespace,
+            is_method=is_method,
+            return_hint_namespace=py_return_type_namespace,
+            is_async=is_async,
+            is_getter=is_getter,
+            is_setter=is_setter,
+            is_constructor=is_constructor,
+            wrap_vfunc=wrap_vfunc,
         )
         to_return._gi_callbacks = args_as_callbacks_found
         return to_return

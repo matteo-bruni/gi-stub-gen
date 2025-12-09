@@ -8,6 +8,8 @@ from typing import Literal
 from rich.logging import RichHandler
 from typing_extensions import Annotated
 
+from gi_stub_gen.gi_repo import GIRepo
+
 
 app = typer.Typer(pretty_exceptions_enable=False)
 logger = logging.getLogger(__name__)
@@ -73,12 +75,12 @@ def main(
             help="List of dependencies for the stub package.",
         ),
     ] = [],
-    stub_gi_include: Annotated[
+    stub_include: Annotated[
         list[str],
         typer.Option(
-            help="List of additional gi.repository.<module_name> to include in the stubs. "
-            "The syntax is <module_stub>:<gi_module_to_include>."
-            "(i.e Gio:GioUnix to include gi.repository.GioUnix in the Gio stubs).",
+            help="List of additional <module_name> to include in the stubs. "
+            "The syntax is <module_stub>:<module_to_include>."
+            "(i.e Gio:gi.Repository.GioUnix to include gi.repository.GioUnix in the Gio stubs).",
         ),
     ] = [],
     debug: Annotated[
@@ -132,12 +134,16 @@ def main(
     logger.info(f"Generating stub package for modules: {name}")
     # preload all modules to avoid runtime gi.require_version issues
     # some modules require other modules to be loaded first
+    gi_repo = GIRepo()
     module_to_preload = preload + name if preload is not None else name
     for n in module_to_preload:
         module_name, gi_version = split_gi_name_version(n)
 
         logger.info(f"Preloading module {module_name} gi_version={gi_version}")
         m = get_gi_module_from_name(module_name=module_name, gi_version=gi_version)
+        # if later we want to use Repository we need to populate its
+        # required modules, it is different from this scope
+        gi_repo.require(module_name, gi_version)
 
         # special cases for modules that need init called
         if module_name == "Gst":
@@ -149,7 +155,7 @@ def main(
 
     # get extra import to add to each stub file
     extra_include_per_stub: dict[str, list[str]] = {}
-    for s in stub_gi_include:
+    for s in stub_include:
         if ":" not in s or len(s.split(":")) != 2:
             logger.error(
                 f"Invalid stub_gi_include format: {s}. Expected format is <module_stub>:<gi_module_to_include>"
@@ -178,7 +184,7 @@ def main(
         # if stub_file_name == "gi":
         #     stub_file_name = "__init__"
         stubs[stub_file_name] = parsed_module.to_pyi(
-            extra_gi_repository_import=extra_include_per_stub.get(module_name, []),
+            extra_imports=extra_include_per_stub.get(module_name, []),
             debug=debug,
             unknowns=unknown_module_map_types,
         )
