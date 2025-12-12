@@ -47,10 +47,18 @@ class ClassPropSchema(BaseSchema):
     """True if the property may be None, False otherwise."""
 
 
-class ClassAttributeSchema(BaseSchema):
+class ClassFieldSchema(BaseSchema):
+    """
+    Represents a field of a GI class.
+    These are present in boxed structs
+    """
+
     name: str
-    type_hint: str
+    type_hint_name: str
     """type hint in template"""
+
+    type_hint_namespace: str | None
+    """type hint in template (namespace part, if any)"""
 
     is_deprecated: bool
     deprecation_warnings: str | None
@@ -58,29 +66,27 @@ class ClassAttributeSchema(BaseSchema):
 
     docstring: str | None
 
-    required_gi_import: str | None
-    """required gi.repository<NAME> import for the property type, if any"""
+    line_comment: str | None
+    """line comment for the field."""
 
-    # @classmethod
-    # def from_gi_value_info(
-    #     cls,
-    #     value_info: GI.ValueInfo,
-    #     docstring: str | None,
-    #     deprecation_warnings: str | None,
-    # ):
-    #     field_name = value_info.get_name()
-    #     return cls(
-    #         name=field_name.upper(),
-    #         value=value_info.get_value(),
-    #         value_repr=repr(value_info.get_value()),
-    #         is_deprecated=value_info.is_deprecated(),
-    #         docstring=docstring,
-    #         deprecation_warnings=deprecation_warnings,
-    #     )
+    may_be_null: bool
+    """True if the field may be None, False otherwise."""
 
-    # def __str__(self):
-    #     deprecated = "[DEPRECATED] " if self.is_deprecated else ""
-    #     return f"name={self.name} value={self.value} {deprecated}"
+    def type_hint(self, namespace: str) -> str:
+        """
+        Get the full type hint for the field,
+        adding the namespace if different from the given one.
+        """
+        if self.type_hint_namespace and sanitize_gi_module_name(
+            self.type_hint_namespace
+        ) != sanitize_gi_module_name(namespace):
+            hint = f"{self.type_hint_namespace}.{self.type_hint_name}"
+        else:
+            hint = self.type_hint_name
+        if self.may_be_null:
+            hint = f"{hint} | None"
+
+        return hint
 
 
 class ClassSchema(BaseSchema):
@@ -89,7 +95,7 @@ class ClassSchema(BaseSchema):
     name: str
     docstring: str | None
     props: list[ClassPropSchema]
-    attributes: list[ClassAttributeSchema]
+    fields: list[ClassFieldSchema]
     methods: list[FunctionSchema]
     extra: list[str]
     is_deprecated: bool
@@ -109,12 +115,46 @@ class ClassSchema(BaseSchema):
         for prop in self.props:
             if prop.type_hint_namespace:
                 gi_imports.add(prop.type_hint_namespace)
-        for attr in self.attributes:
-            if attr.required_gi_import:
-                gi_imports.add(attr.required_gi_import)
+        for attr in self.fields:
+            if attr.type_hint_namespace:
+                gi_imports.add(attr.type_hint_namespace)
         for method in self.methods:
             gi_imports.update(method.required_gi_imports)
         return gi_imports
+
+    def add_init_method(self):
+        """
+        In parsed classes, add an __init__ method if not present.
+
+        In GI classes, the __init__ method is present but its the same as the new() method if existing
+        So we make a copy of the new() method and rename it to __init__
+
+        if there is no new() method, we should pick the next new_<something>() method
+        but we skip this for now.
+        """
+        is_init_present = any(method.name == "__init__" for method in self.methods)
+        if is_init_present:
+            logger.debug(
+                f"Class {self.namespace}.{self.name} already has __init__ method, skipping adding it."
+            )
+            return
+
+        # find new() method
+        new_method = next(
+            (method for method in self.methods if method.name == "new"), None
+        )
+        if new_method:
+            class_init = new_method.model_copy(
+                update={
+                    "name": "__init__",
+                    "is_method": True,  # so it will use self in template
+                    "is_constructor": False,  # not a constructor (they are class methods)
+                    "return_hint": None,
+                    "return_hint_namespace": None,
+                },
+                deep=True,
+            )
+            self.methods.insert(0, class_init)
 
     @classmethod
     def from_gi_object(
@@ -123,7 +163,7 @@ class ClassSchema(BaseSchema):
         obj: Any,
         docstring: GirClassDocs | None,
         props: list[ClassPropSchema],
-        attributes: list[ClassAttributeSchema],
+        fields: list[ClassFieldSchema],
         methods: list[FunctionSchema],
         extra: list[str],
     ):
@@ -171,12 +211,16 @@ class ClassSchema(BaseSchema):
         if sane_super_namespace == "gi" and base_class_name == "Boxed":
             sane_super_namespace = "GObject"
             base_class_name = "GBoxed"
-        if sane_super_namespace == "gi" and base_class_name == "Struct":
+        elif sane_super_namespace == "gi" and base_class_name == "Struct":
             sane_super_namespace = "GObject"
             base_class_name = "GPointer"
-        if sane_super_namespace == "gi" and base_class_name == "Fundamental":
+        elif sane_super_namespace == "gi" and base_class_name == "Fundamental":
             sane_super_namespace = None
             base_class_name = "object"
+        elif sane_super_namespace == "gi":
+            # other classes in gi are actually in gi._gi
+            # so this should only happen for gi._gi itself
+            sane_super_namespace = None
 
         # build the super class name in the template
         required_gi_import = None
@@ -189,24 +233,20 @@ class ClassSchema(BaseSchema):
                 # we exclude GI which is from "import gi._gi as GI" which is always imported
                 required_gi_import = sane_super_namespace
 
-        # if "." in base_class:
-        #     base_module = base_class.split(".")[0]
-        #     if base_module != namespace:
-        #         required_gi_import = base_module
-
-        return cls(
+        instance = cls(
             namespace=namespace,
             name=obj.__name__,
             bases=[base_class],
             docstring=class_docstring,
             props=props,
-            attributes=attributes,
+            fields=fields,
             methods=methods,
             is_deprecated=is_deprecated,
             extra=extra,
             required_gi_import=required_gi_import,
-            # _gi_callbacks=gi_callbacks,
         )
+        instance.add_init_method()
+        return instance
 
     @property
     def super_class(self) -> str | None:
@@ -215,44 +255,5 @@ class ClassSchema(BaseSchema):
         """
         return ", ".join(self.bases)
 
-    @property
-    def debug(self):
-        """
-        Debug docstring
-        """
-
-        data = ""
-        if self.docstring:
-            data = f"{self.docstring}"
-
-        return f"{data}\n[DEBUG]\n{self.model_dump_json(indent=2)}"
-
     def render(self) -> str:
         return TemplateManager.render_master("class.jinja", cls_=self)
-
-
-# {%- if cls.docstring %}
-# \"\"\"
-# {{ cls.docstring | indent(4) }}
-# \"\"\"
-# {%- endif %}
-
-# {%- if not cls.methods and not cls.properties %}
-# ...
-# {%- endif %}
-
-# {# PROPRIETA' #}
-# {%- for prop in cls.properties %}
-# @property
-# def {{ prop.name }}(self) -> {{ prop.type_repr }}: ...
-# {%- if prop.can_write %}
-# @{{ prop.name }}.setter
-# def {{ prop.name }}(self, value: {{ prop.type_repr }}): ...
-# {%- endif %}
-# {% endfor %}
-
-# {# METODI #}
-# {%- for method in cls.methods %}
-# {# Qui chiamiamo il render del figlio e lo indentiamo di 4 spazi #}
-# {{ method.render() | indent(4, first=True) }}
-# {% endfor %}

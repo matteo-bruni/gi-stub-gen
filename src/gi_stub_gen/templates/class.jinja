@@ -2,7 +2,7 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% if cls_.docstring or debug %}
     """
     {{ cls_.debug | if_true(debug, "{}\n") | indent(4, blank=True) -}}
-    {{ cls_.docstring | if_exists | indent(4, blank=True) -}}
+    {{ cls_.docstring | if_exists | indent(4, blank=True) }}
     """
     {% endif %}
     {% if cls_.props %}
@@ -31,20 +31,21 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     props: Props = ...
     {% endif %}
 
-    # methods
+    {% if cls_.fields %}
+    {% for field in cls_.fields %}
+    {{ field.name }}: {{ field.type_hint(module_name) }} = ... {{ "# type: ignore" | if_true(field.type_hint_namespace and module_name != field.type_hint_namespace) }}{{ field.line_comment | if_exists("# ") }}
+    {% if field.docstring or field.is_deprecated %} 
+    """
+    {{ field.docstring | if_exists }}
+    {{ "@deprecated" if field.is_deprecated else ""  | indent(4, blank=True) }}
+    """
+    {% endif %}
+    {% endfor %}
+    {% endif %}
     {% if cls_.methods %}
 
     {% for method in cls_.methods %}
     {{ method.render_compact() | indent(4, first=False) }}
-    {# {% for d in method.decorators %}
-    {{ d }}
-    {% endfor %}
-    {{ 'async ' | if_true(method.is_async) }}def {{ method.name }}({{ method.first_arg | if_exists }}{{ ',' | if_true(method.args and method.first_arg) }}{% for param in method.args %}{{ param.name }}: {{ param.type_hint }}{{ ", " if not loop.last }}{% endfor %}) -> {{ method.complete_return_hint }}: {{ '...' | if_true( not method.docstring)}} 
-        {% if method.docstring -%}
-        """
-        {{ method.docstring | if_exists -}}
-        """
-        {% endif -%} #}
     {% endfor %}
     {% endif %}
     {% if cls_.extra %}

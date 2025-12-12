@@ -12,16 +12,16 @@ GTK_STUB_VERSION=0
 PKG_GTK_STUBS_VERSION=${GTK_VERSION}.${GTK_STUB_VERSION}
 
 gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
-    cairo:1.0 \
-    Pango:1.0 \
-    GdkPixbuf:2.0 \
-    Gsk:4.0 \
-    Gdk:4.0 \
-    Gtk:4.0 \
-    --preload GioUnix:2.0 \
-    --preload Gio:2.0 \
-    --preload GObject:2.0 \
-    --preload GIRepository:3.0 \
+    gi.repository.cairo:1.0 \
+    gi.repository.Pango:1.0 \
+    gi.repository.GdkPixbuf:2.0 \
+    gi.repository.Gsk:4.0 \
+    gi.repository.Gdk:4.0 \
+    gi.repository.Gtk:4.0 \
+    --preload gi.repository.GioUnix:2.0 \
+    --preload gi.repository.Gio:2.0 \
+    --preload gi.repository.GObject:2.0 \
+    --preload gi.repository.GIRepository:3.0 \
     --pkg-name gi-gtk-stubs \
     --pkg-version ${PKG_GTK_STUBS_VERSION} \
     --pkg-dependencies gi-base-stubs \

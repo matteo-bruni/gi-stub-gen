@@ -4,8 +4,9 @@ import datetime
 import logging
 from importlib.metadata import version, PackageNotFoundError
 
+from gi_stub_gen.gi_utils import get_gi_module_from_name
 from gi_stub_gen.manager import TemplateManager
-from gi_stub_gen.utils import get_gi_module_from_name, sanitize_gi_module_name
+from gi_stub_gen.utils import sanitize_gi_module_name
 
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.alias import AliasSchema
@@ -47,8 +48,6 @@ class ModuleSchema(BaseSchema):
         self,
         extra_imports: list[str] | None = None,
     ) -> tuple[set[str], set[str]]:
-        sane_module_name = sanitize_gi_module_name(self.name)
-
         gi_imports: set[str] = set()
         for c in self.classes:
             gi_imports.update(c.required_gi_imports)
@@ -61,19 +60,17 @@ class ModuleSchema(BaseSchema):
         # Add Manually GObject if in current pyi
         # there are any GEnum and GFlags (they are in GObject)
         if len(self.enum) > 0:
-            gi_imports.add("GObject")
+            gi_imports.add("gi.repository.GObject")
 
         # remove current module name from imports
-        if sane_module_name in gi_imports:
-            gi_imports.remove(sane_module_name)
+        if self.name in gi_imports:
+            gi_imports.remove(self.name)
 
         if extra_imports:
             for extra_import in extra_imports:
-                if extra_import.startswith("gi.repository."):
-                    gi_imports.add(extra_import.removeprefix("gi.repository."))
-                else:
-                    gi_imports.add(extra_import)
+                gi_imports.add(extra_import)
 
+        # breakpoint()
         # some non gi.repository imports can be slipped in the set
         # we just try to import and remove the ones that fail
         valid_gi_imports: set[str] = set()
@@ -84,7 +81,12 @@ class ModuleSchema(BaseSchema):
                 # skip private gi modules
                 continue
             try:
-                get_gi_module_from_name(gi_import, None)
+                full_namespace = (
+                    f"gi.repository.{gi_import}"
+                    if not gi_import.startswith("gi.repository.")
+                    else gi_import
+                )
+                get_gi_module_from_name(full_namespace, None)
                 # if valid gi
                 valid_gi_imports.add(gi_import)
             except ImportError:

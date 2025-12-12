@@ -12,19 +12,19 @@ GST_VERSION=1.26
 GST_STUB_VERSION=0
 PKG_GST_STUBS_VERSION=${GST_VERSION}.${GST_STUB_VERSION}
 gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
-    Gst:1.0 \
-    GstApp:1.0 \
-    GstAudio:1.0 \
-    GstBase:1.0 \
-    GstPbutils:1.0 \
-    GstRtp:1.0 \
-    GstRtsp:1.0 \
-    GstSdp:1.0 \
-    GstVideo:1.0 \
-    --preload GioUnix:2.0 \
-    --preload Gio:2.0 \
-    --preload GObject:2.0 \
-    --preload GIRepository:3.0 \
+    gi.repository.Gst:1.0 \
+    gi.repository.GstApp:1.0 \
+    gi.repository.GstAudio:1.0 \
+    gi.repository.GstBase:1.0 \
+    gi.repository.GstPbutils:1.0 \
+    gi.repository.GstRtp:1.0 \
+    gi.repository.GstRtsp:1.0 \
+    gi.repository.GstSdp:1.0 \
+    gi.repository.GstVideo:1.0 \
+    --preload gi.repository.GioUnix:2.0 \
+    --preload gi.repository.Gio:2.0 \
+    --preload gi.repository.GObject:2.0 \
+    --preload gi.repository.GIRepository:3.0 \
     --pkg-name gi-gstreamer-stubs \
     --pkg-version ${PKG_GST_STUBS_VERSION} \
     --pkg-dependencies gi-base-stubs \

@@ -4,7 +4,11 @@ from enum import StrEnum
 import inspect
 import keyword
 import logging
-from gi_stub_gen.gi_utils import get_safe_gi_array_length
+from gi_stub_gen.gi_utils import (
+    get_safe_gi_array_length,
+    gi_type_is_callback,
+    gi_type_to_py_type,
+)
 from gi_stub_gen.manager import TemplateManager
 from gi_stub_gen.parser.gir import GirClassDocs, GirFunctionDocs
 from gi_stub_gen.schema import BaseSchema
@@ -13,8 +17,6 @@ from gi_stub_gen.schema.function import BuiltinFunctionSchema, FunctionSchema
 from gi_stub_gen.schema.utils import ValueAny
 from gi_stub_gen.utils import sanitize_variable_name
 from gi_stub_gen.utils import (
-    gi_type_is_callback,
-    gi_type_to_py_type,
     is_py_builtin_type,
 )
 from pydantic import (

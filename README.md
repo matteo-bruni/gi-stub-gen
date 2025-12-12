@@ -63,21 +63,17 @@ In my idea each project should maintain the stubs for their own library, and lin
 
 # TODO
 - [ ] Add support for deprecated function and methods
-- [ ] Add support Classes
-- [ ] Add support Classes attributes
-- [ ] Add support for GType constant
 - [ ] Add tests
-- [ ] Auto add import for other gi.repository modules used in type hints
-
-
-in Gio
-class BufferedInputStream 
-
- props: Props = ...
-
- sono incompatibili col figlio?
-
-
-
+- signals?
 - gi._gi.OptionGroup in Gio, dovrebbe esere GLib.OptionGroup
- - default a funzioni in classi
+- [ ] Add default to functions arguments (is it possible? how to obtain this info from GI?)
+- [ ] prendi __init__ da inspect invece di inventarlo
+
+## problem with GIRepository for parsing
+i found some issues with GIRepository when parsing some libraries, for example:
+- gi._gi.FunctionInfo is mapped to GIRepository.FunctionInfo. However GIRepository.FunctionInfo does not have all the methods that gi._gi.FunctionInfo has. For example gi._gi.FunctionInfo has get_arguments() (added by pygobject) but in GIRepository.FunctionInfo it is missing and is showing the C counterpart get_n_args() and get_args() which are not directly usable in Python.
+- in GIRepository.TypeInfo there is no method get_tag_as_string, while gi._gi.TypeInfo has get_tag_as_string() added by pygobject.
+
+## disclaimer
+i'm by no means an expert in GI or pygobject, so there might be some mistakes or misunderstandings in the generated stubs.
+i started this project mainly to learn more about GI and pygobject internals, so any feedback or contribution is welcome.

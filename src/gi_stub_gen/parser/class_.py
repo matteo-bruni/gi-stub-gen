@@ -4,35 +4,47 @@ import gi
 import gi._gi as GI  # type: ignore
 from gi.repository import GObject
 
-from typing import Any, TYPE_CHECKING
-from types import MethodDescriptorType
+from typing import Any
+from types import BuiltinFunctionType, FunctionType, MethodDescriptorType, MethodType
 
-from gi_stub_gen.gi_utils import get_gi_type_info, is_property_nullable_safe
+from gi_stub_gen.gi_utils import (
+    get_gi_type_info,
+    gi_type_is_callback,
+    gi_type_to_py_type,
+    is_class_field_nullable,
+    # is_property_nullable_safe,
+)
+from gi_stub_gen.overrides import apply_method_overrides
+from gi_stub_gen.overrides.class_.GIRepository import (
+    TYPE_INFO_GET_TAG_AS_STRING,
+)
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.parser.gir import ModuleDocs
 
 
-from gi_stub_gen.schema.class_ import ClassAttributeSchema, ClassSchema
+from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
+from gi_stub_gen.schema.function import CallbackSchema
 from gi_stub_gen.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
-    gi_type_is_callback,
-    gi_type_to_py_type,
     sanitize_gi_module_name,
     sanitize_variable_name,
 )
 from gi.repository import GIRepository
 
-if TYPE_CHECKING:
-    from gi_stub_gen.schema.function import FunctionSchema
+# if TYPE_CHECKING:
+#     from gi_stub_gen.schema.function import FunctionSchema
+from gi_stub_gen.schema.function import FunctionSchema
 
 import logging
 
 logger = logging.getLogger(__name__)
 
 
-def is_method_local(py_class: type, method_name: str) -> bool:
+def is_local(py_class: type, method_name: str) -> bool:
+    """
+    Determines if a method/attribute is defined in the given class (not inherited)."""
     return method_name in py_class.__dict__
 
 
@@ -79,7 +91,7 @@ def should_expose_class_field(
 
 
 def parse_class(
-    namespace: str,
+    module_name: str,
     class_to_parse: Any,
     module_docs: ModuleDocs,
 ) -> tuple[ClassSchema | None, list[GI.TypeInfo]]:
@@ -87,7 +99,7 @@ def parse_class(
     Parse a class and return a ClassSchema and a list of GI.TypeInfo callbacks found during parsing.
 
     Args:
-        namespace (str): namespace of the class
+        module_name (str): module name where we are parsing the class
         class_to_parse (Any): class to be parsed
         module_docs (ModuleDocs): module documentation
     Returns:
@@ -99,11 +111,25 @@ def parse_class(
     if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
         return None, []
 
+    # Check if the class is in the same module
+    # comparing just the last part of the module name
+    # because for overrides the previous part can be different
+    # ie from gi.repository.Gio get Gio
+    final_module_name_part = module_name.split(".")[-1].lower()
+    # do the same for the class module
+    class_module_name_part = str(class_to_parse.__module__).split(".")[-1].lower()
+
+    # we make an exception for gi._gi classes
+    # we parse them anyway if we are in _gi module
+    private_gi_exception = (
+        final_module_name_part == "_gi" and class_module_name_part == "gi"
+    )
+    if private_gi_exception:
+        # we fake to be in gi module
+        final_module_name_part = "gi"
+
     # filter out classes not in the same namespace as the module
-    if (
-        namespace.split(".")[-1].lower()
-        != str(class_to_parse.__module__).split(".")[-1].lower()
-    ):
+    if final_module_name_part != class_module_name_part:
         # if the class is not in the same namespace as the module, skip it
         # this can happen with classes from gi.repository that are not in the same namespace
         logger.warning(
@@ -111,11 +137,12 @@ def parse_class(
         )
         return None, []
 
-    callbacks_found: list[GI.TypeInfo] = []
+    # callbacks_found: list[GI.TypeInfo] = []
+    callbacks_found: list[CallbackSchema] = []
     """callbacks found during class parsing, saved to be parsed later"""
 
     class_props: list[ClassPropSchema] = []
-    class_attributes: list[ClassAttributeSchema] = []
+    class_attributes: list[ClassFieldSchema] = []
     class_methods: list[FunctionSchema] = []
     class_parsed_elements: list[str] = []
     extra: list[str] = []
@@ -124,44 +151,93 @@ def parse_class(
     # but it should be the same as the classmethod new
     # with the same args but self instead of cls
     # if we get the new method, we can manually create the __init__ method
-    class_init: FunctionSchema | None = None
+    # class_init: FunctionSchema | None = None
 
     # if the class is a GObject, it has __info__ attribute
     # do a first pass to get all the attributes with get_properties/get_methods
     if hasattr(class_to_parse, "__info__"):
+        # if class_to_parse.__name__ == "Element":
+        #     breakpoint()
+        # if hasattr(class_to_parse.__info__, "get_signals"):
+        #     breakpoint()
         if hasattr(class_to_parse.__info__, "get_fields"):
-            ...
+            # breakpoint()
+            field: GIRepository.FieldInfo
+            for field in class_to_parse.__info__.get_fields():
+                if not should_expose_class_field(field):
+                    continue
+
+                field_name = field.get_name()
+                assert field_name is not None
+                if not is_local(class_to_parse, field_name):
+                    continue
+
+                field_name, line_comment = sanitize_variable_name(field_name)
+                field_gi_type_info = get_gi_type_info(field)
+
+                # TODO: ERRORE SE CALLBACK NON TORNA IL TIPO E NON POSSO CAPIRE
+                # TODO PORTARE A GIRO SU TUTTI I PARSING
+                if gi_type_is_callback(field_gi_type_info):
+                    cb_info = field_gi_type_info.get_interface()
+                    cb_name = cb_info.get_name() + f"{class_to_parse.__name__}CB"
+                    cb_namespace = cb_info.get_namespace()
+                    cb_schema = FunctionSchema.from_gi_object(cb_info)
+                    found_callback = CallbackSchema(
+                        name=cb_name,
+                        function=cb_schema,
+                        originated_from={f"{class_to_parse.__name__}.{field_name}"},
+                    )
+                    callbacks_found.append(found_callback)
+                    prop_type_hint_namespace = cb_namespace
+                    prop_type_hint_name = cb_name
+                    may_be_null = found_callback.function.may_return_null
+                else:
+                    field_py_type = gi_type_to_py_type(field_gi_type_info)
+                    prop_type_hint_namespace = get_py_type_namespace_repr(field_py_type)
+                    prop_type_hint_name = get_py_type_name_repr(field_py_type)
+                    may_be_null = is_class_field_nullable(field)
+
+                f = ClassFieldSchema(
+                    name=field_name,
+                    type_hint_name=prop_type_hint_name,
+                    type_hint_namespace=prop_type_hint_namespace,
+                    is_deprecated=field.is_deprecated(),
+                    docstring=None,  # TODO: retrieve docstring
+                    line_comment=None,
+                    deprecation_warnings=None,
+                    may_be_null=may_be_null,
+                )
+                class_attributes.append(f)
+                class_parsed_elements.append(field_name)
         # Parse Props (they have a getter/setter depending on the flags)
         if hasattr(class_to_parse.__info__, "get_properties"):
             for prop in class_to_parse.__info__.get_properties():
                 # start from type info
                 prop_gi_type_info = get_gi_type_info(prop)
+
+                # TODO: !! PARSING CALLBACK (credo non possa succedere nelle prop)
                 prop_type = gi_type_to_py_type(prop_gi_type_info)
 
                 prop_type_hint_namespace = get_py_type_namespace_repr(prop_type)
                 prop_type_hint_name = get_py_type_name_repr(prop_type)
 
                 sanitized_name, line_comment = sanitize_variable_name(prop.get_name())
-
                 prop_type_hint_full = prop_type_hint_name
                 if (
                     prop_type_hint_namespace
-                    and prop_type_hint_namespace != sanitize_gi_module_name(namespace)
+                    and prop_type_hint_namespace != sanitize_gi_module_name(module_name)
                 ):
                     prop_type_hint_full = (
                         f"{prop_type_hint_namespace}.{prop_type_hint_name}"
                     )
 
-                may_be_null = is_property_nullable_safe(prop)
+                # may_be_null = is_property_nullable_safe(prop)
+                may_be_null = is_class_field_nullable(prop)
 
                 # if sanitized_name == "source_property":
                 #     breakpoint()
                 if may_be_null:
                     prop_type_hint_full = f"{prop_type_hint_full} | None"
-                    if line_comment:
-                        line_comment += "maybe null since not primitive?? (TODO: check better way to determine this)"
-                    else:
-                        line_comment = "maybe null since not primitive?? (TODO: check better way to determine this)"
 
                 c = ClassPropSchema(
                     name=sanitized_name,
@@ -185,25 +261,13 @@ def parse_class(
                     docstring=module_docs.get_function_docstring(met.get_name()),
                 )
                 if parsed_method:
-                    if parsed_method.name == "new":
-                        # create __init__ method from new
-                        class_init = parsed_method.model_copy(
-                            update={
-                                "name": "__init__",
-                                "is_method": True,  # so it will use self in template
-                                "is_constructor": False,
-                                "return_hint": None,
-                                "return_hint_namespace": None,
-                            },
-                            deep=True,
-                        )
-                        class_methods.append(class_init)
-
                     # save callbacks to be parsed later
                     callbacks_found.extend(parsed_method._gi_callbacks)
                     class_methods.append(parsed_method)
                     class_parsed_elements.append(met.get_name())
 
+    # OVERRIDES AND NATIVE PYTHON CLASS ATTRIBUTES
+    #
     # do a second pass to get all the attributes not parsed by get_properties/get_methods
     # i.e class not from GI but added in overrides
     for attribute_name in dir(class_to_parse):
@@ -218,6 +282,7 @@ def parse_class(
             )
             breakpoint()
             continue
+
         attribute_type = type(attribute)
 
         # could not find any example of this but should work like this if present
@@ -226,18 +291,18 @@ def parse_class(
         #     if len(attribute.__annotations__) > 0:
         #         print("annotations", attribute.__annotations__)
 
-        # if not attribute_name.startswith("_"):
         # do not parse already parsed elements
+        # i.e. the gi ones
         if attribute_name in class_parsed_elements:
             continue
 
         # we only parse local attributes, not inherited ones
-        is_attribute_local = is_method_local(class_to_parse, attribute_name)
+        is_attribute_local = is_local(class_to_parse, attribute_name)
         if not is_attribute_local:
             continue
 
         if c := parse_constant(
-            parent="",
+            module_name="",
             name=attribute_name,
             obj=attribute,
             docstring=None,  # TODO: retrieve docstring with inspect??
@@ -246,18 +311,29 @@ def parse_class(
             # class_attributes.append(c)
         # elif attribute_type is method:
         #     ...
+        elif attribute_type is MethodType:
+            extra.append(f"method: {attribute_name} local={is_attribute_local}")
+        elif attribute_type is BuiltinFunctionType:
+            extra.append(
+                f"builtin_function: {attribute_name} local={is_attribute_local}"
+            )
+        elif attribute_type is FunctionType:
+            extra.append(f"function: {attribute_name} local={is_attribute_local}")
         elif attribute_type is MethodDescriptorType:
+            # elif attribute_type is method_descriptor:
             # TODO: how to parse this??
             # cant obtain args/return type
             # inspect does not work on builting
 
-            extra.append(f"method: {attribute_name} local={is_attribute_local}")
+            extra.append(
+                f"method_descriptor: {attribute_name} local={is_attribute_local}"
+            )
         elif attribute_type is property:
             # TODO: how to parse this??
             # cant obtain args/return type
             # inspect does not work on builting
-            if namespace == "gi.repository.Gst":
-                breakpoint()
+            # if namespace == "gi.repository.Gst":
+            #     breakpoint()
 
             # import gi
             # gi.require_version("Gst", "1.0")
@@ -282,15 +358,31 @@ def parse_class(
                 f"unknown: {attribute_name}: {attribute_type} local={is_attribute_local}"
             )
 
+    # manual override
+    # in GIRepository.TypeInfo we add get_tag_as_string method which is not present in gi.TypeInfo
+    # since it has been injected by pygobject
+    # # TODO: generalize this mechanism if more cases happen
+    # if (
+    #     module_name == "gi.repository.GIRepository"
+    #     and class_to_parse.__name__ == "TypeInfo"
+    # ):
+    #     # breakpoint()
+    #     class_methods.append(TYPE_INFO_GET_TAG_AS_STRING)
+    class_methods = apply_method_overrides(
+        class_methods,
+        namespace=module_name,
+        class_name=class_to_parse.__name__,
+    )
+
     # sort methods by name
     class_methods.sort(key=lambda x: x.name)
 
     return ClassSchema.from_gi_object(
-        namespace=namespace,
+        namespace=module_name,
         obj=class_to_parse,
         docstring=module_docs.classes.get(class_to_parse.__name__, None),
         props=class_props,
-        attributes=class_attributes,
+        fields=class_attributes,
         methods=class_methods,
         extra=sorted(extra),
     ), callbacks_found

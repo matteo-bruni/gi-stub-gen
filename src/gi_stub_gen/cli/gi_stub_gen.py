@@ -9,6 +9,7 @@ from rich.logging import RichHandler
 from typing_extensions import Annotated
 
 from gi_stub_gen.gi_repo import GIRepo
+from gi_stub_gen.gi_utils import get_gi_module_from_name
 
 
 app = typer.Typer(pretty_exceptions_enable=False)
@@ -129,7 +130,7 @@ def main(
         handlers=[RichHandler(show_path=debug)],
     )
 
-    from gi_stub_gen.utils import get_gi_module_from_name, split_gi_name_version
+    from gi_stub_gen.utils import split_gi_name_version
 
     logger.info(f"Generating stub package for modules: {name}")
     # preload all modules to avoid runtime gi.require_version issues
@@ -146,7 +147,7 @@ def main(
         gi_repo.require(module_name, gi_version)
 
         # special cases for modules that need init called
-        if module_name == "Gst":
+        if module_name.removeprefix("gi.repository.") == "Gst":
             m.init(None)
 
     from gi_stub_gen.package import create_stub_package
@@ -173,16 +174,26 @@ def main(
     for n in name:
         module_name, gi_version = split_gi_name_version(n)
 
-        module = get_gi_module_from_name(module_name=module_name, gi_version=gi_version)
-        docs = gir_docs(Path(f"{gir_folder}/{module_name}-{gi_version}.gir"))
+        module = get_gi_module_from_name(
+            module_name=module_name,
+            gi_version=gi_version,
+        )
+
+        gir_file = module_name.removeprefix("gi.repository.")
+        if gi_version is not None:
+            gir_file = f"{gir_file}-{gi_version}"
+        gir_path = Path(f"{gir_folder}/{gir_file}.gir")
+
+        # get the docs
+        docs = gir_docs(gir_path)
 
         parsed_module, unknown_module_map_types = parse_module(
-            module, docs, debug=debug
+            module,
+            docs,
+            debug=debug,
         )
         unknown[module_name] = unknown_module_map_types
         stub_file_name = module_name
-        # if stub_file_name == "gi":
-        #     stub_file_name = "__init__"
         stubs[stub_file_name] = parsed_module.to_pyi(
             extra_imports=extra_include_per_stub.get(module_name, []),
             debug=debug,

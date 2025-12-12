@@ -147,13 +147,11 @@ def parse_module(
                     )
 
                 continue
-
             #########################################################################
             # check if the attribute is a constant
             #########################################################################
-
             if c := parse_constant(
-                parent=module_name,
+                module_name=module_name,
                 name=attribute_name,
                 obj=attribute,
                 docstring=gir_module_docs.constants.get(attribute_name, None),
@@ -216,7 +214,7 @@ def parse_module(
             # check if the attribute is a class (GObjectMeta, StructMeta and type)
             #########################################################################
             class_schema, class_callbacks_found = parse_class(
-                namespace=module_name,
+                module_name=module_name,
                 class_to_parse=attribute,
                 module_docs=gir_module_docs,
             )
@@ -251,7 +249,9 @@ def parse_module(
             # check if the existing callback is the same as the new one
             existing_cb = module_callbacks[cb.name]
             assert existing_cb.function == cb.function, (
-                f"Expected same function schema for the same callback name but {cb.function} != {existing_cb.function}"
+                f"Expected same function schema for the same callback name but"
+                f" \n{cb.function=}\n != \n{existing_cb.function=}\n"
+                f"\n{cb.originated_from=}\n != \n{existing_cb.originated_from=}\n"
             )
             assert existing_cb.originated_from is not None, (
                 "Expected originated_from to be not None"

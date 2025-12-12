@@ -87,16 +87,19 @@ packages = ["src/gi-stubs"]"""
         shutil.rmtree(package_folder)
         package_folder.mkdir(parents=True)
 
+    # gi -> package_folder/__init__.pyi
+    # gi.repository.<module> -> package_folder/repository/<module>.pyi
+    # gi.<module> -> package_folder/repository/<module>.pyi
     for stub_name, stub_content in stubs.items():
         # if / "repository"
 
         if stub_name == "gi":
             pyi_path = package_folder / "__init__.pyi"
-        elif stub_name.startswith("gi."):
-            pyi_path = package_folder / "repository" / f"{stub_name[3:]}.pyi"
-            pyi_path.parent.mkdir(parents=True, exist_ok=True)
         else:
-            pyi_path = package_folder / "repository" / f"{stub_name}.pyi"
+            stub_subpath = stub_name.removeprefix("gi.").split(".")
+            stub_folder = stub_subpath[:-1]
+            stub_file = stub_subpath[-1]
+            pyi_path = package_folder / Path(*stub_folder) / f"{stub_file}.pyi"
             pyi_path.parent.mkdir(parents=True, exist_ok=True)
 
         logger.info(f"Creating stub file for {stub_name} at {pyi_path}")
