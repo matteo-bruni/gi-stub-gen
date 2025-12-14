@@ -1,5 +1,5 @@
 from __future__ import annotations
-from types import BuiltinFunctionType, FunctionType
+from types import BuiltinFunctionType, FunctionType, MethodDescriptorType, MethodType
 
 import gi._gi as GI  # type: ignore
 from typing import Any
@@ -11,13 +11,24 @@ from gi_stub_gen.schema.function import (
     BuiltinFunctionArgumentSchema,
     BuiltinFunctionSchema,
 )
-from gi_stub_gen.utils import get_redacted_stub_value
+from gi_stub_gen.utils import get_redacted_stub_value, sanitize_gi_module_name
 
 
 def _format_type(t) -> str:
     if t is inspect.Parameter.empty:
-        return "typing.Any"
+        return "Any"
     return getattr(t, "__name__", str(t).replace("typing.", ""))
+
+
+def _format_type_namespace(t) -> str | None:
+    if t is inspect.Parameter.empty:
+        return "typing"
+    ns = getattr(t, "__module__", None)
+    if ns == "builtins":
+        return None
+    if ns:
+        ns = sanitize_gi_module_name(ns)
+    return ns
 
 
 def parse_builtin_function(
@@ -25,13 +36,19 @@ def parse_builtin_function(
     namespace: str,
     name_override: str | None = None,
 ) -> BuiltinFunctionSchema | None:
+    """
+    Parse a pure Python function into a BuiltinFunctionSchema using inspect.
+
+    """
+
     # pure python function check
     is_function = isinstance(attribute, FunctionType)
 
     # function check for built-in functions implemented in C
     is_builtin_function = isinstance(attribute, BuiltinFunctionType)
+    is_method = isinstance(attribute, MethodType)
 
-    if not is_function and not is_builtin_function:
+    if not is_function and not is_builtin_function and not is_method:
         return None
 
     if name_override is not None:
@@ -46,18 +63,23 @@ def parse_builtin_function(
         return BuiltinFunctionSchema(
             name=name,
             namespace=namespace,
-            return_hint="typing.Any",
+            return_hint_name="Any",
+            return_hint_namespace="typing",
             docstring=inspect.getdoc(attribute),
+            is_method=is_method,
+            is_async=False,
             params=[
                 BuiltinFunctionArgumentSchema(
                     name="args",
-                    type_hint="typing.Any",
+                    type_hint_name="Any",
+                    type_hint_namespace="typing",
                     kind=ArgKind.VAR_POSITIONAL,
                     default_value=None,
                 ),
                 BuiltinFunctionArgumentSchema(
                     name="kwargs",
-                    type_hint="typing.Any",
+                    type_hint_name="Any",
+                    type_hint_namespace="typing",
                     kind=ArgKind.VAR_KEYWORD,
                     default_value=None,
                 ),
@@ -67,16 +89,14 @@ def parse_builtin_function(
     # Main Parsing Loop
     args_schema = []
     for param_name, param in sig.parameters.items():
-        # 1. Handle Default Value (using your helper)
         def_val = None
         if param.default is not inspect.Parameter.empty:
             def_val = get_redacted_stub_value(param.default)
 
-        # 2. Create Schema Argument
-        # NOTICE: Usage of ArgKind.from_inspect(param.kind)
         arg = BuiltinFunctionArgumentSchema(
             name=param_name,
-            type_hint=_format_type(param.annotation),
+            type_hint_name=_format_type(param.annotation),
+            type_hint_namespace=_format_type_namespace(param.annotation),
             kind=ArgKind.from_inspect(param.kind),
             default_value=def_val,
         )
@@ -85,8 +105,10 @@ def parse_builtin_function(
     return BuiltinFunctionSchema(
         name=name,
         namespace=namespace,
+        is_method=is_method,
         is_async=inspect.iscoroutinefunction(attribute),
         docstring=inspect.getdoc(attribute),
-        return_hint=_format_type(sig.return_annotation),
+        return_hint_name=_format_type(sig.return_annotation),
+        return_hint_namespace=_format_type_namespace(sig.return_annotation),
         params=args_schema,
     )

@@ -61,13 +61,6 @@ These can be seen as examples of the generated stubs.
 Ideally these can be published to PyPI or another package index in the future.
 In my idea each project should maintain the stubs for their own library, and link the stub version to the library version.
 
-# TODO
-- [ ] Add support for deprecated function and methods
-- [ ] Add tests
-- signals?
-- gi._gi.OptionGroup in Gio, dovrebbe esere GLib.OptionGroup
-- [ ] Add default to functions arguments (is it possible? how to obtain this info from GI?)
-- [ ] prendi __init__ da inspect invece di inventarlo
 
 ## problem with GIRepository for parsing
 i found some issues with GIRepository when parsing some libraries, for example:
@@ -77,3 +70,9 @@ i found some issues with GIRepository when parsing some libraries, for example:
 ## disclaimer
 i'm by no means an expert in GI or pygobject, so there might be some mistakes or misunderstandings in the generated stubs.
 i started this project mainly to learn more about GI and pygobject internals, so any feedback or contribution is welcome.
+
+## todo 
+
+- add more tests
+- better parse the gir files
+- create build system to use docker files to get consistent build environment

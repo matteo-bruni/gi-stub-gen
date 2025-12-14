@@ -248,10 +248,6 @@ def parse_class(
         class_attributes.append(f)
         class_parsed_elements.append(field_name)
 
-        if class_to_parse.__name__ == "VideoMeta" and field_name == "map":
-            breakpoint()
-            # ...
-
     #######################################################################################
     # parse properties
     #######################################################################################
@@ -357,8 +353,18 @@ def parse_class(
             # class_attributes.append(c)
         # elif attribute_type is method:
         #     ...
-        elif attribute_type is MethodType:
-            extra.append(f"method: {attribute_name} local={is_attribute_local}")
+        # elif attribute_type is MethodType:
+        #     breakpoint()
+        #     if f := parse_builtin_function(
+        #         attribute=attribute,
+        #         namespace=module_name.removeprefix("gi.repository."),
+        #         name_override=attribute_name,
+        #     ):
+        #         class_python_methods.append(f)
+        #         assert attribute_name not in class_parsed_elements, "was parsed twice?"
+        #         class_parsed_elements.append(attribute_name)
+
+        #     extra.append(f"method: {attribute_name} local={is_attribute_local}")
         elif attribute_type is GetSetDescriptorType:
             # these are @property
             class_getters.append(
@@ -375,7 +381,7 @@ def parse_class(
             )
             # extra.append(f"getset: {attribute_name} local={is_attribute_local}")
 
-        elif attribute_type is FunctionType or attribute_type is BuiltinFunctionType:
+        elif attribute_type in {MethodType, FunctionType, BuiltinFunctionType}:
             if f := parse_builtin_function(
                 attribute=attribute,
                 namespace=module_name.removeprefix("gi.repository."),
@@ -390,8 +396,11 @@ def parse_class(
                 if f.name == "__init__":
                     # some zelous overrides define __init__ with return type Any..
                     # we fix that here
-                    if f.return_hint == "typing.Any":
-                        f.return_hint = "None"
+                    if f.return_hint_name == "typing.Any":
+                        f.return_hint_name = "None"
+
+                # if f.name == "do_sink_event":
+                #     breakpoint()
                 class_python_methods.append(f)
                 assert attribute_name not in class_parsed_elements, "was parsed twice?"
                 class_parsed_elements.append(attribute_name)

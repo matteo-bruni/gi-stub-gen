@@ -1,8 +1,8 @@
 {% if fun.is_async %}async{% endif %}def {{fun.name}}(
-    {% for a in fun.param_signature %}
+    {% for a in fun.param_signature(module_name) %}
     {{a}},
     {% endfor %}
-) -> {{fun.return_hint}}:
+) -> {{fun.return_hint(module_name)}}:
     {% if fun.docstring or debug %}
     """
     {{ fun.debug | if_true(debug, "{}\n\n") | indent(4, blank=True) -}}

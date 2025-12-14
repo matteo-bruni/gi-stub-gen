@@ -40,7 +40,7 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% endif -%}
 
     {% if cls_.fields %}
-    # Fields
+    # gi Fields
     {% for field in cls_.fields %}
     {{ field.name }}: {{ field.type_hint(module_name) }} = ... {{ "# type: ignore" | if_true(field.type_hint_namespace and module_name != field.type_hint_namespace) }}{{ field.line_comment | if_exists("# ") }}
     {% if field.docstring or field.is_deprecated %} 
@@ -53,7 +53,7 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% endif -%}
 
     {% if cls_.methods %}
-    # Methods
+    # gi Methods
     {% for method in cls_.methods %}
     {{ method.render_compact() | indent(4, first=False) }}
     {% endfor %}

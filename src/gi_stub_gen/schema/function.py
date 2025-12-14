@@ -59,8 +59,12 @@ class ArgKind(StrEnum):
 
 class BuiltinFunctionArgumentSchema(BaseModel):
     name: str
-    type_hint: str = Field(
+    type_hint_name: str = Field(
         description="String representation of the type",
+    )
+    type_hint_namespace: str | None = Field(
+        None,
+        description="Namespace of the type hint. None if not applicable.",
     )
     kind: ArgKind
     default_value: str | None = Field(
@@ -75,8 +79,21 @@ class BuiltinFunctionArgumentSchema(BaseModel):
             ArgKind.VAR_KEYWORD,
         )
 
-    @property
-    def as_str(self) -> str:
+    def type_hint(self, namespace: str) -> str:
+        """
+        type representation in template.
+        computed with respect to the given namespace.
+
+        if is in the same we avoid adding the namespace prefix.
+        """
+
+        full_type = self.type_hint_name
+        if self.type_hint_namespace and self.type_hint_namespace != namespace:
+            full_type = f"{self.type_hint_namespace}.{self.type_hint_name}"
+
+        return full_type
+
+    def as_str(self, namespace: str) -> str:
         """Returns the formatted argument string: 'name: type = default'"""
         prefix = {ArgKind.VAR_POSITIONAL: "*", ArgKind.VAR_KEYWORD: "**"}.get(self.kind, "")
 
@@ -88,28 +105,42 @@ class BuiltinFunctionArgumentSchema(BaseModel):
         ):
             default = f" = {self.default_value}"
 
-        return f"{prefix}{self.name}: {self.type_hint}{default}"
+        return f"{prefix}{self.name}: {self.type_hint(namespace)}{default}"
 
 
 class BuiltinFunctionSchema(BaseSchema):
     name: str
     namespace: str
-    is_async: bool = False
-    # is_method: bool
+    is_async: bool
+    is_method: bool
     docstring: str | None
-    return_hint: str
+    return_hint_name: str
+    return_hint_namespace: str | None
     params: list[BuiltinFunctionArgumentSchema]
 
     def render(self) -> str:
         return TemplateManager.render_master("builtin_function.jinja", fun=self)
 
-    @property
-    def param_signature(self) -> list[str]:
+    def return_hint(self, namespace: str) -> str:
+        """
+        type representation in template.
+        computed with respect to the given namespace.
+
+        if is in the same we avoid adding the namespace prefix.
+        """
+
+        full_type = self.return_hint_name
+        if self.return_hint_namespace and self.return_hint_namespace != namespace:
+            full_type = f"{self.return_hint_namespace}.{self.return_hint_name}"
+
+        return full_type
+
+    def param_signature(self, namespace: str) -> list[str]:
         """Generates the full parameter string with '/' and '*' separators."""
         # 1. Group params by kind efficiently
         groups = {k: [] for k in ArgKind}
         for p in self.params:
-            groups[p.kind].append(p.as_str)
+            groups[p.kind].append(p.as_str(namespace))
 
         # 2. Build the parts list
         parts = []
