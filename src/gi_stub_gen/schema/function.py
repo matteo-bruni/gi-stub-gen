@@ -597,22 +597,23 @@ class FunctionSchema(BaseSchema):
 
         f_name = obj.get_name()
         assert f_name is not None, "Function name is None"
-        function_name, name_unsafe_comment = sanitize_variable_name(f_name)
-        assert function_name is not None, "Function name is None"
+        sane_function_name, name_unsafe_comment = sanitize_variable_name(f_name)
+        assert sane_function_name is not None, "Function name is None"
 
-        if name_unsafe_comment:
+        if name_unsafe_comment and function_type == "FunctionInfo":
+            # in callback and signal we dont care about keywords
             logger.warning(
                 f"Function name '{f_name}' in namespace '{function_namespace}' "
-                f"is a Python keyword. Renaming to '{function_name}'."
+                f"invalid name: '{name_unsafe_comment} -> {sane_function_name}'."
             )
             # we alert via deprecated warning
             is_deprecated = True
-            deprecation_warnings = f"Function name '{f_name}' is a Python keyword. Renamed to '{function_name}' in stub. Please use `{f_name}` in your code and add a # type: ignore."
+            deprecation_warnings = f"Function name '{f_name}' is a Python keyword. Renamed to '{sane_function_name}' in stub. Please use `{f_name}` in your code and add a # type: ignore."
         else:
             is_deprecated = obj.is_deprecated()
             deprecation_warnings = catch_gi_deprecation_warnings(
                 function_namespace,
-                function_name,
+                sane_function_name,
             )
 
         may_return_null = obj.may_return_null()
@@ -647,7 +648,7 @@ class FunctionSchema(BaseSchema):
 
         to_return = cls(
             namespace=function_namespace,
-            name=function_name,
+            name=sane_function_name,
             args=function_args,
             is_callback=is_callback,
             docstring=docstring,
