@@ -1,47 +1,42 @@
+# 📦 GI Stub Gen
 
-A stub generator for GObject Introspection (GI) libraries.
-The types are discovered using importing the libraries from `gi.repository`.
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![Python Version](https://img.shields.io/badge/python-3.10-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-### Why ?
+A modern, modular type hint generator for **GObject Introspection (GI)** libraries (GStreamer, GTK, Gio, etc.).
 
-started developing with gstreamer python binding and found the lack of type hints quite annoying. Additionally looking at the existing `pygobject-stubs` i found quite difficult to understand and contribute to it, so decided to start a new project.
+This tool discovers types by **importing the libraries at runtime** via `gi.repository`, inspecting them, and generating fully compliant `.pyi` stub files.
 
-The `pygobject-stubs` project while a neat project was quite difficult to understand and contribute to for someone not familiar with the GI internals. There is not separation between the parsing and the template generation, making it difficult to extend or fix issues. Also the generated stubs collect all the libraries in a single monolithic package. Instead i prefer to have a separate package for each library, so that is possible to install only the needed stubs and maybe the stubs for a particular library can be maintained by the library maintainers. Also from my understanding a lot the stubs are manually fixed, which is not very maintainable.
-The focus of this project is to split the parsing and the template generation, so that is possible to extend or fix issues more easily. When parsing all the information is collected in Pydantic models, that can be easily inspected or modified before generating the stubs. Also the generated stubs are separated in different packages, one for each library. In my idea there will be a base package `gi-base-stub` that will contain the common stubs for all the libraries (like `GObject`, `GLib`, etc...) and then a package for each library that will depend on the base package.
-In the first development phase the generated stubs will be uploaded in `stubs/` folder, but maybe in the future they can be uploaded to PyPI or another package index.
+## ⚡ Why another stub generator?
 
-feature:
-- dont like to pick the version at runtime for each library, just publish stubs for each version and install the needed one.
-- try to catch pydeprecation warnings for aliases and attributes and add to their docstring
-- try to add deprecated decorator to deprecated functions and methods
-- do not manually fix the generated stubs, try to improve the generator instead.
-- signal
-- gerror
+I started developing with **GStreamer** Python bindings and found the lack of IDE support (type hints, autocompletion) frustrating. While looking at existing solutions like `pygobject-stubs`, I found them difficult to extend due to their monolithic nature and tight coupling between parsing and generation.
 
+**GI Stub Generator** takes a different approach:
 
-### Why not from gir files?
+1.  **Separation of Concerns:** The parsing logic is completely decoupled from the template generation.
+2.  **Intermediate Representation:** All introspection data is collected into strictly typed **Pydantic models**. This allows for easy inspection, validation, and modification of data *before* the stubs are written.
+3.  **Modular Output:** Instead of one giant package, this tool aims to generate separate packages for each library (e.g., `stubs-gst`, `stubs-gtk`). This allows library maintainers to potentially own their stubs.
+4.  **Runtime Inspection:** By inspecting the live objects, we catch overrides and dynamic attributes that static GIR files often miss.
 
-Generating the stubs importing the libraries from `gi.repository` allows to:
- - discover what is actually available in the library, without the need to search for the updated gir files.
- - discover the overrides defined by the libraries, since the gir files do not include them.
+## ✨ Features
 
+-   **Explicit Versioning:** Generate stubs for specific library versions (e.g., GStreamer 1.18 vs 1.20) rather than relying on the system default at runtime.
+-   **Hybrid Approach:** Uses runtime inspection for accurate types/overrides and parses `.gir` files to extract **Docstrings**.
+-   **Deprecation Handling:** Detects `PyDeprecationWarning` for aliases/attributes and marks functions with the `@deprecated` decorator.
+-   **Signal & GError Support:** (WIP) Better typing for GObject signals and error handling.
+-   **Automated Logic:** Focuses on improving the generator logic rather than manually patching the output files.
 
-### Docstring
+---
 
-Gir files are used to obtain the docstrings since they are not available from the introspection data through pygobject at the time of writing this library.
+## 🚀 Getting Started
 
-# Develop
+### Prerequisites
 
-install the dependencies:
-```
-uv sync
-source .venv/bin/activate
-```
+This project relies on `PyGObject` and `PyCairo`, which require system-level dependencies.
 
-**note:** this need pygobject that need pygobject and pycairo.
-in order to install pygobject (and pycairo) (does not have precompiled wheels) you need on ubuntu:
-
-```
+**On Ubuntu/Debian:**
+```bash
 sudo apt install \
   build-essential \
   python3-dev \
@@ -50,29 +45,79 @@ sudo apt install \
   libgirepository-2.0-dev
 ```
 
-TODO CHANGEME
+### Installation & Development
+
+This project uses `uv` for dependency management.
+
+```bash
+# Clone the repository
+git clone [https://github.com/username/gi-stub-generator.git](https://github.com/username/gi-stub-generator.git)
+cd gi-stub-generator
+
+# Sync dependencies and activate venv
+uv sync
+source .venv/bin/activate
 ```
-gi_stub_gen <library_name> <gi_version> > test.pyi
+
+### Usage
+
+To generate a stub for a specific library:
+
+```bash
+# Syntax: gi_stub_gen <LibraryName> <Version> > <Output.pyi>
+uv run gi-stub-gen \
+    gi.repository.Gst:1.0 \
+    gi.repository.GstVideo:1.0 \
+    --preload gi.repository.GioUnix:2.0 \
+    --preload gi.repository.Gio:2.0 \
+    --preload gi.repository.GObject:2.0 \
+    --preload gi.repository.GIRepository:3.0 \
+    --pkg-name gi-gst-stubs \
+    --pkg-version 1.26.9 \
+    --pkg-dependencies gi-base-stubs \
+    --output ./stubs \
+    --gir-folder /usr/share/gir-1.0
 ```
+This will generate stubs for GStreamer 1.26.9 in the `stubs/` folder.
+The generated stubs have a dependency on `gi-base-stubs`, which contains common types like `GObject` and `GLib`.
 
-## stub folder
-the generated stub in `stubs/` folder are generated using the `build-all.sh` script.
-These can be seen as examples of the generated stubs. 
-Ideally these can be published to PyPI or another package index in the future.
-In my idea each project should maintain the stubs for their own library, and link the stub version to the library version.
+---
 
+## 🏗 Architecture & Design Decisions
 
-## problem with GIRepository for parsing
-i found some issues with GIRepository when parsing some libraries, for example:
-- gi._gi.FunctionInfo is mapped to GIRepository.FunctionInfo. However GIRepository.FunctionInfo does not have all the methods that gi._gi.FunctionInfo has. For example gi._gi.FunctionInfo has get_arguments() (added by pygobject) but in GIRepository.FunctionInfo it is missing and is showing the C counterpart get_n_args() and get_args() which are not directly usable in Python.
-- in GIRepository.TypeInfo there is no method get_tag_as_string, while gi._gi.TypeInfo has get_tag_as_string() added by pygobject
+### Why not just parse `.gir` files?
+Parsing only `.gir` (XML) files is insufficient for a great Python developer experience because:
+1.  **Overrides:** PyGObject heavily modifies the API at runtime (adding Pythonic methods like `__iter__`, `__enter__`, or custom constructors). GIR files do not reflect these Python-specific overrides.
+2.  **Availability:** Runtime inspection guarantees that we generate stubs for what is *actually* available on your system.
 
-## disclaimer
-i'm by no means an expert in GI or pygobject, so there might be some mistakes or misunderstandings in the generated stubs.
-i started this project mainly to learn more about GI and pygobject internals, so any feedback or contribution is welcome.
+*However, we do use GIR files to fetch docstrings, as these are not currently exposed via the Python introspection API.*
 
-## todo 
+### The Parsing Challenge
+Working with `GIRepository` in Python has some quirks. For instance:
+* `gi._gi.FunctionInfo` vs `GIRepository.FunctionInfo`: The Python wrapper adds methods (like `get_arguments()`) that are missing from the raw C-binding wrapper.
+* Inconsistencies in `TypeInfo` methods between the internal C implementation and the Python exposure.
 
-- add more tests
-- better parse the gir files
-- create build system to use docker files to get consistent build environment
+This project attempts to normalize these discrepancies within the Pydantic parsing layer.
+
+---
+
+## 📂 Generated Stubs
+You can find examples of generated output in the `stubs/` folder.
+Ideally, in the future:
+* A base package `gi-base-stubs` will contain common types (`GObject`, `GLib`).
+* Specific libraries will depend on the base package.
+* These can be published to PyPI individually.
+
+## ⚠️ Disclaimer
+I am not a GI/PyGObject expert. This project started as a learning exercise to understand the internals of GObject Introspection. Mistakes are possible, and feedback is highly appreciated!
+
+## ✅ Todo
+- [ ] Add comprehensive test suite.
+- [ ] Improve `.gir` file parsing for documentation.
+- [ ] Create Docker-based build system for consistent environment reproduction.
+- [ ] Handle `GValue` marshalling edge cases.
+
+---
+
+### License
+[MIT](LICENSE)

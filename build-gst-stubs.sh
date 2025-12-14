@@ -1,8 +1,25 @@
-# source ./venv/bin/activate
-
 # enable if you want to add debug information inside the stubs
 # read from environment variable, default to false
 ENABLE_DEBUG=${ENABLE_DEBUG:-false}
+
+# parse CLI args to override ENABLE_DEBUG
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --debug|-d)
+            ENABLE_DEBUG=true
+            shift
+            ;;
+        --no-debug)
+            ENABLE_DEBUG=false
+            shift
+            ;;
+        *)
+            # ignore any other arguments
+            shift
+            ;;
+    esac
+done
+
 
 ###########################################################
 # we can assume bindings compatibility within the same minor version
@@ -11,7 +28,7 @@ ENABLE_DEBUG=${ENABLE_DEBUG:-false}
 GST_VERSION=1.26
 GST_STUB_VERSION=0
 PKG_GST_STUBS_VERSION=${GST_VERSION}.${GST_STUB_VERSION}
-gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
+uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     gi.repository.Gst:1.0 \
     gi.repository.GstApp:1.0 \
     gi.repository.GstAudio:1.0 \
@@ -25,7 +42,7 @@ gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     --preload gi.repository.Gio:2.0 \
     --preload gi.repository.GObject:2.0 \
     --preload gi.repository.GIRepository:3.0 \
-    --pkg-name gi-gstreamer-stubs \
+    --pkg-name gi-gst-stubs \
     --pkg-version ${PKG_GST_STUBS_VERSION} \
     --pkg-dependencies gi-base-stubs \
     --output ./stubs \

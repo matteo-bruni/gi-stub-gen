@@ -6,6 +6,20 @@ set positional-arguments := true
 default: 
     just --list
 
+
+build:
+    ./build-all.sh
+
+build-base:
+    ./build-base-stubs.sh
+
+build-gst:
+    ./build-gst-stubs.sh
+
+build-gtk:
+    ./build-gtk-stubs.sh
+
+
 # Install dependencies for local development.
 sync:
     uv sync --dev
