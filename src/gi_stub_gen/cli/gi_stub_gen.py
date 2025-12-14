@@ -10,6 +10,7 @@ from typing_extensions import Annotated
 
 from gi_stub_gen.gi_repo import GIRepo
 from gi_stub_gen.gi_utils import get_gi_module_from_name
+from gi_stub_gen.utils import format_stub_with_ruff
 
 
 app = typer.Typer(pretty_exceptions_enable=False)
@@ -194,10 +195,14 @@ def main(
         )
         unknown[module_name] = unknown_module_map_types
         stub_file_name = module_name
-        stubs[stub_file_name] = parsed_module.to_pyi(
+        pyi_content = parsed_module.to_pyi(
             extra_imports=extra_include_per_stub.get(module_name, []),
             debug=debug,
             unknowns=unknown_module_map_types,
+        )
+        stubs[stub_file_name] = format_stub_with_ruff(
+            code_content=pyi_content,
+            virtual_filename=f"{stub_file_name}.pyi",
         )
 
     total_unknown = sum(

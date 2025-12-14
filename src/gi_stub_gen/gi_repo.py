@@ -1,8 +1,7 @@
+from __future__ import annotations
 import gi
 import logging
 from typing import Self, Type, TypeVar, overload
-
-logger = logging.getLogger(__name__)
 
 try:
     gi.require_version("GioUnix", "2.0")
@@ -11,6 +10,8 @@ except ValueError:
     raise RuntimeError("GIRepository 3.0 is required")
 
 from gi.repository import GIRepository  # noqa: E402
+
+logger = logging.getLogger(__name__)
 
 T = TypeVar("T", bound=GIRepository.BaseInfo)
 

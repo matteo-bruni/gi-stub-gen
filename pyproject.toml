@@ -17,6 +17,7 @@ dependencies = [
     "lxml>=5.3.1",
     "pydantic>=2.10.6",
     "pygobject==3.54.0",
+    "pytest>=9.0.2",
     "rich>=13.9.4",
     "ruff>=0.14.9",
     "tomlkit>=0.13.3",
@@ -73,10 +74,11 @@ exclude = [
 ignore = ["**/ignore", "**/.venv", ".venv"]
 # ignore missing source for modules like gi.repository
 reportMissingModuleSource = "none"
-# generated stubs will be placed in these folders so we 
-# dont need to install them while developing gi-stub-gen
-# extraPaths = [
-#     "stubs/gi-base-stubs/src",
-#     "stubs/gi-gstreamer-stubs/src",
-#     # "stubs/gi-gtk-stubs/src",
-# ]
+
+[tool.ruff]
+line-length = 120
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests"]

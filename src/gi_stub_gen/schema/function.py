@@ -15,6 +15,7 @@ from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
+    sanitize_variable_name,
 )
 from gi_stub_gen.gi_utils import (
     gi_type_to_py_type,
@@ -77,9 +78,7 @@ class BuiltinFunctionArgumentSchema(BaseModel):
     @property
     def as_str(self) -> str:
         """Returns the formatted argument string: 'name: type = default'"""
-        prefix = {ArgKind.VAR_POSITIONAL: "*", ArgKind.VAR_KEYWORD: "**"}.get(
-            self.kind, ""
-        )
+        prefix = {ArgKind.VAR_POSITIONAL: "*", ArgKind.VAR_KEYWORD: "**"}.get(self.kind, "")
 
         # Only add default if it exists and is not *args/**kwargs
         default = ""
@@ -323,11 +322,11 @@ class FunctionSchema(BaseSchema):
     may_return_null: bool
     """Whether this function may return null"""
 
-    return_hint: str
-    """Just the return type hint from GI. Does not include OUT arguments."""
-
     deprecation_warnings: str | None
     """Deprecation warning message, if any captured """
+
+    return_hint: str | None
+    """Just the return type hint from GI. Does not include OUT arguments. If None, means return void. Use None if no OUT args, otherwise skip it."""
 
     return_hint_namespace: str | None
     """namespace of the return hint, e.g. gi.repository<NAME> import for the property type, if any"""
@@ -420,8 +419,10 @@ class FunctionSchema(BaseSchema):
         """
 
         return_parts = []
+        # if self.name == "version":
+        #     breakpoint()
         # add c return type if not skipped
-        if not self.skip_return:
+        if not self.skip_return and self.return_hint is not None:
             return_value = self.return_hint
 
             if self.return_hint_namespace and self.return_hint_namespace != namespace:
@@ -505,9 +506,7 @@ class FunctionSchema(BaseSchema):
     @classmethod
     def from_gi_object(
         cls,
-        obj: GIRepository.FunctionInfo
-        | GIRepository.CallbackInfo
-        | GIRepository.SignalInfo,
+        obj: GIRepository.FunctionInfo | GIRepository.CallbackInfo | GIRepository.SignalInfo,
         docstring: str | None = None,
     ):
         # Note cant do isinstance on GIRepository.FunctionInfo!!
@@ -548,6 +547,7 @@ class FunctionSchema(BaseSchema):
             # TODO: add logic to skip 'user_data' and 'GDestroyNotify'
             # for callbacks, but that is more complex and depends on specific GI flags (Closure/Destroy).
 
+        # out_args = []
         for i, arg in enumerate(obj_arguments):
             # Skip this argument if it was identified as an internal C
             # implementation detail (like array length)
@@ -567,8 +567,8 @@ class FunctionSchema(BaseSchema):
             # IMPORTANT: For standard Function Stubs, arguments marked as 'OUT'
             # are NOT part of the Python input signature. They are returned in the tuple.
             # However, 'INOUT' arguments ARE passed as input (and returned modified).
-            if direction == "OUT":
-                continue
+            # if direction == "OUT":
+            #     continue
 
             function_arg, found_callback = FunctionArgumentSchema.from_gi_object(
                 obj=arg,
@@ -578,26 +578,51 @@ class FunctionSchema(BaseSchema):
             if found_callback:
                 # Found a callback argument
                 # append to its originated_from info
-                found_callback.originated_from = {
-                    f"{obj.get_namespace()}.{obj.get_name()}"
-                }
+                found_callback.originated_from = {f"{obj.get_namespace()}.{obj.get_name()}"}
                 args_as_callbacks_found.append(found_callback)
 
         # TODO: what happen if return type is another gi type?
         # i.e can a function return a Gst.Caps() object?
         py_return_type = gi_type_to_py_type(obj.get_return_type())
-        # get the repr of the return type
-        py_return_type_namespace = get_py_type_namespace_repr(py_return_type)
-        py_return_type_name = get_py_type_name_repr(py_return_type)
+
+        if py_return_type is None:
+            py_return_hint_namespace = None
+            py_return_hint_name = None
+        else:
+            # get the repr of the return type
+            py_return_hint_namespace = get_py_type_namespace_repr(py_return_type)
+            py_return_hint_name = get_py_type_name_repr(py_return_type)
 
         function_namespace: str = obj.get_namespace()
-        function_name = obj.get_name()
+
+        f_name = obj.get_name()
+        assert f_name is not None, "Function name is None"
+        function_name, name_unsafe_comment = sanitize_variable_name(f_name)
         assert function_name is not None, "Function name is None"
+
+        if name_unsafe_comment:
+            logger.warning(
+                f"Function name '{f_name}' in namespace '{function_namespace}' "
+                f"is a Python keyword. Renaming to '{function_name}'."
+            )
+            # we alert via deprecated warning
+            is_deprecated = True
+            deprecation_warnings = f"Function name '{f_name}' is a Python keyword. Renamed to '{function_name}' in stub. Please use `{f_name}` in your code and add a # type: ignore."
+        else:
+            is_deprecated = obj.is_deprecated()
+            deprecation_warnings = catch_gi_deprecation_warnings(
+                function_namespace,
+                function_name,
+            )
+
         may_return_null = obj.may_return_null()
         is_callback = isinstance(obj, GI.CallbackInfo)
 
         # get the return hint for the template
-        return_hint = py_return_type_name
+        return_hint = py_return_hint_name
+
+        # if function_name == "version":
+        #     breakpoint()
 
         if not is_callback:
             flags = obj.get_flags()  # type: ignore
@@ -606,9 +631,7 @@ class FunctionSchema(BaseSchema):
             is_setter = bool(flags & GIRepository.FunctionInfoFlags.IS_SETTER)
             is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)
             wrap_vfunc = bool(flags & GIRepository.FunctionInfoFlags.WRAPS_VFUNC)
-            is_method = (
-                obj.is_method() if hasattr(obj, "is_method") else False
-            )  # SignalInfo has no is_method()
+            is_method = obj.is_method() if hasattr(obj, "is_method") else False  # SignalInfo has no is_method()
         else:
             # Callbacks do not have these flags
             is_constructor = False
@@ -619,7 +642,7 @@ class FunctionSchema(BaseSchema):
             is_method = False
 
         line_comment = None
-        if py_return_type_namespace and py_return_type_namespace.startswith("gi._"):
+        if py_return_hint_namespace and py_return_hint_namespace.startswith("gi._"):
             line_comment = "type: ignore"
 
         to_return = cls(
@@ -630,15 +653,12 @@ class FunctionSchema(BaseSchema):
             docstring=docstring,
             may_return_null=may_return_null,
             can_throw_gerror=obj.can_throw_gerror(),
-            is_deprecated=obj.is_deprecated(),
+            is_deprecated=is_deprecated,
             skip_return=obj.skip_return(),
-            return_hint=return_hint,
-            deprecation_warnings=catch_gi_deprecation_warnings(
-                function_namespace,
-                function_name,
-            ),
+            deprecation_warnings=deprecation_warnings,
             is_method=is_method,
-            return_hint_namespace=py_return_type_namespace,
+            return_hint=return_hint,
+            return_hint_namespace=py_return_hint_namespace,
             is_async=is_async,
             is_getter=is_getter,
             is_setter=is_setter,
@@ -667,9 +687,7 @@ class CallbackSchema(BaseSchema):
         docstring: str | None = None
 
         if self.originated_from is not None:
-            docstring = (
-                f"This callback was used in: \n\t\t\t{', '.join(self.originated_from)}"
-            )
+            docstring = f"This callback was used in: \n\t\t\t{', '.join(self.originated_from)}"
 
         # func_docstring = self.function.docstring
         # if func_docstring is None:

@@ -56,13 +56,13 @@ class ClassPropSchema(BaseSchema):
         Get the full type hint for the field,
         adding the namespace if different from the given one.
         """
-        if self.type_hint_namespace and sanitize_gi_module_name(
-            self.type_hint_namespace
-        ) != sanitize_gi_module_name(namespace):
+        if self.type_hint_namespace and sanitize_gi_module_name(self.type_hint_namespace) != sanitize_gi_module_name(
+            namespace
+        ):
             hint = f"{self.type_hint_namespace}.{self.type_hint_name}"
         else:
             hint = self.type_hint_name
-            
+
         if self.may_be_null:
             hint = f"{hint} | None"
 
@@ -99,9 +99,9 @@ class ClassFieldSchema(BaseSchema):
         Get the full type hint for the field,
         adding the namespace if different from the given one.
         """
-        if self.type_hint_namespace and sanitize_gi_module_name(
-            self.type_hint_namespace
-        ) != sanitize_gi_module_name(namespace):
+        if self.type_hint_namespace and sanitize_gi_module_name(self.type_hint_namespace) != sanitize_gi_module_name(
+            namespace
+        ):
             hint = f"{self.type_hint_namespace}.{self.type_hint_name}"
         else:
             hint = self.type_hint_name
@@ -161,11 +161,10 @@ class ClassSchema(BaseSchema):
         if there is no new() method, we should pick the next new_<something>() method
         but we skip this for now.
         """
-        is_init_present = any(method.name == "__init__" for method in self.methods)
-        if is_init_present:
-            logger.debug(
-                f"Class {self.namespace}.{self.name} already has __init__ method, skipping adding it."
-            )
+        is_init_present_in_methods = any(method.name == "__init__" for method in self.methods)
+        is_init_present_in_python_methods = any(method.name == "__init__" for method in self.python_methods)
+        if is_init_present_in_methods or is_init_present_in_python_methods:
+            logger.debug(f"Class {self.namespace}.{self.name} already has __init__ method, skipping adding it.")
             return
 
         args: list[FunctionArgumentSchema] = []
@@ -257,11 +256,7 @@ class ClassSchema(BaseSchema):
         )
 
         sane_namespace = sanitize_gi_module_name(namespace)
-        sane_super_namespace = (
-            sanitize_gi_module_name(base_class_namespace)
-            if base_class_namespace
-            else None
-        )
+        sane_super_namespace = sanitize_gi_module_name(base_class_namespace) if base_class_namespace else None
         # some super classes are in "gi" namespace
         # which is actually gi._gi hidden in the C modules
         # to use it in python we import it as: import gi._gi as GI

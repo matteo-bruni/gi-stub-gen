@@ -274,3 +274,54 @@ def get_redacted_stub_value(obj: typing.Any) -> str:
         return f"{{{body}}}"
 
     return repr(obj)
+
+
+def format_stub_with_ruff(
+    code_content: str,
+    virtual_filename: str = "generated.pyi",
+) -> str:
+    """
+    Formats a string of code using 'ruff format' via stdin.
+
+    It uses pathlib to construct a virtual absolute path. This ensures that Ruff
+    can correctly resolve the project configuration (pyproject.toml) by walking
+    up the directory tree from the current working directory.
+
+    Args:
+        code_content: The raw source code string to format.
+        virtual_filename: A filename to simulate. Important for applying
+                          file-specific rules (e.g., .pyi vs .py).
+
+    Returns:
+        The formatted code string, or the original content if Ruff fails or is missing.
+    """
+    import subprocess
+    import shutil
+
+    ruff_path = shutil.which("ruff")
+    if not ruff_path:
+        logger.warning("⚠️ Warning: Ruff not found. Skipping formatting.")
+        return code_content
+
+    # We assume the script is running from the project root (where pyproject.toml usually is).
+    # Passing this full path via --stdin-filename allows Ruff to find the config file.
+    # i.e. config inside pyproject.toml will be applied.
+    virtual_path = Path.cwd() / virtual_filename
+
+    try:
+        # '-' tells ruff to read from standard input (stdin)
+        # '--stdin-filename' gives context for config resolution and file type rules
+        process = subprocess.run(
+            [ruff_path, "format", "-", f"--stdin-filename={virtual_path}"],
+            input=code_content.encode("utf-8"),  # Send string as bytes
+            capture_output=True,  # Capture stdout and stderr
+            check=True,  # Raise CalledProcessError on failure
+        )
+        return process.stdout.decode("utf-8")
+
+    except subprocess.CalledProcessError as e:
+        # If Ruff fails (e.g., syntax error in the generated code), print the error
+        # but return the unformatted code to avoid losing data.
+        error_msg = e.stderr.decode("utf-8")
+        logger.error(f"❌ Ruff formatting failed on {virtual_filename}:\n{error_msg}")
+        return code_content

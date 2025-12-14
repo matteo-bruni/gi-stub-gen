@@ -28,27 +28,21 @@ from gi_stub_gen.parser.gir import ModuleDocs
 
 
 from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
-from gi_stub_gen.schema.constant import VariableSchema
 from gi_stub_gen.schema.function import (
     BuiltinFunctionSchema,
     CallbackSchema,
-    FunctionArgumentSchema,
 )
 from gi_stub_gen.schema.signals import (
-    DEFAULT_CONNECT,
     SignalSchema,
     generate_notify_signal,
 )
 from gi_stub_gen.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
-    sanitize_gi_module_name,
     sanitize_variable_name,
 )
 from gi.repository import GIRepository
 
-# if TYPE_CHECKING:
-#     from gi_stub_gen.schema.function import FunctionSchema
 from gi_stub_gen.schema.function import FunctionSchema
 
 import logging
@@ -135,9 +129,7 @@ def parse_class(
 
     # we make an exception for gi._gi classes
     # we parse them anyway if we are in _gi module
-    private_gi_exception = (
-        final_module_name_part == "_gi" and class_module_name_part == "gi"
-    )
+    private_gi_exception = final_module_name_part == "_gi" and class_module_name_part == "gi"
     if private_gi_exception:
         # we fake to be in gi module
         final_module_name_part = "gi"
@@ -164,148 +156,166 @@ def parse_class(
     class_parsed_elements: list[str] = []
     extra: list[str] = []
 
-    # there is no __init__ in gi methods
-    # but it should be the same as the classmethod new
-    # with the same args but self instead of cls
-    # if we get the new method, we can manually create the __init__ method
-    # class_init: FunctionSchema | None = None
+    # retrieve GI info object and parse its properties/methods/signals
+    class_info = class_to_parse.__info__ if hasattr(class_to_parse, "__info__") else None
+    class_signals_to_parse: list[GIRepository.SignalInfo] = (
+        class_info.get_signals() if class_info and hasattr(class_info, "get_signals") else []
+    )
+    class_fields_to_parse: list[GIRepository.FieldInfo] = (
+        class_info.get_fields() if class_info and hasattr(class_info, "get_fields") else []
+    )
+    class_properties_to_parse: list[GIRepository.PropertyInfo] = (
+        class_info.get_properties() if class_info and hasattr(class_info, "get_properties") else []
+    )
+    class_methods_to_parse: list[GIRepository.CallableInfo] = (
+        class_info.get_methods() if class_info and hasattr(class_info, "get_methods") else []
+    )
 
-    # if the class is a GObject, it has __info__ attribute
-    # do a first pass to get all the attributes with get_properties/get_methods
-    if hasattr(class_to_parse, "__info__"):
-        # if class_to_parse.__name__ == "Element":
+    #######################################################################################
+    # parse signals
+    #######################################################################################
+    # notify::<property_name>> -> will be added when parsing properties
+    # signal-name
+    for signal in class_signals_to_parse:
+        signal_name = signal.get_name()
+        assert signal_name is not None
+        signal_name_unescaped: str = signal.get_name_unescaped()  # type: ignore
+        s = SignalSchema(
+            name=signal_name,
+            name_unescaped=signal_name_unescaped,
+            namespace=signal.get_namespace(),
+            handler=FunctionSchema.from_gi_object(signal),
+        )
+        # if signal_name == "notify":
         #     breakpoint()
+        class_signals.append(s)
+        class_parsed_elements.append(signal_name)
 
-        if hasattr(class_to_parse.__info__, "get_signals"):
-            # notify::<property_name>>
-            # signal-name
-            signal: GIRepository.SignalInfo
-            for signal in class_to_parse.__info__.get_signals():
-                signal_name = signal.get_name()
-                assert signal_name is not None
-                signal_name_unescaped: str = signal.get_name_unescaped()  # type: ignore
-                s = SignalSchema(
-                    name=signal_name,
-                    name_unescaped=signal_name_unescaped,
-                    namespace=signal.get_namespace(),
-                    handler=FunctionSchema.from_gi_object(signal),
-                )
-                # if signal_name == "notify":
-                #     breakpoint()
-                class_signals.append(s)
-                class_parsed_elements.append(signal_name)
-                # print("Signal:", signal.get_name())
-                # breakpoint()
+    #######################################################################################
+    # parse fields
+    #######################################################################################
+    for field in class_fields_to_parse:
+        # it is possible to have a both a field and a method
+        # with the same name, due to how in C structs are defined
+        # in python we keep only the method so we need to check
+        # if there is a method with the same name and skip it if so
+        if any(m.get_name() == field.get_name() for m in class_methods_to_parse):
+            continue
 
-        if hasattr(class_to_parse.__info__, "get_fields"):
-            # breakpoint()
-            field: GIRepository.FieldInfo
-            for field in class_to_parse.__info__.get_fields():
-                if not should_expose_class_field(field):
-                    continue
+        if not should_expose_class_field(field):
+            continue
 
-                field_name = field.get_name()
-                assert field_name is not None
-                if not is_local(class_to_parse, field_name):
-                    continue
+        field_name = field.get_name()
+        assert field_name is not None
+        if not is_local(class_to_parse, field_name):
+            continue
 
-                field_name, line_comment = sanitize_variable_name(field_name)
-                field_gi_type_info = get_gi_type_info(field)
+        field_name, line_comment = sanitize_variable_name(field_name)
+        field_gi_type_info = get_gi_type_info(field)
 
-                # TODO: ERRORE SE CALLBACK NON TORNA IL TIPO E NON POSSO CAPIRE
-                # TODO PORTARE A GIRO SU TUTTI I PARSING
-                if gi_type_is_callback(field_gi_type_info):
-                    cb_info = field_gi_type_info.get_interface()
-                    cb_name = cb_info.get_name() + f"{class_to_parse.__name__}CB"
-                    cb_namespace = cb_info.get_namespace()
-                    cb_schema = FunctionSchema.from_gi_object(cb_info)
-                    found_callback = CallbackSchema(
-                        name=cb_name,
-                        function=cb_schema,
-                        originated_from={f"{class_to_parse.__name__}.{field_name}"},
-                    )
-                    callbacks_found.append(found_callback)
-                    prop_type_hint_namespace = cb_namespace
-                    prop_type_hint_name = cb_name
-                    may_be_null = found_callback.function.may_return_null
-                else:
-                    field_py_type = gi_type_to_py_type(field_gi_type_info)
-                    prop_type_hint_namespace = get_py_type_namespace_repr(field_py_type)
-                    prop_type_hint_name = get_py_type_name_repr(field_py_type)
-                    may_be_null = is_class_field_nullable(field)
+        # TODO: ERRORE SE CALLBACK NON TORNA IL TIPO E NON POSSO CAPIRE
+        # TODO PORTARE A GIRO SU TUTTI I PARSING
+        if gi_type_is_callback(field_gi_type_info):
+            cb_info = field_gi_type_info.get_interface()
+            cb_name = cb_info.get_name() + f"{class_to_parse.__name__}CB"
+            cb_namespace = cb_info.get_namespace()
+            cb_schema = FunctionSchema.from_gi_object(cb_info)
+            found_callback = CallbackSchema(
+                name=cb_name,
+                function=cb_schema,
+                originated_from={f"{class_to_parse.__name__}.{field_name}"},
+            )
+            callbacks_found.append(found_callback)
+            prop_type_hint_namespace = cb_namespace
+            prop_type_hint_name = cb_name
+            may_be_null = found_callback.function.may_return_null
+        else:
+            field_py_type = gi_type_to_py_type(field_gi_type_info)
+            prop_type_hint_namespace = get_py_type_namespace_repr(field_py_type)
+            prop_type_hint_name = get_py_type_name_repr(field_py_type)
+            may_be_null = is_class_field_nullable(field)
 
-                f = ClassFieldSchema(
-                    name=field_name,
-                    type_hint_name=prop_type_hint_name,
-                    type_hint_namespace=prop_type_hint_namespace,
-                    is_deprecated=field.is_deprecated(),
-                    docstring=None,  # TODO: retrieve docstring
-                    line_comment=None,
-                    deprecation_warnings=None,
-                    may_be_null=may_be_null,
-                )
-                class_attributes.append(f)
-                class_parsed_elements.append(field_name)
-        # Parse Props (they have a getter/setter depending on the flags)
-        if hasattr(class_to_parse.__info__, "get_properties"):
-            for prop in class_to_parse.__info__.get_properties():
-                # start parsing the actual property
-                prop_gi_type_info = get_gi_type_info(prop)
+        f = ClassFieldSchema(
+            name=field_name,
+            type_hint_name=prop_type_hint_name,
+            type_hint_namespace=prop_type_hint_namespace,
+            is_deprecated=field.is_deprecated(),
+            docstring=None,  # TODO: retrieve docstring
+            line_comment=None,
+            deprecation_warnings=None,
+            may_be_null=may_be_null,
+        )
+        class_attributes.append(f)
+        class_parsed_elements.append(field_name)
 
-                # TODO: !! PARSING CALLBACK (credo non possa succedere nelle prop)
-                prop_type = gi_type_to_py_type(prop_gi_type_info)
-                prop_type_hint_namespace = get_py_type_namespace_repr(prop_type)
-                prop_type_hint_name = get_py_type_name_repr(prop_type)
-                sanitized_name, line_comment = sanitize_variable_name(prop.get_name())
+        if class_to_parse.__name__ == "VideoMeta" and field_name == "map":
+            breakpoint()
+            # ...
 
-                # may_be_null = is_property_nullable_safe(prop)
-                may_be_null = is_class_field_nullable(prop)
+    #######################################################################################
+    # parse properties
+    #######################################################################################
+    # Parse Props (they have a getter/setter depending on the flags)
+    for prop in class_properties_to_parse:
+        # start parsing the actual property
+        prop_gi_type_info = get_gi_type_info(prop)
 
-                # if sanitized_name == "flags":
-                #     breakpoint()
-                # if may_be_null:
-                #     prop_type_hint_full = f"{prop_type_hint_full} | None"
+        # TODO: !! PARSING CALLBACK (credo non possa succedere nelle prop)
+        prop_type = gi_type_to_py_type(prop_gi_type_info)
+        prop_type_hint_namespace = get_py_type_namespace_repr(prop_type)
+        prop_type_hint_name = get_py_type_name_repr(prop_type)
+        p_name = prop.get_name()
+        assert p_name is not None, "Property name is None"
+        sanitized_name, line_comment = sanitize_variable_name(p_name)
 
-                c = ClassPropSchema(
-                    name=sanitized_name,
-                    is_deprecated=prop.is_deprecated(),
-                    readable=bool(prop.get_flags() & GObject.ParamFlags.READABLE),
-                    writable=bool(prop.get_flags() & GObject.ParamFlags.WRITABLE),
-                    type_hint_namespace=prop_type_hint_namespace,
-                    type_hint_name=prop_type_hint_name,
-                    line_comment=line_comment,
-                    docstring=None,  # TODO: retrieve docstring
-                    may_be_null=may_be_null,
-                )
-                class_props.append(c)
-                class_parsed_elements.append(prop.get_name())
+        # may_be_null = is_property_nullable_safe(prop)
+        may_be_null = is_class_field_nullable(prop)
 
-                # also add the notify signal #########################################
-                # notify::<property_name>
-                signal_name_unescaped: str = prop.get_name_unescaped()  # type: ignore
-                class_signals.append(
-                    generate_notify_signal(
-                        namespace=prop.get_namespace(),
-                        signal_name=sanitized_name,
-                        signal_name_unescaped=signal_name_unescaped,
-                    )
-                )
-                # end adding the signal ##############################################
+        c = ClassPropSchema(
+            name=sanitized_name,
+            is_deprecated=prop.is_deprecated(),
+            readable=bool(prop.get_flags() & GObject.ParamFlags.READABLE),
+            writable=bool(prop.get_flags() & GObject.ParamFlags.WRITABLE),
+            type_hint_namespace=prop_type_hint_namespace,
+            type_hint_name=prop_type_hint_name,
+            line_comment=line_comment,
+            docstring=None,  # TODO: retrieve docstring
+            may_be_null=may_be_null,
+        )
+        class_props.append(c)
+        class_parsed_elements.append(p_name)
 
-        if hasattr(class_to_parse.__info__, "get_methods"):
-            for met in class_to_parse.__info__.get_methods():
-                parsed_method = parse_function(
-                    met,
-                    docstring=module_docs.get_function_docstring(met.get_name()),
-                )
-                if parsed_method:
-                    # save callbacks to be parsed later
-                    callbacks_found.extend(parsed_method._gi_callbacks)
-                    class_methods.append(parsed_method)
-                    class_parsed_elements.append(met.get_name())
+        # also add the notify signal #########################################
+        # notify::<property_name>
+        signal_name_unescaped: str = prop.get_name_unescaped()  # type: ignore
+        class_signals.append(
+            generate_notify_signal(
+                namespace=prop.get_namespace(),
+                signal_name=sanitized_name,
+                signal_name_unescaped=signal_name_unescaped,
+            )
+        )
+        # end adding the signal ##############################################
 
+    #######################################################################################
+    # parse methods
+    #######################################################################################
+    for met in class_methods_to_parse:
+        m_name = met.get_name()
+        assert m_name is not None, "Method name is None"
+        parsed_method = parse_function(
+            met,
+            docstring=module_docs.get_function_docstring(m_name),
+        )
+        if parsed_method:
+            # save callbacks to be parsed later
+            callbacks_found.extend(parsed_method._gi_callbacks)
+            class_methods.append(parsed_method)
+            class_parsed_elements.append(m_name)
+
+    #######################################################################################
     # OVERRIDES AND NATIVE PYTHON CLASS ATTRIBUTES
-    #
+    #######################################################################################
     # do a second pass to get all the attributes not parsed by get_properties/get_methods
     # i.e class not from GI but added in overrides
     for attribute_name in dir(class_to_parse):
@@ -315,9 +325,7 @@ def parse_class(
         try:
             attribute = getattr(class_to_parse, attribute_name)
         except AttributeError as e:
-            logger.warning(
-                f"Could not get attribute {attribute_name} from {class_to_parse.__name__}: {e}"
-            )
+            logger.warning(f"Could not get attribute {attribute_name} from {class_to_parse.__name__}: {e}")
             breakpoint()
             continue
 
@@ -381,21 +389,9 @@ def parse_class(
                         f.params[0].name = "self"
                     # f.is_method = True
                 class_python_methods.append(f)
-
                 assert attribute_name not in class_parsed_elements, "was parsed twice?"
                 class_parsed_elements.append(attribute_name)
 
-            # if attribute_name == "stop_emission_by_name":
-            #     breakpoint()
-
-            # import inspect
-
-            # extra.append(
-            #     f"function: {attribute_name} local={is_attribute_local} "
-            #     f"isfunction={inspect.isfunction(attribute)} "
-            #     f"ismethoddescriptor={inspect.ismethoddescriptor(attribute)}"
-            #     f"isbuiltin={inspect.isbuiltin(attribute)}"
-            # )
         elif attribute_type is MethodDescriptorType:
             # elif attribute_type is method_descriptor:
             # TODO: how to parse this??
@@ -406,9 +402,7 @@ def parse_class(
             # if attribute_name == "connect":
             #     class_signals.append(DEFAULT_CONNECT)
 
-            extra.append(
-                f"method_descriptor: {attribute_name} local={is_attribute_local}"
-            )
+            extra.append(f"method_descriptor: {attribute_name} local={is_attribute_local}")
         elif attribute_type is property:
             # TODO: how to parse this??
             # cant obtain args/return type
@@ -430,9 +424,7 @@ def parse_class(
         else:
             # if attribute_name == "__init__":
             #     breakpoint()
-            extra.append(
-                f"unknown: {attribute_name}: {attribute_type} local={is_attribute_local}"
-            )
+            extra.append(f"unknown: {attribute_name}: {attribute_type} local={is_attribute_local}")
 
     # manual override
     # i.e. in GIRepository.TypeInfo we add get_tag_as_string method
