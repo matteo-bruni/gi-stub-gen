@@ -8,5 +8,6 @@
     {{ fun.debug | if_true(debug, "{}\n\n") | indent(4, blank=True) -}}
     {{ fun.docstring | if_exists | trim | indent(4, blank=True) }}
     """
-    {% endif %}
+    {% else %}
     ...
+    {% endif %}

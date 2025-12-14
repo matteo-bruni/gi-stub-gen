@@ -96,7 +96,7 @@ class BuiltinFunctionSchema(BaseSchema):
     namespace: str
     is_async: bool = False
     # is_method: bool
-    docstring: str
+    docstring: str | None
     return_hint: str
     params: list[BuiltinFunctionArgumentSchema]
 

@@ -387,7 +387,11 @@ def parse_class(
                     # if f.params[0].name == "instance":
                     if f.params[0].name != "self":
                         f.params[0].name = "self"
-                    # f.is_method = True
+                if f.name == "__init__":
+                    # some zelous overrides define __init__ with return type Any..
+                    # we fix that here
+                    if f.return_hint == "typing.Any":
+                        f.return_hint = "None"
                 class_python_methods.append(f)
                 assert attribute_name not in class_parsed_elements, "was parsed twice?"
                 class_parsed_elements.append(attribute_name)

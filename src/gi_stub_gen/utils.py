@@ -2,6 +2,7 @@ import typing
 import keyword
 import logging
 
+import re
 
 from typing import Any
 from pathlib import Path
@@ -152,26 +153,65 @@ def sanitize_gi_module_name(module_name: str) -> str:
 
 def sanitize_variable_name(name: str) -> tuple[str, str | None]:
     """
-    Sanitize a variable name to be a valid Python identifier.
-    This will replace hyphens with underscores, check if the name is a keyword,
-    and ensure it is a valid identifier.
-    If the name is a keyword, it will prepend an underscore to it.
-    If the name is not a valid identifier, it will prepend an underscore to it.
-    Args:
-        name (str): The name to sanitize.
-    Returns:
-        tuple[str, str]:
-            A tuple containing the sanitized name
-            and an optional reason for the change.
-    """
-    name = name.replace("-", "_")
-    if keyword.iskeyword(name):
-        return f"{name}_", f"[{name}]: changed, name is a python keyword"
+    Sanitizes a variable name to be a valid Python identifier.
 
+    It checks for keywords, invalid characters, and leading numbers.
+    It returns distinct reasons for the modification.
+
+    Args:
+        name (str): The candidate variable name.
+
+    Returns:
+        tuple[str, str | None]:
+            - The sanitized valid identifier.
+            - A reason string if changed, or None if valid.
+    """
+    original_name = name
+
+    if not name:
+        raise ValueError("Variable name cannot be empty")
+
+    # check if the name is a keyword first
+    if keyword.iskeyword(name):
+        return f"{name}_", f"[{original_name}]: changed, name is a reserved keyword"
+
+    # If it is already perfect, return immediately.
     if name.isidentifier():
         return name, None
 
-    return f"_{name}", f"[{name}]: changed, not a valid identifier"
+    # If we are here, .isidentifier() returned False.
+    # We need to find out why.
+
+    reasons = []
+    # Fix Invalid Characters (anything not a-z, A-Z, 0-9, _)
+    # We strip invalid chars first to see if that fixes it.
+    clean_name = re.sub(r"[^a-zA-Z0-9_]", "_", name)
+    if clean_name != name:
+        reasons.append("contained invalid characters")
+        name = clean_name
+
+    # Fix Leading Numbers (Identifiers cannot start with a digit)
+    # We check the NEW name (after char sanitization)
+    if name[0].isdigit():
+        name = f"_{name}"
+        reasons.append("started with a number")
+
+    # Handle edge case: String became empty or just underscores after regex
+    # (e.g., input "..." -> "___") - technically "___" is a valid identifier,
+    # but if it became empty string "" we must fix it.
+    if not name:
+        name = "_"
+        reasons.append("result was empty")
+
+    # Re-check keyword (Rare case: e.g. input "class@" -> "class" -> "class_")
+    if keyword.iskeyword(name):
+        name = f"{name}_"
+        reasons.append("result conflicted with keyword")
+
+    # Format the final reason message
+    full_reason = f"[{original_name}]: changed because {', '.join(reasons)}"
+
+    return name, full_reason
 
 
 def _get_union_str(type_list: list[str]) -> str:

@@ -47,7 +47,7 @@ def parse_builtin_function(
             name=name,
             namespace=namespace,
             return_hint="typing.Any",
-            docstring=inspect.getdoc(attribute) or "No docstring",
+            docstring=inspect.getdoc(attribute),
             params=[
                 BuiltinFunctionArgumentSchema(
                     name="args",
@@ -86,7 +86,7 @@ def parse_builtin_function(
         name=name,
         namespace=namespace,
         is_async=inspect.iscoroutinefunction(attribute),
-        docstring=inspect.getdoc(attribute) or "No docstring",
+        docstring=inspect.getdoc(attribute),
         return_hint=_format_type(sig.return_annotation),
         params=args_schema,
     )
