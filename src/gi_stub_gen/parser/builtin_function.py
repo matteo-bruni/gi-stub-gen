@@ -23,6 +23,7 @@ def _format_type(t) -> str:
 def parse_builtin_function(
     attribute: Any,
     namespace: str,
+    name_override: str | None = None,
 ) -> BuiltinFunctionSchema | None:
     # pure python function check
     is_function = isinstance(attribute, FunctionType)
@@ -33,7 +34,10 @@ def parse_builtin_function(
     if not is_function and not is_builtin_function:
         return None
 
-    name = getattr(attribute, "__name__", "unknown")
+    if name_override is not None:
+        name = name_override
+    else:
+        name = getattr(attribute, "__name__", "unknown")
 
     try:
         sig = inspect.signature(attribute)

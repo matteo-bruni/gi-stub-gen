@@ -1,0 +1,19 @@
+{% if signals %}
+# Signals
+{% for signal in signals %}
+@typing.overload
+def connect(
+    self, 
+    detailed_signal: {{ signal.detailed_signal_type }}, 
+    handler: typing.Callable[{{ signal.params(module_name) }}, {{ signal.handler.complete_return_hint(module_name) }}], 
+    *args: typing.Any
+) -> int: ...
+{% endfor %}
+@typing.overload
+def connect(
+    self, 
+    detailed_signal: str, 
+    handler: typing.Callable[..., typing.Any], 
+    *args: typing.Any
+) -> int: ...
+{% endif %}

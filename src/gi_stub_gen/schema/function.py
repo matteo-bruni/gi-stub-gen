@@ -96,6 +96,7 @@ class BuiltinFunctionSchema(BaseSchema):
     name: str
     namespace: str
     is_async: bool = False
+    # is_method: bool
     docstring: str
     return_hint: str
     params: list[BuiltinFunctionArgumentSchema]
@@ -172,12 +173,15 @@ class FunctionArgumentSchema(BaseSchema):
     line_comment: str | None
     """line comment for the argument."""
 
-    @property
-    def default_value(self) -> str | None:
-        """Get the default value representation for optional arguments."""
-        if self.is_optional or self.may_be_null:
-            return "None"
-        return None
+    default_value: str | None
+    """Default value"""
+
+    # @property
+    # def default_value(self) -> str | None:
+    #     """Get the default value representation for optional arguments."""
+    #     if self.is_optional or self.may_be_null:
+    #         return "None"
+    #     return None
 
     @classmethod
     def from_gi_object(
@@ -255,6 +259,7 @@ class FunctionArgumentSchema(BaseSchema):
             get_array_length=array_length,
             line_comment=type_hint_comment,
             is_caller_allocates=obj.is_caller_allocates(),
+            default_value=None,
         ), found_callback
 
     @property
@@ -290,10 +295,6 @@ class FunctionArgumentSchema(BaseSchema):
 
         if self.may_be_null or self.is_optional:
             full_type = f"{full_type} | None"
-
-        # add default value for optional arguments
-        # if self.default_value is not None:
-        #     full_type = f"{full_type} = {self.default_value}"
 
         return full_type
 
@@ -352,6 +353,12 @@ class FunctionSchema(BaseSchema):
     line_comment: str | None
     """line comment for the function if in compact rendering."""
 
+    function_type: Literal["SignalInfo", "FunctionInfo", "CallbackInfo"]
+    """Type of GI function object."""
+
+    is_overload: bool
+    """Whether this function is an overload of another function."""
+
     @property
     def decorators(self) -> list[str]:
         """
@@ -370,6 +377,9 @@ class FunctionSchema(BaseSchema):
 
         if self.is_getter:
             decs.append("@property")
+
+        if self.is_overload:
+            decs.append("@typing.overload")
 
         return decs
 
@@ -442,45 +452,77 @@ class FunctionSchema(BaseSchema):
         return TemplateManager.render_master("function_compact.jinja", fun=self)
 
     def render_args(self, namespace: str, one_line: bool = True) -> str:
-        """Render the function arguments for the template."""
-        argument_list: list[str] = []
+        """
+        Render the function arguments for the template.
+        We need to reverse the args to add default values correctly.
+
+        Args:
+            namespace: the current module namespace for type hint resolution
+            one_line: whether to render in one line or multi-line format
+        Returns:
+            The rendered argument string.
+        """
+        argument_list: list[tuple[str, str | None]] = []
         allow_default = True
+        # if self.name == "__init__":
+        #     one_line = False
+
         for arg in reversed(self.args):
             if arg.direction == "OUT":
                 continue
 
             arg_repr = f"{arg.name}: {arg.type_hint(namespace)}"
+            # default_value
+            # add default value for optional arguments
             is_nullable = arg.may_be_null or arg.is_optional
-            if is_nullable and allow_default:
-                arg_repr = f"{arg_repr} = None"
+            if (is_nullable or arg.default_value is not None) and allow_default:
+                if arg.default_value is not None:
+                    arg_repr = f"{arg_repr} = {arg.default_value}"
+                else:
+                    arg_repr = f"{arg_repr} = None"
             else:
-                allow_default = (
-                    False  # once we find a non-optional, stop adding defaults
-                )
-            argument_list.append(arg_repr)
+                # once we find a non-optional, stop adding defaults
+                allow_default = False
+            # add line comment if any
+            if not one_line and arg.line_comment:
+                arg_comment = arg.line_comment
+            else:
+                arg_comment = None
+            argument_list.append((arg_repr, arg_comment))
 
         # add self or cls if method
         if self.first_arg is not None:
-            argument_list.append(self.first_arg)
+            argument_list.append((self.first_arg, None))
 
         # restore the order
         argument_list.reverse()
-        if one_line:
-            return ", ".join(argument_list)
-        return ",\n".join(argument_list) + ","
+        return TemplateManager.render_master(
+            "function_args.jinja",
+            argument_list=argument_list,
+            one_line=one_line,
+        )
 
     @classmethod
     def from_gi_object(
         cls,
-        obj: GIRepository.FunctionInfo | GIRepository.CallbackInfo,
+        obj: GIRepository.FunctionInfo
+        | GIRepository.CallbackInfo
+        | GIRepository.SignalInfo,
         docstring: str | None = None,
     ):
         # Note cant do isinstance on GIRepository.FunctionInfo!!
-        # they are different object, we just use GIRepository.FunctionInfo
-        # for the type hinting
-        assert isinstance(obj, GI.CallbackInfo) or isinstance(obj, GI.FunctionInfo), (
-            "Not a valid GI function or callback object"
-        )
+        # they are different object, we use GIRepository.FunctionInfo
+        # just for the type hinting
+
+        function_type: str
+        if isinstance(obj, GI.SignalInfo):
+            function_type = "SignalInfo"
+        elif isinstance(obj, GI.CallbackInfo):
+            function_type = "CallbackInfo"
+        elif isinstance(obj, GI.FunctionInfo):
+            function_type = "FunctionInfo"
+        else:
+            raise ValueError("Not a valid GI function or callback object or signal.")
 
         # breakpoint()
         function_args: list[FunctionArgumentSchema] = []
@@ -564,7 +606,9 @@ class FunctionSchema(BaseSchema):
             is_setter = bool(flags & GIRepository.FunctionInfoFlags.IS_SETTER)
             is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)
             wrap_vfunc = bool(flags & GIRepository.FunctionInfoFlags.WRAPS_VFUNC)
-            is_method = obj.is_method()
+            is_method = (
+                obj.is_method() if hasattr(obj, "is_method") else False
+            )  # SignalInfo has no is_method()
         else:
             # Callbacks do not have these flags
             is_constructor = False
@@ -601,6 +645,8 @@ class FunctionSchema(BaseSchema):
             is_constructor=is_constructor,
             wrap_vfunc=wrap_vfunc,
             line_comment=line_comment,
+            function_type=function_type,
+            is_overload=True if function_type == "SignalInfo" else False,
         )
         to_return._gi_callbacks = args_as_callbacks_found
         return to_return

@@ -14,10 +14,10 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
         """
         {% endif %}
         {% for prop in cls_.props %}
-        {{ prop.name }}: {{ prop.type_hint_full }} {{ prop.line_comment | if_exists("# ") }}
+        {{ prop.name }}: {{ prop.type_hint(module_name) }} {{ prop.line_comment | if_exists("# ") }}
         {% if prop.docstring or prop.is_deprecated %} 
         """
-        {{ prop.docstring | if_exist -}}
+        {{ prop.docstring | if_exists }}
         {{ "@deprecated" if prop.is_deprecated else ""  | indent(12, blank=True) -}}
         """
         {% endif %}
@@ -30,8 +30,17 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
         ...
     props: Props = ...
     {% endif %}
+    
+    {% if cls_.getters %}
+    # Getters
+    {% for getter in cls_.getters %}
+    @property
+    def {{ getter.name }}(self) -> {{ getter.type_hint(module_name) }}: ...
+    {% endfor %}
+    {% endif -%}
 
     {% if cls_.fields %}
+    # Fields
     {% for field in cls_.fields %}
     {{ field.name }}: {{ field.type_hint(module_name) }} = ... {{ "# type: ignore" | if_true(field.type_hint_namespace and module_name != field.type_hint_namespace) }}{{ field.line_comment | if_exists("# ") }}
     {% if field.docstring or field.is_deprecated %} 
@@ -41,13 +50,26 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     """
     {% endif %}
     {% endfor %}
-    {% endif %}
-    {% if cls_.methods %}
+    {% endif -%}
 
+    {% if cls_.methods %}
+    # Methods
     {% for method in cls_.methods %}
     {{ method.render_compact() | indent(4, first=False) }}
     {% endfor %}
     {% endif %}
+
+    {% if cls_.python_methods %}
+    # python methods
+    {% for method in cls_.python_methods %}
+    {{ method.render() | indent(4, first=False) }}
+    {% endfor %}
+    {% endif %}
+
+    {% if cls_.signals %}
+    {{ cls_.render_signals() | indent(4, first=False) }}
+    {% endif %}
+
     {% if cls_.extra %}
     """
     {% for e in cls_.extra %}

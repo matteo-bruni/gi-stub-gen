@@ -11,13 +11,14 @@ version = "0.0.1"
 description = "A type hint/stub generator for GObject Introspection libraries"
 readme = "README.md"
 authors = [{ name = "Matteo Bruni", email = "matteo.bruni@gmail.com" }]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "jinja2>=3.1.5",
     "lxml>=5.3.1",
     "pydantic>=2.10.6",
     "pygobject==3.54.0",
     "rich>=13.9.4",
+    "ruff>=0.14.9",
     "tomlkit>=0.13.3",
     "typer>=0.15.1",
 ]

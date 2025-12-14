@@ -1,0 +1,155 @@
+from gi_stub_gen.schema import BaseSchema
+from gi_stub_gen.schema.function import FunctionArgumentSchema, FunctionSchema
+
+from gi.repository import GIRepository
+
+
+class SignalSchema(BaseSchema):
+    name: str | None
+    name_unescaped: str | None
+    namespace: str
+    handler: FunctionSchema
+
+    @classmethod
+    def from_gi_object(
+        cls,
+        obj: GIRepository.SignalInfo,
+    ):
+        return cls(
+            name=obj.get_name(),  # type: ignore
+            name_unescaped=obj.get_name_unescaped(),  # type: ignore
+            namespace=obj.get_namespace(),
+            handler=FunctionSchema.from_gi_object(obj),
+        )
+
+    @property
+    def detailed_signal_type(self) -> str:
+        if not self.name:
+            return "str"
+        return f'typing.Literal["{self.name}"]'
+
+    def params(self, namespace: str) -> str:
+        types_types: list[str] = []
+        for arg in self.handler.args:
+            if arg.direction in ("IN", "INOUT"):
+                types_types.append(arg.type_hint(namespace))
+        if len(types_types) > 0:
+            # add typing.Self as first param
+            types_types.insert(0, "typing_extensions.Self")
+            return f"[{', '.join(types_types)}]"
+        return "..."
+
+
+def generate_notify_signal(
+    namespace: str,
+    signal_name: str,
+    signal_name_unescaped: str,
+):
+    return SignalSchema(
+        name=f"notify::{signal_name}",
+        name_unescaped=f"notify::{signal_name_unescaped}",
+        namespace=namespace,
+        handler=FunctionSchema(
+            name=f"notify::{signal_name}",
+            namespace=namespace,
+            is_method=True,
+            is_deprecated=False,
+            deprecation_warnings=None,
+            docstring=f"Signal emitted when the '{signal_name}' property changes.",
+            args=[
+                # FunctionArgumentSchema(
+                #     direction="IN",
+                #     name="arg0",
+                #     namespace=namespace,
+                #     may_be_null=False,
+                #     is_optional=False,
+                #     is_callback=False,
+                #     get_array_length=-1,
+                #     is_deprecated=False,
+                #     is_caller_allocates=False,
+                #     tag_as_string="??",
+                #     line_comment=None,
+                #     py_type_name="Self",
+                #     py_type_namespace="typing_extensions",
+                # ),
+                FunctionArgumentSchema(
+                    direction="IN",
+                    name="arg1",
+                    namespace=namespace,
+                    may_be_null=False,
+                    is_optional=False,
+                    is_callback=False,
+                    get_array_length=-1,
+                    is_deprecated=False,
+                    is_caller_allocates=False,
+                    tag_as_string="??",
+                    line_comment=None,
+                    py_type_name="ParamSpec",
+                    py_type_namespace="GObject",
+                    default_value=None,
+                ),
+                FunctionArgumentSchema(
+                    direction="IN",
+                    name="arg2",
+                    namespace=namespace,
+                    may_be_null=False,
+                    is_optional=False,
+                    is_callback=False,
+                    get_array_length=-1,
+                    is_deprecated=False,
+                    is_caller_allocates=False,
+                    tag_as_string="??",
+                    line_comment=None,
+                    py_type_name="Any",
+                    py_type_namespace="typing",
+                    default_value=None,
+                ),
+            ],
+            is_callback=False,
+            can_throw_gerror=False,
+            is_async=False,
+            is_constructor=False,
+            is_getter=False,
+            is_setter=False,
+            may_return_null=False,
+            return_hint="None",
+            return_hint_namespace=None,
+            skip_return=False,
+            wrap_vfunc=False,
+            line_comment=None,
+            function_type="SignalInfo",
+            is_overload=True,
+        ),
+    )
+
+
+# def connect(self,
+# detailed_signal: str, handler: Callable[..., Any], *args: Any) -> int: ...
+DEFAULT_CONNECT = SignalSchema(
+    name=None,
+    name_unescaped=None,
+    namespace="",
+    handler=FunctionSchema(
+        name="connect",
+        namespace="",
+        is_method=True,
+        is_deprecated=False,
+        deprecation_warnings=None,
+        docstring="Default signal handler. Connects a signal to a handler. Returns the handler ID.",
+        args=[],
+        is_callback=False,
+        can_throw_gerror=False,
+        is_async=False,
+        is_constructor=False,
+        is_getter=False,
+        is_setter=False,
+        may_return_null=False,
+        return_hint="Any",
+        return_hint_namespace="typing",
+        skip_return=False,
+        wrap_vfunc=False,
+        line_comment=None,
+        function_type="SignalInfo",
+        is_overload=True,
+    ),
+)

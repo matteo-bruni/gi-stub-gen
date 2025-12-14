@@ -7,7 +7,12 @@ from typing import Any
 from gi_stub_gen.manager import TemplateManager
 from gi_stub_gen.parser.gir import GirClassDocs
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.schema.function import FunctionSchema
+from gi_stub_gen.schema.function import (
+    BuiltinFunctionSchema,
+    FunctionArgumentSchema,
+    FunctionSchema,
+)
+from gi_stub_gen.schema.signals import SignalSchema
 from gi_stub_gen.utils import get_super_class_name, sanitize_gi_module_name
 
 
@@ -34,8 +39,8 @@ class ClassPropSchema(BaseSchema):
     Can be used to add annotations like # type: ignore
     or to explain if the name was sanitized."""
 
-    type_hint_full: str
-    """type hint in template (with namespace if different from parent)"""
+    # type_hint_full: str
+    # """type hint in template (with namespace if different from parent)"""
 
     type_hint_namespace: str | None
     """type hint namespace, if any"""
@@ -45,6 +50,23 @@ class ClassPropSchema(BaseSchema):
 
     may_be_null: bool
     """True if the property may be None, False otherwise."""
+
+    def type_hint(self, namespace: str) -> str:
+        """
+        Get the full type hint for the field,
+        adding the namespace if different from the given one.
+        """
+        if self.type_hint_namespace and sanitize_gi_module_name(
+            self.type_hint_namespace
+        ) != sanitize_gi_module_name(namespace):
+            hint = f"{self.type_hint_namespace}.{self.type_hint_name}"
+        else:
+            hint = self.type_hint_name
+            
+        if self.may_be_null:
+            hint = f"{hint} | None"
+
+        return hint
 
 
 class ClassFieldSchema(BaseSchema):
@@ -95,8 +117,15 @@ class ClassSchema(BaseSchema):
     name: str
     docstring: str | None
     props: list[ClassPropSchema]
+    getters: list[ClassFieldSchema]
+    """Getters as fields for the class. type of getset_descriptors"""
+
     fields: list[ClassFieldSchema]
     methods: list[FunctionSchema]
+    python_methods: list[BuiltinFunctionSchema]
+    """Python methods for the class. Probably from overrides?"""
+
+    signals: list[SignalSchema]
     extra: list[str]
     is_deprecated: bool
 
@@ -139,22 +168,51 @@ class ClassSchema(BaseSchema):
             )
             return
 
-        # find new() method
-        new_method = next(
-            (method for method in self.methods if method.name == "new"), None
+        args: list[FunctionArgumentSchema] = []
+        for prop in self.props:
+            if prop.writable:
+                args.append(
+                    FunctionArgumentSchema(
+                        direction="IN",
+                        name=prop.name,
+                        namespace=self.namespace,
+                        may_be_null=prop.may_be_null,
+                        is_optional=prop.may_be_null,
+                        is_callback=False,
+                        get_array_length=-1,
+                        is_deprecated=False,
+                        is_caller_allocates=False,
+                        tag_as_string="??",
+                        line_comment=None,
+                        py_type_name=prop.type_hint_name,
+                        py_type_namespace=prop.type_hint_namespace,
+                        default_value="...",
+                    )
+                )
+        class_init = FunctionSchema(
+            name="__init__",
+            namespace=self.namespace,
+            is_method=True,
+            is_deprecated=False,
+            deprecation_warnings=None,
+            docstring="Generated __init__ stub method. order not guaranteed. ",
+            args=args,
+            is_callback=False,
+            can_throw_gerror=False,
+            is_async=False,
+            is_constructor=False,
+            is_getter=False,
+            is_setter=False,
+            may_return_null=False,
+            return_hint="None",
+            return_hint_namespace=None,
+            skip_return=False,
+            wrap_vfunc=False,
+            line_comment=None,
+            function_type="FunctionInfo",
+            is_overload=False,
         )
-        if new_method:
-            class_init = new_method.model_copy(
-                update={
-                    "name": "__init__",
-                    "is_method": True,  # so it will use self in template
-                    "is_constructor": False,  # not a constructor (they are class methods)
-                    "return_hint": None,
-                    "return_hint_namespace": None,
-                },
-                deep=True,
-            )
-            self.methods.insert(0, class_init)
+        self.methods.insert(0, class_init)
 
     @classmethod
     def from_gi_object(
@@ -164,7 +222,10 @@ class ClassSchema(BaseSchema):
         docstring: GirClassDocs | None,
         props: list[ClassPropSchema],
         fields: list[ClassFieldSchema],
+        getters: list[ClassFieldSchema],
         methods: list[FunctionSchema],
+        signals: list[SignalSchema],
+        builtin_methods: list[BuiltinFunctionSchema],
         extra: list[str],
     ):
         gi_info = None
@@ -241,9 +302,12 @@ class ClassSchema(BaseSchema):
             props=props,
             fields=fields,
             methods=methods,
+            signals=signals,
+            getters=getters,
             is_deprecated=is_deprecated,
             extra=extra,
             required_gi_import=required_gi_import,
+            python_methods=builtin_methods,
         )
         instance.add_init_method()
         return instance
@@ -257,3 +321,9 @@ class ClassSchema(BaseSchema):
 
     def render(self) -> str:
         return TemplateManager.render_master("class.jinja", cls_=self)
+
+    def render_signals(self) -> str:
+        return TemplateManager.render_master(
+            "class_signals.jinja",
+            signals=self.signals,
+        )

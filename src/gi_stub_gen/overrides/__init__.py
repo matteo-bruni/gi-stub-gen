@@ -3,7 +3,6 @@ from gi_stub_gen.overrides.class_.GIRepository import (
     FUNCTION_INFO_GET_ARGUMENTS,
     TYPE_INFO_GET_TAG_AS_STRING,
 )
-from gi_stub_gen.schema.class_ import ClassSchema
 from gi_stub_gen.schema.function import FunctionSchema
 
 

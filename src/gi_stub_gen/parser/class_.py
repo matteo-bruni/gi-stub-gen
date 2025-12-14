@@ -5,26 +5,40 @@ import gi._gi as GI  # type: ignore
 from gi.repository import GObject
 
 from typing import Any
-from types import BuiltinFunctionType, FunctionType, MethodDescriptorType, MethodType
+from types import (
+    BuiltinFunctionType,
+    FunctionType,
+    GetSetDescriptorType,
+    MethodDescriptorType,
+    MethodType,
+)
 
 from gi_stub_gen.gi_utils import (
     get_gi_type_info,
     gi_type_is_callback,
     gi_type_to_py_type,
     is_class_field_nullable,
-    # is_property_nullable_safe,
 )
 from gi_stub_gen.overrides import apply_method_overrides
-from gi_stub_gen.overrides.class_.GIRepository import (
-    TYPE_INFO_GET_TAG_AS_STRING,
-)
+
+from gi_stub_gen.parser.builtin_function import parse_builtin_function
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.parser.gir import ModuleDocs
 
 
 from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
-from gi_stub_gen.schema.function import CallbackSchema
+from gi_stub_gen.schema.constant import VariableSchema
+from gi_stub_gen.schema.function import (
+    BuiltinFunctionSchema,
+    CallbackSchema,
+    FunctionArgumentSchema,
+)
+from gi_stub_gen.schema.signals import (
+    DEFAULT_CONNECT,
+    SignalSchema,
+    generate_notify_signal,
+)
 from gi_stub_gen.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
@@ -143,7 +157,10 @@ def parse_class(
 
     class_props: list[ClassPropSchema] = []
     class_attributes: list[ClassFieldSchema] = []
+    class_getters: list[ClassFieldSchema] = []
     class_methods: list[FunctionSchema] = []
+    class_python_methods: list[BuiltinFunctionSchema] = []
+    class_signals: list[SignalSchema] = []
     class_parsed_elements: list[str] = []
     extra: list[str] = []
 
@@ -158,8 +175,28 @@ def parse_class(
     if hasattr(class_to_parse, "__info__"):
         # if class_to_parse.__name__ == "Element":
         #     breakpoint()
-        # if hasattr(class_to_parse.__info__, "get_signals"):
-        #     breakpoint()
+
+        if hasattr(class_to_parse.__info__, "get_signals"):
+            # notify::<property_name>>
+            # signal-name
+            signal: GIRepository.SignalInfo
+            for signal in class_to_parse.__info__.get_signals():
+                signal_name = signal.get_name()
+                assert signal_name is not None
+                signal_name_unescaped: str = signal.get_name_unescaped()  # type: ignore
+                s = SignalSchema(
+                    name=signal_name,
+                    name_unescaped=signal_name_unescaped,
+                    namespace=signal.get_namespace(),
+                    handler=FunctionSchema.from_gi_object(signal),
+                )
+                # if signal_name == "notify":
+                #     breakpoint()
+                class_signals.append(s)
+                class_parsed_elements.append(signal_name)
+                # print("Signal:", signal.get_name())
+                # breakpoint()
+
         if hasattr(class_to_parse.__info__, "get_fields"):
             # breakpoint()
             field: GIRepository.FieldInfo
@@ -212,48 +249,49 @@ def parse_class(
         # Parse Props (they have a getter/setter depending on the flags)
         if hasattr(class_to_parse.__info__, "get_properties"):
             for prop in class_to_parse.__info__.get_properties():
-                # start from type info
+                # start parsing the actual property
                 prop_gi_type_info = get_gi_type_info(prop)
 
                 # TODO: !! PARSING CALLBACK (credo non possa succedere nelle prop)
                 prop_type = gi_type_to_py_type(prop_gi_type_info)
-
                 prop_type_hint_namespace = get_py_type_namespace_repr(prop_type)
                 prop_type_hint_name = get_py_type_name_repr(prop_type)
-
                 sanitized_name, line_comment = sanitize_variable_name(prop.get_name())
-                prop_type_hint_full = prop_type_hint_name
-                if (
-                    prop_type_hint_namespace
-                    and prop_type_hint_namespace != sanitize_gi_module_name(module_name)
-                ):
-                    prop_type_hint_full = (
-                        f"{prop_type_hint_namespace}.{prop_type_hint_name}"
-                    )
 
                 # may_be_null = is_property_nullable_safe(prop)
                 may_be_null = is_class_field_nullable(prop)
 
-                # if sanitized_name == "source_property":
+                # if sanitized_name == "flags":
                 #     breakpoint()
-                if may_be_null:
-                    prop_type_hint_full = f"{prop_type_hint_full} | None"
+                # if may_be_null:
+                #     prop_type_hint_full = f"{prop_type_hint_full} | None"
 
                 c = ClassPropSchema(
                     name=sanitized_name,
-                    # type=str(prop_type),
                     is_deprecated=prop.is_deprecated(),
                     readable=bool(prop.get_flags() & GObject.ParamFlags.READABLE),
                     writable=bool(prop.get_flags() & GObject.ParamFlags.WRITABLE),
                     type_hint_namespace=prop_type_hint_namespace,
                     type_hint_name=prop_type_hint_name,
-                    type_hint_full=prop_type_hint_full,
                     line_comment=line_comment,
                     docstring=None,  # TODO: retrieve docstring
                     may_be_null=may_be_null,
                 )
                 class_props.append(c)
                 class_parsed_elements.append(prop.get_name())
+
+                # also add the notify signal #########################################
+                # notify::<property_name>
+                signal_name_unescaped: str = prop.get_name_unescaped()  # type: ignore
+                class_signals.append(
+                    generate_notify_signal(
+                        namespace=prop.get_namespace(),
+                        signal_name=sanitized_name,
+                        signal_name_unescaped=signal_name_unescaped,
+                    )
+                )
+                # end adding the signal ##############################################
+
         if hasattr(class_to_parse.__info__, "get_methods"):
             for met in class_to_parse.__info__.get_methods():
                 parsed_method = parse_function(
@@ -313,17 +351,60 @@ def parse_class(
         #     ...
         elif attribute_type is MethodType:
             extra.append(f"method: {attribute_name} local={is_attribute_local}")
-        elif attribute_type is BuiltinFunctionType:
-            extra.append(
-                f"builtin_function: {attribute_name} local={is_attribute_local}"
+        elif attribute_type is GetSetDescriptorType:
+            # these are @property
+            class_getters.append(
+                ClassFieldSchema(
+                    name=attribute_name,
+                    type_hint_name="Any",
+                    type_hint_namespace="typing",
+                    is_deprecated=False,
+                    docstring=None,
+                    line_comment=None,
+                    deprecation_warnings=None,
+                    may_be_null=True,
+                )
             )
-        elif attribute_type is FunctionType:
-            extra.append(f"function: {attribute_name} local={is_attribute_local}")
+            # extra.append(f"getset: {attribute_name} local={is_attribute_local}")
+
+        elif attribute_type is FunctionType or attribute_type is BuiltinFunctionType:
+            if f := parse_builtin_function(
+                attribute=attribute,
+                namespace=module_name.removeprefix("gi.repository."),
+                name_override=attribute_name,
+            ):
+                if f.params:
+                    # some overrides use instance as first param, rename to self
+                    # dont know why they do that though
+                    # if f.params[0].name == "instance":
+                    if f.params[0].name != "self":
+                        f.params[0].name = "self"
+                    # f.is_method = True
+                class_python_methods.append(f)
+
+                assert attribute_name not in class_parsed_elements, "was parsed twice?"
+                class_parsed_elements.append(attribute_name)
+
+            # if attribute_name == "stop_emission_by_name":
+            #     breakpoint()
+
+            # import inspect
+
+            # extra.append(
+            #     f"function: {attribute_name} local={is_attribute_local} "
+            #     f"isfunction={inspect.isfunction(attribute)} "
+            #     f"ismethoddescriptor={inspect.ismethoddescriptor(attribute)}"
+            #     f"isbuiltin={inspect.isbuiltin(attribute)}"
+            # )
         elif attribute_type is MethodDescriptorType:
             # elif attribute_type is method_descriptor:
             # TODO: how to parse this??
             # cant obtain args/return type
             # inspect does not work on builting
+            #     breakpoint()
+
+            # if attribute_name == "connect":
+            #     class_signals.append(DEFAULT_CONNECT)
 
             extra.append(
                 f"method_descriptor: {attribute_name} local={is_attribute_local}"
@@ -346,28 +427,17 @@ def parse_class(
             # repo.find_by_name("Gst.AllocationParams", "align")
             extra.append(f"property: {attribute_name} local={is_attribute_local}")
 
-        elif f := parse_function(
-            attribute,
-            module_docs.get_function_docstring(attribute_name),
-        ):
-            class_methods.append(f)
-            # callbacks can be found as arguments of functions, save them to be parsed later
-            callbacks_found.extend(f._gi_callbacks)
         else:
+            # if attribute_name == "__init__":
+            #     breakpoint()
             extra.append(
                 f"unknown: {attribute_name}: {attribute_type} local={is_attribute_local}"
             )
 
     # manual override
-    # in GIRepository.TypeInfo we add get_tag_as_string method which is not present in gi.TypeInfo
+    # i.e. in GIRepository.TypeInfo we add get_tag_as_string method
+    # which is not present in gi.TypeInfo
     # since it has been injected by pygobject
-    # # TODO: generalize this mechanism if more cases happen
-    # if (
-    #     module_name == "gi.repository.GIRepository"
-    #     and class_to_parse.__name__ == "TypeInfo"
-    # ):
-    #     # breakpoint()
-    #     class_methods.append(TYPE_INFO_GET_TAG_AS_STRING)
     class_methods = apply_method_overrides(
         class_methods,
         namespace=module_name,
@@ -375,7 +445,9 @@ def parse_class(
     )
 
     # sort methods by name
+    class_attributes.sort(key=lambda x: x.name)
     class_methods.sort(key=lambda x: x.name)
+    class_props.sort(key=lambda x: x.name)
 
     return ClassSchema.from_gi_object(
         namespace=module_name,
@@ -384,5 +456,8 @@ def parse_class(
         props=class_props,
         fields=class_attributes,
         methods=class_methods,
+        getters=class_getters,
+        builtin_methods=class_python_methods,
+        signals=class_signals,
         extra=sorted(extra),
     ), callbacks_found

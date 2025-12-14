@@ -1,0 +1,7 @@
+{% if one_line %}
+{% for arg, _ in argument_list %}{{ arg }}{% if not loop.last %}, {% endif %}{% endfor %}
+{% else %}
+{% for arg, comment in argument_list -%}
+{{ arg }},{{ comment | if_exists(" # ") }}
+{% endfor -%}
+{% endif %}

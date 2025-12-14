@@ -72,7 +72,7 @@ In my idea each project should maintain the stubs for their own library, and lin
 ## problem with GIRepository for parsing
 i found some issues with GIRepository when parsing some libraries, for example:
 - gi._gi.FunctionInfo is mapped to GIRepository.FunctionInfo. However GIRepository.FunctionInfo does not have all the methods that gi._gi.FunctionInfo has. For example gi._gi.FunctionInfo has get_arguments() (added by pygobject) but in GIRepository.FunctionInfo it is missing and is showing the C counterpart get_n_args() and get_args() which are not directly usable in Python.
-- in GIRepository.TypeInfo there is no method get_tag_as_string, while gi._gi.TypeInfo has get_tag_as_string() added by pygobject.
+- in GIRepository.TypeInfo there is no method get_tag_as_string, while gi._gi.TypeInfo has get_tag_as_string() added by pygobject
 
 ## disclaimer
 i'm by no means an expert in GI or pygobject, so there might be some mistakes or misunderstandings in the generated stubs.

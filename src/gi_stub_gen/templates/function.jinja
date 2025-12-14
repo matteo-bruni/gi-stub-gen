@@ -1,7 +1,5 @@
 def {{fun.name}}(
-    {% for a in fun.input_args %}
-    {{a.name}}: {{a.type_hint(module_name)}}, {{ a.line_comment | if_exists('# ') }}
-    {% endfor %}
+    {{ fun.render_args(module_name, False) | indent(4, first=False) }}
 ) -> {{fun.complete_return_hint(module_name)}}:
     {% if fun.docstring or debug %}
     """
@@ -10,7 +8,7 @@ def {{fun.name}}(
     {% if fun.deprecation_warnings -%}
     .. deprecated::
         {{ fun.deprecation_warnings | trim | indent(8, blank=True) }}
-    {%- endif -%}
+    {%- endif %}
     """
     {% endif %}
     ...

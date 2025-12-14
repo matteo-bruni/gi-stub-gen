@@ -21,6 +21,8 @@ TYPE_INFO_GET_TAG_AS_STRING = FunctionSchema(
     skip_return=False,
     wrap_vfunc=False,
     line_comment=None,
+    function_type="FunctionInfo",
+    is_overload=False,
 )
 """Manual override for GIRepository.TypeInfo.get_tag_as_string()."""
 
@@ -44,4 +46,6 @@ FUNCTION_INFO_GET_ARGUMENTS = FunctionSchema(
     skip_return=False,
     wrap_vfunc=False,
     line_comment=None,
+    function_type="FunctionInfo",
+    is_overload=False,
 )

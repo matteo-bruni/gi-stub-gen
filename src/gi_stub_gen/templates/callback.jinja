@@ -19,9 +19,7 @@ class {{cb.name}}(typing.Protocol):
     {% endif %}
     def __call__(
         self,
-        {% for a in cb.function.input_args %}
-        {{a.name}}: {{a.type_hint(module_name)}}, {{ a.line_comment | if_exists('# ') }} 
-        {% endfor %}
+        {{ cb.function.render_args(module_name, False) | indent(8, first=False) }}
     ) -> {{cb.function.complete_return_hint(module_name)}}:
         ...
 {% endif %}

@@ -393,39 +393,56 @@ def is_class_field_nullable(field_info) -> bool:
 
     tag = type_info.get_tag()
 
+    # # no match with python?
+    # GI.TypeTag.VOID: None,  # 0 can be a pointer to an object or None
+    # GI.TypeTag.INTERFACE: None,  # 16 can be a function/callback/struct
+    # GI.TypeTag.ERROR: None,  # 20
+
     # primitives are non-nullable
     NON_NULLABLE_TAGS = {
         GIRepository.TypeTag.BOOLEAN,
         GIRepository.TypeTag.INT8,
-        GIRepository.TypeTag.UINT8,
         GIRepository.TypeTag.INT16,
-        GIRepository.TypeTag.UINT16,
         GIRepository.TypeTag.INT32,
-        GIRepository.TypeTag.UINT32,
         GIRepository.TypeTag.INT64,
+        GIRepository.TypeTag.UINT8,
+        GIRepository.TypeTag.UINT16,
+        GIRepository.TypeTag.UINT32,
         GIRepository.TypeTag.UINT64,
         GIRepository.TypeTag.FLOAT,
         GIRepository.TypeTag.DOUBLE,
         GIRepository.TypeTag.GTYPE,
-        GIRepository.TypeTag.UNICHAR,
+        GIRepository.TypeTag.UTF8,  # string: can be NULL in c but dont think so in python
+        GIRepository.TypeTag.UNICHAR,  # string: can be NULL in c but dont think so in python
+        GIRepository.TypeTag.FILENAME,  # string: can be NULL in c but dont think so in python
     }
 
     if tag in NON_NULLABLE_TAGS:
         return False
 
-    # In C: 'char *'. a pointer to char can be NULL.
-    # PyGObject convert NULL in None.
-    if tag in (GIRepository.TypeTag.UTF8, GIRepository.TypeTag.FILENAME):
-        return True
-
     # lists and maps (Array, List, Hash)
     # pointer to structures, can be NULL
-    if tag in (
+    if tag in {
         GIRepository.TypeTag.ARRAY,
         GIRepository.TypeTag.GLIST,
         GIRepository.TypeTag.GSLIST,
         GIRepository.TypeTag.GHASH,
-    ):
+    }:
+        return True
+
+    if tag == GIRepository.TypeTag.INTERFACE:  # function/callback/struct
+        # we need to check if it is a struct or callback
+        iface = type_info.get_interface()
+        # we check the class name instead of checking
+        # if the type is the "private" one: gi._gi.EnumInfo
+        # (should be "safer" this way)
+        if iface.__class__.__name__ == "EnumInfo":
+            # enums are non-nullable
+            return False
+        # structs and callbacks can be nullable
+        return True
+
+    if tag == GIRepository.TypeTag.VOID:  # can be a pointer to an object or None
         return True
 
     if type_info.is_pointer():

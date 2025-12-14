@@ -60,11 +60,11 @@ class ModuleSchema(BaseSchema):
         # Add Manually GObject if in current pyi
         # there are any GEnum and GFlags (they are in GObject)
         if len(self.enum) > 0:
-            gi_imports.add("gi.repository.GObject")
+            gi_imports.add("GObject")
 
         # remove current module name from imports
-        if self.name in gi_imports:
-            gi_imports.remove(self.name)
+        if self.name.removeprefix("gi.repository.") in gi_imports:
+            gi_imports.remove(self.name.removeprefix("gi.repository."))
 
         if extra_imports:
             for extra_import in extra_imports:

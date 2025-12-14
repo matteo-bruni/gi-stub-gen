@@ -1,6 +1,14 @@
+"""
+Manual overrides for GObject.GEnum and GObject.GFlags
+to represent them as subclasses of enum.IntEnum and enum.IntFlag respectively.
+
+They are manually put inside GObject during alias parsing.
+This is because in GObject module they are an alias to gi._gi.GEnum and gi._gi.GFlags
+
+"""
+
 from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
 from gi_stub_gen.schema.function import FunctionSchema
-
 
 GENUM_SCHEMA = ClassSchema(
     namespace="GObject",
@@ -10,6 +18,7 @@ GENUM_SCHEMA = ClassSchema(
     " see https://pygobject.gnome.org/changelog.html [manual-override]",
     props=[],
     required_gi_import="enum",
+    getters=[],
     fields=[
         ClassFieldSchema(
             name="__gtype__",
@@ -43,6 +52,8 @@ GENUM_SCHEMA = ClassSchema(
             skip_return=False,
             wrap_vfunc=False,
             line_comment=None,
+            function_type="FunctionInfo",
+            is_overload=False,
         ),
         FunctionSchema(
             name="value_nick",
@@ -64,8 +75,12 @@ GENUM_SCHEMA = ClassSchema(
             skip_return=False,
             wrap_vfunc=False,
             line_comment=None,
+            function_type="FunctionInfo",
+            is_overload=False,
         ),
     ],
+    python_methods=[],
+    signals=[],
     extra=[],
     is_deprecated=False,
 )
@@ -85,8 +100,6 @@ class GEnum(IntEnum):
     value_nick: str
     """The nickname of the value."""
 '''
-
-
 GFLAG_SCHEMA = ClassSchema(
     namespace="GObject",
     name="GFlags",
@@ -96,6 +109,7 @@ GFLAG_SCHEMA = ClassSchema(
     " see https://pygobject.gnome.org/changelog.html [manual-override]",
     required_gi_import="enum",
     props=[],
+    getters=[],
     fields=[
         ClassFieldSchema(
             name="__gtype__",
@@ -129,6 +143,8 @@ GFLAG_SCHEMA = ClassSchema(
             skip_return=False,
             wrap_vfunc=False,
             line_comment=None,
+            function_type="FunctionInfo",
+            is_overload=False,
         ),
         FunctionSchema(
             name="first_value_nick",
@@ -150,6 +166,8 @@ GFLAG_SCHEMA = ClassSchema(
             skip_return=False,
             wrap_vfunc=False,
             line_comment=None,
+            function_type="FunctionInfo",
+            is_overload=False,
         ),
         FunctionSchema(
             name="value_names",
@@ -171,6 +189,8 @@ GFLAG_SCHEMA = ClassSchema(
             skip_return=False,
             wrap_vfunc=False,
             line_comment=None,
+            function_type="FunctionInfo",
+            is_overload=False,
         ),
         FunctionSchema(
             name="value_nicks",
@@ -192,8 +212,12 @@ GFLAG_SCHEMA = ClassSchema(
             skip_return=False,
             wrap_vfunc=False,
             line_comment=None,
+            function_type="FunctionInfo",
+            is_overload=False,
         ),
     ],
+    python_methods=[],
+    signals=[],
     extra=[],
     is_deprecated=False,
 )
