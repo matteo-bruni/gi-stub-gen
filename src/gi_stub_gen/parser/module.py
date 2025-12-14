@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 
+from gi_stub_gen.gir_manager import GIRDocs
 from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.builtin_function import parse_builtin_function
 from gi_stub_gen.parser.constant import parse_constant
@@ -44,7 +45,6 @@ logger = logging.getLogger(__name__)
 
 def parse_module(
     m: ModuleType,
-    gir_module_docs: ModuleDocs,
     debug: bool = False,
 ) -> tuple[ModuleSchema, dict[str, list[str]]]:
     """
@@ -87,9 +87,7 @@ def parse_module(
     # processed_classes = {}
 
     logger.info("#" * 80)
-    logger.info(
-        f"Parsing module {module_name} with {len(module_attributes)} attributes"
-    )
+    logger.info(f"Parsing module {module_name} with {len(module_attributes)} attributes")
     logger.info("#" * 80)
 
     # retrieve console from the rich logging handler
@@ -121,9 +119,7 @@ def parse_module(
             )
 
             if attribute_name.startswith("__"):
-                logger.debug(
-                    f"\t[SKIP][{module_name}] skipping dunder attribute {attribute_name}"
-                )
+                logger.debug(f"\t[SKIP][{module_name}] skipping dunder attribute {attribute_name}")
                 continue
 
             attribute = getattr(m, attribute_name)
@@ -140,11 +136,13 @@ def parse_module(
                 if isinstance(a, AliasSchema):
                     module_aliases.append(a)
                 elif isinstance(a, ClassSchema):
+                    # this is a manual override for GEnum/GFlags
+                    # that are inserted as classes
+                    # GEnum and GFlags are normally alias to gi._gi.GEnum and gi._gi.GFlags
+                    # but we fake them as real classes in the GObject module
                     module_classes.append(a)
                 else:
-                    raise ValueError(
-                        f"Expected AliasSchema or ClassSchema but got {type(a)}"
-                    )
+                    raise ValueError(f"Expected AliasSchema or ClassSchema but got {type(a)}")
 
                 continue
             #########################################################################
@@ -154,7 +152,7 @@ def parse_module(
                 module_name=module_name,
                 name=attribute_name,
                 obj=attribute,
-                docstring=gir_module_docs.constants.get(attribute_name, None),
+                docstring=GIRDocs().get_constant_docs(attribute_name),
             ):
                 module_constants.append(c)
                 # logger.debug(f"\t[CONSTANT] {attribute_name}\n")
@@ -163,17 +161,16 @@ def parse_module(
             #########################################################################
             # check if builtin function
             #########################################################################
-
             if f := parse_builtin_function(
                 attribute,
                 module_name,
             ):
                 module_builtin_functions.append(f)
                 continue
+
             #########################################################################
             # check if the attribute is a function
             #########################################################################
-
             if isinstance(attribute, GI.VFuncInfo):
                 # GIVFuncInfo
                 # represents a virtual function.
@@ -185,10 +182,7 @@ def parse_module(
             # docstring.get(attribute.get_name(), None)
             if f := parse_function(
                 attribute,
-                docstring=gir_module_docs.get_function_docstring(
-                    attribute_name,
-                    # attribute.get_name(),
-                ),
+                docstring=GIRDocs().get_function_docstring(attribute_name),
             ):
                 module_functions.append(f)
                 # callbacks can be found as arguments of functions,
@@ -199,10 +193,8 @@ def parse_module(
             #########################################################################
             # check if the attribute is an Enum/Flags
             #########################################################################
-
             if e := parse_enum(
                 attribute,
-                gir_module_docs.enums,
             ):
                 # if e.name in gir_f_docs["enums"]:
                 #    e.docstring = gir_f_docs["enums"][e.name]
@@ -216,7 +208,6 @@ def parse_module(
             class_schema, class_callbacks_found = parse_class(
                 module_name=module_name,
                 class_to_parse=attribute,
-                module_docs=gir_module_docs,
             )
             if class_schema:
                 module_classes.append(class_schema)
@@ -226,7 +217,6 @@ def parse_module(
             #########################################################################
             # unknown/not parsed types
             #########################################################################
-
             # if we reach this point, we could not parse the attribute
             attribute_type_name = attribute_type.__name__
             unknown_key = f"{attribute_type_name}"  # [{attribute_type}]"
@@ -253,12 +243,8 @@ def parse_module(
                 f" \n{cb.function=}\n != \n{existing_cb.function=}\n"
                 f"\n{cb.originated_from=}\n != \n{existing_cb.originated_from=}\n"
             )
-            assert existing_cb.originated_from is not None, (
-                "Expected originated_from to be not None"
-            )
-            assert cb.originated_from is not None, (
-                "Expected originated_from to be not None"
-            )
+            assert existing_cb.originated_from is not None, "Expected originated_from to be not None"
+            assert cb.originated_from is not None, "Expected originated_from to be not None"
             # we merge
             existing_cb.originated_from.update(cb.originated_from)
 

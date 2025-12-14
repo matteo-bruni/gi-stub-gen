@@ -69,13 +69,4 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% if cls_.signals %}
     {{ cls_.render_signals() | indent(4, first=False) }}
     {% endif %}
-
-    {% if cls_.extra %}
-    """
-    {% for e in cls_.extra %}
-    {{ e }}
-    {% endfor %}
-    """
-    {% endif %}
-
     ...

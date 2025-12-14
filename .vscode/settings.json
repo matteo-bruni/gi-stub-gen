@@ -10,7 +10,7 @@
   "python.analysis.diagnosticMode": "workspace",
   "python.analysis.packageIndexDepths": [
     {
-      "depth": 100,
+      "depth": 3,
       "includeAllSymbols": true,
       "name": ""
     }

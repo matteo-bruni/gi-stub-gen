@@ -4,15 +4,15 @@
 ![Python Version](https://img.shields.io/badge/python-3.10-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-A modern, modular type hint generator for **GObject Introspection (GI)** libraries (GStreamer, GTK, Gio, etc.).
+A modern, modular type hint generator for GObject Introspection (GI) libraries (GStreamer, GTK, Gio, etc.).
 
-This tool discovers types by **importing the libraries at runtime** via `gi.repository`, inspecting them, and generating fully compliant `.pyi` stub files.
+This tool discovers types by importing the libraries at runtime via `gi.repository`, inspecting them, and generating fully compliant `.pyi` stub files.
 
 ## ⚡ Why another stub generator?
 
-I started developing with **GStreamer** Python bindings and found the lack of IDE support (type hints, autocompletion) frustrating. While looking at existing solutions like `pygobject-stubs`, I found them difficult to extend due to their monolithic nature and tight coupling between parsing and generation.
+I started developing with GStreamer Python bindings and found the lack of IDE support (type hints, autocompletion) frustrating. While looking at existing solutions like `pygobject-stubs`, I found them difficult to extend due to their monolithic nature and tight coupling between parsing and generation.
 
-**GI Stub Generator** takes a different approach:
+GI Stub Gen takes a different approach:
 
 1.  **Separation of Concerns:** The parsing logic is completely decoupled from the template generation.
 2.  **Intermediate Representation:** All introspection data is collected into strictly typed **Pydantic models**. This allows for easy inspection, validation, and modification of data *before* the stubs are written.
@@ -33,7 +33,7 @@ I started developing with **GStreamer** Python bindings and found the lack of ID
 
 ### Prerequisites
 
-This project relies on `PyGObject` and `PyCairo`, which require system-level dependencies.
+This project relies on `PyGObject`, which requires system-level dependencies.
 
 **On Ubuntu/Debian:**
 ```bash
@@ -41,7 +41,6 @@ sudo apt install \
   build-essential \
   python3-dev \
   libcairo2-dev \
-  libgirepository-1.0-dev \
   libgirepository-2.0-dev
 ```
 
@@ -51,8 +50,8 @@ This project uses `uv` for dependency management.
 
 ```bash
 # Clone the repository
-git clone [https://github.com/username/gi-stub-generator.git](https://github.com/username/gi-stub-generator.git)
-cd gi-stub-generator
+git clone [https://github.com/matteo-bruni/gi-stub-gen.git](https://github.com/matteo-bruni/gi-stub-gen.git)
+cd gi-stub-gen
 
 # Sync dependencies and activate venv
 uv sync
@@ -94,10 +93,9 @@ Parsing only `.gir` (XML) files is insufficient for a great Python developer exp
 
 ### The Parsing Challenge
 Working with `GIRepository` in Python has some quirks. For instance:
-* `gi._gi.FunctionInfo` vs `GIRepository.FunctionInfo`: The Python wrapper adds methods (like `get_arguments()`) that are missing from the raw C-binding wrapper.
+* `gi._gi.FunctionInfo` vs `GIRepository.FunctionInfo`: The Python wrapper adds methods (like `get_arguments()`) that are missing when using `GIRepository`. (and it will not hide the C-level methods that are actually removed from the Python exposure, like `get_n_args` and `get_arg`)
 * Inconsistencies in `TypeInfo` methods between the internal C implementation and the Python exposure.
 
-This project attempts to normalize these discrepancies within the Pydantic parsing layer.
 
 ---
 

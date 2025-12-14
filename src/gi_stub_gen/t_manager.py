@@ -73,7 +73,7 @@ class TemplateManager:
         cls.MODULE_NAME = module_name
 
     @classmethod
-    def get_env(cls, debug: bool = False) -> Environment:
+    def get_env(cls) -> Environment:
         if cls._env is None:
             package_name = __name__.split(".")[0]
             cls._env = Environment(

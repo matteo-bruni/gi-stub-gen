@@ -10,7 +10,7 @@ from gi_stub_gen.gi_utils import (
     get_safe_gi_array_length,
     gi_type_is_callback,
 )
-from gi_stub_gen.manager import TemplateManager
+from gi_stub_gen.t_manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.utils import (
     get_py_type_name_repr,

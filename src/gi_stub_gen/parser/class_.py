@@ -19,12 +19,13 @@ from gi_stub_gen.gi_utils import (
     gi_type_to_py_type,
     is_class_field_nullable,
 )
+from gi_stub_gen.gir_manager import GIRDocs
 from gi_stub_gen.overrides import apply_method_overrides
 
 from gi_stub_gen.parser.builtin_function import parse_builtin_function
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.function import parse_function
-from gi_stub_gen.parser.gir import ModuleDocs
+from gi_stub_gen.parser.gir import GirClassDocs, ModuleDocs
 
 
 from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
@@ -101,7 +102,6 @@ def should_expose_class_field(
 def parse_class(
     module_name: str,
     class_to_parse: Any,
-    module_docs: ModuleDocs,
 ) -> tuple[ClassSchema | None, list[GI.TypeInfo]]:
     """
     Parse a class and return a ClassSchema and a list of GI.TypeInfo callbacks found during parsing.
@@ -301,7 +301,10 @@ def parse_class(
         assert m_name is not None, "Method name is None"
         parsed_method = parse_function(
             met,
-            docstring=module_docs.get_function_docstring(m_name),
+            docstring=GIRDocs().get_class_method_docstring(
+                class_name=class_to_parse.__name__,
+                method_name=m_name,
+            ),
         )
         if parsed_method:
             # save callbacks to be parsed later
@@ -327,12 +330,6 @@ def parse_class(
 
         attribute_type = type(attribute)
 
-        # could not find any example of this but should work like this if present
-        # class variables with no default are in attribute.__annotations__
-        # if hasattr(obj, "__annotations__"):
-        #     if len(attribute.__annotations__) > 0:
-        #         print("annotations", attribute.__annotations__)
-
         # do not parse already parsed elements
         # i.e. the gi ones
         if attribute_name in class_parsed_elements:
@@ -347,24 +344,13 @@ def parse_class(
             module_name="",
             name=attribute_name,
             obj=attribute,
-            docstring=None,  # TODO: retrieve docstring with inspect??
+            docstring=GIRDocs().get_class_field_docstring(
+                class_name=class_to_parse.__name__,
+                field_name=attribute_name,
+            ),
         ):
             extra.append(f"constant: {attribute_name} local={is_attribute_local}")
-            # class_attributes.append(c)
-        # elif attribute_type is method:
-        #     ...
-        # elif attribute_type is MethodType:
-        #     breakpoint()
-        #     if f := parse_builtin_function(
-        #         attribute=attribute,
-        #         namespace=module_name.removeprefix("gi.repository."),
-        #         name_override=attribute_name,
-        #     ):
-        #         class_python_methods.append(f)
-        #         assert attribute_name not in class_parsed_elements, "was parsed twice?"
-        #         class_parsed_elements.append(attribute_name)
 
-        #     extra.append(f"method: {attribute_name} local={is_attribute_local}")
         elif attribute_type is GetSetDescriptorType:
             # these are @property
             class_getters.append(
@@ -379,7 +365,6 @@ def parse_class(
                     may_be_null=True,
                 )
             )
-            # extra.append(f"getset: {attribute_name} local={is_attribute_local}")
 
         elif attribute_type in {MethodType, FunctionType, BuiltinFunctionType}:
             if f := parse_builtin_function(
@@ -396,47 +381,19 @@ def parse_class(
                 if f.name == "__init__":
                     # some zelous overrides define __init__ with return type Any..
                     # we fix that here
-                    if f.return_hint_name == "typing.Any":
+                    if f.return_hint_name == "Any":
                         f.return_hint_name = "None"
+                        f.return_hint_namespace = None
 
-                # if f.name == "do_sink_event":
-                #     breakpoint()
                 class_python_methods.append(f)
                 assert attribute_name not in class_parsed_elements, "was parsed twice?"
                 class_parsed_elements.append(attribute_name)
 
         elif attribute_type is MethodDescriptorType:
-            # elif attribute_type is method_descriptor:
-            # TODO: how to parse this??
-            # cant obtain args/return type
-            # inspect does not work on builting
-            #     breakpoint()
-
-            # if attribute_name == "connect":
-            #     class_signals.append(DEFAULT_CONNECT)
-
             extra.append(f"method_descriptor: {attribute_name} local={is_attribute_local}")
         elif attribute_type is property:
-            # TODO: how to parse this??
-            # cant obtain args/return type
-            # inspect does not work on builting
-            # if namespace == "gi.repository.Gst":
-            #     breakpoint()
-
-            # import gi
-            # gi.require_version("Gst", "1.0")
-            # from gi.repository import Gst
-            # Gst.init()
-            # from gi.repository import GIRepository
-
-            # GIRepository.Repository().find_by_name("Gst.AllocationParams", "align")
-            # .find_by_name("Gst", "AllocationParams")
-            # repo.find_by_name("Gst.AllocationParams", "align")
             extra.append(f"property: {attribute_name} local={is_attribute_local}")
-
         else:
-            # if attribute_name == "__init__":
-            #     breakpoint()
             extra.append(f"unknown: {attribute_name}: {attribute_type} local={is_attribute_local}")
 
     # manual override
@@ -457,7 +414,6 @@ def parse_class(
     return ClassSchema.from_gi_object(
         namespace=module_name,
         obj=class_to_parse,
-        docstring=module_docs.classes.get(class_to_parse.__name__, None),
         props=class_props,
         fields=class_attributes,
         methods=class_methods,

@@ -10,6 +10,7 @@ from gi.repository import GObject
 from typing import Any
 
 
+from gi_stub_gen.gir_manager import GIRDocs
 from gi_stub_gen.schema.constant import VariableSchema
 
 
@@ -17,7 +18,7 @@ def parse_constant(
     module_name: str,  # module we are parsing
     name: str,  # name of the attribute
     obj: Any,  # actual object to be parsed
-    docstring: str | None,
+    docstring: str | None,  # docstring if available
 ):
     """
     Parse values and return a VariableSchema.
@@ -32,15 +33,12 @@ def parse_constant(
         VariableSchema | None
     """
 
-    _gi_type = type(obj)
-
-    if _gi_type in (int, str, float, dict, tuple, list):
-        # if is_py_builtin_type(_gi_type):
+    if type(obj) in (int, str, float, dict, tuple, list):
         return VariableSchema.from_gi_object(
             obj=obj,
             namespace=module_name,
             name=name,
-            docstring=docstring,
+            docstring=None,
             deprecation_warnings=None,
         )
 

@@ -4,14 +4,28 @@ import logging
 
 import re
 
-from typing import Any
+from typing import Any, TypeVar
 from pathlib import Path
 from gi.repository import GObject  # pyright: ignore[reportMissingModuleSource]
 
 
 logger = logging.getLogger(__name__)
 
-# TODO: should use Mapping/Sequence for args and dict/list for return type
+T = TypeVar("T")
+
+
+class SingletonMeta(type):
+    """
+    Metaclasse Singleton 'Type-Aware'.
+    """
+
+    _instances: dict[type, Any] = {}
+
+    def __call__(cls: type[T], *args: Any, **kwargs: Any) -> T:
+        if cls not in SingletonMeta._instances:
+            instance = super().__call__(*args, **kwargs)
+            SingletonMeta._instances[cls] = instance
+        return SingletonMeta._instances[cls]
 
 
 def is_py_builtin_type(py_type):

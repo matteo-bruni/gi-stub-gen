@@ -8,16 +8,21 @@ default:
 
 
 build:
-    ./build-all.sh
+    bash ./build-all.sh
 
 build-base:
-    ./build-base-stubs.sh
+    bash ./build-base-stubs.sh
 
 build-gst:
-    ./build-gst-stubs.sh
+    bash ./build-gst-stubs.sh
 
 build-gtk:
-    ./build-gtk-stubs.sh
+    bash ./build-gtk-stubs.sh
+
+install-stubs:
+    uv pip install stubs/gi-base-stubs
+    uv pip install stubs/gi-gst-stubs
+    uv pip install stubs/gi-gtk-stubs
 
 
 # Install dependencies for local development.

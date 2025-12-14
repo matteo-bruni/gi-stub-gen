@@ -1,7 +1,7 @@
 from __future__ import annotations
 import gi
 import logging
-from typing import Self, Type, TypeVar, overload
+from typing import Self, TypeVar, overload
 
 try:
     gi.require_version("GioUnix", "2.0")
@@ -39,6 +39,14 @@ class GIRepo:
     def get(cls) -> Self:
         return cls()
 
+    @classmethod
+    def reset(cls):
+        """
+        Resets the singleton state.
+        """
+        if cls._instance:
+            cls._instance._initialize()
+
     @property
     def raw(self) -> GIRepository.Repository:
         """Get the raw GIRepository.Repository instance."""
@@ -57,7 +65,7 @@ class GIRepo:
         assert self._repo is not None, "GIRepo not initialized"
 
         # Simple cache key to avoid repeated C calls
-        key = f"{namespace}-{version}"
+        key = f"{namespace}-{version}" if version is not None else namespace
         if key in self._loaded_namespaces:
             return
 
@@ -81,7 +89,7 @@ class GIRepo:
         namespace: str,
         name: str,
         namespace_version: str | None = None,
-        target_type: Type[T] = ...,
+        target_type: type[T] = ...,
     ) -> T | None: ...
 
     @overload
@@ -97,7 +105,7 @@ class GIRepo:
         namespace: str,
         name: str,
         namespace_version: str | None = None,
-        target_type: Type[GIRepository.BaseInfo] | None = None,
+        target_type: type[GIRepository.BaseInfo] | None = None,
     ) -> GIRepository.BaseInfo | None:
         """
         Find a GIRepository info object by its namespace and name.
@@ -120,9 +128,6 @@ class GIRepo:
             return None
 
         if target_type is not None and not isinstance(info, target_type):
-            raise TypeError(
-                f"Expected {namespace}.{name} to be {target_type.__name__}, "
-                f"got {type(info).__name__}"
-            )
+            raise TypeError(f"Expected {namespace}.{name} to be {target_type.__name__}, got {type(info).__name__}")
 
         return info

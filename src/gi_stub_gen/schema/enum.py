@@ -9,7 +9,7 @@ from gi_stub_gen.gi_utils import (
     gi_type_is_callback,
     gi_type_to_py_type,
 )
-from gi_stub_gen.manager import TemplateManager
+from gi_stub_gen.t_manager import TemplateManager
 from gi_stub_gen.parser.gir import GirClassDocs, GirFunctionDocs
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.alias import AliasSchema

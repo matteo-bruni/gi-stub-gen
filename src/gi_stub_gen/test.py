@@ -31,11 +31,14 @@ repo = GIRepo()
 
 
 ti_info = repo.find_by_name(
-    "GObject",
-    "GType",
+    "GLib",
+    "IO_FLAG_APPEND",
     namespace_version="2.0",
-    target_type=GIRepository.ObjectInfo,
+    # target_type=GIRepository.ObjectInfo,
 )
+breakpoint()
+
+
 assert ti_info is not None
 for i in range(ti_info.get_n_signals()):
     signal_info = ti_info.get_signal(i)

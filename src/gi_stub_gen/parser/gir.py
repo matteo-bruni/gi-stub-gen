@@ -11,7 +11,7 @@ from lxml import etree
 from pydantic import BaseModel
 import logging
 
-from gi_stub_gen.manager import TemplateManager
+from gi_stub_gen.t_manager import TemplateManager
 
 logger = logging.getLogger(__name__)
 
@@ -28,14 +28,6 @@ class GirFunctionDocs(BaseModel):
         Construct the full docstring including parameters and return value.
         """
         return TemplateManager.render_master("function_docstring.jinja", docs=self)
-        doc = self.docstring
-        if self.params:
-            doc += "\n\nParameters:\n"
-            for param_name, param_doc in self.params.items():
-                doc += f"    {param_name}: {param_doc}\n"
-        if self.return_doc:
-            doc += f"\n\nReturns:\n    {self.return_doc}\n"
-        return doc
 
 
 class GirClassDocs(BaseModel):
@@ -43,6 +35,10 @@ class GirClassDocs(BaseModel):
 
     class_docstring: str
     fields: dict[str, str]
+    methods: dict[str, GirFunctionDocs]
+    signals: dict[str, str]
+    # TODO: methods?
+    # TODO: signals?
 
 
 class ModuleDocs(BaseModel):
@@ -90,9 +86,7 @@ def parse_function(path: str, root: etree._ElementTree, namespace: dict[str, str
 
             # get params docs
             class_params_docs: dict[str, str] = {}
-            for param in f.xpath(
-                "core:parameters/core:parameter", namespaces=namespace
-            ):
+            for param in f.xpath("core:parameters/core:parameter", namespaces=namespace):
                 param_name = param.attrib.get("name", None)
                 if param_name:
                     param_doc = param.xpath("core:doc", namespaces=namespace)
@@ -142,21 +136,18 @@ def parse_class(path: str, root: etree._ElementTree, namespace: dict[str, str]):
             docs[name] = GirClassDocs(
                 class_docstring=class_docstring,
                 fields=class_fields_docs,
+                methods={},  # TODO:
+                signals={},  # TODO:
             )
     return docs
 
 
-def gir_docs(
+def parse_gir_docs(
     path: Path,
-):
+) -> ModuleDocs | None:
     if not path.exists():
-        logger.warning(f"Path {path} does not exist, returning empty docs.")
-        return ModuleDocs(
-            constants={},
-            functions={},
-            enums={},
-            classes={},
-        )
+        logger.warning(f"Path {path} does not exist, not parsing.")
+        return None
 
     root = etree.parse(path, parser=etree.XMLParser(recover=True))
 
@@ -184,7 +175,7 @@ def gir_docs(
 
 if __name__ == "__main__":
     path = Path("/usr/share/gir-1.0/GObject-2.0.gir")
-    docs = gir_docs(path)
+    docs = parse_gir_docs(path)
     print(docs)
     print("done")
     # {http://www.gtk.org/introspection/core/1.0}alias

@@ -4,7 +4,8 @@ from __future__ import annotations
 import logging
 
 from typing import Any
-from gi_stub_gen.manager import TemplateManager
+from gi_stub_gen.gir_manager import GIRDocs
+from gi_stub_gen.t_manager import TemplateManager
 from gi_stub_gen.parser.gir import GirClassDocs
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import (
@@ -133,6 +134,13 @@ class ClassSchema(BaseSchema):
     """required gi.repository<NAME> import for the property type, if any"""
 
     @property
+    def debug(self) -> str:
+        super_debug = super().debug
+        if self.extra:
+            super_debug = f"{super_debug}\n[EXTRA]\n" + "\n".join(self.extra)
+        return super_debug
+
+    @property
     def required_gi_imports(self) -> set[str]:
         """
         Required gi.repository<NAME> import for the class, if any.
@@ -218,7 +226,6 @@ class ClassSchema(BaseSchema):
         cls,
         namespace: str,
         obj: Any,
-        docstring: GirClassDocs | None,
         props: list[ClassPropSchema],
         fields: list[ClassFieldSchema],
         getters: list[ClassFieldSchema],
@@ -246,10 +253,7 @@ class ClassSchema(BaseSchema):
             breakpoint()
         ## END WIP DEBUGGING PURPOSES
 
-        class_docstring = None
-        if docstring:
-            class_docstring = docstring.class_docstring
-
+        class_docstring = GIRDocs().get_class_docstring(obj.__name__)
         base_class_namespace, base_class_name = get_super_class_name(
             obj,
             current_namespace=namespace,

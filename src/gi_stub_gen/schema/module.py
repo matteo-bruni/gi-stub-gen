@@ -5,7 +5,7 @@ import logging
 from importlib.metadata import version, PackageNotFoundError
 
 from gi_stub_gen.gi_utils import get_gi_module_from_name
-from gi_stub_gen.manager import TemplateManager
+from gi_stub_gen.t_manager import TemplateManager
 from gi_stub_gen.utils import sanitize_gi_module_name
 
 from gi_stub_gen.schema import BaseSchema

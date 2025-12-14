@@ -27,11 +27,7 @@ def parse_alias(
     """
 
     # alias in the same module
-    actual_attribute_name = (
-        attribute.__name__.split(".")[-1]
-        if hasattr(attribute, "__name__")
-        else attribute_name
-    )
+    actual_attribute_name = attribute.__name__.split(".")[-1] if hasattr(attribute, "__name__") else attribute_name
     ########################################################################
     # check for aliases in same module
     ########################################################################
@@ -72,16 +68,9 @@ def parse_alias(
     ########################################################################
     # check for aliases to other module
     ########################################################################
+    actual_attribute_module = (str(attribute.__module__)) if hasattr(attribute, "__module__") else None
 
-    actual_attribute_module = (
-        (str(attribute.__module__)) if hasattr(attribute, "__module__") else None
-    )
-
-    if (
-        actual_attribute_module
-        and module_name.split(".")[-1].lower()
-        != actual_attribute_module.split(".")[-1].lower()
-    ):
+    if actual_attribute_module and module_name.split(".")[-1].lower() != actual_attribute_module.split(".")[-1].lower():
         sanitized_module_name = sanitize_gi_module_name(str(attribute.__module__))
         #######################################################################
         # manual override just for GEnum and Flags.
@@ -123,9 +112,7 @@ def parse_alias(
             target_namespace=sanitized_module_name,
             target_name=actual_attribute_name,
             deprecation_warning=w,
-            line_comment="type: ignore"
-            if str(attribute.__module__).startswith(("gi.", "_thread"))
-            else None,
+            line_comment="type: ignore" if str(attribute.__module__).startswith(("gi.", "_thread")) else None,
             alias_to="other_module",
         )
 
