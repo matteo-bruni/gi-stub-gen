@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from enum import StrEnum
-import inspect
 import keyword
 import logging
 from gi_stub_gen.gi_utils import (
@@ -21,149 +19,15 @@ from gi_stub_gen.gi_utils import (
     gi_type_to_py_type,
 )
 from pydantic import (
-    BaseModel,
-    Field,
     PrivateAttr,
 )
 from gi.repository import GIRepository
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from typing import Literal, Any, Self
+from typing import Literal, Self
 
 
 # GObject.remove_emission_hook
 logger = logging.getLogger(__name__)
-
-
-class ArgKind(StrEnum):
-    POSITIONAL_OR_KEYWORD = "POS_OR_KW"  # Standard (a)
-    POSITIONAL_ONLY = "POS_ONLY"  # Python 3.8+ (a, /)
-    KEYWORD_ONLY = "KW_ONLY"  # (*, a)
-    VAR_POSITIONAL = "VAR_POS"  # *args
-    VAR_KEYWORD = "VAR_KW"  # **kwargs
-
-    @classmethod
-    def from_inspect(cls, kind: inspect._ParameterKind) -> "ArgKind":
-        """
-        Factory method to convert inspect.Parameter.kind to ArgKind.
-        """
-        # Mapping definition (optimized via dict lookup)
-        mapping = {
-            inspect.Parameter.POSITIONAL_ONLY: cls.POSITIONAL_ONLY,
-            inspect.Parameter.KEYWORD_ONLY: cls.KEYWORD_ONLY,
-            inspect.Parameter.VAR_POSITIONAL: cls.VAR_POSITIONAL,
-            inspect.Parameter.VAR_KEYWORD: cls.VAR_KEYWORD,
-            # POSITIONAL_OR_KEYWORD is the default fallback
-        }
-        return mapping.get(kind, cls.POSITIONAL_OR_KEYWORD)
-
-
-class BuiltinFunctionArgumentSchema(BaseModel):
-    name: str
-    type_hint_name: str = Field(
-        description="String representation of the type",
-    )
-    type_hint_namespace: str | None = Field(
-        None,
-        description="Namespace of the type hint. None if not applicable.",
-    )
-    kind: ArgKind
-    default_value: str | None = Field(
-        None,
-        description="Reprr string of default value. None if required.",
-    )
-
-    @property
-    def is_required(self) -> bool:
-        return self.default_value is None and self.kind not in (
-            ArgKind.VAR_POSITIONAL,
-            ArgKind.VAR_KEYWORD,
-        )
-
-    def type_hint(self, namespace: str) -> str:
-        """
-        type representation in template.
-        computed with respect to the given namespace.
-
-        if is in the same we avoid adding the namespace prefix.
-        """
-
-        full_type = self.type_hint_name
-        if self.type_hint_namespace and self.type_hint_namespace != namespace:
-            full_type = f"{self.type_hint_namespace}.{self.type_hint_name}"
-
-        return full_type
-
-    def as_str(self, namespace: str) -> str:
-        """Returns the formatted argument string: 'name: type = default'"""
-        prefix = {ArgKind.VAR_POSITIONAL: "*", ArgKind.VAR_KEYWORD: "**"}.get(self.kind, "")
-
-        # Only add default if it exists and is not *args/**kwargs
-        default = ""
-        if self.default_value is not None and self.kind not in (
-            ArgKind.VAR_POSITIONAL,
-            ArgKind.VAR_KEYWORD,
-        ):
-            default = f" = {self.default_value}"
-
-        return f"{prefix}{self.name}: {self.type_hint(namespace)}{default}"
-
-
-class BuiltinFunctionSchema(BaseSchema):
-    name: str
-    namespace: str
-    is_async: bool
-    is_method: bool
-    docstring: str | None
-    return_hint_name: str
-    return_hint_namespace: str | None
-    params: list[BuiltinFunctionArgumentSchema]
-
-    def render(self) -> str:
-        return TemplateManager.render_master("builtin_function.jinja", fun=self)
-
-    def return_hint(self, namespace: str) -> str:
-        """
-        type representation in template.
-        computed with respect to the given namespace.
-
-        if is in the same we avoid adding the namespace prefix.
-        """
-
-        full_type = self.return_hint_name
-        if self.return_hint_namespace and self.return_hint_namespace != namespace:
-            full_type = f"{self.return_hint_namespace}.{self.return_hint_name}"
-
-        return full_type
-
-    def param_signature(self, namespace: str) -> list[str]:
-        """Generates the full parameter string with '/' and '*' separators."""
-        # 1. Group params by kind efficiently
-        groups = {k: [] for k in ArgKind}
-        for p in self.params:
-            groups[p.kind].append(p.as_str(namespace))
-
-        # 2. Build the parts list
-        parts = []
-
-        # A. Positional Only (add '/' if present)
-        if groups[ArgKind.POSITIONAL_ONLY]:
-            parts.extend(groups[ArgKind.POSITIONAL_ONLY])
-            parts.append("/")
-
-        # B. Standard Positional/Keyword
-        parts.extend(groups[ArgKind.POSITIONAL_OR_KEYWORD])
-
-        # C. Handle *args or bare '*' separator
-        if groups[ArgKind.VAR_POSITIONAL]:
-            parts.extend(groups[ArgKind.VAR_POSITIONAL])
-        elif groups[ArgKind.KEYWORD_ONLY]:
-            parts.append("*")  # Bare asterisk for Keyword-Only args without *args
-
-        # D. Keyword Only & **kwargs
-        parts.extend(groups[ArgKind.KEYWORD_ONLY])
-        parts.extend(groups[ArgKind.VAR_KEYWORD])
-
-        return parts
 
 
 class FunctionArgumentSchema(BaseSchema):
@@ -405,7 +269,7 @@ class FunctionSchema(BaseSchema):
         if not self.is_constructor and not self.is_method:
             decs.append("@staticmethod")
 
-        if self.is_getter:
+        if self.is_getter and len(self.args) == 0:
             decs.append("@property")
 
         if self.is_overload:
@@ -419,6 +283,11 @@ class FunctionSchema(BaseSchema):
             return "self"
         elif self.is_constructor:
             return "cls"
+        elif self.is_callback:
+            if len(self.input_args) > 0 and self.args[0].name != "self":
+                return "self"
+            elif len(self.input_args) == 0:
+                return "self"
         return None
 
     @property
@@ -496,8 +365,6 @@ class FunctionSchema(BaseSchema):
         """
         argument_list: list[tuple[str, str | None]] = []
         allow_default = True
-        # if self.name == "__init__":
-        #     one_line = False
 
         for arg in reversed(self.args):
             if arg.direction == "OUT":

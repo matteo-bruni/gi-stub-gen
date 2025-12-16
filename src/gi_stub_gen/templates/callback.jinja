@@ -17,8 +17,9 @@ class {{cb.name}}(typing.Protocol):
     {{ cb.docstring | if_exists | trim | indent(4, blank=True) }}
     """
     {% endif %}
+    # {% if cb.function.input_args | length > 0 %} {{ cb.function.input_args[0].name }} {% endif %}
+    
     def __call__(
-        self,
         {{ cb.function.render_args(module_name, False) | indent(8, first=False) }}
     ) -> {{cb.function.complete_return_hint(module_name)}}:
         ...

@@ -28,9 +28,9 @@ from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.parser.gir import GirClassDocs, ModuleDocs
 
 
+from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
 from gi_stub_gen.schema.function import (
-    BuiltinFunctionSchema,
     CallbackSchema,
 )
 from gi_stub_gen.schema.signals import (
@@ -63,6 +63,7 @@ def should_expose_class_field(
     """
     Determines if a class field should be exposed in the generated stub.
     """
+
     name = field_info.get_name()
 
     if not name:
@@ -172,26 +173,6 @@ def parse_class(
     )
 
     #######################################################################################
-    # parse signals
-    #######################################################################################
-    # notify::<property_name>> -> will be added when parsing properties
-    # signal-name
-    for signal in class_signals_to_parse:
-        signal_name = signal.get_name()
-        assert signal_name is not None
-        signal_name_unescaped: str = signal.get_name_unescaped()  # type: ignore
-        s = SignalSchema(
-            name=signal_name,
-            name_unescaped=signal_name_unescaped,
-            namespace=signal.get_namespace(),
-            handler=FunctionSchema.from_gi_object(signal),
-        )
-        # if signal_name == "notify":
-        #     breakpoint()
-        class_signals.append(s)
-        class_parsed_elements.append(signal_name)
-
-    #######################################################################################
     # parse fields
     #######################################################################################
     for field in class_fields_to_parse:
@@ -249,6 +230,50 @@ def parse_class(
         class_parsed_elements.append(field_name)
 
     #######################################################################################
+    # parse methods
+    #######################################################################################
+    for met in class_methods_to_parse:
+        m_name = met.get_name()
+        assert m_name is not None, "Method name is None"
+        parsed_method = parse_function(
+            met,
+            docstring=GIRDocs().get_class_method_docstring(
+                class_name=class_to_parse.__name__,
+                method_name=m_name,
+            ),
+        )
+        if parsed_method:
+            # save callbacks to be parsed later
+            callbacks_found.extend(parsed_method._gi_callbacks)
+            class_methods.append(parsed_method)
+            class_parsed_elements.append(m_name)
+
+    #######################################################################################
+    # parse signals
+    #######################################################################################
+    # if there is already a method named "connect()" we cant add the signal
+    # because they are shadowd by the method
+    # for example this happens in Gio.SocketClient where its connect() method
+    # shadows the connect() method added by GObject.Signals
+    if "connect" not in class_parsed_elements:
+        # notify::<property_name>> -> will be added when parsing properties
+        # signal-name
+        for signal in class_signals_to_parse:
+            signal_name = signal.get_name()
+            assert signal_name is not None
+            signal_name_unescaped: str = signal.get_name_unescaped()  # type: ignore
+            s = SignalSchema(
+                name=signal_name,
+                name_unescaped=signal_name_unescaped,
+                namespace=signal.get_namespace(),
+                handler=FunctionSchema.from_gi_object(signal),
+            )
+            # if signal_name == "notify":
+            #     breakpoint()
+            class_signals.append(s)
+            class_parsed_elements.append(signal_name)
+
+    #######################################################################################
     # parse properties
     #######################################################################################
     # Parse Props (they have a getter/setter depending on the flags)
@@ -283,34 +308,21 @@ def parse_class(
 
         # also add the notify signal #########################################
         # notify::<property_name>
-        signal_name_unescaped: str = prop.get_name_unescaped()  # type: ignore
-        class_signals.append(
-            generate_notify_signal(
-                namespace=prop.get_namespace(),
-                signal_name=sanitized_name,
-                signal_name_unescaped=signal_name_unescaped,
-            )
-        )
-        # end adding the signal ##############################################
 
-    #######################################################################################
-    # parse methods
-    #######################################################################################
-    for met in class_methods_to_parse:
-        m_name = met.get_name()
-        assert m_name is not None, "Method name is None"
-        parsed_method = parse_function(
-            met,
-            docstring=GIRDocs().get_class_method_docstring(
-                class_name=class_to_parse.__name__,
-                method_name=m_name,
-            ),
-        )
-        if parsed_method:
-            # save callbacks to be parsed later
-            callbacks_found.extend(parsed_method._gi_callbacks)
-            class_methods.append(parsed_method)
-            class_parsed_elements.append(m_name)
+        # if there is already a method named "connect()" we cant add the signal
+        # because they are shadowd by the method
+        # for example this happens in Gio.SocketClient where its connect() method
+        # shadows the connect() method added by GObject.Signals
+        if "connect" not in class_parsed_elements:
+            signal_name_unescaped: str = prop.get_name_unescaped()  # type: ignore
+            class_signals.append(
+                generate_notify_signal(
+                    namespace=prop.get_namespace(),
+                    signal_name=sanitized_name,
+                    signal_name_unescaped=signal_name_unescaped,
+                )
+            )
+        # end adding the signal ##############################################
 
     #######################################################################################
     # OVERRIDES AND NATIVE PYTHON CLASS ATTRIBUTES
@@ -372,12 +384,18 @@ def parse_class(
                 namespace=module_name.removeprefix("gi.repository."),
                 name_override=attribute_name,
             ):
-                if f.params:
-                    # some overrides use instance as first param, rename to self
-                    # dont know why they do that though
-                    # if f.params[0].name == "instance":
-                    if f.params[0].name != "self":
-                        f.params[0].name = "self"
+                # if class_to_parse.__name__ == "DeviceProvider" and f.name == "add_metadata":
+                #     import inspect
+
+                #     sig = inspect.signature(attribute)
+                #     is_method = inspect.ismethod(sig)
+                #     breakpoint()
+                # if f.params:
+                #     # some overrides use instance as first param, rename to self
+                #     # dont know why they do that though
+                #     # if f.params[0].name == "instance":
+                #     if f.params[0].name != "self":
+                #         f.params[0].name = "self"
                 if f.name == "__init__":
                     # some zelous overrides define __init__ with return type Any..
                     # we fix that here

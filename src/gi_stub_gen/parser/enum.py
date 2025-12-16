@@ -6,7 +6,6 @@ from typing import Any
 from gi.repository import GObject
 
 from gi_stub_gen.gir_manager import GIRDocs
-from gi_stub_gen.parser.gir import GirClassDocs
 from gi_stub_gen.schema.enum import EnumFieldSchema, EnumSchema
 
 logger = logging.getLogger(__name__)

@@ -5,11 +5,11 @@ import logging
 
 from typing import Any
 from gi_stub_gen.gir_manager import GIRDocs
+from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.t_manager import TemplateManager
 from gi_stub_gen.parser.gir import GirClassDocs
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import (
-    BuiltinFunctionSchema,
     FunctionArgumentSchema,
     FunctionSchema,
 )
@@ -249,7 +249,7 @@ class ClassSchema(BaseSchema):
                     f"self={obj.__module__}.{obj.__name__}",
                 ]
             )
-        except Exception as e:
+        except Exception:
             breakpoint()
         ## END WIP DEBUGGING PURPOSES
 

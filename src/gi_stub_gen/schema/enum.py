@@ -9,11 +9,12 @@ from gi_stub_gen.gi_utils import (
     gi_type_is_callback,
     gi_type_to_py_type,
 )
+from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.t_manager import TemplateManager
 from gi_stub_gen.parser.gir import GirClassDocs, GirFunctionDocs
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.alias import AliasSchema
-from gi_stub_gen.schema.function import BuiltinFunctionSchema, FunctionSchema
+from gi_stub_gen.schema.function import FunctionSchema
 from gi_stub_gen.schema.utils import ValueAny
 from gi_stub_gen.utils import sanitize_variable_name
 from gi_stub_gen.utils import (
@@ -119,9 +120,7 @@ class EnumSchema(BaseSchema):
         fields: list[EnumFieldSchema],
         docstring: str | None,
     ):
-        assert hasattr(obj, "__info__"), (
-            "An Enum/Flags Object must have __info__ attribute"
-        )
+        assert hasattr(obj, "__info__"), "An Enum/Flags Object must have __info__ attribute"
 
         gi_info = obj.__info__
 
@@ -150,6 +149,4 @@ class EnumSchema(BaseSchema):
         deprecated = "[DEPRECATED]" if self.is_deprecated else ""
         args_str = "\n".join([f"   - {arg}" for arg in self.fields])
         mro = f"mro={self.py_mro}"
-        return (
-            f"{deprecated}namespace={self.namespace} name={self.name} {mro}\n{args_str}"
-        )
+        return f"{deprecated}namespace={self.namespace} name={self.name} {mro}\n{args_str}"

@@ -1,7 +1,6 @@
 from __future__ import annotations
 import logging
 from pathlib import Path
-from typing import Self
 
 from gi_stub_gen.parser.gir import ModuleDocs, parse_gir_docs
 from gi_stub_gen.utils import SingletonMeta

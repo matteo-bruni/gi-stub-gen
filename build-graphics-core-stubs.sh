@@ -21,25 +21,26 @@ while [ "$#" -gt 0 ]; do
 done
 
 ############################################################
-# i think this should follow the gtk version
+# i think this should follow pygobject version
 # we keep the patch version for the stub package versioning
-GTK_VERSION=4.0
-GTK_STUB_VERSION=0
-PKG_GTK_STUBS_VERSION=${GTK_VERSION}.${GTK_STUB_VERSION}
+PYGOBJECT_VERSION=3.54
+PYGOBJECT_STUB_VERSION=0
+PKG_GTK_STUBS_VERSION=${PYGOBJECT_VERSION}.${PYGOBJECT_STUB_VERSION}
 
 uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
-    gi.repository.Gsk:4.0 \
-    gi.repository.GdkPixbuf:2.0 \
-    gi.repository.Gdk:4.0 \
-    gi.repository.Gtk:4.0 \
-    gi.repository.Atk:1.0 \
+    gi.repository.freetype2:2.0 \
+    gi.repository.cairo:1.0 \
+    gi.repository.Pango:1.0 \
+    gi.repository.PangoCairo:1.0 \
+    gi.repository.HarfBuzz:0.0 \
+    gi.repository.Graphene:1.0 \
     --preload gi.repository.GioUnix:2.0 \
     --preload gi.repository.Gio:2.0 \
     --preload gi.repository.GObject:2.0 \
     --preload gi.repository.GIRepository:3.0 \
-    --pkg-name gi-gtk-stubs \
+    --pkg-name gi-graphics-core-stubs \
     --pkg-version ${PKG_GTK_STUBS_VERSION} \
-    --pkg-dependencies gi-graphics-core-stubs \
+    --pkg-dependencies gi-base-stubs \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
     --overwrite 

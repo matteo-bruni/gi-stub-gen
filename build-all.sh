@@ -2,6 +2,9 @@
 # read from environment variable, default to false
 ENABLE_DEBUG=${ENABLE_DEBUG:-false}
 
+# fail on errors
+set -e
+
 # parse CLI args to override ENABLE_DEBUG
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -23,6 +26,7 @@ done
 export ENABLE_DEBUG
 
 bash build-base-stubs.sh
+bash build-graphics-core-stubs.sh
 bash build-gst-stubs.sh
 bash build-gtk-stubs.sh
 
@@ -30,5 +34,6 @@ bash build-gtk-stubs.sh
 # (in dev mode they do not work?)
 # not addedd to the dependencies as they are only needed for testing
 uv pip install stubs/gi-base-stubs
+uv pip install stubs/gi-graphics-core-stubs
 uv pip install stubs/gi-gst-stubs
 uv pip install stubs/gi-gtk-stubs

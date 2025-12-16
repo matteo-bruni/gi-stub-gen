@@ -9,6 +9,7 @@ default:
 
 build:
     bash ./build-all.sh
+    just install-stubs
 
 build-base:
     bash ./build-base-stubs.sh
@@ -20,10 +21,13 @@ build-gtk:
     bash ./build-gtk-stubs.sh
 
 install-stubs:
-    uv pip install stubs/gi-base-stubs
-    uv pip install stubs/gi-gst-stubs
-    uv pip install stubs/gi-gtk-stubs
-
+    #!/bin/bash
+    set -e
+    uv pip install --force-reinstall \
+        stubs/gi-base-stubs \
+        stubs/gi-graphics-core-stubs \
+        stubs/gi-gst-stubs \
+        stubs/gi-gtk-stubs
 
 # Install dependencies for local development.
 sync:

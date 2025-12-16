@@ -1,0 +1,28 @@
+
+[project]
+name = "gi-graphics-core-stubs"
+version = "3.54.0"
+description = "Type stubs for GI libraries"
+readme = "README.md"
+authors = [
+    { name = "Name Surname", email = "author@example.com" }
+]
+requires-python = ">=3.10"
+dependencies = ["gi-base-stubs"]
+keywords = ["types", "stub", "gi", "gobject", "introspection"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gi-stubs"]

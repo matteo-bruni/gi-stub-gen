@@ -33,6 +33,7 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     gi.repository.GObject:2.0 \
     gi.repository.GLib:2.0 \
     gi.repository.GIRepository:3.0 \
+    gi.repository.GModule:2.0 \
     gi \
     --pkg-name gi-base-stubs \
     --pkg-version ${PKG_GI_BASE_STUBS_VERSION} \
@@ -41,8 +42,3 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     --overwrite \
     --log-level INFO 
 
-
-# install so we can test the stubs
-# (in dev mode they do not work?)
-# not addedd to the dependencies as they are only needed for testing
-# uv pip install stubs/gi-base-stubs

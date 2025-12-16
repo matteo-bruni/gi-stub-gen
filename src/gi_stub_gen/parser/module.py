@@ -27,6 +27,8 @@ import gi._gi as GI  # pyright: ignore[reportMissingImports]
 
 from typing import TYPE_CHECKING
 
+from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
+
 if TYPE_CHECKING:
     from gi_stub_gen.schema.module import ModuleSchema
     from gi_stub_gen.schema.alias import AliasSchema
@@ -34,7 +36,6 @@ if TYPE_CHECKING:
     from gi_stub_gen.schema.constant import VariableSchema
     from gi_stub_gen.schema.enum import EnumSchema
     from gi_stub_gen.schema.function import (
-        BuiltinFunctionSchema,
         FunctionSchema,
         CallbackSchema,
     )

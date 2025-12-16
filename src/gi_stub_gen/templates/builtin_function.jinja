@@ -1,3 +1,6 @@
+{% for d in fun.decorators %}
+{{ d }}
+{% endfor %}
 {% if fun.is_async %}async{% endif %}def {{fun.name}}(
     {% for a in fun.param_signature(module_name) %}
     {{a}},

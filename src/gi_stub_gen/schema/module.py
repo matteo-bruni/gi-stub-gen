@@ -5,6 +5,7 @@ import logging
 from importlib.metadata import version, PackageNotFoundError
 
 from gi_stub_gen.gi_utils import get_gi_module_from_name
+from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.t_manager import TemplateManager
 from gi_stub_gen.utils import sanitize_gi_module_name
 
@@ -12,7 +13,6 @@ from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.alias import AliasSchema
 from gi_stub_gen.schema.constant import VariableSchema
 from gi_stub_gen.schema.function import (
-    BuiltinFunctionSchema,
     FunctionSchema,
     CallbackSchema,
 )
@@ -82,17 +82,13 @@ class ModuleSchema(BaseSchema):
                 continue
             try:
                 full_namespace = (
-                    f"gi.repository.{gi_import}"
-                    if not gi_import.startswith("gi.repository.")
-                    else gi_import
+                    f"gi.repository.{gi_import}" if not gi_import.startswith("gi.repository.") else gi_import
                 )
                 get_gi_module_from_name(full_namespace, None)
                 # if valid gi
                 valid_gi_imports.add(gi_import)
             except ImportError:
-                logger.warning(
-                    f"Invalid gi.repository import {gi_import} in module {self.name}"
-                )
+                logger.warning(f"Invalid gi.repository import {gi_import} in module {self.name}")
                 if not gi_import.startswith("GI.") and not gi_import == "GI":
                     not_gi_imports.add(gi_import)
 

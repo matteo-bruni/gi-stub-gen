@@ -131,3 +131,39 @@ class GIRepo:
             raise TypeError(f"Expected {namespace}.{name} to be {target_type.__name__}, got {type(info).__name__}")
 
         return info
+
+
+if __name__ == "__main__":
+    repo = GIRepo()
+
+    ti_info = repo.find_by_name(
+        "GLib",
+        "IO_FLAG_APPEND",
+        namespace_version="2.0",
+        # target_type=GIRepository.ObjectInfo,
+    )
+
+    assert ti_info is not None
+    for i in range(ti_info.get_n_signals()):
+        signal_info = ti_info.get_signal(i)
+        print("Signal:", signal_info.get_name())
+
+    for i in range(ti_info.get_n_fields()):
+        field_info = ti_info.get_field(i)
+        print("Field:", field_info.get_name())
+
+    for i in range(ti_info.get_n_methods()):
+        method_info = ti_info.get_method(i)
+        print("Method:", method_info.get_name())
+
+    for i in range(ti_info.get_n_vfuncs()):
+        vfunc_info = ti_info.get_vfunc(i)
+        print("VFunc:", vfunc_info.get_name())
+
+    for i in range(ti_info.get_n_interfaces()):
+        interface_info = ti_info.get_interface(i)
+        print("Interface:", interface_info.get_name())
+
+    for i in range(ti_info.get_n_properties()):
+        property_info = ti_info.get_property(i)
+        print("Property:", property_info.get_name())
