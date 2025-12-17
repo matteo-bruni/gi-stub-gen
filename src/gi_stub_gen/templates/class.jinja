@@ -7,7 +7,7 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% endif %}
     {% if cls_.props %}
 
-    class Props{{ cls_.super_class | if_exists('({}.Props)') }}:
+    class Props{{ cls_.super_class | if_true(cls_.super_class != "object", '({}.Props)')  }}:
         {% if cls_.props.docstring %}
         """
         {{ cls_.props.docstring | if_exists -}}

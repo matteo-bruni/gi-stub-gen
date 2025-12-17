@@ -129,9 +129,7 @@ def gi_type_is_callback(gi_type_info: GI.TypeInfo) -> bool:
         bool: True if the type is a callback
 
     """
-    return gi_type_info.get_tag() == GI.TypeTag.INTERFACE and isinstance(
-        gi_type_info.get_interface(), GI.CallbackInfo
-    )
+    return gi_type_info.get_tag() == GI.TypeTag.INTERFACE and isinstance(gi_type_info.get_interface(), GI.CallbackInfo)
 
 
 # def gi_callback_to_py_type(gi_type_info: GI.TypeInfo):
@@ -166,6 +164,7 @@ def gi_type_is_callback(gi_type_info: GI.TypeInfo) -> bool:
 #     )
 
 
+# GObject.ClosureMarshal
 def gi_type_to_py_type(
     gi_type_info: GI.TypeInfo,
 ):
@@ -201,9 +200,7 @@ def gi_type_to_py_type(
         if isinstance(iface, (GI.CallbackInfo, GIRepository.CallbackInfo)):
             # cant return the type, will not work since
             # a callback is not implemented in python
-            raise NotImplementedError(
-                "CallbackInfo to Python type conversion not possible"
-            )
+            raise NotImplementedError("CallbackInfo to Python type conversion not possible")
             # return gi_callback_to_py_type(iface)
             # cant return the type, will not work since it is not implemented
             # raise NotImplementedError
@@ -212,9 +209,7 @@ def gi_type_to_py_type(
             return f"{ns}.{iface_name}"
 
         elif isinstance(iface, GI.UnresolvedInfo):
-            raise NotImplementedError(
-                "UnresolvedInfo to Python type conversion not possible"
-            )
+            raise NotImplementedError("UnresolvedInfo to Python type conversion not possible")
             # TODO: like Callback cannot be resolved, create a Protocol
             return f"{ns}.{iface_name} # TODO: unresolved"
 
@@ -285,15 +280,11 @@ def get_gi_module_from_name(
             logger.debug(f"Requiring gi version {gi_version} for module {module_name}")
             gi.require_version(module_name.removeprefix("gi.repository."), gi_version)
         except ValueError:
-            logger.warning(
-                f"Could not require gi version {gi_version} for module {module_name}"
-            )
+            logger.warning(f"Could not require gi version {gi_version} for module {module_name}")
 
     module_split = module_name.split(".")
     if len(module_split) == 1:
-        logger.debug(
-            f"Importing gi module without prefix: {module_name} -> {module_split[0]}"
-        )
+        logger.debug(f"Importing gi module without prefix: {module_name} -> {module_split[0]}")
         return importlib.import_module(f"{module_split[0]}")
 
     logger.debug(
@@ -303,13 +294,9 @@ def get_gi_module_from_name(
     )
 
     try:
-        return importlib.import_module(
-            f".{module_split[-1]}", ".".join(module_split[:-1])
-        )
+        return importlib.import_module(f".{module_split[-1]}", ".".join(module_split[:-1]))
     except ImportError as e:
-        logger.warning(
-            f"Could not import module {module_split[-1]} from {'.'.join(module_split[:-1])}."
-        )
+        logger.warning(f"Could not import module {module_split[-1]} from {'.'.join(module_split[:-1])}.")
         raise e
 
 
@@ -350,10 +337,7 @@ def catch_gi_deprecation_warnings(
         try:
             module = get_gi_module_from_name(f"gi.repository.{attribute_module}", None)
         except ModuleNotFoundError:
-            logger.error(
-                f"Could not import module gi.repository.{attribute_module} "
-                f"to check for deprecation warnings."
-            )
+            logger.error(f"Could not import module gi.repository.{attribute_module} to check for deprecation warnings.")
         return None
 
     attribute_deprecation_warnings: str | None = None

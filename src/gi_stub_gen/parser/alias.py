@@ -1,3 +1,4 @@
+from types import ModuleType
 from typing import Any
 from gi_stub_gen.gi_utils import catch_gi_deprecation_warnings
 from gi_stub_gen.overrides.class_.GObject import GFLAG_SCHEMA
@@ -36,17 +37,16 @@ def parse_alias(
         # we found an alias, ie GObject.Object is an alias for GObject.GObject
 
         line_comment = None
+        target = sanitize_gi_module_name(attribute.__name__)
+
         if hasattr(attribute, "__module__"):
             sanitized_module_name = sanitize_gi_module_name(str(attribute.__module__))
             if str(sanitized_module_name).startswith(("gi.", "_thread")):
                 line_comment = "type: ignore"
-        # else:
-        #     # if no module is present, we assume it is in the same module
-        #     # these are most likely overrides
-        #     sanitized_module_name = module_name
-        #     line_comment = "type: ignore  # no __module__ attribute"
 
-        target = sanitize_gi_module_name(attribute.__name__)
+        if type(attribute) is ModuleType:
+            if target.startswith("gi._"):
+                line_comment = "type: ignore alias to private gi._ module"
 
         # _overrides are in the same module
         if target == sanitize_gi_module_name(module_name):

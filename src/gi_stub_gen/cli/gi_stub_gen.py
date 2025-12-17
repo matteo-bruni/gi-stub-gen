@@ -11,7 +11,6 @@ from typing_extensions import Annotated
 from gi_stub_gen.gi_repo import GIRepo
 from gi_stub_gen.gi_utils import get_gi_module_from_name
 from gi_stub_gen.gir_manager import GIRDocs
-from gi_stub_gen.parser.gir import ModuleDocs
 from gi_stub_gen.utils import format_stub_with_ruff
 
 
@@ -101,7 +100,7 @@ def main(
         ),
     ] = Path("stubs"),
     gir_folder: Annotated[
-        list[Path],
+        list[Path] | None,
         typer.Option(
             "--gir-folder",
             "-g",
@@ -110,7 +109,6 @@ def main(
         ),
     ] = [
         Path("/usr/share/gir-1.0/"),
-        Path("/usr/lib/x86_64-linux-gnu/gir-1.0/"),
     ],
     overwrite: Annotated[
         bool,
@@ -158,7 +156,6 @@ def main(
 
     from gi_stub_gen.package import create_stub_package
     from gi_stub_gen.parser.module import parse_module
-    from gi_stub_gen.parser.gir import parse_gir_docs
 
     # get extra import to add to each stub file
     extra_include_per_stub: dict[str, list[str]] = {}
@@ -185,21 +182,22 @@ def main(
             gi_version=gi_version,
         )
 
-        # remove the prefix
-        gir_file_name = module_name.removeprefix("gi.repository.")
-        if gi_version is not None:
-            gir_file_name = f"{gir_file_name}-{gi_version}"
-        # add the extension
-        gir_file_name = f"{gir_file_name}.gir"
-
         # retrieve the docs, check in the provided gir folders
-        doc_manager = GIRDocs()
-        for f in gir_folder:
-            gir_path = Path(f) / gir_file_name
-            # get the docs
-            if doc_manager.load(gir_path):
-                logger.info(f"Using docs from {gir_path} for module {module_name}")
-                break
+        if gir_folder is not None:
+            # remove the prefix
+            gir_file_name = module_name.removeprefix("gi.repository.")
+            if gi_version is not None:
+                gir_file_name = f"{gir_file_name}-{gi_version}"
+            # add the extension
+            gir_file_name = f"{gir_file_name}.gir"
+            doc_manager = GIRDocs()
+            # as soon as we find a gir file within the provided folders, we use it
+            for f in gir_folder:
+                gir_path = Path(f) / gir_file_name
+                # get the docs
+                if doc_manager.load(gir_path):
+                    logger.info(f"Using docs from {gir_path} for module {module_name}")
+                    break
         # #####################################################
 
         parsed_module, unknown_module_map_types = parse_module(

@@ -7,7 +7,6 @@ from typing import Any
 from gi_stub_gen.gir_manager import GIRDocs
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.t_manager import TemplateManager
-from gi_stub_gen.parser.gir import GirClassDocs
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import (
     FunctionArgumentSchema,
@@ -156,6 +155,8 @@ class ClassSchema(BaseSchema):
             if attr.type_hint_namespace:
                 gi_imports.add(attr.type_hint_namespace)
         for method in self.methods:
+            gi_imports.update(method.required_gi_imports)
+        for method in self.python_methods:
             gi_imports.update(method.required_gi_imports)
         return gi_imports
 

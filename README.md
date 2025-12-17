@@ -50,12 +50,11 @@ This project uses `uv` for dependency management.
 
 ```bash
 # Clone the repository
-git clone [https://github.com/matteo-bruni/gi-stub-gen.git](https://github.com/matteo-bruni/gi-stub-gen.git)
+git clone https://github.com/matteo-bruni/gi-stub-gen.git
 cd gi-stub-gen
 
 # Sync dependencies and activate venv
 uv sync
-source .venv/bin/activate
 ```
 
 ### Usage
@@ -63,6 +62,7 @@ source .venv/bin/activate
 To generate a stub for a specific library:
 
 ```bash
+gst_version=`pkg-config --modversion gstreamer-1.0`
 # Syntax: gi_stub_gen <LibraryName> <Version> > <Output.pyi>
 uv run gi-stub-gen \
     gi.repository.Gst:1.0 \
@@ -72,13 +72,22 @@ uv run gi-stub-gen \
     --preload gi.repository.GObject:2.0 \
     --preload gi.repository.GIRepository:3.0 \
     --pkg-name gi-gst-stubs \
-    --pkg-version 1.26.9 \
+    --pkg-version $gst_version \
     --pkg-dependencies gi-base-stubs \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0
 ```
-This will generate stubs for GStreamer 1.26.9 in the `stubs/` folder.
+This will generate stubs for GStreamer 1.26 in the `stubs/` folder. (because that is the version installed on my system).
 The generated stubs have a dependency on `gi-base-stubs`, which contains common types like `GObject` and `GLib`.
+
+To build all the stubs like `gi-base-stubs`, `gi-gtk-stubs`, `gi-graphics-core-stubs`, and `gi-gst-stubs`, you can run the provided shell scripts in the project root:
+
+```bash
+just build
+```
+
+This will build all the stub packages and place them in the `stubs/` directory.
+After it will install them in your current environment for testing.
 
 ---
 
@@ -100,11 +109,17 @@ Working with `GIRepository` in Python has some quirks. For instance:
 ---
 
 ## 📂 Generated Stubs
-You can find examples of generated output in the `stubs/` folder.
-Ideally, in the future:
-* A base package `gi-base-stubs` will contain common types (`GObject`, `GLib`).
-* Specific libraries will depend on the base package.
-* These can be published to PyPI individually.
+
+You can find the generated output in the `stubs/` folder. I have currently organized them into 4 packages based on an arbitrary grouping that seemed logical for dependency management.
+
+**Note:** This grouping is just my personal preference. The tool allows anyone to generate stubs with their own structure. Ideally, the maintainers of the respective libraries should generate and publish their own stubs.
+
+| Package | Versioning | Contents |
+| :--- | :--- | :--- |
+| **`gi-base-stubs`** | Follows **PyGObject** | **Core Infrastructure.**<br>Includes `GLib`, `GObject`, `Gio`, `GioUnix`, `GModule`, `GIRepository`, and the `gi` module. |
+| **`gi-graphics-core-stubs`** | Follows **PyGObject** | **Graphics & Text.**<br>Includes `cairo`, `Pango`, `PangoCairo`, `HarfBuzz`, `freetype2`, `Graphene`. |
+| **`gi-gtk-stubs`** | Follows **GTK** | **UI Toolkit (GTK4).**<br>Includes `Gtk`, `Gdk`, `Gsk`, `GdkPixbuf`, `Atk`. |
+| **`gi-gst-stubs`** | Follows **GStreamer** | **Multimedia (GStreamer).**<br>Includes `Gst`, `GstBase`, `GstVideo`, `GstAudio`, `GstApp`, `GstPbutils`, `GstRtp`, `GstRtsp`, `GstSdp`. |
 
 ## ⚠️ Disclaimer
 I am not a GI/PyGObject expert. This project started as a learning exercise to understand the internals of GObject Introspection. Mistakes are possible, and feedback is highly appreciated!

@@ -25,7 +25,6 @@ from gi_stub_gen.overrides import apply_method_overrides
 from gi_stub_gen.parser.builtin_function import parse_builtin_function
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.function import parse_function
-from gi_stub_gen.parser.gir import GirClassDocs, ModuleDocs
 
 
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema

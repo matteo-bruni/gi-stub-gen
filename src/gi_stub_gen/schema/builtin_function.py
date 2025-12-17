@@ -169,6 +169,19 @@ class BuiltinFunctionSchema(BaseSchema):
 
         return decs
 
+    @property
+    def required_gi_imports(self) -> set[str]:
+        """Collect required gi.repository imports based on type hints."""
+        gi_imports: set[str] = set()
+        # check return type
+        if self.return_hint_namespace:
+            gi_imports.add(self.return_hint_namespace)
+        # check arguments
+        for param in self.params:
+            if param.type_hint_namespace:
+                gi_imports.add(param.type_hint_namespace)
+        return gi_imports
+
     def param_signature(self, namespace: str) -> list[str]:
         """Generates the full parameter string with '/' and '*' separators."""
 

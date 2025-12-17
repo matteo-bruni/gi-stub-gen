@@ -10,6 +10,7 @@ except ValueError:
     raise RuntimeError("GIRepository 3.0 is required")
 
 from gi.repository import GIRepository  # noqa: E402
+from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 
 logger = logging.getLogger(__name__)
 
@@ -132,38 +133,87 @@ class GIRepo:
 
         return info
 
+    def find_callable(
+        self,
+        namespace: str,
+        name: str,
+        namespace_version: str | None = None,
+    ) -> GIRepositoryCallableAdapter | None:
+        """
+        Find a callable GIRepository info object by its namespace and name.
+        If the namespace is not loaded, tries to load it first.
+        Returns None if not found.
+
+        The returned object is wrapped in a GIRepositoryCallableAdapter for compatibility
+        with pygobject overrides.
+        """
+
+        info = self.find_by_name(
+            namespace,
+            name,
+            namespace_version,
+        )
+
+        if info is None:
+            return None
+
+        is_callable = isinstance(info, GIRepository.CallableInfo)
+        if not is_callable:
+            raise TypeError(f"Expected {namespace}.{name} to be CallableInfo, got {type(info).__name__}")
+
+        return GIRepositoryCallableAdapter(info)
+
 
 if __name__ == "__main__":
+    # ti_info = repo.find_by_name(
+    #     "GLib",
+    #     "IO_FLAG_APPEND",
+    #     namespace_version="2.0",
+    #     # target_type=GIRepository.ObjectInfo,
+    # )
+
+    # assert ti_info is not None
+    # for i in range(ti_info.get_n_signals()):
+    #     signal_info = ti_info.get_signal(i)
+    #     print("Signal:", signal_info.get_name())
+
+    # for i in range(ti_info.get_n_fields()):
+    #     field_info = ti_info.get_field(i)
+    #     print("Field:", field_info.get_name())
+
+    # for i in range(ti_info.get_n_methods()):
+    #     method_info = ti_info.get_method(i)
+    #     print("Method:", method_info.get_name())
+
+    # for i in range(ti_info.get_n_vfuncs()):
+    #     vfunc_info = ti_info.get_vfunc(i)
+    #     print("VFunc:", vfunc_info.get_name())
+
+    # for i in range(ti_info.get_n_interfaces()):
+    #     interface_info = ti_info.get_interface(i)
+    #     print("Interface:", interface_info.get_name())
+
+    # for i in range(ti_info.get_n_properties()):
+    #     property_info = ti_info.get_property(i)
+    #     print("Property:", property_info.get_name())
+
     repo = GIRepo()
-
-    ti_info = repo.find_by_name(
-        "GLib",
-        "IO_FLAG_APPEND",
+    pygobject_adapter = repo.find_callable(
+        "GObject",
+        "ClosureMarshal",
         namespace_version="2.0",
-        # target_type=GIRepository.ObjectInfo,
     )
+    if pygobject_adapter is None:
+        raise RuntimeError("Could not find ClosureMarshal")
 
-    assert ti_info is not None
-    for i in range(ti_info.get_n_signals()):
-        signal_info = ti_info.get_signal(i)
-        print("Signal:", signal_info.get_name())
+    from gi_stub_gen.schema.function import FunctionSchema, CallbackSchema
 
-    for i in range(ti_info.get_n_fields()):
-        field_info = ti_info.get_field(i)
-        print("Field:", field_info.get_name())
-
-    for i in range(ti_info.get_n_methods()):
-        method_info = ti_info.get_method(i)
-        print("Method:", method_info.get_name())
-
-    for i in range(ti_info.get_n_vfuncs()):
-        vfunc_info = ti_info.get_vfunc(i)
-        print("VFunc:", vfunc_info.get_name())
-
-    for i in range(ti_info.get_n_interfaces()):
-        interface_info = ti_info.get_interface(i)
-        print("Interface:", interface_info.get_name())
-
-    for i in range(ti_info.get_n_properties()):
-        property_info = ti_info.get_property(i)
-        print("Property:", property_info.get_name())
+    c = CallbackSchema(
+        function=FunctionSchema.from_gi_object(
+            obj=pygobject_adapter,
+            docstring=None,
+        ),
+        originated_from={"Manual from GIRepository"},
+        name="ClosureMarshal",
+    )
+    breakpoint()

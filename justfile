@@ -9,10 +9,16 @@ default:
 
 build:
     bash ./build-all.sh
-    just install-stubs
+
+build-and-install:
+    just build
+    just install
 
 build-base:
     bash ./build-base-stubs.sh
+
+build-graphics-core:
+    bash ./build-graphics-core-stubs.sh
 
 build-gst:
     bash ./build-gst-stubs.sh
@@ -20,7 +26,7 @@ build-gst:
 build-gtk:
     bash ./build-gtk-stubs.sh
 
-install-stubs:
+install:
     #!/bin/bash
     set -e
     uv pip install --force-reinstall \

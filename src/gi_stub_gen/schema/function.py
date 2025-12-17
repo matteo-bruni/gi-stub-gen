@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import keyword
 import logging
+from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi_stub_gen.gi_utils import (
     catch_gi_deprecation_warnings,
     get_gi_type_info,
@@ -91,7 +92,6 @@ class FunctionArgumentSchema(BaseSchema):
         assert argument_name is not None, "Argument name is None"
 
         gi_type: GIRepository.TypeInfo = get_gi_type_info(obj)
-
         type_hint_namespace: str | None
         type_hint_name: str
         type_hint_comment: str | None = None
@@ -404,12 +404,19 @@ class FunctionSchema(BaseSchema):
     @classmethod
     def from_gi_object(
         cls,
-        obj: GIRepository.FunctionInfo | GIRepository.CallbackInfo | GIRepository.SignalInfo,
+        obj: GIRepository.FunctionInfo
+        | GIRepository.CallbackInfo
+        | GIRepository.SignalInfo
+        | GIRepositoryCallableAdapter,
         docstring: str | None = None,
     ):
         # Note cant do isinstance on GIRepository.FunctionInfo!!
         # they are different object, we use GIRepository.FunctionInfo
         # just for the type hinting
+        # when parsing existing object we pass through pygobject that enhance the gi objects
+        # adding pythonic methods and properties but removes somes of the original gi types
+        # for example GIRepository.FunctionInfo has the c methods get_n_args and get_arg
+        # while pygobject removes them adding instead get_arguments() that return a list of ArgInfo
 
         function_type: str
         if isinstance(obj, GI.SignalInfo):
@@ -418,8 +425,10 @@ class FunctionSchema(BaseSchema):
             function_type = "CallbackInfo"
         elif isinstance(obj, GI.FunctionInfo):
             function_type = "FunctionInfo"
+        elif isinstance(obj, GIRepositoryCallableAdapter):
+            function_type = obj.callable_type
         else:
-            raise ValueError("Not a valid GI function or callback object or signal.")
+            raise ValueError(f"Not a valid GI function or callback object or signal. Got: {type(obj)}")
 
         # breakpoint()
         function_args: list[FunctionArgumentSchema] = []
@@ -515,7 +524,8 @@ class FunctionSchema(BaseSchema):
             )
 
         may_return_null = obj.may_return_null()
-        is_callback = isinstance(obj, GI.CallbackInfo)
+        # is_callback = isinstance(obj, GI.CallbackInfo)
+        is_callback = function_type == "CallbackInfo"
 
         # get the return hint for the template
         return_hint = py_return_hint_name
@@ -586,7 +596,7 @@ class CallbackSchema(BaseSchema):
         docstring: str | None = None
 
         if self.originated_from is not None:
-            docstring = f"This callback was used in: \n\t\t\t{', '.join(self.originated_from)}"
+            docstring = f"This callback was used in: \n\t{', '.join(sorted(self.originated_from))}"
 
         # func_docstring = self.function.docstring
         # if func_docstring is None:

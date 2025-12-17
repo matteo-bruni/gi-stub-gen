@@ -5,6 +5,7 @@ Parser for GIR files to extract documentation.
 from __future__ import annotations
 
 from pathlib import Path
+import re
 
 # import xml.etree.ElementTree as ET
 from lxml import etree
@@ -14,6 +15,25 @@ import logging
 from gi_stub_gen.t_manager import TemplateManager
 
 logger = logging.getLogger(__name__)
+
+
+def make_safe_docstring(text: str | None) -> str:
+    if not text:
+        return ""
+
+    # find a backslash not followed by a letter, number or another backslash
+    # Trasform "function\()" -> "function()"
+    # Trasform "set_\*"    -> "set_*"
+    # Ignore    "C:\User"
+    text = re.sub(r"\\(?=[^a-zA-Z0-9\\])", "", text)
+
+    # "C:\user" -> "C:\\user"
+    text = text.replace("\\", "\\\\")
+
+    # '''triple quotes''' -> '\"\"\"triple quotes\"\"\"'
+    text = text.replace('"""', r"\"\"\"")
+
+    return text
 
 
 class GirFunctionDocs(BaseModel):
@@ -67,7 +87,7 @@ def parse_constant(path: str, root: etree._ElementTree, namespace: dict[str, str
             doc = f.find("core:doc", namespace)
             constant_docstring = ""
             if doc is not None:
-                constant_docstring = str(doc.text)
+                constant_docstring = make_safe_docstring(doc.text)
             constant_docs[str(name)] = constant_docstring
     return constant_docs
 
@@ -82,7 +102,7 @@ def parse_function(path: str, root: etree._ElementTree, namespace: dict[str, str
             doc = f.find("core:doc", namespace)
             function_docstring = ""
             if doc is not None:
-                function_docstring = str(doc.text)
+                function_docstring = make_safe_docstring(doc.text)
 
             # get params docs
             class_params_docs: dict[str, str] = {}
@@ -99,7 +119,7 @@ def parse_function(path: str, root: etree._ElementTree, namespace: dict[str, str
             return_docstring = ""
             assert len(return_doc) <= 1, f"more than one return doc {name}"
             if len(return_doc) == 1:
-                return_docstring = str(return_doc[0].text)
+                return_docstring = make_safe_docstring(return_doc[0].text)
 
             function_docs[str(name)] = GirFunctionDocs(
                 docstring=function_docstring,
@@ -121,7 +141,7 @@ def parse_class(path: str, root: etree._ElementTree, namespace: dict[str, str]):
             class_docstring: str = ""
             assert len(doc) <= 1, f"more than one class doc {name}"
             if len(doc) == 1:
-                class_docstring = str(doc[0].text)
+                class_docstring = make_safe_docstring(doc[0].text)
 
             # get member docs
             class_fields_docs: dict[str, str] = {}
@@ -131,7 +151,7 @@ def parse_class(path: str, root: etree._ElementTree, namespace: dict[str, str]):
                     field_doc = field.xpath("core:doc", namespaces=namespace)
                     assert len(field_doc) <= 1, f"more than one field_doc {name}"
                     if len(field_doc) == 1:
-                        class_fields_docs[str(field_name)] = str(field_doc[0].text)
+                        class_fields_docs[str(field_name)] = make_safe_docstring(field_doc[0].text)
 
             docs[name] = GirClassDocs(
                 class_docstring=class_docstring,

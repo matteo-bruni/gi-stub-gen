@@ -49,10 +49,14 @@ class ModuleSchema(BaseSchema):
         extra_imports: list[str] | None = None,
     ) -> tuple[set[str], set[str]]:
         gi_imports: set[str] = set()
+        # if self.name == "gi.repository.Pango":
+        #     breakpoint()
         for c in self.classes:
             gi_imports.update(c.required_gi_imports)
         for f in self.function:
             gi_imports.update(f.required_gi_imports)
+        for bf in self.builtin_function:
+            gi_imports.update(bf.required_gi_imports)
         for a in self.aliases:
             if a.target_namespace is not None:
                 gi_imports.add(a.target_namespace)
@@ -92,6 +96,10 @@ class ModuleSchema(BaseSchema):
                 if not gi_import.startswith("GI.") and not gi_import == "GI":
                     not_gi_imports.add(gi_import)
 
+        # sort for consistent output
+        valid_gi_imports = set(sorted(valid_gi_imports))
+        not_gi_imports = set(sorted(not_gi_imports))
+
         logger.info(f"Module: {self.name}")
         logger.info(f"Importing gi.repository imports: {valid_gi_imports}")
         logger.info(f"Not gi.repository imports: {not_gi_imports}")
@@ -128,30 +136,4 @@ class ModuleSchema(BaseSchema):
             unknowns=unknowns,
             aliases=self.aliases,
             callbacks=self.callbacks,
-        )
-
-        """
-        Return the module as a pyi file
-        """
-        import jinja2
-        from gi_stub_gen.template import TEMPLATE
-
-        environment = jinja2.Environment()
-        output_template = environment.from_string(TEMPLATE)
-        sanitized_module_name = sanitize_gi_module_name(self.name)
-
-        # print(self.callbacks)
-        return output_template.render(
-            module=sanitized_module_name,
-            # module=module.__name__.split(".")[-1],
-            constants=self.constant,
-            enums=self.enum,
-            functions=self.function,
-            builtin_function=self.builtin_function,
-            classes=self.classes,
-            debug=debug,
-            aliases=self.aliases,
-            callbacks=self.callbacks,
-            extra_gi_repository_import=extra_imports,
-            unknowns=unknowns,
         )

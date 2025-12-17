@@ -39,6 +39,6 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     --pkg-version ${PKG_GI_BASE_STUBS_VERSION} \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
+    --gir-folder /usr/lib/x86_64-linux-gnu/gir-1.0 \
     --overwrite \
     --log-level INFO 
-

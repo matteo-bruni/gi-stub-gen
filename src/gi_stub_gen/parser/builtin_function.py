@@ -1,7 +1,6 @@
 from __future__ import annotations
-from types import BuiltinFunctionType, FunctionType, MethodDescriptorType, MethodType
+from types import BuiltinFunctionType, FunctionType, MethodType
 
-import gi._gi as GI  # type: ignore
 from typing import Any
 import inspect
 

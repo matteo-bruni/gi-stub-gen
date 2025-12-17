@@ -1,4 +1,5 @@
 # TODO if it happens more than once consider a more generic structure
+from gi_stub_gen.adapter import get_callback_schema
 from gi_stub_gen.overrides.class_.GIRepository import (
     FUNCTION_INFO_GET_ARGUMENTS,
     TYPE_INFO_GET_TAG_AS_STRING,
@@ -22,6 +23,15 @@ CLASS_OVERRIDES = {
         },
     }
 }
+CALLBACK_OVERRIDES = {
+    "gi.repository.GObject": {
+        "ClosureMarshal": get_callback_schema("GObject", "ClosureMarshal"),
+    },
+    "gi.repository.GLib": {
+        "EqualFunc": get_callback_schema("GLib", "EqualFunc"),
+        "EqualFuncFull": get_callback_schema("GLib", "EqualFuncFull"),
+    },
+}
 
 
 def apply_method_overrides(
@@ -29,9 +39,7 @@ def apply_method_overrides(
     namespace: str,
     class_name: str,
 ) -> list[FunctionSchema]:
-    overrides = (
-        CLASS_OVERRIDES.get(namespace, {}).get(class_name, {}).get("methods", {})
-    )
+    overrides = CLASS_OVERRIDES.get(namespace, {}).get(class_name, {}).get("methods", {})
 
     if not overrides:
         return current_methods

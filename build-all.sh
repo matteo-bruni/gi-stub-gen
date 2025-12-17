@@ -33,7 +33,7 @@ bash build-gtk-stubs.sh
 # install so we can test the stubs
 # (in dev mode they do not work?)
 # not addedd to the dependencies as they are only needed for testing
-uv pip install stubs/gi-base-stubs
-uv pip install stubs/gi-graphics-core-stubs
-uv pip install stubs/gi-gst-stubs
-uv pip install stubs/gi-gtk-stubs
+# uv pip install stubs/gi-base-stubs
+# uv pip install stubs/gi-graphics-core-stubs
+# uv pip install stubs/gi-gst-stubs
+# uv pip install stubs/gi-gtk-stubs

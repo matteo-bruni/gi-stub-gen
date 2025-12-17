@@ -7,7 +7,6 @@ from gi_stub_gen.parser.builtin_function import parse_builtin_function
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.enum import parse_enum
 from gi_stub_gen.parser.function import parse_function
-from gi_stub_gen.parser.gir import ModuleDocs
 from gi_stub_gen.parser.class_ import (
     parse_class,
 )
@@ -228,6 +227,13 @@ def parse_module(
 
     # end for attribute in module_attributes
     #########################################################################
+
+    # add override callbacks
+    from gi_stub_gen.overrides import CALLBACK_OVERRIDES
+
+    for override in CALLBACK_OVERRIDES.get(module_name, {}).values():
+        if override.name not in [cb.name for cb in callbacks_found]:
+            callbacks_found.append(override)
 
     # just filter only the callbacks used in the module
     module_callbacks: dict[str, CallbackSchema] = {}
