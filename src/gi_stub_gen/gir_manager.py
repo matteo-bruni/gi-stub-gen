@@ -34,7 +34,7 @@ class GIRDocs(metaclass=SingletonMeta):
         Overwrites any previously loaded documentation.
         """
         if not gir_path.exists():
-            logger.error(f"GIR file not found at path: {gir_path}")
+            logger.warning(f"GIR file not found at path: {gir_path}")
             return False
 
         logger.info(f"Loading GIR docs from: {gir_path}")

@@ -42,7 +42,7 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% if cls_.fields %}
     # gi Fields
     {% for field in cls_.fields %}
-    {{ field.name }}: {{ field.type_hint(module_name) }} = ... {{ "# type: ignore" | if_true(field.type_hint_namespace and module_name != field.type_hint_namespace) }}{{ field.line_comment | if_exists("# ") }}
+    {{ field.name }}: {{ field.type_hint(module_name) }} = ...{{ " # type: ignore" | if_true(field.type_hint_namespace and module_name != field.type_hint_namespace) }}{{ field.line_comment | if_exists("# ")}}
     {% if field.docstring or field.is_deprecated %} 
     """
     {{ field.docstring | if_exists }}

@@ -1,5 +1,3 @@
-import pytest
-
 from gi_stub_gen.gir_manager import GIRDocs
 
 

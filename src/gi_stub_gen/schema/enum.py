@@ -1,37 +1,14 @@
 from __future__ import annotations
 
-from enum import StrEnum
-import inspect
-import keyword
+import enum
 import logging
-from gi_stub_gen.gi_utils import (
-    get_safe_gi_array_length,
-    gi_type_is_callback,
-    gi_type_to_py_type,
-)
-from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
-from gi_stub_gen.t_manager import TemplateManager
-from gi_stub_gen.parser.gir import GirClassDocs, GirFunctionDocs
+
+from gi_stub_gen.template_manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.schema.alias import AliasSchema
-from gi_stub_gen.schema.function import FunctionSchema
-from gi_stub_gen.schema.utils import ValueAny
 from gi_stub_gen.utils import sanitize_variable_name
-from gi_stub_gen.utils import (
-    is_py_builtin_type,
-)
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    computed_field,
-    SerializerFunctionWrapHandler,
-    model_validator,
-)
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from gi.repository import GObject
-from pydantic.functional_serializers import WrapSerializer
-from typing import Annotated, Literal, Any
+from gi.repository import GObject, GIRepository
+from typing import Literal, Any
 
 # GObject.remove_emission_hook
 logger = logging.getLogger(__name__)
@@ -58,7 +35,7 @@ class EnumFieldSchema(BaseSchema):
     @classmethod
     def from_gi_value_info(
         cls,
-        value_info: GI.ValueInfo,
+        value_info: GI.ValueInfo,  # GIRepository.ValueInfo but missing the functions addedd by pygobject
         docstring: str | None,
         deprecation_warnings: str | None,
     ):
@@ -74,13 +51,28 @@ class EnumFieldSchema(BaseSchema):
         field_name = value_info.get_name()
         line_comment = None
         if value_info.get_name_unescaped() != value_info.get_name():
-            line_comment = f"real value: ({value_info.get_name_unescaped()}) changed due to name being a python keyword"
+            # GLib.IOCondition.IN has get_name_unescaped "in" and get_name "in_"
+            # In this case escaping "in" to "in_" should not be done
+            # because even if they are keywords they are valid as class fields
+            # we just check again if there are other issues with the name
+            field_name, line_comment = sanitize_variable_name(
+                value_info.get_name_unescaped(),
+                keyword_check=False,
+            )
+            # if value_info.get_name_unescaped() == "in":
+            #     breakpoint()
+            # if line_comment is not None:
+            #     field_name = sane_name_unescaped
 
         else:
             # some fields are not escaped by GI
             # i.e. GLIB.SpawnError.2BIG
             # so we add a generic sanitization step
-            field_name, line_comment = sanitize_variable_name(value_info.get_name())
+            # keyword are fine as class fields
+            field_name, line_comment = sanitize_variable_name(
+                value_info.get_name(),
+                keyword_check=False,
+            )
 
         return cls(
             name=field_name.upper(),
@@ -109,8 +101,27 @@ class EnumSchema(BaseSchema):
     is_deprecated: bool
     fields: list[EnumFieldSchema]
 
+    super_name: str
+    """Return the super type name only"""
+    super_namespace: str
+    """Return the super type namespace only"""
+
     def render(self) -> str:
         return TemplateManager.render_master("enum.jinja", enum=self)
+
+    def super_full_type_str(self, module_name: str) -> str:
+        """
+        Return the full python super type as a string
+        adding namespace if different from `module_name`
+        """
+        if self.super_namespace != module_name:
+            return f"{self.super_namespace}.{self.super_name}"
+        return self.super_name
+
+    @property
+    def required_gi_import(self) -> str:
+        """Return the required imports for this enum/flags. (without gi.repository. prefix)"""
+        return self.super_namespace
 
     @classmethod
     def from_gi_object(
@@ -123,27 +134,55 @@ class EnumSchema(BaseSchema):
         assert hasattr(obj, "__info__"), "An Enum/Flags Object must have __info__ attribute"
 
         gi_info = obj.__info__
+        namespace = gi_info.get_namespace()
+
+        super_name: str
+        super_namespace: str
+        if enum_type == "enum":
+            if GObject.GEnum in obj.mro():
+                super_name = "GEnum"
+                super_namespace = "GObject"
+            elif enum.IntEnum in obj.mro():
+                super_name = "IntEnum"
+                super_namespace = "enum"
+            else:
+                raise AssertionError(f"Enum {gi_info.get_name()} does not inherit from GObject.GEnum or enum.IntEnum")
+        else:
+            if GObject.GFlags in obj.mro():
+                super_name = "GFlags"
+                super_namespace = "GObject"
+            elif enum.IntFlag in obj.mro():
+                super_name = "IntFlag"
+                super_namespace = "enum"
+            else:
+                raise AssertionError(f"Flags {gi_info.get_name()} does not inherit from GObject.GFlags or enum.IntFlag")
 
         return cls(
-            namespace=gi_info.get_namespace(),
+            namespace=namespace,
             name=gi_info.get_name(),
             enum_type=enum_type,
             docstring=docstring,
             fields=fields,
             is_deprecated=gi_info.is_deprecated(),
             py_mro=[f"{o.__module__}.{o.__name__}" for o in obj.mro()],
+            super_name=super_name,
+            super_namespace=super_namespace,
         )
 
-    @computed_field
-    @property
-    def py_super_type_str(self) -> str:
-        """Return the python type as a string (otherwise capitalization is wrong)"""
+    # @computed_field
+    # @property
+    # def py_super_type_str(self) -> str:
+    #     """Return the python type as a string (otherwise capitalization is wrong)"""
 
-        # in pygobject 3.50.0 GFlags and GEnum are in GObject namespace
-        if self.namespace == "GObject":
-            return "GFlags" if self.enum_type == "flags" else "GEnum"
+    #     # TODO: if we are in GLib this is just enum.IntFlag / enum.IntEnum
 
-        return "GObject.GFlags" if self.enum_type == "flags" else "GObject.GEnum"
+    #     # in pygobject 3.50.0 GFlags and GEnum are in GObject namespace
+    #     if self.namespace == "GObject":
+    #         return "GFlags" if self.enum_type == "flags" else "GEnum"
+    #     elif self.namespace == "GLib":
+    #         return "enum.IntFlag" if self.enum_type == "flags" else "enum.IntEnum"
+
+    #     return "GObject.GFlags" if self.enum_type == "flags" else "GObject.GEnum"
 
     def __str__(self):
         deprecated = "[DEPRECATED]" if self.is_deprecated else ""

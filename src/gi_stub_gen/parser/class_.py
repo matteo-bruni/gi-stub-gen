@@ -22,7 +22,7 @@ from gi_stub_gen.gi_utils import (
 from gi_stub_gen.gir_manager import GIRDocs
 from gi_stub_gen.overrides import apply_method_overrides
 
-from gi_stub_gen.parser.builtin_function import parse_builtin_function
+from gi_stub_gen.parser.python_function import parse_python_function
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.function import parse_function
 
@@ -180,9 +180,13 @@ def parse_class(
         # in python we keep only the method so we need to check
         # if there is a method with the same name and skip it if so
         if any(m.get_name() == field.get_name() for m in class_methods_to_parse):
+            logger.debug(
+                f"skipping field {field.get_name()} of class {class_to_parse.__name__} because there is a method with the same name"
+            )
             continue
 
         if not should_expose_class_field(field):
+            logger.debug(f"not exposing field {field.get_name()} of class {class_to_parse.__name__}")
             continue
 
         field_name = field.get_name()
@@ -247,6 +251,13 @@ def parse_class(
             class_methods.append(parsed_method)
             class_parsed_elements.append(m_name)
 
+            if parsed_method.name == "connect":
+                msg = f"[note from gi-stub-gen] {class_to_parse.__name__} has a connect() method which shadows the signal connect() method to add handlers to GObject.Signals. You can still connect to signals using: GObject.Object.connect(object, 'signal-name', handler)"
+                if parsed_method.docstring is None:
+                    parsed_method.docstring = msg
+                else:
+                    parsed_method.docstring += "\n\n" + msg
+
     #######################################################################################
     # parse signals
     #######################################################################################
@@ -309,7 +320,7 @@ def parse_class(
         # notify::<property_name>
 
         # if there is already a method named "connect()" we cant add the signal
-        # because they are shadowd by the method
+        # because they are shadowed by the method
         # for example this happens in Gio.SocketClient where its connect() method
         # shadows the connect() method added by GObject.Signals
         if "connect" not in class_parsed_elements:
@@ -378,7 +389,7 @@ def parse_class(
             )
 
         elif attribute_type in {MethodType, FunctionType, BuiltinFunctionType}:
-            if f := parse_builtin_function(
+            if f := parse_python_function(
                 attribute=attribute,
                 namespace=module_name.removeprefix("gi.repository."),
                 name_override=attribute_name,

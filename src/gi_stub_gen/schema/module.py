@@ -6,7 +6,7 @@ from importlib.metadata import version, PackageNotFoundError
 
 from gi_stub_gen.gi_utils import get_gi_module_from_name
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
-from gi_stub_gen.t_manager import TemplateManager
+from gi_stub_gen.template_manager import TemplateManager
 from gi_stub_gen.utils import sanitize_gi_module_name
 
 from gi_stub_gen.schema import BaseSchema
@@ -53,6 +53,8 @@ class ModuleSchema(BaseSchema):
         #     breakpoint()
         for c in self.classes:
             gi_imports.update(c.required_gi_imports)
+        for e in self.enum:
+            gi_imports.add(e.required_gi_import)
         for f in self.function:
             gi_imports.update(f.required_gi_imports)
         for bf in self.builtin_function:
@@ -63,8 +65,8 @@ class ModuleSchema(BaseSchema):
 
         # Add Manually GObject if in current pyi
         # there are any GEnum and GFlags (they are in GObject)
-        if len(self.enum) > 0:
-            gi_imports.add("GObject")
+        # if len(self.enum) > 0:
+        #     gi_imports.add("GObject")
 
         # remove current module name from imports
         if self.name.removeprefix("gi.repository.") in gi_imports:
@@ -95,6 +97,11 @@ class ModuleSchema(BaseSchema):
                 logger.warning(f"Invalid gi.repository import {gi_import} in module {self.name}")
                 if not gi_import.startswith("GI.") and not gi_import == "GI":
                     not_gi_imports.add(gi_import)
+
+        if self.name == "gi.repository.GLib":
+            # GLib has many enum.IntFlag / enum.IntEnum that are not in gi.repository
+            # but in enum module
+            not_gi_imports.add("enum")
 
         # sort for consistent output
         valid_gi_imports = set(sorted(valid_gi_imports))

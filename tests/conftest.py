@@ -3,8 +3,6 @@ import pytest
 
 # from gi.repository import GIRepository  # noqa: E402
 from gi.repository import Gst
-import pytest
-from pathlib import Path
 
 from gi_stub_gen.gir_manager import GIRDocs
 
@@ -44,8 +42,8 @@ FAKE_GIR_CONTENT = """<?xml version="1.0"?>
 @pytest.fixture
 def fake_gir_file(tmp_path):
     """
-    Crea un file .gir temporaneo e restituisce il percorso (Path).
-    Viene distrutto automaticamente alla fine del test.
+    Creates a temporary .gir file and returns the Path.
+    It is automatically destroyed at the end of the test.
     """
     gir_file = tmp_path / "TestLib-1.0.gir"
     gir_file.write_text(FAKE_GIR_CONTENT, encoding="utf-8")

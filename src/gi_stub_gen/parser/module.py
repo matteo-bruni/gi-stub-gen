@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from gi_stub_gen.gir_manager import GIRDocs
 from gi_stub_gen.parser.alias import parse_alias
-from gi_stub_gen.parser.builtin_function import parse_builtin_function
+from gi_stub_gen.parser.python_function import parse_python_function
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.enum import parse_enum
 from gi_stub_gen.parser.function import parse_function
@@ -161,7 +161,7 @@ def parse_module(
             #########################################################################
             # check if builtin function
             #########################################################################
-            if f := parse_builtin_function(
+            if f := parse_python_function(
                 attribute,
                 module_name,
             ):

@@ -1,4 +1,5 @@
 from __future__ import annotations
+import enum
 
 # import gi
 
@@ -8,9 +9,6 @@ from gi_stub_gen.gi_utils import catch_gi_deprecation_warnings  # type: ignore
 # from gi._gi import Repository  # type: ignore
 from gi.repository import GObject
 from typing import Any
-
-
-from gi_stub_gen.gir_manager import GIRDocs
 from gi_stub_gen.schema.constant import VariableSchema
 
 
@@ -33,7 +31,7 @@ def parse_constant(
         VariableSchema | None
     """
 
-    if type(obj) in (int, str, float, dict, tuple, list):
+    if type(obj) in (int, str, float, dict, tuple, list, bool):
         return VariableSchema.from_gi_object(
             obj=obj,
             namespace=module_name,
@@ -54,7 +52,7 @@ def parse_constant(
             # at this point this can be the "flags" class or an attribute
             # with a value of the flag class
             # if it is an attribute it is an instance of GObject.GFlags
-            if isinstance(obj, (GObject.GFlags, GObject.GEnum)):
+            if isinstance(obj, (GObject.GFlags, GObject.GEnum, enum.IntFlag, enum.IntEnum)):
                 # or info.get_g_type().parent.name == "GFlags"
                 assert obj.is_integer(), f"{name} is not an enum/flag?"
                 return VariableSchema.from_gi_object(

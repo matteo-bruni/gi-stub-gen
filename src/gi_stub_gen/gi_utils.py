@@ -311,7 +311,6 @@ def catch_gi_deprecation_warnings(
     We need to pass the attribute name as a string because its easier than trying
     to dig through the object to find the attribute name.
 
-
     Args:
         obj (Any): The object to check for deprecation warnings.
         attribute_name (str): The name of the attribute to check.
@@ -346,8 +345,6 @@ def catch_gi_deprecation_warnings(
 
         # actually get the attribute
         # only when doing this we can catch deprecation warnings
-        # getattr(module, attribute_name)
-        # getattr(module, get_name(obj))
         try:
             getattr(module, attribute_name)
         except (AttributeError, NotImplementedError):

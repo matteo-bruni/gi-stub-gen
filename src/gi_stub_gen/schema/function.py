@@ -9,7 +9,7 @@ from gi_stub_gen.gi_utils import (
     get_safe_gi_array_length,
     gi_type_is_callback,
 )
-from gi_stub_gen.t_manager import TemplateManager
+from gi_stub_gen.template_manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.utils import (
     get_py_type_name_repr,
@@ -136,6 +136,9 @@ class FunctionArgumentSchema(BaseSchema):
             py_type = gi_type_to_py_type(gi_type)
             type_hint_namespace = get_py_type_namespace_repr(py_type)
             type_hint_name = get_py_type_name_repr(py_type)
+            # if argument_name == "group":
+            #     breakpoint()
+            #     pass
 
         array_length: int = get_safe_gi_array_length(gi_type)
         # breakpoint()
@@ -224,7 +227,7 @@ class FunctionSchema(BaseSchema):
     """Just the return type hint from GI. Does not include OUT arguments. If None, means return void. Use None if no OUT args, otherwise skip it."""
 
     return_hint_namespace: str | None
-    """namespace of the return hint, e.g. gi.repository<NAME> import for the property type, if any"""
+    """namespace of the return hint, e.g. gi.repository.<NAME> import for the property type, if any"""
 
     is_method: bool
     """Whether this function is a method of a class"""

@@ -6,7 +6,7 @@ import re
 
 from typing import Any, TypeVar
 from pathlib import Path
-from gi.repository import GObject  # pyright: ignore[reportMissingModuleSource]
+from gi.repository import GObject
 
 
 logger = logging.getLogger(__name__)
@@ -29,7 +29,7 @@ class SingletonMeta(type):
 
 
 def is_py_builtin_type(py_type):
-    return py_type in (int, str, float, dict, tuple, list)
+    return py_type in (int, str, float, dict, tuple, list, bool)
     # return py_type.__name__ in dir(builtins)
 
 
@@ -105,15 +105,36 @@ def get_py_type_namespace_repr(py_type: Any) -> str | None:
     if hasattr(py_type, "__info__"):
         return f"{py_type.__info__.get_namespace()}"  # pyright: ignore[reportAttributeAccessIssue, reportOptionalMemberAccess]
 
+    # py_type.__module__
+
     from inspect import getmodule
 
     # we can use getmodule to get the module of the type
     if module_namespace := getmodule(py_type):
         name = module_namespace.__name__
+
+        # assert "gobject" not in name, f"module name not sanitized: {name}: {py_type}"
         # manual fix for some modules, how to get the correct namespace?
         name = name.replace("gobject", "GObject")
         if name == "builtins":
             return None
+
+        # we search for alternatives
+        if name == "gi._gi":
+            from gi_stub_gen.gi_utils import get_gi_module_from_name
+
+            # ie gi._gi.OptionGroup is also in GLib.OptionGroup
+            target = get_py_type_name_repr(py_type)
+            # search if we can import from GLib or GObject
+            for alt_namespace in ("GLib", "GObject"):
+                try:
+                    # the version should already be required at this point
+                    module = get_gi_module_from_name(f"gi.repository.{alt_namespace}", None)
+                    if hasattr(module, target):
+                        return alt_namespace
+                except (ImportError, AttributeError):
+                    pass
+
         return name
 
     return None
@@ -165,7 +186,10 @@ def sanitize_gi_module_name(module_name: str) -> str:
     )
 
 
-def sanitize_variable_name(name: str) -> tuple[str, str | None]:
+def sanitize_variable_name(
+    name: str,
+    keyword_check=True,
+) -> tuple[str, str | None]:
     """
     Sanitizes a variable name to be a valid Python identifier.
 
@@ -174,9 +198,10 @@ def sanitize_variable_name(name: str) -> tuple[str, str | None]:
 
     Args:
         name (str): The candidate variable name.
+        keyword_check (bool): Whether to check for Python keywords.
 
     Returns:
-        tuple[str, str | None]:
+        tuple:
             - The sanitized valid identifier.
             - A reason string if changed, or None if valid.
     """
@@ -185,9 +210,10 @@ def sanitize_variable_name(name: str) -> tuple[str, str | None]:
     if not name:
         raise ValueError("Variable name cannot be empty")
 
-    # check if the name is a keyword first
-    if keyword.iskeyword(name):
-        return f"{name}_", f"[{original_name}]: changed, name is a reserved keyword"
+    if keyword_check:
+        # check if the name is a keyword first
+        if keyword.iskeyword(name):
+            return f"{name}_", f"[{original_name}]: changed, name is a reserved keyword"
 
     # If it is already perfect, return immediately.
     if name.isidentifier():

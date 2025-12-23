@@ -1,4 +1,4 @@
-from gi.repository import Gst, GObject
+from gi.repository import Gst
 
 from gi_stub_gen.parser.function import parse_function
 

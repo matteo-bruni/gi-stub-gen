@@ -48,7 +48,7 @@ def classify_method(
     return FunctionMethodType.STATIC
 
 
-def parse_builtin_function(
+def parse_python_function(
     attribute: Any,
     namespace: str,
     name_override: str | None = None,

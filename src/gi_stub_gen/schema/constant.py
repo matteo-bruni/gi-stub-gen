@@ -5,7 +5,8 @@ import enum
 import keyword
 import logging
 
-from gi_stub_gen.t_manager import TemplateManager
+from gi_stub_gen.gi_utils import get_gi_module_from_name
+from gi_stub_gen.template_manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.utils import ValueAny
 from gi_stub_gen.utils import (
@@ -38,9 +39,7 @@ class VariableSchema(BaseSchema):
     Represents a variable in the gi repository, can be a constant or a variable
     """
 
-    namespace: (
-        str  # need to be passed since it is not available in the python std types
-    )
+    namespace: str  # need to be passed since it is not available in the python std types
     name: str
     value: ValueAny
     # value: Any | None
@@ -140,50 +139,62 @@ class VariableSchema(BaseSchema):
 
                 if is_flags:
                     variable_type = VariableType.GFLAGS
-                    flags_field_name = obj.first_value_nick
+                    flags_field_name = obj.first_value_nick if hasattr(obj, "first_value_nick") else None
                     # check if valid identifier
 
                     # if flags_field_name.upper() == "IN":
                     #     breakpoint()
 
                     if flags_field_name is not None:
-                        is_valid = (
-                            flags_field_name.isidentifier()
-                            and not keyword.iskeyword(flags_field_name)
-                        )
+                        # note: keyword are fine as class fields
+                        # we just need to check if they are valid identifiers
+                        is_valid = flags_field_name.isidentifier()
                         if is_valid:
-                            value_repr = (
-                                f"{object_type_repr}.{flags_field_name.upper()}"
-                            )
+                            value_repr = f"{object_type_repr}.{flags_field_name.upper()}"
                         else:
                             # Fallback to using the real value
                             value_repr = f"{object_type_repr}({obj.real})"
                             line_comment = f"nick: ({object_type_repr}.{flags_field_name.upper()}) changed due to name being a python keyword or invalid identifier"
                     else:
-                        # Fallback to using the real value
-                        value_repr = f"{object_type_repr}({obj.real})"
-
-                if not is_flags:
+                        # some flags inherit from enum.IntFlag and not from GObject.Flags
+                        # so first_value_nick is not present
+                        try:
+                            # try to get the flag name instantiating the enum class
+                            module = get_gi_module_from_name(f"gi.repository.{str(obj.__info__.get_namespace())}", None)
+                            enum_class = getattr(module, object_type.__name__)
+                            value_repr = f"{object_type.__name__}.{enum_class(obj.real).name}"
+                        except Exception:
+                            # Fallback to using the real value
+                            value_repr = f"{object_type_repr}({obj.real})"
+                else:
                     variable_type = VariableType.GENUM
                     # it is an enum
-                    enum_field_name = obj.value_nick.upper()
+                    enum_field_name = obj.value_nick.upper() if hasattr(obj, "value_nick") else None
 
-                    # the value of the enum could be invalid due to not being
-                    # a valid python identifier
-                    # we apply the same logic when parsing enum/flags fields
-                    sanitized_name, line_comment = sanitize_variable_name(
-                        enum_field_name
-                    )
+                    if enum_field_name is not None:
+                        # the value of the enum could be invalid due to not being
+                        # a valid python identifier
+                        # we apply the same logic when parsing enum/flags fields
+                        sanitized_name, line_comment = sanitize_variable_name(enum_field_name)
 
-                    value_repr = f"{object_type_repr}.{sanitized_name}"
+                        value_repr = f"{object_type_repr}.{sanitized_name}"
+                    else:
+                        # some enums inherit from enum.IntEnum and not from GObject.Enum
+                        # so value_nick is not present
+                        try:
+                            # try to get the value name instantiating the enum class
+                            module = get_gi_module_from_name(f"gi.repository.{str(obj.__info__.get_namespace())}", None)
+                            enum_class = getattr(module, object_type.__name__)
+                            value_repr = f"{object_type.__name__}.{enum_class(obj.value).name}"
+                        except Exception:
+                            # Fallback to using the real value
+                            value_repr = f"{object_type_repr}({obj.value})"
 
         elif isinstance(obj, GObject.GType):
             value_repr = "..."
         else:
             # Fallback to using the real value
-            logger.warning(
-                "[WARNING] Object representation not found, using real value"
-            )
+            logger.warning("[WARNING] Object representation not found, using real value")
             value_repr = f"{object_type_repr}({obj})"
             line_comment = "TODO: not found ??"
 

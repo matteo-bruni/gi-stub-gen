@@ -12,7 +12,7 @@ from lxml import etree
 from pydantic import BaseModel
 import logging
 
-from gi_stub_gen.t_manager import TemplateManager
+from gi_stub_gen.template_manager import TemplateManager
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-class {{enum.name}}({{enum.py_super_type_str}}):
+class {{enum.name}}({{enum.super_full_type_str(module_name)}}):
     {% if enum.docstring or debug %}
     """
     {{ enum.debug | if_true(debug, "{}\n") | indent(4, blank=True) -}}

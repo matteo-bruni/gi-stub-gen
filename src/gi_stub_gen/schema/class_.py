@@ -6,7 +6,7 @@ import logging
 from typing import Any
 from gi_stub_gen.gir_manager import GIRDocs
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
-from gi_stub_gen.t_manager import TemplateManager
+from gi_stub_gen.template_manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import (
     FunctionArgumentSchema,
@@ -269,21 +269,30 @@ class ClassSchema(BaseSchema):
         # gi.Struct is actually in gi._gi.Struct
         # gi.Boxed is actually in gi._gi.Boxed
         # we map them to the closes objects in GObject
-        if sane_super_namespace == "gi" and base_class_name == "Boxed":
-            sane_super_namespace = "GObject"
-            base_class_name = "GBoxed"
-        elif sane_super_namespace == "gi" and base_class_name == "Struct":
-            sane_super_namespace = "GObject"
-            base_class_name = "GPointer"
-        elif sane_super_namespace == "gi" and base_class_name == "Fundamental":
-            sane_super_namespace = None
-            base_class_name = "object"
-        elif sane_super_namespace == "gi":
-            # other classes in gi are actually in gi._gi
-            # so this should only happen for gi._gi itself
-            sane_super_namespace = None
+        if sane_super_namespace == "gi":
+            if base_class_name == "Boxed":
+                sane_super_namespace = "GObject"
+                base_class_name = "GBoxed"
+
+            elif base_class_name == "Struct":
+                sane_super_namespace = "GObject"
+                base_class_name = "GPointer"
+
+            elif base_class_name == "Fundamental":
+                sane_super_namespace = None
+                base_class_name = "object"
+
+            # elif base_class_name == "PyGIDeprecationWarning":
+            #     # this is actually importable from gi so we can keep it
+            #     # keep it as is
+            #     pass
+            # else:
+            #     # other classes in gi are actually in gi._gi
+            #     # so this should only happen for gi._gi itself
+            #     sane_super_namespace = None
 
         # build the super class name in the template
+        # TODO: move to runtime function
         required_gi_import = None
         base_class = base_class_name
         if sane_namespace != sane_super_namespace and sane_super_namespace is not None:

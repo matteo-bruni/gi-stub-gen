@@ -1,7 +1,7 @@
 {% for d in fun.decorators %}
 {{ d }}
 {% endfor %}
-{{ 'async ' | if_true(fun.is_async) }}def {{ fun.name }}({{ fun.render_args(module_name) }}) -> {{ fun.complete_return_hint(module_name) }}: {{ '...' | if_true( not fun.docstring)}} {{ fun.line_comment | if_exists("# ") }} 
+{{ 'async ' | if_true(fun.is_async) }}def {{ fun.name }}({{ fun.render_args(module_name) }}) -> {{ fun.complete_return_hint(module_name) }}:{{ ' ...' | if_true(not fun.docstring)}}{{ fun.line_comment | if_exists("# ")}}
     {% if fun.docstring %}
     """
     {{ fun.docstring | if_exists }}

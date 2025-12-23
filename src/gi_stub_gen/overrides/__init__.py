@@ -6,6 +6,13 @@ from gi_stub_gen.overrides.class_.GIRepository import (
 )
 from gi_stub_gen.schema.function import FunctionSchema
 
+# Import OBJECT_* schemas from class_/GObject.py
+from gi_stub_gen.overrides.class_.GObject import (
+    OBJECT_EMIT,
+    OBJECT_WEAK_REF,
+    OBJECT_HANDLER_DEFAULT,
+)
+
 
 CLASS_OVERRIDES = {
     "gi.repository.GIRepository": {
@@ -21,8 +28,27 @@ CLASS_OVERRIDES = {
                 "get_arg": None,  # present in C api but not in Python (pygobject 3.54)
             }
         },
-    }
+    },
+    "gi.repository.GObject": {
+        "Object": {
+            "methods": {
+                # "connect": OBJECT_CONNECT,
+                "emit": OBJECT_EMIT,
+                # "disconnect": OBJECT_DISCONNECT,
+                # "handler_block": OBJECT_HANDLER_BLOCK,
+                # "handler_unblock": OBJECT_HANDLER_UNBLOCK,
+                "weak_ref": OBJECT_WEAK_REF,
+                "handler_default": OBJECT_HANDLER_DEFAULT,
+            },
+        },
+    },
 }
+"""List of manual overrides for classes and their methods.
+The structure is as follows:
+<namespace>: {<class_name>: { <"methods": { <method_name>: <FunctionSchema | None> } } }
+If the value is None, the method is removed from the generated stub.
+"""
+
 CALLBACK_OVERRIDES = {
     "gi.repository.GObject": {
         "ClosureMarshal": get_callback_schema("GObject", "ClosureMarshal"),

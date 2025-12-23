@@ -3,6 +3,7 @@ from typing import Any
 from gi_stub_gen.gi_utils import catch_gi_deprecation_warnings
 from gi_stub_gen.overrides.class_.GObject import GFLAG_SCHEMA
 from gi_stub_gen.overrides.class_.GObject import GENUM_SCHEMA
+from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.schema.alias import AliasSchema
 from gi_stub_gen.schema.class_ import ClassSchema
 from gi_stub_gen.utils import sanitize_gi_module_name
@@ -107,12 +108,29 @@ def parse_alias(
         if sanitized_module_name == "gi":
             return None
 
+        if sanitized_module_name == "gi._gi":
+            # we try to parse the class from gi._gi module
+            # and fake it to being in this module
+            class_schema, class_callbacks_found = parse_class(
+                module_name="gi._gi",
+                class_to_parse=attribute,
+            )
+            if class_schema:
+                extra_docstring = (
+                    f"Alias to gi._gi.{attribute_name}. May Be incomplete since gi._gi is a private module."
+                )
+                class_schema.docstring = (
+                    f"{extra_docstring}\n\n{class_schema.docstring}" if class_schema.docstring else extra_docstring
+                )
+                return class_schema
+            # breakpoint()
+
         return AliasSchema(
             name=attribute_name,
             target_namespace=sanitized_module_name,
             target_name=actual_attribute_name,
             deprecation_warning=w,
-            line_comment="type: ignore" if str(attribute.__module__).startswith(("gi.", "_thread")) else None,
+            line_comment="type: ignore " if sanitized_module_name.startswith(("gi.", "_thread")) else None,
             alias_to="other_module",
         )
 

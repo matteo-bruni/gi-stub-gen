@@ -128,7 +128,7 @@ I am not a GI/PyGObject expert. This project started as a learning exercise to u
 - [ ] Add comprehensive test suite.
 - [ ] Improve `.gir` file parsing for documentation.
 - [ ] Create Docker-based build system for consistent environment reproduction.
-- [ ] Handle `GValue` marshalling edge cases.
+- [ ] Handle class super class similar to type_hint (save all the info and strip ns directly in template if needed)
 
 ---
 

@@ -4,7 +4,7 @@ import inspect
 from pydantic import BaseModel, Field
 
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.t_manager import TemplateManager
+from gi_stub_gen.template_manager import TemplateManager
 
 
 class FunctionMethodType(StrEnum):
