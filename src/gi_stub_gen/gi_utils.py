@@ -1,7 +1,5 @@
 import importlib
-import keyword
 from typing import Any
-import logging
 import gi
 import gi._gi as GI  # type: ignore
 from gi._gi import Repository  # pyright: ignore[reportMissingImports]

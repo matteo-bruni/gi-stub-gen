@@ -2,7 +2,6 @@ from __future__ import annotations
 
 
 import enum
-import keyword
 import logging
 
 from gi_stub_gen.gi_utils import get_gi_module_from_name

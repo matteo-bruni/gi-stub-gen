@@ -7,7 +7,7 @@ from gi_stub_gen.template_manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.utils import sanitize_variable_name
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from gi.repository import GObject, GIRepository
+from gi.repository import GObject
 from typing import Literal, Any
 
 # GObject.remove_emission_hook
