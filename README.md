@@ -112,7 +112,7 @@ As an example:
 
 You can find the generated output in the `stubs/` folder as an example. I have currently organized them into 4 packages based on an arbitrary grouping that seemed logical for dependency management.
 
-> [!WARNING] 
+> [!NOTE] 
 > **Note:** This grouping is just my personal preference. The tool allows anyone to generate stubs with their own structure. Ideally, the maintainers of the respective libraries should generate and publish their own stubs.
 
 | Package | Versioning | Contents |
@@ -123,7 +123,9 @@ You can find the generated output in the `stubs/` folder as an example. I have c
 | **`gi-gst-stubs`** | Follows **GStreamer** | **Multimedia (GStreamer).**<br>Includes `Gst`, `GstBase`, `GstVideo`, `GstAudio`, `GstApp`, `GstPbutils`, `GstRtp`, `GstRtsp`, `GstSdp`. |
 
 ## ⚠️ Disclaimer
-I am not a GI/PyGObject expert. This project started as a learning exercise to understand the internals of GObject Introspection. Mistakes are possible, and feedback is highly appreciated!
+
+> [!WARNING]  
+> I am not a GI/PyGObject expert. This project started as a learning exercise to understand the internals of GObject Introspection. Mistakes are possible, and feedback is highly appreciated!
 
 ## ✅ Todo
 - [ ] Add comprehensive test suite.
