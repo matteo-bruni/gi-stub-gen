@@ -104,15 +104,16 @@ Working with `GIRepository` in Python for stub generation has some quirks.
 GIRepository reflects the underlying C API, which can differ from the Python bindings provided by PyGObject. 
 This can lead to discrepancies in available methods, properties, and behaviors between the two.
 
-For instance:
-* `gi._gi.FunctionInfo` vs `GIRepository.FunctionInfo`: The Python wrapper adds pythonic methods (like `get_arguments()`) and hide the C-level methods like `get_n_args` and `get_arg`. These changes are missing when looking through `GIRepository` resulting in inconsistencies width respect to reality. 
+As an example:
+* `gi._gi.FunctionInfo` vs `GIRepository.FunctionInfo`: The Python wrapper adds pythonic methods (like `get_arguments()`) and hide the C-level methods like `get_n_args` and `get_arg`. These changes are missing when looking through `GIRepository` resulting in inconsistencies with respect to reality. 
 ---
 
 ## Generated Stubs
 
-You can find the generated output in the `stubs/` folder. I have currently organized them into 4 packages based on an arbitrary grouping that seemed logical for dependency management.
+You can find the generated output in the `stubs/` folder as an example. I have currently organized them into 4 packages based on an arbitrary grouping that seemed logical for dependency management.
 
-**Note:** This grouping is just my personal preference. The tool allows anyone to generate stubs with their own structure. Ideally, the maintainers of the respective libraries should generate and publish their own stubs.
+> [!WARNING] 
+> **Note:** This grouping is just my personal preference. The tool allows anyone to generate stubs with their own structure. Ideally, the maintainers of the respective libraries should generate and publish their own stubs.
 
 | Package | Versioning | Contents |
 | :--- | :--- | :--- |
