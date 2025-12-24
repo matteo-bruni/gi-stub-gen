@@ -161,7 +161,13 @@ class VariableSchema(BaseSchema):
                             # try to get the flag name instantiating the enum class
                             module = get_gi_module_from_name(f"gi.repository.{str(obj.__info__.get_namespace())}", None)
                             enum_class = getattr(module, object_type.__name__)
-                            value_repr = f"{object_type.__name__}.{enum_class(obj.real).name}"
+
+                            flags_field_name = enum_class(obj.real).name
+                            if flags_field_name is not None:
+                                value_repr = f"{object_type.__name__}.{flags_field_name}"
+                            else:
+                                # Fallback to using the real value
+                                value_repr = f"{object_type_repr}({obj.real})"
                         except Exception:
                             # Fallback to using the real value
                             value_repr = f"{object_type_repr}({obj.real})"
@@ -184,7 +190,13 @@ class VariableSchema(BaseSchema):
                             # try to get the value name instantiating the enum class
                             module = get_gi_module_from_name(f"gi.repository.{str(obj.__info__.get_namespace())}", None)
                             enum_class = getattr(module, object_type.__name__)
-                            value_repr = f"{object_type.__name__}.{enum_class(obj.value).name}"
+                            enum_field_name = enum_class(obj.value).name
+
+                            if enum_field_name is not None:
+                                value_repr = f"{object_type.__name__}.{enum_class(obj.value).name}"
+                            else:
+                                # Fallback to using the real value
+                                value_repr = f"{object_type_repr}({obj.value})"
                         except Exception:
                             # Fallback to using the real value
                             value_repr = f"{object_type_repr}({obj.value})"

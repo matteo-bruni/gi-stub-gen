@@ -23,6 +23,15 @@ class SignalSchema(BaseSchema):
         )
 
     @property
+    def required_gi_imports(self) -> set[str]:
+        gi_imports: set[str] = set()
+        gi_imports.add("typing")
+        # check arguments
+        if self.handler.required_imports:
+            gi_imports.update(self.handler.required_imports)
+        return gi_imports
+
+    @property
     def detailed_signal_type(self) -> str:
         if not self.name:
             return "str"

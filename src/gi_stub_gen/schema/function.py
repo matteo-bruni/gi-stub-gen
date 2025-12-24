@@ -302,7 +302,7 @@ class FunctionSchema(BaseSchema):
         return [arg for arg in self.args if arg.direction in ("OUT", "INOUT")]
 
     @property
-    def required_gi_imports(self) -> set[str]:
+    def required_imports(self) -> set[str]:
         gi_imports: set[str] = set()
         # check return type
         if self.return_hint_namespace:
@@ -593,6 +593,15 @@ class CallbackSchema(BaseSchema):
 
     originated_from: set[str] | None = None
     """Module or class where the callback was found, if any"""
+
+    @property
+    def required_imports(self) -> set[str]:
+        gi_imports: set[str] = set()
+        # check return type
+        gi_imports.add("typing")
+        # check arguments
+        gi_imports.update(self.function.required_imports)
+        return gi_imports
 
     @property
     def docstring(self) -> str | None:

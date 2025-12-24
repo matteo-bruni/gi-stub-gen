@@ -94,6 +94,12 @@ class ClassFieldSchema(BaseSchema):
     may_be_null: bool
     """True if the field may be None, False otherwise."""
 
+    is_readable: bool
+    """Whether the field is readable"""
+
+    is_writable: bool
+    """Whether the field is writable"""
+
     def type_hint(self, namespace: str) -> str:
         """
         Get the full type hint for the field,
@@ -109,6 +115,14 @@ class ClassFieldSchema(BaseSchema):
             hint = f"{hint} | None"
 
         return hint
+
+    @property
+    def is_property(self) -> bool:
+        """
+        if read only we set it as a property so it fixes
+        overrides errors in pylance (i.e see object in Gst.BufferPool)
+        """
+        return self.is_readable and not self.is_writable
 
 
 class ClassSchema(BaseSchema):
@@ -140,7 +154,7 @@ class ClassSchema(BaseSchema):
         return super_debug
 
     @property
-    def required_gi_imports(self) -> set[str]:
+    def required_imports(self) -> set[str]:
         """
         Required gi.repository<NAME> import for the class, if any.
         Gather from properties and attributes.
@@ -155,9 +169,11 @@ class ClassSchema(BaseSchema):
             if attr.type_hint_namespace:
                 gi_imports.add(attr.type_hint_namespace)
         for method in self.methods:
-            gi_imports.update(method.required_gi_imports)
+            gi_imports.update(method.required_imports)
         for method in self.python_methods:
-            gi_imports.update(method.required_gi_imports)
+            gi_imports.update(method.required_imports)
+        for signal in self.signals:
+            gi_imports.update(signal.required_gi_imports)
         return gi_imports
 
     def add_init_method(self):
@@ -335,4 +351,10 @@ class ClassSchema(BaseSchema):
         return TemplateManager.render_master(
             "class_signals.jinja",
             signals=self.signals,
+        )
+
+    def render_fields(self) -> str:
+        return TemplateManager.render_master(
+            "class_fields.jinja",
+            fields=self.fields,
         )

@@ -52,13 +52,15 @@ class ModuleSchema(BaseSchema):
         # if self.name == "gi.repository.Pango":
         #     breakpoint()
         for c in self.classes:
-            gi_imports.update(c.required_gi_imports)
+            gi_imports.update(c.required_imports)
         for e in self.enum:
-            gi_imports.add(e.required_gi_import)
+            gi_imports.add(e.required_import)
         for f in self.function:
-            gi_imports.update(f.required_gi_imports)
+            gi_imports.update(f.required_imports)
+        for c in self.callbacks:
+            gi_imports.update(c.required_imports)
         for bf in self.builtin_function:
-            gi_imports.update(bf.required_gi_imports)
+            gi_imports.update(bf.required_imports)
         for a in self.aliases:
             if a.target_namespace is not None:
                 gi_imports.add(a.target_namespace)
@@ -90,6 +92,7 @@ class ModuleSchema(BaseSchema):
                 full_namespace = (
                     f"gi.repository.{gi_import}" if not gi_import.startswith("gi.repository.") else gi_import
                 )
+                # see if we can import the gi module
                 get_gi_module_from_name(full_namespace, None)
                 # if valid gi
                 valid_gi_imports.add(gi_import)

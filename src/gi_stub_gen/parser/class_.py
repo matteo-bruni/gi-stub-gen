@@ -148,7 +148,7 @@ def parse_class(
     """callbacks found during class parsing, saved to be parsed later"""
 
     class_props: list[ClassPropSchema] = []
-    class_attributes: list[ClassFieldSchema] = []
+    class_fields: list[ClassFieldSchema] = []
     class_getters: list[ClassFieldSchema] = []
     class_methods: list[FunctionSchema] = []
     class_python_methods: list[BuiltinFunctionSchema] = []
@@ -194,6 +194,11 @@ def parse_class(
         if not is_local(class_to_parse, field_name):
             continue
 
+        flags = field.get_flags()
+
+        is_readable = bool(flags & GIRepository.FieldInfoFlags.READABLE)
+        is_writable = bool(flags & GIRepository.FieldInfoFlags.WRITABLE)
+
         field_name, line_comment = sanitize_variable_name(field_name)
         field_gi_type_info = get_gi_type_info(field)
 
@@ -201,8 +206,14 @@ def parse_class(
         # TODO PORTARE A GIRO SU TUTTI I PARSING
         if gi_type_is_callback(field_gi_type_info):
             cb_info = field_gi_type_info.get_interface()
-            cb_name = cb_info.get_name() + f"{class_to_parse.__name__}CB"
             cb_namespace = cb_info.get_namespace()
+
+            # if callback is from another namespace, keep original name
+            # otherwise append class name to avoid name clashes
+            if cb_namespace != module_name.removeprefix("gi.repository."):
+                cb_name = cb_info.get_name()
+            else:
+                cb_name = cb_info.get_name() + f"{class_to_parse.__name__}CB"
             cb_schema = FunctionSchema.from_gi_object(cb_info)
             found_callback = CallbackSchema(
                 name=cb_name,
@@ -228,8 +239,10 @@ def parse_class(
             line_comment=None,
             deprecation_warnings=None,
             may_be_null=may_be_null,
+            is_readable=is_readable,
+            is_writable=is_writable,
         )
-        class_attributes.append(f)
+        class_fields.append(f)
         class_parsed_elements.append(field_name)
 
     #######################################################################################
@@ -385,6 +398,8 @@ def parse_class(
                     line_comment=None,
                     deprecation_warnings=None,
                     may_be_null=True,
+                    is_readable=True,
+                    is_writable=False,
                 )
             )
 
@@ -435,7 +450,7 @@ def parse_class(
     )
 
     # sort methods by name
-    class_attributes.sort(key=lambda x: x.name)
+    class_fields.sort(key=lambda x: x.name)
     class_methods.sort(key=lambda x: x.name)
     class_props.sort(key=lambda x: x.name)
 
@@ -443,7 +458,7 @@ def parse_class(
         namespace=module_name,
         obj=class_to_parse,
         props=class_props,
-        fields=class_attributes,
+        fields=class_fields,
         methods=class_methods,
         getters=class_getters,
         builtin_methods=class_python_methods,

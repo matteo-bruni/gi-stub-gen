@@ -29,6 +29,8 @@ GENUM_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The GType of the enum.",
+            is_readable=True,
+            is_writable=False,
         ),
     ],
     methods=[
@@ -120,6 +122,8 @@ GFLAG_SCHEMA = ClassSchema(
             is_deprecated=False,
             deprecation_warnings=None,
             docstring="The GType of the enum.",
+            is_readable=True,
+            is_writable=False,
         ),
     ],
     methods=[

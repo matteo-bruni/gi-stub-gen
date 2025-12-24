@@ -1,4 +1,7 @@
-def {{fun.name}}(
+{% for d in fun.decorators %}
+{{ d }}
+{% endfor %}
+{{ 'async ' | if_true(fun.is_async) }}def {{fun.name}}(
     {{ fun.render_args(module_name, False) | indent(4, first=False) }}
 ) -> {{fun.complete_return_hint(module_name)}}:
     {% if fun.docstring or debug %}

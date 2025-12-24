@@ -170,7 +170,7 @@ class BuiltinFunctionSchema(BaseSchema):
         return decs
 
     @property
-    def required_gi_imports(self) -> set[str]:
+    def required_imports(self) -> set[str]:
         """Collect required gi.repository imports based on type hints."""
         gi_imports: set[str] = set()
         # check return type

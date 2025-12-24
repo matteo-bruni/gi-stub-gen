@@ -10,7 +10,7 @@ def connect(
 ) -> int: ...
 {% endfor %}
 @typing.overload
-def connect(
+def connect( # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
     self, 
     detailed_signal: str, 
     handler: typing.Callable[..., typing.Any], 

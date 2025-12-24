@@ -119,7 +119,7 @@ class EnumSchema(BaseSchema):
         return self.super_name
 
     @property
-    def required_gi_import(self) -> str:
+    def required_import(self) -> str:
         """Return the required imports for this enum/flags. (without gi.repository. prefix)"""
         return self.super_namespace
 

@@ -58,6 +58,9 @@ CALLBACK_OVERRIDES = {
         "EqualFuncFull": get_callback_schema("GLib", "EqualFuncFull"),
     },
 }
+"""List of manual overrides for callback functions. 
+These are usually discovered while parsing other elements. If we never encounter them,
+we can add them here to ensure they are present in the stubs."""
 
 
 def apply_method_overrides(
