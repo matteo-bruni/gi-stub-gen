@@ -1,3 +1,13 @@
+#!/usr/bin/env bash
+if [ -f .env ]; then
+    set -a
+    source .env
+    set +a
+fi
+
+STUB_AUTHOR_NAME=${STUB_AUTHOR_NAME:-"Unknown Author"}
+STUB_AUTHOR_EMAIL=${STUB_AUTHOR_EMAIL:-"unknown@example.com"}
+
 # enable if you want to add debug information inside the stubs
 # read from environment variable, default to false
 ENABLE_DEBUG=${ENABLE_DEBUG:-false}
@@ -40,6 +50,9 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     --pkg-name gi-gtk-stubs \
     --pkg-version ${PKG_GTK_STUBS_VERSION} \
     --pkg-dependencies gi-graphics-core-stubs \
+    --pkg-author "${STUB_AUTHOR_NAME}" \
+    --pkg-author-email "${STUB_AUTHOR_EMAIL}" \
+    --pkg-description "GI Stubs for GTK" \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
     --overwrite 

@@ -1,3 +1,13 @@
+#!/usr/bin/env bash
+if [ -f .env ]; then
+    set -a
+    source .env
+    set +a
+fi
+
+STUB_AUTHOR_NAME=${STUB_AUTHOR_NAME:-"Unknown Author"}
+STUB_AUTHOR_EMAIL=${STUB_AUTHOR_EMAIL:-"unknown@example.com"}
+
 # enable if you want to add debug information inside the stubs
 # read from environment variable, default to false
 ENABLE_DEBUG=${ENABLE_DEBUG:-false}
@@ -37,6 +47,8 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     gi \
     --pkg-name gi-base-stubs \
     --pkg-version ${PKG_GI_BASE_STUBS_VERSION} \
+    --pkg-author "${STUB_AUTHOR_NAME}" \
+    --pkg-author-email "${STUB_AUTHOR_EMAIL}" \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
     --gir-folder /usr/lib/x86_64-linux-gnu/gir-1.0 \

@@ -1,11 +1,10 @@
-
 [project]
 name = "gi-gtk-stubs"
 version = "4.0.0"
-description = "Type stubs for GI libraries"
+description = "GI Stubs for GTK"
 readme = "README.md"
 authors = [
-    { name = "Name Surname", email = "author@example.com" }
+    { name = "Matteo Bruni", email = "matteo.bruni@gmail.com" }
 ]
 requires-python = ">=3.10"
 dependencies = ["gi-graphics-core-stubs"]

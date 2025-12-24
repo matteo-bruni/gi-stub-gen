@@ -1,11 +1,10 @@
-
 [project]
 name = "gi-gst-stubs"
 version = "1.26.0"
-description = "Type stubs for GI libraries"
+description = "GI Stubs for GStreamer"
 readme = "README.md"
 authors = [
-    { name = "Name Surname", email = "author@example.com" }
+    { name = "Matteo Bruni", email = "matteo.bruni@gmail.com" }
 ]
 requires-python = ">=3.10"
 dependencies = ["gi-base-stubs"]

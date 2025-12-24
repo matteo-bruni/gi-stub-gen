@@ -3,6 +3,8 @@ import shutil
 import tomlkit
 from pathlib import Path
 
+from gi_stub_gen.utils import format_stub_with_ruff
+
 logger = logging.getLogger(__name__)
 
 
@@ -38,8 +40,7 @@ def create_stub_package(
             return
 
     author_entry = f'{{ name = "{author_name}", email = "{author_email}" }}'
-    pyproject_template = f"""
-[project]
+    pyproject_template = f"""[project]
 name = "{name}"
 version = "{version}"
 description = "{description}"
@@ -68,7 +69,7 @@ build-backend = "hatchling.build"
 packages = ["src/gi-stubs"]"""
 
     with open(pyproject_toml_path, "w") as f:
-        f.write(pyproject_template)
+        f.write(format_stub_with_ruff(pyproject_template, virtual_filename="pyproject.toml"))
 
     # check if readme exists
     if not (folder / "README.md").exists():

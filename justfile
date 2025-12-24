@@ -1,5 +1,6 @@
 # Allow for positional arguments in Just receipes.
 set positional-arguments := true
+set dotenv-load := true
 
 
 # Default recipe that runs if you type "just".
