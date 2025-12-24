@@ -63,7 +63,10 @@ class ModuleSchema(BaseSchema):
             gi_imports.update(bf.required_imports)
         for a in self.aliases:
             if a.target_namespace is not None:
-                gi_imports.add(a.target_namespace)
+                if a.target_namespace == "gi._gi":
+                    gi_imports.add("gi")
+                else:
+                    gi_imports.add(a.target_namespace)
 
         # Add Manually GObject if in current pyi
         # there are any GEnum and GFlags (they are in GObject)
@@ -106,10 +109,6 @@ class ModuleSchema(BaseSchema):
             # but in enum module
             not_gi_imports.add("enum")
 
-        # sort for consistent output
-        valid_gi_imports = set(sorted(valid_gi_imports))
-        not_gi_imports = set(sorted(not_gi_imports))
-
         logger.info(f"Module: {self.name}")
         logger.info(f"Importing gi.repository imports: {valid_gi_imports}")
         logger.info(f"Not gi.repository imports: {not_gi_imports}")
@@ -127,6 +126,9 @@ class ModuleSchema(BaseSchema):
         gi_imports, not_gi_imports = self.collect_imports(
             extra_imports=extra_imports,
         )
+        # sort for consistent output
+        gi_imports = sorted(gi_imports)
+        not_gi_imports = sorted(not_gi_imports)
 
         # this is needed to set the module name in the template manager
         TemplateManager.set_debug(debug=debug)

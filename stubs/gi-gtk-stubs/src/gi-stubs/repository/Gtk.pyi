@@ -12,23 +12,22 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import gi  # noqa: F401
 
-import typing
-import gi
-import enum
 import _thread
+import enum
+import gi
+import typing
 
 # gi.repository imports needed by this Stub
-from gi.repository import Gdk
 from gi.repository import GLib
-from gi.repository import cairo
-from gi.repository import GdkPixbuf
-from gi.repository import Gsk
-from gi.repository import Graphene
-from gi.repository import Pango
 from gi.repository import GObject
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
 from gi.repository import Gio
+from gi.repository import Graphene
+from gi.repository import Gsk
+from gi.repository import Pango
+from gi.repository import cairo
 ###############################################################
 # Functions
 ###############################################################
@@ -17935,6 +17934,7 @@ class Expression(object):
       </object>
     ```
     """
+
     class Props: ...
     props: Props = ...
 

@@ -358,3 +358,10 @@ class ClassSchema(BaseSchema):
             "class_fields.jinja",
             fields=self.fields,
         )
+
+    def render_props(self) -> str:
+        return TemplateManager.render_master(
+            "class_props.jinja",
+            props=self.props,
+            super_class=self.super_class,
+        )

@@ -1,0 +1,24 @@
+{% if props %}
+class Props{{ super_class | if_true(super_class != "object", '({}.Props)')  }}:
+    {% if props.docstring %}
+    """
+    {{ props.docstring | if_exists -}}
+    """
+    {% endif %}
+    {% for prop in props %}
+    {{ prop.name }}: {{ prop.type_hint(module_name) }} {{ prop.line_comment | if_exists("# ") }}
+    {% if prop.docstring or prop.is_deprecated %} 
+    """
+    {{ prop.docstring | if_exists }}
+    {{ "@deprecated" if prop.is_deprecated else ""  | indent(12, blank=True) -}}
+    """
+    {% endif %}
+    {% endfor %}
+
+{% if not super_class %}props: Props = ...{% endif -%}
+{% elif super_class == "object" %}
+{# we add Props, inherited class, here we add a fake empty since someone might inherit from this class #}
+class Props: 
+    ...
+props: Props = ...
+{% endif %}

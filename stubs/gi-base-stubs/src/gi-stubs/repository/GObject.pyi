@@ -12,11 +12,11 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import gi  # noqa: F401
 
 import _thread
-import typing
 import enum
+import gi
+import typing
 
 # gi.repository imports needed by this Stub
 from gi.repository import GLib
@@ -3183,6 +3183,7 @@ class GObjectWeakRef(object):
     """
     Alias to gi._gi.GObjectWeakRef. May Be incomplete since gi._gi is a private module.
     """
+
     class Props: ...
     props: Props = ...
 
@@ -3383,6 +3384,7 @@ class Object(object):
     struct, the `GObjectClass` (or derived) struct, and any private data allocated
     by `G_ADD_PRIVATE()`.
     """
+
     class Props: ...
     props: Props = ...
 
@@ -3628,6 +3630,7 @@ class OptionContext(object):
     """
     Alias to gi._gi.OptionContext. May Be incomplete since gi._gi is a private module.
     """
+
     class Props: ...
     props: Props = ...
 
@@ -3643,6 +3646,7 @@ class OptionGroup(object):
     """
     Alias to gi._gi.OptionGroup. May Be incomplete since gi._gi is a private module.
     """
+
     class Props: ...
     props: Props = ...
 
@@ -3669,6 +3673,7 @@ class ParamSpec(object):
     used, but they cannot be mixed. Using `-` is considerably more
     efficient, and is the ‘canonical form’. Using `_` is discouraged.
     """
+
     class Props: ...
     props: Props = ...
 

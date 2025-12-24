@@ -12,10 +12,9 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import gi  # noqa: F401
 
-import typing
 import _thread
+import typing
 
 # gi.repository imports needed by this Stub
 from gi.repository import GLib
@@ -5953,6 +5952,7 @@ class Bitmask(object):
     """
     A fundamental type that describes a 64-bit bitmask
     """
+
     class Props: ...
     props: Props = ...
 
@@ -7642,6 +7642,7 @@ class DoubleRange(object):
     """
     A fundamental type that describes a #gdouble range
     """
+
     class Props: ...
     props: Props = ...
 
@@ -8385,6 +8386,7 @@ class FlagSet(object):
     A fundamental type that describes a 32-bit flag bitfield, with 32-bit
     mask indicating which of the bits in the field are explicitly set.
     """
+
     class Props: ...
     props: Props = ...
 
@@ -8418,6 +8420,7 @@ class Fraction(object):
     A fundamental type that describes a fraction of an integer numerator
     over an integer denominator
     """
+
     class Props: ...
     props: Props = ...
 
@@ -8433,6 +8436,7 @@ class FractionRange(object):
     """
     A fundamental type that describes a #GstFractionRange range
     """
+
     class Props: ...
     props: Props = ...
 
@@ -8548,6 +8552,7 @@ class Int64Range(object):
     """
     A fundamental type that describes a #gint64 range
     """
+
     class Props: ...
     props: Props = ...
 
@@ -8563,6 +8568,7 @@ class IntRange(object):
     """
     A fundamental type that describes a #gint range
     """
+
     class Props: ...
     props: Props = ...
 
@@ -11812,6 +11818,7 @@ class ValueArray(object):
     """
     A fundamental type that describes an ordered list of #GValue
     """
+
     class Props: ...
     props: Props = ...
 
@@ -11839,6 +11846,7 @@ class ValueList(object):
     """
     A fundamental type that describes an unordered list of #GValue
     """
+
     class Props: ...
     props: Props = ...
 

@@ -12,7 +12,6 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import gi  # noqa: F401
 
 import _thread
 import enum
@@ -509,6 +508,7 @@ class BaseInfo(object):
     gi_base_info_unref (button_info);
     ```
     """
+
     class Props: ...
     props: Props = ...
 

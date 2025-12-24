@@ -12,17 +12,16 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import gi  # noqa: F401
 
-import typing
 import _thread
+import typing
 
 # gi.repository imports needed by this Stub
 from gi.repository import GLib
-from gi.repository import GstVideo
 from gi.repository import GObject
 from gi.repository import Gst
 from gi.repository import GstAudio
+from gi.repository import GstVideo
 ###############################################################
 # Functions
 ###############################################################

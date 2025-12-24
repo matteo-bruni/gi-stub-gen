@@ -5,31 +5,8 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {{ cls_.docstring | if_exists | indent(4, blank=True) }}
     """
     {% endif %}
-    {% if cls_.props %}
-
-    class Props{{ cls_.super_class | if_true(cls_.super_class != "object", '({}.Props)')  }}:
-        {% if cls_.props.docstring %}
-        """
-        {{ cls_.props.docstring | if_exists -}}
-        """
-        {% endif %}
-        {% for prop in cls_.props %}
-        {{ prop.name }}: {{ prop.type_hint(module_name) }} {{ prop.line_comment | if_exists("# ") }}
-        {% if prop.docstring or prop.is_deprecated %} 
-        """
-        {{ prop.docstring | if_exists }}
-        {{ "@deprecated" if prop.is_deprecated else ""  | indent(12, blank=True) -}}
-        """
-        {% endif %}
-        {% endfor %}
-
-    {% if not cls_.super_class %}props: Props = ...{% endif -%}
-    {% elif cls_.super_class == "object" %}
-    {# we add Props, inherited class, here we add a fake empty since someone might inherit from this class #}
-    class Props: 
-        ...
-    props: Props = ...
-    {% endif %}
+    
+    {{ cls_.render_props() | indent(4, first=False) }}
     
     {% if cls_.getters %}
     # Getters
@@ -38,7 +15,6 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     def {{ getter.name }}(self) -> {{ getter.type_hint(module_name) }}: ...
     {% endfor %}
     {% endif -%}
-
 
     {% if cls_.fields %}
     {{ cls_.render_fields() | indent(4, first=False) }}
