@@ -131,17 +131,24 @@ class ClassSchema(BaseSchema):
     name: str
     docstring: str | None
     props: list[ClassPropSchema]
-    getters: list[ClassFieldSchema]
-    """Getters as fields for the class. type of getset_descriptors"""
 
     fields: list[ClassFieldSchema]
+    """Fields of the class, if readonly we consider them @property"""
+
     methods: list[FunctionSchema]
+    """Methods of the class parsed from GI."""
+
     python_methods: list[BuiltinFunctionSchema]
     """Python methods for the class. Probably from overrides?"""
 
     signals: list[SignalSchema]
+    """Signals of the class."""
+
     extra: list[str]
+    """Extra debug info lines to add in the class docstring."""
+
     is_deprecated: bool
+    """Whether the class is deprecated."""
 
     required_gi_import: str | None
     """required gi.repository<NAME> import for the property type, if any"""
@@ -245,7 +252,6 @@ class ClassSchema(BaseSchema):
         obj: Any,
         props: list[ClassPropSchema],
         fields: list[ClassFieldSchema],
-        getters: list[ClassFieldSchema],
         methods: list[FunctionSchema],
         signals: list[SignalSchema],
         builtin_methods: list[BuiltinFunctionSchema],
@@ -328,7 +334,6 @@ class ClassSchema(BaseSchema):
             fields=fields,
             methods=methods,
             signals=signals,
-            getters=getters,
             is_deprecated=is_deprecated,
             extra=extra,
             required_gi_import=required_gi_import,

@@ -8,17 +8,7 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     
     {{ cls_.render_props() | indent(4, first=False) }}
     
-    {% if cls_.getters %}
-    # Getters
-    {% for getter in cls_.getters %}
-    @property
-    def {{ getter.name }}(self) -> {{ getter.type_hint(module_name) }}: ...
-    {% endfor %}
-    {% endif -%}
-
-    {% if cls_.fields %}
     {{ cls_.render_fields() | indent(4, first=False) }}
-    {% endif %}
 
     {% if cls_.methods %}
     # gi Methods

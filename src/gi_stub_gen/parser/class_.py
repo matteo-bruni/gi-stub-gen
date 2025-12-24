@@ -149,7 +149,7 @@ def parse_class(
 
     class_props: list[ClassPropSchema] = []
     class_fields: list[ClassFieldSchema] = []
-    class_getters: list[ClassFieldSchema] = []
+    # class_getters: list[ClassFieldSchema] = []
     class_methods: list[FunctionSchema] = []
     class_python_methods: list[BuiltinFunctionSchema] = []
     class_signals: list[SignalSchema] = []
@@ -388,7 +388,8 @@ def parse_class(
 
         elif attribute_type is GetSetDescriptorType:
             # these are @property
-            class_getters.append(
+
+            class_fields.append(
                 ClassFieldSchema(
                     name=attribute_name,
                     type_hint_name="Any",
@@ -460,7 +461,6 @@ def parse_class(
         props=class_props,
         fields=class_fields,
         methods=class_methods,
-        getters=class_getters,
         builtin_methods=class_python_methods,
         signals=class_signals,
         extra=sorted(extra),
