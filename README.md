@@ -7,7 +7,7 @@ A modern, modular type hint generator for GObject Introspection (GI) libraries (
 
 This tool discovers types by importing the libraries at runtime via `gi.repository`, inspecting them, and generating fully compliant `.pyi` stub files.
 
-## ⚡ Why another stub generator?
+## Why another stub generator?
 
 I started developing with GStreamer Python bindings and found the lack of IDE support (type hints, autocompletion) frustrating. While looking at existing solutions like `pygobject-stubs`, I found them difficult to extend due to their monolithic nature and tight coupling between parsing and generation.
 
@@ -18,17 +18,17 @@ GI Stub Gen takes a different approach:
 3.  **Modular Output:** Instead of one giant package, this tool aims to generate separate packages for each library (e.g., `stubs-gst`, `stubs-gtk`). This allows library maintainers to potentially own their stubs.
 4.  **Runtime Inspection:** By inspecting the live objects, we catch overrides and dynamic attributes that static GIR files often miss.
 
-## ✨ Features
+## Features
 
 -   **Explicit Versioning:** Generate stubs for specific library versions (e.g., GStreamer 1.18 vs 1.20) rather than relying on the system default at runtime.
 -   **Hybrid Approach:** Uses runtime inspection for accurate types/overrides and parses `.gir` files to extract **Docstrings**.
 -   **Deprecation Handling:** Detects `PyDeprecationWarning` for aliases/attributes and marks functions with the `@deprecated` decorator.
--   **Signal & GError Support:** (WIP) Better typing for GObject signals and error handling.
+-   **Signal & GError Support:** Better typing for GObject signals and error handling.
 -   **Automated Logic:** Focuses on improving the generator logic rather than manually patching the output files.
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -90,24 +90,25 @@ After it will install them in your current environment for testing.
 
 ---
 
-## 🏗 Architecture & Design Decisions
+## Architecture & Design Decisions
 
 ### Why not just parse `.gir` files?
-Parsing only `.gir` (XML) files is insufficient for a great Python developer experience because:
-1.  **Overrides:** PyGObject heavily modifies the API at runtime (adding Pythonic methods like `__iter__`, `__enter__`, or custom constructors). GIR files do not reflect these Python-specific overrides.
+Parsing only `.gir` (XML) files is insufficient because:
+1.  **Overrides:** PyGObject heavily modifies the API (adding Pythonic methods like `__iter__`, `__enter__`, or custom constructors). GIR files do not reflect these Python-specific overrides.
 2.  **Availability:** Runtime inspection guarantees that we generate stubs for what is *actually* available on your system.
 
-*However, we do use GIR files to fetch docstrings, as these are not currently exposed via the Python introspection API.*
+*However, we do use GIR files to fetch docstrings, since at least in Ubuntu, these are stripped from the typelib and are not available via the Python introspection API.*
 
-### The Parsing Challenge
-Working with `GIRepository` in Python has some quirks. For instance:
-* `gi._gi.FunctionInfo` vs `GIRepository.FunctionInfo`: The Python wrapper adds methods (like `get_arguments()`) that are missing when using `GIRepository`. (and it will not hide the C-level methods that are actually removed from the Python exposure, like `get_n_args` and `get_arg`)
-* Inconsistencies in `TypeInfo` methods between the internal C implementation and the Python exposure.
+### GIRepository vs exploring directly using  __info__ classes
+Working with `GIRepository` in Python for stub generation has some quirks. 
+GIRepository reflects the underlying C API, which can differ from the Python bindings provided by PyGObject. 
+This can lead to discrepancies in available methods, properties, and behaviors between the two.
 
-
+For instance:
+* `gi._gi.FunctionInfo` vs `GIRepository.FunctionInfo`: The Python wrapper adds pythonic methods (like `get_arguments()`) and hide the C-level methods like `get_n_args` and `get_arg`. These changes are missing when looking through `GIRepository` resulting in inconsistencies width respect to reality. 
 ---
 
-## 📂 Generated Stubs
+## Generated Stubs
 
 You can find the generated output in the `stubs/` folder. I have currently organized them into 4 packages based on an arbitrary grouping that seemed logical for dependency management.
 
@@ -127,7 +128,6 @@ I am not a GI/PyGObject expert. This project started as a learning exercise to u
 - [ ] Add comprehensive test suite.
 - [ ] Improve `.gir` file parsing for documentation.
 - [ ] Create Docker-based build system for consistent environment reproduction.
-- [ ] Handle class super class similar to type_hint (save all the info and strip ns directly in template if needed)
 
 ---
 
