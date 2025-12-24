@@ -1,8 +1,6 @@
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import FunctionArgumentSchema, FunctionSchema
 
-from gi.repository import GIRepository
-
 
 class SignalSchema(BaseSchema):
     name: str | None
@@ -12,18 +10,6 @@ class SignalSchema(BaseSchema):
 
     docstring: str | None
     """Documentation string for the signal.     """
-
-    @classmethod
-    def from_gi_object(
-        cls,
-        obj: GIRepository.SignalInfo,
-    ):
-        return cls(
-            name=obj.get_name(),  # type: ignore
-            name_unescaped=obj.get_name_unescaped(),  # type: ignore
-            namespace=obj.get_namespace(),
-            handler=FunctionSchema.from_gi_object(obj),
-        )
 
     @property
     def required_gi_imports(self) -> set[str]:

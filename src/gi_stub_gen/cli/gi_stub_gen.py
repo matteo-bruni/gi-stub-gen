@@ -107,9 +107,7 @@ def main(
             help="Path to the folder containing the .gir files. Can be specified multiple times. ",
             dir_okay=True,
         ),
-    ] = [
-        Path("/usr/share/gir-1.0/"),
-    ],
+    ] = None,
     overwrite: Annotated[
         bool,
         typer.Option(
@@ -137,6 +135,8 @@ def main(
     from gi_stub_gen.utils import split_gi_name_version
 
     logger.info(f"Generating stub package for modules: {name}")
+    if debug:
+        logger.info("Debug mode enabled: disabling prompt progress bar and adding extra debug info to stubs")
     # preload all modules to avoid runtime gi.require_version issues
     # some modules require other modules to be loaded first
     gi_repo = GIRepo()

@@ -28,11 +28,9 @@ def create_stub_package(
     pyproject_toml_path = folder / "pyproject.toml"
     if pyproject_toml_path.exists() and not overwrite:
         pyproject_toml = tomlkit.loads(pyproject_toml_path.read_text(encoding="utf-8"))
-        current_version: str = pyproject_toml["project"]["version"]  # pyright: ignore[reportIndexIssue, reportAssignmentType]
+        current_version: str = pyproject_toml["project"]["version"]  # type: ignore
 
-        logger.info(
-            f"File {folder / 'pyproject.toml'} already exists with version {current_version}."
-        )
+        logger.info(f"File {folder / 'pyproject.toml'} already exists with version {current_version}.")
         # ask user if they want to overwrite
         response = input(f"Do you want to overwrite it with version {version}? [y/N]: ")
         if response.lower() != "y":

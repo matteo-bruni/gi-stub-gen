@@ -58,7 +58,7 @@ uv sync
 
 ### Usage
 
-To generate a stub for a specific library:
+Here an example to generate a stub for a specific library:
 
 ```bash
 gst_version=`pkg-config --modversion gstreamer-1.0`
@@ -78,15 +78,30 @@ uv run gi-stub-gen \
 ```
 This will generate stubs for GStreamer 1.26 in the `stubs/` folder. (because that is the version installed on my system).
 The generated stubs have a dependency on `gi-base-stubs`, which contains common types like `GObject` and `GLib`.
+Providing the `--gir-folder` docstring will be gathered from the corresponding `.gir` files and included in the stubs. If not provided, docstrings will be empty. 
 
-To build all the stubs like `gi-base-stubs`, `gi-gtk-stubs`, `gi-graphics-core-stubs`, and `gi-gst-stubs`, you can run the provided shell scripts in the project root:
+
+To build all the stubs like `gi-base-stubs`, `gi-gtk-stubs`, `gi-graphics-core-stubs`, and `gi-gst-stubs`, you can run the provided shell scripts in the project root or use `just` commands:
 
 ```bash
 just build
 ```
-
 This will build all the stub packages and place them in the `stubs/` directory.
-After it will install them in your current environment for testing.
+(or you can build individual packages using `just build-base`, `just build-gst`, etc.).
+Each build command accept a `--debug` flag to enable verbose output in the stubs (_beware! it is really verbose_) that also disable the progress bar, useful for debugging with gdb.
+
+You can then install the generated packages in your current environment using:
+
+```bash
+just install
+```
+
+To build and install directly in one step, you can run:
+
+```bash
+just build-and-install
+```
+
 
 ---
 

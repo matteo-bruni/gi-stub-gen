@@ -56,7 +56,12 @@ classifiers = [
 ]
 
 [dependency-groups]
-dev = ["cmake>=3.31.4", "ipython>=8.31.0", "lxml-stubs>=0.5.1"]
+dev = [
+    "cmake>=3.31.4",
+    "ipython>=8.31.0",
+    "lxml-stubs>=0.5.1",
+    "rust-just>=1.45.0",
+]
 
 [project.scripts]
 gi-stub-gen = "gi_stub_gen.cli.gi_stub_gen:app"

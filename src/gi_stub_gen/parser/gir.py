@@ -67,7 +67,10 @@ class ModuleDocs(BaseModel):
     classes: dict[str, GirClassDocs]  # Classes, Records, Interfaces
 
 
-def _get_first_doc_text(element: etree._Element, namespace: dict[str, str]) -> str:
+def _get_first_doc_text(
+    element: etree._Element,
+    namespace: dict[str, str],
+) -> str:
     """
     Helper to safely extract and clean the text of the first <doc> child tag.
     """
@@ -77,7 +80,10 @@ def _get_first_doc_text(element: etree._Element, namespace: dict[str, str]) -> s
     return ""
 
 
-def _extract_function_docs(element: etree._Element, namespace: dict[str, str]) -> GirFunctionDocs:
+def _extract_function_docs(
+    element: etree._Element,
+    namespace: dict[str, str],
+) -> GirFunctionDocs:
     """
     Extracts documentation for any function-like node (method, function, constructor, signal).
     """
@@ -123,7 +129,7 @@ def parse_constants(
     for f in root.xpath(path, namespaces=namespace):  # type: ignore
         name = f.attrib.get("name")
         if name:
-            constant_docs[name] = _get_first_doc_text(f, namespace)
+            constant_docs[name] = _get_first_doc_text(f, namespace)  # type: ignore
     return constant_docs
 
 
@@ -137,7 +143,7 @@ def parse_global_functions(
         name = f.attrib.get("name")
         if not name:
             continue
-        function_docs[name] = _extract_function_docs(f, namespace)
+        function_docs[name] = _extract_function_docs(f, namespace)  # type: ignore
 
     return function_docs
 
@@ -158,7 +164,7 @@ def _parse_simple_container(
         if not name:
             continue
 
-        class_docstring = _get_first_doc_text(container, namespace)
+        class_docstring = _get_first_doc_text(container, namespace)  # type: ignore
         members_docs: dict[str, str] = {}
 
         # Use findall for performance and type safety on direct children
@@ -189,7 +195,7 @@ def parse_classes(path: str, root: etree._ElementTree, namespace: dict[str, str]
         if not name:
             continue
 
-        class_docstring = _get_first_doc_text(container, namespace)
+        class_docstring = _get_first_doc_text(container, namespace)  # type: ignore
 
         # 1. Parse Fields (core:field)
         fields_docs: dict[str, str] = {}
