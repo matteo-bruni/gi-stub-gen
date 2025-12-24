@@ -129,7 +129,6 @@ You can find the generated output in the `stubs/` folder as an example. I have c
 
 ## ✅ Todo
 - [ ] Add comprehensive test suite.
-- [ ] Improve `.gir` file parsing for documentation.
 - [ ] Create Docker-based build system for consistent environment reproduction.
 
 ---
