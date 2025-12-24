@@ -78,7 +78,23 @@ uv run gi-stub-gen \
 ```
 This will generate stubs for GStreamer 1.26 in the `stubs/` folder. (because that is the version installed on my system).
 The generated stubs have a dependency on `gi-base-stubs`, which contains common types like `GObject` and `GLib`.
-Providing the `--gir-folder` docstring will be gathered from the corresponding `.gir` files and included in the stubs. If not provided, docstrings will be empty. 
+Providing the `--gir-folder` docstrings will be gathered from the corresponding `.gir` files and included in the stubs. If not provided, the stubs will be generated without docstrings. 
+
+---
+
+## Generated Stubs
+
+You can find the generated output in the `stubs/` folder as an example. I have currently organized them into 4 packages based on an arbitrary grouping that seemed logical for dependency management.
+
+> [!NOTE] 
+> **Note:** This grouping is just my personal preference. The tool allows anyone to generate stubs with their own structure. Ideally, the maintainers of the respective libraries should generate and publish their own stubs.
+
+| Package | Versioning | Contents |
+| :--- | :--- | :--- |
+| **`gi-base-stubs`** | Follows **PyGObject** | **Core Infrastructure.**<br>Includes `GLib`, `GObject`, `Gio`, `GioUnix`, `GModule`, `GIRepository`, and the `gi` module. |
+| **`gi-graphics-core-stubs`** | Follows **PyGObject** | **Graphics & Text.**<br>Includes `cairo`, `Pango`, `PangoCairo`, `HarfBuzz`, `freetype2`, `Graphene`. |
+| **`gi-gtk-stubs`** | Follows **GTK** | **UI Toolkit (GTK4).**<br>Includes `Gtk`, `Gdk`, `Gsk`, `GdkPixbuf`, `Atk`. |
+| **`gi-gst-stubs`** | Follows **GStreamer** | **Multimedia (GStreamer).**<br>Includes `Gst`, `GstBase`, `GstVideo`, `GstAudio`, `GstApp`, `GstPbutils`, `GstRtp`, `GstRtsp`, `GstSdp`. |
 
 
 To build all the stubs like `gi-base-stubs`, `gi-gtk-stubs`, `gi-graphics-core-stubs`, and `gi-gst-stubs`, you can run the provided shell scripts in the project root or use `just` commands:
@@ -102,7 +118,6 @@ To build and install directly in one step, you can run:
 just build-and-install
 ```
 
-
 ---
 
 ## Architecture & Design Decisions
@@ -121,21 +136,6 @@ This can lead to discrepancies in available methods, properties, and behaviors b
 
 As an example:
 * `gi._gi.FunctionInfo` vs `GIRepository.FunctionInfo`: The Python wrapper adds pythonic methods (like `get_arguments()`) and hide the C-level methods like `get_n_args` and `get_arg`. These changes are missing when looking through `GIRepository` resulting in inconsistencies with respect to reality. 
----
-
-## Generated Stubs
-
-You can find the generated output in the `stubs/` folder as an example. I have currently organized them into 4 packages based on an arbitrary grouping that seemed logical for dependency management.
-
-> [!NOTE] 
-> **Note:** This grouping is just my personal preference. The tool allows anyone to generate stubs with their own structure. Ideally, the maintainers of the respective libraries should generate and publish their own stubs.
-
-| Package | Versioning | Contents |
-| :--- | :--- | :--- |
-| **`gi-base-stubs`** | Follows **PyGObject** | **Core Infrastructure.**<br>Includes `GLib`, `GObject`, `Gio`, `GioUnix`, `GModule`, `GIRepository`, and the `gi` module. |
-| **`gi-graphics-core-stubs`** | Follows **PyGObject** | **Graphics & Text.**<br>Includes `cairo`, `Pango`, `PangoCairo`, `HarfBuzz`, `freetype2`, `Graphene`. |
-| **`gi-gtk-stubs`** | Follows **GTK** | **UI Toolkit (GTK4).**<br>Includes `Gtk`, `Gdk`, `Gsk`, `GdkPixbuf`, `Atk`. |
-| **`gi-gst-stubs`** | Follows **GStreamer** | **Multimedia (GStreamer).**<br>Includes `Gst`, `GstBase`, `GstVideo`, `GstAudio`, `GstApp`, `GstPbutils`, `GstRtp`, `GstRtsp`, `GstSdp`. |
 
 ## ⚠️ Disclaimer
 
