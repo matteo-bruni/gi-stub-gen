@@ -24,7 +24,8 @@ from pydantic import (
 )
 from gi.repository import GIRepository
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from typing import Literal, Self
+from typing import Literal
+from typing_extensions import Self
 
 
 # GObject.remove_emission_hook

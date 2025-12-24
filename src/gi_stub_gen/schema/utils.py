@@ -15,7 +15,7 @@ def ser_variable_wrap(v: Any, fun: SerializerFunctionWrapHandler):
     # return f'{nxt(v + 1):,}'
     try:
         return fun(v)
-    except Exception as e:
+    except Exception:
         # logger.warning(f"[WARNING] Error serializing variable: {e}: {v}")
         # print("[DEBUG] Variable value:", v)
         return str(v)  # Fallback to string representation

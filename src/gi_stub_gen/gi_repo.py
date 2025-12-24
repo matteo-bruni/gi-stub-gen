@@ -1,7 +1,8 @@
 from __future__ import annotations
 import gi
 import logging
-from typing import Self, TypeVar, overload
+from typing import TypeVar, overload
+from typing_extensions import Self
 
 try:
     gi.require_version("GioUnix", "2.0")
