@@ -14251,65 +14251,455 @@ class Allocator(GObject.GPointer):
     def free(self) -> None: ...
 
 class AsyncQueue(GObject.GPointer):
+    """
+    An opaque data structure which represents an asynchronous queue.
+
+    It should only be accessed through the `g_async_queue_*` functions.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def length(self) -> int: ...
-    def length_unlocked(self) -> int: ...
-    def lock(self) -> None: ...
+    def length(self) -> int:
+        """
+            Returns the length of the queue.
+
+        Actually this function returns the number of data items in
+        the queue minus the number of waiting threads, so a negative
+        value means waiting threads, and a positive value means available
+        entries in the @queue. A return value of 0 could mean n entries
+        in the queue and n threads waiting. This can happen due to locking
+        of the queue or due to scheduling.
+        """
+    def length_unlocked(self) -> int:
+        """
+            Returns the length of the queue.
+
+        Actually this function returns the number of data items in
+        the queue minus the number of waiting threads, so a negative
+        value means waiting threads, and a positive value means available
+        entries in the @queue. A return value of 0 could mean n entries
+        in the queue and n threads waiting. This can happen due to locking
+        of the queue or due to scheduling.
+
+        This function must be called while holding the @queue's lock.
+        """
+    def lock(self) -> None:
+        """
+            Acquires the @queue's lock. If another thread is already
+        holding the lock, this call will block until the lock
+        becomes available.
+
+        Call g_async_queue_unlock() to drop the lock again.
+
+        While holding the lock, you can only call the
+        g_async_queue_*_unlocked() functions on @queue. Otherwise,
+        deadlock may occur.
+        """
     @staticmethod
-    def new() -> AsyncQueue: ...
+    def new() -> AsyncQueue:
+        """
+        Creates a new asynchronous queue.
+        """
     @staticmethod
-    def new_full(item_free_func: DestroyNotify | None = None) -> AsyncQueue: ...
-    def pop(self) -> object | None: ...
-    def pop_unlocked(self) -> object | None: ...
-    def push(self, data: object) -> None: ...
-    def push_front(self, item: object) -> None: ...
-    def push_front_unlocked(self, item: object) -> None: ...
-    def push_sorted(self, data: object, func: CompareDataFunc, user_data: object | None = None) -> None: ...
-    def push_sorted_unlocked(
-        self, data: object | None, func: CompareDataFunc, user_data: object | None = None
-    ) -> None: ...
-    def push_unlocked(self, data: object) -> None: ...
-    def ref(self) -> AsyncQueue: ...
+    def new_full(item_free_func: DestroyNotify | None = None) -> AsyncQueue:
+        """
+            Creates a new asynchronous queue and sets up a destroy notify
+        function that is used to free any remaining queue items when
+        the queue is destroyed after the final unref.
+        """
+    def pop(self) -> object | None:
+        """
+            Pops data from the @queue. If @queue is empty, this function
+        blocks until data becomes available.
+        """
+    def pop_unlocked(self) -> object | None:
+        """
+            Pops data from the @queue. If @queue is empty, this function
+        blocks until data becomes available.
+
+        This function must be called while holding the @queue's lock.
+        """
+    def push(self, data: object) -> None:
+        """
+            Pushes the @data into the @queue.
+
+        The @data parameter must not be %NULL.
+        """
+    def push_front(self, item: object) -> None:
+        """
+            Pushes the @item into the @queue. @item must not be %NULL.
+        In contrast to g_async_queue_push(), this function
+        pushes the new item ahead of the items already in the queue,
+        so that it will be the next one to be popped off the queue.
+        """
+    def push_front_unlocked(self, item: object) -> None:
+        """
+            Pushes the @item into the @queue. @item must not be %NULL.
+        In contrast to g_async_queue_push_unlocked(), this function
+        pushes the new item ahead of the items already in the queue,
+        so that it will be the next one to be popped off the queue.
+
+        This function must be called while holding the @queue's lock.
+        """
+    def push_sorted(self, data: object, func: CompareDataFunc, user_data: object | None = None) -> None:
+        """
+            Inserts @data into @queue using @func to determine the new
+        position.
+
+        This function requires that the @queue is sorted before pushing on
+        new elements, see g_async_queue_sort().
+
+        This function will lock @queue before it sorts the queue and unlock
+        it when it is finished.
+
+        For an example of @func see g_async_queue_sort().
+        """
+    def push_sorted_unlocked(self, data: object | None, func: CompareDataFunc, user_data: object | None = None) -> None:
+        """
+            Inserts @data into @queue using @func to determine the new
+        position.
+
+        The sort function @func is passed two elements of the @queue.
+        It should return 0 if they are equal, a negative value if the
+        first element should be higher in the @queue or a positive value
+        if the first element should be lower in the @queue than the second
+        element.
+
+        This function requires that the @queue is sorted before pushing on
+        new elements, see g_async_queue_sort().
+
+        This function must be called while holding the @queue's lock.
+
+        For an example of @func see g_async_queue_sort().
+        """
+    def push_unlocked(self, data: object) -> None:
+        """
+            Pushes the @data into the @queue.
+
+        The @data parameter must not be %NULL.
+
+        This function must be called while holding the @queue's lock.
+        """
+    def ref(self) -> AsyncQueue:
+        """
+            Increases the reference count of the asynchronous @queue by 1.
+        You do not need to hold the lock to call this function.
+        """
     @deprecated("deprecated")
-    def ref_unlocked(self) -> None: ...
-    def remove(self, item: object) -> bool: ...
-    def remove_unlocked(self, item: object | None = None) -> bool: ...
-    def sort(self, func: CompareDataFunc, user_data: object | None = None) -> None: ...
-    def sort_unlocked(self, func: CompareDataFunc, user_data: object | None = None) -> None: ...
+    def ref_unlocked(self) -> None:
+        """
+        Increases the reference count of the asynchronous @queue by 1.
+        """
+    def remove(self, item: object) -> bool:
+        """
+        Remove an item from the queue.
+        """
+    def remove_unlocked(self, item: object | None = None) -> bool:
+        """
+            Remove an item from the queue.
+
+        This function must be called while holding the @queue's lock.
+        """
+    def sort(self, func: CompareDataFunc, user_data: object | None = None) -> None:
+        """
+            Sorts @queue using @func.
+
+        The sort function @func is passed two elements of the @queue.
+        It should return 0 if they are equal, a negative value if the
+        first element should be higher in the @queue or a positive value
+        if the first element should be lower in the @queue than the second
+        element.
+
+        This function will lock @queue before it sorts the queue and unlock
+        it when it is finished.
+
+        If you were sorting a list of priority numbers to make sure the
+        lowest priority would be at the top of the queue, you could use:
+        |[<!-- language="C" -->
+         gint32 id1;
+         gint32 id2;
+
+         id1 = GPOINTER_TO_INT (element1);
+         id2 = GPOINTER_TO_INT (element2);
+
+         return (id1 > id2 ? +1 : id1 == id2 ? 0 : -1);
+        ]|
+        """
+    def sort_unlocked(self, func: CompareDataFunc, user_data: object | None = None) -> None:
+        """
+            Sorts @queue using @func.
+
+        The sort function @func is passed two elements of the @queue.
+        It should return 0 if they are equal, a negative value if the
+        first element should be higher in the @queue or a positive value
+        if the first element should be lower in the @queue than the second
+        element.
+
+        This function must be called while holding the @queue's lock.
+        """
     @deprecated("deprecated")
-    def timed_pop(self, end_time: TimeVal) -> object | None: ...
+    def timed_pop(self, end_time: TimeVal) -> object | None:
+        """
+            Pops data from the @queue. If the queue is empty, blocks until
+        @end_time or until data becomes available.
+
+        If no data is received before @end_time, %NULL is returned.
+
+        To easily calculate @end_time, a combination of g_get_real_time()
+        and g_time_val_add() can be used.
+        """
     @deprecated("deprecated")
-    def timed_pop_unlocked(self, end_time: TimeVal) -> object | None: ...
-    def timeout_pop(self, timeout: int) -> object | None: ...
-    def timeout_pop_unlocked(self, timeout: int) -> object | None: ...
-    def try_pop(self) -> object | None: ...
-    def try_pop_unlocked(self) -> object | None: ...
-    def unlock(self) -> None: ...
-    def unref(self) -> None: ...
+    def timed_pop_unlocked(self, end_time: TimeVal) -> object | None:
+        """
+            Pops data from the @queue. If the queue is empty, blocks until
+        @end_time or until data becomes available.
+
+        If no data is received before @end_time, %NULL is returned.
+
+        To easily calculate @end_time, a combination of g_get_real_time()
+        and g_time_val_add() can be used.
+
+        This function must be called while holding the @queue's lock.
+        """
+    def timeout_pop(self, timeout: int) -> object | None:
+        """
+            Pops data from the @queue. If the queue is empty, blocks for
+        @timeout microseconds, or until data becomes available.
+
+        If no data is received before the timeout, %NULL is returned.
+        """
+    def timeout_pop_unlocked(self, timeout: int) -> object | None:
+        """
+            Pops data from the @queue. If the queue is empty, blocks for
+        @timeout microseconds, or until data becomes available.
+
+        If no data is received before the timeout, %NULL is returned.
+
+        This function must be called while holding the @queue's lock.
+        """
+    def try_pop(self) -> object | None:
+        """
+            Tries to pop data from the @queue. If no data is available,
+        %NULL is returned.
+        """
+    def try_pop_unlocked(self) -> object | None:
+        """
+            Tries to pop data from the @queue. If no data is available,
+        %NULL is returned.
+
+        This function must be called while holding the @queue's lock.
+        """
+    def unlock(self) -> None:
+        """
+            Releases the queue's lock.
+
+        Calling this function when you have not acquired
+        the with g_async_queue_lock() leads to undefined
+        behaviour.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of the asynchronous @queue by 1.
+
+        If the reference count went to 0, the @queue will be destroyed
+        and the memory allocated will be freed. So you are not allowed
+        to use the @queue afterwards, as it might have disappeared.
+        You do not need to hold the lock to call this function.
+        """
     @deprecated("deprecated")
-    def unref_and_unlock(self) -> None: ...
+    def unref_and_unlock(self) -> None:
+        """
+            Decreases the reference count of the asynchronous @queue by 1
+        and releases the lock. This function must be called while holding
+        the @queue's lock. If the reference count went to 0, the @queue
+        will be destroyed and the memory allocated will be freed.
+        """
 
 class Bytes(GObject.GBoxed):
+    """
+    A simple reference counted data type representing an immutable sequence of
+    zero or more bytes from an unspecified origin.
+
+    The purpose of a `GBytes` is to keep the memory region that it holds
+    alive for as long as anyone holds a reference to the bytes.  When
+    the last reference count is dropped, the memory is released. Multiple
+    unrelated callers can use byte data in the `GBytes` without coordinating
+    their activities, resting assured that the byte data will not change or
+    move while they hold a reference.
+
+    A `GBytes` can come from many different origins that may have
+    different procedures for freeing the memory region.  Examples are
+    memory from [func@GLib.malloc], from memory slices, from a
+    [struct@GLib.MappedFile] or memory from other allocators.
+
+    `GBytes` work well as keys in [struct@GLib.HashTable]. Use
+    [method@GLib.Bytes.equal] and [method@GLib.Bytes.hash] as parameters to
+    [func@GLib.HashTable.new] or [func@GLib.HashTable.new_full].
+    `GBytes` can also be used as keys in a [struct@GLib.Tree] by passing the
+    [method@GLib.Bytes.compare] function to [ctor@GLib.Tree.new].
+
+    The data pointed to by this bytes must not be modified. For a mutable
+    array of bytes see [struct@GLib.ByteArray]. Use
+    [method@GLib.Bytes.unref_to_array] to create a mutable array for a `GBytes`
+    sequence. To create an immutable `GBytes` from a mutable
+    [struct@GLib.ByteArray], use the [func@GLib.ByteArray.free_to_bytes]
+    function.
+    """
+
     # gi Methods
-    def compare(self, bytes2: Bytes) -> int: ...
-    def equal(self, bytes2: Bytes) -> bool: ...
-    def get_data(self) -> tuple[list | None, int | None]: ...
-    def get_region(self, element_size: int, offset: int, n_elements: int) -> object | None: ...
-    def get_size(self) -> int: ...
-    def hash(self) -> int: ...
+    def compare(self, bytes2: Bytes) -> int:
+        """
+            Compares the two [struct@GLib.Bytes] values.
+
+        This function can be used to sort `GBytes` instances in lexicographical
+        order.
+
+        If @bytes1 and @bytes2 have different length but the shorter one is a
+        prefix of the longer one then the shorter one is considered to be less than
+        the longer one. Otherwise the first byte where both differ is used for
+        comparison. If @bytes1 has a smaller value at that position it is
+        considered less, otherwise greater than @bytes2.
+        """
+    def equal(self, bytes2: Bytes) -> bool:
+        """
+            Compares the two [struct@GLib.Bytes] values being pointed to and returns
+        `TRUE` if they are equal.
+
+        This function can be passed to [func@GLib.HashTable.new] as the
+        @key_equal_func parameter, when using non-`NULL` `GBytes` pointers as keys in
+        a [struct@GLib.HashTable].
+        """
+    def get_data(self) -> tuple[list | None, int | None]:
+        """
+            Get the byte data in the [struct@GLib.Bytes].
+
+        This data should not be modified.
+
+        This function will always return the same pointer for a given `GBytes`.
+
+        `NULL` may be returned if @size is 0. This is not guaranteed, as the `GBytes`
+        may represent an empty string with @data non-`NULL` and @size as 0. `NULL`
+        will not be returned if @size is non-zero.
+        """
+    def get_region(self, element_size: int, offset: int, n_elements: int) -> object | None:
+        """
+            Gets a pointer to a region in @bytes.
+
+        The region starts at @offset many bytes from the start of the data
+        and contains @n_elements many elements of @element_size size.
+
+        @n_elements may be zero, but @element_size must always be non-zero.
+        Ideally, @element_size is a static constant (eg: `sizeof` a struct).
+
+        This function does careful bounds checking (including checking for
+        arithmetic overflows) and returns a non-`NULL` pointer if the
+        specified region lies entirely within the @bytes. If the region is
+        in some way out of range, or if an overflow has occurred, then `NULL`
+        is returned.
+
+        Note: it is possible to have a valid zero-size region. In this case,
+        the returned pointer will be equal to the base pointer of the data of
+        @bytes, plus @offset.  This will be non-`NULL` except for the case
+        where @bytes itself was a zero-sized region.  Since it is unlikely
+        that you will be using this function to check for a zero-sized region
+        in a zero-sized @bytes, `NULL` effectively always means ‘error’.
+        """
+    def get_size(self) -> int:
+        """
+            Get the size of the byte data in the [struct@GLib.Bytes].
+
+        This function will always return the same value for a given `GBytes`.
+        """
+    def hash(self) -> int:
+        """
+            Creates an integer hash code for the byte data in the [struct@GLib.Bytes].
+
+        This function can be passed to [func@GLib.HashTable.new] as the
+        @key_hash_func parameter, when using non-`NULL` `GBytes` pointers as keys in
+        a [struct@GLib.HashTable].
+        """
     @classmethod
-    def new(cls, data: list | None, size: int) -> Bytes: ...
-    def new_from_bytes(self, offset: int, length: int) -> Bytes: ...
+    def new(cls, data: list | None, size: int) -> Bytes:
+        """
+            Creates a new [struct@GLib.Bytes] from @data.
+
+        @data is copied. If @size is 0, @data may be `NULL`.
+
+        As an optimization, [ctor@GLib.Bytes.new] may avoid an extra allocation by
+        copying the data within the resulting bytes structure if sufficiently small
+        (since GLib 2.84).
+        """
+    def new_from_bytes(self, offset: int, length: int) -> Bytes:
+        """
+            Creates a [struct@GLib.Bytes] which is a subsection of another `GBytes`.
+
+        The @offset + @length may not be longer than the size of @bytes.
+
+        A reference to @bytes will be held by the newly created `GBytes` until
+        the byte data is no longer needed.
+
+        Since 2.56, if @offset is 0 and @length matches the size of @bytes, then
+        @bytes will be returned with the reference count incremented by 1. If @bytes
+        is a slice of another `GBytes`, then the resulting `GBytes` will reference
+        the same `GBytes` instead of @bytes. This allows consumers to simplify the
+        usage of `GBytes` when asynchronously writing to streams.
+        """
     @classmethod
-    def new_take(cls, data: list | None, size: int) -> Bytes: ...
-    def ref(self) -> Bytes: ...
-    def unref(self) -> None: ...
-    def unref_to_array(self) -> list: ...
-    def unref_to_data(self) -> tuple[list, int]: ...
+    def new_take(cls, data: list | None, size: int) -> Bytes:
+        """
+            Creates a new [struct@GLib.Bytes] from @data.
+
+        After this call, @data belongs to the `GBytes` and may no longer be
+        modified by the caller. The memory of @data has to be dynamically
+        allocated and will eventually be freed with [func@GLib.free].
+
+        For creating `GBytes` with memory from other allocators, see
+        [ctor@GLib.Bytes.new_with_free_func].
+
+        @data may be `NULL` if @size is 0.
+        """
+    def ref(self) -> Bytes:
+        """
+        Increase the reference count on @bytes.
+        """
+    def unref(self) -> None:
+        """
+            Releases a reference on @bytes.
+
+        This may result in the bytes being freed. If @bytes is `NULL`, it will
+        return immediately.
+        """
+    def unref_to_array(self) -> list:
+        """
+            Unreferences the bytes, and returns a new mutable [struct@GLib.ByteArray]
+        containing the same byte data.
+
+        As an optimization, the byte data is transferred to the array without copying
+        if this was the last reference to @bytes and @bytes was created with
+        [ctor@GLib.Bytes.new], [ctor@GLib.Bytes.new_take] or
+        [func@GLib.ByteArray.free_to_bytes] and the buffer was larger than the size
+        [struct@GLib.Bytes] may internalize within its allocation. In all other cases
+        the data is copied.
+
+        Do not use it if @bytes contains more than %G_MAXUINT
+        bytes. [struct@GLib.ByteArray] stores the length of its data in `guint`,
+        which may be shorter than `gsize`, that @bytes is using.
+        """
+    def unref_to_data(self) -> tuple[list, int]:
+        """
+            Unreferences the bytes, and returns a pointer the same byte data
+        contents.
+
+        As an optimization, the byte data is returned without copying if this was
+        the last reference to @bytes and @bytes was created with
+        [ctor@GLib.Bytes.new], [ctor@GLib.Bytes.new_take] or
+        [func@GLib.ByteArray.free_to_bytes] and the buffer was larger than the size
+        [struct@GLib.Bytes] may internalize within its allocation. In all other cases
+        the data is copied.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -14319,29 +14709,119 @@ class Bytes(GObject.GBoxed):
     ) -> None: ...
 
 class Cache(GObject.GPointer):
+    """
+    A `GCache` allows sharing of complex data structures, in order to
+    save system resources.
+
+    `GCache` uses keys and values. A `GCache` key describes the properties
+    of a particular resource. A `GCache` value is the actual resource.
+
+    `GCache` has been marked as deprecated, since this API is rarely
+    used and not very actively maintained.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def destroy(self) -> None: ...
+    def destroy(self) -> None:
+        """
+            Frees the memory allocated for the #GCache.
+
+        Note that it does not destroy the keys and values which were
+        contained in the #GCache.
+        """
     @deprecated("deprecated")
-    def insert(self, key: object | None = None) -> object | None: ...
+    def insert(self, key: object | None = None) -> object | None:
+        """
+            Gets the value corresponding to the given key, creating it if
+        necessary. It first checks if the value already exists in the
+        #GCache, by using the @key_equal_func function passed to
+        g_cache_new(). If it does already exist it is returned, and its
+        reference count is increased by one. If the value does not currently
+        exist, if is created by calling the @value_new_func. The key is
+        duplicated by calling @key_dup_func and the duplicated key and value
+        are inserted into the #GCache.
+        """
     @deprecated("deprecated")
-    def key_foreach(self, func: HFunc, user_data: object | None = None) -> None: ...
+    def key_foreach(self, func: HFunc, user_data: object | None = None) -> None:
+        """
+            Calls the given function for each of the keys in the #GCache.
+
+        NOTE @func is passed three parameters, the value and key of a cache
+        entry and the @user_data. The order of value and key is different
+        from the order in which g_hash_table_foreach() passes key-value
+        pairs to its callback function !
+        """
     @deprecated("deprecated")
-    def remove(self, value: object | None = None) -> None: ...
+    def remove(self, value: object | None = None) -> None:
+        """
+            Decreases the reference count of the given value. If it drops to 0
+        then the value and its corresponding key are destroyed, using the
+        @value_destroy_func and @key_destroy_func passed to g_cache_new().
+        """
     @deprecated("deprecated")
-    def value_foreach(self, func: HFunc, user_data: object | None = None) -> None: ...
+    def value_foreach(self, func: HFunc, user_data: object | None = None) -> None:
+        """
+        Calls the given function for each of the values in the #GCache.
+        """
 
 class Completion(GObject.GPointer):
+    """
+    `GCompletion` provides support for automatic completion of a string
+    using any group of target strings. It is typically used for file
+    name completion as is common in many UNIX shells.
+
+    A `GCompletion` is created using [func@GLib.Completion.new]. Target items are
+    added and removed with [method@GLib.Completion.add_items],
+    [method@GLib.Completion.remove_items] and
+    [method@GLib.Completion.clear_items]. A completion attempt is requested with
+    [method@GLib.Completion.complete] or [method@GLib.Completion.complete_utf8].
+    When no longer needed, the `GCompletion` is freed with
+    [method@GLib.Completion.free].
+
+    Items in the completion can be simple strings (e.g. filenames), or
+    pointers to arbitrary data structures. If data structures are used
+    you must provide a [type@GLib.CompletionFunc] in [func@GLib.Completion.new],
+    which retrieves the item’s string from the data structure. You can change
+    the way in which strings are compared by setting a different
+    [type@GLib.CompletionStrncmpFunc] in [method@GLib.Completion.set_compare].
+
+    `GCompletion` has been marked as deprecated, since this API is rarely
+    used and not very actively maintained.
+    """
+
     # gi Fields
     cache: list | None = ...
+    """
+    the list of items which begin with @prefix.
+
+    """
     func: CompletionFuncCompletionCB = ...
+    """
+    function which is called to get the string associated with a
+           target item. It is %NULL if the target items are strings.
+
+    """
     items: list | None = ...
+    """
+    list of target items (strings or data structures).
+
+    """
     prefix: str = ...
+    """
+    the last prefix passed to g_completion_complete() or
+             g_completion_complete_utf8().
+
+    """
     strncmp_func: CompletionStrncmpFuncCompletionCB = ...
+    """
+    The function to use when comparing strings.  Use
+                   g_completion_set_compare() to modify this function.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -14349,13 +14829,100 @@ class Completion(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def clear_items(self) -> None: ...
+    def clear_items(self) -> None:
+        """
+            Removes all items from the #GCompletion. The items are not freed, so if the
+        memory was dynamically allocated, it should be freed after calling this
+        function.
+        """
     @deprecated("deprecated")
-    def complete_utf8(self, prefix: str, new_prefix: str) -> list: ...
+    def complete_utf8(self, prefix: str, new_prefix: str) -> list:
+        """
+            Attempts to complete the string @prefix using the #GCompletion target items.
+        In contrast to g_completion_complete(), this function returns the largest common
+        prefix that is a valid UTF-8 string, omitting a possible common partial
+        character.
+
+        You should use this function instead of g_completion_complete() if your
+        items are UTF-8 strings.
+        """
     @deprecated("deprecated")
-    def free(self) -> None: ...
+    def free(self) -> None:
+        """
+            Frees all memory used by the #GCompletion. The items are not freed, so if
+        the memory was dynamically allocated, it should be freed after calling this
+        function.
+        """
 
 class Cond(GObject.GPointer):
+    """
+    The #GCond struct is an opaque data structure that represents a
+    condition. Threads can block on a #GCond if they find a certain
+    condition to be false. If other threads change the state of this
+    condition they signal the #GCond, and that causes the waiting
+    threads to be woken up.
+
+    Consider the following example of a shared variable.  One or more
+    threads can wait for data to be published to the variable and when
+    another thread publishes the data, it can signal one of the waiting
+    threads to wake up to collect the data.
+
+    Here is an example for using GCond to block a thread until a condition
+    is satisfied:
+    |[<!-- language="C" -->
+      gpointer current_data = NULL;
+      GMutex data_mutex;
+      GCond data_cond;
+
+      void
+      push_data (gpointer data)
+      {
+        g_mutex_lock (&data_mutex);
+        current_data = data;
+        g_cond_signal (&data_cond);
+        g_mutex_unlock (&data_mutex);
+      }
+
+      gpointer
+      pop_data (void)
+      {
+        gpointer data;
+
+        g_mutex_lock (&data_mutex);
+        while (!current_data)
+          g_cond_wait (&data_cond, &data_mutex);
+        data = current_data;
+        current_data = NULL;
+        g_mutex_unlock (&data_mutex);
+
+        return data;
+      }
+    ]|
+    Whenever a thread calls pop_data() now, it will wait until
+    current_data is non-%NULL, i.e. until some other thread
+    has called push_data().
+
+    The example shows that use of a condition variable must always be
+    paired with a mutex.  Without the use of a mutex, there would be a
+    race between the check of @current_data by the while loop in
+    pop_data() and waiting. Specifically, another thread could set
+    @current_data after the check, and signal the cond (with nobody
+    waiting on it) before the first thread goes to sleep. #GCond is
+    specifically useful for its ability to release the mutex and go
+    to sleep atomically.
+
+    It is also important to use the g_cond_wait() and g_cond_wait_until()
+    functions only inside a loop which checks for the condition to be
+    true.  See g_cond_wait() for an explanation of why the condition may
+    not be true even after it returns.
+
+    If a #GCond is allocated in static storage then it can be used
+    without initialisation.  Otherwise, you should call g_cond_init()
+    on it and g_cond_clear() when done.
+
+    A #GCond should only be accessed via the g_cond_ functions.
+    """
+
     # gi Fields
     @builtins.property
     def i(self) -> list | None: ...
@@ -14365,14 +14932,120 @@ class Cond(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def broadcast(self) -> None: ...
-    def clear(self) -> None: ...
-    def init(self) -> None: ...
-    def signal(self) -> None: ...
-    def wait(self, mutex: Mutex) -> None: ...
-    def wait_until(self, mutex: Mutex, end_time: int) -> bool: ...
+    def broadcast(self) -> None:
+        """
+            If threads are waiting for @cond, all of them are unblocked.
+        If no threads are waiting for @cond, this function has no effect.
+        It is good practice to lock the same mutex as the waiting threads
+        while calling this function, though not required.
+        """
+    def clear(self) -> None:
+        """
+            Frees the resources allocated to a #GCond with g_cond_init().
+
+        This function should not be used with a #GCond that has been
+        statically allocated.
+
+        Calling g_cond_clear() for a #GCond on which threads are
+        blocking leads to undefined behaviour.
+        """
+    def init(self) -> None:
+        """
+            Initialises a #GCond so that it can be used.
+
+        This function is useful to initialise a #GCond that has been
+        allocated as part of a larger structure.  It is not necessary to
+        initialise a #GCond that has been statically allocated.
+
+        To undo the effect of g_cond_init() when a #GCond is no longer
+        needed, use g_cond_clear().
+
+        Calling g_cond_init() on an already-initialised #GCond leads
+        to undefined behaviour.
+        """
+    def signal(self) -> None:
+        """
+            If threads are waiting for @cond, at least one of them is unblocked.
+        If no threads are waiting for @cond, this function has no effect.
+        It is good practice to hold the same lock as the waiting thread
+        while calling this function, though not required.
+        """
+    def wait(self, mutex: Mutex) -> None:
+        """
+            Atomically releases @mutex and waits until @cond is signalled.
+        When this function returns, @mutex is locked again and owned by the
+        calling thread.
+
+        When using condition variables, it is possible that a spurious wakeup
+        may occur (ie: g_cond_wait() returns even though g_cond_signal() was
+        not called).  It's also possible that a stolen wakeup may occur.
+        This is when g_cond_signal() is called, but another thread acquires
+        @mutex before this thread and modifies the state of the program in
+        such a way that when g_cond_wait() is able to return, the expected
+        condition is no longer met.
+
+        For this reason, g_cond_wait() must always be used in a loop.  See
+        the documentation for #GCond for a complete example.
+        """
+    def wait_until(self, mutex: Mutex, end_time: int) -> bool:
+        """
+            Waits until either @cond is signalled or @end_time has passed.
+
+        As with g_cond_wait() it is possible that a spurious or stolen wakeup
+        could occur.  For that reason, waiting on a condition variable should
+        always be in a loop, based on an explicitly-checked predicate.
+
+        %TRUE is returned if the condition variable was signalled (or in the
+        case of a spurious wakeup).  %FALSE is returned if @end_time has
+        passed.
+
+        The following code shows how to correctly perform a timed wait on a
+        condition variable (extending the example presented in the
+        documentation for #GCond):
+
+        |[<!-- language="C" -->
+        gpointer
+        pop_data_timed (void)
+        {
+          gint64 end_time;
+          gpointer data;
+
+          g_mutex_lock (&data_mutex);
+
+          end_time = g_get_monotonic_time () + 5 * G_TIME_SPAN_SECOND;
+          while (!current_data)
+            if (!g_cond_wait_until (&data_cond, &data_mutex, end_time))
+              {
+                // timeout has passed.
+                g_mutex_unlock (&data_mutex);
+                return NULL;
+              }
+
+          // there is data for us
+          data = current_data;
+          current_data = NULL;
+
+          g_mutex_unlock (&data_mutex);
+
+          return data;
+        }
+        ]|
+
+        Notice that the end time is calculated once, before entering the
+        loop and reused.  This is the motivation behind the use of absolute
+        time on this API -- if a relative time of 5 seconds were passed
+        directly to the call and a spurious wakeup occurred, the program would
+        have to start over waiting again (which would lead to a total wait
+        time of more than 5 seconds).
+        """
 
 class Data(GObject.GPointer):
+    """
+    An opaque data structure that represents a keyed data list.
+
+    See also: [Keyed data lists](datalist-and-dataset.html).
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -14380,80 +15053,661 @@ class Data(GObject.GPointer):
         """
 
 class DateTime(GObject.GBoxed):
+    """
+    `GDateTime` is a structure that combines a Gregorian date and time
+    into a single structure.
+
+    `GDateTime` provides many conversion and methods to manipulate dates and times.
+    Time precision is provided down to microseconds and the time can range
+    (proleptically) from 0001-01-01 00:00:00 to 9999-12-31 23:59:59.999999.
+    `GDateTime` follows POSIX time in the sense that it is oblivious to leap
+    seconds.
+
+    `GDateTime` is an immutable object; once it has been created it cannot
+    be modified further. All modifiers will create a new `GDateTime`.
+    Nearly all such functions can fail due to the date or time going out
+    of range, in which case %NULL will be returned.
+
+    `GDateTime` is reference counted: the reference count is increased by calling
+    [method@GLib.DateTime.ref] and decreased by calling [method@GLib.DateTime.unref].
+    When the reference count drops to 0, the resources allocated by the `GDateTime`
+    structure are released.
+
+    Many parts of the API may produce non-obvious results. As an
+    example, adding two months to January 31st will yield March 31st
+    whereas adding one month and then one month again will yield either
+    March 28th or March 29th.  Also note that adding 24 hours is not
+    always the same as adding one day (since days containing daylight
+    savings time transitions are either 23 or 25 hours in length).
+    """
+
     # gi Methods
-    def add(self, timespan: int) -> DateTime | None: ...
-    def add_days(self, days: int) -> DateTime | None: ...
-    def add_full(
-        self, years: int, months: int, days: int, hours: int, minutes: int, seconds: float
-    ) -> DateTime | None: ...
-    def add_hours(self, hours: int) -> DateTime | None: ...
-    def add_minutes(self, minutes: int) -> DateTime | None: ...
-    def add_months(self, months: int) -> DateTime | None: ...
-    def add_seconds(self, seconds: float) -> DateTime | None: ...
-    def add_weeks(self, weeks: int) -> DateTime | None: ...
-    def add_years(self, years: int) -> DateTime | None: ...
-    def compare(self, dt2: DateTime) -> int: ...
-    def difference(self, begin: DateTime) -> int: ...
-    def equal(self, dt2: DateTime) -> bool: ...
-    def format(self, format: str) -> str | None: ...
-    def format_iso8601(self) -> str | None: ...
-    def get_day_of_month(self) -> int: ...
-    def get_day_of_week(self) -> int: ...
-    def get_day_of_year(self) -> int: ...
-    def get_hour(self) -> int: ...
-    def get_microsecond(self) -> int: ...
-    def get_minute(self) -> int: ...
-    def get_month(self) -> int: ...
-    def get_second(self) -> int: ...
-    def get_seconds(self) -> float: ...
-    def get_timezone(self) -> GObject.TimeZone: ...
-    def get_timezone_abbreviation(self) -> str: ...
-    def get_utc_offset(self) -> int: ...
-    def get_week_numbering_year(self) -> int: ...
-    def get_week_of_year(self) -> int: ...
-    def get_year(self) -> int: ...
-    def get_ymd(self) -> tuple[int | None, int | None, int | None]: ...
-    def hash(self) -> int: ...
-    def is_daylight_savings(self) -> bool: ...
+    def add(self, timespan: int) -> DateTime | None:
+        """
+        Creates a copy of @datetime and adds the specified timespan to the copy.
+        """
+    def add_days(self, days: int) -> DateTime | None:
+        """
+            Creates a copy of @datetime and adds the specified number of days to the
+        copy. Add negative values to subtract days.
+        """
+    def add_full(self, years: int, months: int, days: int, hours: int, minutes: int, seconds: float) -> DateTime | None:
+        """
+            Creates a new #GDateTime adding the specified values to the current date and
+        time in @datetime. Add negative values to subtract.
+        """
+    def add_hours(self, hours: int) -> DateTime | None:
+        """
+            Creates a copy of @datetime and adds the specified number of hours.
+        Add negative values to subtract hours.
+        """
+    def add_minutes(self, minutes: int) -> DateTime | None:
+        """
+            Creates a copy of @datetime adding the specified number of minutes.
+        Add negative values to subtract minutes.
+        """
+    def add_months(self, months: int) -> DateTime | None:
+        """
+            Creates a copy of @datetime and adds the specified number of months to the
+        copy. Add negative values to subtract months.
+
+        The day of the month of the resulting #GDateTime is clamped to the number
+        of days in the updated calendar month. For example, if adding 1 month to
+        31st January 2018, the result would be 28th February 2018. In 2020 (a leap
+        year), the result would be 29th February.
+        """
+    def add_seconds(self, seconds: float) -> DateTime | None:
+        """
+            Creates a copy of @datetime and adds the specified number of seconds.
+        Add negative values to subtract seconds.
+        """
+    def add_weeks(self, weeks: int) -> DateTime | None:
+        """
+            Creates a copy of @datetime and adds the specified number of weeks to the
+        copy. Add negative values to subtract weeks.
+        """
+    def add_years(self, years: int) -> DateTime | None:
+        """
+            Creates a copy of @datetime and adds the specified number of years to the
+        copy. Add negative values to subtract years.
+
+        As with g_date_time_add_months(), if the resulting date would be 29th
+        February on a non-leap year, the day will be clamped to 28th February.
+        """
+    def compare(self, dt2: DateTime) -> int:
+        """
+            A comparison function for #GDateTimes that is suitable
+        as a #GCompareFunc. Both #GDateTimes must be non-%NULL.
+        """
+    def difference(self, begin: DateTime) -> int:
+        """
+            Calculates the difference in time between @end and @begin.  The
+        #GTimeSpan that is returned is effectively @end - @begin (ie:
+        positive if the first parameter is larger).
+        """
+    def equal(self, dt2: DateTime) -> bool:
+        """
+            Checks to see if @dt1 and @dt2 are equal.
+
+        Equal here means that they represent the same moment after converting
+        them to the same time zone.
+        """
+    def format(self, format: str) -> str | None:
+        """
+            Creates a newly allocated string representing the requested @format.
+
+        The format strings understood by this function are a subset of the
+        `strftime()` format language as specified by C99.  The `%D`, `%U` and `%W`
+        conversions are not supported, nor is the `E` modifier.  The GNU
+        extensions `%k`, `%l`, `%s` and `%P` are supported, however, as are the
+        `0`, `_` and `-` modifiers. The Python extension `%f` is also supported.
+
+        In contrast to `strftime()`, this function always produces a UTF-8
+        string, regardless of the current locale.  Note that the rendering of
+        many formats is locale-dependent and may not match the `strftime()`
+        output exactly.
+
+        The following format specifiers are supported:
+
+        - `%a`: the abbreviated weekday name according to the current locale
+        - `%A`: the full weekday name according to the current locale
+        - `%b`: the abbreviated month name according to the current locale
+        - `%B`: the full month name according to the current locale
+        - `%c`: the preferred date and time representation for the current locale
+        - `%C`: the century number (year/100) as a 2-digit integer (00-99)
+        - `%d`: the day of the month as a decimal number (range 01 to 31)
+        - `%e`: the day of the month as a decimal number (range 1 to 31);
+          single digits are preceded by a figure space (U+2007)
+        - `%F`: equivalent to `%Y-%m-%d` (the ISO 8601 date format)
+        - `%g`: the last two digits of the ISO 8601 week-based year as a
+          decimal number (00-99). This works well with `%V` and `%u`.
+        - `%G`: the ISO 8601 week-based year as a decimal number. This works
+          well with `%V` and `%u`.
+        - `%h`: equivalent to `%b`
+        - `%H`: the hour as a decimal number using a 24-hour clock (range 00 to 23)
+        - `%I`: the hour as a decimal number using a 12-hour clock (range 01 to 12)
+        - `%j`: the day of the year as a decimal number (range 001 to 366)
+        - `%k`: the hour (24-hour clock) as a decimal number (range 0 to 23);
+          single digits are preceded by a figure space (U+2007)
+        - `%l`: the hour (12-hour clock) as a decimal number (range 1 to 12);
+          single digits are preceded by a figure space (U+2007)
+        - `%m`: the month as a decimal number (range 01 to 12)
+        - `%M`: the minute as a decimal number (range 00 to 59)
+        - `%f`: the microsecond as a decimal number (range 000000 to 999999)
+        - `%p`: either ‘AM’ or ‘PM’ according to the given time value, or the
+          corresponding  strings for the current locale.  Noon is treated as
+          ‘PM’ and midnight as ‘AM’. Use of this format specifier is discouraged, as
+          many locales have no concept of AM/PM formatting. Use `%c` or `%X` instead.
+        - `%P`: like `%p` but lowercase: ‘am’ or ‘pm’ or a corresponding string for
+          the current locale. Use of this format specifier is discouraged, as
+          many locales have no concept of AM/PM formatting. Use `%c` or `%X` instead.
+        - `%r`: the time in a.m. or p.m. notation. Use of this format specifier is
+          discouraged, as many locales have no concept of AM/PM formatting. Use `%c`
+          or `%X` instead.
+        - `%R`: the time in 24-hour notation (`%H:%M`)
+        - `%s`: the number of seconds since the Epoch, that is, since 1970-01-01
+          00:00:00 UTC
+        - `%S`: the second as a decimal number (range 00 to 60)
+        - `%t`: a tab character
+        - `%T`: the time in 24-hour notation with seconds (`%H:%M:%S`)
+        - `%u`: the ISO 8601 standard day of the week as a decimal, range 1 to 7,
+           Monday being 1. This works well with `%G` and `%V`.
+        - `%V`: the ISO 8601 standard week number of the current year as a decimal
+          number, range 01 to 53, where week 1 is the first week that has at
+          least 4 days in the new year. See g_date_time_get_week_of_year().
+          This works well with `%G` and `%u`.
+        - `%w`: the day of the week as a decimal, range 0 to 6, Sunday being 0.
+          This is not the ISO 8601 standard format — use `%u` instead.
+        - `%x`: the preferred date representation for the current locale without
+          the time
+        - `%X`: the preferred time representation for the current locale without
+          the date
+        - `%y`: the year as a decimal number without the century
+        - `%Y`: the year as a decimal number including the century
+        - `%z`: the time zone as an offset from UTC (`+hhmm`)
+        - `%:z`: the time zone as an offset from UTC (`+hh:mm`).
+          This is a gnulib `strftime()` extension. Since: 2.38
+        - `%::z`: the time zone as an offset from UTC (`+hh:mm:ss`). This is a
+          gnulib `strftime()` extension. Since: 2.38
+        - `%:::z`: the time zone as an offset from UTC, with `:` to necessary
+          precision (e.g., `-04`, `+05:30`). This is a gnulib `strftime()` extension. Since: 2.38
+        - `%Z`: the time zone or name or abbreviation
+        - `%%`: a literal `%` character
+
+        Some conversion specifications can be modified by preceding the
+        conversion specifier by one or more modifier characters.
+
+        The following modifiers are supported for many of the numeric
+        conversions:
+
+        - `O`: Use alternative numeric symbols, if the current locale supports those.
+        - `_`: Pad a numeric result with spaces. This overrides the default padding
+          for the specifier.
+        - `-`: Do not pad a numeric result. This overrides the default padding
+          for the specifier.
+        - `0`: Pad a numeric result with zeros. This overrides the default padding
+          for the specifier.
+
+        The following modifiers are supported for many of the alphabetic conversions:
+
+        - `^`: Use upper case if possible. This is a gnulib `strftime()` extension.
+          Since: 2.80
+        - `#`: Use opposite case if possible. This is a gnulib `strftime()`
+          extension. Since: 2.80
+
+        Additionally, when `O` is used with `B`, `b`, or `h`, it produces the alternative
+        form of a month name. The alternative form should be used when the month
+        name is used without a day number (e.g., standalone). It is required in
+        some languages (Baltic, Slavic, Greek, and more) due to their grammatical
+        rules. For other languages there is no difference. `%OB` is a GNU and BSD
+        `strftime()` extension expected to be added to the future POSIX specification,
+        `%Ob` and `%Oh` are GNU `strftime()` extensions. Since: 2.56
+
+        Since GLib 2.80, when `E` is used with `%c`, `%C`, `%x`, `%X`, `%y` or `%Y`,
+        the date is formatted using an alternate era representation specific to the
+        locale. This is typically used for the Thai solar calendar or Japanese era
+        names, for example.
+
+        - `%Ec`: the preferred date and time representation for the current locale,
+          using the alternate era representation
+        - `%EC`: the name of the era
+        - `%Ex`: the preferred date representation for the current locale without
+          the time, using the alternate era representation
+        - `%EX`: the preferred time representation for the current locale without
+          the date, using the alternate era representation
+        - `%Ey`: the year since the beginning of the era denoted by the `%EC`
+          specifier
+        - `%EY`: the full alternative year representation
+        """
+    def format_iso8601(self) -> str | None:
+        """
+            Format @datetime in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601),
+        including the date, time and time zone, and return that as a UTF-8 encoded
+        string.
+
+        Since GLib 2.66, this will output to sub-second precision if needed.
+        """
+    def get_day_of_month(self) -> int:
+        """
+            Retrieves the day of the month represented by @datetime in the gregorian
+        calendar.
+        """
+    def get_day_of_week(self) -> int:
+        """
+            Retrieves the ISO 8601 day of the week on which @datetime falls (1 is
+        Monday, 2 is Tuesday... 7 is Sunday).
+        """
+    def get_day_of_year(self) -> int:
+        """
+            Retrieves the day of the year represented by @datetime in the Gregorian
+        calendar.
+        """
+    def get_hour(self) -> int:
+        """
+        Retrieves the hour of the day represented by @datetime
+        """
+    def get_microsecond(self) -> int:
+        """
+        Retrieves the microsecond of the date represented by @datetime
+        """
+    def get_minute(self) -> int:
+        """
+        Retrieves the minute of the hour represented by @datetime
+        """
+    def get_month(self) -> int:
+        """
+            Retrieves the month of the year represented by @datetime in the Gregorian
+        calendar.
+        """
+    def get_second(self) -> int:
+        """
+        Retrieves the second of the minute represented by @datetime
+        """
+    def get_seconds(self) -> float:
+        """
+            Retrieves the number of seconds since the start of the last minute,
+        including the fractional part.
+        """
+    def get_timezone(self) -> GObject.TimeZone:
+        """
+        Get the time zone for this @datetime.
+        """
+    def get_timezone_abbreviation(self) -> str:
+        """
+            Determines the time zone abbreviation to be used at the time and in
+        the time zone of @datetime.
+
+        For example, in Toronto this is currently "EST" during the winter
+        months and "EDT" during the summer months when daylight savings
+        time is in effect.
+        """
+    def get_utc_offset(self) -> int:
+        """
+            Determines the offset to UTC in effect at the time and in the time
+        zone of @datetime.
+
+        The offset is the number of microseconds that you add to UTC time to
+        arrive at local time for the time zone (ie: negative numbers for time
+        zones west of GMT, positive numbers for east).
+
+        If @datetime represents UTC time, then the offset is always zero.
+        """
+    def get_week_numbering_year(self) -> int:
+        """
+            Returns the ISO 8601 week-numbering year in which the week containing
+        @datetime falls.
+
+        This function, taken together with g_date_time_get_week_of_year() and
+        g_date_time_get_day_of_week() can be used to determine the full ISO
+        week date on which @datetime falls.
+
+        This is usually equal to the normal Gregorian year (as returned by
+        g_date_time_get_year()), except as detailed below:
+
+        For Thursday, the week-numbering year is always equal to the usual
+        calendar year.  For other days, the number is such that every day
+        within a complete week (Monday to Sunday) is contained within the
+        same week-numbering year.
+
+        For Monday, Tuesday and Wednesday occurring near the end of the year,
+        this may mean that the week-numbering year is one greater than the
+        calendar year (so that these days have the same week-numbering year
+        as the Thursday occurring early in the next year).
+
+        For Friday, Saturday and Sunday occurring near the start of the year,
+        this may mean that the week-numbering year is one less than the
+        calendar year (so that these days have the same week-numbering year
+        as the Thursday occurring late in the previous year).
+
+        An equivalent description is that the week-numbering year is equal to
+        the calendar year containing the majority of the days in the current
+        week (Monday to Sunday).
+
+        Note that January 1 0001 in the proleptic Gregorian calendar is a
+        Monday, so this function never returns 0.
+        """
+    def get_week_of_year(self) -> int:
+        """
+            Returns the ISO 8601 week number for the week containing @datetime.
+        The ISO 8601 week number is the same for every day of the week (from
+        Moday through Sunday).  That can produce some unusual results
+        (described below).
+
+        The first week of the year is week 1.  This is the week that contains
+        the first Thursday of the year.  Equivalently, this is the first week
+        that has more than 4 of its days falling within the calendar year.
+
+        The value 0 is never returned by this function.  Days contained
+        within a year but occurring before the first ISO 8601 week of that
+        year are considered as being contained in the last week of the
+        previous year.  Similarly, the final days of a calendar year may be
+        considered as being part of the first ISO 8601 week of the next year
+        if 4 or more days of that week are contained within the new year.
+        """
+    def get_year(self) -> int:
+        """
+        Retrieves the year represented by @datetime in the Gregorian calendar.
+        """
+    def get_ymd(self) -> tuple[int | None, int | None, int | None]:
+        """
+        Retrieves the Gregorian day, month, and year of a given #GDateTime.
+        """
+    def hash(self) -> int:
+        """
+        Hashes @datetime into a #guint, suitable for use within #GHashTable.
+        """
+    def is_daylight_savings(self) -> bool:
+        """
+            Determines if daylight savings time is in effect at the time and in
+        the time zone of @datetime.
+        """
     @classmethod
     def new(
         cls, tz: GObject.TimeZone, year: int, month: int, day: int, hour: int, minute: int, seconds: float
-    ) -> DateTime | None: ...
+    ) -> DateTime | None:
+        """
+            Creates a new #GDateTime corresponding to the given date and time in
+        the time zone @tz.
+
+        The @year must be between 1 and 9999, @month between 1 and 12 and @day
+        between 1 and 28, 29, 30 or 31 depending on the month and the year.
+
+        @hour must be between 0 and 23 and @minute must be between 0 and 59.
+
+        @seconds must be at least 0.0 and must be strictly less than 60.0.
+        It will be rounded down to the nearest microsecond.
+
+        If the given time is not representable in the given time zone (for
+        example, 02:30 on March 14th 2010 in Toronto, due to daylight savings
+        time) then the time will be rounded up to the nearest existing time
+        (in this case, 03:00).  If this matters to you then you should verify
+        the return value for containing the same as the numbers you gave.
+
+        In the case that the given time is ambiguous in the given time zone
+        (for example, 01:30 on November 7th 2010 in Toronto, due to daylight
+        savings time) then the time falling within standard (ie:
+        non-daylight) time is taken.
+
+        It not considered a programmer error for the values to this function
+        to be out of range, but in the case that they are, the function will
+        return %NULL.
+
+        You should release the return value by calling g_date_time_unref()
+        when you are done with it.
+        """
     @classmethod
-    def new_from_iso8601(cls, text: str, default_tz: GObject.TimeZone | None = None) -> DateTime | None: ...
+    def new_from_iso8601(cls, text: str, default_tz: GObject.TimeZone | None = None) -> DateTime | None:
+        """
+            Creates a #GDateTime corresponding to the given
+        [ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
+        @text. ISO 8601 strings of the form `<date><sep><time><tz>` are supported, with
+        some extensions from [RFC 3339](https://tools.ietf.org/html/rfc3339) as
+        mentioned below.
+
+        Note that as #GDateTime "is oblivious to leap seconds", leap seconds information
+        in an ISO-8601 string will be ignored, so a `23:59:60` time would be parsed as
+        `23:59:59`.
+
+        `<sep>` is the separator and can be either 'T', 't' or ' '. The latter two
+        separators are an extension from
+        [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6).
+
+        `<date>` is in the form:
+
+        - `YYYY-MM-DD` - Year/month/day, e.g. 2016-08-24.
+        - `YYYYMMDD` - Same as above without dividers.
+        - `YYYY-DDD` - Ordinal day where DDD is from 001 to 366, e.g. 2016-237.
+        - `YYYYDDD` - Same as above without dividers.
+        - `YYYY-Www-D` - Week day where ww is from 01 to 52 and D from 1-7,
+          e.g. 2016-W34-3.
+        - `YYYYWwwD` - Same as above without dividers.
+
+        `<time>` is in the form:
+
+        - `hh:mm:ss(.sss)` - Hours, minutes, seconds (subseconds), e.g. 22:10:42.123.
+        - `hhmmss(.sss)` - Same as above without dividers.
+
+        `<tz>` is an optional timezone suffix of the form:
+
+        - `Z` - UTC.
+        - `+hh:mm` or `-hh:mm` - Offset from UTC in hours and minutes, e.g. +12:00.
+        - `+hh` or `-hh` - Offset from UTC in hours, e.g. +12.
+
+        If the timezone is not provided in @text it must be provided in @default_tz
+        (this field is otherwise ignored).
+
+        This call can fail (returning %NULL) if @text is not a valid ISO 8601
+        formatted string.
+
+        You should release the return value by calling g_date_time_unref()
+        when you are done with it.
+        """
     @deprecated("deprecated")
     @classmethod
-    def new_from_timeval_local(cls, tv: TimeVal) -> DateTime | None: ...
+    def new_from_timeval_local(cls, tv: TimeVal) -> DateTime | None:
+        """
+            Creates a #GDateTime corresponding to the given #GTimeVal @tv in the
+        local time zone.
+
+        The time contained in a #GTimeVal is always stored in the form of
+        seconds elapsed since 1970-01-01 00:00:00 UTC, regardless of the
+        local time offset.
+
+        This call can fail (returning %NULL) if @tv represents a time outside
+        of the supported range of #GDateTime.
+
+        You should release the return value by calling g_date_time_unref()
+        when you are done with it.
+        """
     @deprecated("deprecated")
     @classmethod
-    def new_from_timeval_utc(cls, tv: TimeVal) -> DateTime | None: ...
+    def new_from_timeval_utc(cls, tv: TimeVal) -> DateTime | None:
+        """
+            Creates a #GDateTime corresponding to the given #GTimeVal @tv in UTC.
+
+        The time contained in a #GTimeVal is always stored in the form of
+        seconds elapsed since 1970-01-01 00:00:00 UTC.
+
+        This call can fail (returning %NULL) if @tv represents a time outside
+        of the supported range of #GDateTime.
+
+        You should release the return value by calling g_date_time_unref()
+        when you are done with it.
+        """
     @classmethod
-    def new_from_unix_local(cls, t: int) -> DateTime | None: ...
+    def new_from_unix_local(cls, t: int) -> DateTime | None:
+        """
+            Creates a #GDateTime corresponding to the given Unix time @t in the
+        local time zone.
+
+        Unix time is the number of seconds that have elapsed since 1970-01-01
+        00:00:00 UTC, regardless of the local time offset.
+
+        This call can fail (returning %NULL) if @t represents a time outside
+        of the supported range of #GDateTime.
+
+        You should release the return value by calling g_date_time_unref()
+        when you are done with it.
+        """
     @classmethod
-    def new_from_unix_local_usec(cls, usecs: int) -> DateTime | None: ...
+    def new_from_unix_local_usec(cls, usecs: int) -> DateTime | None:
+        """
+            Creates a [struct@GLib.DateTime] corresponding to the given Unix time @t in the
+        local time zone.
+
+        Unix time is the number of microseconds that have elapsed since 1970-01-01
+        00:00:00 UTC, regardless of the local time offset.
+
+        This call can fail (returning `NULL`) if @t represents a time outside
+        of the supported range of #GDateTime.
+
+        You should release the return value by calling [method@GLib.DateTime.unref]
+        when you are done with it.
+        """
     @classmethod
-    def new_from_unix_utc(cls, t: int) -> DateTime | None: ...
+    def new_from_unix_utc(cls, t: int) -> DateTime | None:
+        """
+            Creates a #GDateTime corresponding to the given Unix time @t in UTC.
+
+        Unix time is the number of seconds that have elapsed since 1970-01-01
+        00:00:00 UTC.
+
+        This call can fail (returning %NULL) if @t represents a time outside
+        of the supported range of #GDateTime.
+
+        You should release the return value by calling g_date_time_unref()
+        when you are done with it.
+        """
     @classmethod
-    def new_from_unix_utc_usec(cls, usecs: int) -> DateTime | None: ...
+    def new_from_unix_utc_usec(cls, usecs: int) -> DateTime | None:
+        """
+            Creates a [struct@GLib.DateTime] corresponding to the given Unix time @t in UTC.
+
+        Unix time is the number of microseconds that have elapsed since 1970-01-01
+        00:00:00 UTC.
+
+        This call can fail (returning `NULL`) if @t represents a time outside
+        of the supported range of #GDateTime.
+
+        You should release the return value by calling [method@GLib.DateTime.unref]
+        when you are done with it.
+        """
     @classmethod
-    def new_local(cls, year: int, month: int, day: int, hour: int, minute: int, seconds: float) -> DateTime | None: ...
+    def new_local(cls, year: int, month: int, day: int, hour: int, minute: int, seconds: float) -> DateTime | None:
+        """
+            Creates a new #GDateTime corresponding to the given date and time in
+        the local time zone.
+
+        This call is equivalent to calling g_date_time_new() with the time
+        zone returned by g_time_zone_new_local().
+        """
     @classmethod
-    def new_now(cls, tz: GObject.TimeZone) -> DateTime | None: ...
+    def new_now(cls, tz: GObject.TimeZone) -> DateTime | None:
+        """
+            Creates a #GDateTime corresponding to this exact instant in the given
+        time zone @tz.  The time is as accurate as the system allows, to a
+        maximum accuracy of 1 microsecond.
+
+        This function will always succeed unless GLib is still being used after the
+        year 9999.
+
+        You should release the return value by calling g_date_time_unref()
+        when you are done with it.
+        """
     @classmethod
-    def new_now_local(cls) -> DateTime | None: ...
+    def new_now_local(cls) -> DateTime | None:
+        """
+            Creates a #GDateTime corresponding to this exact instant in the local
+        time zone.
+
+        This is equivalent to calling g_date_time_new_now() with the time
+        zone returned by g_time_zone_new_local().
+        """
     @classmethod
-    def new_now_utc(cls) -> DateTime | None: ...
+    def new_now_utc(cls) -> DateTime | None:
+        """
+            Creates a #GDateTime corresponding to this exact instant in UTC.
+
+        This is equivalent to calling g_date_time_new_now() with the time
+        zone returned by g_time_zone_new_utc().
+        """
     @classmethod
-    def new_utc(cls, year: int, month: int, day: int, hour: int, minute: int, seconds: float) -> DateTime | None: ...
-    def ref(self) -> DateTime: ...
-    def to_local(self) -> DateTime | None: ...
+    def new_utc(cls, year: int, month: int, day: int, hour: int, minute: int, seconds: float) -> DateTime | None:
+        """
+            Creates a new #GDateTime corresponding to the given date and time in
+        UTC.
+
+        This call is equivalent to calling g_date_time_new() with the time
+        zone returned by g_time_zone_new_utc().
+        """
+    def ref(self) -> DateTime:
+        """
+        Atomically increments the reference count of @datetime by one.
+        """
+    def to_local(self) -> DateTime | None:
+        """
+            Creates a new #GDateTime corresponding to the same instant in time as
+        @datetime, but in the local time zone.
+
+        This call is equivalent to calling g_date_time_to_timezone() with the
+        time zone returned by g_time_zone_new_local().
+        """
     @deprecated("deprecated")
-    def to_timeval(self, tv: TimeVal) -> bool: ...
-    def to_timezone(self, tz: GObject.TimeZone) -> DateTime | None: ...
-    def to_unix(self) -> int: ...
-    def to_unix_usec(self) -> int: ...
-    def to_utc(self) -> DateTime | None: ...
-    def unref(self) -> None: ...
+    def to_timeval(self, tv: TimeVal) -> bool:
+        """
+            Stores the instant in time that @datetime represents into @tv.
+
+        The time contained in a #GTimeVal is always stored in the form of
+        seconds elapsed since 1970-01-01 00:00:00 UTC, regardless of the time
+        zone associated with @datetime.
+
+        On systems where 'long' is 32bit (ie: all 32bit systems and all
+        Windows systems), a #GTimeVal is incapable of storing the entire
+        range of values that #GDateTime is capable of expressing.  On those
+        systems, this function returns %FALSE to indicate that the time is
+        out of range.
+
+        On systems where 'long' is 64bit, this function never fails.
+        """
+    def to_timezone(self, tz: GObject.TimeZone) -> DateTime | None:
+        """
+            Create a new #GDateTime corresponding to the same instant in time as
+        @datetime, but in the time zone @tz.
+
+        This call can fail in the case that the time goes out of bounds.  For
+        example, converting 0001-01-01 00:00:00 UTC to a time zone west of
+        Greenwich will fail (due to the year 0 being out of range).
+        """
+    def to_unix(self) -> int:
+        """
+            Gives the Unix time corresponding to @datetime, rounding down to the
+        nearest second.
+
+        Unix time is the number of seconds that have elapsed since 1970-01-01
+        00:00:00 UTC, regardless of the time zone associated with @datetime.
+        """
+    def to_unix_usec(self) -> int:
+        """
+            Gives the Unix time corresponding to @datetime, in microseconds.
+
+        Unix time is the number of microseconds that have elapsed since 1970-01-01
+        00:00:00 UTC, regardless of the time zone associated with @datetime.
+        """
+    def to_utc(self) -> DateTime | None:
+        """
+            Creates a new #GDateTime corresponding to the same instant in time as
+        @datetime, but in UTC.
+
+        This call is equivalent to calling g_date_time_to_timezone() with the
+        time zone returned by g_time_zone_new_utc().
+        """
+    def unref(self) -> None:
+        """
+            Atomically decrements the reference count of @datetime by one.
+
+        When the reference count reaches zero, the resources allocated by
+        @datetime are freed
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -14463,9 +15717,22 @@ class DateTime(GObject.GBoxed):
     ) -> None: ...
 
 class DebugKey(GObject.GPointer):
+    """
+    Associates a string with a bit flag.
+    Used in g_parse_debug_string().
+    """
+
     # gi Fields
     key: str = ...
+    """
+    the string
+
+    """
     value: int = ...
+    """
+    the flag
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -14484,6 +15751,11 @@ class DoubleIEEE754(GObject.GPointer):
         """
 
 class Error(RuntimeError):
+    """
+    The `GError` structure contains information about
+    an error that has occurred.
+    """
+
     # python methods (overrides?)
     def __init__(
         self,
@@ -14520,6 +15792,16 @@ class FloatIEEE754(GObject.GPointer):
         """
 
 class HashTableIter(GObject.GPointer):
+    """
+    A GHashTableIter structure represents an iterator that can be used
+    to iterate over the elements of a #GHashTable. GHashTableIter
+    structures are typically allocated on the stack and then initialized
+    with g_hash_table_iter_init().
+
+    The iteration order of a #GHashTableIter over the keys/values in a hash
+    table is not defined.
+    """
+
     # gi Fields
     @builtins.property
     def dummy4(self) -> int: ...
@@ -14531,110 +15813,539 @@ class HashTableIter(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_hash_table(self) -> dict: ...
-    def init(self, hash_table: dict) -> None: ...
-    def next(self) -> tuple[bool, object | None, object | None]: ...
-    def remove(self) -> None: ...
-    def replace(self, value: object | None = None) -> None: ...
-    def steal(self) -> None: ...
+    def get_hash_table(self) -> dict:
+        """
+        Returns the #GHashTable associated with @iter.
+        """
+    def init(self, hash_table: dict) -> None:
+        """
+            Initializes a key/value pair iterator and associates it with
+        @hash_table. Modifying the hash table after calling this function
+        invalidates the returned iterator.
+
+        The iteration order of a #GHashTableIter over the keys/values in a hash
+        table is not defined.
+
+        |[<!-- language="C" -->
+        GHashTableIter iter;
+        gpointer key, value;
+
+        g_hash_table_iter_init (&iter, hash_table);
+        while (g_hash_table_iter_next (&iter, &key, &value))
+          {
+            // do something with key and value
+          }
+        ]|
+        """
+    def next(self) -> tuple[bool, object | None, object | None]:
+        """
+            Advances @iter and retrieves the key and/or value that are now
+        pointed to as a result of this advancement. If %FALSE is returned,
+        @key and @value are not set, and the iterator becomes invalid.
+        """
+    def remove(self) -> None:
+        """
+            Removes the key/value pair currently pointed to by the iterator
+        from its associated #GHashTable. Can only be called after
+        g_hash_table_iter_next() returned %TRUE, and cannot be called
+        more than once for the same key/value pair.
+
+        If the #GHashTable was created using g_hash_table_new_full(),
+        the key and value are freed using the supplied destroy functions,
+        otherwise you have to make sure that any dynamically allocated
+        values are freed yourself.
+
+        It is safe to continue iterating the #GHashTable afterward:
+        |[<!-- language="C" -->
+        while (g_hash_table_iter_next (&iter, &key, &value))
+          {
+            if (condition)
+              g_hash_table_iter_remove (&iter);
+          }
+        ]|
+        """
+    def replace(self, value: object | None = None) -> None:
+        """
+            Replaces the value currently pointed to by the iterator
+        from its associated #GHashTable. Can only be called after
+        g_hash_table_iter_next() returned %TRUE.
+
+        If you supplied a @value_destroy_func when creating the
+        #GHashTable, the old value is freed using that function.
+        """
+    def steal(self) -> None:
+        """
+            Removes the key/value pair currently pointed to by the
+        iterator from its associated #GHashTable, without calling
+        the key and value destroy functions. Can only be called
+        after g_hash_table_iter_next() returned %TRUE, and cannot
+        be called more than once for the same key/value pair.
+        """
 
 class Hook(GObject.GPointer):
+    """
+    The #GHook struct represents a single hook function in a #GHookList.
+    """
+
     # gi Fields
     flags: int = ...
+    """
+    flags which are set for this hook. See #GHookFlagMask for
+        predefined flags
+
+    """
     hook_id: int = ...
+    """
+    the id of this hook, which is unique within its list
+
+    """
     next: Hook | None = ...
+    """
+    pointer to the next hook in the list
+
+    """
     prev: Hook | None = ...
+    """
+    pointer to the previous hook in the list
+
+    """
     ref_count: int = ...
+    """
+    the reference count of this hook
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def compare_ids(self, sibling: Hook) -> int: ...
+    def compare_ids(self, sibling: Hook) -> int:
+        """
+            Compares the ids of two #GHook elements, returning a negative value
+        if the second id is greater than the first.
+        """
     @staticmethod
-    def destroy(hook_list: HookList, hook_id: int) -> bool: ...
+    def destroy(hook_list: HookList, hook_id: int) -> bool:
+        """
+        Destroys a #GHook, given its ID.
+        """
     @staticmethod
-    def destroy_link(hook_list: HookList, hook: Hook) -> None: ...
+    def destroy_link(hook_list: HookList, hook: Hook) -> None:
+        """
+            Removes one #GHook from a #GHookList, marking it
+        inactive and calling g_hook_unref() on it.
+        """
     @staticmethod
-    def free(hook_list: HookList, hook: Hook) -> None: ...
+    def free(hook_list: HookList, hook: Hook) -> None:
+        """
+            Calls the #GHookList @finalize_hook function if it exists,
+        and frees the memory allocated for the #GHook.
+        """
     @staticmethod
-    def insert_before(hook_list: HookList, sibling: Hook | None, hook: Hook) -> None: ...
+    def insert_before(hook_list: HookList, sibling: Hook | None, hook: Hook) -> None:
+        """
+        Inserts a #GHook into a #GHookList, before a given #GHook.
+        """
     @staticmethod
-    def insert_sorted(hook_list: HookList, hook: Hook, func: HookCompareFunc) -> None: ...
+    def insert_sorted(hook_list: HookList, hook: Hook, func: HookCompareFunc) -> None:
+        """
+        Inserts a #GHook into a #GHookList, sorted by the given function.
+        """
     @staticmethod
-    def prepend(hook_list: HookList, hook: Hook) -> None: ...
+    def prepend(hook_list: HookList, hook: Hook) -> None:
+        """
+        Prepends a #GHook on the start of a #GHookList.
+        """
     @staticmethod
-    def unref(hook_list: HookList, hook: Hook) -> None: ...
+    def unref(hook_list: HookList, hook: Hook) -> None:
+        """
+            Decrements the reference count of a #GHook.
+        If the reference count falls to 0, the #GHook is removed
+        from the #GHookList and g_hook_free() is called to free it.
+        """
 
 class HookList(GObject.GPointer):
+    """
+    The #GHookList struct represents a list of hook functions.
+    """
+
     # gi Fields
     dummy: list | None = ...
+    """
+    unused
+
+    """
     finalize_hook: HookFinalizeFuncHookListCB = ...
+    """
+    the function to call to finalize a #GHook element.
+        The default behaviour is to call the hooks @destroy function
+
+    """
     hook_size: int = ...
+    """
+    the size of the #GHookList elements, in bytes
+
+    """
     hooks: Hook | None = ...
+    """
+    the first #GHook element in the list
+
+    """
     is_setup: int = ...
+    """
+    1 if the #GHookList has been initialized
+
+    """
     seq_id: int = ...
+    """
+    the next free #GHook id
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def clear(self) -> None: ...
-    def init(self, hook_size: int) -> None: ...
-    def invoke(self, may_recurse: bool) -> None: ...
-    def invoke_check(self, may_recurse: bool) -> None: ...
-    def marshal(self, may_recurse: bool, marshaller: HookMarshaller, marshal_data: object | None = None) -> None: ...
+    def clear(self) -> None:
+        """
+        Removes all the #GHook elements from a #GHookList.
+        """
+    def init(self, hook_size: int) -> None:
+        """
+            Initializes a #GHookList.
+        This must be called before the #GHookList is used.
+        """
+    def invoke(self, may_recurse: bool) -> None:
+        """
+        Calls all of the #GHook functions in a #GHookList.
+        """
+    def invoke_check(self, may_recurse: bool) -> None:
+        """
+            Calls all of the #GHook functions in a #GHookList.
+        Any function which returns %FALSE is removed from the #GHookList.
+        """
+    def marshal(self, may_recurse: bool, marshaller: HookMarshaller, marshal_data: object | None = None) -> None:
+        """
+        Calls a function on each valid #GHook.
+        """
     def marshal_check(
         self, may_recurse: bool, marshaller: HookCheckMarshaller, marshal_data: object | None = None
-    ) -> None: ...
+    ) -> None:
+        """
+            Calls a function on each valid #GHook and destroys it if the
+        function returns %FALSE.
+        """
 
 class IOChannel(GObject.GBoxed):
+    """
+    The `GIOChannel` data type aims to provide a portable method for
+    using file descriptors, pipes, and sockets, and integrating them
+    into the main event loop (see [struct@GLib.MainContext]). Currently,
+    full support is available on UNIX platforms; support for Windows
+    is only partially complete.
+
+    To create a new `GIOChannel` on UNIX systems use
+    [ctor@GLib.IOChannel.unix_new]. This works for plain file descriptors,
+    pipes and sockets. Alternatively, a channel can be created for a
+    file in a system independent manner using [ctor@GLib.IOChannel.new_file].
+
+    Once a `GIOChannel` has been created, it can be used in a generic
+    manner with the functions [method@GLib.IOChannel.read_chars],
+    [method@GLib.IOChannel.write_chars], [method@GLib.IOChannel.seek_position],
+    and [method@GLib.IOChannel.shutdown].
+
+    To add a `GIOChannel` to the main event loop, use [func@GLib.io_add_watch] or
+    [func@GLib.io_add_watch_full]. Here you specify which events you are
+    interested in on the `GIOChannel`, and provide a function to be called
+    whenever these events occur.
+
+    `GIOChannel` instances are created with an initial reference count of 1.
+    [method@GLib.IOChannel.ref] and [method@GLib.IOChannel.unref] can be used to
+    increment or decrement the reference count respectively. When the
+    reference count falls to 0, the `GIOChannel` is freed. (Though it
+    isn’t closed automatically, unless it was created using
+    [ctor@GLib.IOChannel.new_file].) Using [func@GLib.io_add_watch] or
+    [func@GLib.io_add_watch_full] increments a channel’s reference count.
+
+    The new functions [method@GLib.IOChannel.read_chars],
+    [method@GLib.IOChannel.read_line], [method@GLib.IOChannel.read_line_string],
+    [method@GLib.IOChannel.read_to_end], [method@GLib.IOChannel.write_chars],
+    [method@GLib.IOChannel.seek_position], and [method@GLib.IOChannel.flush]
+    should not be mixed with the deprecated functions
+    [method@GLib.IOChannel.read], [method@GLib.IOChannel.write], and
+    [method@GLib.IOChannel.seek] on the same channel.
+    """
+
     # gi Methods
     @deprecated("deprecated")
-    def close(self) -> None: ...
+    def close(self) -> None:
+        """
+            Close an IO channel. Any pending data to be written will be
+        flushed, ignoring errors. The channel will not be freed until the
+        last reference is dropped using g_io_channel_unref().
+        """
     @staticmethod
-    def error_from_errno(en: int) -> IOChannelError: ...
+    def error_from_errno(en: int) -> IOChannelError:
+        """
+        Converts an `errno` error number to a #GIOChannelError.
+        """
     @staticmethod
     def error_quark() -> int: ...
-    def flush(self) -> IOStatus: ...
-    def get_buffer_condition(self) -> IOCondition: ...
-    def get_buffer_size(self) -> int: ...
-    def get_buffered(self) -> bool: ...
-    def get_close_on_unref(self) -> bool: ...
-    def get_encoding(self) -> str: ...
-    def get_flags(self) -> IOFlags: ...
-    def get_line_term(self) -> tuple[str, int | None]: ...
-    def init(self) -> None: ...
+    def flush(self) -> IOStatus:
+        """
+        Flushes the write buffer for the GIOChannel.
+        """
+    def get_buffer_condition(self) -> IOCondition:
+        """
+            This function returns a #GIOCondition depending on whether there
+        is data to be read/space to write data in the internal buffers in
+        the #GIOChannel. Only the flags %G_IO_IN and %G_IO_OUT may be set.
+        """
+    def get_buffer_size(self) -> int:
+        """
+        Gets the buffer size.
+        """
+    def get_buffered(self) -> bool:
+        """
+        Returns whether @channel is buffered.
+        """
+    def get_close_on_unref(self) -> bool:
+        """
+            Returns whether the file/socket/whatever associated with @channel
+        will be closed when @channel receives its final unref and is
+        destroyed. The default value of this is %TRUE for channels created
+        by g_io_channel_new_file (), and %FALSE for all other channels.
+        """
+    def get_encoding(self) -> str:
+        """
+            Gets the encoding for the input/output of the channel.
+        The internal encoding is always UTF-8. The encoding %NULL
+        makes the channel safe for binary data.
+        """
+    def get_flags(self) -> IOFlags:
+        """
+            Gets the current flags for a #GIOChannel, including read-only
+        flags such as %G_IO_FLAG_IS_READABLE.
+
+        The values of the flags %G_IO_FLAG_IS_READABLE and %G_IO_FLAG_IS_WRITABLE
+        are cached for internal use by the channel when it is created.
+        If they should change at some later point (e.g. partial shutdown
+        of a socket with the UNIX shutdown() function), the user
+        should immediately call g_io_channel_get_flags() to update
+        the internal values of these flags.
+        """
+    def get_line_term(self) -> tuple[str, int | None]:
+        """
+            This returns the string that #GIOChannel uses to determine
+        where in the file a line break occurs. A value of %NULL
+        indicates autodetection. Since 2.84, the return value is always
+        nul-terminated.
+        """
+    def init(self) -> None:
+        """
+            Initializes a #GIOChannel struct.
+
+        This is called by each of the above functions when creating a
+        #GIOChannel, and so is not often needed by the application
+        programmer (unless you are creating a new type of #GIOChannel).
+        """
     @classmethod
-    def new_file(cls, filename: str, mode: str) -> IOChannel: ...
+    def new_file(cls, filename: str, mode: str) -> IOChannel:
+        """
+            Open a file @filename as a #GIOChannel using mode @mode. This
+        channel will be closed when the last reference to it is dropped,
+        so there is no need to call g_io_channel_close() (though doing
+        so will not cause problems, as long as no attempt is made to
+        access the channel after it is closed).
+        """
     @deprecated("deprecated")
-    def read(self, buf: str, count: int, bytes_read: int) -> IOError: ...
-    def read_chars(self, count: int) -> tuple[IOStatus, list, int | None]: ...
-    def read_line(self) -> tuple[IOStatus, str, int | None, int | None]: ...
-    def read_line_string(self, buffer: String, terminator_pos: int | None = None) -> IOStatus: ...
-    def read_to_end(self) -> tuple[IOStatus, list, int]: ...
-    def read_unichar(self) -> tuple[IOStatus, str]: ...
-    def ref(self) -> IOChannel: ...
+    def read(self, buf: str, count: int, bytes_read: int) -> IOError:
+        """
+        Reads data from a #GIOChannel.
+        """
+    def read_chars(self, count: int) -> tuple[IOStatus, list, int | None]:
+        """
+        Replacement for g_io_channel_read() with the new API.
+        """
+    def read_line(self) -> tuple[IOStatus, str, int | None, int | None]:
+        """
+            Reads a line, including the terminating character(s),
+        from a #GIOChannel into a newly-allocated string.
+        @str_return will contain allocated memory if the return
+        is %G_IO_STATUS_NORMAL.
+        """
+    def read_line_string(self, buffer: String, terminator_pos: int | None = None) -> IOStatus:
+        """
+        Reads a line from a #GIOChannel, using a #GString as a buffer.
+        """
+    def read_to_end(self) -> tuple[IOStatus, list, int]:
+        """
+        Reads all the remaining data from the file.
+        """
+    def read_unichar(self) -> tuple[IOStatus, str]:
+        """
+            Reads a Unicode character from @channel.
+        This function cannot be called on a channel with %NULL encoding.
+        """
+    def ref(self) -> IOChannel:
+        """
+        Increments the reference count of a #GIOChannel.
+        """
     @deprecated("deprecated")
-    def seek(self, offset: int, type: SeekType) -> IOError: ...
-    def seek_position(self, offset: int, type: SeekType) -> IOStatus: ...
-    def set_buffer_size(self, size: int) -> None: ...
-    def set_buffered(self, buffered: bool) -> None: ...
-    def set_close_on_unref(self, do_close: bool) -> None: ...
-    def set_encoding(self, encoding: str | None = None) -> IOStatus: ...
-    def set_flags(self, flags: IOFlags) -> IOStatus: ...
-    def set_line_term(self, line_term: str | None, length: int) -> None: ...
-    def shutdown(self, flush: bool) -> IOStatus: ...
-    def unix_get_fd(self) -> int: ...
+    def seek(self, offset: int, type: SeekType) -> IOError:
+        """
+            Sets the current position in the #GIOChannel, similar to the standard
+        library function fseek().
+        """
+    def seek_position(self, offset: int, type: SeekType) -> IOStatus:
+        """
+        Replacement for g_io_channel_seek() with the new API.
+        """
+    def set_buffer_size(self, size: int) -> None:
+        """
+        Sets the buffer size.
+        """
+    def set_buffered(self, buffered: bool) -> None:
+        """
+            The buffering state can only be set if the channel's encoding
+        is %NULL. For any other encoding, the channel must be buffered.
+
+        A buffered channel can only be set unbuffered if the channel's
+        internal buffers have been flushed. Newly created channels or
+        channels which have returned %G_IO_STATUS_EOF
+        not require such a flush. For write-only channels, a call to
+        g_io_channel_flush () is sufficient. For all other channels,
+        the buffers may be flushed by a call to g_io_channel_seek_position ().
+        This includes the possibility of seeking with seek type %G_SEEK_CUR
+        and an offset of zero. Note that this means that socket-based
+        channels cannot be set unbuffered once they have had data
+        read from them.
+
+        On unbuffered channels, it is safe to mix read and write
+        calls from the new and old APIs, if this is necessary for
+        maintaining old code.
+
+        The default state of the channel is buffered.
+        """
+    def set_close_on_unref(self, do_close: bool) -> None:
+        """
+            Whether to close the channel on the final unref of the #GIOChannel
+        data structure. The default value of this is %TRUE for channels
+        created by g_io_channel_new_file (), and %FALSE for all other channels.
+
+        Setting this flag to %TRUE for a channel you have already closed
+        can cause problems when the final reference to the #GIOChannel is dropped.
+        """
+    def set_encoding(self, encoding: str | None = None) -> IOStatus:
+        """
+            Sets the encoding for the input/output of the channel.
+        The internal encoding is always UTF-8. The default encoding
+        for the external file is UTF-8.
+
+        The encoding %NULL is safe to use with binary data.
+
+        The encoding can only be set if one of the following conditions
+        is true:
+
+        - The channel was just created, and has not been written to or read from yet.
+
+        - The channel is write-only.
+
+        - The channel is a file, and the file pointer was just repositioned
+          by a call to g_io_channel_seek_position(). (This flushes all the
+          internal buffers.)
+
+        - The current encoding is %NULL or UTF-8.
+
+        - One of the (new API) read functions has just returned %G_IO_STATUS_EOF
+          (or, in the case of g_io_channel_read_to_end(), %G_IO_STATUS_NORMAL).
+
+        -  One of the functions g_io_channel_read_chars() or
+           g_io_channel_read_unichar() has returned %G_IO_STATUS_AGAIN or
+           %G_IO_STATUS_ERROR. This may be useful in the case of
+           %G_CONVERT_ERROR_ILLEGAL_SEQUENCE.
+           Returning one of these statuses from g_io_channel_read_line(),
+           g_io_channel_read_line_string(), or g_io_channel_read_to_end()
+           does not guarantee that the encoding can be changed.
+
+        Channels which do not meet one of the above conditions cannot call
+        g_io_channel_seek_position() with an offset of %G_SEEK_CUR, and, if
+        they are "seekable", cannot call g_io_channel_write_chars() after
+        calling one of the API "read" functions.
+        """
+    def set_flags(self, flags: IOFlags) -> IOStatus:
+        """
+        Sets the (writeable) flags in @channel to (@flags & %G_IO_FLAG_SET_MASK).
+        """
+    def set_line_term(self, line_term: str | None, length: int) -> None:
+        """
+            This sets the string that #GIOChannel uses to determine
+        where in the file a line break occurs.
+        """
+    def shutdown(self, flush: bool) -> IOStatus:
+        """
+            Close an IO channel. Any pending data to be written will be
+        flushed if @flush is %TRUE. The channel will not be freed until the
+        last reference is dropped using g_io_channel_unref().
+        """
+    def unix_get_fd(self) -> int:
+        """
+            Returns the file descriptor of the #GIOChannel.
+
+        On Windows this function returns the file descriptor or socket of
+        the #GIOChannel.
+        """
     @classmethod
-    def unix_new(cls, fd: int) -> IOChannel: ...
-    def unref(self) -> None: ...
+    def unix_new(cls, fd: int) -> IOChannel:
+        """
+            Creates a new #GIOChannel given a file descriptor. On UNIX systems
+        this works for plain files, pipes, and sockets.
+
+        The returned #GIOChannel has a reference count of 1.
+
+        The default encoding for #GIOChannel is UTF-8. If your application
+        is reading output from a command using via pipe, you may need to set
+        the encoding to the encoding of the current locale (see
+        g_get_charset()) with the g_io_channel_set_encoding() function.
+        By default, the fd passed will not be closed when the final reference
+        to the #GIOChannel data structure is dropped.
+
+        If you want to read raw binary data without interpretation, then
+        call the g_io_channel_set_encoding() function with %NULL for the
+        encoding argument.
+
+        This function is available in GLib on Windows, too, but you should
+        avoid using it on Windows. The domain of file descriptors and
+        sockets overlap. There is no way for GLib to know which one you mean
+        in case the argument you pass to this function happens to be both a
+        valid file descriptor and socket. If that happens a warning is
+        issued, and GLib assumes that it is the file descriptor you mean.
+        """
+    def unref(self) -> None:
+        """
+        Decrements the reference count of a #GIOChannel.
+        """
     @deprecated("deprecated")
-    def write(self, buf: str, count: int, bytes_written: int) -> IOError: ...
-    def write_chars(self, buf: list, count: int) -> tuple[IOStatus, int]: ...
-    def write_unichar(self, thechar: str) -> IOStatus: ...
+    def write(self, buf: str, count: int, bytes_written: int) -> IOError:
+        """
+        Writes data to a #GIOChannel.
+        """
+    def write_chars(self, buf: list, count: int) -> tuple[IOStatus, int]:
+        """
+            Replacement for g_io_channel_write() with the new API.
+
+        On seekable channels with encodings other than %NULL or UTF-8, generic
+        mixing of reading and writing is not allowed. A call to g_io_channel_write_chars ()
+        may only be made on a channel from which data has been read in the
+        cases described in the documentation for g_io_channel_set_encoding ().
+        """
+    def write_unichar(self, thechar: str) -> IOStatus:
+        """
+            Writes a Unicode character to @channel.
+        This function cannot be called on a channel with %NULL encoding.
+        """
 
     # python methods (overrides?)
     def __init__(
@@ -14666,23 +16377,72 @@ class IOChannel(GObject.GBoxed):
     ) -> typing.Any: ...
 
 class IOFuncs(GObject.GPointer):
+    """
+    A table of functions used to handle different types of #GIOChannel
+    in a generic way.
+    """
+
     # gi Fields
     @builtins.property
-    def io_close(self) -> io_closeIOFuncsCB: ...
+    def io_close(self) -> io_closeIOFuncsCB:
+        """
+        closes the channel.  This is called from
+               g_io_channel_close() after flushing the buffers.
+        """
     @builtins.property
-    def io_create_watch(self) -> io_create_watchIOFuncsCB: ...
+    def io_create_watch(self) -> io_create_watchIOFuncsCB:
+        """
+        creates a watch on the channel.  This call
+                      corresponds directly to g_io_create_watch().
+        """
     @builtins.property
-    def io_free(self) -> io_freeIOFuncsCB: ...
+    def io_free(self) -> io_freeIOFuncsCB:
+        """
+        called from g_io_channel_unref() when the channel needs to
+              be freed.  This function must free the memory associated
+              with the channel, including freeing the #GIOChannel
+              structure itself.  The channel buffers have been flushed
+              and possibly @io_close has been called by the time this
+              function is called.
+        """
     @builtins.property
-    def io_get_flags(self) -> io_get_flagsIOFuncsCB: ...
+    def io_get_flags(self) -> io_get_flagsIOFuncsCB:
+        """
+        gets the #GIOFlags for the channel.  This function
+                   need only return the %G_IO_FLAG_APPEND and
+                   %G_IO_FLAG_NONBLOCK flags; g_io_channel_get_flags()
+                   automatically adds the others as appropriate.
+        """
     @builtins.property
-    def io_read(self) -> io_readIOFuncsCB: ...
+    def io_read(self) -> io_readIOFuncsCB:
+        """
+        reads raw bytes from the channel.  This is called from
+              various functions such as g_io_channel_read_chars() to
+              read raw bytes from the channel.  Encoding and buffering
+              issues are dealt with at a higher level.
+        """
     @builtins.property
-    def io_seek(self) -> io_seekIOFuncsCB: ...
+    def io_seek(self) -> io_seekIOFuncsCB:
+        """
+        seeks the channel.  This is called from
+              g_io_channel_seek() on channels that support it.
+        """
     @builtins.property
-    def io_set_flags(self) -> io_set_flagsIOFuncsCB: ...
+    def io_set_flags(self) -> io_set_flagsIOFuncsCB:
+        """
+        sets the #GIOFlags on the channel.  This is called
+                   from g_io_channel_set_flags() with all flags except
+                   for %G_IO_FLAG_APPEND and %G_IO_FLAG_NONBLOCK masked
+                   out.
+        """
     @builtins.property
-    def io_write(self) -> io_writeIOFuncsCB: ...
+    def io_write(self) -> io_writeIOFuncsCB:
+        """
+        writes raw bytes to the channel.  This is called from
+               various functions such as g_io_channel_write_chars() to
+               write raw bytes to the channel.  Encoding and buffering
+               issues are dealt with at a higher level.
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -14745,58 +16505,547 @@ class Idle(Source):
         """
 
 class KeyFile(GObject.GBoxed):
+    """
+    `GKeyFile` parses .ini-like config files.
+
+    `GKeyFile` lets you parse, edit or create files containing groups of
+    key-value pairs, which we call ‘key files’ for lack of a better name.
+    Several freedesktop.org specifications use key files. For example, the
+    [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/)
+    and the [Icon Theme Specification](https://specifications.freedesktop.org/icon-theme-spec/latest/).
+
+    The syntax of key files is described in detail in the
+    [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/),
+    here is a quick summary: Key files consists of groups of key-value pairs, interspersed
+    with comments.
+
+    ```txt
+    # this is just an example
+    # there can be comments before the first group
+
+    [First Group]
+
+    Name=Key File Example\\tthis value shows\\nescaping
+
+    # localized strings are stored in multiple key-value pairs
+    Welcome=Hello
+    Welcome[de]=Hallo
+    Welcome[fr_FR]=Bonjour
+    Welcome[it]=Ciao
+
+    [Another Group]
+
+    Numbers=2;20;-200;0
+
+    Booleans=true;false;true;true
+    ```
+
+    Lines beginning with a `#` and blank lines are considered comments.
+
+    Groups are started by a header line containing the group name enclosed
+    in `[` and `]`, and ended implicitly by the start of the next group or
+    the end of the file. Each key-value pair must be contained in a group.
+
+    Key-value pairs generally have the form `key=value`, with the exception
+    of localized strings, which have the form `key[locale]=value`, with a
+    locale identifier of the form `lang_COUNTRY@MODIFIER` where `COUNTRY`
+    and `MODIFIER` are optional. As a special case, the locale `C` is associated
+    with the untranslated pair `key=value` (since GLib 2.84). Space before and
+    after the `=` character is ignored. Newline, tab, carriage return and
+    backslash characters in value are escaped as `\\n`, `\\t`, `\\r`, and `\\\\\\`,
+    respectively. To preserve leading spaces in values, these can also be escaped
+    as `\\s`.
+
+    Key files can store strings (possibly with localized variants), integers,
+    booleans and lists of these. Lists are separated by a separator character,
+    typically `;` or `,`. To use the list separator character in a value in
+    a list, it has to be escaped by prefixing it with a backslash.
+
+    This syntax is obviously inspired by the .ini files commonly met
+    on Windows, but there are some important differences:
+
+    - .ini files use the `;` character to begin comments,
+      key files use the `#` character.
+
+    - Key files do not allow for ungrouped keys meaning only
+      comments can precede the first group.
+
+    - Key files are always encoded in UTF-8.
+
+    - Key and Group names are case-sensitive. For example, a group called
+      `[GROUP]` is a different from `[group]`.
+
+    - .ini files don’t have a strongly typed boolean entry type,
+       they only have `GetProfileInt()`. In key files, only
+       `true` and `false` (in lower case) are allowed.
+
+    Note that in contrast to the
+    [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/),
+    groups in key files may contain the same key multiple times; the last entry wins.
+    Key files may also contain multiple groups with the same name; they are merged
+    together. Another difference is that keys and group names in key files are not
+    restricted to ASCII characters.
+
+    Here is an example of loading a key file and reading a value:
+
+    ```c
+    g_autoptr(GError) error = NULL;
+    g_autoptr(GKeyFile) key_file = g_key_file_new ();
+
+    if (!g_key_file_load_from_file (key_file, "key-file.ini", flags, &error))
+      {
+        if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+          g_warning ("Error loading key file: %s", error->message);
+        return;
+      }
+
+    g_autofree gchar *val = g_key_file_get_string (key_file, "Group Name", "SomeKey", &error);
+    if (val == NULL &&
+        !g_error_matches (error, G_KEY_FILE_ERROR, G_KEY_FILE_ERROR_KEY_NOT_FOUND))
+      {
+        g_warning ("Error finding key in key file: %s", error->message);
+        return;
+      }
+    else if (val == NULL)
+      {
+        // Fall back to a default value.
+        val = g_strdup ("default-value");
+      }
+    ```
+
+    Here is an example of creating and saving a key file:
+
+    ```c
+    g_autoptr(GKeyFile) key_file = g_key_file_new ();
+    const gchar *val = …;
+    g_autoptr(GError) error = NULL;
+
+    g_key_file_set_string (key_file, "Group Name", "SomeKey", val);
+
+    // Save as a file.
+    if (!g_key_file_save_to_file (key_file, "key-file.ini", &error))
+      {
+        g_warning ("Error saving key file: %s", error->message);
+        return;
+      }
+
+    // Or store to a GBytes for use elsewhere.
+    gsize data_len;
+    g_autofree guint8 *data = (guint8 *) g_key_file_to_data (key_file, &data_len, &error);
+    if (data == NULL)
+      {
+        g_warning ("Error saving key file: %s", error->message);
+        return;
+      }
+    g_autoptr(GBytes) bytes = g_bytes_new_take (g_steal_pointer (&data), data_len);
+    ```
+    """
+
     # gi Methods
     @staticmethod
     def error_quark() -> int: ...
-    def get_boolean(self, group_name: str, key: str) -> bool: ...
-    def get_boolean_list(self, group_name: str, key: str) -> tuple[list, int]: ...
-    def get_comment(self, group_name: str | None = None, key: str | None = None) -> str: ...
-    def get_double(self, group_name: str, key: str) -> float: ...
-    def get_double_list(self, group_name: str, key: str) -> tuple[list, int]: ...
-    def get_groups(self) -> tuple[list, int | None]: ...
-    def get_int64(self, group_name: str, key: str) -> int: ...
-    def get_integer(self, group_name: str, key: str) -> int: ...
-    def get_integer_list(self, group_name: str, key: str) -> tuple[list, int]: ...
-    def get_keys(self, group_name: str) -> tuple[list, int | None]: ...
-    def get_locale_for_key(self, group_name: str, key: str, locale: str | None = None) -> str | None: ...
-    def get_locale_string(self, group_name: str, key: str, locale: str | None = None) -> str: ...
-    def get_locale_string_list(
-        self, group_name: str, key: str, locale: str | None = None
-    ) -> tuple[list, int | None]: ...
-    def get_start_group(self) -> str | None: ...
-    def get_string(self, group_name: str, key: str) -> str: ...
-    def get_string_list(self, group_name: str, key: str) -> tuple[list, int | None]: ...
-    def get_uint64(self, group_name: str, key: str) -> int: ...
-    def get_value(self, group_name: str, key: str) -> str: ...
-    def has_group(self, group_name: str) -> bool: ...
-    def load_from_bytes(self, bytes: Bytes, flags: KeyFileFlags) -> bool: ...
-    def load_from_data(self, data: str, length: int, flags: KeyFileFlags) -> bool: ...
-    def load_from_data_dirs(self, file: str, flags: KeyFileFlags) -> tuple[bool, str | None]: ...
-    def load_from_dirs(self, file: str, search_dirs: list, flags: KeyFileFlags) -> tuple[bool, str | None]: ...
-    def load_from_file(self, file: str, flags: KeyFileFlags) -> bool: ...
+    def get_boolean(self, group_name: str, key: str) -> bool:
+        """
+            Returns the value associated with @key under @group_name as a
+        boolean.
+
+        If @key cannot be found then [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. Likewise, if the value associated with @key cannot be interpreted
+        as a boolean then [error@GLib.KeyFileError.INVALID_VALUE] is returned.
+        """
+    def get_boolean_list(self, group_name: str, key: str) -> tuple[list, int]:
+        """
+            Returns the values associated with @key under @group_name as
+        booleans.
+
+        If @key cannot be found then [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. Likewise, if the values associated with @key cannot be interpreted
+        as booleans then [error@GLib.KeyFileError.INVALID_VALUE] is returned.
+        """
+    def get_comment(self, group_name: str | None = None, key: str | None = None) -> str:
+        """
+            Retrieves a comment above @key from @group_name.
+
+        If @key is `NULL` then @comment will be read from above
+        @group_name. If both @key and @group_name are `NULL`, then
+        @comment will be read from above the first group in the file.
+
+        Note that the returned string does not include the `#` comment markers,
+        but does include any whitespace after them (on each line). It includes
+        the line breaks between lines, but does not include the final line break.
+        """
+    def get_double(self, group_name: str, key: str) -> float:
+        """
+            Returns the value associated with @key under @group_name as a double.
+
+        If @key cannot be found then [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. Likewise, if the value associated with @key cannot be interpreted
+        as a double then [error@GLib.KeyFileError.INVALID_VALUE] is returned.
+        """
+    def get_double_list(self, group_name: str, key: str) -> tuple[list, int]:
+        """
+            Returns the values associated with @key under @group_name as
+        doubles.
+
+        If @key cannot be found then [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. Likewise, if the values associated with @key cannot be interpreted
+        as doubles then [error@GLib.KeyFileError.INVALID_VALUE] is returned.
+        """
+    def get_groups(self) -> tuple[list, int | None]:
+        """
+            Returns all groups in the key file loaded with @key_file.
+
+        The array of returned groups will be `NULL`-terminated, so
+        @length may optionally be `NULL`.
+        """
+    def get_int64(self, group_name: str, key: str) -> int:
+        """
+            Returns the value associated with @key under @group_name as a signed
+        64-bit integer.
+
+        This is similar to [method@GLib.KeyFile.get_integer] but can return
+        64-bit results without truncation.
+        """
+    def get_integer(self, group_name: str, key: str) -> int:
+        """
+            Returns the value associated with @key under @group_name as an
+        integer.
+
+        If @key cannot be found then [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. Likewise, if the value associated with @key cannot be interpreted
+        as an integer, or is out of range for a `gint`, then
+        [error@GLib.KeyFileError.INVALID_VALUE] is returned.
+        """
+    def get_integer_list(self, group_name: str, key: str) -> tuple[list, int]:
+        """
+            Returns the values associated with @key under @group_name as
+        integers.
+
+        If @key cannot be found then [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. Likewise, if the values associated with @key cannot be interpreted
+        as integers, or are out of range for `gint`, then
+        [error@GLib.KeyFileError.INVALID_VALUE] is returned.
+        """
+    def get_keys(self, group_name: str) -> tuple[list, int | None]:
+        """
+            Returns all keys for the group name @group_name.
+
+        The array of returned keys will be `NULL`-terminated, so @length may
+        optionally be `NULL`. If the @group_name cannot be found,
+        [error@GLib.KeyFileError.GROUP_NOT_FOUND] is returned.
+        """
+    def get_locale_for_key(self, group_name: str, key: str, locale: str | None = None) -> str | None:
+        """
+            Returns the actual locale which the result of
+        [method@GLib.KeyFile.get_locale_string] or
+        [method@GLib.KeyFile.get_locale_string_list] came from.
+
+        If calling [method@GLib.KeyFile.get_locale_string] or
+        [method@GLib.KeyFile.get_locale_string_list] with exactly the same @key_file,
+        @group_name, @key and @locale, the result of those functions will
+        have originally been tagged with the locale that is the result of
+        this function.
+        """
+    def get_locale_string(self, group_name: str, key: str, locale: str | None = None) -> str:
+        """
+            Returns the value associated with @key under @group_name
+        translated in the given @locale if available.
+
+        If @locale is `C` then the untranslated value is returned (since GLib 2.84).
+
+        If @locale is `NULL` then the current locale is assumed.
+
+        If @locale is to be non-`NULL`, or if the current locale will change over
+        the lifetime of the [struct@GLib.KeyFile], it must be loaded with
+        [flags@GLib.KeyFileFlags.KEEP_TRANSLATIONS] in order to load strings for all
+        locales.
+
+        If @key cannot be found then [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. If the value associated
+        with @key cannot be interpreted or no suitable translation can
+        be found then the untranslated value is returned.
+        """
+    def get_locale_string_list(self, group_name: str, key: str, locale: str | None = None) -> tuple[list, int | None]:
+        """
+            Returns the values associated with @key under @group_name
+        translated in the given @locale if available.
+
+        If @locale is `C` then the untranslated value is returned (since GLib 2.84).
+
+        If @locale is `NULL` then the current locale is assumed.
+
+        If @locale is to be non-`NULL`, or if the current locale will change over
+        the lifetime of the [struct@GLib.KeyFile], it must be loaded with
+        [flags@GLib.KeyFileFlags.KEEP_TRANSLATIONS] in order to load strings for all
+        locales.
+
+        If @key cannot be found then [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. If the values associated
+        with @key cannot be interpreted or no suitable translations
+        can be found then the untranslated values are returned. The
+        returned array is `NULL`-terminated, so @length may optionally
+        be `NULL`.
+        """
+    def get_start_group(self) -> str | None:
+        """
+        Returns the name of the start group of the file.
+        """
+    def get_string(self, group_name: str, key: str) -> str:
+        """
+            Returns the string value associated with @key under @group_name.
+
+        Unlike [method@GLib.KeyFile.get_value], this function handles escape
+        sequences like `\\s`.
+
+        If the key cannot be found, [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. If the @group_name cannot be found,
+        [error@GLib.KeyFileError.GROUP_NOT_FOUND] is returned.
+        """
+    def get_string_list(self, group_name: str, key: str) -> tuple[list, int | None]:
+        """
+            Returns the values associated with @key under @group_name.
+
+        If the key cannot be found, [error@GLib.KeyFileError.KEY_NOT_FOUND] is
+        returned. If the @group_name cannot be found,
+        [error@GLib.KeyFileError.GROUP_NOT_FOUND] is returned.
+        """
+    def get_uint64(self, group_name: str, key: str) -> int:
+        """
+            Returns the value associated with @key under @group_name as an unsigned
+        64-bit integer.
+
+        This is similar to [method@GLib.KeyFile.get_integer] but can return
+        large positive results without truncation.
+        """
+    def get_value(self, group_name: str, key: str) -> str:
+        """
+            Returns the raw value associated with @key under @group_name.
+
+        Use [method@GLib.KeyFile.get_string] to retrieve an unescaped UTF-8 string.
+
+        If the key cannot be found, [error@GLib.KeyFileError.KEY_NOT_FOUND]
+        is returned.  If the @group_name cannot be found,
+        [error@GLib.KeyFileError.GROUP_NOT_FOUND] is returned.
+        """
+    def has_group(self, group_name: str) -> bool:
+        """
+        Looks whether the key file has the group @group_name.
+        """
+    def load_from_bytes(self, bytes: Bytes, flags: KeyFileFlags) -> bool:
+        """
+            Loads a key file from the data in @bytes into an empty [struct@GLib.KeyFile]
+        structure.
+
+        If the object cannot be created then a [error@GLib.KeyFileError] is returned.
+        """
+    def load_from_data(self, data: str, length: int, flags: KeyFileFlags) -> bool:
+        """
+            Loads a key file from memory into an empty [struct@GLib.KeyFile] structure.
+
+        If the object cannot be created then a [error@GLib.KeyFileError is returned.
+        """
+    def load_from_data_dirs(self, file: str, flags: KeyFileFlags) -> tuple[bool, str | None]:
+        """
+            Looks for a key file named @file in the paths returned from
+        [func@GLib.get_user_data_dir] and [func@GLib.get_system_data_dirs].
+
+        The search algorithm from [method@GLib.KeyFile.load_from_dirs] is used. If
+        @file is found, it’s loaded into @key_file and its full path is returned in
+        @full_path.
+
+        If the file could not be loaded then either a [error@GLib.FileError] or
+        [error@GLib.KeyFileError] is returned.
+        """
+    def load_from_dirs(self, file: str, search_dirs: list, flags: KeyFileFlags) -> tuple[bool, str | None]:
+        """
+            Looks for a key file named @file in the paths specified in @search_dirs,
+        loads the file into @key_file and returns the file’s full path in @full_path.
+
+        @search_dirs are checked in the order listed in the array, with the highest
+        priority directory listed first. Within each directory, @file is looked for.
+        If it’s not found, `-` characters in @file are progressively replaced with
+        directory separators to search subdirectories of the search directory. If the
+        file has not been found after all `-` characters have been replaced, the next
+        search directory in @search_dirs is checked.
+
+        If the file could not be found in any of the @search_dirs,
+        [error@GLib.KeyFileError.NOT_FOUND] is returned. If
+        the file is found but the OS returns an error when opening or reading the
+        file, a [error@GLib.FileError] is returned. If there is a problem parsing the
+        file, a [error@GLib.KeyFileError] is returned.
+        """
+    def load_from_file(self, file: str, flags: KeyFileFlags) -> bool:
+        """
+            Loads a key file into an empty [struct@GLib.KeyFile] structure.
+
+        If the OS returns an error when opening or reading the file, a
+        [error@GLib.FileError] is returned. If there is a problem parsing the file,
+        a [error@GLib.KeyFileError] is returned.
+
+        This function will never return a [error@GLib.KeyFileError.NOT_FOUND]
+        error. If the @file is not found, [error@GLib.FileError.NOENT] is returned.
+        """
     @classmethod
-    def new(cls) -> KeyFile: ...
-    def remove_comment(self, group_name: str | None = None, key: str | None = None) -> bool: ...
-    def remove_group(self, group_name: str) -> bool: ...
-    def remove_key(self, group_name: str, key: str) -> bool: ...
-    def save_to_file(self, filename: str) -> bool: ...
-    def set_boolean(self, group_name: str, key: str, value: bool) -> None: ...
-    def set_boolean_list(self, group_name: str, key: str, list: list, length: int) -> None: ...
-    def set_comment(self, group_name: str | None, key: str | None, comment: str) -> bool: ...
-    def set_double(self, group_name: str, key: str, value: float) -> None: ...
-    def set_double_list(self, group_name: str, key: str, list: list, length: int) -> None: ...
-    def set_int64(self, group_name: str, key: str, value: int) -> None: ...
-    def set_integer(self, group_name: str, key: str, value: int) -> None: ...
-    def set_integer_list(self, group_name: str, key: str, list: list, length: int) -> None: ...
-    def set_list_separator(self, separator: int) -> None: ...
-    def set_locale_string(self, group_name: str, key: str, locale: str, string: str) -> None: ...
-    def set_locale_string_list(self, group_name: str, key: str, locale: str, list: list, length: int) -> None: ...
-    def set_string(self, group_name: str, key: str, string: str) -> None: ...
-    def set_string_list(self, group_name: str, key: str, list: list, length: int) -> None: ...
-    def set_uint64(self, group_name: str, key: str, value: int) -> None: ...
-    def set_value(self, group_name: str, key: str, value: str) -> None: ...
-    def to_data(self) -> tuple[str, int | None]: ...
-    def unref(self) -> None: ...
+    def new(cls) -> KeyFile:
+        """
+            Creates a new empty [struct@GLib.KeyFile] object.
+
+        Use [method@GLib.KeyFile.load_from_file],
+        [method@GLib.KeyFile.load_from_data], [method@GLib.KeyFile.load_from_dirs] or
+        [method@GLib.KeyFile.load_from_data_dirs] to
+        read an existing key file.
+        """
+    def remove_comment(self, group_name: str | None = None, key: str | None = None) -> bool:
+        """
+            Removes a comment above @key from @group_name.
+
+        If @key is `NULL` then @comment will be removed above @group_name.
+        If both @key and @group_name are `NULL`, then @comment will
+        be removed above the first group in the file.
+        """
+    def remove_group(self, group_name: str) -> bool:
+        """
+            Removes the specified group, @group_name,
+        from the key file.
+        """
+    def remove_key(self, group_name: str, key: str) -> bool:
+        """
+        Removes @key in @group_name from the key file.
+        """
+    def save_to_file(self, filename: str) -> bool:
+        """
+            Writes the contents of @key_file to @filename using
+        [func@GLib.file_set_contents].
+
+        If you need stricter guarantees about durability of
+        the written file than are provided by [func@GLib.file_set_contents], use
+        [func@GLib.file_set_contents_full] with the return value of
+        [method@GLib.KeyFile.to_data].
+
+        This function can fail for any of the reasons that
+        [func@GLib.file_set_contents] may fail.
+        """
+    def set_boolean(self, group_name: str, key: str, value: bool) -> None:
+        """
+            Associates a new boolean value with @key under @group_name.
+
+        If @key cannot be found then it is created.
+        """
+    def set_boolean_list(self, group_name: str, key: str, list: list, length: int) -> None:
+        """
+            Associates a list of boolean values with @key under @group_name.
+
+        If @key cannot be found then it is created.
+        """
+    def set_comment(self, group_name: str | None, key: str | None, comment: str) -> bool:
+        """
+            Places a comment above @key from @group_name.
+
+        If @key is `NULL` then @comment will be written above @group_name.
+        If both @key and @group_name are `NULL`, then @comment will be
+        written above the first group in the file.
+
+        Note that this function prepends a `#` comment marker to
+        each line of @comment.
+        """
+    def set_double(self, group_name: str, key: str, value: float) -> None:
+        """
+            Associates a new double value with @key under @group_name.
+
+        If @key cannot be found then it is created.
+        """
+    def set_double_list(self, group_name: str, key: str, list: list, length: int) -> None:
+        """
+            Associates a list of double values with @key under @group_name.
+
+        If @key cannot be found then it is created.
+        """
+    def set_int64(self, group_name: str, key: str, value: int) -> None:
+        """
+            Associates a new integer value with @key under @group_name.
+
+        If @key cannot be found then it is created.
+        """
+    def set_integer(self, group_name: str, key: str, value: int) -> None:
+        """
+            Associates a new integer value with @key under @group_name.
+
+        If @key cannot be found then it is created.
+        """
+    def set_integer_list(self, group_name: str, key: str, list: list, length: int) -> None:
+        """
+            Associates a list of integer values with @key under @group_name.
+
+        If @key cannot be found then it is created.
+        """
+    def set_list_separator(self, separator: int) -> None:
+        """
+            Sets the character which is used to separate values in lists.
+
+        Typically `;` or `,` are used as separators. The default list separator
+        is `;`.
+        """
+    def set_locale_string(self, group_name: str, key: str, locale: str, string: str) -> None:
+        """
+            Associates a string value for @key and @locale under @group_name.
+
+        If the translation for @key cannot be found then it is created.
+
+        If @locale is `C` then the untranslated value is set (since GLib 2.84).
+        """
+    def set_locale_string_list(self, group_name: str, key: str, locale: str, list: list, length: int) -> None:
+        """
+            Associates a list of string values for @key and @locale under
+        @group_name.
+
+        If @locale is `C` then the untranslated value is set (since GLib 2.84).
+
+        If the translation for @key cannot be found then it is created.
+        """
+    def set_string(self, group_name: str, key: str, string: str) -> None:
+        """
+            Associates a new string value with @key under @group_name.
+
+        If @key cannot be found then it is created.
+        If @group_name cannot be found then it is created.
+        Unlike [method@GLib.KeyFile.set_value], this function handles characters
+        that need escaping, such as newlines.
+        """
+    def set_string_list(self, group_name: str, key: str, list: list, length: int) -> None:
+        """
+            Associates a list of string values for @key under @group_name.
+
+        If @key cannot be found then it is created.
+        If @group_name cannot be found then it is created.
+        """
+    def set_uint64(self, group_name: str, key: str, value: int) -> None:
+        """
+            Associates a new integer value with @key under @group_name.
+
+        If @key cannot be found then it is created.
+        """
+    def set_value(self, group_name: str, key: str, value: str) -> None:
+        """
+            Associates a new value with @key under @group_name.
+
+        If @key cannot be found then it is created. If @group_name cannot
+        be found then it is created. To set an UTF-8 string which may contain
+        characters that need escaping (such as newlines or spaces), use
+        [method@GLib.KeyFile.set_string].
+        """
+    def to_data(self) -> tuple[str, int | None]:
+        """
+            Outputs @key_file as a string.
+
+        Note that this function never reports an error.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of @key_file by 1.
+
+        If the reference count reaches zero, frees the key file and all its allocated
+        memory.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -14806,9 +17055,21 @@ class KeyFile(GObject.GBoxed):
     ) -> None: ...
 
 class List(GObject.GPointer):
+    """
+    The #GList struct is used for each element in a doubly-linked list.
+    """
+
     # gi Fields
     next: list | None = ...
+    """
+    contains the link to the next element in the list
+
+    """
     prev: list | None = ...
+    """
+    contains the link to the previous element in the list
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -14821,9 +17082,27 @@ class List(GObject.GPointer):
     def push_allocator(allocator: Allocator) -> None: ...
 
 class LogField(GObject.GPointer):
+    """
+    Structure representing a single field in a structured log entry. See
+    g_log_structured() for details.
+
+    Log fields may contain arbitrary values, including binary with embedded nul
+    bytes. If the field contains a string, the string must be UTF-8 encoded and
+    have a trailing nul byte. Otherwise, @length must be set to a non-negative
+    value.
+    """
+
     # gi Fields
     key: str = ...
+    """
+    field name (UTF-8 string)
+
+    """
     length: int = ...
+    """
+    length of @value, in bytes, or -1 if it is nul-terminated
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -14832,57 +17111,389 @@ class LogField(GObject.GPointer):
         """
 
 class MainContext(GObject.GBoxed):
+    """
+    The `GMainContext` struct is an opaque data
+    type representing a set of sources to be handled in a main loop.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def acquire(self) -> bool: ...
-    def add_poll(self, fd: PollFD, priority: int) -> None: ...
-    def check(self, max_priority: int, fds: list, n_fds: int) -> bool: ...
+    def acquire(self) -> bool:
+        """
+            Tries to become the owner of the specified context.
+        If some other thread is the owner of the context,
+        returns %FALSE immediately. Ownership is properly
+        recursive: the owner can require ownership again
+        and will release ownership when [method@GLib.MainContext.release]
+        is called as many times as [method@GLib.MainContext.acquire].
+
+        You must be the owner of a context before you
+        can call [method@GLib.MainContext.prepare], [method@GLib.MainContext.query],
+        [method@GLib.MainContext.check], [method@GLib.MainContext.dispatch],
+        [method@GLib.MainContext.release].
+
+        Since 2.76 @context can be %NULL to use the global-default
+        main context.
+        """
+    def add_poll(self, fd: PollFD, priority: int) -> None:
+        """
+            Adds a file descriptor to the set of file descriptors polled for
+        this context. This will very seldom be used directly. Instead
+        a typical event source will use `g_source_add_unix_fd` instead.
+        """
+    def check(self, max_priority: int, fds: list, n_fds: int) -> bool:
+        """
+            Passes the results of polling back to the main loop. You should be
+        careful to pass @fds and its length @n_fds as received from
+        [method@GLib.MainContext.query], as this functions relies on assumptions
+        on how @fds is filled.
+
+        You must have successfully acquired the context with
+        [method@GLib.MainContext.acquire] before you may call this function.
+
+        Since 2.76 @context can be %NULL to use the global-default
+        main context.
+        """
     @staticmethod
-    def default() -> MainContext: ...
-    def dispatch(self) -> None: ...
-    def find_source_by_funcs_user_data(self, funcs: SourceFuncs, user_data: object | None = None) -> Source: ...
-    def find_source_by_id(self, source_id: int) -> Source: ...
-    def find_source_by_user_data(self, user_data: object | None = None) -> Source: ...
+    def default() -> MainContext:
+        """
+            Returns the global-default main context. This is the main context
+        used for main loop functions when a main loop is not explicitly
+        specified, and corresponds to the "main" main loop. See also
+        [func@GLib.MainContext.get_thread_default].
+        """
+    def dispatch(self) -> None:
+        """
+            Dispatches all pending sources.
+
+        You must have successfully acquired the context with
+        [method@GLib.MainContext.acquire] before you may call this function.
+
+        Since 2.76 @context can be %NULL to use the global-default
+        main context.
+        """
+    def find_source_by_funcs_user_data(self, funcs: SourceFuncs, user_data: object | None = None) -> Source:
+        """
+            Finds a source with the given source functions and user data.  If
+        multiple sources exist with the same source function and user data,
+        the first one found will be returned.
+        """
+    def find_source_by_id(self, source_id: int) -> Source:
+        """
+            Finds a #GSource given a pair of context and ID.
+
+        It is a programmer error to attempt to look up a non-existent source.
+
+        More specifically: source IDs can be reissued after a source has been
+        destroyed and therefore it is never valid to use this function with a
+        source ID which may have already been removed.  An example is when
+        scheduling an idle to run in another thread with [func@GLib.idle_add]: the
+        idle may already have run and been removed by the time this function
+        is called on its (now invalid) source ID.  This source ID may have
+        been reissued, leading to the operation being performed against the
+        wrong source.
+        """
+    def find_source_by_user_data(self, user_data: object | None = None) -> Source:
+        """
+            Finds a source with the given user data for the callback.  If
+        multiple sources exist with the same user data, the first
+        one found will be returned.
+        """
     @staticmethod
-    def get_thread_default() -> MainContext | None: ...
+    def get_thread_default() -> MainContext | None:
+        """
+            Gets the thread-default #GMainContext for this thread. Asynchronous
+        operations that want to be able to be run in contexts other than
+        the default one should call this method or
+        [func@GLib.MainContext.ref_thread_default] to get a
+        [struct@GLib.MainContext] to add their [struct@GLib.Source]s to. (Note that
+        even in single-threaded programs applications may sometimes want to
+        temporarily push a non-default context, so it is not safe to assume that
+        this will always return %NULL if you are running in the default thread.)
+
+        If you need to hold a reference on the context, use
+        [func@GLib.MainContext.ref_thread_default] instead.
+        """
     def invoke_full(
         self, priority: int, function: SourceFunc, data: object | None = None, notify: DestroyNotify | None = None
-    ) -> None: ...
-    def is_owner(self) -> bool: ...
-    def iteration(self, may_block: bool) -> bool: ...
+    ) -> None:
+        """
+            Invokes a function in such a way that @context is owned during the
+        invocation of @function.
+
+        This function is the same as [method@GLib.MainContext.invoke] except that it
+        lets you specify the priority in case @function ends up being
+        scheduled as an idle and also lets you give a #GDestroyNotify for @data.
+
+        @notify should not assume that it is called from any particular
+        thread or with any particular context acquired.
+        """
+    def is_owner(self) -> bool:
+        """
+            Determines whether this thread holds the (recursive)
+        ownership of this [struct@GLib.MainContext]. This is useful to
+        know before waiting on another thread that may be
+        blocking to get ownership of @context.
+        """
+    def iteration(self, may_block: bool) -> bool:
+        """
+            Runs a single iteration for the given main loop. This involves
+        checking to see if any event sources are ready to be processed,
+        then if no events sources are ready and @may_block is %TRUE, waiting
+        for a source to become ready, then dispatching the highest priority
+        events sources that are ready. Otherwise, if @may_block is %FALSE
+        sources are not waited to become ready, only those highest priority
+        events sources will be dispatched (if any), that are ready at this
+        given moment without further waiting.
+
+        Note that even when @may_block is %TRUE, it is still possible for
+        [method@GLib.MainContext.iteration] to return %FALSE, since the wait may
+        be interrupted for other reasons than an event source becoming ready.
+        """
     @classmethod
-    def new(cls) -> MainContext: ...
+    def new(cls) -> MainContext:
+        """
+        Creates a new [struct@GLib.MainContext] structure.
+        """
     @classmethod
-    def new_with_flags(cls, flags: MainContextFlags) -> MainContext: ...
-    def pending(self) -> bool: ...
-    def pop_thread_default(self) -> None: ...
-    def prepare(self) -> tuple[bool, int | None]: ...
-    def push_thread_default(self) -> None: ...
-    def pusher_new(self) -> object: ...
-    def query(self, max_priority: int, n_fds: int) -> tuple[int, int, list]: ...
-    def ref(self) -> MainContext: ...
+    def new_with_flags(cls, flags: MainContextFlags) -> MainContext:
+        """
+        Creates a new [struct@GLib.MainContext] structure.
+        """
+    def pending(self) -> bool:
+        """
+        Checks if any sources have pending events for the given context.
+        """
+    def pop_thread_default(self) -> None:
+        """
+            Pops @context off the thread-default context stack (verifying that
+        it was on the top of the stack).
+        """
+    def prepare(self) -> tuple[bool, int | None]:
+        """
+            Prepares to poll sources within a main loop. The resulting information
+        for polling is determined by calling [method@GLib.MainContext.query].
+
+        You must have successfully acquired the context with
+        [method@GLib.MainContext.acquire] before you may call this function.
+        """
+    def push_thread_default(self) -> None:
+        """
+            Acquires @context and sets it as the thread-default context for the
+        current thread. This will cause certain asynchronous operations
+        (such as most [Gio](../gio/index.html)-based I/O) which are
+        started in this thread to run under @context and deliver their
+        results to its main loop, rather than running under the global
+        default main context in the main thread. Note that calling this function
+        changes the context returned by [func@GLib.MainContext.get_thread_default],
+        not the one returned by [func@GLib.MainContext.default], so it does not
+        affect the context used by functions like [func@GLib.idle_add].
+
+        Normally you would call this function shortly after creating a new
+        thread, passing it a [struct@GLib.MainContext] which will be run by a
+        [struct@GLib.MainLoop] in that thread, to set a new default context for all
+        async operations in that thread. In this case you may not need to
+        ever call [method@GLib.MainContext.pop_thread_default], assuming you want
+        the new [struct@GLib.MainContext] to be the default for the whole lifecycle
+        of the thread.
+
+        If you don't have control over how the new thread was created (e.g.
+        in the new thread isn't newly created, or if the thread life
+        cycle is managed by a #GThreadPool), it is always suggested to wrap
+        the logic that needs to use the new [struct@GLib.MainContext] inside a
+        [method@GLib.MainContext.push_thread_default] /
+        [method@GLib.MainContext.pop_thread_default] pair, otherwise threads that
+        are re-used will end up never explicitly releasing the
+        [struct@GLib.MainContext] reference they hold.
+
+        In some cases you may want to schedule a single operation in a
+        non-default context, or temporarily use a non-default context in
+        the main thread. In that case, you can wrap the call to the
+        asynchronous operation inside a
+        [method@GLib.MainContext.push_thread_default] /
+        [method@GLib.MainContext.pop_thread_default] pair, but it is up to you to
+        ensure that no other asynchronous operations accidentally get
+        started while the non-default context is active.
+
+        Beware that libraries that predate this function may not correctly
+        handle being used from a thread with a thread-default context. Eg,
+        see g_file_supports_thread_contexts().
+        """
+    def pusher_new(self) -> object:
+        """
+            Push @main_context as the new thread-default main context for the current
+        thread, using [method@GLib.MainContext.push_thread_default], and return a
+        new [alias@GLib.MainContextPusher]. Pop with g_main_context_pusher_free().
+        Using [method@GLib.MainContext.pop_thread_default] on @main_context while a
+        [alias@GLib.MainContextPusher] exists for it can lead to undefined behaviour.
+
+        Using two [alias@GLib.MainContextPusher]s in the same scope is not allowed,
+        as it leads to an undefined pop order.
+
+        This is intended to be used with g_autoptr().  Note that g_autoptr()
+        is only available when using GCC or clang, so the following example
+        will only work with those compilers:
+        |[
+        typedef struct
+        {
+          ...
+          GMainContext *context;
+          ...
+        } MyObject;
+
+        static void
+        my_object_do_stuff (MyObject *self)
+        {
+          g_autoptr(GMainContextPusher) pusher = g_main_context_pusher_new (self->context);
+
+          // Code with main context as the thread default here
+
+          if (cond)
+            // No need to pop
+            return;
+
+          // Optionally early pop
+          g_clear_pointer (&pusher, g_main_context_pusher_free);
+
+          // Code with main context no longer the thread default here
+        }
+        ]|
+        """
+    def query(self, max_priority: int, n_fds: int) -> tuple[int, int, list]:
+        """
+            Determines information necessary to poll this main loop. You should
+        be careful to pass the resulting @fds array and its length @n_fds
+        as is when calling [method@GLib.MainContext.check], as this function relies
+        on assumptions made when the array is filled.
+
+        You must have successfully acquired the context with
+        [method@GLib.MainContext.acquire] before you may call this function.
+        """
+    def ref(self) -> MainContext:
+        """
+        Increases the reference count on a [struct@GLib.MainContext] object by one.
+        """
     @staticmethod
-    def ref_thread_default() -> MainContext: ...
-    def release(self) -> None: ...
-    def remove_poll(self, fd: PollFD) -> None: ...
-    def unref(self) -> None: ...
+    def ref_thread_default() -> MainContext:
+        """
+            Gets the thread-default [struct@GLib.MainContext] for this thread, as with
+        [func@GLib.MainContext.get_thread_default], but also adds a reference to
+        it with [method@GLib.MainContext.ref]. In addition, unlike
+        [func@GLib.MainContext.get_thread_default], if the thread-default context
+        is the global-default context, this will return that
+        [struct@GLib.MainContext] (with a ref added to it) rather than returning
+        %NULL.
+        """
+    def release(self) -> None:
+        """
+            Releases ownership of a context previously acquired by this thread
+        with [method@GLib.MainContext.acquire]. If the context was acquired multiple
+        times, the ownership will be released only when [method@GLib.MainContext.release]
+        is called as many times as it was acquired.
+
+        You must have successfully acquired the context with
+        [method@GLib.MainContext.acquire] before you may call this function.
+        """
+    def remove_poll(self, fd: PollFD) -> None:
+        """
+            Removes file descriptor from the set of file descriptors to be
+        polled for a particular context.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count on a [struct@GLib.MainContext] object by one.
+        If
+        the result is zero, free the context and free all associated memory.
+        """
     @deprecated("deprecated")
-    def wait(self, cond: Cond, mutex: Mutex) -> bool: ...
-    def wakeup(self) -> None: ...
+    def wait(self, cond: Cond, mutex: Mutex) -> bool:
+        """
+            Tries to become the owner of the specified context,
+        as with [method@GLib.MainContext.acquire]. But if another thread
+        is the owner, atomically drop @mutex and wait on @cond until
+        that owner releases ownership or until @cond is signaled, then
+        try again (once) to become the owner.
+        """
+    def wakeup(self) -> None:
+        """
+            If @context is currently blocking in [method@GLib.MainContext.iteration]
+        waiting for a source to become ready, cause it to stop blocking
+        and return.  Otherwise, cause the next invocation of
+        [method@GLib.MainContext.iteration] to return without blocking.
+
+        This API is useful for low-level control over [struct@GLib.MainContext]; for
+        example, integrating it with main loop implementations such as
+        [struct@GLib.MainLoop].
+
+        Another related use for this function is when implementing a main
+        loop with a termination condition, computed from multiple threads:
+
+        |[<!-- language="C" -->
+          #define NUM_TASKS 10
+          static gint tasks_remaining = NUM_TASKS;  // (atomic)
+          ...
+
+          while (g_atomic_int_get (&tasks_remaining) != 0)
+            g_main_context_iteration (NULL, TRUE);
+        ]|
+
+        Then in a thread:
+        |[<!-- language="C" -->
+          perform_work();
+
+          if (g_atomic_int_dec_and_test (&tasks_remaining))
+            g_main_context_wakeup (NULL);
+        ]|
+        """
 
 class MainLoop(GObject.GBoxed):
+    """
+    The `GMainLoop` struct is an opaque data type
+    representing the main event loop of a GLib or GTK application.
+    """
+
     # gi Methods
-    def get_context(self) -> MainContext: ...
-    def is_running(self) -> bool: ...
+    def get_context(self) -> MainContext:
+        """
+        Returns the [struct@GLib.MainContext] of @loop.
+        """
+    def is_running(self) -> bool:
+        """
+            Checks to see if the main loop is currently being run via
+        [method@GLib.MainLoop.run].
+        """
     @classmethod
-    def new(cls, context: MainContext | None, is_running: bool) -> MainLoop: ...
-    def quit(self) -> None: ...
-    def ref(self) -> MainLoop: ...
-    def run(self) -> None: ...
-    def unref(self) -> None: ...
+    def new(cls, context: MainContext | None, is_running: bool) -> MainLoop:
+        """
+        Creates a new [struct@GLib.MainLoop] structure.
+        """
+    def quit(self) -> None:
+        """
+            Stops a [struct@GLib.MainLoop] from running. Any calls to
+        [method@GLib.MainLoop.run] for the loop will return.
+
+        Note that sources that have already been dispatched when
+        [method@GLib.MainLoop.quit] is called will still be executed.
+        """
+    def ref(self) -> MainLoop:
+        """
+        Increases the reference count on a [struct@GLib.MainLoop] object by one.
+        """
+    def run(self) -> None:
+        """
+            Runs a main loop until [method@GLib.MainLoop.quit] is called on the loop.
+        If this is called for the thread of the loop's #GMainContext,
+        it will process events from the loop, otherwise it will
+        simply wait.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count on a [struct@GLib.MainLoop] object by one. If
+        the result is zero, free the loop and free all associated memory.
+        """
 
     # python methods (overrides?)
     def __init__(
@@ -14894,17 +17505,54 @@ class MainLoop(GObject.GBoxed):
         """
 
 class MarkupParser(GObject.GPointer):
+    """
+    Any of the fields in #GMarkupParser can be %NULL, in which case they
+    will be ignored. Except for the @error function, any of these callbacks
+    can set an error; in particular the %G_MARKUP_ERROR_UNKNOWN_ELEMENT,
+    %G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE, and %G_MARKUP_ERROR_INVALID_CONTENT
+    errors are intended to be set from these callbacks. If you set an error
+    from a callback, g_markup_parse_context_parse() will report that error
+    back to its caller.
+    """
+
     # gi Fields
     @builtins.property
-    def end_element(self) -> end_elementMarkupParserCB: ...
+    def end_element(self) -> end_elementMarkupParserCB:
+        """
+        Callback to invoke when the closing tag of an element
+        is seen. Note that this is also called for empty tags like
+        `<empty/>`.
+        """
     @builtins.property
-    def error(self) -> errorMarkupParserCB: ...
+    def error(self) -> errorMarkupParserCB:
+        """
+        Callback to invoke when an error occurs.
+        """
     @builtins.property
-    def passthrough(self) -> passthroughMarkupParserCB: ...
+    def passthrough(self) -> passthroughMarkupParserCB:
+        """
+        Callback to invoke for comments, processing instructions
+        and doctype declarations; if you're re-writing the parsed document,
+        write the passthrough text back out in the same position. If the
+        %G_MARKUP_TREAT_CDATA_AS_TEXT flag is not set, this function is also
+        called for CDATA marked sections.
+        """
     @builtins.property
-    def start_element(self) -> start_elementMarkupParserCB: ...
+    def start_element(self) -> start_elementMarkupParserCB:
+        """
+        Callback to invoke when the opening tag of an element
+        is seen. The callback's @attribute_names and @attribute_values parameters
+        are %NULL-terminated.
+        """
     @builtins.property
-    def text(self) -> textMarkupParserCB: ...
+    def text(self) -> textMarkupParserCB:
+        """
+        Callback to invoke when some text is seen (text is always
+        inside an element). Note that the text of an element may be spread
+        over multiple calls of this function. If the
+        %G_MARKUP_TREAT_CDATA_AS_TEXT flag is set, this function is also
+        called for the content of CDATA marked sections.
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -14929,19 +17577,45 @@ class MemChunk(GObject.GPointer):
     def reset(self) -> None: ...
 
 class MemVTable(GObject.GPointer):
+    """
+    A set of functions used to perform memory allocation. The same #GMemVTable must
+    be used for all allocations in the same program; a call to g_mem_set_vtable(),
+    if it exists, should be prior to any use of GLib.
+
+    This functions related to this has been deprecated in 2.46, and no longer work.
+    """
+
     # gi Fields
     @builtins.property
-    def calloc(self) -> callocMemVTableCB: ...
+    def calloc(self) -> callocMemVTableCB:
+        """
+        function to use for allocating zero-filled memory.
+        """
     @builtins.property
-    def free(self) -> freeMemVTableCB: ...
+    def free(self) -> freeMemVTableCB:
+        """
+        function to use to free memory.
+        """
     @builtins.property
-    def malloc(self) -> mallocMemVTableCB: ...
+    def malloc(self) -> mallocMemVTableCB:
+        """
+        function to use for allocating memory.
+        """
     @builtins.property
-    def realloc(self) -> reallocMemVTableCB: ...
+    def realloc(self) -> reallocMemVTableCB:
+        """
+        function to use for reallocating memory.
+        """
     @builtins.property
-    def try_malloc(self) -> try_mallocMemVTableCB: ...
+    def try_malloc(self) -> try_mallocMemVTableCB:
+        """
+        function to use for allocating memory without a default error handler.
+        """
     @builtins.property
-    def try_realloc(self) -> try_reallocMemVTableCB: ...
+    def try_realloc(self) -> try_reallocMemVTableCB:
+        """
+        function to use for reallocating memory without a default error handler.
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -14966,30 +17640,95 @@ class Mutex(GObject.GPointer):
     def unlock(self) -> None: ...
 
 class Node(GObject.GPointer):
+    """
+    The #GNode struct represents one node in a [n-ary tree](data-structures.html#n-ary-trees).
+    """
+
     # gi Fields
     children: Node | None = ...
+    """
+    points to the first child of the #GNode.  The other
+               children are accessed by using the @next pointer of each
+               child.
+
+    """
     next: Node | None = ...
+    """
+    points to the node's next sibling (a sibling is another
+           #GNode with the same parent).
+
+    """
     prev: Node | None = ...
+    """
+    points to the node's previous sibling.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def child_index(self, data: object | None = None) -> int: ...
-    def child_position(self, child: Node) -> int: ...
-    def children_foreach(self, flags: TraverseFlags, func: NodeForeachFunc, data: object | None = None) -> None: ...
-    def depth(self) -> int: ...
-    def destroy(self) -> None: ...
-    def is_ancestor(self, descendant: Node) -> bool: ...
-    def max_height(self) -> int: ...
-    def n_children(self) -> int: ...
-    def n_nodes(self, flags: TraverseFlags) -> int: ...
+    def child_index(self, data: object | None = None) -> int:
+        """
+            Gets the position of the first child of a #GNode
+        which contains the given data.
+        """
+    def child_position(self, child: Node) -> int:
+        """
+            Gets the position of a #GNode with respect to its siblings.
+        @child must be a child of @node. The first child is numbered 0,
+        the second 1, and so on.
+        """
+    def children_foreach(self, flags: TraverseFlags, func: NodeForeachFunc, data: object | None = None) -> None:
+        """
+            Calls a function for each of the children of a #GNode. Note that it
+        doesn't descend beneath the child nodes. @func must not do anything
+        that would modify the structure of the tree.
+        """
+    def depth(self) -> int:
+        """
+            Gets the depth of a #GNode.
+
+        If @node is %NULL the depth is 0. The root node has a depth of 1.
+        For the children of the root node the depth is 2. And so on.
+        """
+    def destroy(self) -> None:
+        """
+            Removes @root and its children from the tree, freeing any memory
+        allocated.
+        """
+    def is_ancestor(self, descendant: Node) -> bool:
+        """
+            Returns %TRUE if @node is an ancestor of @descendant.
+        This is true if node is the parent of @descendant,
+        or if node is the grandparent of @descendant etc.
+        """
+    def max_height(self) -> int:
+        """
+            Gets the maximum height of all branches beneath a #GNode.
+        This is the maximum distance from the #GNode to all leaf nodes.
+
+        If @root is %NULL, 0 is returned. If @root has no children,
+        1 is returned. If @root has children, 2 is returned. And so on.
+        """
+    def n_children(self) -> int:
+        """
+        Gets the number of children of a #GNode.
+        """
+    def n_nodes(self, flags: TraverseFlags) -> int:
+        """
+        Gets the number of nodes in a tree.
+        """
     @staticmethod
     def pop_allocator() -> None: ...
     @staticmethod
     def push_allocator(allocator: Allocator) -> None: ...
-    def reverse_children(self) -> None: ...
+    def reverse_children(self) -> None:
+        """
+            Reverses the order of the children of a #GNode.
+        (It doesn't change the order of the grandchildren.)
+        """
     def traverse(
         self,
         order: TraverseType,
@@ -14997,12 +17736,31 @@ class Node(GObject.GPointer):
         max_depth: int,
         func: NodeTraverseFunc,
         data: object | None = None,
-    ) -> None: ...
-    def unlink(self) -> None: ...
+    ) -> None:
+        """
+            Traverses a tree starting at the given root #GNode.
+        It calls the given function for each node visited.
+        The traversal can be halted at any point by returning %TRUE from @func.
+        @func must not do anything that would modify the structure of the tree.
+        """
+    def unlink(self) -> None:
+        """
+        Unlinks a #GNode from a tree, resulting in two separate trees.
+        """
 
 class Once(GObject.GPointer):
+    """
+    A #GOnce struct controls a one-time initialization function. Any
+    one-time initialization function must have its own unique #GOnce
+    struct.
+    """
+
     # gi Fields
     status: OnceStatus = ...
+    """
+    the status of the #GOnce
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15010,19 +17768,87 @@ class Once(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def init_enter(location: object) -> tuple[bool, object]: ...
+    def init_enter(location: object) -> tuple[bool, object]:
+        """
+            Function to be called when starting a critical initialization
+        section. The argument @location must point to a static
+        0-initialized variable that will be set to a value other than 0 at
+        the end of the initialization section. In combination with
+        g_once_init_leave() and the unique address @value_location, it can
+        be ensured that an initialization section will be executed only once
+        during a program's life time, and that concurrent threads are
+        blocked until initialization completed. To be used in constructs
+        like this:
+
+        |[<!-- language="C" -->
+          static gsize initialization_value = 0;
+
+          if (g_once_init_enter (&initialization_value))
+            {
+              gsize setup_value = 42; // initialization code here
+
+              g_once_init_leave (&initialization_value, setup_value);
+            }
+
+          // use initialization_value here
+        ]|
+
+        While @location has a `volatile` qualifier, this is a historical artifact and
+        the pointer passed to it should not be `volatile`.
+        """
     @staticmethod
     def init_enter_impl(location: int) -> bool: ...
     @staticmethod
-    def init_enter_pointer(location: object) -> bool: ...
+    def init_enter_pointer(location: object) -> bool:
+        """
+            This functions behaves in the same way as g_once_init_enter(), but can
+        can be used to initialize pointers (or #guintptr) instead of #gsize.
+
+        |[<!-- language="C" -->
+          static MyStruct *interesting_struct = NULL;
+
+          if (g_once_init_enter_pointer (&interesting_struct))
+            {
+              MyStruct *setup_value = allocate_my_struct (); // initialization code here
+
+              g_once_init_leave_pointer (&interesting_struct, g_steal_pointer (&setup_value));
+            }
+
+          // use interesting_struct here
+        ]|
+        """
     @staticmethod
-    def init_leave(location: object, result: int) -> object: ...
+    def init_leave(location: object, result: int) -> object:
+        """
+            Counterpart to g_once_init_enter(). Expects a location of a static
+        0-initialized initialization variable, and an initialization value
+        other than 0. Sets the variable to the initialization value, and
+        releases concurrent threads blocking in g_once_init_enter() on this
+        initialization variable.
+
+        While @location has a `volatile` qualifier, this is a historical artifact and
+        the pointer passed to it should not be `volatile`.
+        """
     @staticmethod
-    def init_leave_pointer(location: object, result: object | None = None) -> None: ...
+    def init_leave_pointer(location: object, result: object | None = None) -> None:
+        """
+            Counterpart to g_once_init_enter_pointer(). Expects a location of a static
+        `NULL`-initialized initialization variable, and an initialization value
+        other than `NULL`. Sets the variable to the initialization value, and
+        releases concurrent threads blocking in g_once_init_enter_pointer() on this
+        initialization variable.
+
+        This functions behaves in the same way as g_once_init_leave(), but
+        can be used to initialize pointers (or #guintptr) instead of #gsize.
+        """
 
 class OptionContext(object):
     """
     Alias to gi._gi.OptionContext. May Be incomplete since gi._gi is a private module.
+
+    A `GOptionContext` struct defines which options
+    are accepted by the commandline option parser. The struct has only private
+    fields and should not be directly accessed.
     """
 
     class Props: ...
@@ -15037,13 +17863,68 @@ class OptionContext(object):
         """
 
 class OptionEntry(GObject.GPointer):
+    """
+    - %G_OPTION_ARG_NONE: %gboolean
+        - %G_OPTION_ARG_STRING: %gchar*
+        - %G_OPTION_ARG_INT: %gint
+        - %G_OPTION_ARG_FILENAME: %gchar*
+        - %G_OPTION_ARG_STRING_ARRAY: %gchar**
+        - %G_OPTION_ARG_FILENAME_ARRAY: %gchar**
+        - %G_OPTION_ARG_DOUBLE: %gdouble
+
+        If @arg type is %G_OPTION_ARG_STRING or %G_OPTION_ARG_FILENAME,
+        the location will contain a newly allocated string if the option
+        was given. That string needs to be freed by the callee using g_free().
+        Likewise if @arg type is %G_OPTION_ARG_STRING_ARRAY or
+        %G_OPTION_ARG_FILENAME_ARRAY, the data should be freed using g_strfreev().
+    A GOptionEntry struct defines a single option. To have an effect, they
+    must be added to a #GOptionGroup with g_option_context_add_main_entries()
+    or g_option_group_add_entries().
+    """
+
     # gi Fields
     arg: OptionArg = ...
+    """
+    The type of the option, as a #GOptionArg
+
+    """
     arg_description: str = ...
+    """
+    The placeholder to use for the extra argument parsed
+        by the option in `--help` output. The @arg_description is translated
+        using the @translate_func of the group, see
+        g_option_group_set_translation_domain().
+
+    """
     description: str = ...
+    """
+    the description for the option in `--help`
+        output. The @description is translated using the @translate_func
+        of the group, see g_option_group_set_translation_domain().
+
+    """
     flags: int = ...
+    """
+    Flags from #GOptionFlags
+
+    """
     long_name: str = ...
+    """
+    The long name of an option can be used to specify it
+        in a commandline as `--long_name`. Every option must have a
+        long name. To resolve conflicts if multiple option groups contain
+        the same long name, it is also possible to specify the option as
+        `--groupname-long_name`.
+
+    """
     short_name: int = ...
+    """
+    If an option has a short name, it can be specified
+        `-short_name` in a commandline. @short_name must be  a printable
+        ASCII character different from '-', or zero if the option has no
+        short name.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15054,6 +17935,14 @@ class OptionEntry(GObject.GPointer):
 class OptionGroup(object):
     """
     Alias to gi._gi.OptionGroup. May Be incomplete since gi._gi is a private module.
+
+    A `GOptionGroup` struct defines the options in a single
+    group. The struct has only private fields and should not be directly accessed.
+
+    All options in a group share the same translation function. Libraries which
+    need to parse commandline options are expected to provide a function for
+    getting a `GOptionGroup` holding their options, which
+    the application can then add to its #GOptionContext.
     """
 
     class Props: ...
@@ -15068,6 +17957,39 @@ class OptionGroup(object):
         """
 
 class PathBuf(GObject.GPointer):
+    """
+    `GPathBuf` is a helper type that allows you to easily build paths from
+    individual elements, using the platform specific conventions for path
+    separators.
+
+    ```c
+    g_auto (GPathBuf) path;
+
+    g_path_buf_init (&path);
+
+    g_path_buf_push (&path, "usr");
+    g_path_buf_push (&path, "bin");
+    g_path_buf_push (&path, "echo");
+
+    g_autofree char *echo = g_path_buf_to_path (&path);
+    g_assert_cmpstr (echo, ==, "/usr/bin/echo");
+    ```
+
+    You can also load a full path and then operate on its components:
+
+    ```c
+    g_auto (GPathBuf) path;
+
+    g_path_buf_init_from_path (&path, "/usr/bin/echo");
+
+    g_path_buf_pop (&path);
+    g_path_buf_push (&path, "sh");
+
+    g_autofree char *sh = g_path_buf_to_path (&path);
+    g_assert_cmpstr (sh, ==, "/usr/bin/sh");
+    ```
+    """
+
     # gi Fields
     @builtins.property
     def dummy(self) -> list | None: ...
@@ -15077,19 +17999,163 @@ class PathBuf(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def clear(self) -> None: ...
-    def clear_to_path(self) -> str | None: ...
+    def clear(self) -> None:
+        """
+            Clears the contents of the path buffer.
+
+        This function should be use to free the resources in a stack-allocated
+        `GPathBuf` initialized using g_path_buf_init() or
+        g_path_buf_init_from_path().
+        """
+    def clear_to_path(self) -> str | None:
+        """
+            Clears the contents of the path buffer and returns the built path.
+
+        This function returns `NULL` if the `GPathBuf` is empty.
+
+        See also: g_path_buf_to_path()
+        """
     @staticmethod
-    def equal(v1: object, v2: object) -> bool: ...
-    def free(self) -> None: ...
-    def free_to_path(self) -> str | None: ...
-    def init(self) -> PathBuf: ...
-    def init_from_path(self, path: str | None = None) -> PathBuf: ...
-    def pop(self) -> bool: ...
-    def push(self, path: str) -> PathBuf: ...
-    def set_extension(self, extension: str | None = None) -> bool: ...
-    def set_filename(self, file_name: str) -> bool: ...
-    def to_path(self) -> str | None: ...
+    def equal(v1: object, v2: object) -> bool:
+        """
+            Compares two path buffers for equality and returns `TRUE`
+        if they are equal.
+
+        The path inside the paths buffers are not going to be normalized,
+        so `X/Y/Z/A/..`, `X/./Y/Z` and `X/Y/Z` are not going to be considered
+        equal.
+
+        This function can be passed to g_hash_table_new() as the
+        `key_equal_func` parameter.
+        """
+    def free(self) -> None:
+        """
+        Frees a `GPathBuf` allocated by g_path_buf_new().
+        """
+    def free_to_path(self) -> str | None:
+        """
+            Frees a `GPathBuf` allocated by g_path_buf_new(), and
+        returns the path inside the buffer.
+
+        This function returns `NULL` if the `GPathBuf` is empty.
+
+        See also: g_path_buf_to_path()
+        """
+    def init(self) -> PathBuf:
+        """
+        Initializes a `GPathBuf` instance.
+        """
+    def init_from_path(self, path: str | None = None) -> PathBuf:
+        """
+        Initializes a `GPathBuf` instance with the given path.
+        """
+    def pop(self) -> bool:
+        """
+            Removes the last element of the path buffer.
+
+        If there is only one element in the path buffer (for example, `/` on
+        Unix-like operating systems or the drive on Windows systems), it will
+        not be removed and %FALSE will be returned instead.
+
+        |[<!-- language="C" -->
+        GPathBuf buf, cmp;
+
+        g_path_buf_init_from_path (&buf, "/bin/sh");
+
+        g_path_buf_pop (&buf);
+        g_path_buf_init_from_path (&cmp, "/bin");
+        g_assert_true (g_path_buf_equal (&buf, &cmp));
+        g_path_buf_clear (&cmp);
+
+        g_path_buf_pop (&buf);
+        g_path_buf_init_from_path (&cmp, "/");
+        g_assert_true (g_path_buf_equal (&buf, &cmp));
+        g_path_buf_clear (&cmp);
+
+        g_path_buf_clear (&buf);
+        ]|
+        """
+    def push(self, path: str) -> PathBuf:
+        """
+            Extends the given path buffer with @path.
+
+        If @path is absolute, it replaces the current path.
+
+        If @path contains a directory separator, the buffer is extended by
+        as many elements the path provides.
+
+        On Windows, both forward slashes and backslashes are treated as
+        directory separators. On other platforms, %G_DIR_SEPARATOR_S is the
+        only directory separator.
+
+        |[<!-- language="C" -->
+        GPathBuf buf, cmp;
+
+        g_path_buf_init_from_path (&buf, "/tmp");
+        g_path_buf_push (&buf, ".X11-unix/X0");
+        g_path_buf_init_from_path (&cmp, "/tmp/.X11-unix/X0");
+        g_assert_true (g_path_buf_equal (&buf, &cmp));
+        g_path_buf_clear (&cmp);
+
+        g_path_buf_push (&buf, "/etc/locale.conf");
+        g_path_buf_init_from_path (&cmp, "/etc/locale.conf");
+        g_assert_true (g_path_buf_equal (&buf, &cmp));
+        g_path_buf_clear (&cmp);
+
+        g_path_buf_clear (&buf);
+        ]|
+        """
+    def set_extension(self, extension: str | None = None) -> bool:
+        """
+            Adds an extension to the file name in the path buffer.
+
+        If @extension is `NULL`, the extension will be unset.
+
+        If the path buffer does not have a file name set, this function returns
+        `FALSE` and leaves the path buffer unmodified.
+        """
+    def set_filename(self, file_name: str) -> bool:
+        """
+            Sets the file name of the path.
+
+        If the path buffer is empty, the filename is left unset and this
+        function returns `FALSE`.
+
+        If the path buffer only contains the root element (on Unix-like operating
+        systems) or the drive (on Windows), this is the equivalent of pushing
+        the new @file_name.
+
+        If the path buffer contains a path, this is the equivalent of
+        popping the path buffer and pushing @file_name, creating a
+        sibling of the original path.
+
+        |[<!-- language="C" -->
+        GPathBuf buf, cmp;
+
+        g_path_buf_init_from_path (&buf, "/");
+
+        g_path_buf_set_filename (&buf, "bar");
+        g_path_buf_init_from_path (&cmp, "/bar");
+        g_assert_true (g_path_buf_equal (&buf, &cmp));
+        g_path_buf_clear (&cmp);
+
+        g_path_buf_set_filename (&buf, "baz.txt");
+        g_path_buf_init_from_path (&cmp, "/baz.txt");
+        g_assert_true (g_path_buf_equal (&buf, &cmp);
+        g_path_buf_clear (&cmp);
+
+        g_path_buf_clear (&buf);
+        ]|
+        """
+    def to_path(self) -> str | None:
+        """
+            Retrieves the built path from the path buffer.
+
+        On Windows, the result contains backslashes as directory separators,
+        even if forward slashes were used in input.
+
+        If the path buffer is empty, this function returns `NULL`.
+        """
 
 class Pid(int):
     """
@@ -15103,6 +18169,11 @@ class Pid(int):
         """
 
 class PollFD(GObject.GBoxed):
+    """
+    Represents a file descriptor, which events to poll for, and which events
+    occurred.
+    """
+
     # python methods (overrides?)
     def __init__(
         self,
@@ -15114,6 +18185,26 @@ class PollFD(GObject.GBoxed):
         """
 
 class Private(GObject.GPointer):
+    """
+    The #GPrivate struct is an opaque data structure to represent a
+    thread-local data key. It is approximately equivalent to the
+    pthread_setspecific()/pthread_getspecific() APIs on POSIX and to
+    TlsSetValue()/TlsGetValue() on Windows.
+
+    If you don't already know why you might want this functionality,
+    then you probably don't need it.
+
+    #GPrivate is a very limited resource (as far as 128 per program,
+    shared between all libraries). It is also not possible to destroy a
+    #GPrivate after it has been used. As such, it is only ever acceptable
+    to use #GPrivate in static scope, and even then sparingly so.
+
+    See G_PRIVATE_INIT() for a couple of examples.
+
+    The #GPrivate structure should be considered opaque.  It should only
+    be accessed via the g_private_ functions.
+    """
+
     # gi Fields
     @builtins.property
     def future(self) -> list | None: ...
@@ -15125,46 +18216,238 @@ class Private(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get(self) -> object | None: ...
-    def replace(self, value: object | None = None) -> None: ...
-    def set(self, value: object | None = None) -> None: ...
+    def get(self) -> object | None:
+        """
+            Returns the current value of the thread local variable @key.
+
+        If the value has not yet been set in this thread, %NULL is returned.
+        Values are never copied between threads (when a new thread is
+        created, for example).
+        """
+    def replace(self, value: object | None = None) -> None:
+        """
+            Sets the thread local variable @key to have the value @value in the
+        current thread.
+
+        This function differs from g_private_set() in the following way: if
+        the previous value was non-%NULL then the #GDestroyNotify handler for
+        @key is run on it.
+        """
+    def set(self, value: object | None = None) -> None:
+        """
+            Sets the thread local variable @key to have the value @value in the
+        current thread.
+
+        This function differs from g_private_replace() in the following way:
+        the #GDestroyNotify for @key is not called on the old value.
+        """
 
 class Queue(GObject.GPointer):
+    """
+    Contains the public fields of a
+    [Queue](data-structures.html#double-ended-queues).
+    """
+
     # gi Fields
     head: list | None = ...
+    """
+    a pointer to the first element of the queue
+
+    """
     length: int = ...
+    """
+    the number of elements in the queue
+
+    """
     tail: list | None = ...
+    """
+    a pointer to the last element of the queue
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def clear(self) -> None: ...
-    def clear_full(self, free_func: DestroyNotify | None = None) -> None: ...
-    def foreach(self, func: Func, user_data: object | None = None) -> None: ...
-    def free(self) -> None: ...
-    def free_full(self, free_func: DestroyNotify) -> None: ...
-    def get_length(self) -> int: ...
-    def index(self, data: object | None = None) -> int: ...
-    def init(self) -> None: ...
-    def insert_sorted(self, data: object | None, func: CompareDataFunc, user_data: object | None = None) -> None: ...
-    def is_empty(self) -> bool: ...
-    def peek_head(self) -> object | None: ...
-    def peek_nth(self, n: int) -> object | None: ...
-    def peek_tail(self) -> object | None: ...
-    def pop_head(self) -> object | None: ...
-    def pop_nth(self, n: int) -> object | None: ...
-    def pop_tail(self) -> object | None: ...
-    def push_head(self, data: object | None = None) -> None: ...
-    def push_nth(self, data: object | None, n: int) -> None: ...
-    def push_tail(self, data: object | None = None) -> None: ...
-    def remove(self, data: object | None = None) -> bool: ...
-    def remove_all(self, data: object | None = None) -> int: ...
-    def reverse(self) -> None: ...
-    def sort(self, compare_func: CompareDataFunc, user_data: object | None = None) -> None: ...
+    def clear(self) -> None:
+        """
+            Removes all the elements in @queue. If queue elements contain
+        dynamically-allocated memory, they should be freed first.
+        """
+    def clear_full(self, free_func: DestroyNotify | None = None) -> None:
+        """
+            Convenience method, which frees all the memory used by a #GQueue,
+        and calls the provided @free_func on each item in the #GQueue.
+        """
+    def foreach(self, func: Func, user_data: object | None = None) -> None:
+        """
+            Calls @func for each element in the queue passing @user_data to the
+        function.
+
+        It is safe for @func to remove the element from @queue, but it must
+        not modify any part of the queue after that element.
+        """
+    def free(self) -> None:
+        """
+            Frees the memory allocated for the #GQueue. Only call this function
+        if @queue was created with g_queue_new(). If queue elements contain
+        dynamically-allocated memory, they should be freed first.
+
+        If queue elements contain dynamically-allocated memory, you should
+        either use g_queue_free_full() or free them manually first.
+        """
+    def free_full(self, free_func: DestroyNotify) -> None:
+        """
+            Convenience method, which frees all the memory used by a #GQueue,
+        and calls the specified destroy function on every element's data.
+
+        @free_func should not modify the queue (eg, by removing the freed
+        element from it).
+        """
+    def get_length(self) -> int:
+        """
+        Returns the number of items in @queue.
+        """
+    def index(self, data: object | None = None) -> int:
+        """
+        Returns the position of the first element in @queue which contains @data.
+        """
+    def init(self) -> None:
+        """
+            A statically-allocated #GQueue must be initialized with this function
+        before it can be used. Alternatively you can initialize it with
+        %G_QUEUE_INIT. It is not necessary to initialize queues created with
+        g_queue_new().
+        """
+    def insert_sorted(self, data: object | None, func: CompareDataFunc, user_data: object | None = None) -> None:
+        """
+        Inserts @data into @queue using @func to determine the new position.
+        """
+    def is_empty(self) -> bool:
+        """
+        Returns %TRUE if the queue is empty.
+        """
+    def peek_head(self) -> object | None:
+        """
+        Returns the first element of the queue.
+        """
+    def peek_nth(self, n: int) -> object | None:
+        """
+        Returns the @n'th element of @queue.
+        """
+    def peek_tail(self) -> object | None:
+        """
+        Returns the last element of the queue.
+        """
+    def pop_head(self) -> object | None:
+        """
+        Removes the first element of the queue and returns its data.
+        """
+    def pop_nth(self, n: int) -> object | None:
+        """
+        Removes the @n'th element of @queue and returns its data.
+        """
+    def pop_tail(self) -> object | None:
+        """
+        Removes the last element of the queue and returns its data.
+        """
+    def push_head(self, data: object | None = None) -> None:
+        """
+        Adds a new element at the head of the queue.
+        """
+    def push_nth(self, data: object | None, n: int) -> None:
+        """
+        Inserts a new element into @queue at the given position.
+        """
+    def push_tail(self, data: object | None = None) -> None:
+        """
+        Adds a new element at the tail of the queue.
+        """
+    def remove(self, data: object | None = None) -> bool:
+        """
+        Removes the first element in @queue that contains @data.
+        """
+    def remove_all(self, data: object | None = None) -> int:
+        """
+        Remove all elements whose data equals @data from @queue.
+        """
+    def reverse(self) -> None:
+        """
+        Reverses the order of the items in @queue.
+        """
+    def sort(self, compare_func: CompareDataFunc, user_data: object | None = None) -> None:
+        """
+        Sorts @queue using @compare_func.
+        """
 
 class RWLock(GObject.GPointer):
+    """
+    The GRWLock struct is an opaque data structure to represent a
+    reader-writer lock. It is similar to a #GMutex in that it allows
+    multiple threads to coordinate access to a shared resource.
+
+    The difference to a mutex is that a reader-writer lock discriminates
+    between read-only ('reader') and full ('writer') access. While only
+    one thread at a time is allowed write access (by holding the 'writer'
+    lock via g_rw_lock_writer_lock()), multiple threads can gain
+    simultaneous read-only access (by holding the 'reader' lock via
+    g_rw_lock_reader_lock()).
+
+    It is unspecified whether readers or writers have priority in acquiring the
+    lock when a reader already holds the lock and a writer is queued to acquire
+    it.
+
+    Here is an example for an array with access functions:
+    |[<!-- language="C" -->
+      GRWLock lock;
+      GPtrArray *array;
+
+      gpointer
+      my_array_get (guint index)
+      {
+        gpointer retval = NULL;
+
+        if (!array)
+          return NULL;
+
+        g_rw_lock_reader_lock (&lock);
+        if (index < array->len)
+          retval = g_ptr_array_index (array, index);
+        g_rw_lock_reader_unlock (&lock);
+
+        return retval;
+      }
+
+      void
+      my_array_set (guint index, gpointer data)
+      {
+        g_rw_lock_writer_lock (&lock);
+
+        if (!array)
+          array = g_ptr_array_new ();
+
+        if (index >= array->len)
+          g_ptr_array_set_size (array, index+1);
+        g_ptr_array_index (array, index) = data;
+
+        g_rw_lock_writer_unlock (&lock);
+      }
+     ]|
+    This example shows an array which can be accessed by many readers
+    (the my_array_get() function) simultaneously, whereas the writers
+    (the my_array_set() function) will only be allowed one at a time
+    and only if no readers currently access the array. This is because
+    of the potentially dangerous resizing of the array. Using these
+    functions is fully multi-thread safe now.
+
+    If a #GRWLock is allocated in static storage then it can be used
+    without initialisation.  Otherwise, you should call
+    g_rw_lock_init() on it and g_rw_lock_clear() when done.
+
+    A GRWLock should only be accessed with the g_rw_lock_ functions.
+    """
+
     # gi Fields
     @builtins.property
     def i(self) -> list | None: ...
@@ -15174,16 +18457,114 @@ class RWLock(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def clear(self) -> None: ...
-    def init(self) -> None: ...
-    def reader_lock(self) -> None: ...
-    def reader_trylock(self) -> bool: ...
-    def reader_unlock(self) -> None: ...
-    def writer_lock(self) -> None: ...
-    def writer_trylock(self) -> bool: ...
-    def writer_unlock(self) -> None: ...
+    def clear(self) -> None:
+        """
+            Frees the resources allocated to a lock with g_rw_lock_init().
+
+        This function should not be used with a #GRWLock that has been
+        statically allocated.
+
+        Calling g_rw_lock_clear() when any thread holds the lock
+        leads to undefined behaviour.
+        """
+    def init(self) -> None:
+        """
+            Initializes a #GRWLock so that it can be used.
+
+        This function is useful to initialize a lock that has been
+        allocated on the stack, or as part of a larger structure.  It is not
+        necessary to initialise a reader-writer lock that has been statically
+        allocated.
+
+        |[<!-- language="C" -->
+          typedef struct {
+            GRWLock l;
+            ...
+          } Blob;
+
+        Blob *b;
+
+        b = g_new (Blob, 1);
+        g_rw_lock_init (&b->l);
+        ]|
+
+        To undo the effect of g_rw_lock_init() when a lock is no longer
+        needed, use g_rw_lock_clear().
+
+        Calling g_rw_lock_init() on an already initialized #GRWLock leads
+        to undefined behaviour.
+        """
+    def reader_lock(self) -> None:
+        """
+            Obtain a read lock on @rw_lock. If another thread currently holds
+        the write lock on @rw_lock, the current thread will block until the
+        write lock was (held and) released. If another thread does not hold
+        the write lock, but is waiting for it, it is implementation defined
+        whether the reader or writer will block. Read locks can be taken
+        recursively.
+
+        Calling g_rw_lock_reader_lock() while the current thread already
+        owns a write lock leads to undefined behaviour. Read locks however
+        can be taken recursively, in which case you need to make sure to
+        call g_rw_lock_reader_unlock() the same amount of times.
+
+        It is implementation-defined how many read locks are allowed to be
+        held on the same lock simultaneously. If the limit is hit,
+        or if a deadlock is detected, a critical warning will be emitted.
+        """
+    def reader_trylock(self) -> bool:
+        """
+            Tries to obtain a read lock on @rw_lock and returns %TRUE if
+        the read lock was successfully obtained. Otherwise it
+        returns %FALSE.
+        """
+    def reader_unlock(self) -> None:
+        """
+            Release a read lock on @rw_lock.
+
+        Calling g_rw_lock_reader_unlock() on a lock that is not held
+        by the current thread leads to undefined behaviour.
+        """
+    def writer_lock(self) -> None:
+        """
+            Obtain a write lock on @rw_lock. If another thread currently holds
+        a read or write lock on @rw_lock, the current thread will block
+        until all other threads have dropped their locks on @rw_lock.
+
+        Calling g_rw_lock_writer_lock() while the current thread already
+        owns a read or write lock on @rw_lock leads to undefined behaviour.
+        """
+    def writer_trylock(self) -> bool:
+        """
+            Tries to obtain a write lock on @rw_lock. If another thread
+        currently holds a read or write lock on @rw_lock, it immediately
+        returns %FALSE.
+        Otherwise it locks @rw_lock and returns %TRUE.
+        """
+    def writer_unlock(self) -> None:
+        """
+            Release a write lock on @rw_lock.
+
+        Calling g_rw_lock_writer_unlock() on a lock that is not held
+        by the current thread leads to undefined behaviour.
+        """
 
 class RecMutex(GObject.GPointer):
+    """
+    The GRecMutex struct is an opaque data structure to represent a
+    recursive mutex. It is similar to a #GMutex with the difference
+    that it is possible to lock a GRecMutex multiple times in the same
+    thread without deadlock. When doing so, care has to be taken to
+    unlock the recursive mutex as often as it has been locked.
+
+    If a #GRecMutex is allocated in static storage then it can be used
+    without initialisation.  Otherwise, you should call
+    g_rec_mutex_init() on it and g_rec_mutex_clear() when done.
+
+    A GRecMutex should only be accessed with the
+    g_rec_mutex_ functions.
+    """
+
     # gi Fields
     @builtins.property
     def i(self) -> list | None: ...
@@ -15193,30 +18574,153 @@ class RecMutex(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def clear(self) -> None: ...
-    def init(self) -> None: ...
-    def lock(self) -> None: ...
-    def trylock(self) -> bool: ...
-    def unlock(self) -> None: ...
+    def clear(self) -> None:
+        """
+            Frees the resources allocated to a recursive mutex with
+        g_rec_mutex_init().
+
+        This function should not be used with a #GRecMutex that has been
+        statically allocated.
+
+        Calling g_rec_mutex_clear() on a locked recursive mutex leads
+        to undefined behaviour.
+        """
+    def init(self) -> None:
+        """
+            Initializes a #GRecMutex so that it can be used.
+
+        This function is useful to initialize a recursive mutex
+        that has been allocated on the stack, or as part of a larger
+        structure.
+
+        It is not necessary to initialise a recursive mutex that has been
+        statically allocated.
+
+        |[<!-- language="C" -->
+          typedef struct {
+            GRecMutex m;
+            ...
+          } Blob;
+
+        Blob *b;
+
+        b = g_new (Blob, 1);
+        g_rec_mutex_init (&b->m);
+        ]|
+
+        Calling g_rec_mutex_init() on an already initialized #GRecMutex
+        leads to undefined behaviour.
+
+        To undo the effect of g_rec_mutex_init() when a recursive mutex
+        is no longer needed, use g_rec_mutex_clear().
+        """
+    def lock(self) -> None:
+        """
+            Locks @rec_mutex. If @rec_mutex is already locked by another
+        thread, the current thread will block until @rec_mutex is
+        unlocked by the other thread. If @rec_mutex is already locked
+        by the current thread, the 'lock count' of @rec_mutex is increased.
+        The mutex will only become available again when it is unlocked
+        as many times as it has been locked.
+        """
+    def trylock(self) -> bool:
+        """
+            Tries to lock @rec_mutex. If @rec_mutex is already locked
+        by another thread, it immediately returns %FALSE. Otherwise
+        it locks @rec_mutex and returns %TRUE.
+        """
+    def unlock(self) -> None:
+        """
+            Unlocks @rec_mutex. If another thread is blocked in a
+        g_rec_mutex_lock() call for @rec_mutex, it will become unblocked
+        and can lock @rec_mutex itself.
+
+        Calling g_rec_mutex_unlock() on a recursive mutex that is not
+        locked by the current thread leads to undefined behaviour.
+        """
 
 class Relation(GObject.GPointer):
+    """
+    A `GRelation` is a table of data which can be indexed on any number
+    of fields, rather like simple database tables. A `GRelation` contains
+    a number of records, called tuples. Each record contains a number of
+    fields. Records are not ordered, so it is not possible to find the
+    record at a particular index.
+
+    Note that `GRelation` tables are currently limited to 2 fields.
+
+    To create a `GRelation`, use [func@GLib.Relation.new].
+
+    To specify which fields should be indexed, use [method@GLib.Relation.index].
+    Note that this must be called before any tuples are added to the
+    `GRelation`.
+
+    To add records to a `GRelation` use [method@GLib.Relation.insert].
+
+    To determine if a given record appears in a `GRelation`, use
+    [method@GLib.Relation.exists]. Note that fields are compared directly, so
+    pointers must point to the exact same position (i.e. different
+    copies of the same string will not match.)
+
+    To count the number of records which have a particular value in a
+    given field, use [method@GLib.Relation.count].
+
+    To get all the records which have a particular value in a given
+    field, use [method@GLib.Relation.select]. To access fields of the resulting
+    records, use [method@GLib.Tuples.index]. To free the resulting records use
+    [method@GLib.Tuples.destroy].
+
+    To delete all records which have a particular value in a given
+    field, use [method@GLib.Relation.delete].
+
+    To destroy the `GRelation`, use [method@GLib.Relation.destroy].
+
+    To help debug `GRelation` objects, use [method@GLib.Relation.print].
+
+    `GRelation` has been marked as deprecated, since this API has never
+    been fully implemented, is not very actively maintained and rarely
+    used.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def count(self, key: object | None, field: int) -> int: ...
+    def count(self, key: object | None, field: int) -> int:
+        """
+            Returns the number of tuples in a #GRelation that have the given
+        value in the given field.
+        """
     @deprecated("deprecated")
-    def delete(self, key: object | None, field: int) -> int: ...
+    def delete(self, key: object | None, field: int) -> int:
+        """
+            Deletes any records from a #GRelation that have the given key value
+        in the given field.
+        """
     @deprecated("deprecated")
-    def destroy(self) -> None: ...
+    def destroy(self) -> None:
+        """
+            Destroys the #GRelation, freeing all memory allocated. However, it
+        does not free memory allocated for the tuple data, so you should
+        free that first if appropriate.
+        """
     @deprecated("deprecated")
     def print_(self) -> None: ...
 
 class SList(GObject.GPointer):
+    """
+    The #GSList struct is used for each element in the singly-linked
+    list.
+    """
+
     # gi Fields
     next: list | None = ...
+    """
+    contains the link to the next element in the list.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15229,23 +18733,88 @@ class SList(GObject.GPointer):
     def push_allocator(allocator: Allocator) -> None: ...
 
 class Scanner(GObject.GPointer):
+    """
+    `GScanner` provides a general-purpose lexical scanner.
+
+    You should set @input_name after creating the scanner, since
+    it is used by the default message handler when displaying
+    warnings and errors. If you are scanning a file, the filename
+    would be a good choice.
+
+    The @user_data and @max_parse_errors fields are not used.
+    If you need to associate extra data with the scanner you
+    can place them here.
+
+    If you want to use your own message handler you can set the
+    @msg_handler field. The type of the message handler function
+    is declared by #GScannerMsgFunc.
+    """
+
     # gi Fields
     @builtins.property
     def buffer(self) -> str: ...
     config: ScannerConfig | None = ...
+    """
+    link into the scanner configuration
+
+    """
     @builtins.property
     def input_fd(self) -> int: ...
     input_name: str = ...
+    """
+    name of input stream, featured by the default message handler
+
+    """
     line: int = ...
+    """
+    line number of the last token from g_scanner_get_next_token()
+
+    """
     max_parse_errors: int = ...
+    """
+    unused
+
+    """
     msg_handler: ScannerMsgFuncScannerCB = ...
+    """
+    handler function for _warn and _error
+
+    """
     next_line: int = ...
+    """
+    line number of the last token from g_scanner_peek_next_token()
+
+    """
     next_position: int = ...
+    """
+    char number of the last token from g_scanner_peek_next_token()
+
+    """
     next_token: TokenType = ...
+    """
+    token parsed by the last g_scanner_peek_next_token()
+
+    """
     next_value: TokenValue | None = ...
+    """
+    value of the last token from g_scanner_peek_next_token()
+
+    """
     parse_errors: int = ...
+    """
+    g_scanner_error() increments this field
+
+    """
     position: int = ...
+    """
+    char number of the last token from g_scanner_get_next_token()
+
+    """
     qdata: Data | None = ...
+    """
+    quarked data
+
+    """
     @builtins.property
     def scope_id(self) -> int: ...
     @builtins.property
@@ -15255,29 +18824,113 @@ class Scanner(GObject.GPointer):
     @builtins.property
     def text_end(self) -> str: ...
     token: TokenType = ...
+    """
+    token parsed by the last g_scanner_get_next_token()
+
+    """
     value: TokenValue | None = ...
+    """
+    value of the last token from g_scanner_get_next_token()
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def cur_line(self) -> int: ...
-    def cur_position(self) -> int: ...
-    def cur_token(self) -> TokenType: ...
-    def destroy(self) -> None: ...
-    def eof(self) -> bool: ...
-    def get_next_token(self) -> TokenType: ...
-    def input_file(self, input_fd: int) -> None: ...
-    def input_text(self, text: str, text_len: int) -> None: ...
-    def lookup_symbol(self, symbol: str) -> object | None: ...
-    def peek_next_token(self) -> TokenType: ...
-    def scope_add_symbol(self, scope_id: int, symbol: str, value: object | None = None) -> None: ...
-    def scope_foreach_symbol(self, scope_id: int, func: HFunc, user_data: object | None = None) -> None: ...
-    def scope_lookup_symbol(self, scope_id: int, symbol: str) -> object | None: ...
-    def scope_remove_symbol(self, scope_id: int, symbol: str) -> None: ...
-    def set_scope(self, scope_id: int) -> int: ...
-    def sync_file_offset(self) -> None: ...
+    def cur_line(self) -> int:
+        """
+            Returns the current line in the input stream (counting
+        from 1). This is the line of the last token parsed via
+        g_scanner_get_next_token().
+        """
+    def cur_position(self) -> int:
+        """
+            Returns the current position in the current line (counting
+        from 0). This is the position of the last token parsed via
+        g_scanner_get_next_token().
+        """
+    def cur_token(self) -> TokenType:
+        """
+            Gets the current token type. This is simply the @token
+        field in the #GScanner structure.
+        """
+    def destroy(self) -> None:
+        """
+        Frees all memory used by the #GScanner.
+        """
+    def eof(self) -> bool:
+        """
+            Returns %TRUE if the scanner has reached the end of
+        the file or text buffer.
+        """
+    def get_next_token(self) -> TokenType:
+        """
+            Parses the next token just like g_scanner_peek_next_token()
+        and also removes it from the input stream. The token data is
+        placed in the @token, @value, @line, and @position fields of
+        the #GScanner structure.
+        """
+    def input_file(self, input_fd: int) -> None:
+        """
+        Prepares to scan a file.
+        """
+    def input_text(self, text: str, text_len: int) -> None:
+        """
+        Prepares to scan a text buffer.
+        """
+    def lookup_symbol(self, symbol: str) -> object | None:
+        """
+            Looks up a symbol in the current scope and return its value.
+        If the symbol is not bound in the current scope, %NULL is
+        returned.
+        """
+    def peek_next_token(self) -> TokenType:
+        """
+            Parses the next token, without removing it from the input stream.
+        The token data is placed in the @next_token, @next_value, @next_line,
+        and @next_position fields of the #GScanner structure.
+
+        Note that, while the token is not removed from the input stream
+        (i.e. the next call to g_scanner_get_next_token() will return the
+        same token), it will not be reevaluated. This can lead to surprising
+        results when changing scope or the scanner configuration after peeking
+        the next token. Getting the next token after switching the scope or
+        configuration will return whatever was peeked before, regardless of
+        any symbols that may have been added or removed in the new scope.
+        """
+    def scope_add_symbol(self, scope_id: int, symbol: str, value: object | None = None) -> None:
+        """
+        Adds a symbol to the given scope.
+        """
+    def scope_foreach_symbol(self, scope_id: int, func: HFunc, user_data: object | None = None) -> None:
+        """
+            Calls the given function for each of the symbol/value pairs
+        in the given scope of the #GScanner. The function is passed
+        the symbol and value of each pair, and the given @user_data
+        parameter.
+        """
+    def scope_lookup_symbol(self, scope_id: int, symbol: str) -> object | None:
+        """
+            Looks up a symbol in a scope and return its value. If the
+        symbol is not bound in the scope, %NULL is returned.
+        """
+    def scope_remove_symbol(self, scope_id: int, symbol: str) -> None:
+        """
+        Removes a symbol from a scope.
+        """
+    def set_scope(self, scope_id: int) -> int:
+        """
+        Sets the current scope.
+        """
+    def sync_file_offset(self) -> None:
+        """
+            Rewinds the filedescriptor to the current buffer position
+        and blows the file read ahead buffer. This is useful for
+        third party uses of the scanners filedescriptor, which hooks
+        onto the current scanning position.
+        """
     def unexp_token(
         self,
         expected_token: TokenType,
@@ -15286,38 +18939,187 @@ class Scanner(GObject.GPointer):
         symbol_name: str,
         message: str,
         is_error: int,
-    ) -> None: ...
+    ) -> None:
+        """
+            Outputs a message through the scanner's msg_handler,
+        resulting from an unexpected token in the input stream.
+        Note that you should not call g_scanner_peek_next_token()
+        followed by g_scanner_unexp_token() without an intermediate
+        call to g_scanner_get_next_token(), as g_scanner_unexp_token()
+        evaluates the scanner's current token (not the peeked token)
+        to construct part of the message.
+        """
 
 class ScannerConfig(GObject.GPointer):
+    """
+    Specifies the #GScanner parser configuration. Most settings can
+    be changed during the parsing phase and will affect the lexical
+    parsing of the next unpeeked token.
+    """
+
     # gi Fields
     case_sensitive: int = ...
+    """
+    specifies if symbols are case sensitive (the
+        default is %FALSE).
+
+    """
     char_2_token: int = ...
+    """
+    specifies if characters are reported by setting
+        `token = ch` or as %G_TOKEN_CHAR (the default is %TRUE).
+
+    """
     cpair_comment_single: str = ...
+    """
+    specifies the characters at the start and
+        end of single-line comments. The default is "#\\n" which means
+        that single-line comments start with a '#' and continue until
+        a '\\n' (end of line).
+
+    """
     cset_identifier_first: str = ...
+    """
+    specifies the characters which can start
+        identifiers (the default is %G_CSET_a_2_z, "_", and %G_CSET_A_2_Z).
+
+    """
     cset_identifier_nth: str = ...
+    """
+    specifies the characters which can be used
+        in identifiers, after the first character (the default is
+        %G_CSET_a_2_z, "_0123456789", %G_CSET_A_2_Z, %G_CSET_LATINS,
+        %G_CSET_LATINC).
+
+    """
     cset_skip_characters: str = ...
+    """
+    specifies which characters should be skipped
+        by the scanner (the default is the whitespace characters: space,
+        tab, carriage-return and line-feed).
+
+    """
     identifier_2_string: int = ...
+    """
+    specifies if identifiers are reported as strings
+        (the default is %FALSE).
+
+    """
     int_2_float: int = ...
+    """
+    specifies if all numbers are reported as %G_TOKEN_FLOAT
+        (the default is %FALSE).
+
+    """
     numbers_2_int: int = ...
+    """
+    specifies if binary, octal and hexadecimal numbers
+        are reported as %G_TOKEN_INT (the default is %TRUE).
+
+    """
     @builtins.property
     def padding_dummy(self) -> int: ...
     scan_binary: int = ...
+    """
+    specifies if binary numbers are recognized (the
+        default is %FALSE).
+
+    """
     scan_comment_multi: int = ...
+    """
+    specifies if multi-line comments are recognized
+        (the default is %TRUE).
+
+    """
     scan_float: int = ...
+    """
+    specifies if floating point numbers are recognized
+        (the default is %TRUE).
+
+    """
     scan_hex: int = ...
+    """
+    specifies if hexadecimal numbers are recognized (the
+        default is %TRUE).
+
+    """
     scan_hex_dollar: int = ...
+    """
+    specifies if '$' is recognized as a prefix for
+        hexadecimal numbers (the default is %FALSE).
+
+    """
     scan_identifier: int = ...
+    """
+    specifies if identifiers are recognized (the
+        default is %TRUE).
+
+    """
     scan_identifier_1char: int = ...
+    """
+    specifies if single-character
+        identifiers are recognized (the default is %FALSE).
+
+    """
     scan_identifier_NULL: int = ...
+    """
+    specifies if %NULL is reported as
+        %G_TOKEN_IDENTIFIER_NULL (the default is %FALSE).
+
+    """
     scan_octal: int = ...
+    """
+    specifies if octal numbers are recognized (the
+        default is %TRUE).
+
+    """
     scan_string_dq: int = ...
+    """
+    specifies if strings can be enclosed in double
+        quotes (the default is %TRUE).
+
+    """
     scan_string_sq: int = ...
+    """
+    specifies if strings can be enclosed in single
+        quotes (the default is %TRUE).
+
+    """
     scan_symbols: int = ...
+    """
+    specifies if symbols are recognized (the default
+        is %TRUE).
+
+    """
     scope_0_fallback: int = ...
+    """
+    specifies if a symbol is searched for in the
+        default scope in addition to the current scope (the default is %FALSE).
+
+    """
     skip_comment_multi: int = ...
+    """
+    specifies if multi-line comments are skipped
+        and not returned as tokens (the default is %TRUE).
+
+    """
     skip_comment_single: int = ...
+    """
+    specifies if single-line comments are skipped
+        and not returned as tokens (the default is %TRUE).
+
+    """
     store_int64: int = ...
+    """
+    use value.v_int64 rather than v_int
+
+    """
     symbol_2_token: int = ...
+    """
+    specifies if symbols are reported by setting
+        `token = v_symbol` or as %G_TOKEN_SYMBOL (the default is %FALSE).
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15326,130 +19128,820 @@ class ScannerConfig(GObject.GPointer):
         """
 
 class Sequence(GObject.GPointer):
+    """
+    The #GSequence struct is an opaque data type representing a
+    [sequence](data-structures.html#scalable-lists) data type.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def append(self, data: object | None = None) -> SequenceIter: ...
-    def foreach(self, func: Func, user_data: object | None = None) -> None: ...
+    def append(self, data: object | None = None) -> SequenceIter:
+        """
+        Adds a new item to the end of @seq.
+        """
+    def foreach(self, func: Func, user_data: object | None = None) -> None:
+        """
+            Calls @func for each item in the sequence passing @user_data
+        to the function. @func must not modify the sequence itself.
+        """
     @staticmethod
-    def foreach_range(begin: SequenceIter, end: SequenceIter, func: Func, user_data: object | None = None) -> None: ...
-    def free(self) -> None: ...
+    def foreach_range(begin: SequenceIter, end: SequenceIter, func: Func, user_data: object | None = None) -> None:
+        """
+            Calls @func for each item in the range (@begin, @end) passing
+        @user_data to the function. @func must not modify the sequence
+        itself.
+        """
+    def free(self) -> None:
+        """
+            Frees the memory allocated for @seq. If @seq has a data destroy
+        function associated with it, that function is called on all items
+        in @seq.
+        """
     @staticmethod
-    def get(iter: SequenceIter) -> object | None: ...
-    def get_begin_iter(self) -> SequenceIter: ...
-    def get_end_iter(self) -> SequenceIter: ...
-    def get_iter_at_pos(self, pos: int) -> SequenceIter: ...
-    def get_length(self) -> int: ...
+    def get(iter: SequenceIter) -> object | None:
+        """
+        Returns the data that @iter points to.
+        """
+    def get_begin_iter(self) -> SequenceIter:
+        """
+        Returns the begin iterator for @seq.
+        """
+    def get_end_iter(self) -> SequenceIter:
+        """
+        Returns the end iterator for @seg
+        """
+    def get_iter_at_pos(self, pos: int) -> SequenceIter:
+        """
+            Returns the iterator at position @pos. If @pos is negative or larger
+        than the number of items in @seq, the end iterator is returned.
+        """
+    def get_length(self) -> int:
+        """
+            Returns the positive length (>= 0) of @seq. Note that this method is
+        O(h) where `h' is the height of the tree. It is thus more efficient
+        to use g_sequence_is_empty() when comparing the length to zero.
+        """
     @staticmethod
-    def insert_before(iter: SequenceIter, data: object | None = None) -> SequenceIter: ...
+    def insert_before(iter: SequenceIter, data: object | None = None) -> SequenceIter:
+        """
+        Inserts a new item just before the item pointed to by @iter.
+        """
     def insert_sorted(
         self, data: object | None, cmp_func: CompareDataFunc, cmp_data: object | None = None
-    ) -> SequenceIter: ...
+    ) -> SequenceIter:
+        """
+            Inserts @data into @seq using @cmp_func to determine the new
+        position. The sequence must already be sorted according to @cmp_func;
+        otherwise the new position of @data is undefined.
+
+        @cmp_func is called with two items of the @seq, and @cmp_data.
+        It should return 0 if the items are equal, a negative value
+        if the first item comes before the second, and a positive value
+        if the second item comes before the first.
+
+        Note that when adding a large amount of data to a #GSequence,
+        it is more efficient to do unsorted insertions and then call
+        g_sequence_sort() or g_sequence_sort_iter().
+        """
     def insert_sorted_iter(
         self, data: object | None, iter_cmp: SequenceIterCompareFunc, cmp_data: object | None = None
-    ) -> SequenceIter: ...
-    def is_empty(self) -> bool: ...
+    ) -> SequenceIter:
+        """
+            Like g_sequence_insert_sorted(), but uses
+        a #GSequenceIterCompareFunc instead of a #GCompareDataFunc as
+        the compare function.
+
+        @iter_cmp is called with two iterators pointing into @seq.
+        It should return 0 if the iterators are equal, a negative
+        value if the first iterator comes before the second, and a
+        positive value if the second iterator comes before the first.
+
+        Note that when adding a large amount of data to a #GSequence,
+        it is more efficient to do unsorted insertions and then call
+        g_sequence_sort() or g_sequence_sort_iter().
+        """
+    def is_empty(self) -> bool:
+        """
+            Returns %TRUE if the sequence contains zero items.
+
+        This function is functionally identical to checking the result of
+        g_sequence_get_length() being equal to zero. However this function is
+        implemented in O(1) running time.
+        """
     def lookup(
         self, data: object | None, cmp_func: CompareDataFunc, cmp_data: object | None = None
-    ) -> SequenceIter | None: ...
+    ) -> SequenceIter | None:
+        """
+            Returns an iterator pointing to the position of the first item found
+        equal to @data according to @cmp_func and @cmp_data. If more than one
+        item is equal, it is not guaranteed that it is the first which is
+        returned. In that case, you can use g_sequence_iter_next() and
+        g_sequence_iter_prev() to get others.
+
+        @cmp_func is called with two items of the @seq, and @cmp_data.
+        It should return 0 if the items are equal, a negative value if
+        the first item comes before the second, and a positive value if
+        the second item comes before the first.
+
+        This function will fail if the data contained in the sequence is
+        unsorted.
+        """
     def lookup_iter(
         self, data: object | None, iter_cmp: SequenceIterCompareFunc, cmp_data: object | None = None
-    ) -> SequenceIter | None: ...
+    ) -> SequenceIter | None:
+        """
+            Like g_sequence_lookup(), but uses a #GSequenceIterCompareFunc
+        instead of a #GCompareDataFunc as the compare function.
+
+        @iter_cmp is called with two iterators pointing into @seq.
+        It should return 0 if the iterators are equal, a negative value
+        if the first iterator comes before the second, and a positive
+        value if the second iterator comes before the first.
+
+        This function will fail if the data contained in the sequence is
+        unsorted.
+        """
     @staticmethod
-    def move(src: SequenceIter, dest: SequenceIter) -> None: ...
+    def move(src: SequenceIter, dest: SequenceIter) -> None:
+        """
+            Moves the item pointed to by @src to the position indicated by @dest.
+        After calling this function @dest will point to the position immediately
+        after @src. It is allowed for @src and @dest to point into different
+        sequences.
+        """
     @staticmethod
-    def move_range(dest: SequenceIter, begin: SequenceIter, end: SequenceIter) -> None: ...
-    def prepend(self, data: object | None = None) -> SequenceIter: ...
+    def move_range(dest: SequenceIter, begin: SequenceIter, end: SequenceIter) -> None:
+        """
+            Inserts the (@begin, @end) range at the destination pointed to by @dest.
+        The @begin and @end iters must point into the same sequence. It is
+        allowed for @dest to point to a different sequence than the one pointed
+        into by @begin and @end.
+
+        If @dest is %NULL, the range indicated by @begin and @end is
+        removed from the sequence. If @dest points to a place within
+        the (@begin, @end) range, the range does not move.
+        """
+    def prepend(self, data: object | None = None) -> SequenceIter:
+        """
+        Adds a new item to the front of @seq
+        """
     @staticmethod
-    def range_get_midpoint(begin: SequenceIter, end: SequenceIter) -> SequenceIter: ...
+    def range_get_midpoint(begin: SequenceIter, end: SequenceIter) -> SequenceIter:
+        """
+            Finds an iterator somewhere in the range (@begin, @end). This
+        iterator will be close to the middle of the range, but is not
+        guaranteed to be exactly in the middle.
+
+        The @begin and @end iterators must both point to the same sequence
+        and @begin must come before or be equal to @end in the sequence.
+        """
     @staticmethod
-    def remove(iter: SequenceIter) -> None: ...
+    def remove(iter: SequenceIter) -> None:
+        """
+            Removes the item pointed to by @iter. It is an error to pass the
+        end iterator to this function.
+
+        If the sequence has a data destroy function associated with it, this
+        function is called on the data for the removed item.
+        """
     @staticmethod
-    def remove_range(begin: SequenceIter, end: SequenceIter) -> None: ...
-    def search(
-        self, data: object | None, cmp_func: CompareDataFunc, cmp_data: object | None = None
-    ) -> SequenceIter: ...
+    def remove_range(begin: SequenceIter, end: SequenceIter) -> None:
+        """
+            Removes all items in the (@begin, @end) range.
+
+        If the sequence has a data destroy function associated with it, this
+        function is called on the data for the removed items.
+        """
+    def search(self, data: object | None, cmp_func: CompareDataFunc, cmp_data: object | None = None) -> SequenceIter:
+        """
+            Returns an iterator pointing to the position where @data would
+        be inserted according to @cmp_func and @cmp_data.
+
+        @cmp_func is called with two items of the @seq, and @cmp_data.
+        It should return 0 if the items are equal, a negative value if
+        the first item comes before the second, and a positive value if
+        the second item comes before the first.
+
+        If you are simply searching for an existing element of the sequence,
+        consider using g_sequence_lookup().
+
+        This function will fail if the data contained in the sequence is
+        unsorted.
+        """
     def search_iter(
         self, data: object | None, iter_cmp: SequenceIterCompareFunc, cmp_data: object | None = None
-    ) -> SequenceIter: ...
+    ) -> SequenceIter:
+        """
+            Like g_sequence_search(), but uses a #GSequenceIterCompareFunc
+        instead of a #GCompareDataFunc as the compare function.
+
+        @iter_cmp is called with two iterators pointing into @seq.
+        It should return 0 if the iterators are equal, a negative value
+        if the first iterator comes before the second, and a positive
+        value if the second iterator comes before the first.
+
+        If you are simply searching for an existing element of the sequence,
+        consider using g_sequence_lookup_iter().
+
+        This function will fail if the data contained in the sequence is
+        unsorted.
+        """
     @staticmethod
-    def set(iter: SequenceIter, data: object | None = None) -> None: ...
-    def sort(self, cmp_func: CompareDataFunc, cmp_data: object | None = None) -> None: ...
+    def set(iter: SequenceIter, data: object | None = None) -> None:
+        """
+            Changes the data for the item pointed to by @iter to be @data. If
+        the sequence has a data destroy function associated with it, that
+        function is called on the existing data that @iter pointed to.
+        """
+    def sort(self, cmp_func: CompareDataFunc, cmp_data: object | None = None) -> None:
+        """
+            Sorts @seq using @cmp_func.
+
+        @cmp_func is passed two items of @seq and should
+        return 0 if they are equal, a negative value if the
+        first comes before the second, and a positive value
+        if the second comes before the first.
+        """
     @staticmethod
-    def sort_changed(iter: SequenceIter, cmp_func: CompareDataFunc, cmp_data: object | None = None) -> None: ...
+    def sort_changed(iter: SequenceIter, cmp_func: CompareDataFunc, cmp_data: object | None = None) -> None:
+        """
+            Moves the data pointed to by @iter to a new position as indicated by
+        @cmp_func. This
+        function should be called for items in a sequence already sorted according
+        to @cmp_func whenever some aspect of an item changes so that @cmp_func
+        may return different values for that item.
+
+        @cmp_func is called with two items of the @seq, and @cmp_data.
+        It should return 0 if the items are equal, a negative value if
+        the first item comes before the second, and a positive value if
+        the second item comes before the first.
+        """
     @staticmethod
     def sort_changed_iter(
         iter: SequenceIter, iter_cmp: SequenceIterCompareFunc, cmp_data: object | None = None
-    ) -> None: ...
-    def sort_iter(self, cmp_func: SequenceIterCompareFunc, cmp_data: object | None = None) -> None: ...
+    ) -> None:
+        """
+            Like g_sequence_sort_changed(), but uses
+        a #GSequenceIterCompareFunc instead of a #GCompareDataFunc as
+        the compare function.
+
+        @iter_cmp is called with two iterators pointing into the #GSequence that
+        @iter points into. It should
+        return 0 if the iterators are equal, a negative value if the first
+        iterator comes before the second, and a positive value if the second
+        iterator comes before the first.
+        """
+    def sort_iter(self, cmp_func: SequenceIterCompareFunc, cmp_data: object | None = None) -> None:
+        """
+            Like g_sequence_sort(), but uses a #GSequenceIterCompareFunc instead
+        of a #GCompareDataFunc as the compare function
+
+        @cmp_func is called with two iterators pointing into @seq. It should
+        return 0 if the iterators are equal, a negative value if the first
+        iterator comes before the second, and a positive value if the second
+        iterator comes before the first.
+        """
     @staticmethod
-    def swap(a: SequenceIter, b: SequenceIter) -> None: ...
+    def swap(a: SequenceIter, b: SequenceIter) -> None:
+        """
+            Swaps the items pointed to by @a and @b. It is allowed for @a and @b
+        to point into difference sequences.
+        """
 
 class SequenceIter(GObject.GPointer):
+    """
+    The #GSequenceIter struct is an opaque data type representing an
+    iterator pointing into a #GSequence.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def compare(self, b: SequenceIter) -> int: ...
-    def get_position(self) -> int: ...
-    def get_sequence(self) -> Sequence: ...
-    def is_begin(self) -> bool: ...
-    def is_end(self) -> bool: ...
-    def move(self, delta: int) -> SequenceIter: ...
-    def next(self) -> SequenceIter: ...
-    def prev(self) -> SequenceIter: ...
+    def compare(self, b: SequenceIter) -> int:
+        """
+            Returns a negative number if @a comes before @b, 0 if they are equal,
+        and a positive number if @a comes after @b.
+
+        The @a and @b iterators must point into the same sequence.
+        """
+    def get_position(self) -> int:
+        """
+        Returns the position of @iter
+        """
+    def get_sequence(self) -> Sequence:
+        """
+        Returns the #GSequence that @iter points into.
+        """
+    def is_begin(self) -> bool:
+        """
+        Returns whether @iter is the begin iterator
+        """
+    def is_end(self) -> bool:
+        """
+        Returns whether @iter is the end iterator
+        """
+    def move(self, delta: int) -> SequenceIter:
+        """
+            Returns the #GSequenceIter which is @delta positions away from @iter.
+        If @iter is closer than -@delta positions to the beginning of the sequence,
+        the begin iterator is returned. If @iter is closer than @delta positions
+        to the end of the sequence, the end iterator is returned.
+        """
+    def next(self) -> SequenceIter:
+        """
+            Returns an iterator pointing to the next position after @iter.
+        If @iter is the end iterator, the end iterator is returned.
+        """
+    def prev(self) -> SequenceIter:
+        """
+            Returns an iterator pointing to the previous position before @iter.
+        If @iter is the begin iterator, the begin iterator is returned.
+        """
 
 class Source(GObject.GBoxed):
+    """
+    The `GSource` struct is an opaque data type
+    representing an event source.
+    """
+
     # gi Fields
     @builtins.property
     def priority(self) -> int: ...
 
     # gi Methods
-    def add_child_source(self, child_source: Source) -> None: ...
-    def add_poll(self, fd: PollFD) -> None: ...
-    def add_unix_fd(self, fd: int, events: IOCondition) -> object: ...
-    def attach(self, context: MainContext | None = None) -> int: ...
-    def destroy(self) -> None: ...
-    def get_can_recurse(self) -> bool: ...
-    def get_context(self) -> MainContext | None: ...
+    def add_child_source(self, child_source: Source) -> None:
+        """
+            Adds @child_source to @source as a "polled" source; when @source is
+        added to a [struct@GLib.MainContext], @child_source will be automatically
+        added with the same priority, when @child_source is triggered, it will
+        cause @source to dispatch (in addition to calling its own
+        callback), and when @source is destroyed, it will destroy
+        @child_source as well. (@source will also still be dispatched if
+        its own prepare/check functions indicate that it is ready.)
+
+        If you don't need @child_source to do anything on its own when it
+        triggers, you can call g_source_set_dummy_callback() on it to set a
+        callback that does nothing (except return %TRUE if appropriate).
+
+        @source will hold a reference on @child_source while @child_source
+        is attached to it.
+
+        This API is only intended to be used by implementations of
+        [struct@GLib.Source]. Do not call this API on a [struct@GLib.Source] that
+        you did not create.
+        """
+    def add_poll(self, fd: PollFD) -> None:
+        """
+            Adds a file descriptor to the set of file descriptors polled for
+        this source. This is usually combined with [ctor@GLib.Source.new] to add an
+        event source. The event source's check function will typically test
+        the @revents field in the #GPollFD struct and return %TRUE if events need
+        to be processed.
+
+        This API is only intended to be used by implementations of [struct@GLib.Source].
+        Do not call this API on a [struct@GLib.Source] that you did not create.
+
+        Using this API forces the linear scanning of event sources on each
+        main loop iteration.  Newly-written event sources should try to use
+        `g_source_add_unix_fd` instead of this API.
+        """
+    def add_unix_fd(self, fd: int, events: IOCondition) -> object:
+        """
+            Monitors @fd for the IO events in @events.
+
+        The tag returned by this function can be used to remove or modify the
+        monitoring of the fd using [method@GLib.Source.remove_unix_fd] or
+        [method@GLib.Source.modify_unix_fd].
+
+        It is not necessary to remove the fd before destroying the source; it
+        will be cleaned up automatically.
+
+        This API is only intended to be used by implementations of #GSource.
+        Do not call this API on a #GSource that you did not create.
+
+        As the name suggests, this function is not available on Windows.
+        """
+    def attach(self, context: MainContext | None = None) -> int:
+        """
+            Adds a [struct@GLib.Source] to a @context so that it will be executed within
+        that context. Remove it by calling [method@GLib.Source.destroy].
+
+        This function is safe to call from any thread, regardless of which thread
+        the @context is running in.
+        """
+    def destroy(self) -> None:
+        """
+            Removes a source from its [struct@GLib.MainContext], if any, and mark it as
+        destroyed.  The source cannot be subsequently added to another
+        context. It is safe to call this on sources which have already been
+        removed from their context.
+
+        This does not unref the [struct@GLib.Source]: if you still hold a reference,
+        use [method@GLib.Source.unref] to drop it.
+
+        This function is safe to call from any thread, regardless of which thread
+        the [struct@GLib.MainContext] is running in.
+
+        If the source is currently attached to a [struct@GLib.MainContext],
+        destroying it will effectively unset the callback similar to calling
+        [method@GLib.Source.set_callback]. This can mean, that the data's
+        #GDestroyNotify gets called right away.
+        """
+    def get_can_recurse(self) -> bool:
+        """
+            Checks whether a source is allowed to be called recursively.
+        see [method@GLib.Source.set_can_recurse].
+        """
+    def get_context(self) -> MainContext | None:
+        """
+            Gets the [struct@GLib.MainContext] with which the source is associated.
+
+        You can call this on a source that has been destroyed, provided
+        that the [struct@GLib.MainContext] it was attached to still exists (in which
+        case it will return that [struct@GLib.MainContext]). In particular, you can
+        always call this function on the source returned from
+        [func@GLib.main_current_source]. But calling this function on a source
+        whose [struct@GLib.MainContext] has been destroyed is an error.
+        """
     @deprecated("deprecated")
-    def get_current_time(self, timeval: TimeVal) -> None: ...
-    def get_id(self) -> int: ...
-    def get_name(self) -> str | None: ...
-    def get_priority(self) -> int: ...
-    def get_ready_time(self) -> int: ...
-    def get_time(self) -> int: ...
-    def is_destroyed(self) -> bool: ...
-    def modify_unix_fd(self, tag: object, new_events: IOCondition) -> None: ...
+    def get_current_time(self, timeval: TimeVal) -> None:
+        """
+            This function ignores @source and is otherwise the same as
+        [func@GLib.get_current_time].
+        """
+    def get_id(self) -> int:
+        """
+            Returns the numeric ID for a particular source. The ID of a source
+        is a positive integer which is unique within a particular main loop
+        context. The reverse mapping from ID to source is done by
+        [method@GLib.MainContext.find_source_by_id].
+
+        You can only call this function while the source is associated to a
+        [struct@GLib.MainContext] instance; calling this function before
+        [method@GLib.Source.attach] or after [method@GLib.Source.destroy] yields
+        undefined behavior. The ID returned is unique within the
+        [struct@GLib.MainContext] instance passed to [method@GLib.Source.attach].
+        """
+    def get_name(self) -> str | None:
+        """
+            Gets a name for the source, used in debugging and profiling.  The
+        name may be #NULL if it has never been set with [method@GLib.Source.set_name].
+        """
+    def get_priority(self) -> int:
+        """
+        Gets the priority of a source.
+        """
+    def get_ready_time(self) -> int:
+        """
+            Gets the "ready time" of @source, as set by
+        [method@GLib.Source.set_ready_time].
+
+        Any time before or equal to the current monotonic time (including 0)
+        is an indication that the source will fire immediately.
+        """
+    def get_time(self) -> int:
+        """
+            Gets the time to be used when checking this source. The advantage of
+        calling this function over calling [func@GLib.get_monotonic_time] directly is
+        that when checking multiple sources, GLib can cache a single value
+        instead of having to repeatedly get the system monotonic time.
+
+        The time here is the system monotonic time, if available, or some
+        other reasonable alternative otherwise.  See [func@GLib.get_monotonic_time].
+        """
+    def is_destroyed(self) -> bool:
+        """
+            Returns whether @source has been destroyed.
+
+        This is important when you operate upon your objects
+        from within idle handlers, but may have freed the object
+        before the dispatch of your idle handler.
+
+        |[<!-- language="C" -->
+        static gboolean
+        idle_callback (gpointer data)
+        {
+          SomeWidget *self = data;
+
+          g_mutex_lock (&self->idle_id_mutex);
+          // do stuff with self
+          self->idle_id = 0;
+          g_mutex_unlock (&self->idle_id_mutex);
+
+          return G_SOURCE_REMOVE;
+        }
+
+        static void
+        some_widget_do_stuff_later (SomeWidget *self)
+        {
+          g_mutex_lock (&self->idle_id_mutex);
+          self->idle_id = g_idle_add (idle_callback, self);
+          g_mutex_unlock (&self->idle_id_mutex);
+        }
+
+        static void
+        some_widget_init (SomeWidget *self)
+        {
+          g_mutex_init (&self->idle_id_mutex);
+
+          // ...
+        }
+
+        static void
+        some_widget_finalize (GObject *object)
+        {
+          SomeWidget *self = SOME_WIDGET (object);
+
+          if (self->idle_id)
+            g_source_remove (self->idle_id);
+
+          g_mutex_clear (&self->idle_id_mutex);
+
+          G_OBJECT_CLASS (parent_class)->finalize (object);
+        }
+        ]|
+
+        This will fail in a multi-threaded application if the
+        widget is destroyed before the idle handler fires due
+        to the use after free in the callback. A solution, to
+        this particular problem, is to check to if the source
+        has already been destroy within the callback.
+
+        |[<!-- language="C" -->
+        static gboolean
+        idle_callback (gpointer data)
+        {
+          SomeWidget *self = data;
+
+          g_mutex_lock (&self->idle_id_mutex);
+          if (!g_source_is_destroyed (g_main_current_source ()))
+            {
+              // do stuff with self
+            }
+          g_mutex_unlock (&self->idle_id_mutex);
+
+          return FALSE;
+        }
+        ]|
+
+        Calls to this function from a thread other than the one acquired by the
+        [struct@GLib.MainContext] the #GSource is attached to are typically
+        redundant, as the source could be destroyed immediately after this function
+        returns. However, once a source is destroyed it cannot be un-destroyed, so
+        this function can be used for opportunistic checks from any thread.
+        """
+    def modify_unix_fd(self, tag: object, new_events: IOCondition) -> None:
+        """
+            Updates the event mask to watch for the fd identified by @tag.
+
+        @tag is the tag returned from [method@GLib.Source.add_unix_fd].
+
+        If you want to remove a fd, don't set its event mask to zero.
+        Instead, call [method@GLib.Source.remove_unix_fd].
+
+        This API is only intended to be used by implementations of #GSource.
+        Do not call this API on a #GSource that you did not create.
+
+        As the name suggests, this function is not available on Windows.
+        """
     @classmethod
-    def new(cls, source_funcs: SourceFuncs, struct_size: int) -> Source: ...
-    def query_unix_fd(self, tag: object) -> IOCondition: ...
-    def ref(self) -> Source: ...
+    def new(cls, source_funcs: SourceFuncs, struct_size: int) -> Source:
+        """
+            Creates a new [struct@GLib.Source] structure. The size is specified to
+        allow creating structures derived from [struct@GLib.Source] that contain
+        additional data. The size passed in must be at least
+        `sizeof (GSource)`.
+
+        The source will not initially be associated with any #GMainContext
+        and must be added to one with [method@GLib.Source.attach] before it will be
+        executed.
+        """
+    def query_unix_fd(self, tag: object) -> IOCondition:
+        """
+            Queries the events reported for the fd corresponding to @tag on
+        @source during the last poll.
+
+        The return value of this function is only defined when the function
+        is called from the check or dispatch functions for @source.
+
+        This API is only intended to be used by implementations of #GSource.
+        Do not call this API on a #GSource that you did not create.
+
+        As the name suggests, this function is not available on Windows.
+        """
+    def ref(self) -> Source:
+        """
+        Increases the reference count on a source by one.
+        """
     @staticmethod
-    def remove(tag: int) -> bool: ...
+    def remove(tag: int) -> bool:
+        """
+            Removes the source with the given ID from the default main context. You must
+        use [method@GLib.Source.destroy] for sources added to a non-default main context.
+
+        The ID of a #GSource is given by [method@GLib.Source.get_id], or will be
+        returned by the functions [method@GLib.Source.attach], [func@GLib.idle_add],
+        [func@GLib.idle_add_full], [func@GLib.timeout_add],
+        [func@GLib.timeout_add_full], [func@GLib.child_watch_add],
+        [func@GLib.child_watch_add_full], [func@GLib.io_add_watch], and
+        [func@GLib.io_add_watch_full].
+
+        It is a programmer error to attempt to remove a non-existent source.
+
+        More specifically: source IDs can be reissued after a source has been
+        destroyed and therefore it is never valid to use this function with a
+        source ID which may have already been removed.  An example is when
+        scheduling an idle to run in another thread with [func@GLib.idle_add]: the
+        idle may already have run and been removed by the time this function
+        is called on its (now invalid) source ID.  This source ID may have
+        been reissued, leading to the operation being performed against the
+        wrong source.
+        """
     @staticmethod
-    def remove_by_funcs_user_data(funcs: SourceFuncs, user_data: object | None = None) -> bool: ...
+    def remove_by_funcs_user_data(funcs: SourceFuncs, user_data: object | None = None) -> bool:
+        """
+            Removes a source from the default main loop context given the
+        source functions and user data. If multiple sources exist with the
+        same source functions and user data, only one will be destroyed.
+        """
     @staticmethod
-    def remove_by_user_data(user_data: object | None = None) -> bool: ...
-    def remove_child_source(self, child_source: Source) -> None: ...
-    def remove_poll(self, fd: PollFD) -> None: ...
-    def remove_unix_fd(self, tag: object) -> None: ...
-    def set_callback(
-        self, func: SourceFunc, data: object | None = None, notify: DestroyNotify | None = None
-    ) -> None: ...
-    def set_callback_indirect(self, callback_data: object | None, callback_funcs: SourceCallbackFuncs) -> None: ...
-    def set_can_recurse(self, can_recurse: bool) -> None: ...
-    def set_funcs(self, funcs: SourceFuncs) -> None: ...
-    def set_name(self, name: str) -> None: ...
+    def remove_by_user_data(user_data: object | None = None) -> bool:
+        """
+            Removes a source from the default main loop context given the user
+        data for the callback. If multiple sources exist with the same user
+        data, only one will be destroyed.
+        """
+    def remove_child_source(self, child_source: Source) -> None:
+        """
+            Detaches @child_source from @source and destroys it.
+
+        This API is only intended to be used by implementations of #GSource.
+        Do not call this API on a #GSource that you did not create.
+        """
+    def remove_poll(self, fd: PollFD) -> None:
+        """
+            Removes a file descriptor from the set of file descriptors polled for
+        this source.
+
+        This API is only intended to be used by implementations of [struct@GLib.Source].
+        Do not call this API on a [struct@GLib.Source] that you did not create.
+        """
+    def remove_unix_fd(self, tag: object) -> None:
+        """
+            Reverses the effect of a previous call to [method@GLib.Source.add_unix_fd].
+
+        You only need to call this if you want to remove an fd from being
+        watched while keeping the same source around.  In the normal case you
+        will just want to destroy the source.
+
+        This API is only intended to be used by implementations of #GSource.
+        Do not call this API on a #GSource that you did not create.
+
+        As the name suggests, this function is not available on Windows.
+        """
+    def set_callback(self, func: SourceFunc, data: object | None = None, notify: DestroyNotify | None = None) -> None:
+        """
+            Sets the callback function for a source. The callback for a source is
+        called from the source's dispatch function.
+
+        The exact type of @func depends on the type of source; ie. you
+        should not count on @func being called with @data as its first
+        parameter. Cast @func with [func@GLib.SOURCE_FUNC] to avoid warnings about
+        incompatible function types.
+
+        See [mainloop memory management](main-loop.html#memory-management-of-sources) for details
+        on how to handle memory management of @data.
+
+        Typically, you won't use this function. Instead use functions specific
+        to the type of source you are using, such as [func@GLib.idle_add] or
+        [func@GLib.timeout_add].
+
+        It is safe to call this function multiple times on a source which has already
+        been attached to a context. The changes will take effect for the next time
+        the source is dispatched after this call returns.
+
+        Note that [method@GLib.Source.destroy] for a currently attached source has the effect
+        of also unsetting the callback.
+        """
+    def set_callback_indirect(self, callback_data: object | None, callback_funcs: SourceCallbackFuncs) -> None:
+        """
+            Sets the callback function storing the data as a refcounted callback
+        "object". This is used internally. Note that calling
+        [method@GLib.Source.set_callback_indirect] assumes
+        an initial reference count on @callback_data, and thus
+        @callback_funcs->unref will eventually be called once more
+        than @callback_funcs->ref.
+
+        It is safe to call this function multiple times on a source which has already
+        been attached to a context. The changes will take effect for the next time
+        the source is dispatched after this call returns.
+        """
+    def set_can_recurse(self, can_recurse: bool) -> None:
+        """
+            Sets whether a source can be called recursively. If @can_recurse is
+        %TRUE, then while the source is being dispatched then this source
+        will be processed normally. Otherwise, all processing of this
+        source is blocked until the dispatch function returns.
+        """
+    def set_funcs(self, funcs: SourceFuncs) -> None:
+        """
+            Sets the source functions (can be used to override
+        default implementations) of an unattached source.
+        """
+    def set_name(self, name: str) -> None:
+        """
+            Sets a name for the source, used in debugging and profiling.
+        The name defaults to #NULL.
+
+        The source name should describe in a human-readable way
+        what the source does. For example, "X11 event queue"
+        or "GTK repaint idle handler" or whatever it is.
+
+        It is permitted to call this function multiple times, but is not
+        recommended due to the potential performance impact.  For example,
+        one could change the name in the "check" function of a #GSourceFuncs
+        to include details like the event type in the source name.
+
+        Use caution if changing the name while another thread may be
+        accessing it with [method@GLib.Source.get_name]; that function does not copy
+        the value, and changing the value will free it while the other thread
+        may be attempting to use it.
+
+        Also see [method@GLib.Source.set_static_name].
+        """
     @staticmethod
-    def set_name_by_id(tag: int, name: str) -> None: ...
-    def set_priority(self, priority: int) -> None: ...
-    def set_ready_time(self, ready_time: int) -> None: ...
-    def set_static_name(self, name: str) -> None: ...
-    def unref(self) -> None: ...
+    def set_name_by_id(tag: int, name: str) -> None:
+        """
+            Sets the name of a source using its ID.
+
+        This is a convenience utility to set source names from the return
+        value of [func@GLib.idle_add], [func@GLib.timeout_add], etc.
+
+        It is a programmer error to attempt to set the name of a non-existent
+        source.
+
+        More specifically: source IDs can be reissued after a source has been
+        destroyed and therefore it is never valid to use this function with a
+        source ID which may have already been removed.  An example is when
+        scheduling an idle to run in another thread with [func@GLib.idle_add]: the
+        idle may already have run and been removed by the time this function
+        is called on its (now invalid) source ID.  This source ID may have
+        been reissued, leading to the operation being performed against the
+        wrong source.
+        """
+    def set_priority(self, priority: int) -> None:
+        """
+            Sets the priority of a source. While the main loop is being run, a
+        source will be dispatched if it is ready to be dispatched and no
+        sources at a higher (numerically smaller) priority are ready to be
+        dispatched.
+
+        A child source always has the same priority as its parent.  It is not
+        permitted to change the priority of a source once it has been added
+        as a child of another source.
+        """
+    def set_ready_time(self, ready_time: int) -> None:
+        """
+            Sets a #GSource to be dispatched when the given monotonic time is
+        reached (or passed).  If the monotonic time is in the past (as it
+        always will be if @ready_time is 0) then the source will be
+        dispatched immediately.
+
+        If @ready_time is -1 then the source is never woken up on the basis
+        of the passage of time.
+
+        Dispatching the source does not reset the ready time.  You should do
+        so yourself, from the source dispatch function.
+
+        Note that if you have a pair of sources where the ready time of one
+        suggests that it will be delivered first but the priority for the
+        other suggests that it would be delivered first, and the ready time
+        for both sources is reached during the same main context iteration,
+        then the order of dispatch is undefined.
+
+        It is a no-op to call this function on a #GSource which has already been
+        destroyed with [method@GLib.Source.destroy].
+
+        This API is only intended to be used by implementations of #GSource.
+        Do not call this API on a #GSource that you did not create.
+        """
+    def set_static_name(self, name: str) -> None:
+        """
+            A variant of [method@GLib.Source.set_name] that does not
+        duplicate the @name, and can only be used with
+        string literals.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of a source by one. If the
+        resulting reference count is zero the source and associated
+        memory will be destroyed.
+        """
 
     # python methods (overrides?)
     def __init__(
@@ -15465,11 +19957,22 @@ class Source(GObject.GBoxed):
     ) -> typing.Any: ...
 
 class SourceCallbackFuncs(GObject.GPointer):
+    """
+    The `GSourceCallbackFuncs` struct contains
+    functions for managing callback objects.
+    """
+
     # gi Fields
     @builtins.property
-    def ref(self) -> refSourceCallbackFuncsCB: ...
+    def ref(self) -> refSourceCallbackFuncsCB:
+        """
+        Called when a reference is added to the callback object
+        """
     @builtins.property
-    def unref(self) -> unrefSourceCallbackFuncsCB: ...
+    def unref(self) -> unrefSourceCallbackFuncsCB:
+        """
+        Called when a reference to the callback object is dropped
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15478,14 +19981,68 @@ class SourceCallbackFuncs(GObject.GPointer):
         """
 
 class SourceFuncs(GObject.GPointer):
+    """
+    The `GSourceFuncs` struct contains a table of
+    functions used to handle event sources in a generic manner.
+
+    For idle sources, the prepare and check functions always return %TRUE
+    to indicate that the source is always ready to be processed. The prepare
+    function also returns a timeout value of 0 to ensure that the poll() call
+    doesn't block (since that would be time wasted which could have been spent
+    running the idle function).
+
+    For timeout sources, the prepare and check functions both return %TRUE
+    if the timeout interval has expired. The prepare function also returns
+    a timeout value to ensure that the poll() call doesn't block too long
+    and miss the next timeout.
+
+    For file descriptor sources, the prepare function typically returns %FALSE,
+    since it must wait until poll() has been called before it knows whether
+    any events need to be processed. It sets the returned timeout to -1 to
+    indicate that it doesn't mind how long the poll() call blocks. In the
+    check function, it tests the results of the poll() call to see if the
+    required condition has been met, and returns %TRUE if so.
+    """
+
     # gi Fields
     check: SourceFuncsCheckFuncSourceFuncsCB = ...
+    """
+    Called after all the file descriptors are polled. The source
+        should return %TRUE if it is ready to be dispatched. Note that some
+        time may have passed since the previous prepare function was called,
+        so the source should be checked again here.  Since 2.36 this may
+        be %NULL, in which case the effect is as if the function always returns
+        %FALSE.
+
+    """
     @builtins.property
     def closure_callback(self) -> SourceFuncSourceFuncsCB: ...
     @builtins.property
     def closure_marshal(self) -> SourceDummyMarshalSourceFuncsCB: ...
     finalize: SourceFuncsFinalizeFuncSourceFuncsCB = ...
+    """
+    Called when the source is finalized. At this point, the source
+        will have been destroyed, had its callback cleared, and have been removed
+        from its [struct@GLib.MainContext], but it will still have its final
+        reference count, so methods can be called on it from within this
+        function.
+
+    """
     prepare: SourceFuncsPrepareFuncSourceFuncsCB = ...
+    """
+    Called before all the file descriptors are polled. If the
+        source can determine that it is ready here (without waiting for the
+        results of the poll() call) it should return %TRUE. It can also return
+        a @timeout_ value which should be the maximum timeout (in milliseconds)
+        which should be passed to the poll() call. The actual timeout used will
+        be -1 if all sources returned -1, or it will be the minimum of all
+        the @timeout_ values returned which were >= 0.  Since 2.36 this may
+        be %NULL, in which case the effect is as if the function always returns
+        %FALSE with a timeout of -1.  If @prepare returns a
+        timeout and the source also has a ready time set, then the
+        lower of the two will be used.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15501,6 +20058,13 @@ class SourcePrivate(GObject.GPointer):
         """
 
 class StatBuf(GObject.GPointer):
+    """
+    A type corresponding to the appropriate struct type for the stat()
+    system call, depending on the platform and/or compiler being used.
+
+    See g_stat() for more information.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -15508,75 +20072,366 @@ class StatBuf(GObject.GPointer):
         """
 
 class String(GObject.GBoxed):
+    """
+    A `GString` is an object that handles the memory management of a C string.
+
+    The emphasis of `GString` is on text, typically UTF-8. Crucially, the "str" member
+    of a `GString` is guaranteed to have a trailing nul character, and it is therefore
+    always safe to call functions such as `strchr()` or `strdup()` on it.
+
+    However, a `GString` can also hold arbitrary binary data, because it has a "len" member,
+    which includes any possible embedded nul characters in the data. Conceptually then,
+    `GString` is like a `GByteArray` with the addition of many convenience methods for
+    text, and a guaranteed nul terminator.
+    """
+
     # gi Fields
     allocated_len: int = ...
+    """
+    the number of bytes that can be stored in the
+      string before it needs to be reallocated. May be larger than @len.
+
+    """
     len: int = ...
+    """
+    contains the length of the string, not including the
+      terminating nul byte.
+
+    """
     str: str = ...
+    """
+    points to the character data. It may move as text is added.
+      The @str field is null-terminated and so
+      can be used as an ordinary C string.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def append(self, val: str) -> String: ...
-    def append_c(self, c: int) -> String: ...
-    def append_len(self, val: str, len: int) -> String: ...
-    def append_unichar(self, wc: str) -> String: ...
-    def append_uri_escaped(self, unescaped: str, reserved_chars_allowed: str, allow_utf8: bool) -> String: ...
-    def ascii_down(self) -> String: ...
-    def ascii_up(self) -> String: ...
-    def assign(self, rval: str) -> String: ...
+    def append(self, val: str) -> String:
+        """
+            Adds a string onto the end of a #GString, expanding
+        it if necessary.
+        """
+    def append_c(self, c: int) -> String:
+        """
+            Adds a byte onto the end of a #GString, expanding
+        it if necessary.
+        """
+    def append_len(self, val: str, len: int) -> String:
+        """
+            Appends @len bytes of @val to @string.
+
+        If @len is positive, @val may contain embedded nuls and need
+        not be nul-terminated. It is the caller's responsibility to
+        ensure that @val has at least @len addressable bytes.
+
+        If @len is negative, @val must be nul-terminated and @len
+        is considered to request the entire string length. This
+        makes g_string_append_len() equivalent to g_string_append().
+        """
+    def append_unichar(self, wc: str) -> String:
+        """
+            Converts a Unicode character into UTF-8, and appends it
+        to the string.
+        """
+    def append_uri_escaped(self, unescaped: str, reserved_chars_allowed: str, allow_utf8: bool) -> String:
+        """
+            Appends @unescaped to @string, escaping any characters that
+        are reserved in URIs using URI-style escape sequences.
+        """
+    def ascii_down(self) -> String:
+        """
+        Converts all uppercase ASCII letters to lowercase ASCII letters.
+        """
+    def ascii_up(self) -> String:
+        """
+        Converts all lowercase ASCII letters to uppercase ASCII letters.
+        """
+    def assign(self, rval: str) -> String:
+        """
+            Copies the bytes from a string into a #GString,
+        destroying any previous contents. It is rather like
+        the standard strcpy() function, except that you do not
+        have to worry about having enough space to copy the string.
+        """
     @deprecated("deprecated")
-    def down(self) -> String: ...
-    def equal(self, v2: String) -> bool: ...
-    def erase(self, pos: int, len: int) -> String: ...
-    def free(self, free_segment: bool) -> str | None: ...
-    def free_and_steal(self) -> str: ...
-    def free_to_bytes(self) -> Bytes: ...
-    def hash(self) -> int: ...
-    def insert(self, pos: int, val: str) -> String: ...
-    def insert_c(self, pos: int, c: int) -> String: ...
-    def insert_len(self, pos: int, val: str, len: int) -> String: ...
-    def insert_unichar(self, pos: int, wc: str) -> String: ...
+    def down(self) -> String:
+        """
+        Converts a #GString to lowercase.
+        """
+    def equal(self, v2: String) -> bool:
+        """
+            Compares two strings for equality, returning %TRUE if they are equal.
+        For use with #GHashTable.
+        """
+    def erase(self, pos: int, len: int) -> String:
+        """
+            Removes @len bytes from a #GString, starting at position @pos.
+        The rest of the #GString is shifted down to fill the gap.
+        """
+    def free(self, free_segment: bool) -> str | None:
+        """
+            Frees the memory allocated for the #GString.
+        If @free_segment is %TRUE it also frees the character data.  If
+        it's %FALSE, the caller gains ownership of the buffer and must
+        free it after use with g_free().
+
+        Instead of passing %FALSE to this function, consider using
+        g_string_free_and_steal().
+        """
+    def free_and_steal(self) -> str:
+        """
+            Frees the memory allocated for the #GString.
+
+        The caller gains ownership of the buffer and
+        must free it after use with g_free().
+        """
+    def free_to_bytes(self) -> Bytes:
+        """
+            Transfers ownership of the contents of @string to a newly allocated
+        #GBytes.  The #GString structure itself is deallocated, and it is
+        therefore invalid to use @string after invoking this function.
+
+        Note that while #GString ensures that its buffer always has a
+        trailing nul character (not reflected in its "len"), the returned
+        #GBytes does not include this extra nul; i.e. it has length exactly
+        equal to the "len" member.
+        """
+    def hash(self) -> int:
+        """
+        Creates a hash code for @str; for use with #GHashTable.
+        """
+    def insert(self, pos: int, val: str) -> String:
+        """
+            Inserts a copy of a string into a #GString,
+        expanding it if necessary.
+        """
+    def insert_c(self, pos: int, c: int) -> String:
+        """
+        Inserts a byte into a #GString, expanding it if necessary.
+        """
+    def insert_len(self, pos: int, val: str, len: int) -> String:
+        """
+            Inserts @len bytes of @val into @string at @pos.
+
+        If @len is positive, @val may contain embedded nuls and need
+        not be nul-terminated. It is the caller's responsibility to
+        ensure that @val has at least @len addressable bytes.
+
+        If @len is negative, @val must be nul-terminated and @len
+        is considered to request the entire string length.
+
+        If @pos is -1, bytes are inserted at the end of the string.
+        """
+    def insert_unichar(self, pos: int, wc: str) -> String:
+        """
+            Converts a Unicode character into UTF-8, and insert it
+        into the string at the given position.
+        """
     @classmethod
-    def new(cls, init: str | None = None) -> String: ...
+    def new(cls, init: str | None = None) -> String:
+        """
+        Creates a new #GString, initialized with the given string.
+        """
     @classmethod
-    def new_len(cls, init: str, len: int) -> String: ...
+    def new_len(cls, init: str, len: int) -> String:
+        """
+            Creates a new #GString with @len bytes of the @init buffer.
+        Because a length is provided, @init need not be nul-terminated,
+        and can contain embedded nul bytes.
+
+        Since this function does not stop at nul bytes, it is the caller's
+        responsibility to ensure that @init has at least @len addressable
+        bytes.
+        """
     @classmethod
-    def new_take(cls, init: str | None = None) -> String: ...
-    def overwrite(self, pos: int, val: str) -> String: ...
-    def overwrite_len(self, pos: int, val: str, len: int) -> String: ...
-    def prepend(self, val: str) -> String: ...
-    def prepend_c(self, c: int) -> String: ...
-    def prepend_len(self, val: str, len: int) -> String: ...
-    def prepend_unichar(self, wc: str) -> String: ...
-    def replace(self, find: str, replace: str, limit: int) -> int: ...
-    def set_size(self, len: int) -> String: ...
+    def new_take(cls, init: str | None = None) -> String:
+        """
+            Creates a new #GString, initialized with the given string.
+
+        After this call, @init belongs to the #GString and may no longer be
+        modified by the caller. The memory of @data has to be dynamically
+        allocated and will eventually be freed with g_free().
+        """
+    def overwrite(self, pos: int, val: str) -> String:
+        """
+        Overwrites part of a string, lengthening it if necessary.
+        """
+    def overwrite_len(self, pos: int, val: str, len: int) -> String:
+        """
+            Overwrites part of a string, lengthening it if necessary.
+        This function will work with embedded nuls.
+        """
+    def prepend(self, val: str) -> String:
+        """
+            Adds a string on to the start of a #GString,
+        expanding it if necessary.
+        """
+    def prepend_c(self, c: int) -> String:
+        """
+            Adds a byte onto the start of a #GString,
+        expanding it if necessary.
+        """
+    def prepend_len(self, val: str, len: int) -> String:
+        """
+            Prepends @len bytes of @val to @string.
+
+        If @len is positive, @val may contain embedded nuls and need
+        not be nul-terminated. It is the caller's responsibility to
+        ensure that @val has at least @len addressable bytes.
+
+        If @len is negative, @val must be nul-terminated and @len
+        is considered to request the entire string length. This
+        makes g_string_prepend_len() equivalent to g_string_prepend().
+        """
+    def prepend_unichar(self, wc: str) -> String:
+        """
+            Converts a Unicode character into UTF-8, and prepends it
+        to the string.
+        """
+    def replace(self, find: str, replace: str, limit: int) -> int:
+        """
+            Replaces the string @find with the string @replace in a #GString up to
+        @limit times. If the number of instances of @find in the #GString is
+        less than @limit, all instances are replaced. If @limit is `0`,
+        all instances of @find are replaced.
+
+        If @find is the empty string, since versions 2.69.1 and 2.68.4 the
+        replacement will be inserted no more than once per possible position
+        (beginning of string, end of string and between characters). This did
+        not work correctly in earlier versions.
+        """
+    def set_size(self, len: int) -> String:
+        """
+            Sets the length of a #GString. If the length is less than
+        the current length, the string will be truncated. If the
+        length is greater than the current length, the contents
+        of the newly added area are undefined. (However, as
+        always, string->str[string->len] will be a nul byte.)
+        """
     @classmethod
-    def sized_new(cls, dfl_size: int) -> String: ...
-    def truncate(self, len: int) -> String: ...
+    def sized_new(cls, dfl_size: int) -> String:
+        """
+            Creates a new #GString, with enough space for @dfl_size
+        bytes. This is useful if you are going to add a lot of
+        text to the string and don't want it to be reallocated
+        too often.
+        """
+    def truncate(self, len: int) -> String:
+        """
+        Cuts off the end of the GString, leaving the first @len bytes.
+        """
     @deprecated("deprecated")
-    def up(self) -> String: ...
+    def up(self) -> String:
+        """
+        Converts a #GString to uppercase.
+        """
 
 class StringChunk(GObject.GPointer):
+    """
+    `GStringChunk` provides efficient storage of groups of strings
+
+    String chunks are used to store groups of strings. Memory is
+    allocated in blocks, and as strings are added to the `GStringChunk`
+    they are copied into the next free position in a block. When a block
+    is full a new block is allocated.
+
+    When storing a large number of strings, string chunks are more
+    efficient than using [func@GLib.strdup] since fewer calls to `malloc()`
+    are needed, and less memory is wasted in memory allocation overheads.
+
+    By adding strings with [method@GLib.StringChunk.insert_const] it is also
+    possible to remove duplicates.
+
+    To create a new `GStringChunk` use [func@GLib.StringChunk.new].
+
+    To add strings to a `GStringChunk` use [method@GLib.StringChunk.insert].
+
+    To add strings to a `GStringChunk`, but without duplicating strings
+    which are already in the `GStringChunk`, use [method@GLib.StringChunk.insert_const].
+
+    To free the entire `GStringChunk` use [method@GLib.StringChunk.free].
+    It is not possible to free individual strings.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def clear(self) -> None: ...
-    def free(self) -> None: ...
-    def insert(self, string: str) -> str: ...
-    def insert_const(self, string: str) -> str: ...
-    def insert_len(self, string: str, len: int) -> str: ...
+    def clear(self) -> None:
+        """
+            Frees all strings contained within the #GStringChunk.
+        After calling g_string_chunk_clear() it is not safe to
+        access any of the strings which were contained within it.
+        """
+    def free(self) -> None:
+        """
+            Frees all memory allocated by the #GStringChunk.
+        After calling g_string_chunk_free() it is not safe to
+        access any of the strings which were contained within it.
+        """
+    def insert(self, string: str) -> str:
+        """
+            Adds a copy of @string to the #GStringChunk.
+        It returns a pointer to the new copy of the string
+        in the #GStringChunk. The characters in the string
+        can be changed, if necessary, though you should not
+        change anything after the end of the string.
+
+        Unlike g_string_chunk_insert_const(), this function
+        does not check for duplicates. Also strings added
+        with g_string_chunk_insert() will not be searched
+        by g_string_chunk_insert_const() when looking for
+        duplicates.
+        """
+    def insert_const(self, string: str) -> str:
+        """
+            Adds a copy of @string to the #GStringChunk, unless the same
+        string has already been added to the #GStringChunk with
+        g_string_chunk_insert_const().
+
+        This function is useful if you need to copy a large number
+        of strings but do not want to waste space storing duplicates.
+        But you must remember that there may be several pointers to
+        the same string, and so any changes made to the strings
+        should be done very carefully.
+
+        Note that g_string_chunk_insert_const() will not return a
+        pointer to a string added with g_string_chunk_insert(), even
+        if they do match.
+        """
+    def insert_len(self, string: str, len: int) -> str:
+        """
+            Adds a copy of the first @len bytes of @string to the #GStringChunk.
+        The copy is nul-terminated.
+
+        Since this function does not stop at nul bytes, it is the caller's
+        responsibility to ensure that @string has at least @len addressable
+        bytes.
+
+        The characters in the returned string can be changed, if necessary,
+        though you should not change anything after the end of the string.
+        """
 
 class TestCase(GObject.GPointer):
+    """
+    An opaque structure representing a test case.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def free(self) -> None: ...
+    def free(self) -> None:
+        """
+        Free the @test_case.
+        """
 
 class TestConfig(GObject.GPointer):
     # gi Fields
@@ -15605,8 +20460,14 @@ class TestLogBuffer(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def free(self) -> None: ...
-    def push(self, n_bytes: int, bytes: int) -> None: ...
+    def free(self) -> None:
+        """
+        Internal function for gtester to free test log messages, no ABI guarantees provided.
+        """
+    def push(self, n_bytes: int, bytes: int) -> None:
+        """
+        Internal function for gtester to decode test log messages, no ABI guarantees provided.
+        """
 
 class TestLogMsg(GObject.GPointer):
     # gi Fields
@@ -15620,52 +20481,230 @@ class TestLogMsg(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def free(self) -> None: ...
+    def free(self) -> None:
+        """
+        Internal function for gtester to free test log messages, no ABI guarantees provided.
+        """
 
 class TestSuite(GObject.GPointer):
+    """
+    An opaque structure representing a test suite.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def add(self, test_case: TestCase) -> None: ...
-    def add_suite(self, nestedsuite: TestSuite) -> None: ...
-    def free(self) -> None: ...
+    def add(self, test_case: TestCase) -> None:
+        """
+        Adds @test_case to @suite.
+        """
+    def add_suite(self, nestedsuite: TestSuite) -> None:
+        """
+        Adds @nestedsuite to @suite.
+        """
+    def free(self) -> None:
+        """
+        Frees the @suite and all nested suites.
+        """
 
 class ThreadPool(GObject.GPointer):
+    """
+    The `GThreadPool` struct represents a thread pool.
+
+    A thread pool is useful when you wish to asynchronously fork out the execution of work
+    and continue working in your own thread. If that will happen often, the overhead of starting
+    and destroying a thread each time might be too high. In such cases reusing already started
+    threads seems like a good idea. And it indeed is, but implementing this can be tedious
+    and error-prone.
+
+    Therefore GLib provides thread pools for your convenience. An added advantage is, that the
+    threads can be shared between the different subsystems of your program, when they are using GLib.
+
+    To create a new thread pool, you use [func@GLib.ThreadPool.new].
+    It is destroyed by [method@GLib.ThreadPool.free].
+
+    If you want to execute a certain task within a thread pool, use [method@GLib.ThreadPool.push].
+
+    To get the current number of running threads you call [method@GLib.ThreadPool.get_num_threads].
+    To get the number of still unprocessed tasks you call [method@GLib.ThreadPool.unprocessed].
+    To control the maximum number of threads for a thread pool, you use
+    [method@GLib.ThreadPool.get_max_threads]. and [method@GLib.ThreadPool.set_max_threads].
+
+    Finally you can control the number of unused threads, that are kept alive by GLib for future use.
+    The current number can be fetched with [func@GLib.ThreadPool.get_num_unused_threads].
+    The maximum number can be controlled by [func@GLib.ThreadPool.get_max_unused_threads] and
+    [func@GLib.ThreadPool.set_max_unused_threads]. All currently unused threads
+    can be stopped by calling [func@GLib.ThreadPool.stop_unused_threads].
+    """
+
     # gi Fields
     exclusive: bool = ...
+    """
+    are all threads exclusive to this pool
+
+    """
     func: FuncThreadPoolCB = ...
+    """
+    the function to execute in the threads of this pool
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def free(self, immediate: bool, wait_: bool) -> None: ...
+    def free(self, immediate: bool, wait_: bool) -> None:
+        """
+            Frees all resources allocated for @pool.
+
+        If @immediate is %TRUE, no new task is processed for @pool.
+        Otherwise @pool is not freed before the last task is processed.
+        Note however, that no thread of this pool is interrupted while
+        processing a task. Instead at least all still running threads
+        can finish their tasks before the @pool is freed.
+
+        If @wait_ is %TRUE, this function does not return before all
+        tasks to be processed (dependent on @immediate, whether all
+        or only the currently running) are ready.
+        Otherwise this function returns immediately.
+
+        After calling this function @pool must not be used anymore.
+        """
     @staticmethod
-    def get_max_idle_time() -> int: ...
-    def get_max_threads(self) -> int: ...
+    def get_max_idle_time() -> int:
+        """
+            This function will return the maximum @interval that a
+        thread will wait in the thread pool for new tasks before
+        being stopped.
+
+        If this function returns 0, threads waiting in the thread
+        pool for new work are not stopped.
+        """
+    def get_max_threads(self) -> int:
+        """
+        Returns the maximal number of threads for @pool.
+        """
     @staticmethod
-    def get_max_unused_threads() -> int: ...
-    def get_num_threads(self) -> int: ...
+    def get_max_unused_threads() -> int:
+        """
+        Returns the maximal allowed number of unused threads.
+        """
+    def get_num_threads(self) -> int:
+        """
+        Returns the number of threads currently running in @pool.
+        """
     @staticmethod
-    def get_num_unused_threads() -> int: ...
-    def move_to_front(self, data: object | None = None) -> bool: ...
-    def push(self, data: object | None = None) -> bool: ...
+    def get_num_unused_threads() -> int:
+        """
+        Returns the number of currently unused threads.
+        """
+    def move_to_front(self, data: object | None = None) -> bool:
+        """
+            Moves the item to the front of the queue of unprocessed
+        items, so that it will be processed next.
+        """
+    def push(self, data: object | None = None) -> bool:
+        """
+            Inserts @data into the list of tasks to be executed by @pool.
+
+        When the number of currently running threads is lower than the
+        maximal allowed number of threads, a new thread is started (or
+        reused) with the properties given to g_thread_pool_new().
+        Otherwise, @data stays in the queue until a thread in this pool
+        finishes its previous task and processes @data.
+
+        @error can be %NULL to ignore errors, or non-%NULL to report
+        errors. An error can only occur when a new thread couldn't be
+        created. In that case @data is simply appended to the queue of
+        work to do.
+
+        Before version 2.32, this function did not return a success status.
+        """
     @staticmethod
-    def set_max_idle_time(interval: int) -> None: ...
-    def set_max_threads(self, max_threads: int) -> bool: ...
+    def set_max_idle_time(interval: int) -> None:
+        """
+            This function will set the maximum @interval that a thread
+        waiting in the pool for new tasks can be idle for before
+        being stopped. This function is similar to calling
+        g_thread_pool_stop_unused_threads() on a regular timeout,
+        except this is done on a per thread basis.
+
+        By setting @interval to 0, idle threads will not be stopped.
+
+        The default value is 15000 (15 seconds).
+        """
+    def set_max_threads(self, max_threads: int) -> bool:
+        """
+            Sets the maximal allowed number of threads for @pool.
+        A value of -1 means that the maximal number of threads
+        is unlimited. If @pool is an exclusive thread pool, setting
+        the maximal number of threads to -1 is not allowed.
+
+        Setting @max_threads to 0 means stopping all work for @pool.
+        It is effectively frozen until @max_threads is set to a non-zero
+        value again.
+
+        A thread is never terminated while calling @func, as supplied by
+        g_thread_pool_new(). Instead the maximal number of threads only
+        has effect for the allocation of new threads in g_thread_pool_push().
+        A new thread is allocated, whenever the number of currently
+        running threads in @pool is smaller than the maximal number.
+
+        @error can be %NULL to ignore errors, or non-%NULL to report
+        errors. An error can only occur when a new thread couldn't be
+        created.
+
+        Before version 2.32, this function did not return a success status.
+        """
     @staticmethod
-    def set_max_unused_threads(max_threads: int) -> None: ...
+    def set_max_unused_threads(max_threads: int) -> None:
+        """
+            Sets the maximal number of unused threads to @max_threads.
+        If @max_threads is -1, no limit is imposed on the number
+        of unused threads.
+
+        The default value is 8 since GLib 2.84. Previously the default value was 2.
+        """
     @staticmethod
-    def stop_unused_threads() -> None: ...
-    def unprocessed(self) -> int: ...
+    def stop_unused_threads() -> None:
+        """
+            Stops all currently unused threads. This does not change the
+        maximal number of unused threads. This function can be used to
+        regularly stop all unused threads e.g. from g_timeout_add().
+        """
+    def unprocessed(self) -> int:
+        """
+        Returns the number of tasks still unprocessed in @pool.
+        """
 
 class TimeVal(GObject.GPointer):
+    """
+    Represents a precise time, with seconds and microseconds.
+
+    Similar to the struct timeval returned by the `gettimeofday()`
+    UNIX system call.
+
+    GLib is attempting to unify around the use of 64-bit integers to
+    represent microsecond-precision time. As such, this type will be
+    removed from a future version of GLib. A consequence of using `glong` for
+    `tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038
+    problem.
+    """
+
     # gi Fields
     tv_sec: int = ...
+    """
+    seconds
+
+    """
     tv_usec: int = ...
+    """
+    microseconds
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15673,12 +20712,71 @@ class TimeVal(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def add(self, microseconds: int) -> None: ...
+    def add(self, microseconds: int) -> None:
+        """
+            Adds the given number of microseconds to @time_. @microseconds can
+        also be negative to decrease the value of @time_.
+        """
     @deprecated("deprecated")
     @staticmethod
-    def from_iso8601(iso_date: str) -> tuple[bool, TimeVal]: ...
+    def from_iso8601(iso_date: str) -> tuple[bool, TimeVal]:
+        """
+            Converts a string containing an ISO 8601 encoded date and time
+        to a #GTimeVal and puts it into @time_.
+
+        @iso_date must include year, month, day, hours, minutes, and
+        seconds. It can optionally include fractions of a second and a time
+        zone indicator. (In the absence of any time zone indication, the
+        timestamp is assumed to be in local time.)
+
+        Any leading or trailing space in @iso_date is ignored.
+
+        This function was deprecated, along with #GTimeVal itself, in GLib 2.62.
+        Equivalent functionality is available using code like:
+        |[
+        GDateTime *dt = g_date_time_new_from_iso8601 (iso8601_string, NULL);
+        gint64 time_val = g_date_time_to_unix (dt);
+        g_date_time_unref (dt);
+        ]|
+        """
     @deprecated("deprecated")
-    def to_iso8601(self) -> str | None: ...
+    def to_iso8601(self) -> str | None:
+        """
+            Converts @time_ into an RFC 3339 encoded string, relative to the
+        Coordinated Universal Time (UTC). This is one of the many formats
+        allowed by ISO 8601.
+
+        ISO 8601 allows a large number of date/time formats, with or without
+        punctuation and optional elements. The format returned by this function
+        is a complete date and time, with optional punctuation included, the
+        UTC time zone represented as "Z", and the @tv_usec part included if
+        and only if it is nonzero, i.e. either
+        "YYYY-MM-DDTHH:MM:SSZ" or "YYYY-MM-DDTHH:MM:SS.fffffZ".
+
+        This corresponds to the Internet date/time format defined by
+        [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt),
+        and to either of the two most-precise formats defined by
+        the W3C Note
+        [Date and Time Formats](http://www.w3.org/TR/NOTE-datetime-19980827).
+        Both of these documents are profiles of ISO 8601.
+
+        Use g_date_time_format() or g_strdup_printf() if a different
+        variation of ISO 8601 format is required.
+
+        If @time_ represents a date which is too large to fit into a `struct tm`,
+        %NULL will be returned. This is platform dependent. Note also that since
+        `GTimeVal` stores the number of seconds as a `glong`, on 32-bit systems it
+        is subject to the year 2038 problem. Accordingly, since GLib 2.62, this
+        function has been deprecated. Equivalent functionality is available using:
+        |[
+        GDateTime *dt = g_date_time_new_from_unix_utc (time_val);
+        iso8601_string = g_date_time_format_iso8601 (dt);
+        g_date_time_unref (dt);
+        ]|
+
+        The return value of g_time_val_to_iso8601() has been nullable since GLib
+        2.54; before then, GLib would crash under the same conditions.
+        """
 
 class Timeout(Source):
     # gi Methods
@@ -15736,18 +20834,55 @@ class Timeout(Source):
         """
 
 class Timer(GObject.GPointer):
+    """
+    `GTimer` records a start time, and counts microseconds elapsed since
+    that time.
+
+    This is done somewhat differently on different platforms, and can be
+    tricky to get exactly right, so `GTimer` provides a portable/convenient interface.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def continue_(self) -> None: ...
-    def destroy(self) -> None: ...
-    def elapsed(self, microseconds: int) -> float: ...
-    def is_active(self) -> bool: ...
-    def reset(self) -> None: ...
-    def start(self) -> None: ...
-    def stop(self) -> None: ...
+    def destroy(self) -> None:
+        """
+        Destroys a timer, freeing associated resources.
+        """
+    def elapsed(self, microseconds: int) -> float:
+        """
+            If @timer has been started but not stopped, obtains the time since
+        the timer was started. If @timer has been stopped, obtains the
+        elapsed time between the time it was started and the time it was
+        stopped. The return value is the number of seconds elapsed,
+        including any fractional part. The @microseconds out parameter is
+        essentially useless.
+        """
+    def is_active(self) -> bool:
+        """
+        Exposes whether the timer is currently active.
+        """
+    def reset(self) -> None:
+        """
+            This function is useless; it's fine to call g_timer_start() on an
+        already-started timer to reset the start time, so g_timer_reset()
+        serves no purpose.
+        """
+    def start(self) -> None:
+        """
+            Marks a start time, so that future calls to g_timer_elapsed() will
+        report the time since g_timer_start() was called. g_timer_new()
+        automatically marks the start time, so no need to call
+        g_timer_start() immediately after creating the timer.
+        """
+    def stop(self) -> None:
+        """
+            Marks an end time, so calls to g_timer_elapsed() will return the
+        difference between this end time and the start time.
+        """
 
 class TokenValue(GObject.GPointer):
     # gi Fields
@@ -15770,8 +20905,30 @@ class TokenValue(GObject.GPointer):
         """
 
 class TrashStack(GObject.GPointer):
+    """
+    A `GTrashStack` is an efficient way to keep a stack of unused allocated
+    memory chunks. Each memory chunk is required to be large enough to hold
+    a `gpointer`. This allows the stack to be maintained without any space
+    overhead, since the stack pointers can be stored inside the memory chunks.
+
+    There is no function to create a `GTrashStack`. A `NULL` `GTrashStack*`
+    is a perfectly valid empty stack.
+
+    Each piece of memory that is pushed onto the stack is cast to a
+    `GTrashStack*`.
+
+    There is no longer any good reason to use `GTrashStack`.  If you have
+    extra pieces of memory, `free()` them and allocate them again later.
+    """
+
     # gi Fields
     next: TrashStack | None = ...
+    """
+    pointer to the previous element of the stack,
+        gets stored in the first `sizeof (gpointer)`
+        bytes of the element
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15780,33 +20937,135 @@ class TrashStack(GObject.GPointer):
         """
     @deprecated("deprecated")
     @staticmethod
-    def height(stack_p: TrashStack) -> int: ...
+    def height(stack_p: TrashStack) -> int:
+        """
+            Returns the height of a #GTrashStack.
+
+        Note that execution of this function is of O(N) complexity
+        where N denotes the number of items on the stack.
+        """
     @deprecated("deprecated")
     @staticmethod
-    def peek(stack_p: TrashStack) -> object | None: ...
+    def peek(stack_p: TrashStack) -> object | None:
+        """
+            Returns the element at the top of a #GTrashStack
+        which may be %NULL.
+        """
     @deprecated("deprecated")
     @staticmethod
-    def pop(stack_p: TrashStack) -> object | None: ...
+    def pop(stack_p: TrashStack) -> object | None:
+        """
+        Pops a piece of memory off a #GTrashStack.
+        """
     @deprecated("deprecated")
     @staticmethod
-    def push(stack_p: TrashStack, data_p: object) -> None: ...
+    def push(stack_p: TrashStack, data_p: object) -> None:
+        """
+        Pushes a piece of memory onto a #GTrashStack.
+        """
 
 class Tree(GObject.GBoxed):
+    """
+    The GTree struct is an opaque data structure representing a
+    [balanced binary tree](data-structures.html#binary-trees). It should be
+    accessed only by using the following functions.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def destroy(self) -> None: ...
-    def foreach(self, func: TraverseFunc, user_data: object | None = None) -> None: ...
-    def foreach_node(self, func: TraverseNodeFunc, user_data: object | None = None) -> None: ...
-    def height(self) -> int: ...
-    def insert(self, key: object | None = None, value: object | None = None) -> None: ...
-    def insert_node(self, key: object | None = None, value: object | None = None) -> TreeNode | None: ...
-    def lookup(self, key: object | None = None) -> object | None: ...
-    def lookup_extended(self, lookup_key: object | None = None) -> tuple[bool, object | None, object | None]: ...
-    def lookup_node(self, key: object | None = None) -> TreeNode | None: ...
-    def lower_bound(self, key: object | None = None) -> TreeNode | None: ...
+    def destroy(self) -> None:
+        """
+            Removes all keys and values from the #GTree and decreases its
+        reference count by one. If keys and/or values are dynamically
+        allocated, you should either free them first or create the #GTree
+        using g_tree_new_full(). In the latter case the destroy functions
+        you supplied will be called on all keys and values before destroying
+        the #GTree.
+        """
+    def foreach(self, func: TraverseFunc, user_data: object | None = None) -> None:
+        """
+            Calls the given function for each of the key/value pairs in the #GTree.
+        The function is passed the key and value of each pair, and the given
+        @data parameter. The tree is traversed in sorted order.
+
+        The tree may not be modified while iterating over it (you can't
+        add/remove items). To remove all items matching a predicate, you need
+        to add each item to a list in your #GTraverseFunc as you walk over
+        the tree, then walk the list and remove each item.
+        """
+    def foreach_node(self, func: TraverseNodeFunc, user_data: object | None = None) -> None:
+        """
+            Calls the given function for each of the nodes in the #GTree.
+        The function is passed the pointer to the particular node, and the given
+        @data parameter. The tree traversal happens in-order.
+
+        The tree may not be modified while iterating over it (you can't
+        add/remove items). To remove all items matching a predicate, you need
+        to add each item to a list in your #GTraverseFunc as you walk over
+        the tree, then walk the list and remove each item.
+        """
+    def height(self) -> int:
+        """
+            Gets the height of a #GTree.
+
+        If the #GTree contains no nodes, the height is 0.
+        If the #GTree contains only one root node the height is 1.
+        If the root node has children the height is 2, etc.
+        """
+    def insert(self, key: object | None = None, value: object | None = None) -> None:
+        """
+            Inserts a key/value pair into a #GTree.
+
+        Inserts a new key and value into a #GTree as g_tree_insert_node() does,
+        only this function does not return the inserted or set node.
+        """
+    def insert_node(self, key: object | None = None, value: object | None = None) -> TreeNode | None:
+        """
+            Inserts a key/value pair into a #GTree.
+
+        If the given key already exists in the #GTree its corresponding value
+        is set to the new value. If you supplied a @value_destroy_func when
+        creating the #GTree, the old value is freed using that function. If
+        you supplied a @key_destroy_func when creating the #GTree, the passed
+        key is freed using that function.
+
+        The tree is automatically 'balanced' as new key/value pairs are added,
+        so that the distance from the root to every leaf is as small as possible.
+        The cost of maintaining a balanced tree while inserting new key/value
+        result in a O(n log(n)) operation where most of the other operations
+        are O(log(n)).
+        """
+    def lookup(self, key: object | None = None) -> object | None:
+        """
+            Gets the value corresponding to the given key. Since a #GTree is
+        automatically balanced as key/value pairs are added, key lookup
+        is O(log n) (where n is the number of key/value pairs in the tree).
+        """
+    def lookup_extended(self, lookup_key: object | None = None) -> tuple[bool, object | None, object | None]:
+        """
+            Looks up a key in the #GTree, returning the original key and the
+        associated value. This is useful if you need to free the memory
+        allocated for the original key, for example before calling
+        g_tree_remove().
+        """
+    def lookup_node(self, key: object | None = None) -> TreeNode | None:
+        """
+            Gets the tree node corresponding to the given key. Since a #GTree is
+        automatically balanced as key/value pairs are added, key lookup
+        is O(log n) (where n is the number of key/value pairs in the tree).
+        """
+    def lower_bound(self, key: object | None = None) -> TreeNode | None:
+        """
+            Gets the lower bound node corresponding to the given key,
+        or %NULL if the tree is empty or all the nodes in the tree
+        have keys that are strictly lower than the searched key.
+
+        The lower bound is the first node that has its key greater
+        than or equal to the searched key.
+        """
     @classmethod
     def new_full(
         cls,
@@ -15814,39 +21073,167 @@ class Tree(GObject.GBoxed):
         key_compare_data: object | None,
         key_destroy_func: DestroyNotify,
         value_destroy_func: DestroyNotify,
-    ) -> Tree: ...
-    def nnodes(self) -> int: ...
-    def node_first(self) -> TreeNode | None: ...
-    def node_last(self) -> TreeNode | None: ...
-    def ref(self) -> Tree: ...
-    def remove(self, key: object | None = None) -> bool: ...
-    def remove_all(self) -> None: ...
-    def replace(self, key: object | None = None, value: object | None = None) -> None: ...
-    def replace_node(self, key: object | None = None, value: object | None = None) -> TreeNode | None: ...
-    def search(self, search_func: CompareFunc, user_data: object | None = None) -> object | None: ...
-    def search_node(self, search_func: CompareFunc, user_data: object | None = None) -> TreeNode | None: ...
-    def steal(self, key: object | None = None) -> bool: ...
+    ) -> Tree:
+        """
+            Creates a new #GTree like g_tree_new() and allows to specify functions
+        to free the memory allocated for the key and value that get called when
+        removing the entry from the #GTree.
+        """
+    def nnodes(self) -> int:
+        """
+        Gets the number of nodes in a #GTree.
+        """
+    def node_first(self) -> TreeNode | None:
+        """
+            Returns the first in-order node of the tree, or %NULL
+        for an empty tree.
+        """
+    def node_last(self) -> TreeNode | None:
+        """
+            Returns the last in-order node of the tree, or %NULL
+        for an empty tree.
+        """
+    def ref(self) -> Tree:
+        """
+            Increments the reference count of @tree by one.
+
+        It is safe to call this function from any thread.
+        """
+    def remove(self, key: object | None = None) -> bool:
+        """
+            Removes a key/value pair from a #GTree.
+
+        If the #GTree was created using g_tree_new_full(), the key and value
+        are freed using the supplied destroy functions, otherwise you have to
+        make sure that any dynamically allocated values are freed yourself.
+        If the key does not exist in the #GTree, the function does nothing.
+
+        The cost of maintaining a balanced tree while removing a key/value
+        result in a O(n log(n)) operation where most of the other operations
+        are O(log(n)).
+        """
+    def remove_all(self) -> None:
+        """
+            Removes all nodes from a #GTree and destroys their keys and values,
+        then resets the #GTree’s root to %NULL.
+        """
+    def replace(self, key: object | None = None, value: object | None = None) -> None:
+        """
+            Inserts a new key and value into a #GTree as g_tree_replace_node() does,
+        only this function does not return the inserted or set node.
+        """
+    def replace_node(self, key: object | None = None, value: object | None = None) -> TreeNode | None:
+        """
+            Inserts a new key and value into a #GTree similar to g_tree_insert_node().
+        The difference is that if the key already exists in the #GTree, it gets
+        replaced by the new key. If you supplied a @value_destroy_func when
+        creating the #GTree, the old value is freed using that function. If you
+        supplied a @key_destroy_func when creating the #GTree, the old key is
+        freed using that function.
+
+        The tree is automatically 'balanced' as new key/value pairs are added,
+        so that the distance from the root to every leaf is as small as possible.
+        """
+    def search(self, search_func: CompareFunc, user_data: object | None = None) -> object | None:
+        """
+            Searches a #GTree using @search_func.
+
+        The @search_func is called with a pointer to the key of a key/value
+        pair in the tree, and the passed in @user_data. If @search_func returns
+        0 for a key/value pair, then the corresponding value is returned as
+        the result of g_tree_search(). If @search_func returns -1, searching
+        will proceed among the key/value pairs that have a smaller key; if
+        @search_func returns 1, searching will proceed among the key/value
+        pairs that have a larger key.
+        """
+    def search_node(self, search_func: CompareFunc, user_data: object | None = None) -> TreeNode | None:
+        """
+            Searches a #GTree using @search_func.
+
+        The @search_func is called with a pointer to the key of a key/value
+        pair in the tree, and the passed in @user_data. If @search_func returns
+        0 for a key/value pair, then the corresponding node is returned as
+        the result of g_tree_search(). If @search_func returns -1, searching
+        will proceed among the key/value pairs that have a smaller key; if
+        @search_func returns 1, searching will proceed among the key/value
+        pairs that have a larger key.
+        """
+    def steal(self, key: object | None = None) -> bool:
+        """
+            Removes a key and its associated value from a #GTree without calling
+        the key and value destroy functions.
+
+        If the key does not exist in the #GTree, the function does nothing.
+        """
     @deprecated("deprecated")
     def traverse(
         self, traverse_func: TraverseFunc, traverse_type: TraverseType, user_data: object | None = None
-    ) -> None: ...
-    def unref(self) -> None: ...
-    def upper_bound(self, key: object | None = None) -> TreeNode | None: ...
+    ) -> None:
+        """
+        Calls the given function for each node in the #GTree.
+        """
+    def unref(self) -> None:
+        """
+            Decrements the reference count of @tree by one.
+        If the reference count drops to 0, all keys and values will
+        be destroyed (if destroy functions were specified) and all
+        memory allocated by @tree will be released.
+
+        It is safe to call this function from any thread.
+        """
+    def upper_bound(self, key: object | None = None) -> TreeNode | None:
+        """
+            Gets the upper bound node corresponding to the given key,
+        or %NULL if the tree is empty or all the nodes in the tree
+        have keys that are lower than or equal to the searched key.
+
+        The upper bound is the first node that has its key strictly greater
+        than the searched key.
+        """
 
 class TreeNode(GObject.GPointer):
+    """
+    An opaque type which identifies a specific node in a #GTree.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def key(self) -> object | None: ...
-    def next(self) -> TreeNode | None: ...
-    def previous(self) -> TreeNode | None: ...
-    def value(self) -> object | None: ...
+    def key(self) -> object | None:
+        """
+        Gets the key stored at a particular tree node.
+        """
+    def next(self) -> TreeNode | None:
+        """
+            Returns the next in-order node of the tree, or %NULL
+        if the passed node was already the last one.
+        """
+    def previous(self) -> TreeNode | None:
+        """
+            Returns the previous in-order node of the tree, or %NULL
+        if the passed node was already the first one.
+        """
+    def value(self) -> object | None:
+        """
+        Gets the value stored at a particular tree node.
+        """
 
 class Tuples(GObject.GPointer):
+    """
+    The #GTuples struct is used to return records (or tuples) from the
+    #GRelation by g_relation_select(). It only contains one public
+    member - the number of records that matched. To access the matched
+    records, you must use g_tuples_index().
+    """
+
     # gi Fields
     len: int = ...
+    """
+    the number of records that matched.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15854,13 +21241,36 @@ class Tuples(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def destroy(self) -> None: ...
+    def destroy(self) -> None:
+        """
+            Frees the records which were returned by g_relation_select(). This
+        should always be called after g_relation_select() when you are
+        finished with the records. The records are not removed from the
+        #GRelation.
+        """
     @deprecated("deprecated")
-    def index(self, index_: int, field: int) -> object | None: ...
+    def index(self, index_: int, field: int) -> object | None:
+        """
+            Gets a field from the records returned by g_relation_select(). It
+        returns the given field of the record at the given index. The
+        returned value should not be changed.
+        """
 
 class UnixPipe(GObject.GPointer):
+    """
+    A Unix pipe. The advantage of this type over `int[2]` is that it can
+    be closed automatically when it goes out of scope, using `g_auto(GUnixPipe)`,
+    on compilers that support that feature.
+    """
+
     # gi Fields
     fds: list | None = ...
+    """
+    A pair of file descriptors, each negative if closed or not yet opened.
+     The file descriptor with index %G_UNIX_PIPE_END_READ is readable.
+     The file descriptor with index %G_UNIX_PIPE_END_WRITE is writable.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15869,6 +21279,18 @@ class UnixPipe(GObject.GPointer):
         """
 
 class UriParamsIter(GObject.GPointer):
+    """
+    Many URI schemes include one or more attribute/value pairs as part of the URI
+    value. For example `scheme://server/path?query=string&is=there` has two
+    attributes – `query=string` and `is=there` – in its query part.
+
+    A #GUriParamsIter structure represents an iterator that can be used to
+    iterate over the attribute/value pairs of a URI query string. #GUriParamsIter
+    structures are typically allocated on the stack and then initialized with
+    g_uri_params_iter_init(). See the documentation for g_uri_params_iter_init()
+    for a usage example.
+    """
+
     # gi Fields
     @builtins.property
     def dummy0(self) -> int: ...
@@ -15880,80 +21302,915 @@ class UriParamsIter(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def init(self, params: str, length: int, separators: str, flags: UriParamsFlags) -> None: ...
-    def next(self) -> tuple[bool, str | None, str | None]: ...
+    def init(self, params: str, length: int, separators: str, flags: UriParamsFlags) -> None:
+        """
+            Initializes an attribute/value pair iterator.
+
+        The iterator keeps pointers to the @params and @separators arguments, those
+        variables must thus outlive the iterator and not be modified during the
+        iteration.
+
+        If %G_URI_PARAMS_WWW_FORM is passed in @flags, `+` characters in the param
+        string will be replaced with spaces in the output. For example, `foo=bar+baz`
+        will give attribute `foo` with value `bar baz`. This is commonly used on the
+        web (the `https` and `http` schemes only), but is deprecated in favour of
+        the equivalent of encoding spaces as `%20`.
+
+        Unlike with g_uri_parse_params(), %G_URI_PARAMS_CASE_INSENSITIVE has no
+        effect if passed to @flags for g_uri_params_iter_init(). The caller is
+        responsible for doing their own case-insensitive comparisons.
+
+        |[<!-- language="C" -->
+        GUriParamsIter iter;
+        GError *error = NULL;
+        gchar *unowned_attr, *unowned_value;
+
+        g_uri_params_iter_init (&iter, "foo=bar&baz=bar&Foo=frob&baz=bar2", -1, "&", G_URI_PARAMS_NONE);
+        while (g_uri_params_iter_next (&iter, &unowned_attr, &unowned_value, &error))
+          {
+            g_autofree gchar *attr = g_steal_pointer (&unowned_attr);
+            g_autofree gchar *value = g_steal_pointer (&unowned_value);
+            // do something with attr and value; this code will be called 4 times
+            // for the params string in this example: once with attr=foo and value=bar,
+            // then with baz/bar, then Foo/frob, then baz/bar2.
+          }
+        if (error)
+          // handle parsing error
+        ]|
+        """
+    def next(self) -> tuple[bool, str | None, str | None]:
+        """
+            Advances @iter and retrieves the next attribute/value. %FALSE is returned if
+        an error has occurred (in which case @error is set), or if the end of the
+        iteration is reached (in which case @attribute and @value are set to %NULL
+        and the iterator becomes invalid). If %TRUE is returned,
+        g_uri_params_iter_next() may be called again to receive another
+        attribute/value pair.
+
+        Note that the same @attribute may be returned multiple times, since URIs
+        allow repeated attributes.
+        """
 
 class Variant(GObject.GPointer):
+    """
+    `GVariant` is a variant datatype; it can contain one or more values
+    along with information about the type of the values.
+
+    A `GVariant` may contain simple types, like an integer, or a boolean value;
+    or complex types, like an array of two strings, or a dictionary of key
+    value pairs. A `GVariant` is also immutable: once it’s been created neither
+    its type nor its content can be modified further.
+
+    `GVariant` is useful whenever data needs to be serialized, for example when
+    sending method parameters in D-Bus, or when saving settings using
+    [`GSettings`](../gio/class.Settings.html).
+
+    When creating a new `GVariant`, you pass the data you want to store in it
+    along with a string representing the type of data you wish to pass to it.
+
+    For instance, if you want to create a `GVariant` holding an integer value you
+    can use:
+
+    ```c
+    GVariant *v = g_variant_new ("u", 40);
+    ```
+
+    The string `u` in the first argument tells `GVariant` that the data passed to
+    the constructor (`40`) is going to be an unsigned integer.
+
+    More advanced examples of `GVariant` in use can be found in documentation for
+    [`GVariant` format strings](gvariant-format-strings.html#pointers).
+
+    The range of possible values is determined by the type.
+
+    The type system used by `GVariant` is [type@GLib.VariantType].
+
+    `GVariant` instances always have a type and a value (which are given
+    at construction time).  The type and value of a `GVariant` instance
+    can never change other than by the `GVariant` itself being
+    destroyed.  A `GVariant` cannot contain a pointer.
+
+    `GVariant` is reference counted using [method@GLib.Variant.ref] and
+    [method@GLib.Variant.unref].  `GVariant` also has floating reference counts —
+    see [method@GLib.Variant.ref_sink].
+
+    `GVariant` is completely threadsafe.  A `GVariant` instance can be
+    concurrently accessed in any way from any number of threads without
+    problems.
+
+    `GVariant` is heavily optimised for dealing with data in serialized
+    form.  It works particularly well with data located in memory-mapped
+    files.  It can perform nearly all deserialization operations in a
+    small constant time, usually touching only a single memory page.
+    Serialized `GVariant` data can also be sent over the network.
+
+    `GVariant` is largely compatible with D-Bus.  Almost all types of
+    `GVariant` instances can be sent over D-Bus.  See [type@GLib.VariantType] for
+    exceptions.  (However, `GVariant`’s serialization format is not the same
+    as the serialization format of a D-Bus message body: use
+    [GDBusMessage](../gio/class.DBusMessage.html), in the GIO library, for those.)
+
+    For space-efficiency, the `GVariant` serialization format does not
+    automatically include the variant’s length, type or endianness,
+    which must either be implied from context (such as knowledge that a
+    particular file format always contains a little-endian
+    `G_VARIANT_TYPE_VARIANT` which occupies the whole length of the file)
+    or supplied out-of-band (for instance, a length, type and/or endianness
+    indicator could be placed at the beginning of a file, network message
+    or network stream).
+
+    A `GVariant`’s size is limited mainly by any lower level operating
+    system constraints, such as the number of bits in `gsize`.  For
+    example, it is reasonable to have a 2GB file mapped into memory
+    with [struct@GLib.MappedFile], and call [ctor@GLib.Variant.new_from_data] on
+    it.
+
+    For convenience to C programmers, `GVariant` features powerful
+    varargs-based value construction and destruction.  This feature is
+    designed to be embedded in other libraries.
+
+    There is a Python-inspired text language for describing `GVariant`
+    values.  `GVariant` includes a printer for this language and a parser
+    with type inferencing.
+
+    ## Memory Use
+
+    `GVariant` tries to be quite efficient with respect to memory use.
+    This section gives a rough idea of how much memory is used by the
+    current implementation.  The information here is subject to change
+    in the future.
+
+    The memory allocated by `GVariant` can be grouped into 4 broad
+    purposes: memory for serialized data, memory for the type
+    information cache, buffer management memory and memory for the
+    `GVariant` structure itself.
+
+    ## Serialized Data Memory
+
+    This is the memory that is used for storing `GVariant` data in
+    serialized form.  This is what would be sent over the network or
+    what would end up on disk, not counting any indicator of the
+    endianness, or of the length or type of the top-level variant.
+
+    The amount of memory required to store a boolean is 1 byte. 16,
+    32 and 64 bit integers and double precision floating point numbers
+    use their ‘natural’ size.  Strings (including object path and
+    signature strings) are stored with a nul terminator, and as such
+    use the length of the string plus 1 byte.
+
+    ‘Maybe’ types use no space at all to represent the null value and
+    use the same amount of space (sometimes plus one byte) as the
+    equivalent non-maybe-typed value to represent the non-null case.
+
+    Arrays use the amount of space required to store each of their
+    members, concatenated.  Additionally, if the items stored in an
+    array are not of a fixed-size (ie: strings, other arrays, etc)
+    then an additional framing offset is stored for each item.  The
+    size of this offset is either 1, 2 or 4 bytes depending on the
+    overall size of the container.  Additionally, extra padding bytes
+    are added as required for alignment of child values.
+
+    Tuples (including dictionary entries) use the amount of space
+    required to store each of their members, concatenated, plus one
+    framing offset (as per arrays) for each non-fixed-sized item in
+    the tuple, except for the last one.  Additionally, extra padding
+    bytes are added as required for alignment of child values.
+
+    Variants use the same amount of space as the item inside of the
+    variant, plus 1 byte, plus the length of the type string for the
+    item inside the variant.
+
+    As an example, consider a dictionary mapping strings to variants.
+    In the case that the dictionary is empty, 0 bytes are required for
+    the serialization.
+
+    If we add an item ‘width’ that maps to the int32 value of 500 then
+    we will use 4 bytes to store the int32 (so 6 for the variant
+    containing it) and 6 bytes for the string.  The variant must be
+    aligned to 8 after the 6 bytes of the string, so that’s 2 extra
+    bytes.  6 (string) + 2 (padding) + 6 (variant) is 14 bytes used
+    for the dictionary entry.  An additional 1 byte is added to the
+    array as a framing offset making a total of 15 bytes.
+
+    If we add another entry, ‘title’ that maps to a nullable string
+    that happens to have a value of null, then we use 0 bytes for the
+    null value (and 3 bytes for the variant to contain it along with
+    its type string) plus 6 bytes for the string.  Again, we need 2
+    padding bytes.  That makes a total of 6 + 2 + 3 = 11 bytes.
+
+    We now require extra padding between the two items in the array.
+    After the 14 bytes of the first item, that’s 2 bytes required.
+    We now require 2 framing offsets for an extra two
+    bytes. 14 + 2 + 11 + 2 = 29 bytes to encode the entire two-item
+    dictionary.
+
+    ## Type Information Cache
+
+    For each `GVariant` type that currently exists in the program a type
+    information structure is kept in the type information cache.  The
+    type information structure is required for rapid deserialization.
+
+    Continuing with the above example, if a `GVariant` exists with the
+    type `a{sv}` then a type information struct will exist for
+    `a{sv}`, `{sv}`, `s`, and `v`.  Multiple uses of the same type
+    will share the same type information.  Additionally, all
+    single-digit types are stored in read-only static memory and do
+    not contribute to the writable memory footprint of a program using
+    `GVariant`.
+
+    Aside from the type information structures stored in read-only
+    memory, there are two forms of type information.  One is used for
+    container types where there is a single element type: arrays and
+    maybe types.  The other is used for container types where there
+    are multiple element types: tuples and dictionary entries.
+
+    Array type info structures are `6 * sizeof (void *)`, plus the
+    memory required to store the type string itself.  This means that
+    on 32-bit systems, the cache entry for `a{sv}` would require 30
+    bytes of memory (plus allocation overhead).
+
+    Tuple type info structures are `6 * sizeof (void *)`, plus `4 *
+    sizeof (void *)` for each item in the tuple, plus the memory
+    required to store the type string itself.  A 2-item tuple, for
+    example, would have a type information structure that consumed
+    writable memory in the size of `14 * sizeof (void *)` (plus type
+    string)  This means that on 32-bit systems, the cache entry for
+    `{sv}` would require 61 bytes of memory (plus allocation overhead).
+
+    This means that in total, for our `a{sv}` example, 91 bytes of
+    type information would be allocated.
+
+    The type information cache, additionally, uses a [struct@GLib.HashTable] to
+    store and look up the cached items and stores a pointer to this
+    hash table in static storage.  The hash table is freed when there
+    are zero items in the type cache.
+
+    Although these sizes may seem large it is important to remember
+    that a program will probably only have a very small number of
+    different types of values in it and that only one type information
+    structure is required for many different values of the same type.
+
+    ## Buffer Management Memory
+
+    `GVariant` uses an internal buffer management structure to deal
+    with the various different possible sources of serialized data
+    that it uses.  The buffer is responsible for ensuring that the
+    correct call is made when the data is no longer in use by
+    `GVariant`.  This may involve a [func@GLib.free] or
+    even [method@GLib.MappedFile.unref].
+
+    One buffer management structure is used for each chunk of
+    serialized data.  The size of the buffer management structure
+    is `4 * (void *)`.  On 32-bit systems, that’s 16 bytes.
+
+    ## GVariant structure
+
+    The size of a `GVariant` structure is `6 * (void *)`.  On 32-bit
+    systems, that’s 24 bytes.
+
+    `GVariant` structures only exist if they are explicitly created
+    with API calls.  For example, if a `GVariant` is constructed out of
+    serialized data for the example given above (with the dictionary)
+    then although there are 9 individual values that comprise the
+    entire dictionary (two keys, two values, two variants containing
+    the values, two dictionary entries, plus the dictionary itself),
+    only 1 `GVariant` instance exists — the one referring to the
+    dictionary.
+
+    If calls are made to start accessing the other values then
+    `GVariant` instances will exist for those values only for as long
+    as they are in use (ie: until you call [method@GLib.Variant.unref]).  The
+    type information is shared.  The serialized data and the buffer
+    management structure for that serialized data is shared by the
+    child.
+
+    ## Summary
+
+    To put the entire example together, for our dictionary mapping
+    strings to variants (with two entries, as given above), we are
+    using 91 bytes of memory for type information, 29 bytes of memory
+    for the serialized data, 16 bytes for buffer management and 24
+    bytes for the `GVariant` instance, or a total of 160 bytes, plus
+    allocation overhead.  If we were to use [method@GLib.Variant.get_child_value]
+    to access the two dictionary entries, we would use an additional 48
+    bytes.  If we were to have other dictionaries of the same type, we
+    would use more memory for the serialized data and buffer
+    management for those dictionaries, but the type information would
+    be shared.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def byteswap(self) -> Variant: ...
-    def check_format_string(self, format_string: str, copy_only: bool) -> bool: ...
-    def classify(self) -> VariantClass: ...
-    def compare(self, two: Variant) -> int: ...
-    def dup_bytestring(self) -> tuple[list, int | None]: ...
-    def dup_bytestring_array(self) -> tuple[list, int | None]: ...
-    def dup_objv(self) -> tuple[list, int | None]: ...
-    def dup_string(self) -> tuple[str, int]: ...
-    def dup_strv(self) -> tuple[list, int | None]: ...
-    def equal(self, two: Variant) -> bool: ...
-    def get_boolean(self) -> bool: ...
-    def get_byte(self) -> int: ...
-    def get_bytestring(self) -> list: ...
-    def get_bytestring_array(self) -> tuple[list, int | None]: ...
-    def get_child_value(self, index_: int) -> Variant: ...
-    def get_data(self) -> object | None: ...
-    def get_data_as_bytes(self) -> Bytes: ...
-    def get_double(self) -> float: ...
-    def get_handle(self) -> int: ...
-    def get_int16(self) -> int: ...
-    def get_int32(self) -> int: ...
-    def get_int64(self) -> int: ...
-    def get_maybe(self) -> Variant | None: ...
-    def get_normal_form(self) -> Variant: ...
-    def get_objv(self) -> tuple[list, int | None]: ...
-    def get_size(self) -> int: ...
-    def get_string(self) -> tuple[str, int | None]: ...
-    def get_strv(self) -> tuple[list, int | None]: ...
-    def get_type(self) -> VariantType: ...
-    def get_type_string(self) -> str: ...
-    def get_uint16(self) -> int: ...
-    def get_uint32(self) -> int: ...
-    def get_uint64(self) -> int: ...
-    def get_variant(self) -> Variant: ...
-    def hash(self) -> int: ...
-    def is_container(self) -> bool: ...
-    def is_floating(self) -> bool: ...
-    def is_normal_form(self) -> bool: ...
+    def byteswap(self) -> Variant:
+        """
+            Performs a byteswapping operation on the contents of @value.  The
+        result is that all multi-byte numeric data contained in @value is
+        byteswapped.  That includes 16, 32, and 64bit signed and unsigned
+        integers as well as file handles and double precision floating point
+        values.
+
+        This function is an identity mapping on any value that does not
+        contain multi-byte numeric data.  That include strings, booleans,
+        bytes and containers containing only these things (recursively).
+
+        While this function can safely handle untrusted, non-normal data, it is
+        recommended to check whether the input is in normal form beforehand, using
+        g_variant_is_normal_form(), and to reject non-normal inputs if your
+        application can be strict about what inputs it rejects.
+
+        The returned value is always in normal form and is marked as trusted.
+        A full, not floating, reference is returned.
+        """
+    def check_format_string(self, format_string: str, copy_only: bool) -> bool:
+        """
+            Checks if calling g_variant_get() with @format_string on @value would
+        be valid from a type-compatibility standpoint.  @format_string is
+        assumed to be a valid format string (from a syntactic standpoint).
+
+        If @copy_only is %TRUE then this function additionally checks that it
+        would be safe to call g_variant_unref() on @value immediately after
+        the call to g_variant_get() without invalidating the result.  This is
+        only possible if deep copies are made (ie: there are no pointers to
+        the data inside of the soon-to-be-freed #GVariant instance).  If this
+        check fails then a g_critical() is printed and %FALSE is returned.
+
+        This function is meant to be used by functions that wish to provide
+        varargs accessors to #GVariant values of uncertain values (eg:
+        g_variant_lookup() or g_menu_model_get_item_attribute()).
+        """
+    def classify(self) -> VariantClass:
+        """
+        Classifies @value according to its top-level type.
+        """
+    def compare(self, two: Variant) -> int:
+        """
+            Compares @one and @two.
+
+        The types of @one and @two are #gconstpointer only to allow use of
+        this function with #GTree, #GPtrArray, etc.  They must each be a
+        #GVariant.
+
+        Comparison is only defined for basic types (ie: booleans, numbers,
+        strings).  For booleans, %FALSE is less than %TRUE.  Numbers are
+        ordered in the usual way.  Strings are in ASCII lexographical order.
+
+        It is a programmer error to attempt to compare container values or
+        two values that have types that are not exactly equal.  For example,
+        you cannot compare a 32-bit signed integer with a 32-bit unsigned
+        integer.  Also note that this function is not particularly
+        well-behaved when it comes to comparison of doubles; in particular,
+        the handling of incomparable values (ie: NaN) is undefined.
+
+        If you only require an equality comparison, g_variant_equal() is more
+        general.
+        """
+    def dup_bytestring(self) -> tuple[list, int | None]:
+        """
+            Similar to g_variant_get_bytestring() except that instead of
+        returning a constant string, the string is duplicated.
+
+        The return value must be freed using g_free().
+        """
+    def dup_bytestring_array(self) -> tuple[list, int | None]:
+        """
+            Gets the contents of an array of array of bytes #GVariant.  This call
+        makes a deep copy; the return result should be released with
+        g_strfreev().
+
+        If @length is non-%NULL then the number of elements in the result is
+        stored there.  In any case, the resulting array will be
+        %NULL-terminated.
+
+        For an empty array, @length will be set to 0 and a pointer to a
+        %NULL pointer will be returned.
+        """
+    def dup_objv(self) -> tuple[list, int | None]:
+        """
+            Gets the contents of an array of object paths #GVariant.  This call
+        makes a deep copy; the return result should be released with
+        g_strfreev().
+
+        If @length is non-%NULL then the number of elements in the result
+        is stored there.  In any case, the resulting array will be
+        %NULL-terminated.
+
+        For an empty array, @length will be set to 0 and a pointer to a
+        %NULL pointer will be returned.
+        """
+    def dup_string(self) -> tuple[str, int]:
+        """
+            Similar to g_variant_get_string() except that instead of returning
+        a constant string, the string is duplicated.
+
+        The string will always be UTF-8 encoded.
+
+        The return value must be freed using g_free().
+        """
+    def dup_strv(self) -> tuple[list, int | None]:
+        """
+            Gets the contents of an array of strings #GVariant.  This call
+        makes a deep copy; the return result should be released with
+        g_strfreev().
+
+        If @length is non-%NULL then the number of elements in the result
+        is stored there.  In any case, the resulting array will be
+        %NULL-terminated.
+
+        For an empty array, @length will be set to 0 and a pointer to a
+        %NULL pointer will be returned.
+        """
+    def equal(self, two: Variant) -> bool:
+        """
+            Checks if @one and @two have the same type and value.
+
+        The types of @one and @two are #gconstpointer only to allow use of
+        this function with #GHashTable.  They must each be a #GVariant.
+        """
+    def get_boolean(self) -> bool:
+        """
+            Returns the boolean value of @value.
+
+        It is an error to call this function with a @value of any type
+        other than %G_VARIANT_TYPE_BOOLEAN.
+        """
+    def get_byte(self) -> int:
+        """
+            Returns the byte value of @value.
+
+        It is an error to call this function with a @value of any type
+        other than %G_VARIANT_TYPE_BYTE.
+        """
+    def get_bytestring(self) -> list:
+        """
+            Returns the string value of a #GVariant instance with an
+        array-of-bytes type.  The string has no particular encoding.
+
+        If the array does not end with a nul terminator character, the empty
+        string is returned.  For this reason, you can always trust that a
+        non-%NULL nul-terminated string will be returned by this function.
+
+        If the array contains a nul terminator character somewhere other than
+        the last byte then the returned string is the string, up to the first
+        such nul character.
+
+        g_variant_get_fixed_array() should be used instead if the array contains
+        arbitrary data that could not be nul-terminated or could contain nul bytes.
+
+        It is an error to call this function with a @value that is not an
+        array of bytes.
+
+        The return value remains valid as long as @value exists.
+        """
+    def get_bytestring_array(self) -> tuple[list, int | None]:
+        """
+            Gets the contents of an array of array of bytes #GVariant.  This call
+        makes a shallow copy; the return result should be released with
+        g_free(), but the individual strings must not be modified.
+
+        If @length is non-%NULL then the number of elements in the result is
+        stored there.  In any case, the resulting array will be
+        %NULL-terminated.
+
+        For an empty array, @length will be set to 0 and a pointer to a
+        %NULL pointer will be returned.
+        """
+    def get_child_value(self, index_: int) -> Variant:
+        """
+            Reads a child item out of a container #GVariant instance.  This
+        includes variants, maybes, arrays, tuples and dictionary
+        entries.  It is an error to call this function on any other type of
+        #GVariant.
+
+        It is an error if @index_ is greater than the number of child items
+        in the container.  See g_variant_n_children().
+
+        The returned value is never floating.  You should free it with
+        g_variant_unref() when you're done with it.
+
+        Note that values borrowed from the returned child are not guaranteed to
+        still be valid after the child is freed even if you still hold a reference
+        to @value, if @value has not been serialized at the time this function is
+        called. To avoid this, you can serialize @value by calling
+        g_variant_get_data() and optionally ignoring the return value.
+
+        There may be implementation specific restrictions on deeply nested values,
+        which would result in the unit tuple being returned as the child value,
+        instead of further nested children. #GVariant is guaranteed to handle
+        nesting up to at least 64 levels.
+
+        This function is O(1).
+        """
+    def get_data(self) -> object | None:
+        """
+            Returns a pointer to the serialized form of a #GVariant instance.
+        The returned data may not be in fully-normalised form if read from an
+        untrusted source.  The returned data must not be freed; it remains
+        valid for as long as @value exists.
+
+        If @value is a fixed-sized value that was deserialized from a
+        corrupted serialized container then %NULL may be returned.  In this
+        case, the proper thing to do is typically to use the appropriate
+        number of nul bytes in place of @value.  If @value is not fixed-sized
+        then %NULL is never returned.
+
+        In the case that @value is already in serialized form, this function
+        is O(1).  If the value is not already in serialized form,
+        serialization occurs implicitly and is approximately O(n) in the size
+        of the result.
+
+        To deserialize the data returned by this function, in addition to the
+        serialized data, you must know the type of the #GVariant, and (if the
+        machine might be different) the endianness of the machine that stored
+        it. As a result, file formats or network messages that incorporate
+        serialized #GVariants must include this information either
+        implicitly (for instance "the file always contains a
+        %G_VARIANT_TYPE_VARIANT and it is always in little-endian order") or
+        explicitly (by storing the type and/or endianness in addition to the
+        serialized data).
+        """
+    def get_data_as_bytes(self) -> Bytes:
+        """
+            Returns a pointer to the serialized form of a #GVariant instance.
+        The semantics of this function are exactly the same as
+        g_variant_get_data(), except that the returned #GBytes holds
+        a reference to the variant data.
+        """
+    def get_double(self) -> float:
+        """
+            Returns the double precision floating point value of @value.
+
+        It is an error to call this function with a @value of any type
+        other than %G_VARIANT_TYPE_DOUBLE.
+        """
+    def get_handle(self) -> int:
+        """
+            Returns the 32-bit signed integer value of @value.
+
+        It is an error to call this function with a @value of any type other
+        than %G_VARIANT_TYPE_HANDLE.
+
+        By convention, handles are indexes into an array of file descriptors
+        that are sent alongside a D-Bus message.  If you're not interacting
+        with D-Bus, you probably don't need them.
+        """
+    def get_int16(self) -> int:
+        """
+            Returns the 16-bit signed integer value of @value.
+
+        It is an error to call this function with a @value of any type
+        other than %G_VARIANT_TYPE_INT16.
+        """
+    def get_int32(self) -> int:
+        """
+            Returns the 32-bit signed integer value of @value.
+
+        It is an error to call this function with a @value of any type
+        other than %G_VARIANT_TYPE_INT32.
+        """
+    def get_int64(self) -> int:
+        """
+            Returns the 64-bit signed integer value of @value.
+
+        It is an error to call this function with a @value of any type
+        other than %G_VARIANT_TYPE_INT64.
+        """
+    def get_maybe(self) -> Variant | None:
+        """
+            Given a maybe-typed #GVariant instance, extract its value.  If the
+        value is Nothing, then this function returns %NULL.
+        """
+    def get_normal_form(self) -> Variant:
+        """
+            Gets a #GVariant instance that has the same value as @value and is
+        trusted to be in normal form.
+
+        If @value is already trusted to be in normal form then a new
+        reference to @value is returned.
+
+        If @value is not already trusted, then it is scanned to check if it
+        is in normal form.  If it is found to be in normal form then it is
+        marked as trusted and a new reference to it is returned.
+
+        If @value is found not to be in normal form then a new trusted
+        #GVariant is created with the same value as @value. The non-normal parts of
+        @value will be replaced with default values which are guaranteed to be in
+        normal form.
+
+        It makes sense to call this function if you've received #GVariant
+        data from untrusted sources and you want to ensure your serialized
+        output is definitely in normal form.
+
+        If @value is already in normal form, a new reference will be returned
+        (which will be floating if @value is floating). If it is not in normal form,
+        the newly created #GVariant will be returned with a single non-floating
+        reference. Typically, g_variant_take_ref() should be called on the return
+        value from this function to guarantee ownership of a single non-floating
+        reference to it.
+        """
+    def get_objv(self) -> tuple[list, int | None]:
+        """
+            Gets the contents of an array of object paths #GVariant.  This call
+        makes a shallow copy; the return result should be released with
+        g_free(), but the individual strings must not be modified.
+
+        If @length is non-%NULL then the number of elements in the result
+        is stored there.  In any case, the resulting array will be
+        %NULL-terminated.
+
+        For an empty array, @length will be set to 0 and a pointer to a
+        %NULL pointer will be returned.
+        """
+    def get_size(self) -> int:
+        """
+            Determines the number of bytes that would be required to store @value
+        with g_variant_store().
+
+        If @value has a fixed-sized type then this function always returned
+        that fixed size.
+
+        In the case that @value is already in serialized form or the size has
+        already been calculated (ie: this function has been called before)
+        then this function is O(1).  Otherwise, the size is calculated, an
+        operation which is approximately O(n) in the number of values
+        involved.
+        """
+    def get_string(self) -> tuple[str, int | None]:
+        """
+            Returns the string value of a #GVariant instance with a string
+        type.  This includes the types %G_VARIANT_TYPE_STRING,
+        %G_VARIANT_TYPE_OBJECT_PATH and %G_VARIANT_TYPE_SIGNATURE.
+
+        The string will always be UTF-8 encoded, will never be %NULL, and will never
+        contain nul bytes.
+
+        If @length is non-%NULL then the length of the string (in bytes) is
+        returned there.  For trusted values, this information is already
+        known.  Untrusted values will be validated and, if valid, a strlen() will be
+        performed. If invalid, a default value will be returned — for
+        %G_VARIANT_TYPE_OBJECT_PATH, this is `"/"`, and for other types it is the
+        empty string.
+
+        It is an error to call this function with a @value of any type
+        other than those three.
+
+        The return value remains valid as long as @value exists.
+        """
+    def get_strv(self) -> tuple[list, int | None]:
+        """
+            Gets the contents of an array of strings #GVariant.  This call
+        makes a shallow copy; the return result should be released with
+        g_free(), but the individual strings must not be modified.
+
+        If @length is non-%NULL then the number of elements in the result
+        is stored there.  In any case, the resulting array will be
+        %NULL-terminated.
+
+        For an empty array, @length will be set to 0 and a pointer to a
+        %NULL pointer will be returned.
+        """
+    def get_type(self) -> VariantType:
+        """
+            Determines the type of @value.
+
+        The return value is valid for the lifetime of @value and must not
+        be freed.
+        """
+    def get_type_string(self) -> str:
+        """
+            Returns the type string of @value.  Unlike the result of calling
+        g_variant_type_peek_string(), this string is nul-terminated.  This
+        string belongs to #GVariant and must not be freed.
+        """
+    def get_uint16(self) -> int:
+        """
+            Returns the 16-bit unsigned integer value of @value.
+
+        It is an error to call this function with a @value of any type
+        other than %G_VARIANT_TYPE_UINT16.
+        """
+    def get_uint32(self) -> int:
+        """
+            Returns the 32-bit unsigned integer value of @value.
+
+        It is an error to call this function with a @value of any type
+        other than %G_VARIANT_TYPE_UINT32.
+        """
+    def get_uint64(self) -> int:
+        """
+            Returns the 64-bit unsigned integer value of @value.
+
+        It is an error to call this function with a @value of any type
+        other than %G_VARIANT_TYPE_UINT64.
+        """
+    def get_variant(self) -> Variant:
+        """
+            Unboxes @value.  The result is the #GVariant instance that was
+        contained in @value.
+        """
+    def hash(self) -> int:
+        """
+            Generates a hash value for a #GVariant instance.
+
+        The output of this function is guaranteed to be the same for a given
+        value only per-process.  It may change between different processor
+        architectures or even different versions of GLib.  Do not use this
+        function as a basis for building protocols or file formats.
+
+        The type of @value is #gconstpointer only to allow use of this
+        function with #GHashTable.  @value must be a #GVariant.
+        """
+    def is_container(self) -> bool:
+        """
+        Checks if @value is a container.
+        """
+    def is_floating(self) -> bool:
+        """
+            Checks whether @value has a floating reference count.
+
+        This function should only ever be used to assert that a given variant
+        is or is not floating, or for debug purposes. To acquire a reference
+        to a variant that might be floating, always use g_variant_ref_sink()
+        or g_variant_take_ref().
+
+        See g_variant_ref_sink() for more information about floating reference
+        counts.
+        """
+    def is_normal_form(self) -> bool:
+        """
+            Checks if @value is in normal form.
+
+        The main reason to do this is to detect if a given chunk of
+        serialized data is in normal form: load the data into a #GVariant
+        using g_variant_new_from_data() and then use this function to
+        check.
+
+        If @value is found to be in normal form then it will be marked as
+        being trusted.  If the value was already marked as being trusted then
+        this function will immediately return %TRUE.
+
+        There may be implementation specific restrictions on deeply nested values.
+        GVariant is guaranteed to handle nesting up to at least 64 levels.
+        """
     @staticmethod
-    def is_object_path(string: str) -> bool: ...
-    def is_of_type(self, type: VariantType) -> bool: ...
+    def is_object_path(string: str) -> bool:
+        """
+            Determines if a given string is a valid D-Bus object path.  You
+        should ensure that a string is a valid D-Bus object path before
+        passing it to g_variant_new_object_path().
+
+        A valid object path starts with `/` followed by zero or more
+        sequences of characters separated by `/` characters.  Each sequence
+        must contain only the characters `[A-Z][a-z][0-9]_`.  No sequence
+        (including the one following the final `/` character) may be empty.
+        """
+    def is_of_type(self, type: VariantType) -> bool:
+        """
+        Checks if a value has a type matching the provided type.
+        """
     @staticmethod
-    def is_signature(string: str) -> bool: ...
-    def lookup_value(self, key: str, expected_type: VariantType | None = None) -> Variant: ...
-    def n_children(self) -> int: ...
+    def is_signature(string: str) -> bool:
+        """
+            Determines if a given string is a valid D-Bus type signature.  You
+        should ensure that a string is a valid D-Bus type signature before
+        passing it to g_variant_new_signature().
+
+        D-Bus type signatures consist of zero or more definite #GVariantType
+        strings in sequence.
+        """
+    def lookup_value(self, key: str, expected_type: VariantType | None = None) -> Variant:
+        """
+            Looks up a value in a dictionary #GVariant.
+
+        This function works with dictionaries of the type a{s*} (and equally
+        well with type a{o*}, but we only further discuss the string case
+        for sake of clarity).
+
+        In the event that @dictionary has the type a{sv}, the @expected_type
+        string specifies what type of value is expected to be inside of the
+        variant. If the value inside the variant has a different type then
+        %NULL is returned. In the event that @dictionary has a value type other
+        than v then @expected_type must directly match the value type and it is
+        used to unpack the value directly or an error occurs.
+
+        In either case, if @key is not found in @dictionary, %NULL is returned.
+
+        If the key is found and the value has the correct type, it is
+        returned.  If @expected_type was specified then any non-%NULL return
+        value will have this type.
+
+        This function is currently implemented with a linear scan.  If you
+        plan to do many lookups then #GVariantDict may be more efficient.
+        """
+    def n_children(self) -> int:
+        """
+            Determines the number of children in a container #GVariant instance.
+        This includes variants, maybes, arrays, tuples and dictionary
+        entries.  It is an error to call this function on any other type of
+        #GVariant.
+
+        For variants, the return value is always 1.  For values with maybe
+        types, it is always zero or one.  For arrays, it is the length of the
+        array.  For tuples it is the number of tuple items (which depends
+        only on the type).  For dictionary entries, it is always 2
+
+        This function is O(1).
+        """
     @classmethod
-    def new_array(cls, child_type: VariantType | None, children: list | None, n_children: int) -> Variant: ...
+    def new_array(cls, child_type: VariantType | None, children: list | None, n_children: int) -> Variant:
+        """
+            Creates a new #GVariant array from @children.
+
+        @child_type must be non-%NULL if @n_children is zero.  Otherwise, the
+        child type is determined by inspecting the first element of the
+        @children array.  If @child_type is non-%NULL then it must be a
+        definite type.
+
+        The items of the array are taken from the @children array.  No entry
+        in the @children array may be %NULL.
+
+        All items in the array must have the same type, which must be the
+        same as @child_type, if given.
+
+        If the @children are floating references (see g_variant_ref_sink()), the
+        new instance takes ownership of them as if via g_variant_ref_sink().
+        """
     @classmethod
-    def new_boolean(cls, value: bool) -> Variant: ...
+    def new_boolean(cls, value: bool) -> Variant:
+        """
+        Creates a new boolean #GVariant instance -- either %TRUE or %FALSE.
+        """
     @classmethod
-    def new_byte(cls, value: int) -> Variant: ...
+    def new_byte(cls, value: int) -> Variant:
+        """
+        Creates a new byte #GVariant instance.
+        """
     @classmethod
-    def new_bytestring(cls, string: list) -> Variant: ...
+    def new_bytestring(cls, string: list) -> Variant:
+        """
+            Creates an array-of-bytes #GVariant with the contents of @string.
+        This function is just like g_variant_new_string() except that the
+        string need not be valid UTF-8.
+
+        The nul terminator character at the end of the string is stored in
+        the array.
+        """
     @classmethod
-    def new_bytestring_array(cls, strv: list, length: int) -> Variant: ...
+    def new_bytestring_array(cls, strv: list, length: int) -> Variant:
+        """
+            Constructs an array of bytestring #GVariant from the given array of
+        strings.
+
+        If @length is -1 then @strv is %NULL-terminated.
+        """
     @classmethod
-    def new_dict_entry(cls, key: Variant, value: Variant) -> Variant: ...
+    def new_dict_entry(cls, key: Variant, value: Variant) -> Variant:
+        """
+            Creates a new dictionary entry #GVariant. @key and @value must be
+        non-%NULL. @key must be a value of a basic type (ie: not a container).
+
+        If the @key or @value are floating references (see g_variant_ref_sink()),
+        the new instance takes ownership of them as if via g_variant_ref_sink().
+        """
     @classmethod
-    def new_double(cls, value: float) -> Variant: ...
+    def new_double(cls, value: float) -> Variant:
+        """
+        Creates a new double #GVariant instance.
+        """
     @classmethod
     def new_fixed_array(
         cls, element_type: VariantType, elements: object | None, n_elements: int, element_size: int
-    ) -> Variant: ...
+    ) -> Variant:
+        """
+            Constructs a new array #GVariant instance, where the elements are
+        of @element_type type.
+
+        @elements must be an array with fixed-sized elements.  Numeric types are
+        fixed-size as are tuples containing only other fixed-sized types.
+
+        @element_size must be the size of a single element in the array.
+        For example, if calling this function for an array of 32-bit integers,
+        you might say sizeof(gint32). This value isn't used except for the purpose
+        of a double-check that the form of the serialized data matches the caller's
+        expectation.
+
+        @n_elements must be the length of the @elements array.
+        """
     @classmethod
-    def new_from_bytes(cls, type: VariantType, bytes: Bytes, trusted: bool) -> Variant: ...
+    def new_from_bytes(cls, type: VariantType, bytes: Bytes, trusted: bool) -> Variant:
+        """
+            Constructs a new serialized-mode #GVariant instance.  This is the
+        inner interface for creation of new serialized values that gets
+        called from various functions in gvariant.c.
+
+        A reference is taken on @bytes.
+
+        The data in @bytes must be aligned appropriately for the @type being loaded.
+        Otherwise this function will internally create a copy of the memory (since
+        GLib 2.60) or (in older versions) fail and exit the process.
+        """
     @classmethod
     def new_from_data(
         cls,
@@ -15963,52 +22220,320 @@ class Variant(GObject.GPointer):
         trusted: bool,
         notify: DestroyNotify,
         user_data: object | None = None,
-    ) -> Variant: ...
+    ) -> Variant:
+        """
+            Creates a new #GVariant instance from serialized data.
+
+        @type is the type of #GVariant instance that will be constructed.
+        The interpretation of @data depends on knowing the type.
+
+        @data is not modified by this function and must remain valid with an
+        unchanging value until such a time as @notify is called with
+        @user_data.  If the contents of @data change before that time then
+        the result is undefined.
+
+        If @data is trusted to be serialized data in normal form then
+        @trusted should be %TRUE.  This applies to serialized data created
+        within this process or read from a trusted location on the disk (such
+        as a file installed in /usr/lib alongside your application).  You
+        should set trusted to %FALSE if @data is read from the network, a
+        file in the user's home directory, etc.
+
+        If @data was not stored in this machine's native endianness, any multi-byte
+        numeric values in the returned variant will also be in non-native
+        endianness. g_variant_byteswap() can be used to recover the original values.
+
+        @notify will be called with @user_data when @data is no longer
+        needed.  The exact time of this call is unspecified and might even be
+        before this function returns.
+
+        Note: @data must be backed by memory that is aligned appropriately for the
+        @type being loaded. Otherwise this function will internally create a copy of
+        the memory (since GLib 2.60) or (in older versions) fail and exit the
+        process.
+        """
     @classmethod
-    def new_handle(cls, value: int) -> Variant: ...
+    def new_handle(cls, value: int) -> Variant:
+        """
+            Creates a new handle #GVariant instance.
+
+        By convention, handles are indexes into an array of file descriptors
+        that are sent alongside a D-Bus message.  If you're not interacting
+        with D-Bus, you probably don't need them.
+        """
     @classmethod
-    def new_int16(cls, value: int) -> Variant: ...
+    def new_int16(cls, value: int) -> Variant:
+        """
+        Creates a new int16 #GVariant instance.
+        """
     @classmethod
-    def new_int32(cls, value: int) -> Variant: ...
+    def new_int32(cls, value: int) -> Variant:
+        """
+        Creates a new int32 #GVariant instance.
+        """
     @classmethod
-    def new_int64(cls, value: int) -> Variant: ...
+    def new_int64(cls, value: int) -> Variant:
+        """
+        Creates a new int64 #GVariant instance.
+        """
     @classmethod
-    def new_maybe(cls, child_type: VariantType | None = None, child: Variant | None = None) -> Variant: ...
+    def new_maybe(cls, child_type: VariantType | None = None, child: Variant | None = None) -> Variant:
+        """
+            Depending on if @child is %NULL, either wraps @child inside of a
+        maybe container or creates a Nothing instance for the given @type.
+
+        At least one of @child_type and @child must be non-%NULL.
+        If @child_type is non-%NULL then it must be a definite type.
+        If they are both non-%NULL then @child_type must be the type
+        of @child.
+
+        If @child is a floating reference (see g_variant_ref_sink()), the new
+        instance takes ownership of @child.
+        """
     @classmethod
-    def new_object_path(cls, object_path: str) -> Variant: ...
+    def new_object_path(cls, object_path: str) -> Variant:
+        """
+            Creates a D-Bus object path #GVariant with the contents of @object_path.
+        @object_path must be a valid D-Bus object path.  Use
+        g_variant_is_object_path() if you're not sure.
+        """
     @classmethod
-    def new_objv(cls, strv: list, length: int) -> Variant: ...
+    def new_objv(cls, strv: list, length: int) -> Variant:
+        """
+            Constructs an array of object paths #GVariant from the given array of
+        strings.
+
+        Each string must be a valid #GVariant object path; see
+        g_variant_is_object_path().
+
+        If @length is -1 then @strv is %NULL-terminated.
+        """
     @classmethod
-    def new_signature(cls, signature: str) -> Variant: ...
+    def new_signature(cls, signature: str) -> Variant:
+        """
+            Creates a D-Bus type signature #GVariant with the contents of
+        @string.  @string must be a valid D-Bus type signature.  Use
+        g_variant_is_signature() if you're not sure.
+        """
     @classmethod
-    def new_string(cls, string: str) -> Variant: ...
+    def new_string(cls, string: str) -> Variant:
+        """
+            Creates a string #GVariant with the contents of @string.
+
+        @string must be valid UTF-8, and must not be %NULL. To encode
+        potentially-%NULL strings, use g_variant_new() with `ms` as the
+        [format string](gvariant-format-strings.html#maybe-types).
+        """
     @classmethod
-    def new_strv(cls, strv: list, length: int) -> Variant: ...
+    def new_strv(cls, strv: list, length: int) -> Variant:
+        """
+            Constructs an array of strings #GVariant from the given array of
+        strings.
+
+        If @length is -1 then @strv is %NULL-terminated.
+        """
     @classmethod
-    def new_tuple(cls, children: list, n_children: int) -> Variant: ...
+    def new_tuple(cls, children: list, n_children: int) -> Variant:
+        """
+            Creates a new tuple #GVariant out of the items in @children.  The
+        type is determined from the types of @children.  No entry in the
+        @children array may be %NULL.
+
+        If @n_children is 0 then the unit tuple is constructed.
+
+        If the @children are floating references (see g_variant_ref_sink()), the
+        new instance takes ownership of them as if via g_variant_ref_sink().
+        """
     @classmethod
-    def new_uint16(cls, value: int) -> Variant: ...
+    def new_uint16(cls, value: int) -> Variant:
+        """
+        Creates a new uint16 #GVariant instance.
+        """
     @classmethod
-    def new_uint32(cls, value: int) -> Variant: ...
+    def new_uint32(cls, value: int) -> Variant:
+        """
+        Creates a new uint32 #GVariant instance.
+        """
     @classmethod
-    def new_uint64(cls, value: int) -> Variant: ...
+    def new_uint64(cls, value: int) -> Variant:
+        """
+        Creates a new uint64 #GVariant instance.
+        """
     @classmethod
-    def new_variant(cls, value: Variant) -> Variant: ...
+    def new_variant(cls, value: Variant) -> Variant:
+        """
+            Boxes @value.  The result is a #GVariant instance representing a
+        variant containing the original value.
+
+        If @child is a floating reference (see g_variant_ref_sink()), the new
+        instance takes ownership of @child.
+        """
     @staticmethod
-    def parse(type: VariantType | None, text: str, limit: str | None = None, endptr: str | None = None) -> Variant: ...
+    def parse(type: VariantType | None, text: str, limit: str | None = None, endptr: str | None = None) -> Variant:
+        """
+            Parses a #GVariant from a text representation.
+
+        A single #GVariant is parsed from the content of @text.
+
+        The format is described [here](gvariant-text-format.html).
+
+        The memory at @limit will never be accessed and the parser behaves as
+        if the character at @limit is the nul terminator.  This has the
+        effect of bounding @text.
+
+        If @endptr is non-%NULL then @text is permitted to contain data
+        following the value that this function parses and @endptr will be
+        updated to point to the first character past the end of the text
+        parsed by this function.  If @endptr is %NULL and there is extra data
+        then an error is returned.
+
+        If @type is non-%NULL then the value will be parsed to have that
+        type.  This may result in additional parse errors (in the case that
+        the parsed value doesn't fit the type) but may also result in fewer
+        errors (in the case that the type would have been ambiguous, such as
+        with empty arrays).
+
+        In the event that the parsing is successful, the resulting #GVariant
+        is returned. It is never floating, and must be freed with
+        [method@GLib.Variant.unref].
+
+        In case of any error, %NULL will be returned.  If @error is non-%NULL
+        then it will be set to reflect the error that occurred.
+
+        Officially, the language understood by the parser is “any string
+        produced by [method@GLib.Variant.print]”. This explicitly includes
+        `g_variant_print()`’s annotated types like `int64 -1000`.
+
+        There may be implementation specific restrictions on deeply nested values,
+        which would result in a %G_VARIANT_PARSE_ERROR_RECURSION error. #GVariant is
+        guaranteed to handle nesting up to at least 64 levels.
+        """
     @staticmethod
-    def parse_error_print_context(error: None, source_str: str) -> str: ...
+    def parse_error_print_context(error: None, source_str: str) -> str:
+        """
+            Pretty-prints a message showing the context of a #GVariant parse
+        error within the string for which parsing was attempted.
+
+        The resulting string is suitable for output to the console or other
+        monospace media where newlines are treated in the usual way.
+
+        The message will typically look something like one of the following:
+
+        |[
+        unterminated string constant:
+          (1, 2, 3, 'abc
+                    ^^^^
+        ]|
+
+        or
+
+        |[
+        unable to find a common type:
+          [1, 2, 3, 'str']
+           ^        ^^^^^
+        ]|
+
+        The format of the message may change in a future version.
+
+        @error must have come from a failed attempt to g_variant_parse() and
+        @source_str must be exactly the same string that caused the error.
+        If @source_str was not nul-terminated when you passed it to
+        g_variant_parse() then you must add nul termination before using this
+        function.
+        """
     @staticmethod
     def parse_error_quark() -> int: ...
     @deprecated("deprecated")
     @staticmethod
-    def parser_get_error_quark() -> int: ...
+    def parser_get_error_quark() -> int:
+        """
+        Same as g_variant_error_quark().
+        """
     def print_(self, type_annotate: bool) -> str: ...
-    def ref(self) -> Variant: ...
-    def ref_sink(self) -> Variant: ...
-    def store(self, data: object) -> None: ...
-    def take_ref(self) -> Variant: ...
-    def unref(self) -> None: ...
+    def ref(self) -> Variant:
+        """
+        Increases the reference count of @value.
+        """
+    def ref_sink(self) -> Variant:
+        """
+            #GVariant uses a floating reference count system.  All functions with
+        names starting with `g_variant_new_` return floating
+        references.
+
+        Calling g_variant_ref_sink() on a #GVariant with a floating reference
+        will convert the floating reference into a full reference.  Calling
+        g_variant_ref_sink() on a non-floating #GVariant results in an
+        additional normal reference being added.
+
+        In other words, if the @value is floating, then this call "assumes
+        ownership" of the floating reference, converting it to a normal
+        reference.  If the @value is not floating, then this call adds a
+        new normal reference increasing the reference count by one.
+
+        All calls that result in a #GVariant instance being inserted into a
+        container will call g_variant_ref_sink() on the instance.  This means
+        that if the value was just created (and has only its floating
+        reference) then the container will assume sole ownership of the value
+        at that point and the caller will not need to unreference it.  This
+        makes certain common styles of programming much easier while still
+        maintaining normal refcounting semantics in situations where values
+        are not floating.
+        """
+    def store(self, data: object) -> None:
+        """
+            Stores the serialized form of @value at @data.  @data should be
+        large enough.  See g_variant_get_size().
+
+        The stored data is in machine native byte order but may not be in
+        fully-normalised form if read from an untrusted source.  See
+        g_variant_get_normal_form() for a solution.
+
+        As with g_variant_get_data(), to be able to deserialize the
+        serialized variant successfully, its type and (if the destination
+        machine might be different) its endianness must also be available.
+
+        This function is approximately O(n) in the size of @data.
+        """
+    def take_ref(self) -> Variant:
+        """
+            If @value is floating, sink it.  Otherwise, do nothing.
+
+        Typically you want to use g_variant_ref_sink() in order to
+        automatically do the correct thing with respect to floating or
+        non-floating references, but there is one specific scenario where
+        this function is helpful.
+
+        The situation where this function is helpful is when creating an API
+        that allows the user to provide a callback function that returns a
+        #GVariant.  We certainly want to allow the user the flexibility to
+        return a non-floating reference from this callback (for the case
+        where the value that is being returned already exists).
+
+        At the same time, the style of the #GVariant API makes it likely that
+        for newly-created #GVariant instances, the user can be saved some
+        typing if they are allowed to return a #GVariant with a floating
+        reference.
+
+        Using this function on the return value of the user's callback allows
+        the user to do whichever is more convenient for them.  The caller
+        will always receives exactly one full reference to the value: either
+        the one that was returned in the first place, or a floating reference
+        that has been converted to a full reference.
+
+        This function has an odd interaction when combined with
+        g_variant_ref_sink() running at the same time in another thread on
+        the same #GVariant instance.  If g_variant_ref_sink() runs first then
+        the result will be that the floating reference is converted to a hard
+        reference.  If g_variant_take_ref() runs first then the result will
+        be that the floating reference is converted to a hard reference and
+        an additional reference on top of that one is added.  It is best to
+        avoid this situation.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of @value.  When its reference count
+        drops to 0, the memory used by the variant is freed.
+        """
 
     # python methods (overrides?)
     def keys(
@@ -16036,15 +22561,128 @@ class Variant(GObject.GPointer):
         """
 
 class VariantBuilder(GObject.GBoxed):
+    """
+    A utility type for constructing container-type #GVariant instances.
+
+    This is an opaque structure and may only be accessed using the
+    following functions.
+
+    #GVariantBuilder is not threadsafe in any way.  Do not attempt to
+    access it from more than one thread.
+    """
+
     # gi Methods
-    def add_value(self, value: Variant) -> None: ...
-    def close(self) -> None: ...
-    def end(self) -> Variant: ...
+    def add_value(self, value: Variant) -> None:
+        """
+            Adds @value to @builder.
+
+        It is an error to call this function in any way that would create an
+        inconsistent value to be constructed.  Some examples of this are
+        putting different types of items into an array, putting the wrong
+        types or number of items in a tuple, putting more than one value into
+        a variant, etc.
+
+        If @value is a floating reference (see g_variant_ref_sink()),
+        the @builder instance takes ownership of @value.
+        """
+    def close(self) -> None:
+        """
+            Closes the subcontainer inside the given @builder that was opened by
+        the most recent call to g_variant_builder_open().
+
+        It is an error to call this function in any way that would create an
+        inconsistent value to be constructed (ie: too few values added to the
+        subcontainer).
+        """
+    def end(self) -> Variant:
+        """
+            Ends the builder process and returns the constructed value.
+
+        It is not permissible to use @builder in any way after this call
+        except for reference counting operations (in the case of a
+        heap-allocated #GVariantBuilder) or by reinitialising it with
+        g_variant_builder_init() (in the case of stack-allocated). This
+        means that for the stack-allocated builders there is no need to
+        call g_variant_builder_clear() after the call to
+        g_variant_builder_end().
+
+        It is an error to call this function in any way that would create an
+        inconsistent value to be constructed (ie: insufficient number of
+        items added to a container with a specific number of children
+        required).  It is also an error to call this function if the builder
+        was created with an indefinite array or maybe type and no children
+        have been added; in this case it is impossible to infer the type of
+        the empty array.
+        """
     @classmethod
-    def new(cls, type: VariantType) -> VariantBuilder: ...
-    def open(self, type: VariantType) -> None: ...
-    def ref(self) -> VariantBuilder: ...
-    def unref(self) -> None: ...
+    def new(cls, type: VariantType) -> VariantBuilder:
+        """
+            Allocates and initialises a new #GVariantBuilder.
+
+        You should call g_variant_builder_unref() on the return value when it
+        is no longer needed.  The memory will not be automatically freed by
+        any other call.
+
+        In most cases it is easier to place a #GVariantBuilder directly on
+        the stack of the calling function and initialise it with
+        g_variant_builder_init_static().
+        """
+    def open(self, type: VariantType) -> None:
+        """
+            Opens a subcontainer inside the given @builder.  When done adding
+        items to the subcontainer, g_variant_builder_close() must be called. @type
+        is the type of the container: so to build a tuple of several values, @type
+        must include the tuple itself.
+
+        It is an error to call this function in any way that would cause an
+        inconsistent value to be constructed (ie: adding too many values or
+        a value of an incorrect type).
+
+        Example of building a nested variant:
+        |[<!-- language="C" -->
+        GVariantBuilder builder;
+        guint32 some_number = get_number ();
+        g_autoptr (GHashTable) some_dict = get_dict ();
+        GHashTableIter iter;
+        const gchar *key;
+        const GVariant *value;
+        g_autoptr (GVariant) output = NULL;
+
+        g_variant_builder_init (&builder, G_VARIANT_TYPE ("(ua{sv})"));
+        g_variant_builder_add (&builder, "u", some_number);
+        g_variant_builder_open (&builder, G_VARIANT_TYPE ("a{sv}"));
+
+        g_hash_table_iter_init (&iter, some_dict);
+        while (g_hash_table_iter_next (&iter, (gpointer *) &key, (gpointer *) &value))
+          {
+            g_variant_builder_open (&builder, G_VARIANT_TYPE ("{sv}"));
+            g_variant_builder_add (&builder, "s", key);
+            g_variant_builder_add (&builder, "v", value);
+            g_variant_builder_close (&builder);
+          }
+
+        g_variant_builder_close (&builder);
+
+        output = g_variant_builder_end (&builder);
+        ]|
+        """
+    def ref(self) -> VariantBuilder:
+        """
+            Increases the reference count on @builder.
+
+        Don't call this on stack-allocated #GVariantBuilder instances or bad
+        things will happen.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count on @builder.
+
+        In the event that there are no more references, releases all memory
+        associated with the #GVariantBuilder.
+
+        Don't call this on stack-allocated #GVariantBuilder instances or bad
+        things will happen.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -16054,17 +22692,185 @@ class VariantBuilder(GObject.GBoxed):
     ) -> None: ...
 
 class VariantDict(GObject.GBoxed):
+    """
+    #GVariantDict is a mutable interface to #GVariant dictionaries.
+
+    It can be used for doing a sequence of dictionary lookups in an
+    efficient way on an existing #GVariant dictionary or it can be used
+    to construct new dictionaries with a hashtable-like interface.  It
+    can also be used for taking existing dictionaries and modifying them
+    in order to create new ones.
+
+    #GVariantDict can only be used with %G_VARIANT_TYPE_VARDICT
+    dictionaries.
+
+    It is possible to use #GVariantDict allocated on the stack or on the
+    heap.  When using a stack-allocated #GVariantDict, you begin with a
+    call to g_variant_dict_init() and free the resources with a call to
+    g_variant_dict_clear().
+
+    Heap-allocated #GVariantDict follows normal refcounting rules: you
+    allocate it with g_variant_dict_new() and use g_variant_dict_ref()
+    and g_variant_dict_unref().
+
+    g_variant_dict_end() is used to convert the #GVariantDict back into a
+    dictionary-type #GVariant.  When used with stack-allocated instances,
+    this also implicitly frees all associated memory, but for
+    heap-allocated instances, you must still call g_variant_dict_unref()
+    afterwards.
+
+    You will typically want to use a heap-allocated #GVariantDict when
+    you expose it as part of an API.  For most other uses, the
+    stack-allocated form will be more convenient.
+
+    Consider the following two examples that do the same thing in each
+    style: take an existing dictionary and look up the "count" uint32
+    key, adding 1 to it if it is found, or returning an error if the
+    key is not found.  Each returns the new dictionary as a floating
+    #GVariant.
+
+    ## Using a stack-allocated GVariantDict
+
+    |[<!-- language="C" -->
+      GVariant *
+      add_to_count (GVariant  *orig,
+                    GError   **error)
+      {
+        GVariantDict dict;
+        guint32 count;
+
+        g_variant_dict_init (&dict, orig);
+        if (!g_variant_dict_lookup (&dict, "count", "u", &count))
+          {
+            g_set_error (...);
+            g_variant_dict_clear (&dict);
+            return NULL;
+          }
+
+        g_variant_dict_insert (&dict, "count", "u", count + 1);
+
+        return g_variant_dict_end (&dict);
+      }
+    ]|
+
+    ## Using heap-allocated GVariantDict
+
+    |[<!-- language="C" -->
+      GVariant *
+      add_to_count (GVariant  *orig,
+                    GError   **error)
+      {
+        GVariantDict *dict;
+        GVariant *result;
+        guint32 count;
+
+        dict = g_variant_dict_new (orig);
+
+        if (g_variant_dict_lookup (dict, "count", "u", &count))
+          {
+            g_variant_dict_insert (dict, "count", "u", count + 1);
+            result = g_variant_dict_end (dict);
+          }
+        else
+          {
+            g_set_error (...);
+            result = NULL;
+          }
+
+        g_variant_dict_unref (dict);
+
+        return result;
+      }
+    ]|
+    """
+
     # gi Methods
-    def clear(self) -> None: ...
-    def contains(self, key: str) -> bool: ...
-    def end(self) -> Variant: ...
-    def insert_value(self, key: str, value: Variant) -> None: ...
-    def lookup_value(self, key: str, expected_type: VariantType | None = None) -> Variant | None: ...
+    def clear(self) -> None:
+        """
+            Releases all memory associated with a #GVariantDict without freeing
+        the #GVariantDict structure itself.
+
+        It typically only makes sense to do this on a stack-allocated
+        #GVariantDict if you want to abort building the value part-way
+        through.  This function need not be called if you call
+        g_variant_dict_end() and it also doesn't need to be called on dicts
+        allocated with g_variant_dict_new (see g_variant_dict_unref() for
+        that).
+
+        It is valid to call this function on either an initialised
+        #GVariantDict or one that was previously cleared by an earlier call
+        to g_variant_dict_clear() but it is not valid to call this function
+        on uninitialised memory.
+        """
+    def contains(self, key: str) -> bool:
+        """
+        Checks if @key exists in @dict.
+        """
+    def end(self) -> Variant:
+        """
+            Returns the current value of @dict as a #GVariant of type
+        %G_VARIANT_TYPE_VARDICT, clearing it in the process.
+
+        It is not permissible to use @dict in any way after this call except
+        for reference counting operations (in the case of a heap-allocated
+        #GVariantDict) or by reinitialising it with g_variant_dict_init() (in
+        the case of stack-allocated).
+        """
+    def insert_value(self, key: str, value: Variant) -> None:
+        """
+            Inserts (or replaces) a key in a #GVariantDict.
+
+        @value is consumed if it is floating.
+        """
+    def lookup_value(self, key: str, expected_type: VariantType | None = None) -> Variant | None:
+        """
+            Looks up a value in a #GVariantDict.
+
+        If @key is not found in @dictionary, %NULL is returned.
+
+        The @expected_type string specifies what type of value is expected.
+        If the value associated with @key has a different type then %NULL is
+        returned.
+
+        If the key is found and the value has the correct type, it is
+        returned.  If @expected_type was specified then any non-%NULL return
+        value will have this type.
+        """
     @classmethod
-    def new(cls, from_asv: Variant | None = None) -> VariantDict: ...
-    def ref(self) -> VariantDict: ...
-    def remove(self, key: str) -> bool: ...
-    def unref(self) -> None: ...
+    def new(cls, from_asv: Variant | None = None) -> VariantDict:
+        """
+            Allocates and initialises a new #GVariantDict.
+
+        You should call g_variant_dict_unref() on the return value when it
+        is no longer needed.  The memory will not be automatically freed by
+        any other call.
+
+        In some cases it may be easier to place a #GVariantDict directly on
+        the stack of the calling function and initialise it with
+        g_variant_dict_init().  This is particularly useful when you are
+        using #GVariantDict to construct a #GVariant.
+        """
+    def ref(self) -> VariantDict:
+        """
+            Increases the reference count on @dict.
+
+        Don't call this on stack-allocated #GVariantDict instances or bad
+        things will happen.
+        """
+    def remove(self, key: str) -> bool:
+        """
+        Removes a key and its associated value from a #GVariantDict.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count on @dict.
+
+        In the event that there are no more references, releases all memory
+        associated with the #GVariantDict.
+
+        Don't call this on stack-allocated #GVariantDict instances or bad
+        things will happen.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -16074,46 +22880,454 @@ class VariantDict(GObject.GBoxed):
     ) -> None: ...
 
 class VariantType(GObject.GBoxed):
+    """
+    A type in the [type@GLib.Variant] type system.
+
+    [type@GLib.Variant] types are represented as strings, but have a strict
+    syntax described below. All [type@GLib.VariantType]s passed to GLib must be
+    valid, and they are typically expected to be static (i.e. not provided by
+    user input) as they determine how binary [type@GLib.Variant] data is
+    interpreted.
+
+    To convert a static string to a [type@GLib.VariantType] in C, use the
+    [func@GLib.VARIANT_TYPE] casting macro. When GLib is compiled with checks
+    enabled, it will validate the type. To check if an arbitrary string is a
+    valid [type@GLib.VariantType], use [func@GLib.VariantType.string_is_valid].
+
+    ## GVariant Type System
+
+    This section introduces the [type@GLib.Variant] type system. It is based, in
+    large part, on the D-Bus type system, with two major changes and
+    some minor lifting of restrictions. The
+    [D-Bus specification](http://dbus.freedesktop.org/doc/dbus-specification.html),
+    therefore, provides a significant amount of
+    information that is useful when working with [type@GLib.Variant].
+
+    The first major change with respect to the D-Bus type system is the
+    introduction of maybe (or ‘nullable’) types.  Any type in [type@GLib.Variant]
+    can be converted to a maybe type, in which case, `nothing` (or `null`)
+    becomes a valid value.  Maybe types have been added by introducing the
+    character `m` to type strings.
+
+    The second major change is that the [type@GLib.Variant] type system supports
+    the concept of ‘indefinite types’ — types that are less specific than
+    the normal types found in D-Bus.  For example, it is possible to speak
+    of ‘an array of any type’ in [type@GLib.Variant], where the D-Bus type system
+    would require you to speak of ‘an array of integers’ or ‘an array of
+    strings’.  Indefinite types have been added by introducing the
+    characters `*`, `?` and `r` to type strings.
+
+    Finally, all arbitrary restrictions relating to the complexity of
+    types are lifted along with the restriction that dictionary entries
+    may only appear nested inside of arrays.
+
+    Just as in D-Bus, [type@GLib.Variant] types are described with strings (‘type
+    strings’).  Subject to the differences mentioned above, these strings
+    are of the same form as those found in D-Bus.  Note, however: D-Bus
+    always works in terms of messages and therefore individual type
+    strings appear nowhere in its interface.  Instead, ‘signatures’
+    are a concatenation of the strings of the type of each argument in a
+    message.  [type@GLib.Variant] deals with single values directly so
+    [type@GLib.Variant] type strings always describe the type of exactly one
+    value.  This means that a D-Bus signature string is generally not a valid
+    [type@GLib.Variant] type string — except in the case that it is the signature
+    of a message containing exactly one argument.
+
+    An indefinite type is similar in spirit to what may be called an
+    abstract type in other type systems.  No value can exist that has an
+    indefinite type as its type, but values can exist that have types
+    that are subtypes of indefinite types.  That is to say,
+    [method@GLib.Variant.get_type] will never return an indefinite type, but
+    calling [method@GLib.Variant.is_of_type] with an indefinite type may return
+    true.  For example, you cannot have a value that represents ‘an
+    array of no particular type’, but you can have an ‘array of integers’
+    which certainly matches the type of ‘an array of no particular type’,
+    since ‘array of integers’ is a subtype of ‘array of no particular
+    type’.
+
+    This is similar to how instances of abstract classes may not
+    directly exist in other type systems, but instances of their
+    non-abstract subtypes may.  For example, in GTK, no object that has
+    the type of [`GtkWidget`](https://docs.gtk.org/gtk4/class.Widget.html) can
+    exist (since `GtkWidget` is an abstract class), but a [`GtkWindow`](https://docs.gtk.org/gtk4/class.Window.html)
+    can certainly be instantiated, and you would say that a `GtkWindow` is a
+    `GtkWidget` (since `GtkWindow` is a subclass of `GtkWidget`).
+
+    Two types may not be compared by value; use [method@GLib.VariantType.equal]
+    or [method@GLib.VariantType.is_subtype_of]  May be copied using
+    [method@GLib.VariantType.copy] and freed using [method@GLib.VariantType.free].
+
+    ## GVariant Type Strings
+
+    A [type@GLib.Variant] type string can be any of the following:
+
+    - any basic type string (listed below)
+    - `v`, `r` or `*`
+    - one of the characters `a` or `m`, followed by another type string
+    - the character `(`, followed by a concatenation of zero or more other
+      type strings, followed by the character `)`
+    - the character `{`, followed by a basic type string (see below),
+      followed by another type string, followed by the character `}`
+
+    A basic type string describes a basic type (as per
+    [method@GLib.VariantType.is_basic]) and is always a single character in
+    length. The valid basic type strings are `b`, `y`, `n`, `q`, `i`, `u`, `x`,
+    `t`, `h`, `d`, `s`, `o`, `g` and `?`.
+
+    The above definition is recursive to arbitrary depth. `aaaaai` and
+    `(ui(nq((y)))s)` are both valid type strings, as is
+    `a(aa(ui)(qna{ya(yd)}))`. In order to not hit memory limits,
+    [type@GLib.Variant] imposes a limit on recursion depth of 65 nested
+    containers. This is the limit in the D-Bus specification (64) plus one to
+    allow a [`GDBusMessage`](../gio/class.DBusMessage.html) to be nested in
+    a top-level tuple.
+
+    The meaning of each of the characters is as follows:
+
+    - `b`: the type string of `G_VARIANT_TYPE_BOOLEAN`; a boolean value.
+    - `y`: the type string of `G_VARIANT_TYPE_BYTE`; a byte.
+    - `n`: the type string of `G_VARIANT_TYPE_INT16`; a signed 16 bit integer.
+    - `q`: the type string of `G_VARIANT_TYPE_UINT16`; an unsigned 16 bit integer.
+    - `i`: the type string of `G_VARIANT_TYPE_INT32`; a signed 32 bit integer.
+    - `u`: the type string of `G_VARIANT_TYPE_UINT32`; an unsigned 32 bit integer.
+    - `x`: the type string of `G_VARIANT_TYPE_INT64`; a signed 64 bit integer.
+    - `t`: the type string of `G_VARIANT_TYPE_UINT64`; an unsigned 64 bit integer.
+    - `h`: the type string of `G_VARIANT_TYPE_HANDLE`; a signed 32 bit value
+      that, by convention, is used as an index into an array of file
+      descriptors that are sent alongside a D-Bus message.
+    - `d`: the type string of `G_VARIANT_TYPE_DOUBLE`; a double precision
+      floating point value.
+    - `s`: the type string of `G_VARIANT_TYPE_STRING`; a string.
+    - `o`: the type string of `G_VARIANT_TYPE_OBJECT_PATH`; a string in the form
+      of a D-Bus object path.
+    - `g`: the type string of `G_VARIANT_TYPE_SIGNATURE`; a string in the form of
+      a D-Bus type signature.
+    - `?`: the type string of `G_VARIANT_TYPE_BASIC`; an indefinite type that
+      is a supertype of any of the basic types.
+    - `v`: the type string of `G_VARIANT_TYPE_VARIANT`; a container type that
+      contain any other type of value.
+    - `a`: used as a prefix on another type string to mean an array of that
+      type; the type string `ai`, for example, is the type of an array of
+      signed 32-bit integers.
+    - `m`: used as a prefix on another type string to mean a ‘maybe’, or
+      ‘nullable’, version of that type; the type string `ms`, for example,
+      is the type of a value that maybe contains a string, or maybe contains
+      nothing.
+    - `()`: used to enclose zero or more other concatenated type strings to
+      create a tuple type; the type string `(is)`, for example, is the type of
+      a pair of an integer and a string.
+    - `r`: the type string of `G_VARIANT_TYPE_TUPLE`; an indefinite type that is
+      a supertype of any tuple type, regardless of the number of items.
+    - `{}`: used to enclose a basic type string concatenated with another type
+      string to create a dictionary entry type, which usually appears inside of
+      an array to form a dictionary; the type string `a{sd}`, for example, is
+      the type of a dictionary that maps strings to double precision floating
+      point values.
+
+      The first type (the basic type) is the key type and the second type is
+      the value type. The reason that the first type is restricted to being a
+      basic type is so that it can easily be hashed.
+    - `*`: the type string of `G_VARIANT_TYPE_ANY`; the indefinite type that is
+      a supertype of all types.  Note that, as with all type strings, this
+      character represents exactly one type. It cannot be used inside of tuples
+      to mean ‘any number of items’.
+
+    Any type string of a container that contains an indefinite type is,
+    itself, an indefinite type. For example, the type string `a*`
+    (corresponding to `G_VARIANT_TYPE_ARRAY`) is an indefinite type
+    that is a supertype of every array type. `(*s)` is a supertype
+    of all tuples that contain exactly two items where the second
+    item is a string.
+
+    `a{?*}` is an indefinite type that is a supertype of all arrays
+    containing dictionary entries where the key is any basic type and
+    the value is any type at all.  This is, by definition, a dictionary,
+    so this type string corresponds to `G_VARIANT_TYPE_DICTIONARY`. Note
+    that, due to the restriction that the key of a dictionary entry must
+    be a basic type, `{**}` is not a valid type string.
+    """
+
     # gi Methods
     @staticmethod
     def checked_(type_string: str) -> VariantType: ...
-    def copy(self) -> VariantType: ...
-    def dup_string(self) -> str: ...
-    def element(self) -> VariantType: ...
-    def equal(self, type2: VariantType) -> bool: ...
-    def first(self) -> VariantType | None: ...
-    def free(self) -> None: ...
-    def get_string_length(self) -> int: ...
-    def hash(self) -> int: ...
-    def is_array(self) -> bool: ...
-    def is_basic(self) -> bool: ...
-    def is_container(self) -> bool: ...
-    def is_definite(self) -> bool: ...
-    def is_dict_entry(self) -> bool: ...
-    def is_maybe(self) -> bool: ...
-    def is_subtype_of(self, supertype: VariantType) -> bool: ...
-    def is_tuple(self) -> bool: ...
-    def is_variant(self) -> bool: ...
-    def key(self) -> VariantType: ...
-    def n_items(self) -> int: ...
+    def copy(self) -> VariantType:
+        """
+            Makes a copy of a [type@GLib.VariantType].
+
+        It is appropriate to call [method@GLib.VariantType.free] on the return value.
+        @type may not be `NULL`.
+        """
+    def dup_string(self) -> str:
+        """
+            Returns a newly-allocated copy of the type string corresponding to @type.
+
+        The returned string is nul-terminated.  It is appropriate to call
+        [func@GLib.free] on the return value.
+        """
+    def element(self) -> VariantType:
+        """
+            Determines the element type of an array or ‘maybe’ type.
+
+        This function may only be used with array or ‘maybe’ types.
+        """
+    def equal(self, type2: VariantType) -> bool:
+        """
+            Compares @type1 and @type2 for equality.
+
+        Only returns true if the types are exactly equal.  Even if one type
+        is an indefinite type and the other is a subtype of it, false will
+        be returned if they are not exactly equal.  If you want to check for
+        subtypes, use [method@GLib.VariantType.is_subtype_of].
+
+        The argument types of @type1 and @type2 are only `gconstpointer` to
+        allow use with [type@GLib.HashTable] without function pointer casting.  For
+        both arguments, a valid [type@GLib.VariantType] must be provided.
+        """
+    def first(self) -> VariantType | None:
+        """
+            Determines the first item type of a tuple or dictionary entry
+        type.
+
+        This function may only be used with tuple or dictionary entry types,
+        but must not be used with the generic tuple type
+        `G_VARIANT_TYPE_TUPLE`.
+
+        In the case of a dictionary entry type, this returns the type of
+        the key.
+
+        `NULL` is returned in case of @type being `G_VARIANT_TYPE_UNIT`.
+
+        This call, together with [method@GLib.VariantType.next] provides an iterator
+        interface over tuple and dictionary entry types.
+        """
+    def free(self) -> None:
+        """
+            Frees a [type@GLib.VariantType] that was allocated with
+        [method@GLib.VariantType.copy], [ctor@GLib.VariantType.new] or one of the
+        container type constructor functions.
+
+        In the case that @type is `NULL`, this function does nothing.
+
+        Since 2.24
+        """
+    def get_string_length(self) -> int:
+        """
+            Returns the length of the type string corresponding to the given @type.
+
+        This function must be used to determine the valid extent of
+        the memory region returned by [method@GLib.VariantType.peek_string].
+        """
+    def hash(self) -> int:
+        """
+            Hashes @type.
+
+        The argument type of @type is only `gconstpointer` to allow use with
+        [type@GLib.HashTable] without function pointer casting.  A valid
+        [type@GLib.VariantType] must be provided.
+        """
+    def is_array(self) -> bool:
+        """
+            Determines if the given @type is an array type.
+
+        This is true if the type string for @type starts with an `a`.
+
+        This function returns true for any indefinite type for which every
+        definite subtype is an array type — `G_VARIANT_TYPE_ARRAY`, for
+        example.
+        """
+    def is_basic(self) -> bool:
+        """
+            Determines if the given @type is a basic type.
+
+        Basic types are booleans, bytes, integers, doubles, strings, object
+        paths and signatures.
+
+        Only a basic type may be used as the key of a dictionary entry.
+
+        This function returns `FALSE` for all indefinite types except
+        `G_VARIANT_TYPE_BASIC`.
+        """
+    def is_container(self) -> bool:
+        """
+            Determines if the given @type is a container type.
+
+        Container types are any array, maybe, tuple, or dictionary
+        entry types plus the variant type.
+
+        This function returns true for any indefinite type for which every
+        definite subtype is a container — `G_VARIANT_TYPE_ARRAY`, for
+        example.
+        """
+    def is_definite(self) -> bool:
+        """
+            Determines if the given @type is definite (ie: not indefinite).
+
+        A type is definite if its type string does not contain any indefinite
+        type characters (`*`, `?`, or `r`).
+
+        A [type@GLib.Variant] instance may not have an indefinite type, so calling
+        this function on the result of [method@GLib.Variant.get_type] will always
+        result in true being returned.  Calling this function on an
+        indefinite type like `G_VARIANT_TYPE_ARRAY`, however, will result in
+        `FALSE` being returned.
+        """
+    def is_dict_entry(self) -> bool:
+        """
+            Determines if the given @type is a dictionary entry type.
+
+        This is true if the type string for @type starts with a `{`.
+
+        This function returns true for any indefinite type for which every
+        definite subtype is a dictionary entry type —
+        `G_VARIANT_TYPE_DICT_ENTRY`, for example.
+        """
+    def is_maybe(self) -> bool:
+        """
+            Determines if the given @type is a ‘maybe’ type.
+
+        This is true if the type string for @type starts with an `m`.
+
+        This function returns true for any indefinite type for which every
+        definite subtype is a ‘maybe’ type — `G_VARIANT_TYPE_MAYBE`, for
+        example.
+        """
+    def is_subtype_of(self, supertype: VariantType) -> bool:
+        """
+            Checks if @type is a subtype of @supertype.
+
+        This function returns true if @type is a subtype of @supertype.  All
+        types are considered to be subtypes of themselves.  Aside from that,
+        only indefinite types can have subtypes.
+        """
+    def is_tuple(self) -> bool:
+        """
+            Determines if the given @type is a tuple type.
+
+        This is true if the type string for @type starts with a `(` or if @type is
+        `G_VARIANT_TYPE_TUPLE`.
+
+        This function returns true for any indefinite type for which every
+        definite subtype is a tuple type — `G_VARIANT_TYPE_TUPLE`, for
+        example.
+        """
+    def is_variant(self) -> bool:
+        """
+        Determines if the given @type is the variant type.
+        """
+    def key(self) -> VariantType:
+        """
+            Determines the key type of a dictionary entry type.
+
+        This function may only be used with a dictionary entry type.  Other
+        than the additional restriction, this call is equivalent to
+        [method@GLib.VariantType.first].
+        """
+    def n_items(self) -> int:
+        """
+            Determines the number of items contained in a tuple or
+        dictionary entry type.
+
+        This function may only be used with tuple or dictionary entry types,
+        but must not be used with the generic tuple type
+        `G_VARIANT_TYPE_TUPLE`.
+
+        In the case of a dictionary entry type, this function will always
+        return `2`.
+        """
     @classmethod
-    def new(cls, type_string: str) -> VariantType: ...
+    def new(cls, type_string: str) -> VariantType:
+        """
+            Creates a new [type@GLib.VariantType] corresponding to the type string given
+        by @type_string.
+
+        It is appropriate to call [method@GLib.VariantType.free] on the return value.
+
+        It is a programmer error to call this function with an invalid type
+        string.  Use [func@GLib.VariantType.string_is_valid] if you are unsure.
+        """
     @classmethod
-    def new_array(cls, element: VariantType) -> VariantType: ...
+    def new_array(cls, element: VariantType) -> VariantType:
+        """
+            Constructs the type corresponding to an array of elements of the
+        type @type.
+
+        It is appropriate to call [method@GLib.VariantType.first] on the return value.
+        """
     @classmethod
-    def new_dict_entry(cls, key: VariantType, value: VariantType) -> VariantType: ...
+    def new_dict_entry(cls, key: VariantType, value: VariantType) -> VariantType:
+        """
+            Constructs the type corresponding to a dictionary entry with a key
+        of type @key and a value of type @value.
+
+        It is appropriate to call [method@GLib.VariantType.free] on the return value.
+        """
     @classmethod
-    def new_maybe(cls, element: VariantType) -> VariantType: ...
+    def new_maybe(cls, element: VariantType) -> VariantType:
+        """
+            Constructs the type corresponding to a ‘maybe’ instance containing
+        type @type or `Nothing`.
+
+        It is appropriate to call [method@GLib.VariantType.free] on the return value.
+        """
     @classmethod
-    def new_tuple(cls, items: list, length: int) -> VariantType: ...
-    def next(self) -> VariantType | None: ...
+    def new_tuple(cls, items: list, length: int) -> VariantType:
+        """
+            Constructs a new tuple type, from @items.
+
+        @length is the number of items in @items, or `-1` to indicate that
+        @items is `NULL`-terminated.
+
+        It is appropriate to call [method@GLib.VariantType.free] on the return value.
+        """
+    def next(self) -> VariantType | None:
+        """
+            Determines the next item type of a tuple or dictionary entry
+        type.
+
+        @type must be the result of a previous call to
+        [method@GLib.VariantType.first] or [method@GLib.VariantType.next].
+
+        If called on the key type of a dictionary entry then this call
+        returns the value type.  If called on the value type of a dictionary
+        entry then this call returns `NULL`.
+
+        For tuples, `NULL` is returned when @type is the last item in the tuple.
+        """
     @staticmethod
     def string_get_depth_(type_string: str) -> int: ...
     @staticmethod
-    def string_is_valid(type_string: str) -> bool: ...
+    def string_is_valid(type_string: str) -> bool:
+        """
+            Checks if @type_string is a valid
+        [GVariant type string](./struct.VariantType.html#gvariant-type-strings).
+
+        This call is equivalent to calling [func@GLib.VariantType.string_scan] and
+        confirming that the following character is a nul terminator.
+        """
     @staticmethod
-    def string_scan(string: str, limit: str | None = None) -> tuple[bool, str | None]: ...
-    def value(self) -> VariantType: ...
+    def string_scan(string: str, limit: str | None = None) -> tuple[bool, str | None]:
+        """
+            Scan for a single complete and valid GVariant type string in @string.
+
+        The memory pointed to by @limit (or bytes beyond it) is never
+        accessed.
+
+        If a valid type string is found, @endptr is updated to point to the
+        first character past the end of the string that was found and %TRUE
+        is returned.
+
+        If there is no valid type string starting at @string, or if the type
+        string does not end before @limit then %FALSE is returned.
+
+        For the simple case of checking if a string is a valid type string,
+        see [func@GLib.VariantType.string_is_valid].
+        """
+    def value(self) -> VariantType:
+        """
+            Determines the value type of a dictionary entry type.
+
+        This function may only be used with a dictionary entry type.
+        """
 
     # python methods (overrides?)
     @staticmethod

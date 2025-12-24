@@ -235,7 +235,10 @@ def parse_class(
             type_hint_name=prop_type_hint_name,
             type_hint_namespace=prop_type_hint_namespace,
             is_deprecated=field.is_deprecated(),
-            docstring=None,  # TODO: retrieve docstring
+            docstring=GIRDocs().get_class_field_docstring(
+                class_name=class_to_parse.__name__,
+                field_name=field_name,
+            ),
             line_comment=None,
             deprecation_warnings=None,
             may_be_null=may_be_null,
@@ -290,6 +293,10 @@ def parse_class(
                 name_unescaped=signal_name_unescaped,
                 namespace=signal.get_namespace(),
                 handler=FunctionSchema.from_gi_object(signal),
+                docstring=GIRDocs().get_class_signal_docstring(
+                    class_name=class_to_parse.__name__,
+                    signal_name=signal_name,
+                ),
             )
             # if signal_name == "notify":
             #     breakpoint()
@@ -323,7 +330,10 @@ def parse_class(
             type_hint_namespace=prop_type_hint_namespace,
             type_hint_name=prop_type_hint_name,
             line_comment=line_comment,
-            docstring=None,  # TODO: retrieve docstring
+            docstring=GIRDocs().get_class_property_docstring(
+                class_name=class_to_parse.__name__,
+                property_name=p_name,
+            ),
             may_be_null=may_be_null,
         )
         class_props.append(c)
@@ -343,6 +353,7 @@ def parse_class(
                     namespace=prop.get_namespace(),
                     signal_name=sanitized_name,
                     signal_name_unescaped=signal_name_unescaped,
+                    docstring=None,  # no docstring for notify signals
                 )
             )
         # end adding the signal ##############################################

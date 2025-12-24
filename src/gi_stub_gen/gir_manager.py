@@ -3,6 +3,8 @@ import logging
 from pathlib import Path
 
 from gi_stub_gen.parser.gir import ModuleDocs, parse_gir_docs
+
+# from gi_stub_gen.parser.gir import ModuleDocs, parse_gir_docs
 from gi_stub_gen.utils import SingletonMeta
 
 
@@ -168,7 +170,24 @@ class GIRDocs(metaclass=SingletonMeta):
 
         class_docs = self._module_gir_docs.classes.get(class_name)
         if class_docs and signal_name in class_docs.signals:
-            return class_docs.signals[signal_name]
+            return class_docs.signals[signal_name].docstring
+        return None
+
+    def get_class_property_docstring(
+        self,
+        class_name: str,
+        property_name: str,
+    ) -> str | None:
+        """
+        Get the parsed documentation for a specific class property.
+        """
+        if not self._module_gir_docs:
+            # logger.warning("GIR docs not loaded, please load a GIR file first using GIRDocs.load()")
+            return None
+
+        class_docs = self._module_gir_docs.classes.get(class_name)
+        if class_docs and property_name in class_docs.properties:
+            return class_docs.properties[property_name]
         return None
 
     def get_enum_docstring(

@@ -9185,10 +9185,26 @@ class unicode_general_category_t(GObject.GEnum):
 ###############################################################
 
 class aat_layout_feature_selector_info_t(GObject.GPointer):
+    """
+    Structure representing a setting for an #hb_aat_layout_feature_type_t.
+    """
+
     # gi Fields
     disable: aat_layout_feature_selector_t = ...
+    """
+    The value to turn the selector off
+
+    """
     enable: aat_layout_feature_selector_t = ...
+    """
+    The value to turn the selector on
+
+    """
     name_id: int = ...
+    """
+    The selector's name identifier
+
+    """
     @builtins.property
     def reserved(self) -> int: ...
 
@@ -9199,6 +9215,12 @@ class aat_layout_feature_selector_info_t(GObject.GPointer):
         """
 
 class blob_t(GObject.GBoxed):
+    """
+    Data type for blobs. A blob wraps a chunk of binary
+    data and facilitates its lifecycle management between
+    a client program and HarfBuzz.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9206,6 +9228,11 @@ class blob_t(GObject.GBoxed):
         """
 
 class buffer_t(GObject.GBoxed):
+    """
+    The main structure holding the input text and its properties before shaping,
+    and output glyphs and their information after shaping.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9213,6 +9240,10 @@ class buffer_t(GObject.GBoxed):
         """
 
 class color_line_t(GObject.GBoxed):
+    """
+    A struct containing color information for a gradient.
+    """
+
     # gi Fields
     get_color_stops: color_line_get_color_stops_func_tcolor_line_tCB = ...
     get_extend: color_line_get_extend_func_tcolor_line_tCB = ...
@@ -9224,10 +9255,34 @@ class color_line_t(GObject.GBoxed):
         """
 
 class color_stop_t(GObject.GBoxed):
+    """
+    Information about a color stop on a color line.
+
+    Color lines typically have offsets ranging between 0 and 1,
+    but that is not required.
+
+    Note: despite @color being unpremultiplied here, interpolation in
+    gradients shall happen in premultiplied space. See the OpenType spec
+    [COLR](https://learn.microsoft.com/en-us/typography/opentype/spec/colr)
+    section for details.
+    """
+
     # gi Fields
     color: int = ...
+    """
+    the color, unpremultiplied
+
+    """
     is_foreground: int = ...
+    """
+    whether the color is the foreground
+
+    """
     offset: float = ...
+    """
+    the offset of the color stop
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9236,6 +9291,15 @@ class color_stop_t(GObject.GBoxed):
         """
 
 class draw_funcs_t(GObject.GBoxed):
+    """
+    Glyph draw callbacks.
+
+    #hb_draw_move_to_func_t, #hb_draw_line_to_func_t and
+    #hb_draw_cubic_to_func_t calls are necessary to be defined but we translate
+    #hb_draw_quadratic_to_func_t calls to #hb_draw_cubic_to_func_t if the
+    callback isn't defined.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9243,12 +9307,36 @@ class draw_funcs_t(GObject.GBoxed):
         """
 
 class draw_state_t(GObject.GBoxed):
+    """
+    Current drawing state.
+    """
+
     # gi Fields
     current_x: float = ...
+    """
+    X component of current point
+
+    """
     current_y: float = ...
+    """
+    Y component of current point
+
+    """
     path_open: int = ...
+    """
+    Whether there is an open path
+
+    """
     path_start_x: float = ...
+    """
+    X component of the start of current path
+
+    """
     path_start_y: float = ...
+    """
+    Y component of the start of current path
+
+    """
     @builtins.property
     def reserved1(self) -> var_num_t | None: ...
     @builtins.property
@@ -9271,6 +9359,10 @@ class draw_state_t(GObject.GBoxed):
         """
 
 class face_t(GObject.GBoxed):
+    """
+    Data type for holding font faces.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9278,24 +9370,74 @@ class face_t(GObject.GBoxed):
         """
 
 class feature_t(GObject.GBoxed):
+    """
+    The #hb_feature_t is the structure that holds information about requested
+    feature application. The feature will be applied with the given value to all
+    glyphs which are in clusters between @start (inclusive) and @end (exclusive).
+    Setting start to #HB_FEATURE_GLOBAL_START and end to #HB_FEATURE_GLOBAL_END
+    specifies that the feature always applies to the entire buffer.
+    """
+
     # gi Fields
     end: int = ...
+    """
+    the cluster to end applying this feature setting (exclusive).
+
+    """
     start: int = ...
+    """
+    the cluster to start applying this feature setting (inclusive).
+
+    """
     tag: int = ...
+    """
+    The #hb_tag_t tag of the feature
+
+    """
     value: int = ...
+    """
+    The value of the feature. 0 disables the feature, non-zero (usually
+    1) enables the feature.  For features implemented as lookup type 3 (like
+    'salt') the @value is a one based index into the alternates.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def _string(self) -> tuple[list, int]: ...
+    def _string(self) -> tuple[list, int]:
+        """
+            Converts a #hb_feature_t into a `NULL`-terminated string in the format
+        understood by hb_feature_from_string(). The client in responsible for
+        allocating big enough size for @buf, 128 bytes is more than enough.
+        """
 
 class font_extents_t(GObject.GPointer):
+    """
+    Font-wide extent values, measured in font units.
+
+    Note that typically @ascender is positive and @descender
+    negative, in coordinate systems that grow up.
+    """
+
     # gi Fields
     ascender: int = ...
+    """
+    The height of typographic ascenders.
+
+    """
     descender: int = ...
+    """
+    The depth of typographic descenders.
+
+    """
     line_gap: int = ...
+    """
+    The suggested line-spacing gap.
+
+    """
     @builtins.property
     def reserved1(self) -> int: ...
     @builtins.property
@@ -9322,6 +9464,17 @@ class font_extents_t(GObject.GPointer):
         """
 
 class font_funcs_t(GObject.GBoxed):
+    """
+    Data type containing a set of virtual methods used for
+    working on #hb_font_t font objects.
+
+    HarfBuzz provides a lightweight default function for each of
+    the methods in #hb_font_funcs_t. Client programs can implement
+    their own replacements for the individual font functions, as
+    needed, and replace the default by calling the setter for a
+    method.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9329,6 +9482,10 @@ class font_funcs_t(GObject.GBoxed):
         """
 
 class font_t(GObject.GBoxed):
+    """
+    Data type for holding fonts.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9336,11 +9493,33 @@ class font_t(GObject.GBoxed):
         """
 
 class glyph_extents_t(GObject.GPointer):
+    """
+    Glyph extent values, measured in font units.
+
+    Note that @height is negative, in coordinate systems that grow up.
+    """
+
     # gi Fields
     height: int = ...
+    """
+    Distance from the top extremum of the glyph to the bottom extremum.
+
+    """
     width: int = ...
+    """
+    Distance from the left extremum of the glyph to the right extremum.
+
+    """
     x_bearing: int = ...
+    """
+    Distance from the x-origin to the left extremum of the glyph.
+
+    """
     y_bearing: int = ...
+    """
+    Distance from the top extremum of the glyph to the y-origin.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9349,9 +9528,33 @@ class glyph_extents_t(GObject.GPointer):
         """
 
 class glyph_info_t(GObject.GBoxed):
+    """
+    The #hb_glyph_info_t is the structure that holds information about the
+    glyphs and their relation to input text.
+    """
+
     # gi Fields
     cluster: int = ...
+    """
+    the index of the character in the original text that corresponds
+              to this #hb_glyph_info_t, or whatever the client passes to
+              hb_buffer_add(). More than one #hb_glyph_info_t can have the same
+              @cluster value, if they resulted from the same character (e.g. one
+              to many glyph substitution), and when more than one character gets
+              merged in the same glyph (e.g. many to one glyph substitution) the
+              #hb_glyph_info_t will have the smallest cluster value of them.
+              By default some characters are merged into the same cluster
+              (e.g. combining marks have the same cluster as their bases)
+              even if they are separate glyphs, hb_buffer_set_cluster_level()
+              allow selecting more fine-grained cluster handling.
+
+    """
     codepoint: int = ...
+    """
+    either a Unicode code point (before shaping) or a glyph index
+                (after shaping).
+
+    """
     @builtins.property
     def mask(self) -> int: ...
     @builtins.property
@@ -9366,13 +9569,39 @@ class glyph_info_t(GObject.GBoxed):
         """
 
 class glyph_position_t(GObject.GBoxed):
+    """
+    The #hb_glyph_position_t is the structure that holds the positions of the
+    glyph in both horizontal and vertical directions. All positions in
+    #hb_glyph_position_t are relative to the current point.
+    """
+
     # gi Fields
     @builtins.property
     def var(self) -> var_int_t | None: ...
     x_advance: int = ...
+    """
+    how much the line advances after drawing this glyph when setting
+                text in horizontal direction.
+
+    """
     x_offset: int = ...
+    """
+    how much the glyph moves on the X-axis before drawing it, this
+               should not affect how much the line advances.
+
+    """
     y_advance: int = ...
+    """
+    how much the line advances after drawing this glyph when setting
+                text in vertical direction.
+
+    """
     y_offset: int = ...
+    """
+    how much the glyph moves on the Y-axis before drawing it, this
+               should not affect how much the line advances.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9381,14 +9610,26 @@ class glyph_position_t(GObject.GBoxed):
         """
 
 class language_t(GObject.GPointer):
+    """
+    Data type for languages. Each #hb_language_t corresponds to a BCP 47
+    language tag.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def _string(self) -> str: ...
+    def _string(self) -> str:
+        """
+        Converts an #hb_language_t to a string.
+        """
 
 class map_t(GObject.GBoxed):
+    """
+    Data type for holding integer-to-integer hash maps.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9396,9 +9637,25 @@ class map_t(GObject.GBoxed):
         """
 
 class ot_color_layer_t(GObject.GPointer):
+    """
+    Pairs of glyph and color index.
+
+    A color index of 0xFFFF does not refer to a palette
+    color, but indicates that the foreground color should
+    be used.
+    """
+
     # gi Fields
     color_index: int = ...
+    """
+    the palette color index of the layer
+
+    """
     glyph: int = ...
+    """
+    the glyph ID of the layer
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9407,12 +9664,38 @@ class ot_color_layer_t(GObject.GPointer):
         """
 
 class ot_math_glyph_part_t(GObject.GBoxed):
+    """
+    Data type to hold information for a "part" component of a math-variant glyph.
+    Large variants for stretchable math glyphs (such as parentheses) can be constructed
+    on the fly from parts.
+    """
+
     # gi Fields
     end_connector_length: int = ...
+    """
+    The length of the connector on the ending side of the variant part
+
+    """
     flags: ot_math_glyph_part_flags_t = ...
+    """
+    #hb_ot_math_glyph_part_flags_t flags for the part
+
+    """
     full_advance: int = ...
+    """
+    The total advance of the part
+
+    """
     glyph: int = ...
+    """
+    The glyph index of the variant part
+
+    """
     start_connector_length: int = ...
+    """
+    The length of the connector on the starting side of the variant part
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9421,9 +9704,21 @@ class ot_math_glyph_part_t(GObject.GBoxed):
         """
 
 class ot_math_glyph_variant_t(GObject.GBoxed):
+    """
+    Data type to hold math-variant information for a glyph.
+    """
+
     # gi Fields
     advance: int = ...
+    """
+    The advance width of the variant
+
+    """
     glyph: int = ...
+    """
+    The glyph index of the variant
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9432,9 +9727,21 @@ class ot_math_glyph_variant_t(GObject.GBoxed):
         """
 
 class ot_math_kern_entry_t(GObject.GPointer):
+    """
+    Data type to hold math kerning (cut-in) information for a glyph.
+    """
+
     # gi Fields
     kern_value: int = ...
+    """
+    The kern value of the entry
+
+    """
     max_correction_height: int = ...
+    """
+    The maximum height at which this entry should be used
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9443,9 +9750,21 @@ class ot_math_kern_entry_t(GObject.GPointer):
         """
 
 class ot_name_entry_t(GObject.GPointer):
+    """
+    Structure representing a name ID in a particular language.
+    """
+
     # gi Fields
     language: language_t | None = ...
+    """
+    language
+
+    """
     name_id: int = ...
+    """
+    name ID
+
+    """
     @builtins.property
     def var(self) -> var_int_t | None: ...
 
@@ -9456,16 +9775,53 @@ class ot_name_entry_t(GObject.GPointer):
         """
 
 class ot_var_axis_info_t(GObject.GBoxed):
+    """
+    Data type for holding variation-axis values.
+
+    The minimum, default, and maximum values are in un-normalized, user scales.
+
+    <note>Note: at present, the only flag defined for @flags is
+    #HB_OT_VAR_AXIS_FLAG_HIDDEN.</note>
+    """
+
     # gi Fields
     axis_index: int = ...
+    """
+    Index of the axis in the variation-axis array
+
+    """
     default_value: float = ...
+    """
+    The position on the variation axis corresponding to the font's defaults
+
+    """
     flags: ot_var_axis_flags_t = ...
+    """
+    The #hb_ot_var_axis_flags_t flags for the axis
+
+    """
     max_value: float = ...
+    """
+    The maximum value on the variation axis that the font covers
+
+    """
     min_value: float = ...
+    """
+    The minimum value on the variation axis that the font covers
+
+    """
     name_id: int = ...
+    """
+    The `name` table Name ID that provides display names for the axis
+
+    """
     @builtins.property
     def reserved(self) -> int: ...
     tag: int = ...
+    """
+    The #hb_tag_t tag identifying the design variation of the axis
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9474,12 +9830,36 @@ class ot_var_axis_info_t(GObject.GBoxed):
         """
 
 class ot_var_axis_t(GObject.GPointer):
+    """
+    Use #hb_ot_var_axis_info_t instead.
+    """
+
     # gi Fields
     default_value: float = ...
+    """
+    default value of the axis
+
+    """
     max_value: float = ...
+    """
+    maximum value of the axis
+
+    """
     min_value: float = ...
+    """
+    minimum value of the axis
+
+    """
     name_id: int = ...
+    """
+    axis name identifier
+
+    """
     tag: int = ...
+    """
+    axis tag
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9488,6 +9868,29 @@ class ot_var_axis_t(GObject.GPointer):
         """
 
 class paint_funcs_t(GObject.GBoxed):
+    """
+    Glyph paint callbacks.
+
+    The callbacks assume that the caller maintains a stack
+    of current transforms, clips and intermediate surfaces,
+    as evidenced by the pairs of push/pop callbacks. The
+    push/pop calls will be properly nested, so it is fine
+    to store the different kinds of object on a single stack.
+
+    Not all callbacks are required for all kinds of glyphs.
+    For rendering COLRv0 or non-color outline glyphs, the
+    gradient callbacks are not needed, and the composite
+    callback only needs to handle simple alpha compositing
+    (#HB_PAINT_COMPOSITE_MODE_SRC_OVER).
+
+    The paint-image callback is only needed for glyphs
+    with image blobs in the CBDT, sbix or SVG tables.
+
+    The custom-palette-color callback is only necessary if
+    you want to override colors from the font palette with
+    custom colors.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9495,10 +9898,28 @@ class paint_funcs_t(GObject.GBoxed):
         """
 
 class segment_properties_t(GObject.GBoxed):
+    """
+    The structure that holds various text properties of an #hb_buffer_t. Can be
+    set and retrieved using hb_buffer_set_segment_properties() and
+    hb_buffer_get_segment_properties(), respectively.
+    """
+
     # gi Fields
     direction: direction_t = ...
+    """
+    the #hb_direction_t of the buffer, see hb_buffer_set_direction().
+
+    """
     language: language_t | None = ...
+    """
+    the #hb_language_t of the buffer, see hb_buffer_set_language().
+
+    """
     script: script_t = ...
+    """
+    the #hb_script_t of the buffer, see hb_buffer_set_script().
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -9507,6 +9928,13 @@ class segment_properties_t(GObject.GBoxed):
         """
 
 class set_t(GObject.GBoxed):
+    """
+    Data type for holding a set of integers. #hb_set_t's are
+    used to gather and contain glyph IDs, Unicode code
+    points, and various other collections of discrete
+    values.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9514,6 +9942,18 @@ class set_t(GObject.GBoxed):
         """
 
 class shape_plan_t(GObject.GBoxed):
+    """
+    Data type for holding a shaping plan.
+
+    Shape plans contain information about how HarfBuzz will shape a
+    particular text segment, based on the segment's properties and the
+    capabilities in the font face in use.
+
+    Shape plans can be queried about how shaping will perform, given a set
+    of specific input parameters (script, language, direction, features,
+    etc.).
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9521,6 +9961,17 @@ class shape_plan_t(GObject.GBoxed):
         """
 
 class unicode_funcs_t(GObject.GBoxed):
+    """
+    Data type containing a set of virtual methods used for
+    accessing various Unicode character properties.
+
+    HarfBuzz provides a default function for each of the
+    methods in #hb_unicode_funcs_t. Client programs can implement
+    their own replacements for the individual Unicode functions, as
+    needed, and replace the default by calling the setter for a
+    method.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9528,6 +9979,10 @@ class unicode_funcs_t(GObject.GBoxed):
         """
 
 class user_data_key_t(GObject.GBoxed):
+    """
+    Data structure for holding user-data keys.
+    """
+
     # gi Fields
     @builtins.property
     def unused(self) -> int: ...
@@ -9570,16 +10025,35 @@ class var_num_t(GObject.GPointer):
         """
 
 class variation_t(GObject.GPointer):
+    """
+    Data type for holding variation data. Registered OpenType
+    variation-axis tags are listed in
+    [OpenType Axis Tag Registry](https://docs.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg).
+    """
+
     # gi Fields
     tag: int = ...
+    """
+    The #hb_tag_t tag of the variation-axis name
+
+    """
     value: float = ...
+    """
+    The value of the variation axis
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def _string(self) -> tuple[list, int]: ...
+    def _string(self) -> tuple[list, int]:
+        """
+            Converts an #hb_variation_t into a `NULL`-terminated string in the format
+        understood by hb_variation_from_string(). The client in responsible for
+        allocating big enough size for @buf, 128 bytes is more than enough.
+        """
 
 ###############################################################
 # Callbacks

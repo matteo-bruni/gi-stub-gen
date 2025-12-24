@@ -10,6 +10,9 @@ class SignalSchema(BaseSchema):
     namespace: str
     handler: FunctionSchema
 
+    docstring: str | None
+    """Documentation string for the signal.     """
+
     @classmethod
     def from_gi_object(
         cls,
@@ -53,8 +56,10 @@ def generate_notify_signal(
     namespace: str,
     signal_name: str,
     signal_name_unescaped: str,
+    docstring: str | None,
 ):
     return SignalSchema(
+        docstring=docstring,
         name=f"notify::{signal_name}",
         name_unescaped=f"notify::{signal_name_unescaped}",
         namespace=namespace,
@@ -135,6 +140,7 @@ def generate_notify_signal(
 # def connect(self,
 # detailed_signal: str, handler: Callable[..., Any], *args: Any) -> int: ...
 DEFAULT_CONNECT = SignalSchema(
+    docstring=None,
     name=None,
     name_unescaped=None,
     namespace="",

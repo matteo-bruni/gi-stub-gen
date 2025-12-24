@@ -361,29 +361,127 @@ def update_layout(
 ###############################################################
 
 class Font(GObject.GInterface):
+    """
+    `PangoCairoFont` is an interface exported by fonts for
+    use with Cairo.
+
+    The actual type of the font will depend on the particular
+    font technology Cairo was compiled to use.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_scaled_font(self) -> cairo.ScaledFont | None: ...
+    def get_scaled_font(self) -> cairo.ScaledFont | None:
+        """
+            Gets the `cairo_scaled_font_t` used by @font.
+        The scaled font can be referenced and kept using
+        cairo_scaled_font_reference().
+        """
 
 class FontMap(GObject.GInterface):
+    """
+    `PangoCairoFontMap` is an interface exported by font maps for
+    use with Cairo.
+
+    The actual type of the font map will depend on the particular
+    font technology Cairo was compiled to use.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def get_default() -> Pango.FontMap: ...
-    def get_font_type(self) -> cairo.FontType: ...
-    def get_resolution(self) -> float: ...
+    def get_default() -> Pango.FontMap:
+        """
+            Gets a default `PangoCairoFontMap` to use with Cairo.
+
+        Note that the type of the returned object will depend on the
+        particular font backend Cairo was compiled to use; you generally
+        should only use the `PangoFontMap` and `PangoCairoFontMap`
+        interfaces on the returned object.
+
+        The default Cairo fontmap can be changed by using
+        [method@PangoCairo.FontMap.set_default]. This can be used to
+        change the Cairo font backend that the default fontmap uses
+        for example.
+
+        Note that since Pango 1.32.6, the default fontmap is per-thread.
+        Each thread gets its own default fontmap. In this way, PangoCairo
+        can be used safely from multiple threads.
+        """
+    def get_font_type(self) -> cairo.FontType:
+        """
+        Gets the type of Cairo font backend that @fontmap uses.
+        """
+    def get_resolution(self) -> float:
+        """
+            Gets the resolution for the fontmap.
+
+        See [method@PangoCairo.FontMap.set_resolution].
+        """
     @staticmethod
-    def new() -> Pango.FontMap: ...
+    def new() -> Pango.FontMap:
+        """
+            Creates a new `PangoCairoFontMap` object.
+
+        A fontmap is used to cache information about available fonts,
+        and holds certain global parameters such as the resolution.
+        In most cases, you can use `func@PangoCairo.font_map_get_default]
+        instead.
+
+        Note that the type of the returned object will depend
+        on the particular font backend Cairo was compiled to use;
+        You generally should only use the `PangoFontMap` and
+        `PangoCairoFontMap` interfaces on the returned object.
+
+        You can override the type of backend returned by using an
+        environment variable %PANGOCAIRO_BACKEND. Supported types,
+        based on your build, are fc (fontconfig), win32, and coretext.
+        If requested type is not available, NULL is returned. Ie.
+        this is only useful for testing, when at least two backends
+        are compiled in.
+        """
     @staticmethod
-    def new_for_font_type(fonttype: cairo.FontType) -> Pango.FontMap | None: ...
-    def set_default(self) -> None: ...
-    def set_resolution(self, dpi: float) -> None: ...
+    def new_for_font_type(fonttype: cairo.FontType) -> Pango.FontMap | None:
+        """
+            Creates a new `PangoCairoFontMap` object of the type suitable
+        to be used with cairo font backend of type @fonttype.
+
+        In most cases one should simply use [func@PangoCairo.FontMap.new], or
+        in fact in most of those cases, just use [func@PangoCairo.FontMap.get_default].
+        """
+    def set_default(self) -> None:
+        """
+            Sets a default `PangoCairoFontMap` to use with Cairo.
+
+        This can be used to change the Cairo font backend that the
+        default fontmap uses for example. The old default font map
+        is unreffed and the new font map referenced.
+
+        Note that since Pango 1.32.6, the default fontmap is per-thread.
+        This function only changes the default fontmap for
+        the current thread. Default fontmaps of existing threads
+        are not changed. Default fontmaps of any new threads will
+        still be created using [func@PangoCairo.FontMap.new].
+
+        A value of %NULL for @fontmap will cause the current default
+        font map to be released and a new default font map to be created
+        on demand, using [func@PangoCairo.FontMap.new].
+        """
+    def set_resolution(self, dpi: float) -> None:
+        """
+            Sets the resolution for the fontmap.
+
+        This is a scale factor between
+        points specified in a `PangoFontDescription` and Cairo units. The
+        default value is 96, meaning that a 10 point font will be 13
+        units high. (10 * 96. / 72. = 13.3).
+        """
 
 ###############################################################
 # Callbacks

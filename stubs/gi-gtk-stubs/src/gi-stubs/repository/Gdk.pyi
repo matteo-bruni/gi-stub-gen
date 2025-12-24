@@ -1901,6 +1901,9 @@ class AppLaunchContext(GObject.Object):
 
     class Props(GObject.Object.Props):
         display: Display | None
+        """
+        The display that the `GdkAppLaunchContext` is on.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -1911,11 +1914,60 @@ class AppLaunchContext(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @builtins.property
-    def get_display(self) -> Display: ...
-    def set_desktop(self, desktop: int) -> None: ...
-    def set_icon(self, icon: Gio.Icon | None = None) -> None: ...
-    def set_icon_name(self, icon_name: str | None = None) -> None: ...
-    def set_timestamp(self, timestamp: int) -> None: ...
+    def get_display(self) -> Display:
+        """
+        Gets the `GdkDisplay` that @context is for.
+        """
+    def set_desktop(self, desktop: int) -> None:
+        """
+            Sets the workspace on which applications will be launched.
+
+        This only works when running under a window manager that
+        supports multiple workspaces, as described in the
+        [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec).
+        Specifically this sets the `_NET_WM_DESKTOP` property described
+        in that spec.
+
+        This only works when using the X11 backend.
+
+        When the workspace is not specified or @desktop is set to -1,
+        it is up to the window manager to pick one, typically it will
+        be the current workspace.
+        """
+    def set_icon(self, icon: Gio.Icon | None = None) -> None:
+        """
+            Sets the icon for applications that are launched with this
+        context.
+
+        Window Managers can use this information when displaying startup
+        notification.
+
+        See also [method@Gdk.AppLaunchContext.set_icon_name].
+        """
+    def set_icon_name(self, icon_name: str | None = None) -> None:
+        """
+            Sets the icon for applications that are launched with this context.
+
+        The @icon_name will be interpreted in the same way as the Icon field
+        in desktop files. See also [method@Gdk.AppLaunchContext.set_icon].
+
+        If both @icon and @icon_name are set, the @icon_name takes priority.
+        If neither @icon or @icon_name is set, the icon is taken from either
+        the file that is passed to launched application or from the `GAppInfo`
+        for the launched application itself.
+        """
+    def set_timestamp(self, timestamp: int) -> None:
+        """
+            Sets the timestamp of @context.
+
+        The timestamp should ideally be taken from the event that
+        triggered the launch.
+
+        Window managers can use this information to avoid moving the
+        focus to the newly launched application when the user is busy
+        typing in another window. This is also known as 'focus stealing
+        prevention'.
+        """
 
     # Signals
     @typing.overload
@@ -1940,7 +1992,10 @@ class ButtonEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_button(self) -> int: ...
+    def get_button(self) -> int:
+        """
+        Extract the button number from a button event.
+        """
 
 class CairoContext(DrawContext):
     """
@@ -1957,7 +2012,17 @@ class CairoContext(DrawContext):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def cairo_create(self) -> cairo.Context | None: ...
+    def cairo_create(self) -> cairo.Context | None:
+        """
+            Retrieves a Cairo context to be used to draw on the `GdkSurface`
+        of @context.
+
+        A call to [method@Gdk.DrawContext.begin_frame] with this
+        @context must have been done or this function will return %NULL.
+
+        The returned context is guaranteed to be valid until
+        [method@Gdk.DrawContext.end_frame] is called.
+        """
 
 class CicpParams(GObject.Object):
     """
@@ -1984,9 +2049,48 @@ class CicpParams(GObject.Object):
 
     class Props(GObject.Object.Props):
         color_primaries: int  # [color-primaries]: changed because contained invalid characters
+        """
+        The color primaries to use.
+
+        Supported values:
+
+        - 1: BT.709 / sRGB
+        - 2: unspecified
+        - 5: PAL
+        - 6,7: BT.601 / NTSC
+        - 9: BT.2020
+        - 12: Display P3
+        """
         matrix_coefficients: int  # [matrix-coefficients]: changed because contained invalid characters
+        """
+        The matrix coefficients (for YUV to RGB conversion).
+
+        Supported values:
+
+        - 0: RGB
+        - 2: unspecified
+        """
         range: CicpRange
+        """
+        Whether the data is using the full range of values.
+
+        The range of the data.
+        """
         transfer_function: int  # [transfer-function]: changed because contained invalid characters
+        """
+        The transfer function to use.
+
+        Supported values:
+
+        - 1,6,14,15: BT.709, BT.601, BT.2020
+        - 2: unspecified
+        - 4: gamma 2.2
+        - 5: gamma 2.8
+        - 8: linear
+        - 13: sRGB
+        - 16: BT.2100 PQ
+        - 18: BT.2100 HLG
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -2002,21 +2106,60 @@ class CicpParams(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def build_color_state(self) -> ColorState: ...
+    def build_color_state(self) -> ColorState:
+        """
+            Creates a new `GdkColorState` object for the cicp parameters in @self.
+
+        Note that this may fail if the cicp parameters in @self are not
+        supported by GTK. In that case, `NULL` is returned, and @error is set
+        with an error message that can be presented to the user.
+        """
     @builtins.property
-    def get_color_primaries(self) -> int: ...
+    def get_color_primaries(self) -> int:
+        """
+            Returns the value of the color-primaries property
+        of @self.
+        """
     @builtins.property
-    def get_matrix_coefficients(self) -> int: ...
+    def get_matrix_coefficients(self) -> int:
+        """
+        Gets the matrix-coefficients property of @self.
+        """
     @builtins.property
-    def get_range(self) -> CicpRange: ...
+    def get_range(self) -> CicpRange:
+        """
+        Gets the range property of @self.
+        """
     @builtins.property
-    def get_transfer_function(self) -> int: ...
+    def get_transfer_function(self) -> int:
+        """
+        Gets the transfer-function property of @self.
+        """
     @classmethod
-    def new(cls) -> CicpParams: ...
-    def set_color_primaries(self, color_primaries: int) -> None: ...
-    def set_matrix_coefficients(self, matrix_coefficients: int) -> None: ...
-    def set_range(self, range: CicpRange) -> None: ...
-    def set_transfer_function(self, transfer_function: int) -> None: ...
+    def new(cls) -> CicpParams:
+        """
+            Creates a new `GdkCicpParams` object.
+
+        The initial values of the properties are the values for "undefined"
+        and need to be set before a color state object can be built.
+        """
+    def set_color_primaries(self, color_primaries: int) -> None:
+        """
+        Sets the color-primaries property of @self.
+        """
+    def set_matrix_coefficients(self, matrix_coefficients: int) -> None:
+        """
+            @self a `GdkCicpParams`
+        Sets the matrix-coefficients property of @self.
+        """
+    def set_range(self, range: CicpRange) -> None:
+        """
+        Sets the range property of @self
+        """
+    def set_transfer_function(self, transfer_function: int) -> None:
+        """
+        Sets the transfer-function property of @self.
+        """
 
     # Signals
     @typing.overload
@@ -2081,9 +2224,22 @@ class Clipboard(GObject.Object):
 
     class Props(GObject.Object.Props):
         content: ContentProvider | None
+        """
+        The `GdkContentProvider` or %NULL if the clipboard is empty or contents are
+        provided otherwise.
+        """
         display: Display | None
+        """
+        The `GdkDisplay` that the clipboard belongs to.
+        """
         formats: ContentFormats | None
+        """
+        The possible formats that the clipboard can provide its data in.
+        """
         local: bool
+        """
+        %TRUE if the contents of the clipboard are owned by this process.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -2094,13 +2250,34 @@ class Clipboard(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @builtins.property
-    def get_content(self) -> ContentProvider | None: ...
+    def get_content(self) -> ContentProvider | None:
+        """
+            Returns the `GdkContentProvider` currently set on @clipboard.
+
+        If the @clipboard is empty or its contents are not owned by the
+        current process, %NULL will be returned.
+        """
     @builtins.property
-    def get_display(self) -> Display: ...
+    def get_display(self) -> Display:
+        """
+        Gets the `GdkDisplay` that the clipboard was created for.
+        """
     @builtins.property
-    def get_formats(self) -> ContentFormats: ...
+    def get_formats(self) -> ContentFormats:
+        """
+        Gets the formats that the clipboard can provide its current contents in.
+        """
     @builtins.property
-    def is_local(self) -> bool: ...
+    def is_local(self) -> bool:
+        """
+            Returns if the clipboard is local.
+
+        A clipboard is considered local if it was last claimed
+        by the running application.
+
+        Note that [method@Gdk.Clipboard.get_content] may return %NULL
+        even on a local clipboard. In this case the clipboard is empty.
+        """
     def read_async(
         self,
         mime_types: list,
@@ -2108,22 +2285,58 @@ class Clipboard(GObject.Object):
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
         user_data: object | None = None,
-    ) -> None: ...
-    def read_finish(self, result: Gio.AsyncResult) -> tuple[Gio.InputStream | None, str | None]: ...
+    ) -> None:
+        """
+            Asynchronously requests an input stream to read the @clipboard's
+        contents from.
+
+        The clipboard will choose the most suitable mime type from the given list
+        to fulfill the request, preferring the ones listed first.
+        """
+    def read_finish(self, result: Gio.AsyncResult) -> tuple[Gio.InputStream | None, str | None]:
+        """
+            Finishes an asynchronous clipboard read.
+
+        See [method@Gdk.Clipboard.read_async].
+        """
     def read_text_async(
         self,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
         user_data: object | None = None,
-    ) -> None: ...
-    def read_text_finish(self, result: Gio.AsyncResult) -> str | None: ...
+    ) -> None:
+        """
+            Asynchronously request the @clipboard contents converted to a string.
+
+        This is a simple wrapper around [method@Gdk.Clipboard.read_value_async].
+        Use that function or [method@Gdk.Clipboard.read_async] directly if you
+        need more control over the operation.
+        """
+    def read_text_finish(self, result: Gio.AsyncResult) -> str | None:
+        """
+            Finishes an asynchronous clipboard read.
+
+        See [method@Gdk.Clipboard.read_text_async].
+        """
     def read_texture_async(
         self,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
         user_data: object | None = None,
-    ) -> None: ...
-    def read_texture_finish(self, result: Gio.AsyncResult) -> Texture | None: ...
+    ) -> None:
+        """
+            Asynchronously request the @clipboard contents converted to a `GdkPixbuf`.
+
+        This is a simple wrapper around [method@Gdk.Clipboard.read_value_async].
+        Use that function or [method@Gdk.Clipboard.read_async] directly if you
+        need more control over the operation.
+        """
+    def read_texture_finish(self, result: Gio.AsyncResult) -> Texture | None:
+        """
+            Finishes an asynchronous clipboard read.
+
+        See [method@Gdk.Clipboard.read_texture_async].
+        """
     def read_value_async(
         self,
         type: GObject.GType,
@@ -2131,24 +2344,86 @@ class Clipboard(GObject.Object):
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
         user_data: object | None = None,
-    ) -> None: ...
-    def read_value_finish(self, result: Gio.AsyncResult) -> GObject.Value: ...
-    def set(self, value: GObject.Value) -> None: ...
-    def set_content(self, provider: ContentProvider | None = None) -> bool: ...
+    ) -> None:
+        """
+            Asynchronously request the @clipboard contents converted to the given
+        @type.
+
+        For local clipboard contents that are available in the given `GType`,
+        the value will be copied directly. Otherwise, GDK will try to use
+        [func@content_deserialize_async] to convert the clipboard's data.
+        """
+    def read_value_finish(self, result: Gio.AsyncResult) -> GObject.Value:
+        """
+            Finishes an asynchronous clipboard read.
+
+        See [method@Gdk.Clipboard.read_value_async].
+        """
+    def set(self, value: GObject.Value) -> None:
+        """
+            Sets the clipboard to contain the value collected from the given varargs.
+
+        Values should be passed the same way they are passed to other value
+        collecting APIs, such as [method@GObject.Object.set] or
+        [func@GObject.signal_emit].
+
+        ```c
+        gdk_clipboard_set (clipboard, GTK_TYPE_STRING, "Hello World");
+
+        gdk_clipboard_set (clipboard, GDK_TYPE_TEXTURE, some_texture);
+        ```
+        """
+    def set_content(self, provider: ContentProvider | None = None) -> bool:
+        """
+            Sets a new content provider on @clipboard.
+
+        The clipboard will claim the `GdkDisplay`'s resources and advertise
+        these new contents to other applications.
+
+        In the rare case of a failure, this function will return %FALSE. The
+        clipboard will then continue reporting its old contents and ignore
+        @provider.
+
+        If the contents are read by either an external application or the
+        @clipboard's read functions, @clipboard will select the best format to
+        transfer the contents and then request that format from @provider.
+        """
     def store_async(
         self,
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
         user_data: object | None = None,
-    ) -> None: ...
-    def store_finish(self, result: Gio.AsyncResult) -> bool: ...
+    ) -> None:
+        """
+            Asynchronously instructs the @clipboard to store its contents remotely.
+
+        If the clipboard is not local, this function does nothing but report success.
+
+        The purpose of this call is to preserve clipboard contents beyond the
+        lifetime of an application, so this function is typically called on
+        exit. Depending on the platform, the functionality may not be available
+        unless a "clipboard manager" is running.
+
+        This function is called automatically when a
+        [GtkApplication](../gtk4/class.Application.html)
+        is shut down, so you likely don't need to call it.
+        """
+    def store_finish(self, result: Gio.AsyncResult) -> bool:
+        """
+            Finishes an asynchronous clipboard store.
+
+        See [method@Gdk.Clipboard.store_async].
+        """
 
     # Signals
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["changed"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when the clipboard changes ownership.
+        """
     @typing.overload
     def connect(
         self,
@@ -2183,27 +2458,116 @@ class Clipboard(GObject.Object):
     ) -> int: ...
 
 class ColorState(GObject.GBoxed):
+    """
+    Provides information to interpret colors and pixels in a variety of ways.
+
+    They are also known as
+    [*color spaces*](https://en.wikipedia.org/wiki/Color_space).
+
+    Crucially, GTK knows how to convert colors from one color
+    state to another.
+
+    `GdkColorState` objects are immutable and therefore threadsafe.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def create_cicp_params(self) -> CicpParams | None: ...
-    def equal(self, other: ColorState) -> bool: ...
+    def create_cicp_params(self) -> CicpParams | None:
+        """
+            Create a [class@Gdk.CicpParams] representing the colorstate.
+
+        It is not guaranteed that every `GdkColorState` can be
+        represented with Cicp parameters. If that is the case,
+        this function returns `NULL`.
+        """
+    def equal(self, other: ColorState) -> bool:
+        """
+            Compares two `GdkColorStates` for equality.
+
+        Note that this function is not guaranteed to be perfect and two objects
+        describing the same color state may compare not equal. However, different
+        color states will never compare equal.
+        """
     @staticmethod
-    def get_oklab() -> ColorState: ...
+    def get_oklab() -> ColorState:
+        """
+            Returns the color state object representing the oklab color space.
+
+        This is a perceptually uniform color state.
+        """
     @staticmethod
-    def get_oklch() -> ColorState: ...
+    def get_oklch() -> ColorState:
+        """
+            Returns the color state object representing the oklch color space.
+
+        This is the polar variant of oklab, in which the hue is encoded as
+        a polar coordinate.
+        """
     @staticmethod
-    def get_rec2100_linear() -> ColorState: ...
+    def get_rec2100_linear() -> ColorState:
+        """
+            Returns the color state object representing the linear rec2100 color space.
+
+        This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and a linear
+        transfer function.
+
+        It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/8/0/1.
+
+        See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-linear)
+        for details about this colorstate.
+        """
     @staticmethod
-    def get_rec2100_pq() -> ColorState: ...
+    def get_rec2100_pq() -> ColorState:
+        """
+            Returns the color state object representing the rec2100-pq color space.
+
+        This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and the transfer
+        function defined by SMPTE ST 2084 and BT.2100-2.
+
+        It is equivalent to the [Cicp](class.CicpParams.html) tuple 9/16/0/1.
+
+        See e.g. [the CSS HDR Module](https://drafts.csswg.org/css-color-hdr/#valdef-color-rec2100-pq)
+        for details about this colorstate.
+        """
     @staticmethod
-    def get_srgb() -> ColorState: ...
+    def get_srgb() -> ColorState:
+        """
+            Returns the color state object representing the sRGB color space.
+
+        This color state uses the primaries defined by BT.709-6 and the transfer function
+        defined by IEC 61966-2-1.
+
+        It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/13/0/1.
+
+        See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB)
+        for details about this colorstate.
+        """
     @staticmethod
-    def get_srgb_linear() -> ColorState: ...
-    def ref(self) -> ColorState: ...
-    def unref(self) -> None: ...
+    def get_srgb_linear() -> ColorState:
+        """
+            Returns the color state object representing the linearized sRGB color space.
+
+        This color state uses the primaries defined by BT.709-6 and a linear transfer function.
+
+        It is equivalent to the [Cicp](class.CicpParams.html) tuple 1/8/0/1.
+
+        See e.g. [the CSS Color Module](https://www.w3.org/TR/css-color-4/#predefined-sRGB-linear)
+        for details about this colorstate.
+        """
+    def ref(self) -> ColorState:
+        """
+        Increase the reference count of @self.
+        """
+    def unref(self) -> None:
+        """
+            Decrease the reference count of @self.
+
+        Unless @self is static, it will be freed
+        when the reference count reaches zero.
+        """
 
 class ContentDeserializer(GObject.Object):
     """
@@ -2224,43 +2588,212 @@ class ContentDeserializer(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_cancellable(self) -> Gio.Cancellable | None: ...
-    def get_gtype(self) -> GObject.GType: ...
-    def get_input_stream(self) -> Gio.InputStream: ...
-    def get_mime_type(self) -> str: ...
-    def get_priority(self) -> int: ...
-    def get_task_data(self) -> object | None: ...
-    def get_user_data(self) -> object | None: ...
-    def get_value(self) -> GObject.Value: ...
-    def return_error(self, error: None) -> None: ...
-    def return_success(self) -> None: ...
-    def set_task_data(self, data: object | None, notify: GLib.DestroyNotify) -> None: ...
+    def get_cancellable(self) -> Gio.Cancellable | None:
+        """
+            Gets the cancellable for the current operation.
+
+        This is the `GCancellable` that was passed to [func@Gdk.content_deserialize_async].
+        """
+    def get_gtype(self) -> GObject.GType:
+        """
+        Gets the `GType` to create an instance of.
+        """
+    def get_input_stream(self) -> Gio.InputStream:
+        """
+            Gets the input stream for the current operation.
+
+        This is the stream that was passed to [func@Gdk.content_deserialize_async].
+        """
+    def get_mime_type(self) -> str:
+        """
+        Gets the mime type to deserialize from.
+        """
+    def get_priority(self) -> int:
+        """
+            Gets the I/O priority for the current operation.
+
+        This is the priority that was passed to [func@Gdk.content_deserialize_async].
+        """
+    def get_task_data(self) -> object | None:
+        """
+            Gets the data that was associated with the current operation.
+
+        See [method@Gdk.ContentDeserializer.set_task_data].
+        """
+    def get_user_data(self) -> object | None:
+        """
+        Gets the user data that was passed when the deserializer was registered.
+        """
+    def get_value(self) -> GObject.Value:
+        """
+        Gets the `GValue` to store the deserialized object in.
+        """
+    def return_error(self, error: None) -> None:
+        """
+            Indicate that the deserialization has ended with an error.
+
+        This function consumes @error.
+        """
+    def return_success(self) -> None:
+        """
+        Indicate that the deserialization has been successfully completed.
+        """
+    def set_task_data(self, data: object | None, notify: GLib.DestroyNotify) -> None:
+        """
+        Associate data with the current deserialization operation.
+        """
 
 class ContentFormats(GObject.GBoxed):
+    """
+    Used to advertise and negotiate the format of content.
+
+    You will encounter `GdkContentFormats` when interacting with objects
+    controlling operations that pass data between different widgets, window
+    or application, like [class@Gdk.Drag], [class@Gdk.Drop],
+    [class@Gdk.Clipboard] or [class@Gdk.ContentProvider].
+
+    GDK supports content in 2 forms: `GType` and mime type.
+    Using `GTypes` is meant only for in-process content transfers. Mime types
+    are meant to be used for data passing both in-process and out-of-process.
+    The details of how data is passed is described in the documentation of
+    the actual implementations. To transform between the two forms,
+    [class@Gdk.ContentSerializer] and [class@Gdk.ContentDeserializer] are used.
+
+    A `GdkContentFormats` describes a set of possible formats content can be
+    exchanged in. It is assumed that this set is ordered. `GTypes` are more
+    important than mime types. Order between different `GTypes` or mime types
+    is the order they were added in, most important first. Functions that
+    care about order, such as [method@Gdk.ContentFormats.union], will describe
+    in their documentation how they interpret that order, though in general the
+    order of the first argument is considered the primary order of the result,
+    followed by the order of further arguments.
+
+    For debugging purposes, the function [method@Gdk.ContentFormats.to_string]
+    exists. It will print a comma-separated list of formats from most important
+    to least important.
+
+    `GdkContentFormats` is an immutable struct. After creation, you cannot change
+    the types it represents. Instead, new `GdkContentFormats` have to be created.
+    The [struct@Gdk.ContentFormatsBuilder] structure is meant to help in this
+    endeavor.
+    """
+
     # gi Methods
-    def contain_gtype(self, type: GObject.GType) -> bool: ...
-    def contain_mime_type(self, mime_type: str) -> bool: ...
-    def get_gtypes(self) -> tuple[list | None, int | None]: ...
-    def get_mime_types(self) -> tuple[list | None, int | None]: ...
-    def is_empty(self) -> bool: ...
-    def match(self, second: ContentFormats) -> bool: ...
-    def match_gtype(self, second: ContentFormats) -> GObject.GType: ...
-    def match_mime_type(self, second: ContentFormats) -> str | None: ...
+    def contain_gtype(self, type: GObject.GType) -> bool:
+        """
+        Checks if a given `GType` is part of the given @formats.
+        """
+    def contain_mime_type(self, mime_type: str) -> bool:
+        """
+        Checks if a given mime type is part of the given @formats.
+        """
+    def get_gtypes(self) -> tuple[list | None, int | None]:
+        """
+            Gets the `GType`s included in @formats.
+
+        Note that @formats may not contain any `GType`s, in particular when
+        they are empty. In that case %NULL will be returned.
+        """
+    def get_mime_types(self) -> tuple[list | None, int | None]:
+        """
+            Gets the mime types included in @formats.
+
+        Note that @formats may not contain any mime types, in particular
+        when they are empty. In that case %NULL will be returned.
+        """
+    def is_empty(self) -> bool:
+        """
+        Returns whether the content formats contain any formats.
+        """
+    def match(self, second: ContentFormats) -> bool:
+        """
+        Checks if @first and @second have any matching formats.
+        """
+    def match_gtype(self, second: ContentFormats) -> GObject.GType:
+        """
+            Finds the first `GType` from @first that is also contained
+        in @second.
+
+        If no matching `GType` is found, %G_TYPE_INVALID is returned.
+        """
+    def match_mime_type(self, second: ContentFormats) -> str | None:
+        """
+            Finds the first mime type from @first that is also contained
+        in @second.
+
+        If no matching mime type is found, %NULL is returned.
+        """
     @classmethod
-    def new(cls, mime_types: list | None, n_mime_types: int) -> ContentFormats: ...
+    def new(cls, mime_types: list | None, n_mime_types: int) -> ContentFormats:
+        """
+            Creates a new `GdkContentFormats` from an array of mime types.
+
+        The mime types must be valid and different from each other or the
+        behavior of the return value is undefined. If you cannot guarantee
+        this, use [struct@Gdk.ContentFormatsBuilder] instead.
+        """
     @classmethod
-    def new_for_gtype(cls, type: GObject.GType) -> ContentFormats: ...
+    def new_for_gtype(cls, type: GObject.GType) -> ContentFormats:
+        """
+        Creates a new `GdkContentFormats` for a given `GType`.
+        """
     @staticmethod
-    def parse(string: str) -> ContentFormats | None: ...
+    def parse(string: str) -> ContentFormats | None:
+        """
+            Parses the given @string into `GdkContentFormats` and
+        returns the formats.
+
+        Strings printed via [method@Gdk.ContentFormats.to_string]
+        can be read in again successfully using this function.
+
+        If @string does not describe valid content formats, %NULL
+        is returned.
+        """
     def print_(self, string: GLib.String) -> None: ...
-    def ref(self) -> ContentFormats: ...
-    def to_string(self) -> str: ...
-    def union(self, second: ContentFormats) -> ContentFormats: ...
-    def union_deserialize_gtypes(self) -> ContentFormats: ...
-    def union_deserialize_mime_types(self) -> ContentFormats: ...
-    def union_serialize_gtypes(self) -> ContentFormats: ...
-    def union_serialize_mime_types(self) -> ContentFormats: ...
-    def unref(self) -> None: ...
+    def ref(self) -> ContentFormats:
+        """
+        Increases the reference count of a `GdkContentFormats` by one.
+        """
+    def to_string(self) -> str:
+        """
+            Prints the given @formats into a human-readable string.
+
+        The resulting string can be parsed with [func@Gdk.ContentFormats.parse].
+
+        This is a small wrapper around [method@Gdk.ContentFormats.print]
+        to help when debugging.
+        """
+    def union(self, second: ContentFormats) -> ContentFormats:
+        """
+            Append all missing types from @second to @first, in the order
+        they had in @second.
+        """
+    def union_deserialize_gtypes(self) -> ContentFormats:
+        """
+            Add GTypes for mime types in @formats for which deserializers are
+        registered.
+        """
+    def union_deserialize_mime_types(self) -> ContentFormats:
+        """
+            Add mime types for GTypes in @formats for which deserializers are
+        registered.
+        """
+    def union_serialize_gtypes(self) -> ContentFormats:
+        """
+            Add GTypes for the mime types in @formats for which serializers are
+        registered.
+        """
+    def union_serialize_mime_types(self) -> ContentFormats:
+        """
+            Add mime types for GTypes in @formats for which serializers are
+        registered.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of a `GdkContentFormats` by one.
+
+        If the resulting reference count is zero, frees the formats.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -2270,15 +2803,53 @@ class ContentFormats(GObject.GBoxed):
     ) -> None: ...
 
 class ContentFormatsBuilder(GObject.GBoxed):
+    """
+    Creates `GdkContentFormats` objects.
+    """
+
     # gi Methods
-    def add_formats(self, formats: ContentFormats) -> None: ...
-    def add_gtype(self, type: GObject.GType) -> None: ...
-    def add_mime_type(self, mime_type: str) -> None: ...
+    def add_formats(self, formats: ContentFormats) -> None:
+        """
+            Appends all formats from @formats to @builder, skipping those that
+        already exist.
+        """
+    def add_gtype(self, type: GObject.GType) -> None:
+        """
+        Appends @type to @builder if it has not already been added.
+        """
+    def add_mime_type(self, mime_type: str) -> None:
+        """
+        Appends @mime_type to @builder if it has not already been added.
+        """
     @classmethod
-    def new(cls) -> ContentFormatsBuilder: ...
-    def ref(self) -> ContentFormatsBuilder: ...
-    def to_formats(self) -> ContentFormats: ...
-    def unref(self) -> None: ...
+    def new(cls) -> ContentFormatsBuilder:
+        """
+            Create a new `GdkContentFormatsBuilder` object.
+
+        The resulting builder would create an empty `GdkContentFormats`.
+        Use addition functions to add types to it.
+        """
+    def ref(self) -> ContentFormatsBuilder:
+        """
+            Acquires a reference on the given @builder.
+
+        This function is intended primarily for bindings.
+        `GdkContentFormatsBuilder` objects should not be kept around.
+        """
+    def to_formats(self) -> ContentFormats:
+        """
+            Creates a new `GdkContentFormats` from the given @builder.
+
+        The given `GdkContentFormatsBuilder` is reset once this function returns;
+        you cannot call this function multiple times on the same @builder instance.
+
+        This function is intended primarily for bindings. C code should use
+        [method@Gdk.ContentFormatsBuilder.free_to_formats].
+        """
+    def unref(self) -> None:
+        """
+        Releases a reference on the given @builder.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -2302,7 +2873,13 @@ class ContentProvider(GObject.Object):
 
     class Props(GObject.Object.Props):
         formats: ContentFormats | None
+        """
+        The possible formats that the provider can provide its data in.
+        """
         storable_formats: ContentFormats | None  # [storable-formats]: changed because contained invalid characters
+        """
+        The subset of formats that clipboard managers should store this provider's data in.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -2312,18 +2889,65 @@ class ContentProvider(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def content_changed(self) -> None: ...
-    def get_value(self) -> tuple[bool, GObject.Value]: ...
+    def content_changed(self) -> None:
+        """
+        Emits the ::content-changed signal.
+        """
+    def get_value(self) -> tuple[bool, GObject.Value]:
+        """
+            Gets the contents of @provider stored in @value.
+
+        The @value will have been initialized to the `GType` the value should be
+        provided in. This given `GType` does not need to be listed in the formats
+        returned by [method@Gdk.ContentProvider.ref_formats]. However, if the
+        given `GType` is not supported, this operation can fail and
+        `G_IO_ERROR_NOT_SUPPORTED` will be reported.
+        """
     @classmethod
-    def new_for_bytes(cls, mime_type: str, bytes: GLib.Bytes) -> ContentProvider: ...
+    def new_for_bytes(cls, mime_type: str, bytes: GLib.Bytes) -> ContentProvider:
+        """
+            Create a content provider that provides the given @bytes as data for
+        the given @mime_type.
+        """
     @classmethod
-    def new_for_value(cls, value: GObject.Value) -> ContentProvider: ...
+    def new_for_value(cls, value: GObject.Value) -> ContentProvider:
+        """
+        Create a content provider that provides the given @value.
+        """
     @classmethod
-    def new_union(cls, providers: list | None, n_providers: int) -> ContentProvider: ...
+    def new_union(cls, providers: list | None, n_providers: int) -> ContentProvider:
+        """
+            Creates a content provider that represents all the given @providers.
+
+        Whenever data needs to be written, the union provider will try the given
+        @providers in the given order and the first one supporting a format will
+        be chosen to provide it.
+
+        This allows an easy way to support providing data in different formats.
+        For example, an image may be provided by its file and by the image
+        contents with a call such as
+        ```c
+        gdk_content_provider_new_union ((GdkContentProvider *[2]) {
+                                          gdk_content_provider_new_typed (G_TYPE_FILE, file),
+                                          gdk_content_provider_new_typed (GDK_TYPE_TEXTURE, texture)
+                                        }, 2);
+        ```
+        """
     @builtins.property
-    def ref_formats(self) -> ContentFormats: ...
+    def ref_formats(self) -> ContentFormats:
+        """
+        Gets the formats that the provider can provide its current contents in.
+        """
     @builtins.property
-    def ref_storable_formats(self) -> ContentFormats: ...
+    def ref_storable_formats(self) -> ContentFormats:
+        """
+            Gets the formats that the provider suggests other applications to store
+        the data in.
+
+        An example of such an application would be a clipboard manager.
+
+        This can be assumed to be a subset of [method@Gdk.ContentProvider.ref_formats].
+        """
     def write_mime_type_async(
         self,
         mime_type: str,
@@ -2332,8 +2956,23 @@ class ContentProvider(GObject.Object):
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
         user_data: object | None = None,
-    ) -> None: ...
-    def write_mime_type_finish(self, result: Gio.AsyncResult) -> bool: ...
+    ) -> None:
+        """
+            Asynchronously writes the contents of @provider to @stream in the given
+        @mime_type.
+
+        The given mime type does not need to be listed in the formats returned by
+        [method@Gdk.ContentProvider.ref_formats]. However, if the given `GType` is
+        not supported, `G_IO_ERROR_NOT_SUPPORTED` will be reported.
+
+        The given @stream will not be closed.
+        """
+    def write_mime_type_finish(self, result: Gio.AsyncResult) -> bool:
+        """
+            Finishes an asynchronous write operation.
+
+        See [method@Gdk.ContentProvider.write_mime_type_async].
+        """
 
     # python methods (overrides?)
     def do_attach_clipboard(
@@ -2398,7 +3037,10 @@ class ContentProvider(GObject.Object):
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["content-changed"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted whenever the content provided by this provider has changed.
+        """
     @typing.overload
     def connect(
         self,
@@ -2419,11 +3061,18 @@ class ContentProvider(GObject.Object):
     ) -> int: ...
 
 class ContentProviderClass(GObject.GPointer):
+    """
+    Class structure for `GdkContentProvider`.
+    """
+
     # gi Fields
     @builtins.property
     def attach_clipboard(self) -> attach_clipboardContentProviderClassCB: ...
     @builtins.property
-    def content_changed(self) -> content_changedContentProviderClassCB: ...
+    def content_changed(self) -> content_changedContentProviderClassCB:
+        """
+        Signal class closure for `GdkContentProvider::content-changed`
+        """
     @builtins.property
     def detach_clipboard(self) -> detach_clipboardContentProviderClassCB: ...
     @builtins.property
@@ -2467,17 +3116,60 @@ class ContentSerializer(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_cancellable(self) -> Gio.Cancellable | None: ...
-    def get_gtype(self) -> GObject.GType: ...
-    def get_mime_type(self) -> str: ...
-    def get_output_stream(self) -> Gio.OutputStream: ...
-    def get_priority(self) -> int: ...
-    def get_task_data(self) -> object | None: ...
-    def get_user_data(self) -> object | None: ...
-    def get_value(self) -> GObject.Value: ...
-    def return_error(self, error: None) -> None: ...
-    def return_success(self) -> None: ...
-    def set_task_data(self, data: object | None, notify: GLib.DestroyNotify) -> None: ...
+    def get_cancellable(self) -> Gio.Cancellable | None:
+        """
+            Gets the cancellable for the current operation.
+
+        This is the `GCancellable` that was passed to [func@content_serialize_async].
+        """
+    def get_gtype(self) -> GObject.GType:
+        """
+        Gets the `GType` to of the object to serialize.
+        """
+    def get_mime_type(self) -> str:
+        """
+        Gets the mime type to serialize to.
+        """
+    def get_output_stream(self) -> Gio.OutputStream:
+        """
+            Gets the output stream for the current operation.
+
+        This is the stream that was passed to [func@content_serialize_async].
+        """
+    def get_priority(self) -> int:
+        """
+            Gets the I/O priority for the current operation.
+
+        This is the priority that was passed to [func@content_serialize_async].
+        """
+    def get_task_data(self) -> object | None:
+        """
+            Gets the data that was associated with the current operation.
+
+        See [method@Gdk.ContentSerializer.set_task_data].
+        """
+    def get_user_data(self) -> object | None:
+        """
+        Gets the user data that was passed when the serializer was registered.
+        """
+    def get_value(self) -> GObject.Value:
+        """
+        Gets the `GValue` to read the object to serialize from.
+        """
+    def return_error(self, error: None) -> None:
+        """
+            Indicate that the serialization has ended with an error.
+
+        This function consumes @error.
+        """
+    def return_success(self) -> None:
+        """
+        Indicate that the serialization has been successfully completed.
+        """
+    def set_task_data(self, data: object | None, notify: GLib.DestroyNotify) -> None:
+        """
+        Associate data with the current serialization operation.
+        """
 
 class CrossingEvent(Event):
     """
@@ -2489,9 +3181,18 @@ class CrossingEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_detail(self) -> NotifyType: ...
-    def get_focus(self) -> bool: ...
-    def get_mode(self) -> CrossingMode: ...
+    def get_detail(self) -> NotifyType:
+        """
+        Extracts the notify detail from a crossing event.
+        """
+    def get_focus(self) -> bool:
+        """
+        Checks if the @event surface is the focus surface.
+        """
+    def get_mode(self) -> CrossingMode:
+        """
+        Extracts the crossing mode from a crossing event.
+        """
 
 class Cursor(GObject.Object):
     """
@@ -2533,10 +3234,29 @@ class Cursor(GObject.Object):
 
     class Props(GObject.Object.Props):
         fallback: Cursor | None
+        """
+        Cursor to fall back to if this cursor cannot be displayed.
+        """
         hotspot_x: int  # [hotspot-x]: changed because contained invalid characters
+        """
+        X position of the cursor hotspot in the cursor image.
+        """
         hotspot_y: int  # [hotspot-y]: changed because contained invalid characters
+        """
+        Y position of the cursor hotspot in the cursor image.
+        """
         name: str
+        """
+        Name of this this cursor.
+
+        The name will be %NULL if the cursor was created from a texture.
+        """
         texture: Texture | None
+        """
+        The texture displayed by this cursor.
+
+        The texture will be %NULL if the cursor was created from a name.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -2554,15 +3274,52 @@ class Cursor(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @builtins.property
-    def get_fallback(self) -> Cursor | None: ...
+    def get_fallback(self) -> Cursor | None:
+        """
+            Returns the fallback for this @cursor.
+
+        The fallback will be used if this cursor is not available on a given
+        `GdkDisplay`. For named cursors, this can happen when using nonstandard
+        names or when using an incomplete cursor theme. For textured cursors,
+        this can happen when the texture is too large or when the `GdkDisplay`
+        it is used on does not support textured cursors.
+        """
     @builtins.property
-    def get_hotspot_x(self) -> int: ...
+    def get_hotspot_x(self) -> int:
+        """
+            Returns the horizontal offset of the hotspot.
+
+        The hotspot indicates the pixel that will be directly above the cursor.
+
+        Note that named cursors may have a nonzero hotspot, but this function
+        will only return the hotspot position for cursors created with
+        [ctor@Gdk.Cursor.new_from_texture].
+        """
     @builtins.property
-    def get_hotspot_y(self) -> int: ...
+    def get_hotspot_y(self) -> int:
+        """
+            Returns the vertical offset of the hotspot.
+
+        The hotspot indicates the pixel that will be directly above the cursor.
+
+        Note that named cursors may have a nonzero hotspot, but this function
+        will only return the hotspot position for cursors created with
+        [ctor@Gdk.Cursor.new_from_texture].
+        """
     @builtins.property
-    def get_name(self) -> str | None: ...
+    def get_name(self) -> str | None:
+        """
+            Returns the name of the cursor.
+
+        If the cursor is not a named cursor, %NULL will be returned.
+        """
     @builtins.property
-    def get_texture(self) -> Texture | None: ...
+    def get_texture(self) -> Texture | None:
+        """
+            Returns the texture for the cursor.
+
+        If the cursor is a named cursor, %NULL will be returned.
+        """
     @classmethod
     def new_from_callback(
         cls,
@@ -2570,13 +3327,69 @@ class Cursor(GObject.Object):
         data: object | None,
         destroy: GLib.DestroyNotify,
         fallback: Cursor | None = None,
-    ) -> Cursor | None: ...
+    ) -> Cursor | None:
+        """
+            Creates a new callback-based cursor object.
+
+        Cursors of this kind produce textures for the cursor
+        image on demand, when the @callback is called.
+        """
     @classmethod
-    def new_from_name(cls, name: str, fallback: Cursor | None = None) -> Cursor | None: ...
+    def new_from_name(cls, name: str, fallback: Cursor | None = None) -> Cursor | None:
+        """
+            Creates a new cursor by looking up @name in the current cursor
+        theme.
+
+        A recommended set of cursor names that will work across different
+        platforms can be found in the CSS specification:
+
+        | | | |
+        | --- | --- | --- |
+        |                               | "none"          | No cursor |
+        | ![](default_cursor.png)       | "default"       | The default cursor |
+        | ![](help_cursor.png)          | "help"          | Help is available |
+        | ![](pointer_cursor.png)       | "pointer"       | Indicates a link or interactive element |
+        | ![](context_menu_cursor.png)  |"context-menu"   | A context menu is available |
+        | ![](progress_cursor.png)      | "progress"      | Progress indicator |
+        | ![](wait_cursor.png)          | "wait"          | Busy cursor |
+        | ![](cell_cursor.png)          | "cell"          | Cell(s) may be selected |
+        | ![](crosshair_cursor.png)     | "crosshair"     | Simple crosshair |
+        | ![](text_cursor.png)          | "text"          | Text may be selected |
+        | ![](vertical_text_cursor.png) | "vertical-text" | Vertical text may be selected |
+        | ![](alias_cursor.png)         | "alias"         | DND: Something will be linked |
+        | ![](copy_cursor.png)          | "copy"          | DND: Something will be copied |
+        | ![](move_cursor.png)          | "move"          | DND: Something will be moved |
+        | ![](dnd_ask_cursor.png)       | "dnd-ask"       | DND: User can choose action to be carried out |
+        | ![](no_drop_cursor.png)       | "no-drop"       | DND: Can't drop here |
+        | ![](not_allowed_cursor.png)   | "not-allowed"   | DND: Action will not be carried out |
+        | ![](grab_cursor.png)          | "grab"          | DND: Something can be grabbed |
+        | ![](grabbing_cursor.png)      | "grabbing"      | DND: Something is being grabbed |
+        | ![](n_resize_cursor.png)      | "n-resize"      | Resizing: Move north border |
+        | ![](e_resize_cursor.png)      | "e-resize"      | Resizing: Move east border |
+        | ![](s_resize_cursor.png)      | "s-resize"      | Resizing: Move south border |
+        | ![](w_resize_cursor.png)      | "w-resize"      | Resizing: Move west border |
+        | ![](ne_resize_cursor.png)     | "ne-resize"     | Resizing: Move north-east corner |
+        | ![](nw_resize_cursor.png)     | "nw-resize"     | Resizing: Move north-west corner |
+        | ![](sw_resize_cursor.png)     | "sw-resize"     | Resizing: Move south-west corner |
+        | ![](se_resize_cursor.png)     | "se-resize"     | Resizing: Move south-east corner |
+        | ![](col_resize_cursor.png)    | "col-resize"    | Resizing: Move an item or border horizontally |
+        | ![](row_resize_cursor.png)    | "row-resize"    | Resizing: Move an item or border vertically |
+        | ![](ew_resize_cursor.png)     | "ew-resize"     | Moving: Something can be moved horizontally |
+        | ![](ns_resize_cursor.png)     | "ns-resize"     | Moving: Something can be moved vertically |
+        | ![](nesw_resize_cursor.png)   | "nesw-resize"   | Moving: Something can be moved diagonally, north-east to south-west |
+        | ![](nwse_resize_cursor.png)   | "nwse-resize"   | Moving: something can be moved diagonally, north-west to south-east |
+        | ![](all_resize_cursor.png)    | "all-resize"    | Moving: Something can be moved in any direction |
+        | ![](all_scroll_cursor.png)    | "all-scroll"    | Can scroll in any direction |
+        | ![](zoom_in_cursor.png)       | "zoom-in"       | Zoom in |
+        | ![](zoom_out_cursor.png)      | "zoom-out"      | Zoom out |
+        """
     @classmethod
     def new_from_texture(
         cls, texture: Texture, hotspot_x: int, hotspot_y: int, fallback: Cursor | None = None
-    ) -> Cursor: ...
+    ) -> Cursor:
+        """
+        Creates a new cursor from a `GdkTexture`.
+        """
 
     # Signals
     @typing.overload
@@ -2629,7 +3442,10 @@ class DNDEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_drop(self) -> Drop | None: ...
+    def get_drop(self) -> Drop | None:
+        """
+        Gets the `GdkDrop` object from a DND event.
+        """
 
 class DeleteEvent(Event):
     """
@@ -2652,23 +3468,102 @@ class Device(GObject.Object):
 
     class Props(GObject.Object.Props):
         active_layout_index: int  # [active-layout-index]: changed because contained invalid characters
+        """
+        The index of the keyboard active layout of a `GdkDevice`.
+
+        Will be -1 if there is no valid active layout.
+
+        This is only relevant for keyboard devices.
+        """
         caps_lock_state: bool  # [caps-lock-state]: changed because contained invalid characters
+        """
+        Whether Caps Lock is on.
+
+        This is only relevant for keyboard devices.
+        """
         direction: Pango.Direction
+        """
+        The direction of the current layout.
+
+        This is only relevant for keyboard devices.
+        """
         display: Display | None
+        """
+        The `GdkDisplay` the `GdkDevice` pertains to.
+        """
         has_bidi_layouts: bool  # [has-bidi-layouts]: changed because contained invalid characters
+        """
+        Whether the device has both right-to-left and left-to-right layouts.
+
+        This is only relevant for keyboard devices.
+        """
         has_cursor: bool  # [has-cursor]: changed because contained invalid characters
+        """
+        Whether the device is represented by a cursor on the screen.
+        """
         layout_names: list | None  # [layout-names]: changed because contained invalid characters
+        """
+        The names of the keyboard layouts of a `GdkDevice`.
+
+        This is only relevant for keyboard devices.
+        """
         modifier_state: ModifierType  # [modifier-state]: changed because contained invalid characters
+        """
+        The current modifier state of the device.
+
+        This is only relevant for keyboard devices.
+        """
         n_axes: int  # [n-axes]: changed because contained invalid characters
+        """
+        Number of axes in the device.
+        """
         name: str
+        """
+        The device name.
+        """
         num_lock_state: bool  # [num-lock-state]: changed because contained invalid characters
+        """
+        Whether Num Lock is on.
+
+        This is only relevant for keyboard devices.
+        """
         num_touches: int  # [num-touches]: changed because contained invalid characters
+        """
+        The maximal number of concurrent touches on a touch device.
+
+        Will be 0 if the device is not a touch device or if the number
+        of touches is unknown.
+        """
         product_id: str  # [product-id]: changed because contained invalid characters
+        """
+        Product ID of this device.
+
+        See [method@Gdk.Device.get_product_id].
+        """
         scroll_lock_state: bool  # [scroll-lock-state]: changed because contained invalid characters
+        """
+        Whether Scroll Lock is on.
+
+        This is only relevant for keyboard devices.
+        """
         seat: Seat | None
+        """
+        `GdkSeat` of this device.
+        """
         source: InputSource
+        """
+        Source type for the device.
+        """
         tool: DeviceTool | None
+        """
+        The `GdkDeviceTool` that is currently used with this device.
+        """
         vendor_id: str  # [vendor-id]: changed because contained invalid characters
+        """
+        Vendor ID of this device.
+
+        See [method@Gdk.Device.get_vendor_id].
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -2689,54 +3584,187 @@ class Device(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @builtins.property
-    def get_active_layout_index(self) -> int: ...
+    def get_active_layout_index(self) -> int:
+        """
+            Retrieves the index of the active layout of the keyboard.
+
+        If there is no valid active layout for the `GdkDevice`, this function will
+        return -1;
+
+        This is only relevant for keyboard devices.
+        """
     @builtins.property
-    def get_caps_lock_state(self) -> bool: ...
+    def get_caps_lock_state(self) -> bool:
+        """
+            Retrieves whether the Caps Lock modifier of the keyboard is locked.
+
+        This is only relevant for keyboard devices.
+        """
     @builtins.property
-    def get_device_tool(self) -> DeviceTool | None: ...
+    def get_device_tool(self) -> DeviceTool | None:
+        """
+        Retrieves the current tool for @device.
+        """
     @builtins.property
-    def get_direction(self) -> Pango.Direction: ...
+    def get_direction(self) -> Pango.Direction:
+        """
+            Returns the direction of effective layout of the keyboard.
+
+        This is only relevant for keyboard devices.
+
+        The direction of a layout is the direction of the majority
+        of its symbols. See [func@Pango.unichar_direction].
+        """
     @builtins.property
-    def get_display(self) -> Display: ...
+    def get_display(self) -> Display:
+        """
+        Returns the `GdkDisplay` to which @device pertains.
+        """
     @builtins.property
-    def get_has_cursor(self) -> bool: ...
+    def get_has_cursor(self) -> bool:
+        """
+            Determines whether the pointer follows device motion.
+
+        This is not meaningful for keyboard devices, which
+        don't have a pointer.
+        """
     @builtins.property
-    def get_layout_names(self) -> list | None: ...
+    def get_layout_names(self) -> list | None:
+        """
+            Retrieves the names of the layouts of the keyboard.
+
+        This is only relevant for keyboard devices.
+        """
     @builtins.property
-    def get_modifier_state(self) -> ModifierType: ...
+    def get_modifier_state(self) -> ModifierType:
+        """
+            Retrieves the current modifier state of the keyboard.
+
+        This is only relevant for keyboard devices.
+        """
     @builtins.property
-    def get_name(self) -> str: ...
+    def get_name(self) -> str:
+        """
+        The name of the device, suitable for showing in a user interface.
+        """
     @builtins.property
-    def get_num_lock_state(self) -> bool: ...
+    def get_num_lock_state(self) -> bool:
+        """
+            Retrieves whether the Num Lock modifier of the keyboard is locked.
+
+        This is only relevant for keyboard devices.
+        """
     @builtins.property
-    def get_num_touches(self) -> int: ...
+    def get_num_touches(self) -> int:
+        """
+        Retrieves the number of touch points associated to @device.
+        """
     @builtins.property
-    def get_product_id(self) -> str | None: ...
+    def get_product_id(self) -> str | None:
+        """
+            Returns the product ID of this device.
+
+        This ID is retrieved from the device, and does not change.
+        See [method@Gdk.Device.get_vendor_id] for more information.
+        """
     @builtins.property
-    def get_scroll_lock_state(self) -> bool: ...
+    def get_scroll_lock_state(self) -> bool:
+        """
+            Retrieves whether the Scroll Lock modifier of the keyboard is locked.
+
+        This is only relevant for keyboard devices.
+        """
     @builtins.property
-    def get_seat(self) -> Seat: ...
+    def get_seat(self) -> Seat:
+        """
+        Returns the `GdkSeat` the device belongs to.
+        """
     @builtins.property
-    def get_source(self) -> InputSource: ...
-    def get_surface_at_position(self) -> tuple[Surface | None, float | None, float | None]: ...
-    def get_timestamp(self) -> int: ...
+    def get_source(self) -> InputSource:
+        """
+        Determines the type of the device.
+        """
+    def get_surface_at_position(self) -> tuple[Surface | None, float | None, float | None]:
+        """
+            Obtains the surface underneath @device, returning the location of the
+        device in @win_x and @win_y.
+
+        Returns %NULL if the surface tree under @device is not known to GDK
+        (for example, belongs to another application).
+        """
+    def get_timestamp(self) -> int:
+        """
+            Returns the timestamp of the last activity for this device.
+
+        In practice, this means the timestamp of the last event that was
+        received from the OS for this device. (GTK may occasionally produce
+        events for a device that are not received from the OS, and will not
+        update the timestamp).
+        """
     @builtins.property
-    def get_vendor_id(self) -> str | None: ...
+    def get_vendor_id(self) -> str | None:
+        """
+            Returns the vendor ID of this device.
+
+        This ID is retrieved from the device, and does not change.
+
+        This function, together with [method@Gdk.Device.get_product_id],
+        can be used to eg. compose `GSettings` paths to store settings
+        for this device.
+
+        ```c
+         static GSettings *
+         get_device_settings (GdkDevice *device)
+         {
+           const char *vendor, *product;
+           GSettings *settings;
+           GdkDevice *device;
+           char *path;
+
+           vendor = gdk_device_get_vendor_id (device);
+           product = gdk_device_get_product_id (device);
+
+           path = g_strdup_printf ("/org/example/app/devices/%s:%s/", vendor, product);
+           settings = g_settings_new_with_path (DEVICE_SCHEMA, path);
+           g_free (path);
+
+           return settings;
+         }
+        ```
+        """
     @builtins.property
-    def has_bidi_layouts(self) -> bool: ...
+    def has_bidi_layouts(self) -> bool:
+        """
+            Determines if layouts for both right-to-left and
+        left-to-right languages are in use on the keyboard.
+
+        This is only relevant for keyboard devices.
+        """
 
     # Signals
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["changed"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted either when the number of either axes or keys changes.
+
+        On X11 this will normally happen when the physical device
+        routing events through the logical device changes (for
+        example, user switches from the USB mouse to a tablet); in
+        that case the logical device will change to reflect the axes
+        and keys on the new physical device.
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["tool-changed"],
         handler: typing.Callable[[typing_extensions.Self, DeviceTool], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted on pen/eraser devices whenever tools enter or leave proximity.
+        """
     @typing.overload
     def connect(
         self,
@@ -2869,15 +3897,52 @@ class Device(GObject.Object):
     ) -> int: ...
 
 class DevicePad(GObject.GInterface):
+    """
+    An interface for tablet pad devices.
+
+    It allows querying the features provided by the pad device.
+
+    Tablet pads may contain one or more groups, each containing a subset
+    of the buttons/rings/strips available. [method@Gdk.DevicePad.get_n_groups]
+    can be used to obtain the number of groups, [method@Gdk.DevicePad.get_n_features]
+    and [method@Gdk.DevicePad.get_feature_group] can be combined to find out
+    the number of buttons/rings/strips the device has, and how are they grouped.
+
+    Each of those groups have different modes, which may be used to map each
+    individual pad feature to multiple actions. Only one mode is effective
+    (current) for each given group, different groups may have different
+    current modes. The number of available modes in a group can be found
+    out through [method@Gdk.DevicePad.get_group_n_modes], and the current mode
+    for a given group will be notified through events of type `GDK_PAD_GROUP_MODE`.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_feature_group(self, feature: DevicePadFeature, feature_idx: int) -> int: ...
-    def get_group_n_modes(self, group_idx: int) -> int: ...
-    def get_n_features(self, feature: DevicePadFeature) -> int: ...
-    def get_n_groups(self) -> int: ...
+    def get_feature_group(self, feature: DevicePadFeature, feature_idx: int) -> int:
+        """
+            Returns the group the given @feature and @idx belong to.
+
+        f the feature or index do not exist in @pad, -1 is returned.
+        """
+    def get_group_n_modes(self, group_idx: int) -> int:
+        """
+        Returns the number of modes that @group may have.
+        """
+    def get_n_features(self, feature: DevicePadFeature) -> int:
+        """
+        Returns the number of features a tablet pad has.
+        """
+    def get_n_groups(self) -> int:
+        """
+            Returns the number of groups this pad device has.
+
+        Pads have at least one group. A pad group is a subcollection of
+        buttons/strip/rings that is affected collectively by a same
+        current mode.
+        """
 
 class DevicePadInterface(GObject.GPointer):
     # gi Methods
@@ -2893,9 +3958,21 @@ class DeviceTool(GObject.Object):
 
     class Props(GObject.Object.Props):
         axes: AxisFlags
+        """
+        The axes of the tool.
+        """
         hardware_id: int  # [hardware-id]: changed because contained invalid characters
+        """
+        The hardware ID of the tool.
+        """
         serial: int
+        """
+        The serial number of the tool.
+        """
         tool_type: DeviceToolType  # [tool-type]: changed because contained invalid characters
+        """
+        The type of the tool.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -2908,13 +3985,38 @@ class DeviceTool(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @builtins.property
-    def get_axes(self) -> AxisFlags: ...
+    def get_axes(self) -> AxisFlags:
+        """
+        Gets the axes of the tool.
+        """
     @builtins.property
-    def get_hardware_id(self) -> int: ...
+    def get_hardware_id(self) -> int:
+        """
+            Gets the hardware ID of this tool, or 0 if it's not known.
+
+        When non-zero, the identifier is unique for the given tool model,
+        meaning that two identical tools will share the same @hardware_id,
+        but will have different serial numbers (see
+        [method@Gdk.DeviceTool.get_serial]).
+
+        This is a more concrete (and device specific) method to identify
+        a `GdkDeviceTool` than [method@Gdk.DeviceTool.get_tool_type],
+        as a tablet may support multiple devices with the same
+        `GdkDeviceToolType`, but different hardware identifiers.
+        """
     @builtins.property
-    def get_serial(self) -> int: ...
+    def get_serial(self) -> int:
+        """
+            Gets the serial number of this tool.
+
+        This value can be used to identify a physical tool
+        (eg. a tablet pen) across program executions.
+        """
     @builtins.property
-    def get_tool_type(self) -> DeviceToolType: ...
+    def get_tool_type(self) -> DeviceToolType:
+        """
+        Gets the `GdkDeviceToolType` of the tool.
+        """
 
     # Signals
     @typing.overload
@@ -2970,10 +4072,25 @@ class Display(GObject.Object):
 
     class Props(GObject.Object.Props):
         composited: bool
+        """
+        %TRUE if the display properly composites the alpha channel.
+        """
         dmabuf_formats: DmabufFormats | None  # [dmabuf-formats]: changed because contained invalid characters
+        """
+        The dma-buf formats that are supported on this display
+        """
         input_shapes: bool  # [input-shapes]: changed because contained invalid characters
+        """
+        %TRUE if the display supports input shapes.
+        """
         rgba: bool
+        """
+        %TRUE if the display supports an alpha channel.
+        """
         shadow_width: bool  # [shadow-width]: changed because contained invalid characters
+        """
+        %TRUE if the display supports extensible frames.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -2983,48 +4100,282 @@ class Display(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def beep(self) -> None: ...
-    def close(self) -> None: ...
-    def create_gl_context(self) -> GLContext: ...
-    def device_is_grabbed(self, device: Device) -> bool: ...
-    def flush(self) -> None: ...
-    def get_app_launch_context(self) -> AppLaunchContext: ...
-    def get_clipboard(self) -> Clipboard: ...
+    def beep(self) -> None:
+        """
+        Emits a short beep on @display
+        """
+    def close(self) -> None:
+        """
+            Closes the connection to the windowing system for the given display.
+
+        This cleans up associated resources.
+        """
+    def create_gl_context(self) -> GLContext:
+        """
+            Creates a new `GdkGLContext` for the `GdkDisplay`.
+
+        The context is disconnected from any particular surface or surface
+        and cannot be used to draw to any surface. It can only be used to
+        draw to non-surface framebuffers like textures.
+
+        If the creation of the `GdkGLContext` failed, @error will be set.
+        Before using the returned `GdkGLContext`, you will need to
+        call [method@Gdk.GLContext.make_current] or [method@Gdk.GLContext.realize].
+        """
+    def device_is_grabbed(self, device: Device) -> bool:
+        """
+        Returns %TRUE if there is an ongoing grab on @device for @display.
+        """
+    def flush(self) -> None:
+        """
+            Flushes any requests queued for the windowing system.
+
+        This happens automatically when the main loop blocks waiting for new events,
+        but if your application is drawing without returning control to the main loop,
+        you may need to call this function explicitly. A common case where this function
+        needs to be called is when an application is executing drawing commands
+        from a thread other than the thread where the main loop is running.
+
+        This is most useful for X11. On windowing systems where requests are
+        handled synchronously, this function will do nothing.
+        """
+    def get_app_launch_context(self) -> AppLaunchContext:
+        """
+            Returns a `GdkAppLaunchContext` suitable for launching
+        applications on the given display.
+        """
+    def get_clipboard(self) -> Clipboard:
+        """
+        Gets the clipboard used for copy/paste operations.
+        """
     @staticmethod
-    def get_default() -> Display | None: ...
-    def get_default_seat(self) -> Seat | None: ...
+    def get_default() -> Display | None:
+        """
+            Gets the default `GdkDisplay`.
+
+        This is a convenience function for:
+
+            gdk_display_manager_get_default_display (gdk_display_manager_get ())
+        """
+    def get_default_seat(self) -> Seat | None:
+        """
+            Returns the default `GdkSeat` for this display.
+
+        Note that a display may not have a seat. In this case,
+        this function will return %NULL.
+        """
     @builtins.property
-    def get_dmabuf_formats(self) -> DmabufFormats: ...
-    def get_monitor_at_surface(self, surface: Surface) -> Monitor | None: ...
-    def get_monitors(self) -> Gio.ListModel: ...
-    def get_name(self) -> str: ...
-    def get_primary_clipboard(self) -> Clipboard: ...
-    def get_setting(self, name: str, value: GObject.Value) -> bool: ...
+    def get_dmabuf_formats(self) -> DmabufFormats:
+        """
+            Returns the dma-buf formats that are supported on this display.
+
+        GTK may use OpenGL or Vulkan to support some formats.
+        Calling this function will then initialize them if they aren't yet.
+
+        The formats returned by this function can be used for negotiating
+        buffer formats with producers such as v4l, pipewire or GStreamer.
+
+        To learn more about dma-bufs, see [class@Gdk.DmabufTextureBuilder].
+        """
+    def get_monitor_at_surface(self, surface: Surface) -> Monitor | None:
+        """
+            Gets the monitor in which the largest area of @surface
+        resides.
+        """
+    def get_monitors(self) -> Gio.ListModel:
+        """
+            Gets the list of monitors associated with this display.
+
+        Subsequent calls to this function will always return the
+        same list for the same display.
+
+        You can listen to the GListModel::items-changed signal on
+        this list to monitor changes to the monitor of this display.
+        """
+    def get_name(self) -> str:
+        """
+        Gets the name of the display.
+        """
+    def get_primary_clipboard(self) -> Clipboard:
+        """
+            Gets the clipboard used for the primary selection.
+
+        On backends where the primary clipboard is not supported natively,
+        GDK emulates this clipboard locally.
+        """
+    def get_setting(self, name: str, value: GObject.Value) -> bool:
+        """
+            Retrieves a desktop-wide setting such as double-click time
+        for the @display.
+        """
     @deprecated("deprecated")
-    def get_startup_notification_id(self) -> str | None: ...
-    def is_closed(self) -> bool: ...
+    def get_startup_notification_id(self) -> str | None:
+        """
+            Gets the startup notification ID for a Wayland display, or %NULL
+        if no ID has been defined.
+        """
+    def is_closed(self) -> bool:
+        """
+        Finds out if the display has been closed.
+        """
     @builtins.property
-    def is_composited(self) -> bool: ...
+    def is_composited(self) -> bool:
+        """
+            Returns whether surfaces can reasonably be expected to have
+        their alpha channel drawn correctly on the screen.
+
+        Check [method@Gdk.Display.is_rgba] for whether the display
+        supports an alpha channel.
+
+        On X11 this function returns whether a compositing manager is
+        compositing on @display.
+
+        On modern displays, this value is always %TRUE.
+        """
     @builtins.property
-    def is_rgba(self) -> bool: ...
-    def list_seats(self) -> list: ...
-    def map_keycode(self, keycode: int) -> tuple[bool, list | None, list | None, int]: ...
-    def map_keyval(self, keyval: int) -> tuple[bool, list, int]: ...
+    def is_rgba(self) -> bool:
+        """
+            Returns whether surfaces on this @display are created with an
+        alpha channel.
+
+        Even if a %TRUE is returned, it is possible that the
+        surface’s alpha channel won’t be honored when displaying the
+        surface on the screen: in particular, for X an appropriate
+        windowing manager and compositing manager must be running to
+        provide appropriate display. Use [method@Gdk.Display.is_composited]
+        to check if that is the case.
+
+        On modern displays, this value is always %TRUE.
+        """
+    def list_seats(self) -> list:
+        """
+        Returns the list of seats known to @display.
+        """
+    def map_keycode(self, keycode: int) -> tuple[bool, list | None, list | None, int]:
+        """
+            Returns the keyvals bound to @keycode.
+
+        The Nth `GdkKeymapKey` in @keys is bound to the Nth keyval in @keyvals.
+
+        When a keycode is pressed by the user, the keyval from
+        this list of entries is selected by considering the effective
+        keyboard group and level.
+
+        Free the returned arrays with g_free().
+        """
+    def map_keyval(self, keyval: int) -> tuple[bool, list, int]:
+        """
+            Obtains a list of keycode/group/level combinations that will
+        generate @keyval.
+
+        Groups and levels are two kinds of keyboard mode; in general, the level
+        determines whether the top or bottom symbol on a key is used, and the
+        group determines whether the left or right symbol is used.
+
+        On US keyboards, the shift key changes the keyboard level, and there
+        are no groups. A group switch key might convert a keyboard between
+        Hebrew to English modes, for example.
+
+        `GdkEventKey` contains a %group field that indicates the active
+        keyboard group. The level is computed from the modifier mask.
+
+        The returned array should be freed with g_free().
+        """
     @deprecated("deprecated")
-    def notify_startup_complete(self, startup_id: str) -> None: ...
+    def notify_startup_complete(self, startup_id: str) -> None:
+        """
+            Indicates to the GUI environment that the application has
+        finished loading, using a given identifier.
+
+        GTK will call this function automatically for [GtkWindow](../gtk4/class.Window.html)
+        with custom startup-notification identifier unless
+        [gtk_window_set_auto_startup_notification()](../gtk4/method.Window.set_auto_startup_notification.html)
+        is called to disable that feature.
+        """
     @staticmethod
-    def open(display_name: str | None = None) -> Display | None: ...
-    def prepare_gl(self) -> bool: ...
+    def open(display_name: str | None = None) -> Display | None:
+        """
+            Opens a display.
+
+        If opening the display fails, `NULL` is returned.
+        """
+    def prepare_gl(self) -> bool:
+        """
+            Checks that OpenGL is available for @self and ensures that it is
+        properly initialized.
+        When this fails, an @error will be set describing the error and this
+        function returns %FALSE.
+
+        Note that even if this function succeeds, creating a `GdkGLContext`
+        may still fail.
+
+        This function is idempotent. Calling it multiple times will just
+        return the same value or error.
+
+        You never need to call this function, GDK will call it automatically
+        as needed. But you can use it as a check when setting up code that
+        might make use of OpenGL.
+        """
     @deprecated("deprecated")
-    def put_event(self, event: Event) -> None: ...
+    def put_event(self, event: Event) -> None:
+        """
+        Adds the given event to the event queue for @display.
+        """
     @builtins.property
-    def supports_input_shapes(self) -> bool: ...
+    def supports_input_shapes(self) -> bool:
+        """
+            Returns %TRUE if the display supports input shapes.
+
+        This means that [method@Gdk.Surface.set_input_region] can
+        be used to modify the input shape of surfaces on @display.
+
+        On modern displays, this value is always %TRUE.
+        """
     @builtins.property
-    def supports_shadow_width(self) -> bool: ...
-    def sync(self) -> None: ...
+    def supports_shadow_width(self) -> bool:
+        """
+            Returns whether it's possible for a surface to draw outside of the window area.
+
+        If %TRUE is returned the application decides if it wants to draw shadows.
+        If %FALSE is returned, the compositor decides if it wants to draw shadows.
+        """
+    def sync(self) -> None:
+        """
+            Flushes any requests queued for the windowing system and waits until all
+        requests have been handled.
+
+        This is often used for making sure that the display is synchronized
+        with the current state of the program. Calling [method@Gdk.Display.sync]
+        before [method@GdkX11.Display.error_trap_pop] makes sure that any errors
+        generated from earlier requests are handled before the error trap is removed.
+
+        This is most useful for X11. On windowing systems where requests are
+        handled synchronously, this function will do nothing.
+        """
     def translate_key(
         self, keycode: int, state: ModifierType, group: int
-    ) -> tuple[bool, int | None, int | None, int | None, ModifierType | None]: ...
+    ) -> tuple[bool, int | None, int | None, int | None, ModifierType | None]:
+        """
+            Translates the contents of a `GdkEventKey` into a keyval, effective group,
+        and level.
+
+        Modifiers that affected the translation and are thus unavailable for
+        application use are returned in @consumed_modifiers.
+
+        The @effective_group is the group that was actually used for the
+        translation; some keys such as Enter are not affected by the active
+        keyboard group. The @level is derived from @state.
+
+        @consumed_modifiers gives modifiers that should be masked out
+        from @state when comparing this key press to a keyboard shortcut.
+        For instance, on a US keyboard, the `plus` symbol is shifted, so
+        when comparing a key press to a `<Control>plus` accelerator `<Shift>`
+        should be masked out.
+
+        This function should rarely be needed, since `GdkEventKey` already
+        contains the translated keyval. It is exported for the benefit of
+        virtualized test environments.
+        """
 
     # Signals
     @typing.overload
@@ -3033,32 +4384,47 @@ class Display(GObject.Object):
         detailed_signal: typing.Literal["closed"],
         handler: typing.Callable[[typing_extensions.Self, bool], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when the connection to the windowing system for @display is closed.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["opened"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when the connection to the windowing system for @display is opened.
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["seat-added"],
         handler: typing.Callable[[typing_extensions.Self, Seat], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted whenever a new seat is made known to the windowing system.
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["seat-removed"],
         handler: typing.Callable[[typing_extensions.Self, Seat], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted whenever a seat is removed by the windowing system.
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["setting-changed"],
         handler: typing.Callable[[typing_extensions.Self, str], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted whenever a setting changes its value.
+        """
     @typing.overload
     def connect(
         self,
@@ -3148,6 +4514,9 @@ class DisplayManager(GObject.Object):
 
     class Props(GObject.Object.Props):
         default_display: Display | None  # [default-display]: changed because contained invalid characters
+        """
+        The default display.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -3158,12 +4527,35 @@ class DisplayManager(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def get() -> DisplayManager: ...
+    def get() -> DisplayManager:
+        """
+            Gets the singleton `GdkDisplayManager` object.
+
+        When called for the first time, this function consults the
+        `GDK_BACKEND` environment variable to find out which of the
+        supported GDK backends to use (in case GDK has been compiled
+        with multiple backends).
+
+        Applications can use [func@set_allowed_backends] to limit what
+        backends will be used.
+        """
     @builtins.property
-    def get_default_display(self) -> Display | None: ...
-    def list_displays(self) -> list: ...
-    def open_display(self, name: str | None = None) -> Display | None: ...
-    def set_default_display(self, display: Display) -> None: ...
+    def get_default_display(self) -> Display | None:
+        """
+        Gets the default `GdkDisplay`.
+        """
+    def list_displays(self) -> list:
+        """
+        List all currently open displays.
+        """
+    def open_display(self, name: str | None = None) -> Display | None:
+        """
+        Opens a display.
+        """
+    def set_default_display(self, display: Display) -> None:
+        """
+        Sets @display as the default display.
+        """
 
     # Signals
     @typing.overload
@@ -3172,7 +4564,10 @@ class DisplayManager(GObject.Object):
         detailed_signal: typing.Literal["display-opened"],
         handler: typing.Callable[[typing_extensions.Self, Display], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when a display is opened.
+        """
     @typing.overload
     def connect(
         self,
@@ -3186,17 +4581,67 @@ class DisplayManager(GObject.Object):
     ) -> int: ...
 
 class DmabufFormats(GObject.GBoxed):
+    """
+    Provides information about supported DMA buffer formats.
+
+    You can query whether a given format is supported with
+    [method@Gdk.DmabufFormats.contains] and you can iterate
+    over the list of all supported formats with
+    [method@Gdk.DmabufFormats.get_n_formats] and
+    [method@Gdk.DmabufFormats.get_format].
+
+    The list of supported formats is sorted by preference,
+    with the best formats coming first.
+
+    The list may contains (format, modifier) pairs where the modifier
+    is `DMA_FORMAT_MOD_INVALID`, indicating that **_implicit modifiers_**
+    may be used with this format.
+
+    See [class@Gdk.DmabufTextureBuilder] for more information
+    about DMA buffers.
+
+    Note that DMA buffers only exist on Linux.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def contains(self, fourcc: int, modifier: int) -> bool: ...
-    def equal(self, formats2: DmabufFormats | None = None) -> bool: ...
-    def get_format(self, idx: int) -> tuple[int, int]: ...
-    def get_n_formats(self) -> int: ...
-    def ref(self) -> DmabufFormats: ...
-    def unref(self) -> None: ...
+    def contains(self, fourcc: int, modifier: int) -> bool:
+        """
+        Returns whether a given format is contained in @formats.
+        """
+    def equal(self, formats2: DmabufFormats | None = None) -> bool:
+        """
+            Returns whether @formats1 and @formats2 contain the
+        same dmabuf formats, in the same order.
+        """
+    def get_format(self, idx: int) -> tuple[int, int]:
+        """
+            Gets the fourcc code and modifier for a format
+        that is contained in @formats.
+        """
+    def get_n_formats(self) -> int:
+        """
+            Returns the number of formats that the @formats object
+        contains.
+
+        Note that DMA buffers are a Linux concept, so on other
+        platforms, [method@Gdk.DmabufFormats.get_n_formats] will
+        always return zero.
+        """
+    def ref(self) -> DmabufFormats:
+        """
+        Increases the reference count of @formats.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of @formats.
+
+        When the reference count reaches zero,
+        the object is freed.
+        """
 
 class DmabufTexture(Texture):
     """
@@ -3276,15 +4721,50 @@ class DmabufTextureBuilder(GObject.Object):
 
     class Props(GObject.Object.Props):
         color_state: ColorState | None  # [color-state]: changed because contained invalid characters
+        """
+        The color state of the texture.
+        """
         display: Display | None
+        """
+        The display that this texture will be used on.
+        """
         fourcc: int
+        """
+        The format of the texture, as a fourcc value.
+        """
         height: int
+        """
+        The height of the texture.
+        """
         modifier: int
+        """
+        The modifier.
+        """
         n_planes: int  # [n-planes]: changed because contained invalid characters
+        """
+        The number of planes of the texture.
+
+        Note that you can set properties for other planes,
+        but they will be ignored when constructing the texture.
+        """
         premultiplied: bool
+        """
+        Whether the alpha channel is premultiplied into the others.
+
+        Only relevant if the format has alpha.
+        """
         update_region: cairo.Region | None  # [update-region]: changed because contained invalid characters
+        """
+        The update region for [property@Gdk.DmabufTextureBuilder:update-texture].
+        """
         update_texture: Texture | None  # [update-texture]: changed because contained invalid characters
+        """
+        The texture [property@Gdk.DmabufTextureBuilder:update-region] is an update for.
+        """
         width: int
+        """
+        The width of the texture.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -3306,45 +4786,183 @@ class DmabufTextureBuilder(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def build(self, destroy: GLib.DestroyNotify | None = None, data: object | None = None) -> Texture | None: ...
+    def build(self, destroy: GLib.DestroyNotify | None = None, data: object | None = None) -> Texture | None:
+        """
+            Builds a new `GdkTexture` with the values set up in the builder.
+
+        It is a programming error to call this function if any mandatory property has not been set.
+
+        Not all formats defined in the `drm_fourcc.h` header are supported. You can use
+        [method@Gdk.Display.get_dmabuf_formats] to get a list of supported formats. If the
+        format is not supported by GTK, %NULL will be returned and @error will be set.
+
+        The `destroy` function gets called when the returned texture gets released.
+
+        It is the responsibility of the caller to keep the file descriptors for the planes
+        open until the created texture is no longer used, and close them afterwards (possibly
+        using the @destroy notify).
+
+        It is possible to call this function multiple times to create multiple textures,
+        possibly with changing properties in between.
+        """
     @builtins.property
-    def get_color_state(self) -> ColorState | None: ...
+    def get_color_state(self) -> ColorState | None:
+        """
+        Gets the color state previously set via gdk_dmabuf_texture_builder_set_color_state().
+        """
     @builtins.property
-    def get_display(self) -> Display: ...
-    def get_fd(self, plane: int) -> int: ...
+    def get_display(self) -> Display:
+        """
+            Returns the display that this texture builder is
+        associated with.
+        """
+    def get_fd(self, plane: int) -> int:
+        """
+        Gets the file descriptor for a plane.
+        """
     @builtins.property
-    def get_fourcc(self) -> int: ...
+    def get_fourcc(self) -> int:
+        """
+            Gets the format previously set via gdk_dmabuf_texture_builder_set_fourcc()
+        or 0 if the format wasn't set.
+
+        The format is specified as a fourcc code.
+        """
     @builtins.property
-    def get_height(self) -> int: ...
+    def get_height(self) -> int:
+        """
+            Gets the height previously set via gdk_dmabuf_texture_builder_set_height() or
+        0 if the height wasn't set.
+        """
     @builtins.property
-    def get_modifier(self) -> int: ...
+    def get_modifier(self) -> int:
+        """
+        Gets the modifier value.
+        """
     @builtins.property
-    def get_n_planes(self) -> int: ...
-    def get_offset(self, plane: int) -> int: ...
+    def get_n_planes(self) -> int:
+        """
+        Gets the number of planes.
+        """
+    def get_offset(self, plane: int) -> int:
+        """
+        Gets the offset value for a plane.
+        """
     @builtins.property
-    def get_premultiplied(self) -> bool: ...
-    def get_stride(self, plane: int) -> int: ...
+    def get_premultiplied(self) -> bool:
+        """
+        Whether the data is premultiplied.
+        """
+    def get_stride(self, plane: int) -> int:
+        """
+        Gets the stride value for a plane.
+        """
     @builtins.property
-    def get_update_region(self) -> cairo.Region | None: ...
+    def get_update_region(self) -> cairo.Region | None:
+        """
+            Gets the region previously set via gdk_dmabuf_texture_builder_set_update_region() or
+        %NULL if none was set.
+        """
     @builtins.property
-    def get_update_texture(self) -> Texture | None: ...
+    def get_update_texture(self) -> Texture | None:
+        """
+            Gets the texture previously set via gdk_dmabuf_texture_builder_set_update_texture() or
+        %NULL if none was set.
+        """
     @builtins.property
-    def get_width(self) -> int: ...
+    def get_width(self) -> int:
+        """
+            Gets the width previously set via gdk_dmabuf_texture_builder_set_width() or
+        0 if the width wasn't set.
+        """
     @classmethod
-    def new(cls) -> DmabufTextureBuilder: ...
-    def set_color_state(self, color_state: ColorState | None = None) -> None: ...
-    def set_display(self, display: Display) -> None: ...
-    def set_fd(self, plane: int, fd: int) -> None: ...
-    def set_fourcc(self, fourcc: int) -> None: ...
-    def set_height(self, height: int) -> None: ...
-    def set_modifier(self, modifier: int) -> None: ...
-    def set_n_planes(self, n_planes: int) -> None: ...
-    def set_offset(self, plane: int, offset: int) -> None: ...
-    def set_premultiplied(self, premultiplied: bool) -> None: ...
-    def set_stride(self, plane: int, stride: int) -> None: ...
-    def set_update_region(self, region: cairo.Region | None = None) -> None: ...
-    def set_update_texture(self, texture: Texture | None = None) -> None: ...
-    def set_width(self, width: int) -> None: ...
+    def new(cls) -> DmabufTextureBuilder:
+        """
+        Creates a new texture builder.
+        """
+    def set_color_state(self, color_state: ColorState | None = None) -> None:
+        """
+            Sets the color state for the texture.
+
+        By default, the colorstate is `NULL`. In that case, GTK will choose the
+        correct colorstate based on the format.
+        If you don't know what colorstates are, this is probably the right thing.
+        """
+    def set_display(self, display: Display) -> None:
+        """
+            Sets the display that this texture builder is
+        associated with.
+
+        The display is used to determine the supported
+        dma-buf formats.
+        """
+    def set_fd(self, plane: int, fd: int) -> None:
+        """
+        Sets the file descriptor for a plane.
+        """
+    def set_fourcc(self, fourcc: int) -> None:
+        """
+            Sets the format of the texture.
+
+        The format is specified as a fourcc code.
+
+        The format must be set before calling [method@Gdk.DmabufTextureBuilder.build].
+        """
+    def set_height(self, height: int) -> None:
+        """
+            Sets the height of the texture.
+
+        The height must be set before calling [method@Gdk.DmabufTextureBuilder.build].
+        """
+    def set_modifier(self, modifier: int) -> None:
+        """
+        Sets the modifier.
+        """
+    def set_n_planes(self, n_planes: int) -> None:
+        """
+        Sets the number of planes of the texture.
+        """
+    def set_offset(self, plane: int, offset: int) -> None:
+        """
+        Sets the offset for a plane.
+        """
+    def set_premultiplied(self, premultiplied: bool) -> None:
+        """
+            Sets whether the data is premultiplied.
+
+        Unless otherwise specified, all formats including alpha channels are assumed
+        to be premultiplied.
+        """
+    def set_stride(self, plane: int, stride: int) -> None:
+        """
+            Sets the stride for a plane.
+
+        The stride must be set for all planes before calling [method@Gdk.DmabufTextureBuilder.build].
+        """
+    def set_update_region(self, region: cairo.Region | None = None) -> None:
+        """
+            Sets the region to be updated by this texture. Together with
+        [property@Gdk.DmabufTextureBuilder:update-texture] this describes an
+        update of a previous texture.
+
+        When rendering animations of large textures, it is possible that
+        consecutive textures are only updating contents in parts of the texture.
+        It is then possible to describe this update via these two properties,
+        so that GTK can avoid rerendering parts that did not change.
+
+        An example would be a screen recording where only the mouse pointer moves.
+        """
+    def set_update_texture(self, texture: Texture | None = None) -> None:
+        """
+            Sets the texture to be updated by this texture. See
+        [method@Gdk.DmabufTextureBuilder.set_update_region] for an explanation.
+        """
+    def set_width(self, width: int) -> None:
+        """
+            Sets the width of the texture.
+
+        The width must be set before calling [method@Gdk.DmabufTextureBuilder.build].
+        """
 
     # Signals
     @typing.overload
@@ -3452,12 +5070,33 @@ class Drag(GObject.Object):
 
     class Props(GObject.Object.Props):
         actions: DragAction
+        """
+        The possible actions of this drag.
+        """
         content: ContentProvider | None
+        """
+        The `GdkContentProvider`.
+        """
         device: Device | None
+        """
+        The `GdkDevice` that is performing the drag.
+        """
         display: Display | None
+        """
+        The `GdkDisplay` that the drag belongs to.
+        """
         formats: ContentFormats | None
+        """
+        The possible formats that the drag can provide its data in.
+        """
         selected_action: DragAction  # [selected-action]: changed because contained invalid characters
+        """
+        The currently selected action of the drag.
+        """
         surface: Surface | None
+        """
+        The surface where the drag originates.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -3478,24 +5117,89 @@ class Drag(GObject.Object):
     @staticmethod
     def begin(
         surface: Surface, device: Device, content: ContentProvider, actions: DragAction, dx: float, dy: float
-    ) -> Drag | None: ...
-    def drop_done(self, success: bool) -> None: ...
+    ) -> Drag | None:
+        """
+            Starts a drag and creates a new drag context for it.
+
+        This function is called by the drag source. After this call, you
+        probably want to set up the drag icon using the surface returned
+        by [method@Gdk.Drag.get_drag_surface].
+
+        This function returns a reference to the [class@Gdk.Drag] object,
+        but GTK keeps its own reference as well, as long as the DND operation
+        is going on.
+
+        Note: if @actions include %GDK_ACTION_MOVE, you need to listen for
+        the [signal@Gdk.Drag::dnd-finished] signal and delete the data at
+        the source if [method@Gdk.Drag.get_selected_action] returns
+        %GDK_ACTION_MOVE.
+        """
+    def drop_done(self, success: bool) -> None:
+        """
+            Informs GDK that the drop ended.
+
+        Passing %FALSE for @success may trigger a drag cancellation
+        animation.
+
+        This function is called by the drag source, and should be the
+        last call before dropping the reference to the @drag.
+
+        The `GdkDrag` will only take the first [method@Gdk.Drag.drop_done]
+        call as effective, if this function is called multiple times,
+        all subsequent calls will be ignored.
+        """
     @builtins.property
-    def get_actions(self) -> DragAction: ...
+    def get_actions(self) -> DragAction:
+        """
+        Determines the bitmask of possible actions proposed by the source.
+        """
     @builtins.property
-    def get_content(self) -> ContentProvider: ...
+    def get_content(self) -> ContentProvider:
+        """
+        Returns the `GdkContentProvider` associated to the `GdkDrag` object.
+        """
     @builtins.property
-    def get_device(self) -> Device: ...
+    def get_device(self) -> Device:
+        """
+        Returns the `GdkDevice` associated to the `GdkDrag` object.
+        """
     @builtins.property
-    def get_display(self) -> Display: ...
-    def get_drag_surface(self) -> Surface | None: ...
+    def get_display(self) -> Display:
+        """
+        Gets the `GdkDisplay` that the drag object was created for.
+        """
+    def get_drag_surface(self) -> Surface | None:
+        """
+            Returns the surface on which the drag icon should be rendered
+        during the drag operation.
+
+        Note that the surface may not be available until the drag operation
+        has begun. GDK will move the surface in accordance with the ongoing
+        drag operation. The surface is owned by @drag and will be destroyed
+        when the drag operation is over.
+        """
     @builtins.property
-    def get_formats(self) -> ContentFormats: ...
+    def get_formats(self) -> ContentFormats:
+        """
+        Retrieves the formats supported by this `GdkDrag` object.
+        """
     @builtins.property
-    def get_selected_action(self) -> DragAction: ...
+    def get_selected_action(self) -> DragAction:
+        """
+        Determines the action chosen by the drag destination.
+        """
     @builtins.property
-    def get_surface(self) -> Surface: ...
-    def set_hotspot(self, hot_x: int, hot_y: int) -> None: ...
+    def get_surface(self) -> Surface:
+        """
+        Returns the `GdkSurface` where the drag originates.
+        """
+    def set_hotspot(self, hot_x: int, hot_y: int) -> None:
+        """
+            Sets the position of the drag surface that will be kept
+        under the cursor hotspot.
+
+        Initially, the hotspot is at the top left corner of the drag surface.
+        """
 
     # Signals
     @typing.overload
@@ -3504,15 +5208,26 @@ class Drag(GObject.Object):
         detailed_signal: typing.Literal["cancel"],
         handler: typing.Callable[[typing_extensions.Self, DragCancelReason], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when the drag operation is cancelled.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["dnd-finished"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted when the destination side has finished reading all data.
+
+        The drag object can now free all miscellaneous data.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["drop-performed"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when the drop operation is performed on an accepting client.
+        """
     @typing.overload
     def connect(
         self,
@@ -3568,12 +5283,19 @@ class Drag(GObject.Object):
     ) -> int: ...
 
 class DragSurface(GObject.GInterface):
+    """
+    A surface that is used during DND.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def present(self, width: int, height: int) -> bool: ...
+    def present(self, width: int, height: int) -> bool:
+        """
+        Present @drag_surface.
+        """
 
     # Signals
     @typing.overload
@@ -3582,13 +5304,32 @@ class DragSurface(GObject.GInterface):
         detailed_signal: typing.Literal["compute-size"],
         handler: typing.Callable[[typing_extensions.Self, DragSurfaceSize], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted when the size for the surface needs to be computed, when it is
+        present.
+
+        This signal will normally be emitted during the native surface layout
+        cycle when the surface size needs to be recomputed.
+
+        It is the responsibility of the drag surface user to handle this signal
+        and compute the desired size of the surface, storing the computed size
+        in the [struct@Gdk.DragSurfaceSize] object that is passed to the signal
+        handler, using [method@Gdk.DragSurfaceSize.set_size].
+
+        Failing to set a size so will result in an arbitrary size being used as
+        a result.
+        """
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
 class DragSurfaceInterface(GObject.GPointer):
+    """
+    The `GdkDragSurfaceInterface` implementation is private to GDK.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -3596,12 +5337,19 @@ class DragSurfaceInterface(GObject.GPointer):
         """
 
 class DragSurfaceSize(GObject.GPointer):
+    """
+    Contains information that is useful to compute the size of a drag surface.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def set_size(self, width: int, height: int) -> None: ...
+    def set_size(self, width: int, height: int) -> None:
+        """
+        Sets the size the drag surface prefers to be resized to.
+        """
 
 class DrawContext(GObject.Object):
     """
@@ -3618,7 +5366,13 @@ class DrawContext(GObject.Object):
 
     class Props(GObject.Object.Props):
         display: Display | None
+        """
+        The `GdkDisplay` used to create the `GdkDrawContext`.
+        """
         surface: Surface | None
+        """
+        The `GdkSurface` the context is bound to.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -3629,17 +5383,76 @@ class DrawContext(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def begin_frame(self, region: cairo.Region) -> None: ...
+    def begin_frame(self, region: cairo.Region) -> None:
+        """
+            Indicates that you are beginning the process of redrawing @region
+        on the @context's surface.
+
+        Calling this function begins a drawing operation using @context on the
+        surface that @context was created from. The actual requirements and
+        guarantees for the drawing operation vary for different implementations
+        of drawing, so a [class@Gdk.CairoContext] and a [class@Gdk.GLContext]
+        need to be treated differently.
+
+        A call to this function is a requirement for drawing and must be
+        followed by a call to [method@Gdk.DrawContext.end_frame], which will
+        complete the drawing operation and ensure the contents become visible
+        on screen.
+
+        Note that the @region passed to this function is the minimum region that
+        needs to be drawn and depending on implementation, windowing system and
+        hardware in use, it might be necessary to draw a larger region. Drawing
+        implementation must use [method@Gdk.DrawContext.get_frame_region] to
+        query the region that must be drawn.
+
+        When using GTK, the widget system automatically places calls to
+        gdk_draw_context_begin_frame() and gdk_draw_context_end_frame() via the
+        use of [GskRenderer](../gsk4/class.Renderer.html)s, so application code
+        does not need to call these functions explicitly.
+        """
     @deprecated("deprecated")
-    def end_frame(self) -> None: ...
+    def end_frame(self) -> None:
+        """
+            Ends a drawing operation started with gdk_draw_context_begin_frame().
+
+        This makes the drawing available on screen.
+        See [method@Gdk.DrawContext.begin_frame] for more details about drawing.
+
+        When using a [class@Gdk.GLContext], this function may call `glFlush()`
+        implicitly before returning; it is not recommended to call `glFlush()`
+        explicitly before calling this function.
+        """
     @builtins.property
-    def get_display(self) -> Display | None: ...
+    def get_display(self) -> Display | None:
+        """
+        Retrieves the `GdkDisplay` the @context is created for
+        """
     @deprecated("deprecated")
-    def get_frame_region(self) -> cairo.Region | None: ...
+    def get_frame_region(self) -> cairo.Region | None:
+        """
+            Retrieves the region that is currently being repainted.
+
+        After a call to [method@Gdk.DrawContext.begin_frame] this function will
+        return a union of the region passed to that function and the area of the
+        surface that the @context determined needs to be repainted.
+
+        If @context is not in between calls to [method@Gdk.DrawContext.begin_frame]
+        and [method@Gdk.DrawContext.end_frame], %NULL will be returned.
+        """
     @builtins.property
-    def get_surface(self) -> Surface | None: ...
+    def get_surface(self) -> Surface | None:
+        """
+        Retrieves the surface that @context is bound to.
+        """
     @deprecated("deprecated")
-    def is_in_frame(self) -> bool: ...
+    def is_in_frame(self) -> bool:
+        """
+            Returns %TRUE if @context is in the process of drawing to its surface.
+
+        This is the case between calls to [method@Gdk.DrawContext.begin_frame]
+        and [method@Gdk.DrawContext.end_frame]. In this situation, drawing commands
+        may be effecting the contents of the @context's surface.
+        """
 
     # Signals
     @typing.overload
@@ -3681,11 +5494,29 @@ class Drop(GObject.Object):
 
     class Props(GObject.Object.Props):
         actions: DragAction
+        """
+        The possible actions for this drop
+        """
         device: Device | None
+        """
+        The `GdkDevice` performing the drop
+        """
         display: Display | None
+        """
+        The `GdkDisplay` that the drop belongs to.
+        """
         drag: Drag | None
+        """
+        The `GdkDrag` that initiated this drop
+        """
         formats: ContentFormats | None
+        """
+        The possible formats that the drop can provide its data in.
+        """
         surface: Surface | None
+        """
+        The `GdkSurface` the drop happens on
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -3702,19 +5533,60 @@ class Drop(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def finish(self, action: DragAction) -> None: ...
+    def finish(self, action: DragAction) -> None:
+        """
+            Ends the drag operation after a drop.
+
+        The @action must be a single action selected from the actions
+        available via [method@Gdk.Drop.get_actions].
+        """
     @builtins.property
-    def get_actions(self) -> DragAction: ...
+    def get_actions(self) -> DragAction:
+        """
+            Returns the possible actions for this `GdkDrop`.
+
+        If this value contains multiple actions - i.e.
+        [func@Gdk.DragAction.is_unique] returns %FALSE for the result -
+        [method@Gdk.Drop.finish] must choose the action to use when
+        accepting the drop. This will only happen if you passed
+        %GDK_ACTION_ASK as one of the possible actions in
+        [method@Gdk.Drop.status]. %GDK_ACTION_ASK itself will not
+        be included in the actions returned by this function.
+
+        This value may change over the lifetime of the [class@Gdk.Drop]
+        both as a response to source side actions as well as to calls to
+        [method@Gdk.Drop.status] or [method@Gdk.Drop.finish]. The source
+        side will not change this value anymore once a drop has started.
+        """
     @builtins.property
-    def get_device(self) -> Device: ...
+    def get_device(self) -> Device:
+        """
+        Returns the `GdkDevice` performing the drop.
+        """
     @builtins.property
-    def get_display(self) -> Display: ...
+    def get_display(self) -> Display:
+        """
+        Gets the `GdkDisplay` that @self was created for.
+        """
     @builtins.property
-    def get_drag(self) -> Drag | None: ...
+    def get_drag(self) -> Drag | None:
+        """
+            If this is an in-app drag-and-drop operation, returns the `GdkDrag`
+        that corresponds to this drop.
+
+        If it is not, %NULL is returned.
+        """
     @builtins.property
-    def get_formats(self) -> ContentFormats: ...
+    def get_formats(self) -> ContentFormats:
+        """
+            Returns the `GdkContentFormats` that the drop offers the data
+        to be read in.
+        """
     @builtins.property
-    def get_surface(self) -> Surface: ...
+    def get_surface(self) -> Surface:
+        """
+        Returns the `GdkSurface` performing the drop.
+        """
     def read_async(
         self,
         mime_types: list,
@@ -3722,8 +5594,22 @@ class Drop(GObject.Object):
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
         user_data: object | None = None,
-    ) -> None: ...
-    def read_finish(self, result: Gio.AsyncResult) -> tuple[Gio.InputStream | None, str]: ...
+    ) -> None:
+        """
+            Asynchronously read the dropped data from a `GdkDrop`
+        in a format that complies with one of the mime types.
+        """
+    def read_finish(self, result: Gio.AsyncResult) -> tuple[Gio.InputStream | None, str]:
+        """
+            Finishes an async drop read operation.
+
+        Note that you must not use blocking read calls on the returned stream
+        in the GTK thread, since some platforms might require communication with
+        GTK to complete the data transfer. You can use async APIs such as
+        g_input_stream_read_bytes_async().
+
+        See [method@Gdk.Drop.read_async].
+        """
     def read_value_async(
         self,
         type: GObject.GType,
@@ -3731,9 +5617,37 @@ class Drop(GObject.Object):
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
         user_data: object | None = None,
-    ) -> None: ...
-    def read_value_finish(self, result: Gio.AsyncResult) -> GObject.Value: ...
-    def status(self, actions: DragAction, preferred: DragAction) -> None: ...
+    ) -> None:
+        """
+            Asynchronously request the drag operation's contents converted
+        to the given @type.
+
+        For local drag-and-drop operations that are available in the given
+        `GType`, the value will be copied directly. Otherwise, GDK will
+        try to use [func@Gdk.content_deserialize_async] to convert the data.
+        """
+    def read_value_finish(self, result: Gio.AsyncResult) -> GObject.Value:
+        """
+            Finishes an async drop read.
+
+        See [method@Gdk.Drop.read_value_async].
+        """
+    def status(self, actions: DragAction, preferred: DragAction) -> None:
+        """
+            Selects all actions that are potentially supported by the destination.
+
+        When calling this function, do not restrict the passed in actions to
+        the ones provided by [method@Gdk.Drop.get_actions]. Those actions may
+        change in the future, even depending on the actions you provide here.
+
+        The @preferred action is a hint to the drag-and-drop mechanism about which
+        action to use when multiple actions are possible.
+
+        This function should be called by drag destinations in response to
+        %GDK_DRAG_ENTER or %GDK_DRAG_MOTION events. If the destination does
+        not yet know the exact actions it supports, it should set any possible
+        actions first and then later call this function again.
+        """
 
     # Signals
     @typing.overload
@@ -3804,28 +5718,151 @@ class Event(object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def _get_angle(self, event2: Event) -> tuple[bool, float]: ...
-    def _get_center(self, event2: Event) -> tuple[bool, float, float]: ...
-    def _get_distance(self, event2: Event) -> tuple[bool, float]: ...
-    def get_axes(self) -> tuple[bool, list, int]: ...
-    def get_axis(self, axis_use: AxisUse) -> tuple[bool, float]: ...
-    def get_device(self) -> Device | None: ...
-    def get_device_tool(self) -> DeviceTool | None: ...
-    def get_display(self) -> Display | None: ...
-    def get_event_sequence(self) -> EventSequence: ...
-    def get_event_type(self) -> EventType: ...
-    def get_history(self) -> tuple[list | None, int]: ...
-    def get_modifier_state(self) -> ModifierType: ...
-    def get_pointer_emulated(self) -> bool: ...
-    def get_position(self) -> tuple[bool, float, float]: ...
-    def get_seat(self) -> Seat | None: ...
-    def get_surface(self) -> Surface | None: ...
-    def get_time(self) -> int: ...
-    def ref(self) -> Event: ...
-    def triggers_context_menu(self) -> bool: ...
-    def unref(self) -> None: ...
+    def _get_angle(self, event2: Event) -> tuple[bool, float]:
+        """
+            Returns the relative angle from @event1 to @event2.
+
+        The relative angle is the angle between the X axis and the line
+        through both events' positions. The rotation direction for positive
+        angles is from the positive X axis towards the positive Y axis.
+
+        This assumes that both events have X/Y information.
+        If not, this function returns %FALSE.
+        """
+    def _get_center(self, event2: Event) -> tuple[bool, float, float]:
+        """
+            Returns the point halfway between the events' positions.
+
+        This assumes that both events have X/Y information.
+        If not, this function returns %FALSE.
+        """
+    def _get_distance(self, event2: Event) -> tuple[bool, float]:
+        """
+            Returns the distance between the event locations.
+
+        This assumes that both events have X/Y information.
+        If not, this function returns %FALSE.
+        """
+    def get_axes(self) -> tuple[bool, list, int]:
+        """
+            Extracts all axis values from an event.
+
+        To find out which axes are used, use [method@Gdk.DeviceTool.get_axes]
+        on the device tool returned by [method@Gdk.Event.get_device_tool].
+        """
+    def get_axis(self, axis_use: AxisUse) -> tuple[bool, float]:
+        """
+            Extract the axis value for a particular axis use from
+        an event structure.
+
+        To find out which axes are used, use [method@Gdk.DeviceTool.get_axes]
+        on the device tool returned by [method@Gdk.Event.get_device_tool].
+        """
+    def get_device(self) -> Device | None:
+        """
+        Returns the device of an event.
+        """
+    def get_device_tool(self) -> DeviceTool | None:
+        """
+            Returns a `GdkDeviceTool` representing the tool that
+        caused the event.
+
+        If the was not generated by a device that supports
+        different tools (such as a tablet), this function will
+        return %NULL.
+
+        Note: the `GdkDeviceTool` will be constant during
+        the application lifetime, if settings must be stored
+        persistently across runs, see [method@Gdk.DeviceTool.get_serial].
+        """
+    def get_display(self) -> Display | None:
+        """
+        Retrieves the display associated to the @event.
+        """
+    def get_event_sequence(self) -> EventSequence:
+        """
+            Returns the event sequence to which the event belongs.
+
+        Related touch events are connected in a sequence. Other
+        events typically don't have event sequence information.
+        """
+    def get_event_type(self) -> EventType:
+        """
+        Retrieves the type of the event.
+        """
+    def get_history(self) -> tuple[list | None, int]:
+        """
+            Retrieves the history of the device that @event is for, as a list of
+        time and coordinates.
+
+        The history includes positions that are not delivered as separate events
+        to the application because they occurred in the same frame as @event.
+
+        Note that only motion and scroll events record history, and motion
+        events do it only if one of the mouse buttons is down, or the device
+        has a tool.
+        """
+    def get_modifier_state(self) -> ModifierType:
+        """
+        Returns the modifier state field of an event.
+        """
+    def get_pointer_emulated(self) -> bool:
+        """
+            Returns whether this event is an 'emulated' pointer event.
+
+        Emulated pointer events typically originate from a touch events.
+        """
+    def get_position(self) -> tuple[bool, float, float]:
+        """
+            Extract the event surface relative x/y coordinates from an event.
+
+        This position is in [surface coordinates](coordinates.html).
+        """
+    def get_seat(self) -> Seat | None:
+        """
+        Returns the seat that originated the event.
+        """
+    def get_surface(self) -> Surface | None:
+        """
+        Extracts the surface associated with an event.
+        """
+    def get_time(self) -> int:
+        """
+            Returns the timestamp of @event.
+
+        Not all events have timestamps. In that case, this function
+        returns %GDK_CURRENT_TIME.
+        """
+    def ref(self) -> Event:
+        """
+        Increase the ref count of @event.
+        """
+    def triggers_context_menu(self) -> bool:
+        """
+            Returns whether a `GdkEvent` should trigger a context menu,
+        according to platform conventions.
+
+        The right mouse button typically triggers context menus.
+        On macOS, Control+left mouse button also triggers.
+
+        This function should always be used instead of simply checking for
+
+        ```c
+        event->button == GDK_BUTTON_SECONDARY
+        ```
+        """
+    def unref(self) -> None:
+        """
+            Decrease the ref count of @event.
+
+        If the last reference is dropped, the structure is freed.
+        """
 
 class EventSequence(GObject.GBoxed):
+    """
+    An opaque type representing a sequence of related events.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -3833,16 +5870,36 @@ class EventSequence(GObject.GBoxed):
         """
 
 class FileList(GObject.GBoxed):
+    """
+    An opaque type representing a list of files.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_files(self) -> list: ...
+    def get_files(self) -> list:
+        """
+            Retrieves the list of files inside a `GdkFileList`.
+
+        This function is meant for language bindings.
+        """
     @classmethod
-    def new_from_array(cls, files: list, n_files: int) -> FileList: ...
+    def new_from_array(cls, files: list, n_files: int) -> FileList:
+        """
+            Creates a new `GdkFileList` for the given array of files.
+
+        This function is meant to be used by language bindings.
+        """
     @classmethod
-    def new_from_list(cls, files: list) -> FileList: ...
+    def new_from_list(cls, files: list) -> FileList:
+        """
+            Creates a new files list container from a singly linked list of
+        `GFile` instances.
+
+        This function is meant to be used by language bindings
+        """
 
 class FocusEvent(Event):
     """
@@ -3854,7 +5911,11 @@ class FocusEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_in(self) -> bool: ...
+    def get_in(self) -> bool:
+        """
+            Extracts whether this event is about focus entering or
+        leaving the surface.
+        """
 
 class FrameClock(GObject.Object):
     """
@@ -3897,46 +5958,167 @@ class FrameClock(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def begin_updating(self) -> None: ...
-    def end_updating(self) -> None: ...
-    def get_current_timings(self) -> FrameTimings | None: ...
-    def get_fps(self) -> float: ...
-    def get_frame_counter(self) -> int: ...
-    def get_frame_time(self) -> int: ...
-    def get_history_start(self) -> int: ...
-    def get_refresh_info(self, base_time: int) -> tuple[int | None, int]: ...
-    def get_timings(self, frame_counter: int) -> FrameTimings | None: ...
-    def request_phase(self, phase: FrameClockPhase) -> None: ...
+    def begin_updating(self) -> None:
+        """
+            Starts updates for an animation.
+
+        Until a matching call to [method@Gdk.FrameClock.end_updating] is made,
+        the frame clock will continually request a new frame with the
+        %GDK_FRAME_CLOCK_PHASE_UPDATE phase. This function may be called multiple
+        times and frames will be requested until gdk_frame_clock_end_updating()
+        is called the same number of times.
+        """
+    def end_updating(self) -> None:
+        """
+            Stops updates for an animation.
+
+        See the documentation for [method@Gdk.FrameClock.begin_updating].
+        """
+    def get_current_timings(self) -> FrameTimings | None:
+        """
+        Gets the frame timings for the current frame.
+        """
+    def get_fps(self) -> float:
+        """
+            Calculates the current frames-per-second, based on the
+        frame timings of @frame_clock.
+        """
+    def get_frame_counter(self) -> int:
+        """
+            `GdkFrameClock` maintains a 64-bit counter that increments for
+        each frame drawn.
+        """
+    def get_frame_time(self) -> int:
+        """
+            Gets the time that should currently be used for animations.
+
+        Inside the processing of a frame, it’s the time used to compute the
+        animation position of everything in a frame. Outside of a frame, it's
+        the time of the conceptual “previous frame,” which may be either
+        the actual previous frame time, or if that’s too old, an updated
+        time.
+        """
+    def get_history_start(self) -> int:
+        """
+            Returns the frame counter for the oldest frame available in history.
+
+        `GdkFrameClock` internally keeps a history of `GdkFrameTimings`
+        objects for recent frames that can be retrieved with
+        [method@Gdk.FrameClock.get_timings]. The set of stored frames
+        is the set from the counter values given by
+        [method@Gdk.FrameClock.get_history_start] and
+        [method@Gdk.FrameClock.get_frame_counter], inclusive.
+        """
+    def get_refresh_info(self, base_time: int) -> tuple[int | None, int]:
+        """
+            Predicts a presentation time, based on history.
+
+        Using the frame history stored in the frame clock, finds the last
+        known presentation time and refresh interval, and assuming that
+        presentation times are separated by the refresh interval,
+        predicts a presentation time that is a multiple of the refresh
+        interval after the last presentation time, and later than @base_time.
+        """
+    def get_timings(self, frame_counter: int) -> FrameTimings | None:
+        """
+            Retrieves a `GdkFrameTimings` object holding timing information
+        for the current frame or a recent frame.
+
+        The `GdkFrameTimings` object may not yet be complete: see
+        [method@Gdk.FrameTimings.get_complete] and
+        [method@Gdk.FrameClock.get_history_start].
+        """
+    def request_phase(self, phase: FrameClockPhase) -> None:
+        """
+            Asks the frame clock to run a particular phase.
+
+        The signal corresponding the requested phase will be emitted the next
+        time the frame clock processes. Multiple calls to
+        gdk_frame_clock_request_phase() will be combined together
+        and only one frame processed. If you are displaying animated
+        content and want to continually request the
+        %GDK_FRAME_CLOCK_PHASE_UPDATE phase for a period of time,
+        you should use [method@Gdk.FrameClock.begin_updating] instead,
+        since this allows GTK to adjust system parameters to get maximally
+        smooth animations.
+        """
 
     # Signals
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["after-paint"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            This signal ends processing of the frame.
+
+        Applications should generally not handle this signal.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["before-paint"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Begins processing of the frame.
+
+        Applications should generally not handle this signal.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["flush-events"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Used to flush pending motion events that are being batched up and
+        compressed together.
+
+        Applications should not handle this signal.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["layout"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted as the second step of toolkit and application processing
+        of the frame.
+
+        Any work to update sizes and positions of application elements
+        should be performed. GTK normally handles this internally.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["paint"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted as the third step of toolkit and application processing
+        of the frame.
+
+        The frame is repainted. GDK normally handles this internally and
+        emits [signal@Gdk.Surface::render] signals which are turned into
+        [GtkWidget::snapshot](../gtk4/signal.Widget.snapshot.html) signals
+        by GTK.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["resume-events"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted after processing of the frame is finished.
+
+        This signal is handled internally by GTK to resume normal
+        event processing. Applications should not handle this signal.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["update"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted as the first step of toolkit and application processing
+        of the frame.
+
+        Animations should be updated using [method@Gdk.FrameClock.get_frame_time].
+        Applications can connect directly to this signal, or use
+        [gtk_widget_add_tick_callback()](../gtk4/method.Widget.add_tick_callback.html)
+        as a more convenient interface.
+        """
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -3957,19 +6139,88 @@ class FrameClockPrivate(GObject.GPointer):
         """
 
 class FrameTimings(GObject.GBoxed):
+    """
+    Holds timing information for a single frame of the application’s displays.
+
+    To retrieve `GdkFrameTimings` objects, use [method@Gdk.FrameClock.get_timings]
+    or [method@Gdk.FrameClock.get_current_timings]. The information in
+    `GdkFrameTimings` is useful for precise synchronization of video with
+    the event or audio streams, and for measuring quality metrics for the
+    application’s display, such as latency and jitter.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_complete(self) -> bool: ...
-    def get_frame_counter(self) -> int: ...
-    def get_frame_time(self) -> int: ...
-    def get_predicted_presentation_time(self) -> int: ...
-    def get_presentation_time(self) -> int: ...
-    def get_refresh_interval(self) -> int: ...
-    def ref(self) -> FrameTimings: ...
-    def unref(self) -> None: ...
+    def get_complete(self) -> bool:
+        """
+            Returns whether @timings are complete.
+
+        The timing information in a `GdkFrameTimings` is filled in
+        incrementally as the frame as drawn and passed off to the
+        window system for processing and display to the user. The
+        accessor functions for `GdkFrameTimings` can return 0 to
+        indicate an unavailable value for two reasons: either because
+        the information is not yet available, or because it isn't
+        available at all.
+
+        Once this function returns %TRUE for a frame, you can be
+        certain that no further values will become available and be
+        stored in the `GdkFrameTimings`.
+        """
+    def get_frame_counter(self) -> int:
+        """
+            Gets the frame counter value of the `GdkFrameClock` when
+        this frame was drawn.
+        """
+    def get_frame_time(self) -> int:
+        """
+            Returns the frame time for the frame.
+
+        This is the time value that is typically used to time
+        animations for the frame. See [method@Gdk.FrameClock.get_frame_time].
+        """
+    def get_predicted_presentation_time(self) -> int:
+        """
+            Gets the predicted time at which this frame will be displayed.
+
+        Although no predicted time may be available, if one is available,
+        it will be available while the frame is being generated, in contrast
+        to [method@Gdk.FrameTimings.get_presentation_time], which is only
+        available after the frame has been presented.
+
+        In general, if you are simply animating, you should use
+        [method@Gdk.FrameClock.get_frame_time] rather than this function,
+        but this function is useful for applications that want exact control
+        over latency. For example, a movie player may want this information
+        for Audio/Video synchronization.
+        """
+    def get_presentation_time(self) -> int:
+        """
+            Reurns the presentation time.
+
+        This is the time at which the frame became visible to the user.
+        """
+    def get_refresh_interval(self) -> int:
+        """
+            Gets the natural interval between presentation times for
+        the display that this frame was displayed on.
+
+        Frame presentation usually happens during the “vertical
+        blanking interval”.
+        """
+    def ref(self) -> FrameTimings:
+        """
+        Increases the reference count of @timings.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of @timings.
+
+        If @timings is no longer referenced, it will be freed.
+        """
 
 class GLContext(DrawContext):
     """
@@ -4025,8 +6276,20 @@ class GLContext(DrawContext):
 
     class Props(DrawContext.Props):
         allowed_apis: GLAPI  # [allowed-apis]: changed because contained invalid characters
+        """
+        The allowed APIs.
+        """
         api: GLAPI
+        """
+        The API currently in use.
+        """
         shared_context: GLContext | None  # [shared-context]: changed because contained invalid characters
+        """
+        Always %NULL
+
+        As many contexts can share data now and no single shared context exists
+        anymore, this function has been deprecated and now always returns %NULL.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -4037,32 +6300,182 @@ class GLContext(DrawContext):
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def clear_current() -> None: ...
+    def clear_current() -> None:
+        """
+            Clears the current `GdkGLContext`.
+
+        Any OpenGL call after this function returns will be ignored
+        until [method@Gdk.GLContext.make_current] is called.
+        """
     @builtins.property
-    def get_allowed_apis(self) -> GLAPI: ...
+    def get_allowed_apis(self) -> GLAPI:
+        """
+        Gets the allowed APIs set via gdk_gl_context_set_allowed_apis().
+        """
     @builtins.property
-    def get_api(self) -> GLAPI: ...
+    def get_api(self) -> GLAPI:
+        """
+            Gets the API currently in use.
+
+        If the renderer has not been realized yet, 0 is returned.
+        """
     @staticmethod
-    def get_current() -> GLContext | None: ...
-    def get_debug_enabled(self) -> bool: ...
-    def get_display(self) -> Display | None: ...
-    def get_forward_compatible(self) -> bool: ...
-    def get_required_version(self) -> tuple[int | None, int | None]: ...
+    def get_current() -> GLContext | None:
+        """
+        Retrieves the current `GdkGLContext`.
+        """
+    def get_debug_enabled(self) -> bool:
+        """
+            Retrieves whether the context is doing extra validations and runtime checking.
+
+        See [method@Gdk.GLContext.set_debug_enabled].
+        """
+    def get_display(self) -> Display | None:
+        """
+        Retrieves the display the @context is created for
+        """
+    def get_forward_compatible(self) -> bool:
+        """
+            Retrieves whether the context is forward-compatible.
+
+        See [method@Gdk.GLContext.set_forward_compatible].
+        """
+    def get_required_version(self) -> tuple[int | None, int | None]:
+        """
+            Retrieves required OpenGL version set as a requirement for the @context
+        realization. It will not change even if a greater OpenGL version is supported
+        and used after the @context is realized. See
+        [method@Gdk.GLContext.get_version] for the real version in use.
+
+        See [method@Gdk.GLContext.set_required_version].
+        """
     @deprecated("deprecated")
     @builtins.property
-    def get_shared_context(self) -> GLContext | None: ...
-    def get_surface(self) -> Surface | None: ...
-    def get_use_es(self) -> bool: ...
-    def get_version(self) -> tuple[int, int]: ...
-    def is_legacy(self) -> bool: ...
-    def is_shared(self, other: GLContext) -> bool: ...
-    def make_current(self) -> None: ...
-    def realize(self) -> bool: ...
-    def set_allowed_apis(self, apis: GLAPI) -> None: ...
-    def set_debug_enabled(self, enabled: bool) -> None: ...
-    def set_forward_compatible(self, compatible: bool) -> None: ...
-    def set_required_version(self, major: int, minor: int) -> None: ...
-    def set_use_es(self, use_es: int) -> None: ...
+    def get_shared_context(self) -> GLContext | None:
+        """
+            Used to retrieves the `GdkGLContext` that this @context share data with.
+
+        As many contexts can share data now and no single shared context exists
+        anymore, this function has been deprecated and now always returns %NULL.
+        """
+    def get_surface(self) -> Surface | None:
+        """
+        Retrieves the surface used by the @context.
+        """
+    def get_use_es(self) -> bool:
+        """
+        Checks whether the @context is using an OpenGL or OpenGL ES profile.
+        """
+    def get_version(self) -> tuple[int, int]:
+        """
+            Retrieves the OpenGL version of the @context.
+
+        The @context must be realized prior to calling this function.
+        """
+    def is_legacy(self) -> bool:
+        """
+            Whether the `GdkGLContext` is in legacy mode or not.
+
+        The `GdkGLContext` must be realized before calling this function.
+
+        When realizing a GL context, GDK will try to use the OpenGL 3.2 core
+        profile; this profile removes all the OpenGL API that was deprecated
+        prior to the 3.2 version of the specification. If the realization is
+        successful, this function will return %FALSE.
+
+        If the underlying OpenGL implementation does not support core profiles,
+        GDK will fall back to a pre-3.2 compatibility profile, and this function
+        will return %TRUE.
+
+        You can use the value returned by this function to decide which kind
+        of OpenGL API to use, or whether to do extension discovery, or what
+        kind of shader programs to load.
+        """
+    def is_shared(self, other: GLContext) -> bool:
+        """
+            Checks if the two GL contexts can share resources.
+
+        When they can, the texture IDs from @other can be used in @self. This
+        is particularly useful when passing `GdkGLTexture` objects between
+        different contexts.
+
+        Contexts created for the same display with the same properties will
+        always be compatible, even if they are created for different surfaces.
+        For other contexts it depends on the GL backend.
+
+        Both contexts must be realized for this check to succeed. If either one
+        is not, this function will return %FALSE.
+        """
+    def make_current(self) -> None:
+        """
+        Makes the @context the current one.
+        """
+    def realize(self) -> bool:
+        """
+            Realizes the given `GdkGLContext`.
+
+        It is safe to call this function on a realized `GdkGLContext`.
+        """
+    def set_allowed_apis(self, apis: GLAPI) -> None:
+        """
+            Sets the allowed APIs. When gdk_gl_context_realize() is called, only the
+        allowed APIs will be tried. If you set this to 0, realizing will always fail.
+
+        If you set it on a realized context, the property will not have any effect.
+        It is only relevant during gdk_gl_context_realize().
+
+        By default, all APIs are allowed.
+        """
+    def set_debug_enabled(self, enabled: bool) -> None:
+        """
+            Sets whether the `GdkGLContext` should perform extra validations and
+        runtime checking.
+
+        This is useful during development, but has additional overhead.
+
+        The `GdkGLContext` must not be realized or made current prior to
+        calling this function.
+        """
+    def set_forward_compatible(self, compatible: bool) -> None:
+        """
+            Sets whether the `GdkGLContext` should be forward-compatible.
+
+        Forward-compatible contexts must not support OpenGL functionality that
+        has been marked as deprecated in the requested version; non-forward
+        compatible contexts, on the other hand, must support both deprecated and
+        non deprecated functionality.
+
+        The `GdkGLContext` must not be realized or made current prior to calling
+        this function.
+        """
+    def set_required_version(self, major: int, minor: int) -> None:
+        """
+            Sets the major and minor version of OpenGL to request.
+
+        Setting @major and @minor to zero will use the default values.
+
+        Setting @major and @minor lower than the minimum versions required
+        by GTK will result in the context choosing the minimum version.
+
+        The @context must not be realized or made current prior to calling
+        this function.
+        """
+    def set_use_es(self, use_es: int) -> None:
+        """
+            Requests that GDK create an OpenGL ES context instead of an OpenGL one.
+
+        Not all platforms support OpenGL ES.
+
+        The @context must not have been realized.
+
+        By default, GDK will attempt to automatically detect whether the
+        underlying GL implementation is OpenGL or OpenGL ES once the @context
+        is realized.
+
+        You should check the return value of [method@Gdk.GLContext.get_use_es]
+        after calling [method@Gdk.GLContext.realize] to decide whether to use
+        the OpenGL or OpenGL ES API, extensions, or shaders.
+        """
 
     # Signals
     @typing.overload
@@ -4111,8 +6524,22 @@ class GLTexture(Texture):
         height: int,
         destroy: GLib.DestroyNotify,
         data: object | None = None,
-    ) -> GLTexture: ...
-    def release(self) -> None: ...
+    ) -> GLTexture:
+        """
+            Creates a new texture for an existing GL texture.
+
+        Note that the GL texture must not be modified until @destroy is called,
+        which will happen when the GdkTexture object is finalized, or due to
+        an explicit call of [method@Gdk.GLTexture.release].
+        """
+    def release(self) -> None:
+        """
+            Releases the GL resources held by a `GdkGLTexture`.
+
+        The texture contents are still available via the
+        [method@Gdk.Texture.download] function, after this
+        function has been called.
+        """
 
 class GLTextureBuilder(GObject.Object):
     """
@@ -4130,15 +6557,47 @@ class GLTextureBuilder(GObject.Object):
 
     class Props(GObject.Object.Props):
         color_state: ColorState | None  # [color-state]: changed because contained invalid characters
+        """
+        The color state of the texture.
+        """
         context: GLContext | None
+        """
+        The context owning the texture.
+        """
         format: MemoryFormat
+        """
+        The format when downloading the texture.
+        """
         has_mipmap: bool  # [has-mipmap]: changed because contained invalid characters
+        """
+        If the texture has a mipmap.
+        """
         height: int
+        """
+        The height of the texture.
+        """
         id: int
+        """
+        The texture ID to use.
+        """
         sync: object | None
+        """
+        An optional `GLSync` object.
+
+        If this is set, GTK will wait on it before using the texture.
+        """
         update_region: cairo.Region | None  # [update-region]: changed because contained invalid characters
+        """
+        The update region for [property@Gdk.GLTextureBuilder:update-texture].
+        """
         update_texture: Texture | None  # [update-texture]: changed because contained invalid characters
+        """
+        The texture [property@Gdk.GLTextureBuilder:update-region] is an update for.
+        """
         width: int
+        """
+        The width of the texture.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -4160,39 +6619,172 @@ class GLTextureBuilder(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def build(self, destroy: GLib.DestroyNotify | None = None, data: object | None = None) -> Texture: ...
+    def build(self, destroy: GLib.DestroyNotify | None = None, data: object | None = None) -> Texture:
+        """
+            Builds a new `GdkTexture` with the values set up in the builder.
+
+        The `destroy` function gets called when the returned texture gets released;
+        either when the texture is finalized or by an explicit call to
+        [method@Gdk.GLTexture.release]. It should release all GL resources associated
+        with the texture, such as the [property@Gdk.GLTextureBuilder:id] and the
+        [property@Gdk.GLTextureBuilder:sync].
+
+        Note that it is a programming error to call this function if any mandatory
+        property has not been set.
+
+        It is possible to call this function multiple times to create multiple textures,
+        possibly with changing properties in between.
+        """
     @builtins.property
-    def get_color_state(self) -> ColorState: ...
+    def get_color_state(self) -> ColorState:
+        """
+        Gets the color state previously set via gdk_gl_texture_builder_set_color_state().
+        """
     @builtins.property
-    def get_context(self) -> GLContext | None: ...
+    def get_context(self) -> GLContext | None:
+        """
+            Gets the context previously set via gdk_gl_texture_builder_set_context() or
+        %NULL if none was set.
+        """
     @builtins.property
-    def get_format(self) -> MemoryFormat: ...
+    def get_format(self) -> MemoryFormat:
+        """
+        Gets the format previously set via gdk_gl_texture_builder_set_format().
+        """
     @builtins.property
-    def get_has_mipmap(self) -> bool: ...
+    def get_has_mipmap(self) -> bool:
+        """
+        Gets whether the texture has a mipmap.
+        """
     @builtins.property
-    def get_height(self) -> int: ...
+    def get_height(self) -> int:
+        """
+            Gets the height previously set via gdk_gl_texture_builder_set_height() or
+        0 if the height wasn't set.
+        """
     @builtins.property
-    def get_id(self) -> int: ...
+    def get_id(self) -> int:
+        """
+            Gets the texture id previously set via gdk_gl_texture_builder_set_id() or
+        0 if the id wasn't set.
+        """
     @builtins.property
-    def get_sync(self) -> object | None: ...
+    def get_sync(self) -> object | None:
+        """
+        Gets the `GLsync` previously set via gdk_gl_texture_builder_set_sync().
+        """
     @builtins.property
-    def get_update_region(self) -> cairo.Region | None: ...
+    def get_update_region(self) -> cairo.Region | None:
+        """
+            Gets the region previously set via gdk_gl_texture_builder_set_update_region() or
+        %NULL if none was set.
+        """
     @builtins.property
-    def get_update_texture(self) -> Texture | None: ...
+    def get_update_texture(self) -> Texture | None:
+        """
+            Gets the texture previously set via gdk_gl_texture_builder_set_update_texture() or
+        %NULL if none was set.
+        """
     @builtins.property
-    def get_width(self) -> int: ...
+    def get_width(self) -> int:
+        """
+            Gets the width previously set via gdk_gl_texture_builder_set_width() or
+        0 if the width wasn't set.
+        """
     @classmethod
-    def new(cls) -> GLTextureBuilder: ...
-    def set_color_state(self, color_state: ColorState) -> None: ...
-    def set_context(self, context: GLContext | None = None) -> None: ...
-    def set_format(self, format: MemoryFormat) -> None: ...
-    def set_has_mipmap(self, has_mipmap: bool) -> None: ...
-    def set_height(self, height: int) -> None: ...
-    def set_id(self, id: int) -> None: ...
-    def set_sync(self, sync: object | None = None) -> None: ...
-    def set_update_region(self, region: cairo.Region | None = None) -> None: ...
-    def set_update_texture(self, texture: Texture | None = None) -> None: ...
-    def set_width(self, width: int) -> None: ...
+    def new(cls) -> GLTextureBuilder:
+        """
+        Creates a new texture builder.
+        """
+    def set_color_state(self, color_state: ColorState) -> None:
+        """
+            Sets the color state for the texture.
+
+        By default, the sRGB colorstate is used. If you don't know what
+        colorstates are, this is probably the right thing.
+        """
+    def set_context(self, context: GLContext | None = None) -> None:
+        """
+            Sets the context to be used for the texture. This is the context that owns
+        the texture.
+
+        The context must be set before calling [method@Gdk.GLTextureBuilder.build].
+        """
+    def set_format(self, format: MemoryFormat) -> None:
+        """
+            Sets the format of the texture. The default is `GDK_MEMORY_R8G8B8A8_PREMULTIPLIED`.
+
+        The format is the preferred format the texture data should be downloaded to. The
+        format must be supported by the GL version of [property@Gdk.GLTextureBuilder:context].
+
+        GDK's texture download code assumes that the format corresponds to the storage
+        parameters of the GL texture in an obvious way. For example, a format of
+        `GDK_MEMORY_R16G16B16A16_PREMULTIPLIED` is expected to be stored as `GL_RGBA16`
+        texture, and `GDK_MEMORY_G8A8` is expected to be stored as `GL_RG8` texture.
+
+        Setting the right format is particularly useful when using high bit depth textures
+        to preserve the bit depth, to set the correct value for unpremultiplied textures
+        and to make sure opaque textures are treated as such.
+
+        Non-RGBA textures need to have swizzling parameters set up properly to be usable
+        in GSK's shaders.
+        """
+    def set_has_mipmap(self, has_mipmap: bool) -> None:
+        """
+            Sets whether the texture has a mipmap. This allows the renderer and other users of the
+        generated texture to use a higher quality downscaling.
+
+        Typically, the `glGenerateMipmap` function is used to generate a mimap.
+        """
+    def set_height(self, height: int) -> None:
+        """
+            Sets the height of the texture.
+
+        The height must be set before calling [method@Gdk.GLTextureBuilder.build].
+        """
+    def set_id(self, id: int) -> None:
+        """
+            Sets the texture id of the texture. The texture id must remain unmodified
+        until the texture was finalized. See [method@Gdk.GLTextureBuilder.build]
+        for a longer discussion.
+
+        The id must be set before calling [method@Gdk.GLTextureBuilder.build].
+        """
+    def set_sync(self, sync: object | None = None) -> None:
+        """
+            Sets the GLSync object to use for the texture.
+
+        GTK will wait on this object before using the created `GdkTexture`.
+
+        The `destroy` function that is passed to [method@Gdk.GLTextureBuilder.build]
+        is responsible for freeing the sync object when it is no longer needed.
+        The texture builder does not destroy it and it is the callers
+        responsibility to make sure it doesn't leak.
+        """
+    def set_update_region(self, region: cairo.Region | None = None) -> None:
+        """
+            Sets the region to be updated by this texture. Together with
+        [property@Gdk.GLTextureBuilder:update-texture] this describes an
+        update of a previous texture.
+
+        When rendering animations of large textures, it is possible that
+        consecutive textures are only updating contents in parts of the texture.
+        It is then possible to describe this update via these two properties,
+        so that GTK can avoid rerendering parts that did not change.
+
+        An example would be a screen recording where only the mouse pointer moves.
+        """
+    def set_update_texture(self, texture: Texture | None = None) -> None:
+        """
+            Sets the texture to be updated by this texture. See
+        [method@Gdk.GLTextureBuilder.set_update_region] for an explanation.
+        """
+    def set_width(self, width: int) -> None:
+        """
+            Sets the width of the texture.
+
+        The width must be set before calling [method@Gdk.GLTextureBuilder.build].
+        """
 
     # Signals
     @typing.overload
@@ -4294,8 +6886,14 @@ class GrabBrokenEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_grab_surface(self) -> Surface: ...
-    def get_implicit(self) -> bool: ...
+    def get_grab_surface(self) -> Surface:
+        """
+        Extracts the grab surface from a grab broken event.
+        """
+    def get_implicit(self) -> bool:
+        """
+        Checks whether the grab broken event is for an implicit grab.
+        """
 
 class KeyEvent(Event):
     """
@@ -4307,20 +6905,79 @@ class KeyEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_consumed_modifiers(self) -> ModifierType: ...
-    def get_keycode(self) -> int: ...
-    def get_keyval(self) -> int: ...
-    def get_layout(self) -> int: ...
-    def get_level(self) -> int: ...
-    def get_match(self) -> tuple[bool, int, ModifierType]: ...
-    def is_modifier(self) -> bool: ...
-    def matches(self, keyval: int, modifiers: ModifierType) -> KeyMatch: ...
+    def get_consumed_modifiers(self) -> ModifierType:
+        """
+        Extracts the consumed modifiers from a key event.
+        """
+    def get_keycode(self) -> int:
+        """
+        Extracts the keycode from a key event.
+        """
+    def get_keyval(self) -> int:
+        """
+        Extracts the keyval from a key event.
+        """
+    def get_layout(self) -> int:
+        """
+        Extracts the layout from a key event.
+        """
+    def get_level(self) -> int:
+        """
+        Extracts the shift level from a key event.
+        """
+    def get_match(self) -> tuple[bool, int, ModifierType]:
+        """
+            Gets a keyval and modifier combination that will match
+        the event.
+
+        See [method@Gdk.KeyEvent.matches].
+        """
+    def is_modifier(self) -> bool:
+        """
+        Extracts whether the key event is for a modifier key.
+        """
+    def matches(self, keyval: int, modifiers: ModifierType) -> KeyMatch:
+        """
+            Matches a key event against a keyval and modifiers.
+
+        This is typically used to trigger keyboard shortcuts such as Ctrl-C.
+
+        Partial matches are possible where the combination matches
+        if the currently active group is ignored.
+
+        Note that we ignore Caps Lock for matching.
+        """
 
 class KeymapKey(GObject.GPointer):
+    """
+    Represents a hardware key that can be mapped to a keyval.
+    """
+
     # gi Fields
     group: int = ...
+    """
+    indicates movement in a horizontal direction. Usually groups are used
+      for two different languages. In group 0, a key might have two English
+      characters, and in group 1 it might have two Hebrew characters. The Hebrew
+      characters will be printed on the key next to the English characters.
+
+    """
     keycode: int = ...
+    """
+    the hardware keycode. This is an identifying number for a
+      physical key.
+
+    """
     level: int = ...
+    """
+    indicates which symbol on the key will be used, in a vertical direction.
+      So on a standard US keyboard, the key with the number “1” on it also has the
+      exclamation point ("!") character on it. The level indicates whether to use
+      the “1” or the “!” symbol. The letter keys are considered to have a lowercase
+      letter at level 0, and an uppercase letter at level 1, though only the
+      uppercase letter is printed.
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -4339,7 +6996,13 @@ class MemoryTexture(Texture):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, width: int, height: int, format: MemoryFormat, bytes: GLib.Bytes, stride: int) -> MemoryTexture: ...
+    def new(cls, width: int, height: int, format: MemoryFormat, bytes: GLib.Bytes, stride: int) -> MemoryTexture:
+        """
+            Creates a new texture for a blob of image data.
+
+        The `GBytes` must contain @stride × @height pixels
+        in the given format.
+        """
 
 class MemoryTextureBuilder(GObject.Object):
     """
@@ -4358,13 +7021,40 @@ class MemoryTextureBuilder(GObject.Object):
 
     class Props(GObject.Object.Props):
         bytes: GLib.Bytes | None
+        """
+        The bytes holding the data.
+        """
         color_state: ColorState | None  # [color-state]: changed because contained invalid characters
+        """
+        The colorstate describing the data.
+        """
         format: MemoryFormat
+        """
+        The format of the data.
+        """
         height: int
+        """
+        The height of the texture.
+        """
         stride: int
+        """
+        The rowstride of the texture.
+
+        The rowstride is the number of bytes between the first pixel
+        in a row of image data, and the first pixel in the next row.
+        """
         update_region: cairo.Region | None  # [update-region]: changed because contained invalid characters
+        """
+        The update region for [property@Gdk.MemoryTextureBuilder:update-texture].
+        """
         update_texture: Texture | None  # [update-texture]: changed because contained invalid characters
+        """
+        The texture [property@Gdk.MemoryTextureBuilder:update-region] is an update for.
+        """
         width: int
+        """
+        The width of the texture.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -4384,33 +7074,123 @@ class MemoryTextureBuilder(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def build(self) -> Texture: ...
+    def build(self) -> Texture:
+        """
+            Builds a new `GdkTexture` with the values set up in the builder.
+
+        Note that it is a programming error to call this function if any mandatory
+        property has not been set.
+
+        It is possible to call this function multiple times to create multiple textures,
+        possibly with changing properties in between.
+        """
     @builtins.property
-    def get_bytes(self) -> GLib.Bytes | None: ...
+    def get_bytes(self) -> GLib.Bytes | None:
+        """
+            Gets the bytes previously set via gdk_memory_texture_builder_set_bytes()
+        or %NULL if none was set.
+        """
     @builtins.property
-    def get_color_state(self) -> ColorState: ...
+    def get_color_state(self) -> ColorState:
+        """
+        Gets the colorstate previously set via gdk_memory_texture_builder_set_color_state().
+        """
     @builtins.property
-    def get_format(self) -> MemoryFormat: ...
+    def get_format(self) -> MemoryFormat:
+        """
+        Gets the format previously set via gdk_memory_texture_builder_set_format().
+        """
     @builtins.property
-    def get_height(self) -> int: ...
+    def get_height(self) -> int:
+        """
+            Gets the height previously set via gdk_memory_texture_builder_set_height()
+        or 0 if the height wasn't set.
+        """
     @builtins.property
-    def get_stride(self) -> int: ...
+    def get_stride(self) -> int:
+        """
+        Gets the stride previously set via gdk_memory_texture_builder_set_stride().
+        """
     @builtins.property
-    def get_update_region(self) -> cairo.Region | None: ...
+    def get_update_region(self) -> cairo.Region | None:
+        """
+            Gets the region previously set via gdk_memory_texture_builder_set_update_region()
+        or %NULL if none was set.
+        """
     @builtins.property
-    def get_update_texture(self) -> Texture | None: ...
+    def get_update_texture(self) -> Texture | None:
+        """
+            Gets the texture previously set via gdk_memory_texture_builder_set_update_texture()
+        or %NULL if none was set.
+        """
     @builtins.property
-    def get_width(self) -> int: ...
+    def get_width(self) -> int:
+        """
+            Gets the width previously set via gdk_memory_texture_builder_set_width()
+        or 0 if the width wasn't set.
+        """
     @classmethod
-    def new(cls) -> MemoryTextureBuilder: ...
-    def set_bytes(self, bytes: GLib.Bytes | None = None) -> None: ...
-    def set_color_state(self, color_state: ColorState | None = None) -> None: ...
-    def set_format(self, format: MemoryFormat) -> None: ...
-    def set_height(self, height: int) -> None: ...
-    def set_stride(self, stride: int) -> None: ...
-    def set_update_region(self, region: cairo.Region | None = None) -> None: ...
-    def set_update_texture(self, texture: Texture | None = None) -> None: ...
-    def set_width(self, width: int) -> None: ...
+    def new(cls) -> MemoryTextureBuilder:
+        """
+        Creates a new texture builder.
+        """
+    def set_bytes(self, bytes: GLib.Bytes | None = None) -> None:
+        """
+            Sets the data to be shown but the texture.
+
+        The bytes must be set before calling [method@Gdk.MemoryTextureBuilder.build].
+        """
+    def set_color_state(self, color_state: ColorState | None = None) -> None:
+        """
+            Sets the colorstate describing the data.
+
+        By default, the sRGB colorstate is used. If you don't know
+        what colorstates are, this is probably the right thing.
+        """
+    def set_format(self, format: MemoryFormat) -> None:
+        """
+            Sets the format of the bytes.
+
+        The default is `GDK_MEMORY_R8G8B8A8_PREMULTIPLIED`.
+        """
+    def set_height(self, height: int) -> None:
+        """
+            Sets the height of the texture.
+
+        The height must be set before calling [method@Gdk.MemoryTextureBuilder.build].
+        """
+    def set_stride(self, stride: int) -> None:
+        """
+            Sets the rowstride of the bytes used.
+
+        The rowstride must be set before calling [method@Gdk.MemoryTextureBuilder.build].
+        """
+    def set_update_region(self, region: cairo.Region | None = None) -> None:
+        """
+            Sets the region to be updated by this texture.
+
+        Together with [property@Gdk.MemoryTextureBuilder:update-texture],
+        this describes an update of a previous texture.
+
+        When rendering animations of large textures, it is possible that
+        consecutive textures are only updating contents in parts of the texture.
+        It is then possible to describe this update via these two properties,
+        so that GTK can avoid rerendering parts that did not change.
+
+        An example would be a screen recording where only the mouse pointer moves.
+        """
+    def set_update_texture(self, texture: Texture | None = None) -> None:
+        """
+            Sets the texture to be updated by this texture.
+
+        See [method@Gdk.MemoryTextureBuilder.set_update_region] for an explanation.
+        """
+    def set_width(self, width: int) -> None:
+        """
+            Sets the width of the texture.
+
+        The width must be set before calling [method@Gdk.MemoryTextureBuilder.build].
+        """
 
     # Signals
     @typing.overload
@@ -4500,18 +7280,60 @@ class Monitor(GObject.Object):
 
     class Props(GObject.Object.Props):
         connector: str
+        """
+        The connector name.
+        """
         description: str
+        """
+        A short description of the monitor, meant for display to the user.
+        """
         display: Display | None
+        """
+        The `GdkDisplay` of the monitor.
+        """
         geometry: Rectangle | None
+        """
+        The geometry of the monitor.
+        """
         height_mm: int  # [height-mm]: changed because contained invalid characters
+        """
+        The height of the monitor, in millimeters.
+        """
         manufacturer: str
+        """
+        The manufacturer name.
+        """
         model: str
+        """
+        The model name.
+        """
         refresh_rate: int  # [refresh-rate]: changed because contained invalid characters
+        """
+        The refresh rate, in milli-Hertz.
+        """
         scale: float
+        """
+        The scale of the monitor.
+        """
         scale_factor: int  # [scale-factor]: changed because contained invalid characters
+        """
+        The scale factor.
+
+        The scale factor is the next larger integer,
+        compared to [property@Gdk.Surface:scale].
+        """
         subpixel_layout: SubpixelLayout  # [subpixel-layout]: changed because contained invalid characters
+        """
+        The subpixel layout.
+        """
         valid: bool
+        """
+        Whether the object is still valid.
+        """
         width_mm: int  # [width-mm]: changed because contained invalid characters
+        """
+        The width of the monitor, in millimeters.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -4522,36 +7344,115 @@ class Monitor(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @builtins.property
-    def get_connector(self) -> str | None: ...
+    def get_connector(self) -> str | None:
+        """
+            Gets the name of the monitor's connector, if available.
+
+        These are strings such as "eDP-1", or "HDMI-2". They depend
+        on software and hardware configuration, and should not be
+        relied on as stable identifiers of a specific monitor.
+        """
     @builtins.property
-    def get_description(self) -> str | None: ...
+    def get_description(self) -> str | None:
+        """
+            Gets a string describing the monitor, if available.
+
+        This can be used to identify a monitor in the UI.
+        """
     @builtins.property
-    def get_display(self) -> Display: ...
-    def get_geometry(self) -> Rectangle: ...
+    def get_display(self) -> Display:
+        """
+        Gets the display that this monitor belongs to.
+        """
+    def get_geometry(self) -> Rectangle:
+        """
+            Retrieves the size and position of the monitor within the
+        display coordinate space.
+
+        The returned geometry is in  ”application pixels”, not in
+        ”device pixels” (see [method@Gdk.Monitor.get_scale]).
+        """
     @builtins.property
-    def get_height_mm(self) -> int: ...
+    def get_height_mm(self) -> int:
+        """
+        Gets the height in millimeters of the monitor.
+        """
     @builtins.property
-    def get_manufacturer(self) -> str | None: ...
+    def get_manufacturer(self) -> str | None:
+        """
+            Gets the name or PNP ID of the monitor's manufacturer.
+
+        Note that this value might also vary depending on actual
+        display backend.
+
+        The PNP ID registry is located at
+        [https://uefi.org/pnp_id_list](https://uefi.org/pnp_id_list).
+        """
     @builtins.property
-    def get_model(self) -> str | None: ...
+    def get_model(self) -> str | None:
+        """
+        Gets the string identifying the monitor model, if available.
+        """
     @builtins.property
-    def get_refresh_rate(self) -> int: ...
+    def get_refresh_rate(self) -> int:
+        """
+            Gets the refresh rate of the monitor, if available.
+
+        The value is in milli-Hertz, so a refresh rate of 60Hz
+        is returned as 60000.
+        """
     @builtins.property
-    def get_scale(self) -> float: ...
+    def get_scale(self) -> float:
+        """
+            Gets the internal scale factor that maps from monitor coordinates
+        to device pixels.
+
+        This can be used if you want to create pixel based data for a
+        particular monitor, but most of the time you’re drawing to a surface
+        where it is better to use [method@Gdk.Surface.get_scale] instead.
+        """
     @builtins.property
-    def get_scale_factor(self) -> int: ...
+    def get_scale_factor(self) -> int:
+        """
+            Gets the internal scale factor that maps from monitor coordinates
+        to device pixels.
+
+        On traditional systems this is 1, but on very high density outputs
+        it can be a higher value (often 2).
+
+        This can be used if you want to create pixel based data for a
+        particular monitor, but most of the time you’re drawing to a surface
+        where it is better to use [method@Gdk.Surface.get_scale_factor] instead.
+        """
     @builtins.property
-    def get_subpixel_layout(self) -> SubpixelLayout: ...
+    def get_subpixel_layout(self) -> SubpixelLayout:
+        """
+            Gets information about the layout of red, green and blue
+        primaries for pixels.
+        """
     @builtins.property
-    def get_width_mm(self) -> int: ...
+    def get_width_mm(self) -> int:
+        """
+        Gets the width in millimeters of the monitor.
+        """
     @builtins.property
-    def is_valid(self) -> bool: ...
+    def is_valid(self) -> bool:
+        """
+            Returns %TRUE if the @monitor object corresponds to a
+        physical monitor.
+
+        The @monitor becomes invalid when the physical monitor
+        is unplugged or removed.
+        """
 
     # Signals
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["invalidate"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when the output represented by @monitor gets disconnected.
+        """
     @typing.overload
     def connect(
         self,
@@ -4676,11 +7577,68 @@ class PadEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_axis_value(self) -> tuple[int, float]: ...
-    def get_button(self) -> int: ...
-    def get_group_mode(self) -> tuple[int, int]: ...
+    def get_axis_value(self) -> tuple[int, float]:
+        """
+        Extracts the information from a pad strip or ring event.
+        """
+    def get_button(self) -> int:
+        """
+            Extracts information about the pressed button from
+        a pad event.
+        """
+    def get_group_mode(self) -> tuple[int, int]:
+        """
+        Extracts group and mode information from a pad event.
+        """
 
 class Paintable(GObject.GInterface):
+    """
+    An interface for content that can be painted.
+
+    The content of a `GdkPaintable` can be painted anywhere at any size
+    without requiring any sort of layout. The interface is inspired by
+    similar concepts elsewhere, such as
+    [ClutterContent](https://developer.gnome.org/clutter/stable/ClutterContent.html),
+    [HTML/CSS Paint Sources](https://www.w3.org/TR/css-images-4/#paint-source),
+    or [SVG Paint Servers](https://www.w3.org/TR/SVG2/pservers.html).
+
+    A `GdkPaintable` can be snapshot at any time and size using
+    [method@Gdk.Paintable.snapshot]. How the paintable interprets that size and
+    if it scales or centers itself into the given rectangle is implementation
+    defined, though if you are implementing a `GdkPaintable` and don't know what
+    to do, it is suggested that you scale your paintable ignoring any potential
+    aspect ratio.
+
+    The contents that a `GdkPaintable` produces may depend on the [class@Gdk.Snapshot]
+    passed to it. For example, paintables may decide to use more detailed images
+    on higher resolution screens or when OpenGL is available. A `GdkPaintable`
+    will however always produce the same output for the same snapshot.
+
+    A `GdkPaintable` may change its contents, meaning that it will now produce
+    a different output with the same snapshot. Once that happens, it will call
+    [method@Gdk.Paintable.invalidate_contents] which will emit the
+    [signal@Gdk.Paintable::invalidate-contents] signal. If a paintable is known
+    to never change its contents, it will set the %GDK_PAINTABLE_STATIC_CONTENTS
+    flag. If a consumer cannot deal with changing contents, it may call
+    [method@Gdk.Paintable.get_current_image] which will return a static
+    paintable and use that.
+
+    A paintable can report an intrinsic (or preferred) size or aspect ratio it
+    wishes to be rendered at, though it doesn't have to. Consumers of the interface
+    can use this information to layout thepaintable appropriately. Just like the
+    contents, the size of a paintable can change. A paintable will indicate this
+    by calling [method@Gdk.Paintable.invalidate_size] which will emit the
+    [signal@Gdk.Paintable::invalidate-size] signal. And just like for contents,
+    if a paintable is known to never change its size, it will set the
+    %GDK_PAINTABLE_STATIC_SIZE flag.
+
+    Besides API for applications, there are some functions that are only
+    useful for implementing subclasses and should not be used by applications:
+    [method@Gdk.Paintable.invalidate_contents],
+    [method@Gdk.Paintable.invalidate_size],
+    [func@Gdk.Paintable.new_empty].
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -4688,17 +7646,127 @@ class Paintable(GObject.GInterface):
         """
     def compute_concrete_size(
         self, specified_width: float, specified_height: float, default_width: float, default_height: float
-    ) -> tuple[float, float]: ...
-    def get_current_image(self) -> Paintable: ...
-    def get_flags(self) -> PaintableFlags: ...
-    def get_intrinsic_aspect_ratio(self) -> float: ...
-    def get_intrinsic_height(self) -> int: ...
-    def get_intrinsic_width(self) -> int: ...
-    def invalidate_contents(self) -> None: ...
-    def invalidate_size(self) -> None: ...
+    ) -> tuple[float, float]:
+        """
+            Compute a concrete size for the `GdkPaintable`.
+
+        Applies the sizing algorithm outlined in the
+        [CSS Image spec](https://drafts.csswg.org/css-images-3/#default-sizing)
+        to the given @paintable. See that link for more details.
+
+        It is not necessary to call this function when both @specified_width
+        and @specified_height are known, but it is useful to call this
+        function in GtkWidget:measure implementations to compute the
+        other dimension when only one dimension is given.
+        """
+    def get_current_image(self) -> Paintable:
+        """
+            Gets an immutable paintable for the current contents displayed by @paintable.
+
+        This is useful when you want to retain the current state of an animation,
+        for example to take a screenshot of a running animation.
+
+        If the @paintable is already immutable, it will return itself.
+        """
+    def get_flags(self) -> PaintableFlags:
+        """
+            Get flags for the paintable.
+
+        This is oftentimes useful for optimizations.
+
+        See [flags@Gdk.PaintableFlags] for the flags and what they mean.
+        """
+    def get_intrinsic_aspect_ratio(self) -> float:
+        """
+            Gets the preferred aspect ratio the @paintable would like to be displayed at.
+
+        The aspect ratio is the width divided by the height, so a value of 0.5
+        means that the @paintable prefers to be displayed twice as high as it
+        is wide. Consumers of this interface can use this to preserve aspect
+        ratio when displaying the paintable.
+
+        This is a purely informational value and does not in any way limit the
+        values that may be passed to [method@Gdk.Paintable.snapshot].
+
+        Usually when a @paintable returns nonzero values from
+        [method@Gdk.Paintable.get_intrinsic_width] and
+        [method@Gdk.Paintable.get_intrinsic_height] the aspect ratio
+        should conform to those values, though that is not required.
+
+        If the @paintable does not have a preferred aspect ratio,
+        it returns 0. Negative values are never returned.
+        """
+    def get_intrinsic_height(self) -> int:
+        """
+            Gets the preferred height the @paintable would like to be displayed at.
+
+        Consumers of this interface can use this to reserve enough space to draw
+        the paintable.
+
+        This is a purely informational value and does not in any way limit the
+        values that may be passed to [method@Gdk.Paintable.snapshot].
+
+        If the @paintable does not have a preferred height, it returns 0.
+        Negative values are never returned.
+        """
+    def get_intrinsic_width(self) -> int:
+        """
+            Gets the preferred width the @paintable would like to be displayed at.
+
+        Consumers of this interface can use this to reserve enough space to draw
+        the paintable.
+
+        This is a purely informational value and does not in any way limit the
+        values that may be passed to [method@Gdk.Paintable.snapshot].
+
+        If the @paintable does not have a preferred width, it returns 0.
+        Negative values are never returned.
+        """
+    def invalidate_contents(self) -> None:
+        """
+            Called by implementations of `GdkPaintable` to invalidate their contents.
+
+        Unless the contents are invalidated, implementations must guarantee that
+        multiple calls of [method@Gdk.Paintable.snapshot] produce the same output.
+
+        This function will emit the [signal@Gdk.Paintable::invalidate-contents]
+        signal.
+
+        If a @paintable reports the %GDK_PAINTABLE_STATIC_CONTENTS flag,
+        it must not call this function.
+        """
+    def invalidate_size(self) -> None:
+        """
+            Called by implementations of `GdkPaintable` to invalidate their size.
+
+        As long as the size is not invalidated, @paintable must return the same
+        values for its intrinsic width, height and aspect ratio.
+
+        This function will emit the [signal@Gdk.Paintable::invalidate-size]
+        signal.
+
+        If a @paintable reports the %GDK_PAINTABLE_STATIC_SIZE flag,
+        it must not call this function.
+        """
     @staticmethod
-    def new_empty(intrinsic_width: int, intrinsic_height: int) -> Paintable: ...
-    def snapshot(self, snapshot: Snapshot, width: float, height: float) -> None: ...
+    def new_empty(intrinsic_width: int, intrinsic_height: int) -> Paintable:
+        """
+            Returns a paintable that has the given intrinsic size and draws nothing.
+
+        This is often useful for implementing the
+        [vfunc@Gdk.Paintable.get_current_image] virtual function
+        when the paintable is in an incomplete state (like a
+        [GtkMediaStream](../gtk4/class.MediaStream.html) before receiving
+        the first frame).
+        """
+    def snapshot(self, snapshot: Snapshot, width: float, height: float) -> None:
+        """
+            Snapshots the given paintable with the given @width and @height.
+
+        The paintable is drawn at the current (0,0) offset of the @snapshot.
+        If @width and @height are not larger than zero, this function will
+        do nothing.
+        """
 
     # Signals
     @typing.overload
@@ -4707,32 +7775,93 @@ class Paintable(GObject.GInterface):
         detailed_signal: typing.Literal["invalidate-contents"],
         handler: typing.Callable[..., None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted when the contents of the @paintable change.
+
+        Examples for such an event would be videos changing to the next frame or
+        the icon theme for an icon changing.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["invalidate-size"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted when the intrinsic size of the @paintable changes.
+
+        This means the values reported by at least one of
+        [method@Gdk.Paintable.get_intrinsic_width],
+        [method@Gdk.Paintable.get_intrinsic_height] or
+        [method@Gdk.Paintable.get_intrinsic_aspect_ratio]
+        has changed.
+
+        Examples for such an event would be a paintable displaying
+        the contents of a toplevel surface being resized.
+        """
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
 class PaintableInterface(GObject.GPointer):
+    """
+    The list of functions that can be implemented for the `GdkPaintable`
+    interface.
+
+    Note that apart from the [vfunc@Gdk.Paintable.snapshot] function,
+    no virtual function of this interface is mandatory to implement, though it
+    is a good idea to implement [vfunc@Gdk.Paintable.get_current_image]
+    for non-static paintables and [vfunc@Gdk.Paintable.get_flags] if the
+    image is not dynamic as the default implementation returns no flags and
+    that will make the implementation likely quite slow.
+    """
+
     # gi Fields
     @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
     @builtins.property
-    def get_current_image(self) -> get_current_imagePaintableInterfaceCB: ...
+    def get_current_image(self) -> get_current_imagePaintableInterfaceCB:
+        """
+          return a `GdkPaintable` that does not change over
+        time. This means the `GDK_PAINTABLE_STATIC_SIZE` and
+        `GDK_PAINTABLE_STATIC_CONTENTS` flag are set.
+        """
     @builtins.property
-    def get_flags(self) -> get_flagsPaintableInterfaceCB: ...
+    def get_flags(self) -> get_flagsPaintableInterfaceCB:
+        """
+          Get the flags for this instance. See [flags@Gdk.PaintableFlags]
+        for details.
+        """
     @builtins.property
-    def get_intrinsic_aspect_ratio(self) -> get_intrinsic_aspect_ratioPaintableInterfaceCB: ...
+    def get_intrinsic_aspect_ratio(self) -> get_intrinsic_aspect_ratioPaintableInterfaceCB:
+        """
+          The preferred aspect ratio for this object
+        or 0 if none. If both [vfunc@Gdk.Paintable.get_intrinsic_width]
+        and [vfunc@Gdk.Paintable.get_intrinsic_height] return non-zero
+        values, this function should return the aspect ratio computed from those.
+        """
     @builtins.property
-    def get_intrinsic_height(self) -> get_intrinsic_heightPaintableInterfaceCB: ...
+    def get_intrinsic_height(self) -> get_intrinsic_heightPaintableInterfaceCB:
+        """
+          The preferred height for this object to be
+        snapshot at or 0 if none. This is purely a hint. The object must still
+        be able to render at any size.
+        """
     @builtins.property
-    def get_intrinsic_width(self) -> get_intrinsic_widthPaintableInterfaceCB: ...
+    def get_intrinsic_width(self) -> get_intrinsic_widthPaintableInterfaceCB:
+        """
+          The preferred width for this object to be
+        snapshot at or 0 if none. This is purely a hint. The object must still
+        be able to render at any size.
+        """
     @builtins.property
-    def snapshot(self) -> snapshotPaintableInterfaceCB: ...
+    def snapshot(self) -> snapshotPaintableInterfaceCB:
+        """
+          Snapshot the paintable. The given @width and @height are
+        guaranteed to be larger than 0.0. The resulting snapshot must modify
+        only the area in the rectangle from (0,0) to (width, height).
+        This is the only function that must be implemented for this interface.
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -4741,9 +7870,25 @@ class PaintableInterface(GObject.GPointer):
         """
 
 class Popup(GObject.GInterface):
+    """
+    A surface that is attached to another surface.
+
+    The `GdkPopup` is positioned relative to its parent surface.
+
+    `GdkPopup`s are typically used to implement menus and similar popups.
+    They can be modal, which is indicated by the [property@Gdk.Popup:autohide]
+    property.
+    """
+
     class Props(GObject.GInterface.Props):
         autohide: bool
+        """
+        Whether to hide on outside clicks.
+        """
         parent: Surface | None
+        """
+        The parent surface.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -4754,14 +7899,55 @@ class Popup(GObject.GInterface):
         Generated __init__ stub method. order not guaranteed.
         """
     @builtins.property
-    def get_autohide(self) -> bool: ...
+    def get_autohide(self) -> bool:
+        """
+        Returns whether this popup is set to hide on outside clicks.
+        """
     @builtins.property
-    def get_parent(self) -> Surface | None: ...
-    def get_position_x(self) -> int: ...
-    def get_position_y(self) -> int: ...
-    def get_rect_anchor(self) -> Gravity: ...
-    def get_surface_anchor(self) -> Gravity: ...
-    def present(self, width: int, height: int, layout: PopupLayout) -> bool: ...
+    def get_parent(self) -> Surface | None:
+        """
+        Returns the parent surface of a popup.
+        """
+    def get_position_x(self) -> int:
+        """
+        Obtains the position of the popup relative to its parent.
+        """
+    def get_position_y(self) -> int:
+        """
+        Obtains the position of the popup relative to its parent.
+        """
+    def get_rect_anchor(self) -> Gravity:
+        """
+            Gets the current popup rectangle anchor.
+
+        The value returned may change after calling [method@Gdk.Popup.present],
+        or after the [signal@Gdk.Surface::layout] signal is emitted.
+        """
+    def get_surface_anchor(self) -> Gravity:
+        """
+            Gets the current popup surface anchor.
+
+        The value returned may change after calling [method@Gdk.Popup.present],
+        or after the [signal@Gdk.Surface::layout] signal is emitted.
+        """
+    def present(self, width: int, height: int, layout: PopupLayout) -> bool:
+        """
+            Present @popup after having processed the `GdkPopupLayout` rules.
+
+        If the popup was previously not showing, it will be shown,
+        otherwise it will change position according to @layout.
+
+        After calling this function, the result should be handled in response
+        to the [signal@Gdk.Surface::layout] signal being emitted. The resulting
+        popup position can be queried using [method@Gdk.Popup.get_position_x],
+        [method@Gdk.Popup.get_position_y], and the resulting size will be sent as
+        parameters in the layout signal. Use [method@Gdk.Popup.get_rect_anchor]
+        and [method@Gdk.Popup.get_surface_anchor] to get the resulting anchors.
+
+        Presenting may fail, for example if the @popup is set to autohide
+        and is immediately hidden upon being presented. If presenting failed,
+        the [signal@Gdk.Surface::layout] signal will not me emitted.
+        """
 
     # Signals
     @typing.overload
@@ -4791,25 +7977,133 @@ class PopupInterface(GObject.GPointer):
         """
 
 class PopupLayout(GObject.GBoxed):
+    """
+    Contains information that is necessary position a [iface@Gdk.Popup]
+    relative to its parent.
+
+    The positioning requires a negotiation with the windowing system,
+    since it depends on external constraints, such as the position of
+    the parent surface, and the screen dimensions.
+
+    The basic ingredients are a rectangle on the parent surface,
+    and the anchor on both that rectangle and the popup. The anchors
+    specify a side or corner to place next to each other.
+
+    ![Popup anchors](popup-anchors.png)
+
+    For cases where placing the anchors next to each other would make
+    the popup extend offscreen, the layout includes some hints for how
+    to resolve this problem. The hints may suggest to flip the anchor
+    position to the other side, or to 'slide' the popup along a side,
+    or to resize it.
+
+    ![Flipping popups](popup-flip.png)
+
+    ![Sliding popups](popup-slide.png)
+
+    These hints may be combined.
+
+    Ultimatively, it is up to the windowing system to determine the position
+    and size of the popup. You can learn about the result by calling
+    [method@Gdk.Popup.get_position_x], [method@Gdk.Popup.get_position_y],
+    [method@Gdk.Popup.get_rect_anchor] and [method@Gdk.Popup.get_surface_anchor]
+    after the popup has been presented. This can be used to adjust the rendering.
+    For example, [GtkPopover](../gtk4/class.Popover.html) changes its arrow position
+    accordingly. But you have to be careful avoid changing the size of the popover,
+    or it has to be presented again.
+    """
+
     # gi Methods
-    def copy(self) -> PopupLayout: ...
-    def equal(self, other: PopupLayout) -> bool: ...
-    def get_anchor_hints(self) -> AnchorHints: ...
-    def get_anchor_rect(self) -> Rectangle: ...
-    def get_offset(self) -> tuple[int, int]: ...
-    def get_rect_anchor(self) -> Gravity: ...
-    def get_shadow_width(self) -> tuple[int, int, int, int]: ...
-    def get_surface_anchor(self) -> Gravity: ...
+    def copy(self) -> PopupLayout:
+        """
+        Makes a copy of @layout.
+        """
+    def equal(self, other: PopupLayout) -> bool:
+        """
+        Check whether @layout and @other has identical layout properties.
+        """
+    def get_anchor_hints(self) -> AnchorHints:
+        """
+        Get the `GdkAnchorHints`.
+        """
+    def get_anchor_rect(self) -> Rectangle:
+        """
+        Get the anchor rectangle.
+        """
+    def get_offset(self) -> tuple[int, int]:
+        """
+        Retrieves the offset for the anchor rectangle.
+        """
+    def get_rect_anchor(self) -> Gravity:
+        """
+        Returns the anchor position on the anchor rectangle.
+        """
+    def get_shadow_width(self) -> tuple[int, int, int, int]:
+        """
+        Obtains the shadow widths of this layout.
+        """
+    def get_surface_anchor(self) -> Gravity:
+        """
+        Returns the anchor position on the popup surface.
+        """
     @classmethod
-    def new(cls, anchor_rect: Rectangle, rect_anchor: Gravity, surface_anchor: Gravity) -> PopupLayout: ...
-    def ref(self) -> PopupLayout: ...
-    def set_anchor_hints(self, anchor_hints: AnchorHints) -> None: ...
-    def set_anchor_rect(self, anchor_rect: Rectangle) -> None: ...
-    def set_offset(self, dx: int, dy: int) -> None: ...
-    def set_rect_anchor(self, anchor: Gravity) -> None: ...
-    def set_shadow_width(self, left: int, right: int, top: int, bottom: int) -> None: ...
-    def set_surface_anchor(self, anchor: Gravity) -> None: ...
-    def unref(self) -> None: ...
+    def new(cls, anchor_rect: Rectangle, rect_anchor: Gravity, surface_anchor: Gravity) -> PopupLayout:
+        """
+            Create a popup layout description.
+
+        Used together with [method@Gdk.Popup.present] to describe how a popup
+        surface should be placed and behave on-screen.
+
+        @anchor_rect is relative to the top-left corner of the surface's parent.
+        @rect_anchor and @surface_anchor determine anchor points on @anchor_rect
+        and surface to pin together.
+
+        The position of @anchor_rect's anchor point can optionally be offset using
+        [method@Gdk.PopupLayout.set_offset], which is equivalent to offsetting the
+        position of surface.
+        """
+    def ref(self) -> PopupLayout:
+        """
+        Increases the reference count of @value.
+        """
+    def set_anchor_hints(self, anchor_hints: AnchorHints) -> None:
+        """
+            Set new anchor hints.
+
+        The set @anchor_hints determines how @surface will be moved
+        if the anchor points cause it to move off-screen. For example,
+        %GDK_ANCHOR_FLIP_X will replace %GDK_GRAVITY_NORTH_WEST with
+        %GDK_GRAVITY_NORTH_EAST and vice versa if @surface extends
+        beyond the left or right edges of the monitor.
+        """
+    def set_anchor_rect(self, anchor_rect: Rectangle) -> None:
+        """
+        Set the anchor rectangle.
+        """
+    def set_offset(self, dx: int, dy: int) -> None:
+        """
+        Offset the position of the anchor rectangle with the given delta.
+        """
+    def set_rect_anchor(self, anchor: Gravity) -> None:
+        """
+        Set the anchor on the anchor rectangle.
+        """
+    def set_shadow_width(self, left: int, right: int, top: int, bottom: int) -> None:
+        """
+            Sets the shadow width of the popup.
+
+        The shadow width corresponds to the part of the computed
+        surface size that would consist of the shadow margin
+        surrounding the window, would there be any.
+        """
+    def set_surface_anchor(self, anchor: Gravity) -> None:
+        """
+        Set the anchor on the popup surface.
+        """
+    def unref(self) -> None:
+        """
+        Decreases the reference count of @value.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -4830,15 +8124,89 @@ class ProximityEvent(Event):
         """
 
 class RGBA(GObject.GBoxed):
+    """
+    Represents a color, in a way that is compatible with cairo’s notion of color.
+
+    `GdkRGBA` is a convenient way to pass colors around. It’s based on
+    cairo’s way to deal with colors and mirrors its behavior. All values
+    are in the range from 0.0 to 1.0 inclusive. So the color
+    (0.0, 0.0, 0.0, 0.0) represents transparent black and
+    (1.0, 1.0, 1.0, 1.0) is opaque white. Other values will
+    be clamped to this range when drawing.
+    """
+
     # gi Methods
-    def copy(self) -> RGBA: ...
-    def equal(self, p2: RGBA) -> bool: ...
-    def free(self) -> None: ...
-    def hash(self) -> int: ...
-    def is_clear(self) -> bool: ...
-    def is_opaque(self) -> bool: ...
-    def parse(self, spec: str) -> bool: ...
-    def to_string(self) -> str: ...
+    def copy(self) -> RGBA:
+        """
+            Makes a copy of a `GdkRGBA`.
+
+        The result must be freed through [method@Gdk.RGBA.free].
+        """
+    def equal(self, p2: RGBA) -> bool:
+        """
+        Compares two `GdkRGBA` colors.
+        """
+    def free(self) -> None:
+        """
+        Frees a `GdkRGBA`.
+        """
+    def hash(self) -> int:
+        """
+            A hash function suitable for using for a hash
+        table that stores `GdkRGBA`s.
+        """
+    def is_clear(self) -> bool:
+        """
+            Checks if an @rgba value is transparent.
+
+        That is, drawing with the value would not produce any change.
+        """
+    def is_opaque(self) -> bool:
+        """
+            Checks if an @rgba value is opaque.
+
+        That is, drawing with the value will not retain any results
+        from previous contents.
+        """
+    def parse(self, spec: str) -> bool:
+        """
+            Parses a textual representation of a color.
+
+        The string can be either one of:
+
+        - A standard name (Taken from the CSS specification).
+        - A hexadecimal value in the form “#rgb”, “#rrggbb”,
+          “#rrrgggbbb” or ”#rrrrggggbbbb”
+        - A hexadecimal value in the form “#rgba”, “#rrggbbaa”,
+          or ”#rrrrggggbbbbaaaa”
+        - A RGB color in the form “rgb(r,g,b)” (In this case the color
+          will have full opacity)
+        - A RGBA color in the form “rgba(r,g,b,a)”
+        - A HSL color in the form "hsl(hue, saturation, lightness)"
+        - A HSLA color in the form "hsla(hue, saturation, lightness, alpha)"
+
+        Where “r”, “g”, “b” and “a” are respectively the red, green,
+        blue and alpha color values. In the last two cases, “r”, “g”,
+        and “b” are either integers in the range 0 to 255 or percentage
+        values in the range 0% to 100%, and a is a floating point value
+        in the range 0 to 1.
+        """
+    def to_string(self) -> str:
+        """
+            Returns a textual specification of @rgba in the form
+        `rgb(r,g,b)` or `rgba(r,g,b,a)`, where “r”, “g”, “b” and
+        “a” represent the red, green, blue and alpha values
+        respectively. “r”, “g”, and “b” are represented as integers
+        in the range 0 to 255, and “a” is represented as a floating
+        point value in the range 0 to 1.
+
+        These string forms are string forms that are supported by
+        the CSS3 colors module, and can be parsed by [method@Gdk.RGBA.parse].
+
+        Note that this string representation may lose some precision,
+        since “r”, “g” and “b” are represented as 8-bit integers. If
+        this is a concern, you should use a different representation.
+        """
 
     # python methods (overrides?)
     def __init__(
@@ -4853,21 +8221,80 @@ class RGBA(GObject.GBoxed):
         """
 
 class Rectangle(GObject.GBoxed):
+    """
+    Represents a rectangle.
+
+    `GdkRectangle` is identical to `cairo_rectangle_t`. Together with Cairo’s
+    `cairo_region_t` data type, these are the central types for representing
+    sets of pixels.
+
+    The intersection of two rectangles can be computed with
+    [method@Gdk.Rectangle.intersect]; to find the union of two rectangles use
+    [method@Gdk.Rectangle.union].
+
+    The `cairo_region_t` type provided by Cairo is usually used for managing
+    non-rectangular clipping of graphical operations.
+
+    The Graphene library has a number of other data types for regions and
+    volumes in 2D and 3D.
+    """
+
     # gi Fields
     height: int = ...
+    """
+    the height of the rectangle
+
+    """
     width: int = ...
+    """
+    the width of the rectangle
+
+    """
     x: int = ...
+    """
+    the x coordinate of the top left corner
+
+    """
     y: int = ...
+    """
+    the y coordinate of the top left corner
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def contains_point(self, x: int, y: int) -> bool: ...
-    def equal(self, rect2: Rectangle) -> bool: ...
-    def intersect(self, src2: Rectangle) -> tuple[bool, Rectangle | None]: ...
-    def union(self, src2: Rectangle) -> Rectangle: ...
+    def contains_point(self, x: int, y: int) -> bool:
+        """
+        Returns %TRUE if @rect contains the point described by @x and @y.
+        """
+    def equal(self, rect2: Rectangle) -> bool:
+        """
+        Checks if the two given rectangles are equal.
+        """
+    def intersect(self, src2: Rectangle) -> tuple[bool, Rectangle | None]:
+        """
+            Calculates the intersection of two rectangles.
+
+        It is allowed for @dest to be the same as either @src1 or @src2.
+        If the rectangles do not intersect, @dest’s width and height is set
+        to 0 and its x and y values are undefined. If you are only interested
+        in whether the rectangles intersect, but not in the intersecting area
+        itself, pass %NULL for @dest.
+        """
+    def union(self, src2: Rectangle) -> Rectangle:
+        """
+            Calculates the union of two rectangles.
+
+        The union of rectangles @src1 and @src2 is the smallest rectangle which
+        includes both @src1 and @src2 within it. It is allowed for @dest to be
+        the same as either @src1 or @src2.
+
+        Note that this function does not ignore 'empty' rectangles (ie. with
+        zero width or height).
+        """
 
 class ScrollEvent(Event):
     """
@@ -4879,10 +8306,39 @@ class ScrollEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_deltas(self) -> tuple[float, float]: ...
-    def get_direction(self) -> ScrollDirection: ...
-    def get_unit(self) -> ScrollUnit: ...
-    def is_stop(self) -> bool: ...
+    def get_deltas(self) -> tuple[float, float]:
+        """
+            Extracts the scroll deltas of a scroll event.
+
+        The deltas will be zero unless the scroll direction
+        is %GDK_SCROLL_SMOOTH.
+
+        For the representation unit of these deltas, see
+        [method@Gdk.ScrollEvent.get_unit].
+        """
+    def get_direction(self) -> ScrollDirection:
+        """
+        Extracts the direction of a scroll event.
+        """
+    def get_unit(self) -> ScrollUnit:
+        """
+            Extracts the scroll delta unit of a scroll event.
+
+        The unit will always be %GDK_SCROLL_UNIT_WHEEL if the scroll direction is not
+        %GDK_SCROLL_SMOOTH.
+        """
+    def is_stop(self) -> bool:
+        """
+            Check whether a scroll event is a stop scroll event.
+
+        Scroll sequences with smooth scroll information may provide
+        a stop scroll event once the interaction with the device finishes,
+        e.g. by lifting a finger. This stop scroll event is the signal
+        that a widget may trigger kinetic scrolling based on the current
+        velocity.
+
+        Stop scroll events always have a delta of 0/0.
+        """
 
 class Seat(GObject.Object):
     """
@@ -4891,6 +8347,9 @@ class Seat(GObject.Object):
 
     class Props(GObject.Object.Props):
         display: Display | None
+        """
+        `GdkDisplay` of this seat.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -4900,13 +8359,31 @@ class Seat(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_capabilities(self) -> SeatCapabilities: ...
-    def get_devices(self, capabilities: SeatCapabilities) -> list: ...
+    def get_capabilities(self) -> SeatCapabilities:
+        """
+        Returns the capabilities this `GdkSeat` currently has.
+        """
+    def get_devices(self, capabilities: SeatCapabilities) -> list:
+        """
+        Returns the devices that match the given capabilities.
+        """
     @builtins.property
-    def get_display(self) -> Display: ...
-    def get_keyboard(self) -> Device | None: ...
-    def get_pointer(self) -> Device | None: ...
-    def get_tools(self) -> list: ...
+    def get_display(self) -> Display:
+        """
+        Returns the `GdkDisplay` this seat belongs to.
+        """
+    def get_keyboard(self) -> Device | None:
+        """
+        Returns the device that routes keyboard events.
+        """
+    def get_pointer(self) -> Device | None:
+        """
+        Returns the device that routes pointer events.
+        """
+    def get_tools(self) -> list:
+        """
+        Returns all `GdkDeviceTools` that are known to the application.
+        """
 
     # Signals
     @typing.overload
@@ -4915,28 +8392,46 @@ class Seat(GObject.Object):
         detailed_signal: typing.Literal["device-added"],
         handler: typing.Callable[[typing_extensions.Self, Device], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when a new input device is related to this seat.
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["device-removed"],
         handler: typing.Callable[[typing_extensions.Self, Device], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when an input device is removed (e.g. unplugged).
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["tool-added"],
         handler: typing.Callable[[typing_extensions.Self, DeviceTool], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted whenever a new tool is made known to the seat.
+
+        The tool may later be assigned to a device (i.e. on
+        proximity with a tablet). The device will emit the
+        [signal@Gdk.Device::tool-changed] signal accordingly.
+
+        A same tool may be used by several devices.
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["tool-removed"],
         handler: typing.Callable[[typing_extensions.Self, DeviceTool], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted whenever a tool is no longer known to this @seat.
+        """
     @typing.overload
     def connect(
         self,
@@ -4984,13 +8479,40 @@ class Surface(GObject.Object):
 
     class Props(GObject.Object.Props):
         cursor: Cursor | None
+        """
+        The mouse pointer for the `GdkSurface`.
+        """
         display: Display | None
+        """
+        The `GdkDisplay` connection of the surface.
+        """
         frame_clock: FrameClock | None  # [frame-clock]: changed because contained invalid characters
+        """
+        The `GdkFrameClock` of the surface.
+        """
         height: int
+        """
+        The height of the surface, in pixels.
+        """
         mapped: bool
+        """
+        Whether the surface is mapped.
+        """
         scale: float
+        """
+        The scale of the surface.
+        """
         scale_factor: int  # [scale-factor]: changed because contained invalid characters
+        """
+        The scale factor of the surface.
+
+        The scale factor is the next larger integer,
+        compared to [property@Gdk.Surface:scale].
+        """
         width: int
+        """
+        The width of the surface in pixels.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -5002,47 +8524,262 @@ class Surface(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def beep(self) -> None: ...
+    def beep(self) -> None:
+        """
+            Emits a short beep associated to @surface.
+
+        If the display of @surface does not support per-surface beeps,
+        emits a short beep on the display just as [method@Gdk.Display.beep].
+        """
     @deprecated("deprecated")
-    def create_cairo_context(self) -> CairoContext: ...
-    def create_gl_context(self) -> GLContext: ...
+    def create_cairo_context(self) -> CairoContext:
+        """
+        Creates a new `GdkCairoContext` for rendering on @surface.
+        """
+    def create_gl_context(self) -> GLContext:
+        """
+            Creates a new `GdkGLContext` for the `GdkSurface`.
+
+        The context is disconnected from any particular surface or surface.
+        If the creation of the `GdkGLContext` failed, @error will be set.
+        Before using the returned `GdkGLContext`, you will need to
+        call [method@Gdk.GLContext.make_current] or [method@Gdk.GLContext.realize].
+        """
     @deprecated("deprecated")
-    def create_similar_surface(self, content: cairo.Content, width: int, height: int) -> cairo.Surface: ...
+    def create_similar_surface(self, content: cairo.Content, width: int, height: int) -> cairo.Surface:
+        """
+            Create a new Cairo surface that is as compatible as possible with the
+        given @surface.
+
+        For example the new surface will have the same fallback resolution
+        and font options as @surface. Generally, the new surface will also
+        use the same backend as @surface, unless that is not possible for
+        some reason. The type of the returned surface may be examined with
+        cairo_surface_get_type().
+
+        Initially the surface contents are all 0 (transparent if contents
+        have transparency, black otherwise.)
+
+        This function always returns a valid pointer, but it will return a
+        pointer to a “nil” surface if @other is already in an error state
+        or any other error occurs.
+        """
     @deprecated("deprecated")
-    def create_vulkan_context(self) -> VulkanContext: ...
-    def destroy(self) -> None: ...
+    def create_vulkan_context(self) -> VulkanContext:
+        """
+        Sets an error and returns %NULL.
+        """
+    def destroy(self) -> None:
+        """
+            Destroys the window system resources associated with @surface and
+        decrements @surface's reference count.
+
+        The window system resources for all children of @surface are also
+        destroyed, but the children’s reference counts are not decremented.
+
+        Note that a surface will not be destroyed automatically when its
+        reference count reaches zero. You must call this function yourself
+        before that happens.
+        """
     @builtins.property
-    def get_cursor(self) -> Cursor | None: ...
-    def get_device_cursor(self, device: Device) -> Cursor | None: ...
-    def get_device_position(self, device: Device) -> tuple[bool, float | None, float | None, ModifierType | None]: ...
+    def get_cursor(self) -> Cursor | None:
+        """
+            Retrieves a `GdkCursor` pointer for the cursor currently set on the
+        `GdkSurface`.
+
+        If the return value is %NULL then there is no custom cursor set on
+        the surface, and it is using the cursor for its parent surface.
+
+        Use [method@Gdk.Surface.set_cursor] to unset the cursor of the surface.
+        """
+    def get_device_cursor(self, device: Device) -> Cursor | None:
+        """
+            Retrieves a `GdkCursor` pointer for the @device currently set on the
+        specified `GdkSurface`.
+
+        If the return value is %NULL then there is no custom cursor set on the
+        specified surface, and it is using the cursor for its parent surface.
+
+        Use [method@Gdk.Surface.set_cursor] to unset the cursor of the surface.
+        """
+    def get_device_position(self, device: Device) -> tuple[bool, float | None, float | None, ModifierType | None]:
+        """
+            Obtains the current device position and modifier state.
+
+        The position is given in coordinates relative to the upper
+        left corner of @surface.
+        """
     @builtins.property
-    def get_display(self) -> Display: ...
+    def get_display(self) -> Display:
+        """
+        Gets the `GdkDisplay` associated with a `GdkSurface`.
+        """
     @builtins.property
-    def get_frame_clock(self) -> FrameClock: ...
+    def get_frame_clock(self) -> FrameClock:
+        """
+            Gets the frame clock for the surface.
+
+        The frame clock for a surface never changes unless the surface is
+        reparented to a new toplevel surface.
+        """
     @builtins.property
-    def get_height(self) -> int: ...
+    def get_height(self) -> int:
+        """
+            Returns the height of the given @surface.
+
+        Surface size is reported in ”application pixels”, not
+        ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
+        """
     @builtins.property
-    def get_mapped(self) -> bool: ...
+    def get_mapped(self) -> bool:
+        """
+            Checks whether the surface has been mapped.
+
+        A surface is mapped with [method@Gdk.Toplevel.present]
+        or [method@Gdk.Popup.present].
+        """
     @builtins.property
-    def get_scale(self) -> float: ...
+    def get_scale(self) -> float:
+        """
+            Returns the internal scale that maps from surface coordinates
+        to the actual device pixels.
+
+        When the scale is bigger than 1, the windowing system prefers to get
+        buffers with a resolution that is bigger than the surface size (e.g.
+        to show the surface on a high-resolution display, or in a magnifier).
+
+        Compare with [method@Gdk.Surface.get_scale_factor], which returns the
+        next larger integer.
+
+        The scale may change during the lifetime of the surface.
+        """
     @builtins.property
-    def get_scale_factor(self) -> int: ...
+    def get_scale_factor(self) -> int:
+        """
+            Returns the internal scale factor that maps from surface coordinates
+        to the actual device pixels.
+
+        On traditional systems this is 1, but on very high density outputs
+        this can be a higher value (often 2). A higher value means that drawing
+        is automatically scaled up to a higher resolution, so any code doing
+        drawing will automatically look nicer. However, if you are supplying
+        pixel-based data the scale value can be used to determine whether to
+        use a pixel resource with higher resolution data.
+
+        The scale factor may change during the lifetime of the surface.
+        """
     @builtins.property
-    def get_width(self) -> int: ...
-    def hide(self) -> None: ...
-    def is_destroyed(self) -> bool: ...
+    def get_width(self) -> int:
+        """
+            Returns the width of the given @surface.
+
+        Surface size is reported in ”application pixels”, not
+        ”device pixels” (see [method@Gdk.Surface.get_scale_factor]).
+        """
+    def hide(self) -> None:
+        """
+            Hide the surface.
+
+        For toplevel surfaces, withdraws them, so they will no longer be
+        known to the window manager; for all surfaces, unmaps them, so
+        they won’t be displayed. Normally done automatically as
+        part of [gtk_widget_hide()](../gtk4/method.Widget.hide.html).
+        """
+    def is_destroyed(self) -> bool:
+        """
+        Check to see if a surface is destroyed.
+        """
     @classmethod
-    def new_popup(cls, parent: Surface, autohide: bool) -> Surface: ...
+    def new_popup(cls, parent: Surface, autohide: bool) -> Surface:
+        """
+            Create a new popup surface.
+
+        The surface will be attached to @parent and can be positioned
+        relative to it using [method@Gdk.Popup.present].
+        """
     @classmethod
-    def new_toplevel(cls, display: Display) -> Surface: ...
-    def queue_render(self) -> None: ...
-    def request_layout(self) -> None: ...
-    def set_cursor(self, cursor: Cursor | None = None) -> None: ...
-    def set_device_cursor(self, device: Device, cursor: Cursor) -> None: ...
-    def set_input_region(self, region: cairo.Region) -> None: ...
+    def new_toplevel(cls, display: Display) -> Surface:
+        """
+        Creates a new toplevel surface.
+        """
+    def queue_render(self) -> None:
+        """
+            Forces a [signal@Gdk.Surface::render] signal emission for @surface
+        to be scheduled.
+
+        This function is useful for implementations that track invalid
+        regions on their own.
+        """
+    def request_layout(self) -> None:
+        """
+            Request a layout phase from the surface's frame clock.
+
+        See [method@Gdk.FrameClock.request_phase].
+        """
+    def set_cursor(self, cursor: Cursor | None = None) -> None:
+        """
+            Sets the default mouse pointer for a `GdkSurface`.
+
+        Passing %NULL for the @cursor argument means that @surface will use
+        the cursor of its parent surface. Most surfaces should use this default.
+        Note that @cursor must be for the same display as @surface.
+
+        Use [ctor@Gdk.Cursor.new_from_name] or [ctor@Gdk.Cursor.new_from_texture]
+        to create the cursor. To make the cursor invisible, use %GDK_BLANK_CURSOR.
+        """
+    def set_device_cursor(self, device: Device, cursor: Cursor) -> None:
+        """
+            Sets a specific `GdkCursor` for a given device when it gets inside @surface.
+
+        Passing %NULL for the @cursor argument means that @surface will use the
+        cursor of its parent surface. Most surfaces should use this default.
+
+        Use [ctor@Gdk.Cursor.new_from_name] or [ctor@Gdk.Cursor.new_from_texture]
+        to create the cursor. To make the cursor invisible, use %GDK_BLANK_CURSOR.
+        """
+    def set_input_region(self, region: cairo.Region) -> None:
+        """
+            Apply the region to the surface for the purpose of event
+        handling.
+
+        Mouse events which happen while the pointer position corresponds
+        to an unset bit in the mask will be passed on the surface below
+        @surface.
+
+        An input region is typically used with RGBA surfaces. The alpha
+        channel of the surface defines which pixels are invisible and
+        allows for nicely antialiased borders, and the input region
+        controls where the surface is “clickable”.
+
+        Use [method@Gdk.Display.supports_input_shapes] to find out if
+        a particular backend supports input regions.
+        """
     @deprecated("deprecated")
-    def set_opaque_region(self, region: cairo.Region | None = None) -> None: ...
-    def translate_coordinates(self, to: Surface, x: float, y: float) -> tuple[bool, float, float]: ...
+    def set_opaque_region(self, region: cairo.Region | None = None) -> None:
+        """
+            Marks a region of the `GdkSurface` as opaque.
+
+        For optimisation purposes, compositing window managers may
+        like to not draw obscured regions of surfaces, or turn off blending
+        during for these regions. With RGB windows with no transparency,
+        this is just the shape of the window, but with ARGB32 windows, the
+        compositor does not know what regions of the window are transparent
+        or not.
+
+        This function only works for toplevel surfaces.
+
+        GTK will update this property automatically if the @surface background
+        is opaque, as we know where the opaque regions are. If your surface
+        background is not opaque, please update this property in your
+        [GtkWidgetClass.css_changed](../gtk4/vfunc.Widget.css_changed.html) handler.
+        """
+    def translate_coordinates(self, to: Surface, x: float, y: float) -> tuple[bool, float, float]:
+        """
+            Translates coordinates between two surfaces.
+
+        Note that this only works if @to and @from are popups or
+        transient-for to the same toplevel (directly or indirectly).
+        """
 
     # Signals
     @typing.overload
@@ -5051,35 +8788,54 @@ class Surface(GObject.Object):
         detailed_signal: typing.Literal["enter-monitor"],
         handler: typing.Callable[[typing_extensions.Self, Monitor], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when @surface starts being present on the monitor.
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["event"],
         handler: typing.Callable[[typing_extensions.Self, Event], bool],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when GDK receives an input event for @surface.
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["layout"],
         handler: typing.Callable[[typing_extensions.Self, int, int], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted when the size of @surface is changed, or when relayout should
+        be performed.
+
+        Surface size is reported in ”application pixels”, not
+        ”device pixels” (see gdk_surface_get_scale_factor()).
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["leave-monitor"],
         handler: typing.Callable[[typing_extensions.Self, Monitor], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when @surface stops being present on the monitor.
+        """
     @typing.overload
     def connect(
         self,
         detailed_signal: typing.Literal["render"],
         handler: typing.Callable[[typing_extensions.Self, cairo.Region], bool],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when part of the surface needs to be redrawn.
+        """
     @typing.overload
     def connect(
         self,
@@ -5180,8 +8936,17 @@ class Texture(GObject.Object):
 
     class Props(GObject.Object.Props):
         color_state: ColorState | None  # [color-state]: changed because contained invalid characters
+        """
+        The color state of the texture.
+        """
         height: int
+        """
+        The height of the texture, in pixels.
+        """
         width: int
+        """
+        The width of the texture, in pixels.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -5191,28 +8956,174 @@ class Texture(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def download(self, data: list, stride: int) -> None: ...
+    def download(self, data: list, stride: int) -> None:
+        """
+            Downloads the @texture into local memory.
+
+        This may be an expensive operation, as the actual texture data
+        may reside on a GPU or on a remote display server.
+
+        The data format of the downloaded data is equivalent to
+        %CAIRO_FORMAT_ARGB32, so every downloaded pixel requires
+        4 bytes of memory.
+
+        Downloading a texture into a Cairo image surface:
+        ```c
+        surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                              gdk_texture_get_width (texture),
+                                              gdk_texture_get_height (texture));
+        gdk_texture_download (texture,
+                              cairo_image_surface_get_data (surface),
+                              cairo_image_surface_get_stride (surface));
+        cairo_surface_mark_dirty (surface);
+        ```
+
+        For more flexible download capabilities, see
+        [struct@Gdk.TextureDownloader].
+        """
     @builtins.property
-    def get_color_state(self) -> ColorState: ...
-    def get_format(self) -> MemoryFormat: ...
+    def get_color_state(self) -> ColorState:
+        """
+        Returns the color state associated with the texture.
+        """
+    def get_format(self) -> MemoryFormat:
+        """
+            Gets the memory format most closely associated with the data of
+        the texture.
+
+        Note that it may not be an exact match for texture data
+        stored on the GPU or with compression.
+
+        The format can give an indication about the bit depth and opacity
+        of the texture and is useful to determine the best format for
+        downloading the texture.
+        """
     @builtins.property
-    def get_height(self) -> int: ...
+    def get_height(self) -> int:
+        """
+        Returns the height of the @texture, in pixels.
+        """
     @builtins.property
-    def get_width(self) -> int: ...
+    def get_width(self) -> int:
+        """
+        Returns the width of @texture, in pixels.
+        """
     @classmethod
-    def new_for_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf) -> Texture: ...
+    def new_for_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf) -> Texture:
+        """
+            Creates a new texture object representing the `GdkPixbuf`.
+
+        This function is threadsafe, so that you can e.g. use GTask
+        and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
+        while loading a big image.
+        """
     @classmethod
-    def new_from_bytes(cls, bytes: GLib.Bytes) -> Texture: ...
+    def new_from_bytes(cls, bytes: GLib.Bytes) -> Texture:
+        """
+            Creates a new texture by loading an image from memory,
+
+        The file format is detected automatically. The supported formats
+        are PNG, JPEG and TIFF, though more formats might be available.
+
+        If %NULL is returned, then @error will be set.
+
+        This function is threadsafe, so that you can e.g. use GTask
+        and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
+        while loading a big image.
+        """
     @classmethod
-    def new_from_file(cls, file: Gio.File) -> Texture: ...
+    def new_from_file(cls, file: Gio.File) -> Texture:
+        """
+            Creates a new texture by loading an image from a file.
+
+        The file format is detected automatically. The supported formats
+        are PNG, JPEG and TIFF, though more formats might be available.
+
+        If %NULL is returned, then @error will be set.
+
+        This function is threadsafe, so that you can e.g. use GTask
+        and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
+        while loading a big image.
+        """
     @classmethod
-    def new_from_filename(cls, path: str) -> Texture: ...
+    def new_from_filename(cls, path: str) -> Texture:
+        """
+            Creates a new texture by loading an image from a file.
+
+        The file format is detected automatically. The supported formats
+        are PNG, JPEG and TIFF, though more formats might be available.
+
+        If %NULL is returned, then @error will be set.
+
+        This function is threadsafe, so that you can e.g. use GTask
+        and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
+        while loading a big image.
+        """
     @classmethod
-    def new_from_resource(cls, resource_path: str) -> Texture: ...
-    def save_to_png(self, filename: str) -> bool: ...
-    def save_to_png_bytes(self) -> GLib.Bytes: ...
-    def save_to_tiff(self, filename: str) -> bool: ...
-    def save_to_tiff_bytes(self) -> GLib.Bytes: ...
+    def new_from_resource(cls, resource_path: str) -> Texture:
+        """
+            Creates a new texture by loading an image from a resource.
+
+        The file format is detected automatically. The supported formats
+        are PNG and JPEG, though more formats might be available.
+
+        It is a fatal error if @resource_path does not specify a valid
+        image resource and the program will abort if that happens.
+        If you are unsure about the validity of a resource, use
+        [ctor@Gdk.Texture.new_from_file] to load it.
+
+        This function is threadsafe, so that you can e.g. use GTask
+        and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
+        while loading a big image.
+        """
+    def save_to_png(self, filename: str) -> bool:
+        """
+            Store the given @texture to the @filename as a PNG file.
+
+        This is a utility function intended for debugging and testing.
+        If you want more control over formats, proper error handling or
+        want to store to a [iface@Gio.File] or other location, you might want to
+        use [method@Gdk.Texture.save_to_png_bytes] or look into the
+        gdk-pixbuf library.
+        """
+    def save_to_png_bytes(self) -> GLib.Bytes:
+        """
+            Store the given @texture in memory as a PNG file.
+
+        Use [ctor@Gdk.Texture.new_from_bytes] to read it back.
+
+        If you want to serialize a texture, this is a convenient and
+        portable way to do that.
+
+        If you need more control over the generated image, such as
+        attaching metadata, you should look into an image handling
+        library such as the gdk-pixbuf library.
+
+        If you are dealing with high dynamic range float data, you
+        might also want to consider [method@Gdk.Texture.save_to_tiff_bytes]
+        instead.
+        """
+    def save_to_tiff(self, filename: str) -> bool:
+        """
+            Store the given @texture to the @filename as a TIFF file.
+
+        GTK will attempt to store data without loss.
+        """
+    def save_to_tiff_bytes(self) -> GLib.Bytes:
+        """
+            Store the given @texture in memory as a TIFF file.
+
+        Use [ctor@Gdk.Texture.new_from_bytes] to read it back.
+
+        This function is intended to store a representation of the
+        texture's data that is as accurate as possible. This is
+        particularly relevant when working with high dynamic range
+        images and floating-point texture data.
+
+        If that is not your concern and you are interested in a
+        smaller size and a more portable format, you might want to
+        use [method@Gdk.Texture.save_to_png_bytes].
+        """
 
     # Signals
     @typing.overload
@@ -5249,19 +9160,80 @@ class TextureClass(GObject.GPointer):
         """
 
 class TextureDownloader(GObject.GBoxed):
+    """
+    Used to download the contents of a [class@Gdk.Texture].
+
+    It is intended to be created as a short-term object for a single download,
+    but can be used for multiple downloads of different textures or with different
+    settings.
+
+    `GdkTextureDownloader` can be used to convert data between different formats.
+    Create a `GdkTexture` for the existing format and then download it in a
+    different format.
+    """
+
     # gi Methods
-    def copy(self) -> TextureDownloader: ...
-    def download_bytes(self) -> tuple[GLib.Bytes, int]: ...
-    def download_into(self, data: list, stride: int) -> None: ...
-    def free(self) -> None: ...
-    def get_color_state(self) -> ColorState: ...
-    def get_format(self) -> MemoryFormat: ...
-    def get_texture(self) -> Texture: ...
+    def copy(self) -> TextureDownloader:
+        """
+            Creates a copy of the downloader.
+
+        This function is meant for language bindings.
+        """
+    def download_bytes(self) -> tuple[GLib.Bytes, int]:
+        """
+            Downloads the given texture pixels into a `GBytes`. The rowstride will
+        be stored in the stride value.
+
+        This function will abort if it tries to download a large texture and
+        fails to allocate memory. If you think that may happen, you should handle
+        memory allocation yourself and use [method@Gdk.TextureDownloader.download_into]
+        once allocation succeeded.
+        """
+    def download_into(self, data: list, stride: int) -> None:
+        """
+        Downloads the @texture into local memory.
+        """
+    def free(self) -> None:
+        """
+        Frees the given downloader and all its associated resources.
+        """
+    def get_color_state(self) -> ColorState:
+        """
+        Gets the color state that the data will be downloaded in.
+        """
+    def get_format(self) -> MemoryFormat:
+        """
+        Gets the format that the data will be downloaded in.
+        """
+    def get_texture(self) -> Texture:
+        """
+        Gets the texture that the downloader will download.
+        """
     @classmethod
-    def new(cls, texture: Texture) -> TextureDownloader: ...
-    def set_color_state(self, color_state: ColorState) -> None: ...
-    def set_format(self, format: MemoryFormat) -> None: ...
-    def set_texture(self, texture: Texture) -> None: ...
+    def new(cls, texture: Texture) -> TextureDownloader:
+        """
+            Creates a new texture downloader for @texture.
+
+        By default, the downloader will convert the data to
+        the default memory format, and to the sRGB color state.
+        """
+    def set_color_state(self, color_state: ColorState) -> None:
+        """
+            Sets the color state the downloader will convert the data to.
+
+        By default, the sRGB colorstate returned by [func@ColorState.get_srgb]
+        is used.
+        """
+    def set_format(self, format: MemoryFormat) -> None:
+        """
+            Sets the format the downloader will download.
+
+        By default, GDK_MEMORY_DEFAULT is set.
+        """
+    def set_texture(self, texture: Texture) -> None:
+        """
+        Changes the texture the downloader will download.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -5271,10 +9243,31 @@ class TextureDownloader(GObject.GBoxed):
     ) -> None: ...
 
 class TimeCoord(GObject.GPointer):
+    """
+    Stores a single event in a motion history.
+
+    To check whether an axis is present, check whether the corresponding
+    flag from the [flags@Gdk.AxisFlags] enumeration is set in the @flags
+    To access individual axis values, use the values of the values of
+    the [enum@Gdk.AxisUse] enumerations as indices.
+    """
+
     # gi Fields
     axes: list | None = ...
+    """
+    axis values, indexed by [enum@Gdk.AxisUse]
+
+    """
     flags: AxisFlags = ...
+    """
+    Flags indicating what axes are present, see [flags@Gdk.AxisFlags]
+
+    """
     time: int = ...
+    """
+    The timestamp for this event
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -5283,17 +9276,58 @@ class TimeCoord(GObject.GPointer):
         """
 
 class Toplevel(GObject.GInterface):
+    """
+    A freestanding toplevel surface.
+
+    The `GdkToplevel` interface provides useful APIs for interacting with
+    the windowing system, such as controlling maximization and size of the
+    surface, setting icons and transient parents for dialogs.
+    """
+
     class Props(GObject.GInterface.Props):
         decorated: bool
+        """
+        Whether the window manager should add decorations.
+        """
         deletable: bool
+        """
+        Whether the window manager should allow to close the surface.
+        """
         fullscreen_mode: FullscreenMode  # [fullscreen-mode]: changed because contained invalid characters
+        """
+        The fullscreen mode of the surface.
+        """
         icon_list: object | None  # [icon-list]: changed because contained invalid characters
+        """
+        A list of textures to use as icon.
+        """
         modal: bool
+        """
+        Whether the surface is modal.
+        """
         shortcuts_inhibited: bool  # [shortcuts-inhibited]: changed because contained invalid characters
+        """
+        Whether the surface should inhibit keyboard shortcuts.
+        """
         startup_id: str  # [startup-id]: changed because contained invalid characters
+        """
+        The startup ID of the surface.
+
+        See [class@Gdk.AppLaunchContext] for more information about
+        startup feedback.
+        """
         state: ToplevelState
+        """
+        The state of the toplevel.
+        """
         title: str
+        """
+        The title of the surface.
+        """
         transient_for: Surface | None  # [transient-for]: changed because contained invalid characters
+        """
+        The transient parent of the surface.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -5313,28 +9347,175 @@ class Toplevel(GObject.GInterface):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def begin_move(self, device: Device, button: int, x: float, y: float, timestamp: int) -> None: ...
+    def begin_move(self, device: Device, button: int, x: float, y: float, timestamp: int) -> None:
+        """
+            Begins an interactive move operation.
+
+        You might use this function to implement draggable titlebars.
+        """
     def begin_resize(
         self, edge: SurfaceEdge, device: Device | None, button: int, x: float, y: float, timestamp: int
-    ) -> None: ...
-    def focus(self, timestamp: int) -> None: ...
+    ) -> None:
+        """
+            Begins an interactive resize operation.
+
+        You might use this function to implement a “window resize grip.”
+        """
+    def focus(self, timestamp: int) -> None:
+        """
+            Sets keyboard focus to @surface.
+
+        In most cases, [gtk_window_present_with_time()](../gtk4/method.Window.present_with_time.html)
+        should be used on a [GtkWindow](../gtk4/class.Window.html), rather than
+        calling this function.
+        """
     @builtins.property
-    def get_state(self) -> ToplevelState: ...
-    def inhibit_system_shortcuts(self, event: Event | None = None) -> None: ...
-    def lower(self) -> bool: ...
-    def minimize(self) -> bool: ...
-    def present(self, layout: ToplevelLayout) -> None: ...
-    def restore_system_shortcuts(self) -> None: ...
-    def set_decorated(self, decorated: bool) -> None: ...
-    def set_deletable(self, deletable: bool) -> None: ...
-    def set_icon_list(self, surfaces: list) -> None: ...
-    def set_modal(self, modal: bool) -> None: ...
-    def set_startup_id(self, startup_id: str) -> None: ...
-    def set_title(self, title: str) -> None: ...
-    def set_transient_for(self, parent: Surface) -> None: ...
-    def show_window_menu(self, event: Event) -> bool: ...
-    def supports_edge_constraints(self) -> bool: ...
-    def titlebar_gesture(self, gesture: TitlebarGesture) -> bool: ...
+    def get_state(self) -> ToplevelState:
+        """
+            Gets the bitwise or of the currently active surface state flags,
+        from the `GdkToplevelState` enumeration.
+        """
+    def inhibit_system_shortcuts(self, event: Event | None = None) -> None:
+        """
+            Requests that the @toplevel inhibit the system shortcuts.
+
+        This is asking the desktop environment/windowing system to let all
+        keyboard events reach the surface, as long as it is focused, instead
+        of triggering system actions.
+
+        If granted, the rerouting remains active until the default shortcuts
+        processing is restored with [method@Gdk.Toplevel.restore_system_shortcuts],
+        or the request is revoked by the desktop environment, windowing system
+        or the user.
+
+        A typical use case for this API is remote desktop or virtual machine
+        viewers which need to inhibit the default system keyboard shortcuts
+        so that the remote session or virtual host gets those instead of the
+        local environment.
+
+        The windowing system or desktop environment may ask the user to grant
+        or deny the request or even choose to ignore the request entirely.
+
+        The caller can be notified whenever the request is granted or revoked
+        by listening to the [property@Gdk.Toplevel:shortcuts-inhibited] property.
+        """
+    def lower(self) -> bool:
+        """
+            Asks to lower the @toplevel below other windows.
+
+        The windowing system may choose to ignore the request.
+        """
+    def minimize(self) -> bool:
+        """
+            Asks to minimize the @toplevel.
+
+        The windowing system may choose to ignore the request.
+        """
+    def present(self, layout: ToplevelLayout) -> None:
+        """
+            Present @toplevel after having processed the `GdkToplevelLayout` rules.
+
+        If the toplevel was previously not showing, it will be showed,
+        otherwise it will change layout according to @layout.
+
+        GDK may emit the [signal@Gdk.Toplevel::compute-size] signal to let
+        the user of this toplevel compute the preferred size of the toplevel
+        surface.
+
+        Presenting is asynchronous and the specified layout parameters are not
+        guaranteed to be respected.
+        """
+    def restore_system_shortcuts(self) -> None:
+        """
+            Restore default system keyboard shortcuts which were previously
+        inhibited.
+
+        This undoes the effect of [method@Gdk.Toplevel.inhibit_system_shortcuts].
+        """
+    def set_decorated(self, decorated: bool) -> None:
+        """
+            Sets the toplevel to be decorated.
+
+        Setting @decorated to %FALSE hints the desktop environment
+        that the surface has its own, client-side decorations and
+        does not need to have window decorations added.
+        """
+    def set_deletable(self, deletable: bool) -> None:
+        """
+            Sets the toplevel to be deletable.
+
+        Setting @deletable to %TRUE hints the desktop environment
+        that it should offer the user a way to close the surface.
+        """
+    def set_icon_list(self, surfaces: list) -> None:
+        """
+            Sets a list of icons for the surface.
+
+        One of these will be used to represent the surface in iconic form.
+        The icon may be shown in window lists or task bars. Which icon
+        size is shown depends on the window manager. The window manager
+        can scale the icon but setting several size icons can give better
+        image quality.
+
+        Note that some platforms don't support surface icons.
+        """
+    def set_modal(self, modal: bool) -> None:
+        """
+            Sets the toplevel to be modal.
+
+        The application can use this hint to tell the
+        window manager that a certain surface has modal
+        behaviour. The window manager can use this information
+        to handle modal surfaces in a special way.
+
+        You should only use this on surfaces for which you have
+        previously called [method@Gdk.Toplevel.set_transient_for].
+        """
+    def set_startup_id(self, startup_id: str) -> None:
+        """
+            Sets the startup notification ID.
+
+        When using GTK, typically you should use
+        [gtk_window_set_startup_id()](../gtk4/method.Window.set_startup_id.html)
+        instead of this low-level function.
+        """
+    def set_title(self, title: str) -> None:
+        """
+            Sets the title of a toplevel surface.
+
+        The title maybe be displayed in the titlebar,
+        in lists of windows, etc.
+        """
+    def set_transient_for(self, parent: Surface) -> None:
+        """
+            Sets a transient-for parent.
+
+        Indicates to the window manager that @surface is a transient
+        dialog associated with the application surface @parent. This
+        allows the window manager to do things like center @surface
+        on @parent and keep @surface above @parent.
+
+        See [gtk_window_set_transient_for()](../gtk4/method.Window.set_transient_for.html)
+        if you’re using [GtkWindow](../gtk4/class.Window.html).
+        """
+    def show_window_menu(self, event: Event) -> bool:
+        """
+            Asks the windowing system to show the window menu.
+
+        The window menu is the menu shown when right-clicking the titlebar
+        on traditional windows managed by the window manager. This is useful
+        for windows using client-side decorations, activating it with a
+        right-click on the window decorations.
+        """
+    def supports_edge_constraints(self) -> bool:
+        """
+            Returns whether the desktop environment supports
+        tiled window states.
+        """
+    def titlebar_gesture(self, gesture: TitlebarGesture) -> bool:
+        """
+        Performs a title bar gesture.
+        """
 
     # Signals
     @typing.overload
@@ -5343,7 +9524,22 @@ class Toplevel(GObject.GInterface):
         detailed_signal: typing.Literal["compute-size"],
         handler: typing.Callable[[typing_extensions.Self, ToplevelSize], None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted when the size for the surface needs to be computed, when
+        it is present.
+
+        This signal will normally be emitted during or after a call to
+        [method@Gdk.Toplevel.present], depending on the configuration
+        received by the windowing system. It may also be emitted at any
+        other point in time, in response to the windowing system
+        spontaneously changing the configuration of the toplevel surface.
+
+        It is the responsibility of the toplevel user to handle this signal
+        and compute the desired size of the toplevel, given the information
+        passed via the [struct@Gdk.ToplevelSize] object. Failing to do so
+        will result in an arbitrary size being used as a result.
+        """
     @typing.overload
     def connect(
         self,
@@ -5427,20 +9623,83 @@ class ToplevelInterface(GObject.GPointer):
         """
 
 class ToplevelLayout(GObject.GBoxed):
+    """
+    Contains information that is necessary to present a sovereign
+    window on screen.
+
+    The `GdkToplevelLayout` struct is necessary for using
+    [method@Gdk.Toplevel.present].
+
+    Toplevel surfaces are sovereign windows that can be presented
+    to the user in various states (maximized, on all workspaces,
+    etc).
+    """
+
     # gi Methods
-    def copy(self) -> ToplevelLayout: ...
-    def equal(self, other: ToplevelLayout) -> bool: ...
-    def get_fullscreen(self) -> tuple[bool, bool]: ...
-    def get_fullscreen_monitor(self) -> Monitor | None: ...
-    def get_maximized(self) -> tuple[bool, bool]: ...
-    def get_resizable(self) -> bool: ...
+    def copy(self) -> ToplevelLayout:
+        """
+        Create a new `GdkToplevelLayout` and copy the contents of @layout into it.
+        """
+    def equal(self, other: ToplevelLayout) -> bool:
+        """
+        Check whether @layout and @other has identical layout properties.
+        """
+    def get_fullscreen(self) -> tuple[bool, bool]:
+        """
+            If the layout specifies whether to the toplevel should go fullscreen,
+        the value pointed to by @fullscreen is set to %TRUE if it should go
+        fullscreen, or %FALSE, if it should go unfullscreen.
+        """
+    def get_fullscreen_monitor(self) -> Monitor | None:
+        """
+            Returns the monitor that the layout is fullscreening
+        the surface on.
+        """
+    def get_maximized(self) -> tuple[bool, bool]:
+        """
+            If the layout specifies whether to the toplevel should go maximized,
+        the value pointed to by @maximized is set to %TRUE if it should go
+        fullscreen, or %FALSE, if it should go unmaximized.
+        """
+    def get_resizable(self) -> bool:
+        """
+            Returns whether the layout should allow the user
+        to resize the surface.
+        """
     @classmethod
-    def new(cls) -> ToplevelLayout: ...
-    def ref(self) -> ToplevelLayout: ...
-    def set_fullscreen(self, fullscreen: bool, monitor: Monitor | None = None) -> None: ...
-    def set_maximized(self, maximized: bool) -> None: ...
-    def set_resizable(self, resizable: bool) -> None: ...
-    def unref(self) -> None: ...
+    def new(cls) -> ToplevelLayout:
+        """
+            Create a toplevel layout description.
+
+        Used together with gdk_toplevel_present() to describe
+        how a toplevel surface should be placed and behave on-screen.
+
+        The size is in ”application pixels”, not
+        ”device pixels” (see gdk_surface_get_scale_factor()).
+        """
+    def ref(self) -> ToplevelLayout:
+        """
+        Increases the reference count of @layout.
+        """
+    def set_fullscreen(self, fullscreen: bool, monitor: Monitor | None = None) -> None:
+        """
+            Sets whether the layout should cause the surface
+        to be fullscreen when presented.
+        """
+    def set_maximized(self, maximized: bool) -> None:
+        """
+            Sets whether the layout should cause the surface
+        to be maximized when presented.
+        """
+    def set_resizable(self, resizable: bool) -> None:
+        """
+            Sets whether the layout should allow the user
+        to resize the surface after it has been presented.
+        """
+    def unref(self) -> None:
+        """
+        Decreases the reference count of @layout.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -5450,15 +9709,57 @@ class ToplevelLayout(GObject.GBoxed):
     ) -> None: ...
 
 class ToplevelSize(GObject.GPointer):
+    """
+    Contains information that is useful to compute the size of a toplevel.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_bounds(self) -> tuple[int, int]: ...
-    def set_min_size(self, min_width: int, min_height: int) -> None: ...
-    def set_shadow_width(self, left: int, right: int, top: int, bottom: int) -> None: ...
-    def set_size(self, width: int, height: int) -> None: ...
+    def get_bounds(self) -> tuple[int, int]:
+        """
+            Retrieves the bounds the toplevel is placed within.
+
+        The bounds represent the largest size a toplevel may have while still being
+        able to fit within some type of boundary. Depending on the backend, this may
+        be equivalent to the dimensions of the work area or the monitor on which the
+        window is being presented on, or something else that limits the way a
+        toplevel can be presented.
+        """
+    def set_min_size(self, min_width: int, min_height: int) -> None:
+        """
+            Sets the minimum size of the toplevel.
+
+        The minimum size corresponds to the limitations the toplevel can be shrunk
+        to, without resulting in incorrect painting. A user of a `GdkToplevel` should
+        calculate these given both the existing size, and the bounds retrieved from
+        the `GdkToplevelSize` object.
+
+        The minimum size should be within the bounds (see
+        [method@Gdk.ToplevelSize.get_bounds]).
+        """
+    def set_shadow_width(self, left: int, right: int, top: int, bottom: int) -> None:
+        """
+            Sets the shadows size of the toplevel.
+
+        The shadow width corresponds to the part of the computed surface size
+        that would consist of the shadow margin surrounding the window, would
+        there be any.
+
+        Shadow width should only be set if
+        [method@Gtk.Display.supports_shadow_width] is %TRUE.
+        """
+    def set_size(self, width: int, height: int) -> None:
+        """
+            Sets the size the toplevel prefers to be resized to.
+
+        The size should be within the bounds (see
+        [method@Gdk.ToplevelSize.get_bounds]). The set size should
+        be considered as a hint, and should not be assumed to be
+        respected by the windowing system, or backend.
+        """
 
 class TouchEvent(Event):
     """
@@ -5470,7 +9771,10 @@ class TouchEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_emulating_pointer(self) -> bool: ...
+    def get_emulating_pointer(self) -> bool:
+        """
+        Extracts whether a touch event is emulating a pointer event.
+        """
 
 class TouchpadEvent(Event):
     """
@@ -5487,11 +9791,26 @@ class TouchpadEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_deltas(self) -> tuple[float, float]: ...
-    def get_gesture_phase(self) -> TouchpadGesturePhase: ...
-    def get_n_fingers(self) -> int: ...
-    def get_pinch_angle_delta(self) -> float: ...
-    def get_pinch_scale(self) -> float: ...
+    def get_deltas(self) -> tuple[float, float]:
+        """
+        Extracts delta information from a touchpad event.
+        """
+    def get_gesture_phase(self) -> TouchpadGesturePhase:
+        """
+        Extracts the touchpad gesture phase from a touchpad event.
+        """
+    def get_n_fingers(self) -> int:
+        """
+        Extracts the number of fingers from a touchpad event.
+        """
+    def get_pinch_angle_delta(self) -> float:
+        """
+        Extracts the angle delta from a touchpad pinch event.
+        """
+    def get_pinch_scale(self) -> float:
+        """
+        Extracts the scale from a touchpad pinch event.
+        """
 
 class VulkanContext(DrawContext):
     """
@@ -5515,7 +9834,13 @@ class VulkanContext(DrawContext):
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["images-updated"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+            Emitted when the images managed by this context have changed.
+
+        Usually this means that the swapchain had to be recreated,
+        for example in response to a change of the surface size.
+        """
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any

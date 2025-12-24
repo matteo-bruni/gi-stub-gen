@@ -802,6 +802,11 @@ class DesktopAppInfoClass(GObject.GPointer):
         """
 
 class DesktopAppInfoLookupIface(GObject.GPointer):
+    """
+    Interface that is used by backends to associate default
+    handlers with URI schemes.
+    """
+
     # gi Fields
     @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
@@ -831,6 +836,9 @@ class FDMessage(Gio.SocketControlMessage):
 
     class Props(Gio.SocketControlMessage.Props):
         fd_list: Gio.UnixFDList | None  # [fd-list]: changed because contained invalid characters
+        """
+        The [class@Gio.UnixFDList] object to send with the message.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -841,15 +849,56 @@ class FDMessage(Gio.SocketControlMessage):
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def append_fd(message: FDMessage, fd: int) -> bool: ...
+    def append_fd(message: FDMessage, fd: int) -> bool:
+        """
+            Adds a file descriptor to @message.
+
+        The file descriptor is duplicated using dup(). You keep your copy
+        of the descriptor and the copy contained in @message will be closed
+        when @message is finalized.
+
+        A possible cause of failure is exceeding the per-process or
+        system-wide file descriptor limit.
+        """
     @staticmethod
-    def get_fd_list(message: FDMessage) -> Gio.UnixFDList: ...
+    def get_fd_list(message: FDMessage) -> Gio.UnixFDList:
+        """
+            Gets the #GUnixFDList contained in @message.  This function does not
+        return a reference to the caller, but the returned list is valid for
+        the lifetime of @message.
+        """
     @classmethod
-    def new(cls) -> Gio.SocketControlMessage: ...
+    def new(cls) -> Gio.SocketControlMessage:
+        """
+            Creates a new #GUnixFDMessage containing an empty file descriptor
+        list.
+        """
     @classmethod
-    def new_with_fd_list(cls, fd_list: Gio.UnixFDList) -> Gio.SocketControlMessage: ...
+    def new_with_fd_list(cls, fd_list: Gio.UnixFDList) -> Gio.SocketControlMessage:
+        """
+        Creates a new #GUnixFDMessage containing @list.
+        """
     @staticmethod
-    def steal_fds(message: FDMessage) -> tuple[list, int | None]: ...
+    def steal_fds(message: FDMessage) -> tuple[list, int | None]:
+        """
+            Returns the array of file descriptors that is contained in this
+        object.
+
+        After this call, the descriptors are no longer contained in
+        @message. Further calls will return an empty list (unless more
+        descriptors have been added).
+
+        The return result of this function must be freed with g_free().
+        The caller is also responsible for closing all of the file
+        descriptors.
+
+        If @length is non-%NULL then it is set to the number of file
+        descriptors in the returned array. The returned array is also
+        terminated with -1.
+
+        This function never returns %NULL. In case there are no file
+        descriptors contained in @message, an empty array is returned.
+        """
 
     # Signals
     @typing.overload
@@ -883,11 +932,21 @@ class FDMessagePrivate(GObject.GPointer):
         """
 
 class FileDescriptorBasedIface(GObject.GPointer):
+    """
+    An interface for file descriptor based io objects.
+    """
+
     # gi Fields
     @builtins.property
-    def g_iface(self) -> GObject.TypeInterface | None: ...
+    def g_iface(self) -> GObject.TypeInterface | None:
+        """
+        The parent interface.
+        """
     @builtins.property
-    def get_fd(self) -> get_fdFileDescriptorBasedIfaceCB: ...
+    def get_fd(self) -> get_fdFileDescriptorBasedIfaceCB:
+        """
+        Gets the underlying file descriptor.
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -910,7 +969,13 @@ class InputStream(GObject.Object):
 
     class Props(GObject.Object.Props):
         close_fd: bool  # [close-fd]: changed because contained invalid characters
+        """
+        Whether to close the file descriptor when the stream is closed.
+        """
         fd: int
+        """
+        The file descriptor that the stream reads from.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -921,13 +986,30 @@ class InputStream(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def get_close_fd(stream: InputStream) -> bool: ...
+    def get_close_fd(stream: InputStream) -> bool:
+        """
+            Returns whether the file descriptor of @stream will be
+        closed when the stream is closed.
+        """
     @staticmethod
-    def get_fd(stream: InputStream) -> int: ...
+    def get_fd(stream: InputStream) -> int:
+        """
+        Return the UNIX file descriptor that the stream reads from.
+        """
     @classmethod
-    def new(cls, fd: int, close_fd: bool) -> Gio.InputStream: ...
+    def new(cls, fd: int, close_fd: bool) -> Gio.InputStream:
+        """
+            Creates a new #GUnixInputStream for the given @fd.
+
+        If @close_fd is %TRUE, the file descriptor will be closed
+        when the stream is closed.
+        """
     @staticmethod
-    def set_close_fd(stream: InputStream, close_fd: bool) -> None: ...
+    def set_close_fd(stream: InputStream, close_fd: bool) -> None:
+        """
+            Sets whether the file descriptor of @stream shall be closed
+        when the stream is closed.
+        """
 
     # Signals
     @typing.overload
@@ -968,45 +1050,126 @@ class InputStreamPrivate(GObject.GPointer):
         """
 
 class MountEntry(GObject.GBoxed):
+    """
+    Defines a Unix mount entry (e.g. `/media/cdrom`).
+    This corresponds roughly to a mtab entry.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def at(mount_path: str) -> tuple[MountEntry | None, int | None]: ...
+    def at(mount_path: str) -> tuple[MountEntry | None, int | None]:
+        """
+            Gets a [struct@GioUnix.MountEntry] for a given mount path.
+
+        If @time_read is set, it will be filled with a Unix timestamp for checking
+        if the mounts have changed since with
+        [func@GioUnix.mount_entries_changed_since].
+
+        If more mounts have the same mount path, the last matching mount
+        is returned.
+
+        This will return `NULL` if there is no mount point at @mount_path.
+        """
     @staticmethod
-    def compare(mount1: MountEntry, mount2: MountEntry) -> int: ...
+    def compare(mount1: MountEntry, mount2: MountEntry) -> int:
+        """
+        Compares two Unix mounts.
+        """
     @staticmethod
-    def copy(mount_entry: MountEntry) -> MountEntry: ...
+    def copy(mount_entry: MountEntry) -> MountEntry:
+        """
+        Makes a copy of @mount_entry.
+        """
     @staticmethod
     def for_(file_path: str) -> tuple[MountEntry | None, int | None]: ...
     @staticmethod
-    def free(mount_entry: MountEntry) -> None: ...
+    def free(mount_entry: MountEntry) -> None:
+        """
+        Frees a Unix mount.
+        """
     @staticmethod
-    def get_device_path(mount_entry: MountEntry) -> str: ...
+    def get_device_path(mount_entry: MountEntry) -> str:
+        """
+        Gets the device path for a Unix mount.
+        """
     @staticmethod
-    def get_fs_type(mount_entry: MountEntry) -> str: ...
+    def get_fs_type(mount_entry: MountEntry) -> str:
+        """
+        Gets the filesystem type for the Unix mount.
+        """
     @staticmethod
-    def get_mount_path(mount_entry: MountEntry) -> str: ...
+    def get_mount_path(mount_entry: MountEntry) -> str:
+        """
+        Gets the mount path for a Unix mount.
+        """
     @staticmethod
-    def get_options(mount_entry: MountEntry) -> str | None: ...
+    def get_options(mount_entry: MountEntry) -> str | None:
+        """
+            Gets a comma separated list of mount options for the Unix mount.
+
+        For example: `rw,relatime,seclabel,data=ordered`.
+
+        This is similar to [func@GioUnix.MountPoint.get_options], but it takes
+        a [struct@GioUnix.MountEntry] as an argument.
+        """
     @staticmethod
-    def get_root_path(mount_entry: MountEntry) -> str | None: ...
+    def get_root_path(mount_entry: MountEntry) -> str | None:
+        """
+            Gets the root of the mount within the filesystem. This is useful e.g. for
+        mounts created by bind operation, or btrfs subvolumes.
+
+        For example, the root path is equal to `/` for a mount created by
+        `mount /dev/sda1 /mnt/foo` and `/bar` for
+        `mount --bind /mnt/foo/bar /mnt/bar`.
+        """
     @staticmethod
-    def guess_can_eject(mount_entry: MountEntry) -> bool: ...
+    def guess_can_eject(mount_entry: MountEntry) -> bool:
+        """
+        Guesses whether a Unix mount entry can be ejected.
+        """
     @staticmethod
-    def guess_icon(mount_entry: MountEntry) -> Gio.Icon: ...
+    def guess_icon(mount_entry: MountEntry) -> Gio.Icon:
+        """
+        Guesses the icon of a Unix mount entry.
+        """
     @staticmethod
-    def guess_name(mount_entry: MountEntry) -> str: ...
+    def guess_name(mount_entry: MountEntry) -> str:
+        """
+            Guesses the name of a Unix mount entry.
+
+        The result is a translated string.
+        """
     @staticmethod
-    def guess_should_display(mount_entry: MountEntry) -> bool: ...
+    def guess_should_display(mount_entry: MountEntry) -> bool:
+        """
+        Guesses whether a Unix mount entry should be displayed in the UI.
+        """
     @staticmethod
-    def guess_symbolic_icon(mount_entry: MountEntry) -> Gio.Icon: ...
+    def guess_symbolic_icon(mount_entry: MountEntry) -> Gio.Icon:
+        """
+        Guesses the symbolic icon of a Unix mount entry.
+        """
     @staticmethod
-    def is_readonly(mount_entry: MountEntry) -> bool: ...
+    def is_readonly(mount_entry: MountEntry) -> bool:
+        """
+        Checks if a Unix mount is mounted read only.
+        """
     @staticmethod
-    def is_system_internal(mount_entry: MountEntry) -> bool: ...
+    def is_system_internal(mount_entry: MountEntry) -> bool:
+        """
+            Checks if a Unix mount is a system mount.
+
+        This is the Boolean OR of
+        [func@GioUnix.is_system_fs_type], [func@GioUnix.is_system_device_path] and
+        [func@GioUnix.is_mount_path_system_internal] on @mount_entry’s properties.
+
+        The definition of what a ‘system’ mount entry is may change over time as new
+        file system types and device paths are ignored.
+        """
 
 class MountMonitor(GObject.Object):
     """
@@ -1026,13 +1189,39 @@ class MountMonitor(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def get() -> MountMonitor: ...
+    def get() -> MountMonitor:
+        """
+            Gets the [class@GioUnix.MountMonitor] for the current thread-default main
+        context.
+
+        The mount monitor can be used to monitor for changes to the list of
+        mounted filesystems as well as the list of mount points (ie: fstab
+        entries).
+
+        You must only call [method@GObject.Object.unref] on the return value from
+        under the same main context as you called this function.
+        """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> MountMonitor: ...
+    def new(cls) -> MountMonitor:
+        """
+            Deprecated alias for [func@GioUnix.MountMonitor.get].
+
+        This function was never a true constructor, which is why it was
+        renamed.
+        """
     @deprecated("deprecated")
     @staticmethod
-    def set_rate_limit(mount_monitor: MountMonitor, limit_msec: int) -> None: ...
+    def set_rate_limit(mount_monitor: MountMonitor, limit_msec: int) -> None:
+        """
+            This function does nothing.
+
+        Before 2.44, this was a partially-effective way of controlling the
+        rate at which events would be reported under some uncommon
+        circumstances.  Since @mount_monitor is a singleton, it also meant
+        that calling this function would have side effects for other users of
+        the monitor.
+        """
 
     # Signals
     @typing.overload
@@ -1041,11 +1230,17 @@ class MountMonitor(GObject.Object):
         detailed_signal: typing.Literal["mountpoints-changed"],
         handler: typing.Callable[..., None],
         *args: typing.Any,
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when the Unix mount points have changed.
+        """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["mounts-changed"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int: ...
+    ) -> int:
+        """
+        Emitted when the Unix mount entries have changed.
+        """
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -1059,41 +1254,100 @@ class MountMonitorClass(GObject.GPointer):
         """
 
 class MountPoint(GObject.GBoxed):
+    """
+    Defines a Unix mount point (e.g. `/dev`).
+    This corresponds roughly to a fstab entry.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def at(mount_path: str) -> tuple[MountPoint | None, int | None]: ...
+    def at(mount_path: str) -> tuple[MountPoint | None, int | None]:
+        """
+            Gets a [struct@GioUnix.MountPoint] for a given mount path.
+
+        If @time_read is set, it will be filled with a Unix timestamp for checking if
+        the mount points have changed since with
+        [func@GioUnix.mount_points_changed_since].
+
+        If more mount points have the same mount path, the last matching mount point
+        is returned.
+        """
     @staticmethod
-    def compare(mount1: MountPoint, mount2: MountPoint) -> int: ...
+    def compare(mount1: MountPoint, mount2: MountPoint) -> int:
+        """
+        Compares two Unix mount points.
+        """
     @staticmethod
-    def copy(mount_point: MountPoint) -> MountPoint: ...
+    def copy(mount_point: MountPoint) -> MountPoint:
+        """
+        Makes a copy of @mount_point.
+        """
     @staticmethod
-    def free(mount_point: MountPoint) -> None: ...
+    def free(mount_point: MountPoint) -> None:
+        """
+        Frees a Unix mount point.
+        """
     @staticmethod
-    def get_device_path(mount_point: MountPoint) -> str: ...
+    def get_device_path(mount_point: MountPoint) -> str:
+        """
+        Gets the device path for a Unix mount point.
+        """
     @staticmethod
-    def get_fs_type(mount_point: MountPoint) -> str: ...
+    def get_fs_type(mount_point: MountPoint) -> str:
+        """
+        Gets the file system type for the mount point.
+        """
     @staticmethod
-    def get_mount_path(mount_point: MountPoint) -> str: ...
+    def get_mount_path(mount_point: MountPoint) -> str:
+        """
+        Gets the mount path for a Unix mount point.
+        """
     @staticmethod
-    def get_options(mount_point: MountPoint) -> str | None: ...
+    def get_options(mount_point: MountPoint) -> str | None:
+        """
+        Gets the options for the mount point.
+        """
     @staticmethod
-    def guess_can_eject(mount_point: MountPoint) -> bool: ...
+    def guess_can_eject(mount_point: MountPoint) -> bool:
+        """
+        Guesses whether a Unix mount point can be ejected.
+        """
     @staticmethod
-    def guess_icon(mount_point: MountPoint) -> Gio.Icon: ...
+    def guess_icon(mount_point: MountPoint) -> Gio.Icon:
+        """
+        Guesses the icon of a Unix mount point.
+        """
     @staticmethod
-    def guess_name(mount_point: MountPoint) -> str: ...
+    def guess_name(mount_point: MountPoint) -> str:
+        """
+            Guesses the name of a Unix mount point.
+
+        The result is a translated string.
+        """
     @staticmethod
-    def guess_symbolic_icon(mount_point: MountPoint) -> Gio.Icon: ...
+    def guess_symbolic_icon(mount_point: MountPoint) -> Gio.Icon:
+        """
+        Guesses the symbolic icon of a Unix mount point.
+        """
     @staticmethod
-    def is_loopback(mount_point: MountPoint) -> bool: ...
+    def is_loopback(mount_point: MountPoint) -> bool:
+        """
+        Checks if a Unix mount point is a loopback device.
+        """
     @staticmethod
-    def is_readonly(mount_point: MountPoint) -> bool: ...
+    def is_readonly(mount_point: MountPoint) -> bool:
+        """
+        Checks if a Unix mount point is read only.
+        """
     @staticmethod
-    def is_user_mountable(mount_point: MountPoint) -> bool: ...
+    def is_user_mountable(mount_point: MountPoint) -> bool:
+        """
+        Checks if a Unix mount point is mountable by the user.
+        """
 
 class OutputStream(GObject.Object):
     """
@@ -1110,7 +1364,13 @@ class OutputStream(GObject.Object):
 
     class Props(GObject.Object.Props):
         close_fd: bool  # [close-fd]: changed because contained invalid characters
+        """
+        Whether to close the file descriptor when the stream is closed.
+        """
         fd: int
+        """
+        The file descriptor that the stream writes to.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -1121,13 +1381,30 @@ class OutputStream(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def get_close_fd(stream: OutputStream) -> bool: ...
+    def get_close_fd(stream: OutputStream) -> bool:
+        """
+            Returns whether the file descriptor of @stream will be
+        closed when the stream is closed.
+        """
     @staticmethod
-    def get_fd(stream: OutputStream) -> int: ...
+    def get_fd(stream: OutputStream) -> int:
+        """
+        Return the UNIX file descriptor that the stream writes to.
+        """
     @classmethod
-    def new(cls, fd: int, close_fd: bool) -> Gio.OutputStream: ...
+    def new(cls, fd: int, close_fd: bool) -> Gio.OutputStream:
+        """
+            Creates a new #GUnixOutputStream for the given @fd.
+
+        If @close_fd, is %TRUE, the file descriptor will be closed when
+        the output stream is destroyed.
+        """
     @staticmethod
-    def set_close_fd(stream: OutputStream, close_fd: bool) -> None: ...
+    def set_close_fd(stream: OutputStream, close_fd: bool) -> None:
+        """
+            Sets whether the file descriptor of @stream shall be closed
+        when the stream is closed.
+        """
 
     # Signals
     @typing.overload

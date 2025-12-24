@@ -59,3 +59,14 @@ clean-gst-cache:
 
 test:
     pytest -rA --tb=short  tests/
+
+ty:
+    #!/bin/bash
+    set -e
+    uvx ty check \
+        --ignore  invalid-method-override \
+        --ignore invalid-type-form \
+        --ignore deprecated \
+        --ignore unresolved-import \
+        --ignore possibly-missing-attribute
+        stubs/

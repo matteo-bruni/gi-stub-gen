@@ -23,7 +23,7 @@ class SingletonMeta(type):
 
     def __call__(cls: type[T], *args: Any, **kwargs: Any) -> T:
         if cls not in SingletonMeta._instances:
-            instance = super().__call__(*args, **kwargs)
+            instance = super().__call__(*args, **kwargs)  # type: ignore
             SingletonMeta._instances[cls] = instance
         return SingletonMeta._instances[cls]
 

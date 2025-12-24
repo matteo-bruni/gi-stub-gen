@@ -423,18 +423,84 @@ class ArgInfo(BaseInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_closure_index(self) -> tuple[bool, int | None]: ...
-    def get_destroy_index(self) -> tuple[bool, int | None]: ...
-    def get_direction(self) -> Direction: ...
-    def get_ownership_transfer(self) -> Transfer: ...
-    def get_scope(self) -> ScopeType: ...
-    def get_type_info(self) -> TypeInfo: ...
-    def is_caller_allocates(self) -> bool: ...
-    def is_optional(self) -> bool: ...
-    def is_return_value(self) -> bool: ...
-    def is_skip(self) -> bool: ...
-    def load_type_info(self) -> TypeInfo: ...
-    def may_be_null(self) -> bool: ...
+    def get_closure_index(self) -> tuple[bool, int | None]:
+        """
+            Obtain the index of the user data argument. This is only valid
+        for arguments which are callbacks.
+        """
+    def get_destroy_index(self) -> tuple[bool, int | None]:
+        """
+            Obtains the index of the [type@GLib.DestroyNotify] argument. This is only
+        valid for arguments which are callbacks.
+        """
+    def get_direction(self) -> Direction:
+        """
+            Obtain the direction of the argument. Check [type@GIRepository.Direction]
+        for possible direction values.
+        """
+    def get_ownership_transfer(self) -> Transfer:
+        """
+            Obtain the ownership transfer for this argument.
+        [type@GIRepository.Transfer] contains a list of possible values.
+        """
+    def get_scope(self) -> ScopeType:
+        """
+            Obtain the scope type for this argument.
+
+        The scope type explains how a callback is going to be invoked, most
+        importantly when the resources required to invoke it can be freed.
+
+        [type@GIRepository.ScopeType] contains a list of possible values.
+        """
+    def get_type_info(self) -> TypeInfo:
+        """
+        Obtain the type information for @info.
+        """
+    def is_caller_allocates(self) -> bool:
+        """
+            Obtain if the argument is a pointer to a struct or object that will
+        receive an output of a function.
+
+        The default assumption for `GI_DIRECTION_OUT` arguments which have allocation
+        is that the callee allocates; if this is `TRUE`, then the caller must
+        allocate.
+        """
+    def is_optional(self) -> bool:
+        """
+            Obtain if the argument is optional.
+
+        For ‘out’ arguments this means that you can pass `NULL` in order to ignore
+        the result.
+        """
+    def is_return_value(self) -> bool:
+        """
+            Obtain if the argument is a return value. It can either be a
+        parameter or a return value.
+        """
+    def is_skip(self) -> bool:
+        """
+        Obtain if an argument is only useful in C.
+        """
+    def load_type_info(self) -> TypeInfo:
+        """
+            Obtain information about a the type of given argument @info; this
+        function is a variant of [method@GIRepository.ArgInfo.get_type_info] designed
+        for stack allocation.
+
+        The initialized @type must not be referenced after @info is deallocated.
+
+        Once you are done with @type, it must be cleared using
+        [method@GIRepository.BaseInfo.clear].
+        """
+    def may_be_null(self) -> bool:
+        """
+            Obtain if the type of the argument includes the possibility of `NULL`.
+
+        For ‘in’ values this means that `NULL` is a valid value.  For ‘out’
+        values, this means that `NULL` may be returned.
+
+        See also [method@GIRepository.ArgInfo.is_optional].
+        """
 
 class Argument(GObject.GPointer):
     # gi Fields
@@ -466,6 +532,11 @@ class Argument(GObject.GPointer):
         """
 
 class AttributeIter(GObject.GPointer):
+    """
+    An opaque structure used to iterate over attributes
+    in a [class@GIRepository.BaseInfo] struct.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -514,17 +585,98 @@ class BaseInfo(object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def clear(self) -> None: ...
-    def equal(self, info2: BaseInfo) -> bool: ...
-    def get_attribute(self, name: str) -> str | None: ...
-    def get_container(self) -> BaseInfo: ...
-    def get_name(self) -> str | None: ...
-    def get_namespace(self) -> str: ...
-    def get_typelib(self) -> Typelib: ...
-    def is_deprecated(self) -> bool: ...
-    def iterate_attributes(self, iterator: AttributeIter) -> tuple[bool, AttributeIter, str, str]: ...
-    def ref(self) -> BaseInfo: ...
-    def unref(self) -> None: ...
+    def clear(self) -> None:
+        """
+            Clears memory allocated internally by a stack-allocated
+        [type@GIRepository.BaseInfo].
+
+        This does not deallocate the [type@GIRepository.BaseInfo] struct itself. It
+        does clear the struct to zero so that calling this function subsequent times
+        on the same struct is a no-op.
+
+        This must only be called on stack-allocated [type@GIRepository.BaseInfo]s.
+        Use [method@GIRepository.BaseInfo.unref] for heap-allocated ones.
+        """
+    def equal(self, info2: BaseInfo) -> bool:
+        """
+            Compare two `GIBaseInfo`s.
+
+        Using pointer comparison is not practical since many functions return
+        different instances of `GIBaseInfo` that refers to the same part of the
+        TypeLib; use this function instead to do `GIBaseInfo` comparisons.
+        """
+    def get_attribute(self, name: str) -> str | None:
+        """
+        Retrieve an arbitrary attribute associated with this node.
+        """
+    def get_container(self) -> BaseInfo:
+        """
+            Obtain the container of the @info.
+
+        The container is the parent `GIBaseInfo`. For instance, the parent of a
+        [class@GIRepository.FunctionInfo] is an [class@GIRepository.ObjectInfo] or
+        [class@GIRepository.InterfaceInfo].
+        """
+    def get_name(self) -> str | None:
+        """
+            Obtain the name of the @info.
+
+        What the name represents depends on the type of the
+        @info. For instance for [class@GIRepository.FunctionInfo] it is the name of
+        the function.
+        """
+    def get_namespace(self) -> str:
+        """
+        Obtain the namespace of @info.
+        """
+    def get_typelib(self) -> Typelib:
+        """
+        Obtain the typelib this @info belongs to
+        """
+    def is_deprecated(self) -> bool:
+        """
+            Obtain whether the @info is represents a metadata which is
+        deprecated.
+        """
+    def iterate_attributes(self, iterator: AttributeIter) -> tuple[bool, AttributeIter, str, str]:
+        """
+            Iterate over all attributes associated with this node.
+
+        The iterator structure is typically stack allocated, and must have its first
+        member initialized to `NULL`.  Attributes are arbitrary namespaced key–value
+        pairs which can be attached to almost any item.  They are intended for use
+        by software higher in the toolchain than bindings, and are distinct from
+        normal GIR annotations.
+
+        Both the @name and @value should be treated as constants
+        and must not be freed.
+
+        ```c
+        void
+        print_attributes (GIBaseInfo *info)
+        {
+          GIAttributeIter iter = GI_ATTRIBUTE_ITER_INIT;
+          const char *name;
+          const char *value;
+          while (gi_base_info_iterate_attributes (info, &iter, &name, &value))
+            {
+              g_print ("attribute name: %s value: %s", name, value);
+            }
+        }
+        ```
+        """
+    def ref(self) -> BaseInfo:
+        """
+        Increases the reference count of @info.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of @info. When its reference count
+        drops to 0, the info is freed.
+
+        This must not be called on stack-allocated [type@GIRepository.BaseInfo]s —
+        use [method@GIRepository.BaseInfo.clear] for that.
+        """
 
 class BaseInfoClass(GObject.GPointer):
     # gi Methods
@@ -569,28 +721,123 @@ class CallableInfo(BaseInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def can_throw_gerror(self) -> bool: ...
+    def can_throw_gerror(self) -> bool:
+        """
+        Whether the callable can throw a [type@GLib.Error]
+        """
     def get_arguments(self) -> list[ArgInfo]:
         """
         [manual-override] Python-only helper to get the arguments.
         """
-    def get_async_function(self) -> CallableInfo | None: ...
-    def get_caller_owns(self) -> Transfer: ...
-    def get_finish_function(self) -> CallableInfo | None: ...
-    def get_instance_ownership_transfer(self) -> Transfer: ...
-    def get_return_attribute(self, name: str) -> str | None: ...
-    def get_return_type(self) -> TypeInfo: ...
-    def get_sync_function(self) -> CallableInfo | None: ...
+    def get_async_function(self) -> CallableInfo | None:
+        """
+        Gets the callable info for the callable's asynchronous version
+        """
+    def get_caller_owns(self) -> Transfer:
+        """
+            See whether the caller owns the return value of this callable.
+
+        [type@GIRepository.Transfer] contains a list of possible transfer values.
+        """
+    def get_finish_function(self) -> CallableInfo | None:
+        """
+        Gets the info for an async function's corresponding finish function
+        """
+    def get_instance_ownership_transfer(self) -> Transfer:
+        """
+            Obtains the ownership transfer for the instance argument.
+
+        [type@GIRepository.Transfer] contains a list of possible transfer values.
+        """
+    def get_return_attribute(self, name: str) -> str | None:
+        """
+        Retrieve an arbitrary attribute associated with the return value.
+        """
+    def get_return_type(self) -> TypeInfo:
+        """
+            Obtain the return type of a callable item as a [class@GIRepository.TypeInfo].
+
+        If the callable doesn’t return anything, a [class@GIRepository.TypeInfo] of
+        type [enum@GIRepository.TypeTag.VOID] will be returned.
+        """
+    def get_sync_function(self) -> CallableInfo | None:
+        """
+        Gets the callable info for the callable's synchronous version
+        """
     def invoke(
         self, function: object | None, in_args: list, n_in_args: int, out_args: list, n_out_args: int
-    ) -> tuple[bool, Argument]: ...
-    def is_async(self) -> bool: ...
-    def is_method(self) -> bool: ...
-    def iterate_return_attributes(self, iterator: AttributeIter) -> tuple[bool, AttributeIter, str, str]: ...
-    def load_arg(self, n: int) -> ArgInfo: ...
-    def load_return_type(self) -> TypeInfo: ...
-    def may_return_null(self) -> bool: ...
-    def skip_return(self) -> bool: ...
+    ) -> tuple[bool, Argument]:
+        """
+            Invoke the given `GICallableInfo` by calling the given @function pointer.
+
+        The set of arguments passed to @function will be constructed according to the
+        introspected type of the `GICallableInfo`, using @in_args, @out_args
+        and @error.
+        """
+    def is_async(self) -> bool:
+        """
+            Gets whether a callable is ‘async’. Async callables have a
+        [type@Gio.AsyncReadyCallback] parameter and user data.
+        """
+    def is_method(self) -> bool:
+        """
+            Determines if the callable info is a method.
+
+        For [class@GIRepository.SignalInfo]s, this is always true, and for
+        [class@GIRepository.CallbackInfo]s always false.
+        For [class@GIRepository.FunctionInfo]s this looks at the
+        `GI_FUNCTION_IS_METHOD` flag on the [class@GIRepository.FunctionInfo].
+        For [class@GIRepository.VFuncInfo]s this is true when the virtual function
+        has an instance parameter.
+
+        Concretely, this function returns whether
+        [method@GIRepository.CallableInfo.get_n_args] matches the number of arguments
+        in the raw C method. For methods, there is one more C argument than is
+        exposed by introspection: the `self` or `this` object.
+        """
+    def iterate_return_attributes(self, iterator: AttributeIter) -> tuple[bool, AttributeIter, str, str]:
+        """
+            Iterate over all attributes associated with the return value.
+
+        The iterator structure is typically stack allocated, and must have its
+        first member initialized to `NULL`.
+
+        Both the @name and @value should be treated as constants
+        and must not be freed.
+
+        See [method@GIRepository.BaseInfo.iterate_attributes] for an example of how
+        to use a similar API.
+        """
+    def load_arg(self, n: int) -> ArgInfo:
+        """
+            Obtain information about a particular argument of this callable; this
+        function is a variant of [method@GIRepository.CallableInfo.get_arg] designed
+        for stack allocation.
+
+        The initialized @arg must not be referenced after @info is deallocated.
+
+        Once you are done with @arg, it must be cleared using
+        [method@GIRepository.BaseInfo.clear].
+        """
+    def load_return_type(self) -> TypeInfo:
+        """
+            Obtain information about a return value of callable; this
+        function is a variant of [method@GIRepository.CallableInfo.get_return_type]
+        designed for stack allocation.
+
+        The initialized @type must not be referenced after @info is deallocated.
+
+        Once you are done with @type, it must be cleared using
+        [method@GIRepository.BaseInfo.clear].
+        """
+    def may_return_null(self) -> bool:
+        """
+        See if a callable could return `NULL`.
+        """
+    def skip_return(self) -> bool:
+        """
+        See if a callable’s return value is only useful in C.
+        """
 
 class CallbackInfo(CallableInfo):
     """
@@ -617,7 +864,10 @@ class ConstantInfo(BaseInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_type_info(self) -> TypeInfo: ...
+    def get_type_info(self) -> TypeInfo:
+        """
+        Obtain the type of the constant as a [class@GIRepository.TypeInfo].
+        """
 
 class EnumInfo(RegisteredTypeInfo):
     """
@@ -635,12 +885,36 @@ class EnumInfo(RegisteredTypeInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_error_domain(self) -> str | None: ...
-    def get_method(self, n: int) -> FunctionInfo: ...
-    def get_n_methods(self) -> int: ...
-    def get_n_values(self) -> int: ...
-    def get_storage_type(self) -> TypeTag: ...
-    def get_value(self, n: int) -> ValueInfo: ...
+    def get_error_domain(self) -> str | None:
+        """
+            Obtain the string form of the quark for the error domain associated with
+        this enum, if any.
+        """
+    def get_method(self, n: int) -> FunctionInfo:
+        """
+        Obtain an enum type method at index @n.
+        """
+    def get_n_methods(self) -> int:
+        """
+        Obtain the number of methods that this enum type has.
+        """
+    def get_n_values(self) -> int:
+        """
+        Obtain the number of values this enumeration contains.
+        """
+    def get_storage_type(self) -> TypeTag:
+        """
+            Obtain the tag of the type used for the enum in the C ABI. This will
+        will be a signed or unsigned integral type.
+
+        Note that in the current implementation the width of the type is
+        computed correctly, but the signed or unsigned nature of the type
+        may not match the sign of the type used by the C compiler.
+        """
+    def get_value(self, n: int) -> ValueInfo:
+        """
+        Obtain a value for this enumeration.
+        """
 
 class FieldInfo(BaseInfo):
     """
@@ -663,10 +937,25 @@ class FieldInfo(BaseInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_flags(self) -> FieldInfoFlags: ...
-    def get_offset(self) -> int: ...
-    def get_size(self) -> int: ...
-    def get_type_info(self) -> TypeInfo: ...
+    def get_flags(self) -> FieldInfoFlags:
+        """
+            Obtain the flags for this `GIFieldInfo`. See
+        [flags@GIRepository.FieldInfoFlags] for possible flag values.
+        """
+    def get_offset(self) -> int:
+        """
+            Obtain the offset of the field member, in bytes. This is relative
+        to the beginning of the struct or union.
+        """
+    def get_size(self) -> int:
+        """
+            Obtain the size of the field member, in bits. This is how
+        much space you need to allocate to store the field.
+        """
+    def get_type_info(self) -> TypeInfo:
+        """
+        Obtain the type of a field as a [type@GIRepository.TypeInfo].
+        """
 
 class FlagsInfo(EnumInfo):
     """
@@ -702,10 +991,32 @@ class FunctionInfo(CallableInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_flags(self) -> FunctionInfoFlags: ...
-    def get_property(self) -> PropertyInfo | None: ...
-    def get_symbol(self) -> str: ...
-    def get_vfunc(self) -> VFuncInfo | None: ...
+    def get_flags(self) -> FunctionInfoFlags:
+        """
+        Obtain the [type@GIRepository.FunctionInfoFlags] for the @info.
+        """
+    def get_property(self) -> PropertyInfo | None:
+        """
+            Obtain the property associated with this `GIFunctionInfo`.
+
+        Only `GIFunctionInfo`s with the flag `GI_FUNCTION_IS_GETTER` or
+        `GI_FUNCTION_IS_SETTER` have a property set. For other cases,
+        `NULL` will be returned.
+        """
+    def get_symbol(self) -> str:
+        """
+            Obtain the symbol of the function.
+
+        The symbol is the name of the exported function, suitable to be used as an
+        argument to [method@GModule.Module.symbol].
+        """
+    def get_vfunc(self) -> VFuncInfo | None:
+        """
+            Obtain the virtual function associated with this `GIFunctionInfo`.
+
+        Only `GIFunctionInfo`s with the flag `GI_FUNCTION_WRAPS_VFUNC` have
+        a virtual function set. For other cases, `NULL` will be returned.
+        """
 
 class InterfaceInfo(RegisteredTypeInfo):
     """
@@ -720,22 +1031,80 @@ class InterfaceInfo(RegisteredTypeInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def find_method(self, name: str) -> FunctionInfo | None: ...
-    def find_signal(self, name: str) -> SignalInfo | None: ...
-    def find_vfunc(self, name: str) -> VFuncInfo | None: ...
-    def get_constant(self, n: int) -> ConstantInfo: ...
-    def get_iface_struct(self) -> StructInfo | None: ...
-    def get_method(self, n: int) -> FunctionInfo: ...
-    def get_n_constants(self) -> int: ...
-    def get_n_methods(self) -> int: ...
-    def get_n_prerequisites(self) -> int: ...
-    def get_n_properties(self) -> int: ...
-    def get_n_signals(self) -> int: ...
-    def get_n_vfuncs(self) -> int: ...
-    def get_prerequisite(self, n: int) -> BaseInfo: ...
-    def get_property(self, n: int) -> PropertyInfo: ...
-    def get_signal(self, n: int) -> SignalInfo: ...
-    def get_vfunc(self, n: int) -> VFuncInfo: ...
+    def find_method(self, name: str) -> FunctionInfo | None:
+        """
+            Obtain a method of the interface type given a @name.
+
+        `NULL` will be returned if there’s no method available with that name.
+        """
+    def find_signal(self, name: str) -> SignalInfo | None:
+        """
+            Obtain a signal of the interface type given a @name.
+
+        `NULL` will be returned if there’s no signal available with that name.
+        """
+    def find_vfunc(self, name: str) -> VFuncInfo | None:
+        """
+            Locate a virtual function slot with name @name.
+
+        See the documentation for [method@GIRepository.ObjectInfo.find_vfunc] for
+        more information on virtuals.
+        """
+    def get_constant(self, n: int) -> ConstantInfo:
+        """
+        Obtain an interface type constant at index @n.
+        """
+    def get_iface_struct(self) -> StructInfo | None:
+        """
+        Returns the layout C structure associated with this `GInterface`.
+        """
+    def get_method(self, n: int) -> FunctionInfo:
+        """
+        Obtain an interface type method at index @n.
+        """
+    def get_n_constants(self) -> int:
+        """
+        Obtain the number of constants that this interface type has.
+        """
+    def get_n_methods(self) -> int:
+        """
+        Obtain the number of methods that this interface type has.
+        """
+    def get_n_prerequisites(self) -> int:
+        """
+            Obtain the number of prerequisites for this interface type.
+
+        A prerequisite is another interface that needs to be implemented for
+        interface, similar to a base class for [class@GObject.Object]s.
+        """
+    def get_n_properties(self) -> int:
+        """
+        Obtain the number of properties that this interface type has.
+        """
+    def get_n_signals(self) -> int:
+        """
+        Obtain the number of signals that this interface type has.
+        """
+    def get_n_vfuncs(self) -> int:
+        """
+        Obtain the number of virtual functions that this interface type has.
+        """
+    def get_prerequisite(self, n: int) -> BaseInfo:
+        """
+        Obtain an interface type’s prerequisite at index @n.
+        """
+    def get_property(self, n: int) -> PropertyInfo:
+        """
+        Obtain an interface type property at index @n.
+        """
+    def get_signal(self, n: int) -> SignalInfo:
+        """
+        Obtain an interface type signal at index @n.
+        """
+    def get_vfunc(self, n: int) -> VFuncInfo:
+        """
+        Obtain an interface type virtual function at index @n.
+        """
 
 class ObjectInfo(RegisteredTypeInfo):
     """
@@ -756,36 +1125,183 @@ class ObjectInfo(RegisteredTypeInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def find_method(self, name: str) -> FunctionInfo | None: ...
-    def find_method_using_interfaces(self, name: str) -> tuple[FunctionInfo | None, BaseInfo | None]: ...
-    def find_signal(self, name: str) -> SignalInfo | None: ...
-    def find_vfunc(self, name: str) -> VFuncInfo | None: ...
-    def find_vfunc_using_interfaces(self, name: str) -> tuple[VFuncInfo | None, BaseInfo | None]: ...
-    def get_abstract(self) -> bool: ...
-    def get_class_struct(self) -> StructInfo | None: ...
-    def get_constant(self, n: int) -> ConstantInfo: ...
-    def get_field(self, n: int) -> FieldInfo: ...
-    def get_final(self) -> bool: ...
-    def get_fundamental(self) -> bool: ...
-    def get_get_value_function_name(self) -> str | None: ...
-    def get_interface(self, n: int) -> InterfaceInfo: ...
-    def get_method(self, n: int) -> FunctionInfo: ...
-    def get_n_constants(self) -> int: ...
-    def get_n_fields(self) -> int: ...
-    def get_n_interfaces(self) -> int: ...
-    def get_n_methods(self) -> int: ...
-    def get_n_properties(self) -> int: ...
-    def get_n_signals(self) -> int: ...
-    def get_n_vfuncs(self) -> int: ...
-    def get_parent(self) -> ObjectInfo | None: ...
-    def get_property(self, n: int) -> PropertyInfo: ...
-    def get_ref_function_name(self) -> str | None: ...
-    def get_set_value_function_name(self) -> str | None: ...
-    def get_signal(self, n: int) -> SignalInfo: ...
-    def get_type_init_function_name(self) -> str: ...
-    def get_type_name(self) -> str: ...
-    def get_unref_function_name(self) -> str | None: ...
-    def get_vfunc(self, n: int) -> VFuncInfo: ...
+    def find_method(self, name: str) -> FunctionInfo | None:
+        """
+            Obtain a method of the object type given a @name.
+
+        `NULL` will be returned if there’s no method available with that name.
+        """
+    def find_method_using_interfaces(self, name: str) -> tuple[FunctionInfo | None, BaseInfo | None]:
+        """
+            Obtain a method of the object given a @name, searching both the
+        object @info and any interfaces it implements.
+
+        `NULL` will be returned if there’s no method available with that name.
+
+        Note that this function does *not* search parent classes; you will have
+        to chain up if that’s desired.
+        """
+    def find_signal(self, name: str) -> SignalInfo | None:
+        """
+            Obtain a signal of the object type given a @name.
+
+        `NULL` will be returned if there’s no signal available with that name.
+        """
+    def find_vfunc(self, name: str) -> VFuncInfo | None:
+        """
+            Locate a virtual function slot with name @name.
+
+        Note that the namespace for virtuals is distinct from that of methods; there
+        may or may not be a concrete method associated for a virtual. If there is
+        one, it may be retrieved using [method@GIRepository.VFuncInfo.get_invoker],
+        otherwise that method will return `NULL`.
+
+        See the documentation for [method@GIRepository.VFuncInfo.get_invoker] for
+        more information on invoking virtuals.
+        """
+    def find_vfunc_using_interfaces(self, name: str) -> tuple[VFuncInfo | None, BaseInfo | None]:
+        """
+            Locate a virtual function slot with name @name, searching both the object
+        @info and any interfaces it implements.
+
+        `NULL` will be returned if there’s no vfunc available with that name.
+
+        Note that the namespace for virtuals is distinct from that of methods; there
+        may or may not be a concrete method associated for a virtual. If there is
+        one, it may be retrieved using [method@GIRepository.VFuncInfo.get_invoker],
+        otherwise that method will return `NULL`.
+
+        Note that this function does *not* search parent classes; you will have
+        to chain up if that’s desired.
+        """
+    def get_abstract(self) -> bool:
+        """
+            Obtain if the object type is an abstract type, i.e. if it cannot be
+        instantiated.
+        """
+    def get_class_struct(self) -> StructInfo | None:
+        """
+            Every [class@GObject.Object] has two structures; an instance structure and a
+        class structure.  This function returns the metadata for the class structure.
+        """
+    def get_constant(self, n: int) -> ConstantInfo:
+        """
+        Obtain an object type constant at index @n.
+        """
+    def get_field(self, n: int) -> FieldInfo:
+        """
+        Obtain an object type field at index @n.
+        """
+    def get_final(self) -> bool:
+        """
+            Checks whether the object type is a final type, i.e. if it cannot
+        be derived.
+        """
+    def get_fundamental(self) -> bool:
+        """
+            Obtain if the object type is of a fundamental type which is not
+        `G_TYPE_OBJECT`.
+
+        This is mostly for supporting `GstMiniObject`.
+        """
+    def get_get_value_function_name(self) -> str | None:
+        """
+            Obtain the symbol name of the function that should be called to convert
+        an object instance pointer of this object type to a [type@GObject.Value].
+
+        It’s mainly used for fundamental types. The type signature for the symbol
+        is [type@GIRepository.ObjectInfoGetValueFunction]. To fetch the function
+        pointer see [method@GIRepository.ObjectInfo.get_get_value_function_pointer].
+        """
+    def get_interface(self, n: int) -> InterfaceInfo:
+        """
+        Obtain an object type interface at index @n.
+        """
+    def get_method(self, n: int) -> FunctionInfo:
+        """
+        Obtain an object type method at index @n.
+        """
+    def get_n_constants(self) -> int:
+        """
+        Obtain the number of constants that this object type has.
+        """
+    def get_n_fields(self) -> int:
+        """
+        Obtain the number of fields that this object type has.
+        """
+    def get_n_interfaces(self) -> int:
+        """
+        Obtain the number of interfaces that this object type has.
+        """
+    def get_n_methods(self) -> int:
+        """
+        Obtain the number of methods that this object type has.
+        """
+    def get_n_properties(self) -> int:
+        """
+        Obtain the number of properties that this object type has.
+        """
+    def get_n_signals(self) -> int:
+        """
+        Obtain the number of signals that this object type has.
+        """
+    def get_n_vfuncs(self) -> int:
+        """
+        Obtain the number of virtual functions that this object type has.
+        """
+    def get_parent(self) -> ObjectInfo | None:
+        """
+        Obtain the parent of the object type.
+        """
+    def get_property(self, n: int) -> PropertyInfo:
+        """
+        Obtain an object type property at index @n.
+        """
+    def get_ref_function_name(self) -> str | None:
+        """
+            Obtain the symbol name of the function that should be called to ref this
+        object type.
+
+        It’s mainly used for fundamental types. The type signature for
+        the symbol is [type@GIRepository.ObjectInfoRefFunction]. To fetch the
+        function pointer see
+        [method@GIRepository.ObjectInfo.get_ref_function_pointer].
+        """
+    def get_set_value_function_name(self) -> str | None:
+        """
+            Obtain the symbol name of the function that should be called to set a
+        [type@GObject.Value], given an object instance pointer of this object type.
+
+        It’s mainly used for fundamental types. The type signature for the symbol
+        is [type@GIRepository.ObjectInfoSetValueFunction]. To fetch the function
+        pointer see [method@GIRepository.ObjectInfo.get_set_value_function_pointer].
+        """
+    def get_signal(self, n: int) -> SignalInfo:
+        """
+        Obtain an object type signal at index @n.
+        """
+    def get_type_init_function_name(self) -> str:
+        """
+            Obtain the name of the function which, when called, will return the
+        [type@GObject.Type] for this object type.
+        """
+    def get_type_name(self) -> str:
+        """
+        Obtain the name of the object’s class/type.
+        """
+    def get_unref_function_name(self) -> str | None:
+        """
+            Obtain the symbol name of the function that should be called to unref this
+        object type.
+
+        It’s mainly used for fundamental types. The type signature for the symbol is
+        [type@GIRepository.ObjectInfoUnrefFunction]. To fetch the function pointer
+        see [method@GIRepository.ObjectInfo.get_unref_function_pointer].
+        """
+    def get_vfunc(self, n: int) -> VFuncInfo:
+        """
+        Obtain an object type virtual function at index @n.
+        """
 
 class PropertyInfo(BaseInfo):
     """
@@ -800,11 +1316,36 @@ class PropertyInfo(BaseInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_flags(self) -> GObject.ParamFlags: ...
-    def get_getter(self) -> FunctionInfo | None: ...
-    def get_ownership_transfer(self) -> Transfer: ...
-    def get_setter(self) -> FunctionInfo | None: ...
-    def get_type_info(self) -> TypeInfo: ...
+    def get_flags(self) -> GObject.ParamFlags:
+        """
+            Obtain the flags for this property info.
+
+        See [type@GObject.ParamFlags] for more information about possible flag
+        values.
+        """
+    def get_getter(self) -> FunctionInfo | None:
+        """
+            Obtains the getter function associated with this `GIPropertyInfo`.
+
+        The setter is only available for `G_PARAM_READABLE` properties.
+        """
+    def get_ownership_transfer(self) -> Transfer:
+        """
+            Obtain the ownership transfer for this property.
+
+        See [type@GIRepository.Transfer] for more information about transfer values.
+        """
+    def get_setter(self) -> FunctionInfo | None:
+        """
+            Obtains the setter function associated with this `GIPropertyInfo`.
+
+        The setter is only available for `G_PARAM_WRITABLE` properties that
+        are also not `G_PARAM_CONSTRUCT_ONLY`.
+        """
+    def get_type_info(self) -> TypeInfo:
+        """
+        Obtain the type information for the property @info.
+        """
 
 class RegisteredTypeInfo(BaseInfo):
     """
@@ -834,10 +1375,49 @@ class RegisteredTypeInfo(BaseInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_g_type(self) -> GObject.GType: ...
-    def get_type_init_function_name(self) -> str | None: ...
-    def get_type_name(self) -> str | None: ...
-    def is_boxed(self) -> bool: ...
+    def get_g_type(self) -> GObject.GType:
+        """
+            Obtain the [type@GObject.Type] for this registered type.
+
+        If there is no type information associated with @info, or the shared library
+        which provides the `type_init` function for @info cannot be called, then
+        `G_TYPE_NONE` is returned.
+        """
+    def get_type_init_function_name(self) -> str | None:
+        """
+            Obtain the type init function for @info.
+
+        The type init function is the function which will register the
+        [type@GObject.Type] within the GObject type system. Usually this is not
+        called by language bindings or applications — use
+        [method@GIRepository.RegisteredTypeInfo.get_g_type] directly instead.
+        """
+    def get_type_name(self) -> str | None:
+        """
+            Obtain the type name of the struct within the GObject type system.
+
+        This type can be passed to [func@GObject.type_name] to get a
+        [type@GObject.Type].
+        """
+    def is_boxed(self) -> bool:
+        """
+            Get whether the registered type is a boxed type.
+
+        A boxed type is a subtype of the fundamental `G_TYPE_BOXED` type.
+        It’s a type which has registered a [type@GObject.Type], and which has
+        associated copy and free functions.
+
+        Most boxed types are `struct`s; some are `union`s; and it’s possible for a
+        boxed type to be neither, but that is currently unsupported by
+        libgirepository. It’s also possible for a `struct` or `union` to have
+        associated copy and/or free functions *without* being a boxed type, by virtue
+        of not having registered a [type@GObject.Type].
+
+        This function will return false for [type@GObject.Type]s which are not boxed,
+        such as classes or interfaces. It will also return false for the `struct`s
+        associated with a class or interface, which return true from
+        [method@GIRepository.StructInfo.is_gtype_struct].
+        """
 
 class Repository(GObject.Object):
     """
@@ -890,37 +1470,267 @@ class Repository(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @staticmethod
-    def dump(input_filename: str, output_filename: str) -> bool: ...
-    def enumerate_versions(self, namespace_: str) -> tuple[list, int | None]: ...
+    def dump(input_filename: str, output_filename: str) -> bool:
+        """
+            Dump the introspection data from the types specified in @input_filename to
+        @output_filename.
+
+        The input file should be a
+        UTF-8 Unix-line-ending text file, with each line containing either
+        `get-type:` followed by the name of a [type@GObject.Type] `_get_type`
+        function, or `error-quark:` followed by the name of an error quark function.
+        No extra whitespace is allowed.
+
+        This function will overwrite the contents of the output file.
+        """
+    def enumerate_versions(self, namespace_: str) -> tuple[list, int | None]:
+        """
+            Obtain an unordered list of versions (either currently loaded or
+        available) for @namespace_ in this @repository.
+
+        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
+        counted in @n_versions_out.
+        """
     @staticmethod
     def error_quark() -> int: ...
-    def find_by_error_domain(self, domain: int) -> EnumInfo | None: ...
-    def find_by_gtype(self, gtype: GObject.GType) -> BaseInfo | None: ...
-    def find_by_name(self, namespace_: str, name: str) -> BaseInfo | None: ...
-    def get_c_prefix(self, namespace_: str) -> str | None: ...
-    def get_dependencies(self, namespace_: str) -> tuple[list, int | None]: ...
-    def get_immediate_dependencies(self, namespace_: str) -> tuple[list, int | None]: ...
-    def get_info(self, namespace_: str, idx: int) -> BaseInfo: ...
-    def get_library_path(self) -> tuple[list, int | None]: ...
-    def get_loaded_namespaces(self) -> tuple[list, int | None]: ...
-    def get_n_infos(self, namespace_: str) -> int: ...
-    def get_object_gtype_interfaces(self, gtype: GObject.GType) -> tuple[int, list]: ...
+    def find_by_error_domain(self, domain: int) -> EnumInfo | None:
+        """
+            Searches for the enum type corresponding to the given [type@GLib.Error]
+        domain.
+
+        Before calling this function for a particular namespace, you must call
+        [method@GIRepository.Repository.require] to load the namespace, or otherwise
+        ensure the namespace has already been loaded.
+        """
+    def find_by_gtype(self, gtype: GObject.GType) -> BaseInfo | None:
+        """
+            Searches all loaded namespaces for a particular [type@GObject.Type].
+
+        Note that in order to locate the metadata, the namespace corresponding to
+        the type must first have been loaded.  There is currently no
+        mechanism for determining the namespace which corresponds to an
+        arbitrary [type@GObject.Type] — thus, this function will operate most
+        reliably when you know the [type@GObject.Type] is from a loaded namespace.
+        """
+    def find_by_name(self, namespace_: str, name: str) -> BaseInfo | None:
+        """
+            Searches for a particular entry in a namespace.
+
+        Before calling this function for a particular namespace, you must call
+        [method@GIRepository.Repository.require] to load the namespace, or otherwise
+        ensure the namespace has already been loaded.
+        """
+    def get_c_prefix(self, namespace_: str) -> str | None:
+        """
+            This function returns the ‘C prefix’, or the C level namespace
+        associated with the given introspection namespace.
+
+        Each C symbol starts with this prefix, as well each [type@GObject.Type] in
+        the library.
+
+        Note: The namespace must have already been loaded using a function
+        such as [method@GIRepository.Repository.require] before calling this
+        function.
+        """
+    def get_dependencies(self, namespace_: str) -> tuple[list, int | None]:
+        """
+            Retrieves all (transitive) versioned dependencies for
+        @namespace_.
+
+        The returned strings are of the form `namespace-version`.
+
+        Note: @namespace_ must have already been loaded using a function
+        such as [method@GIRepository.Repository.require] before calling this
+        function.
+
+        To get only the immediate dependencies for @namespace_, use
+        [method@GIRepository.Repository.get_immediate_dependencies].
+
+        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
+        counted in @n_dependencies_out.
+        """
+    def get_immediate_dependencies(self, namespace_: str) -> tuple[list, int | None]:
+        """
+            Return an array of the immediate versioned dependencies for @namespace_.
+        Returned strings are of the form `namespace-version`.
+
+        Note: @namespace_ must have already been loaded using a function
+        such as [method@GIRepository.Repository.require] before calling this
+        function.
+
+        To get the transitive closure of dependencies for @namespace_, use
+        [method@GIRepository.Repository.get_dependencies].
+
+        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
+        counted in @n_dependencies_out.
+        """
+    def get_info(self, namespace_: str, idx: int) -> BaseInfo:
+        """
+            This function returns a particular metadata entry in the
+        given namespace @namespace_.
+
+        The namespace must have already been loaded before calling this function.
+        See [method@GIRepository.Repository.get_n_infos] to find the maximum number
+        of entries. It is an error to pass an invalid @idx to this function.
+        """
+    def get_library_path(self) -> tuple[list, int | None]:
+        """
+            Returns the current search path [class@GIRepository.Repository] will use when
+        loading shared libraries referenced by imported namespaces.
+
+        The list is internal to [class@GIRepository.Repository] and should not be
+        freed, nor should its string elements.
+
+        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
+        counted in @n_paths_out.
+        """
+    def get_loaded_namespaces(self) -> tuple[list, int | None]:
+        """
+            Return the list of currently loaded namespaces.
+
+        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
+        counted in @n_namespaces_out.
+        """
+    def get_n_infos(self, namespace_: str) -> int:
+        """
+            This function returns the number of metadata entries in
+        given namespace @namespace_.
+
+        The namespace must have already been loaded before calling this function.
+        """
+    def get_object_gtype_interfaces(self, gtype: GObject.GType) -> tuple[int, list]:
+        """
+            Look up the implemented interfaces for @gtype.
+
+        This function cannot fail per se; but for a totally ‘unknown’
+        [type@GObject.Type], it may return 0 implemented interfaces.
+
+        The semantics of this function are designed for a dynamic binding,
+        where in certain cases (such as a function which returns an
+        interface which may have ‘hidden’ implementation classes), not all
+        data may be statically known, and will have to be determined from
+        the [type@GObject.Type] of the object.  An example is
+        [func@Gio.File.new_for_path] returning a concrete class of
+        `GLocalFile`, which is a [type@GObject.Type] we see at runtime, but
+        not statically.
+        """
     @staticmethod
-    def get_option_group() -> GLib.OptionGroup: ...
-    def get_search_path(self) -> tuple[list, int | None]: ...
-    def get_shared_libraries(self, namespace_: str) -> tuple[list | None, int | None]: ...
-    def get_typelib_path(self, namespace_: str) -> str | None: ...
-    def get_version(self, namespace_: str) -> str: ...
-    def is_registered(self, namespace_: str, version: str | None = None) -> bool: ...
-    def load_typelib(self, typelib: Typelib, flags: RepositoryLoadFlags) -> str: ...
+    def get_option_group() -> GLib.OptionGroup:
+        """
+            Obtain the option group for girepository.
+
+        It’s used by the dumper and for programs that want to provide introspection
+        information
+        """
+    def get_search_path(self) -> tuple[list, int | None]:
+        """
+            Returns the current search path [class@GIRepository.Repository] will use when
+        loading typelib files.
+
+        The list is internal to [class@GIRepository.Repository] and should not be
+        freed, nor should its string elements.
+
+        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
+        counted in @n_paths_out.
+        """
+    def get_shared_libraries(self, namespace_: str) -> tuple[list | None, int | None]:
+        """
+            This function returns an array of paths to the
+        shared C libraries associated with the given namespace @namespace_.
+
+        There may be no shared library path associated, in which case this
+        function will return `NULL`.
+
+        Note: The namespace must have already been loaded using a function
+        such as [method@GIRepository.Repository.require] before calling this
+        function.
+
+        The list is internal to [class@GIRepository.Repository] and should not be
+        freed, nor should its string elements.
+
+        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
+        counted in @out_n_elements.
+        """
+    def get_typelib_path(self, namespace_: str) -> str | None:
+        """
+            If namespace @namespace_ is loaded, return the full path to the
+        .typelib file it was loaded from.
+
+        If the typelib for namespace @namespace_ was included in a shared library,
+        return the special string `<builtin>`.
+        """
+    def get_version(self, namespace_: str) -> str:
+        """
+            This function returns the loaded version associated with the given
+        namespace @namespace_.
+
+        Note: The namespace must have already been loaded using a function
+        such as [method@GIRepository.Repository.require] before calling this
+        function.
+        """
+    def is_registered(self, namespace_: str, version: str | None = None) -> bool:
+        """
+            Check whether a particular namespace (and optionally, a specific
+        version thereof) is currently loaded.
+
+        This function is likely to only be useful in unusual circumstances; in order
+        to act upon metadata in the namespace, you should call
+        [method@GIRepository.Repository.require] instead which will ensure the
+        namespace is loaded, and return as quickly as this function will if it has
+        already been loaded.
+        """
+    def load_typelib(self, typelib: Typelib, flags: RepositoryLoadFlags) -> str:
+        """
+        Load the given @typelib into the repository.
+        """
     @classmethod
-    def new(cls) -> Repository: ...
-    def prepend_library_path(self, directory: str) -> None: ...
-    def prepend_search_path(self, directory: str) -> None: ...
-    def require(self, namespace_: str, version: str | None, flags: RepositoryLoadFlags) -> Typelib: ...
+    def new(cls) -> Repository:
+        """
+        Create a new [class@GIRepository.Repository].
+        """
+    def prepend_library_path(self, directory: str) -> None:
+        """
+            Prepends @directory to the search path that is used to
+        search shared libraries referenced by imported namespaces.
+
+        Multiple calls to this function all contribute to the final
+        list of paths.
+
+        The list of paths is unique to @repository. When a typelib is loaded by the
+        repository, the list of paths from the @repository at that instant is used
+        by the typelib for loading its modules.
+
+        If the library is not found in the directories configured
+        in this way, loading will fall back to the system library
+        path (i.e. `LD_LIBRARY_PATH` and `DT_RPATH` in ELF systems).
+        See the documentation of your dynamic linker for full details.
+        """
+    def prepend_search_path(self, directory: str) -> None:
+        """
+            Prepends @directory to the typelib search path.
+
+        See also: gi_repository_get_search_path().
+        """
+    def require(self, namespace_: str, version: str | None, flags: RepositoryLoadFlags) -> Typelib:
+        """
+            Force the namespace @namespace_ to be loaded if it isn’t already.
+
+        If @namespace_ is not loaded, this function will search for a
+        `.typelib` file using the repository search path.  In addition, a
+        version @version of namespace may be specified.  If @version is
+        not specified, the latest will be used.
+        """
     def require_private(
         self, typelib_dir: str, namespace_: str, version: str | None, flags: RepositoryLoadFlags
-    ) -> Typelib: ...
+    ) -> Typelib:
+        """
+            Force the namespace @namespace_ to be loaded if it isn’t already.
+
+        If @namespace_ is not loaded, this function will search for a
+        `.typelib` file within the private directory only. In addition, a
+        version @version of namespace should be specified.  If @version is
+        not specified, the latest will be used.
+        """
 
 class RepositoryClass(GObject.GPointer):
     # gi Fields
@@ -949,9 +1759,25 @@ class SignalInfo(CallableInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_class_closure(self) -> VFuncInfo | None: ...
-    def get_flags(self) -> GObject.SignalFlags: ...
-    def true_stops_emit(self) -> bool: ...
+    def get_class_closure(self) -> VFuncInfo | None:
+        """
+            Obtain the class closure for this signal if one is set.
+
+        The class closure is a virtual function on the type that the signal belongs
+        to. If the signal lacks a closure, `NULL` will be returned.
+        """
+    def get_flags(self) -> GObject.SignalFlags:
+        """
+            Obtain the flags for this signal info.
+
+        See [flags@GObject.SignalFlags] for more information about possible flag
+        values.
+        """
+    def true_stops_emit(self) -> bool:
+        """
+            Obtain if the returning `TRUE` in the signal handler will stop the emission
+        of the signal.
+        """
 
 class StructInfo(RegisteredTypeInfo):
     """
@@ -965,18 +1791,59 @@ class StructInfo(RegisteredTypeInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def find_field(self, name: str) -> FieldInfo | None: ...
-    def find_method(self, name: str) -> FunctionInfo | None: ...
-    def get_alignment(self) -> int: ...
-    def get_copy_function_name(self) -> str | None: ...
-    def get_field(self, n: int) -> FieldInfo: ...
-    def get_free_function_name(self) -> str | None: ...
-    def get_method(self, n: int) -> FunctionInfo: ...
-    def get_n_fields(self) -> int: ...
-    def get_n_methods(self) -> int: ...
-    def get_size(self) -> int: ...
-    def is_foreign(self) -> bool: ...
-    def is_gtype_struct(self) -> bool: ...
+    def find_field(self, name: str) -> FieldInfo | None:
+        """
+        Obtain the type information for field named @name.
+        """
+    def find_method(self, name: str) -> FunctionInfo | None:
+        """
+        Obtain the type information for method named @name.
+        """
+    def get_alignment(self) -> int:
+        """
+        Obtain the required alignment of the structure.
+        """
+    def get_copy_function_name(self) -> str | None:
+        """
+        Retrieves the name of the copy function for @info, if any is set.
+        """
+    def get_field(self, n: int) -> FieldInfo:
+        """
+        Obtain the type information for field with specified index.
+        """
+    def get_free_function_name(self) -> str | None:
+        """
+        Retrieves the name of the free function for @info, if any is set.
+        """
+    def get_method(self, n: int) -> FunctionInfo:
+        """
+        Obtain the type information for method with specified index.
+        """
+    def get_n_fields(self) -> int:
+        """
+        Obtain the number of fields this structure has.
+        """
+    def get_n_methods(self) -> int:
+        """
+        Obtain the number of methods this structure has.
+        """
+    def get_size(self) -> int:
+        """
+        Obtain the total size of the structure.
+        """
+    def is_foreign(self) -> bool:
+        """
+            Gets whether the structure is foreign, i.e. if it’s expected to be overridden
+        by a native language binding instead of relying of introspected bindings.
+        """
+    def is_gtype_struct(self) -> bool:
+        """
+            Return true if this structure represents the ‘class structure’ for some
+        [class@GObject.Object] or `GInterface`.
+
+        This function is mainly useful to hide this kind of structure from generated
+        public APIs.
+        """
 
 class TypeInfo(BaseInfo):
     """
@@ -1006,34 +1873,151 @@ class TypeInfo(BaseInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def argument_from_hash_pointer(self, hash_pointer: object | None = None) -> Argument: ...
-    def get_array_fixed_size(self) -> tuple[bool, int | None]: ...
-    def get_array_length_index(self) -> tuple[bool, int | None]: ...
-    def get_array_type(self) -> ArrayType: ...
-    def get_interface(self) -> BaseInfo | None: ...
-    def get_param_type(self, n: int) -> TypeInfo | None: ...
-    def get_storage_type(self) -> TypeTag: ...
-    def get_tag(self) -> TypeTag: ...
+    def argument_from_hash_pointer(self, hash_pointer: object | None = None) -> Argument:
+        """
+            Convert a data pointer from a GLib data structure to a
+        [type@GIRepository.Argument].
+
+        GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
+        [type@GLib.HashTable], all store data pointers.
+
+        In the case where the list or hash table is storing single types rather than
+        structs, these data pointers may have values stuffed into them via macros
+        such as `GPOINTER_TO_INT`.
+
+        Use this function to ensure that all values are correctly extracted from
+        stuffed pointers, regardless of the machine’s architecture or endianness.
+
+        This function fills in the appropriate field of @arg with the value extracted
+        from @hash_pointer, depending on the storage type of @info.
+        """
+    def get_array_fixed_size(self) -> tuple[bool, int | None]:
+        """
+            Obtain the fixed array size of the type, in number of elements (not bytes).
+
+        The type tag must be a `GI_TYPE_TAG_ARRAY` with a fixed size, or `FALSE` will
+        be returned.
+        """
+    def get_array_length_index(self) -> tuple[bool, int | None]:
+        """
+            Obtain the position of the argument which gives the array length of the type.
+
+        The type tag must be a `GI_TYPE_TAG_ARRAY` with a length argument, or `FALSE`
+        will be returned.
+        """
+    def get_array_type(self) -> ArrayType:
+        """
+            Obtain the array type for this type.
+
+        See [enum@GIRepository.ArrayType] for a list of possible values.
+
+        It is an error to call this on an @info which is not an array type. Use
+        [method@GIRepository.TypeInfo.get_tag] to check.
+        """
+    def get_interface(self) -> BaseInfo | None:
+        """
+            For types which have `GI_TYPE_TAG_INTERFACE` such as [class@GObject.Object]s
+        and boxed values, this function returns full information about the referenced
+        type.
+
+        You can then inspect the type of the returned [class@GIRepository.BaseInfo]
+        to further query whether it is a concrete [class@GObject.Object], an
+        interface, a structure, etc., using the type checking macros like
+        [func@GIRepository.IS_OBJECT_INFO], or raw [type@GObject.Type]s with
+        [func@GObject.TYPE_FROM_INSTANCE].
+        """
+    def get_param_type(self, n: int) -> TypeInfo | None:
+        """
+        Obtain the parameter type @n, or `NULL` if the type is not an array.
+        """
+    def get_storage_type(self) -> TypeTag:
+        """
+            Obtain the type tag corresponding to the underlying storage type in C for
+        the type.
+
+        See [type@GIRepository.TypeTag] for a list of type tags.
+        """
+    def get_tag(self) -> TypeTag:
+        """
+            Obtain the type tag for the type.
+
+        See [type@GIRepository.TypeTag] for a list of type tags.
+        """
     def get_tag_as_string(self) -> str:
         """
         [manual-override] Python-only helper to get the tag name.
         """
-    def hash_pointer_from_argument(self, arg: Argument) -> object | None: ...
-    def is_pointer(self) -> bool: ...
-    def is_zero_terminated(self) -> bool: ...
+    def hash_pointer_from_argument(self, arg: Argument) -> object | None:
+        """
+            Convert a [type@GIRepository.Argument] to data pointer for use in a GLib
+        data structure.
+
+        GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
+        [type@GLib.HashTable], all store data pointers.
+
+        In the case where the list or hash table is storing single types rather than
+        structs, these data pointers may have values stuffed into them via macros
+        such as `GPOINTER_TO_INT`.
+
+        Use this function to ensure that all values are correctly stuffed into
+        pointers, regardless of the machine’s architecture or endianness.
+
+        This function returns a pointer stuffed with the appropriate field of @arg,
+        depending on the storage type of @info.
+        """
+    def is_pointer(self) -> bool:
+        """
+            Obtain if the type is passed as a reference.
+
+        Note that the types of `GI_DIRECTION_OUT` and `GI_DIRECTION_INOUT` parameters
+        will only be pointers if the underlying type being transferred is a pointer
+        (i.e. only if the type of the C function’s formal parameter is a pointer to a
+        pointer).
+        """
+    def is_zero_terminated(self) -> bool:
+        """
+            Obtain if the last element of the array is `NULL`.
+
+        The type tag must be a `GI_TYPE_TAG_ARRAY` or `FALSE` will be returned.
+        """
 
 class Typelib(GObject.GBoxed):
+    """
+    `GITypelib` represents a loaded `.typelib` file, which contains a description
+    of a single module’s API.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_namespace(self) -> str: ...
+    def get_namespace(self) -> str:
+        """
+        Get the name of the namespace represented by @typelib.
+        """
     @classmethod
-    def new_from_bytes(cls, bytes: GLib.Bytes) -> Typelib: ...
-    def ref(self) -> Typelib: ...
-    def symbol(self, symbol_name: str) -> tuple[bool, object | None]: ...
-    def unref(self) -> None: ...
+    def new_from_bytes(cls, bytes: GLib.Bytes) -> Typelib:
+        """
+            Creates a new [type@GIRepository.Typelib] from a [type@GLib.Bytes].
+
+        The [type@GLib.Bytes] can point to a memory location or a mapped file, and
+        the typelib will hold a reference to it until the repository is destroyed.
+        """
+    def ref(self) -> Typelib:
+        """
+        Increment the reference count of a [type@GIRepository.Typelib].
+        """
+    def symbol(self, symbol_name: str) -> tuple[bool, object | None]:
+        """
+        Loads a symbol from a `GITypelib`.
+        """
+    def unref(self) -> None:
+        """
+            Decrement the reference count of a [type@GIRepository.Typelib].
+
+        Once the reference count reaches zero, the typelib is freed.
+        """
 
 class UnionInfo(RegisteredTypeInfo):
     """
@@ -1049,19 +2033,64 @@ class UnionInfo(RegisteredTypeInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def find_method(self, name: str) -> FunctionInfo | None: ...
-    def get_alignment(self) -> int: ...
-    def get_copy_function_name(self) -> str | None: ...
-    def get_discriminator(self, n: int) -> ConstantInfo | None: ...
-    def get_discriminator_offset(self) -> tuple[bool, int | None]: ...
-    def get_discriminator_type(self) -> TypeInfo | None: ...
-    def get_field(self, n: int) -> FieldInfo: ...
-    def get_free_function_name(self) -> str | None: ...
-    def get_method(self, n: int) -> FunctionInfo: ...
-    def get_n_fields(self) -> int: ...
-    def get_n_methods(self) -> int: ...
-    def get_size(self) -> int: ...
-    def is_discriminated(self) -> bool: ...
+    def find_method(self, name: str) -> FunctionInfo | None:
+        """
+        Obtain the type information for the method named @name.
+        """
+    def get_alignment(self) -> int:
+        """
+        Obtain the required alignment of the union.
+        """
+    def get_copy_function_name(self) -> str | None:
+        """
+        Retrieves the name of the copy function for @info, if any is set.
+        """
+    def get_discriminator(self, n: int) -> ConstantInfo | None:
+        """
+            Obtain the discriminator value assigned for n-th union field, i.e. the n-th
+        union field is the active one if the discriminator contains this
+        constant.
+
+        If the union is not discriminated, `NULL` is returned.
+        """
+    def get_discriminator_offset(self) -> tuple[bool, int | None]:
+        """
+            Obtain the offset of the discriminator field within the structure.
+
+        The union must be discriminated, or `FALSE` will be returned.
+        """
+    def get_discriminator_type(self) -> TypeInfo | None:
+        """
+        Obtain the type information of the union discriminator.
+        """
+    def get_field(self, n: int) -> FieldInfo:
+        """
+        Obtain the type information for the field with the specified index.
+        """
+    def get_free_function_name(self) -> str | None:
+        """
+        Retrieves the name of the free function for @info, if any is set.
+        """
+    def get_method(self, n: int) -> FunctionInfo:
+        """
+        Obtain the type information for the method with the specified index.
+        """
+    def get_n_fields(self) -> int:
+        """
+        Obtain the number of fields this union has.
+        """
+    def get_n_methods(self) -> int:
+        """
+        Obtain the number of methods this union has.
+        """
+    def get_size(self) -> int:
+        """
+        Obtain the total size of the union.
+        """
+    def is_discriminated(self) -> bool:
+        """
+        Return `TRUE` if this union contains a discriminator field.
+        """
 
 class UnresolvedInfo(BaseInfo):
     """
@@ -1087,11 +2116,38 @@ class VFuncInfo(CallableInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_address(self, implementor_gtype: GObject.GType) -> object | None: ...
-    def get_flags(self) -> VFuncInfoFlags: ...
-    def get_invoker(self) -> FunctionInfo | None: ...
-    def get_offset(self) -> int: ...
-    def get_signal(self) -> SignalInfo | None: ...
+    def get_address(self, implementor_gtype: GObject.GType) -> object | None:
+        """
+            Looks up where the implementation for @info is inside the type struct of
+        @implementor_gtype.
+        """
+    def get_flags(self) -> VFuncInfoFlags:
+        """
+            Obtain the flags for this virtual function info.
+
+        See [flags@GIRepository.VFuncInfoFlags] for more information about possible
+        flag values.
+        """
+    def get_invoker(self) -> FunctionInfo | None:
+        """
+            If this virtual function has an associated invoker method, this
+        method will return it.  An invoker method is a C entry point.
+
+        Not all virtuals will have invokers.
+        """
+    def get_offset(self) -> int:
+        """
+            Obtain the offset of the function pointer in the class struct.
+
+        The value `0xFFFF` indicates that the struct offset is unknown.
+        """
+    def get_signal(self) -> SignalInfo | None:
+        """
+            Obtain the signal for the virtual function if one is set.
+
+        The signal comes from the object or interface to which
+        this virtual function belongs.
+        """
 
 class ValueInfo(BaseInfo):
     """
@@ -1106,7 +2162,10 @@ class ValueInfo(BaseInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_value(self) -> int: ...
+    def get_value(self) -> int:
+        """
+        Obtain the enumeration value of the `GIValueInfo`.
+        """
 
 ###############################################################
 # Aliases

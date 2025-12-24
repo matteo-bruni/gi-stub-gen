@@ -107,6 +107,12 @@ class ModuleFlags(enum.IntFlag):
 ###############################################################
 
 class Module(GObject.GPointer):
+    """
+    The #GModule struct is an opaque data structure to represent a
+    [dynamically-loaded module](modules.html#dynamic-loading-of-modules).
+    It should only be accessed via the following functions.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -114,17 +120,54 @@ class Module(GObject.GPointer):
         """
     @deprecated("deprecated")
     @staticmethod
-    def build_path(directory: str | None, module_name: str) -> str: ...
-    def close(self) -> bool: ...
+    def build_path(directory: str | None, module_name: str) -> str:
+        """
+            A portable way to build the filename of a module. The platform-specific
+        prefix and suffix are added to the filename, if needed, and the result
+        is added to the directory, using the correct separator character.
+
+        The directory should specify the directory where the module can be found.
+        It can be %NULL or an empty string to indicate that the module is in a
+        standard platform-specific directory, though this is not recommended
+        since the wrong module may be found.
+
+        For example, calling g_module_build_path() on a Linux system with a
+        @directory of `/lib` and a @module_name of "mylibrary" will return
+        `/lib/libmylibrary.so`. On a Windows system, using `\\Windows` as the
+        directory it will return `\\Windows\\mylibrary.dll`.
+        """
+    def close(self) -> bool:
+        """
+        Closes a module.
+        """
     @staticmethod
-    def error() -> str: ...
+    def error() -> str:
+        """
+        Gets a string describing the last module error.
+        """
     @staticmethod
     def error_quark() -> int: ...
-    def make_resident(self) -> None: ...
-    def name(self) -> str: ...
+    def make_resident(self) -> None:
+        """
+            Ensures that a module will never be unloaded.
+        Any future g_module_close() calls on the module will be ignored.
+        """
+    def name(self) -> str:
+        """
+            Returns the filename that the module was opened with.
+
+        If @module refers to the application itself, "main" is returned.
+        """
     @staticmethod
-    def supported() -> bool: ...
-    def symbol(self, symbol_name: str) -> tuple[bool, object | None]: ...
+    def supported() -> bool:
+        """
+        Checks if modules are supported on the current platform.
+        """
+    def symbol(self, symbol_name: str) -> tuple[bool, object | None]:
+        """
+            Gets a symbol pointer from a module, such as one exported
+        by %G_MODULE_EXPORT. Note that a valid symbol can be %NULL.
+        """
 
 ###############################################################
 # Aliases

@@ -731,11 +731,24 @@ class BlendNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_blend_mode(self) -> BlendMode: ...
-    def get_bottom_child(self) -> RenderNode: ...
-    def get_top_child(self) -> RenderNode: ...
+    def get_blend_mode(self) -> BlendMode:
+        """
+        Retrieves the blend mode used by @node.
+        """
+    def get_bottom_child(self) -> RenderNode:
+        """
+        Retrieves the bottom `GskRenderNode` child of the @node.
+        """
+    def get_top_child(self) -> RenderNode:
+        """
+        Retrieves the top `GskRenderNode` child of the @node.
+        """
     @classmethod
-    def new(cls, bottom: RenderNode, top: RenderNode, blend_mode: BlendMode) -> BlendNode: ...
+    def new(cls, bottom: RenderNode, top: RenderNode, blend_mode: BlendMode) -> BlendNode:
+        """
+            Creates a `GskRenderNode` that will use @blend_mode to blend the @top
+        node onto the @bottom node.
+        """
 
 class BlurNode(RenderNode):
     """
@@ -747,10 +760,19 @@ class BlurNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_radius(self) -> float: ...
+    def get_child(self) -> RenderNode:
+        """
+        Retrieves the child `GskRenderNode` of the blur @node.
+        """
+    def get_radius(self) -> float:
+        """
+        Retrieves the blur radius of the @node.
+        """
     @classmethod
-    def new(cls, child: RenderNode, radius: float) -> BlurNode: ...
+    def new(cls, child: RenderNode, radius: float) -> BlurNode:
+        """
+        Creates a render node that blurs the child.
+        """
 
 class BorderNode(RenderNode):
     """
@@ -762,11 +784,26 @@ class BorderNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_colors(self) -> list: ...
-    def get_outline(self) -> RoundedRect: ...
-    def get_widths(self) -> list: ...
+    def get_colors(self) -> list:
+        """
+        Retrieves the colors of the border.
+        """
+    def get_outline(self) -> RoundedRect:
+        """
+        Retrieves the outline of the border.
+        """
+    def get_widths(self) -> list:
+        """
+        Retrieves the stroke widths of the border.
+        """
     @classmethod
-    def new(cls, outline: RoundedRect, border_width: list, border_color: list) -> BorderNode: ...
+    def new(cls, outline: RoundedRect, border_width: list, border_color: list) -> BorderNode:
+        """
+            Creates a `GskRenderNode` that will stroke a border rectangle inside the
+        given @outline.
+
+        The 4 sides of the border can have different widths and colors.
+        """
 
 class BroadwayRenderer(Renderer):
     """
@@ -781,7 +818,17 @@ class BroadwayRenderer(Renderer):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Renderer: ...
+    def new(cls) -> Renderer:
+        """
+            Creates a new Broadway renderer.
+
+        The Broadway renderer is the default renderer for the broadway backend.
+        It will only work with broadway surfaces, otherwise it will fail the
+        call to gsk_renderer_realize().
+
+        This function is only available when GTK was compiled with Broadway
+        support.
+        """
 
 class BroadwayRendererClass(GObject.GPointer):
     # gi Methods
@@ -800,10 +847,26 @@ class CairoNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_draw_context(self) -> cairo.Context: ...
-    def get_surface(self) -> cairo.Surface: ...
+    def get_draw_context(self) -> cairo.Context:
+        """
+            Creates a Cairo context for drawing using the surface associated
+        to the render node.
+
+        If no surface exists yet, a surface will be created optimized for
+        rendering to @renderer.
+        """
+    def get_surface(self) -> cairo.Surface:
+        """
+        Retrieves the Cairo surface used by the render node.
+        """
     @classmethod
-    def new(cls, bounds: Graphene.Rect) -> CairoNode: ...
+    def new(cls, bounds: Graphene.Rect) -> CairoNode:
+        """
+            Creates a `GskRenderNode` that will render a cairo surface
+        into the area given by @bounds.
+
+        You can draw to the cairo surface using [method@Gsk.CairoNode.get_draw_context].
+        """
 
 class CairoRenderer(Renderer):
     """
@@ -819,7 +882,17 @@ class CairoRenderer(Renderer):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Renderer: ...
+    def new(cls) -> Renderer:
+        """
+            Creates a new Cairo renderer.
+
+        The Cairo renderer is the fallback renderer drawing in ways similar
+        to how GTK 3 drew its content. Its primary use is as comparison tool.
+
+        The Cairo renderer is incomplete. It cannot render 3D transformed
+        content and will instead render an error marker. Its usage should be
+        avoided.
+        """
 
 class CairoRendererClass(GObject.GPointer):
     # gi Methods
@@ -838,10 +911,20 @@ class ClipNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_clip(self) -> Graphene.Rect: ...
+    def get_child(self) -> RenderNode:
+        """
+        Gets the child node that is getting clipped by the given @node.
+        """
+    def get_clip(self) -> Graphene.Rect:
+        """
+        Retrieves the clip rectangle for @node.
+        """
     @classmethod
-    def new(cls, child: RenderNode, clip: Graphene.Rect) -> ClipNode: ...
+    def new(cls, child: RenderNode, clip: Graphene.Rect) -> ClipNode:
+        """
+            Creates a `GskRenderNode` that will clip the @child to the area
+        given by @clip.
+        """
 
 class ColorMatrixNode(RenderNode):
     """
@@ -853,11 +936,31 @@ class ColorMatrixNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_color_matrix(self) -> Graphene.Matrix: ...
-    def get_color_offset(self) -> Graphene.Vec4: ...
+    def get_child(self) -> RenderNode:
+        """
+        Gets the child node that is getting its colors modified by the given @node.
+        """
+    def get_color_matrix(self) -> Graphene.Matrix:
+        """
+        Retrieves the color matrix used by the @node.
+        """
+    def get_color_offset(self) -> Graphene.Vec4:
+        """
+        Retrieves the color offset used by the @node.
+        """
     @classmethod
-    def new(cls, child: RenderNode, color_matrix: Graphene.Matrix, color_offset: Graphene.Vec4) -> ColorMatrixNode: ...
+    def new(cls, child: RenderNode, color_matrix: Graphene.Matrix, color_offset: Graphene.Vec4) -> ColorMatrixNode:
+        """
+            Creates a `GskRenderNode` that will drawn the @child with
+        @color_matrix.
+
+        In particular, the node will transform colors by applying
+
+            pixel = transpose(color_matrix) * pixel + color_offset
+
+        for every pixel. The transformation operates on unpremultiplied
+        colors, with color components ordered R, G, B, A.
+        """
 
 class ColorNode(RenderNode):
     """
@@ -869,14 +972,36 @@ class ColorNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_color(self) -> Gdk.RGBA: ...
+    def get_color(self) -> Gdk.RGBA:
+        """
+            Retrieves the color of the given @node.
+
+        The value returned by this function will not be correct
+        if the render node was created for a non-sRGB color.
+        """
     @classmethod
-    def new(cls, rgba: Gdk.RGBA, bounds: Graphene.Rect) -> ColorNode: ...
+    def new(cls, rgba: Gdk.RGBA, bounds: Graphene.Rect) -> ColorNode:
+        """
+            Creates a `GskRenderNode` that will render the color specified by @rgba into
+        the area given by @bounds.
+        """
 
 class ColorStop(GObject.GPointer):
+    """
+    A color stop in a gradient node.
+    """
+
     # gi Fields
     color: Gdk.RGBA | None = ...  # type: ignore
+    """
+    the color at the given offset
+
+    """
     offset: float = ...
+    """
+    the offset of the color stop
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -894,15 +1019,42 @@ class ConicGradientNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_angle(self) -> float: ...
-    def get_center(self) -> Graphene.Point: ...
-    def get_color_stops(self) -> tuple[list, int | None]: ...
-    def get_n_color_stops(self) -> int: ...
-    def get_rotation(self) -> float: ...
+    def get_angle(self) -> float:
+        """
+            Retrieves the angle for the gradient in radians, normalized in [0, 2 * PI].
+
+        The angle is starting at the top and going clockwise, as expressed
+        in the css specification:
+
+            angle = 90 - gsk_conic_gradient_node_get_rotation()
+        """
+    def get_center(self) -> Graphene.Point:
+        """
+        Retrieves the center pointer for the gradient.
+        """
+    def get_color_stops(self) -> tuple[list, int | None]:
+        """
+        Retrieves the color stops in the gradient.
+        """
+    def get_n_color_stops(self) -> int:
+        """
+        Retrieves the number of color stops in the gradient.
+        """
+    def get_rotation(self) -> float:
+        """
+        Retrieves the rotation for the gradient in degrees.
+        """
     @classmethod
     def new(
         cls, bounds: Graphene.Rect, center: Graphene.Point, rotation: float, color_stops: list, n_color_stops: int
-    ) -> ConicGradientNode: ...
+    ) -> ConicGradientNode:
+        """
+            Creates a `GskRenderNode` that draws a conic gradient.
+
+        The conic gradient
+        starts around @center in the direction of @rotation. A rotation of 0 means
+        that the gradient points up. Color stops are then added clockwise.
+        """
 
 class ContainerNode(RenderNode):
     """
@@ -914,10 +1066,21 @@ class ContainerNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self, idx: int) -> RenderNode: ...
-    def get_n_children(self) -> int: ...
+    def get_child(self, idx: int) -> RenderNode:
+        """
+        Gets one of the children of @container.
+        """
+    def get_n_children(self) -> int:
+        """
+        Retrieves the number of direct children of @node.
+        """
     @classmethod
-    def new(cls, children: list, n_children: int) -> ContainerNode: ...
+    def new(cls, children: list, n_children: int) -> ContainerNode:
+        """
+            Creates a new `GskRenderNode` instance for holding the given @children.
+
+        The new node will acquire a reference to each of the children.
+        """
 
 class CrossFadeNode(RenderNode):
     """
@@ -929,11 +1092,23 @@ class CrossFadeNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_end_child(self) -> RenderNode: ...
-    def get_progress(self) -> float: ...
-    def get_start_child(self) -> RenderNode: ...
+    def get_end_child(self) -> RenderNode:
+        """
+        Retrieves the child `GskRenderNode` at the end of the cross-fade.
+        """
+    def get_progress(self) -> float:
+        """
+        Retrieves the progress value of the cross fade.
+        """
+    def get_start_child(self) -> RenderNode:
+        """
+        Retrieves the child `GskRenderNode` at the beginning of the cross-fade.
+        """
     @classmethod
-    def new(cls, start: RenderNode, end: RenderNode, progress: float) -> CrossFadeNode: ...
+    def new(cls, start: RenderNode, end: RenderNode, progress: float) -> CrossFadeNode:
+        """
+        Creates a `GskRenderNode` that will do a cross-fade between @start and @end.
+        """
 
 class DebugNode(RenderNode):
     """
@@ -946,10 +1121,22 @@ class DebugNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_message(self) -> str: ...
+    def get_child(self) -> RenderNode:
+        """
+        Gets the child node that is getting drawn by the given @node.
+        """
+    def get_message(self) -> str:
+        """
+        Gets the debug message that was set on this node
+        """
     @classmethod
-    def new(cls, child: RenderNode, message: str) -> DebugNode: ...
+    def new(cls, child: RenderNode, message: str) -> DebugNode:
+        """
+            Creates a `GskRenderNode` that will add debug information about
+        the given @child.
+
+        Adding this node has no visual effect.
+        """
 
 class FillNode(RenderNode):
     """
@@ -962,11 +1149,25 @@ class FillNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_fill_rule(self) -> FillRule: ...
-    def get_path(self) -> Path: ...
+    def get_child(self) -> RenderNode:
+        """
+        Gets the child node that is getting drawn by the given @node.
+        """
+    def get_fill_rule(self) -> FillRule:
+        """
+        Retrieves the fill rule used to determine how the path is filled.
+        """
+    def get_path(self) -> Path:
+        """
+            Retrieves the path used to describe the area filled with the contents of
+        the @node.
+        """
     @classmethod
-    def new(cls, child: RenderNode, path: Path, fill_rule: FillRule) -> FillNode: ...
+    def new(cls, child: RenderNode, path: Path, fill_rule: FillRule) -> FillNode:
+        """
+            Creates a `GskRenderNode` that will fill the @child in the area
+        given by @path and @fill_rule.
+        """
 
 class GLRenderer(Renderer):
     """
@@ -981,7 +1182,10 @@ class GLRenderer(Renderer):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Renderer: ...
+    def new(cls) -> Renderer:
+        """
+        Creates an instance of the GL renderer.
+        """
 
 class GLRendererClass(GObject.GPointer):
     # gi Methods
@@ -1108,7 +1312,16 @@ class GLShader(GObject.Object):
 
     class Props(GObject.Object.Props):
         resource: str
+        """
+        Resource containing the source code for the shader.
+
+        If the shader source is not coming from a resource, this
+        will be %NULL.
+        """
         source: GLib.Bytes | None
+        """
+        The source code for the shader, as a `GBytes`.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -1119,47 +1332,135 @@ class GLShader(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def compile(self, renderer: Renderer) -> bool: ...
+    def compile(self, renderer: Renderer) -> bool:
+        """
+            Tries to compile the @shader for the given @renderer.
+
+        If there is a problem, this function returns %FALSE and reports
+        an error. You should use this function before relying on the shader
+        for rendering and use a fallback with a simpler shader or without
+        shaders if it fails.
+
+        Note that this will modify the rendering state (for example
+        change the current GL context) and requires the renderer to be
+        set up. This means that the widget has to be realized. Commonly you
+        want to call this from the realize signal of a widget, or during
+        widget snapshot.
+        """
     @deprecated("deprecated")
-    def find_uniform_by_name(self, name: str) -> int: ...
+    def find_uniform_by_name(self, name: str) -> int:
+        """
+            Looks for a uniform by the name @name, and returns the index
+        of the uniform, or -1 if it was not found.
+        """
     @deprecated("deprecated")
-    def get_arg_bool(self, args: GLib.Bytes, idx: int) -> bool: ...
+    def get_arg_bool(self, args: GLib.Bytes, idx: int) -> bool:
+        """
+            Gets the value of the uniform @idx in the @args block.
+
+        The uniform must be of bool type.
+        """
     @deprecated("deprecated")
-    def get_arg_float(self, args: GLib.Bytes, idx: int) -> float: ...
+    def get_arg_float(self, args: GLib.Bytes, idx: int) -> float:
+        """
+            Gets the value of the uniform @idx in the @args block.
+
+        The uniform must be of float type.
+        """
     @deprecated("deprecated")
-    def get_arg_int(self, args: GLib.Bytes, idx: int) -> int: ...
+    def get_arg_int(self, args: GLib.Bytes, idx: int) -> int:
+        """
+            Gets the value of the uniform @idx in the @args block.
+
+        The uniform must be of int type.
+        """
     @deprecated("deprecated")
-    def get_arg_uint(self, args: GLib.Bytes, idx: int) -> int: ...
+    def get_arg_uint(self, args: GLib.Bytes, idx: int) -> int:
+        """
+            Gets the value of the uniform @idx in the @args block.
+
+        The uniform must be of uint type.
+        """
     @deprecated("deprecated")
-    def get_arg_vec2(self, args: GLib.Bytes, idx: int, out_value: Graphene.Vec2) -> None: ...
+    def get_arg_vec2(self, args: GLib.Bytes, idx: int, out_value: Graphene.Vec2) -> None:
+        """
+            Gets the value of the uniform @idx in the @args block.
+
+        The uniform must be of vec2 type.
+        """
     @deprecated("deprecated")
-    def get_arg_vec3(self, args: GLib.Bytes, idx: int, out_value: Graphene.Vec3) -> None: ...
+    def get_arg_vec3(self, args: GLib.Bytes, idx: int, out_value: Graphene.Vec3) -> None:
+        """
+            Gets the value of the uniform @idx in the @args block.
+
+        The uniform must be of vec3 type.
+        """
     @deprecated("deprecated")
-    def get_arg_vec4(self, args: GLib.Bytes, idx: int, out_value: Graphene.Vec4) -> None: ...
+    def get_arg_vec4(self, args: GLib.Bytes, idx: int, out_value: Graphene.Vec4) -> None:
+        """
+            Gets the value of the uniform @idx in the @args block.
+
+        The uniform must be of vec4 type.
+        """
     @deprecated("deprecated")
-    def get_args_size(self) -> int: ...
+    def get_args_size(self) -> int:
+        """
+        Get the size of the data block used to specify arguments for this shader.
+        """
     @deprecated("deprecated")
-    def get_n_textures(self) -> int: ...
+    def get_n_textures(self) -> int:
+        """
+            Returns the number of textures that the shader requires.
+
+        This can be used to check that the a passed shader works
+        in your usecase. It is determined by looking at the highest
+        u_textureN value that the shader defines.
+        """
     @deprecated("deprecated")
-    def get_n_uniforms(self) -> int: ...
+    def get_n_uniforms(self) -> int:
+        """
+        Get the number of declared uniforms for this shader.
+        """
     @deprecated("deprecated")
     @builtins.property
-    def get_resource(self) -> str | None: ...
+    def get_resource(self) -> str | None:
+        """
+            Gets the resource path for the GLSL sourcecode being used
+        to render this shader.
+        """
     @deprecated("deprecated")
     @builtins.property
-    def get_source(self) -> GLib.Bytes: ...
+    def get_source(self) -> GLib.Bytes:
+        """
+        Gets the GLSL sourcecode being used to render this shader.
+        """
     @deprecated("deprecated")
-    def get_uniform_name(self, idx: int) -> str: ...
+    def get_uniform_name(self, idx: int) -> str:
+        """
+        Get the name of the declared uniform for this shader at index @idx.
+        """
     @deprecated("deprecated")
-    def get_uniform_offset(self, idx: int) -> int: ...
+    def get_uniform_offset(self, idx: int) -> int:
+        """
+        Get the offset into the data block where data for this uniforms is stored.
+        """
     @deprecated("deprecated")
-    def get_uniform_type(self, idx: int) -> GLUniformType: ...
+    def get_uniform_type(self, idx: int) -> GLUniformType:
+        """
+        Get the type of the declared uniform for this shader at index @idx.
+        """
     @deprecated("deprecated")
     @classmethod
-    def new_from_bytes(cls, sourcecode: GLib.Bytes) -> GLShader: ...
+    def new_from_bytes(cls, sourcecode: GLib.Bytes) -> GLShader:
+        """
+        Creates a `GskGLShader` that will render pixels using the specified code.
+        """
     @deprecated("deprecated")
     @classmethod
-    def new_from_resource(cls, resource_path: str) -> GLShader: ...
+    def new_from_resource(cls, resource_path: str) -> GLShader:
+        """
+        Creates a `GskGLShader` that will render pixels using the specified code.
+        """
 
     # Signals
     @typing.overload
@@ -1203,17 +1504,48 @@ class GLShaderNode(RenderNode):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def get_args(self) -> GLib.Bytes: ...
+    def get_args(self) -> GLib.Bytes:
+        """
+        Gets args for the node.
+        """
     @deprecated("deprecated")
-    def get_child(self, idx: int) -> RenderNode: ...
+    def get_child(self, idx: int) -> RenderNode:
+        """
+        Gets one of the children.
+        """
     @deprecated("deprecated")
-    def get_n_children(self) -> int: ...
-    def get_shader(self) -> GLShader: ...
+    def get_n_children(self) -> int:
+        """
+        Returns the number of children
+        """
+    def get_shader(self) -> GLShader:
+        """
+        Gets shader code for the node.
+        """
     @deprecated("deprecated")
     @classmethod
     def new(
         cls, shader: GLShader, bounds: Graphene.Rect, args: GLib.Bytes, children: list | None, n_children: int
-    ) -> GLShaderNode: ...
+    ) -> GLShaderNode:
+        """
+            Creates a `GskRenderNode` that will render the given @shader into the
+        area given by @bounds.
+
+        The @args is a block of data to use for uniform input, as per types and
+        offsets defined by the @shader. Normally this is generated by
+        [method@Gsk.GLShader.format_args] or [struct@Gsk.ShaderArgsBuilder].
+
+        See [class@Gsk.GLShader] for details about how the shader should be written.
+
+        All the children will be rendered into textures (if they aren't already
+        `GskTextureNodes`, which will be used directly). These textures will be
+        sent as input to the shader.
+
+        If the renderer doesn't support GL shaders, or if there is any problem
+        when compiling the shader, then the node will draw pink. You should use
+        [method@Gsk.GLShader.compile] to ensure the @shader will work for the
+        renderer before using it.
+        """
 
 class InsetShadowNode(RenderNode):
     """
@@ -1225,16 +1557,41 @@ class InsetShadowNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_blur_radius(self) -> float: ...
-    def get_color(self) -> Gdk.RGBA: ...
-    def get_dx(self) -> float: ...
-    def get_dy(self) -> float: ...
-    def get_outline(self) -> RoundedRect: ...
-    def get_spread(self) -> float: ...
+    def get_blur_radius(self) -> float:
+        """
+        Retrieves the blur radius to apply to the shadow.
+        """
+    def get_color(self) -> Gdk.RGBA:
+        """
+            Retrieves the color of the inset shadow.
+
+        The value returned by this function will not be correct
+        if the render node was created for a non-sRGB color.
+        """
+    def get_dx(self) -> float:
+        """
+        Retrieves the horizontal offset of the inset shadow.
+        """
+    def get_dy(self) -> float:
+        """
+        Retrieves the vertical offset of the inset shadow.
+        """
+    def get_outline(self) -> RoundedRect:
+        """
+        Retrieves the outline rectangle of the inset shadow.
+        """
+    def get_spread(self) -> float:
+        """
+        Retrieves how much the shadow spreads inwards.
+        """
     @classmethod
     def new(
         cls, outline: RoundedRect, color: Gdk.RGBA, dx: float, dy: float, spread: float, blur_radius: float
-    ) -> InsetShadowNode: ...
+    ) -> InsetShadowNode:
+        """
+            Creates a `GskRenderNode` that will render an inset shadow
+        into the box given by @outline.
+        """
 
 class LinearGradientNode(RenderNode):
     """
@@ -1246,14 +1603,30 @@ class LinearGradientNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_color_stops(self) -> tuple[list, int | None]: ...
-    def get_end(self) -> Graphene.Point: ...
-    def get_n_color_stops(self) -> int: ...
-    def get_start(self) -> Graphene.Point: ...
+    def get_color_stops(self) -> tuple[list, int | None]:
+        """
+        Retrieves the color stops in the gradient.
+        """
+    def get_end(self) -> Graphene.Point:
+        """
+        Retrieves the final point of the linear gradient.
+        """
+    def get_n_color_stops(self) -> int:
+        """
+        Retrieves the number of color stops in the gradient.
+        """
+    def get_start(self) -> Graphene.Point:
+        """
+        Retrieves the initial point of the linear gradient.
+        """
     @classmethod
     def new(
         cls, bounds: Graphene.Rect, start: Graphene.Point, end: Graphene.Point, color_stops: list, n_color_stops: int
-    ) -> LinearGradientNode: ...
+    ) -> LinearGradientNode:
+        """
+            Creates a `GskRenderNode` that will create a linear gradient from the given
+        points and color stops, and render that into the area given by @bounds.
+        """
 
 class MaskNode(RenderNode):
     """
@@ -1265,11 +1638,27 @@ class MaskNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_mask(self) -> RenderNode: ...
-    def get_mask_mode(self) -> MaskMode: ...
-    def get_source(self) -> RenderNode: ...
+    def get_mask(self) -> RenderNode:
+        """
+        Retrieves the mask `GskRenderNode` child of the @node.
+        """
+    def get_mask_mode(self) -> MaskMode:
+        """
+        Retrieves the mask mode used by @node.
+        """
+    def get_source(self) -> RenderNode:
+        """
+        Retrieves the source `GskRenderNode` child of the @node.
+        """
     @classmethod
-    def new(cls, source: RenderNode, mask: RenderNode, mask_mode: MaskMode) -> MaskNode: ...
+    def new(cls, source: RenderNode, mask: RenderNode, mask_mode: MaskMode) -> MaskNode:
+        """
+            Creates a `GskRenderNode` that will mask a given node by another.
+
+        The @mask_mode determines how the 'mask values' are derived from
+        the colors of the @mask. Applying the mask consists of multiplying
+        the 'mask value' with the alpha of the source.
+        """
 
 class NglRenderer(Renderer):
     """
@@ -1285,7 +1674,10 @@ class NglRenderer(Renderer):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Renderer: ...
+    def new(cls) -> Renderer:
+        """
+        Same as gsk_gl_renderer_new().
+        """
 
 class OpacityNode(RenderNode):
     """
@@ -1297,10 +1689,20 @@ class OpacityNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_opacity(self) -> float: ...
+    def get_child(self) -> RenderNode:
+        """
+        Gets the child node that is getting opacityed by the given @node.
+        """
+    def get_opacity(self) -> float:
+        """
+        Gets the transparency factor for an opacity node.
+        """
     @classmethod
-    def new(cls, child: RenderNode, opacity: float) -> OpacityNode: ...
+    def new(cls, child: RenderNode, opacity: float) -> OpacityNode:
+        """
+            Creates a `GskRenderNode` that will drawn the @child with reduced
+        @opacity.
+        """
 
 class OutsetShadowNode(RenderNode):
     """
@@ -1312,24 +1714,73 @@ class OutsetShadowNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_blur_radius(self) -> float: ...
-    def get_color(self) -> Gdk.RGBA: ...
-    def get_dx(self) -> float: ...
-    def get_dy(self) -> float: ...
-    def get_outline(self) -> RoundedRect: ...
-    def get_spread(self) -> float: ...
+    def get_blur_radius(self) -> float:
+        """
+        Retrieves the blur radius of the shadow.
+        """
+    def get_color(self) -> Gdk.RGBA:
+        """
+            Retrieves the color of the outset shadow.
+
+        The value returned by this function will not be correct
+        if the render node was created for a non-sRGB color.
+        """
+    def get_dx(self) -> float:
+        """
+        Retrieves the horizontal offset of the outset shadow.
+        """
+    def get_dy(self) -> float:
+        """
+        Retrieves the vertical offset of the outset shadow.
+        """
+    def get_outline(self) -> RoundedRect:
+        """
+        Retrieves the outline rectangle of the outset shadow.
+        """
+    def get_spread(self) -> float:
+        """
+        Retrieves how much the shadow spreads outwards.
+        """
     @classmethod
     def new(
         cls, outline: RoundedRect, color: Gdk.RGBA, dx: float, dy: float, spread: float, blur_radius: float
-    ) -> OutsetShadowNode: ...
+    ) -> OutsetShadowNode:
+        """
+            Creates a `GskRenderNode` that will render an outset shadow
+        around the box given by @outline.
+        """
 
 class ParseLocation(GObject.GPointer):
+    """
+    A location in a parse buffer.
+    """
+
     # gi Fields
     bytes: int = ...
+    """
+    the offset of the location in the parse buffer, as bytes
+
+    """
     chars: int = ...
+    """
+    the offset of the location in the parse buffer, as characters
+
+    """
     line_bytes: int = ...
+    """
+    the position in the line, as bytes
+
+    """
     line_chars: int = ...
+    """
+    the position in the line, as characters
+
+    """
     lines: int = ...
+    """
+    the line of the location in the parse buffer
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -1338,65 +1789,492 @@ class ParseLocation(GObject.GPointer):
         """
 
 class Path(GObject.GBoxed):
+    """
+    Describes lines and curves that are more complex than simple rectangles.
+
+    Paths can used for rendering (filling or stroking) and for animations
+    (e.g. as trajectories).
+
+    `GskPath` is an immutable, opaque, reference-counted struct.
+    After creation, you cannot change the types it represents. Instead,
+    new `GskPath` objects have to be created. The [struct@Gsk.PathBuilder]
+    structure is meant to help in this endeavor.
+
+    Conceptually, a path consists of zero or more contours (continuous, connected
+    curves), each of which may or may not be closed. Contours are typically
+    constructed from Bézier segments.
+
+    <picture>
+      <source srcset="path-dark.png" media="(prefers-color-scheme: dark)">
+      <img alt="A Path" src="path-light.png">
+    </picture>
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def foreach(self, flags: PathForeachFlags, func: PathForeachFunc, user_data: object | None = None) -> bool: ...
-    def get_bounds(self) -> tuple[bool, Graphene.Rect]: ...
-    def get_closest_point(self, point: Graphene.Point, threshold: float) -> tuple[bool, PathPoint, float | None]: ...
-    def get_end_point(self) -> tuple[bool, PathPoint]: ...
-    def get_start_point(self) -> tuple[bool, PathPoint]: ...
-    def get_stroke_bounds(self, stroke: Stroke) -> tuple[bool, Graphene.Rect]: ...
-    def in_fill(self, point: Graphene.Point, fill_rule: FillRule) -> bool: ...
-    def is_closed(self) -> bool: ...
-    def is_empty(self) -> bool: ...
+    def foreach(self, flags: PathForeachFlags, func: PathForeachFunc, user_data: object | None = None) -> bool:
+        """
+            Calls @func for every operation of the path.
+
+        Note that this may only approximate @self, because paths can contain
+        optimizations for various specialized contours, and depending on the
+        @flags, the path may be decomposed into simpler curves than the ones
+        that it contained originally.
+
+        This function serves two purposes:
+
+        - When the @flags allow everything, it provides access to the raw,
+          unmodified data of the path.
+        - When the @flags disallow certain operations, it provides
+          an approximation of the path using just the allowed operations.
+        """
+    def get_bounds(self) -> tuple[bool, Graphene.Rect]:
+        """
+            Computes the bounds of the given path.
+
+        The returned bounds may be larger than necessary, because this
+        function aims to be fast, not accurate. The bounds are guaranteed
+        to contain the path.
+
+        It is possible that the returned rectangle has 0 width and/or height.
+        This can happen when the path only describes a point or an
+        axis-aligned line.
+
+        If the path is empty, false is returned and @bounds are set to
+        graphene_rect_zero(). This is different from the case where the path
+        is a single point at the origin, where the @bounds will also be set to
+        the zero rectangle but true will be returned.
+        """
+    def get_closest_point(self, point: Graphene.Point, threshold: float) -> tuple[bool, PathPoint, float | None]:
+        """
+            Computes the closest point on the path to the given point.
+
+        If there is no point closer than the given threshold,
+        false is returned.
+        """
+    def get_end_point(self) -> tuple[bool, PathPoint]:
+        """
+            Gets the end point of the path.
+
+        An empty path has no points, so false
+        is returned in this case.
+        """
+    def get_start_point(self) -> tuple[bool, PathPoint]:
+        """
+            Gets the start point of the path.
+
+        An empty path has no points, so false
+        is returned in this case.
+        """
+    def get_stroke_bounds(self, stroke: Stroke) -> tuple[bool, Graphene.Rect]:
+        """
+            Computes the bounds for stroking the given path with the
+        given parameters.
+
+        The returned bounds may be larger than necessary, because this
+        function aims to be fast, not accurate. The bounds are guaranteed
+        to contain the area affected by the stroke, including protrusions
+        like miters.
+        """
+    def in_fill(self, point: Graphene.Point, fill_rule: FillRule) -> bool:
+        """
+            Returns whether a point is inside the fill area of a path.
+
+        Note that this function assumes that filling a contour
+        implicitly closes it.
+        """
+    def is_closed(self) -> bool:
+        """
+        Returns if the path represents a single closed contour.
+        """
+    def is_empty(self) -> bool:
+        """
+        Checks if the path is empty, i.e. contains no lines or curves.
+        """
     @staticmethod
-    def parse(string: str) -> Path | None: ...
+    def parse(string: str) -> Path | None:
+        """
+            Constructs a path from a serialized form.
+
+        The string is expected to be in (a superset of)
+        [SVG path syntax](https://www.w3.org/TR/SVG11/paths.html#PathData),
+        as e.g. produced by [method@Gsk.Path.to_string].
+
+        A high-level summary of the syntax:
+
+        - `M x y` Move to `(x, y)`
+        - `L x y` Add a line from the current point to `(x, y)`
+        - `Q x1 y1 x2 y2` Add a quadratic Bézier from the current point to `(x2, y2)`, with control point `(x1, y1)`
+        - `C x1 y1 x2 y2 x3 y3` Add a cubic Bézier from the current point to `(x3, y3)`, with control points `(x1, y1)` and `(x2, y2)`
+        - `Z` Close the contour by drawing a line back to the start point
+        - `H x` Add a horizontal line from the current point to the given x value
+        - `V y` Add a vertical line from the current point to the given y value
+        - `T x2 y2` Add a quadratic Bézier, using the reflection of the previous segments' control point as control point
+        - `S x2 y2 x3 y3` Add a cubic Bézier, using the reflection of the previous segments' second control point as first control point
+        - `A rx ry r l s x y` Add an elliptical arc from the current point to `(x, y)` with radii rx and ry. See the SVG documentation for how the other parameters influence the arc.
+        - `O x1 y1 x2 y2 w` Add a rational quadratic Bézier from the current point to `(x2, y2)` with control point `(x1, y1)` and weight `w`.
+
+        All the commands have lowercase variants that interpret coordinates
+        relative to the current point.
+
+        The `O` command is an extension that is not supported in SVG.
+        """
     def print_(self, string: GLib.String) -> None: ...
-    def ref(self) -> Path: ...
-    def to_cairo(self, cr: cairo.Context) -> None: ...
-    def to_string(self) -> str: ...
-    def unref(self) -> None: ...
+    def ref(self) -> Path:
+        """
+        Increases the reference count of a path by one.
+        """
+    def to_cairo(self, cr: cairo.Context) -> None:
+        """
+            Appends the path to a cairo context for drawing with Cairo.
+
+        This may cause some suboptimal conversions to be performed as
+        Cairo does not support all features of `GskPath`.
+
+        This function does not clear the existing Cairo path. Call
+        cairo_new_path() if you want this.
+        """
+    def to_string(self) -> str:
+        """
+            Converts the path into a human-readable string.
+
+        You can use this function in a debugger to get a quick overview
+        of the path.
+
+        This is a wrapper around [method@Gsk.Path.print], see that function
+        for details.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of a path by one.
+
+        If the resulting reference count is zero, frees the path.
+        """
 
 class PathBuilder(GObject.GBoxed):
+    """
+    Constructs `GskPath` objects.
+
+    A path is constructed like this:
+
+    ```c
+    GskPath *
+    construct_path (void)
+    {
+      GskPathBuilder *builder;
+
+      builder = gsk_path_builder_new ();
+
+      // add contours to the path here
+
+      return gsk_path_builder_free_to_path (builder);
+    ```
+
+    Adding contours to the path can be done in two ways.
+    The easiest option is to use the `gsk_path_builder_add_*` group
+    of functions that add predefined contours to the current path,
+    either common shapes like [method@Gsk.PathBuilder.add_circle]
+    or by adding from other paths like [method@Gsk.PathBuilder.add_path].
+
+    The `gsk_path_builder_add_*` methods always add complete contours,
+    and do not use or modify the current point.
+
+    The other option is to define each line and curve manually with
+    the `gsk_path_builder_*_to` group of functions. You start with
+    a call to [method@Gsk.PathBuilder.move_to] to set the starting point
+    and then use multiple calls to any of the drawing functions to
+    move the pen along the plane. Once you are done, you can call
+    [method@Gsk.PathBuilder.close] to close the path by connecting it
+    back with a line to the starting point.
+
+    This is similar to how paths are drawn in Cairo.
+
+    Note that `GskPathBuilder` will reduce the degree of added Bézier
+    curves as much as possible, to simplify rendering.
+    """
+
     # gi Methods
-    def add_cairo_path(self, path: cairo.Path) -> None: ...
-    def add_circle(self, center: Graphene.Point, radius: float) -> None: ...
-    def add_layout(self, layout: Pango.Layout) -> None: ...
-    def add_path(self, path: Path) -> None: ...
-    def add_rect(self, rect: Graphene.Rect) -> None: ...
-    def add_reverse_path(self, path: Path) -> None: ...
-    def add_rounded_rect(self, rect: RoundedRect) -> None: ...
-    def add_segment(self, path: Path, start: PathPoint, end: PathPoint) -> None: ...
-    def arc_to(self, x1: float, y1: float, x2: float, y2: float) -> None: ...
-    def close(self) -> None: ...
-    def conic_to(self, x1: float, y1: float, x2: float, y2: float, weight: float) -> None: ...
-    def cubic_to(self, x1: float, y1: float, x2: float, y2: float, x3: float, y3: float) -> None: ...
-    def get_current_point(self) -> Graphene.Point: ...
-    def html_arc_to(self, x1: float, y1: float, x2: float, y2: float, radius: float) -> None: ...
-    def line_to(self, x: float, y: float) -> None: ...
-    def move_to(self, x: float, y: float) -> None: ...
+    def add_cairo_path(self, path: cairo.Path) -> None:
+        """
+            Adds a Cairo path to the builder.
+
+        You can use cairo_copy_path() to access the path
+        from a Cairo context.
+        """
+    def add_circle(self, center: Graphene.Point, radius: float) -> None:
+        """
+            Adds a circle as a new contour.
+
+        The path is going around the circle in clockwise direction.
+
+        If @radius is zero, the contour will be a closed point.
+        """
+    def add_layout(self, layout: Pango.Layout) -> None:
+        """
+        Adds the outlines for the glyphs in @layout to the builder.
+        """
+    def add_path(self, path: Path) -> None:
+        """
+        Appends all of @path to the builder.
+        """
+    def add_rect(self, rect: Graphene.Rect) -> None:
+        """
+            Adds a rectangle as a new contour.
+
+        The path is going around the rectangle in clockwise direction.
+
+        If the the width or height are 0, the path will be a closed
+        horizontal or vertical line. If both are 0, it'll be a closed dot.
+        """
+    def add_reverse_path(self, path: Path) -> None:
+        """
+        Appends all of @path to the builder, in reverse order.
+        """
+    def add_rounded_rect(self, rect: RoundedRect) -> None:
+        """
+            Adds a rounded rectangle as a new contour.
+
+        The path is going around the rectangle in clockwise direction.
+        """
+    def add_segment(self, path: Path, start: PathPoint, end: PathPoint) -> None:
+        """
+            Adds a segment of a path to the builder.
+
+        If @start is equal to or after @end, the path will first add the
+        segment from @start to the end of the path, and then add the segment
+        from the beginning to @end. If the path is closed, these segments
+        will be connected.
+
+        Note that this method always adds a path with the given start point
+        and end point. To add a closed path, use [method@Gsk.PathBuilder.add_path].
+        """
+    def arc_to(self, x1: float, y1: float, x2: float, y2: float) -> None:
+        """
+            Adds an elliptical arc from the current point to @x2, @y2
+        with @x1, @y1 determining the tangent directions.
+
+        After this, @x2, @y2 will be the new current point.
+
+        Note: Two points and their tangents do not determine
+        a unique ellipse, so GSK just picks one. If you need more
+        precise control, use [method@Gsk.PathBuilder.conic_to]
+        or [method@Gsk.PathBuilder.svg_arc_to].
+
+        <picture>
+          <source srcset="arc-dark.png" media="(prefers-color-scheme: dark)">
+          <img alt="Arc To" src="arc-light.png">
+        </picture>
+        """
+    def close(self) -> None:
+        """
+            Ends the current contour with a line back to the start point.
+
+        Note that this is different from calling [method@Gsk.PathBuilder.line_to]
+        with the start point in that the contour will be closed. A closed
+        contour behaves differently from an open one. When stroking, its
+        start and end point are considered connected, so they will be
+        joined via the line join, and not ended with line caps.
+        """
+    def conic_to(self, x1: float, y1: float, x2: float, y2: float, weight: float) -> None:
+        """
+            Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
+        from the current point to @x2, @y2 with the given @weight and @x1, @y1 as the
+        control point.
+
+        The weight determines how strongly the curve is pulled towards the control point.
+        A conic with weight 1 is identical to a quadratic Bézier curve with the same points.
+
+        Conic curves can be used to draw ellipses and circles. They are also known as
+        rational quadratic Bézier curves.
+
+        After this, @x2, @y2 will be the new current point.
+
+        <picture>
+          <source srcset="conic-dark.png" media="(prefers-color-scheme: dark)">
+          <img alt="Conic To" src="conic-light.png">
+        </picture>
+        """
+    def cubic_to(self, x1: float, y1: float, x2: float, y2: float, x3: float, y3: float) -> None:
+        """
+            Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+        from the current point to @x3, @y3 with @x1, @y1 and @x2, @y2 as the control
+        points.
+
+        After this, @x3, @y3 will be the new current point.
+
+        <picture>
+          <source srcset="cubic-dark.png" media="(prefers-color-scheme: dark)">
+          <img alt="Cubic To" src="cubic-light.png">
+        </picture>
+        """
+    def get_current_point(self) -> Graphene.Point:
+        """
+            Gets the current point.
+
+        The current point is used for relative drawing commands and
+        updated after every operation.
+
+        When the builder is created, the default current point is set
+        to `0, 0`. Note that this is different from cairo, which starts
+        out without a current point.
+        """
+    def html_arc_to(self, x1: float, y1: float, x2: float, y2: float, radius: float) -> None:
+        """
+            Implements arc-to according to the HTML Canvas spec.
+
+        A convenience function that implements the
+        [HTML arc_to](https://html.spec.whatwg.org/multipage/canvas.html#dom-context-2d-arcto-dev)
+        functionality.
+
+        After this, the current point will be the point where
+        the circle with the given radius touches the line from
+        @x1, @y1 to @x2, @y2.
+        """
+    def line_to(self, x: float, y: float) -> None:
+        """
+            Draws a line from the current point to @x, @y and makes it
+        the new current point.
+
+        <picture>
+          <source srcset="line-dark.png" media="(prefers-color-scheme: dark)">
+          <img alt="Line To" src="line-light.png">
+        </picture>
+        """
+    def move_to(self, x: float, y: float) -> None:
+        """
+            Starts a new contour by placing the pen at @x, @y.
+
+        If this function is called twice in succession, the first
+        call will result in a contour made up of a single point.
+        The second call will start a new contour.
+        """
     @classmethod
-    def new(cls) -> PathBuilder: ...
-    def quad_to(self, x1: float, y1: float, x2: float, y2: float) -> None: ...
-    def ref(self) -> PathBuilder: ...
-    def rel_arc_to(self, x1: float, y1: float, x2: float, y2: float) -> None: ...
-    def rel_conic_to(self, x1: float, y1: float, x2: float, y2: float, weight: float) -> None: ...
-    def rel_cubic_to(self, x1: float, y1: float, x2: float, y2: float, x3: float, y3: float) -> None: ...
-    def rel_html_arc_to(self, x1: float, y1: float, x2: float, y2: float, radius: float) -> None: ...
-    def rel_line_to(self, x: float, y: float) -> None: ...
-    def rel_move_to(self, x: float, y: float) -> None: ...
-    def rel_quad_to(self, x1: float, y1: float, x2: float, y2: float) -> None: ...
+    def new(cls) -> PathBuilder:
+        """
+            Create a new `GskPathBuilder` object.
+
+        The resulting builder would create an empty `GskPath`.
+        Use addition functions to add types to it.
+        """
+    def quad_to(self, x1: float, y1: float, x2: float, y2: float) -> None:
+        """
+            Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+        from the current point to @x2, @y2 with @x1, @y1 as the control point.
+
+        After this, @x2, @y2 will be the new current point.
+
+        <picture>
+          <source srcset="quad-dark.png" media="(prefers-color-scheme: dark)">
+          <img alt="Quad To" src="quad-light.png">
+        </picture>
+        """
+    def ref(self) -> PathBuilder:
+        """
+            Acquires a reference on the given builder.
+
+        This function is intended primarily for language bindings.
+        `GskPathBuilder` objects should not be kept around.
+        """
+    def rel_arc_to(self, x1: float, y1: float, x2: float, y2: float) -> None:
+        """
+            Adds an elliptical arc from the current point to @x2, @y2
+        with @x1, @y1 determining the tangent directions.
+
+        All coordinates are given relative to the current point.
+
+        This is the relative version of [method@Gsk.PathBuilder.arc_to].
+        """
+    def rel_conic_to(self, x1: float, y1: float, x2: float, y2: float, weight: float) -> None:
+        """
+            Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
+        from the current point to @x2, @y2 with the given @weight and @x1, @y1 as the
+        control point.
+
+        All coordinates are given relative to the current point.
+
+        This is the relative version of [method@Gsk.PathBuilder.conic_to].
+        """
+    def rel_cubic_to(self, x1: float, y1: float, x2: float, y2: float, x3: float, y3: float) -> None:
+        """
+            Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+        from the current point to @x3, @y3 with @x1, @y1 and @x2, @y2 as the control
+        points.
+
+        All coordinates are given relative to the current point.
+
+        This is the relative version of [method@Gsk.PathBuilder.cubic_to].
+        """
+    def rel_html_arc_to(self, x1: float, y1: float, x2: float, y2: float, radius: float) -> None:
+        """
+            Implements arc-to according to the HTML Canvas spec.
+
+        All coordinates are given relative to the current point.
+
+        This is the relative version of [method@Gsk.PathBuilder.html_arc_to].
+        """
+    def rel_line_to(self, x: float, y: float) -> None:
+        """
+            Draws a line from the current point to a point offset from it
+        by @x, @y and makes it the new current point.
+
+        This is the relative version of [method@Gsk.PathBuilder.line_to].
+        """
+    def rel_move_to(self, x: float, y: float) -> None:
+        """
+            Starts a new contour by placing the pen at @x, @y
+        relative to the current point.
+
+        This is the relative version of [method@Gsk.PathBuilder.move_to].
+        """
+    def rel_quad_to(self, x1: float, y1: float, x2: float, y2: float) -> None:
+        """
+            Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+        from the current point to @x2, @y2 with @x1, @y1 the control point.
+
+        All coordinates are given relative to the current point.
+
+        This is the relative version of [method@Gsk.PathBuilder.quad_to].
+        """
     def rel_svg_arc_to(
         self, rx: float, ry: float, x_axis_rotation: float, large_arc: bool, positive_sweep: bool, x: float, y: float
-    ) -> None: ...
+    ) -> None:
+        """
+            Implements arc-to according to the SVG spec.
+
+        All coordinates are given relative to the current point.
+
+        This is the relative version of [method@Gsk.PathBuilder.svg_arc_to].
+        """
     def svg_arc_to(
         self, rx: float, ry: float, x_axis_rotation: float, large_arc: bool, positive_sweep: bool, x: float, y: float
-    ) -> None: ...
-    def to_path(self) -> Path: ...
-    def unref(self) -> None: ...
+    ) -> None:
+        """
+            Implements arc-to according to the SVG spec.
+
+        A convenience function that implements the
+        [SVG arc_to](https://www.w3.org/TR/SVG11/paths.html#PathDataEllipticalArcCommands)
+        functionality.
+
+        After this, @x, @y will be the new current point.
+        """
+    def to_path(self) -> Path:
+        """
+            Creates a new path from the given builder.
+
+        The given `GskPathBuilder` is reset once this function returns;
+        you cannot call this function multiple times on the same builder
+        instance.
+
+        This function is intended primarily for language bindings.
+        C code should use [method@Gsk.PathBuilder.free_to_path].
+        """
+    def unref(self) -> None:
+        """
+        Releases a reference on the given builder.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -1406,17 +2284,60 @@ class PathBuilder(GObject.GBoxed):
     ) -> None: ...
 
 class PathMeasure(GObject.GBoxed):
+    """
+    Performs measurements on paths such as determining the length of the path.
+
+    Many measuring operations require sampling the path length
+    at intermediate points. Therefore, a `GskPathMeasure` has
+    a tolerance that determines what precision is required
+    for such approximations.
+
+    A `GskPathMeasure` struct is a reference counted struct
+    and should be treated as opaque.
+    """
+
     # gi Methods
-    def get_length(self) -> float: ...
-    def get_path(self) -> Path: ...
-    def get_point(self, distance: float) -> tuple[bool, PathPoint]: ...
-    def get_tolerance(self) -> float: ...
+    def get_length(self) -> float:
+        """
+            Gets the length of the path being measured.
+
+        The length is cached, so this function does not do any work.
+        """
+    def get_path(self) -> Path:
+        """
+        Returns the path that the measure was created for.
+        """
+    def get_point(self, distance: float) -> tuple[bool, PathPoint]:
+        """
+            Gets the point at the given distance into the path.
+
+        An empty path has no points, so false is returned in that case.
+        """
+    def get_tolerance(self) -> float:
+        """
+        Returns the tolerance that the measure was created with.
+        """
     @classmethod
-    def new(cls, path: Path) -> PathMeasure: ...
+    def new(cls, path: Path) -> PathMeasure:
+        """
+            Creates a measure object for the given @path with the
+        default tolerance.
+        """
     @classmethod
-    def new_with_tolerance(cls, path: Path, tolerance: float) -> PathMeasure: ...
-    def ref(self) -> PathMeasure: ...
-    def unref(self) -> None: ...
+    def new_with_tolerance(cls, path: Path, tolerance: float) -> PathMeasure:
+        """
+        Creates a measure object for the given @path and @tolerance.
+        """
+    def ref(self) -> PathMeasure:
+        """
+        Increases the reference count of a `GskPathMeasure` by one.
+        """
+    def unref(self) -> None:
+        """
+            Decreases the reference count of a `GskPathMeasure` by one.
+
+        If the resulting reference count is zero, frees the object.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -1426,20 +2347,108 @@ class PathMeasure(GObject.GBoxed):
     ) -> None: ...
 
 class PathPoint(GObject.GBoxed):
+    """
+    Represents a point on a path.
+
+    It can be queried for properties of the path at that point,
+    such as its tangent or its curvature.
+
+    To obtain a `GskPathPoint`, use [method@Gsk.Path.get_closest_point],
+    [method@Gsk.Path.get_start_point], [method@Gsk.Path.get_end_point]
+    or [method@Gsk.PathMeasure.get_point].
+
+    Note that `GskPathPoint` structs are meant to be stack-allocated,
+    and don't hold a reference to the path object they are obtained from.
+    It is the callers responsibility to keep a reference to the path
+    as long as the `GskPathPoint` is used.
+    """
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def compare(self, point2: PathPoint) -> int: ...
-    def copy(self) -> PathPoint: ...
-    def equal(self, point2: PathPoint) -> bool: ...
-    def free(self) -> None: ...
-    def get_curvature(self, path: Path, direction: PathDirection) -> tuple[float, Graphene.Point | None]: ...
-    def get_distance(self, measure: PathMeasure) -> float: ...
-    def get_position(self, path: Path) -> Graphene.Point: ...
-    def get_rotation(self, path: Path, direction: PathDirection) -> float: ...
-    def get_tangent(self, path: Path, direction: PathDirection) -> Graphene.Vec2: ...
+    def compare(self, point2: PathPoint) -> int:
+        """
+        Returns whether @point1 is before or after @point2.
+        """
+    def copy(self) -> PathPoint:
+        """
+        Copies a path point.
+        """
+    def equal(self, point2: PathPoint) -> bool:
+        """
+            Returns whether the two path points refer to the same
+        location on all paths.
+
+        Note that the start- and endpoint of a closed contour
+        will compare nonequal according to this definition.
+        Use [method@Gsk.Path.is_closed] to find out if the
+        start- and endpoint of a concrete path refer to the
+        same location.
+        """
+    def free(self) -> None:
+        """
+        Frees a path point copied by [method@Gsk.PathPoint.copy].
+        """
+    def get_curvature(self, path: Path, direction: PathDirection) -> tuple[float, Graphene.Point | None]:
+        """
+            Calculates the curvature of the path at the point.
+
+        Optionally, returns the center of the osculating circle as well.
+        The curvature is the inverse of the radius of the osculating circle.
+
+        Lines have a curvature of zero (indicating an osculating circle of
+        infinite radius). In this case, the @center is not modified.
+
+        Circles with a radius of zero have `INFINITY` as curvature
+
+        Note that certain points on a path may not have a single curvature,
+        such as sharp turns. At such points, there are two curvatures — the
+        (limit of) the curvature of the path going into the point, and the
+        (limit of) the curvature of the path coming out of it. The @direction
+        argument lets you choose which one to get.
+
+        <picture>
+          <source srcset="curvature-dark.png" media="(prefers-color-scheme: dark)">
+          <img alt="Osculating circle" src="curvature-light.png">
+        </picture>
+        """
+    def get_distance(self, measure: PathMeasure) -> float:
+        """
+            Returns the distance from the beginning of the path
+        to the point.
+        """
+    def get_position(self, path: Path) -> Graphene.Point:
+        """
+        Gets the position of the point.
+        """
+    def get_rotation(self, path: Path, direction: PathDirection) -> float:
+        """
+            Gets the direction of the tangent at a given point.
+
+        This is a convenience variant of [method@Gsk.PathPoint.get_tangent]
+        that returns the angle between the tangent and the X axis. The angle
+        can e.g. be used in
+        [gtk_snapshot_rotate()](../gtk4/method.Snapshot.rotate.html).
+        """
+    def get_tangent(self, path: Path, direction: PathDirection) -> Graphene.Vec2:
+        """
+            Gets the tangent of the path at the point.
+
+        Note that certain points on a path may not have a single
+        tangent, such as sharp turns. At such points, there are
+        two tangents — the direction of the path going into the
+        point, and the direction coming out of it. The @direction
+        argument lets you choose which one to get.
+
+        If the path is just a single point (e.g. a circle with
+        radius zero), then the tangent is set to `0, 0`.
+
+        If you want to orient something in the direction of the
+        path, [method@Gsk.PathPoint.get_rotation] may be more
+        convenient to use.
+        """
 
 class RadialGradientNode(RenderNode):
     """
@@ -1451,13 +2460,34 @@ class RadialGradientNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_center(self) -> Graphene.Point: ...
-    def get_color_stops(self) -> tuple[list, int | None]: ...
-    def get_end(self) -> float: ...
-    def get_hradius(self) -> float: ...
-    def get_n_color_stops(self) -> int: ...
-    def get_start(self) -> float: ...
-    def get_vradius(self) -> float: ...
+    def get_center(self) -> Graphene.Point:
+        """
+        Retrieves the center pointer for the gradient.
+        """
+    def get_color_stops(self) -> tuple[list, int | None]:
+        """
+        Retrieves the color stops in the gradient.
+        """
+    def get_end(self) -> float:
+        """
+        Retrieves the end value for the gradient.
+        """
+    def get_hradius(self) -> float:
+        """
+        Retrieves the horizontal radius for the gradient.
+        """
+    def get_n_color_stops(self) -> int:
+        """
+        Retrieves the number of color stops in the gradient.
+        """
+    def get_start(self) -> float:
+        """
+        Retrieves the start value for the gradient.
+        """
+    def get_vradius(self) -> float:
+        """
+        Retrieves the vertical radius for the gradient.
+        """
     @classmethod
     def new(
         cls,
@@ -1469,7 +2499,14 @@ class RadialGradientNode(RenderNode):
         end: float,
         color_stops: list,
         n_color_stops: int,
-    ) -> RadialGradientNode: ...
+    ) -> RadialGradientNode:
+        """
+            Creates a `GskRenderNode` that draws a radial gradient.
+
+        The radial gradient
+        starts around @center. The size of the gradient is dictated by @hradius
+        in horizontal orientation and by @vradius in vertical orientation.
+        """
 
 class RenderNode(object):
     """
@@ -1500,15 +2537,77 @@ class RenderNode(object):
     @staticmethod
     def deserialize(
         bytes: GLib.Bytes, error_func: ParseErrorFunc | None = None, user_data: object | None = None
-    ) -> RenderNode | None: ...
-    def draw(self, cr: cairo.Context) -> None: ...
-    def get_bounds(self) -> Graphene.Rect: ...
-    def get_node_type(self) -> RenderNodeType: ...
-    def get_opaque_rect(self) -> tuple[bool, Graphene.Rect]: ...
-    def ref(self) -> RenderNode: ...
-    def serialize(self) -> GLib.Bytes: ...
-    def unref(self) -> None: ...
-    def write_to_file(self, filename: str) -> bool: ...
+    ) -> RenderNode | None:
+        """
+            Loads data previously created via [method@Gsk.RenderNode.serialize].
+
+        For a discussion of the supported format, see that function.
+        """
+    def draw(self, cr: cairo.Context) -> None:
+        """
+            Draws the contents of a render node on a cairo context.
+
+        Typically, you'll use this function to implement fallback rendering
+        of render nodes on an intermediate Cairo context, instead of using
+        the drawing context associated to a [class@Gdk.Surface]'s rendering buffer.
+
+        For advanced nodes that cannot be supported using Cairo, in particular
+        for nodes doing 3D operations, this function may fail.
+        """
+    def get_bounds(self) -> Graphene.Rect:
+        """
+            Retrieves the boundaries of the @node.
+
+        The node will not draw outside of its boundaries.
+        """
+    def get_node_type(self) -> RenderNodeType:
+        """
+        Returns the type of the render node.
+        """
+    def get_opaque_rect(self) -> tuple[bool, Graphene.Rect]:
+        """
+            Gets an opaque rectangle inside the node that GTK can determine to
+        be fully opaque.
+
+        There is no guarantee that this is indeed the largest opaque rectangle or
+        that regions outside the rectangle are not opaque. This function is a best
+        effort with that goal.
+
+        The rectangle will be fully contained in the bounds of the node.
+        """
+    def ref(self) -> RenderNode:
+        """
+        Acquires a reference on the given `GskRenderNode`.
+        """
+    def serialize(self) -> GLib.Bytes:
+        """
+            Serializes the @node for later deserialization via
+        gsk_render_node_deserialize(). No guarantees are made about the format
+        used other than that the same version of GTK will be able to deserialize
+        the result of a call to gsk_render_node_serialize() and
+        gsk_render_node_deserialize() will correctly reject files it cannot open
+        that were created with previous versions of GTK.
+
+        The intended use of this functions is testing, benchmarking and debugging.
+        The format is not meant as a permanent storage format.
+        """
+    def unref(self) -> None:
+        """
+            Releases a reference on the given `GskRenderNode`.
+
+        If the reference was the last, the resources associated to the @node are
+        freed.
+        """
+    def write_to_file(self, filename: str) -> bool:
+        """
+            This function is equivalent to calling [method@Gsk.RenderNode.serialize]
+        followed by [func@GLib.file_set_contents].
+
+        See those two functions for details on the arguments.
+
+        It is mostly intended for use inside a debugger to quickly dump a render
+        node to a file for later inspection.
+        """
 
 class Renderer(GObject.Object):
     """
@@ -1526,7 +2625,13 @@ class Renderer(GObject.Object):
 
     class Props(GObject.Object.Props):
         realized: bool
+        """
+        Whether the renderer has been associated with a surface or draw context.
+        """
         surface: Gdk.Surface | None
+        """
+        The surface associated with renderer.
+        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -1537,16 +2642,77 @@ class Renderer(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @builtins.property
-    def get_surface(self) -> Gdk.Surface | None: ...
+    def get_surface(self) -> Gdk.Surface | None:
+        """
+            Retrieves the surface that the renderer is associated with.
+
+        If the renderer has not been realized yet, `NULL` will be returned.
+        """
     @builtins.property
-    def is_realized(self) -> bool: ...
+    def is_realized(self) -> bool:
+        """
+        Checks whether the renderer is realized or not.
+        """
     @classmethod
-    def new_for_surface(cls, surface: Gdk.Surface) -> Renderer | None: ...
-    def realize(self, surface: Gdk.Surface | None = None) -> bool: ...
-    def realize_for_display(self, display: Gdk.Display) -> bool: ...
-    def render(self, root: RenderNode, region: cairo.Region | None = None) -> None: ...
-    def render_texture(self, root: RenderNode, viewport: Graphene.Rect | None = None) -> Gdk.Texture: ...
-    def unrealize(self) -> None: ...
+    def new_for_surface(cls, surface: Gdk.Surface) -> Renderer | None:
+        """
+            Creates an appropriate `GskRenderer` instance for the given surface.
+
+        If the `GSK_RENDERER` environment variable is set, GSK will
+        try that renderer first, before trying the backend-specific
+        default. The ultimate fallback is the cairo renderer.
+
+        The renderer will be realized before it is returned.
+        """
+    def realize(self, surface: Gdk.Surface | None = None) -> bool:
+        """
+            Creates the resources needed by the renderer.
+
+        Since GTK 4.6, the surface may be `NULL`, which allows using
+        renderers without having to create a surface. Since GTK 4.14,
+        it is recommended to use [method@Gsk.Renderer.realize_for_display]
+        for this case.
+
+        Note that it is mandatory to call [method@Gsk.Renderer.unrealize]
+        before destroying the renderer.
+        """
+    def realize_for_display(self, display: Gdk.Display) -> bool:
+        """
+            Creates the resources needed by the renderer.
+
+        Note that it is mandatory to call [method@Gsk.Renderer.unrealize]
+        before destroying the renderer.
+        """
+    def render(self, root: RenderNode, region: cairo.Region | None = None) -> None:
+        """
+            Renders the scene graph, described by a tree of `GskRenderNode` instances
+        to the renderer's surface, ensuring that the given region gets redrawn.
+
+        If the renderer has no associated surface, this function does nothing.
+
+        Renderers must ensure that changes of the contents given by the @root
+        node as well as the area given by @region are redrawn. They are however
+        free to not redraw any pixel outside of @region if they can guarantee that
+        it didn't change.
+
+        The renderer will acquire a reference on the `GskRenderNode` tree while
+        the rendering is in progress.
+        """
+    def render_texture(self, root: RenderNode, viewport: Graphene.Rect | None = None) -> Gdk.Texture:
+        """
+            Renders a scene graph, described by a tree of `GskRenderNode` instances,
+        to a texture.
+
+        The renderer will acquire a reference on the `GskRenderNode` tree while
+        the rendering is in progress.
+
+        If you want to apply any transformations to @root, you should put it into a
+        transform node and pass that node instead.
+        """
+    def unrealize(self) -> None:
+        """
+        Releases all the resources created by [method@Gsk.Renderer.realize].
+        """
 
     # Signals
     @typing.overload
@@ -1585,10 +2751,20 @@ class RepeatNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_child_bounds(self) -> Graphene.Rect: ...
+    def get_child(self) -> RenderNode:
+        """
+        Retrieves the child of @node.
+        """
+    def get_child_bounds(self) -> Graphene.Rect:
+        """
+        Retrieves the bounding rectangle of the child of @node.
+        """
     @classmethod
-    def new(cls, bounds: Graphene.Rect, child: RenderNode, child_bounds: Graphene.Rect | None = None) -> RepeatNode: ...
+    def new(cls, bounds: Graphene.Rect, child: RenderNode, child_bounds: Graphene.Rect | None = None) -> RepeatNode:
+        """
+            Creates a `GskRenderNode` that will repeat the drawing of @child across
+        the given @bounds.
+        """
 
 class RepeatingLinearGradientNode(RenderNode):
     """
@@ -1603,7 +2779,12 @@ class RepeatingLinearGradientNode(RenderNode):
     @classmethod
     def new(
         cls, bounds: Graphene.Rect, start: Graphene.Point, end: Graphene.Point, color_stops: list, n_color_stops: int
-    ) -> RepeatingLinearGradientNode: ...
+    ) -> RepeatingLinearGradientNode:
+        """
+            Creates a `GskRenderNode` that will create a repeating linear gradient
+        from the given points and color stops, and render that into the area
+        given by @bounds.
+        """
 
 class RepeatingRadialGradientNode(RenderNode):
     """
@@ -1626,7 +2807,14 @@ class RepeatingRadialGradientNode(RenderNode):
         end: float,
         color_stops: list,
         n_color_stops: int,
-    ) -> RepeatingRadialGradientNode: ...
+    ) -> RepeatingRadialGradientNode:
+        """
+            Creates a `GskRenderNode` that draws a repeating radial gradient.
+
+        The radial gradient starts around @center. The size of the gradient
+        is dictated by @hradius in horizontal orientation and by @vradius
+        in vertical orientation.
+        """
 
 class RoundedClipNode(RenderNode):
     """
@@ -1638,23 +2826,63 @@ class RoundedClipNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_clip(self) -> RoundedRect: ...
+    def get_child(self) -> RenderNode:
+        """
+        Gets the child node that is getting clipped by the given @node.
+        """
+    def get_clip(self) -> RoundedRect:
+        """
+        Retrieves the rounded rectangle used to clip the contents of the @node.
+        """
     @classmethod
-    def new(cls, child: RenderNode, clip: RoundedRect) -> RoundedClipNode: ...
+    def new(cls, child: RenderNode, clip: RoundedRect) -> RoundedClipNode:
+        """
+            Creates a `GskRenderNode` that will clip the @child to the area
+        given by @clip.
+        """
 
 class RoundedRect(GObject.GPointer):
+    """
+    A rectangular region with rounded corners.
+
+    Application code should normalize rectangles using
+    [method@Gsk.RoundedRect.normalize]; this function will ensure that
+    the bounds of the rectangle are normalized and ensure that the corner
+    values are positive and the corners do not overlap.
+
+    All functions taking a `GskRoundedRect` as an argument will internally
+    operate on a normalized copy; all functions returning a `GskRoundedRect`
+    will always return a normalized one.
+
+    The algorithm used for normalizing corner sizes is described in
+    [the CSS specification](https://drafts.csswg.org/css-backgrounds-3/#border-radius).
+    """
+
     # gi Fields
     bounds: Graphene.Rect | None = ...  # type: ignore
+    """
+    the bounds of the rectangle
+
+    """
     corner: list | None = ...
+    """
+    the size of the 4 rounded corners
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def contains_point(self, point: Graphene.Point) -> bool: ...
-    def contains_rect(self, rect: Graphene.Rect) -> bool: ...
+    def contains_point(self, point: Graphene.Point) -> bool:
+        """
+        Checks if the given point is inside the rounded rectangle.
+        """
+    def contains_rect(self, rect: Graphene.Rect) -> bool:
+        """
+        Checks if the given rectangle is contained inside the rounded rectangle.
+        """
     def init(
         self,
         bounds: Graphene.Rect,
@@ -1662,39 +2890,152 @@ class RoundedRect(GObject.GPointer):
         top_right: Graphene.Size,
         bottom_right: Graphene.Size,
         bottom_left: Graphene.Size,
-    ) -> RoundedRect: ...
-    def init_copy(self, src: RoundedRect) -> RoundedRect: ...
-    def init_from_rect(self, bounds: Graphene.Rect, radius: float) -> RoundedRect: ...
-    def intersects_rect(self, rect: Graphene.Rect) -> bool: ...
-    def is_rectilinear(self) -> bool: ...
-    def normalize(self) -> RoundedRect: ...
-    def offset(self, dx: float, dy: float) -> RoundedRect: ...
-    def shrink(self, top: float, right: float, bottom: float, left: float) -> RoundedRect: ...
+    ) -> RoundedRect:
+        """
+            Initializes a rounded rectangle with the given values.
+
+        This function will implicitly normalize the rounded rectangle
+        before returning.
+        """
+    def init_copy(self, src: RoundedRect) -> RoundedRect:
+        """
+            Initializes a rounded rectangle with a copy.
+
+        This function will not normalize the rounded rectangle,
+        so make sure the source is normalized.
+        """
+    def init_from_rect(self, bounds: Graphene.Rect, radius: float) -> RoundedRect:
+        """
+            Initializes a rounded rectangle to the given bounds
+        and sets the radius of all four corners equally.
+        """
+    def intersects_rect(self, rect: Graphene.Rect) -> bool:
+        """
+            Checks if part a rectangle is contained
+        inside the rounded rectangle.
+        """
+    def is_rectilinear(self) -> bool:
+        """
+            Checks if all corners of a rounded rectangle are right angles
+        and the rectangle covers all of its bounds.
+
+        This information can be used to decide if [ctor@Gsk.ClipNode.new]
+        or [ctor@Gsk.RoundedClipNode.new] should be called.
+        """
+    def normalize(self) -> RoundedRect:
+        """
+            Normalizes a rounded rectangle.
+
+        This function will ensure that the bounds of the rounded rectangle
+        are normalized and ensure that the corner values are positive
+        and the corners do not overlap.
+        """
+    def offset(self, dx: float, dy: float) -> RoundedRect:
+        """
+            Offsets the rounded rectangle's origin by @dx and @dy.
+
+        The size and corners of the rounded rectangle are unchanged.
+        """
+    def shrink(self, top: float, right: float, bottom: float, left: float) -> RoundedRect:
+        """
+            Shrinks (or grows) a rounded rectangle by moving the 4 sides
+        according to the offsets given.
+
+        The corner radii will be changed in a way that tries to keep
+        the center of the corner circle intact. This emulates CSS behavior.
+
+        This function also works for growing rounded rectangles
+        if you pass negative values for the @top, @right, @bottom or @left.
+        """
 
 class ShaderArgsBuilder(GObject.GBoxed):
+    """
+    Builds the uniforms data for a `GskGLShader`.
+    """
+
     # gi Methods
     @deprecated("deprecated")
     @classmethod
-    def new(cls, shader: GLShader, initial_values: GLib.Bytes | None = None) -> ShaderArgsBuilder: ...
+    def new(cls, shader: GLShader, initial_values: GLib.Bytes | None = None) -> ShaderArgsBuilder:
+        """
+            Allocates a builder that can be used to construct a new uniform data
+        chunk.
+        """
     @deprecated("deprecated")
-    def ref(self) -> ShaderArgsBuilder: ...
+    def ref(self) -> ShaderArgsBuilder:
+        """
+        Increases the reference count of a `GskShaderArgsBuilder` by one.
+        """
     @deprecated("deprecated")
-    def set_bool(self, idx: int, value: bool) -> None: ...
-    def set_float(self, idx: int, value: float) -> None: ...
+    def set_bool(self, idx: int, value: bool) -> None:
+        """
+            Sets the value of the uniform @idx.
+
+        The uniform must be of bool type.
+        """
+    def set_float(self, idx: int, value: float) -> None:
+        """
+            Sets the value of the uniform @idx.
+
+        The uniform must be of float type.
+        """
     @deprecated("deprecated")
-    def set_int(self, idx: int, value: int) -> None: ...
+    def set_int(self, idx: int, value: int) -> None:
+        """
+            Sets the value of the uniform @idx.
+
+        The uniform must be of int type.
+        """
     @deprecated("deprecated")
-    def set_uint(self, idx: int, value: int) -> None: ...
+    def set_uint(self, idx: int, value: int) -> None:
+        """
+            Sets the value of the uniform @idx.
+
+        The uniform must be of uint type.
+        """
     @deprecated("deprecated")
-    def set_vec2(self, idx: int, value: Graphene.Vec2) -> None: ...
+    def set_vec2(self, idx: int, value: Graphene.Vec2) -> None:
+        """
+            Sets the value of the uniform @idx.
+
+        The uniform must be of vec2 type.
+        """
     @deprecated("deprecated")
-    def set_vec3(self, idx: int, value: Graphene.Vec3) -> None: ...
+    def set_vec3(self, idx: int, value: Graphene.Vec3) -> None:
+        """
+            Sets the value of the uniform @idx.
+
+        The uniform must be of vec3 type.
+        """
     @deprecated("deprecated")
-    def set_vec4(self, idx: int, value: Graphene.Vec4) -> None: ...
+    def set_vec4(self, idx: int, value: Graphene.Vec4) -> None:
+        """
+            Sets the value of the uniform @idx.
+
+        The uniform must be of vec4 type.
+        """
     @deprecated("deprecated")
-    def to_args(self) -> GLib.Bytes: ...
+    def to_args(self) -> GLib.Bytes:
+        """
+            Creates a new `GBytes` args from the current state of the
+        given @builder.
+
+        Any uniforms of the shader that have not been explicitly set on
+        the @builder are zero-initialized.
+
+        The given `GskShaderArgsBuilder` is reset once this function returns;
+        you cannot call this function multiple times on the same @builder instance.
+
+        This function is intended primarily for bindings. C code should use
+        [method@Gsk.ShaderArgsBuilder.free_to_args].
+        """
     @deprecated("deprecated")
-    def unref(self) -> None: ...
+    def unref(self) -> None:
+        """
+            Decreases the reference count of a `GskShaderArgBuilder` by one.
+
+        If the resulting reference count is zero, frees the builder.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -1704,11 +3045,31 @@ class ShaderArgsBuilder(GObject.GBoxed):
     ) -> None: ...
 
 class Shadow(GObject.GPointer):
+    """
+    The shadow parameters in a shadow node.
+    """
+
     # gi Fields
     color: Gdk.RGBA | None = ...  # type: ignore
+    """
+    the color of the shadow
+
+    """
     dx: float = ...
+    """
+    the horizontal offset of the shadow
+
+    """
     dy: float = ...
+    """
+    the vertical offset of the shadow
+
+    """
     radius: float = ...
+    """
+    the radius of the shadow
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -1726,33 +3087,147 @@ class ShadowNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_n_shadows(self) -> int: ...
-    def get_shadow(self, i: int) -> Shadow: ...
+    def get_child(self) -> RenderNode:
+        """
+        Retrieves the child `GskRenderNode` of the shadow @node.
+        """
+    def get_n_shadows(self) -> int:
+        """
+        Retrieves the number of shadows in the @node.
+        """
+    def get_shadow(self, i: int) -> Shadow:
+        """
+        Retrieves the shadow data at the given index @i.
+        """
     @classmethod
-    def new(cls, child: RenderNode, shadows: list, n_shadows: int) -> ShadowNode: ...
+    def new(cls, child: RenderNode, shadows: list, n_shadows: int) -> ShadowNode:
+        """
+            Creates a `GskRenderNode` that will draw a @child with the given
+        @shadows below it.
+        """
 
 class Stroke(GObject.GBoxed):
+    """
+    Collects the parameters that are needed when stroking a path.
+    """
+
     # gi Methods
-    def copy(self) -> Stroke: ...
+    def copy(self) -> Stroke:
+        """
+        Creates a copy of a `GskStroke`.
+        """
     @staticmethod
-    def equal(stroke1: object | None = None, stroke2: object | None = None) -> bool: ...
-    def free(self) -> None: ...
-    def get_dash(self) -> tuple[list | None, int]: ...
-    def get_dash_offset(self) -> float: ...
-    def get_line_cap(self) -> LineCap: ...
-    def get_line_join(self) -> LineJoin: ...
-    def get_line_width(self) -> float: ...
-    def get_miter_limit(self) -> float: ...
+    def equal(stroke1: object | None = None, stroke2: object | None = None) -> bool:
+        """
+        Checks if two strokes are identical.
+        """
+    def free(self) -> None:
+        """
+        Frees a `GskStroke`.
+        """
+    def get_dash(self) -> tuple[list | None, int]:
+        """
+        Gets the dash array in use.
+        """
+    def get_dash_offset(self) -> float:
+        """
+        Gets the dash offset.
+        """
+    def get_line_cap(self) -> LineCap:
+        """
+            Gets the line cap used.
+
+        See [enum@Gsk.LineCap] for details.
+        """
+    def get_line_join(self) -> LineJoin:
+        """
+            Gets the line join used.
+
+        See [enum@Gsk.LineJoin] for details.
+        """
+    def get_line_width(self) -> float:
+        """
+        Gets the line width used.
+        """
+    def get_miter_limit(self) -> float:
+        """
+        Gets the miter limit.
+        """
     @classmethod
-    def new(cls, line_width: float) -> Stroke: ...
-    def set_dash(self, dash: list | None, n_dash: int) -> None: ...
-    def set_dash_offset(self, offset: float) -> None: ...
-    def set_line_cap(self, line_cap: LineCap) -> None: ...
-    def set_line_join(self, line_join: LineJoin) -> None: ...
-    def set_line_width(self, line_width: float) -> None: ...
-    def set_miter_limit(self, limit: float) -> None: ...
-    def to_cairo(self, cr: cairo.Context) -> None: ...
+    def new(cls, line_width: float) -> Stroke:
+        """
+        Creates a new `GskStroke` with the given @line_width.
+        """
+    def set_dash(self, dash: list | None, n_dash: int) -> None:
+        """
+            Sets the dash pattern to use.
+
+        A dash pattern is specified by an array of alternating non-negative
+        values. Each value provides the length of alternate "on" and "off"
+        portions of the stroke.
+
+        Each "on" segment will have caps applied as if the segment were a
+        separate contour. In particular, it is valid to use an "on" length
+        of 0 with [enum@Gsk.LineCap.round] or [enum@Gsk.LineCap.square]
+        to draw dots or squares along a path.
+
+        If @n_dash is 0, if all elements in @dash are 0, or if there are
+        negative values in @dash, then dashing is disabled.
+
+        If @n_dash is 1, an alternating "on" and "off" pattern with the
+        single dash length provided is assumed.
+
+        If @n_dash is uneven, the dash array will be used with the first
+        element in @dash defining an "on" or "off" in alternating passes
+        through the array.
+
+        You can specify a starting offset into the dash with
+        [method@Gsk.Stroke.set_dash_offset].
+        """
+    def set_dash_offset(self, offset: float) -> None:
+        """
+            Sets the offset into the dash pattern where dashing should begin.
+
+        This is an offset into the length of the path, not an index into
+        the array values of the dash array.
+
+        See [method@Gsk.Stroke.set_dash] for more details on dashing.
+        """
+    def set_line_cap(self, line_cap: LineCap) -> None:
+        """
+            Sets the line cap to be used when stroking.
+
+        See [enum@Gsk.LineCap] for details.
+        """
+    def set_line_join(self, line_join: LineJoin) -> None:
+        """
+            Sets the line join to be used when stroking.
+
+        See [enum@Gsk.LineJoin] for details.
+        """
+    def set_line_width(self, line_width: float) -> None:
+        """
+            Sets the line width to be used when stroking.
+
+        The line width must be > 0.
+        """
+    def set_miter_limit(self, limit: float) -> None:
+        """
+            Sets the miter limit to be used when stroking.
+
+        The miter limit is the distance from the corner where sharp
+        turns of joins get cut off.
+
+        The limit is specfied in units of line width and must be non-negative.
+
+        For joins of type [enum@Gsk.LineJoin.miter] that exceed the miter limit,
+        the join gets rendered as if it was of type [enum@Gsk.LineJoin.bevel].
+        """
+    def to_cairo(self, cr: cairo.Context) -> None:
+        """
+            A helper function that sets the stroke parameters
+        of a cairo context from a `GskStroke`.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -1772,11 +3247,27 @@ class StrokeNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_path(self) -> Path: ...
-    def get_stroke(self) -> Stroke: ...
+    def get_child(self) -> RenderNode:
+        """
+        Gets the child node that is getting drawn by the given @node.
+        """
+    def get_path(self) -> Path:
+        """
+            Retrieves the path that will be stroked with the contents of
+        the @node.
+        """
+    def get_stroke(self) -> Stroke:
+        """
+        Retrieves the stroke attributes used in this @node.
+        """
     @classmethod
-    def new(cls, child: RenderNode, path: Path, stroke: Stroke) -> StrokeNode: ...
+    def new(cls, child: RenderNode, path: Path, stroke: Stroke) -> StrokeNode:
+        """
+            Creates a #GskRenderNode that will fill the outline generated by stroking
+        the given @path using the attributes defined in @stroke.
+
+        The area is filled with @child.
+        """
 
 class SubsurfaceNode(RenderNode):
     """
@@ -1788,7 +3279,10 @@ class SubsurfaceNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
+    def get_child(self) -> RenderNode:
+        """
+        Gets the child node that is getting drawn by the given @node.
+        """
 
 class TextNode(RenderNode):
     """
@@ -1800,16 +3294,43 @@ class TextNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_color(self) -> Gdk.RGBA: ...
-    def get_font(self) -> Pango.Font: ...
-    def get_glyphs(self) -> tuple[list, int | None]: ...
-    def get_num_glyphs(self) -> int: ...
-    def get_offset(self) -> Graphene.Point: ...
-    def has_color_glyphs(self) -> bool: ...
+    def get_color(self) -> Gdk.RGBA:
+        """
+            Retrieves the color used by the text @node.
+
+        The value returned by this function will not be correct
+        if the render node was created for a non-sRGB color.
+        """
+    def get_font(self) -> Pango.Font:
+        """
+        Returns the font used by the text @node.
+        """
+    def get_glyphs(self) -> tuple[list, int | None]:
+        """
+        Retrieves the glyph information in the @node.
+        """
+    def get_num_glyphs(self) -> int:
+        """
+        Retrieves the number of glyphs in the text node.
+        """
+    def get_offset(self) -> Graphene.Point:
+        """
+        Retrieves the offset applied to the text.
+        """
+    def has_color_glyphs(self) -> bool:
+        """
+        Checks whether the text @node has color glyphs.
+        """
     @classmethod
     def new(
         cls, font: Pango.Font, glyphs: Pango.GlyphString, color: Gdk.RGBA, offset: Graphene.Point
-    ) -> TextNode | None: ...
+    ) -> TextNode | None:
+        """
+            Creates a render node that renders the given glyphs.
+
+        Note that @color may not be used if the font contains
+        color glyphs.
+        """
 
 class TextureNode(RenderNode):
     """
@@ -1821,9 +3342,20 @@ class TextureNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_texture(self) -> Gdk.Texture: ...
+    def get_texture(self) -> Gdk.Texture:
+        """
+        Retrieves the `GdkTexture` used when creating this `GskRenderNode`.
+        """
     @classmethod
-    def new(cls, texture: Gdk.Texture, bounds: Graphene.Rect) -> TextureNode: ...
+    def new(cls, texture: Gdk.Texture, bounds: Graphene.Rect) -> TextureNode:
+        """
+            Creates a `GskRenderNode` that will render the given
+        @texture into the area given by @bounds.
+
+        Note that GSK applies linear filtering when textures are
+        scaled and transformed. See [class@Gsk.TextureScaleNode]
+        for a way to influence filtering.
+        """
 
 class TextureScaleNode(RenderNode):
     """
@@ -1835,41 +3367,279 @@ class TextureScaleNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_filter(self) -> ScalingFilter: ...
-    def get_texture(self) -> Gdk.Texture: ...
+    def get_filter(self) -> ScalingFilter:
+        """
+        Retrieves the `GskScalingFilter` used when creating this `GskRenderNode`.
+        """
+    def get_texture(self) -> Gdk.Texture:
+        """
+        Retrieves the `GdkTexture` used when creating this `GskRenderNode`.
+        """
     @classmethod
-    def new(cls, texture: Gdk.Texture, bounds: Graphene.Rect, filter: ScalingFilter) -> TextureScaleNode: ...
+    def new(cls, texture: Gdk.Texture, bounds: Graphene.Rect, filter: ScalingFilter) -> TextureScaleNode:
+        """
+            Creates a node that scales the texture to the size given by the
+        bounds using the filter and then places it at the bounds' position.
+
+        Note that further scaling and other transformations which are
+        applied to the node will apply linear filtering to the resulting
+        texture, as usual.
+
+        This node is intended for tight control over scaling applied
+        to a texture, such as in image editors and requires the
+        application to be aware of the whole render tree as further
+        transforms may be applied that conflict with the desired effect
+        of this node.
+        """
 
 class Transform(GObject.GBoxed):
+    """
+    Describes a 3D transform.
+
+    Unlike `graphene_matrix_t`, `GskTransform` retains the steps in how
+    a transform was constructed, and allows inspecting them. It is modeled
+    after the way CSS describes transforms.
+
+    `GskTransform` objects are immutable and cannot be changed after creation.
+    This means code can safely expose them as properties of objects without
+    having to worry about others changing them.
+    """
+
     # gi Methods
-    def equal(self, second: Transform | None = None) -> bool: ...
-    def get_category(self) -> TransformCategory: ...
-    def invert(self) -> Transform | None: ...
-    def matrix(self, matrix: Graphene.Matrix) -> Transform: ...
+    def equal(self, second: Transform | None = None) -> bool:
+        """
+        Checks two transforms for equality.
+        """
+    def get_category(self) -> TransformCategory:
+        """
+        Returns the category this transform belongs to.
+        """
+    def invert(self) -> Transform | None:
+        """
+            Inverts the given transform.
+
+        If @self is not invertible, `NULL` is returned.
+        Note that inverting `NULL` also returns `NULL`, which is
+        the correct inverse of `NULL`. If you need to differentiate
+        between those cases, you should check @self is not `NULL`
+        before calling this function.
+
+        This function consumes @self. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
+    def matrix(self, matrix: Graphene.Matrix) -> Transform:
+        """
+            Multiplies @next with the given @matrix.
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
     @classmethod
-    def new(cls) -> Transform: ...
+    def new(cls) -> Transform:
+        """
+            Creates a new identity transform.
+
+        This function is meant to be used by language
+        bindings. For C code, this is equivalent to using `NULL`.
+        """
     @staticmethod
-    def parse(string: str) -> tuple[bool, Transform]: ...
-    def perspective(self, depth: float) -> Transform: ...
+    def parse(string: str) -> tuple[bool, Transform]:
+        """
+            Parses a given into a transform.
+
+        Strings printed via [method@Gsk.Transform.to_string]
+        can be read in again successfully using this function.
+
+        If @string does not describe a valid transform, false
+        is returned and `NULL` is put in @out_transform.
+        """
+    def perspective(self, depth: float) -> Transform:
+        """
+            Applies a perspective projection transform.
+
+        This transform scales points in X and Y based on their Z value,
+        scaling points with positive Z values away from the origin, and
+        those with negative Z values towards the origin. Points
+        on the z=0 plane are unchanged.
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
     def print_(self, string: GLib.String) -> None: ...
-    def ref(self) -> Transform | None: ...
-    def rotate(self, angle: float) -> Transform | None: ...
-    def rotate_3d(self, angle: float, axis: Graphene.Vec3) -> Transform | None: ...
-    def scale(self, factor_x: float, factor_y: float) -> Transform | None: ...
-    def scale_3d(self, factor_x: float, factor_y: float, factor_z: float) -> Transform | None: ...
-    def skew(self, skew_x: float, skew_y: float) -> Transform | None: ...
-    def to_2d(self) -> tuple[float, float, float, float, float, float]: ...
-    def to_2d_components(self) -> tuple[float, float, float, float, float, float, float]: ...
-    def to_affine(self) -> tuple[float, float, float, float]: ...
-    def to_matrix(self) -> Graphene.Matrix: ...
-    def to_string(self) -> str: ...
-    def to_translate(self) -> tuple[float, float]: ...
-    def transform(self, other: Transform | None = None) -> Transform | None: ...
-    def transform_bounds(self, rect: Graphene.Rect) -> Graphene.Rect: ...
-    def transform_point(self, point: Graphene.Point) -> Graphene.Point: ...
-    def translate(self, point: Graphene.Point) -> Transform | None: ...
-    def translate_3d(self, point: Graphene.Point3D) -> Transform | None: ...
-    def unref(self) -> None: ...
+    def ref(self) -> Transform | None:
+        """
+        Acquires a reference on the given transform.
+        """
+    def rotate(self, angle: float) -> Transform | None:
+        """
+            Rotates @next by an angle around the Z axis.
+
+        The rotation happens around the origin point of (0, 0).
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
+    def rotate_3d(self, angle: float, axis: Graphene.Vec3) -> Transform | None:
+        """
+            Rotates @next @angle degrees around @axis.
+
+        For a rotation in 2D space, use [method@Gsk.Transform.rotate]
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
+    def scale(self, factor_x: float, factor_y: float) -> Transform | None:
+        """
+            Scales @next in 2-dimensional space by the given factors.
+
+        Use [method@Gsk.Transform.scale_3d] to scale in all 3 dimensions.
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
+    def scale_3d(self, factor_x: float, factor_y: float, factor_z: float) -> Transform | None:
+        """
+            Scales @next by the given factors.
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
+    def skew(self, skew_x: float, skew_y: float) -> Transform | None:
+        """
+            Applies a skew transform.
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
+    def to_2d(self) -> tuple[float, float, float, float, float, float]:
+        """
+            Converts a transform to a 2D transformation matrix.
+
+        @self must be a 2D transformation. If you are not
+        sure, use
+
+            gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D
+
+        to check.
+
+        The returned values are a subset of the full 4x4 matrix that
+        is computed by [method@Gsk.Transform.to_matrix] and have the
+        following layout:
+
+        ```
+          | xx yx |   |  a  b  0 |
+          | xy yy | = |  c  d  0 |
+          | dx dy |   | tx ty  1 |
+        ```
+
+        This function can be used to convert between a `GskTransform`
+        and a matrix type from other 2D drawing libraries, in particular
+        Cairo.
+        """
+    def to_2d_components(self) -> tuple[float, float, float, float, float, float, float]:
+        """
+            Converts a transform to 2D transformation factors.
+
+        To recreate an equivalent transform from the factors returned
+        by this function, use
+
+            gsk_transform_skew (
+                gsk_transform_scale (
+                    gsk_transform_rotate (
+                        gsk_transform_translate (NULL, &GRAPHENE_POINT_T (dx, dy)),
+                        angle),
+                    scale_x, scale_y),
+                skew_x, skew_y)
+
+        @self must be a 2D transformation. If you are not sure, use
+
+            gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D
+
+        to check.
+        """
+    def to_affine(self) -> tuple[float, float, float, float]:
+        """
+            Converts a transform to 2D affine transformation factors.
+
+        To recreate an equivalent transform from the factors returned
+        by this function, use
+
+            gsk_transform_scale (
+                gsk_transform_translate (
+                    NULL,
+                    &GRAPHENE_POINT_T (dx, dy)),
+                sx, sy)
+
+        @self must be a 2D affine transformation. If you are not
+        sure, use
+
+            gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D_AFFINE
+
+        to check.
+        """
+    def to_matrix(self) -> Graphene.Matrix:
+        """
+            Computes the 4x4 matrix for the transform.
+
+        The previous value of @out_matrix will be ignored.
+        """
+    def to_string(self) -> str:
+        """
+            Converts the transform into a human-readable string.
+
+        The resulting string can be parsed with [func@Gsk.Transform.parse].
+
+        This is a wrapper around [method@Gsk.Transform.print].
+        """
+    def to_translate(self) -> tuple[float, float]:
+        """
+            Converts a transform to a translation operation.
+
+        @self must be a 2D transformation. If you are not
+        sure, use
+
+            gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D_TRANSLATE
+
+        to check.
+        """
+    def transform(self, other: Transform | None = None) -> Transform | None:
+        """
+            Applies all the operations from @other to @next.
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
+    def transform_bounds(self, rect: Graphene.Rect) -> Graphene.Rect:
+        """
+            Transforms a rectangle using the given transform.
+
+        The result is the bounding box containing the coplanar quad.
+        """
+    def transform_point(self, point: Graphene.Point) -> Graphene.Point:
+        """
+        Transforms a point using the given transform.
+        """
+    def translate(self, point: Graphene.Point) -> Transform | None:
+        """
+            Translates @next in 2-dimensional space by @point.
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
+    def translate_3d(self, point: Graphene.Point3D) -> Transform | None:
+        """
+            Translates @next by @point.
+
+        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        if you want to keep it around.
+        """
+    def unref(self) -> None:
+        """
+            Releases a reference on the given transform.
+
+        If the reference was the last, the resources associated to the @self are
+        freed.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -1888,10 +3658,20 @@ class TransformNode(RenderNode):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def get_child(self) -> RenderNode: ...
-    def get_transform(self) -> Transform: ...
+    def get_child(self) -> RenderNode:
+        """
+        Gets the child node that is getting transformed by the given @node.
+        """
+    def get_transform(self) -> Transform:
+        """
+        Retrieves the `GskTransform` used by the @node.
+        """
     @classmethod
-    def new(cls, child: RenderNode, transform: Transform) -> TransformNode: ...
+    def new(cls, child: RenderNode, transform: Transform) -> TransformNode:
+        """
+            Creates a `GskRenderNode` that will transform the given @child
+        with the given @transform.
+        """
 
 class VulkanRenderer(Renderer):
     """
@@ -1906,7 +3686,16 @@ class VulkanRenderer(Renderer):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Renderer: ...
+    def new(cls) -> Renderer:
+        """
+            Creates a new Vulkan renderer.
+
+        The Vulkan renderer is a renderer that uses the Vulkan library for
+        rendering.
+
+        This renderer will fail to realize when GTK was not compiled with
+        Vulkan support.
+        """
 
 class VulkanRendererClass(GObject.GPointer):
     # gi Methods

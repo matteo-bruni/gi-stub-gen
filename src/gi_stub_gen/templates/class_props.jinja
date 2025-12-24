@@ -1,16 +1,11 @@
 {% if props %}
 class Props{{ super_class | if_true(super_class != "object", '({}.Props)')  }}:
-    {% if props.docstring %}
-    """
-    {{ props.docstring | if_exists -}}
-    """
-    {% endif %}
     {% for prop in props %}
-    {{ prop.name }}: {{ prop.type_hint(module_name) }} {{ prop.line_comment | if_exists("# ") }}
-    {% if prop.docstring or prop.is_deprecated %} 
+    {{ prop.name }}: {{ prop.type_hint(module_name) }} {{ prop.line_comment | if_exists("# ") | trim }}
+    {% if prop.docstring or prop.is_deprecated %}
     """
-    {{ prop.docstring | if_exists }}
-    {{ "@deprecated" if prop.is_deprecated else ""  | indent(12, blank=True) -}}
+    {{ prop.docstring | if_exists | trim | indent(4) }}
+    {{ "@deprecated" if prop.is_deprecated else ""  | indent(4, blank=True) -}}
     """
     {% endif %}
     {% endfor %}

@@ -7,7 +7,12 @@ def connect(
     detailed_signal: {{ signal.detailed_signal_type }}, 
     handler: typing.Callable[{{ signal.params(module_name) }}, {{ signal.handler.complete_return_hint(module_name) }}], 
     *args: typing.Any
-) -> int: ...
+) -> int:{{ ' ...' | if_true(not signal.docstring)}}
+    {% if signal.docstring %}
+    """
+    {{ signal.docstring | if_exists }}
+    """
+    {% endif %}
 {% endfor %}
 @typing.overload
 def connect( # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
