@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -1901,12 +1902,15 @@ class AppLaunchContext(GObject.Object):
     class Props(GObject.Object.Props):
         display: Display | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, display: Display | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_display(self) -> Display: ...
     def set_desktop(self, desktop: int) -> None: ...
     def set_icon(self, icon: Gio.Icon | None = None) -> None: ...
@@ -1925,7 +1929,6 @@ class AppLaunchContext(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ButtonEvent(Event):
     """
@@ -1938,8 +1941,6 @@ class ButtonEvent(Event):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_button(self) -> int: ...
-
-    ...
 
 class CairoContext(DrawContext):
     """
@@ -1957,8 +1958,6 @@ class CairoContext(DrawContext):
         """
     @deprecated("deprecated")
     def cairo_create(self) -> cairo.Context | None: ...
-
-    ...
 
 class CicpParams(GObject.Object):
     """
@@ -1989,6 +1988,9 @@ class CicpParams(GObject.Object):
         range: CicpRange
         transfer_function: int  # [transfer-function]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -2001,13 +2003,13 @@ class CicpParams(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     def build_color_state(self) -> ColorState: ...
-    @property
+    @builtins.property
     def get_color_primaries(self) -> int: ...
-    @property
+    @builtins.property
     def get_matrix_coefficients(self) -> int: ...
-    @property
+    @builtins.property
     def get_range(self) -> CicpRange: ...
-    @property
+    @builtins.property
     def get_transfer_function(self) -> int: ...
     @classmethod
     def new(cls) -> CicpParams: ...
@@ -2049,7 +2051,6 @@ class CicpParams(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CicpParamsClass(GObject.GPointer):
     # gi Methods
@@ -2057,8 +2058,6 @@ class CicpParamsClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Clipboard(GObject.Object):
     """
@@ -2086,18 +2085,21 @@ class Clipboard(GObject.Object):
         formats: ContentFormats | None
         local: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, display: Display | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_content(self) -> ContentProvider | None: ...
-    @property
+    @builtins.property
     def get_display(self) -> Display: ...
-    @property
+    @builtins.property
     def get_formats(self) -> ContentFormats: ...
-    @property
+    @builtins.property
     def is_local(self) -> bool: ...
     def read_async(
         self,
@@ -2179,7 +2181,6 @@ class Clipboard(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColorState(GObject.GBoxed):
     # gi Methods
@@ -2203,8 +2204,6 @@ class ColorState(GObject.GBoxed):
     def get_srgb_linear() -> ColorState: ...
     def ref(self) -> ColorState: ...
     def unref(self) -> None: ...
-
-    ...
 
 class ContentDeserializer(GObject.Object):
     """
@@ -2236,8 +2235,6 @@ class ContentDeserializer(GObject.Object):
     def return_error(self, error: None) -> None: ...
     def return_success(self) -> None: ...
     def set_task_data(self, data: object | None, notify: GLib.DestroyNotify) -> None: ...
-
-    ...
 
 class ContentFormats(GObject.GBoxed):
     # gi Methods
@@ -2272,8 +2269,6 @@ class ContentFormats(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class ContentFormatsBuilder(GObject.GBoxed):
     # gi Methods
     def add_formats(self, formats: ContentFormats) -> None: ...
@@ -2292,8 +2287,6 @@ class ContentFormatsBuilder(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class ContentProvider(GObject.Object):
     """
     Provides content for the clipboard or for drag-and-drop operations
@@ -2311,6 +2304,9 @@ class ContentProvider(GObject.Object):
         formats: ContentFormats | None
         storable_formats: ContentFormats | None  # [storable-formats]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2324,9 +2320,9 @@ class ContentProvider(GObject.Object):
     def new_for_value(cls, value: GObject.Value) -> ContentProvider: ...
     @classmethod
     def new_union(cls, providers: list | None, n_providers: int) -> ContentProvider: ...
-    @property
+    @builtins.property
     def ref_formats(self) -> ContentFormats: ...
-    @property
+    @builtins.property
     def ref_storable_formats(self) -> ContentFormats: ...
     def write_mime_type_async(
         self,
@@ -2421,29 +2417,28 @@ class ContentProvider(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ContentProviderClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def attach_clipboard(self) -> attach_clipboardContentProviderClassCB: ...
-    @property
+    @builtins.property
     def content_changed(self) -> content_changedContentProviderClassCB: ...
-    @property
+    @builtins.property
     def detach_clipboard(self) -> detach_clipboardContentProviderClassCB: ...
-    @property
+    @builtins.property
     def get_value(self) -> get_valueContentProviderClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def ref_formats(self) -> ref_formatsContentProviderClassCB: ...
-    @property
+    @builtins.property
     def ref_storable_formats(self) -> ref_storable_formatsContentProviderClassCB: ...
-    @property
+    @builtins.property
     def write_mime_type_async(self) -> write_mime_type_asyncContentProviderClassCB: ...
-    @property
+    @builtins.property
     def write_mime_type_finish(self) -> write_mime_type_finishContentProviderClassCB: ...
 
     # gi Methods
@@ -2451,8 +2446,6 @@ class ContentProviderClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ContentSerializer(GObject.Object):
     """
@@ -2486,8 +2479,6 @@ class ContentSerializer(GObject.Object):
     def return_success(self) -> None: ...
     def set_task_data(self, data: object | None, notify: GLib.DestroyNotify) -> None: ...
 
-    ...
-
 class CrossingEvent(Event):
     """
     An event caused by a pointing device moving between surfaces.
@@ -2501,8 +2492,6 @@ class CrossingEvent(Event):
     def get_detail(self) -> NotifyType: ...
     def get_focus(self) -> bool: ...
     def get_mode(self) -> CrossingMode: ...
-
-    ...
 
 class Cursor(GObject.Object):
     """
@@ -2549,6 +2538,9 @@ class Cursor(GObject.Object):
         name: str
         texture: Texture | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -2561,15 +2553,15 @@ class Cursor(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_fallback(self) -> Cursor | None: ...
-    @property
+    @builtins.property
     def get_hotspot_x(self) -> int: ...
-    @property
+    @builtins.property
     def get_hotspot_y(self) -> int: ...
-    @property
+    @builtins.property
     def get_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_texture(self) -> Texture | None: ...
     @classmethod
     def new_from_callback(
@@ -2626,7 +2618,6 @@ class Cursor(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DNDEvent(Event):
     """
@@ -2640,8 +2631,6 @@ class DNDEvent(Event):
         """
     def get_drop(self) -> Drop | None: ...
 
-    ...
-
 class DeleteEvent(Event):
     """
     An event related to closing a top-level surface.
@@ -2652,8 +2641,6 @@ class DeleteEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Device(GObject.Object):
     """
@@ -2683,6 +2670,9 @@ class Device(GObject.Object):
         tool: DeviceTool | None
         vendor_id: str  # [vendor-id]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -2698,41 +2688,41 @@ class Device(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_active_layout_index(self) -> int: ...
-    @property
+    @builtins.property
     def get_caps_lock_state(self) -> bool: ...
-    @property
+    @builtins.property
     def get_device_tool(self) -> DeviceTool | None: ...
-    @property
+    @builtins.property
     def get_direction(self) -> Pango.Direction: ...
-    @property
+    @builtins.property
     def get_display(self) -> Display: ...
-    @property
+    @builtins.property
     def get_has_cursor(self) -> bool: ...
-    @property
+    @builtins.property
     def get_layout_names(self) -> list | None: ...
-    @property
+    @builtins.property
     def get_modifier_state(self) -> ModifierType: ...
-    @property
+    @builtins.property
     def get_name(self) -> str: ...
-    @property
+    @builtins.property
     def get_num_lock_state(self) -> bool: ...
-    @property
+    @builtins.property
     def get_num_touches(self) -> int: ...
-    @property
+    @builtins.property
     def get_product_id(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_scroll_lock_state(self) -> bool: ...
-    @property
+    @builtins.property
     def get_seat(self) -> Seat: ...
-    @property
+    @builtins.property
     def get_source(self) -> InputSource: ...
     def get_surface_at_position(self) -> tuple[Surface | None, float | None, float | None]: ...
     def get_timestamp(self) -> int: ...
-    @property
+    @builtins.property
     def get_vendor_id(self) -> str | None: ...
-    @property
+    @builtins.property
     def has_bidi_layouts(self) -> bool: ...
 
     # Signals
@@ -2877,7 +2867,6 @@ class Device(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DevicePad(GObject.GInterface):
     # gi Methods
@@ -2890,16 +2879,12 @@ class DevicePad(GObject.GInterface):
     def get_n_features(self, feature: DevicePadFeature) -> int: ...
     def get_n_groups(self) -> int: ...
 
-    ...
-
 class DevicePadInterface(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DeviceTool(GObject.Object):
     """
@@ -2912,6 +2897,9 @@ class DeviceTool(GObject.Object):
         serial: int
         tool_type: DeviceToolType  # [tool-type]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, axes: AxisFlags = ..., hardware_id: int = ..., serial: int = ..., tool_type: DeviceToolType = ...
@@ -2919,13 +2907,13 @@ class DeviceTool(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_axes(self) -> AxisFlags: ...
-    @property
+    @builtins.property
     def get_hardware_id(self) -> int: ...
-    @property
+    @builtins.property
     def get_serial(self) -> int: ...
-    @property
+    @builtins.property
     def get_tool_type(self) -> DeviceToolType: ...
 
     # Signals
@@ -2961,7 +2949,6 @@ class DeviceTool(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Display(GObject.Object):
     """
@@ -2988,6 +2975,9 @@ class Display(GObject.Object):
         rgba: bool
         shadow_width: bool  # [shadow-width]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -3003,7 +2993,7 @@ class Display(GObject.Object):
     @staticmethod
     def get_default() -> Display | None: ...
     def get_default_seat(self) -> Seat | None: ...
-    @property
+    @builtins.property
     def get_dmabuf_formats(self) -> DmabufFormats: ...
     def get_monitor_at_surface(self, surface: Surface) -> Monitor | None: ...
     def get_monitors(self) -> Gio.ListModel: ...
@@ -3013,9 +3003,9 @@ class Display(GObject.Object):
     @deprecated("deprecated")
     def get_startup_notification_id(self) -> str | None: ...
     def is_closed(self) -> bool: ...
-    @property
+    @builtins.property
     def is_composited(self) -> bool: ...
-    @property
+    @builtins.property
     def is_rgba(self) -> bool: ...
     def list_seats(self) -> list: ...
     def map_keycode(self, keycode: int) -> tuple[bool, list | None, list | None, int]: ...
@@ -3027,9 +3017,9 @@ class Display(GObject.Object):
     def prepare_gl(self) -> bool: ...
     @deprecated("deprecated")
     def put_event(self, event: Event) -> None: ...
-    @property
+    @builtins.property
     def supports_input_shapes(self) -> bool: ...
-    @property
+    @builtins.property
     def supports_shadow_width(self) -> bool: ...
     def sync(self) -> None: ...
     def translate_key(
@@ -3108,7 +3098,6 @@ class Display(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DisplayManager(GObject.Object):
     """
@@ -3160,6 +3149,9 @@ class DisplayManager(GObject.Object):
     class Props(GObject.Object.Props):
         default_display: Display | None  # [default-display]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, default_display: Display | None = ...) -> None:
         """
@@ -3167,7 +3159,7 @@ class DisplayManager(GObject.Object):
         """
     @staticmethod
     def get() -> DisplayManager: ...
-    @property
+    @builtins.property
     def get_default_display(self) -> Display | None: ...
     def list_displays(self) -> list: ...
     def open_display(self, name: str | None = None) -> Display | None: ...
@@ -3192,7 +3184,6 @@ class DisplayManager(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DmabufFormats(GObject.GBoxed):
     # gi Methods
@@ -3206,8 +3197,6 @@ class DmabufFormats(GObject.GBoxed):
     def get_n_formats(self) -> int: ...
     def ref(self) -> DmabufFormats: ...
     def unref(self) -> None: ...
-
-    ...
 
 class DmabufTexture(Texture):
     """
@@ -3224,8 +3213,6 @@ class DmabufTexture(Texture):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DmabufTextureBuilder(GObject.Object):
     """
@@ -3299,6 +3286,9 @@ class DmabufTextureBuilder(GObject.Object):
         update_texture: Texture | None  # [update-texture]: changed because contained invalid characters
         width: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -3317,28 +3307,28 @@ class DmabufTextureBuilder(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     def build(self, destroy: GLib.DestroyNotify | None = None, data: object | None = None) -> Texture | None: ...
-    @property
+    @builtins.property
     def get_color_state(self) -> ColorState | None: ...
-    @property
+    @builtins.property
     def get_display(self) -> Display: ...
     def get_fd(self, plane: int) -> int: ...
-    @property
+    @builtins.property
     def get_fourcc(self) -> int: ...
-    @property
+    @builtins.property
     def get_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_modifier(self) -> int: ...
-    @property
+    @builtins.property
     def get_n_planes(self) -> int: ...
     def get_offset(self, plane: int) -> int: ...
-    @property
+    @builtins.property
     def get_premultiplied(self) -> bool: ...
     def get_stride(self, plane: int) -> int: ...
-    @property
+    @builtins.property
     def get_update_region(self) -> cairo.Region | None: ...
-    @property
+    @builtins.property
     def get_update_texture(self) -> Texture | None: ...
-    @property
+    @builtins.property
     def get_width(self) -> int: ...
     @classmethod
     def new(cls) -> DmabufTextureBuilder: ...
@@ -3431,7 +3421,6 @@ class DmabufTextureBuilder(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DmabufTextureBuilderClass(GObject.GPointer):
     # gi Methods
@@ -3440,16 +3429,12 @@ class DmabufTextureBuilderClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DmabufTextureClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Drag(GObject.Object):
     """
@@ -3474,6 +3459,9 @@ class Drag(GObject.Object):
         selected_action: DragAction  # [selected-action]: changed because contained invalid characters
         surface: Surface | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -3492,20 +3480,20 @@ class Drag(GObject.Object):
         surface: Surface, device: Device, content: ContentProvider, actions: DragAction, dx: float, dy: float
     ) -> Drag | None: ...
     def drop_done(self, success: bool) -> None: ...
-    @property
+    @builtins.property
     def get_actions(self) -> DragAction: ...
-    @property
+    @builtins.property
     def get_content(self) -> ContentProvider: ...
-    @property
+    @builtins.property
     def get_device(self) -> Device: ...
-    @property
+    @builtins.property
     def get_display(self) -> Display: ...
     def get_drag_surface(self) -> Surface | None: ...
-    @property
+    @builtins.property
     def get_formats(self) -> ContentFormats: ...
-    @property
+    @builtins.property
     def get_selected_action(self) -> DragAction: ...
-    @property
+    @builtins.property
     def get_surface(self) -> Surface: ...
     def set_hotspot(self, hot_x: int, hot_y: int) -> None: ...
 
@@ -3578,7 +3566,6 @@ class Drag(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DragSurface(GObject.GInterface):
     # gi Methods
@@ -3600,7 +3587,6 @@ class DragSurface(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DragSurfaceInterface(GObject.GPointer):
     # gi Methods
@@ -3609,8 +3595,6 @@ class DragSurfaceInterface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DragSurfaceSize(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -3618,8 +3602,6 @@ class DragSurfaceSize(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     def set_size(self, width: int, height: int) -> None: ...
-
-    ...
 
 class DrawContext(GObject.Object):
     """
@@ -3638,6 +3620,9 @@ class DrawContext(GObject.Object):
         display: Display | None
         surface: Surface | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, display: Display | None = ..., surface: Surface | None = ...) -> None:
         """
@@ -3647,11 +3632,11 @@ class DrawContext(GObject.Object):
     def begin_frame(self, region: cairo.Region) -> None: ...
     @deprecated("deprecated")
     def end_frame(self) -> None: ...
-    @property
+    @builtins.property
     def get_display(self) -> Display | None: ...
     @deprecated("deprecated")
     def get_frame_region(self) -> cairo.Region | None: ...
-    @property
+    @builtins.property
     def get_surface(self) -> Surface | None: ...
     @deprecated("deprecated")
     def is_in_frame(self) -> bool: ...
@@ -3675,7 +3660,6 @@ class DrawContext(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Drop(GObject.Object):
     """
@@ -3703,6 +3687,9 @@ class Drop(GObject.Object):
         formats: ContentFormats | None
         surface: Surface | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -3716,17 +3703,17 @@ class Drop(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     def finish(self, action: DragAction) -> None: ...
-    @property
+    @builtins.property
     def get_actions(self) -> DragAction: ...
-    @property
+    @builtins.property
     def get_device(self) -> Device: ...
-    @property
+    @builtins.property
     def get_display(self) -> Display: ...
-    @property
+    @builtins.property
     def get_drag(self) -> Drag | None: ...
-    @property
+    @builtins.property
     def get_formats(self) -> ContentFormats: ...
-    @property
+    @builtins.property
     def get_surface(self) -> Surface: ...
     def read_async(
         self,
@@ -3795,7 +3782,6 @@ class Drop(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Event(object):
     """
@@ -3809,7 +3795,9 @@ class Event(object):
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -3837,16 +3825,12 @@ class Event(object):
     def triggers_context_menu(self) -> bool: ...
     def unref(self) -> None: ...
 
-    ...
-
 class EventSequence(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileList(GObject.GBoxed):
     # gi Methods
@@ -3860,8 +3844,6 @@ class FileList(GObject.GBoxed):
     @classmethod
     def new_from_list(cls, files: list) -> FileList: ...
 
-    ...
-
 class FocusEvent(Event):
     """
     An event related to a keyboard focus change.
@@ -3873,8 +3855,6 @@ class FocusEvent(Event):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_in(self) -> bool: ...
-
-    ...
 
 class FrameClock(GObject.Object):
     """
@@ -3961,7 +3941,6 @@ class FrameClock(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FrameClockClass(GObject.GPointer):
     # gi Methods
@@ -3970,16 +3949,12 @@ class FrameClockClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FrameClockPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FrameTimings(GObject.GBoxed):
     # gi Methods
@@ -3995,8 +3970,6 @@ class FrameTimings(GObject.GBoxed):
     def get_refresh_interval(self) -> int: ...
     def ref(self) -> FrameTimings: ...
     def unref(self) -> None: ...
-
-    ...
 
 class GLContext(DrawContext):
     """
@@ -4055,6 +4028,9 @@ class GLContext(DrawContext):
         api: GLAPI
         shared_context: GLContext | None  # [shared-context]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, allowed_apis: GLAPI = ..., shared_context: GLContext | None = ...) -> None:
         """
@@ -4062,9 +4038,9 @@ class GLContext(DrawContext):
         """
     @staticmethod
     def clear_current() -> None: ...
-    @property
+    @builtins.property
     def get_allowed_apis(self) -> GLAPI: ...
-    @property
+    @builtins.property
     def get_api(self) -> GLAPI: ...
     @staticmethod
     def get_current() -> GLContext | None: ...
@@ -4073,7 +4049,7 @@ class GLContext(DrawContext):
     def get_forward_compatible(self) -> bool: ...
     def get_required_version(self) -> tuple[int | None, int | None]: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_shared_context(self) -> GLContext | None: ...
     def get_surface(self) -> Surface | None: ...
     def get_use_es(self) -> bool: ...
@@ -4114,7 +4090,6 @@ class GLContext(DrawContext):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GLTexture(Texture):
     """
@@ -4138,8 +4113,6 @@ class GLTexture(Texture):
         data: object | None = None,
     ) -> GLTexture: ...
     def release(self) -> None: ...
-
-    ...
 
 class GLTextureBuilder(GObject.Object):
     """
@@ -4167,6 +4140,9 @@ class GLTextureBuilder(GObject.Object):
         update_texture: Texture | None  # [update-texture]: changed because contained invalid characters
         width: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -4185,25 +4161,25 @@ class GLTextureBuilder(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     def build(self, destroy: GLib.DestroyNotify | None = None, data: object | None = None) -> Texture: ...
-    @property
+    @builtins.property
     def get_color_state(self) -> ColorState: ...
-    @property
+    @builtins.property
     def get_context(self) -> GLContext | None: ...
-    @property
+    @builtins.property
     def get_format(self) -> MemoryFormat: ...
-    @property
+    @builtins.property
     def get_has_mipmap(self) -> bool: ...
-    @property
+    @builtins.property
     def get_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_id(self) -> int: ...
-    @property
+    @builtins.property
     def get_sync(self) -> object | None: ...
-    @property
+    @builtins.property
     def get_update_region(self) -> cairo.Region | None: ...
-    @property
+    @builtins.property
     def get_update_texture(self) -> Texture | None: ...
-    @property
+    @builtins.property
     def get_width(self) -> int: ...
     @classmethod
     def new(cls) -> GLTextureBuilder: ...
@@ -4293,7 +4269,6 @@ class GLTextureBuilder(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GLTextureBuilderClass(GObject.GPointer):
     # gi Methods
@@ -4302,16 +4277,12 @@ class GLTextureBuilderClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class GLTextureClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GrabBrokenEvent(Event):
     """
@@ -4325,8 +4296,6 @@ class GrabBrokenEvent(Event):
         """
     def get_grab_surface(self) -> Surface: ...
     def get_implicit(self) -> bool: ...
-
-    ...
 
 class KeyEvent(Event):
     """
@@ -4347,8 +4316,6 @@ class KeyEvent(Event):
     def is_modifier(self) -> bool: ...
     def matches(self, keyval: int, modifiers: ModifierType) -> KeyMatch: ...
 
-    ...
-
 class KeymapKey(GObject.GPointer):
     # gi Fields
     group: int = ...
@@ -4360,8 +4327,6 @@ class KeymapKey(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MemoryTexture(Texture):
     """
@@ -4375,8 +4340,6 @@ class MemoryTexture(Texture):
         """
     @classmethod
     def new(cls, width: int, height: int, format: MemoryFormat, bytes: GLib.Bytes, stride: int) -> MemoryTexture: ...
-
-    ...
 
 class MemoryTextureBuilder(GObject.Object):
     """
@@ -4403,6 +4366,9 @@ class MemoryTextureBuilder(GObject.Object):
         update_texture: Texture | None  # [update-texture]: changed because contained invalid characters
         width: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -4419,21 +4385,21 @@ class MemoryTextureBuilder(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     def build(self) -> Texture: ...
-    @property
+    @builtins.property
     def get_bytes(self) -> GLib.Bytes | None: ...
-    @property
+    @builtins.property
     def get_color_state(self) -> ColorState: ...
-    @property
+    @builtins.property
     def get_format(self) -> MemoryFormat: ...
-    @property
+    @builtins.property
     def get_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_stride(self) -> int: ...
-    @property
+    @builtins.property
     def get_update_region(self) -> cairo.Region | None: ...
-    @property
+    @builtins.property
     def get_update_texture(self) -> Texture | None: ...
-    @property
+    @builtins.property
     def get_width(self) -> int: ...
     @classmethod
     def new(cls) -> MemoryTextureBuilder: ...
@@ -4507,7 +4473,6 @@ class MemoryTextureBuilder(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MemoryTextureBuilderClass(GObject.GPointer):
     # gi Methods
@@ -4516,16 +4481,12 @@ class MemoryTextureBuilderClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MemoryTextureClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Monitor(GObject.Object):
     """
@@ -4552,35 +4513,38 @@ class Monitor(GObject.Object):
         valid: bool
         width_mm: int  # [width-mm]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, display: Display | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_connector(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_description(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_display(self) -> Display: ...
     def get_geometry(self) -> Rectangle: ...
-    @property
+    @builtins.property
     def get_height_mm(self) -> int: ...
-    @property
+    @builtins.property
     def get_manufacturer(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_model(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_refresh_rate(self) -> int: ...
-    @property
+    @builtins.property
     def get_scale(self) -> float: ...
-    @property
+    @builtins.property
     def get_scale_factor(self) -> int: ...
-    @property
+    @builtins.property
     def get_subpixel_layout(self) -> SubpixelLayout: ...
-    @property
+    @builtins.property
     def get_width_mm(self) -> int: ...
-    @property
+    @builtins.property
     def is_valid(self) -> bool: ...
 
     # Signals
@@ -4683,7 +4647,6 @@ class Monitor(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MonitorClass(GObject.GPointer):
     # gi Methods
@@ -4691,8 +4654,6 @@ class MonitorClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MotionEvent(Event):
     """
@@ -4704,8 +4665,6 @@ class MotionEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PadEvent(Event):
     """
@@ -4720,8 +4679,6 @@ class PadEvent(Event):
     def get_axis_value(self) -> tuple[int, float]: ...
     def get_button(self) -> int: ...
     def get_group_mode(self) -> tuple[int, int]: ...
-
-    ...
 
 class Paintable(GObject.GInterface):
     # gi Methods
@@ -4759,23 +4716,22 @@ class Paintable(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PaintableInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_current_image(self) -> get_current_imagePaintableInterfaceCB: ...
-    @property
+    @builtins.property
     def get_flags(self) -> get_flagsPaintableInterfaceCB: ...
-    @property
+    @builtins.property
     def get_intrinsic_aspect_ratio(self) -> get_intrinsic_aspect_ratioPaintableInterfaceCB: ...
-    @property
+    @builtins.property
     def get_intrinsic_height(self) -> get_intrinsic_heightPaintableInterfaceCB: ...
-    @property
+    @builtins.property
     def get_intrinsic_width(self) -> get_intrinsic_widthPaintableInterfaceCB: ...
-    @property
+    @builtins.property
     def snapshot(self) -> snapshotPaintableInterfaceCB: ...
 
     # gi Methods
@@ -4784,21 +4740,22 @@ class PaintableInterface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Popup(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         autohide: bool
         parent: Surface | None
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, autohide: bool = ..., parent: Surface | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_autohide(self) -> bool: ...
-    @property
+    @builtins.property
     def get_parent(self) -> Surface | None: ...
     def get_position_x(self) -> int: ...
     def get_position_y(self) -> int: ...
@@ -4825,7 +4782,6 @@ class Popup(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PopupInterface(GObject.GPointer):
     # gi Methods
@@ -4833,8 +4789,6 @@ class PopupInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PopupLayout(GObject.GBoxed):
     # gi Methods
@@ -4864,8 +4818,6 @@ class PopupLayout(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class ProximityEvent(Event):
     """
     An event related to the proximity of a tool to a device.
@@ -4876,8 +4828,6 @@ class ProximityEvent(Event):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RGBA(GObject.GBoxed):
     # gi Methods
@@ -4902,8 +4852,6 @@ class RGBA(GObject.GBoxed):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-    ...
-
 class Rectangle(GObject.GBoxed):
     # gi Fields
     height: int = ...
@@ -4921,8 +4869,6 @@ class Rectangle(GObject.GBoxed):
     def intersect(self, src2: Rectangle) -> tuple[bool, Rectangle | None]: ...
     def union(self, src2: Rectangle) -> Rectangle: ...
 
-    ...
-
 class ScrollEvent(Event):
     """
     An event related to a scrolling motion.
@@ -4938,8 +4884,6 @@ class ScrollEvent(Event):
     def get_unit(self) -> ScrollUnit: ...
     def is_stop(self) -> bool: ...
 
-    ...
-
 class Seat(GObject.Object):
     """
     Represents a collection of input devices that belong to a user.
@@ -4948,6 +4892,9 @@ class Seat(GObject.Object):
     class Props(GObject.Object.Props):
         display: Display | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, display: Display | None = ...) -> None:
         """
@@ -4955,7 +4902,7 @@ class Seat(GObject.Object):
         """
     def get_capabilities(self) -> SeatCapabilities: ...
     def get_devices(self, capabilities: SeatCapabilities) -> list: ...
-    @property
+    @builtins.property
     def get_display(self) -> Display: ...
     def get_keyboard(self) -> Device | None: ...
     def get_pointer(self) -> Device | None: ...
@@ -5001,7 +4948,6 @@ class Seat(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Snapshot(GObject.Object):
     """
@@ -5016,16 +4962,12 @@ class Snapshot(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SnapshotClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Surface(GObject.Object):
     """
@@ -5050,6 +4992,9 @@ class Surface(GObject.Object):
         scale_factor: int  # [scale-factor]: changed because contained invalid characters
         width: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, cursor: Cursor | None = ..., display: Display | None = ..., frame_clock: FrameClock | None = ...
@@ -5066,23 +5011,23 @@ class Surface(GObject.Object):
     @deprecated("deprecated")
     def create_vulkan_context(self) -> VulkanContext: ...
     def destroy(self) -> None: ...
-    @property
+    @builtins.property
     def get_cursor(self) -> Cursor | None: ...
     def get_device_cursor(self, device: Device) -> Cursor | None: ...
     def get_device_position(self, device: Device) -> tuple[bool, float | None, float | None, ModifierType | None]: ...
-    @property
+    @builtins.property
     def get_display(self) -> Display: ...
-    @property
+    @builtins.property
     def get_frame_clock(self) -> FrameClock: ...
-    @property
+    @builtins.property
     def get_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_mapped(self) -> bool: ...
-    @property
+    @builtins.property
     def get_scale(self) -> float: ...
-    @property
+    @builtins.property
     def get_scale_factor(self) -> int: ...
-    @property
+    @builtins.property
     def get_width(self) -> int: ...
     def hide(self) -> None: ...
     def is_destroyed(self) -> bool: ...
@@ -5195,7 +5140,6 @@ class Surface(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SurfaceClass(GObject.GPointer):
     # gi Methods
@@ -5203,8 +5147,6 @@ class SurfaceClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Texture(GObject.Object):
     """
@@ -5241,18 +5183,21 @@ class Texture(GObject.Object):
         height: int
         width: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, color_state: ColorState | None = ..., height: int = ..., width: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def download(self, data: list, stride: int) -> None: ...
-    @property
+    @builtins.property
     def get_color_state(self) -> ColorState: ...
     def get_format(self) -> MemoryFormat: ...
-    @property
+    @builtins.property
     def get_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_width(self) -> int: ...
     @classmethod
     def new_for_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf) -> Texture: ...
@@ -5295,7 +5240,6 @@ class Texture(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TextureClass(GObject.GPointer):
     # gi Methods
@@ -5303,8 +5247,6 @@ class TextureClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TextureDownloader(GObject.GBoxed):
     # gi Methods
@@ -5328,8 +5270,6 @@ class TextureDownloader(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class TimeCoord(GObject.GPointer):
     # gi Fields
     axes: list | None = ...
@@ -5341,8 +5281,6 @@ class TimeCoord(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Toplevel(GObject.GInterface):
     class Props(GObject.GInterface.Props):
@@ -5356,6 +5294,9 @@ class Toplevel(GObject.GInterface):
         state: ToplevelState
         title: str
         transient_for: Surface | None  # [transient-for]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -5377,7 +5318,7 @@ class Toplevel(GObject.GInterface):
         self, edge: SurfaceEdge, device: Device | None, button: int, x: float, y: float, timestamp: int
     ) -> None: ...
     def focus(self, timestamp: int) -> None: ...
-    @property
+    @builtins.property
     def get_state(self) -> ToplevelState: ...
     def inhibit_system_shortcuts(self, event: Event | None = None) -> None: ...
     def lower(self) -> bool: ...
@@ -5477,7 +5418,6 @@ class Toplevel(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ToplevelInterface(GObject.GPointer):
     # gi Methods
@@ -5485,8 +5425,6 @@ class ToplevelInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ToplevelLayout(GObject.GBoxed):
     # gi Methods
@@ -5511,8 +5449,6 @@ class ToplevelLayout(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class ToplevelSize(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -5523,8 +5459,6 @@ class ToplevelSize(GObject.GPointer):
     def set_min_size(self, min_width: int, min_height: int) -> None: ...
     def set_shadow_width(self, left: int, right: int, top: int, bottom: int) -> None: ...
     def set_size(self, width: int, height: int) -> None: ...
-
-    ...
 
 class TouchEvent(Event):
     """
@@ -5537,8 +5471,6 @@ class TouchEvent(Event):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_emulating_pointer(self) -> bool: ...
-
-    ...
 
 class TouchpadEvent(Event):
     """
@@ -5560,8 +5492,6 @@ class TouchpadEvent(Event):
     def get_n_fingers(self) -> int: ...
     def get_pinch_angle_delta(self) -> float: ...
     def get_pinch_scale(self) -> float: ...
-
-    ...
 
 class VulkanContext(DrawContext):
     """
@@ -5590,7 +5520,6 @@ class VulkanContext(DrawContext):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 ###############################################################
 # Callbacks

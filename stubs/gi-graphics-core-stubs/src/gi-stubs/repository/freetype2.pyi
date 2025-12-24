@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 
@@ -28,8 +29,6 @@ class Bitmap(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Face(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -37,16 +36,12 @@ class Face(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Library(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Aliases

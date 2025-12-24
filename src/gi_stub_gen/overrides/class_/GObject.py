@@ -18,7 +18,6 @@ GENUM_SCHEMA = ClassSchema(
     " see https://pygobject.gnome.org/changelog.html [manual-override]",
     props=[],
     required_gi_import="enum",
-    getters=[],
     fields=[
         ClassFieldSchema(
             name="__gtype__",
@@ -111,7 +110,6 @@ GFLAG_SCHEMA = ClassSchema(
     " see https://pygobject.gnome.org/changelog.html [manual-override]",
     required_gi_import="enum",
     props=[],
-    getters=[],
     fields=[
         ClassFieldSchema(
             name="__gtype__",

@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -434,8 +435,6 @@ class RTSPAuthCredential(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RTSPAuthParam(GObject.GBoxed):
     # gi Fields
     name: str = ...
@@ -448,8 +447,6 @@ class RTSPAuthParam(GObject.GBoxed):
         """
     def copy(self) -> RTSPAuthParam: ...
     def free(self) -> None: ...
-
-    ...
 
 class RTSPConnection(GObject.GPointer):
     # gi Methods
@@ -533,8 +530,6 @@ class RTSPConnection(GObject.GPointer):
     def write(self, data: list, size: int, timeout: GLib.TimeVal) -> RTSPResult: ...
     def write_usec(self, data: list, size: int, timeout: int) -> RTSPResult: ...
 
-    ...
-
 class RTSPExtension(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -564,29 +559,28 @@ class RTSPExtension(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class RTSPExtensionInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def after_send(self) -> after_sendRTSPExtensionInterfaceCB: ...
-    @property
+    @builtins.property
     def before_send(self) -> before_sendRTSPExtensionInterfaceCB: ...
-    @property
+    @builtins.property
     def configure_stream(self) -> configure_streamRTSPExtensionInterfaceCB: ...
-    @property
+    @builtins.property
     def detect_server(self) -> detect_serverRTSPExtensionInterfaceCB: ...
-    @property
+    @builtins.property
     def get_transports(self) -> get_transportsRTSPExtensionInterfaceCB: ...
-    @property
+    @builtins.property
     def parse_sdp(self) -> parse_sdpRTSPExtensionInterfaceCB: ...
-    @property
+    @builtins.property
     def receive_request(self) -> receive_requestRTSPExtensionInterfaceCB: ...
-    @property
+    @builtins.property
     def send(self) -> sendRTSPExtensionInterfaceCB: ...
-    @property
+    @builtins.property
     def setup_media(self) -> setup_mediaRTSPExtensionInterfaceCB: ...
-    @property
+    @builtins.property
     def stream_select(self) -> stream_selectRTSPExtensionInterfaceCB: ...
 
     # gi Methods
@@ -595,17 +589,15 @@ class RTSPExtensionInterface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RTSPMessage(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def body(self) -> int: ...
-    @property
+    @builtins.property
     def body_buffer(self) -> Gst.Buffer | None: ...
-    @property
+    @builtins.property
     def body_size(self) -> int: ...
-    @property
+    @builtins.property
     def hdr_fields(self) -> list | None: ...
     type: RTSPMsgType = ...
 
@@ -648,8 +640,6 @@ class RTSPMessage(GObject.GBoxed):
     def take_header_by_name(self, header: str, value: str) -> RTSPResult: ...
     def unset(self) -> RTSPResult: ...
 
-    ...
-
 class RTSPRange(GObject.GPointer):
     # gi Fields
     max: int = ...
@@ -671,8 +661,6 @@ class RTSPRange(GObject.GPointer):
     @staticmethod
     def to_string(range: RTSPTimeRange) -> str: ...
 
-    ...
-
 class RTSPTime(GObject.GPointer):
     # gi Fields
     seconds: float = ...
@@ -683,8 +671,6 @@ class RTSPTime(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RTSPTime2(GObject.GPointer):
     # gi Fields
@@ -699,8 +685,6 @@ class RTSPTime2(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RTSPTimeRange(GObject.GPointer):
     # gi Fields
     max: RTSPTime | None = ...
@@ -714,8 +698,6 @@ class RTSPTimeRange(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RTSPTransport(GObject.GPointer):
     # gi Fields
@@ -755,8 +737,6 @@ class RTSPTransport(GObject.GPointer):
     @staticmethod
     def parse(str: str) -> tuple[RTSPResult, RTSPTransport]: ...
 
-    ...
-
 class RTSPUrl(GObject.GBoxed):
     # gi Fields
     abspath: str = ...
@@ -783,8 +763,6 @@ class RTSPUrl(GObject.GBoxed):
     def parse(urlstr: str) -> tuple[RTSPResult, RTSPUrl | None]: ...
     def set_port(self, port: int) -> RTSPResult: ...
 
-    ...
-
 class RTSPWatch(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -804,27 +782,25 @@ class RTSPWatch(GObject.GPointer):
     def wait_backlog_usec(self, timeout: int) -> RTSPResult: ...
     def write_data(self, data: list, size: int) -> tuple[RTSPResult, int | None]: ...
 
-    ...
-
 class RTSPWatchFuncs(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def closed(self) -> closedRTSPWatchFuncsCB: ...
-    @property
+    @builtins.property
     def error(self) -> errorRTSPWatchFuncsCB: ...
-    @property
+    @builtins.property
     def error_full(self) -> error_fullRTSPWatchFuncsCB: ...
-    @property
+    @builtins.property
     def message_received(self) -> message_receivedRTSPWatchFuncsCB: ...
-    @property
+    @builtins.property
     def message_sent(self) -> message_sentRTSPWatchFuncsCB: ...
-    @property
+    @builtins.property
     def tunnel_complete(self) -> tunnel_completeRTSPWatchFuncsCB: ...
-    @property
+    @builtins.property
     def tunnel_http_response(self) -> tunnel_http_responseRTSPWatchFuncsCB: ...
-    @property
+    @builtins.property
     def tunnel_lost(self) -> tunnel_lostRTSPWatchFuncsCB: ...
-    @property
+    @builtins.property
     def tunnel_start(self) -> tunnel_startRTSPWatchFuncsCB: ...
 
     # gi Methods
@@ -832,8 +808,6 @@ class RTSPWatchFuncs(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

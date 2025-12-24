@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -5428,6 +5429,9 @@ class ATContext(GObject.Object):
         accessible_role: AccessibleRole  # [accessible-role]: changed because contained invalid characters
         display: Gdk.Display | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -5442,9 +5446,9 @@ class ATContext(GObject.Object):
     def create(
         cls, accessible_role: AccessibleRole, accessible: Accessible, display: Gdk.Display
     ) -> ATContext | None: ...
-    @property
+    @builtins.property
     def get_accessible(self) -> Accessible: ...
-    @property
+    @builtins.property
     def get_accessible_role(self) -> AccessibleRole: ...
 
     # Signals
@@ -5477,7 +5481,6 @@ class ATContext(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ATContextClass(GObject.GPointer):
     # gi Methods
@@ -5485,8 +5488,6 @@ class ATContextClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AboutDialog(Window):
     """
@@ -5565,6 +5566,9 @@ class AboutDialog(Window):
         website_label: str  # [website-label]: changed because contained invalid characters
         wrap_license: bool  # [wrap-license]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -5589,37 +5593,37 @@ class AboutDialog(Window):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_credit_section(self, section_name: str, people: list) -> None: ...
-    @property
+    @builtins.property
     def get_artists(self) -> list: ...
-    @property
+    @builtins.property
     def get_authors(self) -> list: ...
-    @property
+    @builtins.property
     def get_comments(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_copyright(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_documenters(self) -> list: ...
-    @property
+    @builtins.property
     def get_license(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_license_type(self) -> License: ...
-    @property
+    @builtins.property
     def get_logo(self) -> Gdk.Paintable | None: ...
-    @property
+    @builtins.property
     def get_logo_icon_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_program_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_system_information(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_translator_credits(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_version(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_website(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_website_label(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_wrap_license(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -5764,11 +5768,13 @@ class AboutDialog(Window):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Accessible(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         accessible_role: AccessibleRole  # [accessible-role]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, accessible_role: AccessibleRole = ...) -> None:
@@ -5777,7 +5783,7 @@ class Accessible(GObject.GInterface):
         """
     def announce(self, message: str, priority: AccessibleAnnouncementPriority) -> None: ...
     def get_accessible_parent(self) -> Accessible | None: ...
-    @property
+    @builtins.property
     def get_accessible_role(self) -> AccessibleRole: ...
     def get_at_context(self) -> ATContext: ...
     def get_bounds(self) -> tuple[bool, int, int, int, int]: ...
@@ -5808,23 +5814,22 @@ class Accessible(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AccessibleInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_accessible_parent(self) -> get_accessible_parentAccessibleInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_at_context(self) -> get_at_contextAccessibleInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_bounds(self) -> get_boundsAccessibleInterfaceCB: ...
-    @property
+    @builtins.property
     def get_first_accessible_child(self) -> get_first_accessible_childAccessibleInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_next_accessible_sibling(self) -> get_next_accessible_siblingAccessibleInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_platform_state(self) -> get_platform_stateAccessibleInterfaceCB: ...
 
     # gi Methods
@@ -5832,8 +5837,6 @@ class AccessibleInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AccessibleList(GObject.GBoxed):
     # gi Methods
@@ -5847,8 +5850,6 @@ class AccessibleList(GObject.GBoxed):
     @classmethod
     def new_from_list(cls, list: list) -> AccessibleList: ...
 
-    ...
-
 class AccessibleRange(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -5856,13 +5857,11 @@ class AccessibleRange(GObject.GInterface):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AccessibleRangeInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def set_current_value(self) -> set_current_valueAccessibleRangeInterfaceCB: ...
 
     # gi Methods
@@ -5870,8 +5869,6 @@ class AccessibleRangeInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AccessibleText(GObject.GInterface):
     # gi Methods
@@ -5883,27 +5880,25 @@ class AccessibleText(GObject.GInterface):
     def update_contents(self, change: AccessibleTextContentChange, start: int, end: int) -> None: ...
     def update_selection_bound(self) -> None: ...
 
-    ...
-
 class AccessibleTextInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_attributes(self) -> get_attributesAccessibleTextInterfaceCB: ...
-    @property
+    @builtins.property
     def get_caret_position(self) -> get_caret_positionAccessibleTextInterfaceCB: ...
-    @property
+    @builtins.property
     def get_contents(self) -> get_contentsAccessibleTextInterfaceCB: ...
-    @property
+    @builtins.property
     def get_contents_at(self) -> get_contents_atAccessibleTextInterfaceCB: ...
-    @property
+    @builtins.property
     def get_default_attributes(self) -> get_default_attributesAccessibleTextInterfaceCB: ...
-    @property
+    @builtins.property
     def get_extents(self) -> get_extentsAccessibleTextInterfaceCB: ...
-    @property
+    @builtins.property
     def get_offset(self) -> get_offsetAccessibleTextInterfaceCB: ...
-    @property
+    @builtins.property
     def get_selection(self) -> get_selectionAccessibleTextInterfaceCB: ...
 
     # gi Methods
@@ -5911,8 +5906,6 @@ class AccessibleTextInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AccessibleTextRange(GObject.GPointer):
     # gi Fields
@@ -5924,8 +5917,6 @@ class AccessibleTextRange(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ActionBar(Widget):
     """
@@ -5975,13 +5966,16 @@ class ActionBar(Widget):
     class Props(Widget.Props):
         revealed: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, revealed: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def get_center_widget(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_revealed(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -6003,21 +5997,23 @@ class ActionBar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Actionable(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         action_name: str  # [action-name]: changed because contained invalid characters
         action_target: GLib.Variant | None  # [action-target]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, action_name: str = ..., action_target: GLib.Variant | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_action_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_action_target_value(self) -> GLib.Variant | None: ...
     def set_action_name(self, action_name: str | None = None) -> None: ...
     def set_action_target_value(self, target_value: GLib.Variant | None = None) -> None: ...
@@ -6042,19 +6038,18 @@ class Actionable(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ActionableInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_action_name(self) -> get_action_nameActionableInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_action_target_value(self) -> get_action_target_valueActionableInterfaceCB | None: ...
-    @property
+    @builtins.property
     def set_action_name(self) -> set_action_nameActionableInterfaceCB: ...
-    @property
+    @builtins.property
     def set_action_target_value(self) -> set_action_target_valueActionableInterfaceCB: ...
 
     # gi Methods
@@ -6062,8 +6057,6 @@ class ActionableInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ActivateAction(ShortcutAction):
     """
@@ -6080,16 +6073,12 @@ class ActivateAction(ShortcutAction):
     @staticmethod
     def get() -> ActivateAction: ...
 
-    ...
-
 class ActivateActionClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Adjustment(GObject.InitiallyUnowned):
     """
@@ -6114,23 +6103,26 @@ class Adjustment(GObject.InitiallyUnowned):
         upper: float
         value: float
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def clamp_page(self, lower: float, upper: float) -> None: ...
     def configure(
         self, value: float, lower: float, upper: float, step_increment: float, page_increment: float, page_size: float
     ) -> None: ...
-    @property
+    @builtins.property
     def get_lower(self) -> float: ...
     def get_minimum_increment(self) -> float: ...
-    @property
+    @builtins.property
     def get_page_increment(self) -> float: ...
-    @property
+    @builtins.property
     def get_page_size(self) -> float: ...
-    @property
+    @builtins.property
     def get_step_increment(self) -> float: ...
-    @property
+    @builtins.property
     def get_upper(self) -> float: ...
-    @property
+    @builtins.property
     def get_value(self) -> float: ...
     @classmethod
     def new(
@@ -6208,15 +6200,14 @@ class Adjustment(GObject.InitiallyUnowned):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AdjustmentClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def changed(self) -> changedAdjustmentClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.InitiallyUnownedClass | None: ...
-    @property
+    @builtins.property
     def value_changed(self) -> value_changedAdjustmentClassCB: ...
 
     # gi Methods
@@ -6224,8 +6215,6 @@ class AdjustmentClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AlertDialog(GObject.Object):
     """
@@ -6245,6 +6234,9 @@ class AlertDialog(GObject.Object):
         detail: str
         message: str
         modal: bool
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -6267,17 +6259,17 @@ class AlertDialog(GObject.Object):
         user_data: object | None = None,
     ) -> None: ...
     def choose_finish(self, result: Gio.AsyncResult) -> int: ...
-    @property
+    @builtins.property
     def get_buttons(self) -> list | None: ...
-    @property
+    @builtins.property
     def get_cancel_button(self) -> int: ...
-    @property
+    @builtins.property
     def get_default_button(self) -> int: ...
-    @property
+    @builtins.property
     def get_detail(self) -> str: ...
-    @property
+    @builtins.property
     def get_message(self) -> str: ...
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
     def set_buttons(self, labels: list) -> None: ...
     def set_cancel_button(self, button: int) -> None: ...
@@ -6334,11 +6326,10 @@ class AlertDialog(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AlertDialogClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -6346,8 +6337,6 @@ class AlertDialogClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AlternativeTrigger(ShortcutTrigger):
     """
@@ -6362,14 +6351,17 @@ class AlternativeTrigger(ShortcutTrigger):
         first: ShortcutTrigger | None
         second: ShortcutTrigger | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, first: ShortcutTrigger | None = ..., second: ShortcutTrigger | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_first(self) -> ShortcutTrigger: ...
-    @property
+    @builtins.property
     def get_second(self) -> ShortcutTrigger: ...
     @classmethod
     def new(cls, first: ShortcutTrigger, second: ShortcutTrigger) -> ShortcutTrigger: ...
@@ -6393,7 +6385,6 @@ class AlternativeTrigger(ShortcutTrigger):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AlternativeTriggerClass(GObject.GPointer):
     # gi Methods
@@ -6401,8 +6392,6 @@ class AlternativeTriggerClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AnyFilter(MultiFilter):
     """
@@ -6419,8 +6408,6 @@ class AnyFilter(MultiFilter):
     @classmethod
     def new(cls) -> AnyFilter: ...
 
-    ...
-
 class AnyFilterClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -6428,11 +6415,12 @@ class AnyFilterClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AppChooser(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         content_type: str  # [content-type]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, content_type: str = ...) -> None:
@@ -6442,7 +6430,7 @@ class AppChooser(GObject.GInterface):
     @deprecated("deprecated")
     def get_app_info(self) -> Gio.AppInfo | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_content_type(self) -> str: ...
     @deprecated("deprecated")
     def refresh(self) -> None: ...
@@ -6459,7 +6447,6 @@ class AppChooser(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AppChooserButton(Widget):
     """
@@ -6501,6 +6488,9 @@ class AppChooserButton(Widget):
         show_default_item: bool  # [show-default-item]: changed because contained invalid characters
         show_dialog_item: bool  # [show-dialog-item]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, heading: str = ..., modal: bool = ..., show_default_item: bool = ..., show_dialog_item: bool = ...
@@ -6513,16 +6503,16 @@ class AppChooserButton(Widget):
     @deprecated("deprecated")
     def append_separator(self) -> None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_heading(self) -> str | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_default_item(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_dialog_item(self) -> bool: ...
     @deprecated("deprecated")
     @classmethod
@@ -6586,7 +6576,6 @@ class AppChooserButton(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AppChooserDialog(Dialog):
     """
@@ -6616,13 +6605,16 @@ class AppChooserDialog(Dialog):
         gfile: Gio.File | None
         heading: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, gfile: Gio.File | None = ..., heading: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_heading(self) -> str | None: ...
     @deprecated("deprecated")
     def get_widget(self) -> Widget: ...
@@ -6654,7 +6646,6 @@ class AppChooserDialog(Dialog):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AppChooserWidget(Widget):
     """
@@ -6691,6 +6682,9 @@ class AppChooserWidget(Widget):
         show_other: bool  # [show-other]: changed because contained invalid characters
         show_recommended: bool  # [show-recommended]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -6705,22 +6699,22 @@ class AppChooserWidget(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_default_text(self) -> str | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_all(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_default(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_fallback(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_other(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_recommended(self) -> bool: ...
     @deprecated("deprecated")
     @classmethod
@@ -6799,7 +6793,6 @@ class AppChooserWidget(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Application(GObject.Object):
     """
@@ -6881,6 +6874,9 @@ class Application(GObject.Object):
         register_session: bool  # [register-session]: changed because contained invalid characters
         screensaver_active: bool  # [screensaver-active]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, menubar: Gio.MenuModel | None = ..., register_session: bool = ...) -> None:
         """
@@ -6889,10 +6885,10 @@ class Application(GObject.Object):
     def add_window(self, window: Window) -> None: ...
     def get_accels_for_action(self, detailed_action_name: str) -> list: ...
     def get_actions_for_accel(self, accel: str) -> list: ...
-    @property
+    @builtins.property
     def get_active_window(self) -> Window | None: ...
     def get_menu_by_id(self, id: str) -> Gio.Menu | None: ...
-    @property
+    @builtins.property
     def get_menubar(self) -> Gio.MenuModel | None: ...
     def get_window_by_id(self, id: int) -> Window | None: ...
     def get_windows(self) -> list: ...
@@ -6972,17 +6968,16 @@ class Application(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ApplicationClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gio.ApplicationClass | None: ...
-    @property
+    @builtins.property
     def window_added(self) -> window_addedApplicationClassCB: ...
-    @property
+    @builtins.property
     def window_removed(self) -> window_removedApplicationClassCB: ...
 
     # gi Methods
@@ -6990,8 +6985,6 @@ class ApplicationClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ApplicationWindow(Window):
     """
@@ -7069,6 +7062,9 @@ class ApplicationWindow(Window):
     class Props(Window.Props):
         show_menubar: bool  # [show-menubar]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, show_menubar: bool = ...) -> None:
         """
@@ -7077,7 +7073,7 @@ class ApplicationWindow(Window):
     @deprecated("deprecated")
     def get_help_overlay(self) -> ShortcutsWindow | None: ...
     def get_id(self) -> int: ...
-    @property
+    @builtins.property
     def get_show_menubar(self) -> bool: ...
     @classmethod
     def new(cls, application: Application) -> Widget: ...
@@ -7097,13 +7093,12 @@ class ApplicationWindow(Window):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ApplicationWindowClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WindowClass | None: ...
 
     # gi Methods
@@ -7111,8 +7106,6 @@ class ApplicationWindowClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AspectFrame(Widget):
     """
@@ -7139,6 +7132,9 @@ class AspectFrame(Widget):
         xalign: float
         yalign: float
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -7151,15 +7147,15 @@ class AspectFrame(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_obey_child(self) -> bool: ...
-    @property
+    @builtins.property
     def get_ratio(self) -> float: ...
-    @property
+    @builtins.property
     def get_xalign(self) -> float: ...
-    @property
+    @builtins.property
     def get_yalign(self) -> float: ...
     @classmethod
     def new(cls, xalign: float, yalign: float, ratio: float, obey_child: bool) -> Widget: ...
@@ -7209,7 +7205,6 @@ class AspectFrame(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Assistant(Window):
     """
@@ -7258,6 +7253,9 @@ class Assistant(Window):
         pages: Gio.ListModel | None
         use_header_bar: int  # [use-header-bar]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, use_header_bar: int = ...) -> None:
         """
@@ -7284,7 +7282,7 @@ class Assistant(Window):
     @deprecated("deprecated")
     def get_page_type(self, page: Widget) -> AssistantPageType: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_pages(self) -> Gio.ListModel: ...
     @deprecated("deprecated")
     def insert_page(self, page: Widget, position: int) -> int: ...
@@ -7358,7 +7356,6 @@ class Assistant(Window):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AssistantPage(GObject.Object):
     """
@@ -7371,6 +7368,9 @@ class AssistantPage(GObject.Object):
         page_type: AssistantPageType  # [page-type]: changed because contained invalid characters
         title: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, child: Widget | None = ..., complete: bool = ..., page_type: AssistantPageType = ..., title: str = ...
@@ -7379,7 +7379,7 @@ class AssistantPage(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_child(self) -> Widget: ...
 
     # Signals
@@ -7415,7 +7415,6 @@ class AssistantPage(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BinLayout(LayoutManager):
     """
@@ -7435,11 +7434,9 @@ class BinLayout(LayoutManager):
     @classmethod
     def new(cls) -> LayoutManager: ...
 
-    ...
-
 class BinLayoutClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
     # gi Methods
@@ -7447,8 +7444,6 @@ class BinLayoutClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Bitset(GObject.GBoxed):
     # gi Methods
@@ -7488,11 +7483,9 @@ class Bitset(GObject.GBoxed):
     def union(self, other: Bitset) -> None: ...
     def unref(self) -> None: ...
 
-    ...
-
 class BitsetIter(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def private_data(self) -> list | None: ...
 
     # gi Methods
@@ -7510,8 +7503,6 @@ class BitsetIter(GObject.GBoxed):
     def is_valid(self) -> bool: ...
     def next(self) -> tuple[bool, int | None]: ...
     def previous(self) -> tuple[bool, int | None]: ...
-
-    ...
 
 class BookmarkList(GObject.Object):
     """
@@ -7533,18 +7524,21 @@ class BookmarkList(GObject.Object):
         loading: bool
         n_items: int  # [n-items]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, attributes: str = ..., filename: str = ..., io_priority: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_attributes(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_filename(self) -> str: ...
-    @property
+    @builtins.property
     def get_io_priority(self) -> int: ...
-    @property
+    @builtins.property
     def is_loading(self) -> bool: ...
     @classmethod
     def new(cls, filename: str | None = None, attributes: str | None = None) -> BookmarkList: ...
@@ -7598,11 +7592,10 @@ class BookmarkList(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BookmarkListClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -7610,8 +7603,6 @@ class BookmarkListClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BoolFilter(Filter):
     """
@@ -7622,14 +7613,17 @@ class BoolFilter(Filter):
         expression: Expression | None
         invert: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, expression: Expression | None = ..., invert: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_expression(self) -> Expression | None: ...
-    @property
+    @builtins.property
     def get_invert(self) -> bool: ...
     @classmethod
     def new(cls, expression: Expression | None = None) -> BoolFilter: ...
@@ -7655,11 +7649,10 @@ class BoolFilter(Filter):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BoolFilterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> FilterClass | None: ...
 
     # gi Methods
@@ -7667,8 +7660,6 @@ class BoolFilterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Border(GObject.GBoxed):
     # gi Fields
@@ -7689,8 +7680,6 @@ class Border(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class Box(Widget):
     """
@@ -7739,6 +7728,9 @@ class Box(Widget):
         homogeneous: bool
         spacing: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -7751,13 +7743,13 @@ class Box(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     def append(self, child: Widget) -> None: ...
-    @property
+    @builtins.property
     def get_baseline_child(self) -> int: ...
-    @property
+    @builtins.property
     def get_baseline_position(self) -> BaselinePosition: ...
-    @property
+    @builtins.property
     def get_homogeneous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_spacing(self) -> int: ...
     def insert_child_after(self, child: Widget, sibling: Widget | None = None) -> None: ...
     @classmethod
@@ -7803,13 +7795,12 @@ class Box(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BoxClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -7817,8 +7808,6 @@ class BoxClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BoxLayout(LayoutManager):
     """
@@ -7843,6 +7832,9 @@ class BoxLayout(LayoutManager):
         homogeneous: bool
         spacing: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -7854,13 +7846,13 @@ class BoxLayout(LayoutManager):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_baseline_child(self) -> int: ...
-    @property
+    @builtins.property
     def get_baseline_position(self) -> BaselinePosition: ...
-    @property
+    @builtins.property
     def get_homogeneous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_spacing(self) -> int: ...
     @classmethod
     def new(cls, orientation: Orientation) -> LayoutManager: ...
@@ -7902,11 +7894,10 @@ class BoxLayout(LayoutManager):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BoxLayoutClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
     # gi Methods
@@ -7914,8 +7905,6 @@ class BoxLayoutClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Buildable(GObject.GInterface):
     # gi Methods
@@ -7925,29 +7914,27 @@ class Buildable(GObject.GInterface):
         """
     def get_buildable_id(self) -> str | None: ...
 
-    ...
-
 class BuildableIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_child(self) -> add_childBuildableIfaceCB: ...
-    @property
+    @builtins.property
     def custom_finished(self) -> custom_finishedBuildableIfaceCB: ...
-    @property
+    @builtins.property
     def custom_tag_end(self) -> custom_tag_endBuildableIfaceCB: ...
-    @property
+    @builtins.property
     def custom_tag_start(self) -> custom_tag_startBuildableIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_id(self) -> get_idBuildableIfaceCB: ...
-    @property
+    @builtins.property
     def get_internal_child(self) -> get_internal_childBuildableIfaceCB: ...
-    @property
+    @builtins.property
     def parser_finished(self) -> parser_finishedBuildableIfaceCB: ...
-    @property
+    @builtins.property
     def set_buildable_property(self) -> set_buildable_propertyBuildableIfaceCB: ...
-    @property
+    @builtins.property
     def set_id(self) -> set_idBuildableIfaceCB: ...
 
     # gi Methods
@@ -7955,8 +7942,6 @@ class BuildableIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BuildableParseContext(GObject.GPointer):
     # gi Methods
@@ -7970,19 +7955,17 @@ class BuildableParseContext(GObject.GPointer):
     def pop(self) -> object | None: ...
     def push(self, parser: BuildableParser, user_data: object | None = None) -> None: ...
 
-    ...
-
 class BuildableParser(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def end_element(self) -> end_elementBuildableParserCB: ...
-    @property
+    @builtins.property
     def error(self) -> errorBuildableParserCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def start_element(self) -> start_elementBuildableParserCB: ...
-    @property
+    @builtins.property
     def text(self) -> textBuildableParserCB: ...
 
     # gi Methods
@@ -7990,8 +7973,6 @@ class BuildableParser(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Builder(GObject.Object):
     """
@@ -8359,6 +8340,9 @@ class Builder(GObject.Object):
         scope: BuilderScope | None
         translation_domain: str  # [translation-domain]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def add_from_file(self, filename: str) -> bool: ...
     def add_from_resource(self, resource_path: str) -> bool: ...
@@ -8373,13 +8357,13 @@ class Builder(GObject.Object):
     def extend_with_template(
         self, object: GObject.Object, template_type: GObject.GType, buffer: str, length: int
     ) -> bool: ...
-    @property
+    @builtins.property
     def get_current_object(self) -> GObject.Object | None: ...
     def get_object(self, name: str) -> GObject.Object | None: ...
     def get_objects(self) -> list: ...
-    @property
+    @builtins.property
     def get_scope(self) -> BuilderScope: ...
-    @property
+    @builtins.property
     def get_translation_domain(self) -> str | None: ...
     def get_type_from_name(self, type_name: str) -> GObject.GType: ...
     @classmethod
@@ -8433,7 +8417,6 @@ class Builder(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BuilderCScope(GObject.Object):
     """
@@ -8464,11 +8447,9 @@ class BuilderCScope(GObject.Object):
     @classmethod
     def new(cls) -> BuilderCScope: ...
 
-    ...
-
 class BuilderCScopeClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -8477,16 +8458,12 @@ class BuilderCScopeClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BuilderClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BuilderListItemFactory(ListItemFactory):
     """
@@ -8523,16 +8500,19 @@ class BuilderListItemFactory(ListItemFactory):
         resource: str
         scope: BuilderScope | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, bytes: GLib.Bytes | None = ..., resource: str = ..., scope: BuilderScope | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_bytes(self) -> GLib.Bytes: ...
-    @property
+    @builtins.property
     def get_resource(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_scope(self) -> BuilderScope | None: ...
     @classmethod
     def new_from_bytes(cls, scope: BuilderScope | None, bytes: GLib.Bytes) -> ListItemFactory: ...
@@ -8565,7 +8545,6 @@ class BuilderListItemFactory(ListItemFactory):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BuilderListItemFactoryClass(GObject.GPointer):
     # gi Methods
@@ -8574,8 +8553,6 @@ class BuilderListItemFactoryClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BuilderScope(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -8583,17 +8560,15 @@ class BuilderScope(GObject.GInterface):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BuilderScopeInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def create_closure(self) -> create_closureBuilderScopeInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_type_from_function(self) -> get_type_from_functionBuilderScopeInterfaceCB: ...
-    @property
+    @builtins.property
     def get_type_from_name(self) -> get_type_from_nameBuilderScopeInterfaceCB: ...
 
     # gi Methods
@@ -8601,8 +8576,6 @@ class BuilderScopeInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Button(Widget):
     """
@@ -8654,6 +8627,9 @@ class Button(Widget):
         label: str
         use_underline: bool  # [use-underline]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -8667,17 +8643,17 @@ class Button(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_can_shrink(self) -> bool: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_has_frame(self) -> bool: ...
-    @property
+    @builtins.property
     def get_icon_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_label(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_use_underline(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -8763,17 +8739,16 @@ class Button(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ButtonClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateButtonClassCB: ...
-    @property
+    @builtins.property
     def clicked(self) -> clickedButtonClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -8782,16 +8757,12 @@ class ButtonClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ButtonPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CClosureExpression(Expression):
     """
@@ -8814,8 +8785,6 @@ class CClosureExpression(Expression):
         user_data: object | None = None,
         user_destroy: GObject.ClosureNotify | None = None,
     ) -> CClosureExpression: ...
-
-    ...
 
 class Calendar(Widget):
     """
@@ -8887,6 +8856,9 @@ class Calendar(Widget):
         show_week_numbers: bool  # [show-week-numbers]: changed because contained invalid characters
         year: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -8902,18 +8874,18 @@ class Calendar(Widget):
         """
     def clear_marks(self) -> None: ...
     def get_date(self) -> GLib.DateTime: ...
-    @property
+    @builtins.property
     def get_day(self) -> int: ...
     def get_day_is_marked(self, day: int) -> bool: ...
-    @property
+    @builtins.property
     def get_month(self) -> int: ...
-    @property
+    @builtins.property
     def get_show_day_names(self) -> bool: ...
-    @property
+    @builtins.property
     def get_show_heading(self) -> bool: ...
-    @property
+    @builtins.property
     def get_show_week_numbers(self) -> bool: ...
-    @property
+    @builtins.property
     def get_year(self) -> int: ...
     def mark_day(self, day: int) -> None: ...
     @classmethod
@@ -8994,7 +8966,6 @@ class Calendar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CallbackAction(ShortcutAction):
     """
@@ -9009,16 +8980,12 @@ class CallbackAction(ShortcutAction):
     @classmethod
     def new(cls, callback: ShortcutFunc, data: object | None, destroy: GLib.DestroyNotify) -> CallbackAction: ...
 
-    ...
-
 class CallbackActionClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CellArea(GObject.InitiallyUnowned):
     """
@@ -9342,6 +9309,9 @@ class CellArea(GObject.InitiallyUnowned):
         edited_cell: CellRenderer | None  # [edited-cell]: changed because contained invalid characters
         focus_cell: CellRenderer | None  # [focus-cell]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, focus_cell: CellRenderer | None = ...) -> None:
         """
@@ -9417,13 +9387,13 @@ class CellArea(GObject.InitiallyUnowned):
     ) -> tuple[CellRenderer, Gdk.Rectangle | None]: ...
     def get_current_path_string(self) -> str: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_edit_widget(self) -> CellEditable | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_edited_cell(self) -> CellRenderer | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_focus_cell(self) -> CellRenderer | None: ...
     @deprecated("deprecated")
     def get_focus_from_sibling(self, renderer: CellRenderer) -> CellRenderer | None: ...
@@ -9719,7 +9689,6 @@ class CellArea(GObject.InitiallyUnowned):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellAreaBox(CellArea):
     """
@@ -9747,13 +9716,16 @@ class CellAreaBox(CellArea):
     class Props(CellArea.Props):
         spacing: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, spacing: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_spacing(self) -> int: ...
     @deprecated("deprecated")
     @classmethod
@@ -9777,51 +9749,50 @@ class CellAreaBox(CellArea):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellAreaClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateCellAreaClassCB: ...
-    @property
+    @builtins.property
     def add(self) -> addCellAreaClassCB: ...
-    @property
+    @builtins.property
     def apply_attributes(self) -> apply_attributesCellAreaClassCB: ...
-    @property
+    @builtins.property
     def copy_context(self) -> copy_contextCellAreaClassCB: ...
-    @property
+    @builtins.property
     def create_context(self) -> create_contextCellAreaClassCB: ...
-    @property
+    @builtins.property
     def event(self) -> eventCellAreaClassCB: ...
-    @property
+    @builtins.property
     def focus(self) -> focusCellAreaClassCB: ...
-    @property
+    @builtins.property
     def foreach(self) -> foreachCellAreaClassCB: ...
-    @property
+    @builtins.property
     def foreach_alloc(self) -> foreach_allocCellAreaClassCB: ...
-    @property
+    @builtins.property
     def get_cell_property(self) -> get_cell_propertyCellAreaClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_height(self) -> get_preferred_heightCellAreaClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_height_for_width(self) -> get_preferred_height_for_widthCellAreaClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_width(self) -> get_preferred_widthCellAreaClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_width_for_height(self) -> get_preferred_width_for_heightCellAreaClassCB: ...
-    @property
+    @builtins.property
     def get_request_mode(self) -> get_request_modeCellAreaClassCB: ...
-    @property
+    @builtins.property
     def is_activatable(self) -> is_activatableCellAreaClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.InitiallyUnownedClass | None: ...
-    @property
+    @builtins.property
     def remove(self) -> removeCellAreaClassCB: ...
-    @property
+    @builtins.property
     def set_cell_property(self) -> set_cell_propertyCellAreaClassCB: ...
-    @property
+    @builtins.property
     def snapshot(self) -> snapshotCellAreaClassCB: ...
 
     # gi Methods
@@ -9835,8 +9806,6 @@ class CellAreaClass(GObject.GPointer):
     def install_cell_property(self, property_id: int, pspec: GObject.ParamSpec) -> None: ...
     @deprecated("deprecated")
     def list_cell_properties(self) -> tuple[list, int]: ...
-
-    ...
 
 class CellAreaContext(GObject.Object):
     """
@@ -9861,6 +9830,9 @@ class CellAreaContext(GObject.Object):
         natural_height: int  # [natural-height]: changed because contained invalid characters
         natural_width: int  # [natural-width]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, area: CellArea | None = ...) -> None:
         """
@@ -9871,7 +9843,7 @@ class CellAreaContext(GObject.Object):
     @deprecated("deprecated")
     def get_allocation(self) -> tuple[int | None, int | None]: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_area(self) -> CellArea: ...
     @deprecated("deprecated")
     def get_preferred_height(self) -> tuple[int | None, int | None]: ...
@@ -9958,21 +9930,20 @@ class CellAreaContext(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellAreaContextClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def allocate(self) -> allocateCellAreaContextClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_height_for_width(self) -> get_preferred_height_for_widthCellAreaContextClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_width_for_height(self) -> get_preferred_width_for_heightCellAreaContextClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def reset(self) -> resetCellAreaContextClassCB: ...
 
     # gi Methods
@@ -9981,8 +9952,6 @@ class CellAreaContextClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class CellAreaContextPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -9990,11 +9959,12 @@ class CellAreaContextPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class CellEditable(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         editing_canceled: bool  # [editing-canceled]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, editing_canceled: bool = ...) -> None:
@@ -10027,17 +9997,16 @@ class CellEditable(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellEditableIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def editing_done(self) -> editing_doneCellEditableIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def remove_widget(self) -> remove_widgetCellEditableIfaceCB: ...
-    @property
+    @builtins.property
     def start_editing(self) -> start_editingCellEditableIfaceCB: ...
 
     # gi Methods
@@ -10045,8 +10014,6 @@ class CellEditableIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CellLayout(GObject.GInterface):
     # gi Methods
@@ -10075,29 +10042,27 @@ class CellLayout(GObject.GInterface):
         self, cell: CellRenderer, func: CellLayoutDataFunc | None, func_data: object | None, destroy: GLib.DestroyNotify
     ) -> None: ...
 
-    ...
-
 class CellLayoutIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_attribute(self) -> add_attributeCellLayoutIfaceCB: ...
-    @property
+    @builtins.property
     def clear(self) -> clearCellLayoutIfaceCB: ...
-    @property
+    @builtins.property
     def clear_attributes(self) -> clear_attributesCellLayoutIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_area(self) -> get_areaCellLayoutIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_cells(self) -> get_cellsCellLayoutIfaceCB: ...
-    @property
+    @builtins.property
     def pack_end(self) -> pack_endCellLayoutIfaceCB: ...
-    @property
+    @builtins.property
     def pack_start(self) -> pack_startCellLayoutIfaceCB: ...
-    @property
+    @builtins.property
     def reorder(self) -> reorderCellLayoutIfaceCB: ...
-    @property
+    @builtins.property
     def set_cell_data_func(self) -> set_cell_data_funcCellLayoutIfaceCB: ...
 
     # gi Methods
@@ -10105,8 +10070,6 @@ class CellLayoutIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CellRenderer(GObject.InitiallyUnowned):
     """
@@ -10166,6 +10129,9 @@ class CellRenderer(GObject.InitiallyUnowned):
         yalign: float
         ypad: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -10204,10 +10170,10 @@ class CellRenderer(GObject.InitiallyUnowned):
     @deprecated("deprecated")
     def get_fixed_size(self) -> tuple[int | None, int | None]: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_is_expanded(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_is_expander(self) -> bool: ...
     @deprecated("deprecated")
     def get_padding(self) -> tuple[int | None, int | None]: ...
@@ -10224,12 +10190,12 @@ class CellRenderer(GObject.InitiallyUnowned):
     @deprecated("deprecated")
     def get_request_mode(self) -> SizeRequestMode: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_sensitive(self) -> bool: ...
     @deprecated("deprecated")
     def get_state(self, widget: Widget | None, cell_state: CellRendererState) -> StateFlags: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_visible(self) -> bool: ...
     @deprecated("deprecated")
     def is_activatable(self) -> bool: ...
@@ -10489,7 +10455,6 @@ class CellRenderer(GObject.InitiallyUnowned):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellRendererAccel(CellRendererText):
     """
@@ -10505,6 +10470,9 @@ class CellRendererAccel(CellRendererText):
         accel_mode: CellRendererAccelMode  # [accel-mode]: changed because contained invalid characters
         accel_mods: Gdk.ModifierType  # [accel-mods]: changed because contained invalid characters
         keycode: int
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -10568,35 +10536,34 @@ class CellRendererAccel(CellRendererText):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellRendererClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateCellRendererClassCB: ...
-    @property
+    @builtins.property
     def editing_canceled(self) -> editing_canceledCellRendererClassCB: ...
-    @property
+    @builtins.property
     def editing_started(self) -> editing_startedCellRendererClassCB: ...
-    @property
+    @builtins.property
     def get_aligned_area(self) -> get_aligned_areaCellRendererClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_height(self) -> get_preferred_heightCellRendererClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_height_for_width(self) -> get_preferred_height_for_widthCellRendererClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_width(self) -> get_preferred_widthCellRendererClassCB: ...
-    @property
+    @builtins.property
     def get_preferred_width_for_height(self) -> get_preferred_width_for_heightCellRendererClassCB: ...
-    @property
+    @builtins.property
     def get_request_mode(self) -> get_request_modeCellRendererClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.InitiallyUnownedClass | None: ...
-    @property
+    @builtins.property
     def snapshot(self) -> snapshotCellRendererClassCB: ...
-    @property
+    @builtins.property
     def start_editing(self) -> start_editingCellRendererClassCB | None: ...
 
     # gi Methods
@@ -10605,16 +10572,12 @@ class CellRendererClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class CellRendererClassPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CellRendererCombo(CellRendererText):
     """
@@ -10636,6 +10599,9 @@ class CellRendererCombo(CellRendererText):
         has_entry: bool  # [has-entry]: changed because contained invalid characters
         model: TreeModel | None
         text_column: int  # [text-column]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, has_entry: bool = ..., model: TreeModel | None = ..., text_column: int = ...) -> None:
@@ -10679,7 +10645,6 @@ class CellRendererCombo(CellRendererText):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellRendererPixbuf(CellRenderer):
     """
@@ -10711,6 +10676,9 @@ class CellRendererPixbuf(CellRenderer):
             GdkPixbuf.Pixbuf | None
         )  # [pixbuf-expander-open]: changed because contained invalid characters
         texture: Gdk.Texture | None
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -10784,7 +10752,6 @@ class CellRendererPixbuf(CellRenderer):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellRendererPrivate(GObject.GPointer):
     # gi Methods
@@ -10792,8 +10759,6 @@ class CellRendererPrivate(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CellRendererProgress(CellRenderer):
     """
@@ -10810,6 +10775,9 @@ class CellRendererProgress(CellRenderer):
         text_xalign: float  # [text-xalign]: changed because contained invalid characters
         text_yalign: float  # [text-yalign]: changed because contained invalid characters
         value: int
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -10875,7 +10843,6 @@ class CellRendererProgress(CellRenderer):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellRendererSpin(CellRendererText):
     """
@@ -10898,6 +10865,9 @@ class CellRendererSpin(CellRendererText):
         adjustment: Adjustment | None
         climb_rate: float  # [climb-rate]: changed because contained invalid characters
         digits: int
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, adjustment: Adjustment | None = ..., climb_rate: float = ..., digits: int = ...) -> None:
@@ -10934,7 +10904,6 @@ class CellRendererSpin(CellRendererText):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellRendererSpinner(CellRenderer):
     """
@@ -10956,6 +10925,9 @@ class CellRendererSpinner(CellRenderer):
         active: bool
         pulse: int
         size: IconSize
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, active: bool = ..., pulse: int = ..., size: IconSize = ...) -> None:
@@ -10992,7 +10964,6 @@ class CellRendererSpinner(CellRenderer):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellRendererText(CellRenderer):
     """
@@ -11053,6 +11024,9 @@ class CellRendererText(CellRenderer):
         width_chars: int  # [width-chars]: changed because contained invalid characters
         wrap_mode: Pango.WrapMode  # [wrap-mode]: changed because contained invalid characters
         wrap_width: int  # [wrap-width]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -11457,15 +11431,14 @@ class CellRendererText(CellRenderer):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellRendererTextClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def edited(self) -> editedCellRendererTextClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> CellRendererClass | None: ...
 
     # gi Methods
@@ -11473,8 +11446,6 @@ class CellRendererTextClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CellRendererToggle(CellRenderer):
     """
@@ -11492,6 +11463,9 @@ class CellRendererToggle(CellRenderer):
         inconsistent: bool
         radio: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, activatable: bool = ..., active: bool = ..., inconsistent: bool = ..., radio: bool = ...
@@ -11500,13 +11474,13 @@ class CellRendererToggle(CellRenderer):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_activatable(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_active(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_radio(self) -> bool: ...
     @deprecated("deprecated")
     @classmethod
@@ -11558,7 +11532,6 @@ class CellRendererToggle(CellRenderer):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CellView(Widget):
     """
@@ -11590,6 +11563,9 @@ class CellView(Widget):
         fit_model: bool  # [fit-model]: changed because contained invalid characters
         model: TreeModel | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -11605,13 +11581,13 @@ class CellView(Widget):
     @deprecated("deprecated")
     def get_displayed_row(self) -> TreePath | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_draw_sensitive(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_fit_model(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_model(self) -> TreeModel | None: ...
     @deprecated("deprecated")
     @classmethod
@@ -11677,7 +11653,6 @@ class CellView(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CenterBox(Widget):
     """
@@ -11728,6 +11703,9 @@ class CenterBox(Widget):
         shrink_center_last: bool  # [shrink-center-last]: changed because contained invalid characters
         start_widget: Widget | None  # [start-widget]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -11740,15 +11718,15 @@ class CenterBox(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_baseline_position(self) -> BaselinePosition: ...
-    @property
+    @builtins.property
     def get_center_widget(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_end_widget(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_shrink_center_last(self) -> bool: ...
-    @property
+    @builtins.property
     def get_start_widget(self) -> Widget | None: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -11798,7 +11776,6 @@ class CenterBox(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CenterBoxClass(GObject.GPointer):
     # gi Methods
@@ -11806,8 +11783,6 @@ class CenterBoxClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CenterLayout(LayoutManager):
     """
@@ -11823,6 +11798,9 @@ class CenterLayout(LayoutManager):
     class Props(LayoutManager.Props):
         shrink_center_last: bool  # [shrink-center-last]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, shrink_center_last: bool = ...) -> None:
         """
@@ -11832,7 +11810,7 @@ class CenterLayout(LayoutManager):
     def get_center_widget(self) -> Widget | None: ...
     def get_end_widget(self) -> Widget | None: ...
     def get_orientation(self) -> Orientation: ...
-    @property
+    @builtins.property
     def get_shrink_center_last(self) -> bool: ...
     def get_start_widget(self) -> Widget | None: ...
     @classmethod
@@ -11856,11 +11834,10 @@ class CenterLayout(LayoutManager):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CenterLayoutClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
     # gi Methods
@@ -11868,8 +11845,6 @@ class CenterLayoutClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CheckButton(Widget):
     """
@@ -11952,6 +11927,9 @@ class CheckButton(Widget):
         label: str
         use_underline: bool  # [use-underline]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -11965,15 +11943,15 @@ class CheckButton(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_active(self) -> bool: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_inconsistent(self) -> bool: ...
-    @property
+    @builtins.property
     def get_label(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_use_underline(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -12057,17 +12035,16 @@ class CheckButton(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CheckButtonClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateCheckButtonClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
-    @property
+    @builtins.property
     def toggled(self) -> toggledCheckButtonClassCB: ...
 
     # gi Methods
@@ -12075,8 +12052,6 @@ class CheckButtonClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ClosureExpression(Expression):
     """
@@ -12093,8 +12068,6 @@ class ClosureExpression(Expression):
     def new(
         cls, value_type: GObject.GType, closure: GObject.Closure, n_params: int, params: list | None = None
     ) -> ClosureExpression: ...
-
-    ...
 
 class ColorButton(Widget):
     """
@@ -12126,16 +12099,19 @@ class ColorButton(Widget):
         show_editor: bool  # [show-editor]: changed because contained invalid characters
         title: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, modal: bool = ..., show_editor: bool = ..., title: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_title(self) -> str: ...
     @deprecated("deprecated")
     @classmethod
@@ -12181,12 +12157,14 @@ class ColorButton(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColorChooser(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         rgba: Gdk.RGBA | None
         use_alpha: bool  # [use-alpha]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, rgba: Gdk.RGBA | None = ..., use_alpha: bool = ...) -> None:
@@ -12200,7 +12178,7 @@ class ColorChooser(GObject.GInterface):
     @deprecated("deprecated")
     def get_rgba(self) -> Gdk.RGBA: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_use_alpha(self) -> bool: ...
     @deprecated("deprecated")
     def set_rgba(self, color: Gdk.RGBA) -> None: ...
@@ -12233,7 +12211,6 @@ class ColorChooser(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColorChooserDialog(Dialog):
     """
@@ -12264,6 +12241,9 @@ class ColorChooserDialog(Dialog):
     class Props(Dialog.Props):
         show_editor: bool  # [show-editor]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, show_editor: bool = ...) -> None:
         """
@@ -12285,21 +12265,20 @@ class ColorChooserDialog(Dialog):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColorChooserInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_palette(self) -> add_paletteColorChooserInterfaceCB: ...
-    @property
+    @builtins.property
     def base_interface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def color_activated(self) -> color_activatedColorChooserInterfaceCB: ...
-    @property
+    @builtins.property
     def get_rgba(self) -> get_rgbaColorChooserInterfaceCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def set_rgba(self) -> set_rgbaColorChooserInterfaceCB: ...
 
     # gi Methods
@@ -12307,8 +12286,6 @@ class ColorChooserInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ColorChooserWidget(Widget):
     """
@@ -12349,6 +12326,9 @@ class ColorChooserWidget(Widget):
     class Props(Widget.Props):
         show_editor: bool  # [show-editor]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, show_editor: bool = ...) -> None:
         """
@@ -12369,7 +12349,6 @@ class ColorChooserWidget(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColorDialog(GObject.Object):
     """
@@ -12391,6 +12370,9 @@ class ColorDialog(GObject.Object):
         title: str
         with_alpha: bool  # [with-alpha]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, modal: bool = ..., title: str = ..., with_alpha: bool = ...) -> None:
         """
@@ -12405,11 +12387,11 @@ class ColorDialog(GObject.Object):
         user_data: object | None = None,
     ) -> None: ...
     def choose_rgba_finish(self, result: Gio.AsyncResult) -> Gdk.RGBA | None: ...
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
-    @property
+    @builtins.property
     def get_title(self) -> str: ...
-    @property
+    @builtins.property
     def get_with_alpha(self) -> bool: ...
     @classmethod
     def new(cls) -> ColorDialog: ...
@@ -12443,7 +12425,6 @@ class ColorDialog(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColorDialogButton(Widget):
     """
@@ -12473,14 +12454,17 @@ class ColorDialogButton(Widget):
         dialog: ColorDialog | None
         rgba: Gdk.RGBA | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, dialog: ColorDialog | None = ..., rgba: Gdk.RGBA | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_dialog(self) -> ColorDialog | None: ...
-    @property
+    @builtins.property
     def get_rgba(self) -> Gdk.RGBA: ...
     @classmethod
     def new(cls, dialog: ColorDialog | None = None) -> Widget: ...
@@ -12510,11 +12494,10 @@ class ColorDialogButton(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColorDialogButtonClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -12523,11 +12506,9 @@ class ColorDialogButtonClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ColorDialogClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -12535,8 +12516,6 @@ class ColorDialogClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ColumnView(Widget):
     """
@@ -12619,6 +12598,9 @@ class ColumnView(Widget):
         sorter: Sorter | None
         tab_behavior: ListTabBehavior  # [tab-behavior]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -12636,27 +12618,27 @@ class ColumnView(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     def append_column(self, column: ColumnViewColumn) -> None: ...
-    @property
+    @builtins.property
     def get_columns(self) -> Gio.ListModel: ...
-    @property
+    @builtins.property
     def get_enable_rubberband(self) -> bool: ...
-    @property
+    @builtins.property
     def get_header_factory(self) -> ListItemFactory | None: ...
-    @property
+    @builtins.property
     def get_model(self) -> SelectionModel | None: ...
-    @property
+    @builtins.property
     def get_reorderable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_row_factory(self) -> ListItemFactory | None: ...
-    @property
+    @builtins.property
     def get_show_column_separators(self) -> bool: ...
-    @property
+    @builtins.property
     def get_show_row_separators(self) -> bool: ...
-    @property
+    @builtins.property
     def get_single_click_activate(self) -> bool: ...
-    @property
+    @builtins.property
     def get_sorter(self) -> Sorter | None: ...
-    @property
+    @builtins.property
     def get_tab_behavior(self) -> ListTabBehavior: ...
     def insert_column(self, position: int, column: ColumnViewColumn) -> None: ...
     @classmethod
@@ -12765,7 +12747,6 @@ class ColumnView(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColumnViewCell(ListItem):
     """
@@ -12793,20 +12774,23 @@ class ColumnViewCell(ListItem):
         position: int
         selected: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, child: Widget | None = ..., focusable: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_focusable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_item(self) -> GObject.Object | None: ...
-    @property
+    @builtins.property
     def get_position(self) -> int: ...
-    @property
+    @builtins.property
     def get_selected(self) -> bool: ...
     def set_child(self, child: Widget | None = None) -> None: ...
     def set_focusable(self, focusable: bool) -> None: ...
@@ -12851,7 +12835,6 @@ class ColumnViewCell(ListItem):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColumnViewCellClass(GObject.GPointer):
     # gi Methods
@@ -12860,16 +12843,12 @@ class ColumnViewCellClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ColumnViewClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ColumnViewColumn(GObject.Object):
     """
@@ -12899,6 +12878,9 @@ class ColumnViewColumn(GObject.Object):
         title: str
         visible: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -12915,25 +12897,25 @@ class ColumnViewColumn(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_column_view(self) -> ColumnView | None: ...
-    @property
+    @builtins.property
     def get_expand(self) -> bool: ...
-    @property
+    @builtins.property
     def get_factory(self) -> ListItemFactory | None: ...
-    @property
+    @builtins.property
     def get_fixed_width(self) -> int: ...
-    @property
+    @builtins.property
     def get_header_menu(self) -> Gio.MenuModel | None: ...
-    @property
+    @builtins.property
     def get_id(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_resizable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_sorter(self) -> Sorter | None: ...
-    @property
+    @builtins.property
     def get_title(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_visible(self) -> bool: ...
     @classmethod
     def new(cls, title: str | None = None, factory: ListItemFactory | None = None) -> ColumnViewColumn: ...
@@ -13022,7 +13004,6 @@ class ColumnViewColumn(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColumnViewColumnClass(GObject.GPointer):
     # gi Methods
@@ -13030,8 +13011,6 @@ class ColumnViewColumnClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ColumnViewRow(GObject.Object):
     """
@@ -13051,6 +13030,9 @@ class ColumnViewRow(GObject.Object):
         selectable: bool
         selected: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -13063,21 +13045,21 @@ class ColumnViewRow(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_accessible_description(self) -> str: ...
-    @property
+    @builtins.property
     def get_accessible_label(self) -> str: ...
-    @property
+    @builtins.property
     def get_activatable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_focusable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_item(self) -> GObject.Object | None: ...
-    @property
+    @builtins.property
     def get_position(self) -> int: ...
-    @property
+    @builtins.property
     def get_selectable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_selected(self) -> bool: ...
     def set_accessible_description(self, description: str) -> None: ...
     def set_accessible_label(self, label: str) -> None: ...
@@ -13146,7 +13128,6 @@ class ColumnViewRow(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColumnViewRowClass(GObject.GPointer):
     # gi Methods
@@ -13154,8 +13135,6 @@ class ColumnViewRowClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ColumnViewSorter(Sorter):
     """
@@ -13198,6 +13177,9 @@ class ColumnViewSorter(Sorter):
         )  # [primary-sort-column]: changed because contained invalid characters
         primary_sort_order: SortType  # [primary-sort-order]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -13205,9 +13187,9 @@ class ColumnViewSorter(Sorter):
         """
     def get_n_sort_columns(self) -> int: ...
     def get_nth_sort_column(self, position: int) -> tuple[ColumnViewColumn | None, SortType]: ...
-    @property
+    @builtins.property
     def get_primary_sort_column(self) -> ColumnViewColumn | None: ...
-    @property
+    @builtins.property
     def get_primary_sort_order(self) -> SortType: ...
 
     # Signals
@@ -13229,11 +13211,10 @@ class ColumnViewSorter(Sorter):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColumnViewSorterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SorterClass | None: ...
 
     # gi Methods
@@ -13241,8 +13222,6 @@ class ColumnViewSorterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ComboBox(Widget):
     """
@@ -13324,6 +13303,9 @@ class ComboBox(Widget):
         popup_fixed_width: bool  # [popup-fixed-width]: changed because contained invalid characters
         popup_shown: bool  # [popup-shown]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -13342,33 +13324,33 @@ class ComboBox(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_active(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_active_id(self) -> str | None: ...
     @deprecated("deprecated")
     def get_active_iter(self) -> tuple[bool, TreeIter]: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_button_sensitivity(self) -> SensitivityType: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_entry_text_column(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_has_entry(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_id_column(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_model(self) -> TreeModel | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_popup_fixed_width(self) -> bool: ...
     @deprecated("deprecated")
     @classmethod
@@ -13526,19 +13508,18 @@ class ComboBox(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ComboBoxClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateComboBoxClassCB: ...
-    @property
+    @builtins.property
     def changed(self) -> changedComboBoxClassCB: ...
-    @property
+    @builtins.property
     def format_entry_text(self) -> format_entry_textComboBoxClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -13546,8 +13527,6 @@ class ComboBoxClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ComboBoxText(ComboBox):
     """
@@ -13641,8 +13620,6 @@ class ComboBoxText(ComboBox):
     @deprecated("deprecated")
     def remove_all(self) -> None: ...
 
-    ...
-
 class ConstantExpression(Expression):
     """
     A constant value in a `GtkExpression`.
@@ -13656,8 +13633,6 @@ class ConstantExpression(Expression):
     def get_value(self) -> GObject.Value: ...
     @classmethod
     def new_for_value(cls, value: GObject.Value) -> ConstantExpression: ...
-
-    ...
 
 class Constraint(GObject.Object):
     """
@@ -13688,6 +13663,9 @@ class Constraint(GObject.Object):
         target: ConstraintTarget | None
         target_attribute: ConstraintAttribute  # [target-attribute]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -13703,21 +13681,21 @@ class Constraint(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_constant(self) -> float: ...
-    @property
+    @builtins.property
     def get_multiplier(self) -> float: ...
-    @property
+    @builtins.property
     def get_relation(self) -> ConstraintRelation: ...
-    @property
+    @builtins.property
     def get_source(self) -> ConstraintTarget | None: ...
-    @property
+    @builtins.property
     def get_source_attribute(self) -> ConstraintAttribute: ...
-    @property
+    @builtins.property
     def get_strength(self) -> int: ...
-    @property
+    @builtins.property
     def get_target(self) -> ConstraintTarget | None: ...
-    @property
+    @builtins.property
     def get_target_attribute(self) -> ConstraintAttribute: ...
     def is_attached(self) -> bool: ...
     def is_constant(self) -> bool: ...
@@ -13805,11 +13783,10 @@ class Constraint(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ConstraintClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -13817,8 +13794,6 @@ class ConstraintClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ConstraintGuide(GObject.Object):
     """
@@ -13845,6 +13820,9 @@ class ConstraintGuide(GObject.Object):
         nat_width: int  # [nat-width]: changed because contained invalid characters
         strength: ConstraintStrength
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -13862,10 +13840,10 @@ class ConstraintGuide(GObject.Object):
         """
     def get_max_size(self) -> tuple[int | None, int | None]: ...
     def get_min_size(self) -> tuple[int | None, int | None]: ...
-    @property
+    @builtins.property
     def get_name(self) -> str | None: ...
     def get_nat_size(self) -> tuple[int | None, int | None]: ...
-    @property
+    @builtins.property
     def get_strength(self) -> ConstraintStrength: ...
     @classmethod
     def new(cls) -> ConstraintGuide: ...
@@ -13936,11 +13914,10 @@ class ConstraintGuide(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ConstraintGuideClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -13948,8 +13925,6 @@ class ConstraintGuideClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ConstraintLayout(LayoutManager):
     """
@@ -14136,8 +14111,6 @@ class ConstraintLayout(LayoutManager):
     def remove_constraint(self, constraint: Constraint) -> None: ...
     def remove_guide(self, guide: ConstraintGuide) -> None: ...
 
-    ...
-
 class ConstraintLayoutChild(LayoutChild):
     """
     `GtkLayoutChild` subclass for children in a `GtkConstraintLayout`.
@@ -14149,11 +14122,9 @@ class ConstraintLayoutChild(LayoutChild):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ConstraintLayoutChildClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutChildClass | None: ...
 
     # gi Methods
@@ -14162,11 +14133,9 @@ class ConstraintLayoutChildClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ConstraintLayoutClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
     # gi Methods
@@ -14175,8 +14144,6 @@ class ConstraintLayoutClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ConstraintTarget(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -14184,16 +14151,12 @@ class ConstraintTarget(GObject.GInterface):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ConstraintTargetInterface(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CssLocation(GObject.GPointer):
     # gi Fields
@@ -14208,8 +14171,6 @@ class CssLocation(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CssProvider(GObject.Object):
     """
@@ -14272,7 +14233,6 @@ class CssProvider(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CssProviderClass(GObject.GPointer):
     # gi Methods
@@ -14281,16 +14241,12 @@ class CssProviderClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class CssProviderPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CssSection(GObject.GBoxed):
     # gi Methods
@@ -14317,16 +14273,12 @@ class CssSection(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class CssStyleChange(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CustomFilter(Filter):
     """
@@ -14346,11 +14298,9 @@ class CustomFilter(Filter):
         self, match_func: CustomFilterFunc | None, user_data: object | None, user_destroy: GLib.DestroyNotify
     ) -> None: ...
 
-    ...
-
 class CustomFilterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> FilterClass | None: ...
 
     # gi Methods
@@ -14358,8 +14308,6 @@ class CustomFilterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CustomLayout(LayoutManager):
     """
@@ -14381,11 +14329,9 @@ class CustomLayout(LayoutManager):
         cls, request_mode: CustomRequestModeFunc | None, measure: CustomMeasureFunc, allocate: CustomAllocateFunc
     ) -> LayoutManager: ...
 
-    ...
-
 class CustomLayoutClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
     # gi Methods
@@ -14393,8 +14339,6 @@ class CustomLayoutClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CustomSorter(Sorter):
     """
@@ -14417,11 +14361,9 @@ class CustomSorter(Sorter):
         self, sort_func: GLib.CompareDataFunc | None, user_data: object | None, user_destroy: GLib.DestroyNotify
     ) -> None: ...
 
-    ...
-
 class CustomSorterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SorterClass | None: ...
 
     # gi Methods
@@ -14429,8 +14371,6 @@ class CustomSorterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Dialog(Window):
     """
@@ -14563,6 +14503,9 @@ class Dialog(Window):
     class Props(Window.Props):
         use_header_bar: int  # [use-header-bar]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, use_header_bar: int = ...) -> None:
         """
@@ -14632,17 +14575,16 @@ class Dialog(Window):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DialogClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close(self) -> closeDialogClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WindowClass | None: ...
-    @property
+    @builtins.property
     def response(self) -> responseDialogClassCB: ...
 
     # gi Methods
@@ -14650,8 +14592,6 @@ class DialogClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DirectoryList(GObject.Object):
     """
@@ -14689,6 +14629,9 @@ class DirectoryList(GObject.Object):
         monitored: bool
         n_items: int  # [n-items]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, attributes: str = ..., file: Gio.File | None = ..., io_priority: int = ..., monitored: bool = ...
@@ -14696,17 +14639,17 @@ class DirectoryList(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_attributes(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_error(self) -> None: ...
-    @property
+    @builtins.property
     def get_file(self) -> Gio.File | None: ...
-    @property
+    @builtins.property
     def get_io_priority(self) -> int: ...
-    @property
+    @builtins.property
     def get_monitored(self) -> bool: ...
-    @property
+    @builtins.property
     def is_loading(self) -> bool: ...
     @classmethod
     def new(cls, attributes: str | None = None, file: Gio.File | None = None) -> DirectoryList: ...
@@ -14776,11 +14719,10 @@ class DirectoryList(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DirectoryListClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -14788,8 +14730,6 @@ class DirectoryListClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DragIcon(Widget):
     """
@@ -14809,6 +14749,9 @@ class DragIcon(Widget):
     class Props(Widget.Props):
         child: Widget | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, child: Widget | None = ...) -> None:
         """
@@ -14816,7 +14759,7 @@ class DragIcon(Widget):
         """
     @staticmethod
     def create_widget_for_value(value: GObject.Value) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
     @classmethod
     def get_for_drag(cls, drag: Gdk.Drag) -> Widget: ...
@@ -14836,11 +14779,10 @@ class DragIcon(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DragIconClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -14848,8 +14790,6 @@ class DragIconClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DragSource(GestureSingle):
     """
@@ -14935,15 +14875,18 @@ class DragSource(GestureSingle):
         actions: Gdk.DragAction
         content: Gdk.ContentProvider | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, actions: Gdk.DragAction = ..., content: Gdk.ContentProvider | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def drag_cancel(self) -> None: ...
-    @property
+    @builtins.property
     def get_actions(self) -> Gdk.DragAction: ...
-    @property
+    @builtins.property
     def get_content(self) -> Gdk.ContentProvider | None: ...
     def get_drag(self) -> Gdk.Drag | None: ...
     @classmethod
@@ -14999,7 +14942,6 @@ class DragSource(GestureSingle):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DragSourceClass(GObject.GPointer):
     # gi Methods
@@ -15007,8 +14949,6 @@ class DragSourceClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DrawingArea(Widget):
     """
@@ -15099,8 +15039,11 @@ class DrawingArea(Widget):
         content_height: int  # [content-height]: changed because contained invalid characters
         content_width: int  # [content-width]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def widget(self) -> Widget | None: ...
 
     # gi Methods
@@ -15108,9 +15051,9 @@ class DrawingArea(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_content_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_content_width(self) -> int: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -15156,15 +15099,14 @@ class DrawingArea(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DrawingAreaClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
-    @property
+    @builtins.property
     def resize(self) -> resizeDrawingAreaClassCB: ...
 
     # gi Methods
@@ -15172,8 +15114,6 @@ class DrawingAreaClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DropControllerMotion(EventController):
     """
@@ -15191,16 +15131,19 @@ class DropControllerMotion(EventController):
         drop: Gdk.Drop | None
         is_pointer: bool  # [is-pointer]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def contains_pointer(self) -> bool: ...
-    @property
+    @builtins.property
     def get_drop(self) -> Gdk.Drop | None: ...
-    @property
+    @builtins.property
     def is_pointer(self) -> bool: ...
     @classmethod
     def new(cls) -> EventController: ...
@@ -15249,7 +15192,6 @@ class DropControllerMotion(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DropControllerMotionClass(GObject.GPointer):
     # gi Methods
@@ -15257,8 +15199,6 @@ class DropControllerMotionClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DropDown(Widget):
     """
@@ -15334,6 +15274,9 @@ class DropDown(Widget):
         selected_item: GObject.Object | None  # [selected-item]: changed because contained invalid characters
         show_arrow: bool  # [show-arrow]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -15350,25 +15293,25 @@ class DropDown(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_enable_search(self) -> bool: ...
-    @property
+    @builtins.property
     def get_expression(self) -> Expression | None: ...
-    @property
+    @builtins.property
     def get_factory(self) -> ListItemFactory | None: ...
-    @property
+    @builtins.property
     def get_header_factory(self) -> ListItemFactory | None: ...
-    @property
+    @builtins.property
     def get_list_factory(self) -> ListItemFactory | None: ...
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel | None: ...
-    @property
+    @builtins.property
     def get_search_match_mode(self) -> StringFilterMatchMode: ...
-    @property
+    @builtins.property
     def get_selected(self) -> int: ...
-    @property
+    @builtins.property
     def get_selected_item(self) -> GObject.Object | None: ...
-    @property
+    @builtins.property
     def get_show_arrow(self) -> bool: ...
     @classmethod
     def new(cls, model: Gio.ListModel | None = None, expression: Expression | None = None) -> Widget: ...
@@ -15463,11 +15406,10 @@ class DropDown(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DropDownClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -15475,8 +15417,6 @@ class DropDownClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DropTarget(EventController):
     """
@@ -15561,6 +15501,9 @@ class DropTarget(EventController):
         preload: bool
         value: GObject.Value | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, actions: Gdk.DragAction = ..., formats: Gdk.ContentFormats | None = ..., preload: bool = ...
@@ -15568,19 +15511,19 @@ class DropTarget(EventController):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_actions(self) -> Gdk.DragAction: ...
-    @property
+    @builtins.property
     def get_current_drop(self) -> Gdk.Drop | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_drop(self) -> Gdk.Drop | None: ...
-    @property
+    @builtins.property
     def get_formats(self) -> Gdk.ContentFormats | None: ...
     def get_gtypes(self) -> tuple[list | None, int | None]: ...
-    @property
+    @builtins.property
     def get_preload(self) -> bool: ...
-    @property
+    @builtins.property
     def get_value(self) -> GObject.Value | None: ...
     @classmethod
     def new(cls, type: GObject.GType, actions: Gdk.DragAction) -> DropTarget: ...
@@ -15668,7 +15611,6 @@ class DropTarget(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DropTargetAsync(EventController):
     """
@@ -15711,14 +15653,17 @@ class DropTargetAsync(EventController):
         actions: Gdk.DragAction
         formats: Gdk.ContentFormats | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, actions: Gdk.DragAction = ..., formats: Gdk.ContentFormats | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_actions(self) -> Gdk.DragAction: ...
-    @property
+    @builtins.property
     def get_formats(self) -> Gdk.ContentFormats | None: ...
     @classmethod
     def new(cls, formats: Gdk.ContentFormats | None, actions: Gdk.DragAction) -> DropTargetAsync: ...
@@ -15780,7 +15725,6 @@ class DropTargetAsync(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DropTargetAsyncClass(GObject.GPointer):
     # gi Methods
@@ -15789,16 +15733,12 @@ class DropTargetAsyncClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DropTargetClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Editable(GObject.GInterface):
     class Props(GObject.GInterface.Props):
@@ -15810,6 +15750,9 @@ class Editable(GObject.GInterface):
         text: str
         width_chars: int  # [width-chars]: changed because contained invalid characters
         xalign: float
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -15836,22 +15779,22 @@ class Editable(GObject.GInterface):
     def delete_selection(self) -> None: ...
     def delete_text(self, start_pos: int, end_pos: int) -> None: ...
     def finish_delegate(self) -> None: ...
-    @property
+    @builtins.property
     def get_alignment(self) -> float: ...
     def get_chars(self, start_pos: int, end_pos: int) -> str: ...
     def get_delegate(self) -> Editable | None: ...
-    @property
+    @builtins.property
     def get_editable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_enable_undo(self) -> bool: ...
-    @property
+    @builtins.property
     def get_max_width_chars(self) -> int: ...
-    @property
+    @builtins.property
     def get_position(self) -> int: ...
     def get_selection_bounds(self) -> tuple[bool, int | None, int | None]: ...
-    @property
+    @builtins.property
     def get_text(self) -> str: ...
-    @property
+    @builtins.property
     def get_width_chars(self) -> int: ...
     def init_delegate(self) -> None: ...
     def insert_text(self, text: str, length: int, position: int) -> int: ...
@@ -15945,29 +15888,28 @@ class Editable(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EditableInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def base_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def changed(self) -> changedEditableInterfaceCB: ...
-    @property
+    @builtins.property
     def delete_text(self) -> delete_textEditableInterfaceCB: ...
-    @property
+    @builtins.property
     def do_delete_text(self) -> do_delete_textEditableInterfaceCB: ...
-    @property
+    @builtins.property
     def do_insert_text(self) -> do_insert_textEditableInterfaceCB: ...
-    @property
+    @builtins.property
     def get_delegate(self) -> get_delegateEditableInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_selection_bounds(self) -> get_selection_boundsEditableInterfaceCB: ...
-    @property
+    @builtins.property
     def get_text(self) -> get_textEditableInterfaceCB: ...
-    @property
+    @builtins.property
     def insert_text(self) -> insert_textEditableInterfaceCB: ...
-    @property
+    @builtins.property
     def set_selection_bounds(self) -> set_selection_boundsEditableInterfaceCB: ...
 
     # gi Methods
@@ -15975,8 +15917,6 @@ class EditableInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EditableLabel(Widget):
     """
@@ -16029,12 +15969,15 @@ class EditableLabel(Widget):
     class Props(Widget.Props):
         editing: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, editing: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_editing(self) -> bool: ...
     @classmethod
     def new(cls, str: str) -> Widget: ...
@@ -16053,11 +15996,10 @@ class EditableLabel(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EditableLabelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -16065,8 +16007,6 @@ class EditableLabelClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EmojiChooser(Popover):
     """
@@ -16135,7 +16075,6 @@ class EmojiChooser(Popover):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EmojiChooserClass(GObject.GPointer):
     # gi Methods
@@ -16143,8 +16082,6 @@ class EmojiChooserClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Entry(Widget):
     """
@@ -16291,6 +16228,9 @@ class Entry(Widget):
         truncate_multiline: bool  # [truncate-multiline]: changed because contained invalid characters
         visibility: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -16333,20 +16273,20 @@ class Entry(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_activates_default(self) -> bool: ...
     def get_alignment(self) -> float: ...
-    @property
+    @builtins.property
     def get_attributes(self) -> Pango.AttrList | None: ...
-    @property
+    @builtins.property
     def get_buffer(self) -> EntryBuffer: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_completion(self) -> EntryCompletion | None: ...
     def get_current_icon_drag_source(self) -> int: ...
-    @property
+    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None: ...
-    @property
+    @builtins.property
     def get_has_frame(self) -> bool: ...
     def get_icon_activatable(self, icon_pos: EntryIconPosition) -> bool: ...
     def get_icon_area(self, icon_pos: EntryIconPosition) -> Gdk.Rectangle: ...
@@ -16358,27 +16298,27 @@ class Entry(Widget):
     def get_icon_storage_type(self, icon_pos: EntryIconPosition) -> ImageType: ...
     def get_icon_tooltip_markup(self, icon_pos: EntryIconPosition) -> str | None: ...
     def get_icon_tooltip_text(self, icon_pos: EntryIconPosition) -> str | None: ...
-    @property
+    @builtins.property
     def get_input_hints(self) -> InputHints: ...
-    @property
+    @builtins.property
     def get_input_purpose(self) -> InputPurpose: ...
-    @property
+    @builtins.property
     def get_invisible_char(self) -> str: ...
-    @property
+    @builtins.property
     def get_max_length(self) -> int: ...
-    @property
+    @builtins.property
     def get_overwrite_mode(self) -> bool: ...
-    @property
+    @builtins.property
     def get_placeholder_text(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_progress_fraction(self) -> float: ...
-    @property
+    @builtins.property
     def get_progress_pulse_step(self) -> float: ...
-    @property
+    @builtins.property
     def get_tabs(self) -> Pango.TabArray | None: ...
-    @property
+    @builtins.property
     def get_text_length(self) -> int: ...
-    @property
+    @builtins.property
     def get_visibility(self) -> bool: ...
     def grab_focus_without_selecting(self) -> bool: ...
     @classmethod
@@ -16721,7 +16661,6 @@ class Entry(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EntryBuffer(GObject.Object):
     """
@@ -16742,6 +16681,9 @@ class EntryBuffer(GObject.Object):
         max_length: int  # [max-length]: changed because contained invalid characters
         text: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, max_length: int = ..., text: str = ...) -> None:
         """
@@ -16751,11 +16693,11 @@ class EntryBuffer(GObject.Object):
     def emit_deleted_text(self, position: int, n_chars: int) -> None: ...
     def emit_inserted_text(self, position: int, chars: str, n_chars: int) -> None: ...
     def get_bytes(self) -> int: ...
-    @property
+    @builtins.property
     def get_length(self) -> int: ...
-    @property
+    @builtins.property
     def get_max_length(self) -> int: ...
-    @property
+    @builtins.property
     def get_text(self) -> str: ...
     def insert_text(self, position: int, chars: str, n_chars: int) -> int: ...
     @classmethod
@@ -16852,23 +16794,22 @@ class EntryBuffer(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EntryBufferClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def delete_text(self) -> delete_textEntryBufferClassCB: ...
-    @property
+    @builtins.property
     def deleted_text(self) -> deleted_textEntryBufferClassCB: ...
-    @property
+    @builtins.property
     def get_length(self) -> get_lengthEntryBufferClassCB: ...
-    @property
+    @builtins.property
     def get_text(self) -> get_textEntryBufferClassCB: ...
-    @property
+    @builtins.property
     def insert_text(self) -> insert_textEntryBufferClassCB: ...
-    @property
+    @builtins.property
     def inserted_text(self) -> inserted_textEntryBufferClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -16877,15 +16818,13 @@ class EntryBufferClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class EntryClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateEntryClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -16893,8 +16832,6 @@ class EntryClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EntryCompletion(GObject.Object):
     """
@@ -16949,6 +16886,9 @@ class EntryCompletion(GObject.Object):
         popup_single_match: bool  # [popup-single-match]: changed because contained invalid characters
         text_column: int  # [text-column]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -16974,28 +16914,28 @@ class EntryCompletion(GObject.Object):
     @deprecated("deprecated")
     def get_entry(self) -> Widget: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_inline_completion(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_inline_selection(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_minimum_key_length(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_model(self) -> TreeModel | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_popup_completion(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_popup_set_width(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_popup_single_match(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_text_column(self) -> int: ...
     @deprecated("deprecated")
     def insert_prefix(self) -> None: ...
@@ -17119,7 +17059,6 @@ class EntryCompletion(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EventController(GObject.Object):
     """
@@ -17143,6 +17082,9 @@ class EventController(GObject.Object):
         propagation_phase: PropagationPhase  # [propagation-phase]: changed because contained invalid characters
         widget: Widget | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, name: str = ..., propagation_limit: PropagationLimit = ..., propagation_phase: PropagationPhase = ...
@@ -17154,13 +17096,13 @@ class EventController(GObject.Object):
     def get_current_event_device(self) -> Gdk.Device | None: ...
     def get_current_event_state(self) -> Gdk.ModifierType: ...
     def get_current_event_time(self) -> int: ...
-    @property
+    @builtins.property
     def get_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_propagation_limit(self) -> PropagationLimit: ...
-    @property
+    @builtins.property
     def get_propagation_phase(self) -> PropagationPhase: ...
-    @property
+    @builtins.property
     def get_widget(self) -> Widget | None: ...
     def reset(self) -> None: ...
     def set_name(self, name: str | None = None) -> None: ...
@@ -17201,7 +17143,6 @@ class EventController(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EventControllerClass(GObject.GPointer):
     # gi Methods
@@ -17209,8 +17150,6 @@ class EventControllerClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EventControllerFocus(EventController):
     """
@@ -17228,14 +17167,17 @@ class EventControllerFocus(EventController):
         contains_focus: bool  # [contains-focus]: changed because contained invalid characters
         is_focus: bool  # [is-focus]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def contains_focus(self) -> bool: ...
-    @property
+    @builtins.property
     def is_focus(self) -> bool: ...
     @classmethod
     def new(cls) -> EventController: ...
@@ -17267,7 +17209,6 @@ class EventControllerFocus(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EventControllerFocusClass(GObject.GPointer):
     # gi Methods
@@ -17275,8 +17216,6 @@ class EventControllerFocusClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EventControllerKey(EventController):
     """
@@ -17325,7 +17264,6 @@ class EventControllerKey(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EventControllerKeyClass(GObject.GPointer):
     # gi Methods
@@ -17333,8 +17271,6 @@ class EventControllerKeyClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EventControllerLegacy(EventController):
     """
@@ -17364,7 +17300,6 @@ class EventControllerLegacy(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EventControllerLegacyClass(GObject.GPointer):
     # gi Methods
@@ -17372,8 +17307,6 @@ class EventControllerLegacyClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EventControllerMotion(EventController):
     """
@@ -17391,14 +17324,17 @@ class EventControllerMotion(EventController):
         contains_pointer: bool  # [contains-pointer]: changed because contained invalid characters
         is_pointer: bool  # [is-pointer]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def contains_pointer(self) -> bool: ...
-    @property
+    @builtins.property
     def is_pointer(self) -> bool: ...
     @classmethod
     def new(cls) -> EventController: ...
@@ -17440,7 +17376,6 @@ class EventControllerMotion(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EventControllerMotionClass(GObject.GPointer):
     # gi Methods
@@ -17448,8 +17383,6 @@ class EventControllerMotionClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EventControllerScroll(EventController):
     """
@@ -17491,12 +17424,15 @@ class EventControllerScroll(EventController):
     class Props(EventController.Props):
         flags: EventControllerScrollFlags
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, flags: EventControllerScrollFlags = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_flags(self) -> EventControllerScrollFlags: ...
     def get_unit(self) -> Gdk.ScrollUnit: ...
     @classmethod
@@ -17537,7 +17473,6 @@ class EventControllerScroll(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EventControllerScrollClass(GObject.GPointer):
     # gi Methods
@@ -17545,8 +17480,6 @@ class EventControllerScrollClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EveryFilter(MultiFilter):
     """
@@ -17563,16 +17496,12 @@ class EveryFilter(MultiFilter):
     @classmethod
     def new(cls) -> EveryFilter: ...
 
-    ...
-
 class EveryFilterClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Expander(Widget):
     """
@@ -17681,6 +17610,9 @@ class Expander(Widget):
         use_markup: bool  # [use-markup]: changed because contained invalid characters
         use_underline: bool  # [use-underline]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -17695,19 +17627,19 @@ class Expander(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_expanded(self) -> bool: ...
-    @property
+    @builtins.property
     def get_label(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_label_widget(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_resize_toplevel(self) -> bool: ...
-    @property
+    @builtins.property
     def get_use_markup(self) -> bool: ...
-    @property
+    @builtins.property
     def get_use_underline(self) -> bool: ...
     @classmethod
     def new(cls, label: str | None = None) -> Widget: ...
@@ -17779,7 +17711,6 @@ class Expander(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Expression(object):
     """
@@ -17936,7 +17867,9 @@ class Expression(object):
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -17957,8 +17890,6 @@ class Expression(object):
         user_destroy: GLib.DestroyNotify,
     ) -> ExpressionWatch: ...
 
-    ...
-
 class ExpressionWatch(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -17970,8 +17901,6 @@ class ExpressionWatch(GObject.GBoxed):
     def unref(self) -> None: ...
     def unwatch(self) -> None: ...
 
-    ...
-
 class FileChooser(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         action: FileChooserAction
@@ -17980,6 +17909,9 @@ class FileChooser(GObject.GInterface):
         filters: Gio.ListModel | None
         select_multiple: bool  # [select-multiple]: changed because contained invalid characters
         shortcut_folders: Gio.ListModel | None  # [shortcut-folders]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -18001,12 +17933,12 @@ class FileChooser(GObject.GInterface):
     @deprecated("deprecated")
     def add_shortcut_folder(self, folder: Gio.File) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_action(self) -> FileChooserAction: ...
     @deprecated("deprecated")
     def get_choice(self, id: str) -> str | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_create_folders(self) -> bool: ...
     @deprecated("deprecated")
     def get_current_folder(self) -> Gio.File | None: ...
@@ -18017,16 +17949,16 @@ class FileChooser(GObject.GInterface):
     @deprecated("deprecated")
     def get_files(self) -> Gio.ListModel: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_filter(self) -> FileFilter | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_filters(self) -> Gio.ListModel: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_select_multiple(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_shortcut_folders(self) -> Gio.ListModel: ...
     @deprecated("deprecated")
     def remove_choice(self, id: str) -> None: ...
@@ -18098,7 +18030,6 @@ class FileChooser(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FileChooserDialog(Dialog):
     """
@@ -18282,8 +18213,6 @@ class FileChooserDialog(Dialog):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FileChooserNative(NativeDialog):
     """
     `GtkFileChooserNative` is an abstraction of a dialog suitable
@@ -18438,16 +18367,19 @@ class FileChooserNative(NativeDialog):
         accept_label: str  # [accept-label]: changed because contained invalid characters
         cancel_label: str  # [cancel-label]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, accept_label: str = ..., cancel_label: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_accept_label(self) -> str | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_cancel_label(self) -> str | None: ...
     @deprecated("deprecated")
     @classmethod
@@ -18483,11 +18415,10 @@ class FileChooserNative(NativeDialog):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FileChooserNativeClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> NativeDialogClass | None: ...
 
     # gi Methods
@@ -18495,8 +18426,6 @@ class FileChooserNativeClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileChooserWidget(Widget):
     """
@@ -18536,6 +18465,9 @@ class FileChooserWidget(Widget):
         search_mode: bool  # [search-mode]: changed because contained invalid characters
         show_time: bool  # [show-time]: changed because contained invalid characters
         subtitle: str
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, search_mode: bool = ...) -> None:
@@ -18632,7 +18564,6 @@ class FileChooserWidget(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FileDialog(GObject.Object):
     """
@@ -18656,6 +18587,9 @@ class FileDialog(GObject.Object):
         modal: bool
         title: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -18671,21 +18605,21 @@ class FileDialog(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_accept_label(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_default_filter(self) -> FileFilter | None: ...
-    @property
+    @builtins.property
     def get_filters(self) -> Gio.ListModel | None: ...
-    @property
+    @builtins.property
     def get_initial_file(self) -> Gio.File | None: ...
-    @property
+    @builtins.property
     def get_initial_folder(self) -> Gio.File | None: ...
-    @property
+    @builtins.property
     def get_initial_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
-    @property
+    @builtins.property
     def get_title(self) -> str: ...
     @classmethod
     def new(cls) -> FileDialog: ...
@@ -18823,11 +18757,10 @@ class FileDialog(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FileDialogClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -18835,8 +18768,6 @@ class FileDialogClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileFilter(Filter):
     """
@@ -18894,6 +18825,9 @@ class FileFilter(Filter):
         patterns: list | None
         suffixes: list | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, mime_types: list | None = ..., name: str = ..., patterns: list | None = ..., suffixes: list | None = ...
@@ -18906,7 +18840,7 @@ class FileFilter(Filter):
     def add_pixbuf_formats(self) -> None: ...
     def add_suffix(self, suffix: str) -> None: ...
     def get_attributes(self) -> list: ...
-    @property
+    @builtins.property
     def get_name(self) -> str | None: ...
     @classmethod
     def new(cls) -> FileFilter: ...
@@ -18948,7 +18882,6 @@ class FileFilter(Filter):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FileLauncher(GObject.Object):
     """
@@ -18970,16 +18903,19 @@ class FileLauncher(GObject.Object):
         file: Gio.File | None
         writable: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, always_ask: bool = ..., file: Gio.File | None = ..., writable: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_always_ask(self) -> bool: ...
-    @property
+    @builtins.property
     def get_file(self) -> Gio.File | None: ...
-    @property
+    @builtins.property
     def get_writable(self) -> bool: ...
     def launch(
         self,
@@ -19029,11 +18965,10 @@ class FileLauncher(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FileLauncherClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -19041,8 +18976,6 @@ class FileLauncherClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Filter(GObject.Object):
     """
@@ -19101,15 +19034,14 @@ class Filter(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FilterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_strictness(self) -> get_strictnessFilterClassCB: ...
-    @property
+    @builtins.property
     def match(self) -> matchFilterClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -19117,8 +19049,6 @@ class FilterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FilterListModel(GObject.Object):
     """
@@ -19142,18 +19072,21 @@ class FilterListModel(GObject.Object):
         n_items: int  # [n-items]: changed because contained invalid characters
         pending: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, filter: Filter | None = ..., incremental: bool = ..., model: Gio.ListModel | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_filter(self) -> Filter | None: ...
-    @property
+    @builtins.property
     def get_incremental(self) -> bool: ...
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel | None: ...
-    @property
+    @builtins.property
     def get_pending(self) -> int: ...
     @classmethod
     def new(cls, model: Gio.ListModel | None = None, filter: Filter | None = None) -> FilterListModel: ...
@@ -19208,11 +19141,10 @@ class FilterListModel(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FilterListModelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -19220,8 +19152,6 @@ class FilterListModelClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Fixed(Widget):
     """
@@ -19278,13 +19208,11 @@ class Fixed(Widget):
     def remove(self, widget: Widget) -> None: ...
     def set_child_transform(self, widget: Widget, transform: Gsk.Transform | None = None) -> None: ...
 
-    ...
-
 class FixedClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -19292,8 +19220,6 @@ class FixedClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FixedLayout(LayoutManager):
     """
@@ -19337,8 +19263,6 @@ class FixedLayout(LayoutManager):
     @classmethod
     def new(cls) -> LayoutManager: ...
 
-    ...
-
 class FixedLayoutChild(LayoutChild):
     """
     `GtkLayoutChild` subclass for children in a `GtkFixedLayout`.
@@ -19347,12 +19271,15 @@ class FixedLayoutChild(LayoutChild):
     class Props(LayoutChild.Props):
         transform: Gsk.Transform | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, transform: Gsk.Transform | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_transform(self) -> Gsk.Transform | None: ...
     def set_transform(self, transform: Gsk.Transform) -> None: ...
 
@@ -19368,11 +19295,10 @@ class FixedLayoutChild(LayoutChild):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FixedLayoutChildClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutChildClass | None: ...
 
     # gi Methods
@@ -19381,11 +19307,9 @@ class FixedLayoutChildClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FixedLayoutClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
     # gi Methods
@@ -19393,8 +19317,6 @@ class FixedLayoutClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FlattenListModel(GObject.Object):
     """
@@ -19409,12 +19331,15 @@ class FlattenListModel(GObject.Object):
         model: Gio.ListModel | None
         n_items: int  # [n-items]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, model: Gio.ListModel | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel | None: ...
     def get_model_for_item(self, position: int) -> Gio.ListModel | None: ...
     @classmethod
@@ -19447,11 +19372,10 @@ class FlattenListModel(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FlattenListModelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -19459,8 +19383,6 @@ class FlattenListModelClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FlowBox(Widget):
     """
@@ -19536,6 +19458,9 @@ class FlowBox(Widget):
         row_spacing: int  # [row-spacing]: changed because contained invalid characters
         selection_mode: SelectionMode  # [selection-mode]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -19559,22 +19484,22 @@ class FlowBox(Widget):
         user_data: object | None,
         user_data_free_func: GLib.DestroyNotify,
     ) -> None: ...
-    @property
+    @builtins.property
     def get_activate_on_single_click(self) -> bool: ...
     def get_child_at_index(self, idx: int) -> FlowBoxChild | None: ...
     def get_child_at_pos(self, x: int, y: int) -> FlowBoxChild | None: ...
-    @property
+    @builtins.property
     def get_column_spacing(self) -> int: ...
-    @property
+    @builtins.property
     def get_homogeneous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_max_children_per_line(self) -> int: ...
-    @property
+    @builtins.property
     def get_min_children_per_line(self) -> int: ...
-    @property
+    @builtins.property
     def get_row_spacing(self) -> int: ...
     def get_selected_children(self) -> list: ...
-    @property
+    @builtins.property
     def get_selection_mode(self) -> SelectionMode: ...
     def insert(self, widget: Widget, position: int) -> None: ...
     def invalidate_filter(self) -> None: ...
@@ -19709,7 +19634,6 @@ class FlowBox(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FlowBoxChild(Widget):
     """
@@ -19722,13 +19646,16 @@ class FlowBoxChild(Widget):
     class Props(Widget.Props):
         child: Widget | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, child: Widget | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def changed(self) -> None: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
     def get_index(self) -> int: ...
     def is_selected(self) -> bool: ...
@@ -19760,15 +19687,14 @@ class FlowBoxChild(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FlowBoxChildClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateFlowBoxChildClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -19776,8 +19702,6 @@ class FlowBoxChildClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FontButton(Widget):
     """
@@ -19809,22 +19733,25 @@ class FontButton(Widget):
         use_font: bool  # [use-font]: changed because contained invalid characters
         use_size: bool  # [use-size]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, modal: bool = ..., title: str = ..., use_font: bool = ..., use_size: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_title(self) -> str: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_use_font(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_use_size(self) -> bool: ...
     @deprecated("deprecated")
     @classmethod
@@ -19882,7 +19809,6 @@ class FontButton(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FontChooser(GObject.GInterface):
     class Props(GObject.GInterface.Props):
@@ -19893,6 +19819,9 @@ class FontChooser(GObject.GInterface):
         level: FontChooserLevel
         preview_text: str  # [preview-text]: changed because contained invalid characters
         show_preview_entry: bool  # [show-preview-entry]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -19908,33 +19837,33 @@ class FontChooser(GObject.GInterface):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_font(self) -> str | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_font_desc(self) -> Pango.FontDescription | None: ...
     @deprecated("deprecated")
     def get_font_face(self) -> Pango.FontFace | None: ...
     @deprecated("deprecated")
     def get_font_family(self) -> Pango.FontFamily | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_font_features(self) -> str: ...
     @deprecated("deprecated")
     def get_font_map(self) -> Pango.FontMap | None: ...
     @deprecated("deprecated")
     def get_font_size(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_language(self) -> str: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_level(self) -> FontChooserLevel: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_preview_text(self) -> str: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_preview_entry(self) -> bool: ...
     @deprecated("deprecated")
     def set_filter_func(
@@ -20016,7 +19945,6 @@ class FontChooser(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FontChooserDialog(Dialog):
     """
@@ -20053,27 +19981,25 @@ class FontChooserDialog(Dialog):
     @classmethod
     def new(cls, title: str | None = None, parent: Window | None = None) -> Widget: ...
 
-    ...
-
 class FontChooserIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def base_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def font_activated(self) -> font_activatedFontChooserIfaceCB: ...
-    @property
+    @builtins.property
     def get_font_face(self) -> get_font_faceFontChooserIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_font_family(self) -> get_font_familyFontChooserIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_font_map(self) -> get_font_mapFontChooserIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_font_size(self) -> get_font_sizeFontChooserIfaceCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def set_filter_func(self) -> set_filter_funcFontChooserIfaceCB: ...
-    @property
+    @builtins.property
     def set_font_map(self) -> set_font_mapFontChooserIfaceCB: ...
 
     # gi Methods
@@ -20081,8 +20007,6 @@ class FontChooserIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FontChooserWidget(Widget):
     """
@@ -20108,6 +20032,9 @@ class FontChooserWidget(Widget):
     class Props(Widget.Props):
         tweak_action: Gio.Action | None  # [tweak-action]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -20129,7 +20056,6 @@ class FontChooserWidget(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FontDialog(GObject.Object):
     """
@@ -20152,6 +20078,9 @@ class FontDialog(GObject.Object):
         language: Pango.Language | None
         modal: bool
         title: str
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -20203,15 +20132,15 @@ class FontDialog(GObject.Object):
         self, result: Gio.AsyncResult
     ) -> tuple[bool, Pango.FontDescription, str, Pango.Language]: ...
     def choose_font_finish(self, result: Gio.AsyncResult) -> Pango.FontDescription | None: ...
-    @property
+    @builtins.property
     def get_filter(self) -> Filter | None: ...
-    @property
+    @builtins.property
     def get_font_map(self) -> Pango.FontMap | None: ...
-    @property
+    @builtins.property
     def get_language(self) -> Pango.Language | None: ...
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
-    @property
+    @builtins.property
     def get_title(self) -> str: ...
     @classmethod
     def new(cls) -> FontDialog: ...
@@ -20261,7 +20190,6 @@ class FontDialog(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FontDialogButton(Widget):
     """
@@ -20295,6 +20223,9 @@ class FontDialogButton(Widget):
         use_font: bool  # [use-font]: changed because contained invalid characters
         use_size: bool  # [use-size]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -20309,19 +20240,19 @@ class FontDialogButton(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_dialog(self) -> FontDialog | None: ...
-    @property
+    @builtins.property
     def get_font_desc(self) -> Pango.FontDescription | None: ...
-    @property
+    @builtins.property
     def get_font_features(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_language(self) -> Pango.Language | None: ...
-    @property
+    @builtins.property
     def get_level(self) -> FontLevel: ...
-    @property
+    @builtins.property
     def get_use_font(self) -> bool: ...
-    @property
+    @builtins.property
     def get_use_size(self) -> bool: ...
     @classmethod
     def new(cls, dialog: FontDialog | None = None) -> Widget: ...
@@ -20391,11 +20322,10 @@ class FontDialogButton(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FontDialogButtonClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -20404,11 +20334,9 @@ class FontDialogButtonClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FontDialogClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -20416,8 +20344,6 @@ class FontDialogClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Frame(Widget):
     """
@@ -20477,6 +20403,9 @@ class Frame(Widget):
         label_widget: Widget | None  # [label-widget]: changed because contained invalid characters
         label_xalign: float  # [label-xalign]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, child: Widget | None = ..., label: str = ..., label_widget: Widget | None = ..., label_xalign: float = ...
@@ -20484,13 +20413,13 @@ class Frame(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_label(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_label_align(self) -> float: ...
-    @property
+    @builtins.property
     def get_label_widget(self) -> Widget | None: ...
     @classmethod
     def new(cls, label: str | None = None) -> Widget: ...
@@ -20541,15 +20470,14 @@ class Frame(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FrameClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def compute_child_allocation(self) -> compute_child_allocationFrameClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -20557,8 +20485,6 @@ class FrameClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GLArea(Widget):
     """
@@ -20689,6 +20615,9 @@ class GLArea(Widget):
         has_stencil_buffer: bool  # [has-stencil-buffer]: changed because contained invalid characters
         use_es: bool  # [use-es]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -20702,22 +20631,22 @@ class GLArea(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     def attach_buffers(self) -> None: ...
-    @property
+    @builtins.property
     def get_allowed_apis(self) -> Gdk.GLAPI: ...
-    @property
+    @builtins.property
     def get_api(self) -> Gdk.GLAPI: ...
-    @property
+    @builtins.property
     def get_auto_render(self) -> bool: ...
-    @property
+    @builtins.property
     def get_context(self) -> Gdk.GLContext | None: ...
     def get_error(self) -> None: ...
-    @property
+    @builtins.property
     def get_has_depth_buffer(self) -> bool: ...
-    @property
+    @builtins.property
     def get_has_stencil_buffer(self) -> bool: ...
     def get_required_version(self) -> tuple[int, int]: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_use_es(self) -> bool: ...
     def make_current(self) -> None: ...
     @classmethod
@@ -20824,15 +20753,14 @@ class GLArea(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GLAreaClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
-    @property
+    @builtins.property
     def render(self) -> renderGLAreaClassCB: ...
-    @property
+    @builtins.property
     def resize(self) -> resizeGLAreaClassCB: ...
 
     # gi Methods
@@ -20840,8 +20768,6 @@ class GLAreaClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Gesture(EventController):
     """
@@ -20939,6 +20865,9 @@ class Gesture(EventController):
     class Props(EventController.Props):
         n_points: int  # [n-points]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, n_points: int = ...) -> None:
         """
@@ -21010,7 +20939,6 @@ class Gesture(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GestureClass(GObject.GPointer):
     # gi Methods
@@ -21018,8 +20946,6 @@ class GestureClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GestureClick(GestureSingle):
     """
@@ -21070,7 +20996,6 @@ class GestureClick(GestureSingle):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GestureClickClass(GObject.GPointer):
     # gi Methods
@@ -21078,8 +21003,6 @@ class GestureClickClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GestureDrag(GestureSingle):
     """
@@ -21130,7 +21053,6 @@ class GestureDrag(GestureSingle):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GestureDragClass(GObject.GPointer):
     # gi Methods
@@ -21138,8 +21060,6 @@ class GestureDragClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GestureLongPress(GestureSingle):
     """
@@ -21163,12 +21083,15 @@ class GestureLongPress(GestureSingle):
     class Props(GestureSingle.Props):
         delay_factor: float  # [delay-factor]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, delay_factor: float = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_delay_factor(self) -> float: ...
     @classmethod
     def new(cls) -> Gesture: ...
@@ -21197,7 +21120,6 @@ class GestureLongPress(GestureSingle):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GestureLongPressClass(GObject.GPointer):
     # gi Methods
@@ -21205,8 +21127,6 @@ class GestureLongPressClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GesturePan(GestureDrag):
     """
@@ -21229,12 +21149,15 @@ class GesturePan(GestureDrag):
     class Props(GestureDrag.Props):
         orientation: Orientation
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, orientation: Orientation = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_orientation(self) -> Orientation: ...
     @classmethod
     def new(cls, orientation: Orientation) -> Gesture: ...
@@ -21259,7 +21182,6 @@ class GesturePan(GestureDrag):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GesturePanClass(GObject.GPointer):
     # gi Methods
@@ -21267,8 +21189,6 @@ class GesturePanClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GestureRotate(Gesture):
     """
@@ -21299,7 +21219,6 @@ class GestureRotate(Gesture):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GestureRotateClass(GObject.GPointer):
     # gi Methods
@@ -21307,8 +21226,6 @@ class GestureRotateClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GestureSingle(Gesture):
     """
@@ -21332,18 +21249,21 @@ class GestureSingle(Gesture):
         exclusive: bool
         touch_only: bool  # [touch-only]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, button: int = ..., exclusive: bool = ..., touch_only: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_button(self) -> int: ...
     def get_current_button(self) -> int: ...
     def get_current_sequence(self) -> Gdk.EventSequence | None: ...
-    @property
+    @builtins.property
     def get_exclusive(self) -> bool: ...
-    @property
+    @builtins.property
     def get_touch_only(self) -> bool: ...
     def set_button(self, button: int) -> None: ...
     def set_exclusive(self, exclusive: bool) -> None: ...
@@ -21375,7 +21295,6 @@ class GestureSingle(Gesture):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GestureSingleClass(GObject.GPointer):
     # gi Methods
@@ -21383,8 +21302,6 @@ class GestureSingleClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GestureStylus(GestureSingle):
     """
@@ -21397,6 +21314,9 @@ class GestureStylus(GestureSingle):
     class Props(GestureSingle.Props):
         stylus_only: bool  # [stylus-only]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, stylus_only: bool = ...) -> None:
         """
@@ -21406,7 +21326,7 @@ class GestureStylus(GestureSingle):
     def get_axis(self, axis: Gdk.AxisUse) -> tuple[bool, float]: ...
     def get_backlog(self) -> tuple[bool, list, int]: ...
     def get_device_tool(self) -> Gdk.DeviceTool | None: ...
-    @property
+    @builtins.property
     def get_stylus_only(self) -> bool: ...
     @classmethod
     def new(cls) -> Gesture: ...
@@ -21452,7 +21372,6 @@ class GestureStylus(GestureSingle):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GestureStylusClass(GObject.GPointer):
     # gi Methods
@@ -21460,8 +21379,6 @@ class GestureStylusClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GestureSwipe(GestureSingle):
     """
@@ -21500,7 +21417,6 @@ class GestureSwipe(GestureSingle):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GestureSwipeClass(GObject.GPointer):
     # gi Methods
@@ -21508,8 +21424,6 @@ class GestureSwipeClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GestureZoom(Gesture):
     """
@@ -21541,7 +21455,6 @@ class GestureZoom(Gesture):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GestureZoomClass(GObject.GPointer):
     # gi Methods
@@ -21549,8 +21462,6 @@ class GestureZoomClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GraphicsOffload(Widget):
     """
@@ -21596,6 +21507,9 @@ class GraphicsOffload(Widget):
         child: Widget | None
         enabled: GraphicsOffloadEnabled
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, black_background: bool = ..., child: Widget | None = ..., enabled: GraphicsOffloadEnabled = ...
@@ -21603,11 +21517,11 @@ class GraphicsOffload(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_black_background(self) -> bool: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_enabled(self) -> GraphicsOffloadEnabled: ...
     @classmethod
     def new(cls, child: Widget | None = None) -> Widget: ...
@@ -21641,11 +21555,10 @@ class GraphicsOffload(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GraphicsOffloadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -21653,8 +21566,6 @@ class GraphicsOffloadClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Grid(Widget):
     """
@@ -21753,6 +21664,9 @@ class Grid(Widget):
         row_homogeneous: bool  # [row-homogeneous]: changed because contained invalid characters
         row_spacing: int  # [row-spacing]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -21769,17 +21683,17 @@ class Grid(Widget):
     def attach_next_to(
         self, child: Widget, sibling: Widget | None, side: PositionType, width: int, height: int
     ) -> None: ...
-    @property
+    @builtins.property
     def get_baseline_row(self) -> int: ...
     def get_child_at(self, column: int, row: int) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_column_homogeneous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_column_spacing(self) -> int: ...
     def get_row_baseline_position(self, row: int) -> BaselinePosition: ...
-    @property
+    @builtins.property
     def get_row_homogeneous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_row_spacing(self) -> int: ...
     def insert_column(self, position: int) -> None: ...
     def insert_next_to(self, sibling: Widget, side: PositionType) -> None: ...
@@ -21837,13 +21751,12 @@ class Grid(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GridClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -21851,8 +21764,6 @@ class GridClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GridLayout(LayoutManager):
     """
@@ -21878,6 +21789,9 @@ class GridLayout(LayoutManager):
         row_homogeneous: bool  # [row-homogeneous]: changed because contained invalid characters
         row_spacing: int  # [row-spacing]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -21890,16 +21804,16 @@ class GridLayout(LayoutManager):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_baseline_row(self) -> int: ...
-    @property
+    @builtins.property
     def get_column_homogeneous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_column_spacing(self) -> int: ...
     def get_row_baseline_position(self, row: int) -> BaselinePosition: ...
-    @property
+    @builtins.property
     def get_row_homogeneous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_row_spacing(self) -> int: ...
     @classmethod
     def new(cls) -> LayoutManager: ...
@@ -21950,7 +21864,6 @@ class GridLayout(LayoutManager):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GridLayoutChild(LayoutChild):
     """
@@ -21963,18 +21876,21 @@ class GridLayoutChild(LayoutChild):
         row: int
         row_span: int  # [row-span]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, column: int = ..., column_span: int = ..., row: int = ..., row_span: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_column(self) -> int: ...
-    @property
+    @builtins.property
     def get_column_span(self) -> int: ...
-    @property
+    @builtins.property
     def get_row(self) -> int: ...
-    @property
+    @builtins.property
     def get_row_span(self) -> int: ...
     def set_column(self, column: int) -> None: ...
     def set_column_span(self, span: int) -> None: ...
@@ -22014,11 +21930,10 @@ class GridLayoutChild(LayoutChild):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GridLayoutChildClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutChildClass | None: ...
 
     # gi Methods
@@ -22027,11 +21942,9 @@ class GridLayoutChildClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class GridLayoutClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
     # gi Methods
@@ -22039,8 +21952,6 @@ class GridLayoutClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GridView(ListBase):
     """
@@ -22097,6 +22008,9 @@ class GridView(ListBase):
         single_click_activate: bool  # [single-click-activate]: changed because contained invalid characters
         tab_behavior: ListTabBehavior  # [tab-behavior]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -22111,19 +22025,19 @@ class GridView(ListBase):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_enable_rubberband(self) -> bool: ...
-    @property
+    @builtins.property
     def get_factory(self) -> ListItemFactory | None: ...
-    @property
+    @builtins.property
     def get_max_columns(self) -> int: ...
-    @property
+    @builtins.property
     def get_min_columns(self) -> int: ...
-    @property
+    @builtins.property
     def get_model(self) -> SelectionModel | None: ...
-    @property
+    @builtins.property
     def get_single_click_activate(self) -> bool: ...
-    @property
+    @builtins.property
     def get_tab_behavior(self) -> ListTabBehavior: ...
     @classmethod
     def new(cls, model: SelectionModel | None = None, factory: ListItemFactory | None = None) -> Widget: ...
@@ -22197,7 +22111,6 @@ class GridView(ListBase):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GridViewClass(GObject.GPointer):
     # gi Methods
@@ -22205,8 +22118,6 @@ class GridViewClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class HeaderBar(Widget):
     """
@@ -22292,6 +22203,9 @@ class HeaderBar(Widget):
         title_widget: Widget | None  # [title-widget]: changed because contained invalid characters
         use_native_controls: bool  # [use-native-controls]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -22303,13 +22217,13 @@ class HeaderBar(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_decoration_layout(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_show_title_buttons(self) -> bool: ...
-    @property
+    @builtins.property
     def get_title_widget(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_use_native_controls(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -22354,7 +22268,6 @@ class HeaderBar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class IMContext(GObject.Object):
     """
@@ -22392,6 +22305,9 @@ class IMContext(GObject.Object):
     class Props(GObject.Object.Props):
         input_hints: InputHints  # [input-hints]: changed because contained invalid characters
         input_purpose: InputPurpose  # [input-purpose]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, input_hints: InputHints = ..., input_purpose: InputPurpose = ...) -> None:
@@ -22477,51 +22393,50 @@ class IMContext(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class IMContextClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate_osk(self) -> activate_oskIMContextClassCB: ...
-    @property
+    @builtins.property
     def activate_osk_with_event(self) -> activate_osk_with_eventIMContextClassCB: ...
-    @property
+    @builtins.property
     def commit(self) -> commitIMContextClassCB: ...
-    @property
+    @builtins.property
     def delete_surrounding(self) -> delete_surroundingIMContextClassCB: ...
-    @property
+    @builtins.property
     def filter_keypress(self) -> filter_keypressIMContextClassCB: ...
-    @property
+    @builtins.property
     def focus_in(self) -> focus_inIMContextClassCB: ...
-    @property
+    @builtins.property
     def focus_out(self) -> focus_outIMContextClassCB: ...
-    @property
+    @builtins.property
     def get_preedit_string(self) -> get_preedit_stringIMContextClassCB: ...
-    @property
+    @builtins.property
     def get_surrounding(self) -> get_surroundingIMContextClassCB: ...
-    @property
+    @builtins.property
     def get_surrounding_with_selection(self) -> get_surrounding_with_selectionIMContextClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def preedit_changed(self) -> preedit_changedIMContextClassCB: ...
-    @property
+    @builtins.property
     def preedit_end(self) -> preedit_endIMContextClassCB: ...
-    @property
+    @builtins.property
     def preedit_start(self) -> preedit_startIMContextClassCB: ...
-    @property
+    @builtins.property
     def reset(self) -> resetIMContextClassCB: ...
-    @property
+    @builtins.property
     def retrieve_surrounding(self) -> retrieve_surroundingIMContextClassCB: ...
-    @property
+    @builtins.property
     def set_client_widget(self) -> set_client_widgetIMContextClassCB: ...
-    @property
+    @builtins.property
     def set_cursor_location(self) -> set_cursor_locationIMContextClassCB: ...
-    @property
+    @builtins.property
     def set_surrounding(self) -> set_surroundingIMContextClassCB: ...
-    @property
+    @builtins.property
     def set_surrounding_with_selection(self) -> set_surrounding_with_selectionIMContextClassCB: ...
-    @property
+    @builtins.property
     def set_use_preedit(self) -> set_use_preeditIMContextClassCB: ...
 
     # gi Methods
@@ -22529,8 +22444,6 @@ class IMContextClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class IMContextSimple(IMContext):
     """
@@ -22575,7 +22488,7 @@ class IMContextSimple(IMContext):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def object(self) -> IMContext | None: ...
 
     # gi Methods
@@ -22587,11 +22500,9 @@ class IMContextSimple(IMContext):
     @classmethod
     def new(cls) -> IMContext: ...
 
-    ...
-
 class IMContextSimpleClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> IMContextClass | None: ...
 
     # gi Methods
@@ -22600,16 +22511,12 @@ class IMContextSimpleClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class IMContextSimplePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class IMMulticontext(IMContext):
     """
@@ -22621,7 +22528,7 @@ class IMMulticontext(IMContext):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def object(self) -> IMContext | None: ...
 
     # gi Methods
@@ -22634,11 +22541,9 @@ class IMMulticontext(IMContext):
     def new(cls) -> IMContext: ...
     def set_context_id(self, context_id: str | None = None) -> None: ...
 
-    ...
-
 class IMMulticontextClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> IMContextClass | None: ...
 
     # gi Methods
@@ -22647,16 +22552,12 @@ class IMMulticontextClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class IMMulticontextPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class IconPaintable(GObject.Object):
     """
@@ -22670,16 +22571,19 @@ class IconPaintable(GObject.Object):
         icon_name: str  # [icon-name]: changed because contained invalid characters
         is_symbolic: bool  # [is-symbolic]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, file: Gio.File | None = ..., icon_name: str = ..., is_symbolic: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_file(self) -> Gio.File | None: ...
-    @property
+    @builtins.property
     def get_icon_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def is_symbolic(self) -> bool: ...
     @classmethod
     def new_for_file(cls, file: Gio.File, size: int, scale: int) -> IconPaintable: ...
@@ -22710,7 +22614,6 @@ class IconPaintable(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class IconTheme(GObject.Object):
     """
@@ -22755,6 +22658,9 @@ class IconTheme(GObject.Object):
         search_path: list | None  # [search-path]: changed because contained invalid characters
         theme_name: str  # [theme-name]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -22768,18 +22674,18 @@ class IconTheme(GObject.Object):
         """
     def add_resource_path(self, path: str) -> None: ...
     def add_search_path(self, path: str) -> None: ...
-    @property
+    @builtins.property
     def get_display(self) -> Gdk.Display | None: ...
     @staticmethod
     def get_for_display(display: Gdk.Display) -> IconTheme: ...
-    @property
+    @builtins.property
     def get_icon_names(self) -> list: ...
     def get_icon_sizes(self, icon_name: str) -> list: ...
-    @property
+    @builtins.property
     def get_resource_path(self) -> list | None: ...
-    @property
+    @builtins.property
     def get_search_path(self) -> list | None: ...
-    @property
+    @builtins.property
     def get_theme_name(self) -> str: ...
     def has_gicon(self, gicon: Gio.Icon) -> bool: ...
     def has_icon(self, icon_name: str) -> bool: ...
@@ -22845,7 +22751,6 @@ class IconTheme(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class IconView(Widget):
     """
@@ -22898,6 +22803,9 @@ class IconView(Widget):
         text_column: int  # [text-column]: changed because contained invalid characters
         tooltip_column: int  # [tooltip-column]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -22931,15 +22839,15 @@ class IconView(Widget):
         self, start_button_mask: Gdk.ModifierType, formats: Gdk.ContentFormats, actions: Gdk.DragAction
     ) -> None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_activate_on_single_click(self) -> bool: ...
     @deprecated("deprecated")
     def get_cell_rect(self, path: TreePath, cell: CellRenderer | None = None) -> tuple[bool, Gdk.Rectangle]: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_column_spacing(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_columns(self) -> int: ...
     @deprecated("deprecated")
     def get_cursor(self) -> tuple[bool, TreePath | None, CellRenderer | None]: ...
@@ -22954,49 +22862,49 @@ class IconView(Widget):
     @deprecated("deprecated")
     def get_item_column(self, path: TreePath) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_item_orientation(self) -> Orientation: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_item_padding(self) -> int: ...
     @deprecated("deprecated")
     def get_item_row(self, path: TreePath) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_item_width(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_margin(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_markup_column(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_model(self) -> TreeModel | None: ...
     @deprecated("deprecated")
     def get_path_at_pos(self, x: int, y: int) -> TreePath | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_pixbuf_column(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_reorderable(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_row_spacing(self) -> int: ...
     @deprecated("deprecated")
     def get_selected_items(self) -> list: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_selection_mode(self) -> SelectionMode: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_spacing(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_text_column(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_tooltip_column(self) -> int: ...
     @deprecated("deprecated")
     def get_tooltip_context(
@@ -23248,7 +23156,6 @@ class IconView(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Image(Widget):
     """
@@ -23307,6 +23214,9 @@ class Image(Widget):
         storage_type: ImageType  # [storage-type]: changed because contained invalid characters
         use_fallback: bool  # [use-fallback]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -23323,17 +23233,17 @@ class Image(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     def clear(self) -> None: ...
-    @property
+    @builtins.property
     def get_gicon(self) -> Gio.Icon | None: ...
-    @property
+    @builtins.property
     def get_icon_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_icon_size(self) -> IconSize: ...
-    @property
+    @builtins.property
     def get_paintable(self) -> Gdk.Paintable | None: ...
-    @property
+    @builtins.property
     def get_pixel_size(self) -> int: ...
-    @property
+    @builtins.property
     def get_storage_type(self) -> ImageType: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -23428,7 +23338,6 @@ class Image(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class InfoBar(Widget):
     """
@@ -23515,6 +23424,9 @@ class InfoBar(Widget):
         revealed: bool
         show_close_button: bool  # [show-close-button]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, message_type: MessageType = ..., revealed: bool = ..., show_close_button: bool = ...) -> None:
         """
@@ -23527,13 +23439,13 @@ class InfoBar(Widget):
     @deprecated("deprecated")
     def add_child(self, widget: Widget) -> None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_message_type(self) -> MessageType: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_revealed(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_close_button(self) -> bool: ...
     @deprecated("deprecated")
     @classmethod
@@ -23592,7 +23504,6 @@ class InfoBar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Inscription(Widget):
     """
@@ -23627,6 +23538,9 @@ class Inscription(Widget):
         xalign: float
         yalign: float
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -23645,25 +23559,25 @@ class Inscription(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_attributes(self) -> Pango.AttrList | None: ...
-    @property
+    @builtins.property
     def get_min_chars(self) -> int: ...
-    @property
+    @builtins.property
     def get_min_lines(self) -> int: ...
-    @property
+    @builtins.property
     def get_nat_chars(self) -> int: ...
-    @property
+    @builtins.property
     def get_nat_lines(self) -> int: ...
-    @property
+    @builtins.property
     def get_text(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_text_overflow(self) -> InscriptionOverflow: ...
-    @property
+    @builtins.property
     def get_wrap_mode(self) -> Pango.WrapMode: ...
-    @property
+    @builtins.property
     def get_xalign(self) -> float: ...
-    @property
+    @builtins.property
     def get_yalign(self) -> float: ...
     @classmethod
     def new(cls, text: str | None = None) -> Widget: ...
@@ -23761,11 +23675,10 @@ class Inscription(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class InscriptionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -23773,8 +23686,6 @@ class InscriptionClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class KeyvalTrigger(ShortcutTrigger):
     """
@@ -23785,14 +23696,17 @@ class KeyvalTrigger(ShortcutTrigger):
         keyval: int
         modifiers: Gdk.ModifierType
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, keyval: int = ..., modifiers: Gdk.ModifierType = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_keyval(self) -> int: ...
-    @property
+    @builtins.property
     def get_modifiers(self) -> Gdk.ModifierType: ...
     @classmethod
     def new(cls, keyval: int, modifiers: Gdk.ModifierType) -> ShortcutTrigger: ...
@@ -23816,7 +23730,6 @@ class KeyvalTrigger(ShortcutTrigger):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class KeyvalTriggerClass(GObject.GPointer):
     # gi Methods
@@ -23824,8 +23737,6 @@ class KeyvalTriggerClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Label(Widget):
     """
@@ -24069,6 +23980,9 @@ class Label(Widget):
         xalign: float
         yalign: float
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -24095,50 +24009,50 @@ class Label(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_attributes(self) -> Pango.AttrList | None: ...
     def get_current_uri(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_ellipsize(self) -> Pango.EllipsizeMode: ...
-    @property
+    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None: ...
-    @property
+    @builtins.property
     def get_justify(self) -> Justification: ...
-    @property
+    @builtins.property
     def get_label(self) -> str: ...
     def get_layout(self) -> Pango.Layout: ...
     def get_layout_offsets(self) -> tuple[int | None, int | None]: ...
-    @property
+    @builtins.property
     def get_lines(self) -> int: ...
-    @property
+    @builtins.property
     def get_max_width_chars(self) -> int: ...
-    @property
+    @builtins.property
     def get_mnemonic_keyval(self) -> int: ...
-    @property
+    @builtins.property
     def get_mnemonic_widget(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_natural_wrap_mode(self) -> NaturalWrapMode: ...
-    @property
+    @builtins.property
     def get_selectable(self) -> bool: ...
     def get_selection_bounds(self) -> tuple[bool, int | None, int | None]: ...
-    @property
+    @builtins.property
     def get_single_line_mode(self) -> bool: ...
-    @property
+    @builtins.property
     def get_tabs(self) -> Pango.TabArray | None: ...
     def get_text(self) -> str: ...
-    @property
+    @builtins.property
     def get_use_markup(self) -> bool: ...
-    @property
+    @builtins.property
     def get_use_underline(self) -> bool: ...
-    @property
+    @builtins.property
     def get_width_chars(self) -> int: ...
-    @property
+    @builtins.property
     def get_wrap(self) -> bool: ...
-    @property
+    @builtins.property
     def get_wrap_mode(self) -> Pango.WrapMode: ...
-    @property
+    @builtins.property
     def get_xalign(self) -> float: ...
-    @property
+    @builtins.property
     def get_yalign(self) -> float: ...
     @classmethod
     def new(cls, str: str | None = None) -> Widget: ...
@@ -24339,7 +24253,6 @@ class Label(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class LayoutChild(GObject.Object):
     """
@@ -24357,14 +24270,17 @@ class LayoutChild(GObject.Object):
         child_widget: Widget | None  # [child-widget]: changed because contained invalid characters
         layout_manager: LayoutManager | None  # [layout-manager]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, child_widget: Widget | None = ..., layout_manager: LayoutManager | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child_widget(self) -> Widget: ...
-    @property
+    @builtins.property
     def get_layout_manager(self) -> LayoutManager: ...
 
     # Signals
@@ -24386,11 +24302,10 @@ class LayoutChild(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class LayoutChildClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -24398,8 +24313,6 @@ class LayoutChildClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class LayoutManager(GObject.Object):
     """
@@ -24514,25 +24427,23 @@ class LayoutManager(GObject.Object):
         unroot(self)
         """
 
-    ...
-
 class LayoutManagerClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def allocate(self) -> allocateLayoutManagerClassCB: ...
-    @property
+    @builtins.property
     def create_layout_child(self) -> create_layout_childLayoutManagerClassCB: ...
-    @property
+    @builtins.property
     def get_request_mode(self) -> get_request_modeLayoutManagerClassCB: ...
-    @property
+    @builtins.property
     def layout_child_type(self) -> GObject.GType: ...
-    @property
+    @builtins.property
     def measure(self) -> measureLayoutManagerClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def root(self) -> rootLayoutManagerClassCB: ...
-    @property
+    @builtins.property
     def unroot(self) -> unrootLayoutManagerClassCB: ...
 
     # gi Methods
@@ -24540,8 +24451,6 @@ class LayoutManagerClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class LevelBar(Widget):
     """
@@ -24654,6 +24563,9 @@ class LevelBar(Widget):
         mode: LevelBarMode
         value: float
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -24667,16 +24579,16 @@ class LevelBar(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_offset_value(self, name: str, value: float) -> None: ...
-    @property
+    @builtins.property
     def get_inverted(self) -> bool: ...
-    @property
+    @builtins.property
     def get_max_value(self) -> float: ...
-    @property
+    @builtins.property
     def get_min_value(self) -> float: ...
-    @property
+    @builtins.property
     def get_mode(self) -> LevelBarMode: ...
     def get_offset_value(self, name: str | None = None) -> tuple[bool, float]: ...
-    @property
+    @builtins.property
     def get_value(self) -> float: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -24736,7 +24648,6 @@ class LevelBar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class LinkButton(Button):
     """
@@ -24788,14 +24699,17 @@ class LinkButton(Button):
         uri: str
         visited: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, uri: str = ..., visited: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_uri(self) -> str: ...
-    @property
+    @builtins.property
     def get_visited(self) -> bool: ...
     @classmethod
     def new(cls, uri: str) -> Widget: ...
@@ -24827,7 +24741,6 @@ class LinkButton(Button):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ListBase(Widget):
     """
@@ -24880,6 +24793,9 @@ class ListBase(Widget):
     class Props(Widget.Props):
         orientation: Orientation
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, orientation: Orientation = ...) -> None:
         """
@@ -24898,7 +24814,6 @@ class ListBase(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ListBaseClass(GObject.GPointer):
     # gi Methods
@@ -24906,8 +24821,6 @@ class ListBaseClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ListBox(Widget):
     """
@@ -24987,6 +24900,9 @@ class ListBox(Widget):
         show_separators: bool  # [show-separators]: changed because contained invalid characters
         tab_behavior: ListTabBehavior  # [tab-behavior]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -25009,18 +24925,18 @@ class ListBox(Widget):
     ) -> None: ...
     def drag_highlight_row(self, row: ListBoxRow) -> None: ...
     def drag_unhighlight_row(self) -> None: ...
-    @property
+    @builtins.property
     def get_activate_on_single_click(self) -> bool: ...
     def get_adjustment(self) -> Adjustment | None: ...
     def get_row_at_index(self, index_: int) -> ListBoxRow | None: ...
     def get_row_at_y(self, y: int) -> ListBoxRow | None: ...
     def get_selected_row(self) -> ListBoxRow | None: ...
     def get_selected_rows(self) -> list: ...
-    @property
+    @builtins.property
     def get_selection_mode(self) -> SelectionMode: ...
-    @property
+    @builtins.property
     def get_show_separators(self) -> bool: ...
-    @property
+    @builtins.property
     def get_tab_behavior(self) -> ListTabBehavior: ...
     def insert(self, child: Widget, position: int) -> None: ...
     def invalidate_filter(self) -> None: ...
@@ -25142,7 +25058,6 @@ class ListBox(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ListBoxRow(Widget):
     """
@@ -25157,19 +25072,22 @@ class ListBoxRow(Widget):
         child: Widget | None
         selectable: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, activatable: bool = ..., child: Widget | None = ..., selectable: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def changed(self) -> None: ...
-    @property
+    @builtins.property
     def get_activatable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
     def get_header(self) -> Widget | None: ...
     def get_index(self) -> int: ...
-    @property
+    @builtins.property
     def get_selectable(self) -> bool: ...
     def is_selected(self) -> bool: ...
     @classmethod
@@ -25217,15 +25135,14 @@ class ListBoxRow(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ListBoxRowClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateListBoxRowClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -25233,8 +25150,6 @@ class ListBoxRowClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ListHeader(GObject.Object):
     """
@@ -25252,20 +25167,23 @@ class ListHeader(GObject.Object):
         n_items: int  # [n-items]: changed because contained invalid characters
         start: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, child: Widget | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_end(self) -> int: ...
-    @property
+    @builtins.property
     def get_item(self) -> GObject.Object | None: ...
-    @property
+    @builtins.property
     def get_n_items(self) -> int: ...
-    @property
+    @builtins.property
     def get_start(self) -> int: ...
     def set_child(self, child: Widget | None = None) -> None: ...
 
@@ -25309,7 +25227,6 @@ class ListHeader(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ListHeaderClass(GObject.GPointer):
     # gi Methods
@@ -25317,8 +25234,6 @@ class ListHeaderClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ListItem(GObject.Object):
     """
@@ -25349,6 +25264,9 @@ class ListItem(GObject.Object):
         selectable: bool
         selected: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -25362,23 +25280,23 @@ class ListItem(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_accessible_description(self) -> str: ...
-    @property
+    @builtins.property
     def get_accessible_label(self) -> str: ...
-    @property
+    @builtins.property
     def get_activatable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_focusable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_item(self) -> GObject.Object | None: ...
-    @property
+    @builtins.property
     def get_position(self) -> int: ...
-    @property
+    @builtins.property
     def get_selectable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_selected(self) -> bool: ...
     def set_accessible_description(self, description: str) -> None: ...
     def set_accessible_label(self, label: str) -> None: ...
@@ -25455,7 +25373,6 @@ class ListItem(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ListItemClass(GObject.GPointer):
     # gi Methods
@@ -25463,8 +25380,6 @@ class ListItemClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ListItemFactory(GObject.Object):
     """
@@ -25523,16 +25438,12 @@ class ListItemFactory(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ListItemFactoryClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ListStore(GObject.Object):
     """
@@ -25727,13 +25638,11 @@ class ListStore(GObject.Object):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-    ...
-
 class ListStoreClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -25742,16 +25651,12 @@ class ListStoreClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ListStorePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ListView(ListBase):
     """
@@ -25870,6 +25775,9 @@ class ListView(ListBase):
         single_click_activate: bool  # [single-click-activate]: changed because contained invalid characters
         tab_behavior: ListTabBehavior  # [tab-behavior]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -25884,19 +25792,19 @@ class ListView(ListBase):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_enable_rubberband(self) -> bool: ...
-    @property
+    @builtins.property
     def get_factory(self) -> ListItemFactory | None: ...
-    @property
+    @builtins.property
     def get_header_factory(self) -> ListItemFactory | None: ...
-    @property
+    @builtins.property
     def get_model(self) -> SelectionModel | None: ...
-    @property
+    @builtins.property
     def get_show_separators(self) -> bool: ...
-    @property
+    @builtins.property
     def get_single_click_activate(self) -> bool: ...
-    @property
+    @builtins.property
     def get_tab_behavior(self) -> ListTabBehavior: ...
     @classmethod
     def new(cls, model: SelectionModel | None = None, factory: ListItemFactory | None = None) -> Widget: ...
@@ -25970,7 +25878,6 @@ class ListView(ListBase):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ListViewClass(GObject.GPointer):
     # gi Methods
@@ -25978,8 +25885,6 @@ class ListViewClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class LockButton(Button):
     """
@@ -26042,6 +25947,9 @@ class LockButton(Button):
         tooltip_not_authorized: str  # [tooltip-not-authorized]: changed because contained invalid characters
         tooltip_unlock: str  # [tooltip-unlock]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -26056,7 +25964,7 @@ class LockButton(Button):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_permission(self) -> Gio.Permission | None: ...
     @deprecated("deprecated")
     @classmethod
@@ -26111,7 +26019,6 @@ class LockButton(Button):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MapListModel(GObject.Object):
     """
@@ -26152,14 +26059,17 @@ class MapListModel(GObject.Object):
         model: Gio.ListModel | None
         n_items: int  # [n-items]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, model: Gio.ListModel | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel | None: ...
-    @property
+    @builtins.property
     def has_map(self) -> bool: ...
     @classmethod
     def new(
@@ -26207,11 +26117,10 @@ class MapListModel(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MapListModelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -26219,8 +26128,6 @@ class MapListModelClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MediaControls(Widget):
     """
@@ -26237,12 +26144,15 @@ class MediaControls(Widget):
     class Props(Widget.Props):
         media_stream: MediaStream | None  # [media-stream]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, media_stream: MediaStream | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_media_stream(self) -> MediaStream | None: ...
     @classmethod
     def new(cls, stream: MediaStream | None = None) -> Widget: ...
@@ -26260,11 +26170,10 @@ class MediaControls(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MediaControlsClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -26272,8 +26181,6 @@ class MediaControlsClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MediaFile(MediaStream):
     """
@@ -26291,15 +26198,18 @@ class MediaFile(MediaStream):
         file: Gio.File | None
         input_stream: Gio.InputStream | None  # [input-stream]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, file: Gio.File | None = ..., input_stream: Gio.InputStream | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def clear(self) -> None: ...
-    @property
+    @builtins.property
     def get_file(self) -> Gio.File | None: ...
-    @property
+    @builtins.property
     def get_input_stream(self) -> Gio.InputStream | None: ...
     @classmethod
     def new(cls) -> MediaFile: ...
@@ -26349,15 +26259,14 @@ class MediaFile(MediaStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MediaFileClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close(self) -> closeMediaFileClassCB: ...
-    @property
+    @builtins.property
     def open(self) -> openMediaFileClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> MediaStreamClass | None: ...
 
     # gi Methods
@@ -26365,8 +26274,6 @@ class MediaFileClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MediaStream(GObject.Object):
     """
@@ -26404,37 +26311,40 @@ class MediaStream(GObject.Object):
         timestamp: int
         volume: float
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, loop: bool = ..., muted: bool = ..., playing: bool = ..., volume: float = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def gerror(self, error: None) -> None: ...
-    @property
+    @builtins.property
     def get_duration(self) -> int: ...
-    @property
+    @builtins.property
     def get_ended(self) -> bool: ...
-    @property
+    @builtins.property
     def get_error(self) -> None: ...
-    @property
+    @builtins.property
     def get_loop(self) -> bool: ...
-    @property
+    @builtins.property
     def get_muted(self) -> bool: ...
-    @property
+    @builtins.property
     def get_playing(self) -> bool: ...
-    @property
+    @builtins.property
     def get_timestamp(self) -> int: ...
-    @property
+    @builtins.property
     def get_volume(self) -> float: ...
-    @property
+    @builtins.property
     def has_audio(self) -> bool: ...
-    @property
+    @builtins.property
     def has_video(self) -> bool: ...
-    @property
+    @builtins.property
     def is_prepared(self) -> bool: ...
-    @property
+    @builtins.property
     def is_seekable(self) -> bool: ...
-    @property
+    @builtins.property
     def is_seeking(self) -> bool: ...
     def pause(self) -> None: ...
     def play(self) -> None: ...
@@ -26591,23 +26501,22 @@ class MediaStream(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MediaStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def pause(self) -> pauseMediaStreamClassCB: ...
-    @property
+    @builtins.property
     def play(self) -> playMediaStreamClassCB: ...
-    @property
+    @builtins.property
     def realize(self) -> realizeMediaStreamClassCB: ...
-    @property
+    @builtins.property
     def seek(self) -> seekMediaStreamClassCB: ...
-    @property
+    @builtins.property
     def unrealize(self) -> unrealizeMediaStreamClassCB: ...
-    @property
+    @builtins.property
     def update_audio(self) -> update_audioMediaStreamClassCB: ...
 
     # gi Methods
@@ -26615,8 +26524,6 @@ class MediaStreamClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MenuButton(Widget):
     """
@@ -26701,6 +26608,9 @@ class MenuButton(Widget):
         primary: bool
         use_underline: bool  # [use-underline]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -26720,29 +26630,29 @@ class MenuButton(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_active(self) -> bool: ...
-    @property
+    @builtins.property
     def get_always_show_arrow(self) -> bool: ...
-    @property
+    @builtins.property
     def get_can_shrink(self) -> bool: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_direction(self) -> ArrowType: ...
-    @property
+    @builtins.property
     def get_has_frame(self) -> bool: ...
-    @property
+    @builtins.property
     def get_icon_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_label(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_menu_model(self) -> Gio.MenuModel | None: ...
-    @property
+    @builtins.property
     def get_popover(self) -> Popover | None: ...
-    @property
+    @builtins.property
     def get_primary(self) -> bool: ...
-    @property
+    @builtins.property
     def get_use_underline(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -26860,7 +26770,6 @@ class MenuButton(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MessageDialog(Dialog):
     """
@@ -26934,6 +26843,9 @@ class MessageDialog(Dialog):
         text: str
         use_markup: bool  # [use-markup]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -26948,7 +26860,7 @@ class MessageDialog(Dialog):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_message_area(self) -> Widget: ...
     @deprecated("deprecated")
     def set_markup(self, str: str) -> None: ...
@@ -27007,7 +26919,6 @@ class MessageDialog(Dialog):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MessageDialogClass(GObject.GPointer):
     # gi Methods
@@ -27015,8 +26926,6 @@ class MessageDialogClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MnemonicAction(ShortcutAction):
     """
@@ -27033,16 +26942,12 @@ class MnemonicAction(ShortcutAction):
     @staticmethod
     def get() -> MnemonicAction: ...
 
-    ...
-
 class MnemonicActionClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MnemonicTrigger(ShortcutTrigger):
     """
@@ -27055,12 +26960,15 @@ class MnemonicTrigger(ShortcutTrigger):
     class Props(ShortcutTrigger.Props):
         keyval: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, keyval: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_keyval(self) -> int: ...
     @classmethod
     def new(cls, keyval: int) -> MnemonicTrigger: ...
@@ -27077,7 +26985,6 @@ class MnemonicTrigger(ShortcutTrigger):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MnemonicTriggerClass(GObject.GPointer):
     # gi Methods
@@ -27085,8 +26992,6 @@ class MnemonicTriggerClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MountOperation(GObject.Object):
     """
@@ -27110,16 +27015,19 @@ class MountOperation(GObject.Object):
         is_showing: bool  # [is-showing]: changed because contained invalid characters
         parent: Window | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, display: Gdk.Display | None = ..., parent: Window | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_display(self) -> Gdk.Display: ...
-    @property
+    @builtins.property
     def get_parent(self) -> Window | None: ...
-    @property
+    @builtins.property
     def is_showing(self) -> bool: ...
     @classmethod
     def new(cls, parent: Window | None = None) -> Gio.MountOperation: ...
@@ -27152,11 +27060,10 @@ class MountOperation(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MountOperationClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> Gio.MountOperationClass | None: ...
 
     # gi Methods
@@ -27165,16 +27072,12 @@ class MountOperationClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MountOperationPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MultiFilter(Filter):
     """
@@ -27184,6 +27087,9 @@ class MultiFilter(Filter):
     class Props(Filter.Props):
         item_type: GObject.GType  # [item-type]: changed because contained invalid characters
         n_items: int  # [n-items]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -27212,7 +27118,6 @@ class MultiFilter(Filter):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MultiFilterClass(GObject.GPointer):
     # gi Methods
@@ -27220,8 +27125,6 @@ class MultiFilterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MultiSelection(GObject.Object):
     """
@@ -27233,12 +27136,15 @@ class MultiSelection(GObject.Object):
         model: Gio.ListModel | None
         n_items: int  # [n-items]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, model: Gio.ListModel | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel | None: ...
     @classmethod
     def new(cls, model: Gio.ListModel | None = None) -> MultiSelection: ...
@@ -27270,11 +27176,10 @@ class MultiSelection(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MultiSelectionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -27282,8 +27187,6 @@ class MultiSelectionClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MultiSorter(Sorter):
     """
@@ -27296,6 +27199,9 @@ class MultiSorter(Sorter):
     class Props(Sorter.Props):
         item_type: GObject.GType  # [item-type]: changed because contained invalid characters
         n_items: int  # [n-items]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -27326,11 +27232,10 @@ class MultiSorter(Sorter):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MultiSorterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SorterClass | None: ...
 
     # gi Methods
@@ -27338,8 +27243,6 @@ class MultiSorterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NamedAction(ShortcutAction):
     """
@@ -27353,12 +27256,15 @@ class NamedAction(ShortcutAction):
     class Props(ShortcutAction.Props):
         action_name: str  # [action-name]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, action_name: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_action_name(self) -> str: ...
     @classmethod
     def new(cls, name: str) -> NamedAction: ...
@@ -27375,7 +27281,6 @@ class NamedAction(ShortcutAction):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class NamedActionClass(GObject.GPointer):
     # gi Methods
@@ -27383,8 +27288,6 @@ class NamedActionClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Native(GObject.GInterface):
     # gi Methods
@@ -27399,8 +27302,6 @@ class Native(GObject.GInterface):
     def get_surface_transform(self) -> tuple[float, float]: ...
     def realize(self) -> None: ...
     def unrealize(self) -> None: ...
-
-    ...
 
 class NativeDialog(GObject.Object):
     """
@@ -27429,6 +27330,9 @@ class NativeDialog(GObject.Object):
         transient_for: Window | None  # [transient-for]: changed because contained invalid characters
         visible: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, modal: bool = ..., title: str = ..., transient_for: Window | None = ..., visible: bool = ...
@@ -27437,13 +27341,13 @@ class NativeDialog(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     def destroy(self) -> None: ...
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
-    @property
+    @builtins.property
     def get_title(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_transient_for(self) -> Window | None: ...
-    @property
+    @builtins.property
     def get_visible(self) -> bool: ...
     def hide(self) -> None: ...
     def set_modal(self, modal: bool) -> None: ...
@@ -27512,17 +27416,16 @@ class NativeDialog(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class NativeDialogClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def hide(self) -> hideNativeDialogClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def response(self) -> responseNativeDialogClassCB: ...
-    @property
+    @builtins.property
     def show(self) -> showNativeDialogClassCB: ...
 
     # gi Methods
@@ -27531,16 +27434,12 @@ class NativeDialogClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class NativeInterface(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NeverTrigger(ShortcutTrigger):
     """
@@ -27555,16 +27454,12 @@ class NeverTrigger(ShortcutTrigger):
     @staticmethod
     def get() -> NeverTrigger: ...
 
-    ...
-
 class NeverTriggerClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NoSelection(GObject.Object):
     """
@@ -27581,12 +27476,15 @@ class NoSelection(GObject.Object):
         model: Gio.ListModel | None
         n_items: int  # [n-items]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, model: Gio.ListModel | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel | None: ...
     @classmethod
     def new(cls, model: Gio.ListModel | None = None) -> NoSelection: ...
@@ -27618,11 +27516,10 @@ class NoSelection(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class NoSelectionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -27630,8 +27527,6 @@ class NoSelectionClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Notebook(Widget):
     """
@@ -27766,6 +27661,9 @@ class Notebook(Widget):
         show_tabs: bool  # [show-tabs]: changed because contained invalid characters
         tab_pos: PositionType  # [tab-pos]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -27786,27 +27684,27 @@ class Notebook(Widget):
     ) -> int: ...
     def detach_tab(self, child: Widget) -> None: ...
     def get_action_widget(self, pack_type: PackType) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_current_page(self) -> int: ...
-    @property
+    @builtins.property
     def get_group_name(self) -> str | None: ...
     def get_menu_label(self, child: Widget) -> Widget | None: ...
     def get_menu_label_text(self, child: Widget) -> str | None: ...
     def get_n_pages(self) -> int: ...
     def get_nth_page(self, page_num: int) -> Widget | None: ...
     def get_page(self, child: Widget) -> NotebookPage: ...
-    @property
+    @builtins.property
     def get_pages(self) -> Gio.ListModel: ...
-    @property
+    @builtins.property
     def get_scrollable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_show_border(self) -> bool: ...
-    @property
+    @builtins.property
     def get_show_tabs(self) -> bool: ...
     def get_tab_detachable(self, child: Widget) -> bool: ...
     def get_tab_label(self, child: Widget) -> Widget | None: ...
     def get_tab_label_text(self, child: Widget) -> str | None: ...
-    @property
+    @builtins.property
     def get_tab_pos(self) -> PositionType: ...
     def get_tab_reorderable(self, child: Widget) -> bool: ...
     def insert_page(self, child: Widget, tab_label: Widget | None, position: int) -> int: ...
@@ -27971,7 +27869,6 @@ class Notebook(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class NotebookPage(GObject.Object):
     """
@@ -27990,6 +27887,9 @@ class NotebookPage(GObject.Object):
         tab_fill: bool  # [tab-fill]: changed because contained invalid characters
         tab_label: str  # [tab-label]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -28007,7 +27907,7 @@ class NotebookPage(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget: ...
 
     # Signals
@@ -28085,7 +27985,6 @@ class NotebookPage(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class NothingAction(ShortcutAction):
     """
@@ -28100,16 +27999,12 @@ class NothingAction(ShortcutAction):
     @staticmethod
     def get() -> NothingAction: ...
 
-    ...
-
 class NothingActionClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NumericSorter(Sorter):
     """
@@ -28123,14 +28018,17 @@ class NumericSorter(Sorter):
         expression: Expression | None
         sort_order: SortType  # [sort-order]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, expression: Expression | None = ..., sort_order: SortType = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_expression(self) -> Expression | None: ...
-    @property
+    @builtins.property
     def get_sort_order(self) -> SortType: ...
     @classmethod
     def new(cls, expression: Expression | None = None) -> NumericSorter: ...
@@ -28156,11 +28054,10 @@ class NumericSorter(Sorter):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class NumericSorterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SorterClass | None: ...
 
     # gi Methods
@@ -28168,8 +28065,6 @@ class NumericSorterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ObjectExpression(Expression):
     """
@@ -28185,18 +28080,19 @@ class ObjectExpression(Expression):
     @classmethod
     def new(cls, object: GObject.Object) -> ObjectExpression: ...
 
-    ...
-
 class Orientable(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         orientation: Orientation
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, orientation: Orientation = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_orientation(self) -> Orientation: ...
     def set_orientation(self, orientation: Orientation) -> None: ...
 
@@ -28212,11 +28108,10 @@ class Orientable(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class OrientableIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def base_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -28224,8 +28119,6 @@ class OrientableIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Overlay(Widget):
     """
@@ -28268,13 +28161,16 @@ class Overlay(Widget):
     class Props(Widget.Props):
         child: Widget | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, child: Widget | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def add_overlay(self, widget: Widget) -> None: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
     def get_clip_overlay(self, widget: Widget) -> bool: ...
     def get_measure_overlay(self, widget: Widget) -> bool: ...
@@ -28304,7 +28200,6 @@ class Overlay(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class OverlayLayout(LayoutManager):
     """
@@ -28325,8 +28220,6 @@ class OverlayLayout(LayoutManager):
     @classmethod
     def new(cls) -> LayoutManager: ...
 
-    ...
-
 class OverlayLayoutChild(LayoutChild):
     """
     `GtkLayoutChild` subclass for children in a `GtkOverlayLayout`.
@@ -28336,14 +28229,17 @@ class OverlayLayoutChild(LayoutChild):
         clip_overlay: bool  # [clip-overlay]: changed because contained invalid characters
         measure: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, clip_overlay: bool = ..., measure: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_clip_overlay(self) -> bool: ...
-    @property
+    @builtins.property
     def get_measure(self) -> bool: ...
     def set_clip_overlay(self, clip_overlay: bool) -> None: ...
     def set_measure(self, measure: bool) -> None: ...
@@ -28367,11 +28263,10 @@ class OverlayLayoutChild(LayoutChild):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class OverlayLayoutChildClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutChildClass | None: ...
 
     # gi Methods
@@ -28380,11 +28275,9 @@ class OverlayLayoutChildClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class OverlayLayoutClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
     # gi Methods
@@ -28392,8 +28285,6 @@ class OverlayLayoutClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PadActionEntry(GObject.GPointer):
     # gi Fields
@@ -28408,8 +28299,6 @@ class PadActionEntry(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PadController(EventController):
     """
@@ -28465,6 +28354,9 @@ class PadController(EventController):
         action_group: Gio.ActionGroup | None  # [action-group]: changed because contained invalid characters
         pad: Gdk.Device | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, action_group: Gio.ActionGroup | None = ..., pad: Gdk.Device | None = ...) -> None:
         """
@@ -28494,7 +28386,6 @@ class PadController(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PadControllerClass(GObject.GPointer):
     # gi Methods
@@ -28502,8 +28393,6 @@ class PadControllerClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PageRange(GObject.GPointer):
     # gi Fields
@@ -28515,8 +28404,6 @@ class PageRange(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PageSetup(GObject.Object):
     """
@@ -28601,8 +28488,6 @@ class PageSetup(GObject.Object):
     def to_gvariant(self) -> GLib.Variant: ...
     def to_key_file(self, key_file: GLib.KeyFile, group_name: str | None = None) -> None: ...
 
-    ...
-
 class PageSetupUnixDialog(Dialog):
     """
     Presents a page setup dialog for platforms which don’t provide
@@ -28634,8 +28519,6 @@ class PageSetupUnixDialog(Dialog):
     def new(cls, title: str | None = None, parent: Window | None = None) -> Widget: ...
     def set_page_setup(self, page_setup: PageSetup) -> None: ...
     def set_print_settings(self, print_settings: PrintSettings | None = None) -> None: ...
-
-    ...
 
 class Paned(Widget):
     """
@@ -28735,6 +28618,9 @@ class Paned(Widget):
         start_child: Widget | None  # [start-child]: changed because contained invalid characters
         wide_handle: bool  # [wide-handle]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -28751,21 +28637,21 @@ class Paned(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_end_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_position(self) -> int: ...
-    @property
+    @builtins.property
     def get_resize_end_child(self) -> bool: ...
-    @property
+    @builtins.property
     def get_resize_start_child(self) -> bool: ...
-    @property
+    @builtins.property
     def get_shrink_end_child(self) -> bool: ...
-    @property
+    @builtins.property
     def get_shrink_start_child(self) -> bool: ...
-    @property
+    @builtins.property
     def get_start_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_wide_handle(self) -> bool: ...
     @classmethod
     def new(cls, orientation: Orientation) -> Widget: ...
@@ -28896,7 +28782,6 @@ class Paned(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PaperSize(GObject.GBoxed):
     # gi Methods
@@ -28941,8 +28826,6 @@ class PaperSize(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class ParamSpecExpression(GObject.ParamSpec):
     """
     A `GParamSpec` for properties holding a `GtkExpression`.
@@ -28953,8 +28836,6 @@ class ParamSpecExpression(GObject.ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PasswordEntry(Widget):
     """
@@ -29001,6 +28882,9 @@ class PasswordEntry(Widget):
         placeholder_text: str  # [placeholder-text]: changed because contained invalid characters
         show_peek_icon: bool  # [show-peek-icon]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -29012,9 +28896,9 @@ class PasswordEntry(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None: ...
-    @property
+    @builtins.property
     def get_show_peek_icon(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -29058,7 +28942,6 @@ class PasswordEntry(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PasswordEntryBuffer(EntryBuffer):
     """
@@ -29076,11 +28959,9 @@ class PasswordEntryBuffer(EntryBuffer):
     @classmethod
     def new(cls) -> EntryBuffer: ...
 
-    ...
-
 class PasswordEntryBufferClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> EntryBufferClass | None: ...
 
     # gi Methods
@@ -29089,16 +28970,12 @@ class PasswordEntryBufferClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PasswordEntryClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Picture(Widget):
     """
@@ -29161,6 +29038,9 @@ class Picture(Widget):
         keep_aspect_ratio: bool  # [keep-aspect-ratio]: changed because contained invalid characters
         paintable: Gdk.Paintable | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -29174,18 +29054,18 @@ class Picture(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_alternative_text(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_can_shrink(self) -> bool: ...
-    @property
+    @builtins.property
     def get_content_fit(self) -> ContentFit: ...
-    @property
+    @builtins.property
     def get_file(self) -> Gio.File | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_keep_aspect_ratio(self) -> bool: ...
-    @property
+    @builtins.property
     def get_paintable(self) -> Gdk.Paintable | None: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -29259,11 +29139,10 @@ class Picture(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PictureClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -29271,8 +29150,6 @@ class PictureClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Popover(Widget):
     """
@@ -29379,6 +29256,9 @@ class Popover(Widget):
         pointing_to: Gdk.Rectangle | None  # [pointing-to]: changed because contained invalid characters
         position: PositionType
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -29394,19 +29274,19 @@ class Popover(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_autohide(self) -> bool: ...
-    @property
+    @builtins.property
     def get_cascade_popdown(self) -> bool: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_has_arrow(self) -> bool: ...
-    @property
+    @builtins.property
     def get_mnemonics_visible(self) -> bool: ...
     def get_offset(self) -> tuple[int | None, int | None]: ...
     def get_pointing_to(self) -> tuple[bool, Gdk.Rectangle]: ...
-    @property
+    @builtins.property
     def get_position(self) -> PositionType: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -29509,17 +29389,16 @@ class Popover(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PopoverClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate_default(self) -> activate_defaultPopoverClassCB: ...
-    @property
+    @builtins.property
     def closed(self) -> closedPopoverClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
-    @property
+    @builtins.property
     def reserved(self) -> list | None: ...
 
     # gi Methods
@@ -29527,8 +29406,6 @@ class PopoverClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PopoverMenu(Popover):
     """
@@ -29656,6 +29533,9 @@ class PopoverMenu(Popover):
         menu_model: Gio.MenuModel | None  # [menu-model]: changed because contained invalid characters
         visible_submenu: str  # [visible-submenu]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, flags: PopoverMenuFlags = ..., menu_model: Gio.MenuModel | None = ..., visible_submenu: str = ...
@@ -29664,9 +29544,9 @@ class PopoverMenu(Popover):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_child(self, child: Widget, id: str) -> bool: ...
-    @property
+    @builtins.property
     def get_flags(self) -> PopoverMenuFlags: ...
-    @property
+    @builtins.property
     def get_menu_model(self) -> Gio.MenuModel | None: ...
     @classmethod
     def new_from_model(cls, model: Gio.MenuModel | None = None) -> Widget: ...
@@ -29702,7 +29582,6 @@ class PopoverMenu(Popover):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PopoverMenuBar(Widget):
     """
@@ -29742,13 +29621,16 @@ class PopoverMenuBar(Widget):
     class Props(Widget.Props):
         menu_model: Gio.MenuModel | None  # [menu-model]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, menu_model: Gio.MenuModel | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def add_child(self, child: Widget, id: str) -> bool: ...
-    @property
+    @builtins.property
     def get_menu_model(self) -> Gio.MenuModel | None: ...
     @classmethod
     def new_from_model(cls, model: Gio.MenuModel | None = None) -> Widget: ...
@@ -29767,7 +29649,6 @@ class PopoverMenuBar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PrintBackend(GObject.GPointer):
     # gi Methods
@@ -29775,8 +29656,6 @@ class PrintBackend(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PrintContext(GObject.Object):
     """
@@ -29868,8 +29747,6 @@ class PrintContext(GObject.Object):
     def get_width(self) -> float: ...
     def set_cairo_context(self, cr: cairo.Context, dpi_x: float, dpi_y: float) -> None: ...
 
-    ...
-
 class PrintDialog(GObject.Object):
     """
     Asynchronous API to present a print dialog to the user.
@@ -29892,6 +29769,9 @@ class PrintDialog(GObject.Object):
         print_settings: PrintSettings | None  # [print-settings]: changed because contained invalid characters
         title: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -29904,15 +29784,15 @@ class PrintDialog(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_accept_label(self) -> str: ...
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
-    @property
+    @builtins.property
     def get_page_setup(self) -> PageSetup | None: ...
-    @property
+    @builtins.property
     def get_print_settings(self) -> PrintSettings | None: ...
-    @property
+    @builtins.property
     def get_title(self) -> str: ...
     @classmethod
     def new(cls) -> PrintDialog: ...
@@ -29989,11 +29869,10 @@ class PrintDialog(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PrintDialogClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -30001,8 +29880,6 @@ class PrintDialogClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PrintJob(GObject.Object):
     """
@@ -30025,6 +29902,9 @@ class PrintJob(GObject.Object):
         title: str
         track_print_status: bool  # [track-print-status]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -30044,18 +29924,18 @@ class PrintJob(GObject.Object):
     def get_page_ranges(self) -> tuple[list, int]: ...
     def get_page_set(self) -> PageSet: ...
     def get_pages(self) -> PrintPages: ...
-    @property
+    @builtins.property
     def get_printer(self) -> Printer: ...
     def get_reverse(self) -> bool: ...
     def get_rotate(self) -> bool: ...
     def get_scale(self) -> float: ...
-    @property
+    @builtins.property
     def get_settings(self) -> PrintSettings: ...
     def get_status(self) -> PrintStatus: ...
     def get_surface(self) -> cairo.Surface: ...
-    @property
+    @builtins.property
     def get_title(self) -> str: ...
-    @property
+    @builtins.property
     def get_track_print_status(self) -> bool: ...
     @classmethod
     def new(cls, title: str, printer: Printer, settings: PrintSettings, page_setup: PageSetup) -> PrintJob: ...
@@ -30118,7 +29998,6 @@ class PrintJob(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PrintOperation(GObject.Object):
     """
@@ -30206,6 +30085,9 @@ class PrintOperation(GObject.Object):
         unit: Unit
         use_full_page: bool  # [use-full-page]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -30230,22 +30112,22 @@ class PrintOperation(GObject.Object):
         """
     def cancel(self) -> None: ...
     def draw_page_finish(self) -> None: ...
-    @property
+    @builtins.property
     def get_default_page_setup(self) -> PageSetup: ...
-    @property
+    @builtins.property
     def get_embed_page_setup(self) -> bool: ...
     def get_error(self) -> None: ...
-    @property
+    @builtins.property
     def get_has_selection(self) -> bool: ...
-    @property
+    @builtins.property
     def get_n_pages_to_print(self) -> int: ...
-    @property
+    @builtins.property
     def get_print_settings(self) -> PrintSettings | None: ...
-    @property
+    @builtins.property
     def get_status(self) -> PrintStatus: ...
-    @property
+    @builtins.property
     def get_status_string(self) -> str: ...
-    @property
+    @builtins.property
     def get_support_selection(self) -> bool: ...
     def is_finished(self) -> bool: ...
     @classmethod
@@ -30551,33 +30433,32 @@ class PrintOperation(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PrintOperationClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def begin_print(self) -> begin_printPrintOperationClassCB: ...
-    @property
+    @builtins.property
     def custom_widget_apply(self) -> custom_widget_applyPrintOperationClassCB: ...
-    @property
+    @builtins.property
     def done(self) -> donePrintOperationClassCB: ...
-    @property
+    @builtins.property
     def draw_page(self) -> draw_pagePrintOperationClassCB: ...
-    @property
+    @builtins.property
     def end_print(self) -> end_printPrintOperationClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def paginate(self) -> paginatePrintOperationClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def preview(self) -> previewPrintOperationClassCB: ...
-    @property
+    @builtins.property
     def request_page_setup(self) -> request_page_setupPrintOperationClassCB: ...
-    @property
+    @builtins.property
     def status_changed(self) -> status_changedPrintOperationClassCB: ...
-    @property
+    @builtins.property
     def update_custom_widget(self) -> update_custom_widgetPrintOperationClassCB: ...
 
     # gi Methods
@@ -30585,8 +30466,6 @@ class PrintOperationClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PrintOperationPreview(GObject.GInterface):
     # gi Methods
@@ -30617,21 +30496,20 @@ class PrintOperationPreview(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PrintOperationPreviewIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def end_preview(self) -> end_previewPrintOperationPreviewIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def got_page_size(self) -> got_page_sizePrintOperationPreviewIfaceCB: ...
-    @property
+    @builtins.property
     def is_selected(self) -> is_selectedPrintOperationPreviewIfaceCB: ...
-    @property
+    @builtins.property
     def ready(self) -> readyPrintOperationPreviewIfaceCB: ...
-    @property
+    @builtins.property
     def render_page(self) -> render_pagePrintOperationPreviewIfaceCB: ...
 
     # gi Methods
@@ -30640,16 +30518,12 @@ class PrintOperationPreviewIface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PrintOperationPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PrintSettings(GObject.Object):
     """
@@ -30752,8 +30626,6 @@ class PrintSettings(GObject.Object):
     def to_key_file(self, key_file: GLib.KeyFile, group_name: str | None = None) -> None: ...
     def unset(self, key: str) -> None: ...
 
-    ...
-
 class PrintSetup(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -30764,8 +30636,6 @@ class PrintSetup(GObject.GBoxed):
     def get_print_settings(self) -> PrintSettings: ...
     def ref(self) -> PrintSetup: ...
     def unref(self) -> None: ...
-
-    ...
 
 class PrintUnixDialog(Dialog):
     """
@@ -30840,6 +30710,9 @@ class PrintUnixDialog(Dialog):
         selected_printer: Printer | None  # [selected-printer]: changed because contained invalid characters
         support_selection: bool  # [support-selection]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -30855,22 +30728,22 @@ class PrintUnixDialog(Dialog):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_custom_tab(self, child: Widget, tab_label: Widget) -> None: ...
-    @property
+    @builtins.property
     def get_current_page(self) -> int: ...
-    @property
+    @builtins.property
     def get_embed_page_setup(self) -> bool: ...
-    @property
+    @builtins.property
     def get_has_selection(self) -> bool: ...
-    @property
+    @builtins.property
     def get_manual_capabilities(self) -> PrintCapabilities: ...
-    @property
+    @builtins.property
     def get_page_setup(self) -> PageSetup: ...
     def get_page_setup_set(self) -> bool: ...
-    @property
+    @builtins.property
     def get_selected_printer(self) -> Printer | None: ...
-    @property
+    @builtins.property
     def get_settings(self) -> PrintSettings: ...
-    @property
+    @builtins.property
     def get_support_selection(self) -> bool: ...
     @classmethod
     def new(cls, title: str | None = None, parent: Window | None = None) -> Widget: ...
@@ -30943,7 +30816,6 @@ class PrintUnixDialog(Dialog):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Printer(GObject.Object):
     """
@@ -30970,6 +30842,9 @@ class Printer(GObject.Object):
         paused: bool
         state_message: str  # [state-message]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, accepts_pdf: bool = ..., accepts_ps: bool = ..., is_virtual: bool = ..., name: str = ...
@@ -30977,9 +30852,9 @@ class Printer(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def accepts_pdf(self) -> bool: ...
-    @property
+    @builtins.property
     def accepts_ps(self) -> bool: ...
     def compare(self, b: Printer) -> int: ...
     def get_backend(self) -> PrintBackend: ...
@@ -30988,24 +30863,24 @@ class Printer(GObject.Object):
     def get_description(self) -> str: ...
     def get_hard_margins(self) -> tuple[bool, float, float, float, float]: ...
     def get_hard_margins_for_paper_size(self, paper_size: PaperSize) -> tuple[bool, float, float, float, float]: ...
-    @property
+    @builtins.property
     def get_icon_name(self) -> str: ...
-    @property
+    @builtins.property
     def get_job_count(self) -> int: ...
-    @property
+    @builtins.property
     def get_location(self) -> str: ...
-    @property
+    @builtins.property
     def get_name(self) -> str: ...
-    @property
+    @builtins.property
     def get_state_message(self) -> str: ...
     def has_details(self) -> bool: ...
-    @property
+    @builtins.property
     def is_accepting_jobs(self) -> bool: ...
     def is_active(self) -> bool: ...
     def is_default(self) -> bool: ...
-    @property
+    @builtins.property
     def is_paused(self) -> bool: ...
-    @property
+    @builtins.property
     def is_virtual(self) -> bool: ...
     def list_papers(self) -> list: ...
     @classmethod
@@ -31094,7 +30969,6 @@ class Printer(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ProgressBar(Widget):
     """
@@ -31156,6 +31030,9 @@ class ProgressBar(Widget):
         show_text: bool  # [show-text]: changed because contained invalid characters
         text: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -31169,17 +31046,17 @@ class ProgressBar(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_ellipsize(self) -> Pango.EllipsizeMode: ...
-    @property
+    @builtins.property
     def get_fraction(self) -> float: ...
-    @property
+    @builtins.property
     def get_inverted(self) -> bool: ...
-    @property
+    @builtins.property
     def get_pulse_step(self) -> float: ...
-    @property
+    @builtins.property
     def get_show_text(self) -> bool: ...
-    @property
+    @builtins.property
     def get_text(self) -> str | None: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -31238,7 +31115,6 @@ class ProgressBar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PropertyExpression(Expression):
     """
@@ -31257,16 +31133,12 @@ class PropertyExpression(Expression):
     @classmethod
     def new_for_pspec(cls, expression: Expression | None, pspec: GObject.ParamSpec) -> PropertyExpression: ...
 
-    ...
-
 class PyGTKDeprecationWarning(gi.PyGIDeprecationWarning):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Range(Widget):
     """
@@ -31294,6 +31166,9 @@ class Range(Widget):
         round_digits: int  # [round-digits]: changed because contained invalid characters
         show_fill_level: bool  # [show-fill-level]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -31307,19 +31182,19 @@ class Range(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_adjustment(self) -> Adjustment: ...
-    @property
+    @builtins.property
     def get_fill_level(self) -> float: ...
     def get_flippable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_inverted(self) -> bool: ...
     def get_range_rect(self) -> Gdk.Rectangle: ...
-    @property
+    @builtins.property
     def get_restrict_to_fill_level(self) -> bool: ...
-    @property
+    @builtins.property
     def get_round_digits(self) -> int: ...
-    @property
+    @builtins.property
     def get_show_fill_level(self) -> bool: ...
     def get_slider_range(self) -> tuple[int | None, int | None]: ...
     def get_slider_size_fixed(self) -> bool: ...
@@ -31445,23 +31320,22 @@ class Range(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class RangeClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def adjust_bounds(self) -> adjust_boundsRangeClassCB: ...
-    @property
+    @builtins.property
     def change_value(self) -> change_valueRangeClassCB: ...
-    @property
+    @builtins.property
     def get_range_border(self) -> get_range_borderRangeClassCB: ...
-    @property
+    @builtins.property
     def move_slider(self) -> move_sliderRangeClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
-    @property
+    @builtins.property
     def value_changed(self) -> value_changedRangeClassCB: ...
 
     # gi Methods
@@ -31469,8 +31343,6 @@ class RangeClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RecentData(GObject.GPointer):
     # gi Fields
@@ -31487,8 +31359,6 @@ class RecentData(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RecentInfo(GObject.GBoxed):
     # gi Methods
@@ -31520,8 +31390,6 @@ class RecentInfo(GObject.GBoxed):
     def match(self, info_b: RecentInfo) -> bool: ...
     def ref(self) -> RecentInfo: ...
     def unref(self) -> None: ...
-
-    ...
 
 class RecentManager(GObject.Object):
     """
@@ -31587,6 +31455,9 @@ class RecentManager(GObject.Object):
         filename: str
         size: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, filename: str = ...) -> None:
         """
@@ -31636,13 +31507,12 @@ class RecentManager(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class RecentManagerClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def changed(self) -> changedRecentManagerClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -31651,16 +31521,12 @@ class RecentManagerClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RecentManagerPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RequestedSize(GObject.GPointer):
     # gi Fields
@@ -31672,8 +31538,6 @@ class RequestedSize(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Requisition(GObject.GBoxed):
     # gi Fields
@@ -31692,8 +31556,6 @@ class Requisition(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class Revealer(Widget):
     """
@@ -31727,6 +31589,9 @@ class Revealer(Widget):
         transition_duration: int  # [transition-duration]: changed because contained invalid characters
         transition_type: RevealerTransitionType  # [transition-type]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -31738,15 +31603,15 @@ class Revealer(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_child_revealed(self) -> bool: ...
-    @property
+    @builtins.property
     def get_reveal_child(self) -> bool: ...
-    @property
+    @builtins.property
     def get_transition_duration(self) -> int: ...
-    @property
+    @builtins.property
     def get_transition_type(self) -> RevealerTransitionType: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -31795,7 +31660,6 @@ class Revealer(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Root(GObject.GInterface):
     # gi Methods
@@ -31807,16 +31671,12 @@ class Root(GObject.GInterface):
     def get_focus(self) -> Widget | None: ...
     def set_focus(self, focus: Widget | None = None) -> None: ...
 
-    ...
-
 class RootInterface(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Scale(Range):
     """
@@ -31920,6 +31780,9 @@ class Scale(Range):
         has_origin: bool  # [has-origin]: changed because contained invalid characters
         value_pos: PositionType  # [value-pos]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, digits: int = ..., draw_value: bool = ..., has_origin: bool = ..., value_pos: PositionType = ...
@@ -31929,15 +31792,15 @@ class Scale(Range):
         """
     def add_mark(self, value: float, position: PositionType, markup: str | None = None) -> None: ...
     def clear_marks(self) -> None: ...
-    @property
+    @builtins.property
     def get_digits(self) -> int: ...
-    @property
+    @builtins.property
     def get_draw_value(self) -> bool: ...
-    @property
+    @builtins.property
     def get_has_origin(self) -> bool: ...
     def get_layout(self) -> Pango.Layout | None: ...
     def get_layout_offsets(self) -> tuple[int | None, int | None]: ...
-    @property
+    @builtins.property
     def get_value_pos(self) -> PositionType: ...
     @classmethod
     def new(cls, orientation: Orientation, adjustment: Adjustment | None = None) -> Widget: ...
@@ -31995,7 +31858,6 @@ class Scale(Range):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ScaleButton(Widget):
     """
@@ -32030,6 +31892,9 @@ class ScaleButton(Widget):
         icons: list | None
         value: float
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, adjustment: Adjustment | None = ..., has_frame: bool = ..., icons: list | None = ..., value: float = ...
@@ -32037,16 +31902,16 @@ class ScaleButton(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_active(self) -> bool: ...
-    @property
+    @builtins.property
     def get_adjustment(self) -> Adjustment: ...
-    @property
+    @builtins.property
     def get_has_frame(self) -> bool: ...
     def get_minus_button(self) -> Button: ...
     def get_plus_button(self) -> Button: ...
     def get_popup(self) -> Widget: ...
-    @property
+    @builtins.property
     def get_value(self) -> float: ...
     @classmethod
     def new(cls, min: float, max: float, step: float, icons: list | None = None) -> Widget: ...
@@ -32119,15 +31984,14 @@ class ScaleButton(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ScaleButtonClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
-    @property
+    @builtins.property
     def value_changed(self) -> value_changedScaleButtonClassCB: ...
 
     # gi Methods
@@ -32136,15 +32000,13 @@ class ScaleButtonClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ScaleClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_layout_offsets(self) -> get_layout_offsetsScaleClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> RangeClass | None: ...
 
     # gi Methods
@@ -32152,8 +32014,6 @@ class ScaleClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ScrollInfo(GObject.GBoxed):
     # gi Methods
@@ -32173,14 +32033,15 @@ class ScrollInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class Scrollable(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         hadjustment: Adjustment | None
         hscroll_policy: ScrollablePolicy  # [hscroll-policy]: changed because contained invalid characters
         vadjustment: Adjustment | None
         vscroll_policy: ScrollablePolicy  # [vscroll-policy]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -32194,13 +32055,13 @@ class Scrollable(GObject.GInterface):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_border(self) -> tuple[bool, Border]: ...
-    @property
+    @builtins.property
     def get_hadjustment(self) -> Adjustment | None: ...
-    @property
+    @builtins.property
     def get_hscroll_policy(self) -> ScrollablePolicy: ...
-    @property
+    @builtins.property
     def get_vadjustment(self) -> Adjustment | None: ...
-    @property
+    @builtins.property
     def get_vscroll_policy(self) -> ScrollablePolicy: ...
     def set_hadjustment(self, hadjustment: Adjustment | None = None) -> None: ...
     def set_hscroll_policy(self, policy: ScrollablePolicy) -> None: ...
@@ -32240,13 +32101,12 @@ class Scrollable(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ScrollableInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def base_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_border(self) -> get_borderScrollableInterfaceCB: ...
 
     # gi Methods
@@ -32254,8 +32114,6 @@ class ScrollableInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Scrollbar(Widget):
     """
@@ -32309,12 +32167,15 @@ class Scrollbar(Widget):
     class Props(Widget.Props):
         adjustment: Adjustment | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, adjustment: Adjustment | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_adjustment(self) -> Adjustment: ...
     @classmethod
     def new(cls, orientation: Orientation, adjustment: Adjustment | None = None) -> Widget: ...
@@ -32332,7 +32193,6 @@ class Scrollbar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ScrolledWindow(Widget):
     """
@@ -32435,6 +32295,9 @@ class ScrolledWindow(Widget):
         vscrollbar_policy: PolicyType  # [vscrollbar-policy]: changed because contained invalid characters
         window_placement: CornerType  # [window-placement]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -32457,33 +32320,33 @@ class ScrolledWindow(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_hadjustment(self) -> Adjustment: ...
-    @property
+    @builtins.property
     def get_has_frame(self) -> bool: ...
     def get_hscrollbar(self) -> Widget: ...
-    @property
+    @builtins.property
     def get_kinetic_scrolling(self) -> bool: ...
-    @property
+    @builtins.property
     def get_max_content_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_max_content_width(self) -> int: ...
-    @property
+    @builtins.property
     def get_min_content_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_min_content_width(self) -> int: ...
-    @property
+    @builtins.property
     def get_overlay_scrolling(self) -> bool: ...
-    @property
+    @builtins.property
     def get_placement(self) -> CornerType: ...
     def get_policy(self) -> tuple[PolicyType | None, PolicyType | None]: ...
-    @property
+    @builtins.property
     def get_propagate_natural_height(self) -> bool: ...
-    @property
+    @builtins.property
     def get_propagate_natural_width(self) -> bool: ...
-    @property
+    @builtins.property
     def get_vadjustment(self) -> Adjustment: ...
     def get_vscrollbar(self) -> Widget: ...
     @classmethod
@@ -32642,7 +32505,6 @@ class ScrolledWindow(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SearchBar(Widget):
     """
@@ -32707,6 +32569,9 @@ class SearchBar(Widget):
         search_mode_enabled: bool  # [search-mode-enabled]: changed because contained invalid characters
         show_close_button: bool  # [show-close-button]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -32719,13 +32584,13 @@ class SearchBar(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     def connect_entry(self, entry: Editable) -> None: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_key_capture_widget(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_search_mode(self) -> bool: ...
-    @property
+    @builtins.property
     def get_show_close_button(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -32767,7 +32632,6 @@ class SearchBar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SearchEntry(Widget):
     """
@@ -32835,6 +32699,9 @@ class SearchEntry(Widget):
         placeholder_text: str  # [placeholder-text]: changed because contained invalid characters
         search_delay: int  # [search-delay]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -32847,14 +32714,14 @@ class SearchEntry(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_input_hints(self) -> InputHints: ...
-    @property
+    @builtins.property
     def get_input_purpose(self) -> InputPurpose: ...
     def get_key_capture_widget(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_placeholder_text(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_search_delay(self) -> int: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -32928,7 +32795,6 @@ class SearchEntry(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SectionModel(GObject.GInterface):
     # gi Methods
@@ -32951,13 +32817,12 @@ class SectionModel(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SectionModelInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_section(self) -> get_sectionSectionModelInterfaceCB: ...
 
     # gi Methods
@@ -32965,8 +32830,6 @@ class SectionModelInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SelectionFilterModel(GObject.Object):
     """
@@ -32978,12 +32841,15 @@ class SelectionFilterModel(GObject.Object):
         model: SelectionModel | None
         n_items: int  # [n-items]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, model: SelectionModel | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_model(self) -> SelectionModel | None: ...
     @classmethod
     def new(cls, model: SelectionModel | None = None) -> SelectionFilterModel: ...
@@ -33015,11 +32881,10 @@ class SelectionFilterModel(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SelectionFilterModelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -33027,8 +32892,6 @@ class SelectionFilterModelClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SelectionModel(GObject.GInterface):
     # gi Methods
@@ -33060,29 +32923,28 @@ class SelectionModel(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SelectionModelInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_selection_in_range(self) -> get_selection_in_rangeSelectionModelInterfaceCB: ...
-    @property
+    @builtins.property
     def is_selected(self) -> is_selectedSelectionModelInterfaceCB: ...
-    @property
+    @builtins.property
     def select_all(self) -> select_allSelectionModelInterfaceCB: ...
-    @property
+    @builtins.property
     def select_item(self) -> select_itemSelectionModelInterfaceCB: ...
-    @property
+    @builtins.property
     def select_range(self) -> select_rangeSelectionModelInterfaceCB: ...
-    @property
+    @builtins.property
     def set_selection(self) -> set_selectionSelectionModelInterfaceCB: ...
-    @property
+    @builtins.property
     def unselect_all(self) -> unselect_allSelectionModelInterfaceCB: ...
-    @property
+    @builtins.property
     def unselect_item(self) -> unselect_itemSelectionModelInterfaceCB: ...
-    @property
+    @builtins.property
     def unselect_range(self) -> unselect_rangeSelectionModelInterfaceCB: ...
 
     # gi Methods
@@ -33090,8 +32952,6 @@ class SelectionModelInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Separator(Widget):
     """
@@ -33123,8 +32983,6 @@ class Separator(Widget):
         """
     @classmethod
     def new(cls, orientation: Orientation) -> Widget: ...
-
-    ...
 
 class Settings(GObject.Object):
     """
@@ -33220,6 +33078,9 @@ class Settings(GObject.Object):
         gtk_xft_hinting: int  # [gtk-xft-hinting]: changed because contained invalid characters
         gtk_xft_hintstyle: str  # [gtk-xft-hintstyle]: changed because contained invalid characters
         gtk_xft_rgba: str  # [gtk-xft-rgba]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -33655,7 +33516,6 @@ class Settings(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Shortcut(GObject.Object):
     """
@@ -33681,6 +33541,9 @@ class Shortcut(GObject.Object):
         arguments: GLib.Variant | None
         trigger: ShortcutTrigger | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -33691,11 +33554,11 @@ class Shortcut(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_action(self) -> ShortcutAction | None: ...
-    @property
+    @builtins.property
     def get_arguments(self) -> GLib.Variant | None: ...
-    @property
+    @builtins.property
     def get_trigger(self) -> ShortcutTrigger | None: ...
     @classmethod
     def new(cls, trigger: ShortcutTrigger | None = None, action: ShortcutAction | None = None) -> Shortcut: ...
@@ -33729,7 +33592,6 @@ class Shortcut(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ShortcutAction(GObject.Object):
     """
@@ -33772,8 +33634,6 @@ class ShortcutAction(GObject.Object):
     def print_(self, string: GLib.String) -> None: ...
     def to_string(self) -> str: ...
 
-    ...
-
 class ShortcutActionClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -33781,11 +33641,9 @@ class ShortcutActionClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ShortcutClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -33793,8 +33651,6 @@ class ShortcutClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ShortcutController(EventController):
     """
@@ -33847,6 +33703,9 @@ class ShortcutController(EventController):
         n_items: int  # [n-items]: changed because contained invalid characters
         scope: ShortcutScope
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, mnemonic_modifiers: Gdk.ModifierType = ..., model: Gio.ListModel | None = ..., scope: ShortcutScope = ...
@@ -33855,9 +33714,9 @@ class ShortcutController(EventController):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_shortcut(self, shortcut: Shortcut) -> None: ...
-    @property
+    @builtins.property
     def get_mnemonics_modifiers(self) -> Gdk.ModifierType: ...
-    @property
+    @builtins.property
     def get_scope(self) -> ShortcutScope: ...
     @classmethod
     def new(cls) -> EventController: ...
@@ -33907,7 +33766,6 @@ class ShortcutController(EventController):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ShortcutControllerClass(GObject.GPointer):
     # gi Methods
@@ -33915,8 +33773,6 @@ class ShortcutControllerClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ShortcutLabel(Widget):
     """
@@ -33929,16 +33785,19 @@ class ShortcutLabel(Widget):
         accelerator: str
         disabled_text: str  # [disabled-text]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, accelerator: str = ..., disabled_text: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_accelerator(self) -> str | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_disabled_text(self) -> str | None: ...
     @deprecated("deprecated")
     @classmethod
@@ -33967,7 +33826,6 @@ class ShortcutLabel(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ShortcutLabelClass(GObject.GPointer):
     # gi Methods
@@ -33976,8 +33834,6 @@ class ShortcutLabelClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ShortcutManager(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -33985,15 +33841,13 @@ class ShortcutManager(GObject.GInterface):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ShortcutManagerInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_controller(self) -> add_controllerShortcutManagerInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def remove_controller(self) -> remove_controllerShortcutManagerInterfaceCB: ...
 
     # gi Methods
@@ -34001,8 +33855,6 @@ class ShortcutManagerInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ShortcutTrigger(GObject.Object):
     """
@@ -34035,16 +33887,12 @@ class ShortcutTrigger(GObject.Object):
     def to_string(self) -> str: ...
     def trigger(self, event: Gdk.Event, enable_mnemonics: bool) -> Gdk.KeyMatch: ...
 
-    ...
-
 class ShortcutTriggerClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ShortcutsGroup(Box):
     """
@@ -34072,6 +33920,9 @@ class ShortcutsGroup(Box):
         title: str
         title_size_group: SizeGroup | None  # [title-size-group]: changed because contained invalid characters
         view: str
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -34127,7 +33978,6 @@ class ShortcutsGroup(Box):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ShortcutsGroupClass(GObject.GPointer):
     # gi Methods
@@ -34135,8 +33985,6 @@ class ShortcutsGroupClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ShortcutsSection(Box):
     """
@@ -34177,6 +34025,9 @@ class ShortcutsSection(Box):
         section_name: str  # [section-name]: changed because contained invalid characters
         title: str
         view_name: str  # [view-name]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, max_height: int = ..., section_name: str = ..., title: str = ..., view_name: str = ...) -> None:
@@ -34226,7 +34077,6 @@ class ShortcutsSection(Box):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ShortcutsSectionClass(GObject.GPointer):
     # gi Methods
@@ -34234,8 +34084,6 @@ class ShortcutsSectionClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ShortcutsShortcut(Widget):
     """
@@ -34257,6 +34105,9 @@ class ShortcutsShortcut(Widget):
         subtitle_set: bool  # [subtitle-set]: changed because contained invalid characters
         title: str
         title_size_group: SizeGroup | None  # [title-size-group]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -34359,7 +34210,6 @@ class ShortcutsShortcut(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ShortcutsShortcutClass(GObject.GPointer):
     # gi Methods
@@ -34367,8 +34217,6 @@ class ShortcutsShortcutClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ShortcutsWindow(Window):
     """
@@ -34445,6 +34293,9 @@ class ShortcutsWindow(Window):
         section_name: str  # [section-name]: changed because contained invalid characters
         view_name: str  # [view-name]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, section_name: str = ..., view_name: str = ...) -> None:
         """
@@ -34480,7 +34331,6 @@ class ShortcutsWindow(Window):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SignalAction(ShortcutAction):
     """
@@ -34493,12 +34343,15 @@ class SignalAction(ShortcutAction):
     class Props(ShortcutAction.Props):
         signal_name: str  # [signal-name]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, signal_name: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_signal_name(self) -> str: ...
     @classmethod
     def new(cls, signal_name: str) -> SignalAction: ...
@@ -34515,7 +34368,6 @@ class SignalAction(ShortcutAction):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SignalActionClass(GObject.GPointer):
     # gi Methods
@@ -34523,8 +34375,6 @@ class SignalActionClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SignalListItemFactory(ListItemFactory):
     """
@@ -34610,7 +34460,6 @@ class SignalListItemFactory(ListItemFactory):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SignalListItemFactoryClass(GObject.GPointer):
     # gi Methods
@@ -34618,8 +34467,6 @@ class SignalListItemFactoryClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SingleSelection(GObject.Object):
     """
@@ -34640,6 +34487,9 @@ class SingleSelection(GObject.Object):
         selected: int
         selected_item: GObject.Object | None  # [selected-item]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, autoselect: bool = ..., can_unselect: bool = ..., model: Gio.ListModel | None = ..., selected: int = ...
@@ -34647,15 +34497,15 @@ class SingleSelection(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_autoselect(self) -> bool: ...
-    @property
+    @builtins.property
     def get_can_unselect(self) -> bool: ...
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel | None: ...
-    @property
+    @builtins.property
     def get_selected(self) -> int: ...
-    @property
+    @builtins.property
     def get_selected_item(self) -> GObject.Object | None: ...
     @classmethod
     def new(cls, model: Gio.ListModel | None = None) -> SingleSelection: ...
@@ -34718,11 +34568,10 @@ class SingleSelection(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SingleSelectionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -34730,8 +34579,6 @@ class SingleSelectionClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SizeGroup(GObject.Object):
     """
@@ -34844,13 +34691,16 @@ class SizeGroup(GObject.Object):
     class Props(GObject.Object.Props):
         mode: SizeGroupMode
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, mode: SizeGroupMode = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def add_widget(self, widget: Widget) -> None: ...
-    @property
+    @builtins.property
     def get_mode(self) -> SizeGroupMode: ...
     def get_widgets(self) -> list: ...
     @classmethod
@@ -34870,7 +34720,6 @@ class SizeGroup(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SliceListModel(GObject.Object):
     """
@@ -34890,16 +34739,19 @@ class SliceListModel(GObject.Object):
         offset: int
         size: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, model: Gio.ListModel | None = ..., offset: int = ..., size: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel | None: ...
-    @property
+    @builtins.property
     def get_offset(self) -> int: ...
-    @property
+    @builtins.property
     def get_size(self) -> int: ...
     @classmethod
     def new(cls, model: Gio.ListModel | None, offset: int, size: int) -> SliceListModel: ...
@@ -34947,11 +34799,10 @@ class SliceListModel(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SliceListModelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -34959,8 +34810,6 @@ class SliceListModelClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Snapshot(GObject.Object):
     """
@@ -35074,16 +34923,12 @@ class Snapshot(GObject.Object):
     def translate(self, point: Graphene.Point) -> None: ...
     def translate_3d(self, point: Graphene.Point3D) -> None: ...
 
-    ...
-
 class SnapshotClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SortListModel(GObject.Object):
     """
@@ -35126,6 +34971,9 @@ class SortListModel(GObject.Object):
         section_sorter: Sorter | None  # [section-sorter]: changed because contained invalid characters
         sorter: Sorter | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -35137,15 +34985,15 @@ class SortListModel(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_incremental(self) -> bool: ...
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel | None: ...
-    @property
+    @builtins.property
     def get_pending(self) -> int: ...
-    @property
+    @builtins.property
     def get_section_sorter(self) -> Sorter | None: ...
-    @property
+    @builtins.property
     def get_sorter(self) -> Sorter | None: ...
     @classmethod
     def new(cls, model: Gio.ListModel | None = None, sorter: Sorter | None = None) -> SortListModel: ...
@@ -35208,11 +35056,10 @@ class SortListModel(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SortListModelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -35220,8 +35067,6 @@ class SortListModelClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Sorter(GObject.Object):
     """
@@ -35284,15 +35129,14 @@ class Sorter(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SorterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def compare(self) -> compareSorterClassCB: ...
-    @property
+    @builtins.property
     def get_order(self) -> get_orderSorterClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -35300,8 +35144,6 @@ class SorterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SpinButton(Widget):
     """
@@ -35438,6 +35280,9 @@ class SpinButton(Widget):
         value: float
         wrap: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -35455,26 +35300,26 @@ class SpinButton(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     def configure(self, adjustment: Adjustment | None, climb_rate: float, digits: int) -> None: ...
-    @property
+    @builtins.property
     def get_activates_default(self) -> bool: ...
-    @property
+    @builtins.property
     def get_adjustment(self) -> Adjustment: ...
-    @property
+    @builtins.property
     def get_climb_rate(self) -> float: ...
-    @property
+    @builtins.property
     def get_digits(self) -> int: ...
     def get_increments(self) -> tuple[float | None, float | None]: ...
-    @property
+    @builtins.property
     def get_numeric(self) -> bool: ...
     def get_range(self) -> tuple[float | None, float | None]: ...
-    @property
+    @builtins.property
     def get_snap_to_ticks(self) -> bool: ...
-    @property
+    @builtins.property
     def get_update_policy(self) -> SpinButtonUpdatePolicy: ...
-    @property
+    @builtins.property
     def get_value(self) -> float: ...
     def get_value_as_int(self) -> int: ...
-    @property
+    @builtins.property
     def get_wrap(self) -> bool: ...
     @classmethod
     def new(cls, adjustment: Adjustment | None, climb_rate: float, digits: int) -> Widget: ...
@@ -35592,7 +35437,6 @@ class SpinButton(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Spinner(Widget):
     """
@@ -35619,12 +35463,15 @@ class Spinner(Widget):
     class Props(Widget.Props):
         spinning: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, spinning: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_spinning(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -35644,7 +35491,6 @@ class Spinner(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Stack(Widget):
     """
@@ -35712,6 +35558,9 @@ class Stack(Widget):
         visible_child: Widget | None  # [visible-child]: changed because contained invalid characters
         visible_child_name: str  # [visible-child-name]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -35730,24 +35579,24 @@ class Stack(Widget):
     def add_named(self, child: Widget, name: str | None = None) -> StackPage: ...
     def add_titled(self, child: Widget, name: str | None, title: str) -> StackPage: ...
     def get_child_by_name(self, name: str) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_hhomogeneous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_interpolate_size(self) -> bool: ...
     def get_page(self, child: Widget) -> StackPage: ...
-    @property
+    @builtins.property
     def get_pages(self) -> SelectionModel: ...
-    @property
+    @builtins.property
     def get_transition_duration(self) -> int: ...
-    @property
+    @builtins.property
     def get_transition_running(self) -> bool: ...
-    @property
+    @builtins.property
     def get_transition_type(self) -> StackTransitionType: ...
-    @property
+    @builtins.property
     def get_vhomogeneous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_visible_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_visible_child_name(self) -> str | None: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -35829,7 +35678,6 @@ class Stack(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StackPage(GObject.Object):
     """
@@ -35845,6 +35693,9 @@ class StackPage(GObject.Object):
         use_underline: bool  # [use-underline]: changed because contained invalid characters
         visible: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -35859,19 +35710,19 @@ class StackPage(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget: ...
-    @property
+    @builtins.property
     def get_icon_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_needs_attention(self) -> bool: ...
-    @property
+    @builtins.property
     def get_title(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_use_underline(self) -> bool: ...
-    @property
+    @builtins.property
     def get_visible(self) -> bool: ...
     def set_icon_name(self, setting: str) -> None: ...
     def set_name(self, setting: str) -> None: ...
@@ -35934,7 +35785,6 @@ class StackPage(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StackSidebar(Widget):
     """
@@ -35963,12 +35813,15 @@ class StackSidebar(Widget):
     class Props(Widget.Props):
         stack: Stack | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, stack: Stack | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_stack(self) -> Stack | None: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -35986,7 +35839,6 @@ class StackSidebar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StackSwitcher(Widget):
     """
@@ -36030,12 +35882,15 @@ class StackSwitcher(Widget):
     class Props(Widget.Props):
         stack: Stack | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, stack: Stack | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_stack(self) -> Stack | None: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -36053,7 +35908,6 @@ class StackSwitcher(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Statusbar(Widget):
     """
@@ -36136,7 +35990,6 @@ class Statusbar(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StringFilter(Filter):
     """
@@ -36160,6 +36013,9 @@ class StringFilter(Filter):
         match_mode: StringFilterMatchMode  # [match-mode]: changed because contained invalid characters
         search: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -36171,13 +36027,13 @@ class StringFilter(Filter):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_expression(self) -> Expression | None: ...
-    @property
+    @builtins.property
     def get_ignore_case(self) -> bool: ...
-    @property
+    @builtins.property
     def get_match_mode(self) -> StringFilterMatchMode: ...
-    @property
+    @builtins.property
     def get_search(self) -> str | None: ...
     @classmethod
     def new(cls, expression: Expression | None = None) -> StringFilter: ...
@@ -36219,11 +36075,10 @@ class StringFilter(Filter):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StringFilterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> FilterClass | None: ...
 
     # gi Methods
@@ -36231,8 +36086,6 @@ class StringFilterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class StringList(GObject.Object):
     """
@@ -36269,6 +36122,9 @@ class StringList(GObject.Object):
         item_type: GObject.GType  # [item-type]: changed because contained invalid characters
         n_items: int  # [n-items]: changed because contained invalid characters
         strings: list | None
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, strings: list | None = ...) -> None:
@@ -36310,11 +36166,10 @@ class StringList(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StringListClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -36322,8 +36177,6 @@ class StringListClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class StringObject(GObject.Object):
     """
@@ -36337,12 +36190,15 @@ class StringObject(GObject.Object):
     class Props(GObject.Object.Props):
         string: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_string(self) -> str: ...
     @classmethod
     def new(cls, string: str) -> StringObject: ...
@@ -36359,11 +36215,10 @@ class StringObject(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StringObjectClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -36371,8 +36226,6 @@ class StringObjectClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class StringSorter(Sorter):
     """
@@ -36391,6 +36244,9 @@ class StringSorter(Sorter):
         expression: Expression | None
         ignore_case: bool  # [ignore-case]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, collation: Collation = ..., expression: Expression | None = ..., ignore_case: bool = ...
@@ -36398,11 +36254,11 @@ class StringSorter(Sorter):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_collation(self) -> Collation: ...
-    @property
+    @builtins.property
     def get_expression(self) -> Expression | None: ...
-    @property
+    @builtins.property
     def get_ignore_case(self) -> bool: ...
     @classmethod
     def new(cls, expression: Expression | None = None) -> StringSorter: ...
@@ -36436,11 +36292,10 @@ class StringSorter(Sorter):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StringSorterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SorterClass | None: ...
 
     # gi Methods
@@ -36448,8 +36303,6 @@ class StringSorterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class StyleContext(GObject.Object):
     """
@@ -36495,8 +36348,11 @@ class StyleContext(GObject.Object):
     class Props(GObject.Object.Props):
         display: Gdk.Display | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def parent_object(self) -> GObject.Object | None: ...
 
     # gi Methods
@@ -36515,7 +36371,7 @@ class StyleContext(GObject.Object):
     @deprecated("deprecated")
     def get_color(self) -> Gdk.RGBA: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_display(self) -> Gdk.Display: ...
     @deprecated("deprecated")
     def get_margin(self) -> Border: ...
@@ -36568,13 +36424,12 @@ class StyleContext(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StyleContextClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def changed(self) -> changedStyleContextClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -36582,8 +36437,6 @@ class StyleContextClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class StyleProvider(GObject.GInterface):
     # gi Methods
@@ -36604,7 +36457,6 @@ class StyleProvider(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Switch(Widget):
     """
@@ -36657,14 +36509,17 @@ class Switch(Widget):
         active: bool
         state: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, active: bool = ..., state: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_active(self) -> bool: ...
-    @property
+    @builtins.property
     def get_state(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -36701,7 +36556,6 @@ class Switch(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SymbolicPaintable(GObject.GInterface):
     # gi Methods
@@ -36713,13 +36567,11 @@ class SymbolicPaintable(GObject.GInterface):
         self, snapshot: Gdk.Snapshot, width: float, height: float, colors: list, n_colors: int
     ) -> None: ...
 
-    ...
-
 class SymbolicPaintableInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def snapshot_symbolic(self) -> snapshot_symbolicSymbolicPaintableInterfaceCB: ...
 
     # gi Methods
@@ -36727,8 +36579,6 @@ class SymbolicPaintableInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Text(Widget):
     """
@@ -36862,6 +36712,9 @@ class Text(Widget):
         truncate_multiline: bool  # [truncate-multiline]: changed because contained invalid characters
         visibility: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -36887,36 +36740,36 @@ class Text(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     def compute_cursor_extents(self, position: int) -> tuple[Graphene.Rect | None, Graphene.Rect | None]: ...
-    @property
+    @builtins.property
     def get_activates_default(self) -> bool: ...
-    @property
+    @builtins.property
     def get_attributes(self) -> Pango.AttrList | None: ...
-    @property
+    @builtins.property
     def get_buffer(self) -> EntryBuffer: ...
-    @property
+    @builtins.property
     def get_enable_emoji_completion(self) -> bool: ...
-    @property
+    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None: ...
-    @property
+    @builtins.property
     def get_input_hints(self) -> InputHints: ...
-    @property
+    @builtins.property
     def get_input_purpose(self) -> InputPurpose: ...
-    @property
+    @builtins.property
     def get_invisible_char(self) -> str: ...
-    @property
+    @builtins.property
     def get_max_length(self) -> int: ...
-    @property
+    @builtins.property
     def get_overwrite_mode(self) -> bool: ...
-    @property
+    @builtins.property
     def get_placeholder_text(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_propagate_text_width(self) -> bool: ...
-    @property
+    @builtins.property
     def get_tabs(self) -> Pango.TabArray | None: ...
     def get_text_length(self) -> int: ...
-    @property
+    @builtins.property
     def get_truncate_multiline(self) -> bool: ...
-    @property
+    @builtins.property
     def get_visibility(self) -> bool: ...
     def grab_focus_without_selecting(self) -> bool: ...
     @classmethod
@@ -37130,7 +36983,6 @@ class Text(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TextBuffer(GObject.Object):
     """
@@ -37153,6 +37005,9 @@ class TextBuffer(GObject.Object):
         has_selection: bool  # [has-selection]: changed because contained invalid characters
         tag_table: TextTagTable | None  # [tag-table]: changed because contained invalid characters
         text: str
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, enable_undo: bool = ..., tag_table: TextTagTable | None = ..., text: str = ...) -> None:
@@ -37185,15 +37040,15 @@ class TextBuffer(GObject.Object):
     def end_irreversible_action(self) -> None: ...
     def end_user_action(self) -> None: ...
     def get_bounds(self) -> tuple[TextIter, TextIter]: ...
-    @property
+    @builtins.property
     def get_can_redo(self) -> bool: ...
-    @property
+    @builtins.property
     def get_can_undo(self) -> bool: ...
     def get_char_count(self) -> int: ...
-    @property
+    @builtins.property
     def get_enable_undo(self) -> bool: ...
     def get_end_iter(self) -> TextIter: ...
-    @property
+    @builtins.property
     def get_has_selection(self) -> bool: ...
     def get_insert(self) -> TextMark: ...
     def get_iter_at_child_anchor(self, anchor: TextChildAnchor) -> TextIter: ...
@@ -37211,7 +37066,7 @@ class TextBuffer(GObject.Object):
     def get_selection_content(self) -> Gdk.ContentProvider: ...
     def get_slice(self, start: TextIter, end: TextIter, include_hidden_chars: bool) -> str: ...
     def get_start_iter(self) -> TextIter: ...
-    @property
+    @builtins.property
     def get_tag_table(self) -> TextTagTable: ...
     def get_text(self, start: TextIter, end: TextIter, include_hidden_chars: bool) -> str: ...
     def insert(self, iter: TextIter, text: str, len: int) -> None: ...
@@ -37435,41 +37290,40 @@ class TextBuffer(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TextBufferClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def apply_tag(self) -> apply_tagTextBufferClassCB: ...
-    @property
+    @builtins.property
     def begin_user_action(self) -> begin_user_actionTextBufferClassCB: ...
-    @property
+    @builtins.property
     def changed(self) -> changedTextBufferClassCB: ...
-    @property
+    @builtins.property
     def delete_range(self) -> delete_rangeTextBufferClassCB: ...
-    @property
+    @builtins.property
     def end_user_action(self) -> end_user_actionTextBufferClassCB: ...
-    @property
+    @builtins.property
     def insert_child_anchor(self) -> insert_child_anchorTextBufferClassCB: ...
-    @property
+    @builtins.property
     def insert_paintable(self) -> insert_paintableTextBufferClassCB: ...
-    @property
+    @builtins.property
     def insert_text(self) -> insert_textTextBufferClassCB: ...
-    @property
+    @builtins.property
     def mark_deleted(self) -> mark_deletedTextBufferClassCB: ...
-    @property
+    @builtins.property
     def mark_set(self) -> mark_setTextBufferClassCB: ...
-    @property
+    @builtins.property
     def modified_changed(self) -> modified_changedTextBufferClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def paste_done(self) -> paste_doneTextBufferClassCB: ...
-    @property
+    @builtins.property
     def redo(self) -> redoTextBufferClassCB: ...
-    @property
+    @builtins.property
     def remove_tag(self) -> remove_tagTextBufferClassCB: ...
-    @property
+    @builtins.property
     def undo(self) -> undoTextBufferClassCB: ...
 
     # gi Methods
@@ -37478,16 +37332,12 @@ class TextBufferClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TextBufferPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TextChildAnchor(GObject.Object):
     """
@@ -37508,11 +37358,9 @@ class TextChildAnchor(GObject.Object):
     @classmethod
     def new_with_replacement(cls, character: str) -> TextChildAnchor: ...
 
-    ...
-
 class TextChildAnchorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -37520,8 +37368,6 @@ class TextChildAnchorClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TextIter(GObject.GBoxed):
     # gi Methods
@@ -37628,8 +37474,6 @@ class TextIter(GObject.GBoxed):
     def starts_word(self) -> bool: ...
     def toggles_tag(self, tag: TextTag | None = None) -> bool: ...
 
-    ...
-
 class TextMark(GObject.Object):
     """
     Marks a position in a `GtkTextbuffer` that is preserved
@@ -37671,6 +37515,9 @@ class TextMark(GObject.Object):
         left_gravity: bool  # [left-gravity]: changed because contained invalid characters
         name: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, left_gravity: bool = ..., name: str = ...) -> None:
         """
@@ -37678,9 +37525,9 @@ class TextMark(GObject.Object):
         """
     def get_buffer(self) -> TextBuffer | None: ...
     def get_deleted(self) -> bool: ...
-    @property
+    @builtins.property
     def get_left_gravity(self) -> bool: ...
-    @property
+    @builtins.property
     def get_name(self) -> str | None: ...
     def get_visible(self) -> bool: ...
     @classmethod
@@ -37706,13 +37553,12 @@ class TextMark(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TextMarkClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -37720,8 +37566,6 @@ class TextMarkClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TextTag(GObject.Object):
     """
@@ -37837,6 +37681,9 @@ class TextTag(GObject.Object):
         word_set: bool  # [word-set]: changed because contained invalid characters
         wrap_mode: WrapMode  # [wrap-mode]: changed because contained invalid characters
         wrap_mode_set: bool  # [wrap-mode-set]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -38568,13 +38415,12 @@ class TextTag(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TextTagClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -38583,16 +38429,12 @@ class TextTagClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TextTagPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TextTagTable(GObject.Object):
     """
@@ -38658,7 +38500,6 @@ class TextTagTable(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TextView(Widget):
     """
@@ -38761,6 +38602,9 @@ class TextView(Widget):
         top_margin: int  # [top-margin]: changed because contained invalid characters
         wrap_mode: WrapMode  # [wrap-mode]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -38798,58 +38642,58 @@ class TextView(Widget):
     ) -> tuple[int | None, int | None]: ...
     def forward_display_line(self, iter: TextIter) -> bool: ...
     def forward_display_line_end(self, iter: TextIter) -> bool: ...
-    @property
+    @builtins.property
     def get_accepts_tab(self) -> bool: ...
-    @property
+    @builtins.property
     def get_bottom_margin(self) -> int: ...
-    @property
+    @builtins.property
     def get_buffer(self) -> TextBuffer: ...
     def get_cursor_locations(
         self, iter: TextIter | None = None
     ) -> tuple[Gdk.Rectangle | None, Gdk.Rectangle | None]: ...
-    @property
+    @builtins.property
     def get_cursor_visible(self) -> bool: ...
-    @property
+    @builtins.property
     def get_editable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel: ...
     def get_gutter(self, win: TextWindowType) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_indent(self) -> int: ...
-    @property
+    @builtins.property
     def get_input_hints(self) -> InputHints: ...
-    @property
+    @builtins.property
     def get_input_purpose(self) -> InputPurpose: ...
     def get_iter_at_location(self, x: int, y: int) -> tuple[bool, TextIter]: ...
     def get_iter_at_position(self, x: int, y: int) -> tuple[bool, TextIter, int | None]: ...
     def get_iter_location(self, iter: TextIter) -> Gdk.Rectangle: ...
-    @property
+    @builtins.property
     def get_justification(self) -> Justification: ...
-    @property
+    @builtins.property
     def get_left_margin(self) -> int: ...
     def get_line_at_y(self, y: int) -> tuple[TextIter, int]: ...
     def get_line_yrange(self, iter: TextIter) -> tuple[int, int]: ...
     def get_ltr_context(self) -> Pango.Context: ...
-    @property
+    @builtins.property
     def get_monospace(self) -> bool: ...
-    @property
+    @builtins.property
     def get_overwrite(self) -> bool: ...
-    @property
+    @builtins.property
     def get_pixels_above_lines(self) -> int: ...
-    @property
+    @builtins.property
     def get_pixels_below_lines(self) -> int: ...
-    @property
+    @builtins.property
     def get_pixels_inside_wrap(self) -> int: ...
-    @property
+    @builtins.property
     def get_right_margin(self) -> int: ...
     def get_rtl_context(self) -> Pango.Context: ...
-    @property
+    @builtins.property
     def get_tabs(self) -> Pango.TabArray | None: ...
-    @property
+    @builtins.property
     def get_top_margin(self) -> int: ...
     def get_visible_offset(self) -> tuple[float | None, float | None]: ...
     def get_visible_rect(self) -> Gdk.Rectangle: ...
-    @property
+    @builtins.property
     def get_wrap_mode(self) -> WrapMode: ...
     def im_context_filter_keypress(self, event: Gdk.Event) -> bool: ...
     def move_mark_onscreen(self, mark: TextMark) -> bool: ...
@@ -39221,37 +39065,36 @@ class TextView(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TextViewClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def backspace(self) -> backspaceTextViewClassCB: ...
-    @property
+    @builtins.property
     def copy_clipboard(self) -> copy_clipboardTextViewClassCB: ...
-    @property
+    @builtins.property
     def cut_clipboard(self) -> cut_clipboardTextViewClassCB: ...
-    @property
+    @builtins.property
     def delete_from_cursor(self) -> delete_from_cursorTextViewClassCB: ...
-    @property
+    @builtins.property
     def extend_selection(self) -> extend_selectionTextViewClassCB: ...
-    @property
+    @builtins.property
     def insert_at_cursor(self) -> insert_at_cursorTextViewClassCB: ...
-    @property
+    @builtins.property
     def insert_emoji(self) -> insert_emojiTextViewClassCB: ...
-    @property
+    @builtins.property
     def move_cursor(self) -> move_cursorTextViewClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
-    @property
+    @builtins.property
     def paste_clipboard(self) -> paste_clipboardTextViewClassCB: ...
-    @property
+    @builtins.property
     def set_anchor(self) -> set_anchorTextViewClassCB: ...
-    @property
+    @builtins.property
     def snapshot_layer(self) -> snapshot_layerTextViewClassCB: ...
-    @property
+    @builtins.property
     def toggle_overwrite(self) -> toggle_overwriteTextViewClassCB: ...
 
     # gi Methods
@@ -39260,16 +39103,12 @@ class TextViewClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TextViewPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ToggleButton(Button):
     """
@@ -39355,8 +39194,11 @@ class ToggleButton(Button):
         active: bool
         group: ToggleButton | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def button(self) -> Button | None: ...
 
     # gi Methods
@@ -39364,7 +39206,7 @@ class ToggleButton(Button):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_active(self) -> bool: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -39408,15 +39250,14 @@ class ToggleButton(Button):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ToggleButtonClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> ButtonClass | None: ...
-    @property
+    @builtins.property
     def toggled(self) -> toggledToggleButtonClassCB: ...
 
     # gi Methods
@@ -39424,8 +39265,6 @@ class ToggleButtonClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Tooltip(GObject.Object):
     """
@@ -39471,8 +39310,6 @@ class Tooltip(GObject.Object):
     def set_text(self, text: str | None = None) -> None: ...
     def set_tip_area(self, rect: Gdk.Rectangle) -> None: ...
 
-    ...
-
 class TreeDragDest(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -39484,15 +39321,13 @@ class TreeDragDest(GObject.GInterface):
     @deprecated("deprecated")
     def row_drop_possible(self, dest_path: TreePath, value: GObject.Value) -> bool: ...
 
-    ...
-
 class TreeDragDestIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def drag_data_received(self) -> drag_data_receivedTreeDragDestIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def row_drop_possible(self) -> row_drop_possibleTreeDragDestIfaceCB: ...
 
     # gi Methods
@@ -39500,8 +39335,6 @@ class TreeDragDestIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeDragSource(GObject.GInterface):
     # gi Methods
@@ -39516,17 +39349,15 @@ class TreeDragSource(GObject.GInterface):
     @deprecated("deprecated")
     def row_draggable(self, path: TreePath) -> bool: ...
 
-    ...
-
 class TreeDragSourceIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def drag_data_delete(self) -> drag_data_deleteTreeDragSourceIfaceCB: ...
-    @property
+    @builtins.property
     def drag_data_get(self) -> drag_data_getTreeDragSourceIfaceCB | None: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def row_draggable(self) -> row_draggableTreeDragSourceIfaceCB: ...
 
     # gi Methods
@@ -39534,8 +39365,6 @@ class TreeDragSourceIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeExpander(Widget):
     """
@@ -39625,6 +39454,9 @@ class TreeExpander(Widget):
         item: GObject.Object | None
         list_row: TreeListRow | None  # [list-row]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -39637,17 +39469,17 @@ class TreeExpander(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_hide_expander(self) -> bool: ...
-    @property
+    @builtins.property
     def get_indent_for_depth(self) -> bool: ...
-    @property
+    @builtins.property
     def get_indent_for_icon(self) -> bool: ...
-    @property
+    @builtins.property
     def get_item(self) -> GObject.Object | None: ...
-    @property
+    @builtins.property
     def get_list_row(self) -> TreeListRow | None: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -39704,11 +39536,10 @@ class TreeExpander(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeExpanderClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -39716,8 +39547,6 @@ class TreeExpanderClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeIter(GObject.GBoxed):
     # gi Fields
@@ -39733,8 +39562,6 @@ class TreeIter(GObject.GBoxed):
     @deprecated("deprecated")
     def free(self) -> None: ...
 
-    ...
-
 class TreeListModel(GObject.Object):
     """
     A list model that can create child models on demand.
@@ -39747,17 +39574,20 @@ class TreeListModel(GObject.Object):
         n_items: int  # [n-items]: changed because contained invalid characters
         passthrough: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, autoexpand: bool = ..., passthrough: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_autoexpand(self) -> bool: ...
     def get_child_row(self, position: int) -> TreeListRow | None: ...
-    @property
+    @builtins.property
     def get_model(self) -> Gio.ListModel: ...
-    @property
+    @builtins.property
     def get_passthrough(self) -> bool: ...
     def get_row(self, position: int) -> TreeListRow | None: ...
     @classmethod
@@ -39812,11 +39642,10 @@ class TreeListModel(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeListModelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -39824,8 +39653,6 @@ class TreeListModelClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeListRow(GObject.Object):
     """
@@ -39849,23 +39676,26 @@ class TreeListRow(GObject.Object):
         expanded: bool
         item: GObject.Object | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, expanded: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def get_child_row(self, position: int) -> TreeListRow | None: ...
-    @property
+    @builtins.property
     def get_children(self) -> Gio.ListModel | None: ...
-    @property
+    @builtins.property
     def get_depth(self) -> int: ...
-    @property
+    @builtins.property
     def get_expanded(self) -> bool: ...
-    @property
+    @builtins.property
     def get_item(self) -> GObject.Object | None: ...
     def get_parent(self) -> TreeListRow | None: ...
     def get_position(self) -> int: ...
-    @property
+    @builtins.property
     def is_expandable(self) -> bool: ...
     def set_expanded(self, expanded: bool) -> None: ...
 
@@ -39909,11 +39739,10 @@ class TreeListRow(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeListRowClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -39921,8 +39750,6 @@ class TreeListRowClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeListRowSorter(Sorter):
     """
@@ -39943,12 +39770,15 @@ class TreeListRowSorter(Sorter):
     class Props(Sorter.Props):
         sorter: Sorter | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, sorter: Sorter | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_sorter(self) -> Sorter | None: ...
     @classmethod
     def new(cls, sorter: Sorter | None = None) -> TreeListRowSorter: ...
@@ -39966,11 +39796,10 @@ class TreeListRowSorter(Sorter):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeListRowSorterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SorterClass | None: ...
 
     # gi Methods
@@ -39978,8 +39807,6 @@ class TreeListRowSorterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeModel(GObject.GInterface):
     # gi Methods
@@ -40086,7 +39913,6 @@ class TreeModel(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeModelFilter(GObject.Object):
     """
@@ -40163,6 +39989,9 @@ class TreeModelFilter(GObject.Object):
         child_model: TreeModel | None  # [child-model]: changed because contained invalid characters
         virtual_root: TreePath | None  # [virtual-root]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, child_model: TreeModel | None = ..., virtual_root: TreePath | None = ...) -> None:
         """
@@ -40225,17 +40054,16 @@ class TreeModelFilter(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeModelFilterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def modify(self) -> modifyTreeModelFilterClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def visible(self) -> visibleTreeModelFilterClassCB: ...
 
     # gi Methods
@@ -40244,8 +40072,6 @@ class TreeModelFilterClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TreeModelFilterPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -40253,51 +40079,49 @@ class TreeModelFilterPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TreeModelIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_column_type(self) -> get_column_typeTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def get_flags(self) -> get_flagsTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def get_iter(self) -> get_iterTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def get_n_columns(self) -> get_n_columnsTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def get_path(self) -> get_pathTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def get_value(self) -> get_valueTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def iter_children(self) -> iter_childrenTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def iter_has_child(self) -> iter_has_childTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def iter_n_children(self) -> iter_n_childrenTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def iter_next(self) -> iter_nextTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def iter_nth_child(self) -> iter_nth_childTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def iter_parent(self) -> iter_parentTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def iter_previous(self) -> iter_previousTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def ref_node(self) -> ref_nodeTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def row_changed(self) -> row_changedTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def row_deleted(self) -> row_deletedTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def row_has_child_toggled(self) -> row_has_child_toggledTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def row_inserted(self) -> row_insertedTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def rows_reordered(self) -> rows_reorderedTreeModelIfaceCB: ...
-    @property
+    @builtins.property
     def unref_node(self) -> unref_nodeTreeModelIfaceCB: ...
 
     # gi Methods
@@ -40306,11 +40130,11 @@ class TreeModelIface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TreeModelRow(object):
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # python methods (overrides?)
     def __init__(
@@ -40334,11 +40158,11 @@ class TreeModelRow(object):
         self,
     ) -> typing.Any: ...
 
-    ...
-
 class TreeModelRowIter(object):
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # python methods (overrides?)
     def __init__(
@@ -40349,8 +40173,6 @@ class TreeModelRowIter(object):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-
-    ...
 
 class TreeModelSort(GObject.Object):
     """
@@ -40455,6 +40277,9 @@ class TreeModelSort(GObject.Object):
     class Props(GObject.Object.Props):
         model: TreeModel | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, model: TreeModel | None = ...) -> None:
         """
@@ -40470,7 +40295,7 @@ class TreeModelSort(GObject.Object):
     def convert_iter_to_child_iter(self, sorted_iter: TreeIter) -> TreeIter: ...
     @deprecated("deprecated")
     def convert_path_to_child_path(self, sorted_path: TreePath) -> TreePath | None: ...
-    @property
+    @builtins.property
     def get_model(self) -> TreeModel: ...
     @deprecated("deprecated")
     def iter_is_valid(self, iter: TreeIter) -> bool: ...
@@ -40491,13 +40316,12 @@ class TreeModelSort(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeModelSortClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -40506,16 +40330,12 @@ class TreeModelSortClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TreeModelSortPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreePath(GObject.GBoxed):
     # gi Methods
@@ -40570,16 +40390,12 @@ class TreePath(GObject.GBoxed):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-    ...
-
 class TreeRowData(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeRowReference(GObject.GBoxed):
     # gi Methods
@@ -40613,8 +40429,6 @@ class TreeRowReference(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class TreeSelection(GObject.Object):
     """
     The selection object for GtkTreeView
@@ -40647,6 +40461,9 @@ class TreeSelection(GObject.Object):
     class Props(GObject.Object.Props):
         mode: SelectionMode
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, mode: SelectionMode = ...) -> None:
         """
@@ -40655,7 +40472,7 @@ class TreeSelection(GObject.Object):
     @deprecated("deprecated")
     def count_selected_rows(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_mode(self) -> SelectionMode: ...
     @deprecated("deprecated")
     def get_selected(self) -> tuple[bool, TreeModel | None, TreeIter | None]: ...
@@ -40708,7 +40525,6 @@ class TreeSelection(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeSortable(GObject.GInterface):
     # gi Methods
@@ -40749,23 +40565,22 @@ class TreeSortable(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeSortableIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_sort_column_id(self) -> get_sort_column_idTreeSortableIfaceCB: ...
-    @property
+    @builtins.property
     def has_default_sort_func(self) -> has_default_sort_funcTreeSortableIfaceCB: ...
-    @property
+    @builtins.property
     def set_default_sort_func(self) -> set_default_sort_funcTreeSortableIfaceCB: ...
-    @property
+    @builtins.property
     def set_sort_column_id(self) -> set_sort_column_idTreeSortableIfaceCB: ...
-    @property
+    @builtins.property
     def set_sort_func(self) -> set_sort_funcTreeSortableIfaceCB: ...
-    @property
+    @builtins.property
     def sort_column_changed(self) -> sort_column_changedTreeSortableIfaceCB: ...
 
     # gi Methods
@@ -40773,8 +40588,6 @@ class TreeSortableIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeStore(GObject.Object):
     """
@@ -40861,13 +40674,11 @@ class TreeStore(GObject.Object):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-    ...
-
 class TreeStoreClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -40876,16 +40687,12 @@ class TreeStoreClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TreeStorePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeView(Widget):
     """
@@ -41001,6 +40808,9 @@ class TreeView(Widget):
         show_expanders: bool  # [show-expanders]: changed because contained invalid characters
         tooltip_column: int  # [tooltip-column]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -41060,7 +40870,7 @@ class TreeView(Widget):
     @deprecated("deprecated")
     def expand_to_path(self, path: TreePath) -> None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_activate_on_single_click(self) -> bool: ...
     @deprecated("deprecated")
     def get_background_area(
@@ -41081,36 +40891,36 @@ class TreeView(Widget):
     @deprecated("deprecated")
     def get_drag_dest_row(self) -> tuple[TreePath | None, TreeViewDropPosition | None]: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_enable_search(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_enable_tree_lines(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_expander_column(self) -> TreeViewColumn | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_fixed_height_mode(self) -> bool: ...
     @deprecated("deprecated")
     def get_grid_lines(self) -> TreeViewGridLines: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_headers_clickable(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_headers_visible(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_hover_expand(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_hover_selection(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_level_indentation(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_model(self) -> TreeModel | None: ...
     @deprecated("deprecated")
     def get_n_columns(self) -> int: ...
@@ -41119,23 +40929,23 @@ class TreeView(Widget):
         self, x: int, y: int
     ) -> tuple[bool, TreePath | None, TreeViewColumn | None, int | None, int | None]: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_reorderable(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_rubber_banding(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_search_column(self) -> int: ...
     @deprecated("deprecated")
     def get_search_entry(self) -> Editable | None: ...
     @deprecated("deprecated")
     def get_selection(self) -> TreeSelection: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_show_expanders(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_tooltip_column(self) -> int: ...
     @deprecated("deprecated")
     def get_tooltip_context(
@@ -41491,41 +41301,40 @@ class TreeView(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TreeViewClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def columns_changed(self) -> columns_changedTreeViewClassCB: ...
-    @property
+    @builtins.property
     def cursor_changed(self) -> cursor_changedTreeViewClassCB: ...
-    @property
+    @builtins.property
     def expand_collapse_cursor_row(self) -> expand_collapse_cursor_rowTreeViewClassCB: ...
-    @property
+    @builtins.property
     def move_cursor(self) -> move_cursorTreeViewClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
-    @property
+    @builtins.property
     def row_activated(self) -> row_activatedTreeViewClassCB: ...
-    @property
+    @builtins.property
     def row_collapsed(self) -> row_collapsedTreeViewClassCB: ...
-    @property
+    @builtins.property
     def row_expanded(self) -> row_expandedTreeViewClassCB: ...
-    @property
+    @builtins.property
     def select_all(self) -> select_allTreeViewClassCB: ...
-    @property
+    @builtins.property
     def select_cursor_parent(self) -> select_cursor_parentTreeViewClassCB: ...
-    @property
+    @builtins.property
     def select_cursor_row(self) -> select_cursor_rowTreeViewClassCB: ...
-    @property
+    @builtins.property
     def start_interactive_search(self) -> start_interactive_searchTreeViewClassCB: ...
-    @property
+    @builtins.property
     def test_collapse_row(self) -> test_collapse_rowTreeViewClassCB: ...
-    @property
+    @builtins.property
     def test_expand_row(self) -> test_expand_rowTreeViewClassCB: ...
-    @property
+    @builtins.property
     def toggle_cursor_row(self) -> toggle_cursor_rowTreeViewClassCB: ...
-    @property
+    @builtins.property
     def unselect_all(self) -> unselect_allTreeViewClassCB: ...
 
     # gi Methods
@@ -41533,8 +41342,6 @@ class TreeViewClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TreeViewColumn(GObject.InitiallyUnowned):
     """
@@ -41571,6 +41378,9 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         width: int
         x_offset: int  # [x-offset]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     @deprecated("deprecated")
     def add_attribute(self, cell_renderer: CellRenderer, attribute: str, column: int) -> None: ...
@@ -41593,62 +41403,62 @@ class TreeViewColumn(GObject.InitiallyUnowned):
     @deprecated("deprecated")
     def focus_cell(self, cell: CellRenderer) -> None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_alignment(self) -> float: ...
     @deprecated("deprecated")
     def get_button(self) -> Widget: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_clickable(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_expand(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_fixed_width(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_max_width(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_min_width(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_reorderable(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_resizable(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_sizing(self) -> TreeViewColumnSizing: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_sort_column_id(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_sort_indicator(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_sort_order(self) -> SortType: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_spacing(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_title(self) -> str: ...
     @deprecated("deprecated")
     def get_tree_view(self) -> Widget | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_visible(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_widget(self) -> Widget | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_width(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_x_offset(self) -> int: ...
     @deprecated("deprecated")
     @classmethod
@@ -41861,7 +41671,6 @@ class TreeViewColumn(GObject.InitiallyUnowned):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class UriLauncher(GObject.Object):
     """
@@ -41881,12 +41690,15 @@ class UriLauncher(GObject.Object):
     class Props(GObject.Object.Props):
         uri: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, uri: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_uri(self) -> str | None: ...
     def launch(
         self,
@@ -41912,11 +41724,10 @@ class UriLauncher(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class UriLauncherClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -41924,8 +41735,6 @@ class UriLauncherClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Video(Widget):
     """
@@ -41955,6 +41764,9 @@ class Video(Widget):
         loop: bool
         media_stream: MediaStream | None  # [media-stream]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -41967,15 +41779,15 @@ class Video(Widget):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_autoplay(self) -> bool: ...
-    @property
+    @builtins.property
     def get_file(self) -> Gio.File | None: ...
-    @property
+    @builtins.property
     def get_graphics_offload(self) -> GraphicsOffloadEnabled: ...
-    @property
+    @builtins.property
     def get_loop(self) -> bool: ...
-    @property
+    @builtins.property
     def get_media_stream(self) -> MediaStream | None: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -42035,11 +41847,10 @@ class Video(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VideoClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -42047,8 +41858,6 @@ class VideoClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Viewport(Widget):
     """
@@ -42076,14 +41885,17 @@ class Viewport(Widget):
         child: Widget | None
         scroll_to_focus: bool  # [scroll-to-focus]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, child: Widget | None = ..., scroll_to_focus: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_scroll_to_focus(self) -> bool: ...
     @classmethod
     def new(cls, hadjustment: Adjustment | None = None, vadjustment: Adjustment | None = None) -> Widget: ...
@@ -42110,7 +41922,6 @@ class Viewport(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VolumeButton(ScaleButton):
     """
@@ -42125,6 +41936,9 @@ class VolumeButton(ScaleButton):
 
     class Props(ScaleButton.Props):
         use_symbolic: bool  # [use-symbolic]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, use_symbolic: bool = ...) -> None:
@@ -42147,7 +41961,6 @@ class VolumeButton(ScaleButton):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Widget(GObject.InitiallyUnowned):
     """
@@ -42582,6 +42395,9 @@ class Widget(GObject.InitiallyUnowned):
         visible: bool
         width_request: int  # [width-request]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -42651,18 +42467,18 @@ class Widget(GObject.InitiallyUnowned):
     def get_allocation(self) -> Gdk.Rectangle: ...
     def get_ancestor(self, widget_type: GObject.GType) -> Widget | None: ...
     def get_baseline(self) -> int: ...
-    @property
+    @builtins.property
     def get_can_focus(self) -> bool: ...
-    @property
+    @builtins.property
     def get_can_target(self) -> bool: ...
     def get_child_visible(self) -> bool: ...
     def get_clipboard(self) -> Gdk.Clipboard: ...
     def get_color(self) -> Gdk.RGBA: ...
-    @property
+    @builtins.property
     def get_css_classes(self) -> list: ...
-    @property
+    @builtins.property
     def get_css_name(self) -> str: ...
-    @property
+    @builtins.property
     def get_cursor(self) -> Gdk.Cursor | None: ...
     @staticmethod
     def get_default_direction() -> TextDirection: ...
@@ -42670,60 +42486,60 @@ class Widget(GObject.InitiallyUnowned):
     def get_display(self) -> Gdk.Display: ...
     def get_first_child(self) -> Widget | None: ...
     def get_focus_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_focus_on_click(self) -> bool: ...
-    @property
+    @builtins.property
     def get_focusable(self) -> bool: ...
     def get_font_map(self) -> Pango.FontMap | None: ...
     @deprecated("deprecated")
     def get_font_options(self) -> cairo.FontOptions | None: ...
     def get_frame_clock(self) -> Gdk.FrameClock | None: ...
-    @property
+    @builtins.property
     def get_halign(self) -> Align: ...
-    @property
+    @builtins.property
     def get_has_tooltip(self) -> bool: ...
     def get_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_hexpand(self) -> bool: ...
-    @property
+    @builtins.property
     def get_hexpand_set(self) -> bool: ...
     def get_last_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_layout_manager(self) -> LayoutManager | None: ...
-    @property
+    @builtins.property
     def get_limit_events(self) -> bool: ...
     def get_mapped(self) -> bool: ...
-    @property
+    @builtins.property
     def get_margin_bottom(self) -> int: ...
-    @property
+    @builtins.property
     def get_margin_end(self) -> int: ...
-    @property
+    @builtins.property
     def get_margin_start(self) -> int: ...
-    @property
+    @builtins.property
     def get_margin_top(self) -> int: ...
-    @property
+    @builtins.property
     def get_name(self) -> str: ...
     def get_native(self) -> Native | None: ...
     def get_next_sibling(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_opacity(self) -> float: ...
-    @property
+    @builtins.property
     def get_overflow(self) -> Overflow: ...
     def get_pango_context(self) -> Pango.Context: ...
-    @property
+    @builtins.property
     def get_parent(self) -> Widget | None: ...
     def get_preferred_size(self) -> tuple[Requisition | None, Requisition | None]: ...
     def get_prev_sibling(self) -> Widget | None: ...
     def get_primary_clipboard(self) -> Gdk.Clipboard: ...
     def get_realized(self) -> bool: ...
-    @property
+    @builtins.property
     def get_receives_default(self) -> bool: ...
     def get_request_mode(self) -> SizeRequestMode: ...
-    @property
+    @builtins.property
     def get_root(self) -> Root | None: ...
-    @property
+    @builtins.property
     def get_scale_factor(self) -> int: ...
-    @property
+    @builtins.property
     def get_sensitive(self) -> bool: ...
     def get_settings(self) -> Settings: ...
     def get_size(self, orientation: Orientation) -> int: ...
@@ -42732,24 +42548,24 @@ class Widget(GObject.InitiallyUnowned):
     @deprecated("deprecated")
     def get_style_context(self) -> StyleContext: ...
     def get_template_child(self, widget_type: GObject.GType, name: str) -> GObject.Object: ...
-    @property
+    @builtins.property
     def get_tooltip_markup(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_tooltip_text(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_valign(self) -> Align: ...
-    @property
+    @builtins.property
     def get_vexpand(self) -> bool: ...
-    @property
+    @builtins.property
     def get_vexpand_set(self) -> bool: ...
-    @property
+    @builtins.property
     def get_visible(self) -> bool: ...
     def get_width(self) -> int: ...
     def grab_focus(self) -> bool: ...
     def has_css_class(self, css_class: str) -> bool: ...
-    @property
+    @builtins.property
     def has_default(self) -> bool: ...
-    @property
+    @builtins.property
     def has_focus(self) -> bool: ...
     def has_visible_focus(self) -> bool: ...
     @deprecated("deprecated")
@@ -43156,63 +42972,62 @@ class Widget(GObject.InitiallyUnowned):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class WidgetClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def compute_expand(self) -> compute_expandWidgetClassCB: ...
-    @property
+    @builtins.property
     def contains(self) -> containsWidgetClassCB: ...
-    @property
+    @builtins.property
     def css_changed(self) -> css_changedWidgetClassCB: ...
-    @property
+    @builtins.property
     def direction_changed(self) -> direction_changedWidgetClassCB: ...
-    @property
+    @builtins.property
     def focus(self) -> focusWidgetClassCB: ...
-    @property
+    @builtins.property
     def get_request_mode(self) -> get_request_modeWidgetClassCB: ...
-    @property
+    @builtins.property
     def grab_focus(self) -> grab_focusWidgetClassCB: ...
-    @property
+    @builtins.property
     def hide(self) -> hideWidgetClassCB: ...
-    @property
+    @builtins.property
     def keynav_failed(self) -> keynav_failedWidgetClassCB: ...
-    @property
+    @builtins.property
     def map(self) -> mapWidgetClassCB: ...
-    @property
+    @builtins.property
     def measure(self) -> measureWidgetClassCB: ...
-    @property
+    @builtins.property
     def mnemonic_activate(self) -> mnemonic_activateWidgetClassCB: ...
-    @property
+    @builtins.property
     def move_focus(self) -> move_focusWidgetClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.InitiallyUnownedClass | None: ...
-    @property
+    @builtins.property
     def query_tooltip(self) -> query_tooltipWidgetClassCB: ...
-    @property
+    @builtins.property
     def realize(self) -> realizeWidgetClassCB: ...
-    @property
+    @builtins.property
     def root(self) -> rootWidgetClassCB: ...
-    @property
+    @builtins.property
     def set_focus_child(self) -> set_focus_childWidgetClassCB: ...
-    @property
+    @builtins.property
     def show(self) -> showWidgetClassCB: ...
-    @property
+    @builtins.property
     def size_allocate(self) -> size_allocateWidgetClassCB: ...
-    @property
+    @builtins.property
     def snapshot(self) -> snapshotWidgetClassCB: ...
-    @property
+    @builtins.property
     def state_flags_changed(self) -> state_flags_changedWidgetClassCB: ...
-    @property
+    @builtins.property
     def system_setting_changed(self) -> system_setting_changedWidgetClassCB: ...
-    @property
+    @builtins.property
     def unmap(self) -> unmapWidgetClassCB: ...
-    @property
+    @builtins.property
     def unrealize(self) -> unrealizeWidgetClassCB: ...
-    @property
+    @builtins.property
     def unroot(self) -> unrootWidgetClassCB: ...
 
     # gi Methods
@@ -43241,16 +43056,12 @@ class WidgetClass(GObject.GPointer):
     def set_template_from_resource(self, resource_name: str) -> None: ...
     def set_template_scope(self, scope: BuilderScope) -> None: ...
 
-    ...
-
 class WidgetClassPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class WidgetPaintable(GObject.Object):
     """
@@ -43278,12 +43089,15 @@ class WidgetPaintable(GObject.Object):
     class Props(GObject.Object.Props):
         widget: Widget | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, widget: Widget | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_widget(self) -> Widget | None: ...
     @classmethod
     def new(cls, widget: Widget | None = None) -> WidgetPaintable: ...
@@ -43301,11 +43115,10 @@ class WidgetPaintable(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class WidgetPaintableClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -43314,16 +43127,12 @@ class WidgetPaintableClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class WidgetPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Window(Widget):
     """
@@ -43430,59 +43239,62 @@ class Window(Widget):
         titlebar: Widget | None
         transient_for: Window | None  # [transient-for]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def close(self) -> None: ...
     def destroy(self) -> None: ...
     def fullscreen(self) -> None: ...
     def fullscreen_on_monitor(self, monitor: Gdk.Monitor) -> None: ...
-    @property
+    @builtins.property
     def get_application(self) -> Application | None: ...
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_decorated(self) -> bool: ...
     @staticmethod
     def get_default_icon_name() -> str | None: ...
     def get_default_size(self) -> tuple[int | None, int | None]: ...
-    @property
+    @builtins.property
     def get_default_widget(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_deletable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_destroy_with_parent(self) -> bool: ...
-    @property
+    @builtins.property
     def get_focus(self) -> Widget | None: ...
-    @property
+    @builtins.property
     def get_focus_visible(self) -> bool: ...
     def get_group(self) -> WindowGroup: ...
-    @property
+    @builtins.property
     def get_handle_menubar_accel(self) -> bool: ...
-    @property
+    @builtins.property
     def get_hide_on_close(self) -> bool: ...
-    @property
+    @builtins.property
     def get_icon_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_mnemonics_visible(self) -> bool: ...
-    @property
+    @builtins.property
     def get_modal(self) -> bool: ...
-    @property
+    @builtins.property
     def get_resizable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_title(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_titlebar(self) -> Widget | None: ...
     @staticmethod
     def get_toplevels() -> Gio.ListModel: ...
-    @property
+    @builtins.property
     def get_transient_for(self) -> Window | None: ...
     def has_group(self) -> bool: ...
-    @property
+    @builtins.property
     def is_active(self) -> bool: ...
-    @property
+    @builtins.property
     def is_fullscreen(self) -> bool: ...
-    @property
+    @builtins.property
     def is_maximized(self) -> bool: ...
-    @property
+    @builtins.property
     def is_suspended(self) -> bool: ...
     @staticmethod
     def list_toplevels() -> list: ...
@@ -43739,23 +43551,22 @@ class Window(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class WindowClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate_default(self) -> activate_defaultWindowClassCB: ...
-    @property
+    @builtins.property
     def activate_focus(self) -> activate_focusWindowClassCB: ...
-    @property
+    @builtins.property
     def close_request(self) -> close_requestWindowClassCB: ...
-    @property
+    @builtins.property
     def enable_debugging(self) -> enable_debuggingWindowClassCB: ...
-    @property
+    @builtins.property
     def keys_changed(self) -> keys_changedWindowClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -43763,8 +43574,6 @@ class WindowClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class WindowControls(Widget):
     """
@@ -43829,18 +43638,21 @@ class WindowControls(Widget):
         side: PackType
         use_native_controls: bool  # [use-native-controls]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, decoration_layout: str = ..., side: PackType = ..., use_native_controls: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_decoration_layout(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_empty(self) -> bool: ...
-    @property
+    @builtins.property
     def get_side(self) -> PackType: ...
-    @property
+    @builtins.property
     def get_use_native_controls(self) -> bool: ...
     @classmethod
     def new(cls, side: PackType) -> Widget: ...
@@ -43881,11 +43693,10 @@ class WindowControls(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class WindowControlsClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -43893,8 +43704,6 @@ class WindowControlsClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class WindowGroup(GObject.Object):
     """
@@ -43927,11 +43736,9 @@ class WindowGroup(GObject.Object):
     def new(cls) -> WindowGroup: ...
     def remove_window(self, window: Window) -> None: ...
 
-    ...
-
 class WindowGroupClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -43940,16 +43747,12 @@ class WindowGroupClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class WindowGroupPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class WindowHandle(Widget):
     """
@@ -43974,12 +43777,15 @@ class WindowHandle(Widget):
     class Props(Widget.Props):
         child: Widget | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, child: Widget | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_child(self) -> Widget | None: ...
     @classmethod
     def new(cls) -> Widget: ...
@@ -43997,11 +43803,10 @@ class WindowHandle(Widget):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class WindowHandleClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
     # gi Methods
@@ -44009,8 +43814,6 @@ class WindowHandleClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

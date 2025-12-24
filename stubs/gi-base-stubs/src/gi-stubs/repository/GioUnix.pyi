@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -791,7 +792,7 @@ def mounts_get_from_file(
 
 class DesktopAppInfoClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -800,11 +801,9 @@ class DesktopAppInfoClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DesktopAppInfoLookupIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -812,8 +811,6 @@ class DesktopAppInfoLookupIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FDMessage(Gio.SocketControlMessage):
     """
@@ -834,6 +831,9 @@ class FDMessage(Gio.SocketControlMessage):
 
     class Props(Gio.SocketControlMessage.Props):
         fd_list: Gio.UnixFDList | None  # [fd-list]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, fd_list: Gio.UnixFDList | None = ...) -> None:
@@ -863,11 +863,10 @@ class FDMessage(Gio.SocketControlMessage):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FDMessageClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> Gio.SocketControlMessageClass | None: ...
 
     # gi Methods
@@ -876,8 +875,6 @@ class FDMessageClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FDMessagePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -885,13 +882,11 @@ class FDMessagePrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FileDescriptorBasedIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_fd(self) -> get_fdFileDescriptorBasedIfaceCB: ...
 
     # gi Methods
@@ -899,8 +894,6 @@ class FileDescriptorBasedIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InputStream(GObject.Object):
     """
@@ -918,6 +911,9 @@ class InputStream(GObject.Object):
     class Props(GObject.Object.Props):
         close_fd: bool  # [close-fd]: changed because contained invalid characters
         fd: int
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, close_fd: bool = ..., fd: int = ...) -> None:
@@ -952,11 +948,10 @@ class InputStream(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class InputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> Gio.InputStreamClass | None: ...
 
     # gi Methods
@@ -965,16 +960,12 @@ class InputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class InputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MountEntry(GObject.GBoxed):
     # gi Methods
@@ -1016,8 +1007,6 @@ class MountEntry(GObject.GBoxed):
     def is_readonly(mount_entry: MountEntry) -> bool: ...
     @staticmethod
     def is_system_internal(mount_entry: MountEntry) -> bool: ...
-
-    ...
 
 class MountMonitor(GObject.Object):
     """
@@ -1061,7 +1050,6 @@ class MountMonitor(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MountMonitorClass(GObject.GPointer):
     # gi Methods
@@ -1069,8 +1057,6 @@ class MountMonitorClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MountPoint(GObject.GBoxed):
     # gi Methods
@@ -1109,8 +1095,6 @@ class MountPoint(GObject.GBoxed):
     @staticmethod
     def is_user_mountable(mount_point: MountPoint) -> bool: ...
 
-    ...
-
 class OutputStream(GObject.Object):
     """
     `GUnixOutputStream` implements [class@Gio.OutputStream] for writing to a UNIX
@@ -1127,6 +1111,9 @@ class OutputStream(GObject.Object):
     class Props(GObject.Object.Props):
         close_fd: bool  # [close-fd]: changed because contained invalid characters
         fd: int
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, close_fd: bool = ..., fd: int = ...) -> None:
@@ -1161,11 +1148,10 @@ class OutputStream(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class OutputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> Gio.OutputStreamClass | None: ...
 
     # gi Methods
@@ -1174,16 +1160,12 @@ class OutputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class OutputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

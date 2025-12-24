@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -408,12 +409,15 @@ class AudioVisualizer(Gst.Element):
         shade_amount: int  # [shade-amount]: changed because contained invalid characters
         shader: AudioVisualizerShader
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def ainfo(self) -> GstAudio.AudioInfo | None: ...
-    @property
+    @builtins.property
     def req_spf(self) -> int: ...
-    @property
+    @builtins.property
     def vinfo(self) -> GstVideo.VideoInfo | None: ...
 
     # gi Methods
@@ -464,17 +468,16 @@ class AudioVisualizer(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AudioVisualizerClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def decide_allocation(self) -> decide_allocationAudioVisualizerClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def render(self) -> renderAudioVisualizerClassCB: ...
-    @property
+    @builtins.property
     def setup(self) -> setupAudioVisualizerClassCB: ...
 
     # gi Methods
@@ -483,8 +486,6 @@ class AudioVisualizerClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioVisualizerPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -492,12 +493,13 @@ class AudioVisualizerPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Discoverer(GObject.Object):
     class Props(GObject.Object.Props):
         timeout: int
         use_cache: bool  # [use-cache]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, timeout: int = ..., use_cache: bool = ...) -> None:
@@ -595,7 +597,6 @@ class Discoverer(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DiscovererAudioInfo(DiscovererStreamInfo):
     # gi Methods
@@ -611,21 +612,19 @@ class DiscovererAudioInfo(DiscovererStreamInfo):
     def get_max_bitrate(self) -> int: ...
     def get_sample_rate(self) -> int: ...
 
-    ...
-
 class DiscovererClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def discovered(self) -> discoveredDiscovererClassCB: ...
-    @property
+    @builtins.property
     def finished(self) -> finishedDiscovererClassCB: ...
-    @property
+    @builtins.property
     def load_serialize_info(self) -> load_serialize_infoDiscovererClassCB: ...
-    @property
+    @builtins.property
     def parentclass(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def source_setup(self) -> source_setupDiscovererClassCB: ...
-    @property
+    @builtins.property
     def starting(self) -> startingDiscovererClassCB: ...
 
     # gi Methods
@@ -633,8 +632,6 @@ class DiscovererClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DiscovererContainerInfo(DiscovererStreamInfo):
     # gi Methods
@@ -644,8 +641,6 @@ class DiscovererContainerInfo(DiscovererStreamInfo):
         """
     def get_streams(self) -> list: ...
     def get_tags(self) -> Gst.TagList | None: ...
-
-    ...
 
 class DiscovererInfo(GObject.Object):
     # gi Methods
@@ -676,16 +671,12 @@ class DiscovererInfo(GObject.Object):
     def get_video_streams(self) -> list: ...
     def to_variant(self, flags: DiscovererSerializeFlags) -> GLib.Variant: ...
 
-    ...
-
 class DiscovererPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DiscovererStreamInfo(GObject.Object):
     # gi Methods
@@ -706,8 +697,6 @@ class DiscovererStreamInfo(GObject.Object):
     @staticmethod
     def list_free(infos: list) -> None: ...
 
-    ...
-
 class DiscovererSubtitleInfo(DiscovererStreamInfo):
     # gi Methods
     def __init__(self) -> None:
@@ -715,8 +704,6 @@ class DiscovererSubtitleInfo(DiscovererStreamInfo):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_language(self) -> str | None: ...
-
-    ...
 
 class DiscovererVideoInfo(DiscovererStreamInfo):
     # gi Methods
@@ -736,8 +723,6 @@ class DiscovererVideoInfo(DiscovererStreamInfo):
     def is_image(self) -> bool: ...
     def is_interlaced(self) -> bool: ...
 
-    ...
-
 class EncodingAudioProfile(EncodingProfile):
     # gi Methods
     def __init__(self) -> None:
@@ -749,16 +734,12 @@ class EncodingAudioProfile(EncodingProfile):
         cls, format: Gst.Caps, preset: str | None, restriction: Gst.Caps | None, presence: int
     ) -> EncodingAudioProfile: ...
 
-    ...
-
 class EncodingAudioProfileClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EncodingContainerProfile(EncodingProfile):
     # gi Methods
@@ -774,8 +755,6 @@ class EncodingContainerProfile(EncodingProfile):
         cls, name: str | None, description: str | None, format: Gst.Caps, preset: str | None = None
     ) -> EncodingContainerProfile: ...
 
-    ...
-
 class EncodingContainerProfileClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -783,12 +762,13 @@ class EncodingContainerProfileClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class EncodingProfile(GObject.Object):
     class Props(GObject.Object.Props):
         element_properties: Gst.Structure | None  # [element-properties]: changed because contained invalid characters
         restriction_caps: Gst.Caps | None  # [restriction-caps]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, element_properties: Gst.Structure | None = ..., restriction_caps: Gst.Caps | None = ...) -> None:
@@ -806,7 +786,7 @@ class EncodingProfile(GObject.Object):
     def from_string(string: str) -> EncodingProfile | None: ...
     def get_allow_dynamic_output(self) -> bool: ...
     def get_description(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_element_properties(self) -> Gst.Structure | None: ...
     def get_file_extension(self) -> str | None: ...
     def get_format(self) -> Gst.Caps: ...
@@ -852,7 +832,6 @@ class EncodingProfile(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EncodingProfileClass(GObject.GPointer):
     # gi Methods
@@ -860,8 +839,6 @@ class EncodingProfileClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EncodingTarget(GObject.Object):
     # gi Methods
@@ -885,8 +862,6 @@ class EncodingTarget(GObject.Object):
     def save(self) -> bool: ...
     def save_to_file(self, filepath: str) -> bool: ...
 
-    ...
-
 class EncodingVideoProfile(EncodingProfile):
     # gi Methods
     def __init__(self) -> None:
@@ -902,16 +877,12 @@ class EncodingVideoProfile(EncodingProfile):
     def set_pass(self, pass_: int) -> None: ...
     def set_variableframerate(self, variableframerate: bool) -> None: ...
 
-    ...
-
 class EncodingVideoProfileClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InstallPluginsContext(GObject.GBoxed):
     # gi Methods
@@ -930,8 +901,6 @@ class InstallPluginsContext(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 ###############################################################
 # Callbacks

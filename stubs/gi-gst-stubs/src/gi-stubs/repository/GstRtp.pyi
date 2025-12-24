@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -348,25 +349,23 @@ class RTCPBuffer(GObject.GPointer):
     @staticmethod
     def validate_reduced(buffer: Gst.Buffer) -> bool: ...
 
-    ...
-
 class RTCPPacket(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def count(self) -> int: ...
-    @property
+    @builtins.property
     def entry_offset(self) -> int: ...
-    @property
+    @builtins.property
     def item_count(self) -> int: ...
-    @property
+    @builtins.property
     def item_offset(self) -> int: ...
-    @property
+    @builtins.property
     def length(self) -> int: ...
     offset: int = ...
-    @property
+    @builtins.property
     def padding(self) -> bool: ...
     rtcp: RTCPBuffer | None = ...
-    @property
+    @builtins.property
     def type(self) -> RTCPType: ...
 
     # gi Methods
@@ -467,22 +466,23 @@ class RTCPPacket(GObject.GPointer):
     def xr_get_voip_signal_metrics(self, signal_level: int, noise_level: int, rerl: int, gmin: int) -> bool: ...
     def xr_next_rb(self) -> bool: ...
 
-    ...
-
 class RTPBaseAudioPayload(RTPBasePayload):
     class Props(RTPBasePayload.Props):
         buffer_list: bool  # [buffer-list]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def base_ts(self) -> int: ...
-    @property
+    @builtins.property
     def frame_duration(self) -> int: ...
-    @property
+    @builtins.property
     def frame_size(self) -> int: ...
-    @property
+    @builtins.property
     def payload(self) -> RTPBasePayload | None: ...
-    @property
+    @builtins.property
     def sample_size(self) -> int: ...
 
     # gi Methods
@@ -511,11 +511,10 @@ class RTPBaseAudioPayload(RTPBasePayload):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class RTPBaseAudioPayloadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> RTPBasePayloadClass | None: ...
 
     # gi Methods
@@ -524,16 +523,12 @@ class RTPBaseAudioPayloadClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RTPBaseAudioPayloadPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RTPBaseDepayload(Gst.Element):
     class Props(Gst.Element.Props):
@@ -543,16 +538,19 @@ class RTPBaseDepayload(Gst.Element):
         source_info: bool  # [source-info]: changed because contained invalid characters
         stats: Gst.Structure | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def clock_rate(self) -> int: ...
-    @property
+    @builtins.property
     def need_newsegment(self) -> bool: ...
-    @property
+    @builtins.property
     def segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def sinkpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
 
     # gi Methods
@@ -668,21 +666,20 @@ class RTPBaseDepayload(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class RTPBaseDepayloadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def handle_event(self) -> handle_eventRTPBaseDepayloadClassCB: ...
-    @property
+    @builtins.property
     def packet_lost(self) -> packet_lostRTPBaseDepayloadClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def process(self) -> processRTPBaseDepayloadClassCB: ...
-    @property
+    @builtins.property
     def process_rtp_packet(self) -> process_rtp_packetRTPBaseDepayloadClassCB: ...
-    @property
+    @builtins.property
     def set_caps(self) -> set_capsRTPBaseDepayloadClassCB: ...
 
     # gi Methods
@@ -691,16 +688,12 @@ class RTPBaseDepayloadClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RTPBaseDepayloadPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RTPBasePayload(Gst.Element):
     class Props(Gst.Element.Props):
@@ -722,50 +715,53 @@ class RTPBasePayload(Gst.Element):
         timestamp: int
         timestamp_offset: int  # [timestamp-offset]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def clock_rate(self) -> int: ...
-    @property
+    @builtins.property
     def current_ssrc(self) -> int: ...
-    @property
+    @builtins.property
     def dynamic(self) -> bool: ...
-    @property
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
-    @property
+    @builtins.property
     def encoding_name(self) -> str: ...
-    @property
+    @builtins.property
     def max_ptime(self) -> int: ...
-    @property
+    @builtins.property
     def media(self) -> str: ...
-    @property
+    @builtins.property
     def min_ptime(self) -> int: ...
-    @property
+    @builtins.property
     def mtu(self) -> int: ...
-    @property
+    @builtins.property
     def pt(self) -> int: ...
-    @property
+    @builtins.property
     def ptime(self) -> int: ...
-    @property
+    @builtins.property
     def ptime_multiple(self) -> int: ...
-    @property
+    @builtins.property
     def segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def seqnum(self) -> int: ...
-    @property
+    @builtins.property
     def seqnum_base(self) -> int: ...
-    @property
+    @builtins.property
     def seqnum_offset(self) -> int: ...
-    @property
+    @builtins.property
     def sinkpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def ssrc(self) -> int: ...
-    @property
+    @builtins.property
     def timestamp(self) -> int: ...
-    @property
+    @builtins.property
     def ts_base(self) -> int: ...
-    @property
+    @builtins.property
     def ts_offset(self) -> int: ...
 
     # gi Methods
@@ -989,23 +985,22 @@ class RTPBasePayload(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class RTPBasePayloadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_caps(self) -> get_capsRTPBasePayloadClassCB: ...
-    @property
+    @builtins.property
     def handle_buffer(self) -> handle_bufferRTPBasePayloadClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def query(self) -> queryRTPBasePayloadClassCB: ...
-    @property
+    @builtins.property
     def set_caps(self) -> set_capsRTPBasePayloadClassCB: ...
-    @property
+    @builtins.property
     def sink_event(self) -> sink_eventRTPBasePayloadClassCB: ...
-    @property
+    @builtins.property
     def src_event(self) -> src_eventRTPBasePayloadClassCB: ...
 
     # gi Methods
@@ -1014,16 +1009,12 @@ class RTPBasePayloadClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RTPBasePayloadPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RTPBuffer(GObject.GPointer):
     # gi Fields
@@ -1100,8 +1091,6 @@ class RTPBuffer(GObject.GPointer):
     def set_timestamp(self, timestamp: int) -> None: ...
     def set_version(self, version: int) -> None: ...
     def unmap(self) -> None: ...
-
-    ...
 
 class RTPHeaderExtension(Gst.Element):
     # gi Methods
@@ -1202,27 +1191,25 @@ class RTPHeaderExtension(Gst.Element):
         set_uri(self, uri:str)
         """
 
-    ...
-
 class RTPHeaderExtensionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_max_size(self) -> get_max_sizeRTPHeaderExtensionClassCB: ...
-    @property
+    @builtins.property
     def get_supported_flags(self) -> get_supported_flagsRTPHeaderExtensionClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def read(self) -> readRTPHeaderExtensionClassCB: ...
-    @property
+    @builtins.property
     def set_attributes(self) -> set_attributesRTPHeaderExtensionClassCB: ...
-    @property
+    @builtins.property
     def set_caps_from_attributes(self) -> set_caps_from_attributesRTPHeaderExtensionClassCB: ...
-    @property
+    @builtins.property
     def set_non_rtp_sink_caps(self) -> set_non_rtp_sink_capsRTPHeaderExtensionClassCB: ...
-    @property
+    @builtins.property
     def update_non_rtp_src_caps(self) -> update_non_rtp_src_capsRTPHeaderExtensionClassCB: ...
-    @property
+    @builtins.property
     def write(self) -> writeRTPHeaderExtensionClassCB: ...
 
     # gi Methods
@@ -1231,8 +1218,6 @@ class RTPHeaderExtensionClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     def set_uri(self, uri: str) -> None: ...
-
-    ...
 
 class RTPPayloadInfo(GObject.GPointer):
     # gi Fields
@@ -1253,8 +1238,6 @@ class RTPPayloadInfo(GObject.GPointer):
     @staticmethod
     def for_pt(payload_type: int) -> RTPPayloadInfo | None: ...
 
-    ...
-
 class RTPSourceMeta(GObject.GPointer):
     # gi Fields
     csrc: list | None = ...
@@ -1273,8 +1256,6 @@ class RTPSourceMeta(GObject.GPointer):
     def get_info() -> Gst.MetaInfo: ...
     def get_source_count(self) -> int: ...
     def set_ssrc(self, ssrc: int | None = None) -> bool: ...
-
-    ...
 
 ###############################################################
 # Callbacks

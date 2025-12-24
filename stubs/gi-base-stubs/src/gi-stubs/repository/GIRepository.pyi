@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -414,7 +415,7 @@ class ArgInfo(BaseInfo):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
 
     # gi Methods
@@ -434,8 +435,6 @@ class ArgInfo(BaseInfo):
     def is_skip(self) -> bool: ...
     def load_type_info(self) -> TypeInfo: ...
     def may_be_null(self) -> bool: ...
-
-    ...
 
 class Argument(GObject.GPointer):
     # gi Fields
@@ -466,16 +465,12 @@ class Argument(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AttributeIter(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BaseInfo(object):
     """
@@ -510,7 +505,9 @@ class BaseInfo(object):
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -529,8 +526,6 @@ class BaseInfo(object):
     def ref(self) -> BaseInfo: ...
     def unref(self) -> None: ...
 
-    ...
-
 class BaseInfoClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -538,17 +533,15 @@ class BaseInfoClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BaseInfoStack(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def dummy0(self) -> int: ...
-    @property
+    @builtins.property
     def dummy1(self) -> list | None: ...
-    @property
+    @builtins.property
     def dummy2(self) -> list | None: ...
-    @property
+    @builtins.property
     def dummy3(self) -> list | None: ...
 
     # gi Methods
@@ -556,8 +549,6 @@ class BaseInfoStack(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CallableInfo(BaseInfo):
     """
@@ -601,8 +592,6 @@ class CallableInfo(BaseInfo):
     def may_return_null(self) -> bool: ...
     def skip_return(self) -> bool: ...
 
-    ...
-
 class CallbackInfo(CallableInfo):
     """
     `GICallbackInfo` represents a callback.
@@ -613,8 +602,6 @@ class CallbackInfo(CallableInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ConstantInfo(BaseInfo):
     """
@@ -631,8 +618,6 @@ class ConstantInfo(BaseInfo):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_type_info(self) -> TypeInfo: ...
-
-    ...
 
 class EnumInfo(RegisteredTypeInfo):
     """
@@ -656,8 +641,6 @@ class EnumInfo(RegisteredTypeInfo):
     def get_n_values(self) -> int: ...
     def get_storage_type(self) -> TypeTag: ...
     def get_value(self, n: int) -> ValueInfo: ...
-
-    ...
 
 class FieldInfo(BaseInfo):
     """
@@ -685,8 +668,6 @@ class FieldInfo(BaseInfo):
     def get_size(self) -> int: ...
     def get_type_info(self) -> TypeInfo: ...
 
-    ...
-
 class FlagsInfo(EnumInfo):
     """
     A `GIFlagsInfo` represents an enumeration which defines flag values
@@ -704,8 +685,6 @@ class FlagsInfo(EnumInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FunctionInfo(CallableInfo):
     """
@@ -727,8 +706,6 @@ class FunctionInfo(CallableInfo):
     def get_property(self) -> PropertyInfo | None: ...
     def get_symbol(self) -> str: ...
     def get_vfunc(self) -> VFuncInfo | None: ...
-
-    ...
 
 class InterfaceInfo(RegisteredTypeInfo):
     """
@@ -759,8 +736,6 @@ class InterfaceInfo(RegisteredTypeInfo):
     def get_property(self, n: int) -> PropertyInfo: ...
     def get_signal(self, n: int) -> SignalInfo: ...
     def get_vfunc(self, n: int) -> VFuncInfo: ...
-
-    ...
 
 class ObjectInfo(RegisteredTypeInfo):
     """
@@ -812,8 +787,6 @@ class ObjectInfo(RegisteredTypeInfo):
     def get_unref_function_name(self) -> str | None: ...
     def get_vfunc(self, n: int) -> VFuncInfo: ...
 
-    ...
-
 class PropertyInfo(BaseInfo):
     """
     `GIPropertyInfo` represents a property in a [class@GObject.Object].
@@ -832,8 +805,6 @@ class PropertyInfo(BaseInfo):
     def get_ownership_transfer(self) -> Transfer: ...
     def get_setter(self) -> FunctionInfo | None: ...
     def get_type_info(self) -> TypeInfo: ...
-
-    ...
 
 class RegisteredTypeInfo(BaseInfo):
     """
@@ -867,8 +838,6 @@ class RegisteredTypeInfo(BaseInfo):
     def get_type_init_function_name(self) -> str | None: ...
     def get_type_name(self) -> str | None: ...
     def is_boxed(self) -> bool: ...
-
-    ...
 
 class Repository(GObject.Object):
     """
@@ -953,11 +922,9 @@ class Repository(GObject.Object):
         self, typelib_dir: str, namespace_: str, version: str | None, flags: RepositoryLoadFlags
     ) -> Typelib: ...
 
-    ...
-
 class RepositoryClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -965,8 +932,6 @@ class RepositoryClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SignalInfo(CallableInfo):
     """
@@ -987,8 +952,6 @@ class SignalInfo(CallableInfo):
     def get_class_closure(self) -> VFuncInfo | None: ...
     def get_flags(self) -> GObject.SignalFlags: ...
     def true_stops_emit(self) -> bool: ...
-
-    ...
 
 class StructInfo(RegisteredTypeInfo):
     """
@@ -1015,8 +978,6 @@ class StructInfo(RegisteredTypeInfo):
     def is_foreign(self) -> bool: ...
     def is_gtype_struct(self) -> bool: ...
 
-    ...
-
 class TypeInfo(BaseInfo):
     """
     `GITypeInfo` represents a type, including information about direction and
@@ -1037,7 +998,7 @@ class TypeInfo(BaseInfo):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
 
     # gi Methods
@@ -1061,8 +1022,6 @@ class TypeInfo(BaseInfo):
     def is_pointer(self) -> bool: ...
     def is_zero_terminated(self) -> bool: ...
 
-    ...
-
 class Typelib(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -1075,8 +1034,6 @@ class Typelib(GObject.GBoxed):
     def ref(self) -> Typelib: ...
     def symbol(self, symbol_name: str) -> tuple[bool, object | None]: ...
     def unref(self) -> None: ...
-
-    ...
 
 class UnionInfo(RegisteredTypeInfo):
     """
@@ -1106,8 +1063,6 @@ class UnionInfo(RegisteredTypeInfo):
     def get_size(self) -> int: ...
     def is_discriminated(self) -> bool: ...
 
-    ...
-
 class UnresolvedInfo(BaseInfo):
     """
     `GIUnresolvedInfo` represents an unresolved symbol.
@@ -1118,8 +1073,6 @@ class UnresolvedInfo(BaseInfo):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VFuncInfo(CallableInfo):
     """
@@ -1140,8 +1093,6 @@ class VFuncInfo(CallableInfo):
     def get_offset(self) -> int: ...
     def get_signal(self) -> SignalInfo | None: ...
 
-    ...
-
 class ValueInfo(BaseInfo):
     """
     A `GIValueInfo` represents a value in an enumeration.
@@ -1156,8 +1107,6 @@ class ValueInfo(BaseInfo):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_value(self) -> int: ...
-
-    ...
 
 ###############################################################
 # Aliases

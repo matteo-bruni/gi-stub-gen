@@ -370,3 +370,9 @@ class ClassSchema(BaseSchema):
             props=self.props,
             super_class=self.super_class,
         )
+
+    def has_any_data(self): 
+        """
+        used in template check if class has any data to render
+        """
+        return bool(self.props or self.fields or self.methods or self.python_methods or self.signals)

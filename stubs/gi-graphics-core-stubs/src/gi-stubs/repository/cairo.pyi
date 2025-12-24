@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 
@@ -257,16 +258,12 @@ class Context(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Device(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FontFace(GObject.GBoxed):
     # gi Methods
@@ -275,16 +272,12 @@ class FontFace(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FontOptions(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Glyph(GObject.GBoxed):
     # gi Fields
@@ -298,16 +291,12 @@ class Glyph(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Matrix(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Path(GObject.GPointer):
     # gi Methods
@@ -316,16 +305,12 @@ class Path(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Pattern(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Rectangle(GObject.GBoxed):
     # gi Fields
@@ -340,8 +325,6 @@ class Rectangle(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RectangleInt(GObject.GBoxed):
     # gi Fields
     height: int = ...
@@ -355,16 +338,12 @@ class RectangleInt(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Region(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ScaledFont(GObject.GBoxed):
     # gi Methods
@@ -373,16 +352,12 @@ class ScaledFont(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Surface(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TextCluster(GObject.GBoxed):
     # gi Fields
@@ -394,8 +369,6 @@ class TextCluster(GObject.GBoxed):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Aliases

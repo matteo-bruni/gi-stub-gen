@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -1367,8 +1368,6 @@ class AncillaryMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class ColorBalance(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -1393,15 +1392,14 @@ class ColorBalance(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColorBalanceChannel(GObject.Object):
     # gi Fields
-    @property
+    @builtins.property
     def label(self) -> str: ...
-    @property
+    @builtins.property
     def max_value(self) -> int: ...
-    @property
+    @builtins.property
     def min_value(self) -> int: ...
 
     # gi Methods
@@ -1431,11 +1429,10 @@ class ColorBalanceChannel(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ColorBalanceChannelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def value_changed(self) -> value_changedColorBalanceChannelClassCB: ...
 
     # gi Methods
@@ -1444,21 +1441,19 @@ class ColorBalanceChannelClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ColorBalanceInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_balance_type(self) -> get_balance_typeColorBalanceInterfaceCB: ...
-    @property
+    @builtins.property
     def get_value(self) -> get_valueColorBalanceInterfaceCB: ...
-    @property
+    @builtins.property
     def iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def list_channels(self) -> list_channelsColorBalanceInterfaceCB: ...
-    @property
+    @builtins.property
     def set_value(self) -> set_valueColorBalanceInterfaceCB: ...
-    @property
+    @builtins.property
     def value_changed(self) -> value_changedColorBalanceInterfaceCB: ...
 
     # gi Methods
@@ -1466,8 +1461,6 @@ class ColorBalanceInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Navigation(GObject.GInterface):
     # gi Methods
@@ -1572,15 +1565,13 @@ class Navigation(GObject.GInterface):
     def send_mouse_event(self, event: str, button: int, x: float, y: float) -> None: ...
     def send_mouse_scroll_event(self, x: float, y: float, delta_x: float, delta_y: float) -> None: ...
 
-    ...
-
 class NavigationInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def send_event(self) -> send_eventNavigationInterfaceCB: ...
-    @property
+    @builtins.property
     def send_event_simple(self) -> send_event_simpleNavigationInterfaceCB: ...
 
     # gi Methods
@@ -1588,8 +1579,6 @@ class NavigationInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoAFDMeta(GObject.GPointer):
     # gi Fields
@@ -1606,8 +1595,6 @@ class VideoAFDMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class VideoAffineTransformationMeta(GObject.GPointer):
     # gi Fields
     matrix: list | None = ...
@@ -1622,16 +1609,17 @@ class VideoAffineTransformationMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class VideoAggregator(GstBase.Aggregator):
     class Props(GstBase.Aggregator.Props):
         force_live: bool  # [force-live]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def aggregator(self) -> GstBase.Aggregator | None: ...
-    @property
+    @builtins.property
     def info(self) -> VideoInfo | None: ...
 
     # gi Methods
@@ -1684,19 +1672,18 @@ class VideoAggregator(GstBase.Aggregator):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VideoAggregatorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def aggregate_frames(self) -> aggregate_framesVideoAggregatorClassCB: ...
-    @property
+    @builtins.property
     def create_output_buffer(self) -> create_output_bufferVideoAggregatorClassCB: ...
-    @property
+    @builtins.property
     def find_best_format(self) -> find_best_formatVideoAggregatorClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GstBase.AggregatorClass | None: ...
-    @property
+    @builtins.property
     def update_caps(self) -> update_capsVideoAggregatorClassCB: ...
 
     # gi Methods
@@ -1705,11 +1692,12 @@ class VideoAggregatorClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoAggregatorConvertPad(VideoAggregatorPad):
     class Props(VideoAggregatorPad.Props):
         converter_config: Gst.Structure | None  # [converter-config]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, converter_config: Gst.Structure | None = ...) -> None:
@@ -1740,13 +1728,12 @@ class VideoAggregatorConvertPad(VideoAggregatorPad):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VideoAggregatorConvertPadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def create_conversion_info(self) -> create_conversion_infoVideoAggregatorConvertPadClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> VideoAggregatorPadClass | None: ...
 
     # gi Methods
@@ -1755,8 +1742,6 @@ class VideoAggregatorConvertPadClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoAggregatorConvertPadPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -1764,16 +1749,17 @@ class VideoAggregatorConvertPadPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoAggregatorPad(GstBase.AggregatorPad):
     class Props(GstBase.AggregatorPad.Props):
         max_last_buffer_repeat: int  # [max-last-buffer-repeat]: changed because contained invalid characters
         repeat_after_eos: bool  # [repeat-after-eos]: changed because contained invalid characters
         zorder: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def info(self) -> VideoInfo | None: ...
 
     # gi Methods
@@ -1854,21 +1840,20 @@ class VideoAggregatorPad(GstBase.AggregatorPad):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VideoAggregatorPadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def clean_frame(self) -> clean_frameVideoAggregatorPadClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GstBase.AggregatorPadClass | None: ...
-    @property
+    @builtins.property
     def prepare_frame(self) -> prepare_frameVideoAggregatorPadClassCB: ...
-    @property
+    @builtins.property
     def prepare_frame_finish(self) -> prepare_frame_finishVideoAggregatorPadClassCB: ...
-    @property
+    @builtins.property
     def prepare_frame_start(self) -> prepare_frame_startVideoAggregatorPadClassCB: ...
-    @property
+    @builtins.property
     def update_conversion_info(self) -> update_conversion_infoVideoAggregatorPadClassCB: ...
 
     # gi Methods
@@ -1877,16 +1862,12 @@ class VideoAggregatorPadClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoAggregatorPadPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoAggregatorParallelConvertPad(VideoAggregatorConvertPad):
     # gi Methods
@@ -1895,11 +1876,9 @@ class VideoAggregatorParallelConvertPad(VideoAggregatorConvertPad):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoAggregatorParallelConvertPadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> VideoAggregatorConvertPadClass | None: ...
 
     # gi Methods
@@ -1908,16 +1887,12 @@ class VideoAggregatorParallelConvertPadClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoAggregatorPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoAlignment(GObject.GPointer):
     # gi Fields
@@ -1934,8 +1909,6 @@ class VideoAlignment(GObject.GPointer):
         """
     def reset(self) -> None: ...
 
-    ...
-
 class VideoAncillary(GObject.GPointer):
     # gi Fields
     DID: int = ...
@@ -1948,8 +1921,6 @@ class VideoAncillary(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoBarMeta(GObject.GPointer):
     # gi Fields
@@ -1967,11 +1938,9 @@ class VideoBarMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class VideoBufferPool(Gst.BufferPool):
     # gi Fields
-    @property
+    @builtins.property
     def bufferpool(self) -> Gst.BufferPool | None: ...
 
     # gi Methods
@@ -1982,11 +1951,9 @@ class VideoBufferPool(Gst.BufferPool):
     @classmethod
     def new(cls) -> Gst.BufferPool: ...
 
-    ...
-
 class VideoBufferPoolClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.BufferPoolClass | None: ...
 
     # gi Methods
@@ -1995,16 +1962,12 @@ class VideoBufferPoolClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoBufferPoolPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoCaptionMeta(GObject.GPointer):
     # gi Fields
@@ -2021,8 +1984,6 @@ class VideoCaptionMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class VideoChromaResample(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -2031,8 +1992,6 @@ class VideoChromaResample(GObject.GPointer):
         """
     def free(self) -> None: ...
     def get_info(self) -> tuple[int | None, int | None]: ...
-
-    ...
 
 class VideoCodecAlphaMeta(GObject.GPointer):
     # gi Fields
@@ -2047,29 +2006,27 @@ class VideoCodecAlphaMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class VideoCodecFrame(GObject.GBoxed):
     # gi Fields
     deadline: int = ...
-    @property
+    @builtins.property
     def decode_frame_number(self) -> int: ...
     distance_from_sync: int = ...
     dts: int = ...
     duration: int = ...
-    @property
+    @builtins.property
     def events(self) -> list | None: ...
-    @property
+    @builtins.property
     def flags(self) -> int: ...
     input_buffer: Gst.Buffer | None = ...  # type: ignore
     output_buffer: Gst.Buffer | None = ...  # type: ignore
-    @property
+    @builtins.property
     def presentation_frame_number(self) -> int: ...
     pts: int = ...
-    @property
+    @builtins.property
     def ref_count(self) -> int: ...
     system_frame_number: int = ...
-    @property
+    @builtins.property
     def user_data_destroy_notify(self) -> GLib.DestroyNotify: ...
 
     # gi Methods
@@ -2082,8 +2039,6 @@ class VideoCodecFrame(GObject.GBoxed):
     def set_user_data(self, user_data: object | None, notify: GLib.DestroyNotify) -> None: ...
     def unref(self) -> None: ...
 
-    ...
-
 class VideoCodecState(GObject.GBoxed):
     # gi Fields
     allocation_caps: Gst.Caps | None = ...  # type: ignore
@@ -2092,9 +2047,9 @@ class VideoCodecState(GObject.GBoxed):
     content_light_level: VideoContentLightLevel | None = ...
     info: VideoInfo | None = ...
     mastering_display_info: VideoMasteringDisplayInfo | None = ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def ref_count(self) -> int: ...
 
     # gi Methods
@@ -2104,8 +2059,6 @@ class VideoCodecState(GObject.GBoxed):
         """
     def ref(self) -> VideoCodecState: ...
     def unref(self) -> None: ...
-
-    ...
 
 class VideoColorPrimariesInfo(GObject.GPointer):
     # gi Fields
@@ -2125,8 +2078,6 @@ class VideoColorPrimariesInfo(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoColorimetry(GObject.GPointer):
     # gi Fields
     matrix: VideoColorMatrix = ...
@@ -2145,8 +2096,6 @@ class VideoColorimetry(GObject.GPointer):
     def matches(self, color: str) -> bool: ...
     def to_string(self) -> str | None: ...
 
-    ...
-
 class VideoContentLightLevel(GObject.GPointer):
     # gi Fields
     max_content_light_level: int = ...
@@ -2164,8 +2113,6 @@ class VideoContentLightLevel(GObject.GPointer):
     def is_equal(self, other: VideoContentLightLevel) -> bool: ...
     def to_string(self) -> str: ...
 
-    ...
-
 class VideoConverter(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -2179,8 +2126,6 @@ class VideoConverter(GObject.GPointer):
     def get_in_info(self) -> VideoInfo: ...
     def get_out_info(self) -> VideoInfo: ...
     def set_config(self, config: Gst.Structure) -> bool: ...
-
-    ...
 
 class VideoCropMeta(GObject.GPointer):
     # gi Fields
@@ -2198,8 +2143,6 @@ class VideoCropMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class VideoDecoder(Gst.Element):
     class Props(Gst.Element.Props):
         automatic_request_sync_point_flags: VideoDecoderRequestSyncPointFlags  # [automatic-request-sync-point-flags]: changed because contained invalid characters
@@ -2211,20 +2154,23 @@ class VideoDecoder(Gst.Element):
         min_force_key_unit_interval: int  # [min-force-key-unit-interval]: changed because contained invalid characters
         qos: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
-    @property
+    @builtins.property
     def input_segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def output_segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def sinkpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def stream_lock(self) -> GLib.RecMutex | None: ...
 
     # gi Methods
@@ -2258,7 +2204,7 @@ class VideoDecoder(Gst.Element):
     def get_input_subframe_index(self, frame: VideoCodecFrame) -> int: ...
     def get_latency(self) -> tuple[int | None, int | None]: ...
     def get_max_decode_time(self, frame: VideoCodecFrame) -> int: ...
-    @property
+    @builtins.property
     def get_max_errors(self) -> int: ...
     def get_needs_format(self) -> bool: ...
     def get_needs_sync_point(self) -> bool: ...
@@ -2488,55 +2434,54 @@ class VideoDecoder(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VideoDecoderClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close(self) -> closeVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def decide_allocation(self) -> decide_allocationVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def drain(self) -> drainVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def element_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def finish(self) -> finishVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def flush(self) -> flushVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def getcaps(self) -> getcapsVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def handle_frame(self) -> handle_frameVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def handle_missing_data(self) -> handle_missing_dataVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def negotiate(self) -> negotiateVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def open(self) -> openVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parse(self) -> parseVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def propose_allocation(self) -> propose_allocationVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def reset(self) -> resetVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def set_format(self) -> set_formatVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def sink_event(self) -> sink_eventVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def sink_query(self) -> sink_queryVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def src_event(self) -> src_eventVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def src_query(self) -> src_queryVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopVideoDecoderClassCB: ...
-    @property
+    @builtins.property
     def transform_meta(self) -> transform_metaVideoDecoderClassCB: ...
 
     # gi Methods
@@ -2545,8 +2490,6 @@ class VideoDecoderClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoDecoderPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -2554,11 +2497,12 @@ class VideoDecoderPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoDirection(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         video_direction: VideoOrientationMethod  # [video-direction]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, video_direction: VideoOrientationMethod = ...) -> None:
@@ -2578,11 +2522,10 @@ class VideoDirection(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VideoDirectionInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -2590,8 +2533,6 @@ class VideoDirectionInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoDither(GObject.GPointer):
     # gi Methods
@@ -2602,27 +2543,28 @@ class VideoDither(GObject.GPointer):
     def free(self) -> None: ...
     def line(self, line: object | None, x: int, y: int, width: int) -> None: ...
 
-    ...
-
 class VideoEncoder(Gst.Element):
     class Props(Gst.Element.Props):
         min_force_key_unit_interval: int  # [min-force-key-unit-interval]: changed because contained invalid characters
         qos: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
-    @property
+    @builtins.property
     def input_segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def output_segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def sinkpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def stream_lock(self) -> GLib.RecMutex | None: ...
 
     # gi Methods
@@ -2640,7 +2582,7 @@ class VideoEncoder(Gst.Element):
     def get_frames(self) -> list: ...
     def get_latency(self) -> tuple[int | None, int | None]: ...
     def get_max_encode_time(self, frame: VideoCodecFrame) -> int: ...
-    @property
+    @builtins.property
     def get_min_force_key_unit_interval(self) -> int: ...
     def get_oldest_frame(self) -> VideoCodecFrame | None: ...
     def get_output_state(self) -> VideoCodecState | None: ...
@@ -2804,49 +2746,48 @@ class VideoEncoder(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VideoEncoderClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close(self) -> closeVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def decide_allocation(self) -> decide_allocationVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def element_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def finish(self) -> finishVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def flush(self) -> flushVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def getcaps(self) -> getcapsVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def handle_frame(self) -> handle_frameVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def negotiate(self) -> negotiateVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def open(self) -> openVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def pre_push(self) -> pre_pushVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def propose_allocation(self) -> propose_allocationVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def reset(self) -> resetVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def set_format(self) -> set_formatVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def sink_event(self) -> sink_eventVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def sink_query(self) -> sink_queryVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def src_event(self) -> src_eventVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def src_query(self) -> src_queryVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopVideoEncoderClassCB: ...
-    @property
+    @builtins.property
     def transform_meta(self) -> transform_metaVideoEncoderClassCB: ...
 
     # gi Methods
@@ -2855,8 +2796,6 @@ class VideoEncoderClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoEncoderPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -2864,17 +2803,15 @@ class VideoEncoderPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoFilter(GstBase.BaseTransform):
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> GstBase.BaseTransform | None: ...
-    @property
+    @builtins.property
     def in_info(self) -> VideoInfo | None: ...
-    @property
+    @builtins.property
     def negotiated(self) -> bool: ...
-    @property
+    @builtins.property
     def out_info(self) -> VideoInfo | None: ...
 
     # gi Methods
@@ -2910,17 +2847,15 @@ class VideoFilter(GstBase.BaseTransform):
         transform_frame_ip(self, frame:GstVideo.VideoFrame) -> Gst.FlowReturn
         """
 
-    ...
-
 class VideoFilterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GstBase.BaseTransformClass | None: ...
-    @property
+    @builtins.property
     def set_info(self) -> set_infoVideoFilterClassCB: ...
-    @property
+    @builtins.property
     def transform_frame(self) -> transform_frameVideoFilterClassCB: ...
-    @property
+    @builtins.property
     def transform_frame_ip(self) -> transform_frame_ipVideoFilterClassCB: ...
 
     # gi Methods
@@ -2928,8 +2863,6 @@ class VideoFilterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoFormatInfo(GObject.GPointer):
     # gi Fields
@@ -2964,8 +2897,6 @@ class VideoFormatInfo(GObject.GPointer):
     def component(self, plane: int) -> int: ...
     def extrapolate_stride(self, plane: int, stride: int) -> int: ...
 
-    ...
-
 class VideoFrame(GObject.GPointer):
     # gi Fields
     buffer: Gst.Buffer | None = ...  # type: ignore
@@ -2987,19 +2918,17 @@ class VideoFrame(GObject.GPointer):
     def map_id(info: VideoInfo, buffer: Gst.Buffer, id: int, flags: Gst.MapFlags) -> tuple[bool, VideoFrame]: ...
     def unmap(self) -> None: ...
 
-    ...
-
 class VideoGLTextureUploadMeta(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def buffer(self) -> Gst.Buffer | None: ...
     meta: Gst.Meta | None = ...  # type: ignore
     n_textures: int = ...
     texture_orientation: VideoGLTextureOrientation = ...
     texture_type: list | None = ...
-    @property
+    @builtins.property
     def user_data_copy(self) -> GObject.BoxedCopyFunc: ...
-    @property
+    @builtins.property
     def user_data_free(self) -> GObject.BoxedFreeFunc: ...
 
     # gi Methods
@@ -3010,8 +2939,6 @@ class VideoGLTextureUploadMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
     def upload(self, texture_id: int) -> bool: ...
-
-    ...
 
 class VideoInfo(GObject.GBoxed):
     # gi Fields
@@ -3057,8 +2984,6 @@ class VideoInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class VideoInfoDmaDrm(GObject.GBoxed):
     # gi Fields
     drm_fourcc: int = ...
@@ -3087,8 +3012,6 @@ class VideoInfoDmaDrm(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class VideoMasteringDisplayInfo(GObject.GPointer):
     # gi Fields
     display_primaries: list | None = ...
@@ -3109,8 +3032,6 @@ class VideoMasteringDisplayInfo(GObject.GPointer):
     def is_equal(self, other: VideoMasteringDisplayInfo) -> bool: ...
     def to_string(self) -> str: ...
 
-    ...
-
 class VideoMasteringDisplayInfoCoordinates(GObject.GPointer):
     # gi Fields
     x: int = ...
@@ -3121,8 +3042,6 @@ class VideoMasteringDisplayInfoCoordinates(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoMeta(GObject.GPointer):
     # gi Fields
@@ -3151,8 +3070,6 @@ class VideoMeta(GObject.GPointer):
     def set_alignment(self, alignment: VideoAlignment) -> bool: ...
     def unmap(self, plane: int, info: Gst.MapInfo) -> bool: ...
 
-    ...
-
 class VideoMetaTransform(GObject.GPointer):
     # gi Fields
     in_info: VideoInfo | None = ...
@@ -3166,16 +3083,12 @@ class VideoMetaTransform(GObject.GPointer):
     @staticmethod
     def scale_get_quark() -> int: ...
 
-    ...
-
 class VideoMultiviewFlagsSet(Gst.FlagSet):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoOrientation(GObject.GInterface):
     # gi Methods
@@ -3194,27 +3107,25 @@ class VideoOrientation(GObject.GInterface):
     def set_vcenter(self, center: int) -> bool: ...
     def set_vflip(self, flip: bool) -> bool: ...
 
-    ...
-
 class VideoOrientationInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_hcenter(self) -> get_hcenterVideoOrientationInterfaceCB: ...
-    @property
+    @builtins.property
     def get_hflip(self) -> get_hflipVideoOrientationInterfaceCB: ...
-    @property
+    @builtins.property
     def get_vcenter(self) -> get_vcenterVideoOrientationInterfaceCB: ...
-    @property
+    @builtins.property
     def get_vflip(self) -> get_vflipVideoOrientationInterfaceCB: ...
-    @property
+    @builtins.property
     def iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def set_hcenter(self) -> set_hcenterVideoOrientationInterfaceCB: ...
-    @property
+    @builtins.property
     def set_hflip(self) -> set_hflipVideoOrientationInterfaceCB: ...
-    @property
+    @builtins.property
     def set_vcenter(self) -> set_vcenterVideoOrientationInterfaceCB: ...
-    @property
+    @builtins.property
     def set_vflip(self) -> set_vflipVideoOrientationInterfaceCB: ...
 
     # gi Methods
@@ -3222,8 +3133,6 @@ class VideoOrientationInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoOverlay(GObject.GInterface):
     # gi Methods
@@ -3241,8 +3150,6 @@ class VideoOverlay(GObject.GInterface):
     def set_property(object: GObject.Object, last_prop_id: int, property_id: int, value: GObject.Value) -> bool: ...
     def set_render_rectangle(self, x: int, y: int, width: int, height: int) -> bool: ...
     def set_window_handle(self, handle: int) -> None: ...
-
-    ...
 
 class VideoOverlayComposition(GObject.GBoxed):
     # gi Methods
@@ -3263,8 +3170,6 @@ class VideoOverlayComposition(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class VideoOverlayCompositionMeta(GObject.GPointer):
     # gi Fields
     meta: Gst.Meta | None = ...  # type: ignore
@@ -3278,19 +3183,17 @@ class VideoOverlayCompositionMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class VideoOverlayInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def expose(self) -> exposeVideoOverlayInterfaceCB: ...
-    @property
+    @builtins.property
     def handle_events(self) -> handle_eventsVideoOverlayInterfaceCB: ...
-    @property
+    @builtins.property
     def iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def set_render_rectangle(self) -> set_render_rectangleVideoOverlayInterfaceCB: ...
-    @property
+    @builtins.property
     def set_window_handle(self) -> set_window_handleVideoOverlayInterfaceCB: ...
 
     # gi Methods
@@ -3298,8 +3201,6 @@ class VideoOverlayInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoOverlayRectangle(GObject.GBoxed):
     # gi Methods
@@ -3331,8 +3232,6 @@ class VideoOverlayRectangle(GObject.GBoxed):
     def set_global_alpha(self, global_alpha: float) -> None: ...
     def set_render_rectangle(self, render_x: int, render_y: int, render_width: int, render_height: int) -> None: ...
 
-    ...
-
 class VideoRectangle(GObject.GPointer):
     # gi Fields
     h: int = ...
@@ -3345,8 +3244,6 @@ class VideoRectangle(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoRegionOfInterestMeta(GObject.GPointer):
     # gi Fields
@@ -3369,8 +3266,6 @@ class VideoRegionOfInterestMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
     def get_param(self, name: str) -> Gst.Structure | None: ...
-
-    ...
 
 class VideoResampler(GObject.GPointer):
     # gi Fields
@@ -3401,8 +3296,6 @@ class VideoResampler(GObject.GPointer):
         options: Gst.Structure,
     ) -> bool: ...
 
-    ...
-
 class VideoSEIUserDataUnregisteredMeta(GObject.GPointer):
     # gi Fields
     data: int = ...
@@ -3417,8 +3310,6 @@ class VideoSEIUserDataUnregisteredMeta(GObject.GPointer):
         """
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
-
-    ...
 
 class VideoScaler(GObject.GPointer):
     # gi Methods
@@ -3452,18 +3343,19 @@ class VideoScaler(GObject.GPointer):
         self, format: VideoFormat, src_lines: object | None, dest: object | None, dest_offset: int, width: int
     ) -> None: ...
 
-    ...
-
 class VideoSink(GstBase.BaseSink):
     class Props(GstBase.BaseSink.Props):
         show_preroll_frame: bool  # [show-preroll-frame]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> GstBase.BaseSink | None: ...
-    @property
+    @builtins.property
     def height(self) -> int: ...
-    @property
+    @builtins.property
     def width(self) -> int: ...
 
     # gi Methods
@@ -3504,15 +3396,14 @@ class VideoSink(GstBase.BaseSink):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VideoSinkClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GstBase.BaseSinkClass | None: ...
-    @property
+    @builtins.property
     def set_info(self) -> set_infoVideoSinkClassCB: ...
-    @property
+    @builtins.property
     def show_frame(self) -> show_frameVideoSinkClassCB: ...
 
     # gi Methods
@@ -3521,8 +3412,6 @@ class VideoSinkClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoSinkPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -3530,12 +3419,10 @@ class VideoSinkPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class VideoTileInfo(GObject.GPointer):
     # gi Fields
     height: int = ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
     size: int = ...
     stride: int = ...
@@ -3546,8 +3433,6 @@ class VideoTileInfo(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoTimeCode(GObject.GBoxed):
     # gi Fields
@@ -3619,8 +3504,6 @@ class VideoTimeCode(GObject.GBoxed):
     def to_date_time(self) -> GLib.DateTime | None: ...
     def to_string(self) -> str: ...
 
-    ...
-
 class VideoTimeCodeConfig(GObject.GPointer):
     # gi Fields
     flags: VideoTimeCodeFlags = ...
@@ -3633,8 +3516,6 @@ class VideoTimeCodeConfig(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VideoTimeCodeInterval(GObject.GBoxed):
     # gi Fields
@@ -3657,8 +3538,6 @@ class VideoTimeCodeInterval(GObject.GBoxed):
     @classmethod
     def new_from_string(cls, tc_inter_str: str) -> VideoTimeCodeInterval | None: ...
 
-    ...
-
 class VideoTimeCodeMeta(GObject.GPointer):
     # gi Fields
     meta: Gst.Meta | None = ...  # type: ignore
@@ -3671,8 +3550,6 @@ class VideoTimeCodeMeta(GObject.GPointer):
         """
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
-
-    ...
 
 class VideoVBIEncoder(GObject.GBoxed):
     # gi Methods
@@ -3690,8 +3567,6 @@ class VideoVBIEncoder(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class VideoVBIParser(GObject.GBoxed):
     # gi Methods
     def add_line(self, data: list) -> None: ...
@@ -3707,8 +3582,6 @@ class VideoVBIParser(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 ###############################################################
 # Callbacks

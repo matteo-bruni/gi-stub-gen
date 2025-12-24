@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -526,23 +527,21 @@ class Action(GObject.GInterface):
     def get_name(self, i: int) -> str | None: ...
     def set_description(self, i: int, desc: str) -> bool: ...
 
-    ...
-
 class ActionIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def do_action(self) -> do_actionActionIfaceCB: ...
-    @property
+    @builtins.property
     def get_description(self) -> get_descriptionActionIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_keybinding(self) -> get_keybindingActionIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_localized_name(self) -> get_localized_nameActionIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_n_actions(self) -> get_n_actionsActionIfaceCB: ...
-    @property
+    @builtins.property
     def get_name(self) -> get_nameActionIfaceCB | None: ...
-    @property
+    @builtins.property
     def set_description(self) -> set_descriptionActionIfaceCB: ...
 
     # gi Methods
@@ -550,8 +549,6 @@ class ActionIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Attribute(GObject.GPointer):
     # gi Fields
@@ -565,8 +562,6 @@ class Attribute(GObject.GPointer):
         """
     @staticmethod
     def set_free(attrib_set: list) -> None: ...
-
-    ...
 
 class Component(GObject.GInterface):
     # gi Methods
@@ -605,41 +600,40 @@ class Component(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ComponentIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def bounds_changed(self) -> bounds_changedComponentIfaceCB: ...
-    @property
+    @builtins.property
     def contains(self) -> containsComponentIfaceCB: ...
-    @property
+    @builtins.property
     def get_alpha(self) -> get_alphaComponentIfaceCB: ...
-    @property
+    @builtins.property
     def get_extents(self) -> get_extentsComponentIfaceCB: ...
-    @property
+    @builtins.property
     def get_layer(self) -> get_layerComponentIfaceCB: ...
-    @property
+    @builtins.property
     def get_mdi_zorder(self) -> get_mdi_zorderComponentIfaceCB: ...
-    @property
+    @builtins.property
     def get_position(self) -> get_positionComponentIfaceCB: ...
-    @property
+    @builtins.property
     def get_size(self) -> get_sizeComponentIfaceCB: ...
-    @property
+    @builtins.property
     def grab_focus(self) -> grab_focusComponentIfaceCB: ...
-    @property
+    @builtins.property
     def ref_accessible_at_point(self) -> ref_accessible_at_pointComponentIfaceCB | None: ...
-    @property
+    @builtins.property
     def remove_focus_handler(self) -> remove_focus_handlerComponentIfaceCB: ...
-    @property
+    @builtins.property
     def scroll_to(self) -> scroll_toComponentIfaceCB: ...
-    @property
+    @builtins.property
     def scroll_to_point(self) -> scroll_to_pointComponentIfaceCB: ...
-    @property
+    @builtins.property
     def set_extents(self) -> set_extentsComponentIfaceCB: ...
-    @property
+    @builtins.property
     def set_position(self) -> set_positionComponentIfaceCB: ...
-    @property
+    @builtins.property
     def set_size(self) -> set_sizeComponentIfaceCB: ...
 
     # gi Methods
@@ -647,8 +641,6 @@ class ComponentIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Document(GObject.GInterface):
     # gi Methods
@@ -701,29 +693,28 @@ class Document(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DocumentIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_current_page_number(self) -> get_current_page_numberDocumentIfaceCB: ...
-    @property
+    @builtins.property
     def get_document(self) -> get_documentDocumentIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_document_attribute_value(self) -> get_document_attribute_valueDocumentIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_document_attributes(self) -> get_document_attributesDocumentIfaceCB: ...
-    @property
+    @builtins.property
     def get_document_locale(self) -> get_document_localeDocumentIfaceCB: ...
-    @property
+    @builtins.property
     def get_document_type(self) -> get_document_typeDocumentIfaceCB: ...
-    @property
+    @builtins.property
     def get_page_count(self) -> get_page_countDocumentIfaceCB: ...
-    @property
+    @builtins.property
     def get_text_selections(self) -> get_text_selectionsDocumentIfaceCB: ...
-    @property
+    @builtins.property
     def set_document_attribute(self) -> set_document_attributeDocumentIfaceCB: ...
-    @property
+    @builtins.property
     def set_text_selections(self) -> set_text_selectionsDocumentIfaceCB: ...
 
     # gi Methods
@@ -731,8 +722,6 @@ class DocumentIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EditableText(GObject.GInterface):
     # gi Methods
@@ -748,25 +737,23 @@ class EditableText(GObject.GInterface):
     def set_run_attributes(self, attrib_set: list, start_offset: int, end_offset: int) -> bool: ...
     def set_text_contents(self, string: str) -> None: ...
 
-    ...
-
 class EditableTextIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def copy_text(self) -> copy_textEditableTextIfaceCB: ...
-    @property
+    @builtins.property
     def cut_text(self) -> cut_textEditableTextIfaceCB: ...
-    @property
+    @builtins.property
     def delete_text(self) -> delete_textEditableTextIfaceCB: ...
-    @property
+    @builtins.property
     def insert_text(self) -> insert_textEditableTextIfaceCB: ...
-    @property
+    @builtins.property
     def parent_interface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def paste_text(self) -> paste_textEditableTextIfaceCB: ...
-    @property
+    @builtins.property
     def set_run_attributes(self) -> set_run_attributesEditableTextIfaceCB: ...
-    @property
+    @builtins.property
     def set_text_contents(self) -> set_text_contentsEditableTextIfaceCB: ...
 
     # gi Methods
@@ -774,8 +761,6 @@ class EditableTextIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GObjectAccessible(Object):
     # gi Methods
@@ -787,15 +772,13 @@ class GObjectAccessible(Object):
     def for_object(obj: GObject.Object) -> Object: ...
     def get_object(self) -> GObject.Object: ...
 
-    ...
-
 class GObjectAccessibleClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def pad1(self) -> FunctionGObjectAccessibleClassCB: ...
-    @property
+    @builtins.property
     def pad2(self) -> FunctionGObjectAccessibleClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
 
     # gi Methods
@@ -804,8 +787,6 @@ class GObjectAccessibleClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Hyperlink(GObject.Object):
     class Props(GObject.Object.Props):
         end_index: int  # [end-index]: changed because contained invalid characters
@@ -813,21 +794,24 @@ class Hyperlink(GObject.Object):
         selected_link: bool  # [selected-link]: changed because contained invalid characters
         start_index: int  # [start-index]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_end_index(self) -> int: ...
     def get_n_anchors(self) -> int: ...
     def get_object(self, i: int) -> Object: ...
-    @property
+    @builtins.property
     def get_start_index(self) -> int: ...
     def get_uri(self, i: int) -> str: ...
     def is_inline(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def is_selected_link(self) -> bool: ...
     def is_valid(self) -> bool: ...
 
@@ -926,29 +910,28 @@ class Hyperlink(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class HyperlinkClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_end_index(self) -> get_end_indexHyperlinkClassCB: ...
-    @property
+    @builtins.property
     def get_n_anchors(self) -> get_n_anchorsHyperlinkClassCB: ...
-    @property
+    @builtins.property
     def get_object(self) -> get_objectHyperlinkClassCB: ...
-    @property
+    @builtins.property
     def get_start_index(self) -> get_start_indexHyperlinkClassCB: ...
-    @property
+    @builtins.property
     def get_uri(self) -> get_uriHyperlinkClassCB: ...
-    @property
+    @builtins.property
     def is_selected_link(self) -> is_selected_linkHyperlinkClassCB: ...
-    @property
+    @builtins.property
     def is_valid(self) -> is_validHyperlinkClassCB: ...
-    @property
+    @builtins.property
     def link_activated(self) -> link_activatedHyperlinkClassCB: ...
-    @property
+    @builtins.property
     def link_state(self) -> link_stateHyperlinkClassCB: ...
-    @property
+    @builtins.property
     def pad1(self) -> FunctionHyperlinkClassCB: ...
 
     # gi Methods
@@ -956,8 +939,6 @@ class HyperlinkClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class HyperlinkImpl(GObject.GInterface):
     # gi Methods
@@ -967,11 +948,9 @@ class HyperlinkImpl(GObject.GInterface):
         """
     def get_hyperlink(self) -> Hyperlink: ...
 
-    ...
-
 class HyperlinkImplIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_hyperlink(self) -> get_hyperlinkHyperlinkImplIfaceCB: ...
 
     # gi Methods
@@ -979,8 +958,6 @@ class HyperlinkImplIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Hypertext(GObject.GInterface):
     # gi Methods
@@ -1004,17 +981,16 @@ class Hypertext(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class HypertextIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_link(self) -> get_linkHypertextIfaceCB: ...
-    @property
+    @builtins.property
     def get_link_index(self) -> get_link_indexHypertextIfaceCB: ...
-    @property
+    @builtins.property
     def get_n_links(self) -> get_n_linksHypertextIfaceCB: ...
-    @property
+    @builtins.property
     def link_selected(self) -> link_selectedHypertextIfaceCB: ...
 
     # gi Methods
@@ -1022,8 +998,6 @@ class HypertextIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Image(GObject.GInterface):
     """
@@ -1082,19 +1056,17 @@ class Image(GObject.GInterface):
     def get_image_size(self) -> tuple[int | None, int | None]: ...
     def set_image_description(self, description: str) -> bool: ...
 
-    ...
-
 class ImageIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_image_description(self) -> get_image_descriptionImageIfaceCB: ...
-    @property
+    @builtins.property
     def get_image_locale(self) -> get_image_localeImageIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_image_position(self) -> get_image_positionImageIfaceCB: ...
-    @property
+    @builtins.property
     def get_image_size(self) -> get_image_sizeImageIfaceCB: ...
-    @property
+    @builtins.property
     def set_image_description(self) -> set_image_descriptionImageIfaceCB: ...
 
     # gi Methods
@@ -1102,8 +1074,6 @@ class ImageIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Implementor(GObject.GPointer):
     # gi Methods
@@ -1113,16 +1083,12 @@ class Implementor(GObject.GPointer):
         """
     def ref_accessible(self) -> Object: ...
 
-    ...
-
 class ImplementorIface(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class KeyEventStruct(GObject.GPointer):
     # gi Fields
@@ -1139,8 +1105,6 @@ class KeyEventStruct(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Misc(GObject.Object):
     # gi Methods
@@ -1170,15 +1134,13 @@ class Misc(GObject.Object):
         threads_leave(self)
         """
 
-    ...
-
 class MiscClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def threads_enter(self) -> threads_enterMiscClassCB: ...
-    @property
+    @builtins.property
     def threads_leave(self) -> threads_leaveMiscClassCB: ...
-    @property
+    @builtins.property
     def vfuncs(self) -> list | None: ...
 
     # gi Methods
@@ -1186,8 +1148,6 @@ class MiscClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NoOpObject(Object):
     # gi Methods
@@ -1198,11 +1158,9 @@ class NoOpObject(Object):
     @classmethod
     def new(cls, obj: GObject.Object) -> Object: ...
 
-    ...
-
 class NoOpObjectClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
 
     # gi Methods
@@ -1210,8 +1168,6 @@ class NoOpObjectClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NoOpObjectFactory(ObjectFactory):
     # gi Methods
@@ -1222,11 +1178,9 @@ class NoOpObjectFactory(ObjectFactory):
     @classmethod
     def new(cls) -> ObjectFactory: ...
 
-    ...
-
 class NoOpObjectFactoryClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> ObjectFactoryClass | None: ...
 
     # gi Methods
@@ -1234,8 +1188,6 @@ class NoOpObjectFactoryClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Object(object):
     class Props:
@@ -1271,18 +1223,21 @@ class Object(object):
         )  # [accessible-table-summary]: changed because contained invalid characters
         accessible_value: float  # [accessible-value]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def accessible_parent(self) -> Object | None: ...
-    @property
+    @builtins.property
     def description(self) -> str: ...
-    @property
+    @builtins.property
     def layer(self) -> Layer: ...
-    @property
+    @builtins.property
     def name(self) -> str: ...
-    @property
+    @builtins.property
     def relation_set(self) -> RelationSet | None: ...
-    @property
+    @builtins.property
     def role(self) -> Role: ...
 
     # gi Methods
@@ -1307,7 +1262,7 @@ class Object(object):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_relationship(self, relationship: RelationType, target: Object) -> bool: ...
-    @property
+    @builtins.property
     def get_accessible_id(self) -> str: ...
     def get_attributes(self) -> list: ...
     def get_description(self) -> str: ...
@@ -1684,59 +1639,58 @@ class Object(object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ObjectClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def active_descendant_changed(self) -> active_descendant_changedObjectClassCB: ...
-    @property
+    @builtins.property
     def children_changed(self) -> children_changedObjectClassCB: ...
-    @property
+    @builtins.property
     def focus_event(self) -> focus_eventObjectClassCB: ...
-    @property
+    @builtins.property
     def get_attributes(self) -> get_attributesObjectClassCB: ...
-    @property
+    @builtins.property
     def get_description(self) -> get_descriptionObjectClassCB: ...
-    @property
+    @builtins.property
     def get_index_in_parent(self) -> get_index_in_parentObjectClassCB: ...
-    @property
+    @builtins.property
     def get_layer(self) -> get_layerObjectClassCB: ...
-    @property
+    @builtins.property
     def get_mdi_zorder(self) -> get_mdi_zorderObjectClassCB: ...
-    @property
+    @builtins.property
     def get_n_children(self) -> get_n_childrenObjectClassCB: ...
-    @property
+    @builtins.property
     def get_name(self) -> get_nameObjectClassCB: ...
-    @property
+    @builtins.property
     def get_object_locale(self) -> get_object_localeObjectClassCB: ...
-    @property
+    @builtins.property
     def get_parent(self) -> get_parentObjectClassCB: ...
-    @property
+    @builtins.property
     def get_role(self) -> get_roleObjectClassCB: ...
-    @property
+    @builtins.property
     def initialize(self) -> initializeObjectClassCB: ...
-    @property
+    @builtins.property
     def pad1(self) -> FunctionObjectClassCB: ...
-    @property
+    @builtins.property
     def property_change(self) -> property_changeObjectClassCB: ...
-    @property
+    @builtins.property
     def ref_relation_set(self) -> ref_relation_setObjectClassCB: ...
-    @property
+    @builtins.property
     def ref_state_set(self) -> ref_state_setObjectClassCB: ...
-    @property
+    @builtins.property
     def remove_property_change_handler(self) -> remove_property_change_handlerObjectClassCB: ...
-    @property
+    @builtins.property
     def set_description(self) -> set_descriptionObjectClassCB: ...
-    @property
+    @builtins.property
     def set_name(self) -> set_nameObjectClassCB: ...
-    @property
+    @builtins.property
     def set_parent(self) -> set_parentObjectClassCB: ...
-    @property
+    @builtins.property
     def set_role(self) -> set_roleObjectClassCB: ...
-    @property
+    @builtins.property
     def state_change(self) -> state_changeObjectClassCB: ...
-    @property
+    @builtins.property
     def visible_data_changed(self) -> visible_data_changedObjectClassCB: ...
 
     # gi Methods
@@ -1744,8 +1698,6 @@ class ObjectClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ObjectFactory(GObject.Object):
     # gi Methods
@@ -1765,19 +1717,17 @@ class ObjectFactory(GObject.Object):
         invalidate(self)
         """
 
-    ...
-
 class ObjectFactoryClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_accessible_type(self) -> get_accessible_typeObjectFactoryClassCB: ...
-    @property
+    @builtins.property
     def invalidate(self) -> invalidateObjectFactoryClassCB: ...
-    @property
+    @builtins.property
     def pad1(self) -> FunctionObjectFactoryClassCB: ...
-    @property
+    @builtins.property
     def pad2(self) -> FunctionObjectFactoryClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -1785,8 +1735,6 @@ class ObjectFactoryClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Plug(Object):
     # gi Methods
@@ -1807,13 +1755,11 @@ class Plug(Object):
         get_object_id(self) -> str
         """
 
-    ...
-
 class PlugClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_object_id(self) -> get_object_idPlugClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
 
     # gi Methods
@@ -1821,8 +1767,6 @@ class PlugClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PropertyValues(GObject.GPointer):
     # gi Fields
@@ -1835,8 +1779,6 @@ class PropertyValues(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Range(GObject.GBoxed):
     """
@@ -1872,8 +1814,6 @@ class Range(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class Rectangle(GObject.GBoxed):
     # gi Fields
     height: int = ...
@@ -1887,13 +1827,11 @@ class Rectangle(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Registry(GObject.Object):
     # gi Fields
-    @property
+    @builtins.property
     def factory_singleton_cache(self) -> dict | None: ...
-    @property
+    @builtins.property
     def factory_type_registry(self) -> dict | None: ...
 
     # gi Methods
@@ -1905,11 +1843,9 @@ class Registry(GObject.Object):
     def get_factory_type(self, type: GObject.GType) -> GObject.GType: ...
     def set_factory_type(self, type: GObject.GType, factory_type: GObject.GType) -> None: ...
 
-    ...
-
 class RegistryClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -1918,17 +1854,18 @@ class RegistryClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Relation(GObject.Object):
     class Props(GObject.Object.Props):
         relation_type: RelationType  # [relation-type]: changed because contained invalid characters
         target: GObject.ValueArray | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def relationship(self) -> RelationType: ...
-    @property
+    @builtins.property
     def target(self) -> list | None: ...
 
     # gi Methods
@@ -1937,9 +1874,9 @@ class Relation(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_target(self, target: Object) -> None: ...
-    @property
+    @builtins.property
     def get_relation_type(self) -> RelationType: ...
-    @property
+    @builtins.property
     def get_target(self) -> list: ...
     @classmethod
     def new(cls, targets: list, n_targets: int, relationship: RelationType) -> Relation: ...
@@ -1964,7 +1901,6 @@ class Relation(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class RelationClass(GObject.GPointer):
     # gi Methods
@@ -1973,11 +1909,9 @@ class RelationClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RelationSet(GObject.Object):
     # gi Fields
-    @property
+    @builtins.property
     def relations(self) -> list | None: ...
 
     # gi Methods
@@ -1996,13 +1930,11 @@ class RelationSet(GObject.Object):
     def new(cls) -> RelationSet: ...
     def remove(self, relation: Relation) -> None: ...
 
-    ...
-
 class RelationSetClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def pad1(self) -> FunctionRelationSetClassCB: ...
-    @property
+    @builtins.property
     def pad2(self) -> FunctionRelationSetClassCB: ...
 
     # gi Methods
@@ -2010,8 +1942,6 @@ class RelationSetClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Selection(GObject.GInterface):
     # gi Methods
@@ -2039,25 +1969,24 @@ class Selection(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SelectionIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_selection(self) -> add_selectionSelectionIfaceCB: ...
-    @property
+    @builtins.property
     def clear_selection(self) -> clear_selectionSelectionIfaceCB: ...
-    @property
+    @builtins.property
     def get_selection_count(self) -> get_selection_countSelectionIfaceCB: ...
-    @property
+    @builtins.property
     def is_child_selected(self) -> is_child_selectedSelectionIfaceCB: ...
-    @property
+    @builtins.property
     def ref_selection(self) -> ref_selectionSelectionIfaceCB | None: ...
-    @property
+    @builtins.property
     def remove_selection(self) -> remove_selectionSelectionIfaceCB: ...
-    @property
+    @builtins.property
     def select_all_selection(self) -> select_all_selectionSelectionIfaceCB: ...
-    @property
+    @builtins.property
     def selection_changed(self) -> selection_changedSelectionIfaceCB: ...
 
     # gi Methods
@@ -2066,11 +1995,9 @@ class SelectionIface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Socket(Object):
     # gi Fields
-    @property
+    @builtins.property
     def embedded_plug_id(self) -> str: ...
 
     # gi Methods
@@ -2092,13 +2019,11 @@ class Socket(Object):
         embed(self, plug_id:str)
         """
 
-    ...
-
 class SocketClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def embed(self) -> embedSocketClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
 
     # gi Methods
@@ -2106,8 +2031,6 @@ class SocketClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class StateSet(GObject.Object):
     # gi Methods
@@ -2128,16 +2051,12 @@ class StateSet(GObject.Object):
     def remove_state(self, type: StateType) -> bool: ...
     def xor_sets(self, compare_set: StateSet) -> StateSet: ...
 
-    ...
-
 class StateSetClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class StreamableContent(GObject.GInterface):
     # gi Methods
@@ -2150,23 +2069,21 @@ class StreamableContent(GObject.GInterface):
     def get_stream(self, mime_type: str) -> GLib.IOChannel: ...
     def get_uri(self, mime_type: str) -> str | None: ...
 
-    ...
-
 class StreamableContentIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_mime_type(self) -> get_mime_typeStreamableContentIfaceCB: ...
-    @property
+    @builtins.property
     def get_n_mime_types(self) -> get_n_mime_typesStreamableContentIfaceCB: ...
-    @property
+    @builtins.property
     def get_stream(self) -> get_streamStreamableContentIfaceCB: ...
-    @property
+    @builtins.property
     def get_uri(self) -> get_uriStreamableContentIfaceCB | None: ...
-    @property
+    @builtins.property
     def pad1(self) -> FunctionStreamableContentIfaceCB: ...
-    @property
+    @builtins.property
     def pad2(self) -> FunctionStreamableContentIfaceCB: ...
-    @property
+    @builtins.property
     def pad3(self) -> FunctionStreamableContentIfaceCB: ...
 
     # gi Methods
@@ -2174,8 +2091,6 @@ class StreamableContentIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Table(GObject.GInterface):
     # gi Methods
@@ -2264,7 +2179,6 @@ class Table(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TableCell(GObject.GInterface):
     # gi Methods
@@ -2280,23 +2194,21 @@ class TableCell(GObject.GInterface):
     def get_row_span(self) -> int: ...
     def get_table(self) -> Object: ...
 
-    ...
-
 class TableCellIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_column_header_cells(self) -> get_column_header_cellsTableCellIfaceCB: ...
-    @property
+    @builtins.property
     def get_column_span(self) -> get_column_spanTableCellIfaceCB: ...
-    @property
+    @builtins.property
     def get_position(self) -> get_positionTableCellIfaceCB: ...
-    @property
+    @builtins.property
     def get_row_column_span(self) -> get_row_column_spanTableCellIfaceCB: ...
-    @property
+    @builtins.property
     def get_row_header_cells(self) -> get_row_header_cellsTableCellIfaceCB: ...
-    @property
+    @builtins.property
     def get_row_span(self) -> get_row_spanTableCellIfaceCB: ...
-    @property
+    @builtins.property
     def get_table(self) -> get_tableTableCellIfaceCB: ...
 
     # gi Methods
@@ -2305,81 +2217,79 @@ class TableCellIface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TableIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_column_selection(self) -> add_column_selectionTableIfaceCB: ...
-    @property
+    @builtins.property
     def add_row_selection(self) -> add_row_selectionTableIfaceCB: ...
-    @property
+    @builtins.property
     def column_deleted(self) -> column_deletedTableIfaceCB: ...
-    @property
+    @builtins.property
     def column_inserted(self) -> column_insertedTableIfaceCB: ...
-    @property
+    @builtins.property
     def column_reordered(self) -> column_reorderedTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_caption(self) -> get_captionTableIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_column_at_index(self) -> get_column_at_indexTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_column_description(self) -> get_column_descriptionTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_column_extent_at(self) -> get_column_extent_atTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_column_header(self) -> get_column_headerTableIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_index_at(self) -> get_index_atTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_n_columns(self) -> get_n_columnsTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_n_rows(self) -> get_n_rowsTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_row_at_index(self) -> get_row_at_indexTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_row_description(self) -> get_row_descriptionTableIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_row_extent_at(self) -> get_row_extent_atTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_row_header(self) -> get_row_headerTableIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_selected_columns(self) -> get_selected_columnsTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_selected_rows(self) -> get_selected_rowsTableIfaceCB: ...
-    @property
+    @builtins.property
     def get_summary(self) -> get_summaryTableIfaceCB: ...
-    @property
+    @builtins.property
     def is_column_selected(self) -> is_column_selectedTableIfaceCB: ...
-    @property
+    @builtins.property
     def is_row_selected(self) -> is_row_selectedTableIfaceCB: ...
-    @property
+    @builtins.property
     def is_selected(self) -> is_selectedTableIfaceCB: ...
-    @property
+    @builtins.property
     def model_changed(self) -> model_changedTableIfaceCB: ...
-    @property
+    @builtins.property
     def ref_at(self) -> ref_atTableIfaceCB: ...
-    @property
+    @builtins.property
     def remove_column_selection(self) -> remove_column_selectionTableIfaceCB: ...
-    @property
+    @builtins.property
     def remove_row_selection(self) -> remove_row_selectionTableIfaceCB: ...
-    @property
+    @builtins.property
     def row_deleted(self) -> row_deletedTableIfaceCB: ...
-    @property
+    @builtins.property
     def row_inserted(self) -> row_insertedTableIfaceCB: ...
-    @property
+    @builtins.property
     def row_reordered(self) -> row_reorderedTableIfaceCB: ...
-    @property
+    @builtins.property
     def set_caption(self) -> set_captionTableIfaceCB: ...
-    @property
+    @builtins.property
     def set_column_description(self) -> set_column_descriptionTableIfaceCB: ...
-    @property
+    @builtins.property
     def set_column_header(self) -> set_column_headerTableIfaceCB: ...
-    @property
+    @builtins.property
     def set_row_description(self) -> set_row_descriptionTableIfaceCB: ...
-    @property
+    @builtins.property
     def set_row_header(self) -> set_row_headerTableIfaceCB: ...
-    @property
+    @builtins.property
     def set_summary(self) -> set_summaryTableIfaceCB: ...
 
     # gi Methods
@@ -2387,8 +2297,6 @@ class TableIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Text(GObject.GInterface):
     """
@@ -2588,61 +2496,60 @@ class Text(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TextIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_selection(self) -> add_selectionTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_bounded_ranges(self) -> get_bounded_rangesTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_caret_offset(self) -> get_caret_offsetTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_character_at_offset(self) -> get_character_at_offsetTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_character_count(self) -> get_character_countTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_character_extents(self) -> get_character_extentsTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_default_attributes(self) -> get_default_attributesTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_n_selections(self) -> get_n_selectionsTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_offset_at_point(self) -> get_offset_at_pointTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_range_extents(self) -> get_range_extentsTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_run_attributes(self) -> get_run_attributesTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_selection(self) -> get_selectionTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_string_at_offset(self) -> get_string_at_offsetTextIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_text(self) -> get_textTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_text_after_offset(self) -> get_text_after_offsetTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_text_at_offset(self) -> get_text_at_offsetTextIfaceCB: ...
-    @property
+    @builtins.property
     def get_text_before_offset(self) -> get_text_before_offsetTextIfaceCB: ...
-    @property
+    @builtins.property
     def remove_selection(self) -> remove_selectionTextIfaceCB: ...
-    @property
+    @builtins.property
     def scroll_substring_to(self) -> scroll_substring_toTextIfaceCB: ...
-    @property
+    @builtins.property
     def scroll_substring_to_point(self) -> scroll_substring_to_pointTextIfaceCB: ...
-    @property
+    @builtins.property
     def set_caret_offset(self) -> set_caret_offsetTextIfaceCB: ...
-    @property
+    @builtins.property
     def set_selection(self) -> set_selectionTextIfaceCB: ...
-    @property
+    @builtins.property
     def text_attributes_changed(self) -> text_attributes_changedTextIfaceCB: ...
-    @property
+    @builtins.property
     def text_caret_moved(self) -> text_caret_movedTextIfaceCB: ...
-    @property
+    @builtins.property
     def text_changed(self) -> text_changedTextIfaceCB: ...
-    @property
+    @builtins.property
     def text_selection_changed(self) -> text_selection_changedTextIfaceCB: ...
 
     # gi Methods
@@ -2650,8 +2557,6 @@ class TextIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TextRange(GObject.GBoxed):
     # gi Fields
@@ -2666,8 +2571,6 @@ class TextRange(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TextRectangle(GObject.GPointer):
     # gi Fields
     height: int = ...
@@ -2680,8 +2583,6 @@ class TextRectangle(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TextSelection(GObject.GPointer):
     # gi Fields
@@ -2697,8 +2598,6 @@ class TextSelection(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Util(GObject.Object):
     # gi Methods
     def __init__(self) -> None:
@@ -2706,17 +2605,15 @@ class Util(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UtilClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_toolkit_name(self) -> get_toolkit_nameUtilClassCB: ...
-    @property
+    @builtins.property
     def get_toolkit_version(self) -> get_toolkit_versionUtilClassCB: ...
-    @property
+    @builtins.property
     def remove_global_event_listener(self) -> remove_global_event_listenerUtilClassCB: ...
-    @property
+    @builtins.property
     def remove_key_event_listener(self) -> remove_key_event_listenerUtilClassCB: ...
 
     # gi Methods
@@ -2724,8 +2621,6 @@ class UtilClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Value(GObject.GInterface):
     # gi Methods
@@ -2761,29 +2656,28 @@ class Value(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ValueIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_current_value(self) -> get_current_valueValueIfaceCB: ...
-    @property
+    @builtins.property
     def get_increment(self) -> get_incrementValueIfaceCB: ...
-    @property
+    @builtins.property
     def get_maximum_value(self) -> get_maximum_valueValueIfaceCB: ...
-    @property
+    @builtins.property
     def get_minimum_increment(self) -> get_minimum_incrementValueIfaceCB: ...
-    @property
+    @builtins.property
     def get_minimum_value(self) -> get_minimum_valueValueIfaceCB: ...
-    @property
+    @builtins.property
     def get_range(self) -> get_rangeValueIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_sub_ranges(self) -> get_sub_rangesValueIfaceCB: ...
-    @property
+    @builtins.property
     def get_value_and_text(self) -> get_value_and_textValueIfaceCB: ...
-    @property
+    @builtins.property
     def set_current_value(self) -> set_current_valueValueIfaceCB: ...
-    @property
+    @builtins.property
     def set_value(self) -> set_valueValueIfaceCB: ...
 
     # gi Methods
@@ -2791,8 +2685,6 @@ class ValueIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Window(GObject.GInterface):
     """
@@ -2919,7 +2811,6 @@ class Window(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class WindowIface(GObject.GPointer):
     # gi Methods
@@ -2927,8 +2818,6 @@ class WindowIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

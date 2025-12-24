@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -9188,7 +9189,7 @@ class aat_layout_feature_selector_info_t(GObject.GPointer):
     disable: aat_layout_feature_selector_t = ...
     enable: aat_layout_feature_selector_t = ...
     name_id: int = ...
-    @property
+    @builtins.property
     def reserved(self) -> int: ...
 
     # gi Methods
@@ -9197,8 +9198,6 @@ class aat_layout_feature_selector_info_t(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class blob_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -9206,16 +9205,12 @@ class blob_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class buffer_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class color_line_t(GObject.GBoxed):
     # gi Fields
@@ -9227,8 +9222,6 @@ class color_line_t(GObject.GBoxed):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class color_stop_t(GObject.GBoxed):
     # gi Fields
@@ -9242,16 +9235,12 @@ class color_stop_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class draw_funcs_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class draw_state_t(GObject.GBoxed):
     # gi Fields
@@ -9260,19 +9249,19 @@ class draw_state_t(GObject.GBoxed):
     path_open: int = ...
     path_start_x: float = ...
     path_start_y: float = ...
-    @property
+    @builtins.property
     def reserved1(self) -> var_num_t | None: ...
-    @property
+    @builtins.property
     def reserved2(self) -> var_num_t | None: ...
-    @property
+    @builtins.property
     def reserved3(self) -> var_num_t | None: ...
-    @property
+    @builtins.property
     def reserved4(self) -> var_num_t | None: ...
-    @property
+    @builtins.property
     def reserved5(self) -> var_num_t | None: ...
-    @property
+    @builtins.property
     def reserved6(self) -> var_num_t | None: ...
-    @property
+    @builtins.property
     def reserved7(self) -> var_num_t | None: ...
 
     # gi Methods
@@ -9281,16 +9270,12 @@ class draw_state_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class face_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class feature_t(GObject.GBoxed):
     # gi Fields
@@ -9306,30 +9291,28 @@ class feature_t(GObject.GBoxed):
         """
     def _string(self) -> tuple[list, int]: ...
 
-    ...
-
 class font_extents_t(GObject.GPointer):
     # gi Fields
     ascender: int = ...
     descender: int = ...
     line_gap: int = ...
-    @property
+    @builtins.property
     def reserved1(self) -> int: ...
-    @property
+    @builtins.property
     def reserved2(self) -> int: ...
-    @property
+    @builtins.property
     def reserved3(self) -> int: ...
-    @property
+    @builtins.property
     def reserved4(self) -> int: ...
-    @property
+    @builtins.property
     def reserved5(self) -> int: ...
-    @property
+    @builtins.property
     def reserved6(self) -> int: ...
-    @property
+    @builtins.property
     def reserved7(self) -> int: ...
-    @property
+    @builtins.property
     def reserved8(self) -> int: ...
-    @property
+    @builtins.property
     def reserved9(self) -> int: ...
 
     # gi Methods
@@ -9338,8 +9321,6 @@ class font_extents_t(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class font_funcs_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -9347,16 +9328,12 @@ class font_funcs_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class font_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class glyph_extents_t(GObject.GPointer):
     # gi Fields
@@ -9371,17 +9348,15 @@ class glyph_extents_t(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class glyph_info_t(GObject.GBoxed):
     # gi Fields
     cluster: int = ...
     codepoint: int = ...
-    @property
+    @builtins.property
     def mask(self) -> int: ...
-    @property
+    @builtins.property
     def var1(self) -> var_int_t | None: ...
-    @property
+    @builtins.property
     def var2(self) -> var_int_t | None: ...
 
     # gi Methods
@@ -9390,11 +9365,9 @@ class glyph_info_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class glyph_position_t(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def var(self) -> var_int_t | None: ...
     x_advance: int = ...
     x_offset: int = ...
@@ -9407,8 +9380,6 @@ class glyph_position_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class language_t(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -9417,16 +9388,12 @@ class language_t(GObject.GPointer):
         """
     def _string(self) -> str: ...
 
-    ...
-
 class map_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ot_color_layer_t(GObject.GPointer):
     # gi Fields
@@ -9438,8 +9405,6 @@ class ot_color_layer_t(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ot_math_glyph_part_t(GObject.GBoxed):
     # gi Fields
@@ -9455,8 +9420,6 @@ class ot_math_glyph_part_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ot_math_glyph_variant_t(GObject.GBoxed):
     # gi Fields
     advance: int = ...
@@ -9467,8 +9430,6 @@ class ot_math_glyph_variant_t(GObject.GBoxed):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ot_math_kern_entry_t(GObject.GPointer):
     # gi Fields
@@ -9481,13 +9442,11 @@ class ot_math_kern_entry_t(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ot_name_entry_t(GObject.GPointer):
     # gi Fields
     language: language_t | None = ...
     name_id: int = ...
-    @property
+    @builtins.property
     def var(self) -> var_int_t | None: ...
 
     # gi Methods
@@ -9495,8 +9454,6 @@ class ot_name_entry_t(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ot_var_axis_info_t(GObject.GBoxed):
     # gi Fields
@@ -9506,7 +9463,7 @@ class ot_var_axis_info_t(GObject.GBoxed):
     max_value: float = ...
     min_value: float = ...
     name_id: int = ...
-    @property
+    @builtins.property
     def reserved(self) -> int: ...
     tag: int = ...
 
@@ -9515,8 +9472,6 @@ class ot_var_axis_info_t(GObject.GBoxed):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ot_var_axis_t(GObject.GPointer):
     # gi Fields
@@ -9532,16 +9487,12 @@ class ot_var_axis_t(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class paint_funcs_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class segment_properties_t(GObject.GBoxed):
     # gi Fields
@@ -9555,16 +9506,12 @@ class segment_properties_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class set_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class shape_plan_t(GObject.GBoxed):
     # gi Methods
@@ -9573,8 +9520,6 @@ class shape_plan_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class unicode_funcs_t(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -9582,11 +9527,9 @@ class unicode_funcs_t(GObject.GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class user_data_key_t(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def unused(self) -> int: ...
 
     # gi Methods
@@ -9594,8 +9537,6 @@ class user_data_key_t(GObject.GBoxed):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class var_int_t(GObject.GPointer):
     # gi Fields
@@ -9611,8 +9552,6 @@ class var_int_t(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class var_num_t(GObject.GPointer):
     # gi Fields
@@ -9630,8 +9569,6 @@ class var_num_t(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class variation_t(GObject.GPointer):
     # gi Fields
     tag: int = ...
@@ -9643,8 +9580,6 @@ class variation_t(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     def _string(self) -> tuple[list, int]: ...
-
-    ...
 
 ###############################################################
 # Callbacks

@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -367,8 +368,6 @@ class Font(GObject.GInterface):
         """
     def get_scaled_font(self) -> cairo.ScaledFont | None: ...
 
-    ...
-
 class FontMap(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -385,8 +384,6 @@ class FontMap(GObject.GInterface):
     def new_for_font_type(fonttype: cairo.FontType) -> Pango.FontMap | None: ...
     def set_default(self) -> None: ...
     def set_resolution(self, dpi: float) -> None: ...
-
-    ...
 
 ###############################################################
 # Callbacks

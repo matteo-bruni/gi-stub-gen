@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -169,16 +170,12 @@ class MIKEYDecryptInfo(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MIKEYEncryptInfo(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MIKEYMapSRTP(GObject.GPointer):
     # gi Fields
@@ -192,15 +189,13 @@ class MIKEYMapSRTP(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MIKEYMessage(GObject.GBoxed):
     # gi Fields
     CSB_id: int = ...
     V: bool = ...
     map_info: list | None = ...
     map_type: MIKEYMapType = ...
-    @property
+    @builtins.property
     def mini_object(self) -> Gst.MiniObject | None: ...
     payloads: list | None = ...
     prf_func: MIKEYPRFFunc = ...
@@ -248,12 +243,10 @@ class MIKEYMessage(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class MIKEYPayload(GObject.GBoxed):
     # gi Fields
     len: int = ...
-    @property
+    @builtins.property
     def mini_object(self) -> Gst.MiniObject | None: ...
     type: MIKEYPayloadType = ...
 
@@ -282,8 +275,6 @@ class MIKEYPayload(GObject.GBoxed):
     def sp_set(self, policy: int, proto: MIKEYSecProto) -> bool: ...
     def t_set(self, type: MIKEYTSType, ts_value: list) -> bool: ...
 
-    ...
-
 class MIKEYPayloadKEMAC(GObject.GPointer):
     # gi Fields
     enc_alg: MIKEYEncAlg = ...
@@ -296,8 +287,6 @@ class MIKEYPayloadKEMAC(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MIKEYPayloadKeyData(GObject.GPointer):
     # gi Fields
@@ -317,8 +306,6 @@ class MIKEYPayloadKeyData(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MIKEYPayloadPKE(GObject.GPointer):
     # gi Fields
     C: MIKEYCacheType = ...
@@ -332,8 +319,6 @@ class MIKEYPayloadPKE(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MIKEYPayloadRAND(GObject.GPointer):
     # gi Fields
     len: int = ...
@@ -345,8 +330,6 @@ class MIKEYPayloadRAND(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MIKEYPayloadSP(GObject.GPointer):
     # gi Fields
@@ -361,8 +344,6 @@ class MIKEYPayloadSP(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MIKEYPayloadSPParam(GObject.GPointer):
     # gi Fields
     len: int = ...
@@ -375,8 +356,6 @@ class MIKEYPayloadSPParam(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MIKEYPayloadT(GObject.GPointer):
     # gi Fields
     pt: MIKEYPayload | None = ...
@@ -388,8 +367,6 @@ class MIKEYPayloadT(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SDPAttribute(GObject.GPointer):
     # gi Fields
@@ -404,8 +381,6 @@ class SDPAttribute(GObject.GPointer):
     def clear(self) -> SDPResult: ...
     def set(self, key: str, value: str | None = None) -> SDPResult: ...
 
-    ...
-
 class SDPBandwidth(GObject.GPointer):
     # gi Fields
     bandwidth: int = ...
@@ -418,8 +393,6 @@ class SDPBandwidth(GObject.GPointer):
         """
     def clear(self) -> SDPResult: ...
     def set(self, bwtype: str, bandwidth: int) -> SDPResult: ...
-
-    ...
 
 class SDPConnection(GObject.GPointer):
     # gi Fields
@@ -437,8 +410,6 @@ class SDPConnection(GObject.GPointer):
     def clear(self) -> SDPResult: ...
     def set(self, nettype: str, addrtype: str, address: str, ttl: int, addr_number: int) -> SDPResult: ...
 
-    ...
-
 class SDPKey(GObject.GPointer):
     # gi Fields
     data: str = ...
@@ -449,8 +420,6 @@ class SDPKey(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SDPMedia(GObject.GPointer):
     # gi Fields
@@ -520,8 +489,6 @@ class SDPMedia(GObject.GPointer):
     def set_port_info(self, port: int, num_ports: int) -> SDPResult: ...
     def set_proto(self, proto: str) -> SDPResult: ...
     def uninit(self) -> SDPResult: ...
-
-    ...
 
 class SDPMessage(GObject.GBoxed):
     # gi Fields
@@ -623,8 +590,6 @@ class SDPMessage(GObject.GBoxed):
     def uninit(self) -> SDPResult: ...
     def zones_len(self) -> int: ...
 
-    ...
-
 class SDPOrigin(GObject.GPointer):
     # gi Fields
     addr: str = ...
@@ -640,8 +605,6 @@ class SDPOrigin(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SDPTime(GObject.GPointer):
     # gi Fields
     repeat: list | None = ...
@@ -656,8 +619,6 @@ class SDPTime(GObject.GPointer):
     def clear(self) -> SDPResult: ...
     def set(self, start: str, stop: str, repeat: list) -> SDPResult: ...
 
-    ...
-
 class SDPZone(GObject.GPointer):
     # gi Fields
     time: str = ...
@@ -670,8 +631,6 @@ class SDPZone(GObject.GPointer):
         """
     def clear(self) -> SDPResult: ...
     def set(self, adj_time: str, typed_time: str) -> SDPResult: ...
-
-    ...
 
 ###############################################################
 # Aliases

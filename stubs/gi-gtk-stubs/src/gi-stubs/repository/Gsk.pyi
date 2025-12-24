@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -736,8 +737,6 @@ class BlendNode(RenderNode):
     @classmethod
     def new(cls, bottom: RenderNode, top: RenderNode, blend_mode: BlendMode) -> BlendNode: ...
 
-    ...
-
 class BlurNode(RenderNode):
     """
     A render node applying a blur effect to its single child.
@@ -752,8 +751,6 @@ class BlurNode(RenderNode):
     def get_radius(self) -> float: ...
     @classmethod
     def new(cls, child: RenderNode, radius: float) -> BlurNode: ...
-
-    ...
 
 class BorderNode(RenderNode):
     """
@@ -771,8 +768,6 @@ class BorderNode(RenderNode):
     @classmethod
     def new(cls, outline: RoundedRect, border_width: list, border_color: list) -> BorderNode: ...
 
-    ...
-
 class BroadwayRenderer(Renderer):
     """
     A Broadway based renderer.
@@ -788,16 +783,12 @@ class BroadwayRenderer(Renderer):
     @classmethod
     def new(cls) -> Renderer: ...
 
-    ...
-
 class BroadwayRendererClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CairoNode(RenderNode):
     """
@@ -813,8 +804,6 @@ class CairoNode(RenderNode):
     def get_surface(self) -> cairo.Surface: ...
     @classmethod
     def new(cls, bounds: Graphene.Rect) -> CairoNode: ...
-
-    ...
 
 class CairoRenderer(Renderer):
     """
@@ -832,16 +821,12 @@ class CairoRenderer(Renderer):
     @classmethod
     def new(cls) -> Renderer: ...
 
-    ...
-
 class CairoRendererClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ClipNode(RenderNode):
     """
@@ -857,8 +842,6 @@ class ClipNode(RenderNode):
     def get_clip(self) -> Graphene.Rect: ...
     @classmethod
     def new(cls, child: RenderNode, clip: Graphene.Rect) -> ClipNode: ...
-
-    ...
 
 class ColorMatrixNode(RenderNode):
     """
@@ -876,8 +859,6 @@ class ColorMatrixNode(RenderNode):
     @classmethod
     def new(cls, child: RenderNode, color_matrix: Graphene.Matrix, color_offset: Graphene.Vec4) -> ColorMatrixNode: ...
 
-    ...
-
 class ColorNode(RenderNode):
     """
     A render node for a solid color.
@@ -892,8 +873,6 @@ class ColorNode(RenderNode):
     @classmethod
     def new(cls, rgba: Gdk.RGBA, bounds: Graphene.Rect) -> ColorNode: ...
 
-    ...
-
 class ColorStop(GObject.GPointer):
     # gi Fields
     color: Gdk.RGBA | None = ...  # type: ignore
@@ -904,8 +883,6 @@ class ColorStop(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ConicGradientNode(RenderNode):
     """
@@ -927,8 +904,6 @@ class ConicGradientNode(RenderNode):
         cls, bounds: Graphene.Rect, center: Graphene.Point, rotation: float, color_stops: list, n_color_stops: int
     ) -> ConicGradientNode: ...
 
-    ...
-
 class ContainerNode(RenderNode):
     """
     A render node that can contain other render nodes.
@@ -943,8 +918,6 @@ class ContainerNode(RenderNode):
     def get_n_children(self) -> int: ...
     @classmethod
     def new(cls, children: list, n_children: int) -> ContainerNode: ...
-
-    ...
 
 class CrossFadeNode(RenderNode):
     """
@@ -962,8 +935,6 @@ class CrossFadeNode(RenderNode):
     @classmethod
     def new(cls, start: RenderNode, end: RenderNode, progress: float) -> CrossFadeNode: ...
 
-    ...
-
 class DebugNode(RenderNode):
     """
     A render node that emits a debugging message when drawing its
@@ -979,8 +950,6 @@ class DebugNode(RenderNode):
     def get_message(self) -> str: ...
     @classmethod
     def new(cls, child: RenderNode, message: str) -> DebugNode: ...
-
-    ...
 
 class FillNode(RenderNode):
     """
@@ -999,8 +968,6 @@ class FillNode(RenderNode):
     @classmethod
     def new(cls, child: RenderNode, path: Path, fill_rule: FillRule) -> FillNode: ...
 
-    ...
-
 class GLRenderer(Renderer):
     """
     Renders a GSK rendernode tree with OpenGL.
@@ -1016,16 +983,12 @@ class GLRenderer(Renderer):
     @classmethod
     def new(cls) -> Renderer: ...
 
-    ...
-
 class GLRendererClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GLShader(GObject.Object):
     """
@@ -1147,6 +1110,9 @@ class GLShader(GObject.Object):
         resource: str
         source: GLib.Bytes | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, resource: str = ..., source: GLib.Bytes | None = ...) -> None:
         """
@@ -1177,10 +1143,10 @@ class GLShader(GObject.Object):
     @deprecated("deprecated")
     def get_n_uniforms(self) -> int: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_resource(self) -> str | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_source(self) -> GLib.Bytes: ...
     @deprecated("deprecated")
     def get_uniform_name(self, idx: int) -> str: ...
@@ -1214,11 +1180,10 @@ class GLShader(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class GLShaderClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -1226,8 +1191,6 @@ class GLShaderClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GLShaderNode(RenderNode):
     """
@@ -1252,8 +1215,6 @@ class GLShaderNode(RenderNode):
         cls, shader: GLShader, bounds: Graphene.Rect, args: GLib.Bytes, children: list | None, n_children: int
     ) -> GLShaderNode: ...
 
-    ...
-
 class InsetShadowNode(RenderNode):
     """
     A render node for an inset shadow.
@@ -1275,8 +1236,6 @@ class InsetShadowNode(RenderNode):
         cls, outline: RoundedRect, color: Gdk.RGBA, dx: float, dy: float, spread: float, blur_radius: float
     ) -> InsetShadowNode: ...
 
-    ...
-
 class LinearGradientNode(RenderNode):
     """
     A render node for a linear gradient.
@@ -1296,8 +1255,6 @@ class LinearGradientNode(RenderNode):
         cls, bounds: Graphene.Rect, start: Graphene.Point, end: Graphene.Point, color_stops: list, n_color_stops: int
     ) -> LinearGradientNode: ...
 
-    ...
-
 class MaskNode(RenderNode):
     """
     A render node masking one child node with another.
@@ -1313,8 +1270,6 @@ class MaskNode(RenderNode):
     def get_source(self) -> RenderNode: ...
     @classmethod
     def new(cls, source: RenderNode, mask: RenderNode, mask_mode: MaskMode) -> MaskNode: ...
-
-    ...
 
 class NglRenderer(Renderer):
     """
@@ -1332,8 +1287,6 @@ class NglRenderer(Renderer):
     @classmethod
     def new(cls) -> Renderer: ...
 
-    ...
-
 class OpacityNode(RenderNode):
     """
     A render node controlling the opacity of its single child node.
@@ -1348,8 +1301,6 @@ class OpacityNode(RenderNode):
     def get_opacity(self) -> float: ...
     @classmethod
     def new(cls, child: RenderNode, opacity: float) -> OpacityNode: ...
-
-    ...
 
 class OutsetShadowNode(RenderNode):
     """
@@ -1372,8 +1323,6 @@ class OutsetShadowNode(RenderNode):
         cls, outline: RoundedRect, color: Gdk.RGBA, dx: float, dy: float, spread: float, blur_radius: float
     ) -> OutsetShadowNode: ...
 
-    ...
-
 class ParseLocation(GObject.GPointer):
     # gi Fields
     bytes: int = ...
@@ -1387,8 +1336,6 @@ class ParseLocation(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Path(GObject.GBoxed):
     # gi Methods
@@ -1412,8 +1359,6 @@ class Path(GObject.GBoxed):
     def to_cairo(self, cr: cairo.Context) -> None: ...
     def to_string(self) -> str: ...
     def unref(self) -> None: ...
-
-    ...
 
 class PathBuilder(GObject.GBoxed):
     # gi Methods
@@ -1460,8 +1405,6 @@ class PathBuilder(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class PathMeasure(GObject.GBoxed):
     # gi Methods
     def get_length(self) -> float: ...
@@ -1482,8 +1425,6 @@ class PathMeasure(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class PathPoint(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -1499,8 +1440,6 @@ class PathPoint(GObject.GBoxed):
     def get_position(self, path: Path) -> Graphene.Point: ...
     def get_rotation(self, path: Path, direction: PathDirection) -> float: ...
     def get_tangent(self, path: Path, direction: PathDirection) -> Graphene.Vec2: ...
-
-    ...
 
 class RadialGradientNode(RenderNode):
     """
@@ -1532,8 +1471,6 @@ class RadialGradientNode(RenderNode):
         n_color_stops: int,
     ) -> RadialGradientNode: ...
 
-    ...
-
 class RenderNode(object):
     """
     The basic block in a scene graph to be rendered using [class@Gsk.Renderer].
@@ -1551,7 +1488,9 @@ class RenderNode(object):
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -1571,8 +1510,6 @@ class RenderNode(object):
     def unref(self) -> None: ...
     def write_to_file(self, filename: str) -> bool: ...
 
-    ...
-
 class Renderer(GObject.Object):
     """
     Renders a scene graph defined via a tree of [class@Gsk.RenderNode] instances.
@@ -1591,14 +1528,17 @@ class Renderer(GObject.Object):
         realized: bool
         surface: Gdk.Surface | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_surface(self) -> Gdk.Surface | None: ...
-    @property
+    @builtins.property
     def is_realized(self) -> bool: ...
     @classmethod
     def new_for_surface(cls, surface: Gdk.Surface) -> Renderer | None: ...
@@ -1627,7 +1567,6 @@ class Renderer(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class RendererClass(GObject.GPointer):
     # gi Methods
@@ -1635,8 +1574,6 @@ class RendererClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RepeatNode(RenderNode):
     """
@@ -1653,8 +1590,6 @@ class RepeatNode(RenderNode):
     @classmethod
     def new(cls, bounds: Graphene.Rect, child: RenderNode, child_bounds: Graphene.Rect | None = None) -> RepeatNode: ...
 
-    ...
-
 class RepeatingLinearGradientNode(RenderNode):
     """
     A render node for a repeating linear gradient.
@@ -1669,8 +1604,6 @@ class RepeatingLinearGradientNode(RenderNode):
     def new(
         cls, bounds: Graphene.Rect, start: Graphene.Point, end: Graphene.Point, color_stops: list, n_color_stops: int
     ) -> RepeatingLinearGradientNode: ...
-
-    ...
 
 class RepeatingRadialGradientNode(RenderNode):
     """
@@ -1695,8 +1628,6 @@ class RepeatingRadialGradientNode(RenderNode):
         n_color_stops: int,
     ) -> RepeatingRadialGradientNode: ...
 
-    ...
-
 class RoundedClipNode(RenderNode):
     """
     A render node applying a rounded rectangle clip to its single child.
@@ -1711,8 +1642,6 @@ class RoundedClipNode(RenderNode):
     def get_clip(self) -> RoundedRect: ...
     @classmethod
     def new(cls, child: RenderNode, clip: RoundedRect) -> RoundedClipNode: ...
-
-    ...
 
 class RoundedRect(GObject.GPointer):
     # gi Fields
@@ -1741,8 +1670,6 @@ class RoundedRect(GObject.GPointer):
     def normalize(self) -> RoundedRect: ...
     def offset(self, dx: float, dy: float) -> RoundedRect: ...
     def shrink(self, top: float, right: float, bottom: float, left: float) -> RoundedRect: ...
-
-    ...
 
 class ShaderArgsBuilder(GObject.GBoxed):
     # gi Methods
@@ -1776,8 +1703,6 @@ class ShaderArgsBuilder(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class Shadow(GObject.GPointer):
     # gi Fields
     color: Gdk.RGBA | None = ...  # type: ignore
@@ -1790,8 +1715,6 @@ class Shadow(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ShadowNode(RenderNode):
     """
@@ -1808,8 +1731,6 @@ class ShadowNode(RenderNode):
     def get_shadow(self, i: int) -> Shadow: ...
     @classmethod
     def new(cls, child: RenderNode, shadows: list, n_shadows: int) -> ShadowNode: ...
-
-    ...
 
 class Stroke(GObject.GBoxed):
     # gi Methods
@@ -1840,8 +1761,6 @@ class Stroke(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class StrokeNode(RenderNode):
     """
     A render node that will fill the area determined by stroking the the given
@@ -1859,8 +1778,6 @@ class StrokeNode(RenderNode):
     @classmethod
     def new(cls, child: RenderNode, path: Path, stroke: Stroke) -> StrokeNode: ...
 
-    ...
-
 class SubsurfaceNode(RenderNode):
     """
     A render node that potentially diverts a part of the scene graph to a subsurface.
@@ -1872,8 +1789,6 @@ class SubsurfaceNode(RenderNode):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_child(self) -> RenderNode: ...
-
-    ...
 
 class TextNode(RenderNode):
     """
@@ -1896,8 +1811,6 @@ class TextNode(RenderNode):
         cls, font: Pango.Font, glyphs: Pango.GlyphString, color: Gdk.RGBA, offset: Graphene.Point
     ) -> TextNode | None: ...
 
-    ...
-
 class TextureNode(RenderNode):
     """
     A render node for a `GdkTexture`.
@@ -1911,8 +1824,6 @@ class TextureNode(RenderNode):
     def get_texture(self) -> Gdk.Texture: ...
     @classmethod
     def new(cls, texture: Gdk.Texture, bounds: Graphene.Rect) -> TextureNode: ...
-
-    ...
 
 class TextureScaleNode(RenderNode):
     """
@@ -1928,8 +1839,6 @@ class TextureScaleNode(RenderNode):
     def get_texture(self) -> Gdk.Texture: ...
     @classmethod
     def new(cls, texture: Gdk.Texture, bounds: Graphene.Rect, filter: ScalingFilter) -> TextureScaleNode: ...
-
-    ...
 
 class Transform(GObject.GBoxed):
     # gi Methods
@@ -1969,8 +1878,6 @@ class Transform(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class TransformNode(RenderNode):
     """
     A render node applying a `GskTransform` to its single child node.
@@ -1985,8 +1892,6 @@ class TransformNode(RenderNode):
     def get_transform(self) -> Transform: ...
     @classmethod
     def new(cls, child: RenderNode, transform: Transform) -> TransformNode: ...
-
-    ...
 
 class VulkanRenderer(Renderer):
     """
@@ -2003,16 +1908,12 @@ class VulkanRenderer(Renderer):
     @classmethod
     def new(cls) -> Renderer: ...
 
-    ...
-
 class VulkanRendererClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

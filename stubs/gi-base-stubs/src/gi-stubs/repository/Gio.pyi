@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -5064,6 +5065,9 @@ class Action(GObject.GInterface):
         state: GLib.Variant | None
         state_type: GLib.VariantType | None  # [state-type]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -5071,16 +5075,16 @@ class Action(GObject.GInterface):
         """
     def activate(self, parameter: GLib.Variant | None = None) -> None: ...
     def change_state(self, value: GLib.Variant) -> None: ...
-    @property
+    @builtins.property
     def get_enabled(self) -> bool: ...
-    @property
+    @builtins.property
     def get_name(self) -> str: ...
-    @property
+    @builtins.property
     def get_parameter_type(self) -> GLib.VariantType | None: ...
-    @property
+    @builtins.property
     def get_state(self) -> GLib.Variant | None: ...
     def get_state_hint(self) -> GLib.Variant | None: ...
-    @property
+    @builtins.property
     def get_state_type(self) -> GLib.VariantType | None: ...
     @staticmethod
     def name_is_valid(action_name: str) -> bool: ...
@@ -5129,16 +5133,15 @@ class Action(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ActionEntry(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateActionEntryCB: ...
-    @property
+    @builtins.property
     def change_state(self) -> change_stateActionEntryCB: ...
     name: str = ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
     parameter_type: str = ...
     state: str = ...
@@ -5148,8 +5151,6 @@ class ActionEntry(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ActionGroup(GObject.GInterface):
     # gi Methods
@@ -5209,39 +5210,38 @@ class ActionGroup(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ActionGroupInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def action_added(self) -> action_addedActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def action_enabled_changed(self) -> action_enabled_changedActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def action_removed(self) -> action_removedActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def action_state_changed(self) -> action_state_changedActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def activate_action(self) -> activate_actionActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def change_action_state(self) -> change_action_stateActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_action_enabled(self) -> get_action_enabledActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def get_action_parameter_type(self) -> get_action_parameter_typeActionGroupInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_action_state(self) -> get_action_stateActionGroupInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_action_state_hint(self) -> get_action_state_hintActionGroupInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_action_state_type(self) -> get_action_state_typeActionGroupInterfaceCB | None: ...
-    @property
+    @builtins.property
     def has_action(self) -> has_actionActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def list_actions(self) -> list_actionsActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def query_action(self) -> query_actionActionGroupInterfaceCB: ...
 
     # gi Methods
@@ -5250,27 +5250,25 @@ class ActionGroupInterface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ActionInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateActionInterfaceCB: ...
-    @property
+    @builtins.property
     def change_state(self) -> change_stateActionInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_enabled(self) -> get_enabledActionInterfaceCB: ...
-    @property
+    @builtins.property
     def get_name(self) -> get_nameActionInterfaceCB: ...
-    @property
+    @builtins.property
     def get_parameter_type(self) -> get_parameter_typeActionInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_state(self) -> get_stateActionInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_state_hint(self) -> get_state_hintActionInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_state_type(self) -> get_state_typeActionInterfaceCB | None: ...
 
     # gi Methods
@@ -5278,8 +5276,6 @@ class ActionInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ActionMap(GObject.GInterface):
     # gi Methods
@@ -5293,17 +5289,15 @@ class ActionMap(GObject.GInterface):
     def remove_action(self, action_name: str) -> None: ...
     def remove_action_entries(self, entries: list, n_entries: int) -> None: ...
 
-    ...
-
 class ActionMapInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_action(self) -> add_actionActionMapInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def lookup_action(self) -> lookup_actionActionMapInterfaceCB | None: ...
-    @property
+    @builtins.property
     def remove_action(self) -> remove_actionActionMapInterfaceCB: ...
 
     # gi Methods
@@ -5311,8 +5305,6 @@ class ActionMapInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AppInfo(GObject.GInterface):
     # gi Methods
@@ -5402,61 +5394,59 @@ class AppInfo(GObject.GInterface):
     def supports_files(self) -> bool: ...
     def supports_uris(self) -> bool: ...
 
-    ...
-
 class AppInfoIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_supports_type(self) -> add_supports_typeAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def can_delete(self) -> can_deleteAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def can_remove_supports_type(self) -> can_remove_supports_typeAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def do_delete(self) -> do_deleteAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def dup(self) -> dupAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def equal(self) -> equalAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_commandline(self) -> get_commandlineAppInfoIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_description(self) -> get_descriptionAppInfoIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_display_name(self) -> get_display_nameAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def get_executable(self) -> get_executableAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def get_icon(self) -> get_iconAppInfoIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_id(self) -> get_idAppInfoIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_name(self) -> get_nameAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def get_supported_types(self) -> get_supported_typesAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def launch(self) -> launchAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def launch_uris(self) -> launch_urisAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def launch_uris_async(self) -> launch_uris_asyncAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def launch_uris_finish(self) -> launch_uris_finishAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def remove_supports_type(self) -> remove_supports_typeAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def set_as_default_for_extension(self) -> set_as_default_for_extensionAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def set_as_default_for_type(self) -> set_as_default_for_typeAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def set_as_last_used_for_type(self) -> set_as_last_used_for_typeAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def should_show(self) -> should_showAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def supports_files(self) -> supports_filesAppInfoIfaceCB: ...
-    @property
+    @builtins.property
     def supports_uris(self) -> supports_urisAppInfoIfaceCB: ...
 
     # gi Methods
@@ -5464,8 +5454,6 @@ class AppInfoIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AppInfoMonitor(GObject.Object):
     """
@@ -5527,7 +5515,6 @@ class AppInfoMonitor(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AppLaunchContext(GObject.Object):
     """
@@ -5617,21 +5604,20 @@ class AppLaunchContext(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AppLaunchContextClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_display(self) -> get_displayAppLaunchContextClassCB | None: ...
-    @property
+    @builtins.property
     def get_startup_notify_id(self) -> get_startup_notify_idAppLaunchContextClassCB | None: ...
-    @property
+    @builtins.property
     def launch_failed(self) -> launch_failedAppLaunchContextClassCB: ...
-    @property
+    @builtins.property
     def launch_started(self) -> launch_startedAppLaunchContextClassCB: ...
-    @property
+    @builtins.property
     def launched(self) -> launchedAppLaunchContextClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -5640,16 +5626,12 @@ class AppLaunchContextClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AppLaunchContextPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Application(GObject.Object):
     """
@@ -5789,6 +5771,9 @@ class Application(GObject.Object):
         resource_base_path: str  # [resource-base-path]: changed because contained invalid characters
         version: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def activate(self) -> None: ...
     def add_main_option(
@@ -5803,25 +5788,25 @@ class Application(GObject.Object):
     def add_main_option_entries(self, entries: list) -> None: ...
     def add_option_group(self, group: GLib.OptionGroup) -> None: ...
     def bind_busy_property(self, object: GObject.Object, property: str) -> None: ...
-    @property
+    @builtins.property
     def get_application_id(self) -> str | None: ...
     def get_dbus_connection(self) -> DBusConnection | None: ...
     def get_dbus_object_path(self) -> str | None: ...
     @staticmethod
     def get_default() -> Application | None: ...
-    @property
+    @builtins.property
     def get_flags(self) -> ApplicationFlags: ...
-    @property
+    @builtins.property
     def get_inactivity_timeout(self) -> int: ...
-    @property
+    @builtins.property
     def get_is_busy(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_registered(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_remote(self) -> bool: ...
-    @property
+    @builtins.property
     def get_resource_base_path(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_version(self) -> str | None: ...
     def hold(self) -> None: ...
     @staticmethod
@@ -5984,43 +5969,42 @@ class Application(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ApplicationClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate(self) -> activateApplicationClassCB: ...
-    @property
+    @builtins.property
     def add_platform_data(self) -> add_platform_dataApplicationClassCB: ...
-    @property
+    @builtins.property
     def after_emit(self) -> after_emitApplicationClassCB: ...
-    @property
+    @builtins.property
     def before_emit(self) -> before_emitApplicationClassCB: ...
-    @property
+    @builtins.property
     def command_line(self) -> command_lineApplicationClassCB: ...
-    @property
+    @builtins.property
     def dbus_register(self) -> dbus_registerApplicationClassCB: ...
-    @property
+    @builtins.property
     def dbus_unregister(self) -> dbus_unregisterApplicationClassCB: ...
-    @property
+    @builtins.property
     def handle_local_options(self) -> handle_local_optionsApplicationClassCB: ...
-    @property
+    @builtins.property
     def local_command_line(self) -> local_command_lineApplicationClassCB: ...
-    @property
+    @builtins.property
     def name_lost(self) -> name_lostApplicationClassCB: ...
-    @property
+    @builtins.property
     def open(self) -> openApplicationClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def quit_mainloop(self) -> quit_mainloopApplicationClassCB: ...
-    @property
+    @builtins.property
     def run_mainloop(self) -> run_mainloopApplicationClassCB: ...
-    @property
+    @builtins.property
     def shutdown(self) -> shutdownApplicationClassCB: ...
-    @property
+    @builtins.property
     def startup(self) -> startupApplicationClassCB: ...
 
     # gi Methods
@@ -6028,8 +6012,6 @@ class ApplicationClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ApplicationCommandLine(GObject.Object):
     """
@@ -6209,6 +6191,9 @@ class ApplicationCommandLine(GObject.Object):
         options: GLib.Variant | None
         platform_data: GLib.Variant | None  # [platform-data]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -6225,7 +6210,7 @@ class ApplicationCommandLine(GObject.Object):
     def get_cwd(self) -> str | None: ...
     def get_environ(self) -> list: ...
     def get_exit_status(self) -> int: ...
-    @property
+    @builtins.property
     def get_is_remote(self) -> bool: ...
     def get_options_dict(self) -> GLib.VariantDict: ...
     def get_platform_data(self) -> GLib.Variant | None: ...
@@ -6296,21 +6281,20 @@ class ApplicationCommandLine(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ApplicationCommandLineClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def done(self) -> doneApplicationCommandLineClassCB: ...
-    @property
+    @builtins.property
     def get_stdin(self) -> get_stdinApplicationCommandLineClassCB | None: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def print_literal(self) -> print_literalApplicationCommandLineClassCB: ...
-    @property
+    @builtins.property
     def printerr_literal(self) -> printerr_literalApplicationCommandLineClassCB: ...
 
     # gi Methods
@@ -6319,8 +6303,6 @@ class ApplicationCommandLineClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ApplicationCommandLinePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -6328,16 +6310,12 @@ class ApplicationCommandLinePrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ApplicationPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AsyncInitable(GObject.GInterface):
     # gi Methods
@@ -6366,15 +6344,13 @@ class AsyncInitable(GObject.GInterface):
         user_data: object | None = None,
     ) -> None: ...
 
-    ...
-
 class AsyncInitableIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def init_async(self) -> init_asyncAsyncInitableIfaceCB: ...
-    @property
+    @builtins.property
     def init_finish(self) -> init_finishAsyncInitableIfaceCB: ...
 
     # gi Methods
@@ -6382,8 +6358,6 @@ class AsyncInitableIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AsyncResult(GObject.GInterface):
     # gi Methods
@@ -6396,17 +6370,15 @@ class AsyncResult(GObject.GInterface):
     def is_tagged(self, source_tag: object | None = None) -> bool: ...
     def legacy_propagate_error(self) -> bool: ...
 
-    ...
-
 class AsyncResultIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_source_object(self) -> get_source_objectAsyncResultIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_user_data(self) -> get_user_dataAsyncResultIfaceCB | None: ...
-    @property
+    @builtins.property
     def is_tagged(self) -> is_taggedAsyncResultIfaceCB: ...
 
     # gi Methods
@@ -6414,8 +6386,6 @@ class AsyncResultIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BufferedInputStream(FilterInputStream):
     """
@@ -6437,6 +6407,9 @@ class BufferedInputStream(FilterInputStream):
     class Props(FilterInputStream.Props):
         buffer_size: int  # [buffer-size]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, buffer_size: int = ...) -> None:
         """
@@ -6453,7 +6426,7 @@ class BufferedInputStream(FilterInputStream):
     ) -> None: ...
     def fill_finish(self, result: AsyncResult) -> int: ...
     def get_available(self) -> int: ...
-    @property
+    @builtins.property
     def get_buffer_size(self) -> int: ...
     @classmethod
     def new(cls, base_stream: InputStream) -> InputStream: ...
@@ -6504,17 +6477,16 @@ class BufferedInputStream(FilterInputStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BufferedInputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def fill(self) -> fillBufferedInputStreamClassCB: ...
-    @property
+    @builtins.property
     def fill_async(self) -> fill_asyncBufferedInputStreamClassCB: ...
-    @property
+    @builtins.property
     def fill_finish(self) -> fill_finishBufferedInputStreamClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> FilterInputStreamClass | None: ...
 
     # gi Methods
@@ -6523,16 +6495,12 @@ class BufferedInputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BufferedInputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BufferedOutputStream(FilterOutputStream):
     """
@@ -6555,14 +6523,17 @@ class BufferedOutputStream(FilterOutputStream):
         auto_grow: bool  # [auto-grow]: changed because contained invalid characters
         buffer_size: int  # [buffer-size]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, auto_grow: bool = ..., buffer_size: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_auto_grow(self) -> bool: ...
-    @property
+    @builtins.property
     def get_buffer_size(self) -> int: ...
     @classmethod
     def new(cls, base_stream: OutputStream) -> OutputStream: ...
@@ -6590,11 +6561,10 @@ class BufferedOutputStream(FilterOutputStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BufferedOutputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> FilterOutputStreamClass | None: ...
 
     # gi Methods
@@ -6603,16 +6573,12 @@ class BufferedOutputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BufferedOutputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BytesIcon(GObject.Object):
     """
@@ -6623,12 +6589,15 @@ class BytesIcon(GObject.Object):
     class Props(GObject.Object.Props):
         bytes: GLib.Bytes | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, bytes: GLib.Bytes | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_bytes(self) -> GLib.Bytes: ...
     @classmethod
     def new(cls, bytes: GLib.Bytes) -> BytesIcon: ...
@@ -6645,7 +6614,6 @@ class BytesIcon(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Cancellable(GObject.Object):
     """
@@ -6694,13 +6662,11 @@ class Cancellable(GObject.Object):
         cancelled(self)
         """
 
-    ...
-
 class CancellableClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def cancelled(self) -> cancelledCancellableClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -6709,16 +6675,12 @@ class CancellableClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class CancellablePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CharsetConverter(GObject.Object):
     """
@@ -6731,13 +6693,16 @@ class CharsetConverter(GObject.Object):
         to_charset: str  # [to-charset]: changed because contained invalid characters
         use_fallback: bool  # [use-fallback]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, from_charset: str = ..., to_charset: str = ..., use_fallback: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def get_num_fallbacks(self) -> int: ...
-    @property
+    @builtins.property
     def get_use_fallback(self) -> bool: ...
     @classmethod
     def new(cls, to_charset: str, from_charset: str) -> CharsetConverter: ...
@@ -6769,11 +6734,10 @@ class CharsetConverter(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class CharsetConverterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -6781,8 +6745,6 @@ class CharsetConverterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Converter(GObject.GInterface):
     # gi Methods
@@ -6796,15 +6758,13 @@ class Converter(GObject.GInterface):
     def convert_bytes(self, bytes: GLib.Bytes) -> GLib.Bytes: ...
     def reset(self) -> None: ...
 
-    ...
-
 class ConverterIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def convert(self) -> convertConverterIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def reset(self) -> resetConverterIfaceCB: ...
 
     # gi Methods
@@ -6812,8 +6772,6 @@ class ConverterIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ConverterInputStream(FilterInputStream):
     """
@@ -6827,12 +6785,15 @@ class ConverterInputStream(FilterInputStream):
     class Props(FilterInputStream.Props):
         converter: Converter | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, converter: Converter | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_converter(self) -> Converter: ...
     @classmethod
     def new(cls, base_stream: InputStream, converter: Converter) -> InputStream: ...
@@ -6849,11 +6810,10 @@ class ConverterInputStream(FilterInputStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ConverterInputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> FilterInputStreamClass | None: ...
 
     # gi Methods
@@ -6862,16 +6822,12 @@ class ConverterInputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ConverterInputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ConverterOutputStream(FilterOutputStream):
     """
@@ -6885,12 +6841,15 @@ class ConverterOutputStream(FilterOutputStream):
     class Props(FilterOutputStream.Props):
         converter: Converter | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, converter: Converter | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_converter(self) -> Converter: ...
     @classmethod
     def new(cls, base_stream: OutputStream, converter: Converter) -> OutputStream: ...
@@ -6907,11 +6866,10 @@ class ConverterOutputStream(FilterOutputStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ConverterOutputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> FilterOutputStreamClass | None: ...
 
     # gi Methods
@@ -6920,16 +6878,12 @@ class ConverterOutputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ConverterOutputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Credentials(GObject.Object):
     """
@@ -6984,16 +6938,12 @@ class Credentials(GObject.Object):
     def set_unix_user(self, uid: int) -> bool: ...
     def to_string(self) -> str: ...
 
-    ...
-
 class CredentialsClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DBusActionGroup(GObject.Object):
     """
@@ -7012,8 +6962,6 @@ class DBusActionGroup(GObject.Object):
     @staticmethod
     def get(connection: DBusConnection, bus_name: str | None, object_path: str) -> DBusActionGroup: ...
 
-    ...
-
 class DBusAnnotationInfo(GObject.GBoxed):
     # gi Methods
     @staticmethod
@@ -7028,8 +6976,6 @@ class DBusAnnotationInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class DBusArgInfo(GObject.GBoxed):
     # gi Methods
     def ref(self) -> DBusArgInfo: ...
@@ -7041,8 +6987,6 @@ class DBusArgInfo(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class DBusAuthObserver(GObject.Object):
     """
@@ -7140,7 +7084,6 @@ class DBusAuthObserver(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusConnection(GObject.Object):
     """
@@ -7210,6 +7153,9 @@ class DBusConnection(GObject.Object):
         guid: str
         stream: IOStream | None
         unique_name: str  # [unique-name]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -7312,21 +7258,21 @@ class DBusConnection(GObject.Object):
     ) -> None: ...
     def flush_finish(self, res: AsyncResult) -> bool: ...
     def flush_sync(self, cancellable: Cancellable | None = None) -> bool: ...
-    @property
+    @builtins.property
     def get_capabilities(self) -> DBusCapabilityFlags: ...
-    @property
+    @builtins.property
     def get_exit_on_close(self) -> bool: ...
-    @property
+    @builtins.property
     def get_flags(self) -> DBusConnectionFlags: ...
-    @property
+    @builtins.property
     def get_guid(self) -> str: ...
     def get_last_serial(self) -> int: ...
     def get_peer_credentials(self) -> Credentials | None: ...
-    @property
+    @builtins.property
     def get_stream(self) -> IOStream: ...
-    @property
+    @builtins.property
     def get_unique_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def is_closed(self) -> bool: ...
     @staticmethod
     async def new(
@@ -7507,7 +7453,6 @@ class DBusConnection(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusErrorEntry(GObject.GPointer):
     # gi Fields
@@ -7520,8 +7465,6 @@ class DBusErrorEntry(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DBusInterface(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -7532,19 +7475,17 @@ class DBusInterface(GObject.GInterface):
     def get_object(self) -> DBusObject | None: ...
     def set_object(self, object: DBusObject | None = None) -> None: ...
 
-    ...
-
 class DBusInterfaceIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def dup_object(self) -> dup_objectDBusInterfaceIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_info(self) -> get_infoDBusInterfaceIfaceCB: ...
-    @property
+    @builtins.property
     def get_object(self) -> get_objectDBusInterfaceIfaceCB | None: ...
-    @property
+    @builtins.property
     def parent_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def set_object(self) -> set_objectDBusInterfaceIfaceCB: ...
 
     # gi Methods
@@ -7552,8 +7493,6 @@ class DBusInterfaceIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DBusInterfaceInfo(GObject.GBoxed):
     # gi Methods
@@ -7573,8 +7512,6 @@ class DBusInterfaceInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class DBusInterfaceSkeleton(GObject.Object):
     """
     Abstract base class for D-Bus interfaces on the service side.
@@ -7582,6 +7519,9 @@ class DBusInterfaceSkeleton(GObject.Object):
 
     class Props(GObject.Object.Props):
         g_flags: DBusInterfaceSkeletonFlags  # [g-flags]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, g_flags: DBusInterfaceSkeletonFlags = ...) -> None:
@@ -7654,25 +7594,24 @@ class DBusInterfaceSkeleton(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusInterfaceSkeletonClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def flush(self) -> flushDBusInterfaceSkeletonClassCB: ...
-    @property
+    @builtins.property
     def g_authorize_method(self) -> g_authorize_methodDBusInterfaceSkeletonClassCB: ...
-    @property
+    @builtins.property
     def get_info(self) -> get_infoDBusInterfaceSkeletonClassCB: ...
-    @property
+    @builtins.property
     def get_properties(self) -> get_propertiesDBusInterfaceSkeletonClassCB: ...
-    @property
+    @builtins.property
     def get_vtable(self) -> get_vtableDBusInterfaceSkeletonClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def signal_padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def vfunc_padding(self) -> list | None: ...
 
     # gi Methods
@@ -7681,8 +7620,6 @@ class DBusInterfaceSkeletonClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DBusInterfaceSkeletonPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -7690,13 +7627,11 @@ class DBusInterfaceSkeletonPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DBusInterfaceVTable(GObject.GPointer):
     # gi Fields
     get_property: DBusInterfaceGetPropertyFuncDBusInterfaceVTableCB = ...
     method_call: DBusInterfaceMethodCallFuncDBusInterfaceVTableCB = ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
     set_property: DBusInterfaceSetPropertyFuncDBusInterfaceVTableCB = ...
 
@@ -7705,8 +7640,6 @@ class DBusInterfaceVTable(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DBusMenuModel(MenuModel):
     """
@@ -7723,8 +7656,6 @@ class DBusMenuModel(MenuModel):
     @staticmethod
     def get(connection: DBusConnection, bus_name: str | None, object_path: str) -> DBusMenuModel: ...
 
-    ...
-
 class DBusMessage(GObject.Object):
     """
     A type for representing D-Bus messages that can be sent or received
@@ -7733,6 +7664,9 @@ class DBusMessage(GObject.Object):
 
     class Props(GObject.Object.Props):
         locked: bool
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -7752,7 +7686,7 @@ class DBusMessage(GObject.Object):
     def get_header(self, header_field: DBusMessageHeaderField) -> GLib.Variant | None: ...
     def get_header_fields(self) -> list: ...
     def get_interface(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_locked(self) -> bool: ...
     def get_member(self) -> str | None: ...
     def get_message_type(self) -> DBusMessageType: ...
@@ -7806,7 +7740,6 @@ class DBusMessage(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusMethodInfo(GObject.GBoxed):
     # gi Methods
@@ -7819,8 +7752,6 @@ class DBusMethodInfo(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class DBusMethodInvocation(GObject.Object):
     """
@@ -7856,8 +7787,6 @@ class DBusMethodInvocation(GObject.Object):
         self, parameters: GLib.Variant | None = None, fd_list: UnixFDList | None = None
     ) -> None: ...
 
-    ...
-
 class DBusNodeInfo(GObject.GBoxed):
     # gi Methods
     def generate_xml(self, indent: int, string_builder: GLib.String) -> None: ...
@@ -7873,8 +7802,6 @@ class DBusNodeInfo(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class DBusObject(GObject.GInterface):
     # gi Methods
@@ -7905,21 +7832,20 @@ class DBusObject(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusObjectIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_interface(self) -> get_interfaceDBusObjectIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_interfaces(self) -> get_interfacesDBusObjectIfaceCB: ...
-    @property
+    @builtins.property
     def get_object_path(self) -> get_object_pathDBusObjectIfaceCB: ...
-    @property
+    @builtins.property
     def interface_added(self) -> interface_addedDBusObjectIfaceCB: ...
-    @property
+    @builtins.property
     def interface_removed(self) -> interface_removedDBusObjectIfaceCB: ...
-    @property
+    @builtins.property
     def parent_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -7927,8 +7853,6 @@ class DBusObjectIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DBusObjectManager(GObject.GInterface):
     # gi Methods
@@ -7974,7 +7898,6 @@ class DBusObjectManager(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusObjectManagerClient(GObject.Object):
     """
@@ -8073,6 +7996,9 @@ class DBusObjectManagerClient(GObject.Object):
         name_owner: str  # [name-owner]: changed because contained invalid characters
         object_path: str  # [object-path]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -8088,13 +8014,13 @@ class DBusObjectManagerClient(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_connection(self) -> DBusConnection: ...
-    @property
+    @builtins.property
     def get_flags(self) -> DBusObjectManagerClientFlags: ...
-    @property
+    @builtins.property
     def get_name(self) -> str: ...
-    @property
+    @builtins.property
     def get_name_owner(self) -> str | None: ...
     @staticmethod
     async def new(
@@ -8256,19 +8182,18 @@ class DBusObjectManagerClient(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusObjectManagerClientClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def interface_proxy_properties_changed(
         self,
     ) -> interface_proxy_properties_changedDBusObjectManagerClientClassCB: ...
-    @property
+    @builtins.property
     def interface_proxy_signal(self) -> interface_proxy_signalDBusObjectManagerClientClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -8277,8 +8202,6 @@ class DBusObjectManagerClientClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DBusObjectManagerClientPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -8286,27 +8209,25 @@ class DBusObjectManagerClientPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DBusObjectManagerIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_interface(self) -> get_interfaceDBusObjectManagerIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_object(self) -> get_objectDBusObjectManagerIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_object_path(self) -> get_object_pathDBusObjectManagerIfaceCB: ...
-    @property
+    @builtins.property
     def get_objects(self) -> get_objectsDBusObjectManagerIfaceCB: ...
-    @property
+    @builtins.property
     def interface_added(self) -> interface_addedDBusObjectManagerIfaceCB: ...
-    @property
+    @builtins.property
     def interface_removed(self) -> interface_removedDBusObjectManagerIfaceCB: ...
-    @property
+    @builtins.property
     def object_added(self) -> object_addedDBusObjectManagerIfaceCB: ...
-    @property
+    @builtins.property
     def object_removed(self) -> object_removedDBusObjectManagerIfaceCB: ...
-    @property
+    @builtins.property
     def parent_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -8314,8 +8235,6 @@ class DBusObjectManagerIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DBusObjectManagerServer(GObject.Object):
     """
@@ -8346,6 +8265,9 @@ class DBusObjectManagerServer(GObject.Object):
         connection: DBusConnection | None
         object_path: str  # [object-path]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, connection: DBusConnection | None = ..., object_path: str = ...) -> None:
         """
@@ -8353,7 +8275,7 @@ class DBusObjectManagerServer(GObject.Object):
         """
     def export(self, object: DBusObjectSkeleton) -> None: ...
     def export_uniquely(self, object: DBusObjectSkeleton) -> None: ...
-    @property
+    @builtins.property
     def get_connection(self) -> DBusConnection | None: ...
     def is_exported(self, object: DBusObjectSkeleton) -> bool: ...
     @classmethod
@@ -8380,13 +8302,12 @@ class DBusObjectManagerServer(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusObjectManagerServerClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -8395,16 +8316,12 @@ class DBusObjectManagerServerClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DBusObjectManagerServerPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DBusObjectProxy(GObject.Object):
     """
@@ -8417,6 +8334,9 @@ class DBusObjectProxy(GObject.Object):
     class Props(GObject.Object.Props):
         g_connection: DBusConnection | None  # [g-connection]: changed because contained invalid characters
         g_object_path: str  # [g-object-path]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, g_connection: DBusConnection | None = ..., g_object_path: str = ...) -> None:
@@ -8446,13 +8366,12 @@ class DBusObjectProxy(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusObjectProxyClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -8461,16 +8380,12 @@ class DBusObjectProxyClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DBusObjectProxyPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DBusObjectSkeleton(GObject.Object):
     """
@@ -8483,6 +8398,9 @@ class DBusObjectSkeleton(GObject.Object):
 
     class Props(GObject.Object.Props):
         g_object_path: str  # [g-object-path]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, g_object_path: str = ...) -> None:
@@ -8526,15 +8444,14 @@ class DBusObjectSkeleton(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusObjectSkeletonClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def authorize_method(self) -> authorize_methodDBusObjectSkeletonClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -8543,16 +8460,12 @@ class DBusObjectSkeletonClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DBusObjectSkeletonPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DBusPropertyInfo(GObject.GBoxed):
     # gi Fields
@@ -8569,8 +8482,6 @@ class DBusPropertyInfo(GObject.GBoxed):
         """
     def ref(self) -> DBusPropertyInfo: ...
     def unref(self) -> None: ...
-
-    ...
 
 class DBusProxy(GObject.Object):
     """
@@ -8634,6 +8545,9 @@ class DBusProxy(GObject.Object):
         g_name: str  # [g-name]: changed because contained invalid characters
         g_name_owner: str  # [g-name-owner]: changed because contained invalid characters
         g_object_path: str  # [g-object-path]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -8836,17 +8750,16 @@ class DBusProxy(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusProxyClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_properties_changed(self) -> g_properties_changedDBusProxyClassCB: ...
-    @property
+    @builtins.property
     def g_signal(self) -> g_signalDBusProxyClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -8855,16 +8768,12 @@ class DBusProxyClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DBusProxyPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DBusServer(GObject.Object):
     """
@@ -8900,6 +8809,9 @@ class DBusServer(GObject.Object):
         flags: DBusServerFlags
         guid: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -8911,13 +8823,13 @@ class DBusServer(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_client_address(self) -> str: ...
-    @property
+    @builtins.property
     def get_flags(self) -> DBusServerFlags: ...
-    @property
+    @builtins.property
     def get_guid(self) -> str: ...
-    @property
+    @builtins.property
     def is_active(self) -> bool: ...
     @classmethod
     def new_sync(
@@ -8985,7 +8897,6 @@ class DBusServer(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DBusSignalInfo(GObject.GBoxed):
     # gi Methods
@@ -8999,14 +8910,12 @@ class DBusSignalInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class DBusSubtreeVTable(GObject.GPointer):
     # gi Fields
     dispatch: DBusSubtreeDispatchFuncDBusSubtreeVTableCB | None = ...
     enumerate: DBusSubtreeEnumerateFuncDBusSubtreeVTableCB = ...
     introspect: DBusSubtreeIntrospectFuncDBusSubtreeVTableCB | None = ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
 
     # gi Methods
@@ -9014,8 +8923,6 @@ class DBusSubtreeVTable(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DataInputStream(BufferedInputStream):
     """
@@ -9027,14 +8934,17 @@ class DataInputStream(BufferedInputStream):
         byte_order: DataStreamByteOrder  # [byte-order]: changed because contained invalid characters
         newline_type: DataStreamNewlineType  # [newline-type]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, byte_order: DataStreamByteOrder = ..., newline_type: DataStreamNewlineType = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_byte_order(self) -> DataStreamByteOrder: ...
-    @property
+    @builtins.property
     def get_newline_type(self) -> DataStreamNewlineType: ...
     @classmethod
     def new(cls, base_stream: InputStream) -> DataInputStream: ...
@@ -9104,11 +9014,10 @@ class DataInputStream(BufferedInputStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DataInputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> BufferedInputStreamClass | None: ...
 
     # gi Methods
@@ -9117,16 +9026,12 @@ class DataInputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DataInputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DataOutputStream(FilterOutputStream):
     """
@@ -9137,12 +9042,15 @@ class DataOutputStream(FilterOutputStream):
     class Props(FilterOutputStream.Props):
         byte_order: DataStreamByteOrder  # [byte-order]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, byte_order: DataStreamByteOrder = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_byte_order(self) -> DataStreamByteOrder: ...
     @classmethod
     def new(cls, base_stream: OutputStream) -> DataOutputStream: ...
@@ -9168,11 +9076,10 @@ class DataOutputStream(FilterOutputStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DataOutputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> FilterOutputStreamClass | None: ...
 
     # gi Methods
@@ -9181,16 +9088,12 @@ class DataOutputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DataOutputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DatagramBased(GObject.GInterface):
     # gi Methods
@@ -9210,21 +9113,19 @@ class DatagramBased(GObject.GInterface):
         self, messages: list, num_messages: int, flags: int, timeout: int, cancellable: Cancellable | None = None
     ) -> int: ...
 
-    ...
-
 class DatagramBasedInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def condition_check(self) -> condition_checkDatagramBasedInterfaceCB: ...
-    @property
+    @builtins.property
     def condition_wait(self) -> condition_waitDatagramBasedInterfaceCB: ...
-    @property
+    @builtins.property
     def create_source(self) -> create_sourceDatagramBasedInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def receive_messages(self) -> receive_messagesDatagramBasedInterfaceCB: ...
-    @property
+    @builtins.property
     def send_messages(self) -> send_messagesDatagramBasedInterfaceCB: ...
 
     # gi Methods
@@ -9233,18 +9134,19 @@ class DatagramBasedInterface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DebugController(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         debug_enabled: bool  # [debug-enabled]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, debug_enabled: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_debug_enabled(self) -> bool: ...
     def set_debug_enabled(self, debug_enabled: bool) -> None: ...
 
@@ -9260,7 +9162,6 @@ class DebugController(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DebugControllerDBus(GObject.Object):
     """
@@ -9379,6 +9280,9 @@ class DebugControllerDBus(GObject.Object):
     class Props(GObject.Object.Props):
         connection: DBusConnection | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, connection: DBusConnection | None = ...) -> None:
         """
@@ -9416,15 +9320,14 @@ class DebugControllerDBus(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DebugControllerDBusClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def authorize(self) -> authorizeDebugControllerDBusClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -9433,11 +9336,9 @@ class DebugControllerDBusClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DebugControllerInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -9445,8 +9346,6 @@ class DebugControllerInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DesktopAppInfo(GObject.Object):
     """
@@ -9461,6 +9360,9 @@ class DesktopAppInfo(GObject.Object):
     class Props(GObject.Object.Props):
         filename: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, filename: str = ...) -> None:
         """
@@ -9469,7 +9371,7 @@ class DesktopAppInfo(GObject.Object):
     def get_action_name(self, action_name: str) -> str: ...
     def get_boolean(self, key: str) -> bool: ...
     def get_categories(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_filename(self) -> str | None: ...
     def get_generic_name(self) -> str | None: ...
     @staticmethod
@@ -9532,11 +9434,10 @@ class DesktopAppInfo(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DesktopAppInfoClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -9544,8 +9445,6 @@ class DesktopAppInfoClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DesktopAppInfoLookup(GObject.GInterface):
     # gi Methods
@@ -9556,13 +9455,11 @@ class DesktopAppInfoLookup(GObject.GInterface):
     @deprecated("deprecated")
     def get_default_for_uri_scheme(self, uri_scheme: str) -> AppInfo | None: ...
 
-    ...
-
 class DesktopAppInfoLookupIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_default_for_uri_scheme(self) -> get_default_for_uri_schemeDesktopAppInfoLookupIfaceCB | None: ...
 
     # gi Methods
@@ -9570,8 +9467,6 @@ class DesktopAppInfoLookupIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Drive(GObject.GInterface):
     # gi Methods
@@ -9663,75 +9558,74 @@ class Drive(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DriveIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_eject(self) -> can_ejectDriveIfaceCB: ...
-    @property
+    @builtins.property
     def can_poll_for_media(self) -> can_poll_for_mediaDriveIfaceCB: ...
-    @property
+    @builtins.property
     def can_start(self) -> can_startDriveIfaceCB: ...
-    @property
+    @builtins.property
     def can_start_degraded(self) -> can_start_degradedDriveIfaceCB: ...
-    @property
+    @builtins.property
     def can_stop(self) -> can_stopDriveIfaceCB: ...
-    @property
+    @builtins.property
     def changed(self) -> changedDriveIfaceCB: ...
-    @property
+    @builtins.property
     def disconnected(self) -> disconnectedDriveIfaceCB: ...
-    @property
+    @builtins.property
     def eject(self) -> ejectDriveIfaceCB: ...
-    @property
+    @builtins.property
     def eject_button(self) -> eject_buttonDriveIfaceCB: ...
-    @property
+    @builtins.property
     def eject_finish(self) -> eject_finishDriveIfaceCB: ...
-    @property
+    @builtins.property
     def eject_with_operation(self) -> eject_with_operationDriveIfaceCB: ...
-    @property
+    @builtins.property
     def eject_with_operation_finish(self) -> eject_with_operation_finishDriveIfaceCB: ...
-    @property
+    @builtins.property
     def enumerate_identifiers(self) -> enumerate_identifiersDriveIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_icon(self) -> get_iconDriveIfaceCB: ...
-    @property
+    @builtins.property
     def get_identifier(self) -> get_identifierDriveIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_name(self) -> get_nameDriveIfaceCB: ...
-    @property
+    @builtins.property
     def get_sort_key(self) -> get_sort_keyDriveIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_start_stop_type(self) -> get_start_stop_typeDriveIfaceCB: ...
-    @property
+    @builtins.property
     def get_symbolic_icon(self) -> get_symbolic_iconDriveIfaceCB: ...
-    @property
+    @builtins.property
     def get_volumes(self) -> get_volumesDriveIfaceCB: ...
-    @property
+    @builtins.property
     def has_media(self) -> has_mediaDriveIfaceCB: ...
-    @property
+    @builtins.property
     def has_volumes(self) -> has_volumesDriveIfaceCB: ...
-    @property
+    @builtins.property
     def is_media_check_automatic(self) -> is_media_check_automaticDriveIfaceCB: ...
-    @property
+    @builtins.property
     def is_media_removable(self) -> is_media_removableDriveIfaceCB: ...
-    @property
+    @builtins.property
     def is_removable(self) -> is_removableDriveIfaceCB: ...
-    @property
+    @builtins.property
     def poll_for_media(self) -> poll_for_mediaDriveIfaceCB: ...
-    @property
+    @builtins.property
     def poll_for_media_finish(self) -> poll_for_media_finishDriveIfaceCB: ...
-    @property
+    @builtins.property
     def start(self) -> startDriveIfaceCB: ...
-    @property
+    @builtins.property
     def start_finish(self) -> start_finishDriveIfaceCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopDriveIfaceCB: ...
-    @property
+    @builtins.property
     def stop_button(self) -> stop_buttonDriveIfaceCB: ...
-    @property
+    @builtins.property
     def stop_finish(self) -> stop_finishDriveIfaceCB: ...
 
     # gi Methods
@@ -9740,13 +9634,14 @@ class DriveIface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DtlsClientConnection(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         accepted_cas: list | None  # [accepted-cas]: changed because contained invalid characters
         server_identity: SocketConnectable | None  # [server-identity]: changed because contained invalid characters
         validation_flags: TlsCertificateFlags  # [validation-flags]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -9755,12 +9650,12 @@ class DtlsClientConnection(GObject.GInterface):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_accepted_cas(self) -> list: ...
-    @property
+    @builtins.property
     def get_server_identity(self) -> SocketConnectable: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_validation_flags(self) -> TlsCertificateFlags: ...
     @staticmethod
     def new(base_socket: DatagramBased, server_identity: SocketConnectable | None = None) -> DtlsClientConnection: ...
@@ -9794,11 +9689,10 @@ class DtlsClientConnection(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DtlsClientConnectionInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -9806,8 +9700,6 @@ class DtlsClientConnectionInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DtlsConnection(GObject.GInterface):
     class Props(GObject.GInterface.Props):
@@ -9825,6 +9717,9 @@ class DtlsConnection(GObject.GInterface):
         protocol_version: TlsProtocolVersion  # [protocol-version]: changed because contained invalid characters
         rehandshake_mode: TlsRehandshakeMode  # [rehandshake-mode]: changed because contained invalid characters
         require_close_notify: bool  # [require-close-notify]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -9850,27 +9745,27 @@ class DtlsConnection(GObject.GInterface):
     ) -> None: ...
     def close_finish(self, result: AsyncResult) -> bool: ...
     def emit_accept_certificate(self, peer_cert: TlsCertificate, errors: TlsCertificateFlags) -> bool: ...
-    @property
+    @builtins.property
     def get_certificate(self) -> TlsCertificate | None: ...
     def get_channel_binding_data(self, type: TlsChannelBindingType) -> tuple[bool, list | None]: ...
-    @property
+    @builtins.property
     def get_ciphersuite_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_database(self) -> TlsDatabase | None: ...
-    @property
+    @builtins.property
     def get_interaction(self) -> TlsInteraction | None: ...
-    @property
+    @builtins.property
     def get_negotiated_protocol(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_peer_certificate(self) -> TlsCertificate | None: ...
-    @property
+    @builtins.property
     def get_peer_certificate_errors(self) -> TlsCertificateFlags: ...
-    @property
+    @builtins.property
     def get_protocol_version(self) -> TlsProtocolVersion: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_rehandshake_mode(self) -> TlsRehandshakeMode: ...
-    @property
+    @builtins.property
     def get_require_close_notify(self) -> bool: ...
     def handshake(self, cancellable: Cancellable | None = None) -> bool: ...
     async def handshake_async(
@@ -9996,31 +9891,30 @@ class DtlsConnection(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DtlsConnectionInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def accept_certificate(self) -> accept_certificateDtlsConnectionInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_binding_data(self) -> get_binding_dataDtlsConnectionInterfaceCB: ...
-    @property
+    @builtins.property
     def get_negotiated_protocol(self) -> get_negotiated_protocolDtlsConnectionInterfaceCB | None: ...
-    @property
+    @builtins.property
     def handshake(self) -> handshakeDtlsConnectionInterfaceCB: ...
-    @property
+    @builtins.property
     def handshake_async(self) -> handshake_asyncDtlsConnectionInterfaceCB: ...
-    @property
+    @builtins.property
     def handshake_finish(self) -> handshake_finishDtlsConnectionInterfaceCB: ...
-    @property
+    @builtins.property
     def set_advertised_protocols(self) -> set_advertised_protocolsDtlsConnectionInterfaceCB: ...
-    @property
+    @builtins.property
     def shutdown(self) -> shutdownDtlsConnectionInterfaceCB: ...
-    @property
+    @builtins.property
     def shutdown_async(self) -> shutdown_asyncDtlsConnectionInterfaceCB: ...
-    @property
+    @builtins.property
     def shutdown_finish(self) -> shutdown_finishDtlsConnectionInterfaceCB: ...
 
     # gi Methods
@@ -10029,13 +9923,14 @@ class DtlsConnectionInterface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DtlsServerConnection(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         authentication_mode: (
             TlsAuthenticationMode  # [authentication-mode]: changed because contained invalid characters
         )
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, authentication_mode: TlsAuthenticationMode = ...) -> None:
@@ -10057,11 +9952,10 @@ class DtlsServerConnection(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DtlsServerConnectionInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -10069,8 +9963,6 @@ class DtlsServerConnectionInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Emblem(GObject.Object):
     """
@@ -10086,14 +9978,17 @@ class Emblem(GObject.Object):
         icon: GObject.Object | None
         origin: EmblemOrigin
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, icon: GObject.Object | None = ..., origin: EmblemOrigin = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_icon(self) -> Icon: ...
-    @property
+    @builtins.property
     def get_origin(self) -> EmblemOrigin: ...
     @classmethod
     def new(cls, icon: Icon) -> Emblem: ...
@@ -10119,7 +10014,6 @@ class Emblem(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EmblemClass(GObject.GPointer):
     # gi Methods
@@ -10127,8 +10021,6 @@ class EmblemClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EmblemedIcon(GObject.Object):
     """
@@ -10142,6 +10034,9 @@ class EmblemedIcon(GObject.Object):
 
     class Props(GObject.Object.Props):
         gicon: Icon | None
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, gicon: Icon | None = ...) -> None:
@@ -10167,11 +10062,10 @@ class EmblemedIcon(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class EmblemedIconClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -10180,16 +10074,12 @@ class EmblemedIconClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class EmblemedIconPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class File(GObject.GInterface):
     # gi Methods
@@ -10652,8 +10542,6 @@ class File(GObject.GInterface):
     ) -> None: ...
     def unmount_mountable_with_operation_finish(self, result: AsyncResult) -> bool: ...
 
-    ...
-
 class FileAttributeInfo(GObject.GPointer):
     # gi Fields
     flags: FileAttributeInfoFlags = ...
@@ -10665,8 +10553,6 @@ class FileAttributeInfo(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileAttributeInfoList(GObject.GBoxed):
     # gi Fields
@@ -10689,8 +10575,6 @@ class FileAttributeInfoList(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class FileAttributeMatcher(GObject.GBoxed):
     # gi Methods
     def enumerate_namespace(self, ns: str) -> bool: ...
@@ -10711,8 +10595,6 @@ class FileAttributeMatcher(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class FileDescriptorBased(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -10721,13 +10603,11 @@ class FileDescriptorBased(GObject.GInterface):
         """
     def get_fd(self) -> int: ...
 
-    ...
-
 class FileDescriptorBasedIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_fd(self) -> get_fdFileDescriptorBasedIfaceCB: ...
 
     # gi Methods
@@ -10735,8 +10615,6 @@ class FileDescriptorBasedIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileEnumerator(GObject.Object):
     """
@@ -10770,6 +10648,9 @@ class FileEnumerator(GObject.Object):
 
     class Props(GObject.Object.Props):
         container: File | None
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, container: File | None = ...) -> None:
@@ -10814,23 +10695,22 @@ class FileEnumerator(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FileEnumeratorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close_async(self) -> close_asyncFileEnumeratorClassCB: ...
-    @property
+    @builtins.property
     def close_finish(self) -> close_finishFileEnumeratorClassCB: ...
-    @property
+    @builtins.property
     def close_fn(self) -> close_fnFileEnumeratorClassCB: ...
-    @property
+    @builtins.property
     def next_file(self) -> next_fileFileEnumeratorClassCB | None: ...
-    @property
+    @builtins.property
     def next_files_async(self) -> next_files_asyncFileEnumeratorClassCB: ...
-    @property
+    @builtins.property
     def next_files_finish(self) -> next_files_finishFileEnumeratorClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -10839,16 +10719,12 @@ class FileEnumeratorClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FileEnumeratorPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileIOStream(IOStream):
     """
@@ -10959,29 +10835,27 @@ class FileIOStream(IOStream):
         truncate_fn(self, size:int, cancellable:Gio.Cancellable=None) -> bool
         """
 
-    ...
-
 class FileIOStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_seek(self) -> can_seekFileIOStreamClassCB: ...
-    @property
+    @builtins.property
     def can_truncate(self) -> can_truncateFileIOStreamClassCB: ...
-    @property
+    @builtins.property
     def get_etag(self) -> get_etagFileIOStreamClassCB | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> IOStreamClass | None: ...
-    @property
+    @builtins.property
     def query_info(self) -> query_infoFileIOStreamClassCB: ...
-    @property
+    @builtins.property
     def query_info_async(self) -> query_info_asyncFileIOStreamClassCB: ...
-    @property
+    @builtins.property
     def query_info_finish(self) -> query_info_finishFileIOStreamClassCB: ...
-    @property
+    @builtins.property
     def seek(self) -> seekFileIOStreamClassCB: ...
-    @property
+    @builtins.property
     def tell(self) -> tellFileIOStreamClassCB: ...
-    @property
+    @builtins.property
     def truncate_fn(self) -> truncate_fnFileIOStreamClassCB: ...
 
     # gi Methods
@@ -10990,16 +10864,12 @@ class FileIOStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FileIOStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileIcon(GObject.Object):
     """
@@ -11012,12 +10882,15 @@ class FileIcon(GObject.Object):
     class Props(GObject.Object.Props):
         file: File | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, file: File | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_file(self) -> File: ...
     @classmethod
     def new(cls, file: File) -> FileIcon: ...
@@ -11034,7 +10907,6 @@ class FileIcon(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FileIconClass(GObject.GPointer):
     # gi Methods
@@ -11043,209 +10915,207 @@ class FileIconClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FileIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def append_to(self) -> append_toFileIfaceCB: ...
-    @property
+    @builtins.property
     def append_to_async(self) -> append_to_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def append_to_finish(self) -> append_to_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def copy(self) -> copyFileIfaceCB: ...
-    @property
+    @builtins.property
     def copy_async(self) -> copy_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def copy_finish(self) -> copy_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def create(self) -> createFileIfaceCB: ...
-    @property
+    @builtins.property
     def create_async(self) -> create_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def create_finish(self) -> create_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def create_readwrite(self) -> create_readwriteFileIfaceCB: ...
-    @property
+    @builtins.property
     def create_readwrite_async(self) -> create_readwrite_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def create_readwrite_finish(self) -> create_readwrite_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def delete_file(self) -> delete_fileFileIfaceCB: ...
-    @property
+    @builtins.property
     def delete_file_async(self) -> delete_file_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def delete_file_finish(self) -> delete_file_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def dup(self) -> dupFileIfaceCB: ...
-    @property
+    @builtins.property
     def eject_mountable(self) -> eject_mountableFileIfaceCB: ...
-    @property
+    @builtins.property
     def eject_mountable_finish(self) -> eject_mountable_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def eject_mountable_with_operation(self) -> eject_mountable_with_operationFileIfaceCB: ...
-    @property
+    @builtins.property
     def eject_mountable_with_operation_finish(self) -> eject_mountable_with_operation_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def enumerate_children(self) -> enumerate_childrenFileIfaceCB: ...
-    @property
+    @builtins.property
     def enumerate_children_async(self) -> enumerate_children_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def enumerate_children_finish(self) -> enumerate_children_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def equal(self) -> equalFileIfaceCB: ...
-    @property
+    @builtins.property
     def find_enclosing_mount(self) -> find_enclosing_mountFileIfaceCB: ...
-    @property
+    @builtins.property
     def find_enclosing_mount_async(self) -> find_enclosing_mount_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def find_enclosing_mount_finish(self) -> find_enclosing_mount_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_basename(self) -> get_basenameFileIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_child_for_display_name(self) -> get_child_for_display_nameFileIfaceCB: ...
-    @property
+    @builtins.property
     def get_parent(self) -> get_parentFileIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_parse_name(self) -> get_parse_nameFileIfaceCB: ...
-    @property
+    @builtins.property
     def get_path(self) -> get_pathFileIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_relative_path(self) -> get_relative_pathFileIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_uri(self) -> get_uriFileIfaceCB: ...
-    @property
+    @builtins.property
     def get_uri_scheme(self) -> get_uri_schemeFileIfaceCB | None: ...
-    @property
+    @builtins.property
     def has_uri_scheme(self) -> has_uri_schemeFileIfaceCB: ...
-    @property
+    @builtins.property
     def hash(self) -> hashFileIfaceCB: ...
-    @property
+    @builtins.property
     def is_native(self) -> is_nativeFileIfaceCB: ...
-    @property
+    @builtins.property
     def make_directory(self) -> make_directoryFileIfaceCB: ...
-    @property
+    @builtins.property
     def make_directory_async(self) -> make_directory_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def make_directory_finish(self) -> make_directory_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def make_symbolic_link(self) -> make_symbolic_linkFileIfaceCB: ...
-    @property
+    @builtins.property
     def make_symbolic_link_async(self) -> make_symbolic_link_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def make_symbolic_link_finish(self) -> make_symbolic_link_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def measure_disk_usage(self) -> measure_disk_usageFileIfaceCB: ...
-    @property
+    @builtins.property
     def measure_disk_usage_finish(self) -> measure_disk_usage_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def monitor_dir(self) -> monitor_dirFileIfaceCB: ...
-    @property
+    @builtins.property
     def monitor_file(self) -> monitor_fileFileIfaceCB: ...
-    @property
+    @builtins.property
     def mount_enclosing_volume(self) -> mount_enclosing_volumeFileIfaceCB: ...
-    @property
+    @builtins.property
     def mount_enclosing_volume_finish(self) -> mount_enclosing_volume_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def mount_mountable(self) -> mount_mountableFileIfaceCB: ...
-    @property
+    @builtins.property
     def mount_mountable_finish(self) -> mount_mountable_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def move(self) -> moveFileIfaceCB: ...
-    @property
+    @builtins.property
     def move_async(self) -> move_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def move_finish(self) -> move_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def open_readwrite(self) -> open_readwriteFileIfaceCB: ...
-    @property
+    @builtins.property
     def open_readwrite_async(self) -> open_readwrite_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def open_readwrite_finish(self) -> open_readwrite_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def poll_mountable(self) -> poll_mountableFileIfaceCB: ...
-    @property
+    @builtins.property
     def poll_mountable_finish(self) -> poll_mountable_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def prefix_matches(self) -> prefix_matchesFileIfaceCB: ...
-    @property
+    @builtins.property
     def query_exists(self) -> query_existsFileIfaceCB: ...
-    @property
+    @builtins.property
     def query_filesystem_info(self) -> query_filesystem_infoFileIfaceCB: ...
-    @property
+    @builtins.property
     def query_filesystem_info_async(self) -> query_filesystem_info_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def query_filesystem_info_finish(self) -> query_filesystem_info_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def query_info(self) -> query_infoFileIfaceCB: ...
-    @property
+    @builtins.property
     def query_info_async(self) -> query_info_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def query_info_finish(self) -> query_info_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def query_settable_attributes(self) -> query_settable_attributesFileIfaceCB: ...
-    @property
+    @builtins.property
     def query_writable_namespaces(self) -> query_writable_namespacesFileIfaceCB: ...
-    @property
+    @builtins.property
     def read_async(self) -> read_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def read_finish(self) -> read_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def read_fn(self) -> read_fnFileIfaceCB: ...
-    @property
+    @builtins.property
     def replace(self) -> replaceFileIfaceCB: ...
-    @property
+    @builtins.property
     def replace_async(self) -> replace_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def replace_finish(self) -> replace_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def replace_readwrite(self) -> replace_readwriteFileIfaceCB: ...
-    @property
+    @builtins.property
     def replace_readwrite_async(self) -> replace_readwrite_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def replace_readwrite_finish(self) -> replace_readwrite_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def resolve_relative_path(self) -> resolve_relative_pathFileIfaceCB: ...
-    @property
+    @builtins.property
     def set_attribute(self) -> set_attributeFileIfaceCB: ...
-    @property
+    @builtins.property
     def set_attributes_async(self) -> set_attributes_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def set_attributes_finish(self) -> set_attributes_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def set_attributes_from_info(self) -> set_attributes_from_infoFileIfaceCB: ...
-    @property
+    @builtins.property
     def set_display_name(self) -> set_display_nameFileIfaceCB: ...
-    @property
+    @builtins.property
     def set_display_name_async(self) -> set_display_name_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def set_display_name_finish(self) -> set_display_name_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def start_mountable(self) -> start_mountableFileIfaceCB: ...
-    @property
+    @builtins.property
     def start_mountable_finish(self) -> start_mountable_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def stop_mountable(self) -> stop_mountableFileIfaceCB: ...
-    @property
+    @builtins.property
     def stop_mountable_finish(self) -> stop_mountable_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def supports_thread_contexts(self) -> bool: ...
-    @property
+    @builtins.property
     def trash(self) -> trashFileIfaceCB: ...
-    @property
+    @builtins.property
     def trash_async(self) -> trash_asyncFileIfaceCB: ...
-    @property
+    @builtins.property
     def trash_finish(self) -> trash_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def unmount_mountable(self) -> unmount_mountableFileIfaceCB: ...
-    @property
+    @builtins.property
     def unmount_mountable_finish(self) -> unmount_mountable_finishFileIfaceCB: ...
-    @property
+    @builtins.property
     def unmount_mountable_with_operation(self) -> unmount_mountable_with_operationFileIfaceCB: ...
-    @property
+    @builtins.property
     def unmount_mountable_with_operation_finish(self) -> unmount_mountable_with_operation_finishFileIfaceCB: ...
 
     # gi Methods
@@ -11253,8 +11123,6 @@ class FileIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileInfo(GObject.Object):
     """
@@ -11378,16 +11246,12 @@ class FileInfo(GObject.Object):
     def set_symlink_target(self, symlink_target: str) -> None: ...
     def unset_attribute_mask(self) -> None: ...
 
-    ...
-
 class FileInfoClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileInputStream(InputStream):
     """
@@ -11467,23 +11331,21 @@ class FileInputStream(InputStream):
         tell(self) -> int
         """
 
-    ...
-
 class FileInputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_seek(self) -> can_seekFileInputStreamClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
-    @property
+    @builtins.property
     def query_info(self) -> query_infoFileInputStreamClassCB: ...
-    @property
+    @builtins.property
     def query_info_async(self) -> query_info_asyncFileInputStreamClassCB: ...
-    @property
+    @builtins.property
     def query_info_finish(self) -> query_info_finishFileInputStreamClassCB: ...
-    @property
+    @builtins.property
     def seek(self) -> seekFileInputStreamClassCB: ...
-    @property
+    @builtins.property
     def tell(self) -> tellFileInputStreamClassCB: ...
 
     # gi Methods
@@ -11492,16 +11354,12 @@ class FileInputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FileInputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileMonitor(GObject.Object):
     """
@@ -11524,6 +11382,9 @@ class FileMonitor(GObject.Object):
         cancelled: bool
         rate_limit: int  # [rate-limit]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, rate_limit: int = ...) -> None:
         """
@@ -11531,7 +11392,7 @@ class FileMonitor(GObject.Object):
         """
     def cancel(self) -> bool: ...
     def emit_event(self, child: File, other_file: File, event_type: FileMonitorEvent) -> None: ...
-    @property
+    @builtins.property
     def is_cancelled(self) -> bool: ...
     def set_rate_limit(self, limit_msecs: int) -> None: ...
 
@@ -11578,15 +11439,14 @@ class FileMonitor(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FileMonitorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def cancel(self) -> cancelFileMonitorClassCB: ...
-    @property
+    @builtins.property
     def changed(self) -> changedFileMonitorClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -11595,16 +11455,12 @@ class FileMonitorClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FileMonitorPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FileOutputStream(OutputStream):
     """
@@ -11710,29 +11566,27 @@ class FileOutputStream(OutputStream):
         truncate_fn(self, size:int, cancellable:Gio.Cancellable=None) -> bool
         """
 
-    ...
-
 class FileOutputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_seek(self) -> can_seekFileOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def can_truncate(self) -> can_truncateFileOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def get_etag(self) -> get_etagFileOutputStreamClassCB | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
-    @property
+    @builtins.property
     def query_info(self) -> query_infoFileOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def query_info_async(self) -> query_info_asyncFileOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def query_info_finish(self) -> query_info_finishFileOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def seek(self) -> seekFileOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def tell(self) -> tellFileOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def truncate_fn(self) -> truncate_fnFileOutputStreamClassCB: ...
 
     # gi Methods
@@ -11741,16 +11595,12 @@ class FileOutputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FileOutputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FilenameCompleter(GObject.Object):
     """
@@ -11790,13 +11640,12 @@ class FilenameCompleter(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FilenameCompleterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def got_completion_data(self) -> got_completion_dataFilenameCompleterClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -11804,8 +11653,6 @@ class FilenameCompleterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FilterInputStream(InputStream):
     """
@@ -11819,8 +11666,11 @@ class FilterInputStream(InputStream):
         base_stream: InputStream | None  # [base-stream]: changed because contained invalid characters
         close_base_stream: bool  # [close-base-stream]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def base_stream(self) -> InputStream | None: ...
 
     # gi Methods
@@ -11828,9 +11678,9 @@ class FilterInputStream(InputStream):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_base_stream(self) -> InputStream: ...
-    @property
+    @builtins.property
     def get_close_base_stream(self) -> bool: ...
     def set_close_base_stream(self, close_base: bool) -> None: ...
 
@@ -11853,11 +11703,10 @@ class FilterInputStream(InputStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FilterInputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
 
     # gi Methods
@@ -11865,8 +11714,6 @@ class FilterInputStreamClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FilterOutputStream(OutputStream):
     """
@@ -11880,8 +11727,11 @@ class FilterOutputStream(OutputStream):
         base_stream: OutputStream | None  # [base-stream]: changed because contained invalid characters
         close_base_stream: bool  # [close-base-stream]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def base_stream(self) -> OutputStream | None: ...
 
     # gi Methods
@@ -11889,9 +11739,9 @@ class FilterOutputStream(OutputStream):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_base_stream(self) -> OutputStream: ...
-    @property
+    @builtins.property
     def get_close_base_stream(self) -> bool: ...
     def set_close_base_stream(self, close_base: bool) -> None: ...
 
@@ -11914,11 +11764,10 @@ class FilterOutputStream(OutputStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FilterOutputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
 
     # gi Methods
@@ -11926,8 +11775,6 @@ class FilterOutputStreamClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class IOExtension(GObject.GPointer):
     # gi Methods
@@ -11938,8 +11785,6 @@ class IOExtension(GObject.GPointer):
     def get_name(self) -> str: ...
     def get_priority(self) -> int: ...
     def get_type(self) -> GObject.GType: ...
-
-    ...
 
 class IOExtensionPoint(GObject.GPointer):
     # gi Methods
@@ -11960,8 +11805,6 @@ class IOExtensionPoint(GObject.GPointer):
     def register(name: str) -> IOExtensionPoint: ...
     def set_required_type(self, type: GObject.GType) -> None: ...
 
-    ...
-
 class IOModule(GObject.TypeModule):
     """
     Provides an interface and default functions for loading and unloading
@@ -11979,16 +11822,12 @@ class IOModule(GObject.TypeModule):
     @staticmethod
     def query() -> list: ...
 
-    ...
-
 class IOModuleClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class IOModuleScope(GObject.GPointer):
     # gi Methods
@@ -11998,8 +11837,6 @@ class IOModuleScope(GObject.GPointer):
         """
     def block(self, basename: str) -> None: ...
     def free(self) -> None: ...
-
-    ...
 
 class IOSchedulerJob(GObject.GPointer):
     # gi Methods
@@ -12015,8 +11852,6 @@ class IOSchedulerJob(GObject.GPointer):
     def send_to_mainloop_async(
         self, func: GLib.SourceFunc, user_data: object | None = None, notify: GLib.DestroyNotify | None = None
     ) -> None: ...
-
-    ...
 
 class IOStream(GObject.Object):
     """
@@ -12075,6 +11910,9 @@ class IOStream(GObject.Object):
         input_stream: InputStream | None  # [input-stream]: changed because contained invalid characters
         output_stream: OutputStream | None  # [output-stream]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -12090,12 +11928,12 @@ class IOStream(GObject.Object):
         user_data: object | None = None,
     ) -> None: ...
     def close_finish(self, result: AsyncResult) -> bool: ...
-    @property
+    @builtins.property
     def get_input_stream(self) -> InputStream: ...
-    @property
+    @builtins.property
     def get_output_stream(self) -> OutputStream: ...
     def has_pending(self) -> bool: ...
-    @property
+    @builtins.property
     def is_closed(self) -> bool: ...
     def set_pending(self) -> bool: ...
     def splice_async(
@@ -12174,7 +12012,6 @@ class IOStream(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class IOStreamAdapter(GObject.GPointer):
     # gi Methods
@@ -12183,21 +12020,19 @@ class IOStreamAdapter(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class IOStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close_async(self) -> close_asyncIOStreamClassCB: ...
-    @property
+    @builtins.property
     def close_finish(self) -> close_finishIOStreamClassCB: ...
-    @property
+    @builtins.property
     def close_fn(self) -> close_fnIOStreamClassCB: ...
-    @property
+    @builtins.property
     def get_input_stream(self) -> get_input_streamIOStreamClassCB: ...
-    @property
+    @builtins.property
     def get_output_stream(self) -> get_output_streamIOStreamClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -12206,16 +12041,12 @@ class IOStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class IOStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Icon(GObject.GInterface):
     # gi Methods
@@ -12232,19 +12063,17 @@ class Icon(GObject.GInterface):
     def serialize(self) -> GLib.Variant | None: ...
     def to_string(self) -> str | None: ...
 
-    ...
-
 class IconIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def equal(self) -> equalIconIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def hash(self) -> hashIconIfaceCB: ...
-    @property
+    @builtins.property
     def serialize(self) -> serializeIconIfaceCB | None: ...
-    @property
+    @builtins.property
     def to_tokens(self) -> to_tokensIconIfaceCB: ...
 
     # gi Methods
@@ -12252,8 +12081,6 @@ class IconIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InetAddress(GObject.Object):
     """
@@ -12283,33 +12110,36 @@ class InetAddress(GObject.Object):
         is_multicast: bool  # [is-multicast]: changed because contained invalid characters
         is_site_local: bool  # [is-site-local]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, bytes: object | None = ..., family: SocketFamily = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def equal(self, other_address: InetAddress) -> bool: ...
-    @property
+    @builtins.property
     def get_family(self) -> SocketFamily: ...
-    @property
+    @builtins.property
     def get_is_any(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_link_local(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_loopback(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_mc_global(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_mc_link_local(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_mc_node_local(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_mc_org_local(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_mc_site_local(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_multicast(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_site_local(self) -> bool: ...
     def get_native_size(self) -> int: ...
     @classmethod
@@ -12419,15 +12249,14 @@ class InetAddress(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class InetAddressClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def to_bytes(self) -> to_bytesInetAddressClassCB: ...
-    @property
+    @builtins.property
     def to_string(self) -> to_stringInetAddressClassCB: ...
 
     # gi Methods
@@ -12435,8 +12264,6 @@ class InetAddressClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InetAddressMask(GObject.Object):
     """
@@ -12451,17 +12278,20 @@ class InetAddressMask(GObject.Object):
         family: SocketFamily
         length: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, address: InetAddress | None = ..., length: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def equal(self, mask2: InetAddressMask) -> bool: ...
-    @property
+    @builtins.property
     def get_address(self) -> InetAddress: ...
-    @property
+    @builtins.property
     def get_family(self) -> SocketFamily: ...
-    @property
+    @builtins.property
     def get_length(self) -> int: ...
     def matches(self, address: InetAddress) -> bool: ...
     @classmethod
@@ -12496,11 +12326,10 @@ class InetAddressMask(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class InetAddressMaskClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -12509,8 +12338,6 @@ class InetAddressMaskClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class InetAddressMaskPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -12518,16 +12345,12 @@ class InetAddressMaskPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class InetAddressPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InetSocketAddress(SocketAddress):
     """
@@ -12544,6 +12367,9 @@ class InetSocketAddress(SocketAddress):
         port: int
         scope_id: int  # [scope-id]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self, address: InetAddress | None = ..., flowinfo: int = ..., port: int = ..., scope_id: int = ...
@@ -12551,13 +12377,13 @@ class InetSocketAddress(SocketAddress):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_address(self) -> InetAddress: ...
-    @property
+    @builtins.property
     def get_flowinfo(self) -> int: ...
-    @property
+    @builtins.property
     def get_port(self) -> int: ...
-    @property
+    @builtins.property
     def get_scope_id(self) -> int: ...
     @classmethod
     def new(cls, address: InetAddress, port: int) -> SocketAddress: ...
@@ -12597,11 +12423,10 @@ class InetSocketAddress(SocketAddress):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class InetSocketAddressClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SocketAddressClass | None: ...
 
     # gi Methods
@@ -12610,16 +12435,12 @@ class InetSocketAddressClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class InetSocketAddressPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Initable(GObject.GInterface):
     # gi Methods
@@ -12634,13 +12455,11 @@ class Initable(GObject.GInterface):
         object_type: GObject.GType, n_parameters: int, parameters: list, cancellable: Cancellable | None = None
     ) -> GObject.Object: ...
 
-    ...
-
 class InitableIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def init(self) -> initInitableIfaceCB: ...
 
     # gi Methods
@@ -12648,8 +12467,6 @@ class InitableIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InputMessage(GObject.GPointer):
     # gi Fields
@@ -12666,8 +12483,6 @@ class InputMessage(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InputStream(GObject.Object):
     """
@@ -12823,29 +12638,27 @@ class InputStream(GObject.Object):
         skip_finish(self, result:Gio.AsyncResult) -> int
         """
 
-    ...
-
 class InputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close_async(self) -> close_asyncInputStreamClassCB: ...
-    @property
+    @builtins.property
     def close_finish(self) -> close_finishInputStreamClassCB: ...
-    @property
+    @builtins.property
     def close_fn(self) -> close_fnInputStreamClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def read_async(self) -> read_asyncInputStreamClassCB: ...
-    @property
+    @builtins.property
     def read_finish(self) -> read_finishInputStreamClassCB: ...
-    @property
+    @builtins.property
     def read_fn(self) -> read_fnInputStreamClassCB: ...
-    @property
+    @builtins.property
     def skip(self) -> skipInputStreamClassCB: ...
-    @property
+    @builtins.property
     def skip_async(self) -> skip_asyncInputStreamClassCB: ...
-    @property
+    @builtins.property
     def skip_finish(self) -> skip_finishInputStreamClassCB: ...
 
     # gi Methods
@@ -12854,16 +12667,12 @@ class InputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class InputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InputVector(GObject.GPointer):
     # gi Fields
@@ -12874,8 +12683,6 @@ class InputVector(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ListModel(GObject.GInterface):
     # gi Methods
@@ -12900,17 +12707,16 @@ class ListModel(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ListModelInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_item(self) -> get_itemListModelInterfaceCB | None: ...
-    @property
+    @builtins.property
     def get_item_type(self) -> get_item_typeListModelInterfaceCB: ...
-    @property
+    @builtins.property
     def get_n_items(self) -> get_n_itemsListModelInterfaceCB: ...
 
     # gi Methods
@@ -12918,8 +12724,6 @@ class ListModelInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ListStore(GObject.Object):
     """
@@ -12933,6 +12737,9 @@ class ListStore(GObject.Object):
     class Props(GObject.Object.Props):
         item_type: GObject.GType  # [item-type]: changed because contained invalid characters
         n_items: int  # [n-items]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, item_type: GObject.GType = ...) -> None:
@@ -12977,11 +12784,10 @@ class ListStore(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ListStoreClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -12989,8 +12795,6 @@ class ListStoreClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class LoadableIcon(GObject.GInterface):
     # gi Methods
@@ -13008,17 +12812,15 @@ class LoadableIcon(GObject.GInterface):
     ) -> None: ...
     def load_finish(self, res: AsyncResult) -> tuple[InputStream, str | None]: ...
 
-    ...
-
 class LoadableIconIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def load(self) -> loadLoadableIconIfaceCB: ...
-    @property
+    @builtins.property
     def load_async(self) -> load_asyncLoadableIconIfaceCB: ...
-    @property
+    @builtins.property
     def load_finish(self) -> load_finishLoadableIconIfaceCB: ...
 
     # gi Methods
@@ -13026,8 +12828,6 @@ class LoadableIconIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MemoryInputStream(InputStream):
     """
@@ -13052,11 +12852,9 @@ class MemoryInputStream(InputStream):
     @classmethod
     def new_from_data(cls, data: list, len: int, destroy: GLib.DestroyNotify | None = None) -> InputStream: ...
 
-    ...
-
 class MemoryInputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
 
     # gi Methods
@@ -13065,16 +12863,12 @@ class MemoryInputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MemoryInputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MemoryMonitor(GObject.GInterface):
     # gi Methods
@@ -13097,13 +12891,12 @@ class MemoryMonitor(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MemoryMonitorInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def low_memory_warning(self) -> low_memory_warningMemoryMonitorInterfaceCB: ...
 
     # gi Methods
@@ -13111,8 +12904,6 @@ class MemoryMonitorInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MemoryOutputStream(OutputStream):
     """
@@ -13128,16 +12919,19 @@ class MemoryOutputStream(OutputStream):
         data_size: int  # [data-size]: changed because contained invalid characters
         size: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, data: object | None = ..., size: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_data(self) -> object | None: ...
-    @property
+    @builtins.property
     def get_data_size(self) -> int: ...
-    @property
+    @builtins.property
     def get_size(self) -> int: ...
     @classmethod
     def new_resizable(cls) -> OutputStream: ...
@@ -13170,11 +12964,10 @@ class MemoryOutputStream(OutputStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MemoryOutputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
 
     # gi Methods
@@ -13183,16 +12976,12 @@ class MemoryOutputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MemoryOutputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Menu(MenuModel):
     """
@@ -13229,8 +13018,6 @@ class Menu(MenuModel):
     def remove(self, position: int) -> None: ...
     def remove_all(self) -> None: ...
 
-    ...
-
 class MenuAttributeIter(GObject.Object):
     """
     #GMenuAttributeIter is an opaque structure type.  You must access it
@@ -13255,13 +13042,11 @@ class MenuAttributeIter(GObject.Object):
         get_next(self) -> bool, out_name:str, value:GLib.Variant
         """
 
-    ...
-
 class MenuAttributeIterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_next(self) -> get_nextMenuAttributeIterClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -13270,16 +13055,12 @@ class MenuAttributeIterClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MenuAttributeIterPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MenuItem(GObject.Object):
     """
@@ -13321,8 +13102,6 @@ class MenuItem(GObject.Object):
         attributes: typing.Any,
     ) -> typing.Any: ...
 
-    ...
-
 class MenuLinkIter(GObject.Object):
     """
     #GMenuLinkIter is an opaque structure type.  You must access it using
@@ -13347,13 +13126,11 @@ class MenuLinkIter(GObject.Object):
         get_next(self) -> bool, out_link:str, value:Gio.MenuModel
         """
 
-    ...
-
 class MenuLinkIterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_next(self) -> get_nextMenuLinkIterClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -13362,16 +13139,12 @@ class MenuLinkIterClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MenuLinkIterPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MenuModel(GObject.Object):
     """
@@ -13582,27 +13355,26 @@ class MenuModel(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MenuModelClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_item_attribute_value(self) -> get_item_attribute_valueMenuModelClassCB | None: ...
-    @property
+    @builtins.property
     def get_item_attributes(self) -> get_item_attributesMenuModelClassCB: ...
-    @property
+    @builtins.property
     def get_item_link(self) -> get_item_linkMenuModelClassCB | None: ...
-    @property
+    @builtins.property
     def get_item_links(self) -> get_item_linksMenuModelClassCB: ...
-    @property
+    @builtins.property
     def get_n_items(self) -> get_n_itemsMenuModelClassCB: ...
-    @property
+    @builtins.property
     def is_mutable(self) -> is_mutableMenuModelClassCB: ...
-    @property
+    @builtins.property
     def iterate_item_attributes(self) -> iterate_item_attributesMenuModelClassCB: ...
-    @property
+    @builtins.property
     def iterate_item_links(self) -> iterate_item_linksMenuModelClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -13611,16 +13383,12 @@ class MenuModelClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MenuModelPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Mount(GObject.GInterface):
     # gi Methods
@@ -13716,65 +13484,64 @@ class Mount(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MountIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_eject(self) -> can_ejectMountIfaceCB: ...
-    @property
+    @builtins.property
     def can_unmount(self) -> can_unmountMountIfaceCB: ...
-    @property
+    @builtins.property
     def changed(self) -> changedMountIfaceCB: ...
-    @property
+    @builtins.property
     def eject(self) -> ejectMountIfaceCB: ...
-    @property
+    @builtins.property
     def eject_finish(self) -> eject_finishMountIfaceCB: ...
-    @property
+    @builtins.property
     def eject_with_operation(self) -> eject_with_operationMountIfaceCB: ...
-    @property
+    @builtins.property
     def eject_with_operation_finish(self) -> eject_with_operation_finishMountIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_default_location(self) -> get_default_locationMountIfaceCB: ...
-    @property
+    @builtins.property
     def get_drive(self) -> get_driveMountIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_icon(self) -> get_iconMountIfaceCB: ...
-    @property
+    @builtins.property
     def get_name(self) -> get_nameMountIfaceCB: ...
-    @property
+    @builtins.property
     def get_root(self) -> get_rootMountIfaceCB: ...
-    @property
+    @builtins.property
     def get_sort_key(self) -> get_sort_keyMountIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_symbolic_icon(self) -> get_symbolic_iconMountIfaceCB: ...
-    @property
+    @builtins.property
     def get_uuid(self) -> get_uuidMountIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_volume(self) -> get_volumeMountIfaceCB | None: ...
-    @property
+    @builtins.property
     def guess_content_type(self) -> guess_content_typeMountIfaceCB: ...
-    @property
+    @builtins.property
     def guess_content_type_finish(self) -> guess_content_type_finishMountIfaceCB: ...
-    @property
+    @builtins.property
     def guess_content_type_sync(self) -> guess_content_type_syncMountIfaceCB: ...
-    @property
+    @builtins.property
     def pre_unmount(self) -> pre_unmountMountIfaceCB: ...
-    @property
+    @builtins.property
     def remount(self) -> remountMountIfaceCB: ...
-    @property
+    @builtins.property
     def remount_finish(self) -> remount_finishMountIfaceCB: ...
-    @property
+    @builtins.property
     def unmount(self) -> unmountMountIfaceCB: ...
-    @property
+    @builtins.property
     def unmount_finish(self) -> unmount_finishMountIfaceCB: ...
-    @property
+    @builtins.property
     def unmount_with_operation(self) -> unmount_with_operationMountIfaceCB: ...
-    @property
+    @builtins.property
     def unmount_with_operation_finish(self) -> unmount_with_operation_finishMountIfaceCB: ...
-    @property
+    @builtins.property
     def unmounted(self) -> unmountedMountIfaceCB: ...
 
     # gi Methods
@@ -13782,8 +13549,6 @@ class MountIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MountOperation(GObject.Object):
     """
@@ -13822,6 +13587,9 @@ class MountOperation(GObject.Object):
         pim: int
         username: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -13838,23 +13606,23 @@ class MountOperation(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_anonymous(self) -> bool: ...
-    @property
+    @builtins.property
     def get_choice(self) -> int: ...
-    @property
+    @builtins.property
     def get_domain(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_is_tcrypt_hidden_volume(self) -> bool: ...
-    @property
+    @builtins.property
     def get_is_tcrypt_system_volume(self) -> bool: ...
-    @property
+    @builtins.property
     def get_password(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_password_save(self) -> PasswordSave: ...
-    @property
+    @builtins.property
     def get_pim(self) -> int: ...
-    @property
+    @builtins.property
     def get_username(self) -> str | None: ...
     @classmethod
     def new(cls) -> MountOperation: ...
@@ -14027,23 +13795,22 @@ class MountOperation(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class MountOperationClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def aborted(self) -> abortedMountOperationClassCB: ...
-    @property
+    @builtins.property
     def ask_password(self) -> ask_passwordMountOperationClassCB: ...
-    @property
+    @builtins.property
     def ask_question(self) -> ask_questionMountOperationClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def reply(self) -> replyMountOperationClassCB: ...
-    @property
+    @builtins.property
     def show_processes(self) -> show_processesMountOperationClassCB: ...
-    @property
+    @builtins.property
     def show_unmount_progress(self) -> show_unmount_progressMountOperationClassCB: ...
 
     # gi Methods
@@ -14052,16 +13819,12 @@ class MountOperationClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MountOperationPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NativeSocketAddress(SocketAddress):
     """
@@ -14079,11 +13842,9 @@ class NativeSocketAddress(SocketAddress):
     @classmethod
     def new(cls, native: object | None, len: int) -> SocketAddress: ...
 
-    ...
-
 class NativeSocketAddressClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SocketAddressClass | None: ...
 
     # gi Methods
@@ -14092,16 +13853,12 @@ class NativeSocketAddressClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class NativeSocketAddressPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NativeVolumeMonitor(VolumeMonitor):
     # gi Methods
@@ -14110,11 +13867,9 @@ class NativeVolumeMonitor(VolumeMonitor):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class NativeVolumeMonitorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> VolumeMonitorClass | None: ...
 
     # gi Methods
@@ -14122,8 +13877,6 @@ class NativeVolumeMonitorClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NetworkAddress(GObject.Object):
     """
@@ -14144,16 +13897,19 @@ class NetworkAddress(GObject.Object):
         port: int
         scheme: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, hostname: str = ..., port: int = ..., scheme: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_hostname(self) -> str: ...
-    @property
+    @builtins.property
     def get_port(self) -> int: ...
-    @property
+    @builtins.property
     def get_scheme(self) -> str | None: ...
     @classmethod
     def new(cls, hostname: str, port: int) -> NetworkAddress: ...
@@ -14190,11 +13946,10 @@ class NetworkAddress(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class NetworkAddressClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -14203,8 +13958,6 @@ class NetworkAddressClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class NetworkAddressPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -14212,13 +13965,14 @@ class NetworkAddressPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class NetworkMonitor(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         connectivity: NetworkConnectivity
         network_available: bool  # [network-available]: changed because contained invalid characters
         network_metered: bool  # [network-metered]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -14234,13 +13988,13 @@ class NetworkMonitor(GObject.GInterface):
         user_data: object | None = None,
     ) -> None: ...
     def can_reach_finish(self, result: AsyncResult) -> bool: ...
-    @property
+    @builtins.property
     def get_connectivity(self) -> NetworkConnectivity: ...
     @staticmethod
     def get_default() -> NetworkMonitor: ...
-    @property
+    @builtins.property
     def get_network_available(self) -> bool: ...
-    @property
+    @builtins.property
     def get_network_metered(self) -> bool: ...
 
     # Signals
@@ -14276,19 +14030,18 @@ class NetworkMonitor(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class NetworkMonitorInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_reach(self) -> can_reachNetworkMonitorInterfaceCB: ...
-    @property
+    @builtins.property
     def can_reach_async(self) -> can_reach_asyncNetworkMonitorInterfaceCB: ...
-    @property
+    @builtins.property
     def can_reach_finish(self) -> can_reach_finishNetworkMonitorInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def network_changed(self) -> network_changedNetworkMonitorInterfaceCB: ...
 
     # gi Methods
@@ -14296,8 +14049,6 @@ class NetworkMonitorInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class NetworkService(GObject.Object):
     """
@@ -14318,18 +14069,21 @@ class NetworkService(GObject.Object):
         scheme: str
         service: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, domain: str = ..., protocol: str = ..., scheme: str = ..., service: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_domain(self) -> str: ...
-    @property
+    @builtins.property
     def get_protocol(self) -> str: ...
-    @property
+    @builtins.property
     def get_scheme(self) -> str: ...
-    @property
+    @builtins.property
     def get_service(self) -> str: ...
     @classmethod
     def new(cls, service: str, protocol: str, domain: str) -> NetworkService: ...
@@ -14368,11 +14122,10 @@ class NetworkService(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class NetworkServiceClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -14381,16 +14134,12 @@ class NetworkServiceClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class NetworkServicePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Notification(GObject.Object):
     """
@@ -14460,8 +14209,6 @@ class Notification(GObject.Object):
     @deprecated("deprecated")
     def set_urgent(self, urgent: bool) -> None: ...
 
-    ...
-
 class OutputMessage(GObject.GPointer):
     # gi Fields
     address: SocketAddress | None = ...
@@ -14476,8 +14223,6 @@ class OutputMessage(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class OutputStream(GObject.Object):
     """
@@ -14732,41 +14477,39 @@ class OutputStream(GObject.Object):
         writev_fn(self, vectors:list, cancellable:Gio.Cancellable=None) -> bool, bytes_written:int
         """
 
-    ...
-
 class OutputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close_async(self) -> close_asyncOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def close_finish(self) -> close_finishOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def close_fn(self) -> close_fnOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def flush(self) -> flushOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def flush_async(self) -> flush_asyncOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def flush_finish(self) -> flush_finishOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def splice(self) -> spliceOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def splice_async(self) -> splice_asyncOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def splice_finish(self) -> splice_finishOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def write_async(self) -> write_asyncOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def write_finish(self) -> write_finishOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def write_fn(self) -> write_fnOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def writev_async(self) -> writev_asyncOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def writev_finish(self) -> writev_finishOutputStreamClassCB: ...
-    @property
+    @builtins.property
     def writev_fn(self) -> writev_fnOutputStreamClassCB: ...
 
     # gi Methods
@@ -14775,16 +14518,12 @@ class OutputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class OutputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class OutputVector(GObject.GPointer):
     # gi Fields
@@ -14795,8 +14534,6 @@ class OutputVector(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Permission(GObject.Object):
     """
@@ -14822,6 +14559,9 @@ class Permission(GObject.Object):
         can_acquire: bool  # [can-acquire]: changed because contained invalid characters
         can_release: bool  # [can-release]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -14835,11 +14575,11 @@ class Permission(GObject.Object):
         user_data: object | None = None,
     ) -> None: ...
     def acquire_finish(self, result: AsyncResult) -> bool: ...
-    @property
+    @builtins.property
     def get_allowed(self) -> bool: ...
-    @property
+    @builtins.property
     def get_can_acquire(self) -> bool: ...
-    @property
+    @builtins.property
     def get_can_release(self) -> bool: ...
     def impl_update(self, allowed: bool, can_acquire: bool, can_release: bool) -> None: ...
     def release(self, cancellable: Cancellable | None = None) -> bool: ...
@@ -14925,25 +14665,24 @@ class Permission(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PermissionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def acquire(self) -> acquirePermissionClassCB: ...
-    @property
+    @builtins.property
     def acquire_async(self) -> acquire_asyncPermissionClassCB: ...
-    @property
+    @builtins.property
     def acquire_finish(self) -> acquire_finishPermissionClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def release(self) -> releasePermissionClassCB: ...
-    @property
+    @builtins.property
     def release_async(self) -> release_asyncPermissionClassCB: ...
-    @property
+    @builtins.property
     def release_finish(self) -> release_finishPermissionClassCB: ...
-    @property
+    @builtins.property
     def reserved(self) -> list | None: ...
 
     # gi Methods
@@ -14952,16 +14691,12 @@ class PermissionClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PermissionPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PollableInputStream(GObject.GInterface):
     # gi Methods
@@ -14974,19 +14709,17 @@ class PollableInputStream(GObject.GInterface):
     def is_readable(self) -> bool: ...
     def read_nonblocking(self, count: int, cancellable: Cancellable | None = None) -> tuple[int, list]: ...
 
-    ...
-
 class PollableInputStreamInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_poll(self) -> can_pollPollableInputStreamInterfaceCB: ...
-    @property
+    @builtins.property
     def create_source(self) -> create_sourcePollableInputStreamInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def is_readable(self) -> is_readablePollableInputStreamInterfaceCB: ...
-    @property
+    @builtins.property
     def read_nonblocking(self) -> read_nonblockingPollableInputStreamInterfaceCB: ...
 
     # gi Methods
@@ -14994,8 +14727,6 @@ class PollableInputStreamInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PollableOutputStream(GObject.GInterface):
     # gi Methods
@@ -15011,21 +14742,19 @@ class PollableOutputStream(GObject.GInterface):
         self, vectors: list, n_vectors: int, cancellable: Cancellable | None = None
     ) -> tuple[PollableReturn, int | None]: ...
 
-    ...
-
 class PollableOutputStreamInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_poll(self) -> can_pollPollableOutputStreamInterfaceCB: ...
-    @property
+    @builtins.property
     def create_source(self) -> create_sourcePollableOutputStreamInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def is_writable(self) -> is_writablePollableOutputStreamInterfaceCB: ...
-    @property
+    @builtins.property
     def write_nonblocking(self) -> write_nonblockingPollableOutputStreamInterfaceCB: ...
-    @property
+    @builtins.property
     def writev_nonblocking(self) -> writev_nonblockingPollableOutputStreamInterfaceCB: ...
 
     # gi Methods
@@ -15034,11 +14763,12 @@ class PollableOutputStreamInterface(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PowerProfileMonitor(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         power_saver_enabled: bool  # [power-saver-enabled]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -15047,7 +14777,7 @@ class PowerProfileMonitor(GObject.GInterface):
         """
     @staticmethod
     def dup_default() -> PowerProfileMonitor: ...
-    @property
+    @builtins.property
     def get_power_saver_enabled(self) -> bool: ...
 
     # Signals
@@ -15062,11 +14792,10 @@ class PowerProfileMonitor(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PowerProfileMonitorInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -15074,8 +14803,6 @@ class PowerProfileMonitorInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PropertyAction(GObject.Object):
     """
@@ -15142,6 +14869,9 @@ class PropertyAction(GObject.Object):
         property_name: str  # [property-name]: changed because contained invalid characters
         state: GLib.Variant | None
         state_type: GLib.VariantType | None  # [state-type]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -15214,7 +14944,6 @@ class PropertyAction(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Proxy(GObject.GInterface):
     # gi Methods
@@ -15241,8 +14970,6 @@ class Proxy(GObject.GInterface):
     def get_default_for_protocol(protocol: str) -> Proxy | None: ...
     def supports_hostname(self) -> bool: ...
 
-    ...
-
 class ProxyAddress(InetSocketAddress):
     """
     A [class@Gio.InetSocketAddress] representing a connection via a proxy server.
@@ -15256,6 +14983,9 @@ class ProxyAddress(InetSocketAddress):
         protocol: str
         uri: str
         username: str
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -15271,19 +15001,19 @@ class ProxyAddress(InetSocketAddress):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_destination_hostname(self) -> str: ...
-    @property
+    @builtins.property
     def get_destination_port(self) -> int: ...
-    @property
+    @builtins.property
     def get_destination_protocol(self) -> str: ...
-    @property
+    @builtins.property
     def get_password(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_protocol(self) -> str: ...
-    @property
+    @builtins.property
     def get_uri(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_username(self) -> str | None: ...
     @classmethod
     def new(
@@ -15351,11 +15081,10 @@ class ProxyAddress(InetSocketAddress):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ProxyAddressClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> InetSocketAddressClass | None: ...
 
     # gi Methods
@@ -15363,8 +15092,6 @@ class ProxyAddressClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ProxyAddressEnumerator(SocketAddressEnumerator):
     """
@@ -15385,6 +15112,9 @@ class ProxyAddressEnumerator(SocketAddressEnumerator):
         default_port: int  # [default-port]: changed because contained invalid characters
         proxy_resolver: ProxyResolver | None  # [proxy-resolver]: changed because contained invalid characters
         uri: str
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -15431,11 +15161,10 @@ class ProxyAddressEnumerator(SocketAddressEnumerator):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ProxyAddressEnumeratorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SocketAddressEnumeratorClass | None: ...
 
     # gi Methods
@@ -15444,16 +15173,12 @@ class ProxyAddressEnumeratorClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ProxyAddressEnumeratorPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ProxyAddressPrivate(GObject.GPointer):
     # gi Methods
@@ -15462,19 +15187,17 @@ class ProxyAddressPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ProxyInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def connect(self) -> connectProxyInterfaceCB: ...
-    @property
+    @builtins.property
     def connect_async(self) -> connect_asyncProxyInterfaceCB: ...
-    @property
+    @builtins.property
     def connect_finish(self) -> connect_finishProxyInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def supports_hostname(self) -> supports_hostnameProxyInterfaceCB: ...
 
     # gi Methods
@@ -15482,8 +15205,6 @@ class ProxyInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ProxyResolver(GObject.GInterface):
     # gi Methods
@@ -15504,19 +15225,17 @@ class ProxyResolver(GObject.GInterface):
     ) -> None: ...
     def lookup_finish(self, result: AsyncResult) -> list: ...
 
-    ...
-
 class ProxyResolverInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def is_supported(self) -> is_supportedProxyResolverInterfaceCB: ...
-    @property
+    @builtins.property
     def lookup(self) -> lookupProxyResolverInterfaceCB: ...
-    @property
+    @builtins.property
     def lookup_async(self) -> lookup_asyncProxyResolverInterfaceCB: ...
-    @property
+    @builtins.property
     def lookup_finish(self) -> lookup_finishProxyResolverInterfaceCB: ...
 
     # gi Methods
@@ -15524,8 +15243,6 @@ class ProxyResolverInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class RemoteActionGroup(GObject.GInterface):
     # gi Methods
@@ -15538,15 +15255,13 @@ class RemoteActionGroup(GObject.GInterface):
     ) -> None: ...
     def change_action_state_full(self, action_name: str, value: GLib.Variant, platform_data: GLib.Variant) -> None: ...
 
-    ...
-
 class RemoteActionGroupInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate_action_full(self) -> activate_action_fullRemoteActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def change_action_state_full(self) -> change_action_state_fullRemoteActionGroupInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -15554,8 +15269,6 @@ class RemoteActionGroupInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Resolver(GObject.Object):
     """
@@ -15583,6 +15296,9 @@ class Resolver(GObject.Object):
     class Props(GObject.Object.Props):
         timeout: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, timeout: int = ...) -> None:
         """
@@ -15590,7 +15306,7 @@ class Resolver(GObject.Object):
         """
     @staticmethod
     def get_default() -> Resolver: ...
-    @property
+    @builtins.property
     def get_timeout(self) -> int: ...
     def lookup_by_address(self, address: InetAddress, cancellable: Cancellable | None = None) -> str: ...
     async def lookup_by_address_async(
@@ -15795,41 +15511,40 @@ class Resolver(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ResolverClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def lookup_by_address(self) -> lookup_by_addressResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_by_address_async(self) -> lookup_by_address_asyncResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_by_address_finish(self) -> lookup_by_address_finishResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_by_name(self) -> lookup_by_nameResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_by_name_async(self) -> lookup_by_name_asyncResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_by_name_finish(self) -> lookup_by_name_finishResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_by_name_with_flags(self) -> lookup_by_name_with_flagsResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_by_name_with_flags_async(self) -> lookup_by_name_with_flags_asyncResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_by_name_with_flags_finish(self) -> lookup_by_name_with_flags_finishResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_records(self) -> lookup_recordsResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_records_async(self) -> lookup_records_asyncResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_records_finish(self) -> lookup_records_finishResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_service_async(self) -> lookup_service_asyncResolverClassCB: ...
-    @property
+    @builtins.property
     def lookup_service_finish(self) -> lookup_service_finishResolverClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def reload(self) -> reloadResolverClassCB: ...
 
     # gi Methods
@@ -15838,16 +15553,12 @@ class ResolverClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ResolverPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Resource(GObject.GBoxed):
     # gi Methods
@@ -15869,8 +15580,6 @@ class Resource(GObject.GBoxed):
     def ref(self) -> Resource: ...
     def unref(self) -> None: ...
 
-    ...
-
 class Seekable(GObject.GInterface):
     # gi Methods
     def __init__(self) -> None:
@@ -15883,21 +15592,19 @@ class Seekable(GObject.GInterface):
     def tell(self) -> int: ...
     def truncate(self, offset: int, cancellable: Cancellable | None = None) -> bool: ...
 
-    ...
-
 class SeekableIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_seek(self) -> can_seekSeekableIfaceCB: ...
-    @property
+    @builtins.property
     def can_truncate(self) -> can_truncateSeekableIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def seek(self) -> seekSeekableIfaceCB: ...
-    @property
+    @builtins.property
     def tell(self) -> tellSeekableIfaceCB: ...
-    @property
+    @builtins.property
     def truncate_fn(self) -> truncate_fnSeekableIfaceCB: ...
 
     # gi Methods
@@ -15905,8 +15612,6 @@ class SeekableIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Settings(GObject.Object):
     """
@@ -16302,6 +16007,9 @@ class Settings(GObject.Object):
         schema_id: str  # [schema-id]: changed because contained invalid characters
         settings_schema: SettingsSchema | None  # [settings-schema]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def apply(self) -> None: ...
     def bind(self, key: str, object: GObject.Object, property: str, flags: SettingsBindFlags) -> None: ...
@@ -16323,7 +16031,7 @@ class Settings(GObject.Object):
     def get_double(self, key: str) -> float: ...
     def get_enum(self, key: str) -> int: ...
     def get_flags(self, key: str) -> int: ...
-    @property
+    @builtins.property
     def get_has_unapplied(self) -> bool: ...
     def get_int(self, key: str) -> int: ...
     def get_int64(self, key: str) -> int: ...
@@ -16474,7 +16182,6 @@ class Settings(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SettingsBackend(GObject.Object):
     """
@@ -16590,31 +16297,29 @@ class SettingsBackend(GObject.Object):
         write_tree(self, tree:GLib.Tree, origin_tag=None) -> bool
         """
 
-    ...
-
 class SettingsBackendClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_writable(self) -> get_writableSettingsBackendClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def read(self) -> readSettingsBackendClassCB: ...
-    @property
+    @builtins.property
     def read_user_value(self) -> read_user_valueSettingsBackendClassCB: ...
-    @property
+    @builtins.property
     def reset(self) -> resetSettingsBackendClassCB: ...
-    @property
+    @builtins.property
     def subscribe(self) -> subscribeSettingsBackendClassCB: ...
-    @property
+    @builtins.property
     def sync(self) -> syncSettingsBackendClassCB: ...
-    @property
+    @builtins.property
     def unsubscribe(self) -> unsubscribeSettingsBackendClassCB: ...
-    @property
+    @builtins.property
     def write(self) -> writeSettingsBackendClassCB: ...
-    @property
+    @builtins.property
     def write_tree(self) -> write_treeSettingsBackendClassCB: ...
 
     # gi Methods
@@ -16623,8 +16328,6 @@ class SettingsBackendClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SettingsBackendPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -16632,21 +16335,19 @@ class SettingsBackendPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SettingsClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def change_event(self) -> change_eventSettingsClassCB: ...
-    @property
+    @builtins.property
     def changed(self) -> changedSettingsClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def writable_change_event(self) -> writable_change_eventSettingsClassCB: ...
-    @property
+    @builtins.property
     def writable_changed(self) -> writable_changedSettingsClassCB: ...
 
     # gi Methods
@@ -16655,16 +16356,12 @@ class SettingsClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SettingsPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SettingsSchema(GObject.GBoxed):
     # gi Methods
@@ -16681,8 +16378,6 @@ class SettingsSchema(GObject.GBoxed):
     def ref(self) -> SettingsSchema: ...
     def unref(self) -> None: ...
 
-    ...
-
 class SettingsSchemaKey(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -16698,8 +16393,6 @@ class SettingsSchemaKey(GObject.GBoxed):
     def range_check(self, value: GLib.Variant) -> bool: ...
     def ref(self) -> SettingsSchemaKey: ...
     def unref(self) -> None: ...
-
-    ...
 
 class SettingsSchemaSource(GObject.GBoxed):
     # gi Methods
@@ -16718,8 +16411,6 @@ class SettingsSchemaSource(GObject.GBoxed):
     def ref(self) -> SettingsSchemaSource: ...
     def unref(self) -> None: ...
 
-    ...
-
 class SimpleAction(GObject.Object):
     """
     A `GSimpleAction` is the obvious simple implementation of the
@@ -16733,6 +16424,9 @@ class SimpleAction(GObject.Object):
         parameter_type: GLib.VariantType | None  # [parameter-type]: changed because contained invalid characters
         state: GLib.Variant | None
         state_type: GLib.VariantType | None  # [state-type]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -16807,7 +16501,6 @@ class SimpleAction(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SimpleActionGroup(GObject.Object):
     """
@@ -16832,13 +16525,11 @@ class SimpleActionGroup(GObject.Object):
     @deprecated("deprecated")
     def remove(self, action_name: str) -> None: ...
 
-    ...
-
 class SimpleActionGroupClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -16847,16 +16538,12 @@ class SimpleActionGroupClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SimpleActionGroupPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SimpleAsyncResult(GObject.Object):
     """
@@ -17077,16 +16764,12 @@ class SimpleAsyncResult(GObject.Object):
     @deprecated("deprecated")
     def set_op_res_gssize(self, op_res: int) -> None: ...
 
-    ...
-
 class SimpleAsyncResultClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SimpleIOStream(IOStream):
     """
@@ -17105,6 +16788,9 @@ class SimpleIOStream(IOStream):
     class Props(IOStream.Props):
         input_stream: InputStream | None  # [input-stream]: changed because contained invalid characters
         output_stream: OutputStream | None  # [output-stream]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, input_stream: InputStream | None = ..., output_stream: OutputStream | None = ...) -> None:
@@ -17133,7 +16819,6 @@ class SimpleIOStream(IOStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SimplePermission(Permission):
     """
@@ -17153,8 +16838,6 @@ class SimplePermission(Permission):
     @classmethod
     def new(cls, allowed: bool) -> Permission: ...
 
-    ...
-
 class SimpleProxyResolver(GObject.Object):
     """
     `GSimpleProxyResolver` is a simple [iface@Gio.ProxyResolver] implementation
@@ -17170,6 +16853,9 @@ class SimpleProxyResolver(GObject.Object):
     class Props(GObject.Object.Props):
         default_proxy: str  # [default-proxy]: changed because contained invalid characters
         ignore_hosts: list | None  # [ignore-hosts]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, default_proxy: str = ..., ignore_hosts: list | None = ...) -> None:
@@ -17201,11 +16887,10 @@ class SimpleProxyResolver(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SimpleProxyResolverClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -17214,16 +16899,12 @@ class SimpleProxyResolverClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SimpleProxyResolverPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Socket(GObject.Object):
     """
@@ -17315,6 +16996,9 @@ class Socket(GObject.Object):
         ttl: int
         type: SocketType
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -17349,34 +17033,34 @@ class Socket(GObject.Object):
         """
     def connection_factory_create_connection(self) -> SocketConnection: ...
     def get_available_bytes(self) -> int: ...
-    @property
+    @builtins.property
     def get_blocking(self) -> bool: ...
-    @property
+    @builtins.property
     def get_broadcast(self) -> bool: ...
     def get_credentials(self) -> Credentials: ...
-    @property
+    @builtins.property
     def get_family(self) -> SocketFamily: ...
-    @property
+    @builtins.property
     def get_fd(self) -> int: ...
-    @property
+    @builtins.property
     def get_keepalive(self) -> bool: ...
-    @property
+    @builtins.property
     def get_listen_backlog(self) -> int: ...
-    @property
+    @builtins.property
     def get_local_address(self) -> SocketAddress: ...
-    @property
+    @builtins.property
     def get_multicast_loopback(self) -> bool: ...
-    @property
+    @builtins.property
     def get_multicast_ttl(self) -> int: ...
     def get_option(self, level: int, optname: int) -> tuple[bool, int]: ...
-    @property
+    @builtins.property
     def get_protocol(self) -> SocketProtocol: ...
-    @property
+    @builtins.property
     def get_remote_address(self) -> SocketAddress: ...
     def get_socket_type(self) -> SocketType: ...
-    @property
+    @builtins.property
     def get_timeout(self) -> int: ...
-    @property
+    @builtins.property
     def get_ttl(self) -> int: ...
     def is_closed(self) -> bool: ...
     def is_connected(self) -> bool: ...
@@ -17453,8 +17137,6 @@ class Socket(GObject.Object):
     def shutdown(self, shutdown_read: bool, shutdown_write: bool) -> bool: ...
     def speaks_ipv4(self) -> bool: ...
 
-    ...
-
 class SocketAddress(GObject.Object):
     """
     `GSocketAddress` is the equivalent of
@@ -17466,12 +17148,15 @@ class SocketAddress(GObject.Object):
     class Props(GObject.Object.Props):
         family: SocketFamily
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_family(self) -> SocketFamily: ...
     def get_native_size(self) -> int: ...
     @classmethod
@@ -17512,17 +17197,16 @@ class SocketAddress(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SocketAddressClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_family(self) -> get_familySocketAddressClassCB: ...
-    @property
+    @builtins.property
     def get_native_size(self) -> get_native_sizeSocketAddressClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def to_native(self) -> to_nativeSocketAddressClassCB: ...
 
     # gi Methods
@@ -17530,8 +17214,6 @@ class SocketAddressClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SocketAddressEnumerator(GObject.Object):
     """
@@ -17591,17 +17273,15 @@ class SocketAddressEnumerator(GObject.Object):
         next_finish(self, result:Gio.AsyncResult) -> Gio.SocketAddress or None
         """
 
-    ...
-
 class SocketAddressEnumeratorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def next(self) -> nextSocketAddressEnumeratorClassCB | None: ...
-    @property
+    @builtins.property
     def next_async(self) -> next_asyncSocketAddressEnumeratorClassCB: ...
-    @property
+    @builtins.property
     def next_finish(self) -> next_finishSocketAddressEnumeratorClassCB | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -17609,12 +17289,10 @@ class SocketAddressEnumeratorClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SocketClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -17622,8 +17300,6 @@ class SocketClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SocketClient(GObject.Object):
     """
@@ -17654,6 +17330,9 @@ class SocketClient(GObject.Object):
             TlsCertificateFlags  # [tls-validation-flags]: changed because contained invalid characters
         )
         type: SocketType
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -17720,23 +17399,23 @@ class SocketClient(GObject.Object):
         user_data: object | None = None,
     ) -> None: ...
     def connect_to_uri_finish(self, result: AsyncResult) -> SocketConnection: ...
-    @property
+    @builtins.property
     def get_enable_proxy(self) -> bool: ...
-    @property
+    @builtins.property
     def get_family(self) -> SocketFamily: ...
-    @property
+    @builtins.property
     def get_local_address(self) -> SocketAddress | None: ...
-    @property
+    @builtins.property
     def get_protocol(self) -> SocketProtocol: ...
-    @property
+    @builtins.property
     def get_proxy_resolver(self) -> ProxyResolver: ...
     def get_socket_type(self) -> SocketType: ...
-    @property
+    @builtins.property
     def get_timeout(self) -> int: ...
-    @property
+    @builtins.property
     def get_tls(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_tls_validation_flags(self) -> TlsCertificateFlags: ...
     @classmethod
     def new(cls) -> SocketClient: ...
@@ -17762,13 +17441,11 @@ class SocketClient(GObject.Object):
         event(self, event:Gio.SocketClientEvent, connectable:Gio.SocketConnectable, connection:Gio.IOStream)
         """
 
-    ...
-
 class SocketClientClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def event(self) -> eventSocketClientClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -17777,16 +17454,12 @@ class SocketClientClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SocketClientPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SocketConnectable(GObject.GInterface):
     # gi Methods
@@ -17798,17 +17471,15 @@ class SocketConnectable(GObject.GInterface):
     def proxy_enumerate(self) -> SocketAddressEnumerator: ...
     def to_string(self) -> str: ...
 
-    ...
-
 class SocketConnectableIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def enumerate(self) -> enumerateSocketConnectableIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def proxy_enumerate(self) -> proxy_enumerateSocketConnectableIfaceCB: ...
-    @property
+    @builtins.property
     def to_string(self) -> to_stringSocketConnectableIfaceCB: ...
 
     # gi Methods
@@ -17816,8 +17487,6 @@ class SocketConnectableIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SocketConnection(IOStream):
     """
@@ -17842,6 +17511,9 @@ class SocketConnection(IOStream):
     class Props(IOStream.Props):
         socket: Socket | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, socket: Socket | None = ...) -> None:
         """
@@ -17865,15 +17537,13 @@ class SocketConnection(IOStream):
     def factory_register_type(g_type: GObject.GType, family: SocketFamily, type: SocketType, protocol: int) -> None: ...
     def get_local_address(self) -> SocketAddress: ...
     def get_remote_address(self) -> SocketAddress: ...
-    @property
+    @builtins.property
     def get_socket(self) -> Socket: ...
     def is_connected(self) -> bool: ...
 
-    ...
-
 class SocketConnectionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> IOStreamClass | None: ...
 
     # gi Methods
@@ -17882,16 +17552,12 @@ class SocketConnectionClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SocketConnectionPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SocketControlMessage(GObject.Object):
     """
@@ -17956,19 +17622,17 @@ class SocketControlMessage(GObject.Object):
         serialize(self, data)
         """
 
-    ...
-
 class SocketControlMessageClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_level(self) -> get_levelSocketControlMessageClassCB: ...
-    @property
+    @builtins.property
     def get_size(self) -> get_sizeSocketControlMessageClassCB: ...
-    @property
+    @builtins.property
     def get_type(self) -> get_typeSocketControlMessageClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def serialize(self) -> serializeSocketControlMessageClassCB: ...
 
     # gi Methods
@@ -17977,16 +17641,12 @@ class SocketControlMessageClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SocketControlMessagePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SocketListener(GObject.Object):
     """
@@ -18009,6 +17669,9 @@ class SocketListener(GObject.Object):
 
     class Props(GObject.Object.Props):
         listen_backlog: int  # [listen-backlog]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, listen_backlog: int = ...) -> None:
@@ -18081,15 +17744,14 @@ class SocketListener(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SocketListenerClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def changed(self) -> changedSocketListenerClassCB: ...
-    @property
+    @builtins.property
     def event(self) -> eventSocketListenerClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -18098,8 +17760,6 @@ class SocketListenerClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SocketListenerPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -18107,16 +17767,12 @@ class SocketListenerPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SocketPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SocketService(SocketListener):
     """
@@ -18151,12 +17807,15 @@ class SocketService(SocketListener):
     class Props(SocketListener.Props):
         active: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, active: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def is_active(self) -> bool: ...
     @classmethod
     def new(cls) -> SocketService: ...
@@ -18192,13 +17851,12 @@ class SocketService(SocketListener):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SocketServiceClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def incoming(self) -> incomingSocketServiceClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> SocketListenerClass | None: ...
 
     # gi Methods
@@ -18207,16 +17865,12 @@ class SocketServiceClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SocketServicePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SrvTarget(GObject.GBoxed):
     # gi Methods
@@ -18236,17 +17890,15 @@ class SrvTarget(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class StaticResource(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def data(self) -> int: ...
-    @property
+    @builtins.property
     def data_len(self) -> int: ...
-    @property
+    @builtins.property
     def next(self) -> StaticResource | None: ...
-    @property
+    @builtins.property
     def resource(self) -> Resource | None: ...
 
     # gi Methods
@@ -18257,8 +17909,6 @@ class StaticResource(GObject.GPointer):
     def fini(self) -> None: ...
     def get_resource(self) -> Resource: ...
     def init(self) -> None: ...
-
-    ...
 
 class Subprocess(GObject.Object):
     """
@@ -18330,6 +17980,9 @@ class Subprocess(GObject.Object):
     class Props(GObject.Object.Props):
         argv: list | None
         flags: SubprocessFlags
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, argv: list | None = ..., flags: SubprocessFlags = ...) -> None:
@@ -18408,7 +18061,6 @@ class Subprocess(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SubprocessLauncher(GObject.Object):
     """
@@ -18424,6 +18076,9 @@ class SubprocessLauncher(GObject.Object):
 
     class Props(GObject.Object.Props):
         flags: SubprocessFlags
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, flags: SubprocessFlags = ...) -> None:
@@ -18460,7 +18115,6 @@ class SubprocessLauncher(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class Task(GObject.Object):
     """
@@ -18991,6 +18645,9 @@ class Task(GObject.Object):
     class Props(GObject.Object.Props):
         completed: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -18998,7 +18655,7 @@ class Task(GObject.Object):
         """
     def get_cancellable(self) -> Cancellable | None: ...
     def get_check_cancellable(self) -> bool: ...
-    @property
+    @builtins.property
     def get_completed(self) -> bool: ...
     def get_context(self) -> GLib.MainContext: ...
     def get_name(self) -> str | None: ...
@@ -19063,7 +18720,6 @@ class Task(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TaskClass(GObject.GPointer):
     # gi Methods
@@ -19071,8 +18727,6 @@ class TaskClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TcpConnection(SocketConnection):
     """
@@ -19083,12 +18737,15 @@ class TcpConnection(SocketConnection):
     class Props(SocketConnection.Props):
         graceful_disconnect: bool  # [graceful-disconnect]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, graceful_disconnect: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_graceful_disconnect(self) -> bool: ...
     def set_graceful_disconnect(self, graceful_disconnect: bool) -> None: ...
 
@@ -19104,11 +18761,10 @@ class TcpConnection(SocketConnection):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TcpConnectionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SocketConnectionClass | None: ...
 
     # gi Methods
@@ -19117,16 +18773,12 @@ class TcpConnectionClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TcpConnectionPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TcpWrapperConnection(TcpConnection):
     """
@@ -19141,12 +18793,15 @@ class TcpWrapperConnection(TcpConnection):
     class Props(TcpConnection.Props):
         base_io_stream: IOStream | None  # [base-io-stream]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, base_io_stream: IOStream | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_base_io_stream(self) -> IOStream: ...
     @classmethod
     def new(cls, base_io_stream: IOStream, socket: Socket) -> SocketConnection: ...
@@ -19163,11 +18818,10 @@ class TcpWrapperConnection(TcpConnection):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TcpWrapperConnectionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> TcpConnectionClass | None: ...
 
     # gi Methods
@@ -19176,16 +18830,12 @@ class TcpWrapperConnectionClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TcpWrapperConnectionPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TestDBus(GObject.Object):
     """
@@ -19273,6 +18923,9 @@ class TestDBus(GObject.Object):
     class Props(GObject.Object.Props):
         flags: TestDBusFlags
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, flags: TestDBusFlags = ...) -> None:
         """
@@ -19281,7 +18934,7 @@ class TestDBus(GObject.Object):
     def add_service_dir(self, path: str) -> None: ...
     def down(self) -> None: ...
     def get_bus_address(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_flags(self) -> TestDBusFlags: ...
     @classmethod
     def new(cls, flags: TestDBusFlags) -> TestDBus: ...
@@ -19302,7 +18955,6 @@ class TestDBus(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ThemedIcon(GObject.Object):
     """
@@ -19322,13 +18974,16 @@ class ThemedIcon(GObject.Object):
         names: list | None
         use_default_fallbacks: bool  # [use-default-fallbacks]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, name: str = ..., names: list | None = ..., use_default_fallbacks: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def append_name(self, iconname: str) -> None: ...
-    @property
+    @builtins.property
     def get_names(self) -> list: ...
     @classmethod
     def new(cls, iconname: str) -> ThemedIcon: ...
@@ -19364,7 +19019,6 @@ class ThemedIcon(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ThemedIconClass(GObject.GPointer):
     # gi Methods
@@ -19372,8 +19026,6 @@ class ThemedIconClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ThreadedResolver(Resolver):
     """
@@ -19387,11 +19039,9 @@ class ThreadedResolver(Resolver):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ThreadedResolverClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> ResolverClass | None: ...
 
     # gi Methods
@@ -19399,8 +19049,6 @@ class ThreadedResolverClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ThreadedSocketService(SocketService):
     """
@@ -19424,6 +19072,9 @@ class ThreadedSocketService(SocketService):
 
     class Props(SocketService.Props):
         max_threads: int  # [max-threads]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, max_threads: int = ...) -> None:
@@ -19462,13 +19113,12 @@ class ThreadedSocketService(SocketService):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ThreadedSocketServiceClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SocketServiceClass | None: ...
-    @property
+    @builtins.property
     def run(self) -> runThreadedSocketServiceClassCB: ...
 
     # gi Methods
@@ -19477,16 +19127,12 @@ class ThreadedSocketServiceClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ThreadedSocketServicePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TlsBackend(GObject.GInterface):
     # gi Methods
@@ -19507,29 +19153,27 @@ class TlsBackend(GObject.GInterface):
     def supports_dtls(self) -> bool: ...
     def supports_tls(self) -> bool: ...
 
-    ...
-
 class TlsBackendInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_certificate_type(self) -> get_certificate_typeTlsBackendInterfaceCB: ...
-    @property
+    @builtins.property
     def get_client_connection_type(self) -> get_client_connection_typeTlsBackendInterfaceCB: ...
-    @property
+    @builtins.property
     def get_default_database(self) -> get_default_databaseTlsBackendInterfaceCB: ...
-    @property
+    @builtins.property
     def get_dtls_client_connection_type(self) -> get_dtls_client_connection_typeTlsBackendInterfaceCB: ...
-    @property
+    @builtins.property
     def get_dtls_server_connection_type(self) -> get_dtls_server_connection_typeTlsBackendInterfaceCB: ...
-    @property
+    @builtins.property
     def get_file_database_type(self) -> get_file_database_typeTlsBackendInterfaceCB: ...
-    @property
+    @builtins.property
     def get_server_connection_type(self) -> get_server_connection_typeTlsBackendInterfaceCB: ...
-    @property
+    @builtins.property
     def supports_dtls(self) -> supports_dtlsTlsBackendInterfaceCB: ...
-    @property
+    @builtins.property
     def supports_tls(self) -> supports_tlsTlsBackendInterfaceCB: ...
 
     # gi Methods
@@ -19537,8 +19181,6 @@ class TlsBackendInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TlsCertificate(GObject.Object):
     """
@@ -19566,6 +19208,9 @@ class TlsCertificate(GObject.Object):
         private_key_pkcs11_uri: str  # [private-key-pkcs11-uri]: changed because contained invalid characters
         subject_name: str  # [subject-name]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -19582,19 +19227,19 @@ class TlsCertificate(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_dns_names(self) -> list | None: ...
-    @property
+    @builtins.property
     def get_ip_addresses(self) -> list | None: ...
-    @property
+    @builtins.property
     def get_issuer(self) -> TlsCertificate | None: ...
-    @property
+    @builtins.property
     def get_issuer_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_not_valid_after(self) -> GLib.DateTime | None: ...
-    @property
+    @builtins.property
     def get_not_valid_before(self) -> GLib.DateTime | None: ...
-    @property
+    @builtins.property
     def get_subject_name(self) -> str | None: ...
     def is_same(self, cert_two: TlsCertificate) -> bool: ...
     @staticmethod
@@ -19735,15 +19380,14 @@ class TlsCertificate(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TlsCertificateClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def verify(self) -> verifyTlsCertificateClassCB: ...
 
     # gi Methods
@@ -19752,8 +19396,6 @@ class TlsCertificateClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TlsCertificatePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -19761,14 +19403,15 @@ class TlsCertificatePrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TlsClientConnection(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         accepted_cas: list | None  # [accepted-cas]: changed because contained invalid characters
         server_identity: SocketConnectable | None  # [server-identity]: changed because contained invalid characters
         use_ssl3: bool  # [use-ssl3]: changed because contained invalid characters
         validation_flags: TlsCertificateFlags  # [validation-flags]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(
@@ -19781,15 +19424,15 @@ class TlsClientConnection(GObject.GInterface):
         Generated __init__ stub method. order not guaranteed.
         """
     def copy_session_state(self, source: TlsClientConnection) -> None: ...
-    @property
+    @builtins.property
     def get_accepted_cas(self) -> list: ...
-    @property
+    @builtins.property
     def get_server_identity(self) -> SocketConnectable | None: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_use_ssl3(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_validation_flags(self) -> TlsCertificateFlags: ...
     @staticmethod
     def new(base_io_stream: IOStream, server_identity: SocketConnectable | None = None) -> TlsClientConnection: ...
@@ -19832,13 +19475,12 @@ class TlsClientConnection(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TlsClientConnectionInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def copy_session_state(self) -> copy_session_stateTlsClientConnectionInterfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -19846,8 +19488,6 @@ class TlsClientConnectionInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TlsConnection(IOStream):
     """
@@ -19877,6 +19517,9 @@ class TlsConnection(IOStream):
         require_close_notify: bool  # [require-close-notify]: changed because contained invalid characters
         use_system_certdb: bool  # [use-system-certdb]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -19893,30 +19536,30 @@ class TlsConnection(IOStream):
         Generated __init__ stub method. order not guaranteed.
         """
     def emit_accept_certificate(self, peer_cert: TlsCertificate, errors: TlsCertificateFlags) -> bool: ...
-    @property
+    @builtins.property
     def get_certificate(self) -> TlsCertificate | None: ...
     def get_channel_binding_data(self, type: TlsChannelBindingType) -> tuple[bool, list | None]: ...
-    @property
+    @builtins.property
     def get_ciphersuite_name(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_database(self) -> TlsDatabase | None: ...
-    @property
+    @builtins.property
     def get_interaction(self) -> TlsInteraction | None: ...
-    @property
+    @builtins.property
     def get_negotiated_protocol(self) -> str | None: ...
-    @property
+    @builtins.property
     def get_peer_certificate(self) -> TlsCertificate | None: ...
-    @property
+    @builtins.property
     def get_peer_certificate_errors(self) -> TlsCertificateFlags: ...
-    @property
+    @builtins.property
     def get_protocol_version(self) -> TlsProtocolVersion: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_rehandshake_mode(self) -> TlsRehandshakeMode: ...
-    @property
+    @builtins.property
     def get_require_close_notify(self) -> bool: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_use_system_certdb(self) -> bool: ...
     def handshake(self, cancellable: Cancellable | None = None) -> bool: ...
     async def handshake_async(
@@ -20088,25 +19731,24 @@ class TlsConnection(IOStream):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TlsConnectionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def accept_certificate(self) -> accept_certificateTlsConnectionClassCB: ...
-    @property
+    @builtins.property
     def get_binding_data(self) -> get_binding_dataTlsConnectionClassCB: ...
-    @property
+    @builtins.property
     def get_negotiated_protocol(self) -> get_negotiated_protocolTlsConnectionClassCB | None: ...
-    @property
+    @builtins.property
     def handshake(self) -> handshakeTlsConnectionClassCB: ...
-    @property
+    @builtins.property
     def handshake_async(self) -> handshake_asyncTlsConnectionClassCB: ...
-    @property
+    @builtins.property
     def handshake_finish(self) -> handshake_finishTlsConnectionClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> IOStreamClass | None: ...
 
     # gi Methods
@@ -20115,16 +19757,12 @@ class TlsConnectionClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TlsConnectionPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TlsDatabase(GObject.Object):
     """
@@ -20347,39 +19985,37 @@ class TlsDatabase(GObject.Object):
         verify_chain_finish(self, result:Gio.AsyncResult) -> Gio.TlsCertificateFlags
         """
 
-    ...
-
 class TlsDatabaseClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def create_certificate_handle(self) -> create_certificate_handleTlsDatabaseClassCB | None: ...
-    @property
+    @builtins.property
     def lookup_certificate_for_handle(self) -> lookup_certificate_for_handleTlsDatabaseClassCB | None: ...
-    @property
+    @builtins.property
     def lookup_certificate_for_handle_async(self) -> lookup_certificate_for_handle_asyncTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def lookup_certificate_for_handle_finish(self) -> lookup_certificate_for_handle_finishTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def lookup_certificate_issuer(self) -> lookup_certificate_issuerTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def lookup_certificate_issuer_async(self) -> lookup_certificate_issuer_asyncTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def lookup_certificate_issuer_finish(self) -> lookup_certificate_issuer_finishTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def lookup_certificates_issued_by(self) -> lookup_certificates_issued_byTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def lookup_certificates_issued_by_async(self) -> lookup_certificates_issued_by_asyncTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def lookup_certificates_issued_by_finish(self) -> lookup_certificates_issued_by_finishTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def verify_chain(self) -> verify_chainTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def verify_chain_async(self) -> verify_chain_asyncTlsDatabaseClassCB: ...
-    @property
+    @builtins.property
     def verify_chain_finish(self) -> verify_chain_finishTlsDatabaseClassCB: ...
 
     # gi Methods
@@ -20388,8 +20024,6 @@ class TlsDatabaseClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TlsDatabasePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -20397,11 +20031,12 @@ class TlsDatabasePrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TlsFileDatabase(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         anchors: str
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, anchors: str = ...) -> None:
@@ -20423,13 +20058,12 @@ class TlsFileDatabase(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TlsFileDatabaseInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
 
     # gi Methods
@@ -20437,8 +20071,6 @@ class TlsFileDatabaseInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TlsInteraction(GObject.Object):
     """
@@ -20551,25 +20183,23 @@ class TlsInteraction(GObject.Object):
         request_certificate_finish(self, result:Gio.AsyncResult) -> Gio.TlsInteractionResult
         """
 
-    ...
-
 class TlsInteractionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def ask_password(self) -> ask_passwordTlsInteractionClassCB: ...
-    @property
+    @builtins.property
     def ask_password_async(self) -> ask_password_asyncTlsInteractionClassCB: ...
-    @property
+    @builtins.property
     def ask_password_finish(self) -> ask_password_finishTlsInteractionClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def request_certificate(self) -> request_certificateTlsInteractionClassCB: ...
-    @property
+    @builtins.property
     def request_certificate_async(self) -> request_certificate_asyncTlsInteractionClassCB: ...
-    @property
+    @builtins.property
     def request_certificate_finish(self) -> request_certificate_finishTlsInteractionClassCB: ...
 
     # gi Methods
@@ -20578,16 +20208,12 @@ class TlsInteractionClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TlsInteractionPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TlsPassword(GObject.Object):
     """
@@ -20600,17 +20226,20 @@ class TlsPassword(GObject.Object):
         flags: TlsPasswordFlags
         warning: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, description: str = ..., flags: TlsPasswordFlags = ..., warning: str = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_description(self) -> str: ...
-    @property
+    @builtins.property
     def get_flags(self) -> TlsPasswordFlags: ...
     def get_value(self) -> tuple[list, int | None]: ...
-    @property
+    @builtins.property
     def get_warning(self) -> str: ...
     @classmethod
     def new(cls, flags: TlsPasswordFlags, description: str) -> TlsPassword: ...
@@ -20668,19 +20297,18 @@ class TlsPassword(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TlsPasswordClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_default_warning(self) -> get_default_warningTlsPasswordClassCB: ...
-    @property
+    @builtins.property
     def get_value(self) -> get_valueTlsPasswordClassCB: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def set_value(self) -> set_valueTlsPasswordClassCB: ...
 
     # gi Methods
@@ -20689,8 +20317,6 @@ class TlsPasswordClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TlsPasswordPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -20698,13 +20324,14 @@ class TlsPasswordPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TlsServerConnection(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         authentication_mode: (
             TlsAuthenticationMode  # [authentication-mode]: changed because contained invalid characters
         )
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, authentication_mode: TlsAuthenticationMode = ...) -> None:
@@ -20726,11 +20353,10 @@ class TlsServerConnection(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class TlsServerConnectionInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -20738,8 +20364,6 @@ class TlsServerConnectionInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class UnixConnection(SocketConnection):
     """
@@ -20781,11 +20405,9 @@ class UnixConnection(SocketConnection):
     def send_credentials_finish(self, result: AsyncResult) -> bool: ...
     def send_fd(self, fd: int, cancellable: Cancellable | None = None) -> bool: ...
 
-    ...
-
 class UnixConnectionClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SocketConnectionClass | None: ...
 
     # gi Methods
@@ -20794,16 +20416,12 @@ class UnixConnectionClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixConnectionPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class UnixCredentialsMessage(SocketControlMessage):
     """
@@ -20831,12 +20449,15 @@ class UnixCredentialsMessage(SocketControlMessage):
     class Props(SocketControlMessage.Props):
         credentials: Credentials | None
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, credentials: Credentials | None = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_credentials(self) -> Credentials: ...
     @staticmethod
     def is_supported() -> bool: ...
@@ -20857,11 +20478,10 @@ class UnixCredentialsMessage(SocketControlMessage):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class UnixCredentialsMessageClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SocketControlMessageClass | None: ...
 
     # gi Methods
@@ -20870,16 +20490,12 @@ class UnixCredentialsMessageClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixCredentialsMessagePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class UnixFDList(GObject.Object):
     """
@@ -20914,11 +20530,9 @@ class UnixFDList(GObject.Object):
     def peek_fds(self) -> tuple[list, int | None]: ...
     def steal_fds(self) -> tuple[list, int | None]: ...
 
-    ...
-
 class UnixFDListClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -20927,8 +20541,6 @@ class UnixFDListClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixFDListPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -20936,11 +20548,9 @@ class UnixFDListPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixFDMessageClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SocketControlMessageClass | None: ...
 
     # gi Methods
@@ -20949,8 +20559,6 @@ class UnixFDMessageClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixFDMessagePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -20958,11 +20566,9 @@ class UnixFDMessagePrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixInputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
 
     # gi Methods
@@ -20971,16 +20577,12 @@ class UnixInputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixInputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class UnixMountMonitorClass(GObject.GPointer):
     # gi Methods
@@ -20989,11 +20591,9 @@ class UnixMountMonitorClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixOutputStreamClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
 
     # gi Methods
@@ -21002,16 +20602,12 @@ class UnixOutputStreamClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixOutputStreamPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class UnixSocketAddress(SocketAddress):
     """
@@ -21042,6 +20638,9 @@ class UnixSocketAddress(SocketAddress):
         path: str
         path_as_array: list | None  # [path-as-array]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -21055,11 +20654,11 @@ class UnixSocketAddress(SocketAddress):
         """
     @staticmethod
     def abstract_names_supported() -> bool: ...
-    @property
+    @builtins.property
     def get_address_type(self) -> UnixSocketAddressType: ...
     @deprecated("deprecated")
     def get_is_abstract(self) -> bool: ...
-    @property
+    @builtins.property
     def get_path(self) -> str: ...
     def get_path_len(self) -> int: ...
     @classmethod
@@ -21103,11 +20702,10 @@ class UnixSocketAddress(SocketAddress):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class UnixSocketAddressClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> SocketAddressClass | None: ...
 
     # gi Methods
@@ -21116,16 +20714,12 @@ class UnixSocketAddressClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UnixSocketAddressPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Vfs(GObject.Object):
     """
@@ -21238,31 +20832,29 @@ class Vfs(GObject.Object):
         parse_name(self, parse_name:str) -> Gio.File
         """
 
-    ...
-
 class VfsClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def add_writable_namespaces(self) -> add_writable_namespacesVfsClassCB: ...
-    @property
+    @builtins.property
     def get_file_for_path(self) -> get_file_for_pathVfsClassCB: ...
-    @property
+    @builtins.property
     def get_file_for_uri(self) -> get_file_for_uriVfsClassCB: ...
-    @property
+    @builtins.property
     def get_supported_uri_schemes(self) -> get_supported_uri_schemesVfsClassCB: ...
-    @property
+    @builtins.property
     def is_active(self) -> is_activeVfsClassCB: ...
-    @property
+    @builtins.property
     def local_file_add_info(self) -> local_file_add_infoVfsClassCB: ...
-    @property
+    @builtins.property
     def local_file_moved(self) -> local_file_movedVfsClassCB: ...
-    @property
+    @builtins.property
     def local_file_removed(self) -> local_file_removedVfsClassCB: ...
-    @property
+    @builtins.property
     def local_file_set_attributes(self) -> local_file_set_attributesVfsClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def parse_name(self) -> parse_nameVfsClassCB: ...
 
     # gi Methods
@@ -21270,8 +20862,6 @@ class VfsClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Volume(GObject.GInterface):
     # gi Methods
@@ -21334,53 +20924,52 @@ class Volume(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VolumeIface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def can_eject(self) -> can_ejectVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def can_mount(self) -> can_mountVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def changed(self) -> changedVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def eject(self) -> ejectVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def eject_finish(self) -> eject_finishVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def eject_with_operation(self) -> eject_with_operationVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def eject_with_operation_finish(self) -> eject_with_operation_finishVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def enumerate_identifiers(self) -> enumerate_identifiersVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
-    @property
+    @builtins.property
     def get_activation_root(self) -> get_activation_rootVolumeIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_drive(self) -> get_driveVolumeIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_icon(self) -> get_iconVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def get_identifier(self) -> get_identifierVolumeIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_mount(self) -> get_mountVolumeIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_name(self) -> get_nameVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def get_sort_key(self) -> get_sort_keyVolumeIfaceCB | None: ...
-    @property
+    @builtins.property
     def get_symbolic_icon(self) -> get_symbolic_iconVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def get_uuid(self) -> get_uuidVolumeIfaceCB | None: ...
-    @property
+    @builtins.property
     def mount_finish(self) -> mount_finishVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def mount_fn(self) -> mount_fnVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def removed(self) -> removedVolumeIfaceCB: ...
-    @property
+    @builtins.property
     def should_automount(self) -> should_automountVolumeIfaceCB: ...
 
     # gi Methods
@@ -21388,8 +20977,6 @@ class VolumeIface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class VolumeMonitor(GObject.Object):
     """
@@ -21514,47 +21101,46 @@ class VolumeMonitor(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class VolumeMonitorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def drive_changed(self) -> drive_changedVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def drive_connected(self) -> drive_connectedVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def drive_disconnected(self) -> drive_disconnectedVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def drive_eject_button(self) -> drive_eject_buttonVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def drive_stop_button(self) -> drive_stop_buttonVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def get_connected_drives(self) -> get_connected_drivesVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def get_mount_for_uuid(self) -> get_mount_for_uuidVolumeMonitorClassCB | None: ...
-    @property
+    @builtins.property
     def get_mounts(self) -> get_mountsVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def get_volume_for_uuid(self) -> get_volume_for_uuidVolumeMonitorClassCB | None: ...
-    @property
+    @builtins.property
     def get_volumes(self) -> get_volumesVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def is_supported(self) -> is_supportedVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def mount_added(self) -> mount_addedVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def mount_changed(self) -> mount_changedVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def mount_pre_unmount(self) -> mount_pre_unmountVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def mount_removed(self) -> mount_removedVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def volume_added(self) -> volume_addedVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def volume_changed(self) -> volume_changedVolumeMonitorClassCB: ...
-    @property
+    @builtins.property
     def volume_removed(self) -> volume_removedVolumeMonitorClassCB: ...
 
     # gi Methods
@@ -21562,8 +21148,6 @@ class VolumeMonitorClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ZlibCompressor(GObject.Object):
     """
@@ -21576,12 +21160,15 @@ class ZlibCompressor(GObject.Object):
         format: ZlibCompressorFormat
         level: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, file_info: FileInfo | None = ..., format: ZlibCompressorFormat = ..., level: int = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_file_info(self) -> FileInfo | None: ...
     @classmethod
     def new(cls, format: ZlibCompressorFormat, level: int) -> ZlibCompressor: ...
@@ -21613,11 +21200,10 @@ class ZlibCompressor(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ZlibCompressorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -21625,8 +21211,6 @@ class ZlibCompressorClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ZlibDecompressor(GObject.Object):
     """
@@ -21638,12 +21222,15 @@ class ZlibDecompressor(GObject.Object):
         file_info: FileInfo | None  # [file-info]: changed because contained invalid characters
         format: ZlibCompressorFormat
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, format: ZlibCompressorFormat = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    @property
+    @builtins.property
     def get_file_info(self) -> FileInfo | None: ...
     @classmethod
     def new(cls, format: ZlibCompressorFormat) -> ZlibDecompressor: ...
@@ -21667,11 +21254,10 @@ class ZlibDecompressor(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ZlibDecompressorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -21679,8 +21265,6 @@ class ZlibDecompressorClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

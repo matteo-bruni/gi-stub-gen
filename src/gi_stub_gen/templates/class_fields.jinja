@@ -3,7 +3,7 @@
 {% for field in fields %}
 {% if field.is_property %}
 {% if field.is_deprecated %}@deprecated{% endif  %}
-@property
+@builtins.property
 def {{ field.name }}(self) -> {{ field.type_hint(module_name) }}:{{ ' ...' | if_true(not field.docstring)}}{{ field.line_comment | if_exists("# ")}}
     {% if field.docstring or field.is_deprecated %} 
     """

@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import pkgutil
 import typing
@@ -129,8 +130,6 @@ class PyGIDeprecationWarning(DeprecationWarning):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PyGIWarning(Warning):
     # gi Methods
     def __init__(self) -> None:
@@ -138,11 +137,11 @@ class PyGIWarning(Warning):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Repository(object):
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -157,16 +156,12 @@ class Repository(object):
         **kwargs: typing.Any,
     ) -> typing.Any: ...
 
-    ...
-
 class _DummyStaticModule(type):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Aliases

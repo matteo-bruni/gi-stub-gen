@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -14249,8 +14250,6 @@ class Allocator(GObject.GPointer):
         """
     def free(self) -> None: ...
 
-    ...
-
 class AsyncQueue(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -14294,8 +14293,6 @@ class AsyncQueue(GObject.GPointer):
     @deprecated("deprecated")
     def unref_and_unlock(self) -> None: ...
 
-    ...
-
 class Bytes(GObject.GBoxed):
     # gi Methods
     def compare(self, bytes2: Bytes) -> int: ...
@@ -14321,8 +14318,6 @@ class Bytes(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class Cache(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -14339,8 +14334,6 @@ class Cache(GObject.GPointer):
     def remove(self, value: object | None = None) -> None: ...
     @deprecated("deprecated")
     def value_foreach(self, func: HFunc, user_data: object | None = None) -> None: ...
-
-    ...
 
 class Completion(GObject.GPointer):
     # gi Fields
@@ -14362,11 +14355,9 @@ class Completion(GObject.GPointer):
     @deprecated("deprecated")
     def free(self) -> None: ...
 
-    ...
-
 class Cond(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def i(self) -> list | None: ...
 
     # gi Methods
@@ -14381,16 +14372,12 @@ class Cond(GObject.GPointer):
     def wait(self, mutex: Mutex) -> None: ...
     def wait_until(self, mutex: Mutex, end_time: int) -> bool: ...
 
-    ...
-
 class Data(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DateTime(GObject.GBoxed):
     # gi Methods
@@ -14475,8 +14462,6 @@ class DateTime(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class DebugKey(GObject.GPointer):
     # gi Fields
     key: str = ...
@@ -14488,8 +14473,6 @@ class DebugKey(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DoubleIEEE754(GObject.GPointer):
     # gi Fields
     v_double: float = ...
@@ -14499,8 +14482,6 @@ class DoubleIEEE754(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Error(RuntimeError):
     # python methods (overrides?)
@@ -14528,8 +14509,6 @@ class Error(RuntimeError):
         code: typing.Any,
     ) -> typing.Any: ...
 
-    ...
-
 class FloatIEEE754(GObject.GPointer):
     # gi Fields
     v_float: float = ...
@@ -14540,13 +14519,11 @@ class FloatIEEE754(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class HashTableIter(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def dummy4(self) -> int: ...
-    @property
+    @builtins.property
     def dummy5(self) -> bool: ...
 
     # gi Methods
@@ -14560,8 +14537,6 @@ class HashTableIter(GObject.GPointer):
     def remove(self) -> None: ...
     def replace(self, value: object | None = None) -> None: ...
     def steal(self) -> None: ...
-
-    ...
 
 class Hook(GObject.GPointer):
     # gi Fields
@@ -14592,8 +14567,6 @@ class Hook(GObject.GPointer):
     @staticmethod
     def unref(hook_list: HookList, hook: Hook) -> None: ...
 
-    ...
-
 class HookList(GObject.GPointer):
     # gi Fields
     dummy: list | None = ...
@@ -14616,8 +14589,6 @@ class HookList(GObject.GPointer):
     def marshal_check(
         self, may_recurse: bool, marshaller: HookCheckMarshaller, marshal_data: object | None = None
     ) -> None: ...
-
-    ...
 
 class IOChannel(GObject.GBoxed):
     # gi Methods
@@ -14694,25 +14665,23 @@ class IOChannel(GObject.GBoxed):
         lines: typing.Any,
     ) -> typing.Any: ...
 
-    ...
-
 class IOFuncs(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def io_close(self) -> io_closeIOFuncsCB: ...
-    @property
+    @builtins.property
     def io_create_watch(self) -> io_create_watchIOFuncsCB: ...
-    @property
+    @builtins.property
     def io_free(self) -> io_freeIOFuncsCB: ...
-    @property
+    @builtins.property
     def io_get_flags(self) -> io_get_flagsIOFuncsCB: ...
-    @property
+    @builtins.property
     def io_read(self) -> io_readIOFuncsCB: ...
-    @property
+    @builtins.property
     def io_seek(self) -> io_seekIOFuncsCB: ...
-    @property
+    @builtins.property
     def io_set_flags(self) -> io_set_flagsIOFuncsCB: ...
-    @property
+    @builtins.property
     def io_write(self) -> io_writeIOFuncsCB: ...
 
     # gi Methods
@@ -14720,8 +14689,6 @@ class IOFuncs(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Idle(Source):
     # gi Methods
@@ -14776,8 +14743,6 @@ class Idle(Source):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-
-    ...
 
 class KeyFile(GObject.GBoxed):
     # gi Methods
@@ -14840,8 +14805,6 @@ class KeyFile(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class List(GObject.GPointer):
     # gi Fields
     next: list | None = ...
@@ -14857,8 +14820,6 @@ class List(GObject.GPointer):
     @staticmethod
     def push_allocator(allocator: Allocator) -> None: ...
 
-    ...
-
 class LogField(GObject.GPointer):
     # gi Fields
     key: str = ...
@@ -14869,8 +14830,6 @@ class LogField(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MainContext(GObject.GBoxed):
     # gi Methods
@@ -14914,8 +14873,6 @@ class MainContext(GObject.GBoxed):
     def wait(self, cond: Cond, mutex: Mutex) -> bool: ...
     def wakeup(self) -> None: ...
 
-    ...
-
 class MainLoop(GObject.GBoxed):
     # gi Methods
     def get_context(self) -> MainContext: ...
@@ -14936,19 +14893,17 @@ class MainLoop(GObject.GBoxed):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-    ...
-
 class MarkupParser(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def end_element(self) -> end_elementMarkupParserCB: ...
-    @property
+    @builtins.property
     def error(self) -> errorMarkupParserCB: ...
-    @property
+    @builtins.property
     def passthrough(self) -> passthroughMarkupParserCB: ...
-    @property
+    @builtins.property
     def start_element(self) -> start_elementMarkupParserCB: ...
-    @property
+    @builtins.property
     def text(self) -> textMarkupParserCB: ...
 
     # gi Methods
@@ -14956,8 +14911,6 @@ class MarkupParser(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MemChunk(GObject.GPointer):
     # gi Methods
@@ -14975,21 +14928,19 @@ class MemChunk(GObject.GPointer):
     def print_(self) -> None: ...
     def reset(self) -> None: ...
 
-    ...
-
 class MemVTable(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def calloc(self) -> callocMemVTableCB: ...
-    @property
+    @builtins.property
     def free(self) -> freeMemVTableCB: ...
-    @property
+    @builtins.property
     def malloc(self) -> mallocMemVTableCB: ...
-    @property
+    @builtins.property
     def realloc(self) -> reallocMemVTableCB: ...
-    @property
+    @builtins.property
     def try_malloc(self) -> try_mallocMemVTableCB: ...
-    @property
+    @builtins.property
     def try_realloc(self) -> try_reallocMemVTableCB: ...
 
     # gi Methods
@@ -14998,11 +14949,9 @@ class MemVTable(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Mutex(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def i(self) -> list | None: ...
 
     # gi Methods
@@ -15015,8 +14964,6 @@ class Mutex(GObject.GPointer):
     def lock(self) -> None: ...
     def trylock(self) -> bool: ...
     def unlock(self) -> None: ...
-
-    ...
 
 class Node(GObject.GPointer):
     # gi Fields
@@ -15053,8 +15000,6 @@ class Node(GObject.GPointer):
     ) -> None: ...
     def unlink(self) -> None: ...
 
-    ...
-
 class Once(GObject.GPointer):
     # gi Fields
     status: OnceStatus = ...
@@ -15075,23 +15020,21 @@ class Once(GObject.GPointer):
     @staticmethod
     def init_leave_pointer(location: object, result: object | None = None) -> None: ...
 
-    ...
-
 class OptionContext(object):
     """
     Alias to gi._gi.OptionContext. May Be incomplete since gi._gi is a private module.
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class OptionEntry(GObject.GPointer):
     # gi Fields
@@ -15108,15 +15051,15 @@ class OptionEntry(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class OptionGroup(object):
     """
     Alias to gi._gi.OptionGroup. May Be incomplete since gi._gi is a private module.
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -15124,11 +15067,9 @@ class OptionGroup(object):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PathBuf(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def dummy(self) -> list | None: ...
 
     # gi Methods
@@ -15150,8 +15091,6 @@ class PathBuf(GObject.GPointer):
     def set_filename(self, file_name: str) -> bool: ...
     def to_path(self) -> str | None: ...
 
-    ...
-
 class Pid(int):
     """
     Alias to gi._gi.Pid. May Be incomplete since gi._gi is a private module.
@@ -15162,8 +15101,6 @@ class Pid(int):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PollFD(GObject.GBoxed):
     # python methods (overrides?)
@@ -15176,13 +15113,11 @@ class PollFD(GObject.GBoxed):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-    ...
-
 class Private(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def future(self) -> list | None: ...
-    @property
+    @builtins.property
     def notify(self) -> DestroyNotifyPrivateCB: ...
 
     # gi Methods
@@ -15193,8 +15128,6 @@ class Private(GObject.GPointer):
     def get(self) -> object | None: ...
     def replace(self, value: object | None = None) -> None: ...
     def set(self, value: object | None = None) -> None: ...
-
-    ...
 
 class Queue(GObject.GPointer):
     # gi Fields
@@ -15231,11 +15164,9 @@ class Queue(GObject.GPointer):
     def reverse(self) -> None: ...
     def sort(self, compare_func: CompareDataFunc, user_data: object | None = None) -> None: ...
 
-    ...
-
 class RWLock(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def i(self) -> list | None: ...
 
     # gi Methods
@@ -15252,11 +15183,9 @@ class RWLock(GObject.GPointer):
     def writer_trylock(self) -> bool: ...
     def writer_unlock(self) -> None: ...
 
-    ...
-
 class RecMutex(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def i(self) -> list | None: ...
 
     # gi Methods
@@ -15269,8 +15198,6 @@ class RecMutex(GObject.GPointer):
     def lock(self) -> None: ...
     def trylock(self) -> bool: ...
     def unlock(self) -> None: ...
-
-    ...
 
 class Relation(GObject.GPointer):
     # gi Methods
@@ -15287,8 +15214,6 @@ class Relation(GObject.GPointer):
     @deprecated("deprecated")
     def print_(self) -> None: ...
 
-    ...
-
 class SList(GObject.GPointer):
     # gi Fields
     next: list | None = ...
@@ -15303,14 +15228,12 @@ class SList(GObject.GPointer):
     @staticmethod
     def push_allocator(allocator: Allocator) -> None: ...
 
-    ...
-
 class Scanner(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def buffer(self) -> str: ...
     config: ScannerConfig | None = ...
-    @property
+    @builtins.property
     def input_fd(self) -> int: ...
     input_name: str = ...
     line: int = ...
@@ -15323,13 +15246,13 @@ class Scanner(GObject.GPointer):
     parse_errors: int = ...
     position: int = ...
     qdata: Data | None = ...
-    @property
+    @builtins.property
     def scope_id(self) -> int: ...
-    @property
+    @builtins.property
     def symbol_table(self) -> dict | None: ...
-    @property
+    @builtins.property
     def text(self) -> str: ...
-    @property
+    @builtins.property
     def text_end(self) -> str: ...
     token: TokenType = ...
     value: TokenValue | None = ...
@@ -15365,8 +15288,6 @@ class Scanner(GObject.GPointer):
         is_error: int,
     ) -> None: ...
 
-    ...
-
 class ScannerConfig(GObject.GPointer):
     # gi Fields
     case_sensitive: int = ...
@@ -15378,7 +15299,7 @@ class ScannerConfig(GObject.GPointer):
     identifier_2_string: int = ...
     int_2_float: int = ...
     numbers_2_int: int = ...
-    @property
+    @builtins.property
     def padding_dummy(self) -> int: ...
     scan_binary: int = ...
     scan_comment_multi: int = ...
@@ -15403,8 +15324,6 @@ class ScannerConfig(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Sequence(GObject.GPointer):
     # gi Methods
@@ -15468,8 +15387,6 @@ class Sequence(GObject.GPointer):
     @staticmethod
     def swap(a: SequenceIter, b: SequenceIter) -> None: ...
 
-    ...
-
 class SequenceIter(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -15485,11 +15402,9 @@ class SequenceIter(GObject.GPointer):
     def next(self) -> SequenceIter: ...
     def prev(self) -> SequenceIter: ...
 
-    ...
-
 class Source(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def priority(self) -> int: ...
 
     # gi Methods
@@ -15549,13 +15464,11 @@ class Source(GObject.GBoxed):
         self,
     ) -> typing.Any: ...
 
-    ...
-
 class SourceCallbackFuncs(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def ref(self) -> refSourceCallbackFuncsCB: ...
-    @property
+    @builtins.property
     def unref(self) -> unrefSourceCallbackFuncsCB: ...
 
     # gi Methods
@@ -15564,14 +15477,12 @@ class SourceCallbackFuncs(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SourceFuncs(GObject.GPointer):
     # gi Fields
     check: SourceFuncsCheckFuncSourceFuncsCB = ...
-    @property
+    @builtins.property
     def closure_callback(self) -> SourceFuncSourceFuncsCB: ...
-    @property
+    @builtins.property
     def closure_marshal(self) -> SourceDummyMarshalSourceFuncsCB: ...
     finalize: SourceFuncsFinalizeFuncSourceFuncsCB = ...
     prepare: SourceFuncsPrepareFuncSourceFuncsCB = ...
@@ -15582,8 +15493,6 @@ class SourceFuncs(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class SourcePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -15591,16 +15500,12 @@ class SourcePrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class StatBuf(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class String(GObject.GBoxed):
     # gi Fields
@@ -15653,8 +15558,6 @@ class String(GObject.GBoxed):
     @deprecated("deprecated")
     def up(self) -> String: ...
 
-    ...
-
 class StringChunk(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -15667,8 +15570,6 @@ class StringChunk(GObject.GPointer):
     def insert_const(self, string: str) -> str: ...
     def insert_len(self, string: str, len: int) -> str: ...
 
-    ...
-
 class TestCase(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -15676,8 +15577,6 @@ class TestCase(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     def free(self) -> None: ...
-
-    ...
 
 class TestConfig(GObject.GPointer):
     # gi Fields
@@ -15694,13 +15593,11 @@ class TestConfig(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TestLogBuffer(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def data(self) -> String | None: ...
-    @property
+    @builtins.property
     def msgs(self) -> list | None: ...
 
     # gi Methods
@@ -15710,8 +15607,6 @@ class TestLogBuffer(GObject.GPointer):
         """
     def free(self) -> None: ...
     def push(self, n_bytes: int, bytes: int) -> None: ...
-
-    ...
 
 class TestLogMsg(GObject.GPointer):
     # gi Fields
@@ -15727,8 +15622,6 @@ class TestLogMsg(GObject.GPointer):
         """
     def free(self) -> None: ...
 
-    ...
-
 class TestSuite(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -15738,8 +15631,6 @@ class TestSuite(GObject.GPointer):
     def add(self, test_case: TestCase) -> None: ...
     def add_suite(self, nestedsuite: TestSuite) -> None: ...
     def free(self) -> None: ...
-
-    ...
 
 class ThreadPool(GObject.GPointer):
     # gi Fields
@@ -15771,8 +15662,6 @@ class ThreadPool(GObject.GPointer):
     def stop_unused_threads() -> None: ...
     def unprocessed(self) -> int: ...
 
-    ...
-
 class TimeVal(GObject.GPointer):
     # gi Fields
     tv_sec: int = ...
@@ -15790,8 +15679,6 @@ class TimeVal(GObject.GPointer):
     def from_iso8601(iso_date: str) -> tuple[bool, TimeVal]: ...
     @deprecated("deprecated")
     def to_iso8601(self) -> str | None: ...
-
-    ...
 
 class Timeout(Source):
     # gi Methods
@@ -15848,8 +15735,6 @@ class Timeout(Source):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-    ...
-
 class Timer(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -15863,8 +15748,6 @@ class Timer(GObject.GPointer):
     def reset(self) -> None: ...
     def start(self) -> None: ...
     def stop(self) -> None: ...
-
-    ...
 
 class TokenValue(GObject.GPointer):
     # gi Fields
@@ -15885,8 +15768,6 @@ class TokenValue(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TrashStack(GObject.GPointer):
     # gi Fields
@@ -15909,8 +15790,6 @@ class TrashStack(GObject.GPointer):
     @deprecated("deprecated")
     @staticmethod
     def push(stack_p: TrashStack, data_p: object) -> None: ...
-
-    ...
 
 class Tree(GObject.GBoxed):
     # gi Methods
@@ -15954,8 +15833,6 @@ class Tree(GObject.GBoxed):
     def unref(self) -> None: ...
     def upper_bound(self, key: object | None = None) -> TreeNode | None: ...
 
-    ...
-
 class TreeNode(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -15966,8 +15843,6 @@ class TreeNode(GObject.GPointer):
     def next(self) -> TreeNode | None: ...
     def previous(self) -> TreeNode | None: ...
     def value(self) -> object | None: ...
-
-    ...
 
 class Tuples(GObject.GPointer):
     # gi Fields
@@ -15983,8 +15858,6 @@ class Tuples(GObject.GPointer):
     @deprecated("deprecated")
     def index(self, index_: int, field: int) -> object | None: ...
 
-    ...
-
 class UnixPipe(GObject.GPointer):
     # gi Fields
     fds: list | None = ...
@@ -15995,13 +15868,11 @@ class UnixPipe(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class UriParamsIter(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def dummy0(self) -> int: ...
-    @property
+    @builtins.property
     def dummy3(self) -> list | None: ...
 
     # gi Methods
@@ -16011,8 +15882,6 @@ class UriParamsIter(GObject.GPointer):
         """
     def init(self, params: str, length: int, separators: str, flags: UriParamsFlags) -> None: ...
     def next(self) -> tuple[bool, str | None, str | None]: ...
-
-    ...
 
 class Variant(GObject.GPointer):
     # gi Methods
@@ -16166,8 +16035,6 @@ class Variant(GObject.GPointer):
         Decompose a GVariant into a native Python object.
         """
 
-    ...
-
 class VariantBuilder(GObject.GBoxed):
     # gi Methods
     def add_value(self, value: Variant) -> None: ...
@@ -16185,8 +16052,6 @@ class VariantBuilder(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class VariantDict(GObject.GBoxed):
     # gi Methods
@@ -16207,8 +16072,6 @@ class VariantDict(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class VariantType(GObject.GBoxed):
     # gi Methods
@@ -16258,8 +16121,6 @@ class VariantType(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 ###############################################################
 # Callbacks

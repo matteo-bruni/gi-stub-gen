@@ -273,7 +273,7 @@ class FunctionSchema(BaseSchema):
             decs.append("@staticmethod")
 
         if self.is_getter and len(self.args) == 0:
-            decs.append("@property")
+            decs.append("@builtins.property")
 
         if self.is_overload:
             decs.append("@typing.overload")

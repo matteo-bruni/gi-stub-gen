@@ -388,7 +388,8 @@ def parse_class(
 
         elif attribute_type is GetSetDescriptorType:
             # these are @property
-
+            # in classfield will be considered a property
+            # when is_readable but not is_writable
             class_fields.append(
                 ClassFieldSchema(
                     name=attribute_name,

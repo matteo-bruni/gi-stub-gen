@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -402,9 +403,9 @@ class RayIntersectionKind(enum.IntEnum):
 
 class Box(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def max(self) -> Vec3 | None: ...
-    @property
+    @builtins.property
     def min(self) -> Vec3 | None: ...
 
     # gi Methods
@@ -450,13 +451,11 @@ class Box(GObject.GBoxed):
     @staticmethod
     def zero() -> Box: ...
 
-    ...
-
 class Euler(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def angles(self) -> Vec3 | None: ...
-    @property
+    @builtins.property
     def order(self) -> EulerOrder: ...
 
     # gi Methods
@@ -487,11 +486,9 @@ class Euler(GObject.GBoxed):
     def to_quaternion(self) -> Quaternion: ...
     def to_vec3(self) -> Vec3: ...
 
-    ...
-
 class Frustum(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def planes(self) -> list | None: ...
 
     # gi Methods
@@ -511,11 +508,9 @@ class Frustum(GObject.GBoxed):
     def intersects_box(self, box: Box) -> bool: ...
     def intersects_sphere(self, sphere: Sphere) -> bool: ...
 
-    ...
-
 class Matrix(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def value(self) -> Simd4X4F | None: ...
 
     # gi Methods
@@ -596,13 +591,11 @@ class Matrix(GObject.GBoxed):
     def untransform_bounds(self, r: Rect, bounds: Rect) -> Rect: ...
     def untransform_point(self, p: Point, bounds: Rect) -> tuple[bool, Point]: ...
 
-    ...
-
 class Plane(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def constant(self) -> float: ...
-    @property
+    @builtins.property
     def normal(self) -> Vec3 | None: ...
 
     # gi Methods
@@ -625,8 +618,6 @@ class Plane(GObject.GBoxed):
     def negate(self) -> Plane: ...
     def normalize(self) -> Plane: ...
     def transform(self, matrix: Matrix, normal_matrix: Matrix | None = None) -> Plane: ...
-
-    ...
 
 class Point(GObject.GBoxed):
     # gi Fields
@@ -651,8 +642,6 @@ class Point(GObject.GBoxed):
     def to_vec2(self) -> Vec2: ...
     @staticmethod
     def zero() -> Point: ...
-
-    ...
 
 class Point3D(GObject.GBoxed):
     # gi Fields
@@ -685,11 +674,9 @@ class Point3D(GObject.GBoxed):
     @staticmethod
     def zero() -> Point3D: ...
 
-    ...
-
 class Quad(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def points(self) -> list | None: ...
 
     # gi Methods
@@ -707,17 +694,15 @@ class Quad(GObject.GBoxed):
     def init_from_points(self, points: list) -> Quad: ...
     def init_from_rect(self, r: Rect) -> Quad: ...
 
-    ...
-
 class Quaternion(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def w(self) -> float: ...
-    @property
+    @builtins.property
     def x(self) -> float: ...
-    @property
+    @builtins.property
     def y(self) -> float: ...
-    @property
+    @builtins.property
     def z(self) -> float: ...
 
     # gi Methods
@@ -751,13 +736,11 @@ class Quaternion(GObject.GBoxed):
     def to_radians(self) -> tuple[float | None, float | None, float | None]: ...
     def to_vec4(self) -> Vec4: ...
 
-    ...
-
 class Ray(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def direction(self) -> Vec3 | None: ...
-    @property
+    @builtins.property
     def origin(self) -> Vec3 | None: ...
 
     # gi Methods
@@ -784,8 +767,6 @@ class Ray(GObject.GBoxed):
     def intersects_box(self, b: Box) -> bool: ...
     def intersects_sphere(self, s: Sphere) -> bool: ...
     def intersects_triangle(self, t: Triangle) -> bool: ...
-
-    ...
 
 class Rect(GObject.GBoxed):
     # gi Fields
@@ -835,17 +816,15 @@ class Rect(GObject.GBoxed):
     @staticmethod
     def zero() -> Rect: ...
 
-    ...
-
 class Simd4F(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def w(self) -> float: ...
-    @property
+    @builtins.property
     def x(self) -> float: ...
-    @property
+    @builtins.property
     def y(self) -> float: ...
-    @property
+    @builtins.property
     def z(self) -> float: ...
 
     # gi Methods
@@ -854,17 +833,15 @@ class Simd4F(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Simd4X4F(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def w(self) -> Simd4F | None: ...
-    @property
+    @builtins.property
     def x(self) -> Simd4F | None: ...
-    @property
+    @builtins.property
     def y(self) -> Simd4F | None: ...
-    @property
+    @builtins.property
     def z(self) -> Simd4F | None: ...
 
     # gi Methods
@@ -872,8 +849,6 @@ class Simd4X4F(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Size(GObject.GBoxed):
     # gi Fields
@@ -896,13 +871,11 @@ class Size(GObject.GBoxed):
     @staticmethod
     def zero() -> Size: ...
 
-    ...
-
 class Sphere(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def center(self) -> Vec3 | None: ...
-    @property
+    @builtins.property
     def radius(self) -> float: ...
 
     # gi Methods
@@ -925,15 +898,13 @@ class Sphere(GObject.GBoxed):
     def is_empty(self) -> bool: ...
     def translate(self, point: Point3D) -> Sphere: ...
 
-    ...
-
 class Triangle(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def a(self) -> Vec3 | None: ...
-    @property
+    @builtins.property
     def b(self) -> Vec3 | None: ...
-    @property
+    @builtins.property
     def c(self) -> Vec3 | None: ...
 
     # gi Methods
@@ -961,11 +932,9 @@ class Triangle(GObject.GBoxed):
     ) -> Triangle: ...
     def init_from_vec3(self, a: Vec3 | None = None, b: Vec3 | None = None, c: Vec3 | None = None) -> Triangle: ...
 
-    ...
-
 class Vec2(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def value(self) -> Simd4F | None: ...
 
     # gi Methods
@@ -1005,11 +974,9 @@ class Vec2(GObject.GBoxed):
     @staticmethod
     def zero() -> Vec2: ...
 
-    ...
-
 class Vec3(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def value(self) -> Simd4F | None: ...
 
     # gi Methods
@@ -1058,11 +1025,9 @@ class Vec3(GObject.GBoxed):
     @staticmethod
     def zero() -> Vec3: ...
 
-    ...
-
 class Vec4(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def value(self) -> Simd4F | None: ...
 
     # gi Methods
@@ -1111,8 +1076,6 @@ class Vec4(GObject.GBoxed):
     def z_axis() -> Vec4: ...
     @staticmethod
     def zero() -> Vec4: ...
-
-    ...
 
 ###############################################################
 # Aliases

@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -50,8 +51,11 @@ class AppSink(GstBase.BaseSink):
         max_time: int  # [max-time]: changed because contained invalid characters
         wait_on_eos: bool  # [wait-on-eos]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def basesink(self) -> GstBase.BaseSink | None: ...
 
     # gi Methods
@@ -70,21 +74,21 @@ class AppSink(GstBase.BaseSink):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_buffer_list_support(self) -> bool: ...
-    @property
+    @builtins.property
     def get_caps(self) -> Gst.Caps | None: ...
-    @property
+    @builtins.property
     def get_drop(self) -> bool: ...
-    @property
+    @builtins.property
     def get_emit_signals(self) -> bool: ...
-    @property
+    @builtins.property
     def get_max_buffers(self) -> int: ...
-    @property
+    @builtins.property
     def get_max_bytes(self) -> int: ...
-    @property
+    @builtins.property
     def get_max_time(self) -> int: ...
-    @property
+    @builtins.property
     def get_wait_on_eos(self) -> bool: ...
-    @property
+    @builtins.property
     def is_eos(self) -> bool: ...
     def pull_preroll(self) -> Gst.Sample | None: ...
     def pull_sample(self) -> Gst.Sample | None: ...
@@ -280,27 +284,26 @@ class AppSink(GstBase.BaseSink):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AppSinkClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def basesink_class(self) -> GstBase.BaseSinkClass | None: ...
-    @property
+    @builtins.property
     def eos(self) -> eosAppSinkClassCB: ...
-    @property
+    @builtins.property
     def new_preroll(self) -> new_prerollAppSinkClassCB: ...
-    @property
+    @builtins.property
     def new_sample(self) -> new_sampleAppSinkClassCB: ...
-    @property
+    @builtins.property
     def pull_preroll(self) -> pull_prerollAppSinkClassCB | None: ...
-    @property
+    @builtins.property
     def pull_sample(self) -> pull_sampleAppSinkClassCB | None: ...
-    @property
+    @builtins.property
     def try_pull_object(self) -> try_pull_objectAppSinkClassCB | None: ...
-    @property
+    @builtins.property
     def try_pull_preroll(self) -> try_pull_prerollAppSinkClassCB | None: ...
-    @property
+    @builtins.property
     def try_pull_sample(self) -> try_pull_sampleAppSinkClassCB | None: ...
 
     # gi Methods
@@ -309,16 +312,12 @@ class AppSinkClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AppSinkPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AppSrc(GstBase.BaseSrc):
     class Props(GstBase.BaseSrc.Props):
@@ -342,8 +341,11 @@ class AppSrc(GstBase.BaseSrc):
         size: int
         stream_type: AppStreamType  # [stream-type]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def basesrc(self) -> GstBase.BaseSrc | None: ...
 
     # gi Methods
@@ -370,30 +372,30 @@ class AppSrc(GstBase.BaseSrc):
         Generated __init__ stub method. order not guaranteed.
         """
     def end_of_stream(self) -> Gst.FlowReturn: ...
-    @property
+    @builtins.property
     def get_caps(self) -> Gst.Caps | None: ...
-    @property
+    @builtins.property
     def get_current_level_buffers(self) -> int: ...
-    @property
+    @builtins.property
     def get_current_level_bytes(self) -> int: ...
-    @property
+    @builtins.property
     def get_current_level_time(self) -> int: ...
-    @property
+    @builtins.property
     def get_duration(self) -> int: ...
-    @property
+    @builtins.property
     def get_emit_signals(self) -> bool: ...
     def get_latency(self) -> tuple[int, int]: ...
-    @property
+    @builtins.property
     def get_leaky_type(self) -> AppLeakyType: ...
-    @property
+    @builtins.property
     def get_max_buffers(self) -> int: ...
-    @property
+    @builtins.property
     def get_max_bytes(self) -> int: ...
-    @property
+    @builtins.property
     def get_max_time(self) -> int: ...
-    @property
+    @builtins.property
     def get_size(self) -> int: ...
-    @property
+    @builtins.property
     def get_stream_type(self) -> AppStreamType: ...
     def push_buffer(self, buffer: Gst.Buffer) -> Gst.FlowReturn: ...
     def push_buffer_list(self, buffer_list: Gst.BufferList) -> Gst.FlowReturn: ...
@@ -642,25 +644,24 @@ class AppSrc(GstBase.BaseSrc):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AppSrcClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def basesrc_class(self) -> GstBase.BaseSrcClass | None: ...
-    @property
+    @builtins.property
     def end_of_stream(self) -> end_of_streamAppSrcClassCB: ...
-    @property
+    @builtins.property
     def enough_data(self) -> enough_dataAppSrcClassCB: ...
-    @property
+    @builtins.property
     def need_data(self) -> need_dataAppSrcClassCB: ...
-    @property
+    @builtins.property
     def push_buffer(self) -> push_bufferAppSrcClassCB: ...
-    @property
+    @builtins.property
     def push_buffer_list(self) -> push_buffer_listAppSrcClassCB: ...
-    @property
+    @builtins.property
     def push_sample(self) -> push_sampleAppSrcClassCB: ...
-    @property
+    @builtins.property
     def seek_data(self) -> seek_dataAppSrcClassCB: ...
 
     # gi Methods
@@ -669,16 +670,12 @@ class AppSrcClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AppSrcPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

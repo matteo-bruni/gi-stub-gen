@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -523,8 +524,11 @@ class AudioAggregator(GstBase.Aggregator):
             Gst.Fraction | None
         )  # [output-buffer-duration-fraction]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def current_caps(self) -> Gst.Caps | None: ...
 
     # gi Methods
@@ -610,15 +614,14 @@ class AudioAggregator(GstBase.Aggregator):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AudioAggregatorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def aggregate_one_buffer(self) -> aggregate_one_bufferAudioAggregatorClassCB: ...
-    @property
+    @builtins.property
     def create_output_buffer(self) -> create_output_bufferAudioAggregatorClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GstBase.AggregatorClass | None: ...
 
     # gi Methods
@@ -627,11 +630,12 @@ class AudioAggregatorClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioAggregatorConvertPad(AudioAggregatorPad):
     class Props(AudioAggregatorPad.Props):
         converter_config: Gst.Structure | None  # [converter-config]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, converter_config: Gst.Structure | None = ...) -> None:
@@ -651,11 +655,10 @@ class AudioAggregatorConvertPad(AudioAggregatorPad):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AudioAggregatorConvertPadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> AudioAggregatorPadClass | None: ...
 
     # gi Methods
@@ -664,8 +667,6 @@ class AudioAggregatorConvertPadClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioAggregatorConvertPadPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -673,14 +674,15 @@ class AudioAggregatorConvertPadPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioAggregatorPad(GstBase.AggregatorPad):
     class Props(GstBase.AggregatorPad.Props):
         qos_messages: bool  # [qos-messages]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def info(self) -> AudioInfo | None: ...
 
     # gi Methods
@@ -718,15 +720,14 @@ class AudioAggregatorPad(GstBase.AggregatorPad):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AudioAggregatorPadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def convert_buffer(self) -> convert_bufferAudioAggregatorPadClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GstBase.AggregatorPadClass | None: ...
-    @property
+    @builtins.property
     def update_conversion_info(self) -> update_conversion_infoAudioAggregatorPadClassCB: ...
 
     # gi Methods
@@ -735,8 +736,6 @@ class AudioAggregatorPadClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioAggregatorPadPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -744,16 +743,12 @@ class AudioAggregatorPadPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioAggregatorPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AudioBaseSink(GstBase.BaseSink):
     class Props(GstBase.BaseSink.Props):
@@ -766,20 +761,23 @@ class AudioBaseSink(GstBase.BaseSink):
         provide_clock: bool  # [provide-clock]: changed because contained invalid characters
         slave_method: AudioBaseSinkSlaveMethod  # [slave-method]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def buffer_time(self) -> int: ...
-    @property
+    @builtins.property
     def element(self) -> GstBase.BaseSink | None: ...
-    @property
+    @builtins.property
     def eos_rendering(self) -> bool: ...
-    @property
+    @builtins.property
     def latency_time(self) -> int: ...
-    @property
+    @builtins.property
     def next_sample(self) -> int: ...
-    @property
+    @builtins.property
     def provided_clock(self) -> Gst.Clock | None: ...
-    @property
+    @builtins.property
     def ringbuffer(self) -> AudioRingBuffer | None: ...
 
     # gi Methods
@@ -798,15 +796,15 @@ class AudioBaseSink(GstBase.BaseSink):
         Generated __init__ stub method. order not guaranteed.
         """
     def create_ringbuffer(self) -> AudioRingBuffer | None: ...
-    @property
+    @builtins.property
     def get_alignment_threshold(self) -> int: ...
-    @property
+    @builtins.property
     def get_discont_wait(self) -> int: ...
-    @property
+    @builtins.property
     def get_drift_tolerance(self) -> int: ...
-    @property
+    @builtins.property
     def get_provide_clock(self) -> bool: ...
-    @property
+    @builtins.property
     def get_slave_method(self) -> AudioBaseSinkSlaveMethod: ...
     def report_device_failure(self) -> None: ...
     def set_alignment_threshold(self, alignment_threshold: int) -> None: ...
@@ -894,15 +892,14 @@ class AudioBaseSink(GstBase.BaseSink):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AudioBaseSinkClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def create_ringbuffer(self) -> create_ringbufferAudioBaseSinkClassCB | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GstBase.BaseSinkClass | None: ...
-    @property
+    @builtins.property
     def payload(self) -> payloadAudioBaseSinkClassCB: ...
 
     # gi Methods
@@ -911,16 +908,12 @@ class AudioBaseSinkClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioBaseSinkPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AudioBaseSrc(GstBase.PushSrc):
     class Props(GstBase.PushSrc.Props):
@@ -931,18 +924,21 @@ class AudioBaseSrc(GstBase.PushSrc):
         provide_clock: bool  # [provide-clock]: changed because contained invalid characters
         slave_method: AudioBaseSrcSlaveMethod  # [slave-method]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def buffer_time(self) -> int: ...
-    @property
+    @builtins.property
     def clock(self) -> Gst.Clock | None: ...
-    @property
+    @builtins.property
     def element(self) -> GstBase.PushSrc | None: ...
-    @property
+    @builtins.property
     def latency_time(self) -> int: ...
-    @property
+    @builtins.property
     def next_sample(self) -> int: ...
-    @property
+    @builtins.property
     def ringbuffer(self) -> AudioRingBuffer | None: ...
 
     # gi Methods
@@ -957,9 +953,9 @@ class AudioBaseSrc(GstBase.PushSrc):
         Generated __init__ stub method. order not guaranteed.
         """
     def create_ringbuffer(self) -> AudioRingBuffer | None: ...
-    @property
+    @builtins.property
     def get_provide_clock(self) -> bool: ...
-    @property
+    @builtins.property
     def get_slave_method(self) -> AudioBaseSrcSlaveMethod: ...
     def set_provide_clock(self, provide: bool) -> None: ...
     def set_slave_method(self, method: AudioBaseSrcSlaveMethod) -> None: ...
@@ -1019,13 +1015,12 @@ class AudioBaseSrc(GstBase.PushSrc):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AudioBaseSrcClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def create_ringbuffer(self) -> create_ringbufferAudioBaseSrcClassCB | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GstBase.PushSrcClass | None: ...
 
     # gi Methods
@@ -1034,8 +1029,6 @@ class AudioBaseSrcClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioBaseSrcPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -1043,19 +1036,17 @@ class AudioBaseSrcPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioBuffer(GObject.GPointer):
     # gi Fields
     buffer: Gst.Buffer | None = ...  # type: ignore
     info: AudioInfo | None = ...
-    @property
+    @builtins.property
     def map_infos(self) -> Gst.MapInfo | None: ...
     n_planes: int = ...
     n_samples: int = ...
-    @property
+    @builtins.property
     def priv_map_infos_arr(self) -> list | None: ...
-    @property
+    @builtins.property
     def priv_planes_arr(self) -> list | None: ...
 
     # gi Methods
@@ -1073,18 +1064,19 @@ class AudioBuffer(GObject.GPointer):
     def truncate(buffer: Gst.Buffer, bpf: int, trim: int, samples: int) -> Gst.Buffer: ...
     def unmap(self) -> None: ...
 
-    ...
-
 class AudioCdSrc(GstBase.PushSrc):
     class Props(GstBase.PushSrc.Props):
         device: str
         mode: AudioCdSrcMode
         track: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def pushsrc(self) -> GstBase.PushSrc | None: ...
-    @property
+    @builtins.property
     def tags(self) -> Gst.TagList | None: ...
 
     # gi Methods
@@ -1142,17 +1134,16 @@ class AudioCdSrc(GstBase.PushSrc):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AudioCdSrcClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close(self) -> closeAudioCdSrcClassCB: ...
-    @property
+    @builtins.property
     def open(self) -> openAudioCdSrcClassCB: ...
-    @property
+    @builtins.property
     def pushsrc_class(self) -> GstBase.PushSrcClass | None: ...
-    @property
+    @builtins.property
     def read_sector(self) -> read_sectorAudioCdSrcClassCB: ...
 
     # gi Methods
@@ -1161,16 +1152,12 @@ class AudioCdSrcClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioCdSrcPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AudioCdSrcTrack(GObject.GPointer):
     # gi Fields
@@ -1186,8 +1173,6 @@ class AudioCdSrcTrack(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioChannelMixer(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -1197,8 +1182,6 @@ class AudioChannelMixer(GObject.GPointer):
     def free(self) -> None: ...
     def is_passthrough(self) -> bool: ...
     def samples(self, in_: object | None, out: object | None, samples: int) -> None: ...
-
-    ...
 
 class AudioClippingMeta(GObject.GPointer):
     # gi Fields
@@ -1215,19 +1198,17 @@ class AudioClippingMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class AudioClock(Gst.SystemClock):
     # gi Fields
-    @property
+    @builtins.property
     def clock(self) -> Gst.SystemClock | None: ...
-    @property
+    @builtins.property
     def destroy_notify(self) -> GLib.DestroyNotify: ...
-    @property
+    @builtins.property
     def func(self) -> AudioClockGetTimeFuncAudioClockCB: ...
-    @property
+    @builtins.property
     def last_time(self) -> int: ...
-    @property
+    @builtins.property
     def time_offset(self) -> int: ...
 
     # gi Methods
@@ -1244,11 +1225,9 @@ class AudioClock(Gst.SystemClock):
     ) -> Gst.Clock: ...
     def reset(self, time: int) -> None: ...
 
-    ...
-
 class AudioClockClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.SystemClockClass | None: ...
 
     # gi Methods
@@ -1256,8 +1235,6 @@ class AudioClockClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AudioConverter(GObject.GBoxed):
     # gi Methods
@@ -1286,8 +1263,6 @@ class AudioConverter(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class AudioDecoder(Gst.Element):
     class Props(Gst.Element.Props):
         max_errors: int  # [max-errors]: changed because contained invalid characters
@@ -1295,18 +1270,21 @@ class AudioDecoder(Gst.Element):
         plc: bool
         tolerance: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
-    @property
+    @builtins.property
     def input_segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def output_segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def sinkpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def stream_lock(self) -> GLib.RecMutex | None: ...
 
     # gi Methods
@@ -1323,16 +1301,16 @@ class AudioDecoder(Gst.Element):
     def get_drainable(self) -> bool: ...
     def get_estimate_rate(self) -> int: ...
     def get_latency(self) -> tuple[int | None, int | None]: ...
-    @property
+    @builtins.property
     def get_max_errors(self) -> int: ...
-    @property
+    @builtins.property
     def get_min_latency(self) -> int: ...
     def get_needs_format(self) -> bool: ...
     def get_parse_state(self) -> tuple[bool | None, bool | None]: ...
-    @property
+    @builtins.property
     def get_plc(self) -> bool: ...
     def get_plc_aware(self) -> int: ...
-    @property
+    @builtins.property
     def get_tolerance(self) -> int: ...
     def merge_tags(self, tags: Gst.TagList | None, mode: Gst.TagMergeMode) -> None: ...
     def negotiate(self) -> bool: ...
@@ -1509,47 +1487,46 @@ class AudioDecoder(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AudioDecoderClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close(self) -> closeAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def decide_allocation(self) -> decide_allocationAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def element_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def flush(self) -> flushAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def getcaps(self) -> getcapsAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def handle_frame(self) -> handle_frameAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def negotiate(self) -> negotiateAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def open(self) -> openAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def parse(self) -> parseAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def pre_push(self) -> pre_pushAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def propose_allocation(self) -> propose_allocationAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def set_format(self) -> set_formatAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def sink_event(self) -> sink_eventAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def sink_query(self) -> sink_queryAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def src_event(self) -> src_eventAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def src_query(self) -> src_queryAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopAudioDecoderClassCB: ...
-    @property
+    @builtins.property
     def transform_meta(self) -> transform_metaAudioDecoderClassCB: ...
 
     # gi Methods
@@ -1558,16 +1535,12 @@ class AudioDecoderClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioDecoderPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AudioDownmixMeta(GObject.GPointer):
     # gi Fields
@@ -1586,8 +1559,6 @@ class AudioDownmixMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class AudioEncoder(Gst.Element):
     class Props(Gst.Element.Props):
         hard_resync: bool  # [hard-resync]: changed because contained invalid characters
@@ -1595,18 +1566,21 @@ class AudioEncoder(Gst.Element):
         perfect_timestamp: bool  # [perfect-timestamp]: changed because contained invalid characters
         tolerance: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
-    @property
+    @builtins.property
     def input_segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def output_segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def sinkpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def stream_lock(self) -> GLib.RecMutex | None: ...
 
     # gi Methods
@@ -1623,15 +1597,15 @@ class AudioEncoder(Gst.Element):
     def get_frame_samples_max(self) -> int: ...
     def get_frame_samples_min(self) -> int: ...
     def get_hard_min(self) -> bool: ...
-    @property
+    @builtins.property
     def get_hard_resync(self) -> bool: ...
     def get_latency(self) -> tuple[int | None, int | None]: ...
     def get_lookahead(self) -> int: ...
-    @property
+    @builtins.property
     def get_mark_granule(self) -> bool: ...
-    @property
+    @builtins.property
     def get_perfect_timestamp(self) -> bool: ...
-    @property
+    @builtins.property
     def get_tolerance(self) -> int: ...
     def merge_tags(self, tags: Gst.TagList | None, mode: Gst.TagMergeMode) -> None: ...
     def negotiate(self) -> bool: ...
@@ -1801,45 +1775,44 @@ class AudioEncoder(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AudioEncoderClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close(self) -> closeAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def decide_allocation(self) -> decide_allocationAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def element_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def flush(self) -> flushAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def getcaps(self) -> getcapsAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def handle_frame(self) -> handle_frameAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def negotiate(self) -> negotiateAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def open(self) -> openAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def pre_push(self) -> pre_pushAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def propose_allocation(self) -> propose_allocationAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def set_format(self) -> set_formatAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def sink_event(self) -> sink_eventAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def sink_query(self) -> sink_queryAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def src_event(self) -> src_eventAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def src_query(self) -> src_queryAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopAudioEncoderClassCB: ...
-    @property
+    @builtins.property
     def transform_meta(self) -> transform_metaAudioEncoderClassCB: ...
 
     # gi Methods
@@ -1848,8 +1821,6 @@ class AudioEncoderClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioEncoderPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -1857,13 +1828,11 @@ class AudioEncoderPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioFilter(GstBase.BaseTransform):
     # gi Fields
-    @property
+    @builtins.property
     def basetransform(self) -> GstBase.BaseTransform | None: ...
-    @property
+    @builtins.property
     def info(self) -> AudioInfo | None: ...
 
     # gi Methods
@@ -1889,13 +1858,11 @@ class AudioFilter(GstBase.BaseTransform):
         setup(self, info:GstAudio.AudioInfo) -> bool
         """
 
-    ...
-
 class AudioFilterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def basetransformclass(self) -> GstBase.BaseTransformClass | None: ...
-    @property
+    @builtins.property
     def setup(self) -> setupAudioFilterClassCB: ...
 
     # gi Methods
@@ -1904,8 +1871,6 @@ class AudioFilterClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_pad_templates(self, allowed_caps: Gst.Caps) -> None: ...
-
-    ...
 
 class AudioFormatInfo(GObject.GPointer):
     # gi Fields
@@ -1927,8 +1892,6 @@ class AudioFormatInfo(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     def fill_silence(self, dest: list, length: int) -> None: ...
-
-    ...
 
 class AudioInfo(GObject.GBoxed):
     # gi Fields
@@ -1963,8 +1926,6 @@ class AudioInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class AudioLevelMeta(GObject.GPointer):
     # gi Fields
     level: int = ...
@@ -1979,14 +1940,12 @@ class AudioLevelMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class AudioMeta(GObject.GPointer):
     # gi Fields
     info: AudioInfo | None = ...
     meta: Gst.Meta | None = ...  # type: ignore
     offsets: int = ...
-    @property
+    @builtins.property
     def priv_offsets_arr(self) -> list | None: ...
     samples: int = ...
 
@@ -1998,8 +1957,6 @@ class AudioMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class AudioQuantize(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -2009,8 +1966,6 @@ class AudioQuantize(GObject.GPointer):
     def free(self) -> None: ...
     def reset(self) -> None: ...
     def samples(self, in_: object | None, out: object | None, samples: int) -> None: ...
-
-    ...
 
 class AudioResampler(GObject.GPointer):
     # gi Methods
@@ -2040,49 +1995,47 @@ class AudioResampler(GObject.GPointer):
     def reset(self) -> None: ...
     def update(self, in_rate: int, out_rate: int, options: Gst.Structure) -> bool: ...
 
-    ...
-
 class AudioRingBuffer(Gst.Object):
     # gi Fields
-    @property
+    @builtins.property
     def acquired(self) -> bool: ...
-    @property
+    @builtins.property
     def active(self) -> bool: ...
-    @property
+    @builtins.property
     def callback(self) -> AudioRingBufferCallbackAudioRingBufferCB: ...
-    @property
+    @builtins.property
     def cb_data_notify(self) -> GLib.DestroyNotify: ...
-    @property
+    @builtins.property
     def channel_reorder_map(self) -> list | None: ...
-    @property
+    @builtins.property
     def cond(self) -> GLib.Cond | None: ...
-    @property
+    @builtins.property
     def empty_seg(self) -> int: ...
-    @property
+    @builtins.property
     def flushing(self) -> bool: ...
-    @property
+    @builtins.property
     def memory(self) -> int: ...
-    @property
+    @builtins.property
     def need_reorder(self) -> bool: ...
-    @property
+    @builtins.property
     def object(self) -> Gst.Object | None: ...
-    @property
+    @builtins.property
     def open(self) -> bool: ...
-    @property
+    @builtins.property
     def samples_per_seg(self) -> int: ...
-    @property
+    @builtins.property
     def segbase(self) -> int: ...
-    @property
+    @builtins.property
     def segdone(self) -> int: ...
-    @property
+    @builtins.property
     def size(self) -> int: ...
-    @property
+    @builtins.property
     def spec(self) -> AudioRingBufferSpec | None: ...
-    @property
+    @builtins.property
     def state(self) -> int: ...
-    @property
+    @builtins.property
     def timestamps(self) -> int: ...
-    @property
+    @builtins.property
     def waiting(self) -> int: ...
 
     # gi Methods
@@ -2212,35 +2165,33 @@ class AudioRingBuffer(Gst.Object):
         stop(self) -> bool
         """
 
-    ...
-
 class AudioRingBufferClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def acquire(self) -> acquireAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def activate(self) -> activateAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def clear_all(self) -> clear_allAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def close_device(self) -> close_deviceAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def commit(self) -> commitAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def delay(self) -> delayAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def open_device(self) -> open_deviceAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ObjectClass | None: ...
-    @property
+    @builtins.property
     def pause(self) -> pauseAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def release(self) -> releaseAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def resume(self) -> resumeAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startAudioRingBufferClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopAudioRingBufferClassCB: ...
 
     # gi Methods
@@ -2249,16 +2200,12 @@ class AudioRingBufferClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioRingBufferPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AudioRingBufferSpec(GObject.GPointer):
     # gi Fields
@@ -2277,13 +2224,11 @@ class AudioRingBufferSpec(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioSink(AudioBaseSink):
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> AudioBaseSink | None: ...
-    @property
+    @builtins.property
     def thread(self) -> GLib.Thread | None: ...
 
     # gi Methods
@@ -2356,33 +2301,31 @@ class AudioSink(AudioBaseSink):
         write(self, data:list) -> int
         """
 
-    ...
-
 class AudioSinkClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close(self) -> closeAudioSinkClassCB: ...
-    @property
+    @builtins.property
     def delay(self) -> delayAudioSinkClassCB: ...
-    @property
+    @builtins.property
     def extension(self) -> AudioSinkClassExtension | None: ...
-    @property
+    @builtins.property
     def open(self) -> openAudioSinkClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> AudioBaseSinkClass | None: ...
-    @property
+    @builtins.property
     def pause(self) -> pauseAudioSinkClassCB: ...
-    @property
+    @builtins.property
     def prepare(self) -> prepareAudioSinkClassCB: ...
-    @property
+    @builtins.property
     def reset(self) -> resetAudioSinkClassCB: ...
-    @property
+    @builtins.property
     def resume(self) -> resumeAudioSinkClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopAudioSinkClassCB: ...
-    @property
+    @builtins.property
     def unprepare(self) -> unprepareAudioSinkClassCB: ...
-    @property
+    @builtins.property
     def write(self) -> writeAudioSinkClassCB: ...
 
     # gi Methods
@@ -2391,11 +2334,9 @@ class AudioSinkClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioSinkClassExtension(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def clear_all(self) -> clear_allAudioSinkClassExtensionCB: ...
 
     # gi Methods
@@ -2404,13 +2345,11 @@ class AudioSinkClassExtension(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AudioSrc(AudioBaseSrc):
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> AudioBaseSrc | None: ...
-    @property
+    @builtins.property
     def thread(self) -> GLib.Thread | None: ...
 
     # gi Methods
@@ -2465,25 +2404,23 @@ class AudioSrc(AudioBaseSrc):
         unprepare(self) -> bool
         """
 
-    ...
-
 class AudioSrcClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def close(self) -> closeAudioSrcClassCB: ...
-    @property
+    @builtins.property
     def delay(self) -> delayAudioSrcClassCB: ...
-    @property
+    @builtins.property
     def open(self) -> openAudioSrcClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> AudioBaseSrcClass | None: ...
-    @property
+    @builtins.property
     def prepare(self) -> prepareAudioSrcClassCB: ...
-    @property
+    @builtins.property
     def read(self) -> readAudioSrcClassCB: ...
-    @property
+    @builtins.property
     def reset(self) -> resetAudioSrcClassCB: ...
-    @property
+    @builtins.property
     def unprepare(self) -> unprepareAudioSrcClassCB: ...
 
     # gi Methods
@@ -2491,8 +2428,6 @@ class AudioSrcClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AudioStreamAlign(GObject.GBoxed):
     # gi Methods
@@ -2517,8 +2452,6 @@ class AudioStreamAlign(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class DsdInfo(GObject.GBoxed):
     # gi Fields
@@ -2552,15 +2485,13 @@ class DsdInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class DsdPlaneOffsetMeta(GObject.GPointer):
     # gi Fields
     meta: Gst.Meta | None = ...  # type: ignore
     num_bytes_per_channel: int = ...
     num_channels: int = ...
     offsets: int = ...
-    @property
+    @builtins.property
     def priv_offsets_arr(self) -> list | None: ...
 
     # gi Methods
@@ -2571,12 +2502,13 @@ class DsdPlaneOffsetMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-    ...
-
 class StreamVolume(GObject.GInterface):
     class Props(GObject.GInterface.Props):
         mute: bool
         volume: float
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, mute: bool = ..., volume: float = ...) -> None:
@@ -2585,7 +2517,7 @@ class StreamVolume(GObject.GInterface):
         """
     @staticmethod
     def convert_volume(from_: StreamVolumeFormat, to: StreamVolumeFormat, val: float) -> float: ...
-    @property
+    @builtins.property
     def get_mute(self) -> bool: ...
     def get_volume(self, format: StreamVolumeFormat) -> float: ...
     def set_mute(self, mute: bool) -> None: ...
@@ -2610,11 +2542,10 @@ class StreamVolume(GObject.GInterface):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class StreamVolumeInterface(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def iface(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
@@ -2622,8 +2553,6 @@ class StreamVolumeInterface(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

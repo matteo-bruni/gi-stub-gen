@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import typing
@@ -2954,15 +2955,13 @@ class Analysis(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AttrClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def copy(self) -> copyAttrClassCB: ...
-    @property
+    @builtins.property
     def destroy(self) -> destroyAttrClassCB: ...
-    @property
+    @builtins.property
     def equal(self) -> equalAttrClassCB: ...
     type: AttrType = ...
 
@@ -2971,8 +2970,6 @@ class AttrClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AttrColor(GObject.GPointer):
     # gi Fields
@@ -2985,8 +2982,6 @@ class AttrColor(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AttrFloat(GObject.GPointer):
     # gi Fields
     attr: Attribute | None = ...
@@ -2997,8 +2992,6 @@ class AttrFloat(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AttrFontDesc(GObject.GPointer):
     # gi Fields
@@ -3013,8 +3006,6 @@ class AttrFontDesc(GObject.GPointer):
     @staticmethod
     def new(desc: FontDescription) -> Attribute: ...
 
-    ...
-
 class AttrFontFeatures(GObject.GPointer):
     # gi Fields
     attr: Attribute | None = ...
@@ -3028,8 +3019,6 @@ class AttrFontFeatures(GObject.GPointer):
     @staticmethod
     def new(features: str) -> Attribute: ...
 
-    ...
-
 class AttrInt(GObject.GPointer):
     # gi Fields
     attr: Attribute | None = ...
@@ -3040,8 +3029,6 @@ class AttrInt(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AttrIterator(GObject.GBoxed):
     # gi Methods
@@ -3057,8 +3044,6 @@ class AttrIterator(GObject.GBoxed):
     def next(self) -> bool: ...
     def range(self) -> tuple[int, int]: ...
 
-    ...
-
 class AttrLanguage(GObject.GPointer):
     # gi Fields
     attr: Attribute | None = ...
@@ -3071,8 +3056,6 @@ class AttrLanguage(GObject.GPointer):
         """
     @staticmethod
     def new(language: Language) -> Attribute: ...
-
-    ...
 
 class AttrList(GObject.GBoxed):
     # gi Methods
@@ -3101,8 +3084,6 @@ class AttrList(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class AttrShape(GObject.GPointer):
     # gi Fields
     attr: Attribute | None = ...
@@ -3127,8 +3108,6 @@ class AttrShape(GObject.GPointer):
         destroy_func: GLib.DestroyNotify | None = None,
     ) -> Attribute: ...
 
-    ...
-
 class AttrSize(GObject.GPointer):
     # gi Fields
     absolute: int = ...
@@ -3145,8 +3124,6 @@ class AttrSize(GObject.GPointer):
     @staticmethod
     def new_absolute(size: int) -> Attribute: ...
 
-    ...
-
 class AttrString(GObject.GPointer):
     # gi Fields
     attr: Attribute | None = ...
@@ -3157,8 +3134,6 @@ class AttrString(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Attribute(GObject.GBoxed):
     # gi Fields
@@ -3185,8 +3160,6 @@ class Attribute(GObject.GBoxed):
     def equal(self, attr2: Attribute) -> bool: ...
     def init(self, klass: AttrClass) -> None: ...
 
-    ...
-
 class Color(GObject.GBoxed):
     # gi Fields
     blue: int = ...
@@ -3203,8 +3176,6 @@ class Color(GObject.GBoxed):
     def parse(self, spec: str) -> bool: ...
     def parse_with_alpha(self, spec: str) -> tuple[bool, int | None]: ...
     def to_string(self) -> str: ...
-
-    ...
 
 class Context(GObject.Object):
     """
@@ -3249,16 +3220,12 @@ class Context(GObject.Object):
     def set_matrix(self, matrix: Matrix | None = None) -> None: ...
     def set_round_glyph_positions(self, round_positions: bool) -> None: ...
 
-    ...
-
 class ContextClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Coverage(GObject.Object):
     """
@@ -3293,8 +3260,6 @@ class Coverage(GObject.Object):
     def to_bytes(self) -> tuple[list, int]: ...
     @deprecated("deprecated")
     def unref(self) -> None: ...
-
-    ...
 
 class Font(GObject.Object):
     """
@@ -3378,27 +3343,25 @@ class Font(GObject.Object):
         get_metrics(self, language:Pango.Language=None) -> Pango.FontMetrics
         """
 
-    ...
-
 class FontClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def create_hb_font(self) -> create_hb_fontFontClassCB: ...
-    @property
+    @builtins.property
     def describe(self) -> describeFontClassCB: ...
-    @property
+    @builtins.property
     def describe_absolute(self) -> describe_absoluteFontClassCB: ...
-    @property
+    @builtins.property
     def get_coverage(self) -> get_coverageFontClassCB: ...
-    @property
+    @builtins.property
     def get_features(self) -> get_featuresFontClassCB: ...
-    @property
+    @builtins.property
     def get_font_map(self) -> get_font_mapFontClassCB | None: ...
-    @property
+    @builtins.property
     def get_glyph_extents(self) -> get_glyph_extentsFontClassCB: ...
-    @property
+    @builtins.property
     def get_metrics(self) -> get_metricsFontClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -3406,8 +3369,6 @@ class FontClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FontDescription(GObject.GBoxed):
     # gi Methods
@@ -3461,8 +3422,6 @@ class FontDescription(GObject.GBoxed):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-    ...
-
 class FontFace(GObject.Object):
     """
     A `PangoFontFace` is used to represent a group of fonts with
@@ -3512,21 +3471,19 @@ class FontFace(GObject.Object):
         list_sizes(self) -> sizes:list
         """
 
-    ...
-
 class FontFaceClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def describe(self) -> describeFontFaceClassCB: ...
-    @property
+    @builtins.property
     def get_face_name(self) -> get_face_nameFontFaceClassCB: ...
-    @property
+    @builtins.property
     def get_family(self) -> get_familyFontFaceClassCB: ...
-    @property
+    @builtins.property
     def is_synthesized(self) -> is_synthesizedFontFaceClassCB: ...
-    @property
+    @builtins.property
     def list_sizes(self) -> list_sizesFontFaceClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -3534,8 +3491,6 @@ class FontFaceClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FontFamily(GObject.Object):
     """
@@ -3553,17 +3508,20 @@ class FontFamily(GObject.Object):
         n_items: int  # [n-items]: changed because contained invalid characters
         name: str
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def get_face(self, name: str | None = None) -> FontFace | None: ...
-    @property
+    @builtins.property
     def get_name(self) -> str: ...
-    @property
+    @builtins.property
     def is_monospace(self) -> bool: ...
-    @property
+    @builtins.property
     def is_variable(self) -> bool: ...
     def list_faces(self) -> tuple[list | None, int]: ...
 
@@ -3640,21 +3598,20 @@ class FontFamily(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FontFamilyClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_face(self) -> get_faceFontFamilyClassCB | None: ...
-    @property
+    @builtins.property
     def get_name(self) -> get_nameFontFamilyClassCB: ...
-    @property
+    @builtins.property
     def is_monospace(self) -> is_monospaceFontFamilyClassCB: ...
-    @property
+    @builtins.property
     def is_variable(self) -> is_variableFontFamilyClassCB: ...
-    @property
+    @builtins.property
     def list_faces(self) -> list_facesFontFamilyClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -3662,8 +3619,6 @@ class FontFamilyClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FontMap(GObject.Object):
     """
@@ -3677,6 +3632,9 @@ class FontMap(GObject.Object):
     class Props(GObject.Object.Props):
         item_type: GObject.GType  # [item-type]: changed because contained invalid characters
         n_items: int  # [n-items]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -3758,25 +3716,24 @@ class FontMap(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class FontMapClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def changed(self) -> changedFontMapClassCB: ...
-    @property
+    @builtins.property
     def get_family(self) -> get_familyFontMapClassCB: ...
-    @property
+    @builtins.property
     def get_serial(self) -> get_serialFontMapClassCB: ...
-    @property
+    @builtins.property
     def list_families(self) -> list_familiesFontMapClassCB: ...
-    @property
+    @builtins.property
     def load_font(self) -> load_fontFontMapClassCB | None: ...
-    @property
+    @builtins.property
     def load_fontset(self) -> load_fontsetFontMapClassCB | None: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def shape_engine_type(self) -> str: ...
 
     # gi Methods
@@ -3785,29 +3742,27 @@ class FontMapClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FontMetrics(GObject.GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def approximate_char_width(self) -> int: ...
-    @property
+    @builtins.property
     def approximate_digit_width(self) -> int: ...
-    @property
+    @builtins.property
     def ascent(self) -> int: ...
-    @property
+    @builtins.property
     def descent(self) -> int: ...
-    @property
+    @builtins.property
     def height(self) -> int: ...
-    @property
+    @builtins.property
     def ref_count(self) -> int: ...
-    @property
+    @builtins.property
     def strikethrough_position(self) -> int: ...
-    @property
+    @builtins.property
     def strikethrough_thickness(self) -> int: ...
-    @property
+    @builtins.property
     def underline_position(self) -> int: ...
-    @property
+    @builtins.property
     def underline_thickness(self) -> int: ...
 
     # gi Methods
@@ -3826,8 +3781,6 @@ class FontMetrics(GObject.GBoxed):
     def get_underline_thickness(self) -> int: ...
     def ref(self) -> FontMetrics | None: ...
     def unref(self) -> None: ...
-
-    ...
 
 class Fontset(GObject.Object):
     """
@@ -3877,19 +3830,17 @@ class Fontset(GObject.Object):
         get_metrics(self) -> Pango.FontMetrics
         """
 
-    ...
-
 class FontsetClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def foreach(self) -> foreachFontsetClassCB: ...
-    @property
+    @builtins.property
     def get_font(self) -> get_fontFontsetClassCB: ...
-    @property
+    @builtins.property
     def get_language(self) -> get_languageFontsetClassCB: ...
-    @property
+    @builtins.property
     def get_metrics(self) -> get_metricsFontsetClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -3897,8 +3848,6 @@ class FontsetClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FontsetSimple(Fontset):
     """
@@ -3919,16 +3868,12 @@ class FontsetSimple(Fontset):
     def new(cls, language: Language) -> FontsetSimple: ...
     def size(self) -> int: ...
 
-    ...
-
 class FontsetSimpleClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GlyphGeometry(GObject.GPointer):
     # gi Fields
@@ -3942,8 +3887,6 @@ class GlyphGeometry(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class GlyphInfo(GObject.GPointer):
     # gi Fields
     attr: GlyphVisAttr | None = ...
@@ -3955,8 +3898,6 @@ class GlyphInfo(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GlyphItem(GObject.GBoxed):
     # gi Fields
@@ -3977,8 +3918,6 @@ class GlyphItem(GObject.GBoxed):
     def get_logical_widths(self, text: str) -> list: ...
     def letter_space(self, text: str, log_attrs: list, letter_spacing: int) -> None: ...
     def split(self, text: str, split_index: int) -> GlyphItem | None: ...
-
-    ...
 
 class GlyphItemIter(GObject.GBoxed):
     # gi Fields
@@ -4003,14 +3942,12 @@ class GlyphItemIter(GObject.GBoxed):
     def next_cluster(self) -> bool: ...
     def prev_cluster(self) -> bool: ...
 
-    ...
-
 class GlyphString(GObject.GBoxed):
     # gi Fields
     glyphs: list | None = ...
     log_clusters: int = ...
     num_glyphs: int = ...
-    @property
+    @builtins.property
     def space(self) -> int: ...
 
     # gi Methods
@@ -4036,8 +3973,6 @@ class GlyphString(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class GlyphVisAttr(GObject.GPointer):
     # gi Fields
     is_cluster_start: int = ...
@@ -4048,8 +3983,6 @@ class GlyphVisAttr(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Item(GObject.GBoxed):
     # gi Fields
@@ -4074,8 +4007,6 @@ class Item(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-    ...
-
 class Language(GObject.GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -4093,8 +4024,6 @@ class Language(GObject.GBoxed):
     def includes_script(self, script: Script) -> bool: ...
     def matches(self, range_list: str) -> bool: ...
     def to_string(self) -> str: ...
-
-    ...
 
 class Layout(GObject.Object):
     """
@@ -4214,16 +4143,12 @@ class Layout(GObject.Object):
     def write_to_file(self, flags: LayoutSerializeFlags, filename: str) -> bool: ...
     def xy_to_index(self, x: int, y: int) -> tuple[bool, int, int]: ...
 
-    ...
-
 class LayoutClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class LayoutIter(GObject.GBoxed):
     # gi Methods
@@ -4253,8 +4178,6 @@ class LayoutIter(GObject.GBoxed):
     def next_line(self) -> bool: ...
     def next_run(self) -> bool: ...
 
-    ...
-
 class LayoutLine(GObject.GBoxed):
     # gi Fields
     layout: Layout | None = ...
@@ -4281,8 +4204,6 @@ class LayoutLine(GObject.GBoxed):
     def unref(self) -> None: ...
     def x_to_index(self, x_pos: int) -> tuple[bool, int, int]: ...
 
-    ...
-
 class LogAttr(GObject.GPointer):
     # gi Fields
     backspace_deletes_character: int = ...
@@ -4307,8 +4228,6 @@ class LogAttr(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Matrix(GObject.GBoxed):
     # gi Fields
@@ -4338,8 +4257,6 @@ class Matrix(GObject.GBoxed):
     def transform_rectangle(self, rect: Rectangle | None = None) -> Rectangle | None: ...
     def translate(self, tx: float, ty: float) -> None: ...
 
-    ...
-
 class Rectangle(GObject.GPointer):
     # gi Fields
     height: int = ...
@@ -4353,8 +4270,6 @@ class Rectangle(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Renderer(GObject.Object):
     """
     `PangoRenderer` is a base class for objects that can render text
@@ -4366,13 +4281,13 @@ class Renderer(GObject.Object):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def active_count(self) -> int: ...
-    @property
+    @builtins.property
     def matrix(self) -> Matrix | None: ...
-    @property
+    @builtins.property
     def strikethrough(self) -> bool: ...
-    @property
+    @builtins.property
     def underline(self) -> Underline: ...
 
     # gi Methods
@@ -4503,33 +4418,31 @@ class Renderer(GObject.Object):
         prepare_run(self, run:Pango.GlyphItem)
         """
 
-    ...
-
 class RendererClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def begin(self) -> beginRendererClassCB: ...
-    @property
+    @builtins.property
     def draw_error_underline(self) -> draw_error_underlineRendererClassCB: ...
-    @property
+    @builtins.property
     def draw_glyph(self) -> draw_glyphRendererClassCB: ...
-    @property
+    @builtins.property
     def draw_glyph_item(self) -> draw_glyph_itemRendererClassCB: ...
-    @property
+    @builtins.property
     def draw_glyphs(self) -> draw_glyphsRendererClassCB: ...
-    @property
+    @builtins.property
     def draw_rectangle(self) -> draw_rectangleRendererClassCB: ...
-    @property
+    @builtins.property
     def draw_shape(self) -> draw_shapeRendererClassCB: ...
-    @property
+    @builtins.property
     def draw_trapezoid(self) -> draw_trapezoidRendererClassCB: ...
-    @property
+    @builtins.property
     def end(self) -> endRendererClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def part_changed(self) -> part_changedRendererClassCB: ...
-    @property
+    @builtins.property
     def prepare_run(self) -> prepare_runRendererClassCB: ...
 
     # gi Methods
@@ -4538,16 +4451,12 @@ class RendererClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class RendererPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ScriptIter(GObject.GBoxed):
     # gi Methods
@@ -4563,8 +4472,6 @@ class ScriptIter(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class TabArray(GObject.GBoxed):
     # gi Methods
@@ -4592,8 +4499,6 @@ class TabArray(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 ###############################################################
 # Callbacks

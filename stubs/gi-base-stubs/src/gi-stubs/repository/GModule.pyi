@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -124,8 +125,6 @@ class Module(GObject.GPointer):
     @staticmethod
     def supported() -> bool: ...
     def symbol(self, symbol_name: str) -> tuple[bool, object | None]: ...
-
-    ...
 
 ###############################################################
 # Aliases

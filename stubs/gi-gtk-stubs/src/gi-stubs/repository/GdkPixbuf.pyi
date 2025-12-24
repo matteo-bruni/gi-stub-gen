@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -352,6 +353,9 @@ class Pixbuf(GObject.Object):
         rowstride: int
         width: int
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -424,10 +428,10 @@ class Pixbuf(GObject.Object):
     def copy_options(self, dest_pixbuf: Pixbuf) -> bool: ...
     def fill(self, pixel: int) -> None: ...
     def flip(self, horizontal: bool) -> Pixbuf | None: ...
-    @property
+    @builtins.property
     def get_bits_per_sample(self) -> int: ...
     def get_byte_length(self) -> int: ...
-    @property
+    @builtins.property
     def get_colorspace(self) -> Colorspace: ...
     @staticmethod
     def get_file_info(filename: str) -> tuple[PixbufFormat | None, int | None, int | None]: ...
@@ -442,18 +446,18 @@ class Pixbuf(GObject.Object):
     def get_file_info_finish(async_result: Gio.AsyncResult) -> tuple[PixbufFormat | None, int, int]: ...
     @staticmethod
     def get_formats() -> list: ...
-    @property
+    @builtins.property
     def get_has_alpha(self) -> bool: ...
-    @property
+    @builtins.property
     def get_height(self) -> int: ...
-    @property
+    @builtins.property
     def get_n_channels(self) -> int: ...
     def get_option(self, key: str) -> str | None: ...
     def get_options(self) -> dict: ...
     def get_pixels(self) -> tuple[list, int]: ...
-    @property
+    @builtins.property
     def get_rowstride(self) -> int: ...
-    @property
+    @builtins.property
     def get_width(self) -> int: ...
     @staticmethod
     def init_modules(path: str) -> bool: ...
@@ -658,7 +662,6 @@ class Pixbuf(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PixbufAnimation(GObject.Object):
     """
@@ -734,19 +737,17 @@ class PixbufAnimation(GObject.Object):
         is_static_image(self) -> bool
         """
 
-    ...
-
 class PixbufAnimationClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def get_iter(self) -> get_iterPixbufAnimationClassCB: ...
-    @property
+    @builtins.property
     def get_size(self) -> get_sizePixbufAnimationClassCB: ...
-    @property
+    @builtins.property
     def get_static_image(self) -> get_static_imagePixbufAnimationClassCB: ...
-    @property
+    @builtins.property
     def is_static_image(self) -> is_static_imagePixbufAnimationClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -754,8 +755,6 @@ class PixbufAnimationClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PixbufAnimationIter(GObject.Object):
     """
@@ -800,19 +799,17 @@ class PixbufAnimationIter(GObject.Object):
         on_currently_loading_frame(self) -> bool
         """
 
-    ...
-
 class PixbufAnimationIterClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def advance(self) -> advancePixbufAnimationIterClassCB: ...
-    @property
+    @builtins.property
     def get_delay_time(self) -> get_delay_timePixbufAnimationIterClassCB: ...
-    @property
+    @builtins.property
     def get_pixbuf(self) -> get_pixbufPixbufAnimationIterClassCB: ...
-    @property
+    @builtins.property
     def on_currently_loading_frame(self) -> on_currently_loading_framePixbufAnimationIterClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -820,8 +817,6 @@ class PixbufAnimationIterClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PixbufFormat(GObject.GBoxed):
     # gi Fields
@@ -852,8 +847,6 @@ class PixbufFormat(GObject.GBoxed):
     def is_scalable(self) -> bool: ...
     def is_writable(self) -> bool: ...
     def set_disabled(self, disabled: bool) -> None: ...
-
-    ...
 
 class PixbufLoader(GObject.Object):
     """
@@ -982,19 +975,18 @@ class PixbufLoader(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PixbufLoaderClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def area_prepared(self) -> area_preparedPixbufLoaderClassCB: ...
-    @property
+    @builtins.property
     def area_updated(self) -> area_updatedPixbufLoaderClassCB: ...
-    @property
+    @builtins.property
     def closed(self) -> closedPixbufLoaderClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
-    @property
+    @builtins.property
     def size_prepared(self) -> size_preparedPixbufLoaderClassCB: ...
 
     # gi Methods
@@ -1002,8 +994,6 @@ class PixbufLoaderClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class PixbufModule(GObject.GPointer):
     # gi Fields
@@ -1025,8 +1015,6 @@ class PixbufModule(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PixbufModulePattern(GObject.GPointer):
     # gi Fields
     mask: str = ...
@@ -1039,8 +1027,6 @@ class PixbufModulePattern(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PixbufNonAnim(PixbufAnimation):
     # gi Methods
     def __init__(self) -> None:
@@ -1050,8 +1036,6 @@ class PixbufNonAnim(PixbufAnimation):
     @classmethod
     def new(cls, pixbuf: Pixbuf) -> PixbufAnimation: ...
 
-    ...
-
 class PixbufSimpleAnim(PixbufAnimation):
     """
     An opaque struct representing a simple animation.
@@ -1060,13 +1044,16 @@ class PixbufSimpleAnim(PixbufAnimation):
     class Props(PixbufAnimation.Props):
         loop: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self, loop: bool = ...) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
     def add_frame(self, pixbuf: Pixbuf) -> None: ...
-    @property
+    @builtins.property
     def get_loop(self) -> bool: ...
     @classmethod
     def new(cls, width: int, height: int, rate: float) -> PixbufSimpleAnim: ...
@@ -1084,7 +1071,6 @@ class PixbufSimpleAnim(PixbufAnimation):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class PixbufSimpleAnimClass(GObject.GPointer):
     # gi Methods
@@ -1093,16 +1079,12 @@ class PixbufSimpleAnimClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PixbufSimpleAnimIter(PixbufAnimationIter):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -2499,8 +2500,6 @@ class Array(GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Binding(Object):
     """
     `GObject` instance (or source) and another property on another `GObject`
@@ -2587,6 +2586,9 @@ class Binding(Object):
         target: Object | None
         target_property: str  # [target-property]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(
         self,
@@ -2601,17 +2603,17 @@ class Binding(Object):
         """
     def dup_source(self) -> Object | None: ...
     def dup_target(self) -> Object | None: ...
-    @property
+    @builtins.property
     def get_flags(self) -> BindingFlags: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_source(self) -> Object | None: ...
-    @property
+    @builtins.property
     def get_source_property(self) -> str: ...
     @deprecated("deprecated")
-    @property
+    @builtins.property
     def get_target(self) -> Object | None: ...
-    @property
+    @builtins.property
     def get_target_property(self) -> str: ...
     def unbind(self) -> None: ...
 
@@ -2655,7 +2657,6 @@ class Binding(Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BindingGroup(Object):
     """
@@ -2670,6 +2671,9 @@ class BindingGroup(Object):
 
     class Props(Object.Props):
         source: Object | None
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, source: Object | None = ...) -> None:
@@ -2703,7 +2707,6 @@ class BindingGroup(Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BookmarkFile(GBoxed):
     # gi Methods
@@ -2712,16 +2715,12 @@ class BookmarkFile(GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ByteArray(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CClosure(GPointer):
     # gi Fields
@@ -2940,8 +2939,6 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None: ...
 
-    ...
-
 class Checksum(GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -2949,31 +2946,29 @@ class Checksum(GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Closure(GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def derivative_flag(self) -> int: ...
-    @property
+    @builtins.property
     def floating(self) -> int: ...
-    @property
+    @builtins.property
     def in_inotify(self) -> int: ...
     in_marshal: int = ...
     is_invalid: int = ...
-    @property
+    @builtins.property
     def marshal(self) -> marshalClosureCB: ...
-    @property
+    @builtins.property
     def meta_marshal_nouse(self) -> int: ...
-    @property
+    @builtins.property
     def n_fnotifiers(self) -> int: ...
-    @property
+    @builtins.property
     def n_guards(self) -> int: ...
-    @property
+    @builtins.property
     def n_inotifiers(self) -> int: ...
-    @property
+    @builtins.property
     def notifiers(self) -> ClosureNotifyData | None: ...
-    @property
+    @builtins.property
     def ref_count(self) -> int: ...
 
     # gi Methods
@@ -2993,8 +2988,6 @@ class Closure(GBoxed):
     def sink(self) -> None: ...
     def unref(self) -> None: ...
 
-    ...
-
 class ClosureNotifyData(GPointer):
     # gi Fields
     notify: ClosureNotifyClosureNotifyDataCB = ...
@@ -3005,8 +2998,6 @@ class ClosureNotifyData(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Date(GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -3014,16 +3005,12 @@ class Date(GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Dir(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class EnumClass(GPointer):
     # gi Fields
@@ -3039,8 +3026,6 @@ class EnumClass(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class EnumValue(GPointer):
     # gi Fields
     value: int = ...
@@ -3052,8 +3037,6 @@ class EnumValue(GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FlagsClass(GPointer):
     # gi Fields
@@ -3068,8 +3051,6 @@ class FlagsClass(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class FlagsValue(GPointer):
     # gi Fields
     value: int = ...
@@ -3082,8 +3063,6 @@ class FlagsValue(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Float(float):
     # gi Methods
     def __init__(self) -> None:
@@ -3091,19 +3070,17 @@ class Float(float):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class GBoxed(object):
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GEnum(enum.IntEnum):
     """
@@ -3111,25 +3088,23 @@ class GEnum(enum.IntEnum):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def __gtype__(self) -> GType:
         """
         The GType of the enum.
         """
 
     # gi Methods
-    @property
+    @builtins.property
     def value_name(self) -> str:
         """
         The name of the value.
         """
-    @property
+    @builtins.property
     def value_nick(self) -> str:
         """
         The nickname of the value.
         """
-
-    ...
 
 class GFlags(enum.IntFlag):
     """
@@ -3137,47 +3112,45 @@ class GFlags(enum.IntFlag):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def __gtype__(self) -> GType:
         """
         The GType of the enum.
         """
 
     # gi Methods
-    @property
+    @builtins.property
     def first_value_name(self) -> str:
         """
         The name of the first value.
         """
-    @property
+    @builtins.property
     def first_value_nick(self) -> str:
         """
         The nickname of the first value.
         """
-    @property
+    @builtins.property
     def value_names(self) -> list[str]:
         """
         The names of the values.
         """
-    @property
+    @builtins.property
     def value_nicks(self) -> list[str]:
         """
         The nicknames of the values.
         """
 
-    ...
-
 class GInterface(object):
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GObjectWeakRef(object):
     """
@@ -3185,19 +3158,21 @@ class GObjectWeakRef(object):
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class GPointer(object):
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -3205,26 +3180,26 @@ class GPointer(object):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class GType(object):
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Fields
-    @property
+    @builtins.property
     def children(self) -> typing.Any | None: ...
-    @property
+    @builtins.property
     def depth(self) -> typing.Any | None: ...
-    @property
+    @builtins.property
     def fundamental(self) -> typing.Any | None: ...
-    @property
+    @builtins.property
     def interfaces(self) -> typing.Any | None: ...
-    @property
+    @builtins.property
     def name(self) -> typing.Any | None: ...
-    @property
+    @builtins.property
     def parent(self) -> typing.Any | None: ...
-    @property
+    @builtins.property
     def pytype(self) -> typing.Any | None: ...
 
     # gi Methods
@@ -3240,8 +3215,6 @@ class GType(object):
         **kwargs: typing.Any,
     ) -> typing.Any: ...
 
-    ...
-
 class HashTable(GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -3249,16 +3222,12 @@ class HashTable(GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Hmac(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InitiallyUnowned(Object):
     """
@@ -3269,9 +3238,9 @@ class InitiallyUnowned(Object):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def qdata(self) -> GLib.Data | None: ...
-    @property
+    @builtins.property
     def ref_count(self) -> int: ...
 
     # gi Methods
@@ -3280,35 +3249,33 @@ class InitiallyUnowned(Object):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class InitiallyUnownedClass(GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def construct_properties(self) -> list | None: ...
-    @property
+    @builtins.property
     def constructed(self) -> constructedInitiallyUnownedClassCB: ...
-    @property
+    @builtins.property
     def dispatch_properties_changed(self) -> dispatch_properties_changedInitiallyUnownedClassCB: ...
-    @property
+    @builtins.property
     def dispose(self) -> disposeInitiallyUnownedClassCB: ...
-    @property
+    @builtins.property
     def finalize(self) -> finalizeInitiallyUnownedClassCB: ...
-    @property
+    @builtins.property
     def flags(self) -> int: ...
-    @property
+    @builtins.property
     def g_type_class(self) -> TypeClass | None: ...
-    @property
+    @builtins.property
     def get_property(self) -> get_propertyInitiallyUnownedClassCB: ...
-    @property
+    @builtins.property
     def n_construct_properties(self) -> int: ...
-    @property
+    @builtins.property
     def n_pspecs(self) -> int: ...
-    @property
+    @builtins.property
     def notify(self) -> notifyInitiallyUnownedClassCB: ...
-    @property
+    @builtins.property
     def pdummy(self) -> list | None: ...
-    @property
+    @builtins.property
     def set_property(self) -> set_propertyInitiallyUnownedClassCB: ...
 
     # gi Methods
@@ -3316,8 +3283,6 @@ class InitiallyUnownedClass(GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class InterfaceInfo(GPointer):
     # gi Fields
@@ -3330,16 +3295,12 @@ class InterfaceInfo(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MappedFile(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class MarkupParseContext(GBoxed):
     # gi Methods
@@ -3348,16 +3309,12 @@ class MarkupParseContext(GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class MatchInfo(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Object(object):
     """
@@ -3386,7 +3343,9 @@ class Object(object):
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -3569,35 +3528,34 @@ class Object(object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class ObjectClass(GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def construct_properties(self) -> list | None: ...
-    @property
+    @builtins.property
     def constructed(self) -> constructedObjectClassCB: ...
-    @property
+    @builtins.property
     def dispatch_properties_changed(self) -> dispatch_properties_changedObjectClassCB: ...
-    @property
+    @builtins.property
     def dispose(self) -> disposeObjectClassCB: ...
-    @property
+    @builtins.property
     def finalize(self) -> finalizeObjectClassCB: ...
-    @property
+    @builtins.property
     def flags(self) -> int: ...
-    @property
+    @builtins.property
     def g_type_class(self) -> TypeClass | None: ...
-    @property
+    @builtins.property
     def get_property(self) -> get_propertyObjectClassCB: ...
-    @property
+    @builtins.property
     def n_construct_properties(self) -> int: ...
-    @property
+    @builtins.property
     def n_pspecs(self) -> int: ...
-    @property
+    @builtins.property
     def notify(self) -> notifyObjectClassCB: ...
-    @property
+    @builtins.property
     def pdummy(self) -> list | None: ...
-    @property
+    @builtins.property
     def set_property(self) -> set_propertyObjectClassCB: ...
 
     # gi Methods
@@ -3611,8 +3569,6 @@ class ObjectClass(GPointer):
     def list_properties(self) -> tuple[list, int]: ...
     def override_property(self, property_id: int, name: str) -> None: ...
 
-    ...
-
 class ObjectConstructParam(GPointer):
     # gi Fields
     pspec: ParamSpec | None = ...
@@ -3624,23 +3580,21 @@ class ObjectConstructParam(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class OptionContext(object):
     """
     Alias to gi._gi.OptionContext. May Be incomplete since gi._gi is a private module.
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class OptionGroup(object):
     """
@@ -3648,15 +3602,15 @@ class OptionGroup(object):
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpec(object):
     """
@@ -3675,7 +3629,9 @@ class ParamSpec(object):
     """
 
     class Props: ...
-    props: Props = ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -3706,15 +3662,13 @@ class ParamSpec(object):
         value: typing.Any,
     ) -> typing.Any: ...
 
-    ...
-
 class ParamSpecBoolean(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for boolean properties.
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> bool: ...
 
     # gi Methods
@@ -3722,8 +3676,6 @@ class ParamSpecBoolean(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecBoxed(ParamSpec):
     """
@@ -3736,19 +3688,17 @@ class ParamSpecBoxed(ParamSpec):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecChar(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for character properties.
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> int: ...
-    @property
+    @builtins.property
     def maximum(self) -> int: ...
-    @property
+    @builtins.property
     def minimum(self) -> int: ...
 
     # gi Methods
@@ -3757,25 +3707,23 @@ class ParamSpecChar(ParamSpec):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecClass(GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def dummy(self) -> list | None: ...
-    @property
+    @builtins.property
     def finalize(self) -> finalizeParamSpecClassCB: ...
-    @property
+    @builtins.property
     def g_type_class(self) -> TypeClass | None: ...
-    @property
+    @builtins.property
     def value_is_valid(self) -> value_is_validParamSpecClassCB: ...
-    @property
+    @builtins.property
     def value_set_default(self) -> value_set_defaultParamSpecClassCB: ...
-    @property
+    @builtins.property
     def value_type(self) -> GType: ...
-    @property
+    @builtins.property
     def value_validate(self) -> value_validateParamSpecClassCB: ...
-    @property
+    @builtins.property
     def values_cmp(self) -> values_cmpParamSpecClassCB: ...
 
     # gi Methods
@@ -3784,21 +3732,19 @@ class ParamSpecClass(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecDouble(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for double properties.
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> float: ...
-    @property
+    @builtins.property
     def epsilon(self) -> float: ...
-    @property
+    @builtins.property
     def maximum(self) -> float: ...
-    @property
+    @builtins.property
     def minimum(self) -> float: ...
 
     # gi Methods
@@ -3807,8 +3753,6 @@ class ParamSpecDouble(ParamSpec):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecEnum(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for enum
@@ -3816,7 +3760,7 @@ class ParamSpecEnum(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def enum_class(self) -> EnumClass | None: ...
 
     # gi Methods
@@ -3836,8 +3780,6 @@ class ParamSpecEnum(ParamSpec):
         value: typing.Any,
     ) -> typing.Any: ...
 
-    ...
-
 class ParamSpecFlags(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for flags
@@ -3845,7 +3787,7 @@ class ParamSpecFlags(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def flags_class(self) -> FlagsClass | None: ...
 
     # gi Methods
@@ -3865,21 +3807,19 @@ class ParamSpecFlags(ParamSpec):
         value: typing.Any,
     ) -> typing.Any: ...
 
-    ...
-
 class ParamSpecFloat(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for float properties.
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> float: ...
-    @property
+    @builtins.property
     def epsilon(self) -> float: ...
-    @property
+    @builtins.property
     def maximum(self) -> float: ...
-    @property
+    @builtins.property
     def minimum(self) -> float: ...
 
     # gi Methods
@@ -3888,15 +3828,13 @@ class ParamSpecFloat(ParamSpec):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecGType(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for #GType properties.
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def is_a_type(self) -> GType: ...
 
     # gi Methods
@@ -3905,19 +3843,17 @@ class ParamSpecGType(ParamSpec):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecInt(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for integer properties.
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> int: ...
-    @property
+    @builtins.property
     def maximum(self) -> int: ...
-    @property
+    @builtins.property
     def minimum(self) -> int: ...
 
     # gi Methods
@@ -3925,8 +3861,6 @@ class ParamSpecInt(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecInt64(ParamSpec):
     """
@@ -3934,11 +3868,11 @@ class ParamSpecInt64(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> int: ...
-    @property
+    @builtins.property
     def maximum(self) -> int: ...
-    @property
+    @builtins.property
     def minimum(self) -> int: ...
 
     # gi Methods
@@ -3946,8 +3880,6 @@ class ParamSpecInt64(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecLong(ParamSpec):
     """
@@ -3955,11 +3887,11 @@ class ParamSpecLong(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> int: ...
-    @property
+    @builtins.property
     def maximum(self) -> int: ...
-    @property
+    @builtins.property
     def minimum(self) -> int: ...
 
     # gi Methods
@@ -3967,8 +3899,6 @@ class ParamSpecLong(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecObject(ParamSpec):
     """
@@ -3980,8 +3910,6 @@ class ParamSpecObject(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecOverride(ParamSpec):
     """
@@ -3999,7 +3927,7 @@ class ParamSpecOverride(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def overridden(self) -> ParamSpec | None: ...
 
     # gi Methods
@@ -4007,8 +3935,6 @@ class ParamSpecOverride(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecParam(ParamSpec):
     """
@@ -4022,8 +3948,6 @@ class ParamSpecParam(ParamSpec):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecPointer(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for pointer properties.
@@ -4034,8 +3958,6 @@ class ParamSpecPointer(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecPool(GPointer):
     # gi Methods
@@ -4050,8 +3972,6 @@ class ParamSpecPool(GPointer):
     def lookup(self, param_name: str, owner_type: GType, walk_ancestors: bool) -> ParamSpec | None: ...
     def remove(self, pspec: ParamSpec) -> None: ...
 
-    ...
-
 class ParamSpecString(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for string
@@ -4059,17 +3979,17 @@ class ParamSpecString(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def cset_first(self) -> str: ...
-    @property
+    @builtins.property
     def cset_nth(self) -> str: ...
-    @property
+    @builtins.property
     def default_value(self) -> str: ...
-    @property
+    @builtins.property
     def ensure_non_null(self) -> int: ...
-    @property
+    @builtins.property
     def null_fold_if_empty(self) -> int: ...
-    @property
+    @builtins.property
     def substitutor(self) -> int: ...
 
     # gi Methods
@@ -4078,22 +3998,20 @@ class ParamSpecString(ParamSpec):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecTypeInfo(GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def finalize(self) -> finalizeParamSpecTypeInfoCB: ...
-    @property
+    @builtins.property
     def instance_init(self) -> instance_initParamSpecTypeInfoCB: ...
     instance_size: int = ...
     n_preallocs: int = ...
-    @property
+    @builtins.property
     def value_set_default(self) -> value_set_defaultParamSpecTypeInfoCB: ...
     value_type: GType = ...
-    @property
+    @builtins.property
     def value_validate(self) -> value_validateParamSpecTypeInfoCB: ...
-    @property
+    @builtins.property
     def values_cmp(self) -> values_cmpParamSpecTypeInfoCB: ...
 
     # gi Methods
@@ -4102,19 +4020,17 @@ class ParamSpecTypeInfo(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecUChar(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for unsigned character properties.
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> int: ...
-    @property
+    @builtins.property
     def maximum(self) -> int: ...
-    @property
+    @builtins.property
     def minimum(self) -> int: ...
 
     # gi Methods
@@ -4122,8 +4038,6 @@ class ParamSpecUChar(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecUInt(ParamSpec):
     """
@@ -4131,11 +4045,11 @@ class ParamSpecUInt(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> int: ...
-    @property
+    @builtins.property
     def maximum(self) -> int: ...
-    @property
+    @builtins.property
     def minimum(self) -> int: ...
 
     # gi Methods
@@ -4143,8 +4057,6 @@ class ParamSpecUInt(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecUInt64(ParamSpec):
     """
@@ -4152,11 +4064,11 @@ class ParamSpecUInt64(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> int: ...
-    @property
+    @builtins.property
     def maximum(self) -> int: ...
-    @property
+    @builtins.property
     def minimum(self) -> int: ...
 
     # gi Methods
@@ -4164,8 +4076,6 @@ class ParamSpecUInt64(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecULong(ParamSpec):
     """
@@ -4173,11 +4083,11 @@ class ParamSpecULong(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> int: ...
-    @property
+    @builtins.property
     def maximum(self) -> int: ...
-    @property
+    @builtins.property
     def minimum(self) -> int: ...
 
     # gi Methods
@@ -4186,15 +4096,13 @@ class ParamSpecULong(ParamSpec):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecUnichar(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for unichar (unsigned integer) properties.
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> str: ...
 
     # gi Methods
@@ -4203,17 +4111,15 @@ class ParamSpecUnichar(ParamSpec):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class ParamSpecValueArray(ParamSpec):
     """
     A #GParamSpec derived structure that contains the meta data for #GValueArray properties.
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def element_spec(self) -> ParamSpec | None: ...
-    @property
+    @builtins.property
     def fixed_n_elements(self) -> int: ...
 
     # gi Methods
@@ -4221,8 +4127,6 @@ class ParamSpecValueArray(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class ParamSpecVariant(ParamSpec):
     """
@@ -4236,11 +4140,11 @@ class ParamSpecVariant(ParamSpec):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def default_value(self) -> GLib.Variant | None: ...
-    @property
+    @builtins.property
     def padding(self) -> list | None: ...
-    @property
+    @builtins.property
     def type(self) -> GLib.VariantType | None: ...
 
     # gi Methods
@@ -4248,8 +4152,6 @@ class ParamSpecVariant(ParamSpec):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Parameter(GPointer):
     # gi Fields
@@ -4262,16 +4164,12 @@ class Parameter(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PatternSpec(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Pid(int):
     """
@@ -4284,16 +4182,12 @@ class Pid(int):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class PtrArray(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Rand(GBoxed):
     # gi Methods
@@ -4302,16 +4196,12 @@ class Rand(GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Regex(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SignalGroup(Object):
     """
@@ -4339,6 +4229,9 @@ class SignalGroup(Object):
     class Props(Object.Props):
         target: Object | None
         target_type: GType  # [target-type]: changed because contained invalid characters
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, target: Object | None = ..., target_type: GType = ...) -> None:
@@ -4387,7 +4280,6 @@ class SignalGroup(Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class SignalInvocationHint(GPointer):
     # gi Fields
@@ -4400,8 +4292,6 @@ class SignalInvocationHint(GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class SignalQuery(GPointer):
     # gi Fields
@@ -4419,16 +4309,12 @@ class SignalQuery(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Strv(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class StrvBuilder(GBoxed):
     # gi Methods
@@ -4437,8 +4323,6 @@ class StrvBuilder(GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Thread(GBoxed):
     # gi Methods
     def __init__(self) -> None:
@@ -4446,16 +4330,12 @@ class Thread(GBoxed):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TimeZone(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TypeCValue(GPointer):
     # gi Fields
@@ -4470,11 +4350,9 @@ class TypeCValue(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TypeClass(GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_type(self) -> GType: ...
 
     # gi Methods
@@ -4500,8 +4378,6 @@ class TypeClass(GPointer):
     @deprecated("deprecated")
     def unref(self) -> None: ...
 
-    ...
-
 class TypeFundamentalInfo(GPointer):
     # gi Fields
     type_flags: TypeFundamentalFlags = ...
@@ -4511,8 +4387,6 @@ class TypeFundamentalInfo(GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TypeInfo(GPointer):
     # gi Fields
@@ -4532,11 +4406,9 @@ class TypeInfo(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TypeInstance(GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_class(self) -> TypeClass | None: ...
 
     # gi Methods
@@ -4546,13 +4418,11 @@ class TypeInstance(GPointer):
         """
     def get_private(self, private_type: GType) -> object | None: ...
 
-    ...
-
 class TypeInterface(GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def g_instance_type(self) -> GType: ...
-    @property
+    @builtins.property
     def g_type(self) -> GType: ...
 
     # gi Methods
@@ -4571,8 +4441,6 @@ class TypeInterface(GPointer):
     def peek_parent(self) -> TypeInterface | None: ...
     @staticmethod
     def prerequisites(interface_type: GType) -> tuple[list, int | None]: ...
-
-    ...
 
 class TypeModule(Object):
     """
@@ -4610,13 +4478,13 @@ class TypeModule(Object):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def interface_infos(self) -> list | None: ...
-    @property
+    @builtins.property
     def name(self) -> str: ...
-    @property
+    @builtins.property
     def type_infos(self) -> list | None: ...
-    @property
+    @builtins.property
     def use_count(self) -> int: ...
 
     # gi Methods
@@ -4646,23 +4514,21 @@ class TypeModule(Object):
         unload(self)
         """
 
-    ...
-
 class TypeModuleClass(GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def load(self) -> loadTypeModuleClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
-    @property
+    @builtins.property
     def reserved1(self) -> reserved1TypeModuleClassCB: ...
-    @property
+    @builtins.property
     def reserved2(self) -> reserved2TypeModuleClassCB: ...
-    @property
+    @builtins.property
     def reserved3(self) -> reserved3TypeModuleClassCB: ...
-    @property
+    @builtins.property
     def reserved4(self) -> reserved4TypeModuleClassCB: ...
-    @property
+    @builtins.property
     def unload(self) -> unloadTypeModuleClassCB: ...
 
     # gi Methods
@@ -4670,8 +4536,6 @@ class TypeModuleClass(GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TypePlugin(GInterface):
     # gi Methods
@@ -4684,11 +4548,9 @@ class TypePlugin(GInterface):
     def unuse(self) -> None: ...
     def use(self) -> None: ...
 
-    ...
-
 class TypePluginClass(GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def base_iface(self) -> TypeInterface | None: ...
     complete_interface_info: TypePluginCompleteInterfaceInfoTypePluginClassCB = ...
     complete_type_info: TypePluginCompleteTypeInfoTypePluginClassCB = ...
@@ -4700,8 +4562,6 @@ class TypePluginClass(GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TypeQuery(GPointer):
     # gi Fields
@@ -4715,8 +4575,6 @@ class TypeQuery(GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class TypeValueTable(GPointer):
     # gi Fields
@@ -4735,16 +4593,12 @@ class TypeValueTable(GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class Uri(GBoxed):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Value(GBoxed):
     # gi Methods
@@ -4837,11 +4691,9 @@ class Value(GBoxed):
         py_value: typing.Any,
     ) -> typing.Any: ...
 
-    ...
-
 class ValueArray(GBoxed):
     # gi Fields
-    @property
+    @builtins.property
     def n_prealloced(self) -> int: ...
     n_values: int = ...
     values: Value | None = ...
@@ -4869,8 +4721,6 @@ class ValueArray(GBoxed):
     @deprecated("deprecated")
     def sort(self, compare_func: GLib.CompareDataFunc, user_data: object | None = None) -> ValueArray: ...
 
-    ...
-
 class Warning(Exception):
     # gi Methods
     def __init__(self) -> None:
@@ -4878,16 +4728,12 @@ class Warning(Exception):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class WeakRef(GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class _Value__data__union(GPointer):
     # gi Fields
@@ -4905,8 +4751,6 @@ class _Value__data__union(GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks

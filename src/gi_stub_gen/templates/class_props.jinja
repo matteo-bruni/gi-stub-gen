@@ -15,10 +15,12 @@ class Props{{ super_class | if_true(super_class != "object", '({}.Props)')  }}:
     {% endif %}
     {% endfor %}
 
-{% if not super_class %}props: Props = ...{% endif -%}
+@builtins.property
+def props(self) -> Props: ...
 {% elif super_class == "object" %}
-{# we add Props, inherited class, here we add a fake empty since someone might inherit from this class #}
+{# No props in this class but its super is object is a parent class for future inherited class, so we add a fake empty since someone might inherit from this class #}
 class Props: 
     ...
-props: Props = ...
+@builtins.property
+def props(self) -> Props: ...
 {% endif %}

@@ -6,9 +6,8 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     """
     {% endif %}
     
-    {{ cls_.render_props() | indent(4, first=False) }}
-    
-    {{ cls_.render_fields() | indent(4, first=False) }}
+    {{ cls_.render_props() | indent(4, first=True) | if_exists('\n')}}
+    {{ cls_.render_fields() | indent(4, first=True) | if_exists('\n') }}
 
     {% if cls_.methods %}
     # gi Methods
@@ -24,7 +23,5 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% endfor %}
     {% endif %}
 
-    {% if cls_.signals %}
     {{ cls_.render_signals() | indent(4, first=False) }}
-    {% endif %}
-    ...
+    {% if not (cls_.has_any_data or debug) %} ... {% endif %}

@@ -12,6 +12,7 @@ Date: 2025-12-24
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
+import builtins  # noqa: F401
 
 import _thread
 import enum
@@ -501,16 +502,12 @@ class Adapter(GObject.Object):
     def take_list(self, nbytes: int) -> list | None: ...
     def unmap(self) -> None: ...
 
-    ...
-
 class AdapterClass(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class Aggregator(Gst.Element):
     """
@@ -586,8 +583,11 @@ class Aggregator(Gst.Element):
             AggregatorStartTimeSelection  # [start-time-selection]: changed because contained invalid characters
         )
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
 
     # gi Methods
@@ -608,7 +608,7 @@ class Aggregator(Gst.Element):
     def get_buffer_pool(self) -> Gst.BufferPool | None: ...
     def get_force_live(self) -> bool: ...
     def get_ignore_inactive_pads(self) -> bool: ...
-    @property
+    @builtins.property
     def get_latency(self) -> int: ...
     def negotiate(self) -> bool: ...
     def peek_next_sample(self, pad: AggregatorPad) -> Gst.Sample | None: ...
@@ -827,55 +827,54 @@ class Aggregator(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AggregatorClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def aggregate(self) -> aggregateAggregatorClassCB: ...
-    @property
+    @builtins.property
     def clip(self) -> clipAggregatorClassCB: ...
-    @property
+    @builtins.property
     def decide_allocation(self) -> decide_allocationAggregatorClassCB: ...
-    @property
+    @builtins.property
     def finish_buffer(self) -> finish_bufferAggregatorClassCB: ...
-    @property
+    @builtins.property
     def finish_buffer_list(self) -> finish_buffer_listAggregatorClassCB: ...
-    @property
+    @builtins.property
     def fixate_src_caps(self) -> fixate_src_capsAggregatorClassCB: ...
-    @property
+    @builtins.property
     def flush(self) -> flushAggregatorClassCB: ...
-    @property
+    @builtins.property
     def get_next_time(self) -> get_next_timeAggregatorClassCB: ...
-    @property
+    @builtins.property
     def negotiate(self) -> negotiateAggregatorClassCB: ...
-    @property
+    @builtins.property
     def negotiated_src_caps(self) -> negotiated_src_capsAggregatorClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def peek_next_sample(self) -> peek_next_sampleAggregatorClassCB | None: ...
-    @property
+    @builtins.property
     def propose_allocation(self) -> propose_allocationAggregatorClassCB: ...
-    @property
+    @builtins.property
     def sink_event(self) -> sink_eventAggregatorClassCB: ...
-    @property
+    @builtins.property
     def sink_event_pre_queue(self) -> sink_event_pre_queueAggregatorClassCB: ...
-    @property
+    @builtins.property
     def sink_query(self) -> sink_queryAggregatorClassCB: ...
-    @property
+    @builtins.property
     def sink_query_pre_queue(self) -> sink_query_pre_queueAggregatorClassCB: ...
-    @property
+    @builtins.property
     def src_activate(self) -> src_activateAggregatorClassCB: ...
-    @property
+    @builtins.property
     def src_event(self) -> src_eventAggregatorClassCB: ...
-    @property
+    @builtins.property
     def src_query(self) -> src_queryAggregatorClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startAggregatorClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopAggregatorClassCB: ...
-    @property
+    @builtins.property
     def update_src_caps(self) -> update_src_capsAggregatorClassCB: ...
 
     # gi Methods
@@ -883,8 +882,6 @@ class AggregatorClass(GObject.GPointer):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class AggregatorPad(Gst.Pad):
     """
@@ -896,8 +893,11 @@ class AggregatorPad(Gst.Pad):
     class Props(Gst.Pad.Props):
         emit_signals: bool  # [emit-signals]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def segment(self) -> Gst.Segment | None: ...
 
     # gi Methods
@@ -948,15 +948,14 @@ class AggregatorPad(Gst.Pad):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class AggregatorPadClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def flush(self) -> flushAggregatorPadClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.PadClass | None: ...
-    @property
+    @builtins.property
     def skip_buffer(self) -> skip_bufferAggregatorPadClassCB: ...
 
     # gi Methods
@@ -965,8 +964,6 @@ class AggregatorPadClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AggregatorPadPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
@@ -974,16 +971,12 @@ class AggregatorPadPrivate(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class AggregatorPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BaseParse(Gst.Element):
     """
@@ -1127,16 +1120,19 @@ class BaseParse(Gst.Element):
     class Props(Gst.Element.Props):
         disable_passthrough: bool  # [disable-passthrough]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
-    @property
+    @builtins.property
     def flags(self) -> int: ...
-    @property
+    @builtins.property
     def segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def sinkpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
 
     # gi Methods
@@ -1261,35 +1257,34 @@ class BaseParse(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BaseParseClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def convert(self) -> convertBaseParseClassCB: ...
-    @property
+    @builtins.property
     def detect(self) -> detectBaseParseClassCB: ...
-    @property
+    @builtins.property
     def get_sink_caps(self) -> get_sink_capsBaseParseClassCB: ...
-    @property
+    @builtins.property
     def handle_frame(self) -> handle_frameBaseParseClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def pre_push_frame(self) -> pre_push_frameBaseParseClassCB: ...
-    @property
+    @builtins.property
     def set_sink_caps(self) -> set_sink_capsBaseParseClassCB: ...
-    @property
+    @builtins.property
     def sink_event(self) -> sink_eventBaseParseClassCB: ...
-    @property
+    @builtins.property
     def sink_query(self) -> sink_queryBaseParseClassCB: ...
-    @property
+    @builtins.property
     def src_event(self) -> src_eventBaseParseClassCB: ...
-    @property
+    @builtins.property
     def src_query(self) -> src_queryBaseParseClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startBaseParseClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopBaseParseClassCB: ...
 
     # gi Methods
@@ -1298,8 +1293,6 @@ class BaseParseClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BaseParseFrame(GObject.GBoxed):
     # gi Fields
     buffer: Gst.Buffer | None = ...  # type: ignore
@@ -1307,7 +1300,7 @@ class BaseParseFrame(GObject.GBoxed):
     offset: int = ...
     out_buffer: Gst.Buffer | None = ...  # type: ignore
     overhead: int = ...
-    @property
+    @builtins.property
     def size(self) -> int: ...
 
     # gi Methods
@@ -1321,16 +1314,12 @@ class BaseParseFrame(GObject.GBoxed):
     @classmethod
     def new(cls, buffer: Gst.Buffer, flags: BaseParseFrameFlags, overhead: int) -> BaseParseFrame: ...
 
-    ...
-
 class BaseParsePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BaseSink(Gst.Element):
     """
@@ -1464,42 +1453,45 @@ class BaseSink(Gst.Element):
         throttle_time: int  # [throttle-time]: changed because contained invalid characters
         ts_offset: int  # [ts-offset]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def can_activate_pull(self) -> bool: ...
-    @property
+    @builtins.property
     def can_activate_push(self) -> bool: ...
-    @property
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
-    @property
+    @builtins.property
     def eos(self) -> bool: ...
-    @property
+    @builtins.property
     def flushing(self) -> bool: ...
-    @property
+    @builtins.property
     def have_newsegment(self) -> bool: ...
-    @property
+    @builtins.property
     def have_preroll(self) -> bool: ...
-    @property
+    @builtins.property
     def max_lateness(self) -> int: ...
-    @property
+    @builtins.property
     def need_preroll(self) -> bool: ...
-    @property
+    @builtins.property
     def offset(self) -> int: ...
-    @property
+    @builtins.property
     def pad_mode(self) -> Gst.PadMode: ...
-    @property
+    @builtins.property
     def playing_async(self) -> bool: ...
-    @property
+    @builtins.property
     def preroll_cond(self) -> GLib.Cond | None: ...
-    @property
+    @builtins.property
     def preroll_lock(self) -> GLib.Mutex | None: ...
-    @property
+    @builtins.property
     def running(self) -> bool: ...
-    @property
+    @builtins.property
     def segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def sinkpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def sync(self) -> bool: ...
 
     # gi Methods
@@ -1521,27 +1513,27 @@ class BaseSink(Gst.Element):
         Generated __init__ stub method. order not guaranteed.
         """
     def do_preroll(self, obj: Gst.MiniObject) -> Gst.FlowReturn: ...
-    @property
+    @builtins.property
     def get_blocksize(self) -> int: ...
     def get_drop_out_of_segment(self) -> bool: ...
-    @property
+    @builtins.property
     def get_last_sample(self) -> Gst.Sample | None: ...
     def get_latency(self) -> int: ...
-    @property
+    @builtins.property
     def get_max_bitrate(self) -> int: ...
-    @property
+    @builtins.property
     def get_max_lateness(self) -> int: ...
-    @property
+    @builtins.property
     def get_processing_deadline(self) -> int: ...
-    @property
+    @builtins.property
     def get_render_delay(self) -> int: ...
-    @property
+    @builtins.property
     def get_stats(self) -> Gst.Structure: ...
-    @property
+    @builtins.property
     def get_sync(self) -> bool: ...
-    @property
+    @builtins.property
     def get_throttle_time(self) -> int: ...
-    @property
+    @builtins.property
     def get_ts_offset(self) -> int: ...
     def is_async_enabled(self) -> bool: ...
     def is_last_sample_enabled(self) -> bool: ...
@@ -1776,47 +1768,46 @@ class BaseSink(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BaseSinkClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def activate_pull(self) -> activate_pullBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def event(self) -> eventBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def fixate(self) -> fixateBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def get_caps(self) -> get_capsBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def get_times(self) -> get_timesBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def prepare(self) -> prepareBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def prepare_list(self) -> prepare_listBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def preroll(self) -> prerollBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def propose_allocation(self) -> propose_allocationBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def query(self) -> queryBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def render(self) -> renderBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def render_list(self) -> render_listBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def set_caps(self) -> set_capsBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def unlock(self) -> unlockBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def unlock_stop(self) -> unlock_stopBaseSinkClassCB: ...
-    @property
+    @builtins.property
     def wait_event(self) -> wait_eventBaseSinkClassCB: ...
 
     # gi Methods
@@ -1825,16 +1816,12 @@ class BaseSinkClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BaseSinkPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BaseSrc(Gst.Element):
     """
@@ -1959,36 +1946,39 @@ class BaseSrc(Gst.Element):
         num_buffers: int  # [num-buffers]: changed because contained invalid characters
         typefind: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def blocksize(self) -> int: ...
-    @property
+    @builtins.property
     def can_activate_push(self) -> bool: ...
-    @property
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
-    @property
+    @builtins.property
     def live_cond(self) -> GLib.Cond | None: ...
-    @property
+    @builtins.property
     def live_lock(self) -> GLib.Mutex | None: ...
-    @property
+    @builtins.property
     def live_running(self) -> bool: ...
-    @property
+    @builtins.property
     def need_newsegment(self) -> bool: ...
-    @property
+    @builtins.property
     def num_buffers(self) -> int: ...
-    @property
+    @builtins.property
     def num_buffers_left(self) -> int: ...
-    @property
+    @builtins.property
     def pending_seek(self) -> Gst.Event | None: ...
-    @property
+    @builtins.property
     def random_access(self) -> bool: ...
-    @property
+    @builtins.property
     def running(self) -> bool: ...
-    @property
+    @builtins.property
     def segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def typefind(self) -> bool: ...
 
     # gi Methods
@@ -2004,10 +1994,10 @@ class BaseSrc(Gst.Element):
         Generated __init__ stub method. order not guaranteed.
         """
     def get_allocator(self) -> tuple[Gst.Allocator | None, Gst.AllocationParams | None]: ...
-    @property
+    @builtins.property
     def get_blocksize(self) -> int: ...
     def get_buffer_pool(self) -> Gst.BufferPool | None: ...
-    @property
+    @builtins.property
     def get_do_timestamp(self) -> bool: ...
     def is_async(self) -> bool: ...
     def is_live(self) -> bool: ...
@@ -2204,49 +2194,48 @@ class BaseSrc(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BaseSrcClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def alloc(self) -> allocBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def create(self) -> createBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def decide_allocation(self) -> decide_allocationBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def do_seek(self) -> do_seekBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def event(self) -> eventBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def fill(self) -> fillBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def fixate(self) -> fixateBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def get_caps(self) -> get_capsBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def get_size(self) -> get_sizeBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def get_times(self) -> get_timesBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def is_seekable(self) -> is_seekableBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def negotiate(self) -> negotiateBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def prepare_seek_segment(self) -> prepare_seek_segmentBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def query(self) -> queryBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def set_caps(self) -> set_capsBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def unlock(self) -> unlockBaseSrcClassCB: ...
-    @property
+    @builtins.property
     def unlock_stop(self) -> unlock_stopBaseSrcClassCB: ...
 
     # gi Methods
@@ -2255,16 +2244,12 @@ class BaseSrcClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BaseSrcPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BaseTransform(Gst.Element):
     """
@@ -2377,18 +2362,21 @@ class BaseTransform(Gst.Element):
     class Props(Gst.Element.Props):
         qos: bool
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
-    @property
+    @builtins.property
     def have_segment(self) -> bool: ...
-    @property
+    @builtins.property
     def queued_buf(self) -> Gst.Buffer | None: ...
-    @property
+    @builtins.property
     def segment(self) -> Gst.Segment | None: ...
-    @property
+    @builtins.property
     def sinkpad(self) -> Gst.Pad | None: ...
-    @property
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None: ...
 
     # gi Methods
@@ -2595,59 +2583,58 @@ class BaseTransform(Gst.Element):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class BaseTransformClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def accept_caps(self) -> accept_capsBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def before_transform(self) -> before_transformBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def copy_metadata(self) -> copy_metadataBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def decide_allocation(self) -> decide_allocationBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def filter_meta(self) -> filter_metaBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def fixate_caps(self) -> fixate_capsBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def generate_output(self) -> generate_outputBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def get_unit_size(self) -> get_unit_sizeBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ElementClass | None: ...
-    @property
+    @builtins.property
     def passthrough_on_same_caps(self) -> bool: ...
-    @property
+    @builtins.property
     def prepare_output_buffer(self) -> prepare_output_bufferBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def propose_allocation(self) -> propose_allocationBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def query(self) -> queryBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def set_caps(self) -> set_capsBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def sink_event(self) -> sink_eventBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def src_event(self) -> src_eventBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def start(self) -> startBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def stop(self) -> stopBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def submit_input_buffer(self) -> submit_input_bufferBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def transform(self) -> transformBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def transform_caps(self) -> transform_capsBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def transform_ip(self) -> transform_ipBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def transform_ip_on_passthrough(self) -> bool: ...
-    @property
+    @builtins.property
     def transform_meta(self) -> transform_metaBaseTransformClassCB: ...
-    @property
+    @builtins.property
     def transform_size(self) -> transform_sizeBaseTransformClassCB: ...
 
     # gi Methods
@@ -2656,16 +2643,12 @@ class BaseTransformClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class BaseTransformPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class BitReader(GObject.GPointer):
     # gi Fields
@@ -2696,17 +2679,15 @@ class BitReader(GObject.GPointer):
     def skip(self, nbits: int) -> bool: ...
     def skip_to_byte(self) -> bool: ...
 
-    ...
-
 class BitWriter(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def auto_grow(self) -> bool: ...
-    @property
+    @builtins.property
     def bit_capacity(self) -> int: ...
     bit_size: int = ...
     data: int = ...
-    @property
+    @builtins.property
     def owned(self) -> bool: ...
 
     # gi Methods
@@ -2730,8 +2711,6 @@ class BitWriter(GObject.GPointer):
     def reset_and_get_buffer(self) -> Gst.Buffer: ...
     def reset_and_get_data(self) -> list: ...
     def set_pos(self, pos: int) -> bool: ...
-
-    ...
 
 class ByteReader(GObject.GPointer):
     # gi Fields
@@ -2809,8 +2788,6 @@ class ByteReader(GObject.GPointer):
     def skip_string_utf32(self) -> bool: ...
     def skip_string_utf8(self) -> bool: ...
 
-    ...
-
 class ByteWriter(GObject.GPointer):
     # gi Fields
     alloc_size: int = ...
@@ -2862,8 +2839,6 @@ class ByteWriter(GObject.GPointer):
     def reset_and_get_buffer(self) -> Gst.Buffer: ...
     def reset_and_get_data(self) -> list: ...
 
-    ...
-
 class CollectData(GObject.GPointer):
     # gi Fields
     buffer: Gst.Buffer | None = ...  # type: ignore
@@ -2871,7 +2846,7 @@ class CollectData(GObject.GPointer):
     pad: Gst.Pad | None = ...  # type: ignore
     pos: int = ...
     segment: Gst.Segment | None = ...  # type: ignore
-    @property
+    @builtins.property
     def state(self) -> CollectPadsStateFlags: ...
 
     # gi Methods
@@ -2880,16 +2855,12 @@ class CollectData(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class CollectDataPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class CollectPads(Gst.Object):
     """
@@ -2932,11 +2903,11 @@ class CollectPads(Gst.Object):
     """
 
     # gi Fields
-    @property
+    @builtins.property
     def data(self) -> list | None: ...
-    @property
+    @builtins.property
     def object(self) -> Gst.Object | None: ...
-    @property
+    @builtins.property
     def stream_lock(self) -> GLib.RecMutex | None: ...
 
     # gi Methods
@@ -2974,11 +2945,9 @@ class CollectPads(Gst.Object):
     def stop(self) -> None: ...
     def take_buffer(self, data: CollectData, size: int) -> Gst.Buffer | None: ...
 
-    ...
-
 class CollectPadsClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def parent_class(self) -> Gst.ObjectClass | None: ...
 
     # gi Methods
@@ -2987,16 +2956,12 @@ class CollectPadsClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class CollectPadsPrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class DataQueue(GObject.Object):
     """
@@ -3010,8 +2975,11 @@ class DataQueue(GObject.Object):
         current_level_time: int  # [current-level-time]: changed because contained invalid characters
         current_level_visible: int  # [current-level-visible]: changed because contained invalid characters
 
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
-    @property
+    @builtins.property
     def object(self) -> GObject.Object | None: ...
 
     # gi Methods
@@ -3060,15 +3028,14 @@ class DataQueue(GObject.Object):
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
-    ...
 
 class DataQueueClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def empty(self) -> emptyDataQueueClassCB: ...
-    @property
+    @builtins.property
     def full(self) -> fullDataQueueClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -3077,16 +3044,12 @@ class DataQueueClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class DataQueuePrivate(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 class FlowCombiner(GObject.GBoxed):
     # gi Methods
@@ -3108,8 +3071,6 @@ class FlowCombiner(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-
-    ...
 
 class PushSrc(BaseSrc):
     """
@@ -3162,17 +3123,15 @@ class PushSrc(BaseSrc):
         fill(self, buf:Gst.Buffer) -> Gst.FlowReturn
         """
 
-    ...
-
 class PushSrcClass(GObject.GPointer):
     # gi Fields
-    @property
+    @builtins.property
     def alloc(self) -> allocPushSrcClassCB: ...
-    @property
+    @builtins.property
     def create(self) -> createPushSrcClassCB: ...
-    @property
+    @builtins.property
     def fill(self) -> fillPushSrcClassCB: ...
-    @property
+    @builtins.property
     def parent_class(self) -> BaseSrcClass | None: ...
 
     # gi Methods
@@ -3181,16 +3140,12 @@ class PushSrcClass(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
 
-    ...
-
 class TypeFindData(GObject.GPointer):
     # gi Methods
     def __init__(self) -> None:
         """
         Generated __init__ stub method. order not guaranteed.
         """
-
-    ...
 
 ###############################################################
 # Callbacks
