@@ -518,16 +518,13 @@ class FunctionSchema(BaseSchema):
         # is_callback = isinstance(obj, GI.CallbackInfo)
         is_callback = function_type == "CallbackInfo"
 
-        # if obj.get_name() == "do-latency":
-        #     breakpoint()
-
         # Callbacks do not have these flags
         is_constructor = False
         is_getter = False
         is_setter = False
         is_async = False
         wrap_vfunc = False
-        is_method = False
+        is_method = obj.is_method() if hasattr(obj, "is_method") else False  # SignalInfo has no is_method()
 
         if function_type == "FunctionInfo":
             flags = obj.get_flags()  # type: ignore
@@ -536,7 +533,6 @@ class FunctionSchema(BaseSchema):
             is_setter = bool(flags & GIRepository.FunctionInfoFlags.IS_SETTER)
             is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)
             wrap_vfunc = bool(flags & GIRepository.FunctionInfoFlags.WRAPS_VFUNC)
-            is_method = obj.is_method() if hasattr(obj, "is_method") else False  # SignalInfo has no is_method()
 
         # Return type hint logic
         line_comment: str | None = None
