@@ -115,7 +115,7 @@ def get_py_type_namespace_repr(py_type: Any) -> str | None:
 
         # assert "gobject" not in name, f"module name not sanitized: {name}: {py_type}"
         # manual fix for some modules, how to get the correct namespace?
-        name = name.replace("gobject", "GObject")
+        name = sanitize_gi_module_name(name)
         if name == "builtins":
             return None
 

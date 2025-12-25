@@ -72,6 +72,9 @@ class FunctionArgumentSchema(BaseSchema):
     default_value: str | None
     """Default value"""
 
+    is_pointer: bool
+    """Whether this argument is a pointer type"""
+
     # @property
     # def default_value(self) -> str | None:
     #     """Get the default value representation for optional arguments."""
@@ -135,14 +138,11 @@ class FunctionArgumentSchema(BaseSchema):
             # Standard type logic
             # we can get the python type from the gi type
             py_type = gi_type_to_py_type(gi_type)
+            # breakpoint()
             type_hint_namespace = get_py_type_namespace_repr(py_type)
             type_hint_name = get_py_type_name_repr(py_type)
-            # if argument_name == "group":
-            #     breakpoint()
-            #     pass
 
         array_length: int = get_safe_gi_array_length(gi_type)
-        # breakpoint()
         return cls(
             namespace=argument_namespace,
             name=argument_name,
@@ -158,6 +158,7 @@ class FunctionArgumentSchema(BaseSchema):
             line_comment=type_hint_comment,
             is_caller_allocates=obj.is_caller_allocates(),
             default_value=None,
+            is_pointer=gi_type.is_pointer(),
         ), found_callback
 
     @property
@@ -191,7 +192,7 @@ class FunctionArgumentSchema(BaseSchema):
         if self.py_type_namespace and self.py_type_namespace != namespace:
             full_type = f"{self.py_type_namespace}.{base_type}"
 
-        if self.may_be_null or self.is_optional:
+        if self.may_be_null or (self.is_optional and self.direction in ("IN", "INOUT")):
             full_type = f"{full_type} | None"
 
         return full_type

@@ -3,7 +3,7 @@ from typing import Any
 import gi
 import gi._gi as GI  # type: ignore
 from gi._gi import Repository  # pyright: ignore[reportMissingImports]
-from gi.repository import GObject  # pyright: ignore[reportMissingModuleSource]
+from gi.repository import GObject, GLib  # pyright: ignore[reportMissingModuleSource]
 from gi.repository import GIRepository
 
 from gi_stub_gen.utils import logger
@@ -45,7 +45,7 @@ map_gi_tag_to_type = {
     # no match with python?
     GI.TypeTag.VOID: None,  # 0 can be a pointer to an object or None
     GI.TypeTag.INTERFACE: None,  # 16 can be a function/callback/struct
-    GI.TypeTag.ERROR: None,  # 20
+    GI.TypeTag.ERROR: GLib.Error,  # 20
     GI.TypeTag.GTYPE: GObject.GType,  # 12 use string? the resolved type has lowercase gobject
 }
 
@@ -294,7 +294,7 @@ def get_gi_module_from_name(
     try:
         return importlib.import_module(f".{module_split[-1]}", ".".join(module_split[:-1]))
     except ImportError as e:
-        logger.warning(f"Could not import module {module_split[-1]} from {'.'.join(module_split[:-1])}.")
+        logger.debug(f"Could not import module {module_split[-1]} from {'.'.join(module_split[:-1])}.")
         raise e
 
 

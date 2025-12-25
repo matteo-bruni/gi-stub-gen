@@ -87,6 +87,7 @@ def generate_notify_signal(
                     py_type_name="ParamSpec",
                     py_type_namespace="GObject",
                     default_value=None,
+                    is_pointer=False,
                 ),
                 FunctionArgumentSchema(
                     direction="IN",
@@ -103,6 +104,7 @@ def generate_notify_signal(
                     py_type_name="Any",
                     py_type_namespace="typing",
                     default_value=None,
+                    is_pointer=False,
                 ),
             ],
             is_callback=False,

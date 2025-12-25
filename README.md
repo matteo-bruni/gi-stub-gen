@@ -145,7 +145,8 @@ As an example:
 ## ✅ Todo
 - [ ] Add comprehensive test suite.
 - [ ] Create Docker-based build system for consistent environment reproduction.
-
+- [ ] https://lazka.github.io/pgi-docs/#Gst-1.0/classes/Message.html#Gst.Message.parse_error: should return a tuple with error and debug string but currently returns tuple[None | None, str | None] instead of tuple[GLib.Error, str | None]
+- [ ] GLib.Error is missing message attribute. see https://lazka.github.io/pgi-docs/#GLib-2.0/classes/Error.html#GLib.Error
 ---
 
 ### License

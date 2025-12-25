@@ -218,6 +218,7 @@ class ClassSchema(BaseSchema):
                         py_type_name=prop.type_hint_name,
                         py_type_namespace=prop.type_hint_namespace,
                         default_value="...",
+                        is_pointer=False,
                     )
                 )
         class_init = FunctionSchema(
@@ -371,7 +372,7 @@ class ClassSchema(BaseSchema):
             super_class=self.super_class,
         )
 
-    def has_any_data(self): 
+    def has_any_data(self):
         """
         used in template check if class has any data to render
         """
