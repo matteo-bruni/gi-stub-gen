@@ -868,13 +868,13 @@ class FDMessage(Gio.SocketControlMessage):
         the lifetime of @message.
         """
     @classmethod
-    def new(cls) -> Gio.SocketControlMessage:
+    def new(cls) -> FDMessage:
         """
             Creates a new #GUnixFDMessage containing an empty file descriptor
         list.
         """
     @classmethod
-    def new_with_fd_list(cls, fd_list: Gio.UnixFDList) -> Gio.SocketControlMessage:
+    def new_with_fd_list(cls, fd_list: Gio.UnixFDList) -> FDMessage:
         """
         Creates a new #GUnixFDMessage containing @list.
         """
@@ -997,7 +997,7 @@ class InputStream(GObject.Object):
         Return the UNIX file descriptor that the stream reads from.
         """
     @classmethod
-    def new(cls, fd: int, close_fd: bool) -> Gio.InputStream:
+    def new(cls, fd: int, close_fd: bool) -> InputStream:
         """
             Creates a new #GUnixInputStream for the given @fd.
 
@@ -1392,7 +1392,7 @@ class OutputStream(GObject.Object):
         Return the UNIX file descriptor that the stream writes to.
         """
     @classmethod
-    def new(cls, fd: int, close_fd: bool) -> Gio.OutputStream:
+    def new(cls, fd: int, close_fd: bool) -> OutputStream:
         """
             Creates a new #GUnixOutputStream for the given @fd.
 

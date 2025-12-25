@@ -818,7 +818,7 @@ class BroadwayRenderer(Renderer):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Renderer:
+    def new(cls) -> BroadwayRenderer:
         """
             Creates a new Broadway renderer.
 
@@ -882,7 +882,7 @@ class CairoRenderer(Renderer):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Renderer:
+    def new(cls) -> CairoRenderer:
         """
             Creates a new Cairo renderer.
 
@@ -1182,7 +1182,7 @@ class GLRenderer(Renderer):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Renderer:
+    def new(cls) -> GLRenderer:
         """
         Creates an instance of the GL renderer.
         """
@@ -1674,7 +1674,7 @@ class NglRenderer(Renderer):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Renderer:
+    def new(cls) -> NglRenderer:
         """
         Same as gsk_gl_renderer_new().
         """
@@ -3686,7 +3686,7 @@ class VulkanRenderer(Renderer):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Renderer:
+    def new(cls) -> VulkanRenderer:
         """
             Creates a new Vulkan renderer.
 

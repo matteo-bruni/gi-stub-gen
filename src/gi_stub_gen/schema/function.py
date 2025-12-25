@@ -22,7 +22,7 @@ from gi_stub_gen.gi_utils import (
 from pydantic import (
     PrivateAttr,
 )
-from gi.repository import GIRepository
+from gi.repository import GIRepository, GObject
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 from typing import Literal
 from typing_extensions import Self
@@ -138,7 +138,6 @@ class FunctionArgumentSchema(BaseSchema):
             # Standard type logic
             # we can get the python type from the gi type
             py_type = gi_type_to_py_type(gi_type)
-            # breakpoint()
             type_hint_namespace = get_py_type_namespace_repr(py_type)
             type_hint_name = get_py_type_name_repr(py_type)
 
@@ -324,8 +323,6 @@ class FunctionSchema(BaseSchema):
         """
 
         return_parts = []
-        # if self.name == "version":
-        #     breakpoint()
         # add c return type if not skipped
         if not self.skip_return and self.return_hint is not None:
             return_value = self.return_hint
@@ -428,6 +425,8 @@ class FunctionSchema(BaseSchema):
             function_type = "SignalInfo"
         elif isinstance(obj, GI.CallbackInfo):
             function_type = "CallbackInfo"
+        elif isinstance(obj, GI.VFuncInfo):
+            raise NotImplementedError("VFuncInfo parsing not implemented yet. Please open issue with an example.")
         elif isinstance(obj, GI.FunctionInfo):
             function_type = "FunctionInfo"
         elif isinstance(obj, GIRepositoryCallableAdapter):
@@ -435,7 +434,6 @@ class FunctionSchema(BaseSchema):
         else:
             raise ValueError(f"Not a valid GI function or callback object or signal. Got: {type(obj)}")
 
-        # breakpoint()
         function_args: list[FunctionArgumentSchema] = []
 
         # --- 1. Identify Arguments to Skip ---
@@ -493,18 +491,6 @@ class FunctionSchema(BaseSchema):
                 found_callback.originated_from = {f"{obj.get_namespace()}.{obj.get_name()}"}
                 args_as_callbacks_found.append(found_callback)
 
-        # TODO: what happen if return type is another gi type?
-        # i.e can a function return a Gst.Caps() object?
-        py_return_type = gi_type_to_py_type(obj.get_return_type())
-
-        if py_return_type is None:
-            py_return_hint_namespace = None
-            py_return_hint_name = None
-        else:
-            # get the repr of the return type
-            py_return_hint_namespace = get_py_type_namespace_repr(py_return_type)
-            py_return_hint_name = get_py_type_name_repr(py_return_type)
-
         function_namespace: str = obj.get_namespace()
 
         f_name = obj.get_name()
@@ -532,13 +518,18 @@ class FunctionSchema(BaseSchema):
         # is_callback = isinstance(obj, GI.CallbackInfo)
         is_callback = function_type == "CallbackInfo"
 
-        # get the return hint for the template
-        return_hint = py_return_hint_name
-
-        # if function_name == "version":
+        # if obj.get_name() == "do-latency":
         #     breakpoint()
 
-        if not is_callback:
+        # Callbacks do not have these flags
+        is_constructor = False
+        is_getter = False
+        is_setter = False
+        is_async = False
+        wrap_vfunc = False
+        is_method = False
+
+        if function_type == "FunctionInfo":
             flags = obj.get_flags()  # type: ignore
             is_constructor = bool(flags & GIRepository.FunctionInfoFlags.IS_CONSTRUCTOR)
             is_getter = bool(flags & GIRepository.FunctionInfoFlags.IS_GETTER)
@@ -546,18 +537,38 @@ class FunctionSchema(BaseSchema):
             is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)
             wrap_vfunc = bool(flags & GIRepository.FunctionInfoFlags.WRAPS_VFUNC)
             is_method = obj.is_method() if hasattr(obj, "is_method") else False  # SignalInfo has no is_method()
-        else:
-            # Callbacks do not have these flags
-            is_constructor = False
-            is_getter = False
-            is_setter = False
-            is_async = False
-            wrap_vfunc = False
-            is_method = False
 
-        line_comment = None
-        if py_return_hint_namespace and py_return_hint_namespace.startswith("gi._"):
-            line_comment = "type: ignore"
+        # Return type hint logic
+        line_comment: str | None = None
+        if is_constructor and not is_callback:
+            # if it is a constructor, the return type is the class itself
+            # this happens in new() functions which in reality are static methods
+            # that are polymorphic: e.g. Gst.Pipeline.new() -> Gst.Pipeline in python
+            # but in C: GstElement* gst_pipeline_new (const gchar *name);
+            # in C it is fine due to polimorphism, but with PyGObject this correctly
+            # returns the actual class type.
+            # we need to get the container
+            # NOTE: we are going to set it as a @classmethod (see decorators property)
+            # since in python constructors are classmethods
+            # but in reality it should be @staticmethod
+            # but there are some new() functions that are actually methods like GObject.new()
+            # so for simplicity we set all constructors as classmethods
+            class_container = obj.get_container()
+            assert class_container is not None, "Function container is None for constructor"
+            py_return_hint_namespace = class_container.get_namespace()
+            py_return_hint_name = class_container.get_name()
+        else:
+            py_return_type = gi_type_to_py_type(obj.get_return_type())
+            if py_return_type is None:
+                py_return_hint_namespace = None
+                py_return_hint_name = None
+            else:
+                # get the repr of the return type
+                py_return_hint_namespace = get_py_type_namespace_repr(py_return_type)
+                py_return_hint_name = get_py_type_name_repr(py_return_type)
+
+            if py_return_hint_namespace and py_return_hint_namespace.startswith("gi._"):
+                line_comment = "type: ignore"
 
         to_return = cls(
             namespace=function_namespace,
@@ -571,7 +582,7 @@ class FunctionSchema(BaseSchema):
             skip_return=obj.skip_return(),
             deprecation_warnings=deprecation_warnings,
             is_method=is_method,
-            return_hint=return_hint,
+            return_hint=py_return_hint_name,
             return_hint_namespace=py_return_hint_namespace,
             is_async=is_async,
             is_getter=is_getter,

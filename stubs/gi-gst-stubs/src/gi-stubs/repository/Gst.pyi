@@ -6028,7 +6028,7 @@ class Bin(Element):
         #GST_ELEMENT_FLAG_SOURCE flag set.
         """
     @classmethod
-    def new(cls, name: str | None = None) -> Element:
+    def new(cls, name: str | None = None) -> Bin:
         """
         Creates a new bin with the given name.
         """
@@ -12436,7 +12436,7 @@ class GhostPad(ProxyPad):
         owned by a ghost pad.
         """
     @classmethod
-    def new(cls, name: str | None, target: Pad) -> Pad | None:
+    def new(cls, name: str | None, target: Pad) -> GhostPad | None:
         """
             Create a new ghostpad with @target as the target. The direction will be taken
         from the target pad. @target must be unlinked.
@@ -12444,7 +12444,7 @@ class GhostPad(ProxyPad):
         Will ref the target.
         """
     @classmethod
-    def new_from_template(cls, name: str | None, target: Pad, templ: PadTemplate) -> Pad | None:
+    def new_from_template(cls, name: str | None, target: Pad, templ: PadTemplate) -> GhostPad | None:
         """
             Create a new ghostpad with @target as the target. The direction will be taken
         from the target pad. The template used on the ghostpad will be @template.
@@ -12452,7 +12452,7 @@ class GhostPad(ProxyPad):
         Will ref the target.
         """
     @classmethod
-    def new_no_target(cls, name: str | None, dir: PadDirection) -> Pad | None:
+    def new_no_target(cls, name: str | None, dir: PadDirection) -> GhostPad | None:
         """
             Create a new ghostpad without a target with the given direction.
         A target can be set on the ghostpad later with the
@@ -12461,7 +12461,7 @@ class GhostPad(ProxyPad):
         The created ghostpad will not have a padtemplate.
         """
     @classmethod
-    def new_no_target_from_template(cls, name: str | None, templ: PadTemplate) -> Pad | None:
+    def new_no_target_from_template(cls, name: str | None, templ: PadTemplate) -> GhostPad | None:
         """
             Create a new ghostpad based on @templ, without setting a target. The
         direction will be taken from the @templ.
@@ -16191,7 +16191,7 @@ class Pipeline(Bin):
         Check if @pipeline is live.
         """
     @classmethod
-    def new(cls, name: str | None = None) -> Element:
+    def new(cls, name: str | None = None) -> Pipeline:
         """
         Create a new pipeline with the given name.
         """
@@ -18471,7 +18471,7 @@ class SharedTaskPool(TaskPool):
         """
     def get_max_threads(self) -> int: ...
     @classmethod
-    def new(cls) -> TaskPool:
+    def new(cls) -> SharedTaskPool:
         """
             Create a new shared task pool. The shared task pool will queue tasks on
         a maximum number of threads, 1 by default.

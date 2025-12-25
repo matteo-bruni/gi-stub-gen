@@ -5820,7 +5820,7 @@ class AboutDialog(Window):
         automatically wrapped.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> AboutDialog:
         """
         Creates a new `GtkAboutDialog`.
         """
@@ -6550,7 +6550,7 @@ class ActionBar(Widget):
         Gets whether the contents of the action bar are revealed.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ActionBar:
         """
         Creates a new action bar widget.
         """
@@ -7311,7 +7311,7 @@ class AlternativeTrigger(ShortcutTrigger):
         the other one.
         """
     @classmethod
-    def new(cls, first: ShortcutTrigger, second: ShortcutTrigger) -> ShortcutTrigger:
+    def new(cls, first: ShortcutTrigger, second: ShortcutTrigger) -> AlternativeTrigger:
         """
             Creates a `GtkShortcutTrigger` that will trigger whenever
         either of the two given triggers gets triggered.
@@ -7562,7 +7562,7 @@ class AppChooserButton(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls, content_type: str) -> Widget:
+    def new(cls, content_type: str) -> AppChooserButton:
         """
             Creates a new `GtkAppChooserButton` for applications
         that can handle content of the given type.
@@ -7726,7 +7726,7 @@ class AppChooserDialog(Dialog):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls, parent: Window | None, flags: DialogFlags, file: Gio.File) -> Widget:
+    def new(cls, parent: Window | None, flags: DialogFlags, file: Gio.File) -> AppChooserDialog:
         """
             Creates a new `GtkAppChooserDialog` for the provided `GFile`.
 
@@ -7734,7 +7734,7 @@ class AppChooserDialog(Dialog):
         """
     @deprecated("deprecated")
     @classmethod
-    def new_for_content_type(cls, parent: Window | None, flags: DialogFlags, content_type: str) -> Widget:
+    def new_for_content_type(cls, parent: Window | None, flags: DialogFlags, content_type: str) -> AppChooserDialog:
         """
             Creates a new `GtkAppChooserDialog` for the provided content type.
 
@@ -7897,7 +7897,7 @@ class AppChooserWidget(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls, content_type: str) -> Widget:
+    def new(cls, content_type: str) -> AppChooserWidget:
         """
             Creates a new `GtkAppChooserWidget` for applications
         that can handle content of the given type.
@@ -8546,7 +8546,7 @@ class ApplicationWindow(Window):
         and menubar as needed.
         """
     @classmethod
-    def new(cls, application: Application) -> Widget:
+    def new(cls, application: Application) -> ApplicationWindow:
         """
         Creates a new `GtkApplicationWindow`.
         """
@@ -8682,7 +8682,7 @@ class AspectFrame(Widget):
         allocation of the `GtkAspectFrame`.
         """
     @classmethod
-    def new(cls, xalign: float, yalign: float, ratio: float, obey_child: bool) -> Widget:
+    def new(cls, xalign: float, yalign: float, ratio: float, obey_child: bool) -> AspectFrame:
         """
         Create a new `GtkAspectFrame`.
         """
@@ -8889,7 +8889,7 @@ class Assistant(Window):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Assistant:
         """
         Creates a new `GtkAssistant`.
         """
@@ -9156,7 +9156,7 @@ class BinLayout(LayoutManager):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> LayoutManager:
+    def new(cls) -> BinLayout:
         """
         Creates a new `GtkBinLayout` instance.
         """
@@ -9839,7 +9839,7 @@ class Box(Widget):
         If @sibling is `NULL`, the @child is placed at the beginning.
         """
     @classmethod
-    def new(cls, orientation: Orientation, spacing: int) -> Widget:
+    def new(cls, orientation: Orientation, spacing: int) -> Box:
         """
         Creates a new box.
         """
@@ -10020,7 +10020,7 @@ class BoxLayout(LayoutManager):
         Returns the space that @box_layout puts between children.
         """
     @classmethod
-    def new(cls, orientation: Orientation) -> LayoutManager:
+    def new(cls, orientation: Orientation) -> BoxLayout:
         """
         Creates a new `GtkBoxLayout`.
         """
@@ -11148,13 +11148,13 @@ class BuilderListItemFactory(ListItemFactory):
         Gets the scope used when constructing listitems.
         """
     @classmethod
-    def new_from_bytes(cls, scope: BuilderScope | None, bytes: GLib.Bytes) -> ListItemFactory:
+    def new_from_bytes(cls, scope: BuilderScope | None, bytes: GLib.Bytes) -> BuilderListItemFactory:
         """
             Creates a new `GtkBuilderListItemFactory` that instantiates widgets
         using @bytes as the data to pass to `GtkBuilder`.
         """
     @classmethod
-    def new_from_resource(cls, scope: BuilderScope | None, resource_path: str) -> ListItemFactory:
+    def new_from_resource(cls, scope: BuilderScope | None, resource_path: str) -> BuilderListItemFactory:
         """
             Creates a new `GtkBuilderListItemFactory` that instantiates widgets
         using data read from the given @resource_path to pass to `GtkBuilder`.
@@ -11398,14 +11398,14 @@ class Button(Widget):
         See [method@Gtk.Button.set_use_underline].
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Button:
         """
             Creates a new `GtkButton` widget.
 
         To add a child widget to the button, use [method@Gtk.Button.set_child].
         """
     @classmethod
-    def new_from_icon_name(cls, icon_name: str) -> Widget:
+    def new_from_icon_name(cls, icon_name: str) -> Button:
         """
             Creates a new button containing an icon from the current icon theme.
 
@@ -11414,12 +11414,12 @@ class Button(Widget):
         will be updated appropriately.
         """
     @classmethod
-    def new_with_label(cls, label: str) -> Widget:
+    def new_with_label(cls, label: str) -> Button:
         """
         Creates a `GtkButton` widget with a `GtkLabel` child.
         """
     @classmethod
-    def new_with_mnemonic(cls, label: str) -> Widget:
+    def new_with_mnemonic(cls, label: str) -> Button:
         """
             Creates a new `GtkButton` containing a label.
 
@@ -11790,7 +11790,7 @@ class Calendar(Widget):
         Places a visual marker on a particular day of the current month.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Calendar:
         """
         Creates a new calendar, with the current date being selected.
         """
@@ -12955,7 +12955,7 @@ class CellAreaBox(CellArea):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> CellArea:
+    def new(cls) -> CellAreaBox:
         """
         Creates a new `GtkCellAreaBox`.
         """
@@ -14415,7 +14415,7 @@ class CellRendererAccel(CellRendererText):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> CellRenderer:
+    def new(cls) -> CellRendererAccel:
         """
         Creates a new `GtkCellRendererAccel`.
         """
@@ -14600,7 +14600,7 @@ class CellRendererCombo(CellRendererText):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> CellRenderer:
+    def new(cls) -> CellRendererCombo:
         """
             Creates a new `GtkCellRendererCombo`.
         Adjust how text is drawn using object properties.
@@ -14720,7 +14720,7 @@ class CellRendererPixbuf(CellRenderer):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> CellRenderer:
+    def new(cls) -> CellRendererPixbuf:
         """
             Creates a new `GtkCellRendererPixbuf`. Adjust rendering
         parameters using object properties. Object properties can be set
@@ -14862,7 +14862,7 @@ class CellRendererProgress(CellRenderer):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> CellRenderer:
+    def new(cls) -> CellRendererProgress:
         """
         Creates a new `GtkCellRendererProgress`.
         """
@@ -14957,7 +14957,7 @@ class CellRendererSpin(CellRendererText):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> CellRenderer:
+    def new(cls) -> CellRendererSpin:
         """
         Creates a new `GtkCellRendererSpin`.
         """
@@ -15033,7 +15033,7 @@ class CellRendererSpinner(CellRenderer):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> CellRenderer:
+    def new(cls) -> CellRendererSpinner:
         """
             Returns a new cell renderer which will show a spinner to indicate
         activity.
@@ -15232,7 +15232,7 @@ class CellRendererText(CellRenderer):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> CellRenderer:
+    def new(cls) -> CellRendererText:
         """
             Creates a new `GtkCellRendererText`. Adjust how text is drawn using
         object properties. Object properties can be
@@ -15668,7 +15668,7 @@ class CellRendererToggle(CellRenderer):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> CellRenderer:
+    def new(cls) -> CellRendererToggle:
         """
             Creates a new `GtkCellRendererToggle`. Adjust rendering
         parameters using object properties. Object properties can be set
@@ -15865,13 +15865,13 @@ class CellView(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> CellView:
         """
         Creates a new `GtkCellView` widget.
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_context(cls, area: CellArea, context: CellAreaContext) -> Widget:
+    def new_with_context(cls, area: CellArea, context: CellAreaContext) -> CellView:
         """
             Creates a new `GtkCellView` widget with a specific `GtkCellArea`
         to layout cells and a specific `GtkCellAreaContext`.
@@ -15883,7 +15883,7 @@ class CellView(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_markup(cls, markup: str) -> Widget:
+    def new_with_markup(cls, markup: str) -> CellView:
         """
             Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
         to it, and makes it show @markup. The text can be marked up with
@@ -15891,14 +15891,14 @@ class CellView(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_text(cls, text: str) -> Widget:
+    def new_with_text(cls, text: str) -> CellView:
         """
             Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
         to it, and makes it show @text.
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_texture(cls, texture: Gdk.Texture) -> Widget:
+    def new_with_texture(cls, texture: Gdk.Texture) -> CellView:
         """
             Creates a new `GtkCellView` widget, adds a `GtkCellRendererPixbuf`
         to it, and makes it show @texture.
@@ -16101,7 +16101,7 @@ class CenterBox(Widget):
         Gets the start widget.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> CenterBox:
         """
         Creates a new `GtkCenterBox`.
         """
@@ -16251,7 +16251,7 @@ class CenterLayout(LayoutManager):
         Returns the start widget of the layout.
         """
     @classmethod
-    def new(cls) -> LayoutManager:
+    def new(cls) -> CenterLayout:
         """
         Creates a new `GtkCenterLayout`.
         """
@@ -16465,17 +16465,17 @@ class CheckButton(Widget):
         Returns whether underlines in the label indicate mnemonics.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> CheckButton:
         """
         Creates a new `GtkCheckButton`.
         """
     @classmethod
-    def new_with_label(cls, label: str | None = None) -> Widget:
+    def new_with_label(cls, label: str | None = None) -> CheckButton:
         """
         Creates a new `GtkCheckButton` with the given text.
         """
     @classmethod
-    def new_with_mnemonic(cls, label: str | None = None) -> Widget:
+    def new_with_mnemonic(cls, label: str | None = None) -> CheckButton:
         """
         Creates a new `GtkCheckButton` with the given text and a mnemonic.
         """
@@ -16725,7 +16725,7 @@ class ColorButton(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ColorButton:
         """
             Creates a new color button.
 
@@ -16736,7 +16736,7 @@ class ColorButton(Widget):
         color when the user finishes.
         """
     @classmethod
-    def new_with_rgba(cls, rgba: Gdk.RGBA) -> Widget:
+    def new_with_rgba(cls, rgba: Gdk.RGBA) -> ColorButton:
         """
         Creates a new color button showing the given color.
         """
@@ -16965,7 +16965,7 @@ class ColorChooserDialog(Dialog):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls, title: str | None = None, parent: Window | None = None) -> Widget:
+    def new(cls, title: str | None = None, parent: Window | None = None) -> ColorChooserDialog:
         """
         Creates a new `GtkColorChooserDialog`.
         """
@@ -17057,7 +17057,7 @@ class ColorChooserWidget(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ColorChooserWidget:
         """
         Creates a new `GtkColorChooserWidget`.
         """
@@ -17261,7 +17261,7 @@ class ColorDialogButton(Widget):
         informed about changes, listen to "notify::rgba".
         """
     @classmethod
-    def new(cls, dialog: ColorDialog | None = None) -> Widget:
+    def new(cls, dialog: ColorDialog | None = None) -> ColorDialogButton:
         """
             Creates a new `GtkColorDialogButton` with the
         given `GtkColorDialog`.
@@ -17558,7 +17558,7 @@ class ColumnView(Widget):
         If @column is already a column of @self, it will be repositioned.
         """
     @classmethod
-    def new(cls, model: SelectionModel | None = None) -> Widget:
+    def new(cls, model: SelectionModel | None = None) -> ColumnView:
         """
             Creates a new `GtkColumnView`.
 
@@ -18799,13 +18799,13 @@ class ComboBox(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ComboBox:
         """
         Creates a new empty `GtkComboBox`.
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_entry(cls) -> Widget:
+    def new_with_entry(cls) -> ComboBox:
         """
             Creates a new empty `GtkComboBox` with an entry.
 
@@ -18815,13 +18815,13 @@ class ComboBox(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_model(cls, model: TreeModel) -> Widget:
+    def new_with_model(cls, model: TreeModel) -> ComboBox:
         """
         Creates a new `GtkComboBox` with a model.
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_model_and_entry(cls, model: TreeModel) -> Widget:
+    def new_with_model_and_entry(cls, model: TreeModel) -> ComboBox:
         """
             Creates a new empty `GtkComboBox` with an entry and a model.
 
@@ -19274,13 +19274,13 @@ class ComboBoxText(ComboBox):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ComboBoxText:
         """
         Creates a new `GtkComboBoxText`.
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_entry(cls) -> Widget:
+    def new_with_entry(cls) -> ComboBoxText:
         """
         Creates a new `GtkComboBoxText` with an entry.
         """
@@ -19995,7 +19995,7 @@ class ConstraintLayout(LayoutManager):
         this function.
         """
     @classmethod
-    def new(cls) -> LayoutManager:
+    def new(cls) -> ConstraintLayout:
         """
         Creates a new `GtkConstraintLayout` layout manager.
         """
@@ -20412,7 +20412,7 @@ class CustomLayout(LayoutManager):
     @classmethod
     def new(
         cls, request_mode: CustomRequestModeFunc | None, measure: CustomMeasureFunc, allocate: CustomAllocateFunc
-    ) -> LayoutManager:
+    ) -> CustomLayout:
         """
             Creates a new legacy layout manager.
 
@@ -20690,7 +20690,7 @@ class Dialog(Window):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Dialog:
         """
             Creates a new dialog box.
 
@@ -21088,7 +21088,7 @@ class DragIcon(Widget):
         Gets the widget currently used as drag icon.
         """
     @classmethod
-    def get_for_drag(cls, drag: Gdk.Drag) -> Widget:
+    def get_for_drag(cls, drag: Gdk.Drag) -> DragIcon:
         """
             Gets the `GtkDragIcon` in use with @drag.
 
@@ -21497,7 +21497,7 @@ class DrawingArea(Widget):
         Retrieves the content width of the `GtkDrawingArea`.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> DrawingArea:
         """
         Creates a new drawing area.
         """
@@ -21678,7 +21678,7 @@ class DropControllerMotion(EventController):
         @self, not one of its children.
         """
     @classmethod
-    def new(cls) -> EventController:
+    def new(cls) -> DropControllerMotion:
         """
             Creates a new event controller that will handle pointer motion
         events during drag and drop.
@@ -21938,7 +21938,7 @@ class DropDown(Widget):
         Returns whether to show an arrow within the widget.
         """
     @classmethod
-    def new(cls, model: Gio.ListModel | None = None, expression: Expression | None = None) -> Widget:
+    def new(cls, model: Gio.ListModel | None = None, expression: Expression | None = None) -> DropDown:
         """
             Creates a new `GtkDropDown`.
 
@@ -21946,7 +21946,7 @@ class DropDown(Widget):
         to set up a way to map its items to widgets.
         """
     @classmethod
-    def new_from_strings(cls, strings: list) -> Widget:
+    def new_from_strings(cls, strings: list) -> DropDown:
         """
             Creates a new `GtkDropDown` that is populated with
         the strings.
@@ -23271,7 +23271,7 @@ class EditableLabel(Widget):
         Returns whether the label is currently in “editing mode”.
         """
     @classmethod
-    def new(cls, str: str) -> Widget:
+    def new(cls, str: str) -> EditableLabel:
         """
         Creates a new `GtkEditableLabel` widget.
         """
@@ -23366,7 +23366,7 @@ class EmojiChooser(Popover):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> EmojiChooser:
         """
         Creates a new `GtkEmojiChooser`.
         """
@@ -23956,12 +23956,12 @@ class Entry(Widget):
         in, such as search-as-you-type entries.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Entry:
         """
         Creates a new entry.
         """
     @classmethod
-    def new_with_buffer(cls, buffer: EntryBuffer) -> Widget:
+    def new_with_buffer(cls, buffer: EntryBuffer) -> Entry:
         """
         Creates a new entry with the specified text buffer.
         """
@@ -25429,7 +25429,7 @@ class EventControllerFocus(EventController):
         Returns %TRUE if focus is within @self, but not one of its children.
         """
     @classmethod
-    def new(cls) -> EventController:
+    def new(cls) -> EventControllerFocus:
         """
         Creates a new event controller that will handle focus events.
         """
@@ -25522,7 +25522,7 @@ class EventControllerKey(EventController):
         Gets the input method context of the key @controller.
         """
     @classmethod
-    def new(cls) -> EventController:
+    def new(cls) -> EventControllerKey:
         """
         Creates a new event controller that will handle key events.
         """
@@ -25599,7 +25599,7 @@ class EventControllerLegacy(EventController):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> EventController:
+    def new(cls) -> EventControllerLegacy:
         """
         Creates a new legacy event controller.
         """
@@ -25681,7 +25681,7 @@ class EventControllerMotion(EventController):
         Returns if a pointer is within @self, but not one of its children.
         """
     @classmethod
-    def new(cls) -> EventController:
+    def new(cls) -> EventControllerMotion:
         """
         Creates a new event controller that will handle motion events.
         """
@@ -25805,7 +25805,7 @@ class EventControllerScroll(EventController):
         %GTK_EVENT_CONTROLLER_SCROLL_DISCRETE flag is set.
         """
     @classmethod
-    def new(cls, flags: EventControllerScrollFlags) -> EventController:
+    def new(cls, flags: EventControllerScrollFlags) -> EventControllerScroll:
         """
         Creates a new event controller that will handle scroll events.
         """
@@ -26103,12 +26103,12 @@ class Expander(Widget):
         Returns whether an underline in the text indicates a mnemonic.
         """
     @classmethod
-    def new(cls, label: str | None = None) -> Widget:
+    def new(cls, label: str | None = None) -> Expander:
         """
         Creates a new expander using @label as the text of the label.
         """
     @classmethod
-    def new_with_mnemonic(cls, label: str | None = None) -> Widget:
+    def new_with_mnemonic(cls, label: str | None = None) -> Expander:
         """
             Creates a new expander using @label as the text of the label.
 
@@ -27373,7 +27373,7 @@ class FileChooserWidget(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls, action: FileChooserAction) -> Widget:
+    def new(cls, action: FileChooserAction) -> FileChooserWidget:
         """
             Creates a new `GtkFileChooserWidget`.
 
@@ -28758,7 +28758,7 @@ class Fixed(Widget):
         coordinates to the child @widget of the `GtkFixed`.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Fixed:
         """
         Creates a new `GtkFixed`.
         """
@@ -28832,7 +28832,7 @@ class FixedLayout(LayoutManager):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> LayoutManager:
+    def new(cls) -> FixedLayout:
         """
         Creates a new `GtkFixedLayout`.
         """
@@ -29222,7 +29222,7 @@ class FlowBox(Widget):
         @box is changed due to an external factor.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> FlowBox:
         """
         Creates a `GtkFlowBox`.
         """
@@ -29591,7 +29591,7 @@ class FlowBoxChild(Widget):
         `GtkFlowBox` container.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> FlowBoxChild:
         """
             Creates a new `GtkFlowBoxChild`.
 
@@ -29729,13 +29729,13 @@ class FontButton(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> FontButton:
         """
         Creates a new font picker widget.
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_font(cls, fontname: str) -> Widget:
+    def new_with_font(cls, fontname: str) -> FontButton:
         """
         Creates a new font picker widget showing the given font.
         """
@@ -30143,7 +30143,7 @@ class FontChooserDialog(Dialog):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls, title: str | None = None, parent: Window | None = None) -> Widget:
+    def new(cls, title: str | None = None, parent: Window | None = None) -> FontChooserDialog:
         """
         Creates a new `GtkFontChooserDialog`.
         """
@@ -30217,7 +30217,7 @@ class FontChooserWidget(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> FontChooserWidget:
         """
         Creates a new `GtkFontChooserWidget`.
         """
@@ -30618,7 +30618,7 @@ class FontDialogButton(Widget):
         Returns whether the selected font size is used in the label.
         """
     @classmethod
-    def new(cls, dialog: FontDialog | None = None) -> Widget:
+    def new(cls, dialog: FontDialog | None = None) -> FontDialogButton:
         """
             Creates a new `GtkFontDialogButton` with the
         given `GtkFontDialog`.
@@ -30851,7 +30851,7 @@ class Frame(Widget):
         Retrieves the label widget for the frame.
         """
     @classmethod
-    def new(cls, label: str | None = None) -> Widget:
+    def new(cls, label: str | None = None) -> Frame:
         """
             Creates a new `GtkFrame`, with optional label @label.
 
@@ -31200,7 +31200,7 @@ class GLArea(Widget):
         to be called by application code.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> GLArea:
         """
         Creates a new `GtkGLArea` widget.
         """
@@ -31854,7 +31854,7 @@ class GestureClick(GestureSingle):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Gesture:
+    def new(cls) -> GestureClick:
         """
             Returns a newly created `GtkGesture` that recognizes
         single and multiple presses.
@@ -31955,7 +31955,7 @@ class GestureDrag(GestureSingle):
         in widget-relative coordinates.
         """
     @classmethod
-    def new(cls) -> Gesture:
+    def new(cls) -> GestureDrag:
         """
         Returns a newly created `GtkGesture` that recognizes drags.
         """
@@ -32042,7 +32042,7 @@ class GestureLongPress(GestureSingle):
         Returns the delay factor.
         """
     @classmethod
-    def new(cls) -> Gesture:
+    def new(cls) -> GestureLongPress:
         """
         Returns a newly created `GtkGesture` that recognizes long presses.
         """
@@ -32131,7 +32131,7 @@ class GesturePan(GestureDrag):
         Returns the orientation of the pan gestures that this @gesture expects.
         """
     @classmethod
-    def new(cls, orientation: Orientation) -> Gesture:
+    def new(cls, orientation: Orientation) -> GesturePan:
         """
         Returns a newly created `GtkGesture` that recognizes pan gestures.
         """
@@ -32192,7 +32192,7 @@ class GestureRotate(Gesture):
         not active, 0 is returned.
         """
     @classmethod
-    def new(cls) -> Gesture:
+    def new(cls) -> GestureRotate:
         """
             Returns a newly created `GtkGesture` that recognizes 2-touch
         rotation gestures.
@@ -32426,7 +32426,7 @@ class GestureStylus(GestureSingle):
         input devices.
         """
     @classmethod
-    def new(cls) -> Gesture:
+    def new(cls) -> GestureStylus:
         """
         Creates a new `GtkGestureStylus`.
         """
@@ -32528,7 +32528,7 @@ class GestureSwipe(GestureSingle):
         last events processed.
         """
     @classmethod
-    def new(cls) -> Gesture:
+    def new(cls) -> GestureSwipe:
         """
         Returns a newly created `GtkGesture` that recognizes swipes.
         """
@@ -32582,7 +32582,7 @@ class GestureZoom(Gesture):
         active, 1 is returned.
         """
     @classmethod
-    def new(cls) -> Gesture:
+    def new(cls) -> GestureZoom:
         """
             Returns a newly created `GtkGesture` that recognizes
         pinch/zoom gestures.
@@ -32692,7 +32692,7 @@ class GraphicsOffload(Widget):
         Returns whether offload is enabled for @self.
         """
     @classmethod
-    def new(cls, child: Widget | None = None) -> Widget:
+    def new(cls, child: Widget | None = None) -> GraphicsOffload:
         """
         Creates a new GtkGraphicsOffload widget.
         """
@@ -32972,7 +32972,7 @@ class Grid(Widget):
         position are grown to span the new row.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Grid:
         """
         Creates a new grid widget.
         """
@@ -33184,7 +33184,7 @@ class GridLayout(LayoutManager):
         Retrieves the spacing set with gtk_grid_layout_set_row_spacing().
         """
     @classmethod
-    def new(cls) -> LayoutManager:
+    def new(cls) -> GridLayout:
         """
         Creates a new `GtkGridLayout`.
         """
@@ -33518,7 +33518,7 @@ class GridView(ListBase):
         Gets the behavior set for the <kbd>Tab</kbd> key.
         """
     @classmethod
-    def new(cls, model: SelectionModel | None = None, factory: ListItemFactory | None = None) -> Widget:
+    def new(cls, model: SelectionModel | None = None, factory: ListItemFactory | None = None) -> GridView:
         """
             Creates a new `GtkGridView` that uses the given @factory for
         mapping items to widgets.
@@ -33807,7 +33807,7 @@ class HeaderBar(Widget):
         native window controls.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> HeaderBar:
         """
         Creates a new `GtkHeaderBar` widget.
         """
@@ -34426,7 +34426,7 @@ class IMContextSimple(IMContext):
         Adds an additional table from the X11 compose file.
         """
     @classmethod
-    def new(cls) -> IMContext:
+    def new(cls) -> IMContextSimple:
         """
         Creates a new `GtkIMContextSimple`.
         """
@@ -34472,7 +34472,7 @@ class IMMulticontext(IMContext):
         Gets the id of the currently active delegate of the @context.
         """
     @classmethod
-    def new(cls) -> IMContext:
+    def new(cls) -> IMMulticontext:
         """
         Creates a new `GtkIMMulticontext`.
         """
@@ -35281,20 +35281,20 @@ class IconView(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> IconView:
         """
         Creates a new `GtkIconView` widget
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_area(cls, area: CellArea) -> Widget:
+    def new_with_area(cls, area: CellArea) -> IconView:
         """
             Creates a new `GtkIconView` widget using the
         specified @area to layout cells inside the icons.
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_model(cls, model: TreeModel) -> Widget:
+    def new_with_model(cls, model: TreeModel) -> IconView:
         """
         Creates a new `GtkIconView` widget with the model @model.
         """
@@ -35944,12 +35944,12 @@ class Image(Widget):
         be %GTK_IMAGE_EMPTY.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Image:
         """
         Creates a new empty `GtkImage` widget.
         """
     @classmethod
-    def new_from_file(cls, filename: str) -> Widget:
+    def new_from_file(cls, filename: str) -> Image:
         """
             Creates a new `GtkImage` displaying the file @filename.
 
@@ -35966,7 +35966,7 @@ class Image(Widget):
         is appropriate for displaying the file.
         """
     @classmethod
-    def new_from_gicon(cls, icon: Gio.Icon) -> Widget:
+    def new_from_gicon(cls, icon: Gio.Icon) -> Image:
         """
             Creates a `GtkImage` displaying an icon from the current icon theme.
 
@@ -35975,7 +35975,7 @@ class Image(Widget):
         will be updated appropriately.
         """
     @classmethod
-    def new_from_icon_name(cls, icon_name: str | None = None) -> Widget:
+    def new_from_icon_name(cls, icon_name: str | None = None) -> Image:
         """
             Creates a `GtkImage` displaying an icon from the current icon theme.
 
@@ -35984,7 +35984,7 @@ class Image(Widget):
         will be updated appropriately.
         """
     @classmethod
-    def new_from_paintable(cls, paintable: Gdk.Paintable | None = None) -> Widget:
+    def new_from_paintable(cls, paintable: Gdk.Paintable | None = None) -> Image:
         """
             Creates a new `GtkImage` displaying @paintable.
 
@@ -35997,7 +35997,7 @@ class Image(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new_from_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf | None = None) -> Widget:
+    def new_from_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf | None = None) -> Image:
         """
             Creates a new `GtkImage` displaying @pixbuf.
 
@@ -36013,7 +36013,7 @@ class Image(Widget):
         want that, you should use [ctor@Gtk.Image.new_from_icon_name].
         """
     @classmethod
-    def new_from_resource(cls, resource_path: str) -> Widget:
+    def new_from_resource(cls, resource_path: str) -> Image:
         """
             Creates a new `GtkImage` displaying the resource file @resource_path.
 
@@ -36300,7 +36300,7 @@ class InfoBar(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> InfoBar:
         """
         Creates a new `GtkInfoBar` object.
         """
@@ -36620,7 +36620,7 @@ class Inscription(Widget):
         See the [property@Gtk.Inscription:yalign] property.
         """
     @classmethod
-    def new(cls, text: str | None = None) -> Widget:
+    def new(cls, text: str | None = None) -> Inscription:
         """
         Creates a new `GtkInscription` with the given text.
         """
@@ -36815,7 +36815,7 @@ class KeyvalTrigger(ShortcutTrigger):
         triggering @self.
         """
     @classmethod
-    def new(cls, keyval: int, modifiers: Gdk.ModifierType) -> ShortcutTrigger:
+    def new(cls, keyval: int, modifiers: Gdk.ModifierType) -> KeyvalTrigger:
         """
             Creates a `GtkShortcutTrigger` that will trigger whenever
         the key with the given @keyval and @modifiers is pressed.
@@ -37447,14 +37447,14 @@ class Label(Widget):
         See the [property@Gtk.Label:yalign] property.
         """
     @classmethod
-    def new(cls, str: str | None = None) -> Widget:
+    def new(cls, str: str | None = None) -> Label:
         """
             Creates a new label with the given text inside it.
 
         You can pass `NULL` to get an empty label widget.
         """
     @classmethod
-    def new_with_mnemonic(cls, str: str | None = None) -> Widget:
+    def new_with_mnemonic(cls, str: str | None = None) -> Label:
         """
             Creates a new label with the given text inside it, and a mnemonic.
 
@@ -38376,12 +38376,12 @@ class LevelBar(Widget):
         Returns the `value` of the `GtkLevelBar`.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> LevelBar:
         """
         Creates a new `GtkLevelBar`.
         """
     @classmethod
-    def new_for_interval(cls, min_value: float, max_value: float) -> Widget:
+    def new_for_interval(cls, min_value: float, max_value: float) -> LevelBar:
         """
         Creates a new `GtkLevelBar` for the specified interval.
         """
@@ -38559,12 +38559,12 @@ class LinkButton(Button):
         The state may also be changed using [method@Gtk.LinkButton.set_visited].
         """
     @classmethod
-    def new(cls, uri: str) -> Widget:
+    def new(cls, uri: str) -> LinkButton:
         """
         Creates a new `GtkLinkButton` with the URI as its text.
         """
     @classmethod
-    def new_with_label(cls, uri: str, label: str | None = None) -> Widget:
+    def new_with_label(cls, uri: str, label: str | None = None) -> LinkButton:
         """
         Creates a new `GtkLinkButton` containing a label.
         """
@@ -38942,7 +38942,7 @@ class ListBox(Widget):
         to an external factor.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ListBox:
         """
         Creates a new `GtkListBox` container.
         """
@@ -39316,7 +39316,7 @@ class ListBoxRow(Widget):
         `GtkListBox` container.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ListBoxRow:
         """
         Creates a new `GtkListBoxRow`.
         """
@@ -40419,7 +40419,7 @@ class ListView(ListBase):
         Gets the behavior set for the <kbd>Tab</kbd> key.
         """
     @classmethod
-    def new(cls, model: SelectionModel | None = None, factory: ListItemFactory | None = None) -> Widget:
+    def new(cls, model: SelectionModel | None = None, factory: ListItemFactory | None = None) -> ListView:
         """
             Creates a new `GtkListView` that uses the given @factory for
         mapping items to widgets.
@@ -40662,7 +40662,7 @@ class LockButton(Button):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls, permission: Gio.Permission | None = None) -> Widget:
+    def new(cls, permission: Gio.Permission | None = None) -> LockButton:
         """
         Creates a new lock button which reflects the @permission.
         """
@@ -40902,7 +40902,7 @@ class MediaControls(Widget):
         Gets the media stream managed by @controls or %NULL if none.
         """
     @classmethod
-    def new(cls, stream: MediaStream | None = None) -> Widget:
+    def new(cls, stream: MediaStream | None = None) -> MediaControls:
         """
         Creates a new `GtkMediaControls` managing the @stream passed to it.
         """
@@ -41827,7 +41827,7 @@ class MenuButton(Widget):
         mnemonic.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> MenuButton:
         """
             Creates a new `GtkMenuButton` widget with downwards-pointing
         arrow as the only child.
@@ -42402,7 +42402,7 @@ class MountOperation(GObject.Object):
         a window.
         """
     @classmethod
-    def new(cls, parent: Window | None = None) -> Gio.MountOperation:
+    def new(cls, parent: Window | None = None) -> MountOperation:
         """
         Creates a new `GtkMountOperation`.
         """
@@ -43443,7 +43443,7 @@ class Notebook(Widget):
         the widget to use as the label in the popup menu.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Notebook:
         """
         Creates a new `GtkNotebook` widget with no pages.
         """
@@ -44239,7 +44239,7 @@ class Overlay(Widget):
         @overlay.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Overlay:
         """
         Creates a new `GtkOverlay`.
         """
@@ -44317,7 +44317,7 @@ class OverlayLayout(LayoutManager):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> LayoutManager:
+    def new(cls) -> OverlayLayout:
         """
         Creates a new `GtkOverlayLayout` instance.
         """
@@ -44837,7 +44837,7 @@ class PageSetupUnixDialog(Dialog):
         Gets the current print settings from the dialog.
         """
     @classmethod
-    def new(cls, title: str | None = None, parent: Window | None = None) -> Widget:
+    def new(cls, title: str | None = None, parent: Window | None = None) -> PageSetupUnixDialog:
         """
         Creates a new page setup dialog.
         """
@@ -45058,7 +45058,7 @@ class Paned(Widget):
         Gets whether the separator should be wide.
         """
     @classmethod
-    def new(cls, orientation: Orientation) -> Widget:
+    def new(cls, orientation: Orientation) -> Paned:
         """
         Creates a new `GtkPaned` widget.
         """
@@ -45525,7 +45525,7 @@ class PasswordEntry(Widget):
         reveal the contents.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> PasswordEntry:
         """
         Creates a `GtkPasswordEntry`.
         """
@@ -45599,7 +45599,7 @@ class PasswordEntryBuffer(EntryBuffer):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> EntryBuffer:
+    def new(cls) -> PasswordEntryBuffer:
         """
         Creates a new `GtkEntryBuffer` using secure memory allocations.
         """
@@ -45757,12 +45757,12 @@ class Picture(Widget):
         Gets the `GdkPaintable` being displayed by the `GtkPicture`.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Picture:
         """
         Creates a new empty `GtkPicture` widget.
         """
     @classmethod
-    def new_for_file(cls, file: Gio.File | None = None) -> Widget:
+    def new_for_file(cls, file: Gio.File | None = None) -> Picture:
         """
             Creates a new `GtkPicture` displaying the given @file.
 
@@ -45774,7 +45774,7 @@ class Picture(Widget):
         then create the `GtkPicture` from the texture.
         """
     @classmethod
-    def new_for_filename(cls, filename: str | None = None) -> Widget:
+    def new_for_filename(cls, filename: str | None = None) -> Picture:
         """
             Creates a new `GtkPicture` displaying the file @filename.
 
@@ -45782,7 +45782,7 @@ class Picture(Widget):
         See that function for details.
         """
     @classmethod
-    def new_for_paintable(cls, paintable: Gdk.Paintable | None = None) -> Widget:
+    def new_for_paintable(cls, paintable: Gdk.Paintable | None = None) -> Picture:
         """
             Creates a new `GtkPicture` displaying @paintable.
 
@@ -45791,7 +45791,7 @@ class Picture(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new_for_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf | None = None) -> Widget:
+    def new_for_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf | None = None) -> Picture:
         """
             Creates a new `GtkPicture` displaying @pixbuf.
 
@@ -45801,7 +45801,7 @@ class Picture(Widget):
         The pixbuf must not be modified after passing it to this function.
         """
     @classmethod
-    def new_for_resource(cls, resource_path: str | None = None) -> Widget:
+    def new_for_resource(cls, resource_path: str | None = None) -> Picture:
         """
             Creates a new `GtkPicture` displaying the resource at @resource_path.
 
@@ -46142,7 +46142,7 @@ class Popover(Widget):
         Returns the preferred position of @popover.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Popover:
         """
         Creates a new `GtkPopover`.
         """
@@ -46513,7 +46513,7 @@ class PopoverMenu(Popover):
         Returns the menu model used to populate the popover.
         """
     @classmethod
-    def new_from_model(cls, model: Gio.MenuModel | None = None) -> Widget:
+    def new_from_model(cls, model: Gio.MenuModel | None = None) -> PopoverMenu:
         """
             Creates a `GtkPopoverMenu` and populates it according to @model.
 
@@ -46530,7 +46530,7 @@ class PopoverMenu(Popover):
         to control this.
         """
     @classmethod
-    def new_from_model_full(cls, model: Gio.MenuModel, flags: PopoverMenuFlags) -> Widget:
+    def new_from_model_full(cls, model: Gio.MenuModel, flags: PopoverMenuFlags) -> PopoverMenu:
         """
             Creates a `GtkPopoverMenu` and populates it according to @model.
 
@@ -46652,7 +46652,7 @@ class PopoverMenuBar(Widget):
         Returns the model from which the contents of @bar are taken.
         """
     @classmethod
-    def new_from_model(cls, model: Gio.MenuModel | None = None) -> Widget:
+    def new_from_model(cls, model: Gio.MenuModel | None = None) -> PopoverMenuBar:
         """
         Creates a `GtkPopoverMenuBar` from a `GMenuModel`.
         """
@@ -49082,7 +49082,7 @@ class PrintUnixDialog(Dialog):
         Gets whether the print dialog allows user to print a selection.
         """
     @classmethod
-    def new(cls, title: str | None = None, parent: Window | None = None) -> Widget:
+    def new(cls, title: str | None = None, parent: Window | None = None) -> PrintUnixDialog:
         """
         Creates a new `GtkPrintUnixDialog`.
         """
@@ -49642,7 +49642,7 @@ class ProgressBar(Widget):
         so will become invalid if you change the text in the progress bar.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ProgressBar:
         """
         Creates a new `GtkProgressBar`.
         """
@@ -50802,7 +50802,7 @@ class Revealer(Widget):
         for transitions in @revealer.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Revealer:
         """
         Creates a new `GtkRevealer`.
         """
@@ -51104,12 +51104,12 @@ class Scale(Range):
         Gets the position in which the current value is displayed.
         """
     @classmethod
-    def new(cls, orientation: Orientation, adjustment: Adjustment | None = None) -> Widget:
+    def new(cls, orientation: Orientation, adjustment: Adjustment | None = None) -> Scale:
         """
         Creates a new `GtkScale`.
         """
     @classmethod
-    def new_with_range(cls, orientation: Orientation, min: float, max: float, step: float) -> Widget:
+    def new_with_range(cls, orientation: Orientation, min: float, max: float, step: float) -> Scale:
         """
             Creates a new scale widget with a range from @min to @max.
 
@@ -51325,7 +51325,7 @@ class ScaleButton(Widget):
         Gets the current value of the scale button.
         """
     @classmethod
-    def new(cls, min: float, max: float, step: float, icons: list | None = None) -> Widget:
+    def new(cls, min: float, max: float, step: float, icons: list | None = None) -> ScaleButton:
         """
             Creates a `GtkScaleButton`.
 
@@ -51755,7 +51755,7 @@ class Scrollbar(Widget):
         Returns the scrollbar's adjustment.
         """
     @classmethod
-    def new(cls, orientation: Orientation, adjustment: Adjustment | None = None) -> Widget:
+    def new(cls, orientation: Orientation, adjustment: Adjustment | None = None) -> Scrollbar:
         """
         Creates a new scrollbar with the given orientation.
         """
@@ -52068,7 +52068,7 @@ class ScrolledWindow(Widget):
         Returns the vertical scrollbar of @scrolled_window.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ScrolledWindow:
         """
         Creates a new scrolled window.
         """
@@ -52483,7 +52483,7 @@ class SearchBar(Widget):
         Returns whether the close button is shown.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> SearchBar:
         """
             Creates a `GtkSearchBar`.
 
@@ -52682,7 +52682,7 @@ class SearchEntry(Widget):
         [signal@Gtk.SearchEntry::search-changed] signal being emitted.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> SearchEntry:
         """
         Creates a `GtkSearchEntry`.
         """
@@ -53289,7 +53289,7 @@ class Separator(Widget):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, orientation: Orientation) -> Widget:
+    def new(cls, orientation: Orientation) -> Separator:
         """
         Creates a new `GtkSeparator` with the given orientation.
         """
@@ -54470,12 +54470,12 @@ class ShortcutController(EventController):
         See [method@Gtk.ShortcutController.set_scope] for details.
         """
     @classmethod
-    def new(cls) -> EventController:
+    def new(cls) -> ShortcutController:
         """
         Creates a new shortcut controller.
         """
     @classmethod
-    def new_for_model(cls, model: Gio.ListModel) -> EventController:
+    def new_for_model(cls, model: Gio.ListModel) -> ShortcutController:
         """
             Creates a new shortcut controller that takes its shortcuts from
         the given list model.
@@ -54610,7 +54610,7 @@ class ShortcutLabel(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls, accelerator: str) -> Widget:
+    def new(cls, accelerator: str) -> ShortcutLabel:
         """
         Creates a new `GtkShortcutLabel` with @accelerator set.
         """
@@ -55561,7 +55561,7 @@ class SignalListItemFactory(ListItemFactory):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> ListItemFactory:
+    def new(cls) -> SignalListItemFactory:
         """
             Creates a new `GtkSignalListItemFactory`.
 
@@ -57227,12 +57227,12 @@ class SpinButton(Widget):
         exceeded.
         """
     @classmethod
-    def new(cls, adjustment: Adjustment | None, climb_rate: float, digits: int) -> Widget:
+    def new(cls, adjustment: Adjustment | None, climb_rate: float, digits: int) -> SpinButton:
         """
         Creates a new `GtkSpinButton`.
         """
     @classmethod
-    def new_with_range(cls, min: float, max: float, step: float) -> Widget:
+    def new_with_range(cls, min: float, max: float, step: float) -> SpinButton:
         """
             Creates a new `GtkSpinButton` with the given properties.
 
@@ -57522,7 +57522,7 @@ class Spinner(Widget):
         Returns whether the spinner is spinning.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Spinner:
         """
         Returns a new spinner widget. Not yet started.
         """
@@ -57748,7 +57748,7 @@ class Stack(Widget):
         Returns %NULL if there is no visible child.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Stack:
         """
         Creates a new `GtkStack`.
         """
@@ -58118,7 +58118,7 @@ class StackSidebar(Widget):
         Retrieves the stack.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> StackSidebar:
         """
         Creates a new `GtkStackSidebar`.
         """
@@ -58202,7 +58202,7 @@ class StackSwitcher(Widget):
         Retrieves the stack.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> StackSwitcher:
         """
         Create a new `GtkStackSwitcher`.
         """
@@ -58282,7 +58282,7 @@ class Statusbar(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Statusbar:
         """
         Creates a new `GtkStatusbar` ready for messages.
         """
@@ -59191,7 +59191,7 @@ class Switch(Widget):
         Gets the underlying state of the `GtkSwitch`.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Switch:
         """
         Creates a new `GtkSwitch` widget.
         """
@@ -59680,12 +59680,12 @@ class Text(Widget):
         text in, such as search-as-you-type entries.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Text:
         """
         Creates a new `GtkText`.
         """
     @classmethod
-    def new_with_buffer(cls, buffer: EntryBuffer) -> Widget:
+    def new_with_buffer(cls, buffer: EntryBuffer) -> Text:
         """
         Creates a new `GtkText` with the specified buffer.
         """
@@ -64202,7 +64202,7 @@ class TextView(Widget):
         is moved off of the end of a run.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> TextView:
         """
             Creates a new `GtkTextView`.
 
@@ -64212,7 +64212,7 @@ class TextView(Widget):
         your own buffer, consider [ctor@Gtk.TextView.new_with_buffer].
         """
     @classmethod
-    def new_with_buffer(cls, buffer: TextBuffer) -> Widget:
+    def new_with_buffer(cls, buffer: TextBuffer) -> TextView:
         """
             Creates a new `GtkTextView` widget displaying the buffer @buffer.
 
@@ -65130,19 +65130,19 @@ class ToggleButton(Button):
         if it is raised.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> ToggleButton:
         """
             Creates a new toggle button.
 
         A widget should be packed into the button, as in [ctor@Gtk.Button.new].
         """
     @classmethod
-    def new_with_label(cls, label: str) -> Widget:
+    def new_with_label(cls, label: str) -> ToggleButton:
         """
         Creates a new toggle button with a text label.
         """
     @classmethod
-    def new_with_mnemonic(cls, label: str) -> Widget:
+    def new_with_mnemonic(cls, label: str) -> ToggleButton:
         """
             Creates a new `GtkToggleButton` containing a label.
 
@@ -65597,7 +65597,7 @@ class TreeExpander(Widget):
         Gets the list row managed by @self.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> TreeExpander:
         """
         Creates a new `GtkTreeExpander`
         """
@@ -68735,13 +68735,13 @@ class TreeView(Widget):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> TreeView:
         """
         Creates a new `GtkTreeView` widget.
         """
     @deprecated("deprecated")
     @classmethod
-    def new_with_model(cls, model: TreeModel) -> Widget:
+    def new_with_model(cls, model: TreeModel) -> TreeView:
         """
         Creates a new `GtkTreeView` widget with the model initialized to @model.
         """
@@ -70144,17 +70144,17 @@ class Video(Widget):
         Gets the media stream managed by @self or %NULL if none.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Video:
         """
         Creates a new empty `GtkVideo`.
         """
     @classmethod
-    def new_for_file(cls, file: Gio.File | None = None) -> Widget:
+    def new_for_file(cls, file: Gio.File | None = None) -> Video:
         """
         Creates a `GtkVideo` to play back the given @file.
         """
     @classmethod
-    def new_for_filename(cls, filename: str | None = None) -> Widget:
+    def new_for_filename(cls, filename: str | None = None) -> Video:
         """
             Creates a `GtkVideo` to play back the given @filename.
 
@@ -70162,12 +70162,12 @@ class Video(Widget):
         See that function for details.
         """
     @classmethod
-    def new_for_media_stream(cls, stream: MediaStream | None = None) -> Widget:
+    def new_for_media_stream(cls, stream: MediaStream | None = None) -> Video:
         """
         Creates a `GtkVideo` to play back the given @stream.
         """
     @classmethod
-    def new_for_resource(cls, resource_path: str | None = None) -> Widget:
+    def new_for_resource(cls, resource_path: str | None = None) -> Video:
         """
             Creates a `GtkVideo` to play back the resource at the
         given @resource_path.
@@ -70325,7 +70325,7 @@ class Viewport(Widget):
         child in view.
         """
     @classmethod
-    def new(cls, hadjustment: Adjustment | None = None, vadjustment: Adjustment | None = None) -> Widget:
+    def new(cls, hadjustment: Adjustment | None = None, vadjustment: Adjustment | None = None) -> Viewport:
         """
             Creates a new `GtkViewport`.
 
@@ -70399,7 +70399,7 @@ class VolumeButton(ScaleButton):
         """
     @deprecated("deprecated")
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> VolumeButton:
         """
             Creates a `GtkVolumeButton`.
 
@@ -74161,7 +74161,7 @@ class Window(Widget):
         [property@Gdk.Toplevel:state] property.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> Window:
         """
             Creates a new `GtkWindow`.
 
@@ -74924,7 +74924,7 @@ class WindowControls(Widget):
         Returns whether platform native window controls are shown.
         """
     @classmethod
-    def new(cls, side: PackType) -> Widget:
+    def new(cls, side: PackType) -> WindowControls:
         """
         Creates a new `GtkWindowControls`.
         """
@@ -75112,7 +75112,7 @@ class WindowHandle(Widget):
         Gets the child widget of @self.
         """
     @classmethod
-    def new(cls) -> Widget:
+    def new(cls) -> WindowHandle:
         """
         Creates a new `GtkWindowHandle`.
         """

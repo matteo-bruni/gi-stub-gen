@@ -8903,13 +8903,13 @@ class BufferedInputStream(FilterInputStream):
         Gets the size of the input buffer.
         """
     @classmethod
-    def new(cls, base_stream: InputStream) -> InputStream:
+    def new(cls, base_stream: InputStream) -> BufferedInputStream:
         """
             Creates a new [class@Gio.InputStream] from the given @base_stream, with
         a buffer set to the default size (4 kilobytes).
         """
     @classmethod
-    def new_sized(cls, base_stream: InputStream, size: int) -> InputStream:
+    def new_sized(cls, base_stream: InputStream, size: int) -> BufferedInputStream:
         """
             Creates a new [class@Gio.BufferedInputStream] from the given @base_stream,
         with a buffer set to @size.
@@ -9059,12 +9059,12 @@ class BufferedOutputStream(FilterOutputStream):
         Gets the size of the buffer in the @stream.
         """
     @classmethod
-    def new(cls, base_stream: OutputStream) -> OutputStream:
+    def new(cls, base_stream: OutputStream) -> BufferedOutputStream:
         """
         Creates a new buffered output stream for a base stream.
         """
     @classmethod
-    def new_sized(cls, base_stream: OutputStream, size: int) -> OutputStream:
+    def new_sized(cls, base_stream: OutputStream, size: int) -> BufferedOutputStream:
         """
         Creates a new buffered output stream with a given buffer size.
         """
@@ -9684,7 +9684,7 @@ class ConverterInputStream(FilterInputStream):
         Gets the #GConverter that is used by @converter_stream.
         """
     @classmethod
-    def new(cls, base_stream: InputStream, converter: Converter) -> InputStream:
+    def new(cls, base_stream: InputStream, converter: Converter) -> ConverterInputStream:
         """
         Creates a new converter input stream for the @base_stream.
         """
@@ -9749,7 +9749,7 @@ class ConverterOutputStream(FilterOutputStream):
         Gets the #GConverter that is used by @converter_stream.
         """
     @classmethod
-    def new(cls, base_stream: OutputStream, converter: Converter) -> OutputStream:
+    def new(cls, base_stream: OutputStream, converter: Converter) -> ConverterOutputStream:
         """
         Creates a new converter output stream for the @base_stream.
         """
@@ -22640,12 +22640,12 @@ class InetSocketAddress(SocketAddress):
         which must be an IPv6 address.
         """
     @classmethod
-    def new(cls, address: InetAddress, port: int) -> SocketAddress:
+    def new(cls, address: InetAddress, port: int) -> InetSocketAddress:
         """
         Creates a new #GInetSocketAddress for @address and @port.
         """
     @classmethod
-    def new_from_string(cls, address: str, port: int) -> SocketAddress | None:
+    def new_from_string(cls, address: str, port: int) -> InetSocketAddress | None:
         """
             Creates a new #GInetSocketAddress for @address and @port.
 
@@ -23773,17 +23773,17 @@ class MemoryInputStream(InputStream):
         Appends @data to data that can be read from the input stream
         """
     @classmethod
-    def new(cls) -> InputStream:
+    def new(cls) -> MemoryInputStream:
         """
         Creates a new empty #GMemoryInputStream.
         """
     @classmethod
-    def new_from_bytes(cls, bytes: GLib.Bytes) -> InputStream:
+    def new_from_bytes(cls, bytes: GLib.Bytes) -> MemoryInputStream:
         """
         Creates a new #GMemoryInputStream with data from the given @bytes.
         """
     @classmethod
-    def new_from_data(cls, data: list, len: int, destroy: GLib.DestroyNotify | None = None) -> InputStream:
+    def new_from_data(cls, data: list, len: int, destroy: GLib.DestroyNotify | None = None) -> MemoryInputStream:
         """
         Creates a new #GMemoryInputStream with data in memory of a given size.
         """
@@ -23977,7 +23977,7 @@ class MemoryOutputStream(OutputStream):
         stream, use g_memory_output_stream_get_data_size().
         """
     @classmethod
-    def new_resizable(cls) -> OutputStream:
+    def new_resizable(cls) -> MemoryOutputStream:
         """
             Creates a new #GMemoryOutputStream, using g_realloc() and g_free()
         for memory allocation.
@@ -25821,7 +25821,7 @@ class NativeSocketAddress(SocketAddress):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, native: object | None, len: int) -> SocketAddress:
+    def new(cls, native: object | None, len: int) -> NativeSocketAddress:
         """
         Creates a new #GNativeSocketAddress for @native and @len.
         """
@@ -28234,7 +28234,7 @@ class ProxyAddress(InetSocketAddress):
         dest_port: int,
         username: str | None = None,
         password: str | None = None,
-    ) -> SocketAddress:
+    ) -> ProxyAddress:
         """
             Creates a new #GProxyAddress for @inetaddr with @protocol that should
         tunnel through @dest_hostname and @dest_port.
@@ -32015,7 +32015,7 @@ class SimpleIOStream(IOStream):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, input_stream: InputStream, output_stream: OutputStream) -> IOStream:
+    def new(cls, input_stream: InputStream, output_stream: OutputStream) -> SimpleIOStream:
         """
             Creates a new #GSimpleIOStream wrapping @input_stream and @output_stream.
         See also #GIOStream.
@@ -32057,7 +32057,7 @@ class SimplePermission(Permission):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, allowed: bool) -> Permission:
+    def new(cls, allowed: bool) -> SimplePermission:
         """
             Creates a new #GPermission instance that represents an action that is
         either always or never allowed.
@@ -36563,7 +36563,7 @@ class TcpWrapperConnection(TcpConnection):
         Gets @conn's base #GIOStream
         """
     @classmethod
-    def new(cls, base_io_stream: IOStream, socket: Socket) -> SocketConnection:
+    def new(cls, base_io_stream: IOStream, socket: Socket) -> TcpWrapperConnection:
         """
         Wraps @base_io_stream and @socket together as a #GSocketConnection.
         """
@@ -36959,7 +36959,7 @@ class ThreadedSocketService(SocketService):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, max_threads: int) -> SocketService:
+    def new(cls, max_threads: int) -> ThreadedSocketService:
         """
             Creates a new #GThreadedSocketService with no listeners. Listeners
         must be added with one of the #GSocketListener "add" methods.
@@ -39848,12 +39848,12 @@ class UnixCredentialsMessage(SocketControlMessage):
         Checks if passing #GCredentials on a #GSocket is supported on this platform.
         """
     @classmethod
-    def new(cls) -> SocketControlMessage:
+    def new(cls) -> UnixCredentialsMessage:
         """
         Creates a new #GUnixCredentialsMessage with credentials matching the current processes.
         """
     @classmethod
-    def new_with_credentials(cls, credentials: Credentials) -> SocketControlMessage:
+    def new_with_credentials(cls, credentials: Credentials) -> UnixCredentialsMessage:
         """
         Creates a new #GUnixCredentialsMessage holding @credentials.
         """
@@ -40172,7 +40172,7 @@ class UnixSocketAddress(SocketAddress):
         For details, see g_unix_socket_address_get_path().
         """
     @classmethod
-    def new(cls, path: str) -> SocketAddress:
+    def new(cls, path: str) -> UnixSocketAddress:
         """
             Creates a new #GUnixSocketAddress for @path.
 
@@ -40181,13 +40181,13 @@ class UnixSocketAddress(SocketAddress):
         """
     @deprecated("deprecated")
     @classmethod
-    def new_abstract(cls, path: list, path_len: int) -> SocketAddress:
+    def new_abstract(cls, path: list, path_len: int) -> UnixSocketAddress:
         """
             Creates a new %G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED
         #GUnixSocketAddress for @path.
         """
     @classmethod
-    def new_with_type(cls, path: list, path_len: int, type: UnixSocketAddressType) -> SocketAddress:
+    def new_with_type(cls, path: list, path_len: int, type: UnixSocketAddressType) -> UnixSocketAddress:
         """
             Creates a new #GUnixSocketAddress of type @type with name @path.
 

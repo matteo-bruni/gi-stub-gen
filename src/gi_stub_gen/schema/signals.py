@@ -9,7 +9,26 @@ class SignalSchema(BaseSchema):
     handler: FunctionSchema
 
     docstring: str | None
-    """Documentation string for the signal.     """
+    """Documentation string for the signal. """
+
+    run_first: bool
+    """Signal runs before the default handler."""
+    run_last: bool
+    """Signal runs after the default handler."""
+    run_cleanup: bool
+    """Signal runs during cleanup phase."""
+    no_recurse: bool
+    """Signal does not recurse."""
+    detailed: bool
+    """Signal is detailed."""
+    action: bool
+    """Signal is an action."""
+    no_hooks: bool
+    """Signal has no hooks."""
+    must_collect: bool
+    """Signal must be collected."""
+    is_deprecated: bool
+    """Signal is deprecated."""
 
     @property
     def required_gi_imports(self) -> set[str]:
@@ -49,6 +68,15 @@ def generate_notify_signal(
         name=f"notify::{signal_name}",
         name_unescaped=f"notify::{signal_name_unescaped}",
         namespace=namespace,
+        action=False,
+        detailed=False,
+        is_deprecated=False,
+        must_collect=False,
+        no_hooks=False,
+        no_recurse=False,
+        run_cleanup=False,
+        run_first=False,
+        run_last=False,
         handler=FunctionSchema(
             name=f"notify::{signal_name}",
             namespace=namespace,
@@ -57,21 +85,6 @@ def generate_notify_signal(
             deprecation_warnings=None,
             docstring=f"Signal emitted when the '{signal_name}' property changes.",
             args=[
-                # FunctionArgumentSchema(
-                #     direction="IN",
-                #     name="arg0",
-                #     namespace=namespace,
-                #     may_be_null=False,
-                #     is_optional=False,
-                #     is_callback=False,
-                #     get_array_length=-1,
-                #     is_deprecated=False,
-                #     is_caller_allocates=False,
-                #     tag_as_string="??",
-                #     line_comment=None,
-                #     py_type_name="Self",
-                #     py_type_namespace="typing_extensions",
-                # ),
                 FunctionArgumentSchema(
                     direction="IN",
                     name="arg1",
@@ -132,6 +145,15 @@ DEFAULT_CONNECT = SignalSchema(
     name=None,
     name_unescaped=None,
     namespace="",
+    action=False,
+    detailed=False,
+    is_deprecated=False,
+    must_collect=False,
+    no_hooks=False,
+    no_recurse=False,
+    run_cleanup=False,
+    run_first=False,
+    run_last=False,
     handler=FunctionSchema(
         name="connect",
         namespace="",

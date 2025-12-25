@@ -2199,7 +2199,7 @@ class PixbufNonAnim(PixbufAnimation):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, pixbuf: Pixbuf) -> PixbufAnimation: ...
+    def new(cls, pixbuf: Pixbuf) -> PixbufNonAnim: ...
 
 class PixbufSimpleAnim(PixbufAnimation):
     """

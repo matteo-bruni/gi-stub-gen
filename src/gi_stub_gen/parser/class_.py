@@ -13,6 +13,8 @@ from types import (
     MethodType,
 )
 
+from pydantic import deprecated
+
 from gi_stub_gen.gi_utils import (
     get_gi_type_info,
     gi_type_is_callback,
@@ -288,6 +290,8 @@ def parse_class(
             signal_name = signal.get_name()
             assert signal_name is not None
             signal_name_unescaped: str = signal.get_name_unescaped()  # type: ignore
+            flags = signal.get_flags()
+
             s = SignalSchema(
                 name=signal_name,
                 name_unescaped=signal_name_unescaped,
@@ -297,6 +301,15 @@ def parse_class(
                     class_name=class_to_parse.__name__,
                     signal_name=signal_name,
                 ),
+                run_first=bool(flags & GObject.SignalFlags.RUN_FIRST),
+                run_last=bool(flags & GObject.SignalFlags.RUN_LAST),
+                run_cleanup=bool(flags & GObject.SignalFlags.RUN_CLEANUP),
+                no_recurse=bool(flags & GObject.SignalFlags.NO_RECURSE),
+                detailed=bool(flags & GObject.SignalFlags.DETAILED),
+                action=bool(flags & GObject.SignalFlags.ACTION),
+                no_hooks=bool(flags & GObject.SignalFlags.NO_HOOKS),
+                must_collect=bool(flags & GObject.SignalFlags.MUST_COLLECT),
+                is_deprecated=bool(flags & GObject.SignalFlags.DEPRECATED),
             )
             # if signal_name == "notify":
             #     breakpoint()

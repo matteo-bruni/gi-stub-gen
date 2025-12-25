@@ -1945,7 +1945,7 @@ class VideoBufferPool(Gst.BufferPool):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls) -> Gst.BufferPool: ...
+    def new(cls) -> VideoBufferPool: ...
 
 class VideoBufferPoolClass(GObject.GPointer):
     # gi Fields
