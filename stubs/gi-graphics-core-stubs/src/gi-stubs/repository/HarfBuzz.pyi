@@ -44,8 +44,8 @@ def aat_layout_feature_type_get_selector_infos(
     """
     Fetches a list of the selectors available for the specified feature in the given face.
 
-    If upon return, @default_index is set to #HB_AAT_LAYOUT_NO_SELECTOR_INDEX, then
-    the feature type is non-exclusive.  Otherwise, @default_index is the index of
+    If upon return, `default_index` is set to HB_AAT_LAYOUT_NO_SELECTOR_INDEX, then
+    the feature type is non-exclusive.  Otherwise, `default_index` is the index of
     the selector that is selected by default.
     """
     ...
@@ -99,7 +99,7 @@ def blob_copy_writable_or_fail(
     blob: blob_t,
 ) -> blob_t:
     """
-    Makes a writable copy of @blob.
+    Makes a writable copy of `blob`.
     """
     ...
 
@@ -139,13 +139,13 @@ def blob_create_sub_blob(
     length: int,
 ) -> blob_t:
     """
-    Returns a blob that represents a range of bytes in @parent.  The new
-    blob is always created with #HB_MEMORY_MODE_READONLY, meaning that it
+    Returns a blob that represents a range of bytes in `parent`.  The new
+    blob is always created with HB_MEMORY_MODE_READONLY, meaning that it
     will never modify data in the parent blob.  The parent data is not
     expected to be modified, and will result in undefined behavior if it
     is.
 
-    Makes @parent immutable.
+    Makes `parent` immutable.
     """
     ...
 
@@ -214,13 +214,13 @@ def buffer_add(
     cluster: int,
 ) -> None:
     """
-    Appends a character with the Unicode value of @codepoint to @buffer, and
-    gives it the initial cluster value of @cluster. Clusters can be any thing
+    Appends a character with the Unicode value of `codepoint` to `buffer`, and
+    gives it the initial cluster value of `cluster`. Clusters can be any thing
     the client wants, they are usually used to refer to the index of the
     character in the input text stream and are output in
     #hb_glyph_info_t.cluster field.
 
-    This function does not check the validity of @codepoint, it is up to the
+    This function does not check the validity of `codepoint`, it is up to the
     caller to ensure it is a valid Unicode code point.
     """
     ...
@@ -234,19 +234,19 @@ def buffer_add_codepoints(
     item_length: int,
 ) -> None:
     """
-    Appends characters from @text array to @buffer. The @item_offset is the
-    position of the first character from @text that will be appended, and
-    @item_length is the number of character. When shaping part of a larger text
+    Appends characters from `text` array to `buffer`. The `item_offset` is the
+    position of the first character from `text` that will be appended, and
+    `item_length` is the number of character. When shaping part of a larger text
     (e.g. a run of text from a paragraph), instead of passing just the substring
     corresponding to the run, it is preferable to pass the whole
-    paragraph and specify the run start and length as @item_offset and
-    @item_length, respectively, to give HarfBuzz the full context to be able,
+    paragraph and specify the run start and length as `item_offset` and
+    `item_length`, respectively, to give HarfBuzz the full context to be able,
     for example, to do cross-run Arabic shaping or properly handle combining
     marks at stat of run.
 
-    This function does not check the validity of @text, it is up to the caller
+    This function does not check the validity of `text`, it is up to the caller
     to ensure it contains a valid Unicode scalar values.  In contrast,
-    hb_buffer_add_utf32() can be used that takes similar input but performs
+    `hb_buffer_add_utf32` can be used that takes similar input but performs
     sanity-check on the input.
     """
     ...
@@ -260,7 +260,7 @@ def buffer_add_latin1(
     item_length: int,
 ) -> None:
     """
-    Similar to hb_buffer_add_codepoints(), but allows only access to first 256
+    Similar to `hb_buffer_add_codepoints`, but allows only access to first 256
     Unicode code points that can fit in 8-bit strings.
 
     <note>Has nothing to do with non-Unicode Latin-1 encoding.</note>
@@ -276,10 +276,10 @@ def buffer_add_utf16(
     item_length: int,
 ) -> None:
     """
-    See hb_buffer_add_codepoints().
+    See `hb_buffer_add_codepoints`.
 
-    Replaces invalid UTF-16 characters with the @buffer replacement code point,
-    see hb_buffer_set_replacement_codepoint().
+    Replaces invalid UTF-16 characters with the `buffer` replacement code point,
+    see `hb_buffer_set_replacement_codepoint`.
     """
     ...
 
@@ -292,10 +292,10 @@ def buffer_add_utf32(
     item_length: int,
 ) -> None:
     """
-    See hb_buffer_add_codepoints().
+    See `hb_buffer_add_codepoints`.
 
-    Replaces invalid UTF-32 characters with the @buffer replacement code point,
-    see hb_buffer_set_replacement_codepoint().
+    Replaces invalid UTF-32 characters with the `buffer` replacement code point,
+    see `hb_buffer_set_replacement_codepoint`.
     """
     ...
 
@@ -308,10 +308,10 @@ def buffer_add_utf8(
     item_length: int,
 ) -> None:
     """
-    See hb_buffer_add_codepoints().
+    See `hb_buffer_add_codepoints`.
 
-    Replaces invalid UTF-8 characters with the @buffer replacement code point,
-    see hb_buffer_set_replacement_codepoint().
+    Replaces invalid UTF-8 characters with the `buffer` replacement code point,
+    see `hb_buffer_set_replacement_codepoint`.
     """
     ...
 
@@ -341,7 +341,7 @@ def buffer_clear_contents(
     buffer: buffer_t,
 ) -> None:
     """
-    Similar to hb_buffer_reset(), but does not clear the Unicode functions and
+    Similar to `hb_buffer_reset`, but does not clear the Unicode functions and
     the replacement code point.
     """
     ...
@@ -358,8 +358,8 @@ def buffer_create_similar(
     src: buffer_t,
 ) -> buffer_t:
     """
-    Creates a new #hb_buffer_t, similar to hb_buffer_create(). The only
-    difference is that the buffer is configured similarly to @src.
+    Creates a new #hb_buffer_t, similar to `hb_buffer_create`. The only
+    difference is that the buffer is configured similarly to `src`.
     """
     ...
 
@@ -372,8 +372,8 @@ def buffer_deserialize_glyphs(
     format: buffer_serialize_format_t,
 ) -> tuple[int, str]:
     """
-    Deserializes glyphs @buffer from textual representation in the format
-    produced by hb_buffer_serialize_glyphs().
+    Deserializes glyphs `buffer` from textual representation in the format
+    produced by `hb_buffer_serialize_glyphs`.
     """
     ...
 
@@ -385,8 +385,8 @@ def buffer_deserialize_unicode(
     format: buffer_serialize_format_t,
 ) -> tuple[int, str]:
     """
-    Deserializes Unicode @buffer from textual representation in the format
-    produced by hb_buffer_serialize_unicode().
+    Deserializes Unicode `buffer` from textual representation in the format
+    produced by `hb_buffer_serialize_unicode`.
     """
     ...
 
@@ -398,8 +398,8 @@ def buffer_diff(
     position_fuzz: int,
 ) -> buffer_diff_flags_t:
     """
-    If dottedcircle_glyph is (hb_codepoint_t) -1 then #HB_BUFFER_DIFF_FLAG_DOTTED_CIRCLE_PRESENT
-    and #HB_BUFFER_DIFF_FLAG_NOTDEF_PRESENT are never returned.  This should be used by most
+    If dottedcircle_glyph is (hb_codepoint_t) -1 then HB_BUFFER_DIFF_FLAG_DOTTED_CIRCLE_PRESENT
+    and HB_BUFFER_DIFF_FLAG_NOTDEF_PRESENT are never returned.  This should be used by most
     callers if just comparing two buffers is needed.
     """
     ...
@@ -420,7 +420,7 @@ def buffer_get_content_type(
     buffer: buffer_t,
 ) -> buffer_content_type_t:
     """
-    Fetches the type of @buffer contents. Buffers are either empty, contain
+    Fetches the type of `buffer` contents. Buffers are either empty, contain
     characters (before shaping), or contain glyphs (the result of shaping).
     """
     ...
@@ -430,7 +430,7 @@ def buffer_get_direction(
     buffer: buffer_t,
 ) -> direction_t:
     """
-    See hb_buffer_set_direction()
+    See `hb_buffer_set_direction`
     """
     ...
 
@@ -446,7 +446,7 @@ def buffer_get_flags(
     buffer: buffer_t,
 ) -> buffer_flags_t:
     """
-    Fetches the #hb_buffer_flags_t of @buffer.
+    Fetches the #hb_buffer_flags_t of `buffer`.
     """
     ...
 
@@ -455,8 +455,8 @@ def buffer_get_glyph_infos(
     buffer: buffer_t,
 ) -> tuple[list, int]:
     """
-    Returns @buffer glyph information array.  Returned pointer
-    is valid as long as @buffer contents are not modified.
+    Returns `buffer` glyph information array.  Returned pointer
+    is valid as long as `buffer` contents are not modified.
     """
     ...
 
@@ -465,13 +465,13 @@ def buffer_get_glyph_positions(
     buffer: buffer_t,
 ) -> tuple[list, int]:
     """
-    Returns @buffer glyph position array.  Returned pointer
-    is valid as long as @buffer contents are not modified.
+    Returns `buffer` glyph position array.  Returned pointer
+    is valid as long as `buffer` contents are not modified.
 
     If buffer did not have positions before, the positions will be
     initialized to zeros, unless this function is called from
-    within a buffer message callback (see hb_buffer_set_message_func()),
-    in which case `NULL` is returned.
+    within a buffer message callback (see `hb_buffer_set_message_func`),
+    in which case `None` is returned.
     """
     ...
 
@@ -480,7 +480,7 @@ def buffer_get_invisible_glyph(
     buffer: buffer_t,
 ) -> int:
     """
-    See hb_buffer_set_invisible_glyph().
+    See `hb_buffer_set_invisible_glyph`.
     """
     ...
 
@@ -489,7 +489,7 @@ def buffer_get_language(
     buffer: buffer_t,
 ) -> language_t:
     """
-    See hb_buffer_set_language().
+    See `hb_buffer_set_language`.
     """
     ...
 
@@ -507,7 +507,7 @@ def buffer_get_not_found_glyph(
     buffer: buffer_t,
 ) -> int:
     """
-    See hb_buffer_set_not_found_glyph().
+    See `hb_buffer_set_not_found_glyph`.
     """
     ...
 
@@ -516,7 +516,7 @@ def buffer_get_not_found_variation_selector_glyph(
     buffer: buffer_t,
 ) -> int:
     """
-    See hb_buffer_set_not_found_variation_selector_glyph().
+    See `hb_buffer_set_not_found_variation_selector_glyph`.
     """
     ...
 
@@ -525,7 +525,7 @@ def buffer_get_random_state(
     buffer: buffer_t,
 ) -> int:
     """
-    See hb_buffer_set_random_state().
+    See `hb_buffer_set_random_state`.
     """
     ...
 
@@ -535,7 +535,7 @@ def buffer_get_replacement_codepoint(
 ) -> int:
     """
     Fetches the #hb_codepoint_t that replaces invalid entries for a given encoding
-    when adding text to @buffer.
+    when adding text to `buffer`.
     """
     ...
 
@@ -544,7 +544,7 @@ def buffer_get_script(
     buffer: buffer_t,
 ) -> script_t:
     """
-    Fetches the script of @buffer.
+    Fetches the script of `buffer`.
     """
     ...
 
@@ -553,7 +553,7 @@ def buffer_get_segment_properties(
     buffer: buffer_t,
 ) -> segment_properties_t:
     """
-    Sets @props to the #hb_segment_properties_t of @buffer.
+    Sets `props` to the #hb_segment_properties_t of `buffer`.
     """
     ...
 
@@ -573,24 +573,24 @@ def buffer_guess_segment_properties(
     """
     Sets unset buffer segment properties based on buffer Unicode
     contents.  If buffer is not empty, it must have content type
-    #HB_BUFFER_CONTENT_TYPE_UNICODE.
+    HB_BUFFER_CONTENT_TYPE_UNICODE.
 
-    If buffer script is not set (ie. is #HB_SCRIPT_INVALID), it
+    If buffer script is not set (ie. is HB_SCRIPT_INVALID), it
     will be set to the Unicode script of the first character in
-    the buffer that has a script other than #HB_SCRIPT_COMMON,
-    #HB_SCRIPT_INHERITED, and #HB_SCRIPT_UNKNOWN.
+    the buffer that has a script other than HB_SCRIPT_COMMON,
+    HB_SCRIPT_INHERITED, and HB_SCRIPT_UNKNOWN.
 
-    Next, if buffer direction is not set (ie. is #HB_DIRECTION_INVALID),
+    Next, if buffer direction is not set (ie. is HB_DIRECTION_INVALID),
     it will be set to the natural horizontal direction of the
-    buffer script as returned by hb_script_get_horizontal_direction().
-    If hb_script_get_horizontal_direction() returns #HB_DIRECTION_INVALID,
-    then #HB_DIRECTION_LTR is used.
+    buffer script as returned by `hb_script_get_horizontal_direction`.
+    If `hb_script_get_horizontal_direction` returns HB_DIRECTION_INVALID,
+    then HB_DIRECTION_LTR is used.
 
-    Finally, if buffer language is not set (ie. is #HB_LANGUAGE_INVALID),
+    Finally, if buffer language is not set (ie. is HB_LANGUAGE_INVALID),
     it will be set to the process's default language as returned by
-    hb_language_get_default().  This may change in the future by
+    `hb_language_get_default`.  This may change in the future by
     taking buffer script into consideration when choosing a language.
-    Note that hb_language_get_default() is NOT threadsafe the first time
+    Note that `hb_language_get_default` is NOT threadsafe the first time
     it is called.  See documentation for that function for details.
     """
     ...
@@ -600,9 +600,9 @@ def buffer_has_positions(
     buffer: buffer_t,
 ) -> int:
     """
-    Returns whether @buffer has glyph position data.
-    A buffer gains position data when hb_buffer_get_glyph_positions() is called on it,
-    and cleared of position data when hb_buffer_clear_contents() is called.
+    Returns whether `buffer` has glyph position data.
+    A buffer gains position data when `hb_buffer_get_glyph_positions` is called on it,
+    and cleared of position data when `hb_buffer_clear_contents` is called.
     """
     ...
 
@@ -624,7 +624,7 @@ def buffer_pre_allocate(
     size: int,
 ) -> int:
     """
-    Pre allocates memory for @buffer to fit at least @size number of items.
+    Pre allocates memory for `buffer` to fit at least `size` number of items.
     """
     ...
 
@@ -634,7 +634,7 @@ def buffer_reset(
 ) -> None:
     """
     Resets the buffer to its initial status, as if it was just newly created
-    with hb_buffer_create().
+    with `hb_buffer_create`.
     """
     ...
 
@@ -665,7 +665,7 @@ def buffer_reverse_range(
     end: int,
 ) -> None:
     """
-    Reverses buffer contents between @start and @end.
+    Reverses buffer contents between `start` and `end`.
     """
     ...
 
@@ -679,11 +679,11 @@ def buffer_serialize(
     flags: buffer_serialize_flags_t,
 ) -> tuple[int, list, int, int]:
     """
-    Serializes @buffer into a textual representation of its content, whether
+    Serializes `buffer` into a textual representation of its content, whether
     Unicode codepoints or glyph identifiers and positioning information. This is
     useful for showing the contents of the buffer, for example during debugging.
-    See the documentation of hb_buffer_serialize_unicode() and
-    hb_buffer_serialize_glyphs() for a description of the output format.
+    See the documentation of `hb_buffer_serialize_unicode` and
+    `hb_buffer_serialize_glyphs` for a description of the output format.
     """
     ...
 
@@ -694,8 +694,8 @@ def buffer_serialize_format_from_string(
 ) -> buffer_serialize_format_t:
     """
     Parses a string into an #hb_buffer_serialize_format_t. Does not check if
-    @str is a valid buffer serialization format, use
-    hb_buffer_serialize_list_formats() to get the list of supported formats.
+    `str` is a valid buffer serialization format, use
+    `hb_buffer_serialize_list_formats` to get the list of supported formats.
     """
     ...
 
@@ -704,7 +704,7 @@ def buffer_serialize_format_to_string(
     format: buffer_serialize_format_t,
 ) -> str:
     """
-    Converts @format to the string corresponding it, or `NULL` if it is not a valid
+    Converts `format` to the string corresponding it, or `None` if it is not a valid
     #hb_buffer_serialize_format_t.
     """
     ...
@@ -719,7 +719,7 @@ def buffer_serialize_glyphs(
     flags: buffer_serialize_flags_t,
 ) -> tuple[int, list, int, int]:
     """
-    Serializes @buffer into a textual representation of its glyph content,
+    Serializes `buffer` into a textual representation of its glyph content,
     useful for showing the contents of the buffer, for example during debugging.
     There are currently two supported serialization formats:
 
@@ -728,18 +728,18 @@ def buffer_serialize_glyphs(
     The serialized glyphs will look something like:
 
     ```
-    [uni0651=0@518,0+0|uni0628=0+1897]
+    [uni0651=0`518`,0+0|uni0628=0+1897]
     ```
 
     - The serialized glyphs are delimited with `[` and `]`.
     - Glyphs are separated with `|`
     - Each glyph starts with glyph name, or glyph index if
-      #HB_BUFFER_SERIALIZE_FLAG_NO_GLYPH_NAMES flag is set. Then,
-      - If #HB_BUFFER_SERIALIZE_FLAG_NO_CLUSTERS is not set, `=` then #hb_glyph_info_t.cluster.
-      - If #HB_BUFFER_SERIALIZE_FLAG_NO_POSITIONS is not set, the #hb_glyph_position_t in the format:
-        - If both #hb_glyph_position_t.x_offset and #hb_glyph_position_t.y_offset are not 0, `@x_offset,y_offset`. Then,
+      HB_BUFFER_SERIALIZE_FLAG_NO_GLYPH_NAMES flag is set. Then,
+      - If HB_BUFFER_SERIALIZE_FLAG_NO_CLUSTERS is not set, `=` then #hb_glyph_info_t.cluster.
+      - If HB_BUFFER_SERIALIZE_FLAG_NO_POSITIONS is not set, the #hb_glyph_position_t in the format:
+        - If both #hb_glyph_position_t.x_offset and #hb_glyph_position_t.y_offset are not 0, ``x_offset`,y_offset`. Then,
         - `+x_advance`, then `,y_advance` if #hb_glyph_position_t.y_advance is not 0. Then,
-      - If #HB_BUFFER_SERIALIZE_FLAG_GLYPH_EXTENTS is set, the #hb_glyph_extents_t in the format `<x_bearing,y_bearing,width,height>`
+      - If HB_BUFFER_SERIALIZE_FLAG_GLYPH_EXTENTS is set, the #hb_glyph_extents_t in the format `<x_bearing,y_bearing,width,height>`
 
     ## json
     A machine-readable, structured format.
@@ -752,15 +752,15 @@ def buffer_serialize_glyphs(
 
     Each glyph is a JSON object, with the following properties:
     - `g`: the glyph name or glyph index if
-      #HB_BUFFER_SERIALIZE_FLAG_NO_GLYPH_NAMES flag is set.
+      HB_BUFFER_SERIALIZE_FLAG_NO_GLYPH_NAMES flag is set.
     - `cl`: #hb_glyph_info_t.cluster if
-      #HB_BUFFER_SERIALIZE_FLAG_NO_CLUSTERS is not set.
+      HB_BUFFER_SERIALIZE_FLAG_NO_CLUSTERS is not set.
     - `dx`,`dy`,`ax`,`ay`: #hb_glyph_position_t.x_offset, #hb_glyph_position_t.y_offset,
        #hb_glyph_position_t.x_advance and #hb_glyph_position_t.y_advance
-       respectively, if #HB_BUFFER_SERIALIZE_FLAG_NO_POSITIONS is not set.
+       respectively, if HB_BUFFER_SERIALIZE_FLAG_NO_POSITIONS is not set.
     - `xb`,`yb`,`w`,`h`: #hb_glyph_extents_t.x_bearing, #hb_glyph_extents_t.y_bearing,
        #hb_glyph_extents_t.width and #hb_glyph_extents_t.height respectively if
-       #HB_BUFFER_SERIALIZE_FLAG_GLYPH_EXTENTS is set.
+       HB_BUFFER_SERIALIZE_FLAG_GLYPH_EXTENTS is set.
     """
     ...
 
@@ -780,7 +780,7 @@ def buffer_serialize_unicode(
     flags: buffer_serialize_flags_t,
 ) -> tuple[int, list, int, int]:
     """
-    Serializes @buffer into a textual representation of its content,
+    Serializes `buffer` into a textual representation of its content,
     when the buffer contains Unicode codepoints (i.e., before shaping). This is
     useful for showing the contents of the buffer, for example during debugging.
     There are currently two supported serialization formats:
@@ -796,7 +796,7 @@ def buffer_serialize_unicode(
     - Glyphs are separated with `|`
     - Unicode codepoints are expressed as zero-padded four (or more)
       digit hexadecimal numbers preceded by `U+`
-    - If #HB_BUFFER_SERIALIZE_FLAG_NO_CLUSTERS is not set, the cluster
+    - If HB_BUFFER_SERIALIZE_FLAG_NO_CLUSTERS is not set, the cluster
       will be indicated with a `=` then #hb_glyph_info_t.cluster.
 
     ## json
@@ -805,7 +805,7 @@ def buffer_serialize_unicode(
     properties:
     - `u`: the Unicode codepoint as a decimal integer
     - `cl`: #hb_glyph_info_t.cluster if
-      #HB_BUFFER_SERIALIZE_FLAG_NO_CLUSTERS is not set.
+      HB_BUFFER_SERIALIZE_FLAG_NO_CLUSTERS is not set.
 
     For example:
 
@@ -833,30 +833,30 @@ def buffer_set_content_type(
     content_type: buffer_content_type_t,
 ) -> None:
     """
-    Sets the type of @buffer contents. Buffers are either empty, contain
+    Sets the type of `buffer` contents. Buffers are either empty, contain
     characters (before shaping), or contain glyphs (the result of shaping).
 
     You rarely need to call this function, since a number of other
     functions transition the content type for you. Namely:
 
     - A newly created buffer starts with content type
-      %HB_BUFFER_CONTENT_TYPE_INVALID. Calling hb_buffer_reset(),
-      hb_buffer_clear_contents(), as well as calling hb_buffer_set_length()
+      HB_BUFFER_CONTENT_TYPE_INVALID. Calling `hb_buffer_reset`,
+      `hb_buffer_clear_contents`, as well as calling `hb_buffer_set_length`
       with an argument of zero all set the buffer content type to invalid
       as well.
 
-    - Calling hb_buffer_add_utf8(), hb_buffer_add_utf16(),
-      hb_buffer_add_utf32(), hb_buffer_add_codepoints() and
-      hb_buffer_add_latin1() expect that buffer is either empty and
+    - Calling `hb_buffer_add_utf8`, `hb_buffer_add_utf16`,
+      `hb_buffer_add_utf32`, `hb_buffer_add_codepoints` and
+      `hb_buffer_add_latin1` expect that buffer is either empty and
       have a content type of invalid, or that buffer content type is
-      %HB_BUFFER_CONTENT_TYPE_UNICODE, and they also set the content
+      HB_BUFFER_CONTENT_TYPE_UNICODE, and they also set the content
       type to Unicode if they added anything to an empty buffer.
 
-    - Finally hb_shape() and hb_shape_full() expect that the buffer
+    - Finally `hb_shape` and `hb_shape_full` expect that the buffer
       is either empty and have content type of invalid, or that buffer
-      content type is %HB_BUFFER_CONTENT_TYPE_UNICODE, and upon
+      content type is HB_BUFFER_CONTENT_TYPE_UNICODE, and upon
       success they set the buffer content type to
-      %HB_BUFFER_CONTENT_TYPE_GLYPHS.
+      HB_BUFFER_CONTENT_TYPE_GLYPHS.
 
     The above transitions are designed such that one can use a buffer
     in a loop of "reset : add-text : shape" without needing to ever
@@ -871,7 +871,7 @@ def buffer_set_direction(
 ) -> None:
     """
     Set the text flow direction of the buffer. No shaping can happen without
-    setting @buffer direction, and it controls the visual direction for the
+    setting `buffer` direction, and it controls the visual direction for the
     output glyphs; for RTL direction the glyphs will be reversed. Many layout
     features depend on the proper setting of the direction, for example,
     reversing RTL text before shaping, then shaping with LTR direction is not
@@ -886,7 +886,7 @@ def buffer_set_flags(
     flags: buffer_flags_t,
 ) -> None:
     """
-    Sets @buffer flags to @flags. See #hb_buffer_flags_t.
+    Sets `buffer` flags to `flags`. See #hb_buffer_flags_t.
     """
     ...
 
@@ -909,14 +909,14 @@ def buffer_set_language(
     language: language_t,
 ) -> None:
     """
-    Sets the language of @buffer to @language.
+    Sets the language of `buffer` to `language`.
 
     Languages are crucial for selecting which OpenType feature to apply to the
     buffer which can result in applying language-specific behaviour. Languages
     are orthogonal to the scripts, and though they are related, they are
     different concepts and should not be confused with each other.
 
-    Use hb_language_from_string() to convert from BCP 47 language tags to
+    Use `hb_language_from_string` to convert from BCP 47 language tags to
     #hb_language_t.
     """
     ...
@@ -927,7 +927,7 @@ def buffer_set_length(
     length: int,
 ) -> int:
     """
-    Similar to hb_buffer_pre_allocate(), but clears any new items added at the
+    Similar to `hb_buffer_pre_allocate`, but clears any new items added at the
     end.
     """
     ...
@@ -967,7 +967,7 @@ def buffer_set_not_found_variation_selector_glyph(
     Sets the #hb_codepoint_t that replaces variation-selector characters not resolved
     in the font during shaping.
 
-    The not-found-variation-selector glyph defaults to #HB_CODEPOINT_INVALID,
+    The not-found-variation-selector glyph defaults to HB_CODEPOINT_INVALID,
     in which case an unresolved variation-selector will be removed from the glyph
     string during shaping. This API allows for changing that and retaining a glyph,
     such that the situation can be detected by the client and handled accordingly
@@ -984,7 +984,7 @@ def buffer_set_random_state(
     Sets the random state of the buffer. The state changes
     every time a glyph uses randomness (eg. the `rand`
     OpenType feature). This function together with
-    hb_buffer_get_random_state() allow for transferring
+    `hb_buffer_get_random_state` allow for transferring
     the current random state to a subsequent buffer, to
     get better randomness distribution.
 
@@ -1000,9 +1000,9 @@ def buffer_set_replacement_codepoint(
 ) -> None:
     """
     Sets the #hb_codepoint_t that replaces invalid entries for a given encoding
-    when adding text to @buffer.
+    when adding text to `buffer`.
 
-    Default is #HB_BUFFER_REPLACEMENT_CODEPOINT_DEFAULT.
+    Default is HB_BUFFER_REPLACEMENT_CODEPOINT_DEFAULT.
     """
     ...
 
@@ -1012,14 +1012,14 @@ def buffer_set_script(
     script: script_t,
 ) -> None:
     """
-    Sets the script of @buffer to @script.
+    Sets the script of `buffer` to `script`.
 
     Script is crucial for choosing the proper shaping behaviour for scripts that
     require it (e.g. Arabic) and the which OpenType features defined in the font
     to be applied.
 
     You can pass one of the predefined #hb_script_t values, or use
-    hb_script_from_string() or hb_script_from_iso15924_tag() to get the
+    `hb_script_from_string` or `hb_script_from_iso15924_tag` to get the
     corresponding script from an ISO 15924 script tag.
     """
     ...
@@ -1031,8 +1031,8 @@ def buffer_set_segment_properties(
 ) -> None:
     """
     Sets the segment properties of the buffer, a shortcut for calling
-    hb_buffer_set_direction(), hb_buffer_set_script() and
-    hb_buffer_set_language() individually.
+    `hb_buffer_set_direction`, `hb_buffer_set_script` and
+    `hb_buffer_set_language` individually.
     """
     ...
 
@@ -1043,7 +1043,7 @@ def buffer_set_unicode_funcs(
 ) -> None:
     """
     Sets the Unicode-functions structure of a buffer to
-    @unicode_funcs.
+    `unicode_funcs`.
     """
     ...
 
@@ -1052,7 +1052,7 @@ def color_get_alpha(
     color: int,
 ) -> int:
     """
-    Fetches the alpha channel of the given @color.
+    Fetches the alpha channel of the given `color`.
     """
     ...
 
@@ -1061,7 +1061,7 @@ def color_get_blue(
     color: int,
 ) -> int:
     """
-    Fetches the blue channel of the given @color.
+    Fetches the blue channel of the given `color`.
     """
     ...
 
@@ -1070,7 +1070,7 @@ def color_get_green(
     color: int,
 ) -> int:
     """
-    Fetches the green channel of the given @color.
+    Fetches the green channel of the given `color`.
     """
     ...
 
@@ -1079,7 +1079,7 @@ def color_get_red(
     color: int,
 ) -> int:
     """
-    Fetches the red channel of the given @color.
+    Fetches the red channel of the given `color`.
     """
     ...
 
@@ -1115,9 +1115,9 @@ def direction_from_string(
     Converts a string to an #hb_direction_t.
 
     Matching is loose and applies only to the first letter. For
-    examples, "LTR" and "left-to-right" will both return #HB_DIRECTION_LTR.
+    examples, "LTR" and "left-to-right" will both return HB_DIRECTION_LTR.
 
-    Unmatched strings will return #HB_DIRECTION_INVALID.
+    Unmatched strings will return HB_DIRECTION_INVALID.
     """
     ...
 
@@ -1177,7 +1177,7 @@ def draw_funcs_is_immutable(
     dfuncs: draw_funcs_t,
 ) -> int:
     """
-    Checks whether @dfuncs is immutable.
+    Checks whether `dfuncs` is immutable.
     """
     ...
 
@@ -1186,7 +1186,7 @@ def draw_funcs_make_immutable(
     dfuncs: draw_funcs_t,
 ) -> None:
     """
-    Makes @dfuncs object immutable.
+    Makes `dfuncs` object immutable.
     """
     ...
 
@@ -1298,17 +1298,17 @@ def face_builder_add_table(
     blob: blob_t,
 ) -> int:
     """
-    Add table for @tag with data provided by @blob to the face.  @face must
-    be created using hb_face_builder_create().
+    Add table for `tag` with data provided by `blob` to the face.  `face` must
+    be created using `hb_face_builder_create`.
     """
     ...
 
 @staticmethod
 def face_builder_create() -> face_t:
     """
-    Creates a #hb_face_t that can be used with hb_face_builder_add_table().
+    Creates a #hb_face_t that can be used with `hb_face_builder_add_table`.
     After tables are added to the face, it can be compiled to a binary
-    font file by calling hb_face_reference_blob().
+    font file by calling `hb_face_reference_blob`.
     """
     ...
 
@@ -1329,8 +1329,8 @@ def face_collect_nominal_glyph_mapping(
     face: face_t,
 ) -> tuple[map_t, set_t | None]:
     """
-    Collects the mapping from Unicode characters to nominal glyphs of the @face,
-    and optionally all of the Unicode characters covered by @face.
+    Collects the mapping from Unicode characters to nominal glyphs of the `face`,
+    and optionally all of the Unicode characters covered by `face`.
     """
     ...
 
@@ -1339,8 +1339,8 @@ def face_collect_unicodes(
     face: face_t,
 ) -> set_t:
     """
-    Collects all of the Unicode characters covered by @face and adds
-    them to the #hb_set_t set @out.
+    Collects all of the Unicode characters covered by `face` and adds
+    them to the #hb_set_t set `out`.
     """
     ...
 
@@ -1349,8 +1349,8 @@ def face_collect_variation_selectors(
     face: face_t,
 ) -> set_t:
     """
-    Collects all Unicode "Variation Selector" characters covered by @face and adds
-    them to the #hb_set_t set @out.
+    Collects all Unicode "Variation Selector" characters covered by `face` and adds
+    them to the #hb_set_t set `out`.
     """
     ...
 
@@ -1360,8 +1360,8 @@ def face_collect_variation_unicodes(
     variation_selector: int,
 ) -> set_t:
     """
-    Collects all Unicode characters for @variation_selector covered by @face and adds
-    them to the #hb_set_t set @out.
+    Collects all Unicode characters for `variation_selector` covered by `face` and adds
+    them to the #hb_set_t set `out`.
     """
     ...
 
@@ -1387,13 +1387,13 @@ def face_create(
     DFont that can contain more than one face.  Face indices within
     such collections are zero-based.
 
-    <note>Note: If the blob font format is not a collection, @index
-    is ignored.  Otherwise, only the lower 16-bits of @index are used.
-    The unmodified @index can be accessed via hb_face_get_index().</note>
+    <note>Note: If the blob font format is not a collection, `index`
+    is ignored.  Otherwise, only the lower 16-bits of `index` are used.
+    The unmodified `index` can be accessed via `hb_face_get_index`.</note>
 
-    <note>Note: The high 16-bits of @index, if non-zero, are used by
-    hb_font_create() to load named-instances in variable fonts.  See
-    hb_font_create() for details.</note>
+    <note>Note: The high 16-bits of `index`, if non-zero, are used by
+    `hb_font_create` to load named-instances in variable fonts.  See
+    `hb_font_create` for details.</note>
     """
     ...
 
@@ -1404,14 +1404,14 @@ def face_create_for_tables(
     destroy: destroy_func_t | None = None,
 ) -> face_t:
     """
-    Variant of hb_face_create(), built for those cases where it is more
+    Variant of `hb_face_create`, built for those cases where it is more
     convenient to provide data for individual tables instead of the whole font
-    data. With the caveat that hb_face_get_table_tags() would not work
+    data. With the caveat that `hb_face_get_table_tags` would not work
     with faces created this way. You can address that by calling the
-    hb_face_set_get_table_tags_func() function and setting the appropriate callback.
+    `hb_face_set_get_table_tags_func` function and setting the appropriate callback.
 
-    Creates a new face object from the specified @user_data and @reference_table_func,
-    with the @destroy callback.
+    Creates a new face object from the specified `user_data` and `reference_table_func`,
+    with the `destroy` callback.
     """
     ...
 
@@ -1421,8 +1421,8 @@ def face_create_from_file_or_fail(
     index: int,
 ) -> face_t:
     """
-    A thin wrapper around hb_blob_create_from_file_or_fail()
-    followed by hb_face_create_or_fail().
+    A thin wrapper around `hb_blob_create_from_file_or_fail`
+    followed by `hb_face_create_or_fail`.
     """
     ...
 
@@ -1432,7 +1432,7 @@ def face_create_or_fail(
     index: int,
 ) -> face_t:
     """
-    Like hb_face_create(), but returns `NULL` if the blob data
+    Like `hb_face_create`, but returns `None` if the blob data
     contains no usable font face at the specified index.
     """
     ...
@@ -1558,11 +1558,11 @@ def face_set_index(
     index: int,
 ) -> None:
     """
-    Assigns the specified face-index to @face. Fails if the
+    Assigns the specified face-index to `face`. Fails if the
     face is immutable.
 
     <note>Note: changing the index has no effect on the face itself
-    This only changes the value returned by hb_face_get_index().</note>
+    This only changes the value returned by `hb_face_get_index`.</note>
     """
     ...
 
@@ -1629,9 +1629,9 @@ def feature_to_string(
     feature: feature_t,
 ) -> tuple[list, int]:
     """
-    Converts a #hb_feature_t into a `NULL`-terminated string in the format
-    understood by hb_feature_from_string(). The client in responsible for
-    allocating big enough size for @buf, 128 bytes is more than enough.
+    Converts a #hb_feature_t into a `None`-terminated string in the format
+    understood by `hb_feature_from_string`. The client in responsible for
+    allocating big enough size for `buf`, 128 bytes is more than enough.
     """
     ...
 
@@ -1648,7 +1648,7 @@ def font_add_glyph_origin_for_direction(
     the specified glyph ID in the specified font.
 
     Calls the appropriate direction-specific variant (horizontal
-    or vertical) depending on the value of @direction.
+    or vertical) depending on the value of `direction`.
     """
     ...
 
@@ -1657,9 +1657,9 @@ def font_changed(
     font: font_t,
 ) -> None:
     """
-    Notifies the @font that underlying font data has changed.
+    Notifies the `font` that underlying font data has changed.
     This has the effect of increasing the serial as returned
-    by hb_font_get_serial(), which invalidates internal caches.
+    by `hb_font_get_serial`, which invalidates internal caches.
     """
     ...
 
@@ -1670,9 +1670,9 @@ def font_create(
     """
     Constructs a new font object from the specified face.
 
-    <note>Note: If @face's index value (as passed to hb_face_create()
+    <note>Note: If `face`'s index value (as passed to `hb_face_create`
     has non-zero top 16-bits, those bits minus one are passed to
-    hb_font_set_var_named_instance(), effectively loading a named-instance
+    `hb_font_set_var_named_instance`, effectively loading a named-instance
     of a variable font, instead of the default-instance.  This allows
     specifying which named-instance to load by default when creating the
     face.</note>
@@ -1684,7 +1684,7 @@ def font_create_sub_font(
     parent: font_t,
 ) -> font_t:
     """
-    Constructs a sub-font font object from the specified @parent font,
+    Constructs a sub-font font object from the specified `parent` font,
     replicating the parent's properties.
     """
     ...
@@ -1697,10 +1697,10 @@ def font_draw_glyph(
     draw_data: object | None = None,
 ) -> None:
     """
-    Draws the outline that corresponds to a glyph in the specified @font.
+    Draws the outline that corresponds to a glyph in the specified `font`.
 
-    The outline is returned by way of calls to the callbacks of the @dfuncs
-    objects, with @draw_data passed to them.
+    The outline is returned by way of calls to the callbacks of the `dfuncs`
+    objects, with `draw_data` passed to them.
     """
     ...
 
@@ -1817,8 +1817,8 @@ def font_funcs_set_glyph_func(
     destroy: destroy_func_t | None = None,
 ) -> None:
     """
-    Deprecated.  Use hb_font_funcs_set_nominal_glyph_func() and
-    hb_font_funcs_set_variation_glyph_func() instead.
+    Deprecated.  Use `hb_font_funcs_set_nominal_glyph_func` and
+    `hb_font_funcs_set_variation_glyph_func` instead.
     """
     ...
 
@@ -2010,7 +2010,7 @@ def font_get_extents_for_direction(
     specified direction.
 
     Calls the appropriate direction-specific variant (horizontal
-    or vertical) depending on the value of @direction.
+    or vertical) depending on the value of `direction`.
     """
     ...
 
@@ -2033,8 +2033,8 @@ def font_get_glyph(
     Fetches the glyph ID for a Unicode code point in the specified
     font, with an optional variation selector.
 
-    If @variation_selector is 0, calls hb_font_get_nominal_glyph();
-    otherwise calls hb_font_get_variation_glyph().
+    If `variation_selector` is 0, calls `hb_font_get_nominal_glyph`;
+    otherwise calls `hb_font_get_variation_glyph`.
     """
     ...
 
@@ -2049,7 +2049,7 @@ def font_get_glyph_advance_for_direction(
     in a text segment of the specified direction.
 
     Calls the appropriate direction-specific variant (horizontal
-    or vertical) depending on the value of @direction.
+    or vertical) depending on the value of `direction`.
     """
     ...
 
@@ -2066,7 +2066,7 @@ def font_get_glyph_advances_for_direction(
     font, in a text segment of the specified direction.
 
     Calls the appropriate direction-specific variant (horizontal
-    or vertical) depending on the value of @direction.
+    or vertical) depending on the value of `direction`.
     """
     ...
 
@@ -2095,7 +2095,7 @@ def font_get_glyph_contour_point_for_origin(
     to the origin in a text segment in the specified direction.
 
     Calls the appropriate direction-specific variant (horizontal
-    or vertical) depending on the value of @direction.
+    or vertical) depending on the value of `direction`.
     """
     ...
 
@@ -2122,7 +2122,7 @@ def font_get_glyph_extents_for_origin(
     a text segment in the specified direction.
 
     Calls the appropriate direction-specific variant (horizontal
-    or vertical) depending on the value of @direction.
+    or vertical) depending on the value of `direction`.
     """
     ...
 
@@ -2133,9 +2133,9 @@ def font_get_glyph_from_name(
     len: int,
 ) -> tuple[int, int]:
     """
-    Fetches the glyph ID that corresponds to a name string in the specified @font.
+    Fetches the glyph ID that corresponds to a name string in the specified `font`.
 
-    <note>Note: @len == -1 means the name string is null-terminated.</note>
+    <note>Note: `len` == -1 means the name string is null-terminated.</note>
     """
     ...
 
@@ -2201,7 +2201,7 @@ def font_get_glyph_kerning_for_direction(
     Fetches the kerning-adjustment value for a glyph-pair in the specified font.
 
     Calls the appropriate direction-specific variant (horizontal
-    or vertical) depending on the value of @direction.
+    or vertical) depending on the value of `direction`.
     """
     ...
 
@@ -2211,7 +2211,7 @@ def font_get_glyph_name(
     glyph: int,
 ) -> tuple[int, list, int]:
     """
-    Fetches the glyph-name string for a glyph ID in the specified @font.
+    Fetches the glyph-name string for a glyph ID in the specified `font`.
 
     According to the OpenType specification, glyph names are limited to 63
     characters and can only contain (a subset of) ASCII.
@@ -2229,7 +2229,7 @@ def font_get_glyph_origin_for_direction(
     the specified font.
 
     Calls the appropriate direction-specific variant (horizontal
-    or vertical) depending on the value of @direction.
+    or vertical) depending on the value of `direction`.
     """
     ...
 
@@ -2242,9 +2242,9 @@ def font_get_glyph_shape(
     draw_data: object | None = None,
 ) -> None:
     """
-    Fetches the glyph shape that corresponds to a glyph in the specified @font.
-    The shape is returned by way of calls to the callbacks of the @dfuncs
-    objects, with @draw_data passed to them.
+    Fetches the glyph shape that corresponds to a glyph in the specified `font`.
+    The shape is returned by way of calls to the callbacks of the `dfuncs`
+    objects, with `draw_data` passed to them.
     """
     ...
 
@@ -2320,7 +2320,7 @@ def font_get_nominal_glyph(
 
     This version of the function should not be used to fetch glyph IDs
     for code points modified by variation selectors. For variation-selector
-    support, user hb_font_get_variation_glyph() or use hb_font_get_glyph().
+    support, user `hb_font_get_variation_glyph` or use `hb_font_get_glyph`.
     """
     ...
 
@@ -2344,7 +2344,7 @@ def font_get_parent(
     font: font_t,
 ) -> font_t:
     """
-    Fetches the parent font of @font.
+    Fetches the parent font of `font`.
     """
     ...
 
@@ -2477,10 +2477,10 @@ def font_glyph_from_string(
     len: int,
 ) -> tuple[int, int]:
     """
-    Fetches the glyph ID from @font that matches the specified string.
+    Fetches the glyph ID from `font` that matches the specified string.
     Strings of the format `gidDDD` or `uniUUUU` are parsed automatically.
 
-    <note>Note: @len == -1 means the string is null-terminated.</note>
+    <note>Note: `len` == -1 means the string is null-terminated.</note>
     """
     ...
 
@@ -2490,10 +2490,10 @@ def font_glyph_to_string(
     glyph: int,
 ) -> tuple[list, int]:
     """
-    Fetches the name of the specified glyph ID in @font and returns
-    it in string @s.
+    Fetches the name of the specified glyph ID in `font` and returns
+    it in string `s`.
 
-    If the glyph ID has no name in @font, a string of the form `gidDDD` is
+    If the glyph ID has no name in `font`, a string of the form `gidDDD` is
     generated, with `DDD` being the glyph ID.
 
     According to the OpenType specification, glyph names are limited to 63
@@ -2515,7 +2515,7 @@ def font_make_immutable(
     font: font_t,
 ) -> None:
     """
-    Makes @font immutable.
+    Makes `font` immutable.
     """
     ...
 
@@ -2532,11 +2532,11 @@ def font_paint_glyph(
     Paints the glyph.
 
     The painting instructions are returned by way of calls to
-    the callbacks of the @funcs object, with @paint_data passed
+    the callbacks of the `funcs` object, with `paint_data` passed
     to them.
 
-    If the font has color palettes (see hb_ot_color_has_palettes()),
-    then @palette_index selects the palette to use. If the font only
+    If the font has color palettes (see `hb_ot_color_has_palettes`),
+    then `palette_index` selects the palette to use. If the font only
     has one palette, this will be 0.
     """
     ...
@@ -2547,7 +2547,7 @@ def font_set_face(
     face: face_t,
 ) -> None:
     """
-    Sets @face as the font-face value of @font.
+    Sets `face` as the font-face value of `font`.
     """
     ...
 
@@ -2557,7 +2557,7 @@ def font_set_parent(
     parent: font_t,
 ) -> None:
     """
-    Sets the parent font of @font.
+    Sets the parent font of `font`.
     """
     ...
 
@@ -2613,8 +2613,8 @@ def font_set_scale(
     In the example above, even what font size 20 means is up to
     you. It might be 20 pixels, or 20 points, or 20 millimeters.
     HarfBuzz does not care about that.  You can set the point
-    size of the font using hb_font_set_ptem(), and the pixel
-    size using hb_font_set_ppem().
+    size of the font using `hb_font_set_ptem`, and the pixel
+    size using `hb_font_set_ppem`.
 
     The choice of scale is yours but needs to be consistent between
     what you set here, and what you expect out of #hb_position_t
@@ -2635,7 +2635,7 @@ def font_set_synthetic_bold(
     """
     Sets the "synthetic boldness" of a font.
 
-    Positive values for @x_embolden / @y_embolden make a font
+    Positive values for `x_embolden` / `y_embolden` make a font
     bolder, negative values thinner. Typical values are in the
     0.01 to 0.05 range. The default value is zero.
 
@@ -2643,9 +2643,9 @@ def font_set_synthetic_bold(
     points of the glyph shape.
 
     Synthetic boldness is applied when rendering a glyph via
-    hb_font_draw_glyph().
+    `hb_font_draw_glyph`.
 
-    If @in_place is `false`, then glyph advance-widths are also
+    If `in_place` is `false`, then glyph advance-widths are also
     adjusted, otherwise they are not.  The in-place mode is
     useful for simulating [font grading](https://fonts.google.com/knowledge/glossary/grade).
     """
@@ -2664,7 +2664,7 @@ def font_set_synthetic_slant(
     HarfBuzz needs to know this value to adjust shaping results,
     metrics, and style values to match the slanted rendering.
 
-    <note>Note: The glyph shape fetched via the hb_font_draw_glyph()
+    <note>Note: The glyph shape fetched via the `hb_font_draw_glyph`
     function is slanted to reflect this value as well.</note>
 
     <note>Note: The slant value is a ratio.  For example, a
@@ -2682,8 +2682,8 @@ def font_set_var_coords_design(
     Applies a list of variation coordinates (in design-space units)
     to a font.
 
-    Note that this overrides all existing variations set on @font.
-    Axes not included in @coords will be effectively set to their
+    Note that this overrides all existing variations set on `font`.
+    Axes not included in `coords` will be effectively set to their
     default values.
     """
     ...
@@ -2698,8 +2698,8 @@ def font_set_var_coords_normalized(
     Applies a list of variation coordinates (in normalized units)
     to a font.
 
-    Note that this overrides all existing variations set on @font.
-    Axes not included in @coords will be effectively set to their
+    Note that this overrides all existing variations set on `font`.
+    Axes not included in `coords` will be effectively set to their
     default values.
 
     <note>Note: Coordinates should be normalized to 2.14.</note>
@@ -2727,7 +2727,7 @@ def font_set_variation(
 
     Note: This function is expensive to be called repeatedly.
       If you want to set multiple variation axes at the same time,
-      use hb_font_set_variations() instead.
+      use `hb_font_set_variations` instead.
     """
     ...
 
@@ -2740,8 +2740,8 @@ def font_set_variations(
     """
     Applies a list of font-variation settings to a font.
 
-    Note that this overrides all existing variations set on @font.
-    Axes not included in @variations will be effectively set to their
+    Note that this overrides all existing variations set on `font`.
+    Axes not included in `variations` will be effectively set to their
     default values.
     """
     ...
@@ -2759,7 +2759,7 @@ def font_subtract_glyph_origin_for_direction(
     in the specified glyph ID in the specified font.
 
     Calls the appropriate direction-specific variant (horizontal
-    or vertical) depending on the value of @direction.
+    or vertical) depending on the value of `direction`.
     """
     ...
 
@@ -2772,16 +2772,16 @@ def ft_face_create_cached(
 
     Note that this is using the FT_Face object just to get at the underlying
     font data, and fonts created from the returned #hb_face_t will use the native
-    HarfBuzz font implementation, unless you call hb_ft_font_set_funcs() on them.
+    HarfBuzz font implementation, unless you call `hb_ft_font_set_funcs` on them.
 
     This variant of the function caches the newly created #hb_face_t
-    face object, using the @generic pointer of @ft_face. Subsequent function
-    calls that are passed the same @ft_face parameter will have the same
+    face object, using the `generic` pointer of `ft_face`. Subsequent function
+    calls that are passed the same `ft_face` parameter will have the same
     #hb_face_t returned to them, and that #hb_face_t will be correctly
     reference counted.
 
     However, client programs are still responsible for destroying
-    @ft_face after the last #hb_face_t face object has been destroyed.
+    `ft_face` after the last #hb_face_t face object has been destroyed.
     """
     ...
 
@@ -2794,7 +2794,7 @@ def ft_face_create_from_file_or_fail(
     Creates an #hb_face_t face object from the specified
     font file and face index.
 
-    This is similar in functionality to hb_face_create_from_file_or_fail(),
+    This is similar in functionality to `hb_face_create_from_file_or_fail`,
     but uses the FreeType library for loading the font file.
     """
     ...
@@ -2808,12 +2808,12 @@ def ft_face_create_referenced(
 
     Note that this is using the FT_Face object just to get at the underlying
     font data, and fonts created from the returned #hb_face_t will use the native
-    HarfBuzz font implementation, unless you call hb_ft_font_set_funcs() on them.
+    HarfBuzz font implementation, unless you call `hb_ft_font_set_funcs` on them.
 
     This is the preferred variant of the hb_ft_face_create*
-    function family, because it calls FT_Reference_Face() on @ft_face,
-    ensuring that @ft_face remains alive as long as the resulting
-    #hb_face_t face object remains alive. Also calls FT_Done_Face()
+    function family, because it calls `FT_Reference_Face` on `ft_face`,
+    ensuring that `ft_face` remains alive as long as the resulting
+    #hb_face_t face object remains alive. Also calls `FT_Done_Face`
     when the #hb_face_t face object is destroyed.
 
     Use this version unless you know you have good reasons not to.
@@ -2825,7 +2825,7 @@ def ft_font_changed(
     font: font_t,
 ) -> None:
     """
-    Refreshes the state of @font when the underlying FT_Face has changed.
+    Refreshes the state of `font` when the underlying FT_Face has changed.
     This function should be called after changing the size or
     variation-axis settings on the FT_Face.
     """
@@ -2838,13 +2838,13 @@ def ft_font_create_referenced(
     """
     Creates an #hb_font_t font object from the specified FT_Face.
 
-    <note>Note: You must set the face size on @ft_face before calling
-    hb_ft_font_create_referenced() on it. HarfBuzz assumes size is always set
+    <note>Note: You must set the face size on `ft_face` before calling
+    `hb_ft_font_create_referenced` on it. HarfBuzz assumes size is always set
     and will access `size` member of FT_Face unconditionally.</note>
 
     This is the preferred variant of the hb_ft_font_create*
-    function family, because it calls FT_Reference_Face() on @ft_face,
-    ensuring that @ft_face remains alive as long as the resulting
+    function family, because it calls `FT_Reference_Face` on `ft_face`,
+    ensuring that `ft_face` remains alive as long as the resulting
     #hb_font_t font object remains alive.
 
     Use this version unless you know you have good reasons not to.
@@ -2862,7 +2862,7 @@ def ft_font_get_load_flags(
     <https://freetype.org/freetype2/docs/reference/ft2-glyph_retrieval.html#ft_load_xxx>
 
     This function works with #hb_font_t objects created by
-    hb_ft_font_create() or hb_ft_font_create_referenced().
+    `hb_ft_font_create` or `hb_ft_font_create_referenced`.
     """
     ...
 
@@ -2877,15 +2877,15 @@ def ft_font_set_funcs(
     In particular, you can use this function to configure an
     existing #hb_face_t face object for use with FreeType font
     functions even if that #hb_face_t face object was initially
-    created with hb_face_create(), and therefore was not
+    created with `hb_face_create`, and therefore was not
     initially configured to use FreeType font functions.
 
-    An #hb_font_t object created with hb_ft_font_create()
+    An #hb_font_t object created with `hb_ft_font_create`
     is preconfigured for FreeType font functions and does not
     require this function to be used.
 
     Note that if you modify the underlying #hb_font_t after
-    calling this function, you need to call hb_ft_hb_font_changed()
+    calling this function, you need to call `hb_ft_hb_font_changed`
     to update the underlying FT_Face.
 
     <note>Note: Internally, this function creates an FT_Face.
@@ -2905,7 +2905,7 @@ def ft_font_set_load_flags(
     <https://freetype.org/freetype2/docs/reference/ft2-glyph_retrieval.html#ft_load_xxx>
 
     This function works with #hb_font_t objects created by
-    hb_ft_font_create() or hb_ft_font_create_referenced().
+    `hb_ft_font_create` or `hb_ft_font_create_referenced`.
     """
     ...
 
@@ -2914,11 +2914,11 @@ def ft_hb_font_changed(
     font: font_t,
 ) -> int:
     """
-    Refreshes the state of the underlying FT_Face of @font when the hb_font_t
-    @font has changed.
+    Refreshes the state of the underlying FT_Face of `font` when the hb_font_t
+    `font` has changed.
     This function should be called after changing the size or
-    variation-axis settings on the @font.
-    This call is fast if nothing has changed on @font.
+    variation-axis settings on the `font`.
+    This call is fast if nothing has changed on `font`.
     """
     ...
 
@@ -2975,7 +2975,7 @@ def language_from_string(
     len: int,
 ) -> language_t:
     """
-    Converts @str representing a BCP 47 language tag to the corresponding
+    Converts `str` representing a BCP 47 language tag to the corresponding
     #hb_language_t.
     """
     ...
@@ -2989,7 +2989,7 @@ def language_get_default() -> language_t:
     "setlocale (LC_CTYPE, nullptr)" to fetch current locale.  The underlying
     setlocale function is, in many implementations, NOT threadsafe.  To avoid
     problems, call this function once before multiple threads can call it.
-    This function is only used from hb_buffer_guess_segment_properties() by
+    This function is only used from `hb_buffer_guess_segment_properties` by
     HarfBuzz itself.</note>
     """
     ...
@@ -3029,7 +3029,7 @@ def map_clear(
     map: map_t,
 ) -> None:
     """
-    Clears out the contents of @map.
+    Clears out the contents of `map`.
     """
     ...
 
@@ -3038,7 +3038,7 @@ def map_copy(
     map: map_t,
 ) -> map_t:
     """
-    Allocate a copy of @map.
+    Allocate a copy of `map`.
     """
     ...
 
@@ -3055,7 +3055,7 @@ def map_del(
     key: int,
 ) -> None:
     """
-    Removes @key and its stored value from @map.
+    Removes `key` and its stored value from `map`.
     """
     ...
 
@@ -3065,7 +3065,7 @@ def map_get(
     key: int,
 ) -> int:
     """
-    Fetches the value stored for @key in @map.
+    Fetches the value stored for `key` in `map`.
     """
     ...
 
@@ -3091,7 +3091,7 @@ def map_has(
     key: int,
 ) -> int:
     """
-    Tests whether @key is an element of @map.
+    Tests whether `key` is an element of `map`.
     """
     ...
 
@@ -3100,7 +3100,7 @@ def map_hash(
     map: map_t,
 ) -> int:
     """
-    Creates a hash representing @map.
+    Creates a hash representing `map`.
     """
     ...
 
@@ -3109,7 +3109,7 @@ def map_is_empty(
     map: map_t,
 ) -> int:
     """
-    Tests whether @map is empty (contains no elements).
+    Tests whether `map` is empty (contains no elements).
     """
     ...
 
@@ -3119,7 +3119,7 @@ def map_is_equal(
     other: map_t,
 ) -> int:
     """
-    Tests whether @map and @other are equal (contain the same
+    Tests whether `map` and `other` are equal (contain the same
     elements).
     """
     ...
@@ -3130,7 +3130,7 @@ def map_keys(
     keys: set_t,
 ) -> None:
     """
-    Add the keys of @map to @keys.
+    Add the keys of `map` to `keys`.
     """
     ...
 
@@ -3140,9 +3140,9 @@ def map_next(
     idx: int,
 ) -> tuple[int, int, int, int]:
     """
-    Fetches the next key/value pair in @map.
+    Fetches the next key/value pair in `map`.
 
-    Set @idx to -1 to get started.
+    Set `idx` to -1 to get started.
 
     If the map is modified during iteration, the behavior is undefined.
 
@@ -3157,7 +3157,7 @@ def map_set(
     value: int,
 ) -> None:
     """
-    Stores @key:@value in the map.
+    Stores `key`:`value` in the map.
     """
     ...
 
@@ -3167,7 +3167,7 @@ def map_update(
     other: map_t,
 ) -> None:
     """
-    Add the contents of @other to @map.
+    Add the contents of `other` to `map`.
     """
     ...
 
@@ -3177,7 +3177,7 @@ def map_values(
     values: set_t,
 ) -> None:
     """
-    Add the values of @map to @values.
+    Add the values of `map` to `values`.
     """
     ...
 
@@ -3200,7 +3200,7 @@ def ot_color_glyph_has_paint(
 ) -> int:
     """
     Tests where a face includes COLRv1 paint
-    data for @glyph.
+    data for `glyph`.
     """
     ...
 
@@ -3211,7 +3211,7 @@ def ot_color_glyph_reference_png(
 ) -> blob_t:
     """
     Fetches the PNG image for a glyph. This function takes a font object, not a face object,
-    as input. To get an optimally sized PNG blob, the PPEM values must be set on the @font
+    as input. To get an optimally sized PNG blob, the PPEM values must be set on the `font`
     object. If PPEM is unset, the blob returned will be the largest PNG available.
 
     If the glyph has no PNG image, the singleton empty blob is returned.
@@ -3300,11 +3300,11 @@ def ot_color_palette_get_colors(
     """
     Fetches a list of the colors in a color palette.
 
-    After calling this function, @colors will be filled with the palette
-    colors. If @colors is NULL, the function will just return the number
+    After calling this function, `colors` will be filled with the palette
+    colors. If `colors` is None, the function will just return the number
     of total colors without storing any actual colors; this can be used
     for allocating a buffer of suitable size before calling
-    hb_ot_color_palette_get_colors() a second time.
+    `hb_ot_color_palette_get_colors` a second time.
 
     The RGBA values in the palette are unpremultiplied. See the
     OpenType spec [CPAL](https://learn.microsoft.com/en-us/typography/opentype/spec/cpal)
@@ -3350,7 +3350,7 @@ def ot_font_set_funcs(
     font: font_t,
 ) -> None:
     """
-    Sets the font functions to use when working with @font to
+    Sets the font functions to use when working with `font` to
     the HarfBuzz's native implementation. This is the default
     for fonts newly created.
     """
@@ -3495,7 +3495,7 @@ def ot_layout_get_baseline2(
     """
     Fetches a baseline value from the face.
 
-    This function is like hb_ot_layout_get_baseline() but takes
+    This function is like `hb_ot_layout_get_baseline` but takes
     #hb_script_t and #hb_language_t instead of OpenType #hb_tag_t.
     """
     ...
@@ -3526,7 +3526,7 @@ def ot_layout_get_baseline_with_fallback2(
     Fetches a baseline value from the face, and synthesizes
     it if the font does not have it.
 
-    This function is like hb_ot_layout_get_baseline_with_fallback() but takes
+    This function is like `hb_ot_layout_get_baseline_with_fallback` but takes
     #hb_script_t and #hb_language_t instead of OpenType #hb_tag_t.
     """
     ...
@@ -3567,7 +3567,7 @@ def ot_layout_get_font_extents2(
     do not have a line-gap value, and the line-gap is set to zero in
     that case.
 
-    This function is like hb_ot_layout_get_font_extents() but takes
+    This function is like `hb_ot_layout_get_font_extents` but takes
     #hb_script_t and #hb_language_t instead of OpenType #hb_tag_t.
     """
     ...
@@ -3598,7 +3598,7 @@ def ot_layout_get_horizontal_baseline_tag_for_script(
     script: script_t,
 ) -> ot_layout_baseline_tag_t:
     """
-    Fetches the dominant horizontal baseline tag used by @script.
+    Fetches the dominant horizontal baseline tag used by `script`.
     """
     ...
 
@@ -3845,12 +3845,12 @@ def ot_layout_script_select_language(
     language_tags: int,
 ) -> tuple[int, int]:
     """
-    Fetches the index of the first language tag fom @language_tags that is present
+    Fetches the index of the first language tag fom `language_tags` that is present
     in the specified face's GSUB or GPOS table, underneath the specified script
     index.
 
     If none of the given language tags is found, `false` is returned and
-    @language_index is set to the default language index.
+    `language_index` is set to the default language index.
     """
     ...
 
@@ -3863,13 +3863,13 @@ def ot_layout_script_select_language2(
     language_tags: int,
 ) -> tuple[int, int, int]:
     """
-    Fetches the index of the first language tag fom @language_tags that is present
+    Fetches the index of the first language tag fom `language_tags` that is present
     in the specified face's GSUB or GPOS table, underneath the specified script
     index.
 
     If none of the given language tags is found, `false` is returned and
-    @language_index is set to #HB_OT_LAYOUT_DEFAULT_LANGUAGE_INDEX and
-    @chosen_language is set to #HB_TAG_NONE.
+    `language_index` is set to HB_OT_LAYOUT_DEFAULT_LANGUAGE_INDEX and
+    `chosen_language` is set to HB_TAG_NONE.
     """
     ...
 
@@ -3953,12 +3953,12 @@ def ot_layout_table_select_script(
     script_tags: int,
 ) -> tuple[int, int, int]:
     """
-    Selects an OpenType script for @table_tag from the @script_tags array.
+    Selects an OpenType script for `table_tag` from the `script_tags` array.
 
     If the table does not have any of the requested scripts, then `DFLT`,
     `dflt`, and `latn` tags are tried in that order. If the table still does not
-    have any of these scripts, @script_index is set to
-    #HB_OT_LAYOUT_NO_SCRIPT_INDEX and @chosen_script is set to #HB_TAG_NONE.
+    have any of these scripts, `script_index` is set to
+    HB_OT_LAYOUT_NO_SCRIPT_INDEX and `chosen_script` is set to HB_TAG_NONE.
     """
     ...
 
@@ -3971,9 +3971,9 @@ def ot_math_get_constant(
     Fetches the specified math constant. For most constants, the value returned
     is an #hb_position_t.
 
-    However, if the requested constant is #HB_OT_MATH_CONSTANT_SCRIPT_PERCENT_SCALE_DOWN,
-    #HB_OT_MATH_CONSTANT_SCRIPT_SCRIPT_PERCENT_SCALE_DOWN or
-    #HB_OT_MATH_CONSTANT_RADICAL_DEGREE_BOTTOM_RAISE_PERCENT, then the return value is
+    However, if the requested constant is HB_OT_MATH_CONSTANT_SCRIPT_PERCENT_SCALE_DOWN,
+    HB_OT_MATH_CONSTANT_SCRIPT_SCRIPT_PERCENT_SCALE_DOWN or
+    HB_OT_MATH_CONSTANT_RADICAL_DEGREE_BOTTOM_RAISE_PERCENT, then the return value is
     an integer between 0 and 100 representing that percentage.
     """
     ...
@@ -3991,9 +3991,9 @@ def ot_math_get_glyph_assembly(
     used to draw the glyph and an italics-correction value (if one is defined
     in the font).
 
-    <note>The @direction parameter is only used to select between horizontal
+    <note>The `direction` parameter is only used to select between horizontal
     or vertical directions for the construction. Even though all #hb_direction_t
-    values are accepted, only the result of #HB_DIRECTION_IS_HORIZONTAL is
+    values are accepted, only the result of HB_DIRECTION_IS_HORIZONTAL is
     considered.</note>
     """
     ...
@@ -4018,10 +4018,10 @@ def ot_math_get_glyph_kerning(
 ) -> int:
     """
     Fetches the math kerning (cut-ins) value for the specified font, glyph index, and
-    @kern.
+    `kern`.
 
     If the MathKern table is found, the function examines it to find a height
-    value that is greater or equal to @correction_height. If such a height
+    value that is greater or equal to `correction_height`. If such a height
     value is found, corresponding kerning value from the table is returned. If
     no such height value is found, the last kerning value is returned.
     """
@@ -4036,14 +4036,14 @@ def ot_math_get_glyph_kernings(
 ) -> tuple[int, int, list]:
     """
     Fetches the raw MathKern (cut-in) data for the specified font, glyph index,
-    and @kern. The corresponding list of kern values and correction heights is
+    and `kern`. The corresponding list of kern values and correction heights is
     returned as a list of #hb_ot_math_kern_entry_t structs.
 
     See also #hb_ot_math_get_glyph_kerning, which handles selecting the
     appropriate kern value for a given correction height.
 
-    <note>For a glyph with @n defined kern values (where @n > 0), there are only
-    @n−1 defined correction heights, as each correction height defines a boundary
+    <note>For a glyph with `n` defined kern values (where `n` > 0), there are only
+    `n`−1 defined correction heights, as each correction height defines a boundary
     past which the next kern value should be selected. Therefore, only the
     #hb_ot_math_kern_entry_t.kern_value of the uppermost #hb_ot_math_kern_entry_t
     actually comes from the font; its corresponding
@@ -4063,7 +4063,7 @@ def ot_math_get_glyph_top_accent_attachment(
 
     For any glyph that does not have a top-accent-attachment value - that is,
     a glyph not covered by the `MathTopAccentAttachment` table (or, when
-    @font has no `MathTopAccentAttachment` table or no `MATH` table, any
+    `font` has no `MathTopAccentAttachment` table or no `MATH` table, any
     glyph) - the function synthesizes a value, returning the position at
     one-half the glyph's advance width.
     """
@@ -4081,9 +4081,9 @@ def ot_math_get_glyph_variants(
     direction. The corresponding list of size variants is returned as a list of
     #hb_ot_math_glyph_variant_t structs.
 
-    <note>The @direction parameter is only used to select between horizontal
+    <note>The `direction` parameter is only used to select between horizontal
     or vertical directions for the construction. Even though all #hb_direction_t
-    values are accepted, only the result of #HB_DIRECTION_IS_HORIZONTAL is
+    values are accepted, only the result of HB_DIRECTION_IS_HORIZONTAL is
     considered.</note>
     """
     ...
@@ -4098,9 +4098,9 @@ def ot_math_get_min_connector_overlap(
     minimum overlap of connecting glyphs that are required to draw a glyph
     assembly in the specified direction.
 
-    <note>The @direction parameter is only used to select between horizontal
+    <note>The `direction` parameter is only used to select between horizontal
     or vertical directions for the construction. Even though all #hb_direction_t
-    values are accepted, only the result of #HB_DIRECTION_IS_HORIZONTAL is
+    values are accepted, only the result of HB_DIRECTION_IS_HORIZONTAL is
     considered.</note>
     """
     ...
@@ -4150,7 +4150,7 @@ def ot_metrics_get_position(
     metrics_tag: ot_metrics_tag_t,
 ) -> tuple[int, int]:
     """
-    Fetches metrics value corresponding to @metrics_tag from @font.
+    Fetches metrics value corresponding to `metrics_tag` from `font`.
     """
     ...
 
@@ -4160,7 +4160,7 @@ def ot_metrics_get_position_with_fallback(
     metrics_tag: ot_metrics_tag_t,
 ) -> int:
     """
-    Fetches metrics value corresponding to @metrics_tag from @font,
+    Fetches metrics value corresponding to `metrics_tag` from `font`,
     and synthesizes a value if it the value is missing in the font.
     """
     ...
@@ -4171,7 +4171,7 @@ def ot_metrics_get_variation(
     metrics_tag: ot_metrics_tag_t,
 ) -> float:
     """
-    Fetches metrics value corresponding to @metrics_tag from @font with the
+    Fetches metrics value corresponding to `metrics_tag` from `font` with the
     current font variation settings applied.
     """
     ...
@@ -4182,7 +4182,7 @@ def ot_metrics_get_x_variation(
     metrics_tag: ot_metrics_tag_t,
 ) -> int:
     """
-    Fetches horizontal metrics value corresponding to @metrics_tag from @font
+    Fetches horizontal metrics value corresponding to `metrics_tag` from `font`
     with the current font variation settings applied.
     """
     ...
@@ -4193,7 +4193,7 @@ def ot_metrics_get_y_variation(
     metrics_tag: ot_metrics_tag_t,
 ) -> int:
     """
-    Fetches vertical metrics value corresponding to @metrics_tag from @font with
+    Fetches vertical metrics value corresponding to `metrics_tag` from `font` with
     the current font variation settings applied.
     """
     ...
@@ -4206,9 +4206,9 @@ def ot_name_get_utf16(
 ) -> tuple[int, int, list]:
     """
     Fetches a font name from the OpenType 'name' table.
-    If @language is #HB_LANGUAGE_INVALID, English ("en") is assumed.
+    If `language` is HB_LANGUAGE_INVALID, English ("en") is assumed.
     Returns string in UTF-16 encoding. A NUL terminator is always written
-    for convenience, and isn't included in the output @text_size.
+    for convenience, and isn't included in the output `text_size`.
     """
     ...
 
@@ -4220,9 +4220,9 @@ def ot_name_get_utf32(
 ) -> tuple[int, int, list]:
     """
     Fetches a font name from the OpenType 'name' table.
-    If @language is #HB_LANGUAGE_INVALID, English ("en") is assumed.
+    If `language` is HB_LANGUAGE_INVALID, English ("en") is assumed.
     Returns string in UTF-32 encoding. A NUL terminator is always written
-    for convenience, and isn't included in the output @text_size.
+    for convenience, and isn't included in the output `text_size`.
     """
     ...
 
@@ -4234,9 +4234,9 @@ def ot_name_get_utf8(
 ) -> tuple[int, int, list]:
     """
     Fetches a font name from the OpenType 'name' table.
-    If @language is #HB_LANGUAGE_INVALID, English ("en") is assumed.
+    If `language` is HB_LANGUAGE_INVALID, English ("en") is assumed.
     Returns string in UTF-8 encoding. A NUL terminator is always written
-    for convenience, and isn't included in the output @text_size.
+    for convenience, and isn't included in the output `text_size`.
     """
     ...
 
@@ -4246,8 +4246,8 @@ def ot_name_list_names(
 ) -> tuple[list, int]:
     """
     Enumerates all available name IDs and language combinations. Returned
-    array is owned by the @face and should not be modified.  It can be
-    used as long as @face is alive.
+    array is owned by the `face` and should not be modified.  It can be
+    used as long as `face` is alive.
     """
     ...
 
@@ -4272,7 +4272,7 @@ def ot_shape_plan_collect_lookups(
 ) -> set_t:
     """
     Computes the complete set of GSUB or GPOS lookups that are applicable
-    under a given @shape_plan.
+    under a given `shape_plan`.
     """
     ...
 
@@ -4505,7 +4505,7 @@ def paint_custom_palette_color(
     color_index: int,
 ) -> tuple[int, int]:
     """
-    Gets the custom palette color for @color_index.
+    Gets the custom palette color for `color_index`.
     """
     ...
 
@@ -4514,9 +4514,9 @@ def paint_funcs_create() -> paint_funcs_t:
     """
     Creates a new #hb_paint_funcs_t structure of paint functions.
 
-    The initial reference count of 1 should be released with hb_paint_funcs_destroy()
+    The initial reference count of 1 should be released with `hb_paint_funcs_destroy`
     when you are done using the #hb_paint_funcs_t. This function never returns
-    `NULL`. If memory cannot be allocated, a special singleton #hb_paint_funcs_t
+    `None`. If memory cannot be allocated, a special singleton #hb_paint_funcs_t
     object will be returned.
     """
     ...
@@ -4545,7 +4545,7 @@ def paint_funcs_make_immutable(
     Makes a paint-functions structure immutable.
 
     After this call, all attempts to set one of the callbacks
-    on @funcs will fail.
+    on `funcs` will fail.
     """
     ...
 
@@ -4880,9 +4880,9 @@ def script_from_string(
     len: int,
 ) -> script_t:
     """
-    Converts a string @str representing an ISO 15924 script tag to a
-    corresponding #hb_script_t. Shorthand for hb_tag_from_string() then
-    hb_script_from_iso15924_tag().
+    Converts a string `str` representing an ISO 15924 script tag to a
+    corresponding #hb_script_t. Shorthand for `hb_tag_from_string` then
+    `hb_script_from_iso15924_tag`.
     """
     ...
 
@@ -4893,10 +4893,10 @@ def script_get_horizontal_direction(
     """
     Fetches the #hb_direction_t of a script when it is
     set horizontally. All right-to-left scripts will return
-    #HB_DIRECTION_RTL. All left-to-right scripts will return
-    #HB_DIRECTION_LTR.  Scripts that can be written either
-    horizontally or vertically will return #HB_DIRECTION_INVALID.
-    Unknown scripts will return #HB_DIRECTION_LTR.
+    HB_DIRECTION_RTL. All left-to-right scripts will return
+    HB_DIRECTION_LTR.  Scripts that can be written either
+    horizontally or vertically will return HB_DIRECTION_INVALID.
+    Unknown scripts will return HB_DIRECTION_LTR.
     """
     ...
 
@@ -4924,7 +4924,7 @@ def segment_properties_hash(
     p: segment_properties_t,
 ) -> int:
     """
-    Creates a hash representing @p.
+    Creates a hash representing `p`.
     """
     ...
 
@@ -4934,16 +4934,16 @@ def segment_properties_overlay(
     src: segment_properties_t,
 ) -> None:
     """
-    Fills in missing fields of @p from @src in a considered manner.
+    Fills in missing fields of `p` from `src` in a considered manner.
 
-    First, if @p does not have direction set, direction is copied from @src.
+    First, if `p` does not have direction set, direction is copied from `src`.
 
-    Next, if @p and @src have the same direction (which can be unset), if @p
-    does not have script set, script is copied from @src.
+    Next, if `p` and `src` have the same direction (which can be unset), if `p`
+    does not have script set, script is copied from `src`.
 
-    Finally, if @p and @src have the same direction and script (which either
-    can be unset), if @p does not have language set, language is copied from
-    @src.
+    Finally, if `p` and `src` have the same direction and script (which either
+    can be unset), if `p` does not have language set, language is copied from
+    `src`.
     """
     ...
 
@@ -4953,7 +4953,7 @@ def set_add(
     codepoint: int,
 ) -> None:
     """
-    Adds @codepoint to @set.
+    Adds `codepoint` to `set`.
     """
     ...
 
@@ -4964,8 +4964,8 @@ def set_add_range(
     last: int,
 ) -> None:
     """
-    Adds all of the elements from @first to @last
-    (inclusive) to @set.
+    Adds all of the elements from `first` to `last`
+    (inclusive) to `set`.
     """
     ...
 
@@ -4976,9 +4976,9 @@ def set_add_sorted_array(
     num_codepoints: int,
 ) -> None:
     """
-    Adds @num_codepoints codepoints to a set at once.
+    Adds `num_codepoints` codepoints to a set at once.
     The codepoints array must be in increasing order,
-    with size at least @num_codepoints.
+    with size at least `num_codepoints`.
     """
     ...
 
@@ -5005,7 +5005,7 @@ def set_copy(
     set: set_t,
 ) -> set_t:
     """
-    Allocate a copy of @set.
+    Allocate a copy of `set`.
     """
     ...
 
@@ -5022,7 +5022,7 @@ def set_del(
     codepoint: int,
 ) -> None:
     """
-    Removes @codepoint from @set.
+    Removes `codepoint` from `set`.
     """
     ...
 
@@ -5033,11 +5033,11 @@ def set_del_range(
     last: int,
 ) -> None:
     """
-    Removes all of the elements from @first to @last
-    (inclusive) from @set.
+    Removes all of the elements from `first` to `last`
+    (inclusive) from `set`.
 
-    If @last is #HB_SET_VALUE_INVALID, then all values
-    greater than or equal to @first are removed.
+    If `last` is HB_SET_VALUE_INVALID, then all values
+    greater than or equal to `first` are removed.
     """
     ...
 
@@ -5081,7 +5081,7 @@ def set_has(
     codepoint: int,
 ) -> int:
     """
-    Tests whether @codepoint belongs to @set.
+    Tests whether `codepoint` belongs to `set`.
     """
     ...
 
@@ -5090,7 +5090,7 @@ def set_hash(
     set: set_t,
 ) -> int:
     """
-    Creates a hash representing @set.
+    Creates a hash representing `set`.
     """
     ...
 
@@ -5100,7 +5100,7 @@ def set_intersect(
     other: set_t,
 ) -> None:
     """
-    Makes @set the intersection of @set and @other.
+    Makes `set` the intersection of `set` and `other`.
     """
     ...
 
@@ -5109,7 +5109,7 @@ def set_invert(
     set: set_t,
 ) -> None:
     """
-    Inverts the contents of @set.
+    Inverts the contents of `set`.
     """
     ...
 
@@ -5128,7 +5128,7 @@ def set_is_equal(
     other: set_t,
 ) -> int:
     """
-    Tests whether @set and @other are equal (contain the same
+    Tests whether `set` and `other` are equal (contain the same
     elements).
     """
     ...
@@ -5148,7 +5148,7 @@ def set_is_subset(
     larger_set: set_t,
 ) -> int:
     """
-    Tests whether @set is a subset of @larger_set.
+    Tests whether `set` is a subset of `larger_set`.
     """
     ...
 
@@ -5158,9 +5158,9 @@ def set_next(
     codepoint: int,
 ) -> tuple[int, int]:
     """
-    Fetches the next element in @set that is greater than current value of @codepoint.
+    Fetches the next element in `set` that is greater than current value of `codepoint`.
 
-    Set @codepoint to #HB_SET_VALUE_INVALID to get started.
+    Set `codepoint` to HB_SET_VALUE_INVALID to get started.
     """
     ...
 
@@ -5172,8 +5172,8 @@ def set_next_many(
     size: int,
 ) -> int:
     """
-    Finds the next element in @set that is greater than @codepoint. Writes out
-    codepoints to @out, until either the set runs out of elements, or @size
+    Finds the next element in `set` that is greater than `codepoint`. Writes out
+    codepoints to `out`, until either the set runs out of elements, or `size`
     codepoints are written, whichever comes first.
     """
     ...
@@ -5184,10 +5184,10 @@ def set_next_range(
     last: int,
 ) -> tuple[int, int, int]:
     """
-    Fetches the next consecutive range of elements in @set that
-    are greater than current value of @last.
+    Fetches the next consecutive range of elements in `set` that
+    are greater than current value of `last`.
 
-    Set @last to #HB_SET_VALUE_INVALID to get started.
+    Set `last` to HB_SET_VALUE_INVALID to get started.
     """
     ...
 
@@ -5197,9 +5197,9 @@ def set_previous(
     codepoint: int,
 ) -> tuple[int, int]:
     """
-    Fetches the previous element in @set that is lower than current value of @codepoint.
+    Fetches the previous element in `set` that is lower than current value of `codepoint`.
 
-    Set @codepoint to #HB_SET_VALUE_INVALID to get started.
+    Set `codepoint` to HB_SET_VALUE_INVALID to get started.
     """
     ...
 
@@ -5209,10 +5209,10 @@ def set_previous_range(
     first: int,
 ) -> tuple[int, int, int]:
     """
-    Fetches the previous consecutive range of elements in @set that
-    are greater than current value of @last.
+    Fetches the previous consecutive range of elements in `set` that
+    are greater than current value of `last`.
 
-    Set @first to #HB_SET_VALUE_INVALID to get started.
+    Set `first` to HB_SET_VALUE_INVALID to get started.
     """
     ...
 
@@ -5222,7 +5222,7 @@ def set_set(
     other: set_t,
 ) -> None:
     """
-    Makes the contents of @set equal to the contents of @other.
+    Makes the contents of `set` equal to the contents of `other`.
     """
     ...
 
@@ -5232,7 +5232,7 @@ def set_subtract(
     other: set_t,
 ) -> None:
     """
-    Subtracts the contents of @other from @set.
+    Subtracts the contents of `other` from `set`.
     """
     ...
 
@@ -5242,8 +5242,8 @@ def set_symmetric_difference(
     other: set_t,
 ) -> None:
     """
-    Makes @set the symmetric difference of @set
-    and @other.
+    Makes `set` the symmetric difference of `set`
+    and `other`.
     """
     ...
 
@@ -5253,7 +5253,7 @@ def set_union(
     other: set_t,
 ) -> None:
     """
-    Makes @set the union of @set and @other.
+    Makes `set` the union of `set` and `other`.
     """
     ...
 
@@ -5265,9 +5265,9 @@ def shape(
     num_features: int,
 ) -> None:
     """
-    Shapes @buffer using @font turning its Unicode characters content to
-    positioned glyphs. If @features is not `NULL`, it will be used to control the
-    features applied during shaping. If two @features have the same tag but
+    Shapes `buffer` using `font` turning its Unicode characters content to
+    positioned glyphs. If `features` is not `None`, it will be used to control the
+    features applied during shaping. If two `features` have the same tag but
     overlapping ranges the value of the feature with the higher index takes
     precedence.
     """
@@ -5282,7 +5282,7 @@ def shape_full(
     shaper_list: list | None = None,
 ) -> int:
     """
-    See hb_shape() for details. If @shaper_list is not `NULL`, the specified
+    See `hb_shape` for details. If `shaper_list` is not `None`, the specified
     shapers will be used in the given order, otherwise the default shapers list
     will be used.
     """
@@ -5304,8 +5304,8 @@ def shape_plan_create(
     shaper_list: list,
 ) -> shape_plan_t:
     """
-    Constructs a shaping plan for a combination of @face, @user_features, @props,
-    and @shaper_list.
+    Constructs a shaping plan for a combination of `face`, `user_features`, `props`,
+    and `shaper_list`.
     """
     ...
 
@@ -5321,8 +5321,8 @@ def shape_plan_create2(
 ) -> shape_plan_t:
     """
     The variable-font version of #hb_shape_plan_create.
-    Constructs a shaping plan for a combination of @face, @user_features, @props,
-    and @shaper_list, plus the variation-space coordinates @coords.
+    Constructs a shaping plan for a combination of `face`, `user_features`, `props`,
+    and `shaper_list`, plus the variation-space coordinates `coords`.
     """
     ...
 
@@ -5336,7 +5336,7 @@ def shape_plan_create_cached(
 ) -> shape_plan_t:
     """
     Creates a cached shaping plan suitable for reuse, for a combination
-    of @face, @user_features, @props, and @shaper_list.
+    of `face`, `user_features`, `props`, and `shaper_list`.
     """
     ...
 
@@ -5353,8 +5353,8 @@ def shape_plan_create_cached2(
     """
     The variable-font version of #hb_shape_plan_create_cached.
     Creates a cached shaping plan suitable for reuse, for a combination
-    of @face, @user_features, @props, and @shaper_list, plus the
-    variation-space coordinates @coords.
+    of `face`, `user_features`, `props`, and `shaper_list`, plus the
+    variation-space coordinates `coords`.
     """
     ...
 
@@ -5368,7 +5368,7 @@ def shape_plan_execute(
 ) -> int:
     """
     Executes the given shaping plan on the specified buffer, using
-    the given @font and @features.
+    the given `font` and `features`.
     """
     ...
 
@@ -5418,7 +5418,7 @@ def tag_to_string(
     tag: int,
 ) -> list:
     """
-    Converts an #hb_tag_t to a string and returns it in @buf.
+    Converts an #hb_tag_t to a string and returns it in `buf`.
     Strings will be four characters long.
     """
     ...
@@ -5430,7 +5430,7 @@ def unicode_combining_class(
 ) -> unicode_combining_class_t:
     """
     Retrieves the Canonical Combining Class (ccc) property
-    of code point @unicode.
+    of code point `unicode`.
     """
     ...
 
@@ -5445,7 +5445,7 @@ def unicode_compose(
     code points.
 
     Calls the composition function of the specified
-    Unicode-functions structure @ufuncs.
+    Unicode-functions structure `ufuncs`.
     """
     ...
 
@@ -5458,7 +5458,7 @@ def unicode_decompose(
     Fetches the decomposition of a Unicode code point.
 
     Calls the decomposition function of the specified
-    Unicode-functions structure @ufuncs.
+    Unicode-functions structure `ufuncs`.
     """
     ...
 
@@ -5515,7 +5515,7 @@ def unicode_funcs_get_parent(
 ) -> unicode_funcs_t:
     """
     Fetches the parent of the Unicode-functions structure
-    @ufuncs.
+    `ufuncs`.
     """
     ...
 
@@ -5644,7 +5644,7 @@ def unicode_general_category(
 ) -> unicode_general_category_t:
     """
     Retrieves the General Category (gc) property
-    of code point @unicode.
+    of code point `unicode`.
     """
     ...
 
@@ -5655,7 +5655,7 @@ def unicode_mirroring(
 ) -> int:
     """
     Retrieves the Bi-directional Mirroring Glyph code
-    point defined for code point @unicode.
+    point defined for code point `unicode`.
     """
     ...
 
@@ -5666,7 +5666,7 @@ def unicode_script(
 ) -> script_t:
     """
     Retrieves the #hb_script_t script to which code
-    point @unicode belongs.
+    point `unicode` belongs.
     """
     ...
 
@@ -5692,9 +5692,9 @@ def variation_to_string(
     variation: variation_t,
 ) -> tuple[list, int]:
     """
-    Converts an #hb_variation_t into a `NULL`-terminated string in the format
-    understood by hb_variation_from_string(). The client in responsible for
-    allocating big enough size for @buf, 128 bytes is more than enough.
+    Converts an #hb_variation_t into a `None`-terminated string in the format
+    understood by `hb_variation_from_string`. The client in responsible for
+    allocating big enough size for `buf`, 128 bytes is more than enough.
     """
     ...
 
@@ -5712,111 +5712,111 @@ class aat_layout_feature_selector_t(GObject.GEnum):
     """
     ALL_TYPE_FEATURES_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ALL_TYPOGRAPHIC
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ALL_TYPOGRAPHIC
     """
     ALL_TYPE_FEATURES_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ALL_TYPOGRAPHIC
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ALL_TYPOGRAPHIC
     """
     REQUIRED_LIGATURES_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     REQUIRED_LIGATURES_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     COMMON_LIGATURES_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     COMMON_LIGATURES_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     RARE_LIGATURES_ON = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     RARE_LIGATURES_OFF = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     LOGOS_ON = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     LOGOS_OFF = 7
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     REBUS_PICTURES_ON = 8
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     REBUS_PICTURES_OFF = 9
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     DIPHTHONG_LIGATURES_ON = 10
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     DIPHTHONG_LIGATURES_OFF = 11
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     SQUARED_LIGATURES_ON = 12
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     SQUARED_LIGATURES_OFF = 13
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     ABBREV_SQUARED_LIGATURES_ON = 14
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     ABBREV_SQUARED_LIGATURES_OFF = 15
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     SYMBOL_LIGATURES_ON = 16
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     SYMBOL_LIGATURES_OFF = 17
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     CONTEXTUAL_LIGATURES_ON = 18
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     CONTEXTUAL_LIGATURES_OFF = 19
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     HISTORICAL_LIGATURES_ON = 20
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     HISTORICAL_LIGATURES_OFF = 21
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     UNCONNECTED = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     PARTIALLY_CONNECTED = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     CURSIVE = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LIGATURES
     """
     UPPER_AND_LOWER_CASE = 0
     """
@@ -5844,871 +5844,871 @@ class aat_layout_feature_selector_t(GObject.GEnum):
     """
     SUBSTITUTE_VERTICAL_FORMS_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_SUBSTITUTION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_SUBSTITUTION
     """
     SUBSTITUTE_VERTICAL_FORMS_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_SUBSTITUTION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_SUBSTITUTION
     """
     LINGUISTIC_REARRANGEMENT_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LINGUISTIC_REARRANGEMENT
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LINGUISTIC_REARRANGEMENT
     """
     LINGUISTIC_REARRANGEMENT_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LINGUISTIC_REARRANGEMENT
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LINGUISTIC_REARRANGEMENT
     """
     MONOSPACED_NUMBERS = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_SPACING
     """
     PROPORTIONAL_NUMBERS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_SPACING
     """
     THIRD_WIDTH_NUMBERS = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_SPACING
     """
     QUARTER_WIDTH_NUMBERS = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_SPACING
     """
     WORD_INITIAL_SWASHES_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     WORD_INITIAL_SWASHES_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     WORD_FINAL_SWASHES_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     WORD_FINAL_SWASHES_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     LINE_INITIAL_SWASHES_ON = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     LINE_INITIAL_SWASHES_OFF = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     LINE_FINAL_SWASHES_ON = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     LINE_FINAL_SWASHES_OFF = 7
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     NON_FINAL_SWASHES_ON = 8
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     NON_FINAL_SWASHES_OFF = 9
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_SMART_SWASH_TYPE
     """
     SHOW_DIACRITICS = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_DIACRITICS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_DIACRITICS_TYPE
     """
     HIDE_DIACRITICS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_DIACRITICS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_DIACRITICS_TYPE
     """
     DECOMPOSE_DIACRITICS = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_DIACRITICS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_DIACRITICS_TYPE
     """
     NORMAL_POSITION = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
     """
     SUPERIORS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
     """
     INFERIORS = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
     """
     ORDINALS = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
     """
     SCIENTIFIC_INFERIORS = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_VERTICAL_POSITION
     """
     NO_FRACTIONS = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_FRACTIONS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_FRACTIONS
     """
     VERTICAL_FRACTIONS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_FRACTIONS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_FRACTIONS
     """
     DIAGONAL_FRACTIONS = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_FRACTIONS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_FRACTIONS
     """
     PREVENT_OVERLAP_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_OVERLAPPING_CHARACTERS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_OVERLAPPING_CHARACTERS_TYPE
     """
     PREVENT_OVERLAP_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_OVERLAPPING_CHARACTERS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_OVERLAPPING_CHARACTERS_TYPE
     """
     HYPHENS_TO_EM_DASH_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     HYPHENS_TO_EM_DASH_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     HYPHEN_TO_EN_DASH_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     HYPHEN_TO_EN_DASH_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     SLASHED_ZERO_ON = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     SLASHED_ZERO_OFF = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     FORM_INTERROBANG_ON = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     FORM_INTERROBANG_OFF = 7
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     SMART_QUOTES_ON = 8
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     SMART_QUOTES_OFF = 9
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     PERIODS_TO_ELLIPSIS_ON = 10
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     PERIODS_TO_ELLIPSIS_OFF = 11
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TYPOGRAPHIC_EXTRAS
     """
     HYPHEN_TO_MINUS_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     HYPHEN_TO_MINUS_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     ASTERISK_TO_MULTIPLY_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     ASTERISK_TO_MULTIPLY_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     SLASH_TO_DIVIDE_ON = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     SLASH_TO_DIVIDE_OFF = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     INEQUALITY_LIGATURES_ON = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     INEQUALITY_LIGATURES_OFF = 7
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     EXPONENTS_ON = 8
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     EXPONENTS_OFF = 9
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     MATHEMATICAL_GREEK_ON = 10
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     MATHEMATICAL_GREEK_OFF = 11
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_MATHEMATICAL_EXTRAS
     """
     NO_ORNAMENTS = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
     """
     DINGBATS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
     """
     PI_CHARACTERS = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
     """
     FLEURONS = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
     """
     DECORATIVE_BORDERS = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
     """
     INTERNATIONAL_SYMBOLS = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
     """
     MATH_SYMBOLS = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ORNAMENT_SETS_TYPE
     """
     NO_ALTERNATES = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_ALTERNATIVES
     """
     DESIGN_LEVEL1 = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
     """
     DESIGN_LEVEL2 = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
     """
     DESIGN_LEVEL3 = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
     """
     DESIGN_LEVEL4 = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
     """
     DESIGN_LEVEL5 = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_DESIGN_COMPLEXITY_TYPE
     """
     NO_STYLE_OPTIONS = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
     """
     DISPLAY_TEXT = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
     """
     ENGRAVED_TEXT = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
     """
     ILLUMINATED_CAPS = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
     """
     TITLING_CAPS = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
     """
     TALL_CAPS = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLE_OPTIONS
     """
     TRADITIONAL_CHARACTERS = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     SIMPLIFIED_CHARACTERS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     JIS1978_CHARACTERS = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     JIS1983_CHARACTERS = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     JIS1990_CHARACTERS = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     TRADITIONAL_ALT_ONE = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     TRADITIONAL_ALT_TWO = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     TRADITIONAL_ALT_THREE = 7
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     TRADITIONAL_ALT_FOUR = 8
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     TRADITIONAL_ALT_FIVE = 9
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     EXPERT_CHARACTERS = 10
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     JIS2004_CHARACTERS = 11
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     HOJO_CHARACTERS = 12
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     NLCCHARACTERS = 13
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     TRADITIONAL_NAMES_CHARACTERS = 14
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CHARACTER_SHAPE
     """
     LOWER_CASE_NUMBERS = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_CASE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_CASE
     """
     UPPER_CASE_NUMBERS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_CASE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_NUMBER_CASE
     """
     PROPORTIONAL_TEXT = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
     """
     MONOSPACED_TEXT = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
     """
     HALF_WIDTH_TEXT = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
     """
     THIRD_WIDTH_TEXT = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
     """
     QUARTER_WIDTH_TEXT = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
     """
     ALT_PROPORTIONAL_TEXT = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
     """
     ALT_HALF_WIDTH_TEXT = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TEXT_SPACING
     """
     NO_TRANSLITERATION = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     HANJA_TO_HANGUL = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     HIRAGANA_TO_KATAKANA = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     KATAKANA_TO_HIRAGANA = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     KANA_TO_ROMANIZATION = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     ROMANIZATION_TO_HIRAGANA = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     ROMANIZATION_TO_KATAKANA = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     HANJA_TO_HANGUL_ALT_ONE = 7
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     HANJA_TO_HANGUL_ALT_TWO = 8
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     HANJA_TO_HANGUL_ALT_THREE = 9
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
+    for HB_AAT_LAYOUT_FEATURE_TYPE_TRANSLITERATION
     """
     NO_ANNOTATION = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     BOX_ANNOTATION = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     ROUNDED_BOX_ANNOTATION = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     CIRCLE_ANNOTATION = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     INVERTED_CIRCLE_ANNOTATION = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     PARENTHESIS_ANNOTATION = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     PERIOD_ANNOTATION = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     ROMAN_NUMERAL_ANNOTATION = 7
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     DIAMOND_ANNOTATION = 8
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     INVERTED_BOX_ANNOTATION = 9
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     INVERTED_ROUNDED_BOX_ANNOTATION = 10
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ANNOTATION_TYPE
     """
     FULL_WIDTH_KANA = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_KANA_SPACING_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_KANA_SPACING_TYPE
     """
     PROPORTIONAL_KANA = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_KANA_SPACING_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_KANA_SPACING_TYPE
     """
     FULL_WIDTH_IDEOGRAPHS = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_SPACING_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_SPACING_TYPE
     """
     PROPORTIONAL_IDEOGRAPHS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_SPACING_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_SPACING_TYPE
     """
     HALF_WIDTH_IDEOGRAPHS = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_SPACING_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_SPACING_TYPE
     """
     CANONICAL_COMPOSITION_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
     """
     CANONICAL_COMPOSITION_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
     """
     COMPATIBILITY_COMPOSITION_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
     """
     COMPATIBILITY_COMPOSITION_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
     """
     TRANSCODING_COMPOSITION_ON = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
     """
     TRANSCODING_COMPOSITION_OFF = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_UNICODE_DECOMPOSITION_TYPE
     """
     NO_RUBY_KANA = 0
     """
-    Deprecated; use #HB_AAT_LAYOUT_FEATURE_SELECTOR_RUBY_KANA_OFF instead
+    Deprecated; use HB_AAT_LAYOUT_FEATURE_SELECTOR_RUBY_KANA_OFF instead
     """
     RUBY_KANA = 1
     """
-    Deprecated; use #HB_AAT_LAYOUT_FEATURE_SELECTOR_RUBY_KANA_ON instead
+    Deprecated; use HB_AAT_LAYOUT_FEATURE_SELECTOR_RUBY_KANA_ON instead
     """
     RUBY_KANA_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_RUBY_KANA
+    for HB_AAT_LAYOUT_FEATURE_TYPE_RUBY_KANA
     """
     RUBY_KANA_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_RUBY_KANA
+    for HB_AAT_LAYOUT_FEATURE_TYPE_RUBY_KANA
     """
     NO_CJK_SYMBOL_ALTERNATIVES = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
     """
     CJK_SYMBOL_ALT_ONE = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
     """
     CJK_SYMBOL_ALT_TWO = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
     """
     CJK_SYMBOL_ALT_THREE = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
     """
     CJK_SYMBOL_ALT_FOUR = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
     """
     CJK_SYMBOL_ALT_FIVE = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_SYMBOL_ALTERNATIVES_TYPE
     """
     NO_IDEOGRAPHIC_ALTERNATIVES = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
     """
     IDEOGRAPHIC_ALT_ONE = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
     """
     IDEOGRAPHIC_ALT_TWO = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
     """
     IDEOGRAPHIC_ALT_THREE = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
     """
     IDEOGRAPHIC_ALT_FOUR = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
     """
     IDEOGRAPHIC_ALT_FIVE = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_IDEOGRAPHIC_ALTERNATIVES_TYPE
     """
     CJK_VERTICAL_ROMAN_CENTERED = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_VERTICAL_ROMAN_PLACEMENT_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_VERTICAL_ROMAN_PLACEMENT_TYPE
     """
     CJK_VERTICAL_ROMAN_HBASELINE = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_VERTICAL_ROMAN_PLACEMENT_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_VERTICAL_ROMAN_PLACEMENT_TYPE
     """
     NO_CJK_ITALIC_ROMAN = 0
     """
-    Deprecated; use #HB_AAT_LAYOUT_FEATURE_SELECTOR_CJK_ITALIC_ROMAN_OFF instead
+    Deprecated; use HB_AAT_LAYOUT_FEATURE_SELECTOR_CJK_ITALIC_ROMAN_OFF instead
     """
     CJK_ITALIC_ROMAN = 1
     """
-    Deprecated; use #HB_AAT_LAYOUT_FEATURE_SELECTOR_CJK_ITALIC_ROMAN_ON instead
+    Deprecated; use HB_AAT_LAYOUT_FEATURE_SELECTOR_CJK_ITALIC_ROMAN_ON instead
     """
     CJK_ITALIC_ROMAN_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ITALIC_CJK_ROMAN
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ITALIC_CJK_ROMAN
     """
     CJK_ITALIC_ROMAN_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ITALIC_CJK_ROMAN
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ITALIC_CJK_ROMAN
     """
     CASE_SENSITIVE_LAYOUT_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CASE_SENSITIVE_LAYOUT
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CASE_SENSITIVE_LAYOUT
     """
     CASE_SENSITIVE_LAYOUT_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CASE_SENSITIVE_LAYOUT
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CASE_SENSITIVE_LAYOUT
     """
     CASE_SENSITIVE_SPACING_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CASE_SENSITIVE_LAYOUT
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CASE_SENSITIVE_LAYOUT
     """
     CASE_SENSITIVE_SPACING_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CASE_SENSITIVE_LAYOUT
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CASE_SENSITIVE_LAYOUT
     """
     ALTERNATE_HORIZ_KANA_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ALTERNATE_KANA
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ALTERNATE_KANA
     """
     ALTERNATE_HORIZ_KANA_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ALTERNATE_KANA
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ALTERNATE_KANA
     """
     ALTERNATE_VERT_KANA_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ALTERNATE_KANA
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ALTERNATE_KANA
     """
     ALTERNATE_VERT_KANA_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_ALTERNATE_KANA
+    for HB_AAT_LAYOUT_FEATURE_TYPE_ALTERNATE_KANA
     """
     NO_STYLISTIC_ALTERNATES = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_ONE_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_ONE_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_TWO_ON = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_TWO_OFF = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_THREE_ON = 6
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_THREE_OFF = 7
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_FOUR_ON = 8
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_FOUR_OFF = 9
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_FIVE_ON = 10
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_FIVE_OFF = 11
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_SIX_ON = 12
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_SIX_OFF = 13
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_SEVEN_ON = 14
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_SEVEN_OFF = 15
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_EIGHT_ON = 16
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_EIGHT_OFF = 17
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_NINE_ON = 18
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_NINE_OFF = 19
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_TEN_ON = 20
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_TEN_OFF = 21
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_ELEVEN_ON = 22
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_ELEVEN_OFF = 23
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_TWELVE_ON = 24
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_TWELVE_OFF = 25
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_THIRTEEN_ON = 26
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_THIRTEEN_OFF = 27
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_FOURTEEN_ON = 28
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_FOURTEEN_OFF = 29
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_FIFTEEN_ON = 30
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_FIFTEEN_OFF = 31
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_SIXTEEN_ON = 32
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_SIXTEEN_OFF = 33
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_SEVENTEEN_ON = 34
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_SEVENTEEN_OFF = 35
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_EIGHTEEN_ON = 36
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_EIGHTEEN_OFF = 37
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_NINETEEN_ON = 38
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_NINETEEN_OFF = 39
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_TWENTY_ON = 40
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     STYLISTIC_ALT_TWENTY_OFF = 41
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_STYLISTIC_ALTERNATIVES
     """
     CONTEXTUAL_ALTERNATES_ON = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
     """
     CONTEXTUAL_ALTERNATES_OFF = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
     """
     SWASH_ALTERNATES_ON = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
     """
     SWASH_ALTERNATES_OFF = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
     """
     CONTEXTUAL_SWASH_ALTERNATES_ON = 4
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
     """
     CONTEXTUAL_SWASH_ALTERNATES_OFF = 5
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CONTEXTUAL_ALTERNATIVES
     """
     DEFAULT_LOWER_CASE = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LOWER_CASE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LOWER_CASE
     """
     LOWER_CASE_SMALL_CAPS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LOWER_CASE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LOWER_CASE
     """
     LOWER_CASE_PETITE_CAPS = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_LOWER_CASE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_LOWER_CASE
     """
     DEFAULT_UPPER_CASE = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_UPPER_CASE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_UPPER_CASE
     """
     UPPER_CASE_SMALL_CAPS = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_UPPER_CASE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_UPPER_CASE
     """
     UPPER_CASE_PETITE_CAPS = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_UPPER_CASE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_UPPER_CASE
     """
     HALF_WIDTH_CJK_ROMAN = 0
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_ROMAN_SPACING_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_ROMAN_SPACING_TYPE
     """
     PROPORTIONAL_CJK_ROMAN = 1
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_ROMAN_SPACING_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_ROMAN_SPACING_TYPE
     """
     DEFAULT_CJK_ROMAN = 2
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_ROMAN_SPACING_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_ROMAN_SPACING_TYPE
     """
     FULL_WIDTH_CJK_ROMAN = 3
     """
-    for #HB_AAT_LAYOUT_FEATURE_TYPE_CJK_ROMAN_SPACING_TYPE
+    for HB_AAT_LAYOUT_FEATURE_TYPE_CJK_ROMAN_SPACING_TYPE
     """
 
 class aat_layout_feature_type_t(GObject.GEnum):
@@ -6721,159 +6721,159 @@ class aat_layout_feature_type_t(GObject.GEnum):
     """
     ALL_TYPOGRAPHIC = 0
     """
-    [All Typographic Features](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type0)
+    [All Typographic Features](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType0)
     """
     LIGATURES = 1
     """
-    [Ligatures](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type1)
+    [Ligatures](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType1)
     """
     CURSIVE_CONNECTION = 2
     """
-    [Cursive Connection](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type2)
+    [Cursive Connection](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType2)
     """
     LETTER_CASE = 3
     """
-    [Letter Case](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type3)
+    [Letter Case](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType3)
     """
     VERTICAL_SUBSTITUTION = 4
     """
-    [Vertical Substitution](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type4)
+    [Vertical Substitution](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType4)
     """
     LINGUISTIC_REARRANGEMENT = 5
     """
-    [Linguistic Rearrangement](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type5)
+    [Linguistic Rearrangement](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType5)
     """
     NUMBER_SPACING = 6
     """
-    [Number Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type6)
+    [Number Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType6)
     """
     SMART_SWASH_TYPE = 8
     """
-    [Smart Swash](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type8)
+    [Smart Swash](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType8)
     """
     DIACRITICS_TYPE = 9
     """
-    [Diacritics](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type9)
+    [Diacritics](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType9)
     """
     VERTICAL_POSITION = 10
     """
-    [Vertical Position](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type10)
+    [Vertical Position](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType10)
     """
     FRACTIONS = 11
     """
-    [Fractions](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type11)
+    [Fractions](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType11)
     """
     OVERLAPPING_CHARACTERS_TYPE = 13
     """
-    [Overlapping Characters](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type13)
+    [Overlapping Characters](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType13)
     """
     TYPOGRAPHIC_EXTRAS = 14
     """
-    [Typographic Extras](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type14)
+    [Typographic Extras](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType14)
     """
     MATHEMATICAL_EXTRAS = 15
     """
-    [Mathematical Extras](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type15)
+    [Mathematical Extras](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType15)
     """
     ORNAMENT_SETS_TYPE = 16
     """
-    [Ornament Sets](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type16)
+    [Ornament Sets](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType16)
     """
     CHARACTER_ALTERNATIVES = 17
     """
-    [Character Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type17)
+    [Character Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType17)
     """
     DESIGN_COMPLEXITY_TYPE = 18
     """
-    [Design Complexity](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type18)
+    [Design Complexity](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType18)
     """
     STYLE_OPTIONS = 19
     """
-    [Style Options](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type19)
+    [Style Options](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType19)
     """
     CHARACTER_SHAPE = 20
     """
-    [Character Shape](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type20)
+    [Character Shape](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType20)
     """
     NUMBER_CASE = 21
     """
-    [Number Case](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type21)
+    [Number Case](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType21)
     """
     TEXT_SPACING = 22
     """
-    [Text Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type22)
+    [Text Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType22)
     """
     TRANSLITERATION = 23
     """
-    [Transliteration](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type23)
+    [Transliteration](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType23)
     """
     ANNOTATION_TYPE = 24
     """
-    [Annotation](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type24)
+    [Annotation](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType24)
     """
     KANA_SPACING_TYPE = 25
     """
-    [Kana Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type25)
+    [Kana Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType25)
     """
     IDEOGRAPHIC_SPACING_TYPE = 26
     """
-    [Ideographic Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type26)
+    [Ideographic Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType26)
     """
     UNICODE_DECOMPOSITION_TYPE = 27
     """
-    [Unicode Decomposition](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type27)
+    [Unicode Decomposition](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType27)
     """
     RUBY_KANA = 28
     """
-    [Ruby Kana](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type28)
+    [Ruby Kana](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType28)
     """
     CJK_SYMBOL_ALTERNATIVES_TYPE = 29
     """
-    [CJK Symbol Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type29)
+    [CJK Symbol Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType29)
     """
     IDEOGRAPHIC_ALTERNATIVES_TYPE = 30
     """
-    [Ideographic Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type30)
+    [Ideographic Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType30)
     """
     CJK_VERTICAL_ROMAN_PLACEMENT_TYPE = 31
     """
-    [CJK Vertical Roman Placement](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type31)
+    [CJK Vertical Roman Placement](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType31)
     """
     ITALIC_CJK_ROMAN = 32
     """
-    [Italic CJK Roman](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type32)
+    [Italic CJK Roman](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType32)
     """
     CASE_SENSITIVE_LAYOUT = 33
     """
-    [Case Sensitive Layout](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type33)
+    [Case Sensitive Layout](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType33)
     """
     ALTERNATE_KANA = 34
     """
-    [Alternate Kana](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type34)
+    [Alternate Kana](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType34)
     """
     STYLISTIC_ALTERNATIVES = 35
     """
-    [Stylistic Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type35)
+    [Stylistic Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType35)
     """
     CONTEXTUAL_ALTERNATIVES = 36
     """
-    [Contextual Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type36)
+    [Contextual Alternatives](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType36)
     """
     LOWER_CASE = 37
     """
-    [Lower Case](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type37)
+    [Lower Case](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType37)
     """
     UPPER_CASE = 38
     """
-    [Upper Case](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type38)
+    [Upper Case](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType38)
     """
     LANGUAGE_TAG_TYPE = 39
     """
-    [Language Tag](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type39)
+    [Language Tag](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType39)
     """
     CJK_ROMAN_SPACING_TYPE = 103
     """
-    [CJK Roman Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html#Type103)
+    [CJK Roman Spacing](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.htmlType103)
     """
 
 class buffer_cluster_level_t(GObject.GEnum):
@@ -6882,18 +6882,18 @@ class buffer_cluster_level_t(GObject.GEnum):
     dictates one aspect of how HarfBuzz will treat non-base characters
     during shaping.
 
-    In @HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES, non-base
+    In `HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES`, non-base
     characters are merged into the cluster of the base character that precedes them.
 
-    In @HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS, non-base characters are initially
+    In `HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS`, non-base characters are initially
     assigned their own cluster values, which are not merged into preceding base
     clusters. This allows HarfBuzz to perform additional operations like reorder
     sequences of adjacent marks.
 
-    @HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES is the default, because it maintains
+    `HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES` is the default, because it maintains
     backward compatibility with older versions of HarfBuzz. New client programs that
     do not need to maintain such backward compatibility are recommended to use
-    @HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS instead of the default."""
+    `HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS` instead of the default."""
 
     MONOTONE_GRAPHEMES = 0
     """
@@ -6911,7 +6911,7 @@ class buffer_cluster_level_t(GObject.GEnum):
     DEFAULT = 0
     """
     Default cluster level,
-      equal to @HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES.
+      equal to `HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES`.
     """
 
 class buffer_content_type_t(GObject.GEnum):
@@ -7004,7 +7004,7 @@ class buffer_flags_t(GObject.GFlags):
     """
     flag indicating that special handling of the end of text
                          paragraph can be applied to this buffer, similar to
-                         @HB_BUFFER_FLAG_BOT.
+                         `HB_BUFFER_FLAG_BOT`.
     """
     PRESERVE_DEFAULT_IGNORABLES = 4
     """
@@ -7013,7 +7013,7 @@ class buffer_flags_t(GObject.GFlags):
                          from the font, instead of hiding them (done by
                          replacing them with the space glyph and zeroing the
                          advance width.)  This flag takes precedence over
-                         @HB_BUFFER_FLAG_REMOVE_DEFAULT_IGNORABLES.
+                         `HB_BUFFER_FLAG_REMOVE_DEFAULT_IGNORABLES`.
     """
     REMOVE_DEFAULT_IGNORABLES = 8
     """
@@ -7021,7 +7021,7 @@ class buffer_flags_t(GObject.GFlags):
                          Unicode property should be removed from glyph string
                          instead of hiding them (done by replacing them with the
                          space glyph and zeroing the advance width.)
-                         @HB_BUFFER_FLAG_PRESERVE_DEFAULT_IGNORABLES takes
+                         `HB_BUFFER_FLAG_PRESERVE_DEFAULT_IGNORABLES` takes
                          precedence over this flag. Since: 1.8.0
     """
     DO_NOT_INSERT_DOTTED_CIRCLE = 16
@@ -7032,7 +7032,7 @@ class buffer_flags_t(GObject.GFlags):
     """
     VERIFY = 32
     """
-    flag indicating that the hb_shape() call and its variants
+    flag indicating that the `hb_shape` call and its variants
                          should perform various verification processes on the results
                          of the shaping operation on the buffer.  If the verification
                          fails, then either a buffer message is sent, if a message
@@ -7042,13 +7042,13 @@ class buffer_flags_t(GObject.GFlags):
     """
     PRODUCE_UNSAFE_TO_CONCAT = 64
     """
-    flag indicating that the @HB_GLYPH_FLAG_UNSAFE_TO_CONCAT
+    flag indicating that the `HB_GLYPH_FLAG_UNSAFE_TO_CONCAT`
                          glyph-flag should be produced by the shaper. By default
                          it will not be produced since it incurs a cost. Since: 4.0.0
     """
     PRODUCE_SAFE_TO_INSERT_TATWEEL = 128
     """
-    flag indicating that the @HB_GLYPH_FLAG_SAFE_TO_INSERT_TATWEEL
+    flag indicating that the `HB_GLYPH_FLAG_SAFE_TO_INSERT_TATWEEL`
                          glyph-flag should be produced by the shaper. By default
                          it will not be produced. Since: 5.1.0
     """
@@ -7059,7 +7059,7 @@ class buffer_flags_t(GObject.GFlags):
 
 class buffer_serialize_flags_t(GObject.GFlags):
     """
-    Flags that control what glyph information are serialized in hb_buffer_serialize_glyphs()."""
+    Flags that control what glyph information are serialized in `hb_buffer_serialize_glyphs`."""
 
     DEFAULT = 0
     """
@@ -7098,7 +7098,7 @@ class buffer_serialize_flags_t(GObject.GFlags):
 class buffer_serialize_format_t(GObject.GEnum):
     """
     The buffer serialization and de-serialization format used in
-    hb_buffer_serialize_glyphs() and hb_buffer_deserialize_glyphs()."""
+    `hb_buffer_serialize_glyphs` and `hb_buffer_deserialize_glyphs`."""
 
     TEXT = 1413830740
     """
@@ -7119,7 +7119,7 @@ class direction_t(GObject.GEnum):
 
     A segment can also be tested for horizontal or vertical
     orientation (irrespective of specific direction) with
-    HB_DIRECTION_IS_HORIZONTAL() or HB_DIRECTION_IS_VERTICAL()."""
+    `HB_DIRECTION_IS_HORIZONTAL` or `HB_DIRECTION_IS_VERTICAL`."""
 
     INVALID = 0
     """
@@ -7179,7 +7179,7 @@ class glyph_flags_t(GObject.GFlags):
     				   reshaping to a small piece around the
     				   breaking position only, even if the breaking
     				   position carries the
-    				   #HB_GLYPH_FLAG_UNSAFE_TO_BREAK or when
+    				   HB_GLYPH_FLAG_UNSAFE_TO_BREAK or when
     				   hyphenation or other text transformation
     				   happens at line-break position, in the following
     				   way:
@@ -7213,10 +7213,10 @@ class glyph_flags_t(GObject.GFlags):
     				   can be alleviated by shaping more text than needed
     				   and looking for unsafe-to-concat flag within text
     				   clusters.
-    				   The #HB_GLYPH_FLAG_UNSAFE_TO_BREAK flag will
+    				   The HB_GLYPH_FLAG_UNSAFE_TO_BREAK flag will
     				   always imply this flag.
     			   To use this flag, you must enable the buffer flag
-    			   @HB_BUFFER_FLAG_PRODUCE_UNSAFE_TO_CONCAT during
+    			   `HB_BUFFER_FLAG_PRODUCE_UNSAFE_TO_CONCAT` during
     			   shaping, otherwise the buffer flag will not be
     			   reliably produced.
     				   Since: 4.0.0
@@ -7247,19 +7247,19 @@ class memory_mode_t(GObject.GEnum):
 
     - In no case shall the HarfBuzz client modify memory
       that is passed to HarfBuzz in a blob.  If there is
-      any such possibility, @HB_MEMORY_MODE_DUPLICATE should be used
+      any such possibility, `HB_MEMORY_MODE_DUPLICATE` should be used
       such that HarfBuzz makes a copy immediately,
 
-    - Use @HB_MEMORY_MODE_READONLY otherwise, unless you really really
+    - Use `HB_MEMORY_MODE_READONLY` otherwise, unless you really really
       really know what you are doing,
 
-    - @HB_MEMORY_MODE_WRITABLE is appropriate if you really made a
+    - `HB_MEMORY_MODE_WRITABLE` is appropriate if you really made a
       copy of data solely for the purpose of passing to
       HarfBuzz and doing that just once (no reuse!),
 
-    - If the font is mmap()ed, it's okay to use
-      @HB_MEMORY_MODE_READONLY_MAY_MAKE_WRITABLE, however, using that mode
-      correctly is very tricky.  Use @HB_MEMORY_MODE_READONLY instead."""
+    - If the font is `mmap`ed, it's okay to use
+      `HB_MEMORY_MODE_READONLY_MAY_MAKE_WRITABLE`, however, using that mode
+      correctly is very tricky.  Use `HB_MEMORY_MODE_READONLY` instead."""
 
     DUPLICATE = 0
     """
@@ -8044,7 +8044,7 @@ class paint_composite_mode_t(GObject.GEnum):
     """
     Creates a color with the luminosity of
     the source and the hue and saturation of the target. This produces an
-    inverse effect to @HB_PAINT_COMPOSITE_MODE_HSL_COLOR.
+    inverse effect to `HB_PAINT_COMPOSITE_MODE_HSL_COLOR`.
     """
 
 class paint_extend_t(GObject.GEnum):
@@ -8799,7 +8799,7 @@ class style_tag_t(GObject.GEnum):
     """
     SLANT_RATIO = 1399615092
     """
-    same as @HB_STYLE_TAG_SLANT_ANGLE expression as ratio.
+    same as `HB_STYLE_TAG_SLANT_ANGLE` expression as ratio.
     Typical right-leaning Italic fonts have a positive slant ratio (typically around 0.2)
     """
     WIDTH = 2003072104
@@ -8823,7 +8823,7 @@ class unicode_combining_class_t(GObject.GEnum):
 
     <note>Note: newer versions of Unicode may add new values.
     Client programs should be ready to handle any value in the 0..254 range
-    being returned from hb_unicode_combining_class().</note>"""
+    being returned from `hb_unicode_combining_class`.</note>"""
 
     NOT_REORDERED = 0
     """
@@ -9261,7 +9261,7 @@ class color_stop_t(GObject.GBoxed):
     Color lines typically have offsets ranging between 0 and 1,
     but that is not required.
 
-    Note: despite @color being unpremultiplied here, interpolation in
+    Note: despite `color` being unpremultiplied here, interpolation in
     gradients shall happen in premultiplied space. See the OpenType spec
     [COLR](https://learn.microsoft.com/en-us/typography/opentype/spec/colr)
     section for details.
@@ -9373,8 +9373,8 @@ class feature_t(GObject.GBoxed):
     """
     The #hb_feature_t is the structure that holds information about requested
     feature application. The feature will be applied with the given value to all
-    glyphs which are in clusters between @start (inclusive) and @end (exclusive).
-    Setting start to #HB_FEATURE_GLOBAL_START and end to #HB_FEATURE_GLOBAL_END
+    glyphs which are in clusters between `start` (inclusive) and `end` (exclusive).
+    Setting start to HB_FEATURE_GLOBAL_START and end to HB_FEATURE_GLOBAL_END
     specifies that the feature always applies to the entire buffer.
     """
 
@@ -9398,7 +9398,7 @@ class feature_t(GObject.GBoxed):
     """
     The value of the feature. 0 disables the feature, non-zero (usually
     1) enables the feature.  For features implemented as lookup type 3 (like
-    'salt') the @value is a one based index into the alternates.
+    'salt') the `value` is a one based index into the alternates.
 
     """
 
@@ -9409,16 +9409,16 @@ class feature_t(GObject.GBoxed):
         """
     def _string(self) -> tuple[list, int]:
         """
-            Converts a #hb_feature_t into a `NULL`-terminated string in the format
-        understood by hb_feature_from_string(). The client in responsible for
-        allocating big enough size for @buf, 128 bytes is more than enough.
+            Converts a #hb_feature_t into a `None`-terminated string in the format
+        understood by `hb_feature_from_string`. The client in responsible for
+        allocating big enough size for `buf`, 128 bytes is more than enough.
         """
 
 class font_extents_t(GObject.GPointer):
     """
     Font-wide extent values, measured in font units.
 
-    Note that typically @ascender is positive and @descender
+    Note that typically `ascender` is positive and `descender`
     negative, in coordinate systems that grow up.
     """
 
@@ -9496,7 +9496,7 @@ class glyph_extents_t(GObject.GPointer):
     """
     Glyph extent values, measured in font units.
 
-    Note that @height is negative, in coordinate systems that grow up.
+    Note that `height` is negative, in coordinate systems that grow up.
     """
 
     # gi Fields
@@ -9538,14 +9538,14 @@ class glyph_info_t(GObject.GBoxed):
     """
     the index of the character in the original text that corresponds
               to this #hb_glyph_info_t, or whatever the client passes to
-              hb_buffer_add(). More than one #hb_glyph_info_t can have the same
-              @cluster value, if they resulted from the same character (e.g. one
+              `hb_buffer_add`. More than one #hb_glyph_info_t can have the same
+              `cluster` value, if they resulted from the same character (e.g. one
               to many glyph substitution), and when more than one character gets
               merged in the same glyph (e.g. many to one glyph substitution) the
               #hb_glyph_info_t will have the smallest cluster value of them.
               By default some characters are merged into the same cluster
               (e.g. combining marks have the same cluster as their bases)
-              even if they are separate glyphs, hb_buffer_set_cluster_level()
+              even if they are separate glyphs, `hb_buffer_set_cluster_level`
               allow selecting more fine-grained cluster handling.
 
     """
@@ -9780,8 +9780,8 @@ class ot_var_axis_info_t(GObject.GBoxed):
 
     The minimum, default, and maximum values are in un-normalized, user scales.
 
-    <note>Note: at present, the only flag defined for @flags is
-    #HB_OT_VAR_AXIS_FLAG_HIDDEN.</note>
+    <note>Note: at present, the only flag defined for `flags` is
+    HB_OT_VAR_AXIS_FLAG_HIDDEN.</note>
     """
 
     # gi Fields
@@ -9881,7 +9881,7 @@ class paint_funcs_t(GObject.GBoxed):
     For rendering COLRv0 or non-color outline glyphs, the
     gradient callbacks are not needed, and the composite
     callback only needs to handle simple alpha compositing
-    (#HB_PAINT_COMPOSITE_MODE_SRC_OVER).
+    (HB_PAINT_COMPOSITE_MODE_SRC_OVER).
 
     The paint-image callback is only needed for glyphs
     with image blobs in the CBDT, sbix or SVG tables.
@@ -9900,24 +9900,24 @@ class paint_funcs_t(GObject.GBoxed):
 class segment_properties_t(GObject.GBoxed):
     """
     The structure that holds various text properties of an #hb_buffer_t. Can be
-    set and retrieved using hb_buffer_set_segment_properties() and
-    hb_buffer_get_segment_properties(), respectively.
+    set and retrieved using `hb_buffer_set_segment_properties` and
+    `hb_buffer_get_segment_properties`, respectively.
     """
 
     # gi Fields
     direction: direction_t = ...
     """
-    the #hb_direction_t of the buffer, see hb_buffer_set_direction().
+    the #hb_direction_t of the buffer, see `hb_buffer_set_direction`.
 
     """
     language: language_t | None = ...
     """
-    the #hb_language_t of the buffer, see hb_buffer_set_language().
+    the #hb_language_t of the buffer, see `hb_buffer_set_language`.
 
     """
     script: script_t = ...
     """
-    the #hb_script_t of the buffer, see hb_buffer_set_script().
+    the #hb_script_t of the buffer, see `hb_buffer_set_script`.
 
     """
 
@@ -10050,9 +10050,9 @@ class variation_t(GObject.GPointer):
         """
     def _string(self) -> tuple[list, int]:
         """
-            Converts an #hb_variation_t into a `NULL`-terminated string in the format
-        understood by hb_variation_from_string(). The client in responsible for
-        allocating big enough size for @buf, 128 bytes is more than enough.
+            Converts an #hb_variation_t into a `None`-terminated string in the format
+        understood by `hb_variation_from_string`. The client in responsible for
+        allocating big enough size for `buf`, 128 bytes is more than enough.
         """
 
 ###############################################################

@@ -32,14 +32,14 @@ def desktop_app_info_lookup_get_default_for_uri_scheme(
 ) -> Gio.AppInfo | None:
     """
     Gets the default application for launching applications
-    using this URI scheme for a particular [iface@Gio.DesktopAppInfoLookup]
+    using this URI scheme for a particular [iface`Gio`.DesktopAppInfoLookup]
     implementation.
 
-    The [iface@Gio.DesktopAppInfoLookup] interface and this function is used
-    to implement [func@Gio.AppInfo.get_default_for_uri_scheme] backends
+    The [iface`Gio`.DesktopAppInfoLookup] interface and this function is used
+    to implement [func`Gio`.AppInfo.get_default_for_uri_scheme] backends
     in a GIO module. There is no reason for applications to use it
     directly. Applications should use
-    [func@Gio.AppInfo.get_default_for_uri_scheme].
+    [func`Gio`.AppInfo.get_default_for_uri_scheme].
     """
     ...
 
@@ -57,7 +57,7 @@ def is_mount_path_system_internal(
     mount_path: str,
 ) -> bool:
     """
-    Determines if @mount_path is considered an implementation of the
+    Determines if `mount_path` is considered an implementation of the
     OS.
 
     This is primarily used for hiding mountable and mounted volumes
@@ -71,7 +71,7 @@ def is_system_device_path(
     device_path: str,
 ) -> bool:
     """
-    Determines if @device_path is considered a block device path which is only
+    Determines if `device_path` is considered a block device path which is only
     used in implementation of the OS.
 
     This is primarily used for hiding mounted volumes that are intended as APIs
@@ -88,7 +88,7 @@ def is_system_fs_type(
     fs_type: str,
 ) -> bool:
     """
-    Determines if @fs_type is considered a type of file system which is only
+    Determines if `fs_type` is considered a type of file system which is only
     used in implementation of the OS.
 
     This is primarily used for hiding mounted volumes that are intended as APIs
@@ -106,16 +106,16 @@ def mount_at(
     mount_path: str,
 ) -> tuple[MountEntry | None, int]:
     """
-    Gets a [struct@GioUnix.MountEntry] for a given mount path.
+    Gets a [struct`GioUnix`.MountEntry] for a given mount path.
 
-    If @time_read is set, it will be filled with a Unix timestamp for checking
+    If `time_read` is set, it will be filled with a Unix timestamp for checking
     if the mounts have changed since with
-    [func@GioUnix.mount_entries_changed_since].
+    [func`GioUnix`.mount_entries_changed_since].
 
     If more mounts have the same mount path, the last matching mount
     is returned.
 
-    This will return `NULL` if there is no mount point at @mount_path.
+    This will return `None` if there is no mount point at `mount_path`.
     """
     ...
 
@@ -136,7 +136,7 @@ def mount_copy(
     mount_entry: MountEntry,
 ) -> MountEntry:
     """
-    Makes a copy of @mount_entry.
+    Makes a copy of `mount_entry`.
     """
     ...
 
@@ -147,12 +147,12 @@ def mount_entries_changed_since(
     """
     Checks if the Unix mounts have changed since a given Unix time.
 
-    This can only work reliably if a [class@GioUnix.MountMonitor] is running in
+    This can only work reliably if a [class`GioUnix`.MountMonitor] is running in
     the process, otherwise changes in the mount entries file (such as
     `/proc/self/mountinfo` on Linux) cannot be detected and, as a result, this
-    function has to conservatively always return `TRUE`.
+    function has to conservatively always return `True`.
 
-    It is more efficient to use [signal@GioUnix.MountMonitor::mounts-changed] to
+    It is more efficient to use [signal`GioUnix`.MountMonitor::mounts-changed] to
     be signalled of changes to the mount entries, rather than polling using this
     function. This function is more appropriate for infrequently determining
     cache validity.
@@ -162,12 +162,12 @@ def mount_entries_changed_since(
 @staticmethod
 def mount_entries_get() -> tuple[list, int]:
     """
-    Gets a list of [struct@GioUnix.MountEntry] instances representing the Unix
+    Gets a list of [struct`GioUnix`.MountEntry] instances representing the Unix
     mounts.
 
-    If @time_read is set, it will be filled with the mount timestamp, allowing
+    If `time_read` is set, it will be filled with the mount timestamp, allowing
     for checking if the mounts have changed with
-    [func@GioUnix.mount_entries_changed_since].
+    [func`GioUnix`.mount_entries_changed_since].
     """
     ...
 
@@ -176,15 +176,15 @@ def mount_entries_get_from_file(
     table_path: str,
 ) -> tuple[list | None, int, int]:
     """
-    Gets an array of [struct@Gio.UnixMountEntry]s containing the Unix mounts
-    listed in @table_path.
+    Gets an array of [struct`Gio`.UnixMountEntry]s containing the Unix mounts
+    listed in `table_path`.
 
-    This is a generalized version of [func@GioUnix.mount_entries_get], mainly
-    intended for internal testing use. Note that [func@GioUnix.mount_entries_get]
+    This is a generalized version of [func`GioUnix`.mount_entries_get], mainly
+    intended for internal testing use. Note that [func`GioUnix`.mount_entries_get]
     may parse multiple hierarchical table files, so this function is not a direct
     superset of its functionality.
 
-    If there is an error reading or parsing the file, `NULL` will be returned
+    If there is an error reading or parsing the file, `None` will be returned
     and both out parameters will be set to `0`.
     """
     ...
@@ -194,16 +194,16 @@ def mount_entry_at(
     mount_path: str,
 ) -> tuple[MountEntry | None, int]:
     """
-    Gets a [struct@GioUnix.MountEntry] for a given mount path.
+    Gets a [struct`GioUnix`.MountEntry] for a given mount path.
 
-    If @time_read is set, it will be filled with a Unix timestamp for checking
+    If `time_read` is set, it will be filled with a Unix timestamp for checking
     if the mounts have changed since with
-    [func@GioUnix.mount_entries_changed_since].
+    [func`GioUnix`.mount_entries_changed_since].
 
     If more mounts have the same mount path, the last matching mount
     is returned.
 
-    This will return `NULL` if there is no mount point at @mount_path.
+    This will return `None` if there is no mount point at `mount_path`.
     """
     ...
 
@@ -222,7 +222,7 @@ def mount_entry_copy(
     mount_entry: MountEntry,
 ) -> MountEntry:
     """
-    Makes a copy of @mount_entry.
+    Makes a copy of `mount_entry`.
     """
     ...
 
@@ -231,17 +231,17 @@ def mount_entry_for(
     file_path: str,
 ) -> tuple[MountEntry | None, int]:
     """
-    Gets a [struct@GioUnix.MountEntry] for a given file path.
+    Gets a [struct`GioUnix`.MountEntry] for a given file path.
 
-    If @time_read is set, it will be filled with a Unix timestamp for checking
+    If `time_read` is set, it will be filled with a Unix timestamp for checking
     if the mounts have changed since with
-    [func@GioUnix.mount_entries_changed_since].
+    [func`GioUnix`.mount_entries_changed_since].
 
     If more mounts have the same mount path, the last matching mount
     is returned.
 
-    This will return `NULL` if looking up the mount entry fails, if
-    @file_path doesn’t exist or there is an I/O error.
+    This will return `None` if looking up the mount entry fails, if
+    `file_path` doesn’t exist or there is an I/O error.
     """
     ...
 
@@ -290,8 +290,8 @@ def mount_entry_get_options(
 
     For example: `rw,relatime,seclabel,data=ordered`.
 
-    This is similar to [func@GioUnix.MountPoint.get_options], but it takes
-    a [struct@GioUnix.MountEntry] as an argument.
+    This is similar to [func`GioUnix`.MountPoint.get_options], but it takes
+    a [struct`GioUnix`.MountEntry] as an argument.
     """
     ...
 
@@ -373,8 +373,8 @@ def mount_entry_is_system_internal(
     Checks if a Unix mount is a system mount.
 
     This is the Boolean OR of
-    [func@GioUnix.is_system_fs_type], [func@GioUnix.is_system_device_path] and
-    [func@GioUnix.is_mount_path_system_internal] on @mount_entry’s properties.
+    [func`GioUnix`.is_system_fs_type], [func`GioUnix`.is_system_device_path] and
+    [func`GioUnix`.is_mount_path_system_internal] on `mount_entry`’s properties.
 
     The definition of what a ‘system’ mount entry is may change over time as new
     file system types and device paths are ignored.
@@ -387,17 +387,17 @@ def mount_for(
     file_path: str,
 ) -> tuple[MountEntry | None, int]:
     """
-    Gets a [struct@GioUnix.MountEntry] for a given file path.
+    Gets a [struct`GioUnix`.MountEntry] for a given file path.
 
-    If @time_read is set, it will be filled with a Unix timestamp for checking
+    If `time_read` is set, it will be filled with a Unix timestamp for checking
     if the mounts have changed since with
-    [func@GioUnix.mount_entries_changed_since].
+    [func`GioUnix`.mount_entries_changed_since].
 
     If more mounts have the same mount path, the last matching mount
     is returned.
 
-    This will return `NULL` if looking up the mount entry fails, if
-    @file_path doesn’t exist or there is an I/O error.
+    This will return `None` if looking up the mount entry fails, if
+    `file_path` doesn’t exist or there is an I/O error.
     """
     ...
 
@@ -451,8 +451,8 @@ def mount_get_options(
 
     For example: `rw,relatime,seclabel,data=ordered`.
 
-    This is similar to [func@GioUnix.MountPoint.get_options], but it takes
-    a [struct@GioUnix.MountEntry] as an argument.
+    This is similar to [func`GioUnix`.MountPoint.get_options], but it takes
+    a [struct`GioUnix`.MountEntry] as an argument.
     """
     ...
 
@@ -542,8 +542,8 @@ def mount_is_system_internal(
     Checks if a Unix mount is a system mount.
 
     This is the Boolean OR of
-    [func@GioUnix.is_system_fs_type], [func@GioUnix.is_system_device_path] and
-    [func@GioUnix.is_mount_path_system_internal] on @mount_entry’s properties.
+    [func`GioUnix`.is_system_fs_type], [func`GioUnix`.is_system_device_path] and
+    [func`GioUnix`.is_mount_path_system_internal] on `mount_entry`’s properties.
 
     The definition of what a ‘system’ mount entry is may change over time as new
     file system types and device paths are ignored.
@@ -555,11 +555,11 @@ def mount_point_at(
     mount_path: str,
 ) -> tuple[MountPoint | None, int]:
     """
-    Gets a [struct@GioUnix.MountPoint] for a given mount path.
+    Gets a [struct`GioUnix`.MountPoint] for a given mount path.
 
-    If @time_read is set, it will be filled with a Unix timestamp for checking if
+    If `time_read` is set, it will be filled with a Unix timestamp for checking if
     the mount points have changed since with
-    [func@GioUnix.mount_points_changed_since].
+    [func`GioUnix`.mount_points_changed_since].
 
     If more mount points have the same mount path, the last matching mount point
     is returned.
@@ -581,7 +581,7 @@ def mount_point_copy(
     mount_point: MountPoint,
 ) -> MountPoint:
     """
-    Makes a copy of @mount_point.
+    Makes a copy of `mount_point`.
     """
     ...
 
@@ -702,12 +702,12 @@ def mount_points_changed_since(
     """
     Checks if the Unix mount points have changed since a given Unix time.
 
-    Unlike [func@GioUnix.mount_entries_changed_since], this function can work
-    reliably without a [class@GioUnix.MountMonitor] running, as it accesses the
+    Unlike [func`GioUnix`.mount_entries_changed_since], this function can work
+    reliably without a [class`GioUnix`.MountMonitor] running, as it accesses the
     static mount point information (such as `/etc/fstab` on Linux), which has a
     valid modification time.
 
-    It is more efficient to use [signal@GioUnix.MountMonitor::mountpoints-changed]
+    It is more efficient to use [signal`GioUnix`.MountMonitor::mountpoints-changed]
     to be signalled of changes to the mount points, rather than polling using
     this function. This function is more appropriate for infrequently determining
     cache validity.
@@ -717,12 +717,12 @@ def mount_points_changed_since(
 @staticmethod
 def mount_points_get() -> tuple[list, int]:
     """
-    Gets a list of [struct@GioUnix.MountPoint] instances representing the Unix
+    Gets a list of [struct`GioUnix`.MountPoint] instances representing the Unix
     mount points.
 
-    If @time_read is set, it will be filled with the mount timestamp, allowing
+    If `time_read` is set, it will be filled with the mount timestamp, allowing
     for checking if the mounts have changed with
-    [func@GioUnix.mount_points_changed_since].
+    [func`GioUnix`.mount_points_changed_since].
     """
     ...
 
@@ -731,15 +731,15 @@ def mount_points_get_from_file(
     table_path: str,
 ) -> tuple[list | None, int, int]:
     """
-    Gets an array of [struct@Gio.UnixMountPoint]s containing the Unix mount
-    points listed in @table_path.
+    Gets an array of [struct`Gio`.UnixMountPoint]s containing the Unix mount
+    points listed in `table_path`.
 
-    This is a generalized version of [func@GioUnix.mount_points_get], mainly
-    intended for internal testing use. Note that [func@GioUnix.mount_points_get]
+    This is a generalized version of [func`GioUnix`.mount_points_get], mainly
+    intended for internal testing use. Note that [func`GioUnix`.mount_points_get]
     may parse multiple hierarchical table files, so this function is not a direct
     superset of its functionality.
 
-    If there is an error reading or parsing the file, `NULL` will be returned
+    If there is an error reading or parsing the file, `None` will be returned
     and both out parameters will be set to `0`.
     """
     ...
@@ -758,12 +758,12 @@ def mounts_changed_since(
 @staticmethod
 def mounts_get() -> tuple[list, int]:
     """
-    Gets a list of [struct@GioUnix.MountEntry] instances representing the Unix
+    Gets a list of [struct`GioUnix`.MountEntry] instances representing the Unix
     mounts.
 
-    If @time_read is set, it will be filled with the mount timestamp, allowing
+    If `time_read` is set, it will be filled with the mount timestamp, allowing
     for checking if the mounts have changed with
-    [func@GioUnix.mount_entries_changed_since].
+    [func`GioUnix`.mount_entries_changed_since].
     """
     ...
 
@@ -773,15 +773,15 @@ def mounts_get_from_file(
     table_path: str,
 ) -> tuple[list | None, int, int]:
     """
-    Gets an array of [struct@Gio.UnixMountEntry]s containing the Unix mounts
-    listed in @table_path.
+    Gets an array of [struct`Gio`.UnixMountEntry]s containing the Unix mounts
+    listed in `table_path`.
 
-    This is a generalized version of [func@GioUnix.mount_entries_get], mainly
-    intended for internal testing use. Note that [func@GioUnix.mount_entries_get]
+    This is a generalized version of [func`GioUnix`.mount_entries_get], mainly
+    intended for internal testing use. Note that [func`GioUnix`.mount_entries_get]
     may parse multiple hierarchical table files, so this function is not a direct
     superset of its functionality.
 
-    If there is an error reading or parsing the file, `NULL` will be returned
+    If there is an error reading or parsing the file, `None` will be returned
     and both out parameters will be set to `0`.
     """
     ...
@@ -819,15 +819,15 @@ class DesktopAppInfoLookupIface(GObject.GPointer):
 
 class FDMessage(Gio.SocketControlMessage):
     """
-    This [class@Gio.SocketControlMessage] contains a [class@Gio.UnixFDList].
-    It may be sent using [method@Gio.Socket.send_message] and received using
-    [method@Gio.Socket.receive_message] over UNIX sockets (ie: sockets in the
+    This [class`Gio`.SocketControlMessage] contains a [class`Gio`.UnixFDList].
+    It may be sent using [method`Gio`.Socket.send_message] and received using
+    [method`Gio`.Socket.receive_message] over UNIX sockets (ie: sockets in the
     `G_SOCKET_FAMILY_UNIX` family). The file descriptors are copied
     between processes by the kernel.
 
     For an easier way to send and receive file descriptors over
-    stream-oriented UNIX sockets, see [method@Gio.UnixConnection.send_fd] and
-    [method@Gio.UnixConnection.receive_fd].
+    stream-oriented UNIX sockets, see [method`Gio`.UnixConnection.send_fd] and
+    [method`Gio`.UnixConnection.receive_fd].
 
     Note that `<gio/gunixfdmessage.h>` belongs to the UNIX-specific GIO
     interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
@@ -837,7 +837,7 @@ class FDMessage(Gio.SocketControlMessage):
     class Props(Gio.SocketControlMessage.Props):
         fd_list: Gio.UnixFDList | None  # [fd-list]: changed because contained invalid characters
         """
-        The [class@Gio.UnixFDList] object to send with the message.
+        The [class`Gio`.UnixFDList] object to send with the message.
         """
 
     @builtins.property
@@ -851,11 +851,11 @@ class FDMessage(Gio.SocketControlMessage):
     @staticmethod
     def append_fd(message: FDMessage, fd: int) -> bool:
         """
-            Adds a file descriptor to @message.
+            Adds a file descriptor to `message`.
 
-        The file descriptor is duplicated using dup(). You keep your copy
-        of the descriptor and the copy contained in @message will be closed
-        when @message is finalized.
+        The file descriptor is duplicated using `dup`. You keep your copy
+        of the descriptor and the copy contained in `message` will be closed
+        when `message` is finalized.
 
         A possible cause of failure is exceeding the per-process or
         system-wide file descriptor limit.
@@ -863,20 +863,20 @@ class FDMessage(Gio.SocketControlMessage):
     @staticmethod
     def get_fd_list(message: FDMessage) -> Gio.UnixFDList:
         """
-            Gets the #GUnixFDList contained in @message.  This function does not
+            Gets the GUnixFDList contained in `message`.  This function does not
         return a reference to the caller, but the returned list is valid for
-        the lifetime of @message.
+        the lifetime of `message`.
         """
     @classmethod
     def new(cls) -> FDMessage:
         """
-            Creates a new #GUnixFDMessage containing an empty file descriptor
+            Creates a new GUnixFDMessage containing an empty file descriptor
         list.
         """
     @classmethod
     def new_with_fd_list(cls, fd_list: Gio.UnixFDList) -> FDMessage:
         """
-        Creates a new #GUnixFDMessage containing @list.
+        Creates a new GUnixFDMessage containing `list`.
         """
     @staticmethod
     def steal_fds(message: FDMessage) -> tuple[list, int]:
@@ -885,19 +885,19 @@ class FDMessage(Gio.SocketControlMessage):
         object.
 
         After this call, the descriptors are no longer contained in
-        @message. Further calls will return an empty list (unless more
+        `message`. Further calls will return an empty list (unless more
         descriptors have been added).
 
-        The return result of this function must be freed with g_free().
+        The return result of this function must be freed with `g_free`.
         The caller is also responsible for closing all of the file
         descriptors.
 
-        If @length is non-%NULL then it is set to the number of file
+        If `length` is non-None then it is set to the number of file
         descriptors in the returned array. The returned array is also
         terminated with -1.
 
-        This function never returns %NULL. In case there are no file
-        descriptors contained in @message, an empty array is returned.
+        This function never returns None. In case there are no file
+        descriptors contained in `message`, an empty array is returned.
         """
 
     # Signals
@@ -956,9 +956,9 @@ class FileDescriptorBasedIface(GObject.GPointer):
 
 class InputStream(GObject.Object):
     """
-    `GUnixInputStream` implements [class@Gio.InputStream] for reading from a UNIX
+    `GUnixInputStream` implements [class`Gio`.InputStream] for reading from a UNIX
     file descriptor, including asynchronous operations. (If the file
-    descriptor refers to a socket or pipe, this will use `poll()` to do
+    descriptor refers to a socket or pipe, this will use ``poll`` to do
     asynchronous I/O. If it refers to a regular file, it will fall back
     to doing asynchronous I/O in another thread.)
 
@@ -988,7 +988,7 @@ class InputStream(GObject.Object):
     @staticmethod
     def get_close_fd(stream: InputStream) -> bool:
         """
-            Returns whether the file descriptor of @stream will be
+            Returns whether the file descriptor of `stream` will be
         closed when the stream is closed.
         """
     @staticmethod
@@ -999,15 +999,15 @@ class InputStream(GObject.Object):
     @classmethod
     def new(cls, fd: int, close_fd: bool) -> InputStream:
         """
-            Creates a new #GUnixInputStream for the given @fd.
+            Creates a new GUnixInputStream for the given `fd`.
 
-        If @close_fd is %TRUE, the file descriptor will be closed
+        If `close_fd` is True, the file descriptor will be closed
         when the stream is closed.
         """
     @staticmethod
     def set_close_fd(stream: InputStream, close_fd: bool) -> None:
         """
-            Sets whether the file descriptor of @stream shall be closed
+            Sets whether the file descriptor of `stream` shall be closed
         when the stream is closed.
         """
 
@@ -1063,16 +1063,16 @@ class MountEntry(GObject.GBoxed):
     @staticmethod
     def at(mount_path: str) -> tuple[MountEntry | None, int]:
         """
-            Gets a [struct@GioUnix.MountEntry] for a given mount path.
+            Gets a [struct`GioUnix`.MountEntry] for a given mount path.
 
-        If @time_read is set, it will be filled with a Unix timestamp for checking
+        If `time_read` is set, it will be filled with a Unix timestamp for checking
         if the mounts have changed since with
-        [func@GioUnix.mount_entries_changed_since].
+        [func`GioUnix`.mount_entries_changed_since].
 
         If more mounts have the same mount path, the last matching mount
         is returned.
 
-        This will return `NULL` if there is no mount point at @mount_path.
+        This will return `None` if there is no mount point at `mount_path`.
         """
     @staticmethod
     def compare(mount1: MountEntry, mount2: MountEntry) -> int:
@@ -1082,7 +1082,7 @@ class MountEntry(GObject.GBoxed):
     @staticmethod
     def copy(mount_entry: MountEntry) -> MountEntry:
         """
-        Makes a copy of @mount_entry.
+        Makes a copy of `mount_entry`.
         """
     @staticmethod
     def for_(file_path: str) -> tuple[MountEntry | None, int]: ...
@@ -1113,8 +1113,8 @@ class MountEntry(GObject.GBoxed):
 
         For example: `rw,relatime,seclabel,data=ordered`.
 
-        This is similar to [func@GioUnix.MountPoint.get_options], but it takes
-        a [struct@GioUnix.MountEntry] as an argument.
+        This is similar to [func`GioUnix`.MountPoint.get_options], but it takes
+        a [struct`GioUnix`.MountEntry] as an argument.
         """
     @staticmethod
     def get_root_path(mount_entry: MountEntry) -> str | None:
@@ -1164,8 +1164,8 @@ class MountEntry(GObject.GBoxed):
             Checks if a Unix mount is a system mount.
 
         This is the Boolean OR of
-        [func@GioUnix.is_system_fs_type], [func@GioUnix.is_system_device_path] and
-        [func@GioUnix.is_mount_path_system_internal] on @mount_entry’s properties.
+        [func`GioUnix`.is_system_fs_type], [func`GioUnix`.is_system_device_path] and
+        [func`GioUnix`.is_mount_path_system_internal] on `mount_entry`’s properties.
 
         The definition of what a ‘system’ mount entry is may change over time as new
         file system types and device paths are ignored.
@@ -1176,11 +1176,11 @@ class MountMonitor(GObject.Object):
     Watches for changes to the set of mount entries and mount points in the
     system.
 
-    Connect to the [signal@GioUnix.MountMonitor::mounts-changed] signal to be
-    notified of changes to the [struct@GioUnix.MountEntry] list.
+    Connect to the [signal`GioUnix`.MountMonitor::mounts-changed] signal to be
+    notified of changes to the [struct`GioUnix`.MountEntry] list.
 
-    Connect to the [signal@GioUnix.MountMonitor::mountpoints-changed] signal to
-    be notified of changes to the [struct@GioUnix.MountPoint] list.
+    Connect to the [signal`GioUnix`.MountMonitor::mountpoints-changed] signal to
+    be notified of changes to the [struct`GioUnix`.MountPoint] list.
     """
 
     # gi Methods
@@ -1191,21 +1191,21 @@ class MountMonitor(GObject.Object):
     @staticmethod
     def get() -> MountMonitor:
         """
-            Gets the [class@GioUnix.MountMonitor] for the current thread-default main
+            Gets the [class`GioUnix`.MountMonitor] for the current thread-default main
         context.
 
         The mount monitor can be used to monitor for changes to the list of
         mounted filesystems as well as the list of mount points (ie: fstab
         entries).
 
-        You must only call [method@GObject.Object.unref] on the return value from
+        You must only call [method`GObject`.Object.unref] on the return value from
         under the same main context as you called this function.
         """
     @deprecated("deprecated")
     @classmethod
     def new(cls) -> MountMonitor:
         """
-            Deprecated alias for [func@GioUnix.MountMonitor.get].
+            Deprecated alias for [func`GioUnix`.MountMonitor.get].
 
         This function was never a true constructor, which is why it was
         renamed.
@@ -1218,7 +1218,7 @@ class MountMonitor(GObject.Object):
 
         Before 2.44, this was a partially-effective way of controlling the
         rate at which events would be reported under some uncommon
-        circumstances.  Since @mount_monitor is a singleton, it also meant
+        circumstances.  Since `mount_monitor` is a singleton, it also meant
         that calling this function would have side effects for other users of
         the monitor.
         """
@@ -1267,11 +1267,11 @@ class MountPoint(GObject.GBoxed):
     @staticmethod
     def at(mount_path: str) -> tuple[MountPoint | None, int]:
         """
-            Gets a [struct@GioUnix.MountPoint] for a given mount path.
+            Gets a [struct`GioUnix`.MountPoint] for a given mount path.
 
-        If @time_read is set, it will be filled with a Unix timestamp for checking if
+        If `time_read` is set, it will be filled with a Unix timestamp for checking if
         the mount points have changed since with
-        [func@GioUnix.mount_points_changed_since].
+        [func`GioUnix`.mount_points_changed_since].
 
         If more mount points have the same mount path, the last matching mount point
         is returned.
@@ -1284,7 +1284,7 @@ class MountPoint(GObject.GBoxed):
     @staticmethod
     def copy(mount_point: MountPoint) -> MountPoint:
         """
-        Makes a copy of @mount_point.
+        Makes a copy of `mount_point`.
         """
     @staticmethod
     def free(mount_point: MountPoint) -> None:
@@ -1351,9 +1351,9 @@ class MountPoint(GObject.GBoxed):
 
 class OutputStream(GObject.Object):
     """
-    `GUnixOutputStream` implements [class@Gio.OutputStream] for writing to a UNIX
+    `GUnixOutputStream` implements [class`Gio`.OutputStream] for writing to a UNIX
     file descriptor, including asynchronous operations. (If the file
-    descriptor refers to a socket or pipe, this will use `poll()` to do
+    descriptor refers to a socket or pipe, this will use ``poll`` to do
     asynchronous I/O. If it refers to a regular file, it will fall back
     to doing asynchronous I/O in another thread.)
 
@@ -1383,7 +1383,7 @@ class OutputStream(GObject.Object):
     @staticmethod
     def get_close_fd(stream: OutputStream) -> bool:
         """
-            Returns whether the file descriptor of @stream will be
+            Returns whether the file descriptor of `stream` will be
         closed when the stream is closed.
         """
     @staticmethod
@@ -1394,15 +1394,15 @@ class OutputStream(GObject.Object):
     @classmethod
     def new(cls, fd: int, close_fd: bool) -> OutputStream:
         """
-            Creates a new #GUnixOutputStream for the given @fd.
+            Creates a new GUnixOutputStream for the given `fd`.
 
-        If @close_fd, is %TRUE, the file descriptor will be closed when
+        If `close_fd`, is True, the file descriptor will be closed when
         the output stream is destroyed.
         """
     @staticmethod
     def set_close_fd(stream: OutputStream, close_fd: bool) -> None:
         """
-            Sets whether the file descriptor of @stream shall be closed
+            Sets whether the file descriptor of `stream` shall be closed
         when the stream is closed.
         """
 

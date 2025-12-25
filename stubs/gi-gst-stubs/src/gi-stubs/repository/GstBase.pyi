@@ -32,7 +32,7 @@ def type_find_helper(
     size: int,
 ) -> Gst.Caps | None:
     """
-    Tries to find what type of data is flowing from the given source #GstPad.
+    Tries to find what type of data is flowing from the given source GstPad.
 
     Free-function: gst_caps_unref
     """
@@ -44,15 +44,15 @@ def type_find_helper_for_buffer(
     buf: Gst.Buffer,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
-    Tries to find what type of data is contained in the given #GstBuffer, the
+    Tries to find what type of data is contained in the given GstBuffer, the
     assumption being that the buffer represents the beginning of the stream or
     file.
 
     All available typefinders will be called on the data in order of rank. If
-    a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
+    a typefinding function returns a probability of GST_TYPE_FIND_MAXIMUM,
     typefinding is stopped immediately and the found caps will be returned
     right away. Otherwise, all available typefind functions will the tried,
-    and the caps with the highest probability will be returned, or %NULL if
+    and the caps with the highest probability will be returned, or None if
     the content of the buffer could not be identified.
 
     Free-function: gst_caps_unref
@@ -66,17 +66,17 @@ def type_find_helper_for_buffer_with_caps(
     caps: Gst.Caps,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
-    Tries to find if type of media contained in the given #GstBuffer, matches
-    @caps specified, assumption being that the buffer represents the beginning
+    Tries to find if type of media contained in the given GstBuffer, matches
+    `caps` specified, assumption being that the buffer represents the beginning
     of the stream or file.
 
-    Tries to find what type of data is contained in the given @data, the
+    Tries to find what type of data is contained in the given `data`, the
     assumption being that the data represents the beginning of the stream or
     file.
 
     Only the typefinder matching the given caps will be called, if found. The
-    caps with the highest probability will be returned, or %NULL if the content
-    of the @data could not be identified.
+    caps with the highest probability will be returned, or None if the content
+    of the `data` could not be identified.
 
     Free-function: gst_caps_unref
     """
@@ -89,18 +89,18 @@ def type_find_helper_for_buffer_with_extension(
     extension: str | None = None,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
-    Tries to find what type of data is contained in the given #GstBuffer, the
+    Tries to find what type of data is contained in the given GstBuffer, the
     assumption being that the buffer represents the beginning of the stream or
     file.
 
     All available typefinders will be called on the data in order of rank. If
-    a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
+    a typefinding function returns a probability of GST_TYPE_FIND_MAXIMUM,
     typefinding is stopped immediately and the found caps will be returned
     right away. Otherwise, all available typefind functions will the tried,
-    and the caps with the highest probability will be returned, or %NULL if
+    and the caps with the highest probability will be returned, or None if
     the content of the buffer could not be identified.
 
-    When @extension is not %NULL, this function will first try the typefind
+    When `extension` is not None, this function will first try the typefind
     functions for the given extension, which might speed up the typefinding
     in many cases.
 
@@ -115,16 +115,16 @@ def type_find_helper_for_data(
     size: int,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
-    Tries to find what type of data is contained in the given @data, the
+    Tries to find what type of data is contained in the given `data`, the
     assumption being that the data represents the beginning of the stream or
     file.
 
     All available typefinders will be called on the data in order of rank. If
-    a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
+    a typefinding function returns a probability of GST_TYPE_FIND_MAXIMUM,
     typefinding is stopped immediately and the found caps will be returned
     right away. Otherwise, all available typefind functions will the tried,
-    and the caps with the highest probability will be returned, or %NULL if
-    the content of @data could not be identified.
+    and the caps with the highest probability will be returned, or None if
+    the content of `data` could not be identified.
 
     Free-function: gst_caps_unref
     """
@@ -138,13 +138,13 @@ def type_find_helper_for_data_with_caps(
     caps: Gst.Caps,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
-    Tries to find if type of media contained in the given @data, matches the
-    @caps specified, assumption being that the data represents the beginning
+    Tries to find if type of media contained in the given `data`, matches the
+    `caps` specified, assumption being that the data represents the beginning
     of the stream or file.
 
     Only the typefinder matching the given caps will be called, if found. The
-    caps with the highest probability will be returned, or %NULL if the content
-    of the @data could not be identified.
+    caps with the highest probability will be returned, or None if the content
+    of the `data` could not be identified.
 
     Free-function: gst_caps_unref
     """
@@ -158,18 +158,18 @@ def type_find_helper_for_data_with_extension(
     extension: str | None = None,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
-    Tries to find what type of data is contained in the given @data, the
+    Tries to find what type of data is contained in the given `data`, the
     assumption being that the data represents the beginning of the stream or
     file.
 
     All available typefinders will be called on the data in order of rank. If
-    a typefinding function returns a probability of %GST_TYPE_FIND_MAXIMUM,
+    a typefinding function returns a probability of GST_TYPE_FIND_MAXIMUM,
     typefinding is stopped immediately and the found caps will be returned
     right away. Otherwise, all available typefind functions will the tried,
-    and the caps with the highest probability will be returned, or %NULL if
-    the content of @data could not be identified.
+    and the caps with the highest probability will be returned, or None if
+    the content of `data` could not be identified.
 
-    When @extension is not %NULL, this function will first try the typefind
+    When `extension` is not None, this function will first try the typefind
     functions for the given extension, which might speed up the typefinding
     in many cases.
 
@@ -183,10 +183,10 @@ def type_find_helper_for_extension(
     extension: str,
 ) -> Gst.Caps | None:
     """
-    Tries to find the best #GstCaps associated with @extension.
+    Tries to find the best GstCaps associated with `extension`.
 
     All available typefinders will be checked against the extension in order
-    of rank. The caps of the first typefinder that can handle @extension will be
+    of rank. The caps of the first typefinder that can handle `extension` will be
     returned.
 
     Free-function: gst_caps_unref
@@ -202,8 +202,8 @@ def type_find_helper_get_range(
     extension: str | None = None,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
-    Utility function to do pull-based typefinding. Unlike gst_type_find_helper()
-    however, this function will use the specified function @func to obtain the
+    Utility function to do pull-based typefinding. Unlike `gst_type_find_helper`
+    however, this function will use the specified function `func` to obtain the
     data needed by the typefind functions, rather than operating on a given
     source pad. This is useful mostly for elements like tag demuxers which
     strip off data at the beginning and/or end of a file and want to typefind
@@ -211,7 +211,7 @@ def type_find_helper_get_range(
     callback can then call the upstream peer pad with offsets adjusted for the
     tag size, for example).
 
-    When @extension is not %NULL, this function will first try the typefind
+    When `extension` is not None, this function will first try the typefind
     functions for the given extension, which might speed up the typefinding
     in many cases.
 
@@ -228,8 +228,8 @@ def type_find_helper_get_range_full(
     extension: str | None = None,
 ) -> tuple[Gst.FlowReturn, Gst.Caps, Gst.TypeFindProbability]:
     """
-    Utility function to do pull-based typefinding. Unlike gst_type_find_helper()
-    however, this function will use the specified function @func to obtain the
+    Utility function to do pull-based typefinding. Unlike `gst_type_find_helper`
+    however, this function will use the specified function `func` to obtain the
     data needed by the typefind functions, rather than operating on a given
     source pad. This is useful mostly for elements like tag demuxers which
     strip off data at the beginning and/or end of a file and want to typefind
@@ -237,7 +237,7 @@ def type_find_helper_get_range_full(
     callback can then call the upstream peer pad with offsets adjusted for the
     tag size, for example).
 
-    When @extension is not %NULL, this function will first try the typefind
+    When `extension` is not None, this function will first try the typefind
     functions for the given extension, which might speed up the typefinding
     in many cases.
     """
@@ -249,9 +249,9 @@ def type_find_list_factories_for_caps(
     caps: Gst.Caps,
 ) -> list | None:
     """
-    Tries to find the best #GstTypeFindFactory associated with @caps.
+    Tries to find the best GstTypeFindFactory associated with `caps`.
 
-    The typefinder that can handle @caps will be returned.
+    The typefinder that can handle `caps` will be returned.
 
     Free-function: g_list_free
     """
@@ -279,7 +279,7 @@ class AggregatorStartTimeSelection(GObject.GEnum):
 
 class BaseParseFrameFlags(enum.IntFlag):
     """
-    Flags to be used in a #GstBaseParseFrame."""
+    Flags to be used in a GstBase.ParseFrame."""
 
     NONE = 0
     """
@@ -300,25 +300,25 @@ class BaseParseFrameFlags(enum.IntFlag):
     """
     CLIP = 4
     """
-    @pre_push_frame can set this to indicate
+    `pre_push_frame` can set this to indicate
        that regular segment clipping can still be performed (as opposed to
        any custom one having been done).
     """
     DROP = 8
     """
-    indicates to @finish_frame that the
+    indicates to `finish_frame` that the
        the frame should be dropped (and might be handled internally by subclass)
     """
     QUEUE = 16
     """
-    indicates to @finish_frame that the
+    indicates to `finish_frame` that the
        the frame should be queued for now and processed fully later
        when the first non-queued frame is finished
     """
 
 class BaseSrcFlags(enum.IntFlag):
     """
-    The #GstElement flags that a basesrc element may have."""
+    The GstElement flags that a basesrc element may have."""
 
     STARTING = 16384
     """
@@ -356,7 +356,7 @@ class CollectPadsStateFlags(enum.IntFlag):
     """
     Set collectdata's pad WAITING state must
                                          not be changed.
-    #GstCollectPadsStateFlags indicate private state of a collectdata('s pad).
+    GstCollectPadsStateFlags indicate private state of a collectdata('s pad).
     """
 
 ###############################################################
@@ -371,17 +371,17 @@ class Adapter(GObject.Object):
     a file. So if you have undefined buffer sizes and require a specific size,
     this object is for you.
 
-    An adapter is created with gst_adapter_new(). It can be freed again with
-    g_object_unref().
+    An adapter is created with `gst_adapter_new`. It can be freed again with
+    `g_object_unref`.
 
     The theory of operation is like this: All buffers received are put
-    into the adapter using gst_adapter_push() and the data is then read back
-    in chunks of the desired size using gst_adapter_map()/gst_adapter_unmap()
-    and/or gst_adapter_copy(). After the data has been processed, it is freed
-    using gst_adapter_unmap().
+    into the adapter using `gst_adapter_push` and the data is then read back
+    in chunks of the desired size using `gst_adapter_map`/`gst_adapter_unmap`
+    and/or `gst_adapter_copy`. After the data has been processed, it is freed
+    using `gst_adapter_unmap`.
 
-    Other methods such as gst_adapter_take() and gst_adapter_take_buffer()
-    combine gst_adapter_map() and gst_adapter_unmap() in one method and are
+    Other methods such as `gst_adapter_take` and `gst_adapter_take_buffer`
+    combine `gst_adapter_map` and `gst_adapter_unmap` in one method and are
     potentially more convenient for some use cases.
 
     For example, a sink pad's chain function that needs to pass data to a library
@@ -413,55 +413,55 @@ class Adapter(GObject.Object):
     }
     ]|
 
-    For another example, a simple element inside GStreamer that uses #GstAdapter
+    For another example, a simple element inside GStreamer that uses GstAdapter
     is the libvisual element.
 
-    An element using #GstAdapter in its sink pad chain function should ensure that
+    An element using GstAdapter in its sink pad chain function should ensure that
     when the FLUSH_STOP event is received, that any queued data is cleared using
-    gst_adapter_clear(). Data should also be cleared or processed on EOS and
-    when changing state from %GST_STATE_PAUSED to %GST_STATE_READY.
+    `gst_adapter_clear`. Data should also be cleared or processed on EOS and
+    when changing state from GST_STATE_PAUSED to GST_STATE_READY.
 
     Also check the GST_BUFFER_FLAG_DISCONT flag on the buffer. Some elements might
     need to clear the adapter after a discontinuity.
 
     The adapter will keep track of the timestamps of the buffers
     that were pushed. The last seen timestamp before the current position
-    can be queried with gst_adapter_prev_pts(). This function can
+    can be queried with `gst_adapter_prev_pts`. This function can
     optionally return the number of bytes between the start of the buffer that
     carried the timestamp and the current adapter position. The distance is
     useful when dealing with, for example, raw audio samples because it allows
     you to calculate the timestamp of the current adapter position by using the
     last seen timestamp and the amount of bytes since.  Additionally, the
-    gst_adapter_prev_pts_at_offset() can be used to determine the last
+    `gst_adapter_prev_pts_at_offset` can be used to determine the last
     seen timestamp at a particular offset in the adapter.
 
     The adapter will also keep track of the offset of the buffers
-    (#GST_BUFFER_OFFSET) that were pushed. The last seen offset before the
-    current position can be queried with gst_adapter_prev_offset(). This function
+    (GST_BUFFER_OFFSET) that were pushed. The last seen offset before the
+    current position can be queried with `gst_adapter_prev_offset`. This function
     can optionally return the number of bytes between the start of the buffer
     that carried the offset and the current adapter position.
 
     Additionally the adapter also keeps track of the PTS, DTS and buffer offset
     at the last discontinuity, which can be retrieved with
-    gst_adapter_pts_at_discont(), gst_adapter_dts_at_discont() and
-    gst_adapter_offset_at_discont(). The number of bytes that were consumed
-    since then can be queried with gst_adapter_distance_from_discont().
+    `gst_adapter_pts_at_discont`, `gst_adapter_dts_at_discont` and
+    `gst_adapter_offset_at_discont`. The number of bytes that were consumed
+    since then can be queried with `gst_adapter_distance_from_discont`.
 
-    A last thing to note is that while #GstAdapter is pretty optimized,
-    merging buffers still might be an operation that requires a `malloc()` and
-    `memcpy()` operation, and these operations are not the fastest. Because of
-    this, some functions like gst_adapter_available_fast() are provided to help
+    A last thing to note is that while GstAdapter is pretty optimized,
+    merging buffers still might be an operation that requires a ``malloc`` and
+    ``memcpy`` operation, and these operations are not the fastest. Because of
+    this, some functions like `gst_adapter_available_fast` are provided to help
     speed up such cases should you want to. To avoid repeated memory allocations,
-    gst_adapter_copy() can be used to copy data into a (statically allocated)
+    `gst_adapter_copy` can be used to copy data into a (statically allocated)
     user provided buffer.
 
-    #GstAdapter is not MT safe. All operations on an adapter must be serialized by
+    GstAdapter is not MT safe. All operations on an adapter must be serialized by
     the caller. This is not normally a problem, however, as the normal use case
-    of #GstAdapter is inside one pad's chain function, in which case access is
+    of GstAdapter is inside one pad's chain function, in which case access is
     serialized via the pad's STREAM_LOCK.
 
-    Note that gst_adapter_push() takes ownership of the buffer passed. Use
-    gst_buffer_ref() before pushing it into the adapter if you still want to
+    Note that `gst_adapter_push` takes ownership of the buffer passed. Use
+    `gst_buffer_ref` before pushing it into the adapter if you still want to
     access the buffer later. The adapter will never modify the data in the
     buffer pushed in it.
     """
@@ -474,10 +474,10 @@ class Adapter(GObject.Object):
     def available(self) -> int:
         """
             Gets the maximum amount of bytes available, that is it returns the maximum
-        value that can be supplied to gst_adapter_map() without that function
-        returning %NULL.
+        value that can be supplied to `gst_adapter_map` without that function
+        returning None.
 
-        Calling gst_adapter_map() with the amount of bytes returned by this function
+        Calling `gst_adapter_map` with the amount of bytes returned by this function
         may require expensive operations (like copying the data into a temporary
         buffer) in some cases.
         """
@@ -486,30 +486,30 @@ class Adapter(GObject.Object):
             Gets the maximum number of bytes that can be retrieved in a single map
         operation without merging buffers.
 
-        Calling gst_adapter_map() with the amount of bytes returned by this function
+        Calling `gst_adapter_map` with the amount of bytes returned by this function
         will never require any expensive operations (like copying the data into a
         temporary buffer).
         """
     def clear(self) -> None:
         """
-        Removes all buffers from @adapter.
+        Removes all buffers from `adapter`.
         """
     def copy(self, offset: int, size: int) -> GLib.Bytes:
         """
-            Copies @size bytes of data starting at @offset out of the buffers
-        contained in #GstAdapter into an array @dest provided by the caller.
+            Copies `size` bytes of data starting at `offset` out of the buffers
+        contained in GstAdapter into an array `dest` provided by the caller.
 
-        The array @dest should be large enough to contain @size bytes.
-        The user should check that the adapter has (@offset + @size) bytes
+        The array `dest` should be large enough to contain `size` bytes.
+        The user should check that the adapter has (`offset` + `size`) bytes
         available before calling this function.
         """
     def distance_from_discont(self) -> int:
         """
             Get the distance in bytes since the last buffer with the
-        %GST_BUFFER_FLAG_DISCONT flag.
+        GST_BUFFER_FLAG_DISCONT flag.
 
         The distance will be reset to 0 for all buffers with
-        %GST_BUFFER_FLAG_DISCONT on them, and then calculated for all other
+        GST_BUFFER_FLAG_DISCONT on them, and then calculated for all other
         following buffers based on their size.
         """
     def dts_at_discont(self) -> int:
@@ -519,89 +519,89 @@ class Adapter(GObject.Object):
         """
     def flush(self, flush: int) -> None:
         """
-            Flushes the first @flush bytes in the @adapter. The caller must ensure that
+            Flushes the first `flush` bytes in the `adapter`. The caller must ensure that
         at least this many bytes are available.
 
-        See also: gst_adapter_map(), gst_adapter_unmap()
+        See also: `gst_adapter_map`, `gst_adapter_unmap`
         """
     def get_buffer(self, nbytes: int) -> Gst.Buffer | None:
         """
-            Returns a #GstBuffer containing the first @nbytes of the @adapter, but
-        does not flush them from the adapter. See gst_adapter_take_buffer()
+            Returns a GstBuffer containing the first `nbytes` of the `adapter`, but
+        does not flush them from the adapter. See `gst_adapter_take_buffer`
         for details.
 
-        Caller owns a reference to the returned buffer. gst_buffer_unref() after
+        Caller owns a reference to the returned buffer. `gst_buffer_unref` after
         usage.
 
         Free-function: gst_buffer_unref
         """
     def get_buffer_fast(self, nbytes: int) -> Gst.Buffer | None:
         """
-            Returns a #GstBuffer containing the first @nbytes of the @adapter, but
-        does not flush them from the adapter. See gst_adapter_take_buffer_fast()
+            Returns a GstBuffer containing the first `nbytes` of the `adapter`, but
+        does not flush them from the adapter. See `gst_adapter_take_buffer_fast`
         for details.
 
-        Caller owns a reference to the returned buffer. gst_buffer_unref() after
+        Caller owns a reference to the returned buffer. `gst_buffer_unref` after
         usage.
 
         Free-function: gst_buffer_unref
         """
     def get_buffer_list(self, nbytes: int) -> Gst.BufferList | None:
         """
-            Returns a #GstBufferList of buffers containing the first @nbytes bytes of
-        the @adapter but does not flush them from the adapter. See
-        gst_adapter_take_buffer_list() for details.
+            Returns a GstBufferList of buffers containing the first `nbytes` bytes of
+        the `adapter` but does not flush them from the adapter. See
+        `gst_adapter_take_buffer_list` for details.
 
-        Caller owns the returned list. Call gst_buffer_list_unref() to free
+        Caller owns the returned list. Call `gst_buffer_list_unref` to free
         the list after usage.
         """
     def get_list(self, nbytes: int) -> list | None:
         """
-            Returns a #GList of buffers containing the first @nbytes bytes of the
-        @adapter, but does not flush them from the adapter. See
-        gst_adapter_take_list() for details.
+            Returns a GList of buffers containing the first `nbytes` bytes of the
+        `adapter`, but does not flush them from the adapter. See
+        `gst_adapter_take_list` for details.
 
-        Caller owns returned list and contained buffers. gst_buffer_unref() each
+        Caller owns returned list and contained buffers. `gst_buffer_unref` each
         buffer in the list before freeing the list after usage.
         """
     def map(self) -> tuple[list | None, int]:
         """
-            Gets the first @size bytes stored in the @adapter. The returned pointer is
+            Gets the first `size` bytes stored in the `adapter`. The returned pointer is
         valid until the next function is called on the adapter.
 
-        Note that setting the returned pointer as the data of a #GstBuffer is
+        Note that setting the returned pointer as the data of a GstBuffer is
         incorrect for general-purpose plugins. The reason is that if a downstream
         element stores the buffer so that it has access to it outside of the bounds
         of its chain function, the buffer will have an invalid data pointer after
         your element flushes the bytes. In that case you should use
-        gst_adapter_take(), which returns a freshly-allocated buffer that you can set
-        as #GstBuffer memory or the potentially more performant
-        gst_adapter_take_buffer().
+        `gst_adapter_take`, which returns a freshly-allocated buffer that you can set
+        as GstBuffer memory or the potentially more performant
+        `gst_adapter_take_buffer`.
 
-        Returns %NULL if @size bytes are not available.
+        Returns None if `size` bytes are not available.
         """
     def masked_scan_uint32(self, mask: int, pattern: int, offset: int, size: int) -> int:
         """
-            Scan for pattern @pattern with applied mask @mask in the adapter data,
-        starting from offset @offset.
+            Scan for pattern `pattern` with applied mask `mask` in the adapter data,
+        starting from offset `offset`.
 
-        The bytes in @pattern and @mask are interpreted left-to-right, regardless
+        The bytes in `pattern` and `mask` are interpreted left-to-right, regardless
         of endianness.  All four bytes of the pattern must be present in the
         adapter for it to match, even if the first or last bytes are masked out.
 
         It is an error to call this function without making sure that there is
         enough data (offset+size bytes) in the adapter.
 
-        This function calls gst_adapter_masked_scan_uint32_peek() passing %NULL
+        This function calls `gst_adapter_masked_scan_uint32_peek` passing None
         for value.
         """
     def masked_scan_uint32_peek(self, mask: int, pattern: int, offset: int, size: int) -> tuple[int, int]:
         """
-            Scan for pattern @pattern with applied mask @mask in the adapter data,
-        starting from offset @offset.  If a match is found, the value that matched
-        is returned through @value, otherwise @value is left untouched.
+            Scan for pattern `pattern` with applied mask `mask` in the adapter data,
+        starting from offset `offset`.  If a match is found, the value that matched
+        is returned through `value`, otherwise `value` is left untouched.
 
-        The bytes in @pattern and @mask are interpreted left-to-right, regardless
+        The bytes in `pattern` and `mask` are interpreted left-to-right, regardless
         of endianness.  All four bytes of the pattern must be present in the
         adapter for it to match, even if the first or last bytes are masked out.
 
@@ -611,7 +611,7 @@ class Adapter(GObject.Object):
     @classmethod
     def new(cls) -> Adapter:
         """
-        Creates a new #GstAdapter. Free with g_object_unref().
+        Creates a new GstAdapter. Free with `g_object_unref`.
         """
     def offset_at_discont(self) -> int:
         """
@@ -621,7 +621,7 @@ class Adapter(GObject.Object):
     def prev_dts(self) -> tuple[int, int]:
         """
             Get the dts that was before the current byte in the adapter. When
-        @distance is given, the amount of bytes between the dts and the current
+        `distance` is given, the amount of bytes between the dts and the current
         position is returned.
 
         The dts is reset to GST_CLOCK_TIME_NONE and the distance is set to 0 when
@@ -631,8 +631,8 @@ class Adapter(GObject.Object):
         """
     def prev_dts_at_offset(self, offset: int) -> tuple[int, int]:
         """
-            Get the dts that was before the byte at offset @offset in the adapter. When
-        @distance is given, the amount of bytes between the dts and the current
+            Get the dts that was before the byte at offset `offset` in the adapter. When
+        `distance` is given, the amount of bytes between the dts and the current
         position is returned.
 
         The dts is reset to GST_CLOCK_TIME_NONE and the distance is set to 0 when
@@ -643,7 +643,7 @@ class Adapter(GObject.Object):
     def prev_offset(self) -> tuple[int, int]:
         """
             Get the offset that was before the current byte in the adapter. When
-        @distance is given, the amount of bytes between the offset and the current
+        `distance` is given, the amount of bytes between the offset and the current
         position is returned.
 
         The offset is reset to GST_BUFFER_OFFSET_NONE and the distance is set to 0
@@ -654,7 +654,7 @@ class Adapter(GObject.Object):
     def prev_pts(self) -> tuple[int, int]:
         """
             Get the pts that was before the current byte in the adapter. When
-        @distance is given, the amount of bytes between the pts and the current
+        `distance` is given, the amount of bytes between the pts and the current
         position is returned.
 
         The pts is reset to GST_CLOCK_TIME_NONE and the distance is set to 0 when
@@ -664,8 +664,8 @@ class Adapter(GObject.Object):
         """
     def prev_pts_at_offset(self, offset: int) -> tuple[int, int]:
         """
-            Get the pts that was before the byte at offset @offset in the adapter. When
-        @distance is given, the amount of bytes between the pts and the current
+            Get the pts that was before the byte at offset `offset` in the adapter. When
+        `distance` is given, the amount of bytes between the pts and the current
         position is returned.
 
         The pts is reset to GST_CLOCK_TIME_NONE and the distance is set to 0 when
@@ -680,13 +680,13 @@ class Adapter(GObject.Object):
         """
     def push(self, buf: Gst.Buffer) -> None:
         """
-            Adds the data from @buf to the data stored inside @adapter and takes
+            Adds the data from `buf` to the data stored inside `adapter` and takes
         ownership of the buffer.
         """
     def take(self) -> tuple[list | None, int]:
         """
-            Returns a freshly allocated buffer containing the first @nbytes bytes of the
-        @adapter. The returned bytes will be flushed from the adapter.
+            Returns a freshly allocated buffer containing the first `nbytes` bytes of the
+        `adapter`. The returned bytes will be flushed from the adapter.
 
         Caller owns returned value. g_free after usage.
 
@@ -694,10 +694,10 @@ class Adapter(GObject.Object):
         """
     def take_buffer(self, nbytes: int) -> Gst.Buffer | None:
         """
-            Returns a #GstBuffer containing the first @nbytes bytes of the
-        @adapter. The returned bytes will be flushed from the adapter.
+            Returns a GstBuffer containing the first `nbytes` bytes of the
+        `adapter`. The returned bytes will be flushed from the adapter.
         This function is potentially more performant than
-        gst_adapter_take() since it can reuse the memory in pushed buffers
+        `gst_adapter_take` since it can reuse the memory in pushed buffers
         by subbuffering or merging. This function will always return a
         buffer with a single memory region.
 
@@ -707,21 +707,21 @@ class Adapter(GObject.Object):
         unset.
 
         Since 1.6 this will also copy over all GstMeta of the input buffers except
-        for meta with the %GST_META_FLAG_POOLED flag or with the "memory" tag.
+        for meta with the GST_META_FLAG_POOLED flag or with the "memory" tag.
 
-        Caller owns a reference to the returned buffer. gst_buffer_unref() after
+        Caller owns a reference to the returned buffer. `gst_buffer_unref` after
         usage.
 
         Free-function: gst_buffer_unref
         """
     def take_buffer_fast(self, nbytes: int) -> Gst.Buffer | None:
         """
-            Returns a #GstBuffer containing the first @nbytes of the @adapter.
+            Returns a GstBuffer containing the first `nbytes` of the `adapter`.
         The returned bytes will be flushed from the adapter.  This function
-        is potentially more performant than gst_adapter_take_buffer() since
+        is potentially more performant than `gst_adapter_take_buffer` since
         it can reuse the memory in pushed buffers by subbuffering or
-        merging. Unlike gst_adapter_take_buffer(), the returned buffer may
-        be composed of multiple non-contiguous #GstMemory objects, no
+        merging. Unlike `gst_adapter_take_buffer`, the returned buffer may
+        be composed of multiple non-contiguous GstMemory objects, no
         copies are made.
 
         Note that no assumptions should be made as to whether certain buffer
@@ -730,39 +730,39 @@ class Adapter(GObject.Object):
         unset.
 
         This will also copy over all GstMeta of the input buffers except
-        for meta with the %GST_META_FLAG_POOLED flag or with the "memory" tag.
+        for meta with the GST_META_FLAG_POOLED flag or with the "memory" tag.
 
         This function can return buffer up to the return value of
-        gst_adapter_available() without making copies if possible.
+        `gst_adapter_available` without making copies if possible.
 
-        Caller owns a reference to the returned buffer. gst_buffer_unref() after
+        Caller owns a reference to the returned buffer. `gst_buffer_unref` after
         usage.
 
         Free-function: gst_buffer_unref
         """
     def take_buffer_list(self, nbytes: int) -> Gst.BufferList | None:
         """
-            Returns a #GstBufferList of buffers containing the first @nbytes bytes of
-        the @adapter. The returned bytes will be flushed from the adapter.
+            Returns a GstBufferList of buffers containing the first `nbytes` bytes of
+        the `adapter`. The returned bytes will be flushed from the adapter.
         When the caller can deal with individual buffers, this function is more
         performant because no memory should be copied.
 
-        Caller owns the returned list. Call gst_buffer_list_unref() to free
+        Caller owns the returned list. Call `gst_buffer_list_unref` to free
         the list after usage.
         """
     def take_list(self, nbytes: int) -> list | None:
         """
-            Returns a #GList of buffers containing the first @nbytes bytes of the
-        @adapter. The returned bytes will be flushed from the adapter.
+            Returns a GList of buffers containing the first `nbytes` bytes of the
+        `adapter`. The returned bytes will be flushed from the adapter.
         When the caller can deal with individual buffers, this function is more
         performant because no memory should be copied.
 
-        Caller owns returned list and contained buffers. gst_buffer_unref() each
+        Caller owns returned list and contained buffers. `gst_buffer_unref` each
         buffer in the list before freeing the list after usage.
         """
     def unmap(self) -> None:
         """
-        Releases the memory obtained with the last gst_adapter_map().
+        Releases the memory obtained with the last `gst_adapter_map`.
         """
 
 class AdapterClass(GObject.GPointer):
@@ -778,35 +778,35 @@ class Aggregator(Gst.Element):
     Control is given to the subclass when all pads have data.
 
      * Base class for mixers and muxers. Subclasses should at least implement
-       the #GstAggregatorClass::aggregate virtual method.
+       the GstAggregatorClass::aggregate virtual method.
 
-     * Installs a #GstPadChainFunction, a #GstPadEventFullFunction and a
-       #GstPadQueryFunction to queue all serialized data packets per sink pad.
+     * Installs a GstPadChainFunction, a GstPadEventFullFunction and a
+       GstPadQueryFunction to queue all serialized data packets per sink pad.
        Subclasses should not overwrite those, but instead implement
-       #GstAggregatorClass::sink_event and #GstAggregatorClass::sink_query as
+       GstAggregatorClass::sink_event and GstAggregatorClass::sink_query as
        needed.
 
      * When data is queued on all pads, the aggregate vmethod is called.
 
      * One can peek at the data on any given GstAggregatorPad with the
-       gst_aggregator_pad_peek_buffer() method, and remove it from the pad
+       `gst_aggregator_pad_peek_buffer` method, and remove it from the pad
        with the gst_aggregator_pad_pop_buffer () method. When a buffer
        has been taken with pop_buffer (), a new buffer can be queued
        on that pad.
 
-     * When gst_aggregator_pad_peek_buffer() or gst_aggregator_pad_has_buffer()
+     * When `gst_aggregator_pad_peek_buffer` or `gst_aggregator_pad_has_buffer`
        are called, a reference is taken to the returned buffer, which stays
        valid until either:
 
-         - gst_aggregator_pad_pop_buffer() is called, in which case the caller
+         - `gst_aggregator_pad_pop_buffer` is called, in which case the caller
            is guaranteed that the buffer they receive is the same as the peeked
            buffer.
-         - gst_aggregator_pad_drop_buffer() is called, in which case the caller
+         - `gst_aggregator_pad_drop_buffer` is called, in which case the caller
            is guaranteed that the dropped buffer is the one that was peeked.
-         - the subclass implementation of #GstAggregatorClass.aggregate returns.
+         - the subclass implementation of GstAggregatorClass.aggregate returns.
 
-       Subsequent calls to gst_aggregator_pad_peek_buffer() or
-       gst_aggregator_pad_has_buffer() return / check the same buffer that was
+       Subsequent calls to `gst_aggregator_pad_peek_buffer` or
+       `gst_aggregator_pad_has_buffer` return / check the same buffer that was
        returned / checked, until one of the conditions listed above is met.
 
        Subclasses are only allowed to call these methods from the aggregate
@@ -814,10 +814,10 @@ class Aggregator(Gst.Element):
 
      * If the subclass wishes to push a buffer downstream in its aggregate
        implementation, it should do so through the
-       gst_aggregator_finish_buffer() method. This method will take care
+       `gst_aggregator_finish_buffer` method. This method will take care
        of sending and ordering mandatory events such as stream start, caps
        and segment. Buffer lists can also be pushed out with
-       gst_aggregator_finish_buffer_list().
+       `gst_aggregator_finish_buffer_list`.
 
      * Same goes for EOS events, which should not be pushed directly by the
        subclass, it should instead return GST_FLOW_EOS in its aggregate
@@ -830,9 +830,9 @@ class Aggregator(Gst.Element):
        In addition, if the gap event was flagged with GST_GAP_FLAG_MISSING_DATA,
        a custom meta is added to the resulting gap buffer (GstAggregatorMissingDataMeta).
 
-     * Subclasses must use (a subclass of) #GstAggregatorPad for both their
+     * Subclasses must use (a subclass of) GstAggregatorPad for both their
        sink and source pads.
-       See gst_element_class_add_static_pad_template_with_gtype().
+       See `gst_element_class_add_static_pad_template_with_gtype`.
 
     This class used to live in gst-plugins-bad and was moved to core.
     """
@@ -840,7 +840,7 @@ class Aggregator(Gst.Element):
     class Props(Gst.Element.Props):
         emit_signals: bool  # [emit-signals]: changed because contained invalid characters
         """
-        Enables the emission of signals such as #GstAggregator::samples-selected
+        Enables the emission of signals such as GstAggregator::samples-selected
         """
         latency: int
         min_upstream_latency: int  # [min-upstream-latency]: changed because contained invalid characters
@@ -892,23 +892,23 @@ class Aggregator(Gst.Element):
         """
     def get_allocator(self) -> tuple[Gst.Allocator | None, Gst.AllocationParams]:
         """
-            Lets #GstAggregator sub-classes get the memory @allocator
-        acquired by the base class and its @params.
+            Lets GstAggregator sub-classes get the memory `allocator`
+        acquired by the base class and its `params`.
 
-        Unref the @allocator after use it.
+        Unref the `allocator` after use it.
         """
     def get_buffer_pool(self) -> Gst.BufferPool | None: ...
     def get_force_live(self) -> bool:
         """
             Subclasses may use the return value to inform whether they should return
-        %GST_FLOW_EOS from their aggregate implementation.
+        GST_FLOW_EOS from their aggregate implementation.
         """
     def get_ignore_inactive_pads(self) -> bool: ...
     @builtins.property
     def get_latency(self) -> int:
         """
-            Retrieves the latency values reported by @self in response to the latency
-        query, or %GST_CLOCK_TIME_NONE if there is not live source connected and the element
+            Retrieves the latency values reported by `self` in response to the latency
+        query, or GST_CLOCK_TIME_NONE if there is not live source connected and the element
         will not wait for the clock.
 
         Typically only called by subclasses.
@@ -917,13 +917,13 @@ class Aggregator(Gst.Element):
         """
             Negotiates src pad caps with downstream elements.
         Unmarks GST_PAD_FLAG_NEED_RECONFIGURE in any case. But marks it again
-        if #GstAggregatorClass::negotiate fails.
+        if GstAggregatorClass::negotiate fails.
         """
     def peek_next_sample(self, pad: AggregatorPad) -> Gst.Sample | None:
         """
             Use this function to determine what input buffers will be aggregated
         to produce the next output buffer. This should only be called from
-        a #GstAggregator::samples-selected handler, and can be used to precisely
+        a GstAggregator::samples-selected handler, and can be used to precisely
         control aggregating parameters for a given set of input samples.
         """
     def push_src_event(self, event: Gst.Event) -> bool:
@@ -933,7 +933,7 @@ class Aggregator(Gst.Element):
         pushing the event.
 
         This API does not allow pushing stream-start, caps, segment and EOS events.
-        Specific API like gst_aggregator_set_src_caps() should be used for these.
+        Specific API like `gst_aggregator_set_src_caps` should be used for these.
         """
     def selected_samples(self, pts: int, dts: int, duration: int, info: Gst.Structure | None = None) -> None:
         """
@@ -943,15 +943,15 @@ class Aggregator(Gst.Element):
         *how* aggregation should be performed, for example z-index
         for video aggregators.
 
-        If gst_aggregator_update_segment() is used by the subclass,
-        it MUST be called before gst_aggregator_selected_samples().
+        If `gst_aggregator_update_segment` is used by the subclass,
+        it MUST be called before `gst_aggregator_selected_samples`.
 
-        This function MUST only be called from the #GstAggregatorClass::aggregate()
+        This function MUST only be called from the GstAggregatorClass::`aggregate`
         function.
         """
     def set_force_live(self, force_live: bool) -> None:
         """
-            Subclasses should call this at construction time in order for @self to
+            Subclasses should call this at construction time in order for `self` to
         aggregate on a timeout even when no live source is connected.
         """
     def set_ignore_inactive_pads(self, ignore: bool) -> None:
@@ -960,12 +960,12 @@ class Aggregator(Gst.Element):
         waiting for a pad that hasn't yet received any buffers in live
         mode.
 
-        #GstAggregator will still wait once on each newly-added pad, making
+        GstAggregator will still wait once on each newly-added pad, making
         sure upstream has had a fair chance to start up.
         """
     def set_latency(self, min_latency: int, max_latency: int) -> None:
         """
-            Lets #GstAggregator sub-classes tell the baseclass what their internal
+            Lets GstAggregator sub-classes tell the baseclass what their internal
         latency is. Will also post a LATENCY message on the bus so the pipeline
         can reconfigure its global latency if the values changed.
         """
@@ -975,8 +975,8 @@ class Aggregator(Gst.Element):
         """
     def simple_get_next_time(self) -> int:
         """
-            This is a simple #GstAggregatorClass::get_next_time implementation that
-        just looks at the #GstSegment on the srcpad of the aggregator and bases
+            This is a simple GstAggregatorClass::get_next_time implementation that
+        just looks at the GstSegment on the srcpad of the aggregator and bases
         the next time on the running time there.
 
         This is the desired behaviour in most cases where you have a live source
@@ -988,7 +988,7 @@ class Aggregator(Gst.Element):
         source pad, instead of directly pushing new segment events
         downstream.
 
-        Subclasses MUST call this before gst_aggregator_selected_samples(),
+        Subclasses MUST call this before `gst_aggregator_selected_samples`,
         if it is used at all.
         """
 
@@ -1160,9 +1160,9 @@ class Aggregator(Gst.Element):
         *args: typing.Any,
     ) -> int:
         """
-            Signals that the #GstAggregator subclass has selected the next set
+            Signals that the GstAggregator subclass has selected the next set
         of input samples it will aggregate. Handlers may call
-        gst_aggregator_peek_next_sample() at that point.
+        `gst_aggregator_peek_next_sample` at that point.
         """
     @typing.overload
     def connect(
@@ -1213,7 +1213,7 @@ class AggregatorClass(GObject.GPointer):
 
     It will also take care of event ordering (stream-start, segment, eos).
 
-    Basically, a simple implementation will override @aggregate, and call
+    Basically, a simple implementation will override `aggregate`, and call
     _finish_buffer from inside that function.
     """
 
@@ -1224,7 +1224,7 @@ class AggregatorClass(GObject.GPointer):
         Mandatory.
                      Called when buffers are queued on all sinkpads. Classes
                      should iterate the GstElement->sinkpads and peek or steal
-                     buffers from the #GstAggregatorPads. If the subclass returns
+                     buffers from the GstAggregatorPads. If the subclass returns
                      GST_FLOW_EOS, sending of the eos event will be taken care
                      of. Once / if a buffer has been constructed from the
                      aggregated buffers, the subclass should call _finish_buffer.
@@ -1238,7 +1238,7 @@ class AggregatorClass(GObject.GPointer):
                      on the subclass. The function should use the segment of data
                      and the negotiated media type on the pad to perform
                      clipping of input buffer. This function takes ownership of
-                     buf and should output a buffer or return NULL in
+                     buf and should output a buffer or return None in
                      if the buffer should be dropped.
         """
     @builtins.property
@@ -1254,7 +1254,7 @@ class AggregatorClass(GObject.GPointer):
     def finish_buffer(self) -> finish_bufferAggregatorClassCB:
         """
         Optional.
-                     Called when a subclass calls gst_aggregator_finish_buffer()
+                     Called when a subclass calls `gst_aggregator_finish_buffer`
                      from their aggregate function to push out a buffer.
                      Subclasses can override this to modify or decorate buffers
                      before they get pushed out. This function takes ownership
@@ -1268,8 +1268,8 @@ class AggregatorClass(GObject.GPointer):
         """
         Optional.
                       Fixate and return the src pad caps provided.  The function takes
-                      ownership of @caps and returns a fixated version of
-                      @caps. @caps is not guaranteed to be writable.
+                      ownership of `caps` and returns a fixated version of
+                      `caps`. `caps` is not guaranteed to be writable.
         """
     @builtins.property
     def flush(self) -> flushAggregatorClassCB:
@@ -1277,7 +1277,7 @@ class AggregatorClass(GObject.GPointer):
         Optional.
                      Called after a successful flushing seek, once all the flush
                      stops have been received. Flush pad-specific data in
-                     #GstAggregatorPad->flush.
+                     GstAggregatorPad->flush.
         """
     @builtins.property
     def get_next_time(self) -> get_next_timeAggregatorClassCB:
@@ -1378,9 +1378,9 @@ class AggregatorClass(GObject.GPointer):
     @builtins.property
     def update_src_caps(self) -> update_src_capsAggregatorClassCB:
         """
-        Lets subclasses update the #GstCaps representing
+        Lets subclasses update the GstCaps representing
                       the src pad caps before usage.  The result should end up
-                      in @ret. Return %GST_AGGREGATOR_FLOW_NEED_DATA to indicate that the
+                      in `ret`. Return GST_AGGREGATOR_FLOW_NEED_DATA to indicate that the
                       element needs more information (caps, a buffer, etc) to
                       choose the correct caps. Should return ANY caps if the
                       stream has not caps at all.
@@ -1394,7 +1394,7 @@ class AggregatorClass(GObject.GPointer):
 
 class AggregatorPad(Gst.Pad):
     """
-    Pads managed by a #GstAggregator subclass.
+    Pads managed by a GstAggregator subclass.
 
     This class used to live in gst-plugins-bad and was moved to core.
     """
@@ -1402,7 +1402,7 @@ class AggregatorPad(Gst.Pad):
     class Props(Gst.Pad.Props):
         emit_signals: bool  # [emit-signals]: changed because contained invalid characters
         """
-        Enables the emission of signals such as #GstAggregatorPad::buffer-consumed
+        Enables the emission of signals such as GstAggregatorPad::buffer-consumed
         """
 
     @builtins.property
@@ -1422,23 +1422,23 @@ class AggregatorPad(Gst.Pad):
         """
     def drop_buffer(self) -> bool:
         """
-        Drop the buffer currently queued in @pad.
+        Drop the buffer currently queued in `pad`.
         """
     def has_buffer(self) -> bool:
         """
             This checks if a pad has a buffer available that will be returned by
-        a call to gst_aggregator_pad_peek_buffer() or
-        gst_aggregator_pad_pop_buffer().
+        a call to `gst_aggregator_pad_peek_buffer` or
+        `gst_aggregator_pad_pop_buffer`.
         """
     def is_eos(self) -> bool: ...
     def is_inactive(self) -> bool:
         """
-        It is only valid to call this method from #GstAggregatorClass::aggregate()
+        It is only valid to call this method from GstAggregatorClass::`aggregate`
         """
     def peek_buffer(self) -> Gst.Buffer | None: ...
     def pop_buffer(self) -> Gst.Buffer | None:
         """
-        Steal the ref to the buffer currently queued in @pad.
+        Steal the ref to the buffer currently queued in `pad`.
         """
 
     # python methods (overrides?)
@@ -1494,7 +1494,7 @@ class AggregatorPadClass(GObject.GPointer):
     def skip_buffer(self) -> skip_bufferAggregatorPadClassCB:
         """
         Optional
-                  Called before input buffers are queued in the pad, return %TRUE
+                  Called before input buffers are queued in the pad, return True
                   if the buffer should be skipped.
         """
 
@@ -1540,92 +1540,92 @@ class BaseParse(Gst.Element):
 
     ## Set-up phase
 
-     * #GstBaseParse calls #GstBaseParseClass::start to inform subclass
+     * GstBase.Parse calls GstBase.ParseClass::start to inform subclass
        that data processing is about to start now.
 
-     * #GstBaseParse class calls #GstBaseParseClass::set_sink_caps to
+     * GstBase.Parse class calls GstBase.ParseClass::set_sink_caps to
        inform the subclass about incoming sinkpad caps. Subclass could
        already set the srcpad caps accordingly, but this might be delayed
-       until calling gst_base_parse_finish_frame() with a non-queued frame.
+       until calling `gst_base_parse_finish_frame` with a non-queued frame.
 
-     * At least at this point subclass needs to tell the #GstBaseParse class
+     * At least at this point subclass needs to tell the GstBase.Parse class
        how big data chunks it wants to receive (minimum frame size ). It can
-       do this with gst_base_parse_set_min_frame_size().
+       do this with `gst_base_parse_set_min_frame_size`.
 
-     * #GstBaseParse class sets up appropriate data passing mode (pull/push)
+     * GstBase.Parse class sets up appropriate data passing mode (pull/push)
        and starts to process the data.
 
     ## Parsing phase
 
-     * #GstBaseParse gathers at least min_frame_size bytes of data either
+     * GstBase.Parse gathers at least min_frame_size bytes of data either
        by pulling it from upstream or collecting buffers in an internal
-       #GstAdapter.
+       GstAdapter.
 
      * A buffer of (at least) min_frame_size bytes is passed to subclass
-       with #GstBaseParseClass::handle_frame. Subclass checks the contents
-       and can optionally return #GST_FLOW_OK along with an amount of data
+       with GstBase.ParseClass::handle_frame. Subclass checks the contents
+       and can optionally return GST_FLOW_OK along with an amount of data
        to be skipped to find a valid frame (which will result in a
        subsequent DISCONT).  If, otherwise, the buffer does not hold a
-       complete frame, #GstBaseParseClass::handle_frame can merely return
+       complete frame, GstBase.ParseClass::handle_frame can merely return
        and will be called again when additional data is available.  In push
        mode this amounts to an additional input buffer (thus minimal
        additional latency), in pull mode this amounts to some arbitrary
        reasonable buffer size increase.
 
-       Of course, gst_base_parse_set_min_frame_size() could also be used if
+       Of course, `gst_base_parse_set_min_frame_size` could also be used if
        a very specific known amount of additional data is required.  If,
        however, the buffer holds a complete valid frame, it can pass the
-       size of this frame to gst_base_parse_finish_frame().
+       size of this frame to `gst_base_parse_finish_frame`.
 
        If acting as a converter, it can also merely indicate consumed input
        data while simultaneously providing custom output data.  Note that
        baseclass performs some processing (such as tracking overall consumed
        data rate versus duration) for each finished frame, but other state
-       is only updated upon each call to #GstBaseParseClass::handle_frame
+       is only updated upon each call to GstBase.ParseClass::handle_frame
        (such as tracking upstream input timestamp).
 
        Subclass is also responsible for setting the buffer metadata
        (e.g. buffer timestamp and duration, or keyframe if applicable).
-       (although the latter can also be done by #GstBaseParse if it is
+       (although the latter can also be done by GstBase.Parse if it is
        appropriately configured, see below).  Frame is provided with
        timestamp derived from upstream (as much as generally possible),
        duration obtained from configuration (see below), and offset
        if meaningful (in pull mode).
 
-       Note that #GstBaseParseClass::handle_frame might receive any small
+       Note that GstBase.ParseClass::handle_frame might receive any small
        amount of input data when leftover data is being drained (e.g. at
        EOS).
 
      * As part of finish frame processing, just prior to actually pushing
        the buffer in question, it is passed to
-       #GstBaseParseClass::pre_push_frame which gives subclass yet one last
+       GstBase.ParseClass::pre_push_frame which gives subclass yet one last
        chance to examine buffer metadata, or to send some custom (tag)
        events, or to perform custom (segment) filtering.
 
-     * During the parsing process #GstBaseParseClass will handle both srcpad
+     * During the parsing process GstBase.ParseClass will handle both srcpad
        and sinkpad events. They will be passed to subclass if
-       #GstBaseParseClass::sink_event or #GstBaseParseClass::src_event
+       GstBase.ParseClass::sink_event or GstBase.ParseClass::src_event
        implementations have been provided.
 
     ## Shutdown phase
 
-    * #GstBaseParse class calls #GstBaseParseClass::stop to inform the
+    * GstBase.Parse class calls GstBase.ParseClass::stop to inform the
       subclass that data parsing will be stopped.
 
     Subclass is responsible for providing pad template caps for source and
     sink pads. The pads need to be named "sink" and "src". It also needs to
     set the fixed caps on srcpad, when the format is ensured (e.g.  when
-    base class calls subclass' #GstBaseParseClass::set_sink_caps function).
+    base class calls subclass' GstBase.ParseClass::set_sink_caps function).
 
-    This base class uses %GST_FORMAT_DEFAULT as a meaning of frames. So,
+    This base class uses GST_FORMAT_DEFAULT as a meaning of frames. So,
     subclass conversion routine needs to know that conversion from
-    %GST_FORMAT_TIME to %GST_FORMAT_DEFAULT must return the
+    GST_FORMAT_TIME to GST_FORMAT_DEFAULT must return the
     frame number that can be found from the given byte position.
 
-    #GstBaseParse uses subclasses conversion methods also for seeking (or
+    GstBase.Parse uses subclasses conversion methods also for seeking (or
     otherwise uses its own default one, see also below).
 
-    Subclass @start and @stop functions will be called to inform the beginning
+    Subclass `start` and `stop` functions will be called to inform the beginning
     and end of data processing.
 
     Things that subclass need to take care of:
@@ -1633,25 +1633,25 @@ class BaseParse(Gst.Element):
     * Provide pad templates
     * Fixate the source pad caps when appropriate
     * Inform base class how big data chunks should be retrieved. This is
-      done with gst_base_parse_set_min_frame_size() function.
+      done with `gst_base_parse_set_min_frame_size` function.
     * Examine data chunks passed to subclass with
-      #GstBaseParseClass::handle_frame and pass proper frame(s) to
-      gst_base_parse_finish_frame(), and setting src pad caps and timestamps
+      GstBase.ParseClass::handle_frame and pass proper frame(s) to
+      `gst_base_parse_finish_frame`, and setting src pad caps and timestamps
       on frame.
     * Provide conversion functions
-    * Update the duration information with gst_base_parse_set_duration()
-    * Optionally passthrough using gst_base_parse_set_passthrough()
+    * Update the duration information with `gst_base_parse_set_duration`
+    * Optionally passthrough using `gst_base_parse_set_passthrough`
     * Configure various baseparse parameters using
-      gst_base_parse_set_average_bitrate(), gst_base_parse_set_syncable()
-      and gst_base_parse_set_frame_rate().
+      `gst_base_parse_set_average_bitrate`, `gst_base_parse_set_syncable`
+      and `gst_base_parse_set_frame_rate`.
 
     * In particular, if subclass is unable to determine a duration, but
       parsing (or specs) yields a frames per seconds rate, then this can be
-      provided to #GstBaseParse to enable it to cater for buffer time
+      provided to GstBase.Parse to enable it to cater for buffer time
       metadata (which will be taken from upstream as much as
       possible). Internally keeping track of frame durations and respective
-      sizes that have been pushed provides #GstBaseParse with an estimated
-      bitrate. A default #GstBaseParseClass::convert (used if not
+      sizes that have been pushed provides GstBase.Parse with an estimated
+      bitrate. A default GstBase.ParseClass::convert (used if not
       overridden) will then use these rates to perform obvious conversions.
       These rates are also used to update (estimated) duration at regular
       frame intervals.
@@ -1660,11 +1660,11 @@ class BaseParse(Gst.Element):
     class Props(Gst.Element.Props):
         disable_passthrough: bool  # [disable-passthrough]: changed because contained invalid characters
         """
-        If set to %TRUE, baseparse will unconditionally force parsing of the
+        If set to True, baseparse will unconditionally force parsing of the
         incoming data. This can be required in the rare cases where the incoming
         side-data (caps, pts, dts, ...) is not trusted by the user and wants to
         force validation and parsing of the incoming data.
-        If set to %FALSE, decision of whether to parse the data or not is up to
+        If set to False, decision of whether to parse the data or not is up to
         the implementation (standard behaviour).
         """
 
@@ -1693,14 +1693,14 @@ class BaseParse(Gst.Element):
         """
     def add_index_entry(self, offset: int, ts: int, key: bool, force: bool) -> bool:
         """
-            Adds an entry to the index associating @offset to @ts.  It is recommended
-        to only add keyframe entries.  @force allows to bypass checks, such as
+            Adds an entry to the index associating `offset` to `ts`.  It is recommended
+        to only add keyframe entries.  `force` allows to bypass checks, such as
         whether the stream is (upstream) seekable, another entry is already "close"
         to the new entry, etc.
         """
     def convert_default(self, src_format: Gst.Format, src_value: int, dest_format: Gst.Format) -> tuple[bool, int]:
         """
-        Default implementation of #GstBaseParseClass::convert.
+        Default implementation of GstBase.ParseClass::convert.
         """
     def drain(self) -> None:
         """
@@ -1713,23 +1713,23 @@ class BaseParse(Gst.Element):
             Collects parsed data and pushes it downstream.
         Source pad caps must be set when this is called.
 
-        If @frame's out_buffer is set, that will be used as subsequent frame data,
-        and @size amount will be flushed from the input data. The output_buffer size
-        can differ from the consumed size indicated by @size.
+        If `frame`'s out_buffer is set, that will be used as subsequent frame data,
+        and `size` amount will be flushed from the input data. The output_buffer size
+        can differ from the consumed size indicated by `size`.
 
-        Otherwise, @size samples will be taken from the input and used for output,
+        Otherwise, `size` samples will be taken from the input and used for output,
         and the output's metadata (timestamps etc) will be taken as (optionally)
-        set by the subclass on @frame's (input) buffer (which is otherwise
+        set by the subclass on `frame`'s (input) buffer (which is otherwise
         ignored for any but the above purpose/information).
 
         Note that the latter buffer is invalidated by this call, whereas the
-        caller retains ownership of @frame.
+        caller retains ownership of `frame`.
         """
     def merge_tags(self, tags: Gst.TagList | None, mode: Gst.TagMergeMode) -> None:
         """
             Sets the parser subclass's tags and how they should be merged with any
         upstream stream tags. This will override any tags previously-set
-        with gst_base_parse_merge_tags().
+        with `gst_base_parse_merge_tags`.
 
         Note that this is provided for convenience, and the subclass is
         not required to use this and can still do tag handling on its own.
@@ -1738,7 +1738,7 @@ class BaseParse(Gst.Element):
         """
             Pushes the frame's buffer downstream, sends any pending events and
         does some timestamp and segment handling. Takes ownership of
-        frame's buffer, though caller retains ownership of @frame.
+        frame's buffer, though caller retains ownership of `frame`.
 
         This must be called with sinkpad STREAM_LOCK held.
         """
@@ -1750,22 +1750,22 @@ class BaseParse(Gst.Element):
         By default, announced average bitrate is estimated. The average bitrate
         is used to estimate the total duration of the stream and to estimate
         a seek position, if there's no index and the format is syncable
-        (see gst_base_parse_set_syncable()).
+        (see `gst_base_parse_set_syncable`).
         """
     def set_duration(self, fmt: Gst.Format, duration: int, interval: int) -> None:
         """
             Sets the duration of the currently playing media. Subclass can use this
         when it is able to determine duration and/or notices a change in the media
-        duration.  Alternatively, if @interval is non-zero (default), then stream
-        duration is determined based on estimated bitrate, and updated every @interval
+        duration.  Alternatively, if `interval` is non-zero (default), then stream
+        duration is determined based on estimated bitrate, and updated every `interval`
         frames.
         """
     def set_frame_rate(self, fps_num: int, fps_den: int, lead_in: int, lead_out: int) -> None:
         """
             If frames per second is configured, parser can take care of buffer duration
         and timestamping.  When performing segment clipping, or seeking to a specific
-        location, a corresponding decoder might need an initial @lead_in and a
-        following @lead_out number of frames to ensure the desired segment is
+        location, a corresponding decoder might need an initial `lead_in` and a
+        following `lead_out` number of frames to ensure the desired segment is
         entirely filled upon decoding.
         """
     def set_has_timing_info(self, has_timing: bool) -> None:
@@ -1794,17 +1794,17 @@ class BaseParse(Gst.Element):
     def set_min_frame_size(self, min_size: int) -> None:
         """
             Subclass can use this function to tell the base class that it needs to
-        be given buffers of at least @min_size bytes.
+        be given buffers of at least `min_size` bytes.
         """
     def set_passthrough(self, passthrough: bool) -> None:
         """
             Set if the nature of the format or configuration does not allow (much)
         parsing, and the parser should operate in passthrough mode (which only
         applies when operating in push mode). That is, incoming buffers are
-        pushed through unmodified, i.e. no #GstBaseParseClass::handle_frame
-        will be invoked, but #GstBaseParseClass::pre_push_frame will still be
+        pushed through unmodified, i.e. no GstBase.ParseClass::handle_frame
+        will be invoked, but GstBase.ParseClass::pre_push_frame will still be
         invoked, so subclass can perform as much or as little is appropriate for
-        passthrough semantics in #GstBaseParseClass::pre_push_frame.
+        passthrough semantics in GstBase.ParseClass::pre_push_frame.
         """
     def set_pts_interpolation(self, pts_interpolate: bool) -> None:
         """
@@ -1821,9 +1821,9 @@ class BaseParse(Gst.Element):
         """
     def set_ts_at_offset(self, offset: int) -> None:
         """
-            This function should only be called from a @handle_frame implementation.
+            This function should only be called from a `handle_frame` implementation.
 
-        #GstBaseParse creates initial timestamps for frames by using the last
+        GstBase.Parse creates initial timestamps for frames by using the last
         timestamp seen in the stream before the frame starts.  In certain
         cases, the correct timestamps will occur in the stream after the
         start of the frame, but before the start of the actual picture data.
@@ -1934,7 +1934,7 @@ class BaseParse(Gst.Element):
 class BaseParseClass(GObject.GPointer):
     """
     Subclasses can override any of the available virtual methods or not, as
-    needed. At minimum @handle_frame needs to be overridden.
+    needed. At minimum `handle_frame` needs to be overridden.
     """
 
     # gi Fields
@@ -1962,7 +1962,7 @@ class BaseParseClass(GObject.GPointer):
     def handle_frame(self) -> handle_frameBaseParseClassCB:
         """
         Parses the input data into valid frames as defined by subclass
-                     which should be passed to gst_base_parse_finish_frame().
+                     which should be passed to `gst_base_parse_finish_frame`.
                      The frame's input buffer is guaranteed writable,
                      whereas the input frame ownership is held by caller
                      (so subclass should make a copy if it needs to hang on).
@@ -2063,9 +2063,9 @@ class BaseParseFrame(GObject.GBoxed):
     """
     flags: int = ...
     """
-    a combination of input and output #GstBaseParseFrameFlags that
+    a combination of input and output GstBase.ParseFrameFlags that
      convey additional context to subclass or allow subclass to tune
-     subsequent #GstBaseParse actions.
+     subsequent GstBase.Parse actions.
 
     """
     offset: int = ...
@@ -2097,26 +2097,26 @@ class BaseParseFrame(GObject.GBoxed):
         """
     def copy(self) -> BaseParseFrame:
         """
-        Copies a #GstBaseParseFrame.
+        Copies a GstBase.ParseFrame.
         """
     def free(self) -> None:
         """
-        Frees the provided @frame.
+        Frees the provided `frame`.
         """
     def init(self) -> None:
         """
-            Sets a #GstBaseParseFrame to initial state.  Currently this means
+            Sets a GstBase.ParseFrame to initial state.  Currently this means
         all public fields are zero-ed and a private flag is set to make
-        sure gst_base_parse_frame_free() only frees the contents but not
-        the actual frame. Use this function to initialise a #GstBaseParseFrame
+        sure `gst_base_parse_frame_free` only frees the contents but not
+        the actual frame. Use this function to initialise a GstBase.ParseFrame
         allocated on the stack.
         """
     @classmethod
     def new(cls, buffer: Gst.Buffer, flags: BaseParseFrameFlags, overhead: int) -> BaseParseFrame:
         """
-            Allocates a new #GstBaseParseFrame. This function is mainly for bindings,
+            Allocates a new GstBase.ParseFrame. This function is mainly for bindings,
         elements written in C should usually allocate the frame on the stack and
-        then use gst_base_parse_frame_init() to initialise it.
+        then use `gst_base_parse_frame_init` to initialise it.
         """
 
 class BaseParsePrivate(GObject.GPointer):
@@ -2128,18 +2128,18 @@ class BaseParsePrivate(GObject.GPointer):
 
 class BaseSink(Gst.Element):
     """
-    #GstBaseSink is the base class for sink elements in GStreamer, such as
-    xvimagesink or filesink. It is a layer on top of #GstElement that provides a
-    simplified interface to plugin writers. #GstBaseSink handles many details
+    GstBase.Sink is the base class for sink elements in GStreamer, such as
+    xvimagesink or filesink. It is a layer on top of GstElement that provides a
+    simplified interface to plugin writers. GstBase.Sink handles many details
     for you, for example: preroll, clock synchronization, state changes,
     activation in push or pull mode, and queries.
 
     In most cases, when writing sink elements, there is no need to implement
-    class methods from #GstElement or to set functions on pads, because the
-    #GstBaseSink infrastructure should be sufficient.
+    class methods from GstElement or to set functions on pads, because the
+    GstBase.Sink infrastructure should be sufficient.
 
-    #GstBaseSink provides support for exactly one sink pad, which should be
-    named "sink". A sink implementation (subclass of #GstBaseSink) should
+    GstBase.Sink provides support for exactly one sink pad, which should be
+    named "sink". A sink implementation (subclass of GstBase.Sink) should
     install a pad template in its class_init function, like so:
     |[<!-- language="C" -->
     static void
@@ -2147,78 +2147,78 @@ class BaseSink(Gst.Element):
     {
       GstElementClass *gstelement_class = GST_ELEMENT_CLASS (klass);
 
-      // sinktemplate should be a #GstStaticPadTemplate with direction
-      // %GST_PAD_SINK and name "sink"
+      // sinktemplate should be a GstStaticPadTemplate with direction
+      // GST_PAD_SINK and name "sink"
       gst_element_class_add_static_pad_template (gstelement_class, &sinktemplate);
 
       gst_element_class_set_static_metadata (gstelement_class,
           "Sink name",
           "Sink",
           "My Sink element",
-          "The author <my.sink@my.email>");
+          "The author <my.sink`my`.email>");
     }
     ]|
 
-    #GstBaseSink will handle the prerolling correctly. This means that it will
-    return %GST_STATE_CHANGE_ASYNC from a state change to PAUSED until the first
+    GstBase.Sink will handle the prerolling correctly. This means that it will
+    return GST_STATE_CHANGE_ASYNC from a state change to PAUSED until the first
     buffer arrives in this element. The base class will call the
-    #GstBaseSinkClass::preroll vmethod with this preroll buffer and will then
+    GstBase.SinkClass::preroll vmethod with this preroll buffer and will then
     commit the state change to the next asynchronously pending state.
 
-    When the element is set to PLAYING, #GstBaseSink will synchronise on the
-    clock using the times returned from #GstBaseSinkClass::get_times. If this
-    function returns %GST_CLOCK_TIME_NONE for the start time, no synchronisation
+    When the element is set to PLAYING, GstBase.Sink will synchronise on the
+    clock using the times returned from GstBase.SinkClass::get_times. If this
+    function returns GST_CLOCK_TIME_NONE for the start time, no synchronisation
     will be done. Synchronisation can be disabled entirely by setting the object
-    #GstBaseSink:sync property to %FALSE.
+    GstBase.Sink:sync property to False.
 
-    After synchronisation the virtual method #GstBaseSinkClass::render will be
+    After synchronisation the virtual method GstBase.SinkClass::render will be
     called. Subclasses should minimally implement this method.
 
-    Subclasses that synchronise on the clock in the #GstBaseSinkClass::render
+    Subclasses that synchronise on the clock in the GstBase.SinkClass::render
     method are supported as well. These classes typically receive a buffer in
     the render method and can then potentially block on the clock while
     rendering. A typical example is an audiosink.
-    These subclasses can use gst_base_sink_wait_preroll() to perform the
+    These subclasses can use `gst_base_sink_wait_preroll` to perform the
     blocking wait.
 
-    Upon receiving the EOS event in the PLAYING state, #GstBaseSink will wait
+    Upon receiving the EOS event in the PLAYING state, GstBase.Sink will wait
     for the clock to reach the time indicated by the stop time of the last
-    #GstBaseSinkClass::get_times call before posting an EOS message. When the
+    GstBase.SinkClass::get_times call before posting an EOS message. When the
     element receives EOS in PAUSED, preroll completes, the event is queued and an
     EOS message is posted when going to PLAYING.
 
-    #GstBaseSink will internally use the %GST_EVENT_SEGMENT events to schedule
+    GstBase.Sink will internally use the GST_EVENT_SEGMENT events to schedule
     synchronisation and clipping of buffers. Buffers that fall completely outside
     of the current segment are dropped. Buffers that fall partially in the
     segment are rendered (and prerolled). Subclasses should do any subbuffer
     clipping themselves when needed.
 
-    #GstBaseSink will by default report the current playback position in
-    %GST_FORMAT_TIME based on the current clock time and segment information.
+    GstBase.Sink will by default report the current playback position in
+    GST_FORMAT_TIME based on the current clock time and segment information.
     If no clock has been set on the element, the query will be forwarded
     upstream.
 
-    The #GstBaseSinkClass::set_caps function will be called when the subclass
+    The GstBase.SinkClass::set_caps function will be called when the subclass
     should configure itself to process a specific media type.
 
-    The #GstBaseSinkClass::start and #GstBaseSinkClass::stop virtual methods
+    The GstBase.SinkClass::start and GstBase.SinkClass::stop virtual methods
     will be called when resources should be allocated. Any
-    #GstBaseSinkClass::preroll, #GstBaseSinkClass::render and
-    #GstBaseSinkClass::set_caps function will be called between the
-    #GstBaseSinkClass::start and #GstBaseSinkClass::stop calls.
+    GstBase.SinkClass::preroll, GstBase.SinkClass::render and
+    GstBase.SinkClass::set_caps function will be called between the
+    GstBase.SinkClass::start and GstBase.SinkClass::stop calls.
 
-    The #GstBaseSinkClass::event virtual method will be called when an event is
-    received by #GstBaseSink. Normally this method should only be overridden by
+    The GstBase.SinkClass::event virtual method will be called when an event is
+    received by GstBase.Sink. Normally this method should only be overridden by
     very specific elements (such as file sinks) which need to handle the
     newsegment event specially.
 
-    The #GstBaseSinkClass::unlock method is called when the elements should
+    The GstBase.SinkClass::unlock method is called when the elements should
     unblock any blocking operations they perform in the
-    #GstBaseSinkClass::render method. This is mostly useful when the
-    #GstBaseSinkClass::render method performs a blocking write on a file
+    GstBase.SinkClass::render method. This is mostly useful when the
+    GstBase.SinkClass::render method performs a blocking write on a file
     descriptor, for example.
 
-    The #GstBaseSink:max-lateness property affects how the sink deals with
+    The GstBase.Sink:max-lateness property affects how the sink deals with
     buffers that arrive too late in the sink. A buffer arrives too late in the
     sink when the presentation time (as a combination of the last segment, buffer
     timestamp and element base_time) plus the duration is before the current
@@ -2226,19 +2226,19 @@ class BaseSink(Gst.Element):
     If the frame is later than max-lateness, the sink will drop the buffer
     without calling the render method.
     This feature is disabled if sync is disabled, the
-    #GstBaseSinkClass::get_times method does not return a valid start time or
+    GstBase.SinkClass::get_times method does not return a valid start time or
     max-lateness is set to -1 (the default).
-    Subclasses can use gst_base_sink_set_max_lateness() to configure the
+    Subclasses can use `gst_base_sink_set_max_lateness` to configure the
     max-lateness value.
 
-    The #GstBaseSink:qos property will enable the quality-of-service features of
+    The GstBase.Sink:qos property will enable the quality-of-service features of
     the basesink which gather statistics about the real-time performance of the
     clock synchronisation. For each buffer received in the sink, statistics are
     gathered and a QOS event is sent upstream with these numbers. This
     information can then be used by upstream elements to reduce their processing
     rate, for example.
 
-    The #GstBaseSink:async property can be used to instruct the sink to never
+    The GstBase.Sink:async property can be used to instruct the sink to never
     perform an ASYNC state change. This feature is mostly usable when dealing
     with non-synchronized streams or sparse streams.
     """
@@ -2251,16 +2251,16 @@ class BaseSink(Gst.Element):
         """
         enable_last_sample: bool  # [enable-last-sample]: changed because contained invalid characters
         """
-        Enable the last-sample property. If %FALSE, basesink doesn't keep a
+        Enable the last-sample property. If False, basesink doesn't keep a
         reference to the last buffer arrived and the last-sample property is always
-        set to %NULL. This can be useful if you need buffers to be released as soon
+        set to None. This can be useful if you need buffers to be released as soon
         as possible, eg. if you're using a buffer pool.
         """
         last_sample: Gst.Sample | None  # [last-sample]: changed because contained invalid characters
         """
         The last buffer that arrived in the sink and was used for preroll or for
         rendering. This property can be used to generate thumbnails. This property
-        can be %NULL when the sink has not yet received a buffer.
+        can be None when the sink has not yet received a buffer.
         """
         max_bitrate: int  # [max-bitrate]: changed because contained invalid characters
         """
@@ -2284,7 +2284,7 @@ class BaseSink(Gst.Element):
         """
         stats: Gst.Structure | None
         """
-        Various #GstBaseSink statistics. This property returns a #GstStructure
+        Various GstBase.Sink statistics. This property returns a GstStructure
         with name `application/x-gst-base-sink-stats` with the following fields:
 
         - "average-rate"  G_TYPE_DOUBLE   average frame rate
@@ -2366,7 +2366,7 @@ class BaseSink(Gst.Element):
         """
     def do_preroll(self, obj: Gst.MiniObject) -> Gst.FlowReturn:
         """
-            If the @sink spawns its own thread for pulling buffers from upstream it
+            If the `sink` spawns its own thread for pulling buffers from upstream it
         should call this method after it has pulled a buffer. If the element needed
         to preroll, this function will perform the preroll and will then block
         until the element state is changed.
@@ -2381,7 +2381,7 @@ class BaseSink(Gst.Element):
         """
     def get_drop_out_of_segment(self) -> bool:
         """
-            Checks if @sink is currently configured to drop buffers which are outside
+            Checks if `sink` is currently configured to drop buffers which are outside
         the current segment
         """
     @builtins.property
@@ -2390,7 +2390,7 @@ class BaseSink(Gst.Element):
             Get the last sample that arrived in the sink and was used for preroll or for
         rendering. This property can be used to generate thumbnails.
 
-        The #GstCaps on the sample can be used to determine the type of the buffer.
+        The GstCaps on the sample can be used to determine the type of the buffer.
 
         Free-function: gst_sample_unref
         """
@@ -2406,26 +2406,26 @@ class BaseSink(Gst.Element):
     @builtins.property
     def get_max_lateness(self) -> int:
         """
-            Gets the max lateness value. See gst_base_sink_set_max_lateness() for
+            Gets the max lateness value. See `gst_base_sink_set_max_lateness` for
         more details.
         """
     @builtins.property
     def get_processing_deadline(self) -> int:
         """
-            Get the processing deadline of @sink. see
-        gst_base_sink_set_processing_deadline() for more information about
+            Get the processing deadline of `sink`. see
+        `gst_base_sink_set_processing_deadline` for more information about
         the processing deadline.
         """
     @builtins.property
     def get_render_delay(self) -> int:
         """
-            Get the render delay of @sink. see gst_base_sink_set_render_delay() for more
+            Get the render delay of `sink`. see `gst_base_sink_set_render_delay` for more
         information about the render delay.
         """
     @builtins.property
     def get_stats(self) -> Gst.Structure:
         """
-            Return various #GstBaseSink statistics. This function returns a #GstStructure
+            Return various GstBase.Sink statistics. This function returns a GstStructure
         with name `application/x-gst-base-sink-stats` with the following fields:
 
         - "average-rate" G_TYPE_DOUBLE   average frame rate
@@ -2435,7 +2435,7 @@ class BaseSink(Gst.Element):
     @builtins.property
     def get_sync(self) -> bool:
         """
-            Checks if @sink is currently configured to synchronize against the
+            Checks if `sink` is currently configured to synchronize against the
         clock.
         """
     @builtins.property
@@ -2447,39 +2447,39 @@ class BaseSink(Gst.Element):
     @builtins.property
     def get_ts_offset(self) -> int:
         """
-        Get the synchronisation offset of @sink.
+        Get the synchronisation offset of `sink`.
         """
     def is_async_enabled(self) -> bool:
         """
-            Checks if @sink is currently configured to perform asynchronous state
+            Checks if `sink` is currently configured to perform asynchronous state
         changes to PAUSED.
         """
     def is_last_sample_enabled(self) -> bool:
         """
-            Checks if @sink is currently configured to store the last received sample in
+            Checks if `sink` is currently configured to store the last received sample in
         the last-sample property.
         """
     def is_qos_enabled(self) -> bool:
         """
-            Checks if @sink is currently configured to send Quality-of-Service events
+            Checks if `sink` is currently configured to send Quality-of-Service events
         upstream.
         """
     def query_latency(self) -> tuple[bool, bool, bool, int, int]:
         """
             Query the sink for the latency parameters. The latency will be queried from
-        the upstream elements. @live will be %TRUE if @sink is configured to
-        synchronize against the clock. @upstream_live will be %TRUE if an upstream
+        the upstream elements. `live` will be True if `sink` is configured to
+        synchronize against the clock. `upstream_live` will be True if an upstream
         element is live.
 
-        If both @live and @upstream_live are %TRUE, the sink will want to compensate
+        If both `live` and `upstream_live` are True, the sink will want to compensate
         for the latency introduced by the upstream elements by setting the
-        @min_latency to a strictly positive value.
+        `min_latency` to a strictly positive value.
 
         This function is mostly used by subclasses.
         """
     def set_async_enabled(self, enabled: bool) -> None:
         """
-            Configures @sink to perform all state changes asynchronously. When async is
+            Configures `sink` to perform all state changes asynchronously. When async is
         disabled, the sink will immediately go to PAUSED instead of waiting for a
         preroll buffer. This feature is useful if the sink does not synchronize
         against the clock or when it is dealing with sparse streams.
@@ -2491,11 +2491,11 @@ class BaseSink(Gst.Element):
         """
     def set_drop_out_of_segment(self, drop_out_of_segment: bool) -> None:
         """
-        Configure @sink to drop buffers which are outside the current segment
+        Configure `sink` to drop buffers which are outside the current segment
         """
     def set_last_sample_enabled(self, enabled: bool) -> None:
         """
-            Configures @sink to store the last received sample in the last-sample
+            Configures `sink` to store the last received sample in the last-sample
         property.
         """
     def set_max_bitrate(self, max_bitrate: int) -> None:
@@ -2504,7 +2504,7 @@ class BaseSink(Gst.Element):
         """
     def set_max_lateness(self, max_lateness: int) -> None:
         """
-            Sets the new max lateness value to @max_lateness. This value is
+            Sets the new max lateness value to `max_lateness`. This value is
         used to decide if a buffer should be dropped or not based on the
         buffer timestamp and the current clock time. A value of -1 means
         an unlimited time.
@@ -2519,11 +2519,11 @@ class BaseSink(Gst.Element):
         """
     def set_qos_enabled(self, enabled: bool) -> None:
         """
-        Configures @sink to send Quality-of-Service events upstream.
+        Configures `sink` to send Quality-of-Service events upstream.
         """
     def set_render_delay(self, delay: int) -> None:
         """
-            Set the render delay in @sink to @delay. The render delay is the time
+            Set the render delay in `sink` to `delay`. The render delay is the time
         between actual rendering of a buffer and its synchronisation time. Some
         devices might delay media rendering which can be compensated for with this
         function.
@@ -2535,9 +2535,9 @@ class BaseSink(Gst.Element):
         """
     def set_sync(self, sync: bool) -> None:
         """
-            Configures @sink to synchronize on the clock or not. When
-        @sync is %FALSE, incoming samples will be played as fast as
-        possible. If @sync is %TRUE, the timestamps of the incoming
+            Configures `sink` to synchronize on the clock or not. When
+        `sync` is False, incoming samples will be played as fast as
+        possible. If `sync` is True, the timestamps of the incoming
         buffers will be used to schedule the exact render time of its
         contents.
         """
@@ -2549,14 +2549,14 @@ class BaseSink(Gst.Element):
         """
     def set_ts_offset(self, offset: int) -> None:
         """
-            Adjust the synchronisation of @sink with @offset. A negative value will
+            Adjust the synchronisation of `sink` with `offset`. A negative value will
         render buffers earlier than their timestamp. A positive value will delay
         rendering. This function can be used to fix playback of badly timestamped
         buffers.
         """
     def wait(self, time: int) -> tuple[Gst.FlowReturn, int]:
         """
-            This function will wait for preroll to complete and will then block until @time
+            This function will wait for preroll to complete and will then block until `time`
         is reached. It is usually called by subclasses that use their own internal
         synchronisation but want to let some synchronization (like EOS) be handled
         by the base class.
@@ -2565,44 +2565,44 @@ class BaseSink(Gst.Element):
         receiving an EOS event in the ::event vmethod or when handling buffers in
         ::render).
 
-        The @time argument should be the running_time of when the timeout should happen
+        The `time` argument should be the running_time of when the timeout should happen
         and will be adjusted with any latency and offset configured in the sink.
         """
     def wait_clock(self, time: int) -> tuple[Gst.ClockReturn, int]:
         """
-            This function will block until @time is reached. It is usually called by
+            This function will block until `time` is reached. It is usually called by
         subclasses that use their own internal synchronisation.
 
-        If @time is not valid, no synchronisation is done and %GST_CLOCK_BADTIME is
+        If `time` is not valid, no synchronisation is done and GST_CLOCK_BADTIME is
         returned. Likewise, if synchronisation is disabled in the element or there
-        is no clock, no synchronisation is done and %GST_CLOCK_BADTIME is returned.
+        is no clock, no synchronisation is done and GST_CLOCK_BADTIME is returned.
 
         This function should only be called with the PREROLL_LOCK held, like when
-        receiving an EOS event in the #GstBaseSinkClass::event vmethod or when
+        receiving an EOS event in the GstBase.SinkClass::event vmethod or when
         receiving a buffer in
-        the #GstBaseSinkClass::render vmethod.
+        the GstBase.SinkClass::render vmethod.
 
-        The @time argument should be the running_time of when this method should
+        The `time` argument should be the running_time of when this method should
         return and is not adjusted with any latency or offset configured in the
         sink.
         """
     def wait_preroll(self) -> Gst.FlowReturn:
         """
-            If the #GstBaseSinkClass::render method performs its own synchronisation
+            If the GstBase.SinkClass::render method performs its own synchronisation
         against the clock it must unblock when going from PLAYING to the PAUSED state
         and call this method before continuing to render the remaining data.
 
-        If the #GstBaseSinkClass::render method can block on something else than
+        If the GstBase.SinkClass::render method can block on something else than
         the clock, it must also be ready to unblock immediately on
-        the #GstBaseSinkClass::unlock method and cause the
-        #GstBaseSinkClass::render method to immediately call this function.
+        the GstBase.SinkClass::unlock method and cause the
+        GstBase.SinkClass::render method to immediately call this function.
         In this case, the subclass must be prepared to continue rendering where it
-        left off if this function returns %GST_FLOW_OK.
+        left off if this function returns GST_FLOW_OK.
 
         This function will block until a state change to PLAYING happens (in which
-        case this function returns %GST_FLOW_OK) or the processing must be stopped due
+        case this function returns GST_FLOW_OK) or the processing must be stopped due
         to a state change to READY or a FLUSH event (in which case this function
-        returns %GST_FLOW_FLUSHING).
+        returns GST_FLOW_FLUSHING).
 
         This function should only be called with the PREROLL_LOCK held, like in the
         render function.
@@ -2825,7 +2825,7 @@ class BaseSink(Gst.Element):
 class BaseSinkClass(GObject.GPointer):
     """
     Subclasses can override any of the available virtual methods or not, as
-    needed. At the minimum, the @render method should be overridden to
+    needed. At the minimum, the `render` method should be overridden to
     output/present buffers.
     """
 
@@ -2869,13 +2869,13 @@ class BaseSinkClass(GObject.GPointer):
     @builtins.property
     def prepare(self) -> prepareBaseSinkClassCB:
         """
-        Called to prepare the buffer for @render and @preroll. This
+        Called to prepare the buffer for `render` and `preroll`. This
         function is called before synchronisation is performed.
         """
     @builtins.property
     def prepare_list(self) -> prepare_listBaseSinkClassCB:
         """
-        Called to prepare the buffer list for @render_list. This
+        Called to prepare the buffer list for `render_list`. This
         function is called before synchronisation is performed.
         """
     @builtins.property
@@ -2891,18 +2891,18 @@ class BaseSinkClass(GObject.GPointer):
     @builtins.property
     def query(self) -> queryBaseSinkClassCB:
         """
-        perform a #GstQuery on the element.
+        perform a GstQuery on the element.
         """
     @builtins.property
     def render(self) -> renderBaseSinkClassCB:
         """
         Called when a buffer should be presented or output, at the
-        correct moment if the #GstBaseSink has been set to sync to the clock.
+        correct moment if the GstBase.Sink has been set to sync to the clock.
         """
     @builtins.property
     def render_list(self) -> render_listBaseSinkClassCB:
         """
-        Same as @render but used with buffer lists instead of
+        Same as `render` but used with buffer lists instead of
         buffers.
         """
     @builtins.property
@@ -2924,16 +2924,16 @@ class BaseSinkClass(GObject.GPointer):
     def unlock(self) -> unlockBaseSinkClassCB:
         """
         Unlock any pending access to the resource. Subclasses should
-        unblock any blocked function ASAP and call gst_base_sink_wait_preroll()
+        unblock any blocked function ASAP and call `gst_base_sink_wait_preroll`
         """
     @builtins.property
     def unlock_stop(self) -> unlock_stopBaseSinkClassCB:
         """
         Clear the previous unlock request. Subclasses should clear
-        any state they set during #GstBaseSinkClass::unlock, and be ready to
-        continue where they left off after gst_base_sink_wait_preroll(),
-        gst_base_sink_wait() or gst_wait_sink_wait_clock() return or
-        #GstBaseSinkClass::render is called again.
+        any state they set during GstBase.SinkClass::unlock, and be ready to
+        continue where they left off after `gst_base_sink_wait_preroll`,
+        `gst_base_sink_wait` or `gst_wait_sink_wait_clock` return or
+        GstBase.SinkClass::render is called again.
         """
     @builtins.property
     def wait_event(self) -> wait_eventBaseSinkClassCB:
@@ -2965,46 +2965,46 @@ class BaseSrc(Gst.Element):
       * seekable sources
       * live sources
 
-    The source can be configured to operate in any #GstFormat with the
-    gst_base_src_set_format() method. The currently set format determines
-    the format of the internal #GstSegment and any %GST_EVENT_SEGMENT
-    events. The default format for #GstBaseSrc is %GST_FORMAT_BYTES.
+    The source can be configured to operate in any GstFormat with the
+    `gst_base_src_set_format` method. The currently set format determines
+    the format of the internal GstSegment and any GST_EVENT_SEGMENT
+    events. The default format for GstBase.Src is GST_FORMAT_BYTES.
 
-    #GstBaseSrc always supports push mode scheduling. If the following
+    GstBase.Src always supports push mode scheduling. If the following
     conditions are met, it also supports pull mode scheduling:
 
-      * The format is set to %GST_FORMAT_BYTES (default).
-      * #GstBaseSrcClass::is_seekable returns %TRUE.
+      * The format is set to GST_FORMAT_BYTES (default).
+      * GstBase.SrcClass::is_seekable returns True.
 
-    If all the conditions are met for operating in pull mode, #GstBaseSrc is
+    If all the conditions are met for operating in pull mode, GstBase.Src is
     automatically seekable in push mode as well. The following conditions must
     be met to make the element seekable in push mode when the format is not
-    %GST_FORMAT_BYTES:
+    GST_FORMAT_BYTES:
 
-    * #GstBaseSrcClass::is_seekable returns %TRUE.
-    * #GstBaseSrcClass::query can convert all supported seek formats to the
-      internal format as set with gst_base_src_set_format().
-    * #GstBaseSrcClass::do_seek is implemented, performs the seek and returns
-       %TRUE.
+    * GstBase.SrcClass::is_seekable returns True.
+    * GstBase.SrcClass::query can convert all supported seek formats to the
+      internal format as set with `gst_base_src_set_format`.
+    * GstBase.SrcClass::do_seek is implemented, performs the seek and returns
+       True.
 
     When the element does not meet the requirements to operate in pull mode, the
-    offset and length in the #GstBaseSrcClass::create method should be ignored.
-    It is recommended to subclass #GstPushSrc instead, in this situation. If the
+    offset and length in the GstBase.SrcClass::create method should be ignored.
+    It is recommended to subclass GstPushSrc instead, in this situation. If the
     element can operate in pull mode but only with specific offsets and
     lengths, it is allowed to generate an error when the wrong values are passed
-    to the #GstBaseSrcClass::create function.
+    to the GstBase.SrcClass::create function.
 
-    #GstBaseSrc has support for live sources. Live sources are sources that when
+    GstBase.Src has support for live sources. Live sources are sources that when
     paused discard data, such as audio or video capture devices. A typical live
     source also produces data at a fixed rate and thus provides a clock to publish
     this rate.
-    Use gst_base_src_set_live() to activate the live source mode.
+    Use `gst_base_src_set_live` to activate the live source mode.
 
     A live source does not produce data in the PAUSED state. This means that the
-    #GstBaseSrcClass::create method will not be called in PAUSED but only in
+    GstBase.SrcClass::create method will not be called in PAUSED but only in
     PLAYING. To signal the pipeline that the element will not produce data, the
     return value from the READY to PAUSED state will be
-    %GST_STATE_CHANGE_NO_PREROLL.
+    GST_STATE_CHANGE_NO_PREROLL.
 
     A typical live source will timestamp the buffers it creates with the
     current running time of the pipeline. This is one reason why a live source
@@ -3012,13 +3012,13 @@ class BaseSrc(Gst.Element):
     distributed and running.
 
     Live sources that synchronize and block on the clock (an audio source, for
-    example) can use gst_base_src_wait_playing() when the
-    #GstBaseSrcClass::create function was interrupted by a state change to
+    example) can use `gst_base_src_wait_playing` when the
+    GstBase.SrcClass::create function was interrupted by a state change to
     PAUSED.
 
-    The #GstBaseSrcClass::get_times method can be used to implement pseudo-live
-    sources. It only makes sense to implement the #GstBaseSrcClass::get_times
-    function if the source is a live source. The #GstBaseSrcClass::get_times
+    The GstBase.SrcClass::get_times method can be used to implement pseudo-live
+    sources. It only makes sense to implement the GstBase.SrcClass::get_times
+    function if the source is a live source. The GstBase.SrcClass::get_times
     function should return timestamps starting from 0, as if it were a non-live
     source. The base class will make sure that the timestamps are transformed
     into the current running_time. The base source will then wait for the
@@ -3031,23 +3031,23 @@ class BaseSrc(Gst.Element):
     Subclasses should override the query function when this behaviour is not
     acceptable.
 
-    There is only support in #GstBaseSrc for exactly one source pad, which
-    should be named "src". A source implementation (subclass of #GstBaseSrc)
+    There is only support in GstBase.Src for exactly one source pad, which
+    should be named "src". A source implementation (subclass of GstBase.Src)
     should install a pad template in its class_init function, like so:
     |[<!-- language="C" -->
     static void
     my_element_class_init (GstMyElementClass *klass)
     {
       GstElementClass *gstelement_class = GST_ELEMENT_CLASS (klass);
-      // srctemplate should be a #GstStaticPadTemplate with direction
-      // %GST_PAD_SRC and name "src"
+      // srctemplate should be a GstStaticPadTemplate with direction
+      // GST_PAD_SRC and name "src"
       gst_element_class_add_static_pad_template (gstelement_class, &srctemplate);
 
       gst_element_class_set_static_metadata (gstelement_class,
          "Source name",
          "Source",
          "My Source element",
-         "The author <my.sink@my.email>");
+         "The author <my.sink`my`.email>");
     }
     ]|
 
@@ -3064,8 +3064,8 @@ class BaseSrc(Gst.Element):
 
     An application may send an EOS event to a source element to make it
     perform the EOS logic (send EOS event downstream or post a
-    %GST_MESSAGE_SEGMENT_DONE on the bus). This can typically be done
-    with the gst_element_send_event() function on the element or its parent bin.
+    GST_MESSAGE_SEGMENT_DONE on the bus). This can typically be done
+    with the `gst_element_send_event` function on the element or its parent bin.
 
     After the EOS has been sent to the element, the application should wait for
     an EOS message to be posted on the pipeline's bus. Once this EOS message is
@@ -3075,7 +3075,7 @@ class BaseSrc(Gst.Element):
     class Props(Gst.Element.Props):
         automatic_eos: bool  # [automatic-eos]: changed because contained invalid characters
         """
-        See gst_base_src_set_automatic_eos()
+        See `gst_base_src_set_automatic_eos`
         """
         blocksize: int
         do_timestamp: bool  # [do-timestamp]: changed because contained invalid characters
@@ -3131,25 +3131,25 @@ class BaseSrc(Gst.Element):
         """
     def get_allocator(self) -> tuple[Gst.Allocator | None, Gst.AllocationParams]:
         """
-            Lets #GstBaseSrc sub-classes to know the memory @allocator
-        used by the base class and its @params.
+            Lets GstBase.Src sub-classes to know the memory `allocator`
+        used by the base class and its `params`.
 
-        Unref the @allocator after usage.
+        Unref the `allocator` after usage.
         """
     @builtins.property
     def get_blocksize(self) -> int:
         """
-        Get the number of bytes that @src will push out with each buffer.
+        Get the number of bytes that `src` will push out with each buffer.
         """
     def get_buffer_pool(self) -> Gst.BufferPool | None: ...
     @builtins.property
     def get_do_timestamp(self) -> bool:
         """
-        Query if @src timestamps outgoing buffers based on the current running_time.
+        Query if `src` timestamps outgoing buffers based on the current running_time.
         """
     def is_async(self) -> bool:
         """
-        Get the current async behaviour of @src. See also gst_base_src_set_async().
+        Get the current async behaviour of `src`. See also `gst_base_src_set_async`.
         """
     def is_live(self) -> bool:
         """
@@ -3159,55 +3159,55 @@ class BaseSrc(Gst.Element):
         """
             Negotiates src pad caps with downstream elements.
         Unmarks GST_PAD_FLAG_NEED_RECONFIGURE in any case. But marks it again
-        if #GstBaseSrcClass::negotiate fails.
+        if GstBase.SrcClass::negotiate fails.
 
-        Do not call this in the #GstBaseSrcClass::fill vmethod. Call this in
-        #GstBaseSrcClass::create or in #GstBaseSrcClass::alloc, _before_ any
+        Do not call this in the GstBase.SrcClass::fill vmethod. Call this in
+        GstBase.SrcClass::create or in GstBase.SrcClass::alloc, _before_ any
         buffer is allocated.
         """
     @deprecated("deprecated")
     def new_seamless_segment(self, start: int, stop: int, time: int) -> bool:
         """
             Prepare a new seamless segment for emission downstream. This function must
-        only be called by derived sub-classes, and only from the #GstBaseSrcClass::create function,
+        only be called by derived sub-classes, and only from the GstBase.SrcClass::create function,
         as the stream-lock needs to be held.
 
         The format for the new segment will be the current format of the source, as
-        configured with gst_base_src_set_format()
+        configured with `gst_base_src_set_format`
         """
     def new_segment(self, segment: Gst.Segment) -> bool:
         """
             Prepare a new segment for emission downstream. This function must
-        only be called by derived sub-classes, and only from the #GstBaseSrcClass::create function,
+        only be called by derived sub-classes, and only from the GstBase.SrcClass::create function,
         as the stream-lock needs to be held.
 
-        The format for the @segment must be identical with the current format
-        of the source, as configured with gst_base_src_set_format().
+        The format for the `segment` must be identical with the current format
+        of the source, as configured with `gst_base_src_set_format`.
 
-        The format of @src must not be %GST_FORMAT_UNDEFINED and the format
-        should be configured via gst_base_src_set_format() before calling this method.
+        The format of `src` must not be GST_FORMAT_UNDEFINED and the format
+        should be configured via `gst_base_src_set_format` before calling this method.
         """
     def push_segment(self, segment: Gst.Segment) -> bool:
         """
             Send a new segment downstream. This function must
-        only be called by derived sub-classes, and only from the #GstBaseSrcClass::create function,
+        only be called by derived sub-classes, and only from the GstBase.SrcClass::create function,
         as the stream-lock needs to be held.
         This method also requires that an out caps has been configured, so
-        gst_base_src_set_caps() needs to have been called before.
+        `gst_base_src_set_caps` needs to have been called before.
 
-        The format for the @segment must be identical with the current format
-        of the source, as configured with gst_base_src_set_format().
+        The format for the `segment` must be identical with the current format
+        of the source, as configured with `gst_base_src_set_format`.
 
-        The format of @src must not be %GST_FORMAT_UNDEFINED and the format
-        should be configured via gst_base_src_set_format() before calling this method.
+        The format of `src` must not be GST_FORMAT_UNDEFINED and the format
+        should be configured via `gst_base_src_set_format` before calling this method.
 
-        This is a variant of gst_base_src_new_segment() sending the segment right away,
+        This is a variant of `gst_base_src_new_segment` sending the segment right away,
         which can be useful to ensure events ordering.
         """
     def query_latency(self) -> tuple[bool, bool, int, int]:
         """
-            Query the source for the latency parameters. @live will be %TRUE when @src is
-        configured as a live source. @min_latency and @max_latency will be set
+            Query the source for the latency parameters. `live` will be True when `src` is
+        configured as a live source. `min_latency` and `max_latency` will be set
         to the difference between the running time and the timestamp of the first
         buffer.
 
@@ -3215,28 +3215,28 @@ class BaseSrc(Gst.Element):
         """
     def set_async(self, async_: bool) -> None:
         """
-            Configure async behaviour in @src, no state change will block. The open,
+            Configure async behaviour in `src`, no state change will block. The open,
         close, start, stop, play and pause virtual methods will be executed in a
         different thread and are thus allowed to perform blocking operations. Any
         blocking operation should be unblocked with the unlock vmethod.
         """
     def set_automatic_eos(self, automatic_eos: bool) -> None:
         """
-            If @automatic_eos is %TRUE, @src will automatically go EOS if a buffer
-        after the total size is returned. By default this is %TRUE but sources
+            If `automatic_eos` is True, `src` will automatically go EOS if a buffer
+        after the total size is returned. By default this is True but sources
         that can't return an authoritative size and only know that they're EOS
-        when trying to read more should set this to %FALSE.
+        when trying to read more should set this to False.
 
-        When @src operates in %GST_FORMAT_TIME, #GstBaseSrc will send an EOS
+        When `src` operates in GST_FORMAT_TIME, GstBase.Src will send an EOS
         when a buffer outside of the currently configured segment is pushed if
-        @automatic_eos is %TRUE. Since 1.16, if @automatic_eos is %FALSE an
-        EOS will be pushed only when the #GstBaseSrcClass::create implementation
-        returns %GST_FLOW_EOS.
+        `automatic_eos` is True. Since 1.16, if `automatic_eos` is False an
+        EOS will be pushed only when the GstBase.SrcClass::create implementation
+        returns GST_FLOW_EOS.
         """
     def set_blocksize(self, blocksize: int) -> None:
         """
-            Set the number of bytes that @src will push out with each buffer. When
-        @blocksize is set to -1, a default length will be used.
+            Set the number of bytes that `src` will push out with each buffer. When
+        `blocksize` is set to -1, a default length will be used.
         """
     def set_caps(self, caps: Gst.Caps) -> bool:
         """
@@ -3244,13 +3244,13 @@ class BaseSrc(Gst.Element):
         """
     def set_do_timestamp(self, timestamp: bool) -> None:
         """
-            Configure @src to automatically timestamp outgoing buffers based on the
+            Configure `src` to automatically timestamp outgoing buffers based on the
         current running_time of the pipeline. This property is mostly useful for live
         sources.
         """
     def set_dynamic_size(self, dynamic: bool) -> None:
         """
-            If not @dynamic, size is only updated when needed, such as when trying to
+            If not `dynamic`, size is only updated when needed, such as when trying to
         read past current tracked size.  Otherwise, size is checked for upon each
         read.
         """
@@ -3260,14 +3260,14 @@ class BaseSrc(Gst.Element):
         for sending SEGMENT events and for performing seeks.
 
         If a format of GST_FORMAT_BYTES is set, the element will be able to
-        operate in pull mode if the #GstBaseSrcClass::is_seekable returns %TRUE.
+        operate in pull mode if the GstBase.SrcClass::is_seekable returns True.
 
-        This function must only be called in states < %GST_STATE_PAUSED.
+        This function must only be called in states < GST_STATE_PAUSED.
         """
     def set_live(self, live: bool) -> None:
         """
-            If the element listens to a live source, @live should
-        be set to %TRUE.
+            If the element listens to a live source, `live` should
+        be set to True.
 
         A live source will not produce data in the PAUSED state and
         will therefore not be able to participate in the PREROLL phase
@@ -3278,7 +3278,7 @@ class BaseSrc(Gst.Element):
     def start_complete(self, ret: Gst.FlowReturn) -> None:
         """
             Complete an asynchronous start operation. When the subclass overrides the
-        start method, it should call gst_base_src_start_complete() when the start
+        start method, it should call `gst_base_src_start_complete` when the start
         operation completes either from the same thread or from an asynchronous
         helper thread.
         """
@@ -3291,13 +3291,13 @@ class BaseSrc(Gst.Element):
             Subclasses can call this from their create virtual method implementation
         to submit a buffer list to be pushed out later. This is useful in
         cases where the create function wants to produce multiple buffers to be
-        pushed out in one go in form of a #GstBufferList, which can reduce overhead
+        pushed out in one go in form of a GstBufferList, which can reduce overhead
         drastically, especially for packetised inputs (for data streams where
         the packetisation/chunking is not important it is usually more efficient
         to return larger buffers instead).
 
         Subclasses that use this function from their create function must return
-        %GST_FLOW_OK and no buffer from their create virtual method implementation.
+        GST_FLOW_OK and no buffer from their create virtual method implementation.
         If a buffer is returned after a buffer list has also been submitted via this
         function the behaviour is undefined.
 
@@ -3307,14 +3307,14 @@ class BaseSrc(Gst.Element):
         """
     def wait_playing(self) -> Gst.FlowReturn:
         """
-            If the #GstBaseSrcClass::create method performs its own synchronisation
+            If the GstBase.SrcClass::create method performs its own synchronisation
         against the clock it must unblock when going from PLAYING to the PAUSED state
         and call this method before continuing to produce the remaining data.
 
         This function will block until a state change to PLAYING happens (in which
-        case this function returns %GST_FLOW_OK) or the processing must be stopped due
+        case this function returns GST_FLOW_OK) or the processing must be stopped due
         to a state change to READY or a FLUSH event (in which case this function
-        returns %GST_FLOW_FLUSHING).
+        returns GST_FLOW_FLUSHING).
         """
 
     # python methods (overrides?)
@@ -3495,7 +3495,7 @@ class BaseSrc(Gst.Element):
 class BaseSrcClass(GObject.GPointer):
     """
     Subclasses can override any of the available virtual methods or not, as
-    needed. At the minimum, the @create method should be overridden to produce
+    needed. At the minimum, the `create` method should be overridden to produce
     buffers.
     """
 
@@ -3515,7 +3515,7 @@ class BaseSrcClass(GObject.GPointer):
         buffer should be returned when the return value is different from
         GST_FLOW_OK. A return value of GST_FLOW_EOS signifies that the end of
         stream is reached. The default implementation will call
-        #GstBaseSrcClass::alloc and then call #GstBaseSrcClass::fill.
+        GstBase.SrcClass::alloc and then call GstBase.SrcClass::fill.
         """
     @builtins.property
     def decide_allocation(self) -> decide_allocationBaseSrcClassCB:
@@ -3553,7 +3553,7 @@ class BaseSrcClass(GObject.GPointer):
     def get_size(self) -> get_sizeBaseSrcClassCB:
         """
         Return the total size of the resource, in the format set by
-        gst_base_src_set_format().
+        `gst_base_src_set_format`.
         """
     @builtins.property
     def get_times(self) -> get_timesBaseSrcClassCB:
@@ -3580,8 +3580,8 @@ class BaseSrcClass(GObject.GPointer):
     @builtins.property
     def prepare_seek_segment(self) -> prepare_seek_segmentBaseSrcClassCB:
         """
-          Prepare the #GstSegment that will be passed to the
-        #GstBaseSrcClass::do_seek vmethod for executing a seek
+          Prepare the GstSegment that will be passed to the
+        GstBase.SrcClass::do_seek vmethod for executing a seek
         request. Sub-classes should override this if they support seeking in
         formats other than the configured native format. By default, it tries to
         convert the seek arguments to the configured native format and prepare a
@@ -3601,7 +3601,7 @@ class BaseSrcClass(GObject.GPointer):
     def start(self) -> startBaseSrcClassCB:
         """
          Start processing. Subclasses should open resources and prepare
-        to produce data. Implementation should call gst_base_src_start_complete()
+        to produce data. Implementation should call `gst_base_src_start_complete`
         when the operation completes, either from the current thread or any other
         thread that finishes the start operation asynchronously.
         """
@@ -3614,17 +3614,17 @@ class BaseSrcClass(GObject.GPointer):
     def unlock(self) -> unlockBaseSrcClassCB:
         """
          Unlock any pending access to the resource. Subclasses should unblock
-        any blocked function ASAP. In particular, any `create()` function in
+        any blocked function ASAP. In particular, any ``create`` function in
         progress should be unblocked and should return GST_FLOW_FLUSHING. Any
-        future #GstBaseSrcClass::create function call should also return
-        GST_FLOW_FLUSHING until the #GstBaseSrcClass::unlock_stop function has
+        future GstBase.SrcClass::create function call should also return
+        GST_FLOW_FLUSHING until the GstBase.SrcClass::unlock_stop function has
         been called.
         """
     @builtins.property
     def unlock_stop(self) -> unlock_stopBaseSrcClassCB:
         """
          Clear the previous unlock request. Subclasses should clear any
-        state they set during #GstBaseSrcClass::unlock, such as clearing command
+        state they set during GstBase.SrcClass::unlock, such as clearing command
         queues.
         """
 
@@ -3644,7 +3644,7 @@ class BaseSrcPrivate(GObject.GPointer):
 class BaseTransform(Gst.Element):
     """
     This base class is for filter elements that process data. Elements
-    that are suitable for implementation using #GstBaseTransform are ones
+    that are suitable for implementation using GstBase.Transform are ones
     where the size and caps of the output is known entirely from the input
     caps and buffer sizes. These include elements that directly transform
     one buffer into another, modify the contents of a buffer in-place, as
@@ -3673,11 +3673,11 @@ class BaseTransform(Gst.Element):
         is no transform_ip function in passthrough mode, the buffer is pushed
         intact.
 
-      * The #GstBaseTransformClass.passthrough_on_same_caps variable
+      * The GstBase.TransformClass.passthrough_on_same_caps variable
         will automatically set/unset passthrough based on whether the
         element negotiates the same caps on both pads.
 
-      * #GstBaseTransformClass.passthrough_on_same_caps on an element that
+      * GstBase.TransformClass.passthrough_on_same_caps on an element that
         doesn't implement a transform_caps function is useful for elements that
         only inspect data (such as level)
 
@@ -3696,7 +3696,7 @@ class BaseTransform(Gst.Element):
 
     * Incoming writable buffers will be passed to the transform_ip function
       immediately.
-    * only implementing transform_ip and not transform implies always_in_place = %TRUE
+    * only implementing transform_ip and not transform implies always_in_place = True
 
       * Example elements:
         * Volume
@@ -3710,7 +3710,7 @@ class BaseTransform(Gst.Element):
 
     * Elements wishing to operate in this mode should replace the
       prepare_output_buffer method to create subbuffers of the input buffer
-      and set always_in_place to %TRUE
+      and set always_in_place to True
 
     * Example elements
       * Capsfilter when setting caps on outgoing buffers that have
@@ -3745,8 +3745,8 @@ class BaseTransform(Gst.Element):
       * Determines whether a non-writable buffer will be copied before passing
         to the transform_ip function.
 
-      * Implied %TRUE if no transform function is implemented.
-      * Implied %FALSE if ONLY transform function is implemented.
+      * Implied True if no transform function is implemented.
+      * Implied False if ONLY transform function is implemented.
     """
 
     class Props(Gst.Element.Props):
@@ -3776,19 +3776,19 @@ class BaseTransform(Gst.Element):
         """
     def get_allocator(self) -> tuple[Gst.Allocator | None, Gst.AllocationParams]:
         """
-            Lets #GstBaseTransform sub-classes know the memory @allocator
-        used by the base class and its @params.
+            Lets GstBase.Transform sub-classes know the memory `allocator`
+        used by the base class and its `params`.
 
-        Unref the @allocator after use.
+        Unref the `allocator` after use.
         """
     def get_buffer_pool(self) -> Gst.BufferPool | None: ...
     def is_in_place(self) -> bool:
         """
-        See if @trans is configured as a in_place transform.
+        See if `trans` is configured as a in_place transform.
         """
     def is_passthrough(self) -> bool:
         """
-        See if @trans is configured as a passthrough transform.
+        See if `trans` is configured as a passthrough transform.
         """
     def is_qos_enabled(self) -> bool:
         """
@@ -3800,35 +3800,35 @@ class BaseTransform(Gst.Element):
         marked as needing reconfiguring. Unmarks GST_PAD_FLAG_NEED_RECONFIGURE in
         any case. But marks it again if negotiation fails.
 
-        Do not call this in the #GstBaseTransformClass::transform or
-        #GstBaseTransformClass::transform_ip vmethod. Call this in
-        #GstBaseTransformClass::submit_input_buffer,
-        #GstBaseTransformClass::prepare_output_buffer or in
-        #GstBaseTransformClass::generate_output _before_ any output buffer is
+        Do not call this in the GstBase.TransformClass::transform or
+        GstBase.TransformClass::transform_ip vmethod. Call this in
+        GstBase.TransformClass::submit_input_buffer,
+        GstBase.TransformClass::prepare_output_buffer or in
+        GstBase.TransformClass::generate_output _before_ any output buffer is
         allocated.
 
         It will be default be called when handling an ALLOCATION query or at the
-        very beginning of the default #GstBaseTransformClass::submit_input_buffer
+        very beginning of the default GstBase.TransformClass::submit_input_buffer
         implementation.
         """
     def reconfigure_sink(self) -> None:
         """
-            Instructs @trans to request renegotiation upstream. This function is
+            Instructs `trans` to request renegotiation upstream. This function is
         typically called after properties on the transform were set that
         influence the input format.
         """
     def reconfigure_src(self) -> None:
         """
-            Instructs @trans to renegotiate a new downstream transform on the next
+            Instructs `trans` to renegotiate a new downstream transform on the next
         buffer. This function is typically called after properties on the transform
         were set that influence the output format.
         """
     def set_gap_aware(self, gap_aware: bool) -> None:
         """
-            If @gap_aware is %FALSE (the default), output buffers will have the
-        %GST_BUFFER_FLAG_GAP flag unset.
+            If `gap_aware` is False (the default), output buffers will have the
+        GST_BUFFER_FLAG_GAP flag unset.
 
-        If set to %TRUE, the element must handle output buffers with this flag set
+        If set to True, the element must handle output buffers with this flag set
         correctly, i.e. it can assume that the buffer contains neutral data but must
         unset the flag if the output is no neutral data.
 
@@ -3839,8 +3839,8 @@ class BaseTransform(Gst.Element):
             Determines whether a non-writable buffer will be copied before passing
         to the transform_ip function.
 
-          * Always %TRUE if no transform function is implemented.
-          * Always %FALSE if ONLY transform function is implemented.
+          * Always True if no transform function is implemented.
+          * Always False if ONLY transform function is implemented.
 
         MT safe.
         """
@@ -3849,18 +3849,18 @@ class BaseTransform(Gst.Element):
             Set passthrough mode for this filter by default. This is mostly
         useful for filters that do not care about negotiation.
 
-        Always %TRUE for filters which don't implement either a transform
+        Always True for filters which don't implement either a transform
         or transform_ip or generate_output method.
 
         MT safe.
         """
     def set_prefer_passthrough(self, prefer_passthrough: bool) -> None:
         """
-            If @prefer_passthrough is %TRUE (the default), @trans will check and
+            If `prefer_passthrough` is True (the default), `trans` will check and
         prefer passthrough caps from the list of caps returned by the
         transform_caps vmethod.
 
-        If set to %FALSE, the element must order the caps returned from the
+        If set to False, the element must order the caps returned from the
         transform_caps function in such a way that the preferred format is
         first in the list. This can be interesting for transforms that can do
         passthrough transforms but prefer to do something else, like a
@@ -4078,9 +4078,9 @@ class BaseTransform(Gst.Element):
 class BaseTransformClass(GObject.GPointer):
     """
     Subclasses can override any of the available virtual methods or not, as
-    needed. At minimum either @transform or @transform_ip need to be overridden.
+    needed. At minimum either `transform` or `transform_ip` need to be overridden.
     If the element can overwrite the input data with the results (data is of the
-    same type and quantity) it should provide @transform_ip.
+    same type and quantity) it should provide `transform_ip`.
     """
 
     # gi Fields
@@ -4088,7 +4088,7 @@ class BaseTransformClass(GObject.GPointer):
     def accept_caps(self) -> accept_capsBaseTransformClassCB:
         """
         Optional.
-                     Subclasses can override this method to check if @caps can be
+                     Subclasses can override this method to check if `caps` can be
                      handled by the element. The default implementation might not be
                      the most optimal way to check this in all cases.
         """
@@ -4116,15 +4116,15 @@ class BaseTransformClass(GObject.GPointer):
                        downstream allocation query. This function is only called
                        when not operating in passthrough mode. The default
                        implementation will remove all memory dependent metadata.
-                       If there is a @filter_meta method implementation, it will
+                       If there is a `filter_meta` method implementation, it will
                        be called for all metadata API in the downstream query,
                        otherwise the metadata API is removed.
         """
     @builtins.property
     def filter_meta(self) -> filter_metaBaseTransformClassCB:
         """
-        Return %TRUE if the metadata API should be proposed in the
-                  upstream allocation query. The default implementation is %NULL
+        Return True if the metadata API should be proposed in the
+                  upstream allocation query. The default implementation is None
                   and will cause all metadata to be removed.
         """
     @builtins.property
@@ -4132,8 +4132,8 @@ class BaseTransformClass(GObject.GPointer):
         """
         Optional. Given the pad in this direction and the given
                      caps, fixate the caps on the other pad. The function takes
-                     ownership of @othercaps and returns a fixated version of
-                     @othercaps. @othercaps is not guaranteed to be writable.
+                     ownership of `othercaps` and returns a fixated version of
+                     `othercaps`. `othercaps` is not guaranteed to be writable.
         """
     @builtins.property
     def generate_output(self) -> generate_outputBaseTransformClassCB:
@@ -4141,9 +4141,9 @@ class BaseTransformClass(GObject.GPointer):
         Called after each new input buffer is submitted repeatedly
                       until it either generates an error or fails to generate an output
                       buffer. The default implementation takes the contents of the
-                      @queued_buf variable, generates an output buffer if needed
-                      by calling the class @prepare_output_buffer, and then
-                      calls either @transform or @transform_ip. Elements that don't
+                      `queued_buf` variable, generates an output buffer if needed
+                      by calling the class `prepare_output_buffer`, and then
+                      calls either `transform` or `transform_ip`. Elements that don't
                       do 1-to-1 transformations of input to output buffers can either
                       return GST_BASE_TRANSFORM_FLOW_DROPPED or simply not generate
                       an output buffer until they are ready to do so. (Since: 1.6)
@@ -4162,9 +4162,9 @@ class BaseTransformClass(GObject.GPointer):
     @builtins.property
     def passthrough_on_same_caps(self) -> bool:
         """
-        If set to %TRUE, passthrough mode will be
+        If set to True, passthrough mode will be
                                automatically enabled if the caps are the same.
-                               Set to %FALSE by default.
+                               Set to False by default.
         """
     @builtins.property
     def prepare_output_buffer(self) -> prepare_output_bufferBaseTransformClassCB:
@@ -4185,7 +4185,7 @@ class BaseTransformClass(GObject.GPointer):
         Propose buffer allocation parameters for upstream elements.
                          This function must be implemented if the element reads or
                          writes the buffer content. The query that was passed to
-                         the decide_allocation is passed in this method (or %NULL
+                         the decide_allocation is passed in this method (or None
                          when the element is in passthrough mode). The default
                          implementation will pass the query downstream when in
                          passthrough mode and will copy all the filtered metadata
@@ -4237,11 +4237,11 @@ class BaseTransformClass(GObject.GPointer):
         """
         Function which accepts a new input buffer and pre-processes it.
                      The default implementation performs caps (re)negotiation, then
-                     QoS if needed, and places the input buffer into the @queued_buf
+                     QoS if needed, and places the input buffer into the `queued_buf`
                      member variable. If the buffer is dropped due to QoS, it returns
                      GST_BASE_TRANSFORM_FLOW_DROPPED. If this input buffer is not
-                     contiguous with any previous input buffer, then @is_discont
-                     is set to %TRUE. (Since: 1.6)
+                     contiguous with any previous input buffer, then `is_discont`
+                     is set to True. (Since: 1.6)
         """
     @builtins.property
     def transform(self) -> transformBaseTransformClassCB:
@@ -4267,18 +4267,18 @@ class BaseTransformClass(GObject.GPointer):
     @builtins.property
     def transform_ip_on_passthrough(self) -> bool:
         """
-        If set to %TRUE, @transform_ip will be called in
+        If set to True, `transform_ip` will be called in
                               passthrough mode. The passed buffer might not be
-                              writable. When %FALSE, neither @transform nor
-                              @transform_ip will be called in passthrough mode.
-                              Set to %TRUE by default.
+                              writable. When False, neither `transform` nor
+                              `transform_ip` will be called in passthrough mode.
+                              Set to True by default.
         """
     @builtins.property
     def transform_meta(self) -> transform_metaBaseTransformClassCB:
         """
         Optional. Transform the metadata on the input buffer to the
                      output buffer. By default this method copies all meta without
-                     tags. Subclasses can implement this method and return %TRUE if
+                     tags. Subclasses can implement this method and return True if
                      the metadata is to be copied.
         """
     @builtins.property
@@ -4306,7 +4306,7 @@ class BaseTransformPrivate(GObject.GPointer):
 
 class BitReader(GObject.GPointer):
     """
-    #GstBitReader provides a bit reader that can read any number of bits
+    GstBitReader provides a bit reader that can read any number of bits
     from a memory buffer. It provides functions for reading any number of bits
     into 8, 16, 32 and 64 bit variables.
     """
@@ -4330,7 +4330,7 @@ class BitReader(GObject.GPointer):
     """
     size: int = ...
     """
-    Size of @data in bytes
+    Size of `data` in bytes
 
     """
 
@@ -4341,65 +4341,65 @@ class BitReader(GObject.GPointer):
         """
     def free(self) -> None:
         """
-            Frees a #GstBitReader instance, which was previously allocated by
-        gst_bit_reader_new().
+            Frees a GstBitReader instance, which was previously allocated by
+        `gst_bit_reader_new`.
         """
     def get_bits_uint16(self, nbits: int) -> tuple[bool, int]:
         """
-        Read @nbits bits into @val and update the current position.
+        Read `nbits` bits into `val` and update the current position.
         """
     def get_bits_uint32(self, nbits: int) -> tuple[bool, int]:
         """
-        Read @nbits bits into @val and update the current position.
+        Read `nbits` bits into `val` and update the current position.
         """
     def get_bits_uint64(self, nbits: int) -> tuple[bool, int]:
         """
-        Read @nbits bits into @val and update the current position.
+        Read `nbits` bits into `val` and update the current position.
         """
     def get_bits_uint8(self, nbits: int) -> tuple[bool, int]:
         """
-        Read @nbits bits into @val and update the current position.
+        Read `nbits` bits into `val` and update the current position.
         """
     def get_pos(self) -> int:
         """
-        Returns the current position of a #GstBitReader instance in bits.
+        Returns the current position of a GstBitReader instance in bits.
         """
     def get_remaining(self) -> int:
         """
-        Returns the remaining number of bits of a #GstBitReader instance.
+        Returns the remaining number of bits of a GstBitReader instance.
         """
     def get_size(self) -> int:
         """
-        Returns the total number of bits of a #GstBitReader instance.
+        Returns the total number of bits of a GstBitReader instance.
         """
     def init(self, data: list, size: int) -> None:
         """
-            Initializes a #GstBitReader instance to read from @data. This function
+            Initializes a GstBitReader instance to read from `data`. This function
         can be called on already initialized instances.
         """
     def peek_bits_uint16(self, nbits: int) -> tuple[bool, int]:
         """
-        Read @nbits bits into @val but keep the current position.
+        Read `nbits` bits into `val` but keep the current position.
         """
     def peek_bits_uint32(self, nbits: int) -> tuple[bool, int]:
         """
-        Read @nbits bits into @val but keep the current position.
+        Read `nbits` bits into `val` but keep the current position.
         """
     def peek_bits_uint64(self, nbits: int) -> tuple[bool, int]:
         """
-        Read @nbits bits into @val but keep the current position.
+        Read `nbits` bits into `val` but keep the current position.
         """
     def peek_bits_uint8(self, nbits: int) -> tuple[bool, int]:
         """
-        Read @nbits bits into @val but keep the current position.
+        Read `nbits` bits into `val` but keep the current position.
         """
     def set_pos(self, pos: int) -> bool:
         """
-        Sets the new position of a #GstBitReader instance to @pos in bits.
+        Sets the new position of a GstBitReader instance to `pos` in bits.
         """
     def skip(self, nbits: int) -> bool:
         """
-        Skips @nbits bits of the #GstBitReader instance.
+        Skips `nbits` bits of the GstBitReader instance.
         """
     def skip_to_byte(self) -> bool:
         """
@@ -4408,7 +4408,7 @@ class BitReader(GObject.GPointer):
 
 class BitWriter(GObject.GPointer):
     """
-    #GstBitWriter provides a bit writer that can write any number of
+    GstBitWriter provides a bit writer that can write any number of
     bits into a memory buffer. It provides functions for writing any
     number of bits into 8, 16, 32 and 64 bit variables.
     """
@@ -4420,12 +4420,12 @@ class BitWriter(GObject.GPointer):
     def bit_capacity(self) -> int: ...
     bit_size: int = ...
     """
-    Size of written @data in bits
+    Size of written `data` in bits
 
     """
     data: int = ...
     """
-    Allocated @data for bit writer to write
+    Allocated `data` for bit writer to write
 
     """
     @builtins.property
@@ -4438,23 +4438,23 @@ class BitWriter(GObject.GPointer):
         """
     def align_bytes(self, trailing_bit: int) -> bool:
         """
-            Write trailing bit to align last byte of @data. @trailing_bit can
+            Write trailing bit to align last byte of `data`. `trailing_bit` can
         only be 1 or 0.
         """
     def free(self) -> None:
         """
-        Frees @bitwriter and the allocated data inside.
+        Frees `bitwriter` and the allocated data inside.
         """
     def free_and_get_buffer(self) -> Gst.Buffer:
         """
-            Frees @bitwriter without destroying the internal data, which is
-        returned as #GstBuffer.
+            Frees `bitwriter` without destroying the internal data, which is
+        returned as GstBuffer.
 
         Free-function: gst_buffer_unref
         """
     def free_and_get_data(self) -> list:
         """
-            Frees @bitwriter without destroying the internal data, which is
+            Frees `bitwriter` without destroying the internal data, which is
         returned.
 
         Free-function: g_free
@@ -4466,41 +4466,41 @@ class BitWriter(GObject.GPointer):
     def get_remaining(self) -> int: ...
     def get_size(self) -> int:
         """
-        Get size of written @data
+        Get size of written `data`
         """
     def put_bits_uint16(self, value: int, nbits: int) -> bool:
         """
-        Write @nbits bits of @value to #GstBitWriter.
+        Write `nbits` bits of `value` to GstBitWriter.
         """
     def put_bits_uint32(self, value: int, nbits: int) -> bool:
         """
-        Write @nbits bits of @value to #GstBitWriter.
+        Write `nbits` bits of `value` to GstBitWriter.
         """
     def put_bits_uint64(self, value: int, nbits: int) -> bool:
         """
-        Write @nbits bits of @value to #GstBitWriter.
+        Write `nbits` bits of `value` to GstBitWriter.
         """
     def put_bits_uint8(self, value: int, nbits: int) -> bool:
         """
-        Write @nbits bits of @value to #GstBitWriter.
+        Write `nbits` bits of `value` to GstBitWriter.
         """
     def put_bytes(self, data: list, nbytes: int) -> bool:
         """
-        Write @nbytes bytes of @data to #GstBitWriter.
+        Write `nbytes` bytes of `data` to GstBitWriter.
         """
     def reset(self) -> None:
         """
-        Resets @bitwriter and frees the data if it's owned by @bitwriter.
+        Resets `bitwriter` and frees the data if it's owned by `bitwriter`.
         """
     def reset_and_get_buffer(self) -> Gst.Buffer:
         """
-            Resets @bitwriter and returns the current data as #GstBuffer.
+            Resets `bitwriter` and returns the current data as GstBuffer.
 
         Free-function: gst_buffer_unref
         """
     def reset_and_get_data(self) -> list:
         """
-            Resets @bitwriter and returns the current data.
+            Resets `bitwriter` and returns the current data.
 
         Free-function: g_free
         """
@@ -4508,7 +4508,7 @@ class BitWriter(GObject.GPointer):
 
 class ByteReader(GObject.GPointer):
     """
-    #GstByteReader provides a byte reader that can read different integer and
+    GstByteReader provides a byte reader that can read different integer and
     floating point types from a memory buffer. It provides functions for reading
     signed/unsigned, little/big endian integers of 8, 16, 24, 32 and 64 bits
     and functions for reading little/big endian floating points numbers of
@@ -4530,7 +4530,7 @@ class ByteReader(GObject.GPointer):
     """
     size: int = ...
     """
-    Size of @data in bytes
+    Size of `data` in bytes
 
     """
 
@@ -4544,8 +4544,8 @@ class ByteReader(GObject.GPointer):
             Free-function: g_free
 
         Returns a newly-allocated copy of the current data
-        position if at least @size bytes are left and
-        updates the current position. Free with g_free() when no longer needed.
+        position if at least `size` bytes are left and
+        updates the current position. Free with `g_free` when no longer needed.
         """
     def dup_string_utf16(self) -> tuple[bool, list]:
         """
@@ -4585,7 +4585,7 @@ class ByteReader(GObject.GPointer):
         """
             Free-function: g_free
 
-        FIXME:Reads (copies) a NUL-terminated string in the #GstByteReader instance,
+        FIXME:Reads (copies) a NUL-terminated string in the GstByteReader instance,
         advancing the current position to the byte after the string. This will work
         for any NUL-terminated string with a character width of 8 bits, so ASCII,
         UTF-8, ISO-8859-N etc. No input checking for valid UTF-8 is done.
@@ -4594,90 +4594,90 @@ class ByteReader(GObject.GPointer):
         """
     def free(self) -> None:
         """
-            Frees a #GstByteReader instance, which was previously allocated by
-        gst_byte_reader_new().
+            Frees a GstByteReader instance, which was previously allocated by
+        `gst_byte_reader_new`.
         """
     def get_data(self) -> tuple[bool, int, list]:
         """
             Returns a constant pointer to the current data
-        position if at least @size bytes are left and
+        position if at least `size` bytes are left and
         updates the current position.
         """
     def get_float32_be(self) -> tuple[bool, float]:
         """
-            Read a 32 bit big endian floating point value into @val
+            Read a 32 bit big endian floating point value into `val`
         and update the current position.
         """
     def get_float32_le(self) -> tuple[bool, float]:
         """
-            Read a 32 bit little endian floating point value into @val
+            Read a 32 bit little endian floating point value into `val`
         and update the current position.
         """
     def get_float64_be(self) -> tuple[bool, float]:
         """
-            Read a 64 bit big endian floating point value into @val
+            Read a 64 bit big endian floating point value into `val`
         and update the current position.
         """
     def get_float64_le(self) -> tuple[bool, float]:
         """
-            Read a 64 bit little endian floating point value into @val
+            Read a 64 bit little endian floating point value into `val`
         and update the current position.
         """
     def get_int16_be(self) -> tuple[bool, int]:
         """
-            Read a signed 16 bit big endian integer into @val
+            Read a signed 16 bit big endian integer into `val`
         and update the current position.
         """
     def get_int16_le(self) -> tuple[bool, int]:
         """
-            Read a signed 16 bit little endian integer into @val
+            Read a signed 16 bit little endian integer into `val`
         and update the current position.
         """
     def get_int24_be(self) -> tuple[bool, int]:
         """
-            Read a signed 24 bit big endian integer into @val
+            Read a signed 24 bit big endian integer into `val`
         and update the current position.
         """
     def get_int24_le(self) -> tuple[bool, int]:
         """
-            Read a signed 24 bit little endian integer into @val
+            Read a signed 24 bit little endian integer into `val`
         and update the current position.
         """
     def get_int32_be(self) -> tuple[bool, int]:
         """
-            Read a signed 32 bit big endian integer into @val
+            Read a signed 32 bit big endian integer into `val`
         and update the current position.
         """
     def get_int32_le(self) -> tuple[bool, int]:
         """
-            Read a signed 32 bit little endian integer into @val
+            Read a signed 32 bit little endian integer into `val`
         and update the current position.
         """
     def get_int64_be(self) -> tuple[bool, int]:
         """
-            Read a signed 64 bit big endian integer into @val
+            Read a signed 64 bit big endian integer into `val`
         and update the current position.
         """
     def get_int64_le(self) -> tuple[bool, int]:
         """
-            Read a signed 64 bit little endian integer into @val
+            Read a signed 64 bit little endian integer into `val`
         and update the current position.
         """
     def get_int8(self) -> tuple[bool, int]:
         """
-        Read a signed 8 bit integer into @val and update the current position.
+        Read a signed 8 bit integer into `val` and update the current position.
         """
     def get_pos(self) -> int:
         """
-        Returns the current position of a #GstByteReader instance in bytes.
+        Returns the current position of a GstByteReader instance in bytes.
         """
     def get_remaining(self) -> int:
         """
-        Returns the remaining number of bytes of a #GstByteReader instance.
+        Returns the remaining number of bytes of a GstByteReader instance.
         """
     def get_size(self) -> int:
         """
-        Returns the total number of bytes of a #GstByteReader instance.
+        Returns the total number of bytes of a GstByteReader instance.
         """
     def get_string_utf8(self) -> tuple[bool, list]:
         """
@@ -4693,59 +4693,59 @@ class ByteReader(GObject.GPointer):
         """
     def get_uint16_be(self) -> tuple[bool, int]:
         """
-            Read an unsigned 16 bit big endian integer into @val
+            Read an unsigned 16 bit big endian integer into `val`
         and update the current position.
         """
     def get_uint16_le(self) -> tuple[bool, int]:
         """
-            Read an unsigned 16 bit little endian integer into @val
+            Read an unsigned 16 bit little endian integer into `val`
         and update the current position.
         """
     def get_uint24_be(self) -> tuple[bool, int]:
         """
-            Read an unsigned 24 bit big endian integer into @val
+            Read an unsigned 24 bit big endian integer into `val`
         and update the current position.
         """
     def get_uint24_le(self) -> tuple[bool, int]:
         """
-            Read an unsigned 24 bit little endian integer into @val
+            Read an unsigned 24 bit little endian integer into `val`
         and update the current position.
         """
     def get_uint32_be(self) -> tuple[bool, int]:
         """
-            Read an unsigned 32 bit big endian integer into @val
+            Read an unsigned 32 bit big endian integer into `val`
         and update the current position.
         """
     def get_uint32_le(self) -> tuple[bool, int]:
         """
-            Read an unsigned 32 bit little endian integer into @val
+            Read an unsigned 32 bit little endian integer into `val`
         and update the current position.
         """
     def get_uint64_be(self) -> tuple[bool, int]:
         """
-            Read an unsigned 64 bit big endian integer into @val
+            Read an unsigned 64 bit big endian integer into `val`
         and update the current position.
         """
     def get_uint64_le(self) -> tuple[bool, int]:
         """
-            Read an unsigned 64 bit little endian integer into @val
+            Read an unsigned 64 bit little endian integer into `val`
         and update the current position.
         """
     def get_uint8(self) -> tuple[bool, int]:
         """
-        Read an unsigned 8 bit integer into @val and update the current position.
+        Read an unsigned 8 bit integer into `val` and update the current position.
         """
     def init(self, data: list, size: int) -> None:
         """
-            Initializes a #GstByteReader instance to read from @data. This function
+            Initializes a GstByteReader instance to read from `data`. This function
         can be called on already initialized instances.
         """
     def masked_scan_uint32(self, mask: int, pattern: int, offset: int, size: int) -> int:
         """
-            Scan for pattern @pattern with applied mask @mask in the byte reader data,
-        starting from offset @offset relative to the current position.
+            Scan for pattern `pattern` with applied mask `mask` in the byte reader data,
+        starting from offset `offset` relative to the current position.
 
-        The bytes in @pattern and @mask are interpreted left-to-right, regardless
+        The bytes in `pattern` and `mask` are interpreted left-to-right, regardless
         of endianness.  All four bytes of the pattern must be present in the
         byte reader data for it to match, even if the first or last bytes are masked
         out.
@@ -4755,10 +4755,10 @@ class ByteReader(GObject.GPointer):
         """
     def masked_scan_uint32_peek(self, mask: int, pattern: int, offset: int, size: int) -> tuple[int, int]:
         """
-            Scan for pattern @pattern with applied mask @mask in the byte reader data,
-        starting from offset @offset relative to the current position.
+            Scan for pattern `pattern` with applied mask `mask` in the byte reader data,
+        starting from offset `offset` relative to the current position.
 
-        The bytes in @pattern and @mask are interpreted left-to-right, regardless
+        The bytes in `pattern` and `mask` are interpreted left-to-right, regardless
         of endianness.  All four bytes of the pattern must be present in the
         byte reader data for it to match, even if the first or last bytes are masked
         out.
@@ -4769,72 +4769,72 @@ class ByteReader(GObject.GPointer):
     def peek_data(self) -> tuple[bool, int, list]:
         """
             Returns a constant pointer to the current data
-        position if at least @size bytes are left and
+        position if at least `size` bytes are left and
         keeps the current position.
         """
     def peek_float32_be(self) -> tuple[bool, float]:
         """
-            Read a 32 bit big endian floating point value into @val
+            Read a 32 bit big endian floating point value into `val`
         but keep the current position.
         """
     def peek_float32_le(self) -> tuple[bool, float]:
         """
-            Read a 32 bit little endian floating point value into @val
+            Read a 32 bit little endian floating point value into `val`
         but keep the current position.
         """
     def peek_float64_be(self) -> tuple[bool, float]:
         """
-            Read a 64 bit big endian floating point value into @val
+            Read a 64 bit big endian floating point value into `val`
         but keep the current position.
         """
     def peek_float64_le(self) -> tuple[bool, float]:
         """
-            Read a 64 bit little endian floating point value into @val
+            Read a 64 bit little endian floating point value into `val`
         but keep the current position.
         """
     def peek_int16_be(self) -> tuple[bool, int]:
         """
-            Read a signed 16 bit big endian integer into @val
+            Read a signed 16 bit big endian integer into `val`
         but keep the current position.
         """
     def peek_int16_le(self) -> tuple[bool, int]:
         """
-            Read a signed 16 bit little endian integer into @val
+            Read a signed 16 bit little endian integer into `val`
         but keep the current position.
         """
     def peek_int24_be(self) -> tuple[bool, int]:
         """
-            Read a signed 24 bit big endian integer into @val
+            Read a signed 24 bit big endian integer into `val`
         but keep the current position.
         """
     def peek_int24_le(self) -> tuple[bool, int]:
         """
-            Read a signed 24 bit little endian integer into @val
+            Read a signed 24 bit little endian integer into `val`
         but keep the current position.
         """
     def peek_int32_be(self) -> tuple[bool, int]:
         """
-            Read a signed 32 bit big endian integer into @val
+            Read a signed 32 bit big endian integer into `val`
         but keep the current position.
         """
     def peek_int32_le(self) -> tuple[bool, int]:
         """
-            Read a signed 32 bit little endian integer into @val
+            Read a signed 32 bit little endian integer into `val`
         but keep the current position.
         """
     def peek_int64_be(self) -> tuple[bool, int]:
         """
-            Read a signed 64 bit big endian integer into @val
+            Read a signed 64 bit big endian integer into `val`
         but keep the current position.
         """
     def peek_int64_le(self) -> tuple[bool, int]:
         """
-            Read a signed 64 bit little endian integer into @val
+            Read a signed 64 bit little endian integer into `val`
         but keep the current position.
         """
     def peek_int8(self) -> tuple[bool, int]:
         """
-        Read a signed 8 bit integer into @val but keep the current position.
+        Read a signed 8 bit integer into `val` but keep the current position.
         """
     def peek_string_utf8(self) -> tuple[bool, list]:
         """
@@ -4850,59 +4850,59 @@ class ByteReader(GObject.GPointer):
         """
     def peek_uint16_be(self) -> tuple[bool, int]:
         """
-            Read an unsigned 16 bit big endian integer into @val
+            Read an unsigned 16 bit big endian integer into `val`
         but keep the current position.
         """
     def peek_uint16_le(self) -> tuple[bool, int]:
         """
-            Read an unsigned 16 bit little endian integer into @val
+            Read an unsigned 16 bit little endian integer into `val`
         but keep the current position.
         """
     def peek_uint24_be(self) -> tuple[bool, int]:
         """
-            Read an unsigned 24 bit big endian integer into @val
+            Read an unsigned 24 bit big endian integer into `val`
         but keep the current position.
         """
     def peek_uint24_le(self) -> tuple[bool, int]:
         """
-            Read an unsigned 24 bit little endian integer into @val
+            Read an unsigned 24 bit little endian integer into `val`
         but keep the current position.
         """
     def peek_uint32_be(self) -> tuple[bool, int]:
         """
-            Read an unsigned 32 bit big endian integer into @val
+            Read an unsigned 32 bit big endian integer into `val`
         but keep the current position.
         """
     def peek_uint32_le(self) -> tuple[bool, int]:
         """
-            Read an unsigned 32 bit little endian integer into @val
+            Read an unsigned 32 bit little endian integer into `val`
         but keep the current position.
         """
     def peek_uint64_be(self) -> tuple[bool, int]:
         """
-            Read an unsigned 64 bit big endian integer into @val
+            Read an unsigned 64 bit big endian integer into `val`
         but keep the current position.
         """
     def peek_uint64_le(self) -> tuple[bool, int]:
         """
-            Read an unsigned 64 bit little endian integer into @val
+            Read an unsigned 64 bit little endian integer into `val`
         but keep the current position.
         """
     def peek_uint8(self) -> tuple[bool, int]:
         """
-        Read an unsigned 8 bit integer into @val but keep the current position.
+        Read an unsigned 8 bit integer into `val` but keep the current position.
         """
     def set_pos(self, pos: int) -> bool:
         """
-        Sets the new position of a #GstByteReader instance to @pos in bytes.
+        Sets the new position of a GstByteReader instance to `pos` in bytes.
         """
     def skip(self, nbytes: int) -> bool:
         """
-        Skips @nbytes bytes of the #GstByteReader instance.
+        Skips `nbytes` bytes of the GstByteReader instance.
         """
     def skip_string_utf16(self) -> bool:
         """
-            Skips a NUL-terminated UTF-16 string in the #GstByteReader instance,
+            Skips a NUL-terminated UTF-16 string in the GstByteReader instance,
         advancing the current position to the byte after the string.
 
         No input checking for valid UTF-16 is done.
@@ -4911,7 +4911,7 @@ class ByteReader(GObject.GPointer):
         """
     def skip_string_utf32(self) -> bool:
         """
-            Skips a NUL-terminated UTF-32 string in the #GstByteReader instance,
+            Skips a NUL-terminated UTF-32 string in the GstByteReader instance,
         advancing the current position to the byte after the string.
 
         No input checking for valid UTF-32 is done.
@@ -4920,7 +4920,7 @@ class ByteReader(GObject.GPointer):
         """
     def skip_string_utf8(self) -> bool:
         """
-            Skips a NUL-terminated string in the #GstByteReader instance, advancing
+            Skips a NUL-terminated string in the GstByteReader instance, advancing
         the current position to the byte after the string. This will work for
         any NUL-terminated string with a character width of 8 bits, so ASCII,
         UTF-8, ISO-8859-N etc. No input checking for valid UTF-8 is done.
@@ -4930,7 +4930,7 @@ class ByteReader(GObject.GPointer):
 
 class ByteWriter(GObject.GPointer):
     """
-    #GstByteWriter provides a byte writer and reader that can write/read different
+    GstByteWriter provides a byte writer and reader that can write/read different
     integer and floating point types to/from a memory buffer. It provides functions
     for writing/reading signed/unsigned, little/big endian integers of 8, 16, 24,
     32 and 64 bits and functions for reading little/big endian floating points numbers of
@@ -4946,12 +4946,12 @@ class ByteWriter(GObject.GPointer):
     """
     fixed: bool = ...
     """
-    If %TRUE no reallocations are allowed
+    If True no reallocations are allowed
 
     """
     owned: bool = ...
     """
-    If %FALSE no reallocations are allowed and copies of data are returned
+    If False no reallocations are allowed and copies of data are returned
 
     """
 
@@ -4967,22 +4967,22 @@ class ByteWriter(GObject.GPointer):
         """
     def fill(self, value: int, size: int) -> bool:
         """
-        Writes @size bytes containing @value to @writer.
+        Writes `size` bytes containing `value` to `writer`.
         """
     def free(self) -> None:
         """
-        Frees @writer and all memory allocated by it.
+        Frees `writer` and all memory allocated by it.
         """
     def free_and_get_buffer(self) -> Gst.Buffer:
         """
-            Frees @writer and all memory allocated by it except
-        the current data, which is returned as #GstBuffer.
+            Frees `writer` and all memory allocated by it except
+        the current data, which is returned as GstBuffer.
 
         Free-function: gst_buffer_unref
         """
     def free_and_get_data(self) -> int:
         """
-            Frees @writer and all memory allocated by it except
+            Frees `writer` and all memory allocated by it except
         the current data, which is returned.
 
         Free-function: g_free
@@ -4994,140 +4994,140 @@ class ByteWriter(GObject.GPointer):
         """
     def init(self) -> None:
         """
-        Initializes @writer to an empty instance
+        Initializes `writer` to an empty instance
         """
     def init_with_data(self, data: list, size: int, initialized: bool) -> None:
         """
-            Initializes @writer with the given
-        memory area. If @initialized is %TRUE it is possible to
-        read @size bytes from the #GstByteWriter from the beginning.
+            Initializes `writer` with the given
+        memory area. If `initialized` is True it is possible to
+        read `size` bytes from the GstByteWriter from the beginning.
         """
     def init_with_size(self, size: int, fixed: bool) -> None:
         """
-        Initializes @writer with the given initial data size.
+        Initializes `writer` with the given initial data size.
         """
     def put_buffer(self, buffer: Gst.Buffer, offset: int, size: int) -> bool:
         """
-        Writes @size bytes of @data to @writer.
+        Writes `size` bytes of `data` to `writer`.
         """
     def put_data(self, data: list, size: int) -> bool:
         """
-        Writes @size bytes of @data to @writer.
+        Writes `size` bytes of `data` to `writer`.
         """
     def put_float32_be(self, val: float) -> bool:
         """
-        Writes a big endian 32 bit float to @writer.
+        Writes a big endian 32 bit float to `writer`.
         """
     def put_float32_le(self, val: float) -> bool:
         """
-        Writes a little endian 32 bit float to @writer.
+        Writes a little endian 32 bit float to `writer`.
         """
     def put_float64_be(self, val: float) -> bool:
         """
-        Writes a big endian 64 bit float to @writer.
+        Writes a big endian 64 bit float to `writer`.
         """
     def put_float64_le(self, val: float) -> bool:
         """
-        Writes a little endian 64 bit float to @writer.
+        Writes a little endian 64 bit float to `writer`.
         """
     def put_int16_be(self, val: int) -> bool:
         """
-        Writes a signed big endian 16 bit integer to @writer.
+        Writes a signed big endian 16 bit integer to `writer`.
         """
     def put_int16_le(self, val: int) -> bool:
         """
-        Writes a signed little endian 16 bit integer to @writer.
+        Writes a signed little endian 16 bit integer to `writer`.
         """
     def put_int24_be(self, val: int) -> bool:
         """
-        Writes a signed big endian 24 bit integer to @writer.
+        Writes a signed big endian 24 bit integer to `writer`.
         """
     def put_int24_le(self, val: int) -> bool:
         """
-        Writes a signed little endian 24 bit integer to @writer.
+        Writes a signed little endian 24 bit integer to `writer`.
         """
     def put_int32_be(self, val: int) -> bool:
         """
-        Writes a signed big endian 32 bit integer to @writer.
+        Writes a signed big endian 32 bit integer to `writer`.
         """
     def put_int32_le(self, val: int) -> bool:
         """
-        Writes a signed little endian 32 bit integer to @writer.
+        Writes a signed little endian 32 bit integer to `writer`.
         """
     def put_int64_be(self, val: int) -> bool:
         """
-        Writes a signed big endian 64 bit integer to @writer.
+        Writes a signed big endian 64 bit integer to `writer`.
         """
     def put_int64_le(self, val: int) -> bool:
         """
-        Writes a signed little endian 64 bit integer to @writer.
+        Writes a signed little endian 64 bit integer to `writer`.
         """
     def put_int8(self, val: int) -> bool:
         """
-        Writes a signed 8 bit integer to @writer.
+        Writes a signed 8 bit integer to `writer`.
         """
     def put_string_utf16(self, data: list) -> bool:
         """
-        Writes a NUL-terminated UTF16 string to @writer (including the terminator).
+        Writes a NUL-terminated UTF16 string to `writer` (including the terminator).
         """
     def put_string_utf32(self, data: list) -> bool:
         """
-        Writes a NUL-terminated UTF32 string to @writer (including the terminator).
+        Writes a NUL-terminated UTF32 string to `writer` (including the terminator).
         """
     def put_string_utf8(self, data: str) -> bool:
         """
-        Writes a NUL-terminated UTF8 string to @writer (including the terminator).
+        Writes a NUL-terminated UTF8 string to `writer` (including the terminator).
         """
     def put_uint16_be(self, val: int) -> bool:
         """
-        Writes a unsigned big endian 16 bit integer to @writer.
+        Writes a unsigned big endian 16 bit integer to `writer`.
         """
     def put_uint16_le(self, val: int) -> bool:
         """
-        Writes a unsigned little endian 16 bit integer to @writer.
+        Writes a unsigned little endian 16 bit integer to `writer`.
         """
     def put_uint24_be(self, val: int) -> bool:
         """
-        Writes a unsigned big endian 24 bit integer to @writer.
+        Writes a unsigned big endian 24 bit integer to `writer`.
         """
     def put_uint24_le(self, val: int) -> bool:
         """
-        Writes a unsigned little endian 24 bit integer to @writer.
+        Writes a unsigned little endian 24 bit integer to `writer`.
         """
     def put_uint32_be(self, val: int) -> bool:
         """
-        Writes a unsigned big endian 32 bit integer to @writer.
+        Writes a unsigned big endian 32 bit integer to `writer`.
         """
     def put_uint32_le(self, val: int) -> bool:
         """
-        Writes a unsigned little endian 32 bit integer to @writer.
+        Writes a unsigned little endian 32 bit integer to `writer`.
         """
     def put_uint64_be(self, val: int) -> bool:
         """
-        Writes a unsigned big endian 64 bit integer to @writer.
+        Writes a unsigned big endian 64 bit integer to `writer`.
         """
     def put_uint64_le(self, val: int) -> bool:
         """
-        Writes a unsigned little endian 64 bit integer to @writer.
+        Writes a unsigned little endian 64 bit integer to `writer`.
         """
     def put_uint8(self, val: int) -> bool:
         """
-        Writes a unsigned 8 bit integer to @writer.
+        Writes a unsigned 8 bit integer to `writer`.
         """
     def reset(self) -> None:
         """
-            Resets @writer and frees the data if it's
-        owned by @writer.
+            Resets `writer` and frees the data if it's
+        owned by `writer`.
         """
     def reset_and_get_buffer(self) -> Gst.Buffer:
         """
-            Resets @writer and returns the current data as buffer.
+            Resets `writer` and returns the current data as buffer.
 
         Free-function: gst_buffer_unref
         """
     def reset_and_get_data(self) -> list:
         """
-            Resets @writer and returns the current data.
+            Resets `writer` and returns the current data.
 
         Free-function: g_free
         """
@@ -5145,12 +5145,12 @@ class CollectData(GObject.GPointer):
     """
     collect: CollectPads | None = ...
     """
-    owner #GstCollectPads
+    owner GstCollectPads
 
     """
     pad: Gst.Pad | None = ...  # type: ignore
     """
-    #GstPad managed by this data
+    GstPad managed by this data
 
     """
     pos: int = ...
@@ -5184,11 +5184,11 @@ class CollectPads(Gst.Object):
     Manages a set of pads that operate in collect mode. This means that control
     is given to the manager of this object when all pads have data.
 
-      * Collectpads are created with gst_collect_pads_new(). A callback should then
+      * Collectpads are created with `gst_collect_pads_new`. A callback should then
         be installed with gst_collect_pads_set_function ().
 
-      * Pads are added to the collection with gst_collect_pads_add_pad()/
-        gst_collect_pads_remove_pad(). The pad has to be a sinkpad. When added,
+      * Pads are added to the collection with `gst_collect_pads_add_pad`/
+        `gst_collect_pads_remove_pad`. The pad has to be a sinkpad. When added,
         the chain, event and query functions of the pad are overridden. The
         element_private of the pad is used to store private information for the
         collectpads.
@@ -5198,22 +5198,22 @@ class CollectPads(Gst.Object):
 
       * When data is queued on all pads in waiting mode, the callback function is called.
 
-      * Data can be dequeued from the pad with the gst_collect_pads_pop() method.
-        One can peek at the data with the gst_collect_pads_peek() function.
-        These functions will return %NULL if the pad received an EOS event. When all
-        pads return %NULL from a gst_collect_pads_peek(), the element can emit an EOS
+      * Data can be dequeued from the pad with the `gst_collect_pads_pop` method.
+        One can peek at the data with the `gst_collect_pads_peek` function.
+        These functions will return None if the pad received an EOS event. When all
+        pads return None from a `gst_collect_pads_peek`, the element can emit an EOS
         event itself.
 
-      * Data can also be dequeued in byte units using the gst_collect_pads_available(),
-        gst_collect_pads_read_buffer() and gst_collect_pads_flush() calls.
+      * Data can also be dequeued in byte units using the `gst_collect_pads_available`,
+        `gst_collect_pads_read_buffer` and `gst_collect_pads_flush` calls.
 
-      * Elements should call gst_collect_pads_start() and gst_collect_pads_stop() in
+      * Elements should call `gst_collect_pads_start` and `gst_collect_pads_stop` in
         their state change functions to start and stop the processing of the collectpads.
-        The gst_collect_pads_stop() call should be called before calling the parent
+        The `gst_collect_pads_stop` call should be called before calling the parent
         element state change function in the PAUSED_TO_READY state change to ensure
         no pad is blocked and the element can finish streaming.
 
-      * gst_collect_pads_set_waiting() sets a pad to waiting or non-waiting mode.
+      * `gst_collect_pads_set_waiting` sets a pad to waiting or non-waiting mode.
         CollectPads element is not waiting for data to be collected on non-waiting pads.
         Thus these pads may but need not have data when the callback is called.
         All pads are in waiting mode by default.
@@ -5223,8 +5223,8 @@ class CollectPads(Gst.Object):
     @builtins.property
     def data(self) -> list | None:
         """
-          #GList of #GstCollectData managed
-        by this #GstCollectPads.
+          GList of GstCollectData managed
+        by this GstCollectPads.
         """
     @builtins.property
     def object(self) -> Gst.Object | None: ...
@@ -5242,14 +5242,14 @@ class CollectPads(Gst.Object):
         """
             Add a pad to the collection of collect pads. The pad has to be
         a sinkpad. The refcount of the pad is incremented. Use
-        gst_collect_pads_remove_pad() to remove the pad from the collection
+        `gst_collect_pads_remove_pad` to remove the pad from the collection
         again.
 
-        You specify a size for the returned #GstCollectData structure
+        You specify a size for the returned GstCollectData structure
         so that you can use it to store additional information.
 
-        You can also specify a #GstCollectDataDestroyNotify that will be called
-        just before the #GstCollectData structure is freed. It is passed the
+        You can also specify a GstCollectDataDestroyNotify that will be called
+        just before the GstCollectData structure is freed. It is passed the
         pointer to the structure and should free any custom memory and resources
         allocated for it.
 
@@ -5261,7 +5261,7 @@ class CollectPads(Gst.Object):
         e.g. to assure that caps information is available on all these streams
         when initial headers have to be written.
 
-        The pad will be automatically activated in push mode when @pads is
+        The pad will be automatically activated in push mode when `pads` is
         started.
 
         MT safe.
@@ -5272,7 +5272,7 @@ class CollectPads(Gst.Object):
         that the result of this call is the maximum number of bytes that can
         be read from each of the pads.
 
-        This function should be called with @pads STREAM_LOCK held, such as
+        This function should be called with `pads` STREAM_LOCK held, such as
         in the callback.
 
         MT safe.
@@ -5290,15 +5290,15 @@ class CollectPads(Gst.Object):
         """
     def event_default(self, data: CollectData, event: Gst.Event, discard: bool) -> bool:
         """
-            Default #GstCollectPads event handling that elements should always
+            Default GstCollectPads event handling that elements should always
         chain up to to ensure proper operation.  Element might however indicate
         event should not be forwarded downstream.
         """
     def flush(self, data: CollectData, size: int) -> int:
         """
-            Flush @size bytes from the pad @data.
+            Flush `size` bytes from the pad `data`.
 
-        This function should be called with @pads STREAM_LOCK held, such as
+        This function should be called with `pads` STREAM_LOCK held, such as
         in the callback.
 
         MT safe.
@@ -5306,37 +5306,37 @@ class CollectPads(Gst.Object):
     @classmethod
     def new(cls) -> CollectPads:
         """
-            Create a new instance of #GstCollectPads.
+            Create a new instance of GstCollectPads.
 
         MT safe.
         """
     def peek(self, data: CollectData) -> Gst.Buffer | None:
         """
-            Peek at the buffer currently queued in @data. This function
-        should be called with the @pads STREAM_LOCK held, such as in the callback
+            Peek at the buffer currently queued in `data`. This function
+        should be called with the `pads` STREAM_LOCK held, such as in the callback
         handler.
 
         MT safe.
         """
     def pop(self, data: CollectData) -> Gst.Buffer | None:
         """
-            Pop the buffer currently queued in @data. This function
-        should be called with the @pads STREAM_LOCK held, such as in the callback
+            Pop the buffer currently queued in `data`. This function
+        should be called with the `pads` STREAM_LOCK held, such as in the callback
         handler.
 
         MT safe.
         """
     def query_default(self, data: CollectData, query: Gst.Query, discard: bool) -> bool:
         """
-            Default #GstCollectPads query handling that elements should always
+            Default GstCollectPads query handling that elements should always
         chain up to to ensure proper operation.  Element might however indicate
         query should not be forwarded downstream.
         """
     def read_buffer(self, data: CollectData, size: int) -> Gst.Buffer | None:
         """
-            Get a subbuffer of @size bytes from the given pad @data.
+            Get a subbuffer of `size` bytes from the given pad `data`.
 
-        This function should be called with @pads STREAM_LOCK held, such as in the
+        This function should be called with `pads` STREAM_LOCK held, such as in the
         callback.
 
         MT safe.
@@ -5344,17 +5344,17 @@ class CollectPads(Gst.Object):
     def remove_pad(self, pad: Gst.Pad) -> bool:
         """
             Remove a pad from the collection of collect pads. This function will also
-        free the #GstCollectData and all the resources that were allocated with
-        gst_collect_pads_add_pad().
+        free the GstCollectData and all the resources that were allocated with
+        `gst_collect_pads_add_pad`.
 
-        The pad will be deactivated automatically when @pads is stopped.
+        The pad will be deactivated automatically when `pads` is stopped.
 
         MT safe.
         """
     def set_buffer_function(self, func: CollectPadsBufferFunction, user_data: object | None = None) -> None:
         """
             Set the callback function and user data that will be called with
-        the oldest buffer when all pads have been collected, or %NULL on EOS.
+        the oldest buffer when all pads have been collected, or None on EOS.
         If a buffer is passed, the callback owns a reference and must unref
         it.
 
@@ -5363,7 +5363,7 @@ class CollectPads(Gst.Object):
     def set_clip_function(self, clipfunc: CollectPadsClipFunction, user_data: object | None = None) -> None:
         """
             Install a clipping function that is called right after a buffer is received
-        on a pad managed by @pads. See #GstCollectPadsClipFunction for more info.
+        on a pad managed by `pads`. See GstCollectPadsClipFunction for more info.
         """
     def set_compare_function(self, func: CollectPadsCompareFunction, user_data: object | None = None) -> None:
         """
@@ -5376,7 +5376,7 @@ class CollectPads(Gst.Object):
             Set the event callback function and user data that will be called when
         collectpads has received an event originating from one of the collected
         pads.  If the event being processed is a serialized one, this callback is
-        called with @pads STREAM_LOCK held, otherwise not.  As this lock should be
+        called with `pads` STREAM_LOCK held, otherwise not.  As this lock should be
         held when calling a number of CollectPads functions, it should be acquired
         if so (unusually) needed.
 
@@ -5386,13 +5386,13 @@ class CollectPads(Gst.Object):
         """
             Install a flush function that is called when the internal
         state of all pads should be flushed as part of flushing seek
-        handling. See #GstCollectPadsFlushFunction for more info.
+        handling. See GstCollectPadsFlushFunction for more info.
         """
     def set_flushing(self, flushing: bool) -> None:
         """
             Change the flushing state of all the pads in the collection. No pad
-        is able to accept anymore data when @flushing is %TRUE. Calling this
-        function with @flushing %FALSE makes @pads accept data again.
+        is able to accept anymore data when `flushing` is True. Calling this
+        function with `flushing` False makes `pads` accept data again.
         Caller must ensure that downstream streaming (thread) is not blocked,
         e.g. by sending a FLUSH_START downstream.
 
@@ -5407,7 +5407,7 @@ class CollectPads(Gst.Object):
         is desired, this sets a callback that will be invoked instead when
         all the pads added to the collection have buffers queued.
         Evidently, this callback is not compatible with
-        gst_collect_pads_set_buffer_function() callback.
+        `gst_collect_pads_set_buffer_function` callback.
         If this callback is set, the former will be unset.
 
         MT safe.
@@ -5417,7 +5417,7 @@ class CollectPads(Gst.Object):
             Set the query callback function and user data that will be called after
         collectpads has received a query originating from one of the collected
         pads.  If the query being processed is a serialized one, this callback is
-        called with @pads STREAM_LOCK held, otherwise not.  As this lock should be
+        called with `pads` STREAM_LOCK held, otherwise not.  As this lock should be
         held when calling a number of CollectPads functions, it should be acquired
         if so (unusually) needed.
 
@@ -5429,16 +5429,16 @@ class CollectPads(Gst.Object):
         has not been created with locked waiting state,
         in which case nothing happens.
 
-        This function should be called with @pads STREAM_LOCK held, such as
+        This function should be called with `pads` STREAM_LOCK held, such as
         in the callback.
 
         MT safe.
         """
     def src_event_default(self, pad: Gst.Pad, event: Gst.Event) -> bool:
         """
-            Default #GstCollectPads event handling for the src pad of elements.
+            Default GstCollectPads event handling for the src pad of elements.
         Elements can chain up to this to let flushing seek event handling
-        be done by #GstCollectPads.
+        be done by GstCollectPads.
         """
     def start(self) -> None:
         """
@@ -5455,10 +5455,10 @@ class CollectPads(Gst.Object):
         """
     def take_buffer(self, data: CollectData, size: int) -> Gst.Buffer | None:
         """
-            Get a subbuffer of @size bytes from the given pad @data. Flushes the amount
+            Get a subbuffer of `size` bytes from the given pad `data`. Flushes the amount
         of read bytes.
 
-        This function should be called with @pads STREAM_LOCK held, such as in the
+        This function should be called with `pads` STREAM_LOCK held, such as in the
         callback.
 
         MT safe.
@@ -5484,9 +5484,9 @@ class CollectPadsPrivate(GObject.GPointer):
 
 class DataQueue(GObject.Object):
     """
-    #GstDataQueue is an object that handles threadsafe queueing of objects. It
+    GstDataQueue is an object that handles threadsafe queueing of objects. It
     also provides size-related functionality. This object should be used for
-    any #GstElement that wishes to provide some sort of queueing functionality.
+    any GstElement that wishes to provide some sort of queueing functionality.
     """
 
     class Props(GObject.Object.Props):
@@ -5575,64 +5575,64 @@ class DataQueuePrivate(GObject.GPointer):
 
 class FlowCombiner(GObject.GBoxed):
     """
-    Utility struct to help handling #GstFlowReturn combination. Useful for
-    #GstElement<!-- -->s that have multiple source pads and need to combine
-    the different #GstFlowReturn for those pads.
+    Utility struct to help handling GstFlowReturn combination. Useful for
+    GstElement<!-- -->s that have multiple source pads and need to combine
+    the different GstFlowReturn for those pads.
 
-    #GstFlowCombiner works by using the last #GstFlowReturn for all #GstPad
+    GstFlowCombiner works by using the last GstFlowReturn for all GstPad
     it has in its list and computes the combined return value and provides
     it to the caller.
 
-    To add a new pad to the #GstFlowCombiner use gst_flow_combiner_add_pad().
-    The new #GstPad is stored with a default value of %GST_FLOW_OK.
+    To add a new pad to the GstFlowCombiner use `gst_flow_combiner_add_pad`.
+    The new GstPad is stored with a default value of GST_FLOW_OK.
 
-    In case you want a #GstPad to be removed, use gst_flow_combiner_remove_pad().
+    In case you want a GstPad to be removed, use `gst_flow_combiner_remove_pad`.
 
     Please be aware that this struct isn't thread safe as its designed to be
      used by demuxers, those usually will have a single thread operating it.
 
-    These functions will take refs on the passed #GstPad<!-- -->s.
+    These functions will take refs on the passed GstPad<!-- -->s.
 
     Aside from reducing the user's code size, the main advantage of using this
-    helper struct is to follow the standard rules for #GstFlowReturn combination.
+    helper struct is to follow the standard rules for GstFlowReturn combination.
     These rules are:
 
-    * %GST_FLOW_EOS: only if all returns are EOS too
-    * %GST_FLOW_NOT_LINKED: only if all returns are NOT_LINKED too
-    * %GST_FLOW_ERROR or below: if at least one returns an error return
-    * %GST_FLOW_NOT_NEGOTIATED: if at least one returns a not-negotiated return
-    * %GST_FLOW_FLUSHING: if at least one returns flushing
-    * %GST_FLOW_OK: otherwise
+    * GST_FLOW_EOS: only if all returns are EOS too
+    * GST_FLOW_NOT_LINKED: only if all returns are NOT_LINKED too
+    * GST_FLOW_ERROR or below: if at least one returns an error return
+    * GST_FLOW_NOT_NEGOTIATED: if at least one returns a not-negotiated return
+    * GST_FLOW_FLUSHING: if at least one returns flushing
+    * GST_FLOW_OK: otherwise
 
-    %GST_FLOW_ERROR or below, GST_FLOW_NOT_NEGOTIATED and GST_FLOW_FLUSHING are
-    returned immediately from the gst_flow_combiner_update_flow() function.
+    GST_FLOW_ERROR or below, GST_FLOW_NOT_NEGOTIATED and GST_FLOW_FLUSHING are
+    returned immediately from the `gst_flow_combiner_update_flow` function.
     """
 
     # gi Methods
     def add_pad(self, pad: Gst.Pad) -> None:
         """
-        Adds a new #GstPad to the #GstFlowCombiner.
+        Adds a new GstPad to the GstFlowCombiner.
         """
     def clear(self) -> None:
         """
-        Removes all pads from a #GstFlowCombiner and resets it to its initial state.
+        Removes all pads from a GstFlowCombiner and resets it to its initial state.
         """
     def free(self) -> None:
         """
-        Frees a #GstFlowCombiner struct and all its internal data.
+        Frees a GstFlowCombiner struct and all its internal data.
         """
     @classmethod
     def new(cls) -> FlowCombiner:
         """
-        Creates a new #GstFlowCombiner, use gst_flow_combiner_free() to free it.
+        Creates a new GstFlowCombiner, use `gst_flow_combiner_free` to free it.
         """
     def ref(self) -> FlowCombiner:
         """
-        Increments the reference count on the #GstFlowCombiner.
+        Increments the reference count on the GstFlowCombiner.
         """
     def remove_pad(self, pad: Gst.Pad) -> None:
         """
-        Removes a #GstPad from the #GstFlowCombiner.
+        Removes a GstPad from the GstFlowCombiner.
         """
     def reset(self) -> None:
         """
@@ -5640,26 +5640,26 @@ class FlowCombiner(GObject.GBoxed):
         """
     def unref(self) -> None:
         """
-        Decrements the reference count on the #GstFlowCombiner.
+        Decrements the reference count on the GstFlowCombiner.
         """
     def update_flow(self, fret: Gst.FlowReturn) -> Gst.FlowReturn:
         """
             Computes the combined flow return for the pads in it.
 
-        The #GstFlowReturn parameter should be the last flow return update for a pad
-        in this #GstFlowCombiner. It will use this value to be able to shortcut some
+        The GstFlowReturn parameter should be the last flow return update for a pad
+        in this GstFlowCombiner. It will use this value to be able to shortcut some
         combinations and avoid looking over all pads again. e.g. The last combined
-        return is the same as the latest obtained #GstFlowReturn.
+        return is the same as the latest obtained GstFlowReturn.
         """
     def update_pad_flow(self, pad: Gst.Pad, fret: Gst.FlowReturn) -> Gst.FlowReturn:
         """
             Sets the provided pad's last flow return to provided value and computes
         the combined flow return for the pads in it.
 
-        The #GstFlowReturn parameter should be the last flow return update for a pad
-        in this #GstFlowCombiner. It will use this value to be able to shortcut some
+        The GstFlowReturn parameter should be the last flow return update for a pad
+        in this GstFlowCombiner. It will use this value to be able to shortcut some
         combinations and avoid looking over all pads again. e.g. The last combined
-        return is the same as the latest obtained #GstFlowReturn.
+        return is the same as the latest obtained GstFlowReturn.
         """
 
     # python methods (overrides?)
@@ -5676,7 +5676,7 @@ class PushSrc(BaseSrc):
     prefers to push out a fixed size buffer.
 
     Subclasses usually operate in a format that is different from the
-    default GST_FORMAT_BYTES format of #GstBaseSrc.
+    default GST_FORMAT_BYTES format of GstBase.Src.
 
     Classes extending this base class will usually be scheduled
     in a push based mode. If the peer accepts to operate without
@@ -5723,7 +5723,7 @@ class PushSrc(BaseSrc):
 class PushSrcClass(GObject.GPointer):
     """
     Subclasses can override any of the available virtual methods or not, as
-    needed. At the minimum, the @fill method should be overridden to produce
+    needed. At the minimum, the `fill` method should be overridden to produce
     buffers.
     """
 
@@ -5740,8 +5740,8 @@ class PushSrcClass(GObject.GPointer):
         """
         Ask the subclass to create a buffer. The subclass decides which
              size this buffer should be. Other then that, refer to
-             #GstBaseSrc<!-- -->.create() for more details. If this method is
-             not implemented, @alloc followed by @fill will be called.
+             GstBase.Src<!-- -->.`create` for more details. If this method is
+             not implemented, `alloc` followed by `fill` will be called.
         """
     @builtins.property
     def fill(self) -> fillPushSrcClassCB:
@@ -5762,7 +5762,7 @@ class PushSrcClass(GObject.GPointer):
 
 class TypeFindData(GObject.GPointer):
     """
-    The opaque #GstTypeFindData structure.
+    The opaque GstTypeFindData structure.
     """
 
     # gi Methods

@@ -83,10 +83,10 @@ def attr_break(
     attrs_len: int,
 ) -> list:
     """
-    Apply customization from attributes to the breaks in @attrs.
+    Apply customization from attributes to the breaks in `attrs`.
 
     The line breaks are assumed to have been produced
-    by [func@Pango.default_break] and [func@Pango.tailor_break].
+    by [func`Pango`.default_break] and [func`Pango`.tailor_break].
     """
     ...
 
@@ -226,9 +226,9 @@ def attr_line_height_new(
     Modify the height of logical line extents by a factor.
 
     This affects the values returned by
-    [method@Pango.LayoutLine.get_extents],
-    [method@Pango.LayoutLine.get_pixel_extents] and
-    [method@Pango.LayoutIter.get_line_extents].
+    [method`Pango`.LayoutLine.get_extents],
+    [method`Pango`.LayoutLine.get_pixel_extents] and
+    [method`Pango`.LayoutIter.get_line_extents].
     """
     ...
 
@@ -237,12 +237,12 @@ def attr_line_height_new_absolute(
     height: int,
 ) -> Attribute:
     """
-    Override the height of logical line extents to be @height.
+    Override the height of logical line extents to be `height`.
 
     This affects the values returned by
-    [method@Pango.LayoutLine.get_extents],
-    [method@Pango.LayoutLine.get_pixel_extents] and
-    [method@Pango.LayoutIter.get_line_extents].
+    [method`Pango`.LayoutLine.get_extents],
+    [method`Pango`.LayoutLine.get_pixel_extents] and
+    [method`Pango`.LayoutIter.get_line_extents].
     """
     ...
 
@@ -253,7 +253,7 @@ def attr_list_from_string(
     """
     Deserializes a `PangoAttrList` from a string.
 
-    This is the counterpart to [method@Pango.AttrList.to_string].
+    This is the counterpart to [method`Pango`.AttrList.to_string].
     See that functions for details about the format.
     """
     ...
@@ -298,7 +298,7 @@ def attr_scale_new(
     Create a new font size scale attribute.
 
     The base font for the affected text will have
-    its size multiplied by @scale_factor.
+    its size multiplied by `scale_factor`.
     """
     ...
 
@@ -338,7 +338,7 @@ def attr_shape_new_with_data(
     """
     Creates a new shape attribute.
 
-    Like [func@Pango.AttrShape.new], but a user data pointer
+    Like [func`Pango`.AttrShape.new], but a user data pointer
     is also provided; this pointer can be accessed when later
     rendering the glyph.
     """
@@ -432,10 +432,10 @@ def attr_type_get_name(
 
     The attribute type name is the string passed in
     when registering the type using
-    [func@Pango.AttrType.register].
+    [func`Pango`.AttrType.register].
 
     The returned value is an interned string (see
-    g_intern_string() for what that means) that should
+    `g_intern_string` for what that means) that should
     not be modified or freed.
     """
     ...
@@ -448,7 +448,7 @@ def attr_type_register(
     Allocate a new attribute type ID.
 
     The attribute type name can be accessed later
-    by using [func@Pango.AttrType.get_name].
+    by using [func`Pango`.AttrType.get_name].
     """
     ...
 
@@ -512,7 +512,7 @@ def bidi_type_for_unichar(
 
     The bidirectional type is specified in the Unicode Character Database.
 
-    A simplified version of this function is available as [func@unichar_direction].
+    A simplified version of this function is available as [func`unichar_direction`].
     """
     ...
 
@@ -535,12 +535,12 @@ def default_break(
     This is the default break algorithm.
 
     It applies rules from the [Unicode Line Breaking Algorithm](http://www.unicode.org/unicode/reports/tr14/)
-    without language-specific tailoring, therefore the @analyis argument is unused
-    and can be %NULL.
+    without language-specific tailoring, therefore the `analyis` argument is unused
+    and can be None.
 
-    See [func@Pango.tailor_break] for language-specific breaks.
+    See [func`Pango`.tailor_break] for language-specific breaks.
 
-    See [func@Pango.attr_break] for attribute-based customization.
+    See [func`Pango`.attr_break] for attribute-based customization.
     """
     ...
 
@@ -552,21 +552,21 @@ def extents_to_pixels(
     """
     Converts extents from Pango units to device units.
 
-    The conversion is done by dividing by the %PANGO_SCALE factor and
+    The conversion is done by dividing by the Pango.SCALE factor and
     performing rounding.
 
-    The @inclusive rectangle is converted by flooring the x/y coordinates
+    The `inclusive` rectangle is converted by flooring the x/y coordinates
     and extending width/height, such that the final rectangle completely
     includes the original rectangle.
 
-    The @nearest rectangle is converted by rounding the coordinates
+    The `nearest` rectangle is converted by rounding the coordinates
     of the rectangle to the nearest device unit (pixel).
 
     The rule to which argument to use is: if you want the resulting device-space
     rectangle to completely contain the original rectangle, pass it in as
-    @inclusive. If you want two touching-but-not-overlapping rectangles stay
+    `inclusive`. If you want two touching-but-not-overlapping rectangles stay
     touching-but-not-overlapping after rounding to device units, pass them in
-    as @nearest.
+    as `nearest`.
     """
     ...
 
@@ -587,19 +587,19 @@ def find_paragraph_boundary(
     length: int,
 ) -> tuple[int, int]:
     """
-    Locates a paragraph boundary in @text.
+    Locates a paragraph boundary in `text`.
 
     A boundary is caused by delimiter characters, such as
     a newline, carriage return, carriage return-newline pair,
     or Unicode paragraph separator character.
 
     The index of the run of delimiters is returned in
-    @paragraph_delimiter_index. The index of the start of the
+    `paragraph_delimiter_index`. The index of the start of the
     next paragraph (index after all delimiters) is stored n
-    @next_paragraph_start.
+    `next_paragraph_start`.
 
-    If no delimiters are found, both @paragraph_delimiter_index
-    and @next_paragraph_start are filled with the length of @text
+    If no delimiters are found, both `paragraph_delimiter_index`
+    and `next_paragraph_start` are filled with the length of `text`
     (an index one off the end).
     """
     ...
@@ -651,7 +651,7 @@ def font_description_from_string(
 
     Any one of the options may be absent. If FAMILY-LIST is absent, then
     the family_name field of the resulting font description will be
-    initialized to %NULL. If STYLE-OPTIONS is missing, then all style
+    initialized to None. If STYLE-OPTIONS is missing, then all style
     options will be set to the default values. If SIZE is missing, the
     size in the resulting font description will be set to 0.
 
@@ -670,12 +670,12 @@ def get_log_attrs(
     attrs_len: int,
 ) -> list:
     """
-    Computes a `PangoLogAttr` for each character in @text.
+    Computes a `PangoLogAttr` for each character in `text`.
 
-    The @attrs array must have one `PangoLogAttr` for
-    each position in @text; if @text contains N characters,
+    The `attrs` array must have one `PangoLogAttr` for
+    each position in `text`; if `text` contains N characters,
     it has N+1 positions, including the last position at the
-    end of the text. @text should be an entire paragraph;
+    end of the text. `text` should be an entire paragraph;
     logical attributes can't be computed without context
     (for example you need to see spaces on either side of
     a word to know the word is a word).
@@ -715,9 +715,9 @@ def gravity_get_for_script(
 
     The gravity is determined based on the script, base gravity, and hint.
 
-    If @base_gravity is %PANGO_GRAVITY_AUTO, it is first replaced with the
-    preferred gravity of @script.  To get the preferred gravity of a script,
-    pass %PANGO_GRAVITY_AUTO and %PANGO_GRAVITY_HINT_STRONG in.
+    If `base_gravity` is Pango.GRAVITY_AUTO, it is first replaced with the
+    preferred gravity of `script`.  To get the preferred gravity of a script,
+    pass Pango.GRAVITY_AUTO and Pango.GRAVITY_HINT_STRONG in.
     """
     ...
 
@@ -735,15 +735,15 @@ def gravity_get_for_script_and_width(
     The gravity is determined based on the script, East Asian width,
     base gravity, and hint,
 
-    This function is similar to [func@Pango.Gravity.get_for_script] except
+    This function is similar to [func`Pango`.Gravity.get_for_script] except
     that this function makes a distinction between narrow/half-width and
     wide/full-width characters also. Wide/full-width characters always
     stand *upright*, that is, they always take the base gravity,
     whereas narrow/full-width characters are always rotated in vertical
     context.
 
-    If @base_gravity is %PANGO_GRAVITY_AUTO, it is first replaced with the
-    preferred gravity of @script.
+    If `base_gravity` is Pango.GRAVITY_AUTO, it is first replaced with the
+    preferred gravity of `script`.
     """
     ...
 
@@ -754,8 +754,8 @@ def gravity_to_rotation(
     """
     Converts a `PangoGravity` value to its natural rotation in radians.
 
-    Note that [method@Pango.Matrix.rotate] takes angle in degrees, not radians.
-    So, to call [method@Pango.Matrix,rotate] with the output of this function
+    Note that [method`Pango`.Matrix.rotate] takes angle in degrees, not radians.
+    So, to call [method`Pango`.Matrix,rotate] with the output of this function
     you should multiply it by (180. / G_PI).
     """
     ...
@@ -770,7 +770,7 @@ def is_zero_width(
     This includes all Unicode characters with "ZERO WIDTH" in their name,
     as well as *bidi* formatting characters, and a few other ones.
 
-    This is totally different from [func@GLib.unichar_iszerowidth] and is at best misnamed.
+    This is totally different from [func`GLib`.unichar_iszerowidth] and is at best misnamed.
     """
     ...
 
@@ -787,15 +787,15 @@ def itemize(
     Breaks a piece of text into segments with consistent directional
     level and font.
 
-    Each byte of @text will be contained in exactly one of the items in the
+    Each byte of `text` will be contained in exactly one of the items in the
     returned list; the generated list of items will be in logical order (the
     start offsets of the items are ascending).
 
-    @cached_iter should be an iterator over @attrs currently positioned
-    at a range before or containing @start_index; @cached_iter will be
+    `cached_iter` should be an iterator over `attrs` currently positioned
+    at a range before or containing `start_index`; `cached_iter` will be
     advanced to the range covering the position just after
-    @start_index + @length. (i.e. if itemizing in a loop, just keep passing
-    in the same @cached_iter).
+    `start_index` + `length`. (i.e. if itemizing in a loop, just keep passing
+    in the same `cached_iter`).
     """
     ...
 
@@ -810,11 +810,11 @@ def itemize_with_base_dir(
     cached_iter: AttrIterator | None = None,
 ) -> list:
     """
-    Like `pango_itemize()`, but with an explicitly specified base direction.
+    Like ``Pango.itemize``, but with an explicitly specified base direction.
 
     The base direction is used when computing bidirectional levels.
-    [func@itemize] gets the base direction from the `PangoContext`
-    (see [method@Pango.Context.set_base_dir]).
+    [func`itemize`] gets the base direction from the `PangoContext`
+    (see [method`Pango`.Context.set_base_dir]).
     """
     ...
 
@@ -833,7 +833,7 @@ def language_from_string(
     lowercase, mapping '_' to '-', and stripping all characters other
     than letters and '-'.
 
-    Use [func@Pango.Language.get_default] if you want to get the
+    Use [func`Pango`.Language.get_default] if you want to get the
     `PangoLanguage` for the current locale of the process.
     """
     ...
@@ -844,7 +844,7 @@ def language_get_default() -> Language:
     Returns the `PangoLanguage` for the current locale of the process.
 
     On Unix systems, this is the return value is derived from
-    `setlocale (LC_CTYPE, NULL)`, and the user can
+    `setlocale (LC_CTYPE, None)`, and the user can
     affect this through the environment variables LC_ALL, LC_CTYPE or
     LANG (checked in that order). The locale string typically is in
     the form lang_COUNTRY, where lang is an ISO-639 language code, and
@@ -854,8 +854,8 @@ def language_get_default() -> Language:
 
     On Windows, the C library does not use any such environment
     variables, and setting them won't affect the behavior of functions
-    like ctime(). The user sets the locale through the Regional Options
-    in the Control Panel. The C library (in the setlocale() function)
+    like `ctime`. The user sets the locale through the Regional Options
+    in the Control Panel. The C library (in the `setlocale` function)
     does not use country and language codes, but country and language
     names spelled out in English.
     However, this function does check the above environment
@@ -864,14 +864,14 @@ def language_get_default() -> Language:
 
     Your application should call `setlocale(LC_ALL, "")` for the user
     settings to take effect. GTK does this in its initialization
-    functions automatically (by calling gtk_set_locale()).
-    See the setlocale() manpage for more details.
+    functions automatically (by calling `gtk_set_locale`).
+    See the `setlocale` manpage for more details.
 
     Note that the default language can change over the life of an application.
 
     Also note that this function will not do the right thing if you
-    use per-thread locales with uselocale(). In that case, you should
-    just call pango_language_from_string() yourself.
+    use per-thread locales with `uselocale`. In that case, you should
+    just call `Pango.language_from_string` yourself.
     """
     ...
 
@@ -883,10 +883,10 @@ def language_get_preferred() -> list | None:
     The list is specified by the `PANGO_LANGUAGE` or `LANGUAGE`
     environment variables, in order of preference. Note that this
     list does not necessarily include the language returned by
-    [func@Pango.Language.get_default].
+    [func`Pango`.Language.get_default].
 
     When choosing language-specific resources, such as the sample
-    text returned by [method@Pango.Language.get_sample_string],
+    text returned by [method`Pango`.Language.get_sample_string],
     you should first try the default language, followed by the
     languages returned by this function.
     """
@@ -918,9 +918,9 @@ def markup_parser_finish(
     """
     Finishes parsing markup.
 
-    After feeding a Pango markup parser some data with [method@GLib.MarkupParseContext.parse],
+    After feeding a Pango markup parser some data with [method`GLib`.MarkupParseContext.parse],
     use this function to get the list of attributes and text out of the
-    markup. This function will not free @context, use [method@GLib.MarkupParseContext.free]
+    markup. This function will not free `context`, use [method`GLib`.MarkupParseContext.free]
     to do so.
     """
     ...
@@ -936,22 +936,22 @@ def markup_parser_new(
     See the [Pango Markup](pango_markup.html) docs for details about the
     supported markup.
 
-    If @accel_marker is nonzero, the given character will mark the
-    character following it as an accelerator. For example, @accel_marker
+    If `accel_marker` is nonzero, the given character will mark the
+    character following it as an accelerator. For example, `accel_marker`
     might be an ampersand or underscore. All characters marked
-    as an accelerator will receive a %PANGO_UNDERLINE_LOW attribute,
-    and the first character so marked will be returned in @accel_char,
-    when calling [func@markup_parser_finish]. Two @accel_marker characters
-    following each other produce a single literal @accel_marker character.
+    as an accelerator will receive a Pango.UNDERLINE_LOW attribute,
+    and the first character so marked will be returned in `accel_char`,
+    when calling [func`markup_parser_finish`]. Two `accel_marker` characters
+    following each other produce a single literal `accel_marker` character.
 
-    To feed markup to the parser, use [method@GLib.MarkupParseContext.parse]
-    on the returned [struct@GLib.MarkupParseContext]. When done with feeding markup
-    to the parser, use [func@markup_parser_finish] to get the data out
-    of it, and then use [method@GLib.MarkupParseContext.free] to free it.
+    To feed markup to the parser, use [method`GLib`.MarkupParseContext.parse]
+    on the returned [struct`GLib`.MarkupParseContext]. When done with feeding markup
+    to the parser, use [func`markup_parser_finish`] to get the data out
+    of it, and then use [method`GLib`.MarkupParseContext.free] to free it.
 
     This function is designed for applications that read Pango markup
     from streams. To simply parse a string containing Pango markup,
-    the [func@Pango.parse_markup] API is recommended instead.
+    the [func`Pango`.parse_markup] API is recommended instead.
     """
     ...
 
@@ -963,16 +963,16 @@ def parse_enum(
     warn: bool,
 ) -> tuple[bool, int, str]:
     """
-    Parses an enum type and stores the result in @value.
+    Parses an enum type and stores the result in `value`.
 
-    If @str does not match the nick name of any of the possible values
-    for the enum and is not an integer, %FALSE is returned, a warning
-    is issued if @warn is %TRUE, and a string representing the list of
-    possible values is stored in @possible_values. The list is
+    If `str` does not match the nick name of any of the possible values
+    for the enum and is not an integer, False is returned, a warning
+    is issued if `warn` is True, and a string representing the list of
+    possible values is stored in `possible_values`. The list is
     slash-separated, eg. "none/start/middle/end".
 
-    If failed and @possible_values is not %NULL, returned string should
-    be freed using g_free().
+    If failed and `possible_values` is not None, returned string should
+    be freed using `g_free`.
     """
     ...
 
@@ -988,18 +988,18 @@ def parse_markup(
     See the [Pango Markup](pango_markup.html) docs for details about the
     supported markup.
 
-    If @accel_marker is nonzero, the given character will mark the
-    character following it as an accelerator. For example, @accel_marker
+    If `accel_marker` is nonzero, the given character will mark the
+    character following it as an accelerator. For example, `accel_marker`
     might be an ampersand or underscore. All characters marked
-    as an accelerator will receive a %PANGO_UNDERLINE_LOW attribute,
-    and the first character so marked will be returned in @accel_char.
-    Two @accel_marker characters following each other produce a single
-    literal @accel_marker character.
+    as an accelerator will receive a Pango.UNDERLINE_LOW attribute,
+    and the first character so marked will be returned in `accel_char`.
+    Two `accel_marker` characters following each other produce a single
+    literal `accel_marker` character.
 
-    To parse a stream of pango markup incrementally, use [func@markup_parser_new].
+    To parse a stream of pango markup incrementally, use [func`markup_parser_new`].
 
     If any error happens, none of the output arguments are touched except
-    for @error.
+    for `error`.
     """
     ...
 
@@ -1072,8 +1072,8 @@ def quantize_line_geometry(
     This is typically used for underline or strikethrough. The purpose of
     this function is to avoid such lines looking blurry.
 
-    Care is taken to make sure @thickness is at least one pixel when this
-    function returns, but returned @position may become zero as a result
+    Care is taken to make sure `thickness` is at least one pixel when this
+    function returns, but returned `position` may become zero as a result
     of rounding.
     """
     ...
@@ -1164,12 +1164,12 @@ def script_for_unichar(
     The script of a character is defined by
     [Unicode Standard Annex 24: Script names](http://www.unicode.org/reports/tr24/).
 
-    No check is made for @ch being a valid Unicode character; if you pass
+    No check is made for `ch` being a valid Unicode character; if you pass
     in invalid character, the result is undefined.
 
     Note that while the return type of this function is declared
     as `PangoScript`, as of Pango 1.18, this function simply returns
-    the return value of [func@GLib.unichar_get_script]. Callers must be
+    the return value of [func`GLib`.unichar_get_script]. Callers must be
     prepared to handle unknown values.
     """
     ...
@@ -1179,16 +1179,16 @@ def script_get_sample_language(
     script: Script,
 ) -> Language | None:
     """
-    Finds a language tag that is reasonably representative of @script.
+    Finds a language tag that is reasonably representative of `script`.
 
     The language will usually be the most widely spoken or used language
     written in that script: for instance, the sample language for
-    %PANGO_SCRIPT_CYRILLIC is ru (Russian), the sample language for
-    %PANGO_SCRIPT_ARABIC is ar.
+    Pango.SCRIPT_CYRILLIC is ru (Russian), the sample language for
+    Pango.SCRIPT_ARABIC is ar.
 
     For some scripts, no sample language will be returned because
     there is no language that is sufficiently representative. The
-    best example of this is %PANGO_SCRIPT_HAN, where various different
+    best example of this is Pango.SCRIPT_HAN, where various different
     variants of written Chinese, Japanese, and Korean all use
     significantly different sets of Han characters and forms
     of shared characters. No sample language can be provided
@@ -1199,14 +1199,14 @@ def script_get_sample_language(
     If one of them is set, it is parsed as a list of language tags
     separated by colons or other separators. This function
     will return the first language in the parsed list that Pango
-    believes may use @script for writing. This last predicate
-    is tested using [method@Pango.Language.includes_script]. This can
+    believes may use `script` for writing. This last predicate
+    is tested using [method`Pango`.Language.includes_script]. This can
     be used to control Pango's font selection for non-primary
     languages. For example, a `PANGO_LANGUAGE` enviroment variable
     set to "en:fa" makes Pango choose fonts suitable for Persian (fa)
     instead of Arabic (ar) when a segment of Arabic text is found
     in an otherwise non-Arabic text. The same trick can be used to
-    choose a default language for %PANGO_SCRIPT_HAN when setting
+    choose a default language for Pango.SCRIPT_HAN when setting
     context language is not feasible.
     """
     ...
@@ -1218,24 +1218,24 @@ def shape(
     analysis: Analysis,
 ) -> GlyphString:
     """
-    Convert the characters in @text into glyphs.
+    Convert the characters in `text` into glyphs.
 
     Given a segment of text and the corresponding `PangoAnalysis` structure
-    returned from [func@Pango.itemize], convert the characters into glyphs. You
-    may also pass in only a substring of the item from [func@Pango.itemize].
+    returned from [func`Pango`.itemize], convert the characters into glyphs. You
+    may also pass in only a substring of the item from [func`Pango`.itemize].
 
-    It is recommended that you use [func@Pango.shape_full] instead, since
+    It is recommended that you use [func`Pango`.shape_full] instead, since
     that API allows for shaping interaction happening across text item
     boundaries.
 
     Some aspects of hyphen insertion and text transformation (in particular,
     capitalization) require log attrs, and thus can only be handled by
-    [func@Pango.shape_item].
+    [func`Pango`.shape_item].
 
-    Note that the extra attributes in the @analyis that is returned from
-    [func@Pango.itemize] have indices that are relative to the entire paragraph,
+    Note that the extra attributes in the `analyis` that is returned from
+    [func`Pango`.itemize] have indices that are relative to the entire paragraph,
     so you need to subtract the item offset from their indices before
-    calling [func@Pango.shape].
+    calling [func`Pango`.shape].
     """
     ...
 
@@ -1248,27 +1248,27 @@ def shape_full(
     analysis: Analysis,
 ) -> GlyphString:
     """
-    Convert the characters in @text into glyphs.
+    Convert the characters in `text` into glyphs.
 
     Given a segment of text and the corresponding `PangoAnalysis` structure
-    returned from [func@Pango.itemize], convert the characters into glyphs.
-    You may also pass in only a substring of the item from [func@Pango.itemize].
+    returned from [func`Pango`.itemize], convert the characters into glyphs.
+    You may also pass in only a substring of the item from [func`Pango`.itemize].
 
-    This is similar to [func@Pango.shape], except it also can optionally take
+    This is similar to [func`Pango`.shape], except it also can optionally take
     the full paragraph text as input, which will then be used to perform
     certain cross-item shaping interactions. If you have access to the broader
-    text of which @item_text is part of, provide the broader text as
-    @paragraph_text. If @paragraph_text is %NULL, item text is used instead.
+    text of which `item_text` is part of, provide the broader text as
+    `paragraph_text`. If `paragraph_text` is None, item text is used instead.
 
     Some aspects of hyphen insertion and text transformation (in particular,
     capitalization) require log attrs, and thus can only be handled by
-    [func@Pango.shape_item].
+    [func`Pango`.shape_item].
 
-    Note that the extra attributes in the @analyis that is returned from
-    [func@Pango.itemize] have indices that are relative to the entire paragraph,
-    so you do not pass the full paragraph text as @paragraph_text, you need
+    Note that the extra attributes in the `analyis` that is returned from
+    [func`Pango`.itemize] have indices that are relative to the entire paragraph,
+    so you do not pass the full paragraph text as `paragraph_text`, you need
     to subtract the item offset from their indices before calling
-    [func@Pango.shape_full].
+    [func`Pango`.shape_full].
     """
     ...
 
@@ -1281,19 +1281,19 @@ def shape_item(
     flags: ShapeFlags,
 ) -> GlyphString:
     """
-    Convert the characters in @item into glyphs.
+    Convert the characters in `item` into glyphs.
 
-    This is similar to [func@Pango.shape_with_flags], except it takes a
-    `PangoItem` instead of separate @item_text and @analysis arguments.
+    This is similar to [func`Pango`.shape_with_flags], except it takes a
+    `PangoItem` instead of separate `item_text` and `analysis` arguments.
 
-    It also takes @log_attrs, which are needed for implementing some aspects
+    It also takes `log_attrs`, which are needed for implementing some aspects
     of hyphen insertion and text transforms (in particular, capitalization).
 
-    Note that the extra attributes in the @analyis that is returned from
-    [func@Pango.itemize] have indices that are relative to the entire paragraph,
-    so you do not pass the full paragraph text as @paragraph_text, you need
+    Note that the extra attributes in the `analyis` that is returned from
+    [func`Pango`.itemize] have indices that are relative to the entire paragraph,
+    so you do not pass the full paragraph text as `paragraph_text`, you need
     to subtract the item offset from their indices before calling
-    [func@Pango.shape_with_flags].
+    [func`Pango`.shape_with_flags].
     """
     ...
 
@@ -1307,24 +1307,24 @@ def shape_with_flags(
     flags: ShapeFlags,
 ) -> GlyphString:
     """
-    Convert the characters in @text into glyphs.
+    Convert the characters in `text` into glyphs.
 
     Given a segment of text and the corresponding `PangoAnalysis` structure
-    returned from [func@Pango.itemize], convert the characters into glyphs.
-    You may also pass in only a substring of the item from [func@Pango.itemize].
+    returned from [func`Pango`.itemize], convert the characters into glyphs.
+    You may also pass in only a substring of the item from [func`Pango`.itemize].
 
-    This is similar to [func@Pango.shape_full], except it also takes flags
+    This is similar to [func`Pango`.shape_full], except it also takes flags
     that can influence the shaping process.
 
     Some aspects of hyphen insertion and text transformation (in particular,
     capitalization) require log attrs, and thus can only be handled by
-    [func@Pango.shape_item].
+    [func`Pango`.shape_item].
 
-    Note that the extra attributes in the @analyis that is returned from
-    [func@Pango.itemize] have indices that are relative to the entire paragraph,
-    so you do not pass the full paragraph text as @paragraph_text, you need
+    Note that the extra attributes in the `analyis` that is returned from
+    [func`Pango`.itemize] have indices that are relative to the entire paragraph,
+    so you do not pass the full paragraph text as `paragraph_text`, you need
     to subtract the item offset from their indices before calling
-    [func@Pango.shape_with_flags].
+    [func`Pango`.shape_with_flags].
     """
     ...
 
@@ -1344,7 +1344,7 @@ def split_file_list(
     str: str,
 ) -> list:
     """
-    Splits a %G_SEARCHPATH_SEPARATOR-separated list of files, stripping
+    Splits a G_SEARCHPATH_SEPARATOR-separated list of files, stripping
     white space and substituting ~/ with $HOME/.
     """
     ...
@@ -1356,7 +1356,7 @@ def tab_array_from_string(
     """
     Deserializes a `PangoTabArray` from a string.
 
-    This is the counterpart to [method@Pango.TabArray.to_string].
+    This is the counterpart to [method`Pango`.TabArray.to_string].
     See that functions for details about the format.
     """
     ...
@@ -1370,14 +1370,14 @@ def tailor_break(
     attrs_len: int,
 ) -> list:
     """
-    Apply language-specific tailoring to the breaks in @attrs.
+    Apply language-specific tailoring to the breaks in `attrs`.
 
-    The line breaks are assumed to have been produced by [func@Pango.default_break].
+    The line breaks are assumed to have been produced by [func`Pango`.default_break].
 
-    If @offset is not -1, it is used to apply attributes from @analysis that are
+    If `offset` is not -1, it is used to apply attributes from `analysis` that are
     relevant to line breaking.
 
-    Note that it is better to pass -1 for @offset and use [func@Pango.attr_break]
+    Note that it is better to pass -1 for `offset` and use [func`Pango`.attr_break]
     to apply attributes to the whole paragraph.
     """
     ...
@@ -1404,7 +1404,7 @@ def unichar_direction(
 
     This function is useful to categorize characters into left-to-right
     letters, right-to-left letters, and everything else. If full Unicode
-    bidirectional type of a character is needed, [func@Pango.BidiType.for_unichar]
+    bidirectional type of a character is needed, [func`Pango`.BidiType.for_unichar]
     can be used instead.
     """
     ...
@@ -1416,7 +1416,7 @@ def units_from_double(
     """
     Converts a floating-point number to Pango units.
 
-    The conversion is done by multiplying @d by %PANGO_SCALE and
+    The conversion is done by multiplying `d` by Pango.SCALE and
     rounding the result to nearest integer.
     """
     ...
@@ -1428,7 +1428,7 @@ def units_to_double(
     """
     Converts a number in Pango units to floating-point.
 
-    The conversion is done by dividing @i by %PANGO_SCALE.
+    The conversion is done by dividing `i` by Pango.SCALE.
     """
     ...
 
@@ -1437,9 +1437,9 @@ def version() -> int:
     """
     Returns the encoded version of Pango available at run-time.
 
-    This is similar to the macro %PANGO_VERSION except that the macro
+    This is similar to the macro Pango.VERSION except that the macro
     returns the encoded version available at compile-time. A version
-    number can be encoded into an integer using PANGO_VERSION_ENCODE().
+    number can be encoded into an integer using `PANGO_VERSION_ENCODE`.
     """
     ...
 
@@ -1453,20 +1453,20 @@ def version_check(
     Checks that the Pango library in use is compatible with the
     given version.
 
-    Generally you would pass in the constants %PANGO_VERSION_MAJOR,
-    %PANGO_VERSION_MINOR, %PANGO_VERSION_MICRO as the three arguments
+    Generally you would pass in the constants Pango.VERSION_MAJOR,
+    Pango.VERSION_MINOR, Pango.VERSION_MICRO as the three arguments
     to this function; that produces a check that the library in use at
     run-time is compatible with the version of Pango the application or
     module was compiled against.
 
     Compatibility is defined by two things: first the version
     of the running library is newer than the version
-    @required_major.required_minor.@required_micro. Second
+    `required_major`.required_minor.`required_micro`. Second
     the running library must be binary compatible with the
-    version @required_major.required_minor.@required_micro
+    version `required_major`.required_minor.`required_micro`
     (same major version.)
 
-    For compile-time version checking use PANGO_VERSION_CHECK().
+    For compile-time version checking use `PANGO_VERSION_CHECK`.
     """
     ...
 
@@ -1475,7 +1475,7 @@ def version_string() -> str:
     """
     Returns the version of Pango available at run-time.
 
-    This is similar to the macro %PANGO_VERSION_STRING except that the
+    This is similar to the macro Pango.VERSION_STRING except that the
     macro returns the version available at compile-time.
     """
     ...
@@ -1489,10 +1489,10 @@ class Alignment(GObject.GEnum):
     `PangoAlignment` describes how to align the lines of a `PangoLayout`
     within the available space.
 
-    If the `PangoLayout` is set to justify using [method@Pango.Layout.set_justify],
+    If the `PangoLayout` is set to justify using [method`Pango`.Layout.set_justify],
     this only affects partial lines.
 
-    See [method@Pango.Layout.set_auto_dir] for how text direction affects
+    See [method`Pango`.Layout.set_auto_dir] for how text direction affects
     the interpretation of `PangoAlignment` values."""
 
     LEFT = 0
@@ -1513,7 +1513,7 @@ class AttrType(GObject.GEnum):
     The `PangoAttrType` distinguishes between different types of attributes.
 
     Along with the predefined values, it is possible to allocate additional
-    values for custom attributes using [func@AttrType.register]. The predefined
+    values for custom attributes using [func`AttrType`.register]. The predefined
     values are given below. The type of structure used to store the attribute is
     listed in parentheses after the description."""
 
@@ -1523,148 +1523,148 @@ class AttrType(GObject.GEnum):
     """
     LANGUAGE = 1
     """
-    language ([struct@Pango.AttrLanguage])
+    language ([struct`Pango`.AttrLanguage])
     """
     FAMILY = 2
     """
-    font family name list ([struct@Pango.AttrString])
+    font family name list ([struct`Pango`.AttrString])
     """
     STYLE = 3
     """
-    font slant style ([struct@Pango.AttrInt])
+    font slant style ([struct`Pango`.AttrInt])
     """
     WEIGHT = 4
     """
-    font weight ([struct@Pango.AttrInt])
+    font weight ([struct`Pango`.AttrInt])
     """
     VARIANT = 5
     """
-    font variant (normal or small caps) ([struct@Pango.AttrInt])
+    font variant (normal or small caps) ([struct`Pango`.AttrInt])
     """
     STRETCH = 6
     """
-    font stretch ([struct@Pango.AttrInt])
+    font stretch ([struct`Pango`.AttrInt])
     """
     SIZE = 7
     """
-    font size in points scaled by %PANGO_SCALE ([struct@Pango.AttrInt])
+    font size in points scaled by Pango.SCALE ([struct`Pango`.AttrInt])
     """
     FONT_DESC = 8
     """
-    font description ([struct@Pango.AttrFontDesc])
+    font description ([struct`Pango`.AttrFontDesc])
     """
     FOREGROUND = 9
     """
-    foreground color ([struct@Pango.AttrColor])
+    foreground color ([struct`Pango`.AttrColor])
     """
     BACKGROUND = 10
     """
-    background color ([struct@Pango.AttrColor])
+    background color ([struct`Pango`.AttrColor])
     """
     UNDERLINE = 11
     """
-    whether the text has an underline ([struct@Pango.AttrInt])
+    whether the text has an underline ([struct`Pango`.AttrInt])
     """
     STRIKETHROUGH = 12
     """
-    whether the text is struck-through ([struct@Pango.AttrInt])
+    whether the text is struck-through ([struct`Pango`.AttrInt])
     """
     RISE = 13
     """
-    baseline displacement ([struct@Pango.AttrInt])
+    baseline displacement ([struct`Pango`.AttrInt])
     """
     SHAPE = 14
     """
-    shape ([struct@Pango.AttrShape])
+    shape ([struct`Pango`.AttrShape])
     """
     SCALE = 15
     """
-    font size scale factor ([struct@Pango.AttrFloat])
+    font size scale factor ([struct`Pango`.AttrFloat])
     """
     FALLBACK = 16
     """
-    whether fallback is enabled ([struct@Pango.AttrInt])
+    whether fallback is enabled ([struct`Pango`.AttrInt])
     """
     LETTER_SPACING = 17
     """
-    letter spacing ([struct@PangoAttrInt])
+    letter spacing ([struct`PangoAttrInt`])
     """
     UNDERLINE_COLOR = 18
     """
-    underline color ([struct@Pango.AttrColor])
+    underline color ([struct`Pango`.AttrColor])
     """
     STRIKETHROUGH_COLOR = 19
     """
-    strikethrough color ([struct@Pango.AttrColor])
+    strikethrough color ([struct`Pango`.AttrColor])
     """
     ABSOLUTE_SIZE = 20
     """
-    font size in pixels scaled by %PANGO_SCALE ([struct@Pango.AttrInt])
+    font size in pixels scaled by Pango.SCALE ([struct`Pango`.AttrInt])
     """
     GRAVITY = 21
     """
-    base text gravity ([struct@Pango.AttrInt])
+    base text gravity ([struct`Pango`.AttrInt])
     """
     GRAVITY_HINT = 22
     """
-    gravity hint ([struct@Pango.AttrInt])
+    gravity hint ([struct`Pango`.AttrInt])
     """
     FONT_FEATURES = 23
     """
-    OpenType font features ([struct@Pango.AttrFontFeatures]). Since 1.38
+    OpenType font features ([struct`Pango`.AttrFontFeatures]). Since 1.38
     """
     FOREGROUND_ALPHA = 24
     """
-    foreground alpha ([struct@Pango.AttrInt]). Since 1.38
+    foreground alpha ([struct`Pango`.AttrInt]). Since 1.38
     """
     BACKGROUND_ALPHA = 25
     """
-    background alpha ([struct@Pango.AttrInt]). Since 1.38
+    background alpha ([struct`Pango`.AttrInt]). Since 1.38
     """
     ALLOW_BREAKS = 26
     """
-    whether breaks are allowed ([struct@Pango.AttrInt]). Since 1.44
+    whether breaks are allowed ([struct`Pango`.AttrInt]). Since 1.44
     """
     SHOW = 27
     """
-    how to render invisible characters ([struct@Pango.AttrInt]). Since 1.44
+    how to render invisible characters ([struct`Pango`.AttrInt]). Since 1.44
     """
     INSERT_HYPHENS = 28
     """
-    whether to insert hyphens at intra-word line breaks ([struct@Pango.AttrInt]). Since 1.44
+    whether to insert hyphens at intra-word line breaks ([struct`Pango`.AttrInt]). Since 1.44
     """
     OVERLINE = 29
     """
-    whether the text has an overline ([struct@Pango.AttrInt]). Since 1.46
+    whether the text has an overline ([struct`Pango`.AttrInt]). Since 1.46
     """
     OVERLINE_COLOR = 30
     """
-    overline color ([struct@Pango.AttrColor]). Since 1.46
+    overline color ([struct`Pango`.AttrColor]). Since 1.46
     """
     LINE_HEIGHT = 31
     """
-    line height factor ([struct@Pango.AttrFloat]). Since: 1.50
+    line height factor ([struct`Pango`.AttrFloat]). Since: 1.50
     """
     ABSOLUTE_LINE_HEIGHT = 32
     """
-    line height ([struct@Pango.AttrInt]). Since: 1.50
+    line height ([struct`Pango`.AttrInt]). Since: 1.50
     """
     TEXT_TRANSFORM = 33
     WORD = 34
     """
-    override segmentation to classify the range of the attribute as a single word ([struct@Pango.AttrInt]). Since 1.50
+    override segmentation to classify the range of the attribute as a single word ([struct`Pango`.AttrInt]). Since 1.50
     """
     SENTENCE = 35
     """
-    override segmentation to classify the range of the attribute as a single sentence ([struct@Pango.AttrInt]). Since 1.50
+    override segmentation to classify the range of the attribute as a single sentence ([struct`Pango`.AttrInt]). Since 1.50
     """
     BASELINE_SHIFT = 36
     """
-    baseline displacement ([struct@Pango.AttrInt]). Since 1.50
+    baseline displacement ([struct`Pango`.AttrInt]). Since 1.50
     """
     FONT_SCALE = 37
     """
-    font-relative size change ([struct@Pango.AttrInt]). Since 1.50
+    font-relative size change ([struct`Pango`.AttrInt]). Since 1.50
     """
 
 class BaselineShift(GObject.GEnum):
@@ -1792,7 +1792,7 @@ class CoverageLevel(GObject.GEnum):
     `PangoCoverageLevel` is used to indicate how well a font can
     represent a particular Unicode character for a particular script.
 
-    Since 1.44, only %PANGO_COVERAGE_NONE and %PANGO_COVERAGE_EXACT
+    Since 1.44, only Pango.COVERAGE_NONE and Pango.COVERAGE_EXACT
     will be returned."""
 
     NONE = 0
@@ -1826,11 +1826,11 @@ class Direction(GObject.GEnum):
     algorithm.
 
     Not every value in this enumeration makes sense for every usage of
-    `PangoDirection`; for example, the return value of [func@unichar_direction]
-    and [func@find_base_dir] cannot be `PANGO_DIRECTION_WEAK_LTR` or
+    `PangoDirection`; for example, the return value of [func`unichar_direction`]
+    and [func`find_base_dir`] cannot be `PANGO_DIRECTION_WEAK_LTR` or
     `PANGO_DIRECTION_WEAK_RTL`, since every character is either neutral
     or has a strong direction; on the other hand `PANGO_DIRECTION_NEUTRAL`
-    doesn't make sense to pass to [func@itemize_with_base_dir].
+    doesn't make sense to pass to [func`itemize_with_base_dir`].
 
     The `PANGO_DIRECTION_TTB_LTR`, `PANGO_DIRECTION_TTB_RTL` values come from
     an earlier interpretation of this enumeration as the writing direction
@@ -1968,15 +1968,15 @@ class Gravity(GObject.GEnum):
     of text.
 
     This is useful when rendering vertical text layouts. In those situations,
-    the layout is rotated using a non-identity [struct@Pango.Matrix], and then
+    the layout is rotated using a non-identity [struct`Pango`.Matrix], and then
     glyph orientation is controlled using `PangoGravity`.
 
     Not every value in this enumeration makes sense for every usage of
-    `PangoGravity`; for example, %PANGO_GRAVITY_AUTO only can be passed to
-    [method@Pango.Context.set_base_gravity] and can only be returned by
-    [method@Pango.Context.get_base_gravity].
+    `PangoGravity`; for example, Pango.GRAVITY_AUTO only can be passed to
+    [method`Pango`.Context.set_base_gravity] and can only be returned by
+    [method`Pango`.Context.get_base_gravity].
 
-    See also: [enum@Pango.GravityHint]"""
+    See also: [enum`Pango`.GravityHint]"""
 
     SOUTH = 0
     """
@@ -2006,7 +2006,7 @@ class GravityHint(GObject.GEnum):
 
     That is, English excerpts in a vertical paragraph for example.
 
-    See also [enum@Pango.Gravity]"""
+    See also [enum`Pango`.Gravity]"""
 
     NATURAL = 0
     """
@@ -2028,7 +2028,7 @@ class GravityHint(GObject.GEnum):
 
 class LayoutDeserializeError(GObject.GEnum):
     """
-    Errors that can be returned by [func@Pango.Layout.deserialize]."""
+    Errors that can be returned by [func`Pango`.Layout.deserialize]."""
 
     INVALID = 0
     """
@@ -2047,7 +2047,7 @@ class LayoutDeserializeError(GObject.GEnum):
 
 class LayoutDeserializeFlags(GObject.GFlags):
     """
-    Flags that influence the behavior of [func@Pango.Layout.deserialize].
+    Flags that influence the behavior of [func`Pango`.Layout.deserialize].
 
     New members may be added to this enumeration over time."""
 
@@ -2063,7 +2063,7 @@ class LayoutDeserializeFlags(GObject.GFlags):
 
 class LayoutSerializeFlags(GObject.GFlags):
     """
-    Flags that influence the behavior of [method@Pango.Layout.serialize].
+    Flags that influence the behavior of [method`Pango`.Layout.serialize].
 
     New members may be added to this enumeration over time."""
 
@@ -2131,12 +2131,12 @@ class Script(GObject.GEnum):
 
     Note that this enumeration is deprecated and will not be updated to include values
     in newer versions of the Unicode standard. Applications should use the
-    [enum@GLib.UnicodeScript] enumeration instead,
+    [enum`GLib`.UnicodeScript] enumeration instead,
     whose values are interchangeable with `PangoScript`."""
 
     INVALID_CODE = -1
     """
-    a value never returned from pango_script_for_unichar()
+    a value never returned from `Pango.script_for_unichar`
     """
     COMMON = 0
     """
@@ -2612,7 +2612,7 @@ class ShapeFlags(GObject.GFlags):
     """
     Flags influencing the shaping process.
 
-    `PangoShapeFlags` can be passed to [func@Pango.shape_with_flags]."""
+    `PangoShapeFlags` can be passed to [func`Pango`.shape_with_flags]."""
 
     NONE = 0
     """
@@ -2777,7 +2777,7 @@ class Underline(GObject.GEnum):
       position beneath the ink extents of the text being
       underlined. This should be used only for underlining
       single characters, such as for keyboard accelerators.
-      %PANGO_UNDERLINE_SINGLE should be used for extended
+      Pango.UNDERLINE_SINGLE should be used for extended
       portions of text.
     """
     ERROR = 4
@@ -2793,19 +2793,19 @@ class Underline(GObject.GEnum):
     """
     SINGLE_LINE = 5
     """
-    Like @PANGO_UNDERLINE_SINGLE, but
+    Like `PANGO_UNDERLINE_SINGLE`, but
       drawn continuously across multiple runs. This type
       of underlining is available since Pango 1.46.
     """
     DOUBLE_LINE = 6
     """
-    Like @PANGO_UNDERLINE_DOUBLE, but
+    Like `PANGO_UNDERLINE_DOUBLE`, but
       drawn continuously across multiple runs. This type
       of underlining is available since Pango 1.46.
     """
     ERROR_LINE = 7
     """
-    Like @PANGO_UNDERLINE_ERROR, but
+    Like `PANGO_UNDERLINE_ERROR`, but
       drawn continuously across multiple runs. This type
       of underlining is available since Pango 1.46.
     """
@@ -2912,8 +2912,8 @@ class WrapMode(GObject.GEnum):
     `PangoWrapMode` describes how to wrap the lines of a `PangoLayout`
     to the desired width.
 
-    For @PANGO_WRAP_WORD, Pango uses break opportunities that are determined
-    by the Unicode line breaking algorithm. For @PANGO_WRAP_CHAR, Pango allows
+    For `PANGO_WRAP_WORD`, Pango uses break opportunities that are determined
+    by the Unicode line breaking algorithm. For `PANGO_WRAP_CHAR`, Pango allows
     breaking at grapheme boundaries that are determined by the Unicode text
     segmentation algorithm."""
 
@@ -3002,19 +3002,19 @@ class AttrClass(GObject.GPointer):
     def copy(self) -> copyAttrClassCB:
         """
           function to duplicate an attribute of this type
-        (see [method@Pango.Attribute.copy])
+        (see [method`Pango`.Attribute.copy])
         """
     @builtins.property
     def destroy(self) -> destroyAttrClassCB:
         """
           function to free an attribute of this type
-        (see [method@Pango.Attribute.destroy])
+        (see [method`Pango`.Attribute.destroy])
         """
     @builtins.property
     def equal(self) -> equalAttrClassCB:
         """
           function to check two attributes of this type for equality
-        (see [method@Pango.Attribute.equal])
+        (see [method`Pango`.Attribute.equal])
         """
     type: AttrType = ...
     """
@@ -3168,9 +3168,9 @@ class AttrIterator(GObject.GBoxed):
     """
     A `PangoAttrIterator` is used to iterate through a `PangoAttrList`.
 
-    A new iterator is created with [method@Pango.AttrList.get_iterator].
+    A new iterator is created with [method`Pango`.AttrList.get_iterator].
     Once the iterator is created, it can be advanced through the style
-    changes in the text using [method@Pango.AttrIterator.next]. At each
+    changes in the text using [method`Pango`.AttrIterator.next]. At each
     style change, the range of the current style segment and the attributes
     currently in effect can be queried.
     """
@@ -3218,7 +3218,7 @@ class AttrIterator(GObject.GBoxed):
         Note that the stored return values are signed, not unsigned
         like the values in `PangoAttribute`. To deal with this API
         oversight, stored return values that wouldn't fit into
-        a signed integer are clamped to %G_MAXINT.
+        a signed integer are clamped to G_MAXINT.
         """
 
 class AttrLanguage(GObject.GPointer):
@@ -3257,7 +3257,7 @@ class AttrList(GObject.GBoxed):
 
     The attributes in a `PangoAttrList` are, in general, allowed to overlap in
     an arbitrary fashion. However, if the attributes are manipulated only through
-    [method@Pango.AttrList.change], the overlap between properties will meet
+    [method`Pango`.AttrList.change], the overlap between properties will meet
     stricter criteria.
 
     Since the `PangoAttrList` structure is stored as a linear list, it is not
@@ -3274,20 +3274,20 @@ class AttrList(GObject.GBoxed):
         on that segment and be merged with any adjoining
         attributes that are identical.
 
-        This function is slower than [method@Pango.AttrList.insert]
+        This function is slower than [method`Pango`.AttrList.insert]
         for creating an attribute list in order (potentially
         much slower for large lists). However,
-        [method@Pango.AttrList.insert] is not suitable for
+        [method`Pango`.AttrList.insert] is not suitable for
         continually changing a set of attributes since it
         never removes or combines existing attributes.
         """
     def copy(self) -> AttrList | None:
         """
-        Copy @list and return an identical new list.
+        Copy `list` and return an identical new list.
         """
     def equal(self, other_list: AttrList) -> bool:
         """
-            Checks whether @list and @other_list contain the same
+            Checks whether `list` and `other_list` contain the same
         attributes and whether those attributes apply to the
         same ranges.
 
@@ -3297,7 +3297,7 @@ class AttrList(GObject.GBoxed):
     def filter(self, func: AttrFilterFunc, data: object | None = None) -> AttrList | None:
         """
             Given a `PangoAttrList` and callback function, removes
-        any elements of @list for which @func returns %TRUE and
+        any elements of `list` for which `func` returns True and
         inserts them into a new list.
         """
     @staticmethod
@@ -3305,32 +3305,32 @@ class AttrList(GObject.GBoxed):
         """
             Deserializes a `PangoAttrList` from a string.
 
-        This is the counterpart to [method@Pango.AttrList.to_string].
+        This is the counterpart to [method`Pango`.AttrList.to_string].
         See that functions for details about the format.
         """
     def get_attributes(self) -> list:
         """
-        Gets a list of all attributes in @list.
+        Gets a list of all attributes in `list`.
         """
     def get_iterator(self) -> AttrIterator:
         """
             Create a iterator initialized to the beginning of the list.
 
-        @list must not be modified until this iterator is freed.
+        `list` must not be modified until this iterator is freed.
         """
     def insert(self, attr: Attribute) -> None:
         """
             Insert the given attribute into the `PangoAttrList`.
 
         It will be inserted after all other attributes with a
-        matching @start_index.
+        matching `start_index`.
         """
     def insert_before(self, attr: Attribute) -> None:
         """
             Insert the given attribute into the `PangoAttrList`.
 
         It will be inserted before all other attributes with a
-        matching @start_index.
+        matching `start_index`.
         """
     @classmethod
     def new(cls) -> AttrList:
@@ -3345,22 +3345,22 @@ class AttrList(GObject.GBoxed):
         """
     def splice(self, other: AttrList, pos: int, len: int) -> None:
         """
-            This function opens up a hole in @list, fills it
+            This function opens up a hole in `list`, fills it
         in with attributes from the left, and then merges
-        @other on top of the hole.
+        `other` on top of the hole.
 
         This operation is equivalent to stretching every attribute
-        that applies at position @pos in @list by an amount @len,
-        and then calling [method@Pango.AttrList.change] with a copy
-        of each attribute in @other in sequence (offset in position
-        by @pos, and limited in length to @len).
+        that applies at position `pos` in `list` by an amount `len`,
+        and then calling [method`Pango`.AttrList.change] with a copy
+        of each attribute in `other` in sequence (offset in position
+        by `pos`, and limited in length to `len`).
 
         This operation proves useful for, for instance, inserting
         a pre-edit string in the middle of an edit buffer.
 
         For backwards compatibility, the function behaves differently
-        when @len is 0. In this case, the attributes from @other are
-        not imited to @len, and are just overlayed on top of @list.
+        when `len` is 0. In this case, the attributes from `other` are
+        not imited to `len`, and are just overlayed on top of `list`.
 
         This mode is useful for merging two lists of attributes together.
         """
@@ -3385,8 +3385,8 @@ class AttrList(GObject.GBoxed):
         - strings as string, optionally quoted
         - font features as quoted string
         - PangoLanguage as string
-        - PangoFontDescription as serialized by [method@Pango.FontDescription.to_string], quoted
-        - PangoColor as serialized by [method@Pango.Color.to_string]
+        - PangoFontDescription as serialized by [method`Pango`.FontDescription.to_string], quoted
+        - PangoColor as serialized by [method`Pango`.Color.to_string]
 
         Examples:
 
@@ -3397,7 +3397,7 @@ class AttrList(GObject.GBoxed):
 
             weight bold
 
-        To parse the returned value, use [func@Pango.AttrList.from_string].
+        To parse the returned value, use [func`Pango`.AttrList.from_string].
 
         Note that shape attributes can not be serialized.
         """
@@ -3411,20 +3411,20 @@ class AttrList(GObject.GBoxed):
         """
     def update(self, pos: int, remove: int, add: int) -> None:
         """
-            Update indices of attributes in @list for a change in the
+            Update indices of attributes in `list` for a change in the
         text they refer to.
 
-        The change that this function applies is removing @remove
-        bytes at position @pos and inserting @add bytes instead.
+        The change that this function applies is removing `remove`
+        bytes at position `pos` and inserting `add` bytes instead.
 
-        Attributes that fall entirely in the (@pos, @pos + @remove)
+        Attributes that fall entirely in the (`pos`, `pos` + `remove`)
         range are removed.
 
-        Attributes that start or end inside the (@pos, @pos + @remove)
+        Attributes that start or end inside the (`pos`, `pos` + `remove`)
         range are shortened to reflect the removal.
 
         Attributes start and end positions are updated if they are
-        behind @pos + @remove.
+        behind `pos` + `remove`.
         """
 
     # python methods (overrides?)
@@ -3493,7 +3493,7 @@ class AttrShape(GObject.GPointer):
         """
             Creates a new shape attribute.
 
-        Like [func@Pango.AttrShape.new], but a user data pointer
+        Like [func`Pango`.AttrShape.new], but a user data pointer
         is also provided; this pointer can be accessed when later
         rendering the glyph.
         """
@@ -3509,8 +3509,8 @@ class AttrSize(GObject.GPointer):
     """
     whether the font size is in device units or points.
       This field is only present for compatibility with Pango-1.8.0
-      (%PANGO_ATTR_ABSOLUTE_SIZE was added in 1.8.1); and always will
-      be %FALSE for %PANGO_ATTR_SIZE and %TRUE for %PANGO_ATTR_ABSOLUTE_SIZE.
+      (Pango.ATTR_ABSOLUTE_SIZE was added in 1.8.1); and always will
+      be False for Pango.ATTR_SIZE and True for Pango.ATTR_ABSOLUTE_SIZE.
 
     """
     attr: Attribute | None = ...
@@ -3520,8 +3520,8 @@ class AttrSize(GObject.GPointer):
     """
     size: int = ...
     """
-    size of font, in units of 1/%PANGO_SCALE of a point (for
-      %PANGO_ATTR_SIZE) or of a device unit (for %PANGO_ATTR_ABSOLUTE_SIZE)
+    size of font, in units of 1/Pango.SCALE of a point (for
+      Pango.ATTR_SIZE) or of a device unit (for Pango.ATTR_ABSOLUTE_SIZE)
 
     """
 
@@ -3573,8 +3573,8 @@ class Attribute(GObject.GBoxed):
     Particular types of attributes include this structure as their initial
     portion. The common portion of the attribute holds the range to which
     the value in the type-specific part of the attribute applies and should
-    be initialized using [method@Pango.Attribute.init]. By default, an attribute
-    will have an all-inclusive range of [0,%G_MAXUINT].
+    be initialized using [method`Pango`.Attribute.init]. By default, an attribute
+    will have an all-inclusive range of [0,G_MAXUINT].
     """
 
     # gi Fields
@@ -3672,9 +3672,9 @@ class Attribute(GObject.GBoxed):
         """
     def init(self, klass: AttrClass) -> None:
         """
-            Initializes @attr's klass to @klass, it's start_index to
-        %PANGO_ATTR_INDEX_FROM_TEXT_BEGINNING and end_index to
-        %PANGO_ATTR_INDEX_TO_TEXT_END such that the attribute applies
+            Initializes `attr`'s klass to `klass`, it's start_index to
+        Pango.ATTR_INDEX_FROM_TEXT_BEGINNING and end_index to
+        Pango.ATTR_INDEX_TO_TEXT_END such that the attribute applies
         to the entire text by default.
         """
 
@@ -3708,16 +3708,16 @@ class Color(GObject.GBoxed):
         """
     def copy(self) -> Color | None:
         """
-            Creates a copy of @src.
+            Creates a copy of `src`.
 
-        The copy should be freed with [method@Pango.Color.free].
+        The copy should be freed with [method`Pango`.Color.free].
         Primarily used by language bindings, not that useful
         otherwise (since colors can just be copied by assignment
         in C).
         """
     def free(self) -> None:
         """
-        Frees a color allocated by [method@Pango.Color.copy].
+        Frees a color allocated by [method`Pango`.Color.copy].
         """
     def parse(self, spec: str) -> bool:
         """
@@ -3744,14 +3744,14 @@ class Color(GObject.GBoxed):
         `#fff`, `#ffffff`, `#fffffffff` and `#ffffffffffff`.)
 
         Additionally, parse strings of the form `#rgba`, `#rrggbbaa`,
-        `#rrrrggggbbbbaaaa`, if @alpha is not %NULL, and set @alpha
+        `#rrrrggggbbbbaaaa`, if `alpha` is not None, and set `alpha`
         to the value specified by the hex digits for `a`. If no alpha
-        component is found in @spec, @alpha is set to 0xffff (for a
+        component is found in `spec`, `alpha` is set to 0xffff (for a
         solid color).
         """
     def to_string(self) -> str:
         """
-            Returns a textual specification of @color.
+            Returns a textual specification of `color`.
 
         The string is in the hexadecimal form `#rrrrggggbbbb`,
         where `r`, `g` and `b` are hex digits representing the
@@ -3767,7 +3767,7 @@ class Context(GObject.Object):
     to look up fonts, and default values such as the default language,
     default gravity, or default font.
 
-    To obtain a `PangoContext`, use [method@Pango.FontMap.create_context].
+    To obtain a `PangoContext`, use [method`Pango`.FontMap.create_context].
     """
 
     # gi Methods
@@ -3789,13 +3789,13 @@ class Context(GObject.Object):
         """
             Retrieves the base direction for the context.
 
-        See [method@Pango.Context.set_base_dir].
+        See [method`Pango`.Context.set_base_dir].
         """
     def get_base_gravity(self) -> Gravity:
         """
             Retrieves the base gravity for the context.
 
-        See [method@Pango.Context.set_base_gravity].
+        See [method`Pango`.Context.set_base_gravity].
         """
     def get_font_description(self) -> FontDescription | None:
         """
@@ -3809,16 +3809,16 @@ class Context(GObject.Object):
         """
             Retrieves the gravity for the context.
 
-        This is similar to [method@Pango.Context.get_base_gravity],
-        except for when the base gravity is %PANGO_GRAVITY_AUTO for
-        which [func@Pango.Gravity.get_for_matrix] is used to return the
+        This is similar to [method`Pango`.Context.get_base_gravity],
+        except for when the base gravity is Pango.GRAVITY_AUTO for
+        which [func`Pango`.Gravity.get_for_matrix] is used to return the
         gravity from the current context matrix.
         """
     def get_gravity_hint(self) -> GravityHint:
         """
             Retrieves the gravity hint for the context.
 
-        See [method@Pango.Context.set_gravity_hint] for details.
+        See [method`Pango`.Context.set_gravity_hint] for details.
         """
     def get_language(self) -> Language:
         """
@@ -3829,7 +3829,7 @@ class Context(GObject.Object):
             Gets the transformation matrix that will be applied when
         rendering with this context.
 
-        See [method@Pango.Context.set_matrix].
+        See [method`Pango`.Context.set_matrix].
         """
     def get_metrics(self, desc: FontDescription | None = None, language: Language | None = None) -> FontMetrics:
         """
@@ -3839,7 +3839,7 @@ class Context(GObject.Object):
         a language tag can be provided to indicate that the metrics should be
         retrieved that correspond to the script(s) used by that language.
 
-        The `PangoFontDescription` is interpreted in the same way as by [func@itemize],
+        The `PangoFontDescription` is interpreted in the same way as by [func`itemize`],
         and the family name may be a comma separated list of names. If characters
         from multiple of these families would be used to render the string, then
         the returned fonts would be a composite of the metrics for the fonts loaded
@@ -3852,7 +3852,7 @@ class Context(GObject.Object):
         """
     def get_serial(self) -> int:
         """
-            Returns the current serial number of @context.
+            Returns the current serial number of `context`.
 
         The serial number is initialized to an small number larger than zero
         when a new context is created and is increased whenever the context
@@ -3872,12 +3872,12 @@ class Context(GObject.Object):
     def load_font(self, desc: FontDescription) -> Font | None:
         """
             Loads the font in one of the fontmaps in the context
-        that is the closest match for @desc.
+        that is the closest match for `desc`.
         """
     def load_fontset(self, desc: FontDescription, language: Language) -> Fontset | None:
         """
             Load a set of fonts in the context that can be used to render
-        a font matching @desc.
+        a font matching `desc`.
         """
     @classmethod
     def new(cls) -> Context:
@@ -3885,24 +3885,24 @@ class Context(GObject.Object):
             Creates a new `PangoContext` initialized to default values.
 
         This function is not particularly useful as it should always
-        be followed by a [method@Pango.Context.set_font_map] call, and the
-        function [method@Pango.FontMap.create_context] does these two steps
+        be followed by a [method`Pango`.Context.set_font_map] call, and the
+        function [method`Pango`.FontMap.create_context] does these two steps
         together and hence users are recommended to use that.
 
         If you are using Pango as part of a higher-level system,
         that system may have it's own way of create a `PangoContext`.
         For instance, the GTK toolkit has, among others,
-        `gtk_widget_get_pango_context()`. Use those instead.
+        ``gtk_widget_get_pango_context``. Use those instead.
         """
     def set_base_dir(self, direction: Direction) -> None:
         """
             Sets the base direction for the context.
 
         The base direction is used in applying the Unicode bidirectional
-        algorithm; if the @direction is %PANGO_DIRECTION_LTR or
-        %PANGO_DIRECTION_RTL, then the value will be used as the paragraph
+        algorithm; if the `direction` is Pango.DIRECTION_LTR or
+        Pango.DIRECTION_RTL, then the value will be used as the paragraph
         direction in the Unicode bidirectional algorithm. A value of
-        %PANGO_DIRECTION_WEAK_LTR or %PANGO_DIRECTION_WEAK_RTL is used only
+        Pango.DIRECTION_WEAK_LTR or Pango.DIRECTION_WEAK_RTL is used only
         for paragraphs that do not contain any strong characters themselves.
         """
     def set_base_gravity(self, gravity: Gravity) -> None:
@@ -3930,15 +3930,15 @@ class Context(GObject.Object):
 
         The gravity hint is used in laying vertical text out, and
         is only relevant if gravity of the context as returned by
-        [method@Pango.Context.get_gravity] is set to %PANGO_GRAVITY_EAST
-        or %PANGO_GRAVITY_WEST.
+        [method`Pango`.Context.get_gravity] is set to Pango.GRAVITY_EAST
+        or Pango.GRAVITY_WEST.
         """
     def set_language(self, language: Language | None = None) -> None:
         """
             Sets the global language tag for the context.
 
         The default language for the locale of the running process
-        can be found using [func@Pango.Language.get_default].
+        can be found using [func`Pango`.Language.get_default].
         """
     def set_matrix(self, matrix: Matrix | None = None) -> None:
         """
@@ -3974,7 +3974,7 @@ class ContextClass(GObject.GPointer):
 class Coverage(GObject.Object):
     """
     A `PangoCoverage` structure is a map from Unicode characters
-    to [enum@Pango.CoverageLevel] values.
+    to [enum`Pango`.CoverageLevel] values.
 
     It is often necessary in Pango to determine if a particular
     font can represent a particular character, and also how well
@@ -3996,19 +3996,19 @@ class Coverage(GObject.Object):
     @staticmethod
     def from_bytes(bytes: list, n_bytes: int) -> Coverage | None:
         """
-            Convert data generated from [method@Pango.Coverage.to_bytes]
+            Convert data generated from [method`Pango`.Coverage.to_bytes]
         back to a `PangoCoverage`.
         """
     def get(self, index_: int) -> CoverageLevel:
         """
-        Determine whether a particular index is covered by @coverage.
+        Determine whether a particular index is covered by `coverage`.
         """
     @deprecated("deprecated")
     def max(self, other: Coverage) -> None:
         """
-            Set the coverage for each index in @coverage to be the max (better)
+            Set the coverage for each index in `coverage` to be the max (better)
         value of the current coverage for the index and the coverage for
-        the corresponding index in @other.
+        the corresponding index in `other`.
         """
     @classmethod
     def new(cls) -> Coverage:
@@ -4022,7 +4022,7 @@ class Coverage(GObject.Object):
         """
     def set(self, index_: int, level: CoverageLevel) -> None:
         """
-        Modify a particular index within @coverage
+        Modify a particular index within `coverage`
         """
     @deprecated("deprecated")
     def to_bytes(self) -> tuple[list, int]:
@@ -4052,7 +4052,7 @@ class Font(GObject.Object):
         """
             Returns a description of the font, with font size set in points.
 
-        Use [method@Pango.Font.describe_with_absolute_size] if you want
+        Use [method`Pango`.Font.describe_with_absolute_size] if you want
         the font size in device units.
         """
     def describe_with_absolute_size(self) -> FontDescription:
@@ -4060,7 +4060,7 @@ class Font(GObject.Object):
             Returns a description of the font, with absolute font size set
         in device units.
 
-        Use [method@Pango.Font.describe] if you want the font size in points.
+        Use [method`Pango`.Font.describe] if you want the font size in points.
         """
     @deprecated("deprecated")
     @staticmethod
@@ -4071,12 +4071,12 @@ class Font(GObject.Object):
     @staticmethod
     def deserialize(context: Context, bytes: GLib.Bytes) -> Font | None:
         """
-            Loads data previously created via [method@Pango.Font.serialize].
+            Loads data previously created via [method`Pango`.Font.serialize].
 
         For a discussion of the supported format, see that function.
 
         Note: to verify that the returned font is identical to
-        the one that was serialized, you can compare @bytes to the
+        the one that was serialized, you can compare `bytes` to the
         result of serializing the font again.
         """
     def get_coverage(self, language: Language) -> Coverage:
@@ -4085,7 +4085,7 @@ class Font(GObject.Object):
         """
     def get_face(self) -> FontFace:
         """
-        Gets the `PangoFontFace` to which @font belongs.
+        Gets the `PangoFontFace` to which `font` belongs.
         """
     def get_features(self, len: int, num_features: int) -> tuple[list, int]:
         """
@@ -4105,7 +4105,7 @@ class Font(GObject.Object):
         the font map, so if all references to font map are
         dropped, the font map will be finalized even if there
         are fonts created with the font map that are still alive.
-        In that case this function will return %NULL.
+        In that case this function will return None.
 
         It is the responsibility of the user to ensure that the
         font map is kept alive. In most uses this is not an issue
@@ -4117,20 +4117,20 @@ class Font(GObject.Object):
 
         The coordinate system for each rectangle has its origin at the
         base line and horizontal origin of the character with increasing
-        coordinates extending to the right and down. The macros PANGO_ASCENT(),
-        PANGO_DESCENT(), PANGO_LBEARING(), and PANGO_RBEARING() can be used to convert
+        coordinates extending to the right and down. The macros `PANGO_ASCENT`,
+        `PANGO_DESCENT`, `PANGO_LBEARING`, and `PANGO_RBEARING` can be used to convert
         from the extents rectangle to more traditional font metrics. The units
         of the rectangles are in 1/PANGO_SCALE of a device unit.
 
-        If @font is %NULL, this function gracefully sets some sane values in the
+        If `font` is None, this function gracefully sets some sane values in the
         output variables and returns.
         """
     def get_languages(self) -> list | None:
         """
-            Returns the languages that are supported by @font.
+            Returns the languages that are supported by `font`.
 
         If the font backend does not provide this information,
-        %NULL is returned. For the fontconfig backend, this
+        None is returned. For the fontconfig backend, this
         corresponds to the FC_LANG member of the FcPattern.
 
         The returned array is only valid as long as the font
@@ -4144,7 +4144,7 @@ class Font(GObject.Object):
         a language tag can be provided to indicate that the metrics should be
         retrieved that correspond to the script(s) used by that language.
 
-        If @font is %NULL, this function gracefully sets some sane values in the
+        If `font` is None, this function gracefully sets some sane values in the
         output variables and returns.
         """
     def has_char(self, wc: str) -> bool:
@@ -4153,7 +4153,7 @@ class Font(GObject.Object):
         """
     def serialize(self) -> GLib.Bytes:
         """
-            Serializes the @font in a way that can be uniquely identified.
+            Serializes the `font` in a way that can be uniquely identified.
 
         There are no guarantees about the format of the output across different
         versions of Pango.
@@ -4161,7 +4161,7 @@ class Font(GObject.Object):
         The intended use of this function is testing, benchmarking and debugging.
         The format is not meant as a permanent storage format.
 
-        To recreate a font from its serialized form, use [func@Pango.Font.deserialize].
+        To recreate a font from its serialized form, use [func`Pango`.Font.deserialize].
         """
 
     # python methods (overrides?)
@@ -4258,17 +4258,17 @@ class FontDescription(GObject.GBoxed):
     # gi Methods
     def better_match(self, old_match: FontDescription | None, new_match: FontDescription) -> bool:
         """
-            Determines if the style attributes of @new_match are a closer match
-        for @desc than those of @old_match are, or if @old_match is %NULL,
-        determines if @new_match is a match at all.
+            Determines if the style attributes of `new_match` are a closer match
+        for `desc` than those of `old_match` are, or if `old_match` is None,
+        determines if `new_match` is a match at all.
 
         Approximate matching is done for weight and style; other style attributes
         must match exactly. Style attributes are all attributes other than family
         and size-related attributes. Approximate matching for style considers
-        %PANGO_STYLE_OBLIQUE and %PANGO_STYLE_ITALIC as matches, but not as good
+        Pango.STYLE_OBLIQUE and Pango.STYLE_ITALIC as matches, but not as good
         a match as when the styles are equal.
 
-        Note that @old_match must match @desc.
+        Note that `old_match` must match `desc`.
         """
     def copy(self) -> FontDescription | None:
         """
@@ -4279,9 +4279,9 @@ class FontDescription(GObject.GBoxed):
             Make a copy of a `PangoFontDescription`, but don't duplicate
         allocated fields.
 
-        This is like [method@Pango.FontDescription.copy], but only a shallow
+        This is like [method`Pango`.FontDescription.copy], but only a shallow
         copy is made of the family name and other allocated fields. The result
-        can only be used until @desc is modified or freed. This is meant
+        can only be used until `desc` is modified or freed. This is meant
         to be used when the copy is only needed temporarily.
         """
     def equal(self, desc2: FontDescription) -> bool:
@@ -4291,7 +4291,7 @@ class FontDescription(GObject.GBoxed):
         Two font descriptions are considered equal if the fonts they describe
         are provably identical. This means that their masks do not have to match,
         as long as other fields are all the same. (Two font descriptions may
-        result in identical fonts being loaded, but still compare %FALSE.)
+        result in identical fonts being loaded, but still compare False.)
         """
     def free(self) -> None:
         """
@@ -4342,7 +4342,7 @@ class FontDescription(GObject.GBoxed):
 
         Any one of the options may be absent. If FAMILY-LIST is absent, then
         the family_name field of the resulting font description will be
-        initialized to %NULL. If STYLE-OPTIONS is missing, then all style
+        initialized to None. If STYLE-OPTIONS is missing, then all style
         options will be set to the default values. If SIZE is missing, the
         size in the resulting font description will be set to 0.
 
@@ -4354,19 +4354,19 @@ class FontDescription(GObject.GBoxed):
         """
             Gets the family name field of a font description.
 
-        See [method@Pango.FontDescription.set_family].
+        See [method`Pango`.FontDescription.set_family].
         """
     def get_features(self) -> str | None:
         """
             Gets the features field of a font description.
 
-        See [method@Pango.FontDescription.set_features].
+        See [method`Pango`.FontDescription.set_features].
         """
     def get_gravity(self) -> Gravity:
         """
             Gets the gravity field of a font description.
 
-        See [method@Pango.FontDescription.set_gravity].
+        See [method`Pango`.FontDescription.set_gravity].
         """
     def get_set_fields(self) -> FontMask:
         """
@@ -4376,72 +4376,72 @@ class FontDescription(GObject.GBoxed):
         """
             Gets the size field of a font description.
 
-        See [method@Pango.FontDescription.set_size].
+        See [method`Pango`.FontDescription.set_size].
         """
     def get_size_is_absolute(self) -> bool:
         """
             Determines whether the size of the font is in points (not absolute)
         or device units (absolute).
 
-        See [method@Pango.FontDescription.set_size]
-        and [method@Pango.FontDescription.set_absolute_size].
+        See [method`Pango`.FontDescription.set_size]
+        and [method`Pango`.FontDescription.set_absolute_size].
         """
     def get_stretch(self) -> Stretch:
         """
             Gets the stretch field of a font description.
 
-        See [method@Pango.FontDescription.set_stretch].
+        See [method`Pango`.FontDescription.set_stretch].
         """
     def get_style(self) -> Style:
         """
             Gets the style field of a `PangoFontDescription`.
 
-        See [method@Pango.FontDescription.set_style].
+        See [method`Pango`.FontDescription.set_style].
         """
     def get_variant(self) -> Variant:
         """
             Gets the variant field of a `PangoFontDescription`.
 
-        See [method@Pango.FontDescription.set_variant].
+        See [method`Pango`.FontDescription.set_variant].
         """
     def get_variations(self) -> str | None:
         """
             Gets the variations field of a font description.
 
-        See [method@Pango.FontDescription.set_variations].
+        See [method`Pango`.FontDescription.set_variations].
         """
     def get_weight(self) -> Weight:
         """
             Gets the weight field of a font description.
 
-        See [method@Pango.FontDescription.set_weight].
+        See [method`Pango`.FontDescription.set_weight].
         """
     def hash(self) -> int:
         """
             Computes a hash of a `PangoFontDescription` structure.
 
         This is suitable to be used, for example, as an argument
-        to g_hash_table_new(). The hash value is independent of @desc->mask.
+        to `g_hash_table_new`. The hash value is independent of `desc`->mask.
         """
     def merge(self, desc_to_merge: FontDescription | None, replace_existing: bool) -> None:
         """
-            Merges the fields that are set in @desc_to_merge into the fields in
-        @desc.
+            Merges the fields that are set in `desc_to_merge` into the fields in
+        `desc`.
 
-        If @replace_existing is %FALSE, only fields in @desc that
-        are not already set are affected. If %TRUE, then fields that are
+        If `replace_existing` is False, only fields in `desc` that
+        are not already set are affected. If True, then fields that are
         already set will be replaced as well.
 
-        If @desc_to_merge is %NULL, this function performs nothing.
+        If `desc_to_merge` is None, this function performs nothing.
         """
     def merge_static(self, desc_to_merge: FontDescription, replace_existing: bool) -> None:
         """
-            Merges the fields that are set in @desc_to_merge into the fields in
-        @desc, without copying allocated fields.
+            Merges the fields that are set in `desc_to_merge` into the fields in
+        `desc`, without copying allocated fields.
 
-        This is like [method@Pango.FontDescription.merge], but only a shallow copy
-        is made of the family name and other allocated fields. @desc can only
-        be used until @desc_to_merge is modified or freed. This is meant to
+        This is like [method`Pango`.FontDescription.merge], but only a shallow copy
+        is made of the family name and other allocated fields. `desc` can only
+        be used until `desc_to_merge` is modified or freed. This is meant to
         be used when the merged font description is only needed temporarily.
         """
     @classmethod
@@ -4453,7 +4453,7 @@ class FontDescription(GObject.GBoxed):
         """
             Sets the size field of a font description, in device units.
 
-        This is mutually exclusive with [method@Pango.FontDescription.set_size]
+        This is mutually exclusive with [method`Pango`.FontDescription.set_size]
         which sets the font size in points.
         """
     def set_family(self, family: str) -> None:
@@ -4470,11 +4470,11 @@ class FontDescription(GObject.GBoxed):
         """
             Sets the family name field of a font description, without copying the string.
 
-        This is like [method@Pango.FontDescription.set_family], except that no
-        copy of @family is made. The caller must make sure that the
-        string passed in stays around until @desc has been freed or the
-        name is set again. This function can be used if @family is a static
-        string such as a C string literal, or if @desc is only needed temporarily.
+        This is like [method`Pango`.FontDescription.set_family], except that no
+        copy of `family` is made. The caller must make sure that the
+        string passed in stays around until `desc` has been freed or the
+        name is set again. This function can be used if `family` is a static
+        string such as a C string literal, or if `desc` is only needed temporarily.
         """
     def set_features(self, features: str | None = None) -> None:
         """
@@ -4507,20 +4507,20 @@ class FontDescription(GObject.GBoxed):
         """
             Sets the features field of a font description.
 
-        This is like [method@Pango.FontDescription.set_features], except
-        that no copy of @featuresis made. The caller must make sure that
-        the string passed in stays around until @desc has been freed
+        This is like [method`Pango`.FontDescription.set_features], except
+        that no copy of `featuresis` made. The caller must make sure that
+        the string passed in stays around until `desc` has been freed
         or the name is set again. This function can be used if
-        @features is a static string such as a C string literal,
-        or if @desc is only needed temporarily.
+        `features` is a static string such as a C string literal,
+        or if `desc` is only needed temporarily.
         """
     def set_gravity(self, gravity: Gravity) -> None:
         """
             Sets the gravity field of a font description.
 
         The gravity field
-        specifies how the glyphs should be rotated. If @gravity is
-        %PANGO_GRAVITY_AUTO, this actually unsets the gravity mask on
+        specifies how the glyphs should be rotated. If `gravity` is
+        Pango.GRAVITY_AUTO, this actually unsets the gravity mask on
         the font description.
 
         This function is seldom useful to the user. Gravity should normally
@@ -4531,22 +4531,22 @@ class FontDescription(GObject.GBoxed):
             Sets the size field of a font description in fractional points.
 
         This is mutually exclusive with
-        [method@Pango.FontDescription.set_absolute_size].
+        [method`Pango`.FontDescription.set_absolute_size].
         """
     def set_stretch(self, stretch: Stretch) -> None:
         """
             Sets the stretch field of a font description.
 
-        The [enum@Pango.Stretch] field specifies how narrow or
+        The [enum`Pango`.Stretch] field specifies how narrow or
         wide the font should be.
         """
     def set_style(self, style: Style) -> None:
         """
             Sets the style field of a `PangoFontDescription`.
 
-        The [enum@Pango.Style] enumeration describes whether the font is
+        The [enum`Pango`.Style] enumeration describes whether the font is
         slanted and the manner in which it is slanted; it can be either
-        %PANGO_STYLE_NORMAL, %PANGO_STYLE_ITALIC, or %PANGO_STYLE_OBLIQUE.
+        Pango.STYLE_NORMAL, Pango.STYLE_ITALIC, or Pango.STYLE_OBLIQUE.
 
         Most fonts will either have a italic style or an oblique style,
         but not both, and font matching in Pango will match italic
@@ -4557,8 +4557,8 @@ class FontDescription(GObject.GBoxed):
         """
             Sets the variant field of a font description.
 
-        The [enum@Pango.Variant] can either be %PANGO_VARIANT_NORMAL
-        or %PANGO_VARIANT_SMALL_CAPS.
+        The [enum`Pango`.Variant] can either be Pango.VARIANT_NORMAL
+        or Pango.VARIANT_SMALL_CAPS.
         """
     def set_variations(self, variations: str | None = None) -> None:
         """
@@ -4583,12 +4583,12 @@ class FontDescription(GObject.GBoxed):
         """
             Sets the variations field of a font description.
 
-        This is like [method@Pango.FontDescription.set_variations], except
-        that no copy of @variations is made. The caller must make sure that
-        the string passed in stays around until @desc has been freed
+        This is like [method`Pango`.FontDescription.set_variations], except
+        that no copy of `variations` is made. The caller must make sure that
+        the string passed in stays around until `desc` has been freed
         or the name is set again. This function can be used if
-        @variations is a static string such as a C string literal,
-        or if @desc is only needed temporarily.
+        `variations` is a static string such as a C string literal,
+        or if `desc` is only needed temporarily.
         """
     def set_weight(self, weight: Weight) -> None:
         """
@@ -4596,7 +4596,7 @@ class FontDescription(GObject.GBoxed):
 
         The weight field
         specifies how bold or light the font should be. In addition
-        to the values of the [enum@Pango.Weight] enumeration, other
+        to the values of the [enum`Pango`.Weight] enumeration, other
         intermediate numeric values are possible.
         """
     def to_filename(self) -> str | None:
@@ -4604,7 +4604,7 @@ class FontDescription(GObject.GBoxed):
             Creates a filename representation of a font description.
 
         The filename is identical to the result from calling
-        [method@Pango.FontDescription.to_string], but with underscores
+        [method`Pango`.FontDescription.to_string], but with underscores
         instead of characters that are untypical in filenames, and in
         lower case only.
         """
@@ -4612,7 +4612,7 @@ class FontDescription(GObject.GBoxed):
         """
             Creates a string representation of a font description.
 
-        See [func@Pango.FontDescription.from_string] for a description
+        See [func`Pango`.FontDescription.from_string] for a description
         of the format of the string representation. The family list in
         the string description will only have a terminating comma if
         the last word of the list is a valid style option.
@@ -4663,7 +4663,7 @@ class FontFace(GObject.Object):
         """
     def get_family(self) -> FontFamily:
         """
-        Gets the `PangoFontFamily` that @face belongs to.
+        Gets the `PangoFontFamily` that `face` belongs to.
         """
     def is_synthesized(self) -> bool:
         """
@@ -4678,8 +4678,8 @@ class FontFace(GObject.Object):
             List the available sizes for a font.
 
         This is only applicable to bitmap fonts. For scalable fonts, stores
-        %NULL at the location pointed to by @sizes and 0 at the location pointed
-        to by @n_sizes. The sizes returned are in Pango units and are sorted
+        None at the location pointed to by `sizes` and 0 at the location pointed
+        to by `n_sizes`. The sizes returned are in Pango units and are sorted
         in ascending order.
         """
 
@@ -4777,7 +4777,7 @@ class FontFamily(GObject.Object):
         """
     def get_face(self, name: str | None = None) -> FontFace | None:
         """
-        Gets the `PangoFontFace` of @family with the given name.
+        Gets the `PangoFontFace` of `family` with the given name.
         """
     @builtins.property
     def get_name(self) -> str:
@@ -4798,12 +4798,12 @@ class FontFamily(GObject.Object):
         mean that the advance width of all characters are the same, but
         this categorization also includes Asian fonts which include
         double-width characters: characters that occupy two grid cells.
-        g_unichar_iswide() returns a result that indicates whether a
+        `g_unichar_iswide` returns a result that indicates whether a
         character is typically double-width in a monospace font.
 
         The best way to find out the grid-cell size is to call
-        [method@Pango.FontMetrics.get_approximate_digit_width], since the
-        results of [method@Pango.FontMetrics.get_approximate_char_width] may
+        [method`Pango`.FontMetrics.get_approximate_digit_width], since the
+        results of [method`Pango`.FontMetrics.get_approximate_char_width] may
         be affected by double-width characters.
         """
     @builtins.property
@@ -4813,11 +4813,11 @@ class FontFamily(GObject.Object):
         produce different faces.
 
         Such axes are also known as _variations_; see
-        [method@Pango.FontDescription.set_variations] for more information.
+        [method`Pango`.FontDescription.set_variations] for more information.
         """
     def list_faces(self) -> tuple[list, int]:
         """
-            Lists the different font faces that make up @family.
+            Lists the different font faces that make up `family`.
 
         The faces in a family share a common design, but differ in slant, weight,
         width and other aspects.
@@ -4825,7 +4825,7 @@ class FontFamily(GObject.Object):
         Note that the returned faces are not in any particular order, and
         multiple faces may have the same name or characteristics.
 
-        `PangoFontFamily` also implemented the [iface@Gio.ListModel] interface
+        `PangoFontFamily` also implemented the [iface`Gio`.ListModel] interface
         for enumerating faces.
         """
 
@@ -4970,15 +4970,15 @@ class FontMap(GObject.Object):
         """
     def create_context(self) -> Context:
         """
-            Creates a `PangoContext` connected to @fontmap.
+            Creates a `PangoContext` connected to `fontmap`.
 
-        This is equivalent to [ctor@Pango.Context.new] followed by
-        [method@Pango.Context.set_font_map].
+        This is equivalent to [ctor`Pango`.Context.new] followed by
+        [method`Pango`.Context.set_font_map].
 
         If you are using Pango as part of a higher-level system,
         that system may have it's own way of create a `PangoContext`.
         For instance, the GTK toolkit has, among others,
-        gtk_widget_get_pango_context(). Use those instead.
+        `gtk_widget_get_pango_context`. Use those instead.
         """
     def get_family(self, name: str) -> FontFamily:
         """
@@ -4986,7 +4986,7 @@ class FontMap(GObject.Object):
         """
     def get_serial(self) -> int:
         """
-            Returns the current serial number of @fontmap.
+            Returns the current serial number of `fontmap`.
 
         The serial number is initialized to an small number larger than zero
         when a new fontmap is created and is increased whenever the fontmap
@@ -5005,26 +5005,26 @@ class FontMap(GObject.Object):
 
         Note that the returned families are not in any particular order.
 
-        `PangoFontMap` also implemented the [iface@Gio.ListModel] interface
+        `PangoFontMap` also implemented the [iface`Gio`.ListModel] interface
         for enumerating families.
         """
     def load_font(self, context: Context, desc: FontDescription) -> Font | None:
         """
-        Load the font in the fontmap that is the closest match for @desc.
+        Load the font in the fontmap that is the closest match for `desc`.
         """
     def load_fontset(self, context: Context, desc: FontDescription, language: Language) -> Fontset | None:
         """
             Load a set of fonts in the fontmap that can be used to render
-        a font matching @desc.
+        a font matching `desc`.
         """
     def reload_font(
         self, font: Font, scale: float, context: Context | None = None, variations: str | None = None
     ) -> Font:
         """
-            Returns a new font that is like @font, except that it is scaled
-        by @scale, its backend-dependent configuration (e.g. cairo font options)
-        is replaced by the one in @context, and its variations are replaced
-        by @variations.
+            Returns a new font that is like `font`, except that it is scaled
+        by `scale`, its backend-dependent configuration (e.g. cairo font options)
+        is replaced by the one in `context`, and its variations are replaced
+        by `variations`.
 
         Note that the scaling here is meant to be linear, so this
         scaling can be used to render a font on a hi-dpi display
@@ -5105,7 +5105,7 @@ class FontMapClass(GObject.GPointer):
     @builtins.property
     def changed(self) -> changedFontMapClassCB:
         """
-        See pango_font_map_changed()
+        See `Pango.font_map_changed`
         """
     @builtins.property
     def get_family(self) -> get_familyFontMapClassCB: ...
@@ -5113,25 +5113,25 @@ class FontMapClass(GObject.GPointer):
     def get_serial(self) -> get_serialFontMapClassCB:
         """
             a function to get the serial number of the fontmap.
-        See pango_font_map_get_serial().
+        See `Pango.font_map_get_serial`.
         """
     @builtins.property
     def list_families(self) -> list_familiesFontMapClassCB:
         """
             A function to list available font families. See
-        pango_font_map_list_families().
+        `Pango.font_map_list_families`.
         """
     @builtins.property
     def load_font(self) -> load_fontFontMapClassCB | None:
         """
             a function to load a font with a given description. See
-        pango_font_map_load_font().
+        `Pango.font_map_load_font`.
         """
     @builtins.property
     def load_fontset(self) -> load_fontsetFontMapClassCB | None:
         """
             a function to load a fontset with a given given description
-        suitable for a particular language. See pango_font_map_load_fontset().
+        suitable for a particular language. See `Pango.font_map_load_fontset`.
         """
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None:
@@ -5212,7 +5212,7 @@ class FontMetrics(GObject.GBoxed):
         determining the initial size for a window. Actual digits in
         text can be wider or narrower than this, though this value
         is generally somewhat more accurate than the result of
-        pango_font_metrics_get_approximate_char_width() for digits.
+        `Pango.font_metrics_get_approximate_char_width` for digits.
         """
     def get_ascent(self) -> int:
         """
@@ -5292,10 +5292,10 @@ class Fontset(GObject.Object):
         """
     def foreach(self, func: FontsetForeachFunc, data: object | None = None) -> None:
         """
-            Iterates through all the fonts in a fontset, calling @func for
+            Iterates through all the fonts in a fontset, calling `func` for
         each one.
 
-        If @func returns %TRUE, that stops the iteration.
+        If `func` returns True, that stops the iteration.
         """
     def get_font(self, wc: int) -> Font:
         """
@@ -5347,13 +5347,13 @@ class FontsetClass(GObject.GPointer):
     def foreach(self) -> foreachFontsetClassCB:
         """
           a function to loop over the fonts in the fontset. See
-        [method@Pango.Fontset.foreach]
+        [method`Pango`.Fontset.foreach]
         """
     @builtins.property
     def get_font(self) -> get_fontFontsetClassCB:
         """
           a function to get the font in the fontset that contains the
-        best glyph for the given Unicode character; see [method@Pango.Fontset.get_font]
+        best glyph for the given Unicode character; see [method`Pango`.Fontset.get_font]
         """
     @builtins.property
     def get_language(self) -> get_languageFontsetClassCB:
@@ -5364,7 +5364,7 @@ class FontsetClass(GObject.GPointer):
     def get_metrics(self) -> get_metricsFontsetClassCB:
         """
           a function to get overall metric information for the fonts
-        in the fontset; see [method@Pango.Fontset.get_metrics]
+        in the fontset; see [method`Pango`.Fontset.get_metrics]
         """
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None:
@@ -5396,7 +5396,7 @@ class FontsetSimple(Fontset):
         """
             Adds a font to the fontset.
 
-        The fontset takes ownership of @font.
+        The fontset takes ownership of `font`.
         """
     @classmethod
     def new(cls, language: Language) -> FontsetSimple:
@@ -5420,9 +5420,9 @@ class GlyphGeometry(GObject.GPointer):
     The `PangoGlyphGeometry` structure contains width and positioning
     information for a single glyph.
 
-    Note that @width is not guaranteed to be the same as the glyph
+    Note that `width` is not guaranteed to be the same as the glyph
     extents. Kerning and other positioning applied during shaping will
-    affect both the @width and the @x_offset for the glyphs in the
+    affect both the `width` and the `x_offset` for the glyphs in the
     glyph string that results from shaping.
 
     The information in this struct is intended for rendering the glyphs,
@@ -5538,17 +5538,17 @@ class GlyphItem(GObject.GBoxed):
 
         The idea is that if you have attributes that don't affect shaping,
         such as color or underline, to avoid affecting shaping, you filter
-        them out ([method@Pango.AttrList.filter]), apply the shaping process
+        them out ([method`Pango`.AttrList.filter]), apply the shaping process
         and then reapply them to the result using this function.
 
         All attributes that start or end inside a cluster are applied
         to that cluster; for instance, if half of a cluster is underlined
         and the other-half strikethrough, then the cluster will end
         up with both underline and strikethrough attributes. In these
-        cases, it may happen that @item->extra_attrs for some of the
+        cases, it may happen that `item`->extra_attrs for some of the
         result items can have multiple attributes of the same type.
 
-        This function takes ownership of @glyph_item; it will be reused
+        This function takes ownership of `glyph_item`; it will be reused
         as one of the elements in the list.
         """
     def copy(self) -> GlyphItem | None:
@@ -5567,25 +5567,25 @@ class GlyphItem(GObject.GBoxed):
         When multiple characters compose a single cluster, the width of the
         entire cluster is divided equally among the characters.
 
-        See also [method@Pango.GlyphString.get_logical_widths].
+        See also [method`Pango`.GlyphString.get_logical_widths].
         """
     def letter_space(self, text: str, log_attrs: list, letter_spacing: int) -> None:
         """
-            Adds spacing between the graphemes of @glyph_item to
+            Adds spacing between the graphemes of `glyph_item` to
         give the effect of typographic letter spacing.
         """
     def split(self, text: str, split_index: int) -> GlyphItem | None:
         """
-            Modifies @orig to cover only the text after @split_index, and
-        returns a new item that covers the text before @split_index that
-        used to be in @orig.
+            Modifies `orig` to cover only the text after `split_index`, and
+        returns a new item that covers the text before `split_index` that
+        used to be in `orig`.
 
-        You can think of @split_index as the length of the returned item.
-        @split_index may not be 0, and it may not be greater than or equal
-        to the length of @orig (that is, there must be at least one byte
+        You can think of `split_index` as the length of the returned item.
+        `split_index` may not be 0, and it may not be greater than or equal
+        to the length of `orig` (that is, there must be at least one byte
         assigned to each item, you can't create a zero-length item).
 
-        This function is similar in function to pango_item_split() (and uses
+        This function is similar in function to `Pango.item_split` (and uses
         it internally.)
         """
 
@@ -5595,17 +5595,17 @@ class GlyphItemIter(GObject.GBoxed):
     `PangoGlyphItem`.
 
     The *forward direction* of the iterator is the logical direction of text.
-    That is, with increasing @start_index and @start_char values. If @glyph_item
+    That is, with increasing `start_index` and `start_char` values. If `glyph_item`
     is right-to-left (that is, if `glyph_item->item->analysis.level` is odd),
-    then @start_glyph decreases as the iterator moves forward.  Moreover,
-    in right-to-left cases, @start_glyph is greater than @end_glyph.
+    then `start_glyph` decreases as the iterator moves forward.  Moreover,
+    in right-to-left cases, `start_glyph` is greater than `end_glyph`.
 
     An iterator should be initialized using either
-    pango_glyph_item_iter_init_start() or
-    pango_glyph_item_iter_init_end(), for forward and backward iteration
+    `Pango.glyph_item_iter_init_start` or
+    `Pango.glyph_item_iter_init_end`, for forward and backward iteration
     respectively, and walked over using any desired mixture of
-    pango_glyph_item_iter_next_cluster() and
-    pango_glyph_item_iter_prev_cluster().
+    `Pango.glyph_item_iter_next_cluster` and
+    `Pango.glyph_item_iter_prev_cluster`.
 
     A common idiom for doing a forward iteration over the clusters is:
 
@@ -5622,11 +5622,11 @@ class GlyphItemIter(GObject.GBoxed):
     }
     ```
 
-    Note that @text is the start of the text for layout, which is then
-    indexed by `glyph_item->item->offset` to get to the text of @glyph_item.
-    The @start_index and @end_index values can directly index into @text. The
-    @start_glyph, @end_glyph, @start_char, and @end_char values however are
-    zero-based for the @glyph_item.  For each cluster, the item pointed at by
+    Note that `text` is the start of the text for layout, which is then
+    indexed by `glyph_item->item->offset` to get to the text of `glyph_item`.
+    The `start_index` and `end_index` values can directly index into `text`. The
+    `start_glyph`, `end_glyph`, `start_char`, and `end_char` values however are
+    zero-based for the `glyph_item`.  For each cluster, the item pointed at by
     the start variables is included in the cluster while the one pointed at by
     end variables is not.
 
@@ -5720,7 +5720,7 @@ class GlyphString(GObject.GBoxed):
         """
             Compute the logical and ink extents of a glyph string.
 
-        See the documentation for [method@Pango.Font.get_glyph_extents] for details
+        See the documentation for [method`Pango`.Font.get_glyph_extents] for details
         about the interpretation of the rectangles.
 
         Examples of logical (red) and ink (green) rects:
@@ -5747,16 +5747,16 @@ class GlyphString(GObject.GBoxed):
         When multiple characters compose a single cluster, the width of the
         entire cluster is divided equally among the characters.
 
-        See also [method@Pango.GlyphItem.get_logical_widths].
+        See also [method`Pango`.GlyphItem.get_logical_widths].
         """
     def get_width(self) -> int:
         """
             Computes the logical width of the glyph string.
 
-        This can also be computed using [method@Pango.GlyphString.extents].
+        This can also be computed using [method`Pango`.GlyphString.extents].
         However, since this only computes the width, it's much faster. This
         is in fact only a convenience function that computes the sum of
-        @geometry.width for each glyph in the @glyphs.
+        `geometry`.width for each glyph in the `glyphs`.
         """
     def index_to_x(self, text: str, length: int, analysis: Analysis, index_: int, trailing: bool) -> int:
         """
@@ -5778,7 +5778,7 @@ class GlyphString(GObject.GBoxed):
         """
             Converts from character position to x position.
 
-        This variant of [method@Pango.GlyphString.index_to_x] additionally
+        This variant of [method`Pango`.GlyphString.index_to_x] additionally
         accepts a `PangoLogAttr` array. The grapheme boundary information
         in it can be used to disambiguate positioning inside some complex
         clusters.
@@ -5847,7 +5847,7 @@ class Item(GObject.GBoxed):
     The `PangoItem` structure stores information about a segment of text.
 
     You typically obtain `PangoItems` by itemizing a piece of text
-    with [func@itemize].
+    with [func`itemize`].
     """
 
     # gi Fields
@@ -5879,10 +5879,10 @@ class Item(GObject.GBoxed):
 
         The idea is that you have attributes that don't affect itemization,
         such as font features, so you filter them out using
-        [method@Pango.AttrList.filter], itemize your text, then reapply the
+        [method`Pango`.AttrList.filter], itemize your text, then reapply the
         attributes to the resulting items using this function.
 
-        The @iter should be positioned before the range of the item,
+        The `iter` should be positioned before the range of the item,
         and will be advanced past it. This function is meant to be called
         in a loop over the items resulting from itemization, while passing
         the iter to each call.
@@ -5911,17 +5911,17 @@ class Item(GObject.GBoxed):
         """
     def split(self, split_index: int, split_offset: int) -> Item:
         """
-            Modifies @orig to cover only the text after @split_index, and
-        returns a new item that covers the text before @split_index that
-        used to be in @orig.
+            Modifies `orig` to cover only the text after `split_index`, and
+        returns a new item that covers the text before `split_index` that
+        used to be in `orig`.
 
-        You can think of @split_index as the length of the returned item.
-        @split_index may not be 0, and it may not be greater than or equal
-        to the length of @orig (that is, there must be at least one byte
+        You can think of `split_index` as the length of the returned item.
+        `split_index` may not be 0, and it may not be greater than or equal
+        to the length of `orig` (that is, there must be at least one byte
         assigned to each item, you can't create a zero-length item).
-        @split_offset is the length of the first item in chars, and must be
+        `split_offset` is the length of the first item in chars, and must be
         provided because the text used to generate the item isn't available,
-        so `pango_item_split()` can't count the char length of the split items
+        so ``Pango.item_split`` can't count the char length of the split items
         itself.
         """
 
@@ -5959,7 +5959,7 @@ class Language(GObject.GBoxed):
         lowercase, mapping '_' to '-', and stripping all characters other
         than letters and '-'.
 
-        Use [func@Pango.Language.get_default] if you want to get the
+        Use [func`Pango`.Language.get_default] if you want to get the
         `PangoLanguage` for the current locale of the process.
         """
     @staticmethod
@@ -5968,7 +5968,7 @@ class Language(GObject.GBoxed):
             Returns the `PangoLanguage` for the current locale of the process.
 
         On Unix systems, this is the return value is derived from
-        `setlocale (LC_CTYPE, NULL)`, and the user can
+        `setlocale (LC_CTYPE, None)`, and the user can
         affect this through the environment variables LC_ALL, LC_CTYPE or
         LANG (checked in that order). The locale string typically is in
         the form lang_COUNTRY, where lang is an ISO-639 language code, and
@@ -5978,8 +5978,8 @@ class Language(GObject.GBoxed):
 
         On Windows, the C library does not use any such environment
         variables, and setting them won't affect the behavior of functions
-        like ctime(). The user sets the locale through the Regional Options
-        in the Control Panel. The C library (in the setlocale() function)
+        like `ctime`. The user sets the locale through the Regional Options
+        in the Control Panel. The C library (in the `setlocale` function)
         does not use country and language codes, but country and language
         names spelled out in English.
         However, this function does check the above environment
@@ -5988,14 +5988,14 @@ class Language(GObject.GBoxed):
 
         Your application should call `setlocale(LC_ALL, "")` for the user
         settings to take effect. GTK does this in its initialization
-        functions automatically (by calling gtk_set_locale()).
-        See the setlocale() manpage for more details.
+        functions automatically (by calling `gtk_set_locale`).
+        See the `setlocale` manpage for more details.
 
         Note that the default language can change over the life of an application.
 
         Also note that this function will not do the right thing if you
-        use per-thread locales with uselocale(). In that case, you should
-        just call pango_language_from_string() yourself.
+        use per-thread locales with `uselocale`. In that case, you should
+        just call `Pango.language_from_string` yourself.
         """
     @staticmethod
     def get_preferred() -> list | None:
@@ -6005,10 +6005,10 @@ class Language(GObject.GBoxed):
         The list is specified by the `PANGO_LANGUAGE` or `LANGUAGE`
         environment variables, in order of preference. Note that this
         list does not necessarily include the language returned by
-        [func@Pango.Language.get_default].
+        [func`Pango`.Language.get_default].
 
         When choosing language-specific resources, such as the sample
-        text returned by [method@Pango.Language.get_sample_string],
+        text returned by [method`Pango`.Language.get_sample_string],
         you should first try the default language, followed by the
         languages returned by this function.
         """
@@ -6022,10 +6022,10 @@ class Language(GObject.GBoxed):
         font feature requirements unique to the language. It is suitable for use
         as sample text in a font selection dialog.
 
-        If @language is %NULL, the default language as found by
-        [func@Pango.Language.get_default] is used.
+        If `language` is None, the default language as found by
+        [func`Pango`.Language.get_default] is used.
 
-        If Pango does not have a sample string for @language, the classic
+        If Pango does not have a sample string for `language`, the classic
         "The quick brown fox..." is returned.  This can be detected by
         comparing the returned pointer value to that returned for (non-existent)
         language code "xx".  That is, compare to:
@@ -6036,24 +6036,24 @@ class Language(GObject.GBoxed):
         """
     def get_scripts(self) -> tuple[list | None, int]:
         """
-            Determines the scripts used to to write @language.
+            Determines the scripts used to to write `language`.
 
-        If nothing is known about the language tag @language,
-        or if @language is %NULL, then %NULL is returned.
+        If nothing is known about the language tag `language`,
+        or if `language` is None, then None is returned.
         The list of scripts returned starts with the script that the
         language uses most and continues to the one it uses least.
 
-        The value @num_script points at will be set to the number
-        of scripts in the returned array (or zero if %NULL is returned).
+        The value `num_script` points at will be set to the number
+        of scripts in the returned array (or zero if None is returned).
 
         Most languages use only one script for writing, but there are
         some that use two (Latin and Cyrillic for example), and a few
         use three (Japanese for example). Applications should not make
         any assumptions on the maximum number of scripts returned
         though, except that it is positive if the return value is not
-        %NULL, and it is a small number.
+        None, and it is a small number.
 
-        The [method@Pango.Language.includes_script] function uses this
+        The [method`Pango`.Language.includes_script] function uses this
         function internally.
 
         Note: while the return value is declared as `PangoScript`, the
@@ -6062,19 +6062,19 @@ class Language(GObject.GBoxed):
         """
     def includes_script(self, script: Script) -> bool:
         """
-            Determines if @script is one of the scripts used to
-        write @language.
+            Determines if `script` is one of the scripts used to
+        write `language`.
 
         The returned value is conservative; if nothing is known about
-        the language tag @language, %TRUE will be returned, since, as
-        far as Pango knows, @script might be used to write @language.
+        the language tag `language`, True will be returned, since, as
+        far as Pango knows, `script` might be used to write `language`.
 
         This routine is used in Pango's itemization process when
         determining if a supplied language tag is relevant to
         a particular section of text. It probably is not useful
         for applications in most circumstances.
 
-        This function uses [method@Pango.Language.get_scripts] internally.
+        This function uses [method`Pango`.Language.get_scripts] internally.
         """
     def matches(self, range_list: str) -> bool:
         """
@@ -6157,12 +6157,12 @@ class Layout(GObject.Object):
     @staticmethod
     def deserialize(context: Context, bytes: GLib.Bytes, flags: LayoutDeserializeFlags) -> Layout | None:
         """
-            Loads data previously created via [method@Pango.Layout.serialize].
+            Loads data previously created via [method`Pango`.Layout.serialize].
 
         For a discussion of the supported format, see that function.
 
         Note: to verify that the returned layout is identical to
-        the one that was serialized, you can compare @bytes to the
+        the one that was serialized, you can compare `bytes` to the
         result of serializing the layout again.
         """
     def get_alignment(self) -> Alignment:
@@ -6179,18 +6179,18 @@ class Layout(GObject.Object):
             Gets whether to calculate the base direction for the layout
         according to its contents.
 
-        See [method@Pango.Layout.set_auto_dir].
+        See [method`Pango`.Layout.set_auto_dir].
         """
     def get_baseline(self) -> int:
         """
-        Gets the Y position of baseline of the first line in @layout.
+        Gets the Y position of baseline of the first line in `layout`.
         """
     def get_caret_pos(self, index_: int) -> tuple[Rectangle, Rectangle]:
         """
             Given an index within a layout, determines the positions that of the
         strong and weak cursors if the insertion point is at that index.
 
-        This is a variant of [method@Pango.Layout.get_cursor_pos] that applies
+        This is a variant of [method`Pango`.Layout.get_cursor_pos] that applies
         font metric information about caret slope and offset to the positions
         it returns.
 
@@ -6202,7 +6202,7 @@ class Layout(GObject.Object):
     def get_character_count(self) -> int:
         """
             Returns the number of Unicode characters in the
-        the text of @layout.
+        the text of `layout`.
         """
     def get_context(self) -> Context:
         """
@@ -6240,20 +6240,20 @@ class Layout(GObject.Object):
         """
     def get_direction(self, index: int) -> Direction:
         """
-        Gets the text direction at the given character position in @layout.
+        Gets the text direction at the given character position in `layout`.
         """
     def get_ellipsize(self) -> EllipsizeMode:
         """
-            Gets the type of ellipsization being performed for @layout.
+            Gets the type of ellipsization being performed for `layout`.
 
-        See [method@Pango.Layout.set_ellipsize].
+        See [method`Pango`.Layout.set_ellipsize].
 
-        Use [method@Pango.Layout.is_ellipsized] to query whether any
+        Use [method`Pango`.Layout.is_ellipsized] to query whether any
         paragraphs were actually ellipsized.
         """
     def get_extents(self) -> tuple[Rectangle, Rectangle]:
         """
-            Computes the logical and ink extents of @layout.
+            Computes the logical and ink extents of `layout`.
 
         Logical extents are usually what you want for positioning things. Note
         that both extents may have non-zero x and y. You may want to use those
@@ -6272,7 +6272,7 @@ class Layout(GObject.Object):
         """
             Gets the height of layout used for ellipsization.
 
-        See [method@Pango.Layout.set_height] for details.
+        See [method`Pango`.Layout.set_height] for details.
         """
     def get_indent(self) -> int:
         """
@@ -6298,82 +6298,82 @@ class Layout(GObject.Object):
         """
             Retrieves a particular line from a `PangoLayout`.
 
-        Use the faster [method@Pango.Layout.get_line_readonly] if you do not
+        Use the faster [method`Pango`.Layout.get_line_readonly] if you do not
         plan to modify the contents of the line (glyphs, glyph widths, etc.).
         """
     def get_line_count(self) -> int:
         """
-        Retrieves the count of lines for the @layout.
+        Retrieves the count of lines for the `layout`.
         """
     def get_line_readonly(self, line: int) -> LayoutLine | None:
         """
             Retrieves a particular line from a `PangoLayout`.
 
-        This is a faster alternative to [method@Pango.Layout.get_line],
+        This is a faster alternative to [method`Pango`.Layout.get_line],
         but the user is not expected to modify the contents of the line
         (glyphs, glyph widths, etc.).
         """
     def get_line_spacing(self) -> float:
         """
-            Gets the line spacing factor of @layout.
+            Gets the line spacing factor of `layout`.
 
-        See [method@Pango.Layout.set_line_spacing].
+        See [method`Pango`.Layout.set_line_spacing].
         """
     def get_lines(self) -> list:
         """
-            Returns the lines of the @layout as a list.
+            Returns the lines of the `layout` as a list.
 
-        Use the faster [method@Pango.Layout.get_lines_readonly] if you do not
+        Use the faster [method`Pango`.Layout.get_lines_readonly] if you do not
         plan to modify the contents of the lines (glyphs, glyph widths, etc.).
         """
     def get_lines_readonly(self) -> list:
         """
-            Returns the lines of the @layout as a list.
+            Returns the lines of the `layout` as a list.
 
-        This is a faster alternative to [method@Pango.Layout.get_lines],
+        This is a faster alternative to [method`Pango`.Layout.get_lines],
         but the user is not expected to modify the contents of the lines
         (glyphs, glyph widths, etc.).
         """
     def get_log_attrs(self) -> tuple[list, int]:
         """
             Retrieves an array of logical attributes for each character in
-        the @layout.
+        the `layout`.
         """
     def get_log_attrs_readonly(self) -> tuple[list, int]:
         """
             Retrieves an array of logical attributes for each character in
-        the @layout.
+        the `layout`.
 
-        This is a faster alternative to [method@Pango.Layout.get_log_attrs].
-        The returned array is part of @layout and must not be modified.
+        This is a faster alternative to [method`Pango`.Layout.get_log_attrs].
+        The returned array is part of `layout` and must not be modified.
         Modifying the layout will invalidate the returned array.
 
-        The number of attributes returned in @n_attrs will be one more
+        The number of attributes returned in `n_attrs` will be one more
         than the total number of characters in the layout, since there
         need to be attributes corresponding to both the position before
         the first character and the position after the last character.
         """
     def get_pixel_extents(self) -> tuple[Rectangle, Rectangle]:
         """
-            Computes the logical and ink extents of @layout in device units.
+            Computes the logical and ink extents of `layout` in device units.
 
-        This function just calls [method@Pango.Layout.get_extents] followed by
-        two [func@extents_to_pixels] calls, rounding @ink_rect and @logical_rect
+        This function just calls [method`Pango`.Layout.get_extents] followed by
+        two [func`extents_to_pixels`] calls, rounding `ink_rect` and `logical_rect`
         such that the rounded rectangles fully contain the unrounded one (that is,
-        passes them as first argument to [func@Pango.extents_to_pixels]).
+        passes them as first argument to [func`Pango`.extents_to_pixels]).
         """
     def get_pixel_size(self) -> tuple[int, int]:
         """
             Determines the logical width and height of a `PangoLayout` in device
         units.
 
-        [method@Pango.Layout.get_size] returns the width and height
-        scaled by %PANGO_SCALE. This is simply a convenience function
-        around [method@Pango.Layout.get_pixel_extents].
+        [method`Pango`.Layout.get_size] returns the width and height
+        scaled by Pango.SCALE. This is simply a convenience function
+        around [method`Pango`.Layout.get_pixel_extents].
         """
     def get_serial(self) -> int:
         """
-            Returns the current serial number of @layout.
+            Returns the current serial number of `layout`.
 
         The serial number is initialized to an small number larger than zero
         when a new layout is created and is increased whenever the layout is
@@ -6384,20 +6384,20 @@ class Layout(GObject.Object):
         This can be used to automatically detect changes to a `PangoLayout`,
         and is useful for example to decide whether a layout needs redrawing.
         To force the serial to be increased, use
-        [method@Pango.Layout.context_changed].
+        [method`Pango`.Layout.context_changed].
         """
     def get_single_paragraph_mode(self) -> bool:
         """
-            Obtains whether @layout is in single paragraph mode.
+            Obtains whether `layout` is in single paragraph mode.
 
-        See [method@Pango.Layout.set_single_paragraph_mode].
+        See [method`Pango`.Layout.set_single_paragraph_mode].
         """
     def get_size(self) -> tuple[int, int]:
         """
             Determines the logical width and height of a `PangoLayout` in Pango
         units.
 
-        This is simply a convenience function around [method@Pango.Layout.get_extents].
+        This is simply a convenience function around [method`Pango`.Layout.get_extents].
         """
     def get_spacing(self) -> int:
         """
@@ -6408,9 +6408,9 @@ class Layout(GObject.Object):
             Gets the current `PangoTabArray` used by this layout.
 
         If no `PangoTabArray` has been set, then the default tabs are
-        in use and %NULL is returned. Default tabs are every 8 spaces.
+        in use and None is returned. Default tabs are every 8 spaces.
 
-        The return value should be freed with [method@Pango.TabArray.free].
+        The return value should be freed with [method`Pango`.TabArray.free].
         """
     def get_text(self) -> str:
         """
@@ -6420,11 +6420,11 @@ class Layout(GObject.Object):
         """
     def get_unknown_glyphs_count(self) -> int:
         """
-            Counts the number of unknown glyphs in @layout.
+            Counts the number of unknown glyphs in `layout`.
 
         This function can be used to determine if there are any fonts
         available to render all characters in a certain string, or when
-        used in combination with %PANGO_ATTR_FALLBACK, to check if a
+        used in combination with Pango.ATTR_FALLBACK, to check if a
         certain font supports all the characters in the string.
         """
     def get_width(self) -> int:
@@ -6435,12 +6435,12 @@ class Layout(GObject.Object):
         """
             Gets the wrap mode for the layout.
 
-        Use [method@Pango.Layout.is_wrapped] to query whether
+        Use [method`Pango`.Layout.is_wrapped] to query whether
         any paragraphs were actually wrapped.
         """
     def index_to_line_x(self, index_: int, trailing: bool) -> tuple[int, int]:
         """
-            Converts from byte @index_ within the @layout to line and X position.
+            Converts from byte `index_` within the `layout` to line and X position.
 
         The X position is measured from the left edge of the line.
         """
@@ -6458,8 +6458,8 @@ class Layout(GObject.Object):
         """
             Queries whether the layout had to ellipsize any paragraphs.
 
-        This returns %TRUE if the ellipsization mode for @layout
-        is not %PANGO_ELLIPSIZE_NONE, a positive width is set on @layout,
+        This returns True if the ellipsization mode for `layout`
+        is not Pango.ELLIPSIZE_NONE, a positive width is set on `layout`,
         and there are paragraphs exceeding that width that have to be
         ellipsized.
         """
@@ -6467,7 +6467,7 @@ class Layout(GObject.Object):
         """
             Queries whether the layout had to wrap any paragraphs.
 
-        This returns %TRUE if a positive width is set on @layout,
+        This returns True if a positive width is set on `layout`,
         and there are paragraphs exceeding the layout width that have
         to be wrapped.
         """
@@ -6475,9 +6475,9 @@ class Layout(GObject.Object):
         """
             Computes a new cursor position from an old position and a direction.
 
-        If @direction is positive, then the new position will cause the strong
+        If `direction` is positive, then the new position will cause the strong
         or weak cursor to be displayed one position to right of where it was
-        with the old cursor position. If @direction is negative, it will be
+        with the old cursor position. If `direction` is negative, it will be
         moved to the left.
 
         In the presence of bidirectional text, the correspondence between
@@ -6497,10 +6497,10 @@ class Layout(GObject.Object):
         """
     def serialize(self, flags: LayoutSerializeFlags) -> GLib.Bytes:
         """
-            Serializes the @layout for later deserialization via [func@Pango.Layout.deserialize].
+            Serializes the `layout` for later deserialization via [func`Pango`.Layout.deserialize].
 
         There are no guarantees about the format of the output across different
-        versions of Pango and [func@Pango.Layout.deserialize] will reject data
+        versions of Pango and [func`Pango`.Layout.deserialize] will reject data
         that it cannot parse.
 
         The intended use of this function is testing, benchmarking and debugging.
@@ -6511,50 +6511,50 @@ class Layout(GObject.Object):
             Sets the alignment for the layout: how partial lines are
         positioned within the horizontal space available.
 
-        The default alignment is %PANGO_ALIGN_LEFT.
+        The default alignment is Pango.ALIGN_LEFT.
         """
     def set_attributes(self, attrs: AttrList | None = None) -> None:
         """
             Sets the text attributes for a layout object.
 
-        References @attrs, so the caller can unref its reference.
+        References `attrs`, so the caller can unref its reference.
         """
     def set_auto_dir(self, auto_dir: bool) -> None:
         """
             Sets whether to calculate the base direction
         for the layout according to its contents.
 
-        When this flag is on (the default), then paragraphs in @layout that
+        When this flag is on (the default), then paragraphs in `layout` that
         begin with strong right-to-left characters (Arabic and Hebrew principally),
         will have right-to-left layout, paragraphs with letters from other scripts
         will have left-to-right layout. Paragraphs with only neutral characters
         get their direction from the surrounding paragraphs.
 
-        When %FALSE, the choice between left-to-right and right-to-left
+        When False, the choice between left-to-right and right-to-left
         layout is done according to the base direction of the layout's
-        `PangoContext`. (See [method@Pango.Context.set_base_dir]).
+        `PangoContext`. (See [method`Pango`.Context.set_base_dir]).
 
         When the auto-computed direction of a paragraph differs from the
         base direction of the context, the interpretation of
-        %PANGO_ALIGN_LEFT and %PANGO_ALIGN_RIGHT are swapped.
+        Pango.ALIGN_LEFT and Pango.ALIGN_RIGHT are swapped.
         """
     def set_ellipsize(self, ellipsize: EllipsizeMode) -> None:
         """
-            Sets the type of ellipsization being performed for @layout.
+            Sets the type of ellipsization being performed for `layout`.
 
-        Depending on the ellipsization mode @ellipsize text is
+        Depending on the ellipsization mode `ellipsize` text is
         removed from the start, middle, or end of text so they
         fit within the width and height of layout set with
-        [method@Pango.Layout.set_width] and [method@Pango.Layout.set_height].
+        [method`Pango`.Layout.set_width] and [method`Pango`.Layout.set_height].
 
         If the layout contains characters such as newlines that
         force it to be layed out in multiple paragraphs, then whether
         each paragraph is ellipsized separately or the entire layout
         is ellipsized as a whole depends on the set height of the layout.
 
-        The default value is %PANGO_ELLIPSIZE_NONE.
+        The default value is Pango.ELLIPSIZE_NONE.
 
-        See [method@Pango.Layout.set_height] for details.
+        See [method`Pango`.Layout.set_height] for details.
         """
     def set_font_description(self, desc: FontDescription | None = None) -> None:
         """
@@ -6567,16 +6567,16 @@ class Layout(GObject.Object):
         """
             Sets the height to which the `PangoLayout` should be ellipsized at.
 
-        There are two different behaviors, based on whether @height is positive
+        There are two different behaviors, based on whether `height` is positive
         or negative.
 
-        If @height is positive, it will be the maximum height of the layout. Only
+        If `height` is positive, it will be the maximum height of the layout. Only
         lines would be shown that would fit, and if there is any text omitted,
         an ellipsis added. At least one line is included in each paragraph regardless
         of how small the height value is. A value of zero will render exactly one
         line for the entire layout.
 
-        If @height is negative, it will be the (negative of) maximum number of lines
+        If `height` is negative, it will be the (negative of) maximum number of lines
         per paragraph. That is, the total number of lines shown may well be more than
         this value if the layout contains multiple paragraphs of text.
         The default value of -1 means that the first line of each paragraph is ellipsized.
@@ -6586,21 +6586,21 @@ class Layout(GObject.Object):
         if your code relies on this behavior.
 
         Height setting only has effect if a positive width is set on
-        @layout and ellipsization mode of @layout is not %PANGO_ELLIPSIZE_NONE.
+        `layout` and ellipsization mode of `layout` is not Pango.ELLIPSIZE_NONE.
         The behavior is undefined if a height other than -1 is set and
-        ellipsization mode is set to %PANGO_ELLIPSIZE_NONE, and may change in the
+        ellipsization mode is set to Pango.ELLIPSIZE_NONE, and may change in the
         future.
         """
     def set_indent(self, indent: int) -> None:
         """
             Sets the width in Pango units to indent each paragraph.
 
-        A negative value of @indent will produce a hanging indentation.
+        A negative value of `indent` will produce a hanging indentation.
         That is, the first line will have the full width, and subsequent
-        lines will be indented by the absolute value of @indent.
+        lines will be indented by the absolute value of `indent`.
 
         The indent setting is ignored if layout alignment is set to
-        %PANGO_ALIGN_CENTER.
+        Pango.ALIGN_CENTER.
 
         The default value is 0.
         """
@@ -6620,19 +6620,19 @@ class Layout(GObject.Object):
         Justification will move content away from its tab-aligned
         positions.
 
-        The default value is %FALSE.
+        The default value is False.
 
-        Also see [method@Pango.Layout.set_justify_last_line].
+        Also see [method`Pango`.Layout.set_justify_last_line].
         """
     def set_justify_last_line(self, justify: bool) -> None:
         """
             Sets whether the last line should be stretched to fill the
         entire width of the layout.
 
-        This only has an effect if [method@Pango.Layout.set_justify] has
+        This only has an effect if [method`Pango`.Layout.set_justify] has
         been called as well.
 
-        The default value is %FALSE.
+        The default value is False.
         """
     def set_line_spacing(self, factor: float) -> None:
         """
@@ -6640,18 +6640,18 @@ class Layout(GObject.Object):
 
         Typical values are: 0, 1, 1.5, 2. The default values is 0.
 
-        If @factor is non-zero, lines are placed so that
+        If `factor` is non-zero, lines are placed so that
 
             baseline2 = baseline1 + factor * height2
 
         where height2 is the line height of the second line
         (as determined by the font(s)). In this case, the spacing
-        set with [method@Pango.Layout.set_spacing] is ignored.
+        set with [method`Pango`.Layout.set_spacing] is ignored.
 
-        If @factor is zero (the default), spacing is applied as before.
+        If `factor` is zero (the default), spacing is applied as before.
 
         Note: for semantics that are closer to the CSS line-height
-        property, see [func@Pango.attr_line_height_new].
+        property, see [func`Pango`.attr_line_height_new].
         """
     def set_markup(self, markup: str, length: int) -> None:
         """
@@ -6661,7 +6661,7 @@ class Layout(GObject.Object):
 
         Replaces the current text and attribute list.
 
-        This is the same as [method@Pango.Layout.set_markup_with_accel],
+        This is the same as [method`Pango`.Layout.set_markup_with_accel],
         but the markup text isn't scanned for accelerators.
         """
     def set_markup_with_accel(self, markup: str, length: int, accel_marker: str) -> str:
@@ -6672,24 +6672,24 @@ class Layout(GObject.Object):
 
         Replaces the current text and attribute list.
 
-        If @accel_marker is nonzero, the given character will mark the
-        character following it as an accelerator. For example, @accel_marker
+        If `accel_marker` is nonzero, the given character will mark the
+        character following it as an accelerator. For example, `accel_marker`
         might be an ampersand or underscore. All characters marked
-        as an accelerator will receive a %PANGO_UNDERLINE_LOW attribute,
-        and the first character so marked will be returned in @accel_char.
-        Two @accel_marker characters following each other produce a single
-        literal @accel_marker character.
+        as an accelerator will receive a Pango.UNDERLINE_LOW attribute,
+        and the first character so marked will be returned in `accel_char`.
+        Two `accel_marker` characters following each other produce a single
+        literal `accel_marker` character.
         """
     def set_single_paragraph_mode(self, setting: bool) -> None:
         """
-            Sets the single paragraph mode of @layout.
+            Sets the single paragraph mode of `layout`.
 
-        If @setting is %TRUE, do not treat newlines and similar characters
+        If `setting` is True, do not treat newlines and similar characters
         as paragraph separators; instead, keep all text in a single paragraph,
         and display a glyph for paragraph separator characters. Used when
         you want to allow editing of newlines on a single text line.
 
-        The default value is %FALSE.
+        The default value is False.
         """
     def set_spacing(self, spacing: int) -> None:
         """
@@ -6704,38 +6704,38 @@ class Layout(GObject.Object):
 
         Note: Since 1.44, Pango is using the line height (as determined
         by the font) for placing lines when the line spacing factor is set
-        to a non-zero value with [method@Pango.Layout.set_line_spacing].
-        In that case, the @spacing set with this function is ignored.
+        to a non-zero value with [method`Pango`.Layout.set_line_spacing].
+        In that case, the `spacing` set with this function is ignored.
 
         Note: for semantics that are closer to the CSS line-height
-        property, see [func@Pango.attr_line_height_new].
+        property, see [func`Pango`.attr_line_height_new].
         """
     def set_tabs(self, tabs: TabArray | None = None) -> None:
         """
-            Sets the tabs to use for @layout, overriding the default tabs.
+            Sets the tabs to use for `layout`, overriding the default tabs.
 
         `PangoLayout` will place content at the next tab position
         whenever it meets a Tab character (U+0009).
 
-        By default, tabs are every 8 spaces. If @tabs is %NULL, the
-        default tabs are reinstated. @tabs is copied into the layout;
-        you must free your copy of @tabs yourself.
+        By default, tabs are every 8 spaces. If `tabs` is None, the
+        default tabs are reinstated. `tabs` is copied into the layout;
+        you must free your copy of `tabs` yourself.
 
         Note that tabs and justification conflict with each other:
         Justification will move content away from its tab-aligned
         positions. The same is true for alignments other than
-        %PANGO_ALIGN_LEFT.
+        Pango.ALIGN_LEFT.
         """
     def set_text(self, text: str, length: int) -> None:
         """
             Sets the text of the layout.
 
-        This function validates @text and renders invalid UTF-8
+        This function validates `text` and renders invalid UTF-8
         with a placeholder glyph.
 
-        Note that if you have used [method@Pango.Layout.set_markup] or
-        [method@Pango.Layout.set_markup_with_accel] on @layout before, you
-        may want to call [method@Pango.Layout.set_attributes] to clear the
+        Note that if you have used [method`Pango`.Layout.set_markup] or
+        [method`Pango`.Layout.set_markup_with_accel] on `layout` before, you
+        may want to call [method`Pango`.Layout.set_attributes] to clear the
         attributes set on the layout from the markup as this function does
         not clear attributes.
         """
@@ -6751,17 +6751,17 @@ class Layout(GObject.Object):
             Sets the wrap mode.
 
         The wrap mode only has effect if a width is set on the layout
-        with [method@Pango.Layout.set_width]. To turn off wrapping,
+        with [method`Pango`.Layout.set_width]. To turn off wrapping,
         set the width to -1.
 
-        The default value is %PANGO_WRAP_WORD.
+        The default value is Pango.WRAP_WORD.
         """
     def write_to_file(self, flags: LayoutSerializeFlags, filename: str) -> bool:
         """
             A convenience method to serialize a layout to a file.
 
-        It is equivalent to calling [method@Pango.Layout.serialize]
-        followed by [func@GLib.file_set_contents].
+        It is equivalent to calling [method`Pango`.Layout.serialize]
+        followed by [func`GLib`.file_set_contents].
 
         See those two functions for details on the arguments.
 
@@ -6776,9 +6776,9 @@ class Layout(GObject.Object):
         If the Y position is not inside the layout, the closest position is
         chosen (the position will be clamped inside the layout). If the X position
         is not within the layout, then the start or the end of the line is
-        chosen as described for [method@Pango.LayoutLine.x_to_index]. If either
+        chosen as described for [method`Pango`.LayoutLine.x_to_index]. If either
         the X or Y positions were not inside the layout, then the function returns
-        %FALSE; on an exact hit, it returns %TRUE.
+        False; on an exact hit, it returns True.
         """
 
 class LayoutClass(GObject.GPointer):
@@ -6793,7 +6793,7 @@ class LayoutIter(GObject.GBoxed):
     A `PangoLayoutIter` can be used to iterate over the visual
     extents of a `PangoLayout`.
 
-    To obtain a `PangoLayoutIter`, use [method@Pango.Layout.get_iter].
+    To obtain a `PangoLayoutIter`, use [method`Pango`.Layout.get_iter].
 
     The `PangoLayoutIter` structure is opaque, and has no user-visible fields.
     """
@@ -6805,7 +6805,7 @@ class LayoutIter(GObject.GBoxed):
         """
     def at_last_line(self) -> bool:
         """
-        Determines whether @iter is on the last line of the layout.
+        Determines whether `iter` is on the last line of the layout.
         """
     def copy(self) -> LayoutIter | None:
         """
@@ -6844,7 +6844,7 @@ class LayoutIter(GObject.GBoxed):
         Note that iterating forward by char moves in visual order,
         not logical order, so indexes may not be sequential. Also,
         the index may be equal to the length of the text in the
-        layout, if on the %NULL run (see [method@Pango.LayoutIter.get_run]).
+        layout, if on the None run (see [method`Pango`.LayoutIter.get_run]).
         """
     def get_layout(self) -> Layout | None:
         """
@@ -6858,7 +6858,7 @@ class LayoutIter(GObject.GBoxed):
         """
             Gets the current line.
 
-        Use the faster [method@Pango.LayoutIter.get_line_readonly] if
+        Use the faster [method`Pango`.LayoutIter.get_line_readonly] if
         you do not plan to modify the contents of the line (glyphs,
         glyph widths, etc.).
         """
@@ -6869,13 +6869,13 @@ class LayoutIter(GObject.GBoxed):
         Extents are in layout coordinates (origin is the top-left corner
         of the entire `PangoLayout`). Thus the extents returned by this
         function will be the same width/height but not at the same x/y
-        as the extents returned from [method@Pango.LayoutLine.get_extents].
+        as the extents returned from [method`Pango`.LayoutLine.get_extents].
         """
     def get_line_readonly(self) -> LayoutLine | None:
         """
             Gets the current line for read-only access.
 
-        This is a faster alternative to [method@Pango.LayoutIter.get_line],
+        This is a faster alternative to [method`Pango`.LayoutIter.get_line],
         but the user is not expected to modify the contents of the line
         (glyphs, glyph widths, etc.).
         """
@@ -6886,7 +6886,7 @@ class LayoutIter(GObject.GBoxed):
         the current line.
 
         A line's range includes the line's logical extents. plus half of the
-        spacing above and below the line, if [method@Pango.Layout.set_spacing]
+        spacing above and below the line, if [method`Pango`.Layout.set_spacing]
         has been called to set layout spacing. The Y positions are in layout
         coordinates (origin at top left of the entire layout).
 
@@ -6898,11 +6898,11 @@ class LayoutIter(GObject.GBoxed):
             Gets the current run.
 
         When iterating by run, at the end of each line, there's a position
-        with a %NULL run, so this function can return %NULL. The %NULL run
+        with a None run, so this function can return None. The None run
         at the end of each line ensures that all lines have at least one run,
         even lines consisting of only a newline.
 
-        Use the faster [method@Pango.LayoutIter.get_run_readonly] if you do not
+        Use the faster [method`Pango`.LayoutIter.get_run_readonly] if you do not
         plan to modify the contents of the run (glyphs, glyph widths, etc.).
         """
     def get_run_baseline(self) -> int:
@@ -6926,37 +6926,37 @@ class LayoutIter(GObject.GBoxed):
             Gets the current run for read-only access.
 
         When iterating by run, at the end of each line, there's a position
-        with a %NULL run, so this function can return %NULL. The %NULL run
+        with a None run, so this function can return None. The None run
         at the end of each line ensures that all lines have at least one run,
         even lines consisting of only a newline.
 
-        This is a faster alternative to [method@Pango.LayoutIter.get_run],
+        This is a faster alternative to [method`Pango`.LayoutIter.get_run],
         but the user is not expected to modify the contents of the run (glyphs,
         glyph widths, etc.).
         """
     def next_char(self) -> bool:
         """
-            Moves @iter forward to the next character in visual order.
+            Moves `iter` forward to the next character in visual order.
 
-        If @iter was already at the end of the layout, returns %FALSE.
+        If `iter` was already at the end of the layout, returns False.
         """
     def next_cluster(self) -> bool:
         """
-            Moves @iter forward to the next cluster in visual order.
+            Moves `iter` forward to the next cluster in visual order.
 
-        If @iter was already at the end of the layout, returns %FALSE.
+        If `iter` was already at the end of the layout, returns False.
         """
     def next_line(self) -> bool:
         """
-            Moves @iter forward to the start of the next line.
+            Moves `iter` forward to the start of the next line.
 
-        If @iter is already on the last line, returns %FALSE.
+        If `iter` is already on the last line, returns False.
         """
     def next_run(self) -> bool:
         """
-            Moves @iter forward to the next run in visual order.
+            Moves `iter` forward to the next run in visual order.
 
-        If @iter was already at the end of the layout, returns %FALSE.
+        If `iter` was already at the end of the layout, returns False.
         """
 
 class LayoutLine(GObject.GBoxed):
@@ -6965,14 +6965,14 @@ class LayoutLine(GObject.GBoxed):
     out a paragraph via `PangoLayout`.
 
     `PangoLayoutLine` structures are obtained by calling
-    [method@Pango.Layout.get_line] and are only valid until the text,
+    [method`Pango`.Layout.get_line] and are only valid until the text,
     attributes, or settings of the parent `PangoLayout` are modified.
     """
 
     # gi Fields
     layout: Layout | None = ...
     """
-    the layout this line belongs to, might be %NULL
+    the layout this line belongs to, might be None
 
     """
     length: int = ...
@@ -6982,7 +6982,7 @@ class LayoutLine(GObject.GBoxed):
     """
     resolved_dir: int = ...
     """
-    #Resolved PangoDirection of line
+    Resolved PangoDirection of line
 
     """
     runs: list | None = ...
@@ -7006,7 +7006,7 @@ class LayoutLine(GObject.GBoxed):
         """
             Computes the logical and ink extents of a layout line.
 
-        See [method@Pango.Font.get_glyph_extents] for details
+        See [method`Pango`.Font.get_glyph_extents] for details
         about the interpretation of the rectangles.
         """
     def get_height(self) -> int:
@@ -7016,8 +7016,8 @@ class LayoutLine(GObject.GBoxed):
 
         Note that the actual baseline-to-baseline distance between lines
         of text is influenced by other factors, such as
-        [method@Pango.Layout.set_spacing] and
-        [method@Pango.Layout.set_line_spacing].
+        [method`Pango`.Layout.set_spacing] and
+        [method`Pango`.Layout.set_line_spacing].
         """
     def get_length(self) -> int:
         """
@@ -7025,12 +7025,12 @@ class LayoutLine(GObject.GBoxed):
         """
     def get_pixel_extents(self) -> tuple[Rectangle, Rectangle]:
         """
-            Computes the logical and ink extents of @layout_line in device units.
+            Computes the logical and ink extents of `layout_line` in device units.
 
-        This function just calls [method@Pango.LayoutLine.get_extents] followed by
-        two [func@extents_to_pixels] calls, rounding @ink_rect and @logical_rect
+        This function just calls [method`Pango`.LayoutLine.get_extents] followed by
+        two [func`extents_to_pixels`] calls, rounding `ink_rect` and `logical_rect`
         such that the rounded rectangles fully contain the unrounded one (that is,
-        passes them as first argument to [func@extents_to_pixels]).
+        passes them as first argument to [func`extents_to_pixels`]).
         """
     def get_resolved_direction(self) -> Direction:
         """
@@ -7074,13 +7074,13 @@ class LayoutLine(GObject.GBoxed):
             Converts from x offset to the byte index of the corresponding character
         within the text of the layout.
 
-        If @x_pos is outside the line, @index_ and @trailing will point to the very
+        If `x_pos` is outside the line, `index_` and `trailing` will point to the very
         first or very last position in the line. This determination is based on the
         resolved direction of the paragraph; for example, if the resolved direction
         is right-to-left, then an X position to the right of the line (after it)
-        results in 0 being stored in @index_ and @trailing. An X position to the
-        left of the line results in @index_ pointing to the (logical) last grapheme
-        in the line and @trailing being set to the number of characters in that
+        results in 0 being stored in `index_` and `trailing`. An X position to the
+        left of the line results in `index_` pointing to the (logical) last grapheme
+        in the line and `trailing` being set to the number of characters in that
         grapheme. The reverse is true for a left-to-right line.
         """
 
@@ -7095,10 +7095,10 @@ class LogAttr(GObject.GPointer):
     """
     if set, backspace deletes one character
       rather than the entire grapheme cluster. This field is only meaningful
-      on grapheme boundaries (where @is_cursor_position is set). In some languages,
+      on grapheme boundaries (where `is_cursor_position` is set). In some languages,
       the full grapheme (e.g. letter + diacritics) is considered a unit, while in
       others, each decomposed character in the grapheme is a unit. In the default
-      implementation of [func@break], this bit is set on all grapheme boundaries
+      implementation of [func`break`], this bit is set on all grapheme boundaries
       except those following Latin, Cyrillic or Greek base characters.
 
     """
@@ -7149,17 +7149,17 @@ class LogAttr(GObject.GPointer):
     is a sentence boundary.
       There are two ways to divide sentences. The first assigns all
       inter-sentence whitespace/control/format chars to some sentence,
-      so all chars are in some sentence; @is_sentence_boundary denotes
+      so all chars are in some sentence; `is_sentence_boundary` denotes
       the boundaries there. The second way doesn't assign
       between-sentence spaces, etc. to any sentence, so
-      @is_sentence_start/@is_sentence_end mark the boundaries of those sentences.
+      `is_sentence_start`/`is_sentence_end` mark the boundaries of those sentences.
 
     """
     is_sentence_end: int = ...
     """
     is first char after a sentence.
-      Note that in degenerate cases, you could have both @is_sentence_start
-      and @is_sentence_end set for some character. (e.g. no space after a
+      Note that in degenerate cases, you could have both `is_sentence_start`
+      and `is_sentence_end` set for some character. (e.g. no space after a
       period, so the next sentence starts right away)
 
     """
@@ -7186,8 +7186,8 @@ class LogAttr(GObject.GPointer):
     is_word_end: int = ...
     """
     is first non-word char after a word
-      Note that in degenerate cases, you could have both @is_word_start
-      and @is_word_end set for some character.
+      Note that in degenerate cases, you could have both `is_word_start`
+      and `is_word_end` set for some character.
 
     """
     is_word_start: int = ...
@@ -7255,9 +7255,9 @@ class Matrix(GObject.GBoxed):
         """
     def concat(self, new_matrix: Matrix) -> None:
         """
-            Changes the transformation represented by @matrix to be the
+            Changes the transformation represented by `matrix` to be the
         transformation given by first applying transformation
-        given by @new_matrix then applying the original transformation.
+        given by `new_matrix` then applying the original transformation.
         """
     def copy(self) -> Matrix | None:
         """
@@ -7273,14 +7273,14 @@ class Matrix(GObject.GBoxed):
 
         That is, the scale factor in the direction perpendicular to the
         vector that the X coordinate is mapped to.  If the scale in the X
-        coordinate is needed as well, use [method@Pango.Matrix.get_font_scale_factors].
+        coordinate is needed as well, use [method`Pango`.Matrix.get_font_scale_factors].
         """
     def get_font_scale_factors(self) -> tuple[float, float]:
         """
             Calculates the scale factor of a matrix on the width and height of the font.
 
-        That is, @xscale is the scale factor in the direction of the X coordinate,
-        and @yscale is the scale factor in the direction perpendicular to the
+        That is, `xscale` is the scale factor in the direction of the X coordinate,
+        and `yscale` is the scale factor in the direction perpendicular to the
         vector that the X coordinate is mapped to.
 
         Note that output numbers will always be non-negative.
@@ -7298,22 +7298,22 @@ class Matrix(GObject.GBoxed):
         """
     def rotate(self, degrees: float) -> None:
         """
-            Changes the transformation represented by @matrix to be the
-        transformation given by first rotating by @degrees degrees
+            Changes the transformation represented by `matrix` to be the
+        transformation given by first rotating by `degrees` degrees
         counter-clockwise then applying the original transformation.
         """
     def scale(self, scale_x: float, scale_y: float) -> None:
         """
-            Changes the transformation represented by @matrix to be the
-        transformation given by first scaling by @sx in the X direction
-        and @sy in the Y direction then applying the original
+            Changes the transformation represented by `matrix` to be the
+        transformation given by first scaling by `sx` in the X direction
+        and `sy` in the Y direction then applying the original
         transformation.
         """
     def transform_distance(self, dx: float, dy: float) -> tuple[float, float]:
         """
-            Transforms the distance vector (@dx,@dy) by @matrix.
+            Transforms the distance vector (`dx`,`dy`) by `matrix`.
 
-        This is similar to [method@Pango.Matrix.transform_point],
+        This is similar to [method`Pango`.Matrix.transform_point],
         except that the translation components of the transformation
         are ignored. The calculation of the returned vector is as follows:
 
@@ -7323,42 +7323,42 @@ class Matrix(GObject.GBoxed):
         ```
 
         Affine transformations are position invariant, so the same vector
-        always transforms to the same vector. If (@x1,@y1) transforms
-        to (@x2,@y2) then (@x1+@dx1,@y1+@dy1) will transform to
-        (@x1+@dx2,@y1+@dy2) for all values of @x1 and @x2.
+        always transforms to the same vector. If (`x1`,`y1`) transforms
+        to (`x2`,`y2`) then (`x1`+`dx1`,`y1`+`dy1`) will transform to
+        (`x1`+`dx2`,`y1`+`dy2`) for all values of `x1` and `x2`.
         """
     def transform_pixel_rectangle(self, rect: Rectangle | None = None) -> Rectangle | None:
         """
-            First transforms the @rect using @matrix, then calculates the bounding box
+            First transforms the `rect` using `matrix`, then calculates the bounding box
         of the transformed rectangle.
 
         This function is useful for example when you want to draw a rotated
-        @PangoLayout to an image buffer, and want to know how large the image
+        `PangoLayout` to an image buffer, and want to know how large the image
         should be and how much you should shift the layout when rendering.
 
-        For better accuracy, you should use [method@Pango.Matrix.transform_rectangle]
+        For better accuracy, you should use [method`Pango`.Matrix.transform_rectangle]
         on original rectangle in Pango units and convert to pixels afterward
-        using [func@extents_to_pixels]'s first argument.
+        using [func`extents_to_pixels`]'s first argument.
         """
     def transform_point(self, x: float, y: float) -> tuple[float, float]:
         """
-        Transforms the point (@x, @y) by @matrix.
+        Transforms the point (`x`, `y`) by `matrix`.
         """
     def transform_rectangle(self, rect: Rectangle | None = None) -> Rectangle | None:
         """
-            First transforms @rect using @matrix, then calculates the bounding box
+            First transforms `rect` using `matrix`, then calculates the bounding box
         of the transformed rectangle.
 
         This function is useful for example when you want to draw a rotated
-        @PangoLayout to an image buffer, and want to know how large the image
+        `PangoLayout` to an image buffer, and want to know how large the image
         should be and how much you should shift the layout when rendering.
 
         If you have a rectangle in device units (pixels), use
-        [method@Pango.Matrix.transform_pixel_rectangle].
+        [method`Pango`.Matrix.transform_pixel_rectangle].
 
         If you have the rectangle in Pango units and want to convert to
         transformed pixel bounding box, it is more accurate to transform it first
-        (using this function) and pass the result to pango_extents_to_pixels(),
+        (using this function) and pass the result to `Pango.extents_to_pixels`,
         first argument, for an inclusive rounded rectangle.
         However, there are valid reasons that you may want to convert
         to pixels first and then transform, for example when the transformed
@@ -7367,8 +7367,8 @@ class Matrix(GObject.GBoxed):
         """
     def translate(self, tx: float, ty: float) -> None:
         """
-            Changes the transformation represented by @matrix to be the
-        transformation given by first translating by (@tx, @ty)
+            Changes the transformation represented by `matrix` to be the
+        transformation given by first translating by (`tx`, `ty`)
         then applying the original transformation.
         """
 
@@ -7378,7 +7378,7 @@ class Rectangle(GObject.GPointer):
 
     `PangoRectangle` is frequently used to represent the logical or ink
     extents of a single glyph or section of text. (See, for instance,
-    [method@Pango.Font.get_glyph_extents].)
+    [method`Pango`.Font.get_glyph_extents].)
     """
 
     # gi Fields
@@ -7415,7 +7415,7 @@ class Renderer(GObject.Object):
     provided as `PangoGlyphString` or `PangoLayout`.
 
     By subclassing `PangoRenderer` and overriding operations such as
-    @draw_glyphs and @draw_rectangle, renderers for particular font
+    `draw_glyphs` and `draw_rectangle`, renderers for particular font
     backends and destinations can be created.
     """
 
@@ -7426,7 +7426,7 @@ class Renderer(GObject.Object):
     def matrix(self) -> Matrix | None:
         """
           the current transformation matrix for
-        the Renderer; may be %NULL, which should be treated the
+        the Renderer; may be None, which should be treated the
         same as the identity matrix.
         """
     @builtins.property
@@ -7441,21 +7441,21 @@ class Renderer(GObject.Object):
         """
     def activate(self) -> None:
         """
-            Does initial setup before rendering operations on @renderer.
+            Does initial setup before rendering operations on `renderer`.
 
-        [method@Pango.Renderer.deactivate] should be called when done drawing.
-        Calls such as [method@Pango.Renderer.draw_layout] automatically
+        [method`Pango`.Renderer.deactivate] should be called when done drawing.
+        Calls such as [method`Pango`.Renderer.draw_layout] automatically
         activate the layout before drawing on it.
 
-        Calls to [method@Pango.Renderer.activate] and
-        [method@Pango.Renderer.deactivate] can be nested and the
+        Calls to [method`Pango`.Renderer.activate] and
+        [method`Pango`.Renderer.deactivate] can be nested and the
         renderer will only be initialized and deinitialized once.
         """
     def deactivate(self) -> None:
         """
-            Cleans up after rendering operations on @renderer.
+            Cleans up after rendering operations on `renderer`.
 
-        See docs for [method@Pango.Renderer.activate].
+        See docs for [method`Pango`.Renderer.activate].
         """
     def draw_error_underline(self, x: int, y: int, width: int, height: int) -> None:
         """
@@ -7466,8 +7466,8 @@ class Renderer(GObject.Object):
         of up/down segments and the resulting rectangle is centered
         in the original rectangle.
 
-        This should be called while @renderer is already active.
-        Use [method@Pango.Renderer.activate] to activate a renderer.
+        This should be called while `renderer` is already active.
+        Use [method`Pango`.Renderer.activate] to activate a renderer.
         """
     def draw_glyph(self, font: Font, glyph: int, x: float, y: float) -> None:
         """
@@ -7475,39 +7475,39 @@ class Renderer(GObject.Object):
         """
     def draw_glyph_item(self, text: str | None, glyph_item: GlyphItem, x: int, y: int) -> None:
         """
-            Draws the glyphs in @glyph_item with the specified `PangoRenderer`,
+            Draws the glyphs in `glyph_item` with the specified `PangoRenderer`,
         embedding the text associated with the glyphs in the output if the
         output format supports it.
 
         This is useful for rendering text in PDF.
 
-        Note that this method does not handle attributes in @glyph_item.
+        Note that this method does not handle attributes in `glyph_item`.
         If you want colors, shapes and lines handled automatically according
-        to those attributes, you need to use pango_renderer_draw_layout_line()
-        or pango_renderer_draw_layout().
+        to those attributes, you need to use `Pango.renderer_draw_layout_line`
+        or `Pango.renderer_draw_layout`.
 
-        Note that @text is the start of the text for layout, which is then
+        Note that `text` is the start of the text for layout, which is then
         indexed by `glyph_item->item->offset`.
 
-        If @text is %NULL, this simply calls [method@Pango.Renderer.draw_glyphs].
+        If `text` is None, this simply calls [method`Pango`.Renderer.draw_glyphs].
 
         The default implementation of this method simply falls back to
-        [method@Pango.Renderer.draw_glyphs].
+        [method`Pango`.Renderer.draw_glyphs].
         """
     def draw_glyphs(self, font: Font, glyphs: GlyphString, x: int, y: int) -> None:
         """
-        Draws the glyphs in @glyphs with the specified `PangoRenderer`.
+        Draws the glyphs in `glyphs` with the specified `PangoRenderer`.
         """
     def draw_layout(self, layout: Layout, x: int, y: int) -> None:
         """
-            Draws @layout with the specified `PangoRenderer`.
+            Draws `layout` with the specified `PangoRenderer`.
 
         This is equivalent to drawing the lines of the layout, at their
-        respective positions relative to @x, @y.
+        respective positions relative to `x`, `y`.
         """
     def draw_layout_line(self, line: LayoutLine, x: int, y: int) -> None:
         """
-            Draws @line with the specified `PangoRenderer`.
+            Draws `line` with the specified `PangoRenderer`.
 
         This draws the glyph items that make up the line, as well as
         shapes, backgrounds and lines that are specified by the attributes
@@ -7518,8 +7518,8 @@ class Renderer(GObject.Object):
             Draws an axis-aligned rectangle in user space coordinates with the
         specified `PangoRenderer`.
 
-        This should be called while @renderer is already active.
-        Use [method@Pango.Renderer.activate] to activate a renderer.
+        This should be called while `renderer` is already active.
+        Use [method`Pango`.Renderer.activate] to activate a renderer.
         """
     def draw_trapezoid(
         self, part: RenderPart, y1_: float, x11: float, x21: float, y2: float, x12: float, x22: float
@@ -7538,7 +7538,7 @@ class Renderer(GObject.Object):
         """
     def get_layout(self) -> Layout | None:
         """
-            Gets the layout currently being rendered using @renderer.
+            Gets the layout currently being rendered using `renderer`.
 
         Calling this function only makes sense from inside a subclass's
         methods, like in its draw_shape vfunc, for example.
@@ -7548,7 +7548,7 @@ class Renderer(GObject.Object):
         """
     def get_layout_line(self) -> LayoutLine | None:
         """
-            Gets the layout line currently being rendered using @renderer.
+            Gets the layout line currently being rendered using `renderer`.
 
         Calling this function only makes sense from inside a subclass's
         methods, like in its draw_shape vfunc, for example.
@@ -7561,12 +7561,12 @@ class Renderer(GObject.Object):
             Gets the transformation matrix that will be applied when
         rendering.
 
-        See [method@Pango.Renderer.set_matrix].
+        See [method`Pango`.Renderer.set_matrix].
         """
     def part_changed(self, part: RenderPart) -> None:
         """
             Informs Pango that the way that the rendering is done
-        for @part has changed.
+        for `part` has changed.
 
         This should be called if the rendering changes in a way that would
         prevent multiple pieces being joined together into one drawing call.
@@ -7579,20 +7579,20 @@ class Renderer(GObject.Object):
 
         When the stipple changes or underlines with different stipples
         might be joined together. Pango automatically calls this for
-        changes to colors. (See [method@Pango.Renderer.set_color])
+        changes to colors. (See [method`Pango`.Renderer.set_color])
         """
     def set_alpha(self, part: RenderPart, alpha: int) -> None:
         """
             Sets the alpha for part of the rendering.
 
         Note that the alpha may only be used if a color is
-        specified for @part as well.
+        specified for `part` as well.
         """
     def set_color(self, part: RenderPart, color: Color | None = None) -> None:
         """
             Sets the color for part of the rendering.
 
-        Also see [method@Pango.Renderer.set_alpha].
+        Also see [method`Pango`.Renderer.set_alpha].
         """
     def set_matrix(self, matrix: Matrix | None = None) -> None:
         """
@@ -7757,7 +7757,7 @@ class RendererClass(GObject.GPointer):
     def draw_shape(self) -> draw_shapeRendererClassCB:
         """
           draw content for a glyph shaped with `PangoAttrShape`
-        @x, @y are the coordinates of the left edge of the baseline,
+        `x`, `y` are the coordinates of the left edge of the baseline,
         in user coordinates.
         """
     @builtins.property
@@ -7810,12 +7810,12 @@ class ScriptIter(GObject.GBoxed):
         """
     def get_range(self) -> tuple[str, str, Script]:
         """
-            Gets information about the range to which @iter currently points.
+            Gets information about the range to which `iter` currently points.
 
         The range is the set of locations p where *start <= p < *end.
         (That is, it doesn't include the character stored at *end)
 
-        Note that while the type of the @script argument is declared
+        Note that while the type of the `script` argument is declared
         as `PangoScript`, as of Pango 1.18, this function simply returns
         `GUnicodeScript` values. Callers must be prepared to handle unknown
         values.
@@ -7826,16 +7826,16 @@ class ScriptIter(GObject.GBoxed):
             Create a new `PangoScriptIter`, used to break a string of
         Unicode text into runs by Unicode script.
 
-        No copy is made of @text, so the caller needs to make
+        No copy is made of `text`, so the caller needs to make
         sure it remains valid until the iterator is freed with
-        [method@Pango.ScriptIter.free].
+        [method`Pango`.ScriptIter.free].
         """
     def next(self) -> bool:
         """
             Advances a `PangoScriptIter` to the next range.
 
-        If @iter is already at the end, it is left unchanged
-        and %FALSE is returned.
+        If `iter` is already at the end, it is left unchanged
+        and False is returned.
         """
 
     # python methods (overrides?)
@@ -7868,14 +7868,14 @@ class TabArray(GObject.GBoxed):
         """
             Deserializes a `PangoTabArray` from a string.
 
-        This is the counterpart to [method@Pango.TabArray.to_string].
+        This is the counterpart to [method`Pango`.TabArray.to_string].
         See that functions for details about the format.
         """
     def get_decimal_point(self, tab_index: int) -> str:
         """
             Gets the Unicode character to use as decimal point.
 
-        This is only relevant for tabs with %PANGO_TAB_DECIMAL alignment,
+        This is only relevant for tabs with Pango.TAB_DECIMAL alignment,
         which align content at the first occurrence of the decimal point
         character.
 
@@ -7884,12 +7884,12 @@ class TabArray(GObject.GBoxed):
         """
     def get_positions_in_pixels(self) -> bool:
         """
-            Returns %TRUE if the tab positions are in pixels,
-        %FALSE if they are in Pango units.
+            Returns True if the tab positions are in pixels,
+        False if they are in Pango units.
         """
     def get_size(self) -> int:
         """
-        Gets the number of tab stops in @tab_array.
+        Gets the number of tab stops in `tab_array`.
         """
     def get_tab(self, tab_index: int) -> tuple[TabAlign, int]:
         """
@@ -7897,18 +7897,18 @@ class TabArray(GObject.GBoxed):
         """
     def get_tabs(self) -> tuple[TabAlign, list]:
         """
-            If non-%NULL, @alignments and @locations are filled with allocated
+            If non-None, `alignments` and `locations` are filled with allocated
         arrays.
 
-        The arrays are of length [method@Pango.TabArray.get_size].
+        The arrays are of length [method`Pango`.TabArray.get_size].
         You must free the returned array.
         """
     @classmethod
     def new(cls, initial_size: int, positions_in_pixels: bool) -> TabArray:
         """
-            Creates an array of @initial_size tab stops.
+            Creates an array of `initial_size` tab stops.
 
-        Tab stops are specified in pixel units if @positions_in_pixels is %TRUE,
+        Tab stops are specified in pixel units if `positions_in_pixels` is True,
         otherwise in Pango units. All stops are initially at position 0.
         """
     def resize(self, new_size: int) -> None:
@@ -7922,7 +7922,7 @@ class TabArray(GObject.GBoxed):
         """
             Sets the Unicode character to use as decimal point.
 
-        This is only relevant for tabs with %PANGO_TAB_DECIMAL alignment,
+        This is only relevant for tabs with Pango.TAB_DECIMAL alignment,
         which align content at the first occurrence of the decimal point
         character.
 

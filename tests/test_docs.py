@@ -1,4 +1,5 @@
 from gi_stub_gen.gir_manager import GIRDocs
+from gi_stub_gen.parser.gir import translate_docstring
 
 
 def test_singleton_behavior():
@@ -51,3 +52,43 @@ def test_reset_works(fake_gir_file):
 
     # 3. Verifica che sia vuoto (nota: GIRDocs() crea una nuova istanza vuota)
     assert GIRDocs().get_function_docstring("hello_world") is None
+
+
+def test_translate_c_to_py_docstring_complex_scenario():
+    namespace = "Gst"
+
+    # 1. C Function: gst_element_link()
+    # 2. Param: @src
+    # 3. Values: NULL, TRUE, FALSE
+    # 4. Class: #GstBin
+    # 5. Constant: %GST_STATE_PLAYING
+    # 6. XML: &lt;tag&gt;
+    # 7. Backslash (Path Windows): C:\Windows\System32
+    # 8. Triple Quotes: """
+
+    raw_doc = (
+        "Use gst_element_link() to connect @src.\n"
+        "Returns %TRUE if linked, %FALSE if @src is NULL.\n"
+        "See #GstBin for details on state %GST_STATE_PLAYING.\n"
+        "Supports XML tags like &lt;video&gt;.\n"
+        "Warning: paths like C:\\Windows\\System32 must be escaped.\n"
+        'Never use unescaped """triple quotes""".'
+    )
+
+    # Expected translated docstring
+    expected_doc = (
+        "Use `Gst.element_link` to connect `src`.\n"
+        "Returns True if linked, False if `src` is None.\n"
+        "See Gst.Bin for details on state Gst.STATE_PLAYING.\n"
+        "Supports XML tags like <video>.\n"
+        "Warning: paths like C:\\\\Windows\\\\System32 must be escaped.\n"
+        'Never use unescaped \\"\\"\\"triple quotes\\"\\"\\".'
+    )
+
+    result = translate_docstring(raw_doc, namespace)
+    assert result == expected_doc, f"\nExpected:\n{expected_doc}\n\nGot:\n{result}"
+
+
+def test_empty_docstring():
+    assert translate_docstring(None, "Gst") == ""
+    assert translate_docstring("", "Gst") == ""

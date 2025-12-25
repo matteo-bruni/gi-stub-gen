@@ -40,7 +40,7 @@ def caps_features_from_string(
     features: str,
 ) -> CapsFeatures | None:
     """
-    Creates a #GstCapsFeatures from a string representation.
+    Creates a Gst.CapsFeatures from a string representation.
     """
     ...
 
@@ -49,10 +49,10 @@ def caps_from_string(
     string: str,
 ) -> Caps | None:
     """
-    Converts @caps from a string representation.
+    Converts `caps` from a string representation.
 
     The implementation of serialization up to 1.20 would lead to unexpected results
-    when there were nested #GstCaps / #GstStructure deeper than one level.
+    when there were nested Gst.Caps / Gst.Structure deeper than one level.
     """
     ...
 
@@ -77,11 +77,11 @@ def debug_add_ring_buffer_logger(
 ) -> None:
     """
     Adds a memory ringbuffer based debug logger that stores up to
-    @max_size_per_thread bytes of logs per thread and times out threads after
-    @thread_timeout seconds of inactivity.
+    `max_size_per_thread` bytes of logs per thread and times out threads after
+    `thread_timeout` seconds of inactivity.
 
-    Logs can be fetched with gst_debug_ring_buffer_logger_get_logs() and the
-    logger can be removed again with gst_debug_remove_ring_buffer_logger().
+    Logs can be fetched with `Gst.debug_ring_buffer_logger_get_logs` and the
+    logger can be removed again with `Gst.debug_remove_ring_buffer_logger`.
     Only one logger at a time is possible.
     """
     ...
@@ -122,7 +122,7 @@ def debug_bin_to_dot_file_with_ts(
     file_name: str,
 ) -> None:
     """
-    This works like gst_debug_bin_to_dot_file(), but adds the current timestamp
+    This works like `Gst.debug_bin_to_dot_file`, but adds the current timestamp
     to the filename, so that it can be used to take multiple snapshots.
     """
     ...
@@ -217,9 +217,9 @@ def debug_log_default(
     whenever a macro like GST_DEBUG or similar is used. By default this function
     is setup to output the message and additional info to stderr (or the log file
     specified via the GST_DEBUG_FILE environment variable) as received via
-    @user_data.
+    `user_data`.
 
-    You can add other handlers by using gst_debug_add_log_function().
+    You can add other handlers by using `Gst.debug_add_log_function`.
     And you can remove this handler by calling
     gst_debug_remove_log_function(gst_debug_log_default);
     """
@@ -237,7 +237,7 @@ def debug_log_get_line(
 ) -> str:
     """
     Returns the string representation for the specified debug log message
-    formatted in the same way as gst_debug_log_default() (the default handler),
+    formatted in the same way as `Gst.debug_log_default` (the default handler),
     without color. The purpose is to make it easy for custom log output
     handlers to get a log output that is identical to what the default handler
     would write out.
@@ -279,9 +279,9 @@ def debug_print_object(
     ptr: object | None = None,
 ) -> str:
     """
-    Returns a string that represents @ptr. This is safe to call with
-    %GstStructure, %GstCapsFeatures, %GstMiniObject s (e.g. %GstCaps,
-    %GstBuffer or %GstMessage), and %GObjects (e.g. %GstElement or %GstPad).
+    Returns a string that represents `ptr`. This is safe to call with
+    GstStructure, GstCapsFeatures, GstMiniObject s (e.g. GstCaps,
+    GstBuffer or GstMessage), and GObjects (e.g. GstElement or GstPad).
 
     The string representation is meant to be used for debugging purposes and
     might change between GStreamer versions.
@@ -296,7 +296,7 @@ def debug_print_segment(
     segment: Segment | None = None,
 ) -> str:
     """
-    Returns a string that represents @segments.
+    Returns a string that represents `segments`.
 
     The string representation is meant to be used for debugging purposes and
     might change between GStreamer versions.
@@ -333,7 +333,7 @@ def debug_remove_log_function_by_data(
 def debug_remove_ring_buffer_logger() -> None:
     """
     Removes any previously added ring buffer logger with
-    gst_debug_add_ring_buffer_logger().
+    `Gst.debug_add_ring_buffer_logger`.
     """
     ...
 
@@ -341,7 +341,7 @@ def debug_remove_ring_buffer_logger() -> None:
 def debug_ring_buffer_logger_get_logs() -> list:
     """
     Fetches the current logs per thread from the ring buffer logger. See
-    gst_debug_add_ring_buffer_logger() for details.
+    `Gst.debug_add_ring_buffer_logger` for details.
     """
     ...
 
@@ -365,7 +365,7 @@ def debug_set_color_mode(
     """
     Changes the coloring mode for debug output.
 
-    This function may be called before gst_init().
+    This function may be called before `Gst.init`.
     """
     ...
 
@@ -376,7 +376,7 @@ def debug_set_color_mode_from_string(
     """
     Changes the coloring mode for debug output.
 
-    This function may be called before gst_init().
+    This function may be called before `Gst.init`.
     """
     ...
 
@@ -389,7 +389,7 @@ def debug_set_colored(
     Same as gst_debug_set_color_mode () with the argument being
     being GST_DEBUG_COLOR_MODE_ON or GST_DEBUG_COLOR_MODE_OFF.
 
-    This function may be called before gst_init().
+    This function may be called before `Gst.init`.
     """
     ...
 
@@ -401,7 +401,7 @@ def debug_set_default_threshold(
     Sets the default threshold to the given level and updates all categories to
     use this threshold.
 
-    This function may be called before gst_init().
+    This function may be called before `Gst.init`.
     """
     ...
 
@@ -441,7 +441,7 @@ def debug_unset_threshold_for_name(
 @staticmethod
 def deinit() -> None:
     """
-    Clean up any resources created by GStreamer in gst_init().
+    Clean up any resources created by GStreamer in `Gst.init`.
 
     It is normally not needed to call this function in a normal application
     as the resources will automatically be freed when the program terminates.
@@ -458,7 +458,7 @@ def dynamic_type_register(
     type: GObject.GType,
 ) -> bool:
     """
-    Registers a new #GstDynamicTypeFactory in the registry
+    Registers a new Gst.DynamicTypeFactory in the registry
     """
     ...
 
@@ -477,7 +477,7 @@ def event_type_get_flags(
     type: EventType,
 ) -> EventTypeFlags:
     """
-    Gets the #GstEventTypeFlags associated with @type.
+    Gets the Gst.EventTypeFlags associated with `type`.
     """
     ...
 
@@ -504,7 +504,7 @@ def event_type_to_sticky_ordering(
     type: EventType,
 ) -> int:
     """
-    Converts the #GstEventType to an unsigned integer that
+    Converts the Gst.EventType to an unsigned integer that
     represents the ordering of sticky events when re-sending them.
     A lower value represents a higher-priority event.
     """
@@ -515,12 +515,12 @@ def filename_to_uri(
     filename: str,
 ) -> str | None:
     """
-    Similar to g_filename_to_uri(), but attempts to handle relative file paths
-    as well. Before converting @filename into an URI, it will be prefixed by
+    Similar to `g_filename_to_uri`, but attempts to handle relative file paths
+    as well. Before converting `filename` into an URI, it will be prefixed by
     the current working directory if it is a relative path, and then the path
     will be canonicalised so that it doesn't contain any './' or '../' segments.
 
-    On Windows @filename should be in UTF-8 encoding.
+    On Windows `filename` should be in UTF-8 encoding.
     """
     ...
 
@@ -631,14 +631,14 @@ def init(
 
     Unless the plugin registry is disabled at compile time, the registry will be
     loaded. By default this will also check if the registry cache needs to be
-    updated and rescan all plugins if needed. See gst_update_registry() for
+    updated and rescan all plugins if needed. See `Gst.update_registry` for
     details and section
     <link linkend="gst-running">Running GStreamer Applications</link>
     for how to disable automatic registry updates.
 
     WARNING: This function will terminate your program if it was unable to
     initialize GStreamer for some reason. If you want your program to fall back,
-    use gst_init_check() instead.
+    use `Gst.init_check` instead.
     """
     ...
 
@@ -651,9 +651,9 @@ def init_check(
     Initializes the GStreamer library, setting up internal path lists,
     registering built-in elements, and loading standard plugins.
 
-    This function will return %FALSE if GStreamer could not be initialized
+    This function will return False if GStreamer could not be initialized
     for some reason.  If you want your program to fail fatally,
-    use gst_init() instead.
+    use `Gst.init` instead.
     """
     ...
 
@@ -662,15 +662,15 @@ def is_caps_features(
     obj: object | None = None,
 ) -> bool:
     """
-    Checks if @obj is a #GstCapsFeatures
+    Checks if `obj` is a Gst.CapsFeatures
     """
     ...
 
 @staticmethod
 def is_initialized() -> bool:
     """
-    Use this function to check if GStreamer has been initialized with gst_init()
-    or gst_init_check().
+    Use this function to check if GStreamer has been initialized with `Gst.init`
+    or `Gst.init_check`.
     """
     ...
 
@@ -703,10 +703,10 @@ def meta_api_type_aggregate_params(
 ) -> bool:
     """
     When a element like `tee` decides the allocation, each downstream element may
-    fill different parameters and pass them to gst_query_add_allocation_meta().
+    fill different parameters and pass them to `Gst.query_add_allocation_meta`.
     In order to keep these parameters, a merge operation is needed. This
-    aggregate function can combine the parameters from @params0 and @param1, and
-    write the result back into @aggregated_params.
+    aggregate function can combine the parameters from `params0` and `param1`, and
+    write the result back into `aggregated_params`.
     """
     ...
 
@@ -720,7 +720,7 @@ def meta_api_type_has_tag(
     tag: int,
 ) -> bool:
     """
-    Check if @api was registered with @tag.
+    Check if `api` was registered with `tag`.
     """
     ...
 
@@ -730,8 +730,8 @@ def meta_api_type_register(
     tags: list,
 ) -> GObject.GType:
     """
-    Register and return a GType for the @api and associate it with
-    @tags.
+    Register and return a GType for the `api` and associate it with
+    `tags`.
     """
     ...
 
@@ -752,15 +752,15 @@ def meta_deserialize(
     size: int,
 ) -> tuple[Meta | None, int]:
     """
-    Recreate a #GstMeta from serialized data returned by
-    gst_meta_serialize() and add it to @buffer.
+    Recreate a Gst.Meta from serialized data returned by
+    `Gst.meta_serialize` and add it to `buffer`.
 
     Note that the meta must have been previously registered by calling one of
     `gst_*_meta_get_info ()` functions.
 
-    @consumed is set to the number of bytes that can be skipped from @data to
+    `consumed` is set to the number of bytes that can be skipped from `data` to
     find the next meta serialization, if any. In case of parsing error that does
-    not allow to determine that size, @consumed is set to 0.
+    not allow to determine that size, `consumed` is set to 0.
     """
     ...
 
@@ -770,7 +770,7 @@ def meta_get_info(
 ) -> MetaInfo | None:
     """
     Lookup a previously registered meta info structure by its implementation name
-    @impl.
+    `impl`.
     """
     ...
 
@@ -783,17 +783,17 @@ def meta_register_custom(
     destroy_data: GLib.DestroyNotify,  # type: ignore
 ) -> MetaInfo:
     """
-    Register a new custom #GstMeta implementation, backed by an opaque
-    structure holding a #GstStructure.
+    Register a new custom Gst.Meta implementation, backed by an opaque
+    structure holding a Gst.Structure.
 
-    The registered info can be retrieved later with gst_meta_get_info() by using
-    @name as the key.
+    The registered info can be retrieved later with `Gst.meta_get_info` by using
+    `name` as the key.
 
-    The backing #GstStructure can be retrieved with
-    gst_custom_meta_get_structure(), its mutability is conditioned by the
+    The backing Gst.Structure can be retrieved with
+    `Gst.custom_meta_get_structure`, its mutability is conditioned by the
     writability of the buffer the meta is attached to.
 
-    When @transform_func is %NULL, the meta and its backing #GstStructure
+    When `transform_func` is None, the meta and its backing Gst.Structure
     will always be copied when the transform operation is copy, other operations
     are discarded, copy regions are ignored.
     """
@@ -804,7 +804,7 @@ def meta_register_custom_simple(
     name: str,
 ) -> MetaInfo:
     """
-    Simplified version of gst_meta_register_custom(), with no tags and no
+    Simplified version of `Gst.meta_register_custom`, with no tags and no
     transform function.
     """
     ...
@@ -816,10 +816,10 @@ def mini_object_replace(
 ) -> tuple[bool, MiniObject | None]:
     """
     Atomically modifies a pointer to point to a new mini-object.
-    The reference count of @olddata is decreased and the reference count of
-    @newdata is increased.
+    The reference count of `olddata` is decreased and the reference count of
+    `newdata` is increased.
 
-    Either @newdata and the value pointed to by @olddata may be %NULL.
+    Either `newdata` and the value pointed to by `olddata` may be None.
     """
     ...
 
@@ -830,11 +830,11 @@ def mini_object_take(
 ) -> tuple[bool, MiniObject]:
     """
     Modifies a pointer to point to a new mini-object. The modification
-    is done atomically. This version is similar to gst_mini_object_replace()
-    except that it does not increase the refcount of @newdata and thus
-    takes ownership of @newdata.
+    is done atomically. This version is similar to `Gst.mini_object_replace`
+    except that it does not increase the refcount of `newdata` and thus
+    takes ownership of `newdata`.
 
-    Either @newdata and the value pointed to by @olddata may be %NULL.
+    Either `newdata` and the value pointed to by `olddata` may be None.
     """
     ...
 
@@ -858,7 +858,7 @@ def param_spec_array(
     """
     This function creates a GstArray GParamSpec for use by objects/elements
     that want to expose properties of GstArray type. This function is
-    typically * used in connection with g_object_class_install_property() in a
+    typically * used in connection with `g_object_class_install_property` in a
     GObjects's instance_init function.
     """
     ...
@@ -879,7 +879,7 @@ def param_spec_fraction(
     """
     This function creates a fraction GParamSpec for use by objects/elements
     that want to expose properties of fraction type. This function is typically
-    used in connection with g_object_class_install_property() in a GObjects's
+    used in connection with `g_object_class_install_property` in a GObjects's
     instance_init function.
     """
     ...
@@ -889,7 +889,7 @@ def parent_buffer_meta_api_get_type() -> GObject.GType: ...
 @staticmethod
 def parent_buffer_meta_get_info() -> MetaInfo:
     """
-    Gets the global #GstMetaInfo describing  the #GstParentBufferMeta meta.
+    Gets the global Gst.MetaInfo describing  the Gst.ParentBufferMeta meta.
     """
     ...
 
@@ -899,9 +899,9 @@ def parse_bin_from_description(
     ghost_unlinked_pads: bool,
 ) -> Bin:
     """
-    This is a convenience wrapper around gst_parse_launch() to create a
-    #GstBin from a gst-launch-style pipeline description. See
-    gst_parse_launch() and the gst-launch man page for details about the
+    This is a convenience wrapper around `Gst.parse_launch` to create a
+    Gst.Bin from a gst-launch-style pipeline description. See
+    `Gst.parse_launch` and the gst-launch man page for details about the
     syntax. Ghost pads on the bin for unlinked source or sink pads
     within the bin can automatically be created (but only a maximum of
     one ghost pad for each direction will be created; if you expect
@@ -919,9 +919,9 @@ def parse_bin_from_description_full(
     flags: ParseFlags,
 ) -> Element:
     """
-    This is a convenience wrapper around gst_parse_launch() to create a
-    #GstBin from a gst-launch-style pipeline description. See
-    gst_parse_launch() and the gst-launch man page for details about the
+    This is a convenience wrapper around `Gst.parse_launch` to create a
+    Gst.Bin from a gst-launch-style pipeline description. See
+    `Gst.parse_launch` and the gst-launch man page for details about the
     syntax. Ghost pads on the bin for unlinked source or sink pads
     within the bin can automatically be created (but only a maximum of
     one ghost pad for each direction will be created; if you expect
@@ -944,12 +944,12 @@ def parse_launch(
 ) -> Element:
     """
     Create a new pipeline based on command line syntax.
-    Please note that you might get a return value that is not %NULL even though
-    the @error is set. In this case there was a recoverable parsing error and you
+    Please note that you might get a return value that is not None even though
+    the `error` is set. In this case there was a recoverable parsing error and you
     can try to play the pipeline.
 
     To create a sub-pipeline (bin) for embedding into an existing pipeline
-    use gst_parse_bin_from_description().
+    use `Gst.parse_bin_from_description`.
     """
     ...
 
@@ -961,12 +961,12 @@ def parse_launch_full(
 ) -> Element:
     """
     Create a new pipeline based on command line syntax.
-    Please note that you might get a return value that is not %NULL even though
-    the @error is set. In this case there was a recoverable parsing error and you
+    Please note that you might get a return value that is not None even though
+    the `error` is set. In this case there was a recoverable parsing error and you
     can try to play the pipeline.
 
     To create a sub-pipeline (bin) for embedding into an existing pipeline
-    use gst_parse_bin_from_description_full().
+    use `Gst.parse_bin_from_description_full`.
     """
     ...
 
@@ -976,7 +976,7 @@ def parse_launchv(
 ) -> Element:
     """
     Create a new element based on command line syntax.
-    @error will contain an error message if an erroneous pipeline is specified.
+    `error` will contain an error message if an erroneous pipeline is specified.
     An error does not mean that the pipeline could not be constructed.
     """
     ...
@@ -989,7 +989,7 @@ def parse_launchv_full(
 ) -> Element:
     """
     Create a new element based on command line syntax.
-    @error will contain an error message if an erroneous pipeline is specified.
+    `error` will contain an error message if an erroneous pipeline is specified.
     An error does not mean that the pipeline could not be constructed.
     """
     ...
@@ -1050,7 +1050,7 @@ def query_type_get_flags(
     type: QueryType,
 ) -> QueryTypeFlags:
     """
-    Gets the #GstQueryTypeFlags associated with @type.
+    Gets the Gst.QueryTypeFlags associated with `type`.
     """
     ...
 
@@ -1077,7 +1077,7 @@ def reference_timestamp_meta_api_get_type() -> GObject.GType: ...
 @staticmethod
 def reference_timestamp_meta_get_info() -> MetaInfo:
     """
-    Gets the global #GstMetaInfo describing the #GstReferenceTimestampMeta meta.
+    Gets the global Gst.MetaInfo describing the Gst.ReferenceTimestampMeta meta.
     """
     ...
 
@@ -1091,7 +1091,7 @@ def segtrap_is_enabled() -> bool:
     is enabled by default when loading plugins.
 
     Applications might want to disable this behaviour with the
-    gst_segtrap_set_enabled() function. This is typically done if the application
+    `Gst.segtrap_set_enabled` function. This is typically done if the application
     wants to install its own handler without GStreamer interfering.
     """
     ...
@@ -1102,7 +1102,7 @@ def segtrap_set_enabled(
 ) -> None:
     """
     Applications might want to disable/enable the SIGSEGV handling of
-    the GStreamer core. See gst_segtrap_is_enabled() for more information.
+    the GStreamer core. See `Gst.segtrap_is_enabled` for more information.
     """
     ...
 
@@ -1122,7 +1122,7 @@ def stream_type_get_name(
     stype: StreamType,
 ) -> str:
     """
-    Get a descriptive string for a given #GstStreamType
+    Get a descriptive string for a given Gst.StreamType
     """
     ...
 
@@ -1133,13 +1133,13 @@ def structure_take(
 ) -> tuple[bool, Structure | None]:
     """
     Atomically modifies a pointer to point to a new structure.
-    The #GstStructure @oldstr_ptr is pointing to is freed and
-    @newstr is taken ownership over.
+    The Gst.Structure `oldstr_ptr` is pointing to is freed and
+    `newstr` is taken ownership over.
 
-    Either @newstr and the value pointed to by @oldstr_ptr may be %NULL.
+    Either `newstr` and the value pointed to by `oldstr_ptr` may be None.
 
-    It is a programming error if both @newstr and the value pointed to by
-    @oldstr_ptr refer to the same, non-%NULL structure.
+    It is a programming error if both `newstr` and the value pointed to by
+    `oldstr_ptr` refer to the same, non-None structure.
     """
     ...
 
@@ -1167,7 +1167,7 @@ def tag_get_flag(
     tag: str,
 ) -> TagFlag:
     """
-    Gets the flag of @tag.
+    Gets the flag of `tag`.
     """
     ...
 
@@ -1186,7 +1186,7 @@ def tag_get_type(
     tag: str,
 ) -> GObject.GType:
     """
-    Gets the #GType used for this tag.
+    Gets the GType used for this tag.
     """
     ...
 
@@ -1209,7 +1209,7 @@ def tag_list_copy_value(
     Copies the contents for the given tag into the value,
     merging multiple values into one if multiple values are associated
     with the tag.
-    You must g_value_unset() the value after use.
+    You must `g_value_unset` the value after use.
     """
     ...
 
@@ -1218,7 +1218,7 @@ def tag_merge_strings_with_comma(
     src: GObject.Value,
 ) -> GObject.Value:
     """
-    This is a convenience function for the func argument of gst_tag_register().
+    This is a convenience function for the func argument of `Gst.tag_register`.
     It concatenates all given strings using a comma. The tag must be registered
     as a G_TYPE_STRING or this function will fail.
     """
@@ -1229,7 +1229,7 @@ def tag_merge_use_first(
     src: GObject.Value,
 ) -> GObject.Value:
     """
-    This is a convenience function for the func argument of gst_tag_register().
+    This is a convenience function for the func argument of `Gst.tag_register`.
     It creates a copy of the first value from the list.
     """
     ...
@@ -1239,7 +1239,7 @@ def toc_entry_type_get_nick(
     type: TocEntryType,
 ) -> str:
     """
-    Converts @type to a string representation.
+    Converts `type` to a string representation.
     """
     ...
 
@@ -1247,7 +1247,7 @@ def toc_entry_type_get_nick(
 def tracing_get_active_tracers() -> list:
     """
     Get a list of all active tracer objects owned by the tracing framework for
-    the entirety of the run-time of the process or till gst_deinit() is called.
+    the entirety of the run-time of the process or till `Gst.deinit` is called.
     """
     ...
 
@@ -1258,8 +1258,8 @@ def tracing_register_hook(
     func: GObject.Callback,  # type: ignore
 ) -> None:
     """
-    Register @func to be called when the trace hook @detail is getting invoked.
-    Use %NULL for @detail to register to all hooks.
+    Register `func` to be called when the trace hook `detail` is getting invoked.
+    Use None for `detail` to register to all hooks.
     """
     ...
 
@@ -1286,7 +1286,7 @@ def type_is_plugin_api(
     type: GObject.GType,
 ) -> tuple[bool, PluginAPIFlags]:
     """
-    Checks if @type is plugin API. See gst_type_mark_as_plugin_api() for
+    Checks if `type` is plugin API. See `Gst.type_mark_as_plugin_api` for
     details.
     """
     ...
@@ -1297,7 +1297,7 @@ def type_mark_as_plugin_api(
     flags: PluginAPIFlags,
 ) -> None:
     """
-    Marks @type as plugin API. This should be called in `class_init` of
+    Marks `type` as plugin API. This should be called in `class_init` of
     elements that expose new types (i.e. enums, flags or internal GObjects) via
     properties, signals or pad templates.
 
@@ -1319,7 +1319,7 @@ def update_registry() -> bool:
     Applications will almost never need to call this function, it is only
     useful if the application knows new plugins have been installed (or old
     ones removed) since the start of the application (or, to be precise, the
-    first call to gst_init()) and the application wants to make use of any
+    first call to `Gst.init`) and the application wants to make use of any
     newly-installed plugins without restarting the application.
 
     Applications should assume that the registry update is neither atomic nor
@@ -1352,7 +1352,7 @@ def uri_from_string(
     uri: str,
 ) -> Uri | None:
     """
-    Parses a URI string into a new #GstUri object. Will return NULL if the URI
+    Parses a URI string into a new Gst.Uri object. Will return None if the URI
     cannot be parsed.
     """
     ...
@@ -1362,14 +1362,14 @@ def uri_from_string_escaped(
     uri: str,
 ) -> Uri | None:
     """
-    Parses a URI string into a new #GstUri object. Will return NULL if the URI
-    cannot be parsed. This is identical to gst_uri_from_string() except that
+    Parses a URI string into a new Gst.Uri object. Will return None if the URI
+    cannot be parsed. This is identical to `Gst.uri_from_string` except that
     the userinfo and fragment components of the URI will not be unescaped while
     parsing.
 
     Use this when you need to extract a username and password from the userinfo
-    such as https://user:password@example.com since either may contain
-    a URI-escaped ':' character. gst_uri_from_string() will unescape the entire
+    such as https://user:password`example`.com since either may contain
+    a URI-escaped ':' character. `Gst.uri_from_string` will unescape the entire
     userinfo component, which will make it impossible to know which ':'
     delineates the username and password.
 
@@ -1386,7 +1386,7 @@ def uri_get_location(
     Extracts the location out of a given valid URI, ie. the protocol and "://"
     are stripped from the URI, which means that the location returned includes
     the hostname if one is specified. The returned string must be freed using
-    g_free().
+    `g_free`.
 
     Free-function: g_free
     """
@@ -1398,7 +1398,7 @@ def uri_get_protocol(
 ) -> str | None:
     """
     Extracts the protocol out of a given valid URI. The returned string must be
-    freed using g_free().
+    freed using `g_free`.
     """
     ...
 
@@ -1408,7 +1408,7 @@ def uri_has_protocol(
     protocol: str,
 ) -> bool:
     """
-    Checks if the protocol of a given valid URI matches @protocol.
+    Checks if the protocol of a given valid URI matches `protocol`.
     """
     ...
 
@@ -1429,7 +1429,7 @@ def uri_join_strings(
 ) -> str | None:
     """
     This is a convenience function to join two URI strings and return the result.
-    The returned string should be g_free()'d after use.
+    The returned string should be `g_free`'d after use.
     """
     ...
 
@@ -1441,7 +1441,7 @@ def uri_protocol_is_supported(
     """
     Checks if an element exists that supports the given URI protocol. Note
     that a positive return value does not imply that a subsequent call to
-    gst_element_make_from_uri() is guaranteed to work.
+    `Gst.element_make_from_uri` is guaranteed to work.
     """
     ...
 
@@ -1467,11 +1467,11 @@ def util_array_binary_search(
     user_data: object | None = None,
 ) -> object | None:
     """
-    Searches inside @array for @search_data by using the comparison function
-    @search_func. @array must be sorted ascending.
+    Searches inside `array` for `search_data` by using the comparison function
+    `search_func`. `array` must be sorted ascending.
 
-    As @search_data is always passed as second argument to @search_func it's
-    not required that @search_data has the same type as the array elements.
+    As `search_data` is always passed as second argument to `search_func` it's
+    not required that `search_data` has the same type as the array elements.
 
     The complexity of this search function is O(log (num_elements)).
     """
@@ -1542,8 +1542,8 @@ def util_fraction_add(
     b_d: int,
 ) -> tuple[bool, int, int]:
     """
-    Adds the fractions @a_n/@a_d and @b_n/@b_d and stores
-    the result in @res_n and @res_d.
+    Adds the fractions `a_n`/`a_d` and `b_n`/`b_d` and stores
+    the result in `res_n` and `res_d`.
     """
     ...
 
@@ -1555,7 +1555,7 @@ def util_fraction_compare(
     b_d: int,
 ) -> int:
     """
-    Compares the fractions @a_n/@a_d and @b_n/@b_d and returns
+    Compares the fractions `a_n`/`a_d` and `b_n`/`b_d` and returns
     -1 if a < b, 0 if a = b and 1 if a > b.
     """
     ...
@@ -1568,8 +1568,8 @@ def util_fraction_multiply(
     b_d: int,
 ) -> tuple[bool, int, int]:
     """
-    Multiplies the fractions @a_n/@a_d and @b_n/@b_d and stores
-    the result in @res_n and @res_d.
+    Multiplies the fractions `a_n`/`a_d` and `b_n`/`b_d` and stores
+    the result in `res_n` and `res_d`.
     """
     ...
 
@@ -1581,8 +1581,8 @@ def util_fraction_multiply_int64(
     b_d: int,
 ) -> tuple[bool, int, int]:
     """
-    Multiplies the fractions @a_n/@a_d and @b_n/@b_d and stores
-    the result in @res_n and @res_d.
+    Multiplies the fractions `a_n`/`a_d` and `b_n`/`b_d` and stores
+    the result in `res_n` and `res_d`.
     """
     ...
 
@@ -1606,8 +1606,8 @@ def util_get_object_array(
     name: str,
 ) -> tuple[bool, GObject.ValueArray]:
     """
-    Get a property of type %GST_TYPE_ARRAY and transform it into a
-    #GValueArray. This allow language bindings to get GST_TYPE_ARRAY
+    Get a property of type Gst.TYPE_ARRAY and transform it into a
+    GValueArray. This allow language bindings to get GST_TYPE_ARRAY
     properties which are otherwise not an accessible type.
     """
     ...
@@ -1626,8 +1626,8 @@ def util_greatest_common_divisor(
     b: int,
 ) -> int:
     """
-    Calculates the greatest common divisor of @a
-    and @b.
+    Calculates the greatest common divisor of `a`
+    and `b`.
     """
     ...
 
@@ -1637,8 +1637,8 @@ def util_greatest_common_divisor_int64(
     b: int,
 ) -> int:
     """
-    Calculates the greatest common divisor of @a
-    and @b.
+    Calculates the greatest common divisor of `a`
+    and `b`.
     """
     ...
 
@@ -1650,7 +1650,7 @@ def util_group_id_next() -> int:
     This function is used to generate a new group-id for the
     stream-start event.
 
-    This function never returns %GST_GROUP_ID_INVALID (which is 0)
+    This function never returns Gst.GROUP_ID_INVALID (which is 0)
     """
     ...
 
@@ -1666,7 +1666,7 @@ def util_seqnum_compare(
     """
     Compare two sequence numbers, handling wraparound.
 
-    The current implementation just returns (gint32)(@s1 - @s2).
+    The current implementation just returns (gint32)(`s1` - `s2`).
     """
     ...
 
@@ -1680,7 +1680,7 @@ def util_seqnum_next() -> int:
     on a segment-done message to be the same as that of the last seek event, to
     indicate that event and the message correspond to the same segment.
 
-    This function never returns %GST_SEQNUM_INVALID (which is 0).
+    This function never returns Gst.SEQNUM_INVALID (which is 0).
     """
     ...
 
@@ -1694,8 +1694,8 @@ def util_set_object_arg(
     Converts the string value to the type of the objects argument and
     sets the argument with it.
 
-    Note that this function silently returns if @object has no property named
-    @name or when @value cannot be converted to the type of the property.
+    Note that this function silently returns if `object` has no property named
+    `name` or when `value` cannot be converted to the type of the property.
     """
     ...
 
@@ -1706,7 +1706,7 @@ def util_set_object_array(
     array: GObject.ValueArray,
 ) -> bool:
     """
-    Transfer a #GValueArray to %GST_TYPE_ARRAY and set this value on the
+    Transfer a GValueArray to Gst.TYPE_ARRAY and set this value on the
     specified property name. This allow language bindings to set GST_TYPE_ARRAY
     properties which are otherwise not an accessible type.
     """
@@ -1733,7 +1733,7 @@ def util_simplify_fraction(
     threshold: int,
 ) -> None:
     """
-    Calculates the simpler representation of @numerator and @denominator and
+    Calculates the simpler representation of `numerator` and `denominator` and
     update both values with the resulting simplified fraction.
 
     Simplify a fraction using a simple continued fraction decomposition.
@@ -1741,7 +1741,7 @@ def util_simplify_fraction(
     using 32 bit arithmetic only. The algorithm is not perfect and relies
     upon two arbitrary parameters to remove non-significative terms from
     the simple continued fraction decomposition. Using 8 and 333 for
-    @n_terms and @threshold respectively seems to give nice results.
+    `n_terms` and `threshold` respectively seems to give nice results.
     """
     ...
 
@@ -1752,7 +1752,7 @@ def util_uint64_scale(
     denom: int,
 ) -> int:
     """
-    Scale @val by the rational number @num / @denom, avoiding overflows and
+    Scale `val` by the rational number `num` / `denom`, avoiding overflows and
     underflows and without loss of precision.
 
     This function can potentially be very slow if val and num are both
@@ -1767,7 +1767,7 @@ def util_uint64_scale_ceil(
     denom: int,
 ) -> int:
     """
-    Scale @val by the rational number @num / @denom, avoiding overflows and
+    Scale `val` by the rational number `num` / `denom`, avoiding overflows and
     underflows and without loss of precision.
 
     This function can potentially be very slow if val and num are both
@@ -1782,9 +1782,9 @@ def util_uint64_scale_int(
     denom: int,
 ) -> int:
     """
-    Scale @val by the rational number @num / @denom, avoiding overflows and
-    underflows and without loss of precision.  @num must be non-negative and
-    @denom must be positive.
+    Scale `val` by the rational number `num` / `denom`, avoiding overflows and
+    underflows and without loss of precision.  `num` must be non-negative and
+    `denom` must be positive.
     """
     ...
 
@@ -1795,9 +1795,9 @@ def util_uint64_scale_int_ceil(
     denom: int,
 ) -> int:
     """
-    Scale @val by the rational number @num / @denom, avoiding overflows and
-    underflows and without loss of precision.  @num must be non-negative and
-    @denom must be positive.
+    Scale `val` by the rational number `num` / `denom`, avoiding overflows and
+    underflows and without loss of precision.  `num` must be non-negative and
+    `denom` must be positive.
     """
     ...
 
@@ -1808,9 +1808,9 @@ def util_uint64_scale_int_round(
     denom: int,
 ) -> int:
     """
-    Scale @val by the rational number @num / @denom, avoiding overflows and
-    underflows and without loss of precision.  @num must be non-negative and
-    @denom must be positive.
+    Scale `val` by the rational number `num` / `denom`, avoiding overflows and
+    underflows and without loss of precision.  `num` must be non-negative and
+    `denom` must be positive.
     """
     ...
 
@@ -1821,7 +1821,7 @@ def util_uint64_scale_round(
     denom: int,
 ) -> int:
     """
-    Scale @val by the rational number @num / @denom, avoiding overflows and
+    Scale `val` by the rational number `num` / `denom`, avoiding overflows and
     underflows and without loss of precision.
 
     This function can potentially be very slow if val and num are both
@@ -1835,7 +1835,7 @@ def value_can_compare(
     value2: GObject.Value,
 ) -> bool:
     """
-    Determines if @value1 and @value2 can be compared.
+    Determines if `value1` and `value2` can be compared.
     """
     ...
 
@@ -1857,7 +1857,7 @@ def value_can_subtract(
     subtrahend: GObject.Value,
 ) -> bool:
     """
-    Checks if it's possible to subtract @subtrahend from @minuend.
+    Checks if it's possible to subtract `subtrahend` from `minuend`.
     """
     ...
 
@@ -1867,13 +1867,13 @@ def value_can_union(
     value2: GObject.Value,
 ) -> bool:
     """
-    Determines if @value1 and @value2 can be non-trivially unioned.
+    Determines if `value1` and `value2` can be non-trivially unioned.
     Any two values can be trivially unioned by adding both of them
     to a GstValueList.  However, certain types have the possibility
     to be unioned in a simpler way.  For example, an integer range
     and an integer can be unioned if the integer is a subset of the
     integer range.  If there is the possibility that two values can
-    be unioned, this function returns %TRUE.
+    be unioned, this function returns True.
     """
     ...
 
@@ -1883,10 +1883,10 @@ def value_compare(
     value2: GObject.Value,
 ) -> int:
     """
-    Compares @value1 and @value2.  If @value1 and @value2 cannot be
+    Compares `value1` and `value2`.  If `value1` and `value2` cannot be
     compared, the function returns GST_VALUE_UNORDERED.  Otherwise,
-    if @value1 is greater than @value2, GST_VALUE_GREATER_THAN is returned.
-    If @value1 is less than @value2, GST_VALUE_LESS_THAN is returned.
+    if `value1` is greater than `value2`, GST_VALUE_GREATER_THAN is returned.
+    If `value1` is less than `value2`, GST_VALUE_LESS_THAN is returned.
     If the values are equal, GST_VALUE_EQUAL is returned.
     """
     ...
@@ -1897,7 +1897,7 @@ def value_deserialize(
 ) -> tuple[bool, GObject.Value]:
     """
     Tries to deserialize a string into the type specified by the given GValue.
-    If the operation succeeds, %TRUE is returned, %FALSE otherwise.
+    If the operation succeeds, True is returned, False otherwise.
     """
     ...
 
@@ -1908,8 +1908,8 @@ def value_deserialize_with_pspec(
 ) -> tuple[bool, GObject.Value]:
     """
     Tries to deserialize a string into the type specified by the given GValue.
-    @pspec may be used to guide the deserializing of nested members.
-    If the operation succeeds, %TRUE is returned, %FALSE otherwise.
+    `pspec` may be used to guide the deserializing of nested members.
+    If the operation succeeds, True is returned, False otherwise.
     """
     ...
 
@@ -1919,10 +1919,10 @@ def value_fixate(
     src: GObject.Value,
 ) -> bool:
     """
-    Fixate @src into a new value @dest.
+    Fixate `src` into a new value `dest`.
     For ranges, the first element is taken. For lists and arrays, the
     first item is fixated and returned.
-    If @src is already fixed, this function returns %FALSE.
+    If `src` is already fixed, this function returns False.
     """
     ...
 
@@ -1933,8 +1933,8 @@ def value_fraction_multiply(
     factor2: GObject.Value,
 ) -> bool:
     """
-    Multiplies the two #GValue items containing a #GST_TYPE_FRACTION and sets
-    @product to the product of the two fractions.
+    Multiplies the two GValue items containing a GST_TYPE_FRACTION and sets
+    `product` to the product of the two fractions.
     """
     ...
 
@@ -1945,7 +1945,7 @@ def value_fraction_subtract(
     subtrahend: GObject.Value,
 ) -> bool:
     """
-    Subtracts the @subtrahend from the @minuend and sets @dest to the result.
+    Subtracts the `subtrahend` from the `minuend` and sets `dest` to the result.
     """
     ...
 
@@ -1954,7 +1954,7 @@ def value_get_bitmask(
     value: GObject.Value,
 ) -> int:
     """
-    Gets the bitmask specified by @value.
+    Gets the bitmask specified by `value`.
     """
     ...
 
@@ -1963,9 +1963,9 @@ def value_get_caps(
     value: GObject.Value,
 ) -> Caps:
     """
-    Gets the contents of @value. The reference count of the returned
-    #GstCaps will not be modified, therefore the caller must take one
-    before getting rid of the @value.
+    Gets the contents of `value`. The reference count of the returned
+    Gst.Caps will not be modified, therefore the caller must take one
+    before getting rid of the `value`.
     """
     ...
 
@@ -1974,7 +1974,7 @@ def value_get_caps_features(
     value: GObject.Value,
 ) -> CapsFeatures:
     """
-    Gets the contents of @value.
+    Gets the contents of `value`.
     """
     ...
 
@@ -1983,7 +1983,7 @@ def value_get_double_range_max(
     value: GObject.Value,
 ) -> float:
     """
-    Gets the maximum of the range specified by @value.
+    Gets the maximum of the range specified by `value`.
     """
     ...
 
@@ -1992,7 +1992,7 @@ def value_get_double_range_min(
     value: GObject.Value,
 ) -> float:
     """
-    Gets the minimum of the range specified by @value.
+    Gets the minimum of the range specified by `value`.
     """
     ...
 
@@ -2001,7 +2001,7 @@ def value_get_flagset_flags(
     value: GObject.Value,
 ) -> int:
     """
-    Retrieve the flags field of a GstFlagSet @value.
+    Retrieve the flags field of a GstFlagSet `value`.
     """
     ...
 
@@ -2010,7 +2010,7 @@ def value_get_flagset_mask(
     value: GObject.Value,
 ) -> int:
     """
-    Retrieve the mask field of a GstFlagSet @value.
+    Retrieve the mask field of a GstFlagSet `value`.
     """
     ...
 
@@ -2019,7 +2019,7 @@ def value_get_fraction_denominator(
     value: GObject.Value,
 ) -> int:
     """
-    Gets the denominator of the fraction specified by @value.
+    Gets the denominator of the fraction specified by `value`.
     """
     ...
 
@@ -2028,7 +2028,7 @@ def value_get_fraction_numerator(
     value: GObject.Value,
 ) -> int:
     """
-    Gets the numerator of the fraction specified by @value.
+    Gets the numerator of the fraction specified by `value`.
     """
     ...
 
@@ -2037,7 +2037,7 @@ def value_get_fraction_range_max(
     value: GObject.Value,
 ) -> GObject.Value | None:
     """
-    Gets the maximum of the range specified by @value.
+    Gets the maximum of the range specified by `value`.
     """
     ...
 
@@ -2046,7 +2046,7 @@ def value_get_fraction_range_min(
     value: GObject.Value,
 ) -> GObject.Value | None:
     """
-    Gets the minimum of the range specified by @value.
+    Gets the minimum of the range specified by `value`.
     """
     ...
 
@@ -2055,7 +2055,7 @@ def value_get_int64_range_max(
     value: GObject.Value,
 ) -> int:
     """
-    Gets the maximum of the range specified by @value.
+    Gets the maximum of the range specified by `value`.
     """
     ...
 
@@ -2064,7 +2064,7 @@ def value_get_int64_range_min(
     value: GObject.Value,
 ) -> int:
     """
-    Gets the minimum of the range specified by @value.
+    Gets the minimum of the range specified by `value`.
     """
     ...
 
@@ -2073,7 +2073,7 @@ def value_get_int64_range_step(
     value: GObject.Value,
 ) -> int:
     """
-    Gets the step of the range specified by @value.
+    Gets the step of the range specified by `value`.
     """
     ...
 
@@ -2082,7 +2082,7 @@ def value_get_int_range_max(
     value: GObject.Value,
 ) -> int:
     """
-    Gets the maximum of the range specified by @value.
+    Gets the maximum of the range specified by `value`.
     """
     ...
 
@@ -2091,7 +2091,7 @@ def value_get_int_range_min(
     value: GObject.Value,
 ) -> int:
     """
-    Gets the minimum of the range specified by @value.
+    Gets the minimum of the range specified by `value`.
     """
     ...
 
@@ -2100,7 +2100,7 @@ def value_get_int_range_step(
     value: GObject.Value,
 ) -> int:
     """
-    Gets the step of the range specified by @value.
+    Gets the step of the range specified by `value`.
     """
     ...
 
@@ -2109,7 +2109,7 @@ def value_get_structure(
     value: GObject.Value,
 ) -> Structure:
     """
-    Gets the contents of @value.
+    Gets the contents of `value`.
     """
     ...
 
@@ -2131,8 +2131,8 @@ def value_intersect(
     """
     Calculates the intersection of two values.  If the values have
     a non-empty intersection, the value representing the intersection
-    is placed in @dest, unless %NULL.  If the intersection is non-empty,
-    @dest is not modified.
+    is placed in `dest`, unless None.  If the intersection is non-empty,
+    `dest` is not modified.
     """
     ...
 
@@ -2154,7 +2154,7 @@ def value_is_subset(
     value2: GObject.Value,
 ) -> bool:
     """
-    Check that @value1 is a subset of @value2.
+    Check that `value1` is a subset of `value2`.
     """
     ...
 
@@ -2163,7 +2163,7 @@ def value_register(
     table: ValueTable,
 ) -> None:
     """
-    Registers functions to perform calculations on #GValue items of a given
+    Registers functions to perform calculations on GValue items of a given
     type. Each type can only be added once.
     """
     ...
@@ -2173,8 +2173,8 @@ def value_serialize(
     value: GObject.Value,
 ) -> str | None:
     """
-    tries to transform the given @value into a string representation that allows
-    getting back this string later on using gst_value_deserialize().
+    tries to transform the given `value` into a string representation that allows
+    getting back this string later on using `Gst.value_deserialize`.
 
     Free-function: g_free
     """
@@ -2186,7 +2186,7 @@ def value_set_bitmask(
     bitmask: int,
 ) -> None:
     """
-    Sets @value to the bitmask specified by @bitmask.
+    Sets `value` to the bitmask specified by `bitmask`.
     """
     ...
 
@@ -2196,8 +2196,8 @@ def value_set_caps(
     caps: Caps,
 ) -> None:
     """
-    Sets the contents of @value to @caps. A reference to the
-    provided @caps will be taken by the @value.
+    Sets the contents of `value` to `caps`. A reference to the
+    provided `caps` will be taken by the `value`.
     """
     ...
 
@@ -2207,7 +2207,7 @@ def value_set_caps_features(
     features: CapsFeatures,
 ) -> None:
     """
-    Sets the contents of @value to @features.
+    Sets the contents of `value` to `features`.
     """
     ...
 
@@ -2218,7 +2218,7 @@ def value_set_double_range(
     end: float,
 ) -> None:
     """
-    Sets @value to the range specified by @start and @end.
+    Sets `value` to the range specified by `start` and `end`.
     """
     ...
 
@@ -2229,8 +2229,8 @@ def value_set_flagset(
     mask: int,
 ) -> None:
     """
-    Sets @value to the flags and mask values provided in @flags and @mask.
-    The @flags value indicates the values of flags, the @mask represents
+    Sets `value` to the flags and mask values provided in `flags` and `mask`.
+    The `flags` value indicates the values of flags, the `mask` represents
     which bits in the flag value have been set, and which are "don't care"
     """
     ...
@@ -2242,7 +2242,7 @@ def value_set_fraction(
     denominator: int,
 ) -> None:
     """
-    Sets @value to the fraction specified by @numerator over @denominator.
+    Sets `value` to the fraction specified by `numerator` over `denominator`.
     The fraction gets reduced to the smallest numerator and denominator,
     and if necessary the sign is moved to the numerator.
     """
@@ -2255,7 +2255,7 @@ def value_set_fraction_range(
     end: GObject.Value,
 ) -> None:
     """
-    Sets @value to the range specified by @start and @end.
+    Sets `value` to the range specified by `start` and `end`.
     """
     ...
 
@@ -2268,8 +2268,8 @@ def value_set_fraction_range_full(
     denominator_end: int,
 ) -> None:
     """
-    Sets @value to the range specified by @numerator_start/@denominator_start
-    and @numerator_end/@denominator_end.
+    Sets `value` to the range specified by `numerator_start`/`denominator_start`
+    and `numerator_end`/`denominator_end`.
     """
     ...
 
@@ -2280,7 +2280,7 @@ def value_set_int64_range(
     end: int,
 ) -> None:
     """
-    Sets @value to the range specified by @start and @end.
+    Sets `value` to the range specified by `start` and `end`.
     """
     ...
 
@@ -2292,7 +2292,7 @@ def value_set_int64_range_step(
     step: int,
 ) -> None:
     """
-    Sets @value to the range specified by @start, @end and @step.
+    Sets `value` to the range specified by `start`, `end` and `step`.
     """
     ...
 
@@ -2303,7 +2303,7 @@ def value_set_int_range(
     end: int,
 ) -> None:
     """
-    Sets @value to the range specified by @start and @end.
+    Sets `value` to the range specified by `start` and `end`.
     """
     ...
 
@@ -2315,7 +2315,7 @@ def value_set_int_range_step(
     step: int,
 ) -> None:
     """
-    Sets @value to the range specified by @start, @end and @step.
+    Sets `value` to the range specified by `start`, `end` and `step`.
     """
     ...
 
@@ -2325,7 +2325,7 @@ def value_set_structure(
     structure: Structure,
 ) -> None:
     """
-    Sets the contents of @value to @structure.
+    Sets the contents of `value` to `structure`.
     """
     ...
 
@@ -2335,7 +2335,7 @@ def value_subtract(
     subtrahend: GObject.Value,
 ) -> tuple[bool, GObject.Value]:
     """
-    Subtracts @subtrahend from @minuend and stores the result in @dest.
+    Subtracts `subtrahend` from `minuend` and stores the result in `dest`.
     Note that this means subtraction as in sets, not as in mathematics.
     """
     ...
@@ -2346,7 +2346,7 @@ def value_union(
     value2: GObject.Value,
 ) -> tuple[bool, GObject.Value]:
     """
-    Creates a GValue corresponding to the union of @value1 and @value2.
+    Creates a GValue corresponding to the union of `value1` and `value2`.
     """
     ...
 
@@ -2378,14 +2378,14 @@ class AllocatorFlags(GObject.GFlags):
     The allocator has a custom alloc function.
        Only elements designed to work with this allocator should be using it,
        other elements should ignore it from allocation propositions.
-       This implies %GST_ALLOCATOR_FLAG_NO_COPY.
+       This implies Gst.ALLOCATOR_FLAG_NO_COPY.
     """
     NO_COPY = 32
     """
-    When copying a #GstMemory allocated with this allocator, the copy will
+    When copying a Gst.Memory allocated with this allocator, the copy will
     instead be allocated using the default allocator. Use this when allocating a
     new memory is an heavy opperation that should only be done with a
-    #GstBufferPool for example.
+    Gst.BufferPool for example.
     """
     LAST = 1048576
     """
@@ -2395,8 +2395,8 @@ class AllocatorFlags(GObject.GFlags):
 class BinFlags(GObject.GFlags):
     """
     GstBinFlags are a set of flags specific to bins. Most are set/used
-    internally. They can be checked using the GST_OBJECT_FLAG_IS_SET() macro,
-    and (un)set using GST_OBJECT_FLAG_SET() and GST_OBJECT_FLAG_UNSET()."""
+    internally. They can be checked using the `GST_OBJECT_FLAG_IS_SET` macro,
+    and (un)set using `GST_OBJECT_FLAG_SET` and `GST_OBJECT_FLAG_UNSET`."""
 
     NO_RESYNC = 16384
     """
@@ -2415,7 +2415,7 @@ class BinFlags(GObject.GFlags):
 
 class BufferCopyFlags(GObject.GFlags):
     """
-    A set of flags that can be provided to the gst_buffer_copy_into()
+    A set of flags that can be provided to the `Gst.buffer_copy_into`
     function to specify which items should be copied."""
 
     NONE = 0
@@ -2441,7 +2441,7 @@ class BufferCopyFlags(GObject.GFlags):
     flag indicating that buffer memory should be reffed
       and appended to already existing memory. Unless the memory is marked as
       NO_SHARE, no actual copy of the memory is made but it is simply reffed.
-      Add @GST_BUFFER_COPY_DEEP to force a real copy.
+      Add `GST_BUFFER_COPY_DEEP` to force a real copy.
     """
     MERGE = 16
     """
@@ -2455,7 +2455,7 @@ class BufferCopyFlags(GObject.GFlags):
 
 class BufferFlags(GObject.GFlags):
     """
-    A set of buffer flags used to describe properties of a #GstBuffer."""
+    A set of buffer flags used to describe properties of a Gst.Buffer."""
 
     LIVE = 16
     """
@@ -2554,7 +2554,7 @@ class BufferPoolAcquireFlags(GObject.GFlags):
     """
     when the bufferpool is empty, acquire_buffer
     will by default block until a buffer is released into the pool again. Setting
-    this flag makes acquire_buffer return #GST_FLOW_EOS instead of blocking.
+    this flag makes acquire_buffer return GST_FLOW_EOS instead of blocking.
     """
     DISCONT = 4
     """
@@ -2625,7 +2625,7 @@ class CapsIntersectMode(GObject.GEnum):
     """
     Modes of caps intersection
 
-    %GST_CAPS_INTERSECT_ZIG_ZAG tries to preserve overall order of both caps
+    Gst.CAPS_INTERSECT_ZIG_ZAG tries to preserve overall order of both caps
     by iterating on the caps' structures as the following matrix shows:
 
     ```
@@ -2640,7 +2640,7 @@ class CapsIntersectMode(GObject.GEnum):
     tee's sink pad getcaps function, it will probe its src pad peers' for their
     caps and intersect them with this mode.
 
-    %GST_CAPS_INTERSECT_FIRST is useful when an element wants to preserve
+    Gst.CAPS_INTERSECT_FIRST is useful when an element wants to preserve
     another element's caps priority order when intersecting with its own caps.
     Example: If caps1 is `[A, B, C]` and caps2 is `[E, B, D, A]`, the result
     would be `[A, B]`, maintaining the first caps priority on the intersection."""
@@ -2928,8 +2928,8 @@ class DebugColorMode(GObject.GEnum):
 
 class DebugGraphDetails(GObject.GFlags):
     """
-    Available details for pipeline graphs produced by GST_DEBUG_BIN_TO_DOT_FILE()
-    and GST_DEBUG_BIN_TO_DOT_FILE_WITH_TS()."""
+    Available details for pipeline graphs produced by `GST_DEBUG_BIN_TO_DOT_FILE`
+    and `GST_DEBUG_BIN_TO_DOT_FILE_WITH_TS`."""
 
     MEDIA_TYPE = 1
     """
@@ -3071,12 +3071,12 @@ class ElementFlags(GObject.GFlags):
 
 class EventType(GObject.GEnum):
     """
-    #GstEventType lists the standard event types that can be sent in a pipeline.
+    Gst.EventType lists the standard event types that can be sent in a pipeline.
 
     The custom event types can be used for private messages between elements
     that can't be expressed using normal
     GStreamer buffer passing semantics. Custom events carry an arbitrary
-    #GstStructure.
+    Gst.Structure.
     Specific custom events are distinguished by the name of the structure."""
 
     UNKNOWN = 0
@@ -3101,7 +3101,7 @@ class EventType(GObject.GEnum):
     """
     CAPS = 12814
     """
-    #GstCaps event. Notify the pad of a new media type.
+    Gst.Caps event. Notify the pad of a new media type.
     """
     SEGMENT = 17934
     """
@@ -3112,7 +3112,7 @@ class EventType(GObject.GEnum):
     """
     STREAM_COLLECTION = 19230
     """
-    A new #GstStreamCollection is available (Since: 1.10)
+    A new Gst.StreamCollection is available (Since: 1.10)
     """
     TAG = 20510
     """
@@ -3238,9 +3238,9 @@ class EventType(GObject.GEnum):
 
 class EventTypeFlags(GObject.GFlags):
     """
-    #GstEventTypeFlags indicate the aspects of the different #GstEventType
-    values. You can get the type flags of a #GstEventType with the
-    gst_event_type_get_flags() function."""
+    Gst.EventTypeFlags indicate the aspects of the different Gst.EventType
+    values. You can get the type flags of a Gst.EventType with the
+    `Gst.event_type_get_flags` function."""
 
     UPSTREAM = 1
     """
@@ -3312,7 +3312,7 @@ class FlowReturn(GObject.GEnum):
     """
     Some (fatal) error occurred. Element generating
                                   this error should post an error message using
-                                  GST_ELEMENT_ERROR() with more details.
+                                  `GST_ELEMENT_ERROR` with more details.
     """
     NOT_SUPPORTED = -6
     """
@@ -3346,7 +3346,7 @@ class Format(GObject.GEnum):
     """
     the default format of the pad/element. This can be
        samples for raw audio, frames/fields for raw video (some, but not all,
-       elements support this; use @GST_FORMAT_TIME if you don't have a good
+       elements support this; use `GST_FORMAT_TIME` if you don't have a good
        reason to query for samples/frames)
     """
     BYTES = 2
@@ -3370,18 +3370,18 @@ class Format(GObject.GEnum):
 
 class GapFlags(GObject.GFlags):
     """
-    The different flags that can be set on #GST_EVENT_GAP events. See
-    gst_event_set_gap_flags() for details."""
+    The different flags that can be set on GST_EVENT_GAP events. See
+    `Gst.event_set_gap_flags` for details."""
 
     DATA = 1
     """
-    The #GST_EVENT_GAP signals missing data,
+    The GST_EVENT_GAP signals missing data,
        for example because of packet loss.
     """
 
 class IteratorItem(GObject.GEnum):
     """
-    The result of a #GstIteratorItemFunction."""
+    The result of a Gst.IteratorItemFunction."""
 
     SKIP = 0
     """
@@ -3395,7 +3395,7 @@ class IteratorItem(GObject.GEnum):
 
 class IteratorResult(GObject.GEnum):
     """
-    The result of gst_iterator_next()."""
+    The result of `Gst.iterator_next`."""
 
     DONE = 0
     """
@@ -3495,7 +3495,7 @@ class MemoryFlags(GObject.GFlags):
     READONLY = 2
     """
     memory is readonly. It is not allowed to map the
-    memory with #GST_MAP_WRITE.
+    memory with GST_MAP_WRITE.
     """
     NO_SHARE = 16
     """
@@ -3521,7 +3521,7 @@ class MemoryFlags(GObject.GFlags):
     NOT_MAPPABLE = 256
     """
     the memory can't be mapped via
-    gst_memory_map() without any preconditions. (Since: 1.2)
+    `Gst.memory_map` without any preconditions. (Since: 1.2)
     """
     LAST = 1048576
     """
@@ -3632,7 +3632,7 @@ class MessageType(GObject.GFlags):
     """
     pipeline completed playback of a segment. This
     message is forwarded to the application after all elements that posted
-    @GST_MESSAGE_SEGMENT_START posted a GST_MESSAGE_SEGMENT_DONE message.
+    `GST_MESSAGE_SEGMENT_START` posted a GST_MESSAGE_SEGMENT_DONE message.
     """
     DURATION_CHANGED = 262144
     """
@@ -3647,13 +3647,13 @@ class MessageType(GObject.GFlags):
     ASYNC_START = 1048576
     """
     Posted by elements when they start an ASYNC
-    #GstStateChange. This message is not forwarded to the application but is used
+    Gst.StateChange. This message is not forwarded to the application but is used
     internally.
     """
     ASYNC_DONE = 2097152
     """
     Posted by elements when they complete an ASYNC
-    #GstStateChange. The application will only receive this message from the toplevel
+    Gst.StateChange. The application will only receive this message from the toplevel
     pipeline.
     """
     REQUEST_STATE = 4194304
@@ -3705,34 +3705,34 @@ class MessageType(GObject.GFlags):
     """
     Message is an extended message type (see below).
         These extended message IDs can't be used directly with mask-based API
-        like gst_bus_poll() or gst_bus_timed_pop_filtered(), but you can still
+        like `Gst.bus_poll` or `Gst.bus_timed_pop_filtered`, but you can still
         filter for GST_MESSAGE_EXTENDED and then check the result for the
         specific type. (Since: 1.4)
     """
     DEVICE_ADDED = 2147483649
     """
-    Message indicating a #GstDevice was added to
-        a #GstDeviceProvider (Since: 1.4)
+    Message indicating a Gst.Device was added to
+        a Gst.DeviceProvider (Since: 1.4)
     """
     DEVICE_REMOVED = 2147483650
     """
-    Message indicating a #GstDevice was removed
-        from a #GstDeviceProvider (Since: 1.4)
+    Message indicating a Gst.Device was removed
+        from a Gst.DeviceProvider (Since: 1.4)
     """
     PROPERTY_NOTIFY = 2147483651
     """
-    Message indicating a #GObject property has
+    Message indicating a GObject property has
         changed (Since: 1.10)
     """
     STREAM_COLLECTION = 2147483652
     """
-    Message indicating a new #GstStreamCollection
+    Message indicating a new Gst.StreamCollection
         is available (Since: 1.10)
     """
     STREAMS_SELECTED = 2147483653
     """
     Message indicating the active selection of
-        #GstStreams has changed (Since: 1.10)
+        Gst.Streams has changed (Since: 1.10)
     """
     REDIRECT = 2147483654
     """
@@ -3742,8 +3742,8 @@ class MessageType(GObject.GFlags):
     """
     DEVICE_CHANGED = 2147483655
     """
-    Message indicating a #GstDevice was changed
-        a #GstDeviceProvider (Since: 1.16)
+    Message indicating a Gst.Device was changed
+        a Gst.DeviceProvider (Since: 1.16)
     """
     INSTANT_RATE_REQUEST = 2147483656
     """
@@ -3788,7 +3788,7 @@ class MiniObjectFlags(GObject.GFlags):
     LOCKABLE = 1
     """
     the object can be locked and unlocked with
-    gst_mini_object_lock() and gst_mini_object_unlock().
+    `Gst.mini_object_lock` and `Gst.mini_object_unlock`.
     """
     LOCK_READONLY = 2
     """
@@ -3798,7 +3798,7 @@ class MiniObjectFlags(GObject.GFlags):
     MAY_BE_LEAKED = 4
     """
     the object is expected to stay alive
-    even after gst_deinit() has been called and so should be ignored by leak
+    even after `Gst.deinit` has been called and so should be ignored by leak
     detection tools. (Since: 1.10)
     """
     LAST = 16
@@ -3813,7 +3813,7 @@ class ObjectFlags(GObject.GFlags):
     MAY_BE_LEAKED = 1
     """
     the object is expected to stay alive even
-    after gst_deinit() has been called and so should be ignored by leak
+    after `Gst.deinit` has been called and so should be ignored by leak
     detection tools. (Since: 1.10)
     """
     CONSTRUCTED = 2
@@ -3918,7 +3918,7 @@ class PadFlags(GObject.GFlags):
     the default accept-caps handler will use
                          the template pad caps instead of query caps to
                          compare with the accept caps. Use this in combination
-                         with %GST_PAD_FLAG_ACCEPT_INTERSECT. (Since: 1.6)
+                         with Gst.PAD_FLAG_ACCEPT_INTERSECT. (Since: 1.6)
     """
     LAST = 1048576
     """
@@ -3927,13 +3927,13 @@ class PadFlags(GObject.GFlags):
 
 class PadLinkCheck(GObject.GFlags):
     """
-    The amount of checking to be done when linking pads. @GST_PAD_LINK_CHECK_CAPS
-    and @GST_PAD_LINK_CHECK_TEMPLATE_CAPS are mutually exclusive. If both are
-    specified, expensive but safe @GST_PAD_LINK_CHECK_CAPS are performed.
+    The amount of checking to be done when linking pads. `GST_PAD_LINK_CHECK_CAPS`
+    and `GST_PAD_LINK_CHECK_TEMPLATE_CAPS` are mutually exclusive. If both are
+    specified, expensive but safe `GST_PAD_LINK_CHECK_CAPS` are performed.
 
     > Only disable some of the checks if you are 100% certain you know the link
     > will not fail because of hierarchy/caps compatibility failures. If uncertain,
-    > use the default checks (%GST_PAD_LINK_CHECK_DEFAULT) or the regular methods
+    > use the default checks (Gst.PAD_LINK_CHECK_DEFAULT) or the regular methods
     > for linking the pads."""
 
     NOTHING = 0
@@ -3949,13 +3949,13 @@ class PadLinkCheck(GObject.GFlags):
     TEMPLATE_CAPS = 2
     """
     Check if the pads are compatible by using
-      their template caps. This is much faster than @GST_PAD_LINK_CHECK_CAPS, but
-      would be unsafe e.g. if one pad has %GST_CAPS_ANY.
+      their template caps. This is much faster than `GST_PAD_LINK_CHECK_CAPS`, but
+      would be unsafe e.g. if one pad has Gst.CAPS_ANY.
     """
     CAPS = 4
     """
     Check if the pads are compatible by comparing the
-      caps returned by gst_pad_query_caps().
+      caps returned by `Gst.pad_query_caps`.
     """
     NO_RECONFIGURE = 8
     """
@@ -3965,7 +3965,7 @@ class PadLinkCheck(GObject.GFlags):
     DEFAULT = 5
     """
     The default checks done when linking
-      pads (i.e. the ones used by gst_pad_link()).
+      pads (i.e. the ones used by `Gst.pad_link`).
     """
 
 class PadLinkReturn(GObject.GEnum):
@@ -4035,19 +4035,19 @@ class PadPresence(GObject.GEnum):
     REQUEST = 2
     """
     the pad is only available on request with
-     gst_element_request_pad().
+     `Gst.element_request_pad`.
     """
 
 class PadProbeReturn(GObject.GEnum):
     """
-    Different return values for the #GstPadProbeCallback."""
+    Different return values for the Gst.PadProbeCallback."""
 
     DROP = 0
     """
     drop data in data probes. For push mode this means that
            the data item is not sent downstream. For pull mode, it means that
            the data item is not passed upstream. In both cases, no other probes
-           are called for this item and %GST_FLOW_OK or %TRUE is returned to the
+           are called for this item and Gst.FLOW_OK or True is returned to the
            caller.
     """
     OK = 1
@@ -4069,10 +4069,10 @@ class PadProbeReturn(GObject.GEnum):
     """
     Data has been handled in the probe and will not be
            forwarded further. For events and buffers this is the same behaviour as
-           %GST_PAD_PROBE_DROP (except that in this case you need to unref the buffer
-           or event yourself). For queries it will also return %TRUE to the caller.
-           The probe can also modify the #GstFlowReturn value by using the
-           #GST_PAD_PROBE_INFO_FLOW_RETURN() accessor.
+           Gst.PAD_PROBE_DROP (except that in this case you need to unref the buffer
+           or event yourself). For queries it will also return True to the caller.
+           The probe can also modify the Gst.FlowReturn value by using the
+           `GST_PAD_PROBE_INFO_FLOW_RETURN` accessor.
            Note that the resulting query must contain valid entries.
            Since: 1.6
     """
@@ -4080,7 +4080,7 @@ class PadProbeReturn(GObject.GEnum):
 class PadProbeType(GObject.GFlags):
     """
     The different probing types that can occur. When either one of
-    @GST_PAD_PROBE_TYPE_IDLE or @GST_PAD_PROBE_TYPE_BLOCK is used, the probe will be a
+    `GST_PAD_PROBE_TYPE_IDLE` or `GST_PAD_PROBE_TYPE_BLOCK` is used, the probe will be a
     blocking probe."""
 
     INVALID = 0
@@ -4115,8 +4115,8 @@ class PadProbeType(GObject.GFlags):
     """
     probe flush events. This probe has to be
         explicitly enabled and is not included in the
-        @@GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM or
-        @@GST_PAD_PROBE_TYPE_EVENT_UPSTREAM probe types.
+        @`GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM` or
+        @`GST_PAD_PROBE_TYPE_EVENT_UPSTREAM` probe types.
     """
     QUERY_DOWNSTREAM = 512
     """
@@ -4231,7 +4231,7 @@ class ParseFlags(GObject.GFlags):
     """
     FATAL_ERRORS = 1
     """
-    Always return %NULL when an error occurs
+    Always return None when an error occurs
         (default behaviour is to return partially constructed bins or elements
          in some cases)
     """
@@ -4243,8 +4243,8 @@ class ParseFlags(GObject.GFlags):
     PLACE_IN_BIN = 4
     """
     If more than one toplevel element is described
-        by the pipeline description string, put them in a #GstBin instead of a
-        #GstPipeline. (Since: 1.10)
+        by the pipeline description string, put them in a Gst.Bin instead of a
+        Gst.Pipeline. (Since: 1.10)
     """
 
 class PipelineFlags(GObject.GFlags):
@@ -4270,7 +4270,7 @@ class PluginAPIFlags(GObject.GFlags):
 
 class PluginDependencyFlags(GObject.GFlags):
     """
-    Flags used in connection with gst_plugin_add_dependency()."""
+    Flags used in connection with `Gst.plugin_add_dependency`."""
 
     NONE = 0
     """
@@ -4336,7 +4336,7 @@ class PluginFlags(GObject.GFlags):
 
 class ProgressType(GObject.GEnum):
     """
-    The type of a %GST_MESSAGE_PROGRESS. The progress messages inform the
+    The type of a Gst.MESSAGE_PROGRESS. The progress messages inform the
     application of the status of asynchronous tasks."""
 
     START = 0
@@ -4360,7 +4360,7 @@ class ProgressType(GObject.GEnum):
 
 class PromiseResult(GObject.GEnum):
     """
-    The result of a #GstPromise"""
+    The result of a Gst.Promise"""
 
     PENDING = 0
     """
@@ -4385,7 +4385,7 @@ class PromiseResult(GObject.GEnum):
 class QOSType(GObject.GEnum):
     """
     The different types of QoS events that can be given to the
-    gst_event_new_qos() method."""
+    `Gst.event_new_qos` method."""
 
     OVERFLOW = 0
     """
@@ -4498,9 +4498,9 @@ class QueryType(GObject.GEnum):
 
 class QueryTypeFlags(GObject.GFlags):
     """
-    #GstQueryTypeFlags indicate the aspects of the different #GstQueryType
-    values. You can get the type flags of a #GstQueryType with the
-    gst_query_type_get_flags() function."""
+    Gst.QueryTypeFlags indicate the aspects of the different Gst.QueryType
+    values. You can get the type flags of a Gst.QueryType with the
+    `Gst.query_type_get_flags` function."""
 
     UPSTREAM = 1
     """
@@ -4519,12 +4519,12 @@ class QueryTypeFlags(GObject.GFlags):
 class Rank(GObject.GEnum):
     """
     Element priority ranks. Defines the order in which the autoplugger (or
-    similar rank-picking mechanisms, such as e.g. gst_element_make_from_uri())
+    similar rank-picking mechanisms, such as e.g. `Gst.element_make_from_uri`)
     will choose this element over an alternative one with the same function.
 
     These constants serve as a rough guidance for defining the rank of a
-    #GstPluginFeature. Any value is valid, including values bigger than
-    @GST_RANK_PRIMARY."""
+    Gst.PluginFeature. Any value is valid, including values bigger than
+    `GST_RANK_PRIMARY`."""
 
     NONE = 0
     """
@@ -4655,7 +4655,7 @@ class SearchMode(GObject.GEnum):
 
 class SeekFlags(GObject.GFlags):
     """
-    Flags to be used with gst_element_seek() or gst_event_new_seek(). All flags
+    Flags to be used with `Gst.element_seek` or `Gst.event_new_seek`. All flags
     can be used together.
 
     A non flushing seek might take some time to perform as the currently
@@ -4667,13 +4667,13 @@ class SeekFlags(GObject.GFlags):
 
     When performing a segment seek: after the playback of the segment completes,
     no EOS will be emitted by the element that performed the seek, but a
-    %GST_MESSAGE_SEGMENT_DONE message will be posted on the bus by the element.
+    Gst.MESSAGE_SEGMENT_DONE message will be posted on the bus by the element.
     When this message is posted, it is possible to send a new seek event to
     continue playback. With this seek method it is possible to perform seamless
     looping or simple linear editing.
 
     When only changing the playback rate and not the direction, the
-    %GST_SEEK_FLAG_INSTANT_RATE_CHANGE flag can be used for a non-flushing seek
+    Gst.SEEK_FLAG_INSTANT_RATE_CHANGE flag can be used for a non-flushing seek
     to signal that the rate change should be applied immediately. This requires
     special support in the seek handlers (e.g. demuxers) and any elements
     synchronizing to the clock, and in general can't work in all cases (for example
@@ -4683,18 +4683,18 @@ class SeekFlags(GObject.GFlags):
     playback position - as the playback position will not be changing.
 
     When doing fast forward (rate > 1.0) or fast reverse (rate < -1.0) trickmode
-    playback, the %GST_SEEK_FLAG_TRICKMODE flag can be used to instruct decoders
+    playback, the Gst.SEEK_FLAG_TRICKMODE flag can be used to instruct decoders
     and demuxers to adjust the playback rate by skipping frames. This can improve
     performance and decrease CPU usage because not all frames need to be decoded.
 
-    Beyond that, the %GST_SEEK_FLAG_TRICKMODE_KEY_UNITS flag can be used to
+    Beyond that, the Gst.SEEK_FLAG_TRICKMODE_KEY_UNITS flag can be used to
     request that decoders skip all frames except key units, and
-    %GST_SEEK_FLAG_TRICKMODE_NO_AUDIO flags can be used to request that audio
+    Gst.SEEK_FLAG_TRICKMODE_NO_AUDIO flags can be used to request that audio
     decoders do no decoding at all, and simple output silence.
 
-    The %GST_SEEK_FLAG_SNAP_BEFORE flag can be used to snap to the previous
-    relevant location, and the %GST_SEEK_FLAG_SNAP_AFTER flag can be used to
-    select the next relevant location. If %GST_SEEK_FLAG_KEY_UNIT is specified,
+    The Gst.SEEK_FLAG_SNAP_BEFORE flag can be used to snap to the previous
+    relevant location, and the Gst.SEEK_FLAG_SNAP_AFTER flag can be used to
+    select the next relevant location. If Gst.SEEK_FLAG_KEY_UNIT is specified,
     the relevant location is a keyframe. If both flags are specified, the nearest
     of these locations will be selected. If none are specified, the implementation is
     free to select whichever it wants.
@@ -4738,26 +4738,26 @@ class SeekFlags(GObject.GFlags):
     SKIP = 16
     """
     Deprecated backward compatibility flag, replaced
-                        by %GST_SEEK_FLAG_TRICKMODE
+                        by Gst.SEEK_FLAG_TRICKMODE
     """
     SNAP_BEFORE = 32
     """
     go to a location before the requested position,
-                        if %GST_SEEK_FLAG_KEY_UNIT this means the keyframe at or before
+                        if Gst.SEEK_FLAG_KEY_UNIT this means the keyframe at or before
                         the requested position the one at or before the seek target.
     """
     SNAP_AFTER = 64
     """
     go to a location after the requested position,
-                        if %GST_SEEK_FLAG_KEY_UNIT this means the keyframe at of after the
+                        if Gst.SEEK_FLAG_KEY_UNIT this means the keyframe at of after the
                         requested position.
     """
     SNAP_NEAREST = 96
     """
     go to a position near the requested position,
-                        if %GST_SEEK_FLAG_KEY_UNIT this means the keyframe closest
+                        if Gst.SEEK_FLAG_KEY_UNIT this means the keyframe closest
                         to the requested position, if both keyframes are at an equal
-                        distance, behaves like %GST_SEEK_FLAG_SNAP_BEFORE.
+                        distance, behaves like Gst.SEEK_FLAG_SNAP_BEFORE.
     """
     TRICKMODE_KEY_UNITS = 128
     """
@@ -4791,7 +4791,7 @@ class SeekFlags(GObject.GFlags):
 class SeekType(GObject.GEnum):
     """
     The different types of seek events. When constructing a seek event with
-    gst_event_new_seek() or when doing gst_segment_do_seek ()."""
+    `Gst.event_new_seek` or when doing gst_segment_do_seek ()."""
 
     NONE = 0
     """
@@ -4827,7 +4827,7 @@ class SegmentFlags(GObject.GFlags):
     SKIP = 16
     """
     Deprecated backward compatibility flag, replaced
-                            by @GST_SEGMENT_FLAG_TRICKMODE
+                            by `GST_SEGMENT_FLAG_TRICKMODE`
     """
     SEGMENT = 8
     """
@@ -4862,7 +4862,7 @@ class SerializeFlags(GObject.GFlags):
     STRICT = 2
     """
     Serialization fails if a value cannot be serialized instead of using
-    placeholder "NULL" value (e.g. pointers, objects).
+    placeholder "None" value (e.g. pointers, objects).
     """
 
 class StackTraceFlags(GObject.GFlags):
@@ -4882,7 +4882,7 @@ class StackTraceFlags(GObject.GFlags):
 class State(GObject.GEnum):
     """
     The possible states an element can be in. States can be changed using
-    gst_element_set_state() and checked using gst_element_get_state()."""
+    `Gst.element_set_state` and checked using `Gst.element_get_state`."""
 
     VOID_PENDING = 0
     """
@@ -4890,7 +4890,7 @@ class State(GObject.GEnum):
     """
     NULL = 1
     """
-    the NULL state or initial state of an element.
+    the None state or initial state of an element.
     """
     READY = 2
     """
@@ -4904,19 +4904,19 @@ class State(GObject.GEnum):
     """
     PLAYING = 4
     """
-    the element is PLAYING, the #GstClock is running and
+    the element is PLAYING, the Gst.Clock is running and
                              the data is flowing.
     """
 
 class StateChange(GObject.GEnum):
     """
     These are the different state changes an element goes through.
-    %GST_STATE_NULL &rArr; %GST_STATE_PLAYING is called an upwards state change
-    and %GST_STATE_PLAYING &rArr; %GST_STATE_NULL a downwards state change."""
+    Gst.STATE_NULL &rArr; Gst.STATE_PLAYING is called an upwards state change
+    and Gst.STATE_PLAYING &rArr; Gst.STATE_NULL a downwards state change."""
 
     NULL_TO_READY = 10
     """
-    state change from NULL to READY.
+    state change from None to READY.
       * The element must check if the resources it needs are available. Device
         sinks and -sources typically try to probe the device to constrain their
         caps.
@@ -4927,54 +4927,54 @@ class StateChange(GObject.GEnum):
     state change from READY to PAUSED.
       * The element pads are activated in order to receive data in PAUSED.
         Streaming threads are started.
-      * Some elements might need to return %GST_STATE_CHANGE_ASYNC and complete
+      * Some elements might need to return Gst.STATE_CHANGE_ASYNC and complete
         the state change when they have enough information. It is a requirement
-        for sinks to return %GST_STATE_CHANGE_ASYNC and complete the state change
-        when they receive the first buffer or %GST_EVENT_EOS (preroll).
+        for sinks to return Gst.STATE_CHANGE_ASYNC and complete the state change
+        when they receive the first buffer or Gst.EVENT_EOS (preroll).
         Sinks also block the dataflow when in PAUSED.
       * A pipeline resets the running_time to 0.
-      * Live sources return %GST_STATE_CHANGE_NO_PREROLL and don't generate data.
+      * Live sources return Gst.STATE_CHANGE_NO_PREROLL and don't generate data.
     """
     PAUSED_TO_PLAYING = 28
     """
     state change from PAUSED to PLAYING.
       * Most elements ignore this state change.
-      * The pipeline selects a #GstClock and distributes this to all the children
+      * The pipeline selects a Gst.Clock and distributes this to all the children
         before setting them to PLAYING. This means that it is only allowed to
-        synchronize on the #GstClock in the PLAYING state.
-      * The pipeline uses the #GstClock and the running_time to calculate the
+        synchronize on the Gst.Clock in the PLAYING state.
+      * The pipeline uses the Gst.Clock and the running_time to calculate the
         base_time. The base_time is distributed to all children when performing
         the state change.
       * Sink elements stop blocking on the preroll buffer or event and start
         rendering the data.
-      * Sinks can post %GST_MESSAGE_EOS in the PLAYING state. It is not allowed
-        to post %GST_MESSAGE_EOS when not in the PLAYING state.
+      * Sinks can post Gst.MESSAGE_EOS in the PLAYING state. It is not allowed
+        to post Gst.MESSAGE_EOS when not in the PLAYING state.
       * While streaming in PAUSED or PLAYING elements can create and remove
         sometimes pads.
-      * Live sources start generating data and return %GST_STATE_CHANGE_SUCCESS.
+      * Live sources start generating data and return Gst.STATE_CHANGE_SUCCESS.
     """
     PLAYING_TO_PAUSED = 35
     """
     state change from PLAYING to PAUSED.
       * Most elements ignore this state change.
       * The pipeline calculates the running_time based on the last selected
-        #GstClock and the base_time. It stores this information to continue
+        Gst.Clock and the base_time. It stores this information to continue
         playback when going back to the PLAYING state.
-      * Sinks unblock any #GstClock wait calls.
+      * Sinks unblock any Gst.Clock wait calls.
       * When a sink does not have a pending buffer to play, it returns
-        #GST_STATE_CHANGE_ASYNC from this state change and completes the state
-        change when it receives a new buffer or an %GST_EVENT_EOS.
-      * Any queued %GST_MESSAGE_EOS items are removed since they will be reposted
+        GST_STATE_CHANGE_ASYNC from this state change and completes the state
+        change when it receives a new buffer or an Gst.EVENT_EOS.
+      * Any queued Gst.MESSAGE_EOS items are removed since they will be reposted
         when going back to the PLAYING state. The EOS messages are queued in
-        #GstBin containers.
-      * Live sources stop generating data and return %GST_STATE_CHANGE_NO_PREROLL.
+        Gst.Bin containers.
+      * Live sources stop generating data and return Gst.STATE_CHANGE_NO_PREROLL.
     """
     PAUSED_TO_READY = 26
     """
     state change from PAUSED to READY.
       * Sinks unblock any waits in the preroll.
       * Elements unblock any waits on devices
-      * Chain or get_range functions return %GST_FLOW_FLUSHING.
+      * Chain or get_range functions return Gst.FLOW_FLUSHING.
       * The element pads are deactivated so that streaming becomes impossible and
         all streaming threads are stopped.
       * The sink forgets all negotiated formats
@@ -4982,13 +4982,13 @@ class StateChange(GObject.GEnum):
     """
     READY_TO_NULL = 17
     """
-    state change from READY to NULL.
+    state change from READY to None.
       * Elements close devices
       * Elements reset any internal state.
     """
     NULL_TO_NULL = 9
     """
-    state change from NULL to NULL. (Since: 1.14)
+    state change from None to None. (Since: 1.14)
     """
     READY_TO_READY = 18
     """
@@ -5010,7 +5010,7 @@ class StateChange(GObject.GEnum):
 class StateChangeReturn(GObject.GEnum):
     """
     The possible return values from a state change function such as
-    gst_element_set_state(). Only @GST_STATE_CHANGE_FAILURE is a real failure."""
+    `Gst.element_set_state`. Only `GST_STATE_CHANGE_FAILURE` is a real failure."""
 
     FAILURE = 0
     """
@@ -5024,7 +5024,7 @@ class StateChangeReturn(GObject.GEnum):
     NO_PREROLL = 3
     """
     the state change succeeded but the element
-                                  cannot produce data in %GST_STATE_PAUSED.
+                                  cannot produce data in Gst.STATE_PAUSED.
                                   This typically happens with live sources.
     """
 
@@ -5128,7 +5128,7 @@ class StreamFlags(GObject.GFlags):
 
 class StreamStatusType(GObject.GEnum):
     """
-    The type of a %GST_MESSAGE_STREAM_STATUS. The stream status messages inform the
+    The type of a Gst.MESSAGE_STREAM_STATUS. The stream status messages inform the
     application of new streaming threads and their status."""
 
     CREATE = 0
@@ -5162,8 +5162,8 @@ class StreamStatusType(GObject.GEnum):
 
 class StreamType(GObject.GFlags):
     """
-    #GstStreamType describes a high level classification set for
-    flows of data in #GstStream objects.
+    Gst.StreamType describes a high level classification set for
+    flows of data in Gst.Stream objects.
 
     Note that this is a flag, and therefore users should not assume it
     will be a single value. Do not use the equality operator for checking
@@ -5192,7 +5192,7 @@ class StreamType(GObject.GFlags):
 
 class StructureChangeType(GObject.GEnum):
     """
-    The type of a %GST_MESSAGE_STRUCTURE_CHANGE."""
+    The type of a Gst.MESSAGE_STRUCTURE_CHANGE."""
 
     LINK = 0
     """
@@ -5233,8 +5233,8 @@ class TagMergeMode(GObject.GEnum):
     The different tag merging modes are basically replace, overwrite and append,
     but they can be seen from two directions. Given two taglists: (A) the tags
     already in the element and (B) the ones that are supplied to the element (
-    e.g. via gst_tag_setter_merge_tags() / gst_tag_setter_add_tags() or a
-    %GST_EVENT_TAG), how are these tags merged?
+    e.g. via `Gst.tag_setter_merge_tags` / `Gst.tag_setter_add_tags` or a
+    Gst.EVENT_TAG), how are these tags merged?
     In the table below this is shown for the cases that a tag exists in the list
     (A) or does not exists (!A) and combinations thereof.
 
@@ -5310,7 +5310,7 @@ class TaskState(GObject.GEnum):
 
 class TocEntryType(GObject.GEnum):
     """
-    The different types of TOC entries (see #GstTocEntry).
+    The different types of TOC entries (see Gst.TocEntry).
 
     There are two types of TOC entries: alternatives or parts in a sequence."""
 
@@ -5345,7 +5345,7 @@ class TocEntryType(GObject.GEnum):
 
 class TocLoopType(GObject.GEnum):
     """
-    How a #GstTocEntry should be repeated. By default, entries are played a
+    How a Gst.TocEntry should be repeated. By default, entries are played a
     single time."""
 
     NONE = 0
@@ -5393,7 +5393,7 @@ class TracerValueFlags(GObject.GFlags):
     """
     the value is optional. When using this flag
       one need to have an additional boolean arg before this value in the
-      var-args list passed to  gst_tracer_record_log().
+      var-args list passed to  `Gst.tracer_record_log`.
     """
     AGGREGATED = 2
     """
@@ -5406,8 +5406,8 @@ class TracerValueScope(GObject.GEnum):
     Tracing record will contain fields that contain a measured value or extra
     meta-data. One such meta data are values that tell where a measurement was
     taken. This enumerating declares to which scope such a meta data field
-    relates to. If it is e.g. %GST_TRACER_VALUE_SCOPE_PAD, then each of the log
-    events may contain values for different #GstPads."""
+    relates to. If it is e.g. Gst.TRACER_VALUE_SCOPE_PAD, then each of the log
+    events may contain values for different Gst.Pads."""
 
     PROCESS = 0
     """
@@ -5419,11 +5419,11 @@ class TracerValueScope(GObject.GEnum):
     """
     ELEMENT = 2
     """
-    the value is related to an #GstElement
+    the value is related to an Gst.Element
     """
     PAD = 3
     """
-    the value is related to a #GstPad
+    the value is related to a Gst.Pad
     """
 
 class TypeFindProbability(GObject.GEnum):
@@ -5530,25 +5530,25 @@ class AllocationParams(GObject.GBoxed):
     # gi Methods
     def copy(self) -> AllocationParams | None:
         """
-        Create a copy of @params.
+        Create a copy of `params`.
         """
     def free(self) -> None:
         """
-        Free @params
+        Free `params`
         """
     def init(self) -> None:
         """
-        Initialize @params to its default values
+        Initialize `params` to its default values
         """
     @classmethod
     def new(cls) -> AllocationParams:
         """
-            Create a new #GstAllocationParams on the heap.  This function is for
+            Create a new Gst.AllocationParams on the heap.  This function is for
         use in GStreamer language bindings.  In your own code, you can just
-        declare a #GstAllocationParams on the stack or in a struct, and
-        call gst_allocation_params_init() to initialize it.
+        declare a Gst.AllocationParams on the stack or in a struct, and
+        call `Gst.allocation_params_init` to initialize it.
 
-        You do not need to call gst_allocation_params_init() on the instance
+        You do not need to call `Gst.allocation_params_init` on the instance
         returned by this function.
         """
 
@@ -5561,16 +5561,16 @@ class AllocationParams(GObject.GBoxed):
 
 class Allocator(Object):
     """
-    Memory is usually created by allocators with a gst_allocator_alloc()
-    method call. When %NULL is used as the allocator, the default allocator will
+    Memory is usually created by allocators with a `Gst.allocator_alloc`
+    method call. When None is used as the allocator, the default allocator will
     be used.
 
-    New allocators can be registered with gst_allocator_register().
+    New allocators can be registered with `Gst.allocator_register`.
     Allocators are identified by name and can be retrieved with
-    gst_allocator_find(). gst_allocator_set_default() can be used to change the
+    `Gst.allocator_find`. `Gst.allocator_set_default` can be used to change the
     default allocator.
 
-    New memory can be created with gst_memory_new_wrapped() that wraps the memory
+    New memory can be created with `Gst.memory_new_wrapped` that wraps the memory
     allocated elsewhere.
     """
 
@@ -5594,7 +5594,7 @@ class Allocator(Object):
     def mem_map_full(self) -> MemoryMapFullFunctionAllocatorCB | None:
         """
         the implementation of the GstMemoryMapFullFunction.
-         Will be used instead of @mem_map if present. (Since: 1.6)
+         Will be used instead of `mem_map` if present. (Since: 1.6)
         """
     @builtins.property
     def mem_share(self) -> MemoryShareFunctionAllocatorCB:
@@ -5612,7 +5612,7 @@ class Allocator(Object):
     def mem_unmap_full(self) -> MemoryUnmapFullFunctionAllocatorCB:
         """
         the implementation of the GstMemoryUnmapFullFunction.
-         Will be used instead of @mem_unmap if present. (Since: 1.6)
+         Will be used instead of `mem_unmap` if present. (Since: 1.6)
         """
     @builtins.property
     def object(self) -> Object | None: ...
@@ -5624,36 +5624,36 @@ class Allocator(Object):
         """
     def alloc(self, size: int, params: AllocationParams | None = None) -> Memory | None:
         """
-            Use @allocator to allocate a new memory block with memory that is at least
-        @size big.
+            Use `allocator` to allocate a new memory block with memory that is at least
+        `size` big.
 
-        The optional @params can specify the prefix and padding for the memory. If
-        %NULL is passed, no flags, no extra prefix/padding and a default alignment is
+        The optional `params` can specify the prefix and padding for the memory. If
+        None is passed, no flags, no extra prefix/padding and a default alignment is
         used.
 
         The prefix/padding will be filled with 0 if flags contains
-        #GST_MEMORY_FLAG_ZERO_PREFIXED and #GST_MEMORY_FLAG_ZERO_PADDED respectively.
+        GST_MEMORY_FLAG_ZERO_PREFIXED and GST_MEMORY_FLAG_ZERO_PADDED respectively.
 
-        When @allocator is %NULL, the default allocator will be used.
+        When `allocator` is None, the default allocator will be used.
 
-        The alignment in @params is given as a bitmask so that @align + 1 equals
+        The alignment in `params` is given as a bitmask so that `align` + 1 equals
         the amount of bytes to align to. For example, to align to 8 bytes,
         use an alignment of 7.
         """
     @staticmethod
     def find(name: str | None = None) -> Allocator | None:
         """
-            Find a previously registered allocator with @name. When @name is %NULL, the
+            Find a previously registered allocator with `name`. When `name` is None, the
         default allocator will be returned.
         """
     def free(self, memory: Memory) -> None:
         """
-        Free @memory that was previously allocated with gst_allocator_alloc().
+        Free `memory` that was previously allocated with `Gst.allocator_alloc`.
         """
     @staticmethod
     def register(name: str, allocator: Allocator) -> None:
         """
-        Registers the memory @allocator with @name.
+        Registers the memory `allocator` with `name`.
         """
     def set_default(self) -> None:
         """
@@ -5679,7 +5679,7 @@ class Allocator(Object):
 
 class AllocatorClass(GObject.GPointer):
     """
-    The #GstAllocator is used to create new memory.
+    The Gst.Allocator is used to create new memory.
     """
 
     # gi Fields
@@ -5714,7 +5714,7 @@ class AllocatorPrivate(GObject.GPointer):
 
 class AtomicQueue(GObject.GBoxed):
     """
-    The #GstAtomicQueue object implements a queue that can be used from multiple
+    The Gst.AtomicQueue object implements a queue that can be used from multiple
     threads without performing any blocking operations.
     """
 
@@ -5726,7 +5726,7 @@ class AtomicQueue(GObject.GBoxed):
     @classmethod
     def new(cls, initial_size: int) -> AtomicQueue:
         """
-            Create a new atomic queue instance. @initial_size will be rounded up to the
+            Create a new atomic queue instance. `initial_size` will be rounded up to the
         nearest power of 2 and used as the initial size of the queue.
         """
     def peek(self) -> object | None:
@@ -5739,15 +5739,15 @@ class AtomicQueue(GObject.GBoxed):
         """
     def push(self, data: object | None = None) -> None:
         """
-        Append @data to the tail of the queue.
+        Append `data` to the tail of the queue.
         """
     def ref(self) -> None:
         """
-        Increase the refcount of @queue.
+        Increase the refcount of `queue`.
         """
     def unref(self) -> None:
         """
-        Unref @queue and free the memory when the refcount reaches 0.
+        Unref `queue` and free the memory when the refcount reaches 0.
         """
 
     # python methods (overrides?)
@@ -5759,49 +5759,49 @@ class AtomicQueue(GObject.GBoxed):
 
 class Bin(Element):
     """
-    #GstBin is an element that can contain other #GstElement, allowing them to be
+    Gst.Bin is an element that can contain other Gst.Element, allowing them to be
     managed as a group.
-    Pads from the child elements can be ghosted to the bin, see #GstGhostPad.
+    Pads from the child elements can be ghosted to the bin, see Gst.GhostPad.
     This makes the bin look like any other elements and enables creation of
     higher-level abstraction elements.
 
-    A new #GstBin is created with gst_bin_new(). Use a #GstPipeline instead if you
+    A new Gst.Bin is created with `Gst.bin_new`. Use a Gst.Pipeline instead if you
     want to create a toplevel bin because a normal bin doesn't have a bus or
     handle clock distribution of its own.
 
     After the bin has been created you will typically add elements to it with
-    gst_bin_add(). You can remove elements with gst_bin_remove().
+    `Gst.bin_add`. You can remove elements with `Gst.bin_remove`.
 
-    An element can be retrieved from a bin with gst_bin_get_by_name(), using the
-    elements name. gst_bin_get_by_name_recurse_up() is mainly used for internal
+    An element can be retrieved from a bin with `Gst.bin_get_by_name`, using the
+    elements name. `Gst.bin_get_by_name_recurse_up` is mainly used for internal
     purposes and will query the parent bins when the element is not found in the
     current bin.
 
     An iterator of elements in a bin can be retrieved with
-    gst_bin_iterate_elements(). Various other iterators exist to retrieve the
+    `Gst.bin_iterate_elements`. Various other iterators exist to retrieve the
     elements in a bin.
 
-    gst_object_unref() is used to drop your reference to the bin.
+    `Gst.object_unref` is used to drop your reference to the bin.
 
-    The #GstBin::element-added signal is fired whenever a new element is added to
-    the bin. Likewise the #GstBin::element-removed signal is fired whenever an
+    The Gst.Bin::element-added signal is fired whenever a new element is added to
+    the bin. Likewise the Gst.Bin::element-removed signal is fired whenever an
     element is removed from the bin.
 
-    A #GstBin internally intercepts every #GstMessage posted by its children and
+    A Gst.Bin internally intercepts every Gst.Message posted by its children and
     implements the following default behaviour for each of them:
 
-    * %GST_MESSAGE_EOS: This message is only posted by sinks in the PLAYING
+    * Gst.MESSAGE_EOS: This message is only posted by sinks in the PLAYING
     state. If all sinks posted the EOS message, this bin will post and EOS
     message upwards.
 
-    * %GST_MESSAGE_SEGMENT_START: Just collected and never forwarded upwards.
+    * Gst.MESSAGE_SEGMENT_START: Just collected and never forwarded upwards.
       The messages are used to decide when all elements have completed playback
       of their segment.
 
-    * %GST_MESSAGE_SEGMENT_DONE: Is posted by #GstBin when all elements that posted
+    * Gst.MESSAGE_SEGMENT_DONE: Is posted by Gst.Bin when all elements that posted
       a SEGMENT_START have posted a SEGMENT_DONE.
 
-    * %GST_MESSAGE_DURATION_CHANGED: Is posted by an element that detected a change
+    * Gst.MESSAGE_DURATION_CHANGED: Is posted by an element that detected a change
       in the stream duration. The duration change is posted to the
       application so that it can refetch the new duration with a duration
       query.
@@ -5813,10 +5813,10 @@ class Bin(Element):
       between the stream being currently displayed and the returned duration query.
 
       Applications might want to also query for duration (and changes) by
-      listening to the %GST_MESSAGE_STREAM_START message, signaling the active start
+      listening to the Gst.MESSAGE_STREAM_START message, signaling the active start
       of a (new) stream.
 
-    * %GST_MESSAGE_CLOCK_LOST: This message is posted by an element when it
+    * Gst.MESSAGE_CLOCK_LOST: This message is posted by an element when it
       can no longer provide a clock.
 
       The default bin behaviour is to check if the lost clock was the one provided
@@ -5828,7 +5828,7 @@ class Bin(Element):
       PAUSE the pipeline and set it back to PLAYING to force a new clock
       distribution.
 
-    * %GST_MESSAGE_CLOCK_PROVIDE: This message is generated when an element
+    * Gst.MESSAGE_CLOCK_PROVIDE: This message is generated when an element
       can provide a clock. This mostly happens when a new clock
       provider is added to the bin.
 
@@ -5841,14 +5841,14 @@ class Bin(Element):
 
     * OTHERS: posted upwards.
 
-    A #GstBin implements the following default behaviour for answering to a
-    #GstQuery:
+    A Gst.Bin implements the following default behaviour for answering to a
+    Gst.Query:
 
-    * %GST_QUERY_DURATION: The bin will forward the query to all sink
+    * Gst.QUERY_DURATION: The bin will forward the query to all sink
       elements contained within and will return the maximum value.
       If no sinks are available in the bin, the query fails.
 
-    * %GST_QUERY_POSITION: The query is sent to all sink elements in the bin and the
+    * Gst.QUERY_POSITION: The query is sent to all sink elements in the bin and the
       MAXIMUM of all values is returned. If no sinks are available in the bin,
       the query fails.
 
@@ -5856,19 +5856,19 @@ class Bin(Element):
       of the first sink that answers the query successfully is returned. If no
       sink is in the bin, the query fails.
 
-    A #GstBin will by default forward any event sent to it to all sink
-    ( %GST_EVENT_TYPE_UPSTREAM ) or source ( %GST_EVENT_TYPE_DOWNSTREAM ) elements
+    A Gst.Bin will by default forward any event sent to it to all sink
+    ( Gst.EVENT_TYPE_UPSTREAM ) or source ( Gst.EVENT_TYPE_DOWNSTREAM ) elements
     depending on the event type.
 
-    If all the elements return %TRUE, the bin will also return %TRUE, else %FALSE
+    If all the elements return True, the bin will also return True, else False
     is returned. If no elements of the required type are in the bin, the event
-    handler will return %TRUE.
+    handler will return True.
     """
 
     class Props(Element.Props):
         async_handling: bool  # [async-handling]: changed because contained invalid characters
         """
-        If set to %TRUE, the bin will handle asynchronous state changes.
+        If set to True, the bin will handle asynchronous state changes.
         This should be used only if the bin subclass is modifying the state
         of its children on its own.
         """
@@ -5880,7 +5880,7 @@ class Bin(Element):
 
         The messages are converted to an ELEMENT message with the bin as the
         source. The structure of the message is named `GstBinForwarded` and contains
-        a field named `message` that contains the original forwarded #GstMessage.
+        a field named `message` that contains the original forwarded Gst.Message.
         """
 
     @builtins.property
@@ -5900,7 +5900,7 @@ class Bin(Element):
     @builtins.property
     def children_cookie(self) -> int:
         """
-        updated whenever @children changes
+        updated whenever `children` changes
         """
     @builtins.property
     def clock_dirty(self) -> bool:
@@ -5910,7 +5910,7 @@ class Bin(Element):
     @builtins.property
     def clock_provider(self) -> Element | None:
         """
-        the element that provided @provided_clock
+        the element that provided `provided_clock`
         """
     @builtins.property
     def element(self) -> Element | None: ...
@@ -5956,15 +5956,15 @@ class Bin(Element):
         > When you add an element to an already-running pipeline, you will have to
         > take care to set the state of the newly-added element to the desired
         > state (usually PLAYING or PAUSED, same you set the pipeline to originally)
-        > with gst_element_set_state(), or use gst_element_sync_state_with_parent().
+        > with `Gst.element_set_state`, or use `Gst.element_sync_state_with_parent`.
         > The bin or pipeline will not take care of this for you.
         """
     def find_unlinked_pad(self, direction: PadDirection) -> Pad | None:
         """
             Recursively looks for elements with an unlinked pad of the given
         direction within the specified bin and returns an unlinked pad
-        if one is found, or %NULL otherwise. If a pad is found, the caller
-        owns a reference to it and should use gst_object_unref() on the
+        if one is found, or None otherwise. If a pad is found, the caller
+        owns a reference to it and should use `Gst.object_unref` on the
         pad when it is not needed any longer.
         """
     def get_by_interface(self, iface: GObject.GType) -> Element | None:
@@ -5973,7 +5973,7 @@ class Bin(Element):
         interface. If such an element is found, it returns the element.
         You can cast this element to the given interface afterwards.  If you want
         all elements that implement the interface, use
-        gst_bin_iterate_all_by_interface(). This function recurses into child bins.
+        `Gst.bin_iterate_all_by_interface`. This function recurses into child bins.
         """
     def get_by_name(self, name: str) -> Element | None:
         """
@@ -5990,14 +5990,14 @@ class Bin(Element):
         """
             Looks for all elements inside the bin with the given element factory name.
         The function recurses inside child bins. The iterator will yield a series of
-        #GstElement.
+        Gst.Element.
         """
     def iterate_all_by_interface(self, iface: GObject.GType) -> Iterator | None:
         """
             Looks for all elements inside the bin that implements the given
         interface. You can safely cast all returned elements to the given interface.
         The function recurses inside child bins. The iterator will yield a series
-        of #GstElement.
+        of Gst.Element.
         """
     def iterate_elements(self) -> Iterator | None:
         """
@@ -6011,7 +6011,7 @@ class Bin(Element):
     def iterate_sinks(self) -> Iterator | None:
         """
             Gets an iterator for all elements in the bin that have the
-        #GST_ELEMENT_FLAG_SINK flag set.
+        GST_ELEMENT_FLAG_SINK flag set.
         """
     def iterate_sorted(self) -> Iterator | None:
         """
@@ -6025,7 +6025,7 @@ class Bin(Element):
     def iterate_sources(self) -> Iterator | None:
         """
             Gets an iterator for all elements in the bin that have the
-        #GST_ELEMENT_FLAG_SOURCE flag set.
+        GST_ELEMENT_FLAG_SOURCE flag set.
         """
     @classmethod
     def new(cls, name: str | None = None) -> Bin:
@@ -6034,13 +6034,13 @@ class Bin(Element):
         """
     def recalculate_latency(self) -> bool:
         """
-            Queries @bin for the current latency and reconfigures this latency on all the
+            Queries `bin` for the current latency and reconfigures this latency on all the
         elements using a LATENCY event.
 
-        This method is typically called on the pipeline when a #GST_MESSAGE_LATENCY
+        This method is typically called on the pipeline when a GST_MESSAGE_LATENCY
         is posted on the bus.
 
-        This function simply emits the #GstBin::do-latency signal so any custom latency
+        This function simply emits the Gst.Bin::do-latency signal so any custom latency
         calculations will be performed.
         """
     def remove(self, element: Element) -> bool:
@@ -6050,22 +6050,22 @@ class Bin(Element):
         so if the bin holds the only reference to the element, the element
         will be freed in the process of removing it from the bin.  If you
         want the element to still exist after removing, you need to call
-        gst_object_ref() before removing it from the bin.
+        `Gst.object_ref` before removing it from the bin.
 
         If the element's pads are linked to other pads, the pads will be unlinked
         before the element is removed from the bin.
         """
     def set_suppressed_flags(self, flags: ElementFlags) -> None:
         """
-            Suppresses the given flags on the bin. #GstElementFlags of a
+            Suppresses the given flags on the bin. Gst.ElementFlags of a
         child element are propagated when it is added to the bin.
         When suppressed flags are set, those specified flags will
         not be propagated to the bin.
         """
     def sync_children_states(self) -> bool:
         """
-            Synchronizes the state of every child of @bin with the state
-        of @bin. See also gst_element_sync_state_with_parent().
+            Synchronizes the state of every child of `bin` with the state
+        of `bin`. See also `Gst.element_sync_state_with_parent`.
         """
 
     # python methods (overrides?)
@@ -6136,7 +6136,7 @@ class Bin(Element):
         *args: typing.Any,
     ) -> int:
         """
-        Will be emitted after the element was added to @sub_bin.
+        Will be emitted after the element was added to `sub_bin`.
         """
     @typing.overload
     def connect(
@@ -6146,7 +6146,7 @@ class Bin(Element):
         *args: typing.Any,
     ) -> int:
         """
-        Will be emitted after the element was removed from @sub_bin.
+        Will be emitted after the element was removed from `sub_bin`.
         """
     @typing.overload
     def connect(
@@ -6154,7 +6154,7 @@ class Bin(Element):
     ) -> int:
         """
             Will be emitted when the bin needs to perform latency calculations. This
-        signal is only emitted for toplevel bins or when #GstBin:async-handling is
+        signal is only emitted for toplevel bins or when Gst.Bin:async-handling is
         enabled.
 
         Only one signal handler is invoked. If no signals are connected, the
@@ -6206,17 +6206,17 @@ class Bin(Element):
 
 class BinClass(GObject.GPointer):
     """
-    Subclasses can override #GstBinClass::add_element and #GstBinClass::remove_element
+    Subclasses can override Gst.BinClass::add_element and Gst.BinClass::remove_element
     to update the list of children in the bin.
 
-    The #GstBinClass::handle_message method can be overridden to implement custom
+    The Gst.BinClass::handle_message method can be overridden to implement custom
     message handling.
 
-    #GstBinClass::deep_element_added will be called when a new element has been
+    Gst.BinClass::deep_element_added will be called when a new element has been
     added to any bin inside this bin, so it will also be called if a new child
-    was added to a sub-bin of this bin. #GstBin implementations that override
+    was added to a sub-bin of this bin. Gst.Bin implementations that override
     this message should chain up to the parent class implementation so the
-    #GstBin::deep-element-added signal is emitted on all parents.
+    Gst.Bin::deep-element-added signal is emitted on all parents.
     """
 
     # gi Fields
@@ -6277,9 +6277,9 @@ class Buffer(GObject.GBoxed):
     """
     Buffers are the basic unit of data transfer in GStreamer. They contain the
     timing and offset along with other arbitrary metadata that is associated
-    with the #GstMemory blocks that the buffer contains.
+    with the Gst.Memory blocks that the buffer contains.
 
-    Buffers are usually created with gst_buffer_new(). After a buffer has been
+    Buffers are usually created with `Gst.buffer_new`. After a buffer has been
     created one will typically allocate memory for it and add it to the buffer.
     The following example creates a buffer that can hold a given video frame
     with a given width, height and bits per plane.
@@ -6291,22 +6291,22 @@ class Buffer(GObject.GBoxed):
       ...
       size = width * height * bpp;
       buffer = gst_buffer_new ();
-      memory = gst_allocator_alloc (NULL, size, NULL);
+      memory = gst_allocator_alloc (None, size, None);
       gst_buffer_insert_memory (buffer, -1, memory);
       ...
     ```
 
-    Alternatively, use gst_buffer_new_allocate() to create a buffer with
+    Alternatively, use `Gst.buffer_new_allocate` to create a buffer with
     preallocated data of a given size.
 
-    Buffers can contain a list of #GstMemory objects. You can retrieve how many
-    memory objects with gst_buffer_n_memory() and you can get a pointer
-    to memory with gst_buffer_peek_memory()
+    Buffers can contain a list of Gst.Memory objects. You can retrieve how many
+    memory objects with `Gst.buffer_n_memory` and you can get a pointer
+    to memory with `Gst.buffer_peek_memory`
 
     A buffer will usually have timestamps, and a duration, but neither of these
-    are guaranteed (they may be set to #GST_CLOCK_TIME_NONE). Whenever a
+    are guaranteed (they may be set to GST_CLOCK_TIME_NONE). Whenever a
     meaningful value can be given for these, they should be set. The timestamps
-    and duration are measured in nanoseconds (they are #GstClockTime values).
+    and duration are measured in nanoseconds (they are Gst.ClockTime values).
 
     The buffer DTS refers to the timestamp when the buffer should be decoded and
     is usually monotonically increasing. The buffer PTS refers to the timestamp when
@@ -6320,63 +6320,63 @@ class Buffer(GObject.GBoxed):
     source or destination file. Likewise, the end offset will be the offset of
     the end of the buffer. These can only be meaningfully interpreted if you
     know the media type of the buffer (the preceding CAPS event). Either or both
-    can be set to #GST_BUFFER_OFFSET_NONE.
+    can be set to GST_BUFFER_OFFSET_NONE.
 
-    gst_buffer_ref() is used to increase the refcount of a buffer. This must be
+    `Gst.buffer_ref` is used to increase the refcount of a buffer. This must be
     done when you want to keep a handle to the buffer after pushing it to the
     next element. The buffer refcount determines the writability of the buffer, a
     buffer is only writable when the refcount is exactly 1, i.e. when the caller
     has the only reference to the buffer.
 
     To efficiently create a smaller buffer out of an existing one, you can
-    use gst_buffer_copy_region(). This method tries to share the memory objects
+    use `Gst.buffer_copy_region`. This method tries to share the memory objects
     between the two buffers.
 
     If a plug-in wants to modify the buffer data or metadata in-place, it should
     first obtain a buffer that is safe to modify by using
-    gst_buffer_make_writable(). This function is optimized so that a copy will
+    `Gst.buffer_make_writable`. This function is optimized so that a copy will
     only be made when it is necessary.
 
     Several flags of the buffer can be set and unset with the
-    GST_BUFFER_FLAG_SET() and GST_BUFFER_FLAG_UNSET() macros. Use
-    GST_BUFFER_FLAG_IS_SET() to test if a certain #GstBufferFlags flag is set.
+    `GST_BUFFER_FLAG_SET` and `GST_BUFFER_FLAG_UNSET` macros. Use
+    `GST_BUFFER_FLAG_IS_SET` to test if a certain Gst.BufferFlags flag is set.
 
     Buffers can be efficiently merged into a larger buffer with
-    gst_buffer_append(). Copying of memory will only be done when absolutely
+    `Gst.buffer_append`. Copying of memory will only be done when absolutely
     needed.
 
-    Arbitrary extra metadata can be set on a buffer with gst_buffer_add_meta().
-    Metadata can be retrieved with gst_buffer_get_meta(). See also #GstMeta.
+    Arbitrary extra metadata can be set on a buffer with `Gst.buffer_add_meta`.
+    Metadata can be retrieved with `Gst.buffer_get_meta`. See also Gst.Meta.
 
     An element should either unref the buffer or push it out on a src pad
-    using gst_pad_push() (see #GstPad).
+    using `Gst.pad_push` (see Gst.Pad).
 
-    Buffers are usually freed by unreffing them with gst_buffer_unref(). When
+    Buffers are usually freed by unreffing them with `Gst.buffer_unref`. When
     the refcount drops to 0, any memory and metadata pointed to by the buffer is
-    unreffed as well. Buffers allocated from a #GstBufferPool will be returned to
+    unreffed as well. Buffers allocated from a Gst.BufferPool will be returned to
     the pool when the refcount drops to 0.
 
-    The #GstParentBufferMeta is a meta which can be attached to a #GstBuffer
+    The Gst.ParentBufferMeta is a meta which can be attached to a Gst.Buffer
     to hold a reference to another buffer that is only released when the child
-    #GstBuffer is released.
+    Gst.Buffer is released.
 
-    Typically, #GstParentBufferMeta is used when the child buffer is directly
-    using the #GstMemory of the parent buffer, and wants to prevent the parent
-    buffer from being returned to a buffer pool until the #GstMemory is available
+    Typically, Gst.ParentBufferMeta is used when the child buffer is directly
+    using the Gst.Memory of the parent buffer, and wants to prevent the parent
+    buffer from being returned to a buffer pool until the Gst.Memory is available
     for re-use. (Since: 1.6)
     """
 
     # gi Fields
     dts: int = ...
     """
-    decoding timestamp of the buffer, can be #GST_CLOCK_TIME_NONE when the
+    decoding timestamp of the buffer, can be GST_CLOCK_TIME_NONE when the
         dts is not known or relevant. The dts contains the timestamp when the
         media should be processed.
 
     """
     duration: int = ...
     """
-    duration in time of the buffer data, can be #GST_CLOCK_TIME_NONE
+    duration in time of the buffer data, can be GST_CLOCK_TIME_NONE
         when the duration is not known or relevant.
 
     """
@@ -6397,7 +6397,7 @@ class Buffer(GObject.GBoxed):
     offset_end: int = ...
     """
     the last offset contained in this buffer. It has the same
-        format as @offset.
+        format as `offset`.
 
     """
     pool: BufferPool | None = ...
@@ -6407,7 +6407,7 @@ class Buffer(GObject.GBoxed):
     """
     pts: int = ...
     """
-    presentation timestamp of the buffer, can be #GST_CLOCK_TIME_NONE when the
+    presentation timestamp of the buffer, can be GST_CLOCK_TIME_NONE when the
         pts is not known or relevant. The pts contains the timestamp when the
         media should be presented to the user.
 
@@ -6416,48 +6416,48 @@ class Buffer(GObject.GBoxed):
     # gi Methods
     def add_custom_meta(self, name: str) -> CustomMeta | None:
         """
-            Creates and adds a #GstCustomMeta for the desired @name. @name must have
-        been successfully registered with gst_meta_register_custom().
+            Creates and adds a Gst.CustomMeta for the desired `name`. `name` must have
+        been successfully registered with `Gst.meta_register_custom`.
         """
     def add_meta(self, info: MetaInfo, params: object | None = None) -> Meta | None:
         """
-        Adds metadata for @info to @buffer using the parameters in @params.
+        Adds metadata for `info` to `buffer` using the parameters in `params`.
         """
     def add_parent_buffer_meta(self, ref: Buffer) -> ParentBufferMeta | None:
         """
-            Adds a #GstParentBufferMeta to @buffer that holds a reference on
-        @ref until the buffer is freed.
+            Adds a Gst.ParentBufferMeta to `buffer` that holds a reference on
+        `ref` until the buffer is freed.
         """
     def add_protection_meta(self, info: Structure) -> ProtectionMeta:
         """
-        Attaches protection metadata to a #GstBuffer.
+        Attaches protection metadata to a Gst.Buffer.
         """
     def add_reference_timestamp_meta(
         self, reference: Caps, timestamp: int, duration: int
     ) -> ReferenceTimestampMeta | None:
         """
-            Adds a #GstReferenceTimestampMeta to @buffer that holds a @timestamp and
-        optionally @duration based on a specific timestamp @reference. See the
-        documentation of #GstReferenceTimestampMeta for details.
+            Adds a Gst.ReferenceTimestampMeta to `buffer` that holds a `timestamp` and
+        optionally `duration` based on a specific timestamp `reference`. See the
+        documentation of Gst.ReferenceTimestampMeta for details.
         """
     def append(self, buf2: Buffer) -> Buffer:
         """
-            Appends all the memory from @buf2 to @buf1. The result buffer will contain a
-        concatenation of the memory of @buf1 and @buf2.
+            Appends all the memory from `buf2` to `buf1`. The result buffer will contain a
+        concatenation of the memory of `buf1` and `buf2`.
         """
     def append_memory(self, mem: Memory) -> None:
         """
-            Appends the memory block @mem to @buffer. This function takes
-        ownership of @mem and thus doesn't increase its refcount.
+            Appends the memory block `mem` to `buffer`. This function takes
+        ownership of `mem` and thus doesn't increase its refcount.
 
-        This function is identical to gst_buffer_insert_memory() with an index of -1.
-        See gst_buffer_insert_memory() for more details.
+        This function is identical to `Gst.buffer_insert_memory` with an index of -1.
+        See `Gst.buffer_insert_memory` for more details.
         """
     def append_region(self, buf2: Buffer, offset: int, size: int) -> Buffer:
         """
-            Appends @size bytes at @offset from @buf2 to @buf1. The result buffer will
-        contain a concatenation of the memory of @buf1 and the requested region of
-        @buf2.
+            Appends `size` bytes at `offset` from `buf2` to `buf1`. The result buffer will
+        contain a concatenation of the memory of `buf1` and the requested region of
+        `buf2`.
         """
     def copy_deep(self) -> Buffer | None:
         """
@@ -6466,70 +6466,70 @@ class Buffer(GObject.GBoxed):
         """
     def copy_into(self, src: Buffer, flags: BufferCopyFlags, offset: int, size: int) -> bool:
         """
-            Copies the information from @src into @dest.
+            Copies the information from `src` into `dest`.
 
-        If @dest already contains memory and @flags contains GST_BUFFER_COPY_MEMORY,
-        the memory from @src will be appended to @dest.
+        If `dest` already contains memory and `flags` contains GST_BUFFER_COPY_MEMORY,
+        the memory from `src` will be appended to `dest`.
 
-        @flags indicate which fields will be copied.
+        `flags` indicate which fields will be copied.
         """
     def copy_region(self, flags: BufferCopyFlags, offset: int, size: int) -> Buffer | None:
         """
-            Creates a sub-buffer from @parent at @offset and @size.
+            Creates a sub-buffer from `parent` at `offset` and `size`.
         This sub-buffer uses the actual memory space of the parent buffer.
         This function will copy the offset and timestamp fields when the
-        offset is 0. If not, they will be set to #GST_CLOCK_TIME_NONE and
-        #GST_BUFFER_OFFSET_NONE.
-        If @offset equals 0 and @size equals the total size of @buffer, the
+        offset is 0. If not, they will be set to GST_CLOCK_TIME_NONE and
+        GST_BUFFER_OFFSET_NONE.
+        If `offset` equals 0 and `size` equals the total size of `buffer`, the
         duration and offset end fields are also copied. If not they will be set
-        to #GST_CLOCK_TIME_NONE and #GST_BUFFER_OFFSET_NONE.
+        to GST_CLOCK_TIME_NONE and GST_BUFFER_OFFSET_NONE.
         """
     def extract(self, offset: int, size: int) -> tuple[int, list]:
         """
-        Copies @size bytes starting from @offset in @buffer to @dest.
+        Copies `size` bytes starting from `offset` in `buffer` to `dest`.
         """
     def extract_dup(self, offset: int, size: int) -> tuple[list, int]:
         """
-            Extracts a copy of at most @size bytes the data at @offset into
-        newly-allocated memory. @dest must be freed using g_free() when done.
+            Extracts a copy of at most `size` bytes the data at `offset` into
+        newly-allocated memory. `dest` must be freed using `g_free` when done.
         """
     def fill(self, offset: int, src: list, size: int) -> int:
         """
-        Copies @size bytes from @src to @buffer at @offset.
+        Copies `size` bytes from `src` to `buffer` at `offset`.
         """
     def find_memory(self, offset: int, size: int) -> tuple[bool, int, int, int]:
         """
-            Finds the memory blocks that span @size bytes starting from @offset
-        in @buffer.
+            Finds the memory blocks that span `size` bytes starting from `offset`
+        in `buffer`.
 
-        When this function returns %TRUE, @idx will contain the index of the first
-        memory block where the byte for @offset can be found and @length contains the
-        number of memory blocks containing the @size remaining bytes. @skip contains
-        the number of bytes to skip in the memory block at @idx to get to the byte
-        for @offset.
+        When this function returns True, `idx` will contain the index of the first
+        memory block where the byte for `offset` can be found and `length` contains the
+        number of memory blocks containing the `size` remaining bytes. `skip` contains
+        the number of bytes to skip in the memory block at `idx` to get to the byte
+        for `offset`.
 
-        @size can be -1 to get all the memory blocks after @idx.
+        `size` can be -1 to get all the memory blocks after `idx`.
         """
     def foreach_meta(self, func: BufferForeachMetaFunc, user_data: object | None = None) -> bool:
         """
-            Calls @func with @user_data for each meta in @buffer.
+            Calls `func` with `user_data` for each meta in `buffer`.
 
-        @func can modify the passed meta pointer or its contents. The return value
-        of @func defines if this function returns or if the remaining metadata items
+        `func` can modify the passed meta pointer or its contents. The return value
+        of `func` defines if this function returns or if the remaining metadata items
         in the buffer should be skipped.
         """
     def get_all_memory(self) -> Memory | None:
         """
-            Gets all the memory blocks in @buffer. The memory blocks will be merged
-        into one large #GstMemory.
+            Gets all the memory blocks in `buffer`. The memory blocks will be merged
+        into one large Gst.Memory.
         """
     def get_custom_meta(self, name: str) -> CustomMeta | None:
         """
-        Finds the first #GstCustomMeta on @buffer for the desired @name.
+        Finds the first Gst.CustomMeta on `buffer` for the desired `name`.
         """
     def get_flags(self) -> BufferFlags:
         """
-        Gets the #GstBufferFlags flags set on this buffer.
+        Gets the Gst.BufferFlags flags set on this buffer.
         """
     @staticmethod
     def get_max_memory() -> int:
@@ -6542,56 +6542,56 @@ class Buffer(GObject.GBoxed):
         """
     def get_memory(self, idx: int) -> Memory | None:
         """
-        Gets the memory block at index @idx in @buffer.
+        Gets the memory block at index `idx` in `buffer`.
         """
     def get_memory_range(self, idx: int, length: int) -> Memory | None:
         """
-            Gets @length memory blocks in @buffer starting at @idx. The memory blocks will
-        be merged into one large #GstMemory.
+            Gets `length` memory blocks in `buffer` starting at `idx`. The memory blocks will
+        be merged into one large Gst.Memory.
 
-        If @length is -1, all memory starting from @idx is merged.
+        If `length` is -1, all memory starting from `idx` is merged.
         """
     def get_meta(self, api: GObject.GType) -> Meta | None:
         """
-            Gets the metadata for @api on buffer. When there is no such metadata, %NULL is
-        returned. If multiple metadata with the given @api are attached to this
+            Gets the metadata for `api` on buffer. When there is no such metadata, None is
+        returned. If multiple metadata with the given `api` are attached to this
         buffer only the first one is returned.  To handle multiple metadata with a
-        given API use gst_buffer_iterate_meta() or gst_buffer_foreach_meta() instead
+        given API use `Gst.buffer_iterate_meta` or `Gst.buffer_foreach_meta` instead
         and check the `meta->info.api` member for the API type.
         """
     def get_n_meta(self, api_type: GObject.GType) -> int: ...
     def get_reference_timestamp_meta(self, reference: Caps | None = None) -> ReferenceTimestampMeta | None:
         """
-            Finds the first #GstReferenceTimestampMeta on @buffer that conforms to
-        @reference. Conformance is tested by checking if the meta's reference is a
-        subset of @reference.
+            Finds the first Gst.ReferenceTimestampMeta on `buffer` that conforms to
+        `reference`. Conformance is tested by checking if the meta's reference is a
+        subset of `reference`.
 
-        Buffers can contain multiple #GstReferenceTimestampMeta metadata items.
+        Buffers can contain multiple Gst.ReferenceTimestampMeta metadata items.
         """
     def get_size(self) -> int:
         """
-        Gets the total size of the memory blocks in @buffer.
+        Gets the total size of the memory blocks in `buffer`.
         """
     def get_sizes(self) -> tuple[int, int, int]:
         """
-            Gets the total size of the memory blocks in @buffer.
+            Gets the total size of the memory blocks in `buffer`.
 
-        When not %NULL, @offset will contain the offset of the data in the
-        first memory block in @buffer and @maxsize will contain the sum of
-        the size and @offset and the amount of extra padding on the last
-        memory block.  @offset and @maxsize can be used to resize the
-        buffer memory blocks with gst_buffer_resize().
+        When not None, `offset` will contain the offset of the data in the
+        first memory block in `buffer` and `maxsize` will contain the sum of
+        the size and `offset` and the amount of extra padding on the last
+        memory block.  `offset` and `maxsize` can be used to resize the
+        buffer memory blocks with `Gst.buffer_resize`.
         """
     def get_sizes_range(self, idx: int, length: int) -> tuple[int, int, int]:
         """
-            Gets the total size of @length memory blocks stating from @idx in @buffer.
+            Gets the total size of `length` memory blocks stating from `idx` in `buffer`.
 
-        When not %NULL, @offset will contain the offset of the data in the
-        memory block in @buffer at @idx and @maxsize will contain the sum of the size
-        and @offset and the amount of extra padding on the memory block at @idx +
-        @length -1.
-        @offset and @maxsize can be used to resize the buffer memory blocks with
-        gst_buffer_resize_range().
+        When not None, `offset` will contain the offset of the data in the
+        memory block in `buffer` at `idx` and `maxsize` will contain the sum of the size
+        and `offset` and the amount of extra padding on the memory block at `idx` +
+        `length` -1.
+        `offset` and `maxsize` can be used to resize the buffer memory blocks with
+        `Gst.buffer_resize_range`.
         """
     def has_flags(self, flags: BufferFlags) -> bool:
         """
@@ -6599,72 +6599,72 @@ class Buffer(GObject.GBoxed):
         """
     def insert_memory(self, idx: int, mem: Memory) -> None:
         """
-            Inserts the memory block @mem into @buffer at @idx. This function takes ownership
-        of @mem and thus doesn't increase its refcount.
+            Inserts the memory block `mem` into `buffer` at `idx`. This function takes ownership
+        of `mem` and thus doesn't increase its refcount.
 
-        Only gst_buffer_get_max_memory() can be added to a buffer. If more memory is
+        Only `Gst.buffer_get_max_memory` can be added to a buffer. If more memory is
         added, existing memory blocks will automatically be merged to make room for
         the new memory.
         """
     def is_all_memory_writable(self) -> bool:
         """
-            Checks if all memory blocks in @buffer are writable.
+            Checks if all memory blocks in `buffer` are writable.
 
-        Note that this function does not check if @buffer is writable, use
-        gst_buffer_is_writable() to check that if needed.
+        Note that this function does not check if `buffer` is writable, use
+        `Gst.buffer_is_writable` to check that if needed.
         """
     def is_memory_range_writable(self, idx: int, length: int) -> bool:
         """
-            Checks if @length memory blocks in @buffer starting from @idx are writable.
+            Checks if `length` memory blocks in `buffer` starting from `idx` are writable.
 
-        @length can be -1 to check all the memory blocks after @idx.
+        `length` can be -1 to check all the memory blocks after `idx`.
 
-        Note that this function does not check if @buffer is writable, use
-        gst_buffer_is_writable() to check that if needed.
+        Note that this function does not check if `buffer` is writable, use
+        `Gst.buffer_is_writable` to check that if needed.
         """
     def map(self, flags: MapFlags) -> tuple[bool, MapInfo]:
         """
-            Fills @info with the #GstMapInfo of all merged memory blocks in @buffer.
+            Fills `info` with the Gst.MapInfo of all merged memory blocks in `buffer`.
 
-        @flags describe the desired access of the memory. When @flags is
-        #GST_MAP_WRITE, @buffer should be writable (as returned from
-        gst_buffer_is_writable()).
+        `flags` describe the desired access of the memory. When `flags` is
+        GST_MAP_WRITE, `buffer` should be writable (as returned from
+        `Gst.buffer_is_writable`).
 
-        When @buffer is writable but the memory isn't, a writable copy will
+        When `buffer` is writable but the memory isn't, a writable copy will
         automatically be created and returned. The readonly copy of the
         buffer memory will then also be replaced with this writable copy.
 
-        The memory in @info should be unmapped with gst_buffer_unmap() after
+        The memory in `info` should be unmapped with `Gst.buffer_unmap` after
         usage.
         """
     def map_range(self, idx: int, length: int, flags: MapFlags) -> tuple[bool, MapInfo]:
         """
-            Fills @info with the #GstMapInfo of @length merged memory blocks
-        starting at @idx in @buffer. When @length is -1, all memory blocks starting
-        from @idx are merged and mapped.
+            Fills `info` with the Gst.MapInfo of `length` merged memory blocks
+        starting at `idx` in `buffer`. When `length` is -1, all memory blocks starting
+        from `idx` are merged and mapped.
 
-        @flags describe the desired access of the memory. When @flags is
-        #GST_MAP_WRITE, @buffer should be writable (as returned from
-        gst_buffer_is_writable()).
+        `flags` describe the desired access of the memory. When `flags` is
+        GST_MAP_WRITE, `buffer` should be writable (as returned from
+        `Gst.buffer_is_writable`).
 
-        When @buffer is writable but the memory isn't, a writable copy will
+        When `buffer` is writable but the memory isn't, a writable copy will
         automatically be created and returned. The readonly copy of the buffer memory
         will then also be replaced with this writable copy.
 
-        The memory in @info should be unmapped with gst_buffer_unmap() after usage.
+        The memory in `info` should be unmapped with `Gst.buffer_unmap` after usage.
         """
     def memcmp(self, offset: int, mem: list, size: int) -> int:
         """
-        Compares @size bytes starting from @offset in @buffer with the memory in @mem.
+        Compares `size` bytes starting from `offset` in `buffer` with the memory in `mem`.
         """
     def memset(self, offset: int, val: int, size: int) -> int:
         """
-        Fills @buf with @size bytes with @val starting from @offset.
+        Fills `buf` with `size` bytes with `val` starting from `offset`.
         """
     def n_memory(self) -> int:
         """
             Gets the amount of memory blocks that this buffer has. This amount is never
-        larger than what gst_buffer_get_max_memory() returns.
+        larger than what `Gst.buffer_get_max_memory` returns.
         """
     @classmethod
     def new(cls) -> Buffer:
@@ -6677,29 +6677,29 @@ class Buffer(GObject.GBoxed):
     ) -> Buffer | None:
         """
             Tries to create a newly allocated buffer with data of the given size and
-        extra parameters from @allocator. If the requested amount of memory can't be
-        allocated, %NULL will be returned. The allocated buffer memory is not cleared.
+        extra parameters from `allocator`. If the requested amount of memory can't be
+        allocated, None will be returned. The allocated buffer memory is not cleared.
 
-        When @allocator is %NULL, the default memory allocator will be used.
+        When `allocator` is None, the default memory allocator will be used.
 
-        Note that when @size == 0, the buffer will not have memory associated with it.
+        Note that when `size` == 0, the buffer will not have memory associated with it.
         """
     @classmethod
     def new_memdup(cls, data: list, size: int) -> Buffer:
         """
-        Creates a new buffer of size @size and fills it with a copy of @data.
+        Creates a new buffer of size `size` and fills it with a copy of `data`.
         """
     @classmethod
     def new_wrapped(cls, data: list, size: int) -> Buffer:
         """
-            Creates a new buffer that wraps the given @data. The memory will be freed
-        with g_free() and will be marked writable.
+            Creates a new buffer that wraps the given `data`. The memory will be freed
+        with `g_free` and will be marked writable.
         """
     @classmethod
     def new_wrapped_bytes(cls, bytes: GLib.Bytes) -> Buffer:
         """
-            Creates a new #GstBuffer that wraps the given @bytes. The data inside
-        @bytes cannot be %NULL and the resulting buffer will be marked as read only.
+            Creates a new Gst.Buffer that wraps the given `bytes`. The data inside
+        `bytes` cannot be None and the resulting buffer will be marked as read only.
         """
     @classmethod
     def new_wrapped_full(
@@ -6713,72 +6713,72 @@ class Buffer(GObject.GBoxed):
         notify: GLib.DestroyNotify | None = None,
     ) -> Buffer:
         """
-            Allocates a new buffer that wraps the given memory. @data must point to
-        @maxsize of memory, the wrapped buffer will have the region from @offset and
-        @size visible.
+            Allocates a new buffer that wraps the given memory. `data` must point to
+        `maxsize` of memory, the wrapped buffer will have the region from `offset` and
+        `size` visible.
 
-        When the buffer is destroyed, @notify will be called with @user_data.
+        When the buffer is destroyed, `notify` will be called with `user_data`.
 
-        The prefix/padding must be filled with 0 if @flags contains
-        #GST_MEMORY_FLAG_ZERO_PREFIXED and #GST_MEMORY_FLAG_ZERO_PADDED respectively.
+        The prefix/padding must be filled with 0 if `flags` contains
+        GST_MEMORY_FLAG_ZERO_PREFIXED and GST_MEMORY_FLAG_ZERO_PADDED respectively.
         """
     def peek_memory(self, idx: int) -> Memory | None:
         """
-            Gets the memory block at @idx in @buffer. The memory block stays valid until
-        the memory block in @buffer is removed, replaced or merged, typically with
-        any call that modifies the memory in @buffer.
+            Gets the memory block at `idx` in `buffer`. The memory block stays valid until
+        the memory block in `buffer` is removed, replaced or merged, typically with
+        any call that modifies the memory in `buffer`.
         """
     def prepend_memory(self, mem: Memory) -> None:
         """
-            Prepends the memory block @mem to @buffer. This function takes
-        ownership of @mem and thus doesn't increase its refcount.
+            Prepends the memory block `mem` to `buffer`. This function takes
+        ownership of `mem` and thus doesn't increase its refcount.
 
-        This function is identical to gst_buffer_insert_memory() with an index of 0.
-        See gst_buffer_insert_memory() for more details.
+        This function is identical to `Gst.buffer_insert_memory` with an index of 0.
+        See `Gst.buffer_insert_memory` for more details.
         """
     def remove_all_memory(self) -> None:
         """
-        Removes all the memory blocks in @buffer.
+        Removes all the memory blocks in `buffer`.
         """
     def remove_memory(self, idx: int) -> None:
         """
-        Removes the memory block in @b at index @i.
+        Removes the memory block in `b` at index `i`.
         """
     def remove_memory_range(self, idx: int, length: int) -> None:
         """
-            Removes @length memory blocks in @buffer starting from @idx.
+            Removes `length` memory blocks in `buffer` starting from `idx`.
 
-        @length can be -1, in which case all memory starting from @idx is removed.
+        `length` can be -1, in which case all memory starting from `idx` is removed.
         """
     def remove_meta(self, meta: Meta) -> bool:
         """
-        Removes the metadata for @meta on @buffer.
+        Removes the metadata for `meta` on `buffer`.
         """
     def replace_all_memory(self, mem: Memory) -> None:
         """
-        Replaces all memory in @buffer with @mem.
+        Replaces all memory in `buffer` with `mem`.
         """
     def replace_memory(self, idx: int, mem: Memory) -> None:
         """
-        Replaces the memory block at index @idx in @buffer with @mem.
+        Replaces the memory block at index `idx` in `buffer` with `mem`.
         """
     def replace_memory_range(self, idx: int, length: int, mem: Memory) -> None:
         """
-            Replaces @length memory blocks in @buffer starting at @idx with @mem.
+            Replaces `length` memory blocks in `buffer` starting at `idx` with `mem`.
 
-        If @length is -1, all memory starting from @idx will be removed and
-        replaced with @mem.
+        If `length` is -1, all memory starting from `idx` will be removed and
+        replaced with `mem`.
 
-        @buffer should be writable.
+        `buffer` should be writable.
         """
     def resize(self, offset: int, size: int) -> None:
         """
-        Sets the offset and total size of the memory blocks in @buffer.
+        Sets the offset and total size of the memory blocks in `buffer`.
         """
     def resize_range(self, idx: int, length: int, offset: int, size: int) -> bool:
         """
-            Sets the total size of the @length memory blocks starting at @idx in
-        @buffer
+            Sets the total size of the `length` memory blocks starting at `idx` in
+        `buffer`
         """
     def set_flags(self, flags: BufferFlags) -> bool:
         """
@@ -6786,11 +6786,11 @@ class Buffer(GObject.GBoxed):
         """
     def set_size(self, size: int) -> None:
         """
-        Sets the total size of the memory blocks in @buffer.
+        Sets the total size of the memory blocks in `buffer`.
         """
     def unmap(self, info: MapInfo) -> None:
         """
-        Releases the memory previously mapped with gst_buffer_map().
+        Releases the memory previously mapped with `Gst.buffer_map`.
         """
     def unset_flags(self, flags: BufferFlags) -> bool:
         """
@@ -6808,10 +6808,10 @@ class BufferList(GObject.GBoxed):
     """
     Buffer lists are an object containing a list of buffers.
 
-    Buffer lists are created with gst_buffer_list_new() and filled with data
-    using gst_buffer_list_insert().
+    Buffer lists are created with `Gst.buffer_list_new` and filled with data
+    using `Gst.buffer_list_insert`.
 
-    Buffer lists can be pushed on a srcpad with gst_pad_push_list(). This is
+    Buffer lists can be pushed on a srcpad with `Gst.pad_push_list`. This is
     interesting when multiple buffers need to be pushed in one go because it
     can reduce the amount of overhead for pushing each buffer individually.
     """
@@ -6819,7 +6819,7 @@ class BufferList(GObject.GBoxed):
     # gi Methods
     def calculate_size(self) -> int:
         """
-            Calculates the size of the data contained in @list by adding the
+            Calculates the size of the data contained in `list` by adding the
         size of all buffers.
         """
     def copy_deep(self) -> BufferList:
@@ -6829,51 +6829,51 @@ class BufferList(GObject.GBoxed):
         """
     def foreach(self, func: BufferListFunc, user_data: object | None = None) -> bool:
         """
-            Calls @func with @data for each buffer in @list.
+            Calls `func` with `data` for each buffer in `list`.
 
-        @func can modify the passed buffer pointer or its contents. The return value
-        of @func defines if this function returns or if the remaining buffers in
+        `func` can modify the passed buffer pointer or its contents. The return value
+        of `func` defines if this function returns or if the remaining buffers in
         the list should be skipped.
         """
     def get(self, idx: int) -> Buffer:
         """
-            Gets the buffer at @idx.
+            Gets the buffer at `idx`.
 
-        You must make sure that @idx does not exceed the number of
+        You must make sure that `idx` does not exceed the number of
         buffers available.
         """
     def get_writable(self, idx: int) -> Buffer:
         """
-            Gets the buffer at @idx, ensuring it is a writable buffer.
+            Gets the buffer at `idx`, ensuring it is a writable buffer.
 
-        You must make sure that @idx does not exceed the number of
+        You must make sure that `idx` does not exceed the number of
         buffers available.
         """
     def insert(self, idx: int, buffer: Buffer) -> None:
         """
-            Inserts @buffer at @idx in @list. Other buffers are moved to make room for
+            Inserts `buffer` at `idx` in `list`. Other buffers are moved to make room for
         this new buffer.
 
-        A -1 value for @idx will append the buffer at the end.
+        A -1 value for `idx` will append the buffer at the end.
         """
     def length(self) -> int:
         """
-        Returns the number of buffers in @list.
+        Returns the number of buffers in `list`.
         """
     @classmethod
     def new(cls) -> BufferList:
         """
-        Creates a new, empty #GstBufferList.
+        Creates a new, empty Gst.BufferList.
         """
     @classmethod
     def new_sized(cls, size: int) -> BufferList:
         """
-            Creates a new, empty #GstBufferList. The list will have @size space
+            Creates a new, empty Gst.BufferList. The list will have `size` space
         preallocated so that memory reallocations can be avoided.
         """
     def remove(self, idx: int, length: int) -> None:
         """
-            Removes @length buffers starting from @idx in @list. The following buffers
+            Removes `length` buffers starting from `idx` in `list`. The following buffers
         are moved to close the gap.
         """
 
@@ -6886,39 +6886,39 @@ class BufferList(GObject.GBoxed):
 
 class BufferPool(Object):
     """
-    A #GstBufferPool is an object that can be used to pre-allocate and recycle
+    A Gst.BufferPool is an object that can be used to pre-allocate and recycle
     buffers of the same size and with the same properties.
 
-    A #GstBufferPool is created with gst_buffer_pool_new().
+    A Gst.BufferPool is created with `Gst.buffer_pool_new`.
 
     Once a pool is created, it needs to be configured. A call to
-    gst_buffer_pool_get_config() returns the current configuration structure from
-    the pool. With gst_buffer_pool_config_set_params() and
-    gst_buffer_pool_config_set_allocator() the bufferpool parameters and
+    `Gst.buffer_pool_get_config` returns the current configuration structure from
+    the pool. With `Gst.buffer_pool_config_set_params` and
+    `Gst.buffer_pool_config_set_allocator` the bufferpool parameters and
     allocator can be configured. Other properties can be configured in the pool
     depending on the pool implementation.
 
     A bufferpool can have extra options that can be enabled with
-    gst_buffer_pool_config_add_option(). The available options can be retrieved
-    with gst_buffer_pool_get_options(). Some options allow for additional
+    `Gst.buffer_pool_config_add_option`. The available options can be retrieved
+    with `Gst.buffer_pool_get_options`. Some options allow for additional
     configuration properties to be set.
 
     After the configuration structure has been configured,
-    gst_buffer_pool_set_config() updates the configuration in the pool. This can
+    `Gst.buffer_pool_set_config` updates the configuration in the pool. This can
     fail when the configuration structure is not accepted.
 
     After the pool has been configured, it can be activated with
-    gst_buffer_pool_set_active(). This will preallocate the configured resources
+    `Gst.buffer_pool_set_active`. This will preallocate the configured resources
     in the pool.
 
-    When the pool is active, gst_buffer_pool_acquire_buffer() can be used to
+    When the pool is active, `Gst.buffer_pool_acquire_buffer` can be used to
     retrieve a buffer from the pool.
 
     Buffers allocated from a bufferpool will automatically be returned to the
-    pool with gst_buffer_pool_release_buffer() when their refcount drops to 0.
+    pool with `Gst.buffer_pool_release_buffer` when their refcount drops to 0.
 
-    The bufferpool can be deactivated again with gst_buffer_pool_set_active().
-    All further gst_buffer_pool_acquire_buffer() calls will return an error. When
+    The bufferpool can be deactivated again with `Gst.buffer_pool_set_active`.
+    All further `Gst.buffer_pool_acquire_buffer` calls will return an error. When
     all buffers are returned to the pool they will be freed.
     """
 
@@ -6941,81 +6941,81 @@ class BufferPool(Object):
         """
     def acquire_buffer(self, params: BufferPoolAcquireParams | None = None) -> tuple[FlowReturn, Buffer | None]:
         """
-            Acquires a buffer from @pool. @buffer should point to a memory location that
+            Acquires a buffer from `pool`. `buffer` should point to a memory location that
         can hold a pointer to the new buffer. When the pool is empty, this function
         will by default block until a buffer is released into the pool again or when
         the pool is set to flushing or deactivated.
 
-        @params can contain optional parameters to influence the allocation.
+        `params` can contain optional parameters to influence the allocation.
         """
     @staticmethod
     def config_add_option(config: Structure, option: str) -> None:
         """
-            Enables the option in @config. This will instruct the @bufferpool to enable
+            Enables the option in `config`. This will instruct the `bufferpool` to enable
         the specified option on the buffers that it allocates.
 
-        The options supported by @pool can be retrieved with gst_buffer_pool_get_options().
+        The options supported by `pool` can be retrieved with `Gst.buffer_pool_get_options`.
         """
     @staticmethod
     def config_get_allocator(config: Structure) -> tuple[bool, Allocator | None, AllocationParams]:
         """
-        Gets the @allocator and @params from @config.
+        Gets the `allocator` and `params` from `config`.
         """
     @staticmethod
     def config_get_option(config: Structure, index: int) -> str | None:
         """
-            Parses an available @config and gets the option at @index of the options API
+            Parses an available `config` and gets the option at `index` of the options API
         array.
         """
     @staticmethod
     def config_get_params(config: Structure) -> tuple[bool, Caps | None, int, int, int]:
         """
-        Gets the configuration values from @config.
+        Gets the configuration values from `config`.
         """
     @staticmethod
     def config_has_option(config: Structure, option: str) -> bool:
         """
-        Checks if @config contains @option.
+        Checks if `config` contains `option`.
         """
     @staticmethod
     def config_n_options(config: Structure) -> int:
         """
             Retrieves the number of values currently stored in the options array of the
-        @config structure.
+        `config` structure.
         """
     @staticmethod
     def config_set_allocator(
         config: Structure, allocator: Allocator | None = None, params: AllocationParams | None = None
     ) -> None:
         """
-            Sets the @allocator and @params on @config.
+            Sets the `allocator` and `params` on `config`.
 
-        One of @allocator and @params can be %NULL, but not both. When @allocator
-        is %NULL, the default allocator of the pool will use the values in @param
-        to perform its allocation. When @param is %NULL, the pool will use the
-        provided @allocator with its default #GstAllocationParams.
+        One of `allocator` and `params` can be None, but not both. When `allocator`
+        is None, the default allocator of the pool will use the values in `param`
+        to perform its allocation. When `param` is None, the pool will use the
+        provided `allocator` with its default Gst.AllocationParams.
 
-        A call to gst_buffer_pool_set_config() can update the allocator and params
+        A call to `Gst.buffer_pool_set_config` can update the allocator and params
         with the values that it is able to do. Some pools are, for example, not able
         to operate with different allocators or cannot allocate with the values
-        specified in @params. Use gst_buffer_pool_get_config() to get the currently
+        specified in `params`. Use `Gst.buffer_pool_get_config` to get the currently
         used values.
         """
     @staticmethod
     def config_set_params(config: Structure, caps: Caps | None, size: int, min_buffers: int, max_buffers: int) -> None:
         """
-        Configures @config with the given parameters.
+        Configures `config` with the given parameters.
         """
     @staticmethod
     def config_validate_params(
         config: Structure, caps: Caps | None, size: int, min_buffers: int, max_buffers: int
     ) -> bool:
         """
-            Validates that changes made to @config are still valid in the context of the
+            Validates that changes made to `config` are still valid in the context of the
         expected parameters. This function is a helper that can be used to validate
-        changes made by a pool to a config when gst_buffer_pool_set_config()
-        returns %FALSE. This expects that @caps haven't changed and that
-        @min_buffers aren't lower then what we initially expected.
+        changes made by a pool to a config when `Gst.buffer_pool_set_config`
+        returns False. This expects that `caps` haven't changed and that
+        `min_buffers` aren't lower then what we initially expected.
         This does not check if options or allocator parameters are still valid,
         won't check if size have changed, since changing the size is valid to adapt
         padding.
@@ -7023,40 +7023,40 @@ class BufferPool(Object):
     def get_config(self) -> Structure:
         """
             Gets a copy of the current configuration of the pool. This configuration
-        can be modified and used for the gst_buffer_pool_set_config() call.
+        can be modified and used for the `Gst.buffer_pool_set_config` call.
         """
     def get_options(self) -> list:
         """
-            Gets a %NULL terminated array of string with supported bufferpool options for
-        @pool. An option would typically be enabled with
-        gst_buffer_pool_config_add_option().
+            Gets a None terminated array of string with supported bufferpool options for
+        `pool`. An option would typically be enabled with
+        `Gst.buffer_pool_config_add_option`.
         """
     def has_option(self, option: str) -> bool:
         """
-        Checks if the bufferpool supports @option.
+        Checks if the bufferpool supports `option`.
         """
     def is_active(self) -> bool:
         """
-            Checks if @pool is active. A pool can be activated with the
-        gst_buffer_pool_set_active() call.
+            Checks if `pool` is active. A pool can be activated with the
+        `Gst.buffer_pool_set_active` call.
         """
     @classmethod
     def new(cls) -> BufferPool:
         """
-        Creates a new #GstBufferPool instance.
+        Creates a new Gst.BufferPool instance.
         """
     def release_buffer(self, buffer: Buffer) -> None:
         """
-            Releases @buffer to @pool. @buffer should have previously been allocated from
-        @pool with gst_buffer_pool_acquire_buffer().
+            Releases `buffer` to `pool`. `buffer` should have previously been allocated from
+        `pool` with `Gst.buffer_pool_acquire_buffer`.
 
-        This function is usually called automatically when the last ref on @buffer
+        This function is usually called automatically when the last ref on `buffer`
         disappears.
         """
     def set_active(self, active: bool) -> bool:
         """
-            Controls the active state of @pool. When the pool is inactive, new calls to
-        gst_buffer_pool_acquire_buffer() will return with %GST_FLOW_FLUSHING.
+            Controls the active state of `pool`. When the pool is inactive, new calls to
+        `Gst.buffer_pool_acquire_buffer` will return with Gst.FLOW_FLUSHING.
 
         Activating the bufferpool will preallocate all resources in the pool based on
         the configuration of the pool.
@@ -7068,25 +7068,25 @@ class BufferPool(Object):
     def set_config(self, config: Structure) -> bool:
         """
             Sets the configuration of the pool. If the pool is already configured, and
-        the configuration hasn't changed, this function will return %TRUE. If the
-        pool is active, this method will return %FALSE and active configuration
+        the configuration hasn't changed, this function will return True. If the
+        pool is active, this method will return False and active configuration
         will remain. Buffers allocated from this pool must be returned or else this
-        function will do nothing and return %FALSE.
+        function will do nothing and return False.
 
-        @config is a #GstStructure that contains the configuration parameters for
+        `config` is a Gst.Structure that contains the configuration parameters for
         the pool. A default and mandatory set of parameters can be configured with
-        gst_buffer_pool_config_set_params(), gst_buffer_pool_config_set_allocator()
-        and gst_buffer_pool_config_add_option().
+        `Gst.buffer_pool_config_set_params`, `Gst.buffer_pool_config_set_allocator`
+        and `Gst.buffer_pool_config_add_option`.
 
-        If the parameters in @config can not be set exactly, this function returns
-        %FALSE and will try to update as much state as possible. The new state can
-        then be retrieved and refined with gst_buffer_pool_get_config().
+        If the parameters in `config` can not be set exactly, this function returns
+        False and will try to update as much state as possible. The new state can
+        then be retrieved and refined with `Gst.buffer_pool_get_config`.
 
-        This function takes ownership of @config.
+        This function takes ownership of `config`.
         """
     def set_flushing(self, flushing: bool) -> None:
         """
-            Enables or disables the flushing state of a @pool without freeing or
+            Enables or disables the flushing state of a `pool` without freeing or
         allocating buffers.
         """
 
@@ -7166,10 +7166,10 @@ class BufferPool(Object):
 
 class BufferPoolAcquireParams(GObject.GPointer):
     """
-    Parameters passed to the gst_buffer_pool_acquire_buffer() function to control the
+    Parameters passed to the `Gst.buffer_pool_acquire_buffer` function to control the
     allocation of the buffer.
 
-    The default implementation ignores the @start and @stop members but other
+    The default implementation ignores the `start` and `stop` members but other
     implementations can use this extra information to decide what buffer to
     return.
     """
@@ -7182,7 +7182,7 @@ class BufferPoolAcquireParams(GObject.GPointer):
     """
     format: Format = ...
     """
-    the format of @start and @stop
+    the format of `start` and `stop`
 
     """
     start: int = ...
@@ -7204,7 +7204,7 @@ class BufferPoolAcquireParams(GObject.GPointer):
 
 class BufferPoolClass(GObject.GPointer):
     """
-    The #GstBufferPool class.
+    The Gst.BufferPool class.
     """
 
     # gi Fields
@@ -7251,8 +7251,8 @@ class BufferPoolPrivate(GObject.GPointer):
 
 class Bus(Object):
     """
-    The #GstBus is an object responsible for delivering #GstMessage packets in
-    a first-in first-out way from the streaming threads (see #GstTask) to the
+    The Gst.Bus is an object responsible for delivering Gst.Message packets in
+    a first-in first-out way from the streaming threads (see Gst.Task) to the
     application.
 
     Since the application typically only wants to deal with delivery of these
@@ -7260,47 +7260,47 @@ class Bus(Object):
     different threads. This is important since the actual streaming of media
     is done in another thread than the application.
 
-    The GstBus provides support for #GSource based notifications. This makes it
-    possible to handle the delivery in the glib #GMainLoop.
+    The GstBus provides support for GSource based notifications. This makes it
+    possible to handle the delivery in the glib GMainLoop.
 
-    The #GSource callback function gst_bus_async_signal_func() can be used to
+    The GSource callback function `Gst.bus_async_signal_func` can be used to
     convert all bus messages into signal emissions.
 
-    A message is posted on the bus with the gst_bus_post() method. With the
-    gst_bus_peek() and gst_bus_pop() methods one can look at or retrieve a
+    A message is posted on the bus with the `Gst.bus_post` method. With the
+    `Gst.bus_peek` and `Gst.bus_pop` methods one can look at or retrieve a
     previously posted message.
 
-    The bus can be polled with the gst_bus_poll() method. This methods blocks
+    The bus can be polled with the `Gst.bus_poll` method. This methods blocks
     up to the specified timeout value until one of the specified messages types
-    is posted on the bus. The application can then gst_bus_pop() the messages
+    is posted on the bus. The application can then `Gst.bus_pop` the messages
     from the bus to handle them.
     Alternatively the application can register an asynchronous bus function
-    using gst_bus_add_watch_full() or gst_bus_add_watch(). This function will
-    install a #GSource in the default glib main loop and will deliver messages
+    using `Gst.bus_add_watch_full` or `Gst.bus_add_watch`. This function will
+    install a GSource in the default glib main loop and will deliver messages
     a short while after they have been posted. Note that the main loop should
     be running for the asynchronous callbacks.
 
     It is also possible to get messages from the bus without any thread
-    marshalling with the gst_bus_set_sync_handler() method. This makes it
+    marshalling with the `Gst.bus_set_sync_handler` method. This makes it
     possible to react to a message in the same thread that posted the
     message on the bus. This should only be used if the application is able
     to deal with messages from different threads.
 
-    Every #GstPipeline has one bus.
+    Every Gst.Pipeline has one bus.
 
-    Note that a #GstPipeline will set its bus into flushing state when changing
-    from READY to NULL state.
+    Note that a Gst.Pipeline will set its bus into flushing state when changing
+    from READY to None state.
     """
 
     class Props(Object.Props):
         enable_async: bool  # [enable-async]: changed because contained invalid characters
         """
         Enables async message delivery support for bus watches,
-        gst_bus_pop() and similar API. Without this only the
+        `Gst.bus_pop` and similar API. Without this only the
         synchronous message handlers are called.
 
         This property is used to create the child element buses
-        in #GstBin.
+        in Gst.Bin.
         """
 
     @builtins.property
@@ -7321,8 +7321,8 @@ class Bus(Object):
     def add_signal_watch(self) -> None:
         """
             Adds a bus signal watch to the default main context with the default priority
-        ( %G_PRIORITY_DEFAULT ). It is also possible to use a non-default
-        main context set up using g_main_context_push_thread_default() (before
+        ( G_PRIORITY_DEFAULT ). It is also possible to use a non-default
+        main context set up using `g_main_context_push_thread_default` (before
         one had to create a bus watch source and attach it to the desired main
         context 'manually').
 
@@ -7330,22 +7330,22 @@ class Bus(Object):
         message posted on the bus.
 
         This function may be called multiple times. To clean up, the caller is
-        responsible for calling gst_bus_remove_signal_watch() as many times as this
+        responsible for calling `Gst.bus_remove_signal_watch` as many times as this
         function is called.
         """
     def add_signal_watch_full(self, priority: int) -> None:
         """
-            Adds a bus signal watch to the default main context with the given @priority
-        (e.g. %G_PRIORITY_DEFAULT). It is also possible to use a non-default main
-        context set up using g_main_context_push_thread_default()
+            Adds a bus signal watch to the default main context with the given `priority`
+        (e.g. G_PRIORITY_DEFAULT). It is also possible to use a non-default main
+        context set up using `g_main_context_push_thread_default`
         (before one had to create a bus watch source and attach it to the desired
         main context 'manually').
 
         After calling this statement, the bus will emit the "message" signal for each
-        message posted on the bus when the #GMainLoop is running.
+        message posted on the bus when the GMainLoop is running.
 
         This function may be called multiple times. To clean up, the caller is
-        responsible for calling gst_bus_remove_signal_watch() as many times as this
+        responsible for calling `Gst.bus_remove_signal_watch` as many times as this
         function is called.
 
         There can only be a single bus watch per bus, you must remove any signal
@@ -7354,8 +7354,8 @@ class Bus(Object):
     def add_watch(self, priority: int, func: BusFunc, user_data: object | None, notify: GLib.DestroyNotify) -> int:
         """
             Adds a bus watch to the default main context with the default priority
-        ( %G_PRIORITY_DEFAULT ). It is also possible to use a non-default main
-        context set up using g_main_context_push_thread_default() (before
+        ( G_PRIORITY_DEFAULT ). It is also possible to use a non-default main
+        context set up using `g_main_context_push_thread_default` (before
         one had to create a bus watch source and attach it to the desired main
         context 'manually').
 
@@ -7363,23 +7363,23 @@ class Bus(Object):
         There can only be a single bus watch per bus, you must remove it before you
         can set a new one.
 
-        The bus watch will only work if a #GMainLoop is being run.
+        The bus watch will only work if a GMainLoop is being run.
 
-        The watch can be removed using gst_bus_remove_watch() or by returning %FALSE
-        from @func. If the watch was added to the default main context it is also
-        possible to remove the watch using g_source_remove().
+        The watch can be removed using `Gst.bus_remove_watch` or by returning False
+        from `func`. If the watch was added to the default main context it is also
+        possible to remove the watch using `g_source_remove`.
 
-        The bus watch will take its own reference to the @bus, so it is safe to unref
-        @bus using gst_object_unref() after setting the bus watch.
+        The bus watch will take its own reference to the `bus`, so it is safe to unref
+        `bus` using `Gst.object_unref` after setting the bus watch.
         """
     def async_signal_func(self, message: Message, data: object | None = None) -> bool:
         """
-            A helper #GstBusFunc that can be used to convert all asynchronous messages
+            A helper Gst.BusFunc that can be used to convert all asynchronous messages
         into signals.
         """
     def create_watch(self) -> GLib.Source | None:
         """
-            Create watch for this bus. The #GSource will be dispatched whenever
+            Create watch for this bus. The GSource will be dispatched whenever
         a message is on the bus. After the GSource is dispatched, the
         message is popped off the bus and unreffed.
 
@@ -7389,13 +7389,13 @@ class Bus(Object):
     def disable_sync_message_emission(self) -> None:
         """
             Instructs GStreamer to stop emitting the "sync-message" signal for this bus.
-        See gst_bus_enable_sync_message_emission() for more information.
+        See `Gst.bus_enable_sync_message_emission` for more information.
 
         In the event that multiple pieces of code have called
-        gst_bus_enable_sync_message_emission(), the sync-message emissions will only
-        be stopped after all calls to gst_bus_enable_sync_message_emission() were
+        `Gst.bus_enable_sync_message_emission`, the sync-message emissions will only
+        be stopped after all calls to `Gst.bus_enable_sync_message_emission` were
         "cancelled" by calling this function. In this way the semantics are exactly
-        the same as gst_object_ref() that which calls enable should also call
+        the same as `Gst.object_ref` that which calls enable should also call
         disable.
         """
     def enable_sync_message_emission(self) -> None:
@@ -7406,26 +7406,26 @@ class Bus(Object):
         handler is.
 
         This function may be called multiple times. To clean up, the caller is
-        responsible for calling gst_bus_disable_sync_message_emission() as many times
+        responsible for calling `Gst.bus_disable_sync_message_emission` as many times
         as this function is called.
 
-        While this function looks similar to gst_bus_add_signal_watch(), it is not
+        While this function looks similar to `Gst.bus_add_signal_watch`, it is not
         exactly the same -- this function enables *synchronous* emission of
-        signals when messages arrive; gst_bus_add_signal_watch() adds an idle callback
+        signals when messages arrive; `Gst.bus_add_signal_watch` adds an idle callback
         to pop messages off the bus *asynchronously*. The sync-message signal
         comes from the thread of whatever object posted the message; the "message"
-        signal is marshalled to the main thread via the #GMainLoop.
+        signal is marshalled to the main thread via the GMainLoop.
         """
     def get_pollfd(self) -> GLib.PollFD:
         """
             Gets the file descriptor from the bus which can be used to get notified about
-        messages being available with functions like g_poll(), and allows integration
+        messages being available with functions like `g_poll`, and allows integration
         into other event loops based on file descriptors.
-        Whenever a message is available, the POLLIN / %G_IO_IN event is set.
+        Whenever a message is available, the POLLIN / G_IO_IN event is set.
 
         Warning: NEVER read or write anything to the returned fd but only use it
-        for getting notifications via g_poll() or similar and then use the normal
-        GstBus API, e.g. gst_bus_pop().
+        for getting notifications via `g_poll` or similar and then use the normal
+        GstBus API, e.g. `Gst.bus_pop`.
         """
     def have_pending(self) -> bool:
         """
@@ -7435,7 +7435,7 @@ class Bus(Object):
     @classmethod
     def new(cls) -> Bus:
         """
-        Creates a new #GstBus instance.
+        Creates a new Gst.Bus instance.
         """
     def peek(self) -> Message | None:
         """
@@ -7445,20 +7445,20 @@ class Bus(Object):
     def poll(self, events: MessageType, timeout: int) -> Message | None:
         """
             Polls the bus for messages. Will block while waiting for messages to come.
-        You can specify a maximum time to poll with the @timeout parameter. If
-        @timeout is negative, this function will block indefinitely.
+        You can specify a maximum time to poll with the `timeout` parameter. If
+        `timeout` is negative, this function will block indefinitely.
 
-        All messages not in @events will be popped off the bus and will be ignored.
-        It is not possible to use message enums beyond #GST_MESSAGE_EXTENDED in the
-        @events mask
+        All messages not in `events` will be popped off the bus and will be ignored.
+        It is not possible to use message enums beyond GST_MESSAGE_EXTENDED in the
+        `events` mask
 
         Because poll is implemented using the "message" signal enabled by
-        gst_bus_add_signal_watch(), calling gst_bus_poll() will cause the "message"
+        `Gst.bus_add_signal_watch`, calling `Gst.bus_poll` will cause the "message"
         signal to be emitted for every message that poll sees. Thus a "message"
         signal handler will see the same messages that this function sees -- neither
         will steal messages from the other.
 
-        This function will run a #GMainLoop from the default main context when
+        This function will run a GMainLoop from the default main context when
         polling.
 
         You should never use this function, since it is pure evil. This is
@@ -7466,15 +7466,15 @@ class Bus(Object):
         other non-trivial application that uses the GLib main loop. As this function
         runs a GLib main loop, any callback attached to the default GLib main
         context may be invoked. This could be timeouts, GUI events, I/O events etc.;
-        even if gst_bus_poll() is called with a 0 timeout. Any of these callbacks
+        even if `Gst.bus_poll` is called with a 0 timeout. Any of these callbacks
         may do things you do not expect, e.g. destroy the main application window or
         some other resource; change other application state; display a dialog and
         run another main loop until the user clicks it away. In short, using this
         function may add a lot of complexity to your code through unexpected
         re-entrancy and unexpected changes to your application's state.
 
-        For 0 timeouts use gst_bus_pop_filtered() instead of this function; for
-        other short timeouts use gst_bus_timed_pop_filtered(); everything else is
+        For 0 timeouts use `Gst.bus_pop_filtered` instead of this function; for
+        other short timeouts use `Gst.bus_timed_pop_filtered`; everything else is
         better handled by setting up an asynchronous bus watch and doing things
         from there.
         """
@@ -7484,11 +7484,11 @@ class Bus(Object):
         """
     def pop_filtered(self, types: MessageType) -> Message | None:
         """
-            Gets a message matching @type from the bus.  Will discard all messages on
-        the bus that do not match @type and that have been posted before the first
-        message that does match @type.  If there is no message matching @type on
+            Gets a message matching `type` from the bus.  Will discard all messages on
+        the bus that do not match `type` and that have been posted before the first
+        message that does match `type`.  If there is no message matching `type` on
         the bus, all messages will be discarded. It is not possible to use message
-        enums beyond #GST_MESSAGE_EXTENDED in the @events mask.
+        enums beyond GST_MESSAGE_EXTENDED in the `events` mask.
         """
     def post(self, message: Message) -> bool:
         """
@@ -7497,17 +7497,17 @@ class Bus(Object):
         """
     def remove_signal_watch(self) -> None:
         """
-        Removes a signal watch previously added with gst_bus_add_signal_watch().
+        Removes a signal watch previously added with `Gst.bus_add_signal_watch`.
         """
     def remove_watch(self) -> bool:
         """
-        Removes an installed bus watch from @bus.
+        Removes an installed bus watch from `bus`.
         """
     def set_flushing(self, flushing: bool) -> None:
         """
-            If @flushing, flushes out and unrefs any messages queued in the bus. Releases
+            If `flushing`, flushes out and unrefs any messages queued in the bus. Releases
         references to the message origin objects. Will flush future messages until
-        gst_bus_set_flushing() sets @flushing to %FALSE.
+        `Gst.bus_set_flushing` sets `flushing` to False.
         """
     def set_sync_handler(
         self, func: BusSyncHandler | None, user_data: object | None, notify: GLib.DestroyNotify
@@ -7521,29 +7521,29 @@ class Bus(Object):
         functions.
 
         Before 1.16.3 it was not possible to replace an existing handler and
-        clearing an existing handler with %NULL was not thread-safe.
+        clearing an existing handler with None was not thread-safe.
         """
     def sync_signal_handler(self, message: Message, data: object | None = None) -> BusSyncReply:
         """
-            A helper #GstBusSyncHandler that can be used to convert all synchronous
+            A helper Gst.BusSyncHandler that can be used to convert all synchronous
         messages into signals.
         """
     def timed_pop(self, timeout: int) -> Message | None:
         """
             Gets a message from the bus, waiting up to the specified timeout.
 
-        If @timeout is 0, this function behaves like gst_bus_pop(). If @timeout is
-        #GST_CLOCK_TIME_NONE, this function will block forever until a message was
+        If `timeout` is 0, this function behaves like `Gst.bus_pop`. If `timeout` is
+        GST_CLOCK_TIME_NONE, this function will block forever until a message was
         posted on the bus.
         """
     def timed_pop_filtered(self, timeout: int, types: MessageType) -> Message | None:
         """
-            Gets a message from the bus whose type matches the message type mask @types,
+            Gets a message from the bus whose type matches the message type mask `types`,
         waiting up to the specified timeout (and discarding any messages that do not
         match the mask provided).
 
-        If @timeout is 0, this function behaves like gst_bus_pop_filtered(). If
-        @timeout is #GST_CLOCK_TIME_NONE, this function will block forever until a
+        If `timeout` is 0, this function behaves like `Gst.bus_pop_filtered`. If
+        `timeout` is GST_CLOCK_TIME_NONE, this function will block forever until a
         matching message was posted on the bus.
         """
 
@@ -7573,8 +7573,8 @@ class Bus(Object):
     ) -> int:
         """
             A message has been posted on the bus. This signal is emitted from a
-        #GSource added to the mainloop. this signal will only be emitted when
-        there is a #GMainLoop running.
+        GSource added to the mainloop. this signal will only be emitted when
+        there is a GMainLoop running.
         """
     @typing.overload
     def connect(
@@ -7588,7 +7588,7 @@ class Bus(Object):
         thread that posted the message so one has to be careful with locking.
 
         This signal will not be emitted by default, you have to call
-        gst_bus_enable_sync_message_emission() before.
+        `Gst.bus_enable_sync_message_emission` before.
         """
     @typing.overload
     def connect(
@@ -7634,11 +7634,11 @@ class BusPrivate(GObject.GPointer):
 class ByteArrayInterface(GObject.GPointer):
     """
     Interface for an array of bytes. It is expected to be subclassed to implement
-    @resize virtual method using language native array implementation, such as
-    GLib's #GByteArray, C++'s `std::vector<uint8_t>` or Rust's `Vec<u8>`.
+    `resize` virtual method using language native array implementation, such as
+    GLib's GByteArray, C++'s `std::vector<uint8_t>` or Rust's `Vec<u8>`.
 
-    @resize implementation could allocate more than requested to avoid repeated
-    reallocations. It can return %FALSE, or be set to %NULL, in the case the
+    `resize` implementation could allocate more than requested to avoid repeated
+    reallocations. It can return False, or be set to None, in the case the
     array cannot grow.
     """
 
@@ -7650,13 +7650,13 @@ class ByteArrayInterface(GObject.GPointer):
     """
     len: int = ...
     """
-    Number of bytes in @data.
+    Number of bytes in `data`.
 
     """
     @builtins.property
     def resize(self) -> resizeByteArrayInterfaceCB:
         """
-        Reallocate @data.
+        Reallocate `data`.
         """
 
     # gi Methods
@@ -7668,17 +7668,17 @@ class ByteArrayInterface(GObject.GPointer):
 class Caps(GObject.GBoxed):
     """
     Caps (capabilities) are lightweight refcounted objects describing media types.
-    They are composed of an array of #GstStructure.
+    They are composed of an array of Gst.Structure.
 
-    Caps are exposed on #GstPadTemplate to describe all possible types a
-    given pad can handle. They are also stored in the #GstRegistry along with
-    a description of the #GstElement.
+    Caps are exposed on Gst.PadTemplate to describe all possible types a
+    given pad can handle. They are also stored in the Gst.Registry along with
+    a description of the Gst.Element.
 
-    Caps are exposed on the element pads using the gst_pad_query_caps() pad
+    Caps are exposed on the element pads using the `Gst.pad_query_caps` pad
     function. This function describes the possible types that the pad can
     handle or produce at runtime.
 
-    A #GstCaps can be constructed with the following code fragment:
+    A Gst.Caps can be constructed with the following code fragment:
 
     ``` C
       GstCaps *caps = gst_caps_new_simple ("video/x-raw",
@@ -7687,21 +7687,21 @@ class Caps(GObject.GBoxed):
          "pixel-aspect-ratio", GST_TYPE_FRACTION, 1, 1,
          "width", G_TYPE_INT, 320,
          "height", G_TYPE_INT, 240,
-         NULL);
+         None);
     ```
 
-    A #GstCaps is fixed when it has no fields with ranges or lists. Use
-    gst_caps_is_fixed() to test for fixed caps. Fixed caps can be used in a
+    A Gst.Caps is fixed when it has no fields with ranges or lists. Use
+    `Gst.caps_is_fixed` to test for fixed caps. Fixed caps can be used in a
     caps event to notify downstream elements of the current media type.
 
     Various methods exist to work with the media types such as subtracting
     or intersecting.
 
-    Be aware that until 1.20 the #GstCaps / #GstStructure serialization into string
-    had limited support for nested #GstCaps / #GstStructure fields. It could only
+    Be aware that until 1.20 the Gst.Caps / Gst.Structure serialization into string
+    had limited support for nested Gst.Caps / Gst.Structure fields. It could only
     support one level of nesting. Using more levels would lead to unexpected
-    behavior when using serialization features, such as gst_caps_to_string() or
-    gst_value_serialize() and their counterparts.
+    behavior when using serialization features, such as `Gst.caps_to_string` or
+    `Gst.value_serialize` and their counterparts.
     """
 
     # gi Fields
@@ -7718,59 +7718,59 @@ class Caps(GObject.GBoxed):
         """
     def append(self, caps2: Caps) -> None:
         """
-            Appends the structures contained in @caps2 to @caps1. The structures in
-        @caps2 are not copied -- they are transferred to @caps1, and then @caps2 is
+            Appends the structures contained in `caps2` to `caps1`. The structures in
+        `caps2` are not copied -- they are transferred to `caps1`, and then `caps2` is
         freed. If either caps is ANY, the resulting caps will be ANY.
         """
     def append_structure(self, structure: Structure) -> None:
         """
-            Appends @structure to @caps.  The structure is not copied; @caps
-        becomes the owner of @structure.
+            Appends `structure` to `caps`.  The structure is not copied; `caps`
+        becomes the owner of `structure`.
         """
     def append_structure_full(self, structure: Structure, features: CapsFeatures | None = None) -> None:
         """
-            Appends @structure with @features to @caps.  The structure is not copied; @caps
-        becomes the owner of @structure.
+            Appends `structure` with `features` to `caps`.  The structure is not copied; `caps`
+        becomes the owner of `structure`.
         """
     def can_intersect(self, caps2: Caps) -> bool:
         """
-            Tries intersecting @caps1 and @caps2 and reports whether the result would not
+            Tries intersecting `caps1` and `caps2` and reports whether the result would not
         be empty
         """
     def copy(self) -> Caps:
         """
-            Creates a new #GstCaps as a copy of the old @caps. The new caps will have a
+            Creates a new Gst.Caps as a copy of the old `caps`. The new caps will have a
         refcount of 1, owned by the caller. The structures are copied as well.
 
-        Note that this function is the semantic equivalent of a gst_caps_ref()
-        followed by a gst_caps_make_writable(). If you only want to hold on to a
-        reference to the data, you should use gst_caps_ref().
+        Note that this function is the semantic equivalent of a `Gst.caps_ref`
+        followed by a `Gst.caps_make_writable`. If you only want to hold on to a
+        reference to the data, you should use `Gst.caps_ref`.
         """
     def copy_nth(self, nth: int) -> Caps:
         """
-            Creates a new #GstCaps and appends a copy of the nth structure
-        contained in @caps.
+            Creates a new Gst.Caps and appends a copy of the nth structure
+        contained in `caps`.
         """
     def filter_and_map_in_place(self, func: CapsFilterMapFunc, user_data: object | None = None) -> None:
         """
             Calls the provided function once for each structure and caps feature in the
-        #GstCaps. In contrast to gst_caps_foreach(), the function may modify the
-        structure and features. In contrast to gst_caps_map_in_place(), the structure
-        and features are removed from the caps if %FALSE is returned from the
+        Gst.Caps. In contrast to `Gst.caps_foreach`, the function may modify the
+        structure and features. In contrast to `Gst.caps_map_in_place`, the structure
+        and features are removed from the caps if False is returned from the
         function. The caps must be mutable.
         """
     def fixate(self) -> Caps:
         """
-            Modifies the given @caps into a representation with only fixed
+            Modifies the given `caps` into a representation with only fixed
         values. First the caps will be truncated and then the first structure will be
-        fixated with gst_structure_fixate().
+        fixated with `Gst.structure_fixate`.
 
-        This function takes ownership of @caps and will call gst_caps_make_writable()
-        on it so you must not use @caps afterwards unless you keep an additional
-        reference to it with gst_caps_ref().
+        This function takes ownership of `caps` and will call `Gst.caps_make_writable`
+        on it so you must not use `caps` afterwards unless you keep an additional
+        reference to it with `Gst.caps_ref`.
 
         Note that it is not guaranteed that the returned caps have exactly one
-        structure. If @caps are empty caps then the returned caps will be
+        structure. If `caps` are empty caps then the returned caps will be
         the empty too and contain no structure at all.
 
         Calling this function with ANY caps is not allowed.
@@ -7778,77 +7778,77 @@ class Caps(GObject.GBoxed):
     def foreach(self, func: CapsForeachFunc, user_data: object | None = None) -> bool:
         """
             Calls the provided function once for each structure and caps feature in the
-        #GstCaps. The function must not modify the fields.
-        Also see gst_caps_map_in_place() and gst_caps_filter_and_map_in_place().
+        Gst.Caps. The function must not modify the fields.
+        Also see `Gst.caps_map_in_place` and `Gst.caps_filter_and_map_in_place`.
         """
     @staticmethod
     def from_string(string: str) -> Caps | None:
         """
-            Converts @caps from a string representation.
+            Converts `caps` from a string representation.
 
         The implementation of serialization up to 1.20 would lead to unexpected results
-        when there were nested #GstCaps / #GstStructure deeper than one level.
+        when there were nested Gst.Caps / Gst.Structure deeper than one level.
         """
     def get_features(self, index: int) -> CapsFeatures | None:
         """
-            Finds the features in @caps at @index, and returns it.
+            Finds the features in `caps` at `index`, and returns it.
 
         WARNING: This function takes a `const GstCaps *`, but returns a
         non-const `GstCapsFeatures *`.  This is for programming convenience --
         the caller should be aware that features inside a constant
-        #GstCaps should not be modified. However, if you know the caps
+        Gst.Caps should not be modified. However, if you know the caps
         are writable, either because you have just copied them or made
-        them writable with gst_caps_make_writable(), you may modify the
+        them writable with `Gst.caps_make_writable`, you may modify the
         features returned in the usual way, e.g. with functions like
-        gst_caps_features_add().
+        `Gst.caps_features_add`.
         """
     def get_size(self) -> int:
         """
-        Gets the number of structures contained in @caps.
+        Gets the number of structures contained in `caps`.
         """
     def get_structure(self, index: int) -> Structure:
         """
-            Finds the structure in @caps at @index, and returns it.
+            Finds the structure in `caps` at `index`, and returns it.
 
         WARNING: This function takes a `const GstCaps *`, but returns a
         non-const `GstStructure *`.  This is for programming convenience --
         the caller should be aware that structures inside a constant
-        #GstCaps should not be modified. However, if you know the caps
+        Gst.Caps should not be modified. However, if you know the caps
         are writable, either because you have just copied them or made
-        them writable with gst_caps_make_writable(), you may modify the
+        them writable with `Gst.caps_make_writable`, you may modify the
         structure returned in the usual way, e.g. with functions like
-        gst_structure_set().
+        `Gst.structure_set`.
         """
     def id_str_set_value(self, field: IdStr, value: GObject.Value) -> None:
         """
-            Sets the given @field on all structures of @caps to the given @value.
-        This is a convenience function for calling gst_structure_set_value() on
-        all structures of @caps.
+            Sets the given `field` on all structures of `caps` to the given `value`.
+        This is a convenience function for calling `Gst.structure_set_value` on
+        all structures of `caps`.
         """
     def intersect(self, caps2: Caps) -> Caps:
         """
-            Creates a new #GstCaps that contains all the formats that are common
-        to both @caps1 and @caps2. Defaults to %GST_CAPS_INTERSECT_ZIG_ZAG mode.
+            Creates a new Gst.Caps that contains all the formats that are common
+        to both `caps1` and `caps2`. Defaults to Gst.CAPS_INTERSECT_ZIG_ZAG mode.
         """
     def intersect_full(self, caps2: Caps, mode: CapsIntersectMode) -> Caps:
         """
-            Creates a new #GstCaps that contains all the formats that are common
-        to both @caps1 and @caps2, the order is defined by the #GstCapsIntersectMode
+            Creates a new Gst.Caps that contains all the formats that are common
+        to both `caps1` and `caps2`, the order is defined by the Gst.CapsIntersectMode
         used.
         """
     def is_always_compatible(self, caps2: Caps) -> bool:
         """
-            A given #GstCaps structure is always compatible with another if
+            A given Gst.Caps structure is always compatible with another if
         every media format that is in the first is also contained in the
-        second.  That is, @caps1 is a subset of @caps2.
+        second.  That is, `caps1` is a subset of `caps2`.
         """
     def is_any(self) -> bool:
         """
-        Determines if @caps represents any media format.
+        Determines if `caps` represents any media format.
         """
     def is_empty(self) -> bool:
         """
-        Determines if @caps represents no media formats.
+        Determines if `caps` represents no media formats.
         """
     def is_equal(self, caps2: Caps) -> bool:
         """
@@ -7856,12 +7856,12 @@ class Caps(GObject.GBoxed):
         """
     def is_equal_fixed(self, caps2: Caps) -> bool:
         """
-            Tests if two #GstCaps are equal.  This function only works on fixed
-        #GstCaps.
+            Tests if two Gst.Caps are equal.  This function only works on fixed
+        Gst.Caps.
         """
     def is_fixed(self) -> bool:
         """
-            Fixed #GstCaps describe exactly one format, that is, they have exactly
+            Fixed Gst.Caps describe exactly one format, that is, they have exactly
         one structure, and each field in the structure describes a fixed type.
         Examples of non-fixed types are GST_TYPE_INT_RANGE and GST_TYPE_LIST.
         """
@@ -7871,151 +7871,151 @@ class Caps(GObject.GBoxed):
         """
     def is_subset(self, superset: Caps) -> bool:
         """
-        Checks if all caps represented by @subset are also represented by @superset.
+        Checks if all caps represented by `subset` are also represented by `superset`.
         """
     def is_subset_structure(self, structure: Structure) -> bool:
         """
-            Checks if @structure is a subset of @caps. See gst_caps_is_subset()
+            Checks if `structure` is a subset of `caps`. See `Gst.caps_is_subset`
         for more information.
         """
     def is_subset_structure_full(self, structure: Structure, features: CapsFeatures | None = None) -> bool:
         """
-            Checks if @structure is a subset of @caps. See gst_caps_is_subset()
+            Checks if `structure` is a subset of `caps`. See `Gst.caps_is_subset`
         for more information.
         """
     def map_in_place(self, func: CapsMapFunc, user_data: object | None = None) -> bool:
         """
             Calls the provided function once for each structure and caps feature in the
-        #GstCaps. In contrast to gst_caps_foreach(), the function may modify but not
+        Gst.Caps. In contrast to `Gst.caps_foreach`, the function may modify but not
         delete the structures and features. The caps must be mutable.
         """
     def merge(self, caps2: Caps) -> Caps:
         """
-            Appends the structures contained in @caps2 to @caps1 if they are not yet
-        expressed by @caps1. The structures in @caps2 are not copied -- they are
-        transferred to a writable copy of @caps1, and then @caps2 is freed.
+            Appends the structures contained in `caps2` to `caps1` if they are not yet
+        expressed by `caps1`. The structures in `caps2` are not copied -- they are
+        transferred to a writable copy of `caps1`, and then `caps2` is freed.
         If either caps is ANY, the resulting caps will be ANY.
         """
     def merge_structure(self, structure: Structure) -> Caps:
         """
-        Appends @structure to @caps if it is not already expressed by @caps.
+        Appends `structure` to `caps` if it is not already expressed by `caps`.
         """
     def merge_structure_full(self, structure: Structure, features: CapsFeatures | None = None) -> Caps:
         """
-        Appends @structure with @features to @caps if its not already expressed by @caps.
+        Appends `structure` with `features` to `caps` if its not already expressed by `caps`.
         """
     @classmethod
     def new_any(cls) -> Caps:
         """
-            Creates a new #GstCaps that indicates that it is compatible with
+            Creates a new Gst.Caps that indicates that it is compatible with
         any media format.
         """
     @classmethod
     def new_empty(cls) -> Caps:
         """
-            Creates a new #GstCaps that is empty.  That is, the returned
-        #GstCaps contains no media formats.
-        The #GstCaps is guaranteed to be writable.
+            Creates a new Gst.Caps that is empty.  That is, the returned
+        Gst.Caps contains no media formats.
+        The Gst.Caps is guaranteed to be writable.
         """
     @classmethod
     def new_empty_simple(cls, media_type: str) -> Caps:
         """
-            Creates a new #GstCaps that contains one #GstStructure with name
-        @media_type.
+            Creates a new Gst.Caps that contains one Gst.Structure with name
+        `media_type`.
         """
     @classmethod
     def new_id_str_empty_simple(cls, media_type: IdStr) -> Caps:
         """
-            Creates a new #GstCaps that contains one #GstStructure with name
-        @media_type.
+            Creates a new Gst.Caps that contains one Gst.Structure with name
+        `media_type`.
         """
     @classmethod
     def new_static_str_empty_simple(cls, media_type: str) -> Caps:
         """
-            Creates a new #GstCaps that contains one #GstStructure with name
-        @media_type.
+            Creates a new Gst.Caps that contains one Gst.Structure with name
+        `media_type`.
 
-        @media_type needs to be valid for the remaining lifetime of the process, e.g.
+        `media_type` needs to be valid for the remaining lifetime of the process, e.g.
         has to be a static string.
         """
     def normalize(self) -> Caps:
         """
-            Returns a #GstCaps that represents the same set of formats as
-        @caps, but contains no lists.  Each list is expanded into separate
-        #GstStructure.
+            Returns a Gst.Caps that represents the same set of formats as
+        `caps`, but contains no lists.  Each list is expanded into separate
+        Gst.Structure.
 
-        This function takes ownership of @caps and will call gst_caps_make_writable()
-        on it so you must not use @caps afterwards unless you keep an additional
-        reference to it with gst_caps_ref().
+        This function takes ownership of `caps` and will call `Gst.caps_make_writable`
+        on it so you must not use `caps` afterwards unless you keep an additional
+        reference to it with `Gst.caps_ref`.
         """
     def remove_structure(self, idx: int) -> None:
         """
             Removes the structure with the given index from the list of structures
-        contained in @caps.
+        contained in `caps`.
         """
     def serialize(self, flags: SerializeFlags) -> str:
         """
-            Converts @caps to a string representation.  This string representation can be
-        converted back to a #GstCaps by gst_caps_from_string().
+            Converts `caps` to a string representation.  This string representation can be
+        converted back to a Gst.Caps by `Gst.caps_from_string`.
 
         This prints the caps in human readable form.
 
         This version of the caps serialization function introduces support for nested
         structures and caps but the resulting strings won't be parsable with
-        GStreamer prior to 1.20 unless #GST_SERIALIZE_FLAG_BACKWARD_COMPAT is passed
-        as @flag.
+        GStreamer prior to 1.20 unless GST_SERIALIZE_FLAG_BACKWARD_COMPAT is passed
+        as `flag`.
         """
     def set_features(self, index: int, features: CapsFeatures | None = None) -> None:
         """
-        Sets the @features for the structure at @index.
+        Sets the `features` for the structure at `index`.
         """
     def set_features_simple(self, features: CapsFeatures | None = None) -> None:
         """
-        Sets the @features for all the structures of @caps.
+        Sets the `features` for all the structures of `caps`.
         """
     def set_value(self, field: str, value: GObject.Value) -> None:
         """
-            Sets the given @field on all structures of @caps to the given @value.
-        This is a convenience function for calling gst_structure_set_value() on
-        all structures of @caps.
+            Sets the given `field` on all structures of `caps` to the given `value`.
+        This is a convenience function for calling `Gst.structure_set_value` on
+        all structures of `caps`.
         """
     def set_value_static_str(self, field: str, value: GObject.Value) -> None:
         """
-            Sets the given @field on all structures of @caps to the given @value.
-        This is a convenience function for calling gst_structure_set_value() on
-        all structures of @caps.
+            Sets the given `field` on all structures of `caps` to the given `value`.
+        This is a convenience function for calling `Gst.structure_set_value` on
+        all structures of `caps`.
 
-        @field needs to be valid for the remaining lifetime of the process, e.g.
+        `field` needs to be valid for the remaining lifetime of the process, e.g.
         has to be a static string.
         """
     def simplify(self) -> Caps:
         """
-            Converts the given @caps into a representation that represents the
+            Converts the given `caps` into a representation that represents the
         same set of formats, but in a simpler form.  Component structures that are
         identical are merged.  Component structures that have values that can be
         merged are also merged.
 
-        This function takes ownership of @caps and will call gst_caps_make_writable()
-        on it if necessary, so you must not use @caps afterwards unless you keep an
-        additional reference to it with gst_caps_ref().
+        This function takes ownership of `caps` and will call `Gst.caps_make_writable`
+        on it if necessary, so you must not use `caps` afterwards unless you keep an
+        additional reference to it with `Gst.caps_ref`.
 
-        This method does not preserve the original order of @caps.
+        This method does not preserve the original order of `caps`.
         """
     def steal_structure(self, index: int) -> Structure | None:
         """
             Retrieves the structure with the given index from the list of structures
-        contained in @caps. The caller becomes the owner of the returned structure.
+        contained in `caps`. The caller becomes the owner of the returned structure.
         """
     def subtract(self, subtrahend: Caps) -> Caps:
         """
-            Subtracts the @subtrahend from the @minuend.
+            Subtracts the `subtrahend` from the `minuend`.
         > This function does not work reliably if optional properties for caps
         > are included on one caps and omitted on the other.
         """
     def to_string(self) -> str:
         """
-            Converts @caps to a string representation.  This string representation
-        can be converted back to a #GstCaps by gst_caps_from_string().
+            Converts `caps` to a string representation.  This string representation
+        can be converted back to a Gst.Caps by `Gst.caps_from_string`.
 
         For debugging purposes its easier to do something like this:
 
@@ -8026,40 +8026,40 @@ class Caps(GObject.GBoxed):
         This prints the caps in human readable form.
 
         The implementation of serialization up to 1.20 would lead to unexpected results
-        when there were nested #GstCaps / #GstStructure deeper than one level.
+        when there were nested Gst.Caps / Gst.Structure deeper than one level.
         """
     def truncate(self) -> Caps:
         """
-            Discards all but the first structure from @caps. Useful when
+            Discards all but the first structure from `caps`. Useful when
         fixating.
 
-        This function takes ownership of @caps and will call gst_caps_make_writable()
-        on it if necessary, so you must not use @caps afterwards unless you keep an
-        additional reference to it with gst_caps_ref().
+        This function takes ownership of `caps` and will call `Gst.caps_make_writable`
+        on it if necessary, so you must not use `caps` afterwards unless you keep an
+        additional reference to it with `Gst.caps_ref`.
 
         Note that it is not guaranteed that the returned caps have exactly one
-        structure. If @caps is any or empty caps then the returned caps will be
+        structure. If `caps` is any or empty caps then the returned caps will be
         the same and contain no structure at all.
         """
 
 class CapsFeatures(GObject.GBoxed):
     """
-    #GstCapsFeatures can optionally be set on a #GstCaps to add requirements
-    for additional features for a specific #GstStructure. Caps structures with
+    Gst.CapsFeatures can optionally be set on a Gst.Caps to add requirements
+    for additional features for a specific Gst.Structure. Caps structures with
     the same name but with a non-equal set of caps features are not compatible.
     If a pad supports multiple sets of features it has to add multiple equal
     structures with different feature sets to the caps.
 
-    Empty #GstCapsFeatures are equivalent with the #GstCapsFeatures that only
-    contain #GST_CAPS_FEATURE_MEMORY_SYSTEM_MEMORY. ANY #GstCapsFeatures as
-    created by gst_caps_features_new_any() are equal to any other #GstCapsFeatures
-    and can be used to specify that any #GstCapsFeatures would be supported, e.g.
-    for elements that don't touch buffer memory. #GstCaps with ANY #GstCapsFeatures
-    are considered non-fixed and during negotiation some #GstCapsFeatures have
+    Empty Gst.CapsFeatures are equivalent with the Gst.CapsFeatures that only
+    contain GST_CAPS_FEATURE_MEMORY_SYSTEM_MEMORY. ANY Gst.CapsFeatures as
+    created by `Gst.caps_features_new_any` are equal to any other Gst.CapsFeatures
+    and can be used to specify that any Gst.CapsFeatures would be supported, e.g.
+    for elements that don't touch buffer memory. Gst.Caps with ANY Gst.CapsFeatures
+    are considered non-fixed and during negotiation some Gst.CapsFeatures have
     to be selected.
 
-    Examples for caps features would be the requirement of a specific #GstMemory
-    types or the requirement of having a specific #GstMeta on the buffer. Features
+    Examples for caps features would be the requirement of a specific Gst.Memory
+    types or the requirement of having a specific Gst.Meta on the buffer. Features
     are given as a string of the format `memory:GstMemoryTypeName` or
     `meta:GstMetaAPIName`.
     """
@@ -8071,124 +8071,124 @@ class CapsFeatures(GObject.GBoxed):
         """
     def add(self, feature: str) -> None:
         """
-        Adds @feature to @features.
+        Adds `feature` to `features`.
         """
     @deprecated("deprecated")
     def add_id(self, feature: int) -> None:
         """
-        Adds @feature to @features.
+        Adds `feature` to `features`.
         """
     def add_id_str(self, feature: IdStr) -> None:
         """
-        Adds @feature to @features.
+        Adds `feature` to `features`.
         """
     def add_static_str(self, feature: str) -> None:
         """
-            Adds @feature to @features.
+            Adds `feature` to `features`.
 
-        @feature needs to be valid for the remaining lifetime of the process, e.g. has
+        `feature` needs to be valid for the remaining lifetime of the process, e.g. has
         to be a static string.
         """
     def contains(self, feature: str) -> bool:
         """
-        Checks if @features contains @feature.
+        Checks if `features` contains `feature`.
         """
     @deprecated("deprecated")
     def contains_id(self, feature: int) -> bool:
         """
-        Checks if @features contains @feature.
+        Checks if `features` contains `feature`.
         """
     def contains_id_str(self, feature: IdStr) -> bool:
         """
-        Checks if @features contains @feature.
+        Checks if `features` contains `feature`.
         """
     def copy(self) -> CapsFeatures:
         """
-        Duplicates a #GstCapsFeatures and all its values.
+        Duplicates a Gst.CapsFeatures and all its values.
         """
     def free(self) -> None:
         """
-            Frees a #GstCapsFeatures and all its values. The caps features must not
+            Frees a Gst.CapsFeatures and all its values. The caps features must not
         have a parent when this function is called.
         """
     @staticmethod
     def from_string(features: str) -> CapsFeatures | None:
         """
-        Creates a #GstCapsFeatures from a string representation.
+        Creates a Gst.CapsFeatures from a string representation.
         """
     def get_nth(self, i: int) -> str | None:
         """
-        Returns the @i-th feature of @features.
+        Returns the `i`-th feature of `features`.
         """
     @deprecated("deprecated")
     def get_nth_id(self, i: int) -> int:
         """
-        Returns the @i-th feature of @features.
+        Returns the `i`-th feature of `features`.
         """
     def get_nth_id_str(self, i: int) -> IdStr:
         """
-        Returns the @i-th feature of @features.
+        Returns the `i`-th feature of `features`.
         """
     def get_size(self) -> int:
         """
-        Returns the number of features in @features.
+        Returns the number of features in `features`.
         """
     def is_any(self) -> bool:
         """
-        Checks if @features is %GST_CAPS_FEATURES_ANY.
+        Checks if `features` is Gst.CAPS_FEATURES_ANY.
         """
     def is_equal(self, features2: CapsFeatures) -> bool:
         """
-        Checks if @features1 and @features2 are equal.
+        Checks if `features1` and `features2` are equal.
         """
     @classmethod
     def new_any(cls) -> CapsFeatures:
         """
-            Creates a new, ANY #GstCapsFeatures. This will be equal
-        to any other #GstCapsFeatures but caps with these are
+            Creates a new, ANY Gst.CapsFeatures. This will be equal
+        to any other Gst.CapsFeatures but caps with these are
         unfixed.
         """
     @classmethod
     def new_empty(cls) -> CapsFeatures:
         """
-        Creates a new, empty #GstCapsFeatures.
+        Creates a new, empty Gst.CapsFeatures.
         """
     @classmethod
     def new_single(cls, feature: str) -> CapsFeatures:
         """
-        Creates a new #GstCapsFeatures with a single feature.
+        Creates a new Gst.CapsFeatures with a single feature.
         """
     @classmethod
     def new_single_static_str(cls, feature: str) -> CapsFeatures:
         """
-            Creates a new #GstCapsFeatures with a single feature.
+            Creates a new Gst.CapsFeatures with a single feature.
 
-        @feature needs to be valid for the remaining lifetime of the process, e.g. has
+        `feature` needs to be valid for the remaining lifetime of the process, e.g. has
         to be a static string.
         """
     def remove(self, feature: str) -> None:
         """
-        Removes @feature from @features.
+        Removes `feature` from `features`.
         """
     @deprecated("deprecated")
     def remove_id(self, feature: int) -> None:
         """
-        Removes @feature from @features.
+        Removes `feature` from `features`.
         """
     def remove_id_str(self, feature: IdStr) -> None:
         """
-        Removes @feature from @features.
+        Removes `feature` from `features`.
         """
     def set_parent_refcount(self, refcount: int) -> bool:
         """
-            Sets the parent_refcount field of #GstCapsFeatures. This field is used to
+            Sets the parent_refcount field of Gst.CapsFeatures. This field is used to
         determine whether a caps features is mutable or not. This function should only be
-        called by code implementing parent objects of #GstCapsFeatures, as described in
+        called by code implementing parent objects of Gst.CapsFeatures, as described in
         [the MT refcounting design document](additional/design/MT-refcounting.md).
         """
     def to_string(self) -> str:
         """
-            Converts @features to a human-readable string representation.
+            Converts `features` to a human-readable string representation.
 
         For debugging purposes its easier to do something like this:
 
@@ -8203,17 +8203,17 @@ class ChildProxy(GObject.GInterface):
     """
     This interface abstracts handling of property sets for elements with
     children. Imagine elements such as mixers or polyphonic generators. They all
-    have multiple #GstPad or some kind of voice objects. Another use case are
-    container elements like #GstBin.
+    have multiple Gst.Pad or some kind of voice objects. Another use case are
+    container elements like Gst.Bin.
     The element implementing the interface acts as a parent for those child
     objects.
 
     By implementing this interface the child properties can be accessed from the
-    parent element by using gst_child_proxy_get() and gst_child_proxy_set().
+    parent element by using `Gst.child_proxy_get` and `Gst.child_proxy_set`.
 
     Property names are written as `child-name::property-name`. The whole naming
     scheme is recursive. Thus `child1::child2::property` is valid too, if
-    `child1` and `child2` implement the #GstChildProxy interface.
+    `child1` and `child2` implement the Gst.ChildProxy interface.
     """
 
     # gi Methods
@@ -8223,11 +8223,11 @@ class ChildProxy(GObject.GInterface):
         """
     def child_added(self, child: GObject.Object, name: str) -> None:
         """
-        Emits the #GstChildProxy::child-added signal.
+        Emits the Gst.ChildProxy::child-added signal.
         """
     def child_removed(self, child: GObject.Object, name: str) -> None:
         """
-        Emits the #GstChildProxy::child-removed signal.
+        Emits the Gst.ChildProxy::child-removed signal.
         """
     def get_child_by_index(self, index: int) -> GObject.Object | None:
         """
@@ -8237,15 +8237,15 @@ class ChildProxy(GObject.GInterface):
         """
             Looks up a child element by the given name.
 
-        This virtual method has a default implementation that uses #GstObject
-        together with gst_object_get_name(). If the interface is to be used with
-        #GObjects, this methods needs to be overridden.
+        This virtual method has a default implementation that uses Gst.Object
+        together with `Gst.object_get_name`. If the interface is to be used with
+        GObjects, this methods needs to be overridden.
         """
     def get_child_by_name_recurse(self, name: str) -> GObject.Object | None:
         """
             Looks up a child element by the given full-path name.
 
-        Similar to gst_child_proxy_get_child_by_name(), this method
+        Similar to `Gst.child_proxy_get_child_by_name`, this method
         searches and returns a child given a name. The difference is that
         this method allows a hierarchical path in the form of
         child1::child2::child3. In the later example this method would
@@ -8259,11 +8259,11 @@ class ChildProxy(GObject.GInterface):
     def get_property(self, name: str) -> GObject.Value:
         """
             Gets a single property using the GstChildProxy mechanism.
-        You are responsible for freeing it by calling g_value_unset()
+        You are responsible for freeing it by calling `g_value_unset`
         """
     def lookup(self, name: str) -> tuple[bool, GObject.Object, GObject.ParamSpec]:
         """
-        Looks up which object and #GParamSpec would be effected by the given @name.
+        Looks up which object and GParamSpec would be effected by the given `name`.
         """
     def set_property(self, name: str, value: GObject.Value) -> None:
         """
@@ -8279,7 +8279,7 @@ class ChildProxy(GObject.GInterface):
         *args: typing.Any,
     ) -> int:
         """
-        Will be emitted after the @object was added to the @child_proxy.
+        Will be emitted after the `object` was added to the `child_proxy`.
         """
     @typing.overload
     def connect(
@@ -8289,7 +8289,7 @@ class ChildProxy(GObject.GInterface):
         *args: typing.Any,
     ) -> int:
         """
-        Will be emitted after the @object was removed from the @child_proxy.
+        Will be emitted after the `object` was removed from the `child_proxy`.
         """
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -8298,19 +8298,19 @@ class ChildProxy(GObject.GInterface):
 
 class ChildProxyInterface(GObject.GPointer):
     """
-    #GstChildProxy interface.
+    Gst.ChildProxy interface.
     """
 
     # gi Fields
     @builtins.property
     def child_added(self) -> child_addedChildProxyInterfaceCB:
         """
-        Called when @child is added to @parent
+        Called when `child` is added to `parent`
         """
     @builtins.property
     def child_removed(self) -> child_removedChildProxyInterfaceCB:
         """
-        Called when @child is removed from @parent
+        Called when `child` is removed from `parent`
         """
     @builtins.property
     def get_child_by_index(self) -> get_child_by_indexChildProxyInterfaceCB | None:
@@ -8325,7 +8325,7 @@ class ChildProxyInterface(GObject.GPointer):
     @builtins.property
     def get_children_count(self) -> get_children_countChildProxyInterfaceCB:
         """
-        Get the number of children in @parent
+        Get the number of children in `parent`
         """
 
     # gi Methods
@@ -8338,10 +8338,10 @@ class Clock(Object):
     """
     GStreamer uses a global clock to synchronize the plugins in a pipeline.
     Different clock implementations are possible by implementing this abstract
-    base class or, more conveniently, by subclassing #GstSystemClock.
+    base class or, more conveniently, by subclassing Gst.SystemClock.
 
-    The #GstClock returns a monotonically increasing time with the method
-    gst_clock_get_time(). Its accuracy and base time depend on the specific
+    The Gst.Clock returns a monotonically increasing time with the method
+    `Gst.clock_get_time`. Its accuracy and base time depend on the specific
     clock implementation but time is always expressed in nanoseconds. Since the
     baseline of the clock is undefined, the clock time returned is not
     meaningful in itself, what matters are the deltas between two clock times.
@@ -8349,41 +8349,41 @@ class Clock(Object):
 
     The pipeline uses the clock to calculate the running time. Usually all
     renderers synchronize to the global clock using the buffer timestamps, the
-    #GST_EVENT_SEGMENT events and the element's base time, see #GstPipeline.
+    GST_EVENT_SEGMENT events and the element's base time, see Gst.Pipeline.
 
     A clock implementation can support periodic and single shot clock
     notifications both synchronous and asynchronous.
 
-    One first needs to create a #GstClockID for the periodic or single shot
-    notification using gst_clock_new_single_shot_id() or
-    gst_clock_new_periodic_id().
+    One first needs to create a Gst.ClockID for the periodic or single shot
+    notification using `Gst.clock_new_single_shot_id` or
+    `Gst.clock_new_periodic_id`.
 
-    To perform a blocking wait for the specific time of the #GstClockID use
-    gst_clock_id_wait(). To receive a callback when the specific time is reached
-    in the clock use gst_clock_id_wait_async(). Both these calls can be
-    interrupted with the gst_clock_id_unschedule() call. If the blocking wait is
-    unscheduled a return value of #GST_CLOCK_UNSCHEDULED is returned.
+    To perform a blocking wait for the specific time of the Gst.ClockID use
+    `Gst.clock_id_wait`. To receive a callback when the specific time is reached
+    in the clock use `Gst.clock_id_wait_async`. Both these calls can be
+    interrupted with the `Gst.clock_id_unschedule` call. If the blocking wait is
+    unscheduled a return value of GST_CLOCK_UNSCHEDULED is returned.
 
     Periodic callbacks scheduled async will be repeatedly called automatically
     until they are unscheduled. To schedule a sync periodic callback,
-    gst_clock_id_wait() should be called repeatedly.
+    `Gst.clock_id_wait` should be called repeatedly.
 
     The async callbacks can happen from any thread, either provided by the core
     or from a streaming thread. The application should be prepared for this.
 
-    A #GstClockID that has been unscheduled cannot be used again for any wait
-    operation, a new #GstClockID should be created and the old unscheduled one
-    should be destroyed with gst_clock_id_unref().
+    A Gst.ClockID that has been unscheduled cannot be used again for any wait
+    operation, a new Gst.ClockID should be created and the old unscheduled one
+    should be destroyed with `Gst.clock_id_unref`.
 
-    It is possible to perform a blocking wait on the same #GstClockID from
-    multiple threads. However, registering the same #GstClockID for multiple
+    It is possible to perform a blocking wait on the same Gst.ClockID from
+    multiple threads. However, registering the same Gst.ClockID for multiple
     async notifications is not possible, the callback will only be called for
     the thread registering the entry last.
 
-    None of the wait operations unref the #GstClockID, the owner is responsible
+    None of the wait operations unref the Gst.ClockID, the owner is responsible
     for unreffing the ids itself. This holds for both periodic and single shot
-    notifications. The reason being that the owner of the #GstClockID has to
-    keep a handle to the #GstClockID to unblock the wait on FLUSHING events or
+    notifications. The reason being that the owner of the Gst.ClockID has to
+    keep a handle to the Gst.ClockID to unblock the wait on FLUSHING events or
     state changes and if the entry would be unreffed automatically, the handle
     might become invalid without any notification.
 
@@ -8392,21 +8392,21 @@ class Clock(Object):
     running. Some clocks however do not progress when the element that provided
     the clock is not PLAYING.
 
-    When a clock has the #GST_CLOCK_FLAG_CAN_SET_MASTER flag set, it can be
-    slaved to another #GstClock with gst_clock_set_master(). The clock will
+    When a clock has the GST_CLOCK_FLAG_CAN_SET_MASTER flag set, it can be
+    slaved to another Gst.Clock with `Gst.clock_set_master`. The clock will
     then automatically be synchronized to this master clock by repeatedly
     sampling the master clock and the slave clock and recalibrating the slave
-    clock with gst_clock_set_calibration(). This feature is mostly useful for
+    clock with `Gst.clock_set_calibration`. This feature is mostly useful for
     plugins that have an internal clock but must operate with another clock
-    selected by the #GstPipeline.  They can track the offset and rate difference
+    selected by the Gst.Pipeline.  They can track the offset and rate difference
     of their internal clock relative to the master clock by using the
-    gst_clock_get_calibration() function.
+    `Gst.clock_get_calibration` function.
 
-    The master/slave synchronisation can be tuned with the #GstClock:timeout,
-    #GstClock:window-size and #GstClock:window-threshold properties.
-    The #GstClock:timeout property defines the interval to sample the master
-    clock and run the calibration functions. #GstClock:window-size defines the
-    number of samples to use when calibrating and #GstClock:window-threshold
+    The master/slave synchronisation can be tuned with the Gst.Clock:timeout,
+    Gst.Clock:window-size and Gst.Clock:window-threshold properties.
+    The Gst.Clock:timeout property defines the interval to sample the master
+    clock and run the calibration functions. Gst.Clock:window-size defines the
+    number of samples to use when calibrating and Gst.Clock:window-threshold
     defines the minimum number of samples before the calibration is performed.
     """
 
@@ -8432,12 +8432,12 @@ class Clock(Object):
         """
     def add_observation(self, observation_internal: int, observation_external: int) -> tuple[bool, float]:
         """
-            The time @observation_external of the external or master clock and the time
-        @observation_internal of the internal or slave clock are added to the list of
+            The time `observation_external` of the external or master clock and the time
+        `observation_internal` of the internal or slave clock are added to the list of
         observations. If enough observations are available, a linear regression
-        algorithm is run on the observations and @clock is recalibrated.
+        algorithm is run on the observations and `clock` is recalibrated.
 
-        If this functions returns %TRUE, @r_squared will contain the
+        If this functions returns True, `r_squared` will contain the
         correlation coefficient of the interpolation. A value of 1.0
         means a perfect regression was performed. This value can
         be used to control the sampling frequency of the master and slave
@@ -8448,39 +8448,39 @@ class Clock(Object):
     ) -> tuple[bool, float, int, int, int, int]:
         """
             Add a clock observation to the internal slaving algorithm the same as
-        gst_clock_add_observation(), and return the result of the external or master
+        `Gst.clock_add_observation`, and return the result of the external or master
         clock estimation, without updating the internal calibration.
 
-        The caller can then take the results and call gst_clock_set_calibration()
+        The caller can then take the results and call `Gst.clock_set_calibration`
         with the values, or some modified version of them.
         """
     def adjust_unlocked(self, internal: int) -> int:
         """
-            Converts the given @internal clock time to the external time, adjusting for the
-        rate and reference time set with gst_clock_set_calibration() and making sure
+            Converts the given `internal` clock time to the external time, adjusting for the
+        rate and reference time set with `Gst.clock_set_calibration` and making sure
         that the returned time is increasing. This function should be called with the
         clock's OBJECT_LOCK held and is mainly used by clock subclasses.
 
-        This function is the reverse of gst_clock_unadjust_unlocked().
+        This function is the reverse of `Gst.clock_unadjust_unlocked`.
         """
     def adjust_with_calibration(
         self, internal_target: int, cinternal: int, cexternal: int, cnum: int, cdenom: int
     ) -> int:
         """
-            Converts the given @internal_target clock time to the external time,
+            Converts the given `internal_target` clock time to the external time,
         using the passed calibration parameters. This function performs the
-        same calculation as gst_clock_adjust_unlocked() when called using the
+        same calculation as `Gst.clock_adjust_unlocked` when called using the
         current calibration parameters, but doesn't ensure a monotonically
-        increasing result as gst_clock_adjust_unlocked() does.
+        increasing result as `Gst.clock_adjust_unlocked` does.
 
-        Note: The @clock parameter is unused and can be NULL
+        Note: The `clock` parameter is unused and can be None
         """
     def get_calibration(self) -> tuple[int, int, int, int]:
         """
-            Gets the internal rate and reference time of @clock. See
-        gst_clock_set_calibration() for more information.
+            Gets the internal rate and reference time of `clock`. See
+        `Gst.clock_set_calibration` for more information.
 
-        @internal, @external, @rate_num, and @rate_denom can be left %NULL if the
+        `internal`, `external`, `rate_num`, and `rate_denom` can be left None if the
         caller is not interested in the values.
         """
     def get_internal_time(self) -> int:
@@ -8490,13 +8490,13 @@ class Clock(Object):
         """
     def get_master(self) -> Clock | None:
         """
-            Gets the master clock that @clock is slaved to or %NULL when the clock is
+            Gets the master clock that `clock` is slaved to or None when the clock is
         not slaved to any master clock.
         """
     def get_resolution(self) -> int:
         """
             Gets the accuracy of the clock. The accuracy of the clock is the granularity
-        of the values returned by gst_clock_get_time().
+        of the values returned by `Gst.clock_get_time`.
         """
     def get_time(self) -> int:
         """
@@ -8512,7 +8512,7 @@ class Clock(Object):
     @staticmethod
     def id_compare_func(id1: object | None = None, id2: object | None = None) -> int:
         """
-            Compares the two #GstClockID instances. This function can be used
+            Compares the two Gst.ClockID instances. This function can be used
         as a GCompareFunc when sorting ids.
         """
     @staticmethod
@@ -8528,44 +8528,44 @@ class Clock(Object):
     @staticmethod
     def id_ref(id: object) -> object:
         """
-        Increases the refcount of given @id.
+        Increases the refcount of given `id`.
         """
     @staticmethod
     def id_unref(id: object) -> None:
         """
-            Unrefs given @id. When the refcount reaches 0 the
-        #GstClockID will be freed.
+            Unrefs given `id`. When the refcount reaches 0 the
+        Gst.ClockID will be freed.
         """
     @staticmethod
     def id_unschedule(id: object) -> None:
         """
-            Cancels an outstanding request with @id. This can either
+            Cancels an outstanding request with `id`. This can either
         be an outstanding async notification or a pending sync notification.
-        After this call, @id cannot be used anymore to receive sync or
-        async notifications, you need to create a new #GstClockID.
+        After this call, `id` cannot be used anymore to receive sync or
+        async notifications, you need to create a new Gst.ClockID.
         """
     @staticmethod
     def id_uses_clock(id: object, clock: Clock) -> bool:
         """
-            This function returns whether @id uses @clock as the underlying clock.
-        @clock can be NULL, in which case the return value indicates whether
-        the underlying clock has been freed.  If this is the case, the @id is
+            This function returns whether `id` uses `clock` as the underlying clock.
+        `clock` can be None, in which case the return value indicates whether
+        the underlying clock has been freed.  If this is the case, the `id` is
         no longer usable and should be freed.
         """
     @staticmethod
     def id_wait(id: object) -> tuple[ClockReturn, int]:
         """
-            Performs a blocking wait on @id.
-        @id should have been created with gst_clock_new_single_shot_id()
-        or gst_clock_new_periodic_id() and should not have been unscheduled
-        with a call to gst_clock_id_unschedule().
+            Performs a blocking wait on `id`.
+        `id` should have been created with `Gst.clock_new_single_shot_id`
+        or `Gst.clock_new_periodic_id` and should not have been unscheduled
+        with a call to `Gst.clock_id_unschedule`.
 
-        If the @jitter argument is not %NULL and this function returns #GST_CLOCK_OK
-        or #GST_CLOCK_EARLY, it will contain the difference
-        against the clock and the time of @id when this method was
+        If the `jitter` argument is not None and this function returns GST_CLOCK_OK
+        or GST_CLOCK_EARLY, it will contain the difference
+        against the clock and the time of `id` when this method was
         called.
-        Positive values indicate how late @id was relative to the clock
-        (in which case this function will return #GST_CLOCK_EARLY).
+        Positive values indicate how late `id` was relative to the clock
+        (in which case this function will return GST_CLOCK_EARLY).
         Negative values indicate how much time was spent waiting on the clock
         before this function returned.
         """
@@ -8574,70 +8574,70 @@ class Clock(Object):
         id: object, func: ClockCallback, user_data: object | None, destroy_data: GLib.DestroyNotify
     ) -> ClockReturn:
         """
-            Registers a callback on the given #GstClockID @id with the given
-        function and user_data. When passing a #GstClockID with an invalid
+            Registers a callback on the given Gst.ClockID `id` with the given
+        function and user_data. When passing a Gst.ClockID with an invalid
         time to this function, the callback will be called immediately
-        with  a time set to %GST_CLOCK_TIME_NONE. The callback will
-        be called when the time of @id has been reached.
+        with  a time set to Gst.CLOCK_TIME_NONE. The callback will
+        be called when the time of `id` has been reached.
 
-        The callback @func can be invoked from any thread, either provided by the
+        The callback `func` can be invoked from any thread, either provided by the
         core or from a streaming thread. The application should be prepared for this.
         """
     def is_synced(self) -> bool:
         """
             Checks if the clock is currently synced, by looking at whether
-        %GST_CLOCK_FLAG_NEEDS_STARTUP_SYNC is set.
+        Gst.CLOCK_FLAG_NEEDS_STARTUP_SYNC is set.
         """
     def new_periodic_id(self, start_time: int, interval: int) -> object:
         """
-            Gets an ID from @clock to trigger a periodic notification.
-        The periodic notifications will start at time @start_time and
-        will then be fired with the given @interval.
+            Gets an ID from `clock` to trigger a periodic notification.
+        The periodic notifications will start at time `start_time` and
+        will then be fired with the given `interval`.
         """
     def new_single_shot_id(self, time: int) -> object:
         """
-            Gets a #GstClockID from @clock to trigger a single shot
+            Gets a Gst.ClockID from `clock` to trigger a single shot
         notification at the requested time.
         """
     def periodic_id_reinit(self, id: object, start_time: int, interval: int) -> bool:
         """
-            Reinitializes the provided periodic @id to the provided start time and
+            Reinitializes the provided periodic `id` to the provided start time and
         interval. Does not modify the reference count.
         """
     def set_calibration(self, internal: int, external: int, rate_num: int, rate_denom: int) -> None:
         """
-            Adjusts the rate and time of @clock. A rate of 1/1 is the normal speed of
+            Adjusts the rate and time of `clock`. A rate of 1/1 is the normal speed of
         the clock. Values bigger than 1/1 make the clock go faster.
 
-        @internal and @external are calibration parameters that arrange that
-        gst_clock_get_time() should have been @external at internal time @internal.
+        `internal` and `external` are calibration parameters that arrange that
+        `Gst.clock_get_time` should have been `external` at internal time `internal`.
         This internal time should not be in the future; that is, it should be less
-        than the value of gst_clock_get_internal_time() when this function is called.
+        than the value of `Gst.clock_get_internal_time` when this function is called.
 
-        Subsequent calls to gst_clock_get_time() will return clock times computed as
+        Subsequent calls to `Gst.clock_get_time` will return clock times computed as
         follows:
 
         ``` C
           time = (internal_time - internal) * rate_num / rate_denom + external
         ```
 
-        This formula is implemented in gst_clock_adjust_unlocked(). Of course, it
+        This formula is implemented in `Gst.clock_adjust_unlocked`. Of course, it
         tries to do the integer arithmetic as precisely as possible.
 
-        Note that gst_clock_get_time() always returns increasing values so when you
-        move the clock backwards, gst_clock_get_time() will report the previous value
+        Note that `Gst.clock_get_time` always returns increasing values so when you
+        move the clock backwards, `Gst.clock_get_time` will report the previous value
         until the clock catches up.
         """
     def set_master(self, master: Clock | None = None) -> bool:
         """
-            Sets @master as the master clock for @clock. @clock will be automatically
-        calibrated so that gst_clock_get_time() reports the same time as the
+            Sets `master` as the master clock for `clock`. `clock` will be automatically
+        calibrated so that `Gst.clock_get_time` reports the same time as the
         master clock.
 
         A clock provider that slaves its clock to a master can get the current
-        calibration values with gst_clock_get_calibration().
+        calibration values with `Gst.clock_get_calibration`.
 
-        @master can be %NULL in which case @clock will not be slaved anymore. It will
+        `master` can be None in which case `clock` will not be slaved anymore. It will
         however keep reporting its time adjusted with the last configured rate
         and time offsets.
         """
@@ -8647,14 +8647,14 @@ class Clock(Object):
         with different accuracy at the expense of more resource usage. There is
         normally no need to change the default resolution of a clock. The resolution
         of a clock can only be changed if the clock has the
-        #GST_CLOCK_FLAG_CAN_SET_RESOLUTION flag set.
+        GST_CLOCK_FLAG_CAN_SET_RESOLUTION flag set.
         """
     def set_synced(self, synced: bool) -> None:
         """
-            Sets @clock to synced and emits the #GstClock::synced signal, and wakes up any
-        thread waiting in gst_clock_wait_for_sync().
+            Sets `clock` to synced and emits the Gst.Clock::synced signal, and wakes up any
+        thread waiting in `Gst.clock_wait_for_sync`.
 
-        This function must only be called if %GST_CLOCK_FLAG_NEEDS_STARTUP_SYNC
+        This function must only be called if Gst.CLOCK_FLAG_NEEDS_STARTUP_SYNC
         is set on the clock, and is intended to be called by subclasses only.
         """
     def set_timeout(self, timeout: int) -> None:
@@ -8664,38 +8664,38 @@ class Clock(Object):
         """
     def single_shot_id_reinit(self, id: object, time: int) -> bool:
         """
-            Reinitializes the provided single shot @id to the provided time. Does not
+            Reinitializes the provided single shot `id` to the provided time. Does not
         modify the reference count.
         """
     def unadjust_unlocked(self, external: int) -> int:
         """
-            Converts the given @external clock time to the internal time of @clock,
-        using the rate and reference time set with gst_clock_set_calibration().
+            Converts the given `external` clock time to the internal time of `clock`,
+        using the rate and reference time set with `Gst.clock_set_calibration`.
         This function should be called with the clock's OBJECT_LOCK held and
         is mainly used by clock subclasses.
 
-        This function is the reverse of gst_clock_adjust_unlocked().
+        This function is the reverse of `Gst.clock_adjust_unlocked`.
         """
     def unadjust_with_calibration(
         self, external_target: int, cinternal: int, cexternal: int, cnum: int, cdenom: int
     ) -> int:
         """
-            Converts the given @external_target clock time to the internal time,
+            Converts the given `external_target` clock time to the internal time,
         using the passed calibration parameters. This function performs the
-        same calculation as gst_clock_unadjust_unlocked() when called using the
+        same calculation as `Gst.clock_unadjust_unlocked` when called using the
         current calibration parameters.
 
-        Note: The @clock parameter is unused and can be NULL
+        Note: The `clock` parameter is unused and can be None
         """
     def wait_for_sync(self, timeout: int) -> bool:
         """
-            Waits until @clock is synced for reporting the current time. If @timeout
-        is %GST_CLOCK_TIME_NONE it will wait forever, otherwise it will time out
-        after @timeout nanoseconds.
+            Waits until `clock` is synced for reporting the current time. If `timeout`
+        is Gst.CLOCK_TIME_NONE it will wait forever, otherwise it will time out
+        after `timeout` nanoseconds.
 
-        For asynchronous waiting, the #GstClock::synced signal can be used.
+        For asynchronous waiting, the Gst.Clock::synced signal can be used.
 
-        This returns immediately with %TRUE if %GST_CLOCK_FLAG_NEEDS_STARTUP_SYNC
+        This returns immediately with True if Gst.CLOCK_FLAG_NEEDS_STARTUP_SYNC
         is not set on the clock, or if the clock is already synced.
         """
 
@@ -8751,7 +8751,7 @@ class Clock(Object):
         *args: typing.Any,
     ) -> int:
         """
-            Signaled on clocks with %GST_CLOCK_FLAG_NEEDS_STARTUP_SYNC set once
+            Signaled on clocks with Gst.CLOCK_FLAG_NEEDS_STARTUP_SYNC set once
         the clock is synchronized, or when it completely lost synchronization.
         This signal will not be emitted on clocks without the flag.
 
@@ -8863,33 +8863,33 @@ class ClockPrivate(GObject.GPointer):
 
 class Context(GObject.GBoxed):
     """
-    #GstContext is a container object used to store contexts like a device
+    Gst.Context is a container object used to store contexts like a device
     context, a display server connection and similar concepts that should
     be shared between multiple elements.
 
     Applications can set a context on a complete pipeline by using
-    gst_element_set_context(), which will then be propagated to all
-    child elements. Elements can handle these in #GstElementClass::set_context
+    `Gst.element_set_context`, which will then be propagated to all
+    child elements. Elements can handle these in Gst.ElementClass::set_context
     and merge them with the context information they already have.
 
     When an element needs a context it will do the following actions in this
     order until one step succeeds:
 
     1. Check if the element already has a context
-    2. Query downstream with %GST_QUERY_CONTEXT for the context
-    3. Query upstream with %GST_QUERY_CONTEXT for the context
-    4. Post a %GST_MESSAGE_NEED_CONTEXT message on the bus with the required
+    2. Query downstream with Gst.QUERY_CONTEXT for the context
+    3. Query upstream with Gst.QUERY_CONTEXT for the context
+    4. Post a Gst.MESSAGE_NEED_CONTEXT message on the bus with the required
        context types and afterwards check if a usable context was set now
-    5. Create a context by itself and post a %GST_MESSAGE_HAVE_CONTEXT message
+    5. Create a context by itself and post a Gst.MESSAGE_HAVE_CONTEXT message
        on the bus.
 
-    Bins will catch %GST_MESSAGE_NEED_CONTEXT messages and will set any previously
+    Bins will catch Gst.MESSAGE_NEED_CONTEXT messages and will set any previously
     known context on the element that asks for it if possible. Otherwise the
     application should provide one if it can.
 
-    #GstContext can be persistent.
-    A persistent #GstContext is kept in elements when they reach
-    %GST_STATE_NULL, non-persistent ones will be removed.
+    Gst.Context can be persistent.
+    A persistent Gst.Context is kept in elements when they reach
+    Gst.STATE_NULL, non-persistent ones will be removed.
     Also, a non-persistent context won't override a previous persistent
     context set to an element.
     """
@@ -8897,7 +8897,7 @@ class Context(GObject.GBoxed):
     # gi Methods
     def get_context_type(self) -> str:
         """
-        Gets the type of @context.
+        Gets the type of `context`.
         """
     def get_structure(self) -> Structure:
         """
@@ -8905,11 +8905,11 @@ class Context(GObject.GBoxed):
         """
     def has_context_type(self, context_type: str) -> bool:
         """
-        Checks if @context has @context_type.
+        Checks if `context` has `context_type`.
         """
     def is_persistent(self) -> bool:
         """
-        Checks if @context is persistent.
+        Checks if `context` is persistent.
         """
     @classmethod
     def new(cls, context_type: str, persistent: bool) -> Context:
@@ -8930,8 +8930,8 @@ class Context(GObject.GBoxed):
 
 class ControlBinding(Object):
     """
-    A base class for value mapping objects that attaches control sources to #GObject
-    properties. Such an object is taking one or more #GstControlSource instances,
+    A base class for value mapping objects that attaches control sources to GObject
+    properties. Such an object is taking one or more Gst.ControlSource instances,
     combines them and maps the resulting value to the type and value range of the
     bound property.
     """
@@ -8956,7 +8956,7 @@ class ControlBinding(Object):
     @builtins.property
     def pspec(self) -> GObject.ParamSpec | None:
         """
-        #GParamSpec for this property
+        GParamSpec for this property
         """
 
     # gi Methods
@@ -8966,9 +8966,9 @@ class ControlBinding(Object):
         """
     def get_g_value_array(self, timestamp: int, interval: int, n_values: int, values: list) -> bool:
         """
-            Gets a number of #GValues for the given controlled property starting at the
-        requested time. The array @values need to hold enough space for @n_values of
-        #GValue.
+            Gets a number of GValues for the given controlled property starting at the
+        requested time. The array `values` need to hold enough space for `n_values` of
+        GValue.
 
         This function is useful if one wants to e.g. draw a graph of the control
         curve or apply a control curve sample by sample.
@@ -8984,11 +8984,11 @@ class ControlBinding(Object):
     def set_disabled(self, disabled: bool) -> None:
         """
             This function is used to disable a control binding for some time, i.e.
-        gst_object_sync_values() will do nothing.
+        `Gst.object_sync_values` will do nothing.
         """
     def sync_values(self, object: Object, timestamp: int, last_sync: int) -> bool:
         """
-            Sets the property of the @object, according to the #GstControlSources that
+            Sets the property of the `object`, according to the Gst.ControlSources that
         handles it and for the given timestamp.
 
         If this function fails, it is most likely the application developers fault.
@@ -9044,7 +9044,7 @@ class ControlBinding(Object):
 
 class ControlBindingClass(GObject.GPointer):
     """
-    The class structure of #GstControlBinding.
+    The class structure of Gst.ControlBinding.
     """
 
     # gi Fields
@@ -9075,19 +9075,19 @@ class ControlBindingPrivate(GObject.GPointer):
 
 class ControlSource(Object):
     """
-    The #GstControlSource is a base class for control value sources that could
+    The Gst.ControlSource is a base class for control value sources that could
     be used to get timestamp-value pairs. A control source essentially is a
     function over time.
 
-    A #GstControlSource is used by first getting an instance of a specific
+    A Gst.ControlSource is used by first getting an instance of a specific
     control-source, creating a binding for the control-source to the target property
     of the element and then adding the binding to the element. The binding will
     convert the data types and value range to fit to the bound property.
 
-    For implementing a new #GstControlSource one has to implement
-    #GstControlSourceGetValue and #GstControlSourceGetValueArray functions.
-    These are then used by gst_control_source_get_value() and
-    gst_control_source_get_value_array() to get values for specific timestamps.
+    For implementing a new Gst.ControlSource one has to implement
+    Gst.ControlSourceGetValue and Gst.ControlSourceGetValueArray functions.
+    These are then used by `Gst.control_source_get_value` and
+    `Gst.control_source_get_value_array` to get values for specific timestamps.
     """
 
     # gi Fields
@@ -9109,17 +9109,17 @@ class ControlSource(Object):
         """
     def control_source_get_value(self, timestamp: int) -> tuple[bool, float]:
         """
-        Gets the value for this #GstControlSource at a given timestamp.
+        Gets the value for this Gst.ControlSource at a given timestamp.
         """
     def control_source_get_value_array(self, timestamp: int, interval: int, n_values: int, values: list) -> bool:
         """
-            Gets an array of values for for this #GstControlSource. Values that are
+            Gets an array of values for for this Gst.ControlSource. Values that are
         undefined contain NANs.
         """
 
 class ControlSourceClass(GObject.GPointer):
     """
-    The class structure of #GstControlSource.
+    The class structure of Gst.ControlSource.
     """
 
     # gi Fields
@@ -9137,23 +9137,23 @@ class ControlSourceClass(GObject.GPointer):
 
 class CustomMeta(GObject.GPointer):
     """
-    Extra custom metadata. The @structure field is the same as returned by
-    gst_custom_meta_get_structure().
+    Extra custom metadata. The `structure` field is the same as returned by
+    `Gst.custom_meta_get_structure`.
 
-    Since 1.24 it can be serialized using gst_meta_serialize() and
-    gst_meta_deserialize(), but only if the #GstStructure does not contain any
-    fields that cannot be serialized, see %GST_SERIALIZE_FLAG_STRICT.
+    Since 1.24 it can be serialized using `Gst.meta_serialize` and
+    `Gst.meta_deserialize`, but only if the Gst.Structure does not contain any
+    fields that cannot be serialized, see Gst.SERIALIZE_FLAG_STRICT.
     """
 
     # gi Fields
     meta: Meta | None = ...
     """
-    parent #GstMeta
+    parent Gst.Meta
 
     """
     structure: Structure | None = ...
     """
-    #GstStructure containing custom metadata.
+    Gst.Structure containing custom metadata.
 
     """
 
@@ -9164,18 +9164,18 @@ class CustomMeta(GObject.GPointer):
         """
     def get_structure(self) -> Structure:
         """
-            Retrieve the #GstStructure backing a custom meta, the structure's mutability
-        is conditioned to the writability of the #GstBuffer @meta is attached to.
+            Retrieve the Gst.Structure backing a custom meta, the structure's mutability
+        is conditioned to the writability of the Gst.Buffer `meta` is attached to.
         """
     def has_name(self, name: str) -> bool:
         """
-        Checks whether the name of the custom meta is @name
+        Checks whether the name of the custom meta is `name`
         """
 
 class DateTime(GObject.GBoxed):
     """
     Struct to store date, time and timezone information altogether.
-    #GstDateTime is refcounted and immutable.
+    Gst.DateTime is refcounted and immutable.
 
     Date information is handled using the [proleptic Gregorian calendar].
 
@@ -9187,43 +9187,43 @@ class DateTime(GObject.GBoxed):
     # gi Methods
     def get_day(self) -> int:
         """
-        Returns the day of the month of this #GstDateTime.
+        Returns the day of the month of this Gst.DateTime.
         """
     def get_hour(self) -> int:
         """
-            Retrieves the hour of the day represented by @datetime in the gregorian
+            Retrieves the hour of the day represented by `datetime` in the gregorian
         calendar. The return is in the range of 0 to 23.
         """
     def get_microsecond(self) -> int:
         """
             Retrieves the fractional part of the seconds in microseconds represented by
-        @datetime in the gregorian calendar.
+        `datetime` in the gregorian calendar.
         """
     def get_minute(self) -> int:
         """
-            Retrieves the minute of the hour represented by @datetime in the gregorian
+            Retrieves the minute of the hour represented by `datetime` in the gregorian
         calendar.
         """
     def get_month(self) -> int:
         """
-        Returns the month of this #GstDateTime. January is 1, February is 2, etc..
+        Returns the month of this Gst.DateTime. January is 1, February is 2, etc..
         """
     def get_second(self) -> int:
         """
-            Retrieves the second of the minute represented by @datetime in the gregorian
+            Retrieves the second of the minute represented by `datetime` in the gregorian
         calendar.
         """
     def get_time_zone_offset(self) -> float:
         """
             Retrieves the offset from UTC in hours that the timezone specified
-        by @datetime represents. Timezones ahead (to the east) of UTC have positive
+        by `datetime` represents. Timezones ahead (to the east) of UTC have positive
         values, timezones before (to the west) of UTC have negative values.
-        If @datetime represents UTC time, then the offset is zero.
+        If `datetime` represents UTC time, then the offset is zero.
         """
     def get_year(self) -> int:
         """
-            Returns the year of this #GstDateTime.
-        Call gst_date_time_has_year() before, to avoid warnings.
+            Returns the year of this Gst.DateTime.
+        Call `Gst.date_time_has_year` before, to avoid warnings.
         """
     def has_day(self) -> bool: ...
     def has_month(self) -> bool: ...
@@ -9235,31 +9235,31 @@ class DateTime(GObject.GBoxed):
         cls, tzoffset: float, year: int, month: int, day: int, hour: int, minute: int, seconds: float
     ) -> DateTime | None:
         """
-            Creates a new #GstDateTime using the date and times in the gregorian calendar
+            Creates a new Gst.DateTime using the date and times in the gregorian calendar
         in the supplied timezone.
 
-        @year should be from 1 to 9999, @month should be from 1 to 12, @day from
-        1 to 31, @hour from 0 to 23, @minutes and @seconds from 0 to 59.
+        `year` should be from 1 to 9999, `month` should be from 1 to 12, `day` from
+        1 to 31, `hour` from 0 to 23, `minutes` and `seconds` from 0 to 59.
 
-        Note that @tzoffset is a float and was chosen so for being able to handle
+        Note that `tzoffset` is a float and was chosen so for being able to handle
         some fractional timezones, while it still keeps the readability of
         representing it in hours for most timezones.
 
         If value is -1 then all over value will be ignored. For example
-        if @month == -1, then #GstDateTime will be created only for @year. If
-        @day == -1, then #GstDateTime will be created for @year and @month and
+        if `month` == -1, then Gst.DateTime will be created only for `year`. If
+        `day` == -1, then Gst.DateTime will be created for `year` and `month` and
         so on.
         """
     @classmethod
     def new_from_g_date_time(cls, dt: GLib.DateTime | None = None) -> DateTime | None:
         """
-        Creates a new #GstDateTime from a #GDateTime object.
+        Creates a new Gst.DateTime from a GDateTime object.
         """
     @classmethod
     def new_from_iso8601_string(cls, string: str) -> DateTime | None:
         """
             Tries to parse common variants of ISO-8601 datetime strings into a
-        #GstDateTime. Possible input formats are (for example):
+        Gst.DateTime. Possible input formats are (for example):
         `2012-06-30T22:46:43Z`, `2012`, `2012-06`, `2012-06-30`, `2012-06-30T22:46:43-0430`,
         `2012-06-30T22:46Z`, `2012-06-30T22:46-0430`, `2012-06-30 22:46`,
         `2012-06-30 22:46:43`, `2012-06-00`, `2012-00-00`, `2012-00-30`, `22:46:43Z`, `22:46Z`,
@@ -9270,97 +9270,97 @@ class DateTime(GObject.GBoxed):
     @classmethod
     def new_from_unix_epoch_local_time(cls, secs: int) -> DateTime | None:
         """
-            Creates a new #GstDateTime using the time since Jan 1, 1970 specified by
-        @secs. The #GstDateTime is in the local timezone.
+            Creates a new Gst.DateTime using the time since Jan 1, 1970 specified by
+        `secs`. The Gst.DateTime is in the local timezone.
         """
     @classmethod
     def new_from_unix_epoch_local_time_usecs(cls, usecs: int) -> DateTime | None:
         """
-            Creates a new #GstDateTime using the time since Jan 1, 1970 specified by
-        @usecs. The #GstDateTime is in the local timezone.
+            Creates a new Gst.DateTime using the time since Jan 1, 1970 specified by
+        `usecs`. The Gst.DateTime is in the local timezone.
         """
     @classmethod
     def new_from_unix_epoch_utc(cls, secs: int) -> DateTime | None:
         """
-            Creates a new #GstDateTime using the time since Jan 1, 1970 specified by
-        @secs. The #GstDateTime is in the UTC timezone.
+            Creates a new Gst.DateTime using the time since Jan 1, 1970 specified by
+        `secs`. The Gst.DateTime is in the UTC timezone.
         """
     @classmethod
     def new_from_unix_epoch_utc_usecs(cls, usecs: int) -> DateTime | None:
         """
-            Creates a new #GstDateTime using the time since Jan 1, 1970 specified by
-        @usecs. The #GstDateTime is in UTC.
+            Creates a new Gst.DateTime using the time since Jan 1, 1970 specified by
+        `usecs`. The Gst.DateTime is in UTC.
         """
     @classmethod
     def new_local_time(cls, year: int, month: int, day: int, hour: int, minute: int, seconds: float) -> DateTime | None:
         """
-            Creates a new #GstDateTime using the date and times in the gregorian calendar
+            Creates a new Gst.DateTime using the date and times in the gregorian calendar
         in the local timezone.
 
-        @year should be from 1 to 9999, @month should be from 1 to 12, @day from
-        1 to 31, @hour from 0 to 23, @minutes and @seconds from 0 to 59.
+        `year` should be from 1 to 9999, `month` should be from 1 to 12, `day` from
+        1 to 31, `hour` from 0 to 23, `minutes` and `seconds` from 0 to 59.
 
-        If @month is -1, then the #GstDateTime created will only contain @year,
+        If `month` is -1, then the Gst.DateTime created will only contain `year`,
         and all other fields will be considered not set.
 
-        If @day is -1, then the #GstDateTime created will only contain @year and
-        @month and all other fields will be considered not set.
+        If `day` is -1, then the Gst.DateTime created will only contain `year` and
+        `month` and all other fields will be considered not set.
 
-        If @hour is -1, then the #GstDateTime created will only contain @year and
-        @month and @day, and the time fields will be considered not set. In this
-        case @minute and @seconds should also be -1.
+        If `hour` is -1, then the Gst.DateTime created will only contain `year` and
+        `month` and `day`, and the time fields will be considered not set. In this
+        case `minute` and `seconds` should also be -1.
         """
     @classmethod
     def new_now_local_time(cls) -> DateTime | None:
         """
-        Creates a new #GstDateTime representing the current date and time.
+        Creates a new Gst.DateTime representing the current date and time.
         """
     @classmethod
     def new_now_utc(cls) -> DateTime | None:
         """
-            Creates a new #GstDateTime that represents the current instant at Universal
+            Creates a new Gst.DateTime that represents the current instant at Universal
         coordinated time.
         """
     @classmethod
     def new_y(cls, year: int) -> DateTime | None:
         """
-            Creates a new #GstDateTime using the date and times in the gregorian calendar
+            Creates a new Gst.DateTime using the date and times in the gregorian calendar
         in the local timezone.
 
-        @year should be from 1 to 9999.
+        `year` should be from 1 to 9999.
         """
     @classmethod
     def new_ym(cls, year: int, month: int) -> DateTime | None:
         """
-            Creates a new #GstDateTime using the date and times in the gregorian calendar
+            Creates a new Gst.DateTime using the date and times in the gregorian calendar
         in the local timezone.
 
-        @year should be from 1 to 9999, @month should be from 1 to 12.
+        `year` should be from 1 to 9999, `month` should be from 1 to 12.
 
         If value is -1 then all over value will be ignored. For example
-        if @month == -1, then #GstDateTime will created only for @year.
+        if `month` == -1, then Gst.DateTime will created only for `year`.
         """
     @classmethod
     def new_ymd(cls, year: int, month: int, day: int) -> DateTime | None:
         """
-            Creates a new #GstDateTime using the date and times in the gregorian calendar
+            Creates a new Gst.DateTime using the date and times in the gregorian calendar
         in the local timezone.
 
-        @year should be from 1 to 9999, @month should be from 1 to 12, @day from
+        `year` should be from 1 to 9999, `month` should be from 1 to 12, `day` from
         1 to 31.
 
         If value is -1 then all over value will be ignored. For example
-        if @month == -1, then #GstDateTime will created only for @year. If
-        @day == -1, then #GstDateTime will created for @year and @month and
+        if `month` == -1, then Gst.DateTime will created only for `year`. If
+        `day` == -1, then Gst.DateTime will created for `year` and `month` and
         so on.
         """
     def ref(self) -> DateTime:
         """
-        Atomically increments the reference count of @datetime by one.
+        Atomically increments the reference count of `datetime` by one.
         """
     def to_g_date_time(self) -> GLib.DateTime | None:
         """
-        Creates a new #GDateTime from a fully defined #GstDateTime object.
+        Creates a new GDateTime from a fully defined Gst.DateTime object.
         """
     def to_iso8601_string(self) -> str | None:
         """
@@ -9370,7 +9370,7 @@ class DateTime(GObject.GBoxed):
         """
     def unref(self) -> None:
         """
-            Atomically decrements the reference count of @datetime by one.  When the
+            Atomically decrements the reference count of `datetime` by one.  When the
         reference count reaches zero, the structure is freed.
         """
 
@@ -9384,7 +9384,7 @@ class DateTime(GObject.GBoxed):
 class DebugCategory(GObject.GPointer):
     """
     This is the struct that describes the categories. Once initialized with
-    #GST_DEBUG_CATEGORY_INIT, its values can't be changed anymore.
+    GST_DEBUG_CATEGORY_INIT, its values can't be changed anymore.
     """
 
     # gi Fields
@@ -9422,7 +9422,7 @@ class DebugCategory(GObject.GPointer):
         """
     def get_threshold(self) -> DebugLevel:
         """
-        Returns the threshold of a #GstDebugCategory.
+        Returns the threshold of a Gst.DebugCategory.
         """
     def reset_threshold(self) -> None:
         """
@@ -9430,7 +9430,7 @@ class DebugCategory(GObject.GPointer):
         will only be output if the threshold is lower or equal to the level of the
         debugging message.
         Use this function to set the threshold back to where it was after using
-        gst_debug_category_set_threshold().
+        `Gst.debug_category_set_threshold`.
         """
     def set_threshold(self, level: DebugLevel) -> None:
         """
@@ -9450,7 +9450,7 @@ class DebugMessage(GObject.GPointer):
         """
     def get(self) -> str | None:
         """
-            Gets the string representation of a #GstDebugMessage. This function is used
+            Gets the string representation of a Gst.DebugMessage. This function is used
         in debug handlers to extract the message.
         """
     def get_id(self) -> str | None:
@@ -9461,12 +9461,12 @@ class DebugMessage(GObject.GPointer):
 
 class Device(Object):
     """
-    #GstDevice are objects representing a device, they contain
-    relevant metadata about the device, such as its class and the #GstCaps
+    Gst.Device are objects representing a device, they contain
+    relevant metadata about the device, such as its class and the Gst.Caps
     representing the media types it can produce or handle.
 
-    #GstDevice are created by #GstDeviceProvider objects which can be
-    aggregated by #GstDeviceMonitor objects.
+    Gst.Device are created by Gst.DeviceProvider objects which can be
+    aggregated by Gst.DeviceMonitor objects.
     """
 
     class Props(Object.Props):
@@ -9497,14 +9497,14 @@ class Device(Object):
     @builtins.property
     def get_caps(self) -> Caps | None:
         """
-        Getter for the #GstCaps that this device supports.
+        Getter for the Gst.Caps that this device supports.
         """
     @builtins.property
     def get_device_class(self) -> str:
         """
             Gets the "class" of a device. This is a "/" separated list of
         classes that represent this device. They are a subset of the
-        classes of the #GstDeviceProvider that produced this device.
+        classes of the Gst.DeviceProvider that produced this device.
         """
     @builtins.property
     def get_display_name(self) -> str:
@@ -9518,17 +9518,17 @@ class Device(Object):
         """
     def has_classes(self, classes: str) -> bool:
         """
-        Check if @device matches all of the given classes
+        Check if `device` matches all of the given classes
         """
     def has_classesv(self, classes: list) -> bool:
         """
-        Check if @factory matches all of the given classes
+        Check if `factory` matches all of the given classes
         """
     def reconfigure_element(self, element: Element) -> bool:
         """
             Tries to reconfigure an existing element to use the device. If this
         function fails, then one must destroy the element and create a new one
-        using gst_device_create_element().
+        using `Gst.device_create_element`.
 
         Note: This should only be implemented for elements can change their
         device in the PLAYING state.
@@ -9590,7 +9590,7 @@ class Device(Object):
 
 class DeviceClass(GObject.GPointer):
     """
-    The class structure for a #GstDevice object.
+    The class structure for a Gst.Device object.
     """
 
     # gi Fields
@@ -9603,14 +9603,14 @@ class DeviceClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> ObjectClass | None:
         """
-        The parent #GstObjectClass structure.
+        The parent Gst.ObjectClass structure.
         """
     @builtins.property
     def reconfigure_element(self) -> reconfigure_elementDeviceClassCB:
         """
            This only needs to be implemented by subclasses if the
         element can be reconfigured to use a different device. See the documentation
-        for gst_device_reconfigure_element().
+        for `Gst.device_reconfigure_element`.
         """
 
     # gi Methods
@@ -9621,11 +9621,11 @@ class DeviceClass(GObject.GPointer):
 
 class DeviceMonitor(Object):
     """
-    Applications should create a #GstDeviceMonitor when they want
+    Applications should create a Gst.DeviceMonitor when they want
     to probe, list and monitor devices of a specific type. The
-    #GstDeviceMonitor will create the appropriate
-    #GstDeviceProvider objects and manage them. It will then post
-    messages on its #GstBus for devices that have been added and
+    Gst.DeviceMonitor will create the appropriate
+    Gst.DeviceProvider objects and manage them. It will then post
+    messages on its Gst.Bus for devices that have been added and
     removed.
 
     The device monitor will monitor all devices matching the filters that
@@ -9670,7 +9670,7 @@ class DeviceMonitor(Object):
          monitor = gst_device_monitor_new ();
 
          bus = gst_device_monitor_get_bus (monitor);
-         gst_bus_add_watch (bus, my_bus_func, NULL);
+         gst_bus_add_watch (bus, my_bus_func, None);
          gst_object_unref (bus);
 
          caps = gst_caps_new_empty_simple ("video/x-raw");
@@ -9697,21 +9697,21 @@ class DeviceMonitor(Object):
         """
     def add_filter(self, classes: str | None = None, caps: Caps | None = None) -> int:
         """
-            Adds a filter for which #GstDevice will be monitored, any device that matches
-        all these classes and the #GstCaps will be returned.
+            Adds a filter for which Gst.Device will be monitored, any device that matches
+        all these classes and the Gst.Caps will be returned.
 
         If this function is called multiple times to add more filters, each will be
         matched independently. That is, adding more filters will not further restrict
         what devices are matched.
 
-        The #GstCaps supported by the device as returned by gst_device_get_caps() are
+        The Gst.Caps supported by the device as returned by `Gst.device_get_caps` are
         not intersected with caps filters added using this function.
 
-        Filters must be added before the #GstDeviceMonitor is started.
+        Filters must be added before the Gst.DeviceMonitor is started.
         """
     def get_bus(self) -> Bus:
         """
-        Gets the #GstBus of this #GstDeviceMonitor
+        Gets the Gst.Bus of this Gst.DeviceMonitor
         """
     def get_devices(self) -> list | None:
         """
@@ -9726,28 +9726,28 @@ class DeviceMonitor(Object):
         """
     def get_show_all_devices(self) -> bool:
         """
-            Get if @monitor is currently showing all devices, even those from hidden
+            Get if `monitor` is currently showing all devices, even those from hidden
         providers.
         """
     @classmethod
     def new(cls) -> DeviceMonitor:
         """
-        Create a new #GstDeviceMonitor
+        Create a new Gst.DeviceMonitor
         """
     def remove_filter(self, filter_id: int) -> bool:
         """
-            Removes a filter from the #GstDeviceMonitor using the id that was returned
-        by gst_device_monitor_add_filter().
+            Removes a filter from the Gst.DeviceMonitor using the id that was returned
+        by `Gst.device_monitor_add_filter`.
         """
     def set_show_all_devices(self, show_all: bool) -> None:
         """
             Set if all devices should be visible, even those devices from hidden
-        providers. Setting @show_all to true might show some devices multiple times.
+        providers. Setting `show_all` to true might show some devices multiple times.
         """
     def start(self) -> bool:
         """
             Starts monitoring the devices, one this has succeeded, the
-        %GST_MESSAGE_DEVICE_ADDED and %GST_MESSAGE_DEVICE_REMOVED messages
+        Gst.MESSAGE_DEVICE_ADDED and Gst.MESSAGE_DEVICE_REMOVED messages
         will be emitted on the bus when the list of devices changes.
         """
     def stop(self) -> None:
@@ -9777,7 +9777,7 @@ class DeviceMonitorClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> ObjectClass | None:
         """
-        the parent #GstObjectClass structure
+        the parent Gst.ObjectClass structure
         """
 
     # gi Methods
@@ -9802,14 +9802,14 @@ class DevicePrivate(GObject.GPointer):
 
 class DeviceProvider(Object):
     """
-    A #GstDeviceProvider subclass is provided by a plugin that handles devices
+    A Gst.DeviceProvider subclass is provided by a plugin that handles devices
     if there is a way to programmatically list connected devices. It can also
     optionally provide updates to the list of connected devices.
 
-    Each #GstDeviceProvider subclass is a singleton, a plugin should
+    Each Gst.DeviceProvider subclass is a singleton, a plugin should
     normally provide a single subclass for all devices.
 
-    Applications would normally use a #GstDeviceMonitor to monitor devices
+    Applications would normally use a Gst.DeviceMonitor to monitor devices
     from all relevant providers.
     """
 
@@ -9817,7 +9817,7 @@ class DeviceProvider(Object):
     @builtins.property
     def devices(self) -> list | None:
         """
-        a #GList of the #GstDevice objects
+        a GList of the Gst.Device objects
         """
 
     # gi Methods
@@ -9828,40 +9828,40 @@ class DeviceProvider(Object):
     def can_monitor(self) -> bool: ...
     def device_add(self, device: Device) -> None:
         """
-            Posts a message on the provider's #GstBus to inform applications that
+            Posts a message on the provider's Gst.Bus to inform applications that
         a new device has been added.
 
         This is for use by subclasses.
 
-        @device's reference count will be incremented, and any floating reference
-        will be removed (see gst_object_ref_sink()).
+        `device`'s reference count will be incremented, and any floating reference
+        will be removed (see `Gst.object_ref_sink`).
         """
     def device_changed(self, device: Device, changed_device: Device) -> None:
         """
-            This function is used when @changed_device was modified into its new form
-        @device. This will post a `DEVICE_CHANGED` message on the bus to let
-        the application know that the device was modified. #GstDevice is immutable
+            This function is used when `changed_device` was modified into its new form
+        `device`. This will post a `DEVICE_CHANGED` message on the bus to let
+        the application know that the device was modified. Gst.Device is immutable
         for MT. safety purposes so this is an "atomic" way of letting the application
         know when a device was modified.
         """
     def device_remove(self, device: Device) -> None:
         """
-            Posts a message on the provider's #GstBus to inform applications that
+            Posts a message on the provider's Gst.Bus to inform applications that
         a device has been removed.
 
         This is for use by subclasses.
         """
     def get_bus(self) -> Bus:
         """
-        Gets the #GstBus of this #GstDeviceProvider
+        Gets the Gst.Bus of this Gst.DeviceProvider
         """
     def get_devices(self) -> list:
         """
             Gets a list of devices that this provider understands. This may actually
         probe the hardware if the provider is not currently started.
 
-        If the provider has been started, this will returned the same #GstDevice
-        objedcts that have been returned by the #GST_MESSAGE_DEVICE_ADDED messages.
+        If the provider has been started, this will returned the same Gst.Device
+        objedcts that have been returned by the GST_MESSAGE_DEVICE_ADDED messages.
         """
     def get_factory(self) -> DeviceProviderFactory | None:
         """
@@ -9869,59 +9869,59 @@ class DeviceProvider(Object):
         """
     def get_hidden_providers(self) -> list:
         """
-            Get the provider factory names of the #GstDeviceProvider instances that
-        are hidden by @provider.
+            Get the provider factory names of the Gst.DeviceProvider instances that
+        are hidden by `provider`.
         """
     def get_metadata(self, key: str) -> str:
         """
-        Get metadata with @key in @provider.
+        Get metadata with `key` in `provider`.
         """
     def hide_provider(self, name: str) -> None:
         """
-            Make @provider hide the devices from the factory with @name.
+            Make `provider` hide the devices from the factory with `name`.
 
-        This function is used when @provider will also provide the devices reported
-        by provider factory @name. A monitor should stop monitoring the
-        device provider with @name to avoid duplicate devices.
+        This function is used when `provider` will also provide the devices reported
+        by provider factory `name`. A monitor should stop monitoring the
+        device provider with `name` to avoid duplicate devices.
         """
     def is_started(self) -> bool:
         """
-        This function can be used to know if the @provider was successfully started.
+        This function can be used to know if the `provider` was successfully started.
         """
     @staticmethod
     def register(plugin: Plugin | None, name: str, rank: int, type: GObject.GType) -> bool:
         """
             Create a new device providerfactory capable of instantiating objects of the
-        @type and add the factory to @plugin.
+        `type` and add the factory to `plugin`.
         """
     def start(self) -> bool:
         """
-            Starts providering the devices. This will cause #GST_MESSAGE_DEVICE_ADDED
-        and #GST_MESSAGE_DEVICE_REMOVED messages to be posted on the provider's bus
+            Starts providering the devices. This will cause GST_MESSAGE_DEVICE_ADDED
+        and GST_MESSAGE_DEVICE_REMOVED messages to be posted on the provider's bus
         when devices are added or removed from the system.
 
-        Since the #GstDeviceProvider is a singleton,
-        gst_device_provider_start() may already have been called by another
-        user of the object, gst_device_provider_stop() needs to be called the same
+        Since the Gst.DeviceProvider is a singleton,
+        `Gst.device_provider_start` may already have been called by another
+        user of the object, `Gst.device_provider_stop` needs to be called the same
         number of times.
 
-        After this function has been called, gst_device_provider_get_devices() will
+        After this function has been called, `Gst.device_provider_get_devices` will
         return the same objects that have been received from the
-        #GST_MESSAGE_DEVICE_ADDED messages and will no longer probe.
+        GST_MESSAGE_DEVICE_ADDED messages and will no longer probe.
         """
     def stop(self) -> None:
         """
             Decreases the use-count by one. If the use count reaches zero, this
-        #GstDeviceProvider will stop providering the devices. This needs to be
-        called the same number of times that gst_device_provider_start() was called.
+        Gst.DeviceProvider will stop providering the devices. This needs to be
+        called the same number of times that `Gst.device_provider_start` was called.
         """
     def unhide_provider(self, name: str) -> None:
         """
-            Make @provider unhide the devices from factory @name.
+            Make `provider` unhide the devices from factory `name`.
 
-        This function is used when @provider will no longer provide the devices
-        reported by provider factory @name. A monitor should start
-        monitoring the devices from provider factory @name in order to see
+        This function is used when `provider` will no longer provide the devices
+        reported by provider factory `name`. A monitor should start
+        monitoring the devices from provider factory `name` in order to see
         all devices again.
         """
 
@@ -10001,20 +10001,20 @@ class DeviceProvider(Object):
 
 class DeviceProviderClass(GObject.GPointer):
     """
-    The structure of the base #GstDeviceProviderClass
+    The structure of the base Gst.DeviceProviderClass
     """
 
     # gi Fields
     @builtins.property
     def factory(self) -> DeviceProviderFactory | None:
         """
-           a pointer to the #GstDeviceProviderFactory that creates this
+           a pointer to the Gst.DeviceProviderFactory that creates this
         provider
         """
     @builtins.property
     def parent_class(self) -> ObjectClass | None:
         """
-        the parent #GstObjectClass structure
+        the parent Gst.ObjectClass structure
         """
     @builtins.property
     def start(self) -> startDeviceProviderClassCB:
@@ -10026,7 +10026,7 @@ class DeviceProviderClass(GObject.GPointer):
     def stop(self) -> stopDeviceProviderClassCB:
         """
            Stops monitoring for new devices. Only subclasses that implement
-        the start() method need to implement this method.
+        the `start` method need to implement this method.
         """
 
     # gi Methods
@@ -10036,48 +10036,48 @@ class DeviceProviderClass(GObject.GPointer):
         """
     def add_metadata(self, key: str, value: str) -> None:
         """
-        Set @key with @value as metadata in @klass.
+        Set `key` with `value` as metadata in `klass`.
         """
     def add_static_metadata(self, key: str, value: str) -> None:
         """
-            Set @key with @value as metadata in @klass.
+            Set `key` with `value` as metadata in `klass`.
 
-        Same as gst_device_provider_class_add_metadata(), but @value must be a static string
+        Same as `Gst.device_provider_class_add_metadata`, but `value` must be a static string
         or an inlined string, as it will not be copied. (GStreamer plugins will
         be made resident once loaded, so this function can be used even from
         dynamically loaded plugins.)
         """
     def get_metadata(self, key: str) -> str | None:
         """
-        Get metadata with @key in @klass.
+        Get metadata with `key` in `klass`.
         """
     def set_metadata(self, longname: str, classification: str, description: str, author: str) -> None:
         """
-            Sets the detailed information for a #GstDeviceProviderClass.
+            Sets the detailed information for a Gst.DeviceProviderClass.
 
         > This function is for use in _class_init functions only.
         """
     def set_static_metadata(self, longname: str, classification: str, description: str, author: str) -> None:
         """
-            Sets the detailed information for a #GstDeviceProviderClass.
+            Sets the detailed information for a Gst.DeviceProviderClass.
 
         > This function is for use in _class_init functions only.
 
-        Same as gst_device_provider_class_set_metadata(), but @longname, @classification,
-        @description, and @author must be static strings or inlined strings, as
+        Same as `Gst.device_provider_class_set_metadata`, but `longname`, `classification`,
+        `description`, and `author` must be static strings or inlined strings, as
         they will not be copied. (GStreamer plugins will be made resident once
         loaded, so this function can be used even from dynamically loaded plugins.)
         """
 
 class DeviceProviderFactory(PluginFeature):
     """
-    #GstDeviceProviderFactory is used to create instances of device providers. A
-    GstDeviceProviderfactory can be added to a #GstPlugin as it is also a
-    #GstPluginFeature.
+    Gst.DeviceProviderFactory is used to create instances of device providers. A
+    GstDeviceProviderfactory can be added to a Gst.Plugin as it is also a
+    Gst.PluginFeature.
 
-    Use the gst_device_provider_factory_find() and
-    gst_device_provider_factory_get() functions to create device
-    provider instances or use gst_device_provider_factory_get_by_name() as a
+    Use the `Gst.device_provider_factory_find` and
+    `Gst.device_provider_factory_get` functions to create device
+    provider instances or use `Gst.device_provider_factory_get_by_name` as a
     convenient shortcut.
     """
 
@@ -10105,36 +10105,36 @@ class DeviceProviderFactory(PluginFeature):
         """
     def get_device_provider_type(self) -> GObject.GType:
         """
-            Get the #GType for device providers managed by this factory. The type can
+            Get the GType for device providers managed by this factory. The type can
         only be retrieved if the device provider factory is loaded, which can be
-        assured with gst_plugin_feature_load().
+        assured with `Gst.plugin_feature_load`.
         """
     def get_metadata(self, key: str) -> str | None:
         """
-        Get the metadata on @factory with @key.
+        Get the metadata on `factory` with `key`.
         """
     def get_metadata_keys(self) -> list | None:
         """
-        Get the available keys for the metadata on @factory.
+        Get the available keys for the metadata on `factory`.
         """
     def has_classes(self, classes: str | None = None) -> bool:
         """
-        Check if @factory matches all of the given @classes
+        Check if `factory` matches all of the given `classes`
         """
     def has_classesv(self, classes: list | None = None) -> bool:
         """
-        Check if @factory matches all of the given classes
+        Check if `factory` matches all of the given classes
         """
     @staticmethod
     def list_get_device_providers(minrank: Rank) -> list:
         """
-            Get a list of factories with a rank greater or equal to @minrank.
+            Get a list of factories with a rank greater or equal to `minrank`.
         The list of factories is returned by decreasing rank.
         """
 
 class DeviceProviderFactoryClass(GObject.GPointer):
     """
-    The opaque #GstDeviceProviderFactoryClass data structure.
+    The opaque Gst.DeviceProviderFactoryClass data structure.
     """
 
     # gi Methods
@@ -10168,7 +10168,7 @@ class DoubleRange(object):
 
 class DynamicTypeFactory(PluginFeature):
     """
-    #GstDynamicTypeFactory is used to represent a type that can be
+    Gst.DynamicTypeFactory is used to represent a type that can be
     automatically loaded the first time it is used. For example,
     a non-standard type for use in caps fields.
 
@@ -10208,52 +10208,52 @@ class Element(Object):
     """
     GstElement is the abstract base class needed to construct an element that
     can be used in a GStreamer pipeline. Please refer to the plugin writers
-    guide for more information on creating #GstElement subclasses.
+    guide for more information on creating Gst.Element subclasses.
 
-    The name of a #GstElement can be get with gst_element_get_name() and set with
-    gst_element_set_name().  For speed, GST_ELEMENT_NAME() can be used in the
+    The name of a Gst.Element can be get with `Gst.element_get_name` and set with
+    `Gst.element_set_name`.  For speed, `GST_ELEMENT_NAME` can be used in the
     core when using the appropriate locking. Do not use this in plug-ins or
     applications in order to retain ABI compatibility.
 
-    Elements can have pads (of the type #GstPad).  These pads link to pads on
-    other elements.  #GstBuffer flow between these linked pads.
-    A #GstElement has a #GList of #GstPad structures for all their input (or sink)
+    Elements can have pads (of the type Gst.Pad).  These pads link to pads on
+    other elements.  Gst.Buffer flow between these linked pads.
+    A Gst.Element has a GList of Gst.Pad structures for all their input (or sink)
     and output (or source) pads.
-    Core and plug-in writers can add and remove pads with gst_element_add_pad()
-    and gst_element_remove_pad().
+    Core and plug-in writers can add and remove pads with `Gst.element_add_pad`
+    and `Gst.element_remove_pad`.
 
     An existing pad of an element can be retrieved by name with
-    gst_element_get_static_pad(). A new dynamic pad can be created using
-    gst_element_request_pad() with a #GstPadTemplate.
-    An iterator of all pads can be retrieved with gst_element_iterate_pads().
+    `Gst.element_get_static_pad`. A new dynamic pad can be created using
+    `Gst.element_request_pad` with a Gst.PadTemplate.
+    An iterator of all pads can be retrieved with `Gst.element_iterate_pads`.
 
     Elements can be linked through their pads.
-    If the link is straightforward, use the gst_element_link()
-    convenience function to link two elements, or gst_element_link_many()
+    If the link is straightforward, use the `Gst.element_link`
+    convenience function to link two elements, or `Gst.element_link_many`
     for more elements in a row.
-    Use gst_element_link_filtered() to link two elements constrained by
-    a specified set of #GstCaps.
-    For finer control, use gst_element_link_pads() and
-    gst_element_link_pads_filtered() to specify the pads to link on
+    Use `Gst.element_link_filtered` to link two elements constrained by
+    a specified set of Gst.Caps.
+    For finer control, use `Gst.element_link_pads` and
+    `Gst.element_link_pads_filtered` to specify the pads to link on
     each element by name.
 
-    Each element has a state (see #GstState).  You can get and set the state
-    of an element with gst_element_get_state() and gst_element_set_state().
-    Setting a state triggers a #GstStateChange. To get a string representation
-    of a #GstState, use gst_element_state_get_name().
+    Each element has a state (see Gst.State).  You can get and set the state
+    of an element with `Gst.element_get_state` and `Gst.element_set_state`.
+    Setting a state triggers a Gst.StateChange. To get a string representation
+    of a Gst.State, use `Gst.element_state_get_name`.
 
-    You can get and set a #GstClock on an element using gst_element_get_clock()
-    and gst_element_set_clock().
+    You can get and set a Gst.Clock on an element using `Gst.element_get_clock`
+    and `Gst.element_set_clock`.
     Some elements can provide a clock for the pipeline if
-    the #GST_ELEMENT_FLAG_PROVIDE_CLOCK flag is set. With the
-    gst_element_provide_clock() method one can retrieve the clock provided by
+    the GST_ELEMENT_FLAG_PROVIDE_CLOCK flag is set. With the
+    `Gst.element_provide_clock` method one can retrieve the clock provided by
     such an element.
     Not all elements require a clock to operate correctly. If the
-    #GST_ELEMENT_FLAG_REQUIRE_CLOCK() flag is set, a clock should be set on the
-    element with gst_element_set_clock().
+    `GST_ELEMENT_FLAG_REQUIRE_CLOCK` flag is set, a clock should be set on the
+    element with `Gst.element_set_clock`.
 
     Note that clock selection and distribution is normally handled by the
-    toplevel #GstPipeline so the clock functions are only to be used in very
+    toplevel Gst.Pipeline so the clock functions are only to be used in very
     specific situations.
     """
 
@@ -10262,20 +10262,20 @@ class Element(Object):
     def base_time(self) -> int:
         """
             the time of the clock right before the element is set to
-        PLAYING. Subtracting @base_time from the current clock time in the PLAYING
+        PLAYING. Subtracting `base_time` from the current clock time in the PLAYING
         state will yield the running_time against the clock.
         """
     @builtins.property
     def bus(self) -> Bus | None:
         """
             the bus of the element. This bus is provided to the element by the
-        parent element or the application. A #GstPipeline has a bus of its own.
+        parent element or the application. A Gst.Pipeline has a bus of its own.
         """
     @builtins.property
     def clock(self) -> Clock | None:
         """
             the clock of the element. This clock is usually provided to the
-        element by the toplevel #GstPipeline.
+        element by the toplevel Gst.Pipeline.
         """
     @builtins.property
     def contexts(self) -> list | None:
@@ -10295,7 +10295,7 @@ class Element(Object):
     @builtins.property
     def next_state(self) -> State:
         """
-            the next state of an element, can be #GST_STATE_VOID_PENDING if
+            the next state of an element, can be GST_STATE_VOID_PENDING if
         the element is in the correct state.
         """
     @builtins.property
@@ -10329,7 +10329,7 @@ class Element(Object):
     def pending_state(self) -> State:
         """
             the final state the element should go to, can be
-        #GST_STATE_VOID_PENDING if the element is in the correct state
+        GST_STATE_VOID_PENDING if the element is in the correct state
         """
     @builtins.property
     def sinkpads(self) -> list | None:
@@ -10355,12 +10355,12 @@ class Element(Object):
     def state_cookie(self) -> int:
         """
             Used to detect concurrent execution of
-        gst_element_set_state() and gst_element_get_state()
+        `Gst.element_set_state` and `Gst.element_get_state`
         """
     @builtins.property
     def state_lock(self) -> GLib.RecMutex | None:
         """
-        Used to serialize execution of gst_element_set_state()
+        Used to serialize execution of `Gst.element_set_state`
         """
     @builtins.property
     def target_state(self) -> State:
@@ -10385,15 +10385,15 @@ class Element(Object):
         """
     def add_pad(self, pad: Pad) -> bool:
         """
-            Adds a pad (link point) to @element. @pad's parent will be set to @element;
-        see gst_object_set_parent() for refcounting information.
+            Adds a pad (link point) to `element`. `pad`'s parent will be set to `element`;
+        see `Gst.object_set_parent` for refcounting information.
 
         Pads are automatically activated when added in the PAUSED or PLAYING
         state.
 
         The pad and the element should be unlocked when calling this function.
 
-        This function will emit the #GstElement::pad-added signal on the element.
+        This function will emit the Gst.Element::pad-added signal on the element.
         """
     def add_property_deep_notify_watch(self, property_name: str | None, include_value: bool) -> int: ...
     def add_property_notify_watch(self, property_name: str | None, include_value: bool) -> int: ...
@@ -10401,9 +10401,9 @@ class Element(Object):
         self, func: ElementCallAsyncFunc, user_data: object | None, destroy_notify: GLib.DestroyNotify
     ) -> None:
         """
-            Calls @func from another thread and passes @user_data to it. This is to be
+            Calls `func` from another thread and passes `user_data` to it. This is to be
         used for cases when a state change has to be performed from a streaming
-        thread, directly via gst_element_set_state() or indirectly e.g. via SEEK
+        thread, directly via `Gst.element_set_state` or indirectly e.g. via SEEK
         events.
 
         Calling those functions directly from the streaming thread will cause
@@ -10414,7 +10414,7 @@ class Element(Object):
         """
     def change_state(self, transition: StateChange) -> StateChangeReturn:
         """
-            Perform @transition on @element.
+            Perform `transition` on `element`.
 
         This function must be called with STATE_LOCK held and is mainly used
         internally.
@@ -10425,7 +10425,7 @@ class Element(Object):
         pending state if any. This function is used
         by elements that do asynchronous state changes.
         The core will normally call this method automatically when an
-        element returned %GST_STATE_CHANGE_SUCCESS from the state change function.
+        element returned Gst.STATE_CHANGE_SUCCESS from the state change function.
 
         If after calling this method the element still has not reached
         the pending state, the next state change is performed.
@@ -10439,15 +10439,15 @@ class Element(Object):
         """
             Creates a pad for each pad template that is always available.
         This function is only useful during object initialization of
-        subclasses of #GstElement.
+        subclasses of Gst.Element.
         """
     def decorate_stream_id(self, stream_id: str) -> str:
         """
-            Creates a stream-id for @element by combining the upstream information with
-        the @stream_id.
+            Creates a stream-id for `element` by combining the upstream information with
+        the `stream_id`.
 
         This function generates an unique stream-id by getting the upstream
-        stream-start event stream ID and appending @stream_id to it. If the element
+        stream-start event stream ID and appending `stream_id` to it. If the element
         has no sinkpad it will generate an upstream stream-id by doing an URI query
         on the element and in the worst case just uses a random number. Source
         elements that don't implement the URI handler interface should ideally
@@ -10455,31 +10455,31 @@ class Element(Object):
 
         Since stream IDs are sorted alphabetically, any numbers in the stream ID
         should be printed with a fixed number of characters, preceded by 0's, such as
-        by using the format %03u instead of %u.
+        by using the format \\03u instead of %u.
         """
     def foreach_pad(self, func: ElementForeachPadFunc, user_data: object | None = None) -> bool:
         """
-            Call @func with @user_data for each of @element's pads. @func will be called
+            Call `func` with `user_data` for each of `element`'s pads. `func` will be called
         exactly once for each pad that exists at the time of this call, unless
-        one of the calls to @func returns %FALSE in which case we will stop
+        one of the calls to `func` returns False in which case we will stop
         iterating pads and return early. If new pads are added or pads are removed
         while pads are being iterated, this will not be taken into account until
         next time this function is used.
         """
     def foreach_sink_pad(self, func: ElementForeachPadFunc, user_data: object | None = None) -> bool:
         """
-            Call @func with @user_data for each of @element's sink pads. @func will be
+            Call `func` with `user_data` for each of `element`'s sink pads. `func` will be
         called exactly once for each sink pad that exists at the time of this call,
-        unless one of the calls to @func returns %FALSE in which case we will stop
+        unless one of the calls to `func` returns False in which case we will stop
         iterating pads and return early. If new sink pads are added or sink pads
         are removed while the sink pads are being iterated, this will not be taken
         into account until next time this function is used.
         """
     def foreach_src_pad(self, func: ElementForeachPadFunc, user_data: object | None = None) -> bool:
         """
-            Call @func with @user_data for each of @element's source pads. @func will be
+            Call `func` with `user_data` for each of `element`'s source pads. `func` will be
         called exactly once for each source pad that exists at the time of this call,
-        unless one of the calls to @func returns %FALSE in which case we will stop
+        unless one of the calls to `func` returns False in which case we will stop
         iterating pads and return early. If new source pads are added or source pads
         are removed while the source pads are being iterated, this will not be taken
         into account until next time this function is used.
@@ -10493,13 +10493,13 @@ class Element(Object):
         """
     def get_bus(self) -> Bus | None:
         """
-            Returns the bus of the element. Note that only a #GstPipeline will provide a
+            Returns the bus of the element. Note that only a Gst.Pipeline will provide a
         bus for the application.
         """
     def get_clock(self) -> Clock | None:
         """
             Gets the currently configured clock of the element. This is the clock as was
-        last set with gst_element_set_clock().
+        last set with `Gst.element_set_clock`.
 
         Elements in a pipeline will only have their clock set when the
         pipeline is in the PLAYING state.
@@ -10512,22 +10512,22 @@ class Element(Object):
 
         This function will first attempt to find a compatible unlinked ALWAYS pad,
         and if none can be found, it will request a compatible REQUEST pad by looking
-        at the templates of @element.
+        at the templates of `element`.
         """
     def get_compatible_pad_template(self, compattempl: PadTemplate) -> PadTemplate | None:
         """
-            Retrieves a pad template from @element that is compatible with @compattempl.
+            Retrieves a pad template from `element` that is compatible with `compattempl`.
         Pads from compatible templates can be linked together.
         """
     def get_context(self, context_type: str) -> Context | None:
         """
-            Gets the context with @context_type set on the element or NULL.
+            Gets the context with `context_type` set on the element or None.
 
         MT safe.
         """
     def get_context_unlocked(self, context_type: str) -> Context | None:
         """
-        Gets the context with @context_type set on the element or NULL.
+        Gets the context with `context_type` set on the element or None.
         """
     def get_contexts(self) -> list:
         """
@@ -10552,23 +10552,23 @@ class Element(Object):
         """
     def get_metadata(self, key: str) -> str:
         """
-        Get metadata with @key in @klass.
+        Get metadata with `key` in `klass`.
         """
     def get_pad_template(self, name: str) -> PadTemplate | None:
         """
-        Retrieves a padtemplate from @element with the given name.
+        Retrieves a padtemplate from `element` with the given name.
         """
     def get_pad_template_list(self) -> list:
         """
-            Retrieves a list of the pad templates associated with @element. The
+            Retrieves a list of the pad templates associated with `element`. The
         list must not be modified by the calling code.
         """
     @deprecated("deprecated")
     def get_request_pad(self, name: str) -> Pad | None:
         """
             The name of this function is confusing to people learning GStreamer.
-        gst_element_request_pad_simple() aims at making it more explicit it is
-        a simplified gst_element_request_pad().
+        `Gst.element_request_pad_simple` aims at making it more explicit it is
+        a simplified `Gst.element_request_pad`.
         """
     def get_start_time(self) -> int:
         """
@@ -10576,7 +10576,7 @@ class Element(Object):
         running time of the clock when this element was last put to PAUSED.
 
         Usually the start_time is managed by a toplevel element such as
-        #GstPipeline.
+        Gst.Pipeline.
 
         MT safe.
         """
@@ -10585,27 +10585,27 @@ class Element(Object):
             Gets the state of the element.
 
         For elements that performed an ASYNC state change, as reported by
-        gst_element_set_state(), this function will block up to the
+        `Gst.element_set_state`, this function will block up to the
         specified timeout value for the state change to complete.
         If the element completes the state change or goes into
         an error, this function returns immediately with a return value of
-        %GST_STATE_CHANGE_SUCCESS or %GST_STATE_CHANGE_FAILURE respectively.
+        Gst.STATE_CHANGE_SUCCESS or Gst.STATE_CHANGE_FAILURE respectively.
 
-        For elements that did not return %GST_STATE_CHANGE_ASYNC, this function
+        For elements that did not return Gst.STATE_CHANGE_ASYNC, this function
         returns the current and pending state immediately.
 
-        This function returns %GST_STATE_CHANGE_NO_PREROLL if the element
+        This function returns Gst.STATE_CHANGE_NO_PREROLL if the element
         successfully changed its state but is not able to provide data yet.
         This mostly happens for live sources that only produce data in
-        %GST_STATE_PLAYING. While the state change return is equivalent to
-        %GST_STATE_CHANGE_SUCCESS, it is returned to the application to signal that
+        Gst.STATE_PLAYING. While the state change return is equivalent to
+        Gst.STATE_CHANGE_SUCCESS, it is returned to the application to signal that
         some sink elements might not be able to complete their state change because
         an element is not producing data to complete the preroll. When setting the
         element to playing, the preroll will complete and playback will start.
         """
     def get_static_pad(self, name: str) -> Pad | None:
         """
-            Retrieves a pad from @element by name. This version only retrieves
+            Retrieves a pad from `element` by name. This version only retrieves
         already-existing (i.e. 'static') pads.
         """
     def is_locked_state(self) -> bool:
@@ -10614,54 +10614,54 @@ class Element(Object):
         If the state of an element is locked, state changes of the parent don't
         affect the element.
         This way you can leave currently unused elements inside bins. Just lock their
-        state before changing the state from #GST_STATE_NULL.
+        state before changing the state from GST_STATE_NULL.
 
         MT safe.
         """
     def iterate_pads(self) -> Iterator:
         """
-            Retrieves an iterator of @element's pads. The iterator should
+            Retrieves an iterator of `element`'s pads. The iterator should
         be freed after usage. Also more specialized iterators exists such as
-        gst_element_iterate_src_pads() or gst_element_iterate_sink_pads().
+        `Gst.element_iterate_src_pads` or `Gst.element_iterate_sink_pads`.
 
         The order of pads returned by the iterator will be the order in which
         the pads were added to the element.
         """
     def iterate_sink_pads(self) -> Iterator:
         """
-            Retrieves an iterator of @element's sink pads.
+            Retrieves an iterator of `element`'s sink pads.
 
         The order of pads returned by the iterator will be the order in which
         the pads were added to the element.
         """
     def iterate_src_pads(self) -> Iterator:
         """
-            Retrieves an iterator of @element's source pads.
+            Retrieves an iterator of `element`'s source pads.
 
         The order of pads returned by the iterator will be the order in which
         the pads were added to the element.
         """
     def link(self, dest: Element) -> bool:
         """
-            Links @src to @dest. The link must be from source to
+            Links `src` to `dest`. The link must be from source to
         destination; the other direction will not be tried. The function looks for
         existing pads that aren't linked yet. It will request new pads if necessary.
         Such pads need to be released manually when unlinking.
         If multiple links are possible, only one is established.
 
         Make sure you have added your elements to a bin or pipeline with
-        gst_bin_add() before trying to link them.
+        `Gst.bin_add` before trying to link them.
         """
     def link_filtered(self, dest: Element, filter: Caps | None = None) -> bool:
         """
-            Links @src to @dest using the given caps as filtercaps.
+            Links `src` to `dest` using the given caps as filtercaps.
         The link must be from source to
         destination; the other direction will not be tried. The function looks for
         existing pads that aren't linked yet. It will request new pads if necessary.
         If multiple links are possible, only one is established.
 
         Make sure you have added your elements to a bin or pipeline with
-        gst_bin_add() before trying to link them.
+        `Gst.bin_add` before trying to link them.
         """
     def link_pads(self, srcpadname: str | None, dest: Element, destpadname: str | None = None) -> bool:
         """
@@ -10676,8 +10676,8 @@ class Element(Object):
         """
             Links the two named pads of the source and destination elements. Side effect
         is that if one of the pads has no parent, it becomes a child of the parent of
-        the other element. If they have different parents, the link fails. If @caps
-        is not %NULL, makes sure that the caps of the link is a subset of @caps.
+        the other element. If they have different parents, the link fails. If `caps`
+        is not None, makes sure that the caps of the link is a subset of `caps`.
         """
     def link_pads_full(
         self, srcpadname: str | None, dest: Element, destpadname: str | None, flags: PadLinkCheck
@@ -10688,24 +10688,24 @@ class Element(Object):
         child of the parent of the other element.  If they have different
         parents, the link fails.
 
-        Calling gst_element_link_pads_full() with @flags == %GST_PAD_LINK_CHECK_DEFAULT
-        is the same as calling gst_element_link_pads() and the recommended way of
+        Calling `Gst.element_link_pads_full` with `flags` == Gst.PAD_LINK_CHECK_DEFAULT
+        is the same as calling `Gst.element_link_pads` and the recommended way of
         linking pads with safety checks applied.
 
-        This is a convenience function for gst_pad_link_full().
+        This is a convenience function for `Gst.pad_link_full`.
         """
     def lost_state(self) -> None:
         """
             Brings the element to the lost state. The current state of the
         element is copied to the pending state so that any call to
-        gst_element_get_state() will return %GST_STATE_CHANGE_ASYNC.
+        `Gst.element_get_state` will return Gst.STATE_CHANGE_ASYNC.
 
         An ASYNC_START message is posted. If the element was PLAYING, it will
         go to PAUSED. The element will be restored to its PLAYING state by
         the parent pipeline when it prerolls again.
 
         This is mostly used for elements that lost their preroll buffer
-        in the %GST_STATE_PAUSED or %GST_STATE_PLAYING state after a flush,
+        in the Gst.STATE_PAUSED or Gst.STATE_PLAYING state after a flush,
         they will go to their pending state again when a new preroll buffer is
         queued. This function can only be called when the element is currently
         not in error or an async state change.
@@ -10732,8 +10732,8 @@ class Element(Object):
         """
             Post an error, warning or info message on the bus from inside an element.
 
-        @type must be of #GST_MESSAGE_ERROR, #GST_MESSAGE_WARNING or
-        #GST_MESSAGE_INFO.
+        `type` must be of GST_MESSAGE_ERROR, GST_MESSAGE_WARNING or
+        GST_MESSAGE_INFO.
 
         MT safe.
         """
@@ -10752,24 +10752,24 @@ class Element(Object):
         """
             Post an error, warning or info message on the bus from inside an element.
 
-        @type must be of #GST_MESSAGE_ERROR, #GST_MESSAGE_WARNING or
-        #GST_MESSAGE_INFO.
+        `type` must be of GST_MESSAGE_ERROR, GST_MESSAGE_WARNING or
+        GST_MESSAGE_INFO.
         """
     def no_more_pads(self) -> None:
         """
             Use this function to signal that the element does not expect any more pads
         to show up in the current pipeline. This function should be called whenever
-        pads have been added by the element itself. Elements with #GST_PAD_SOMETIMES
+        pads have been added by the element itself. Elements with GST_PAD_SOMETIMES
         pad templates use this in combination with autopluggers to figure out that
         the element is done initializing its pads.
 
-        This function emits the #GstElement::no-more-pads signal.
+        This function emits the Gst.Element::no-more-pads signal.
 
         MT safe.
         """
     def post_message(self, message: Message) -> bool:
         """
-            Post a message on the element's #GstBus. This function takes ownership of the
+            Post a message on the element's Gst.Bus. This function takes ownership of the
         message; if you want to access the message after this call, you should add an
         additional reference before calling.
         """
@@ -10791,7 +10791,7 @@ class Element(Object):
         """
     def query_convert(self, src_format: Format, src_val: int, dest_format: Format) -> tuple[bool, int]:
         """
-        Queries an element to convert @src_val in @src_format to @dest_format.
+        Queries an element to convert `src_val` in `src_format` to `dest_format`.
         """
     def query_duration(self, format: Format) -> tuple[bool, int]:
         """
@@ -10814,66 +10814,66 @@ class Element(Object):
         bus when that is the case.
 
         If one repeatedly calls this function one can also create a query and reuse
-        it in gst_element_query().
+        it in `Gst.element_query`.
         """
     @staticmethod
     def register(plugin: Plugin | None, name: str, rank: int, type: GObject.GType) -> bool:
         """
             Create a new elementfactory capable of instantiating objects of the
-        @type and add the factory to @plugin.
+        `type` and add the factory to `plugin`.
         """
     def release_request_pad(self, pad: Pad) -> None:
         """
             Makes the element free the previously requested pad as obtained
-        with gst_element_request_pad().
+        with `Gst.element_request_pad`.
 
         This does not unref the pad. If the pad was created by using
-        gst_element_request_pad(), gst_element_release_request_pad() needs to be
-        followed by gst_object_unref() to free the @pad.
+        `Gst.element_request_pad`, `Gst.element_release_request_pad` needs to be
+        followed by `Gst.object_unref` to free the `pad`.
 
         MT safe.
         """
     def remove_pad(self, pad: Pad) -> bool:
         """
-            Removes @pad from @element. @pad will be destroyed if it has not been
-        referenced elsewhere using gst_object_unparent().
+            Removes `pad` from `element`. `pad` will be destroyed if it has not been
+        referenced elsewhere using `Gst.object_unparent`.
 
         This function is used by plugin developers and should not be used
         by applications. Pads that were dynamically requested from elements
-        with gst_element_request_pad() should be released with the
-        gst_element_release_request_pad() function instead.
+        with `Gst.element_request_pad` should be released with the
+        `Gst.element_release_request_pad` function instead.
 
         Pads are not automatically deactivated so elements should perform the needed
         steps to deactivate the pad in case this pad is removed in the PAUSED or
-        PLAYING state. See gst_pad_set_active() for more information about
+        PLAYING state. See `Gst.pad_set_active` for more information about
         deactivating pads.
 
         The pad and the element should be unlocked when calling this function.
 
-        This function will emit the #GstElement::pad-removed signal on the element.
+        This function will emit the Gst.Element::pad-removed signal on the element.
         """
     def remove_property_notify_watch(self, watch_id: int) -> None: ...
     def request_pad(self, templ: PadTemplate, name: str | None = None, caps: Caps | None = None) -> Pad | None:
         """
             Retrieves a request pad from the element according to the provided template.
         Pad templates can be looked up using
-        gst_element_factory_get_static_pad_templates().
+        `Gst.element_factory_get_static_pad_templates`.
 
-        The pad should be released with gst_element_release_request_pad().
+        The pad should be released with `Gst.element_release_request_pad`.
         """
     def request_pad_simple(self, name: str) -> Pad | None:
         """
             Retrieves a pad from the element by name (e.g. "src_%d"). This version only
         retrieves request pads. The pad should be released with
-        gst_element_release_request_pad().
+        `Gst.element_release_request_pad`.
 
         This method is slower than manually getting the pad template and calling
-        gst_element_request_pad() if the pads should have a specific name (e.g.
-        @name is "src_1" instead of "src_%u").
+        `Gst.element_request_pad` if the pads should have a specific name (e.g.
+        `name` is "src_1" instead of "src_%u").
 
         Note that this function was introduced in GStreamer 1.20 in order to provide
-        a better name to gst_element_get_request_pad(). Prior to 1.20, users
-        should use gst_element_get_request_pad() which provides the same
+        a better name to `Gst.element_get_request_pad`. Prior to 1.20, users
+        should use `Gst.element_get_request_pad` which provides the same
         functionality.
         """
     def seek(
@@ -10887,9 +10887,9 @@ class Element(Object):
         stop: int,
     ) -> bool:
         """
-            Sends a seek event to an element. See gst_event_new_seek() for the details of
+            Sends a seek event to an element. See `Gst.event_new_seek` for the details of
         the parameters. The seek event is sent to the element using
-        gst_element_send_event().
+        `Gst.element_send_event`.
 
         MT safe.
         """
@@ -10899,15 +10899,15 @@ class Element(Object):
         to the given position relative to the start of the stream. For more complex
         operations like segment seeks (e.g. for looping) or changing the playback
         rate or seeking relative to the last configured playback segment you should
-        use gst_element_seek().
+        use `Gst.element_seek`.
 
         In a completely prerolled PAUSED or PLAYING pipeline, seeking is always
-        guaranteed to return %TRUE on a seekable media type or %FALSE when the media
+        guaranteed to return True on a seekable media type or False when the media
         type is certainly not seekable (such as a live stream).
 
         Some elements allow for seeking in the READY state, in this
         case they will store the seek event and execute it when they are put to
-        PAUSED. If the element supports seek in READY, it will always return %TRUE when
+        PAUSED. If the element supports seek in READY, it will always return True when
         it receives the event in the READY state.
         """
     def send_event(self, event: Event) -> bool:
@@ -10917,13 +10917,13 @@ class Element(Object):
         downstream events or a random linked source pad for upstream events.
 
         This function takes ownership of the provided event so you should
-        gst_event_ref() it if you want to reuse the event after this call.
+        `Gst.event_ref` it if you want to reuse the event after this call.
 
         MT safe.
         """
     def set_base_time(self, time: int) -> None:
         """
-            Set the base time of an element. See gst_element_get_base_time().
+            Set the base time of an element. See `Gst.element_get_base_time`.
 
         MT safe.
         """
@@ -10963,8 +10963,8 @@ class Element(Object):
         running time of the element when it last went to the PAUSED state. In READY
         or after a flushing seek, it is set to 0.
 
-        Toplevel elements like #GstPipeline will manage the start_time and
-        base_time on its children. Setting the start_time to #GST_CLOCK_TIME_NONE
+        Toplevel elements like Gst.Pipeline will manage the start_time and
+        base_time on its children. Setting the start_time to GST_CLOCK_TIME_NONE
         on such a toplevel element will disable the distribution of the base_time to
         the children and can be useful if the application manages the base_time
         itself, for example if you want to synchronize capture from multiple
@@ -10978,15 +10978,15 @@ class Element(Object):
         requested state by going through all the intermediary states and calling
         the class's state change function for each.
 
-        This function can return #GST_STATE_CHANGE_ASYNC, in which case the
+        This function can return GST_STATE_CHANGE_ASYNC, in which case the
         element will perform the remainder of the state change asynchronously in
         another thread.
-        An application can use gst_element_get_state() to wait for the completion
-        of the state change or it can wait for a %GST_MESSAGE_ASYNC_DONE or
-        %GST_MESSAGE_STATE_CHANGED on the bus.
+        An application can use `Gst.element_get_state` to wait for the completion
+        of the state change or it can wait for a Gst.MESSAGE_ASYNC_DONE or
+        Gst.MESSAGE_STATE_CHANGED on the bus.
 
-        State changes to %GST_STATE_READY or %GST_STATE_NULL never return
-        #GST_STATE_CHANGE_ASYNC.
+        State changes to Gst.STATE_READY or Gst.STATE_NULL never return
+        GST_STATE_CHANGE_ASYNC.
         """
     @staticmethod
     def state_change_return_get_name(state_ret: StateChangeReturn) -> str:
@@ -11001,12 +11001,12 @@ class Element(Object):
     def sync_state_with_parent(self) -> bool:
         """
             Tries to change the state of the element to the same as its parent.
-        If this function returns %FALSE, the state of element is undefined.
+        If this function returns False, the state of element is undefined.
         """
     @staticmethod
     def type_set_skip_documentation(type: GObject.GType) -> None:
         """
-            Marks @type as "documentation should be skipped".
+            Marks `type` as "documentation should be skipped".
         Can be useful for dynamically registered element to be excluded from
         plugin documentation system.
 
@@ -11029,14 +11029,14 @@ class Element(Object):
             Unlinks all source pads of the source element with all sink pads
         of the sink element to which they are linked.
 
-        If the link has been made using gst_element_link(), it could have created an
-        requestpad, which has to be released using gst_element_release_request_pad().
+        If the link has been made using `Gst.element_link`, it could have created an
+        requestpad, which has to be released using `Gst.element_release_request_pad`.
         """
     def unlink_pads(self, srcpadname: str, dest: Element, destpadname: str) -> None:
         """
             Unlinks the two named pads of the source and destination elements.
 
-        This is a convenience function for gst_pad_unlink().
+        This is a convenience function for `Gst.pad_unlink`.
         """
 
     # python methods (overrides?)
@@ -11238,11 +11238,11 @@ class Element(Object):
         *args: typing.Any,
     ) -> int:
         """
-            a new #GstPad has been added to the element. Note that this signal will
+            a new Gst.Pad has been added to the element. Note that this signal will
         usually be emitted from the context of the streaming thread. Also keep in
         mind that if you add new elements to the pipeline in the signal handler
         you will need to set them to the desired target state with
-        gst_element_set_state() or gst_element_sync_state_with_parent().
+        `Gst.element_set_state` or `Gst.element_sync_state_with_parent`.
         """
     @typing.overload
     def connect(
@@ -11252,7 +11252,7 @@ class Element(Object):
         *args: typing.Any,
     ) -> int:
         """
-        a #GstPad has been removed from the element
+        a Gst.Pad has been removed from the element
         """
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -11269,12 +11269,12 @@ class ElementClass(GObject.GPointer):
     @builtins.property
     def change_state(self) -> change_stateElementClassCB:
         """
-        called by @set_state to perform an incremental state change
+        called by `set_state` to perform an incremental state change
         """
     @builtins.property
     def elementfactory(self) -> ElementFactory | None:
         """
-        the #GstElementFactory that creates these elements
+        the Gst.ElementFactory that creates these elements
         """
     @builtins.property
     def get_state(self) -> get_stateElementClassCB:
@@ -11300,7 +11300,7 @@ class ElementClass(GObject.GPointer):
     @builtins.property
     def padtemplates(self) -> list | None:
         """
-        a #GList of #GstPadTemplate
+        a GList of Gst.PadTemplate
         """
     @builtins.property
     def parent_class(self) -> ObjectClass | None:
@@ -11316,12 +11316,12 @@ class ElementClass(GObject.GPointer):
     @builtins.property
     def provide_clock(self) -> provide_clockElementClassCB | None:
         """
-        gets the #GstClock provided by the element
+        gets the Gst.Clock provided by the element
         """
     @builtins.property
     def query(self) -> queryElementClassCB:
         """
-        perform a #GstQuery on the element
+        perform a Gst.Query on the element
         """
     @builtins.property
     def release_pad(self) -> release_padElementClassCB:
@@ -11336,22 +11336,22 @@ class ElementClass(GObject.GPointer):
     @builtins.property
     def send_event(self) -> send_eventElementClassCB:
         """
-        send a #GstEvent to the element
+        send a Gst.Event to the element
         """
     @builtins.property
     def set_bus(self) -> set_busElementClassCB:
         """
-        set a #GstBus on the element
+        set a Gst.Bus on the element
         """
     @builtins.property
     def set_clock(self) -> set_clockElementClassCB:
         """
-        set the #GstClock on the element
+        set the Gst.Clock on the element
         """
     @builtins.property
     def set_context(self) -> set_contextElementClassCB:
         """
-        set a #GstContext on the element
+        set a Gst.Context on the element
         """
     @builtins.property
     def set_state(self) -> set_stateElementClassCB:
@@ -11371,7 +11371,7 @@ class ElementClass(GObject.GPointer):
         """
     def add_metadata(self, key: str, value: str) -> None:
         """
-        Set @key with @value as metadata in @klass.
+        Set `key` with `value` as metadata in `klass`.
         """
     def add_pad_template(self, templ: PadTemplate) -> None:
         """
@@ -11379,14 +11379,14 @@ class ElementClass(GObject.GPointer):
         functions of classes. If a pad template with the same name as an already
         existing one is added the old one is replaced by the new one.
 
-        @templ's reference count will be incremented, and any floating
-        reference will be removed (see gst_object_ref_sink())
+        `templ`'s reference count will be incremented, and any floating
+        reference will be removed (see `Gst.object_ref_sink`)
         """
     def add_static_metadata(self, key: str, value: str) -> None:
         """
-            Set @key with @value as metadata in @klass.
+            Set `key` with `value` as metadata in `klass`.
 
-        Same as gst_element_class_add_metadata(), but @value must be a static string
+        Same as `Gst.element_class_add_metadata`, but `value` must be a static string
         or an inlined string, as it will not be copied. (GStreamer plugins will
         be made resident once loaded, so this function can be used even from
         dynamically loaded plugins.)
@@ -11394,31 +11394,31 @@ class ElementClass(GObject.GPointer):
     def add_static_pad_template(self, static_templ: StaticPadTemplate) -> None:
         """
             Adds a pad template to an element class based on the static pad template
-        @templ. This is mainly used in the _class_init functions of element
+        `templ`. This is mainly used in the _class_init functions of element
         implementations. If a pad template with the same name already exists,
         the old one is replaced by the new one.
         """
     def add_static_pad_template_with_gtype(self, static_templ: StaticPadTemplate, pad_type: GObject.GType) -> None:
         """
             Adds a pad template to an element class based on the static pad template
-        @templ. This is mainly used in the _class_init functions of element
+        `templ`. This is mainly used in the _class_init functions of element
         implementations. If a pad template with the same name already exists,
         the old one is replaced by the new one.
         """
     def get_metadata(self, key: str) -> str:
         """
-        Get metadata with @key in @klass.
+        Get metadata with `key` in `klass`.
         """
     def get_pad_template(self, name: str) -> PadTemplate | None:
         """
-            Retrieves a padtemplate from @element_class with the given name.
+            Retrieves a padtemplate from `element_class` with the given name.
         > If you use this function in the GInstanceInitFunc of an object class
         > that has subclasses, make sure to pass the g_class parameter of the
         > GInstanceInitFunc here.
         """
     def get_pad_template_list(self) -> list:
         """
-            Retrieves a list of the pad templates associated with @element_class. The
+            Retrieves a list of the pad templates associated with `element_class`. The
         list must not be modified by the calling code.
         > If you use this function in the GInstanceInitFunc of an object class
         > that has subclasses, make sure to pass the g_class parameter of the
@@ -11426,29 +11426,29 @@ class ElementClass(GObject.GPointer):
         """
     def set_metadata(self, longname: str, classification: str, description: str, author: str) -> None:
         """
-            Sets the detailed information for a #GstElementClass.
+            Sets the detailed information for a Gst.ElementClass.
         > This function is for use in _class_init functions only.
         """
     def set_static_metadata(self, longname: str, classification: str, description: str, author: str) -> None:
         """
-            Sets the detailed information for a #GstElementClass.
+            Sets the detailed information for a Gst.ElementClass.
 
         > This function is for use in _class_init functions only.
 
-        Same as gst_element_class_set_metadata(), but @longname, @classification,
-        @description, and @author must be static strings or inlined strings, as
+        Same as `Gst.element_class_set_metadata`, but `longname`, `classification`,
+        `description`, and `author` must be static strings or inlined strings, as
         they will not be copied. (GStreamer plugins will be made resident once
         loaded, so this function can be used even from dynamically loaded plugins.)
         """
 
 class ElementFactory(PluginFeature):
     """
-    #GstElementFactory is used to create instances of elements. A
-    GstElementFactory can be added to a #GstPlugin as it is also a
-    #GstPluginFeature.
+    Gst.ElementFactory is used to create instances of elements. A
+    GstElementFactory can be added to a Gst.Plugin as it is also a
+    Gst.PluginFeature.
 
-    Use the gst_element_factory_find() and gst_element_factory_create()
-    functions to create element instances or use gst_element_factory_make() as a
+    Use the `Gst.element_factory_find` and `Gst.element_factory_create`
+    functions to create element instances or use `Gst.element_factory_make` as a
     convenient shortcut.
 
     The following code example shows you how to create a GstFileSrc element.
@@ -11463,9 +11463,9 @@ class ElementFactory(PluginFeature):
       gst_init (&argc, &argv);
 
       srcfactory = gst_element_factory_find ("filesrc");
-      g_return_if_fail (srcfactory != NULL);
+      g_return_if_fail (srcfactory != None);
       src = gst_element_factory_create (srcfactory, "src");
-      g_return_if_fail (src != NULL);
+      g_return_if_fail (src != None);
       ...
     ]|
     """
@@ -11510,17 +11510,17 @@ class ElementFactory(PluginFeature):
         """
     def get_element_type(self) -> GObject.GType:
         """
-            Get the #GType for elements managed by this factory. The type can
+            Get the GType for elements managed by this factory. The type can
         only be retrieved if the element factory is loaded, which can be
-        assured with gst_plugin_feature_load().
+        assured with `Gst.plugin_feature_load`.
         """
     def get_metadata(self, key: str) -> str | None:
         """
-        Get the metadata on @factory with @key.
+        Get the metadata on `factory` with `key`.
         """
     def get_metadata_keys(self) -> list | None:
         """
-        Get the available keys for the metadata on @factory.
+        Get the available keys for the metadata on `factory`.
         """
     def get_num_pad_templates(self) -> int:
         """
@@ -11528,54 +11528,54 @@ class ElementFactory(PluginFeature):
         """
     def get_skip_documentation(self) -> bool:
         """
-            Queries whether registered element managed by @factory needs to
+            Queries whether registered element managed by `factory` needs to
         be excluded from documentation system or not.
         """
     def get_static_pad_templates(self) -> list:
         """
-        Gets the #GList of #GstStaticPadTemplate for this factory.
+        Gets the GList of Gst.StaticPadTemplate for this factory.
         """
     def get_uri_protocols(self) -> list:
         """
-            Gets a %NULL-terminated array of protocols this element supports or %NULL if
+            Gets a None-terminated array of protocols this element supports or None if
         no protocols are supported. You may not change the contents of the returned
-        array, as it is still owned by the element factory. Use g_strdupv() to
+        array, as it is still owned by the element factory. Use `g_strdupv` to
         make a copy of the protocol string array if you need to.
         """
     def get_uri_type(self) -> URIType:
         """
-        Gets the type of URIs the element supports or #GST_URI_UNKNOWN if none.
+        Gets the type of URIs the element supports or GST_URI_UNKNOWN if none.
         """
     def has_interface(self, interfacename: str) -> bool:
         """
-        Check if @factory implements the interface with name @interfacename.
+        Check if `factory` implements the interface with name `interfacename`.
         """
     @staticmethod
     def list_filter(list: list, caps: Caps, direction: PadDirection, subsetonly: bool) -> list:
         """
-            Filter out all the elementfactories in @list that can handle @caps in
+            Filter out all the elementfactories in `list` that can handle `caps` in
         the given direction.
 
-        If @subsetonly is %TRUE, then only the elements whose pads templates
-        are a complete superset of @caps will be returned. Else any element
-        whose pad templates caps can intersect with @caps will be returned.
+        If `subsetonly` is True, then only the elements whose pads templates
+        are a complete superset of `caps` will be returned. Else any element
+        whose pad templates caps can intersect with `caps` will be returned.
         """
     @staticmethod
     def list_get_elements(type: int, minrank: Rank) -> list:
         """
-            Get a list of factories that match the given @type. Only elements
-        with a rank greater or equal to @minrank will be returned.
+            Get a list of factories that match the given `type`. Only elements
+        with a rank greater or equal to `minrank` will be returned.
         The list of factories is returned by decreasing rank.
         """
     def list_is_type(self, type: int) -> bool:
         """
-        Check if @factory is of the given types.
+        Check if `factory` is of the given types.
         """
     @staticmethod
     def make(factoryname: str, name: str | None = None) -> Element | None:
         """
             Create a new element of the type defined by the given element factory.
-        If name is %NULL, then the element will receive a guaranteed unique name,
+        If name is None, then the element will receive a guaranteed unique name,
         consisting of the element factory name and a number.
         If name is given, it will be given the name supplied.
         """
@@ -11602,12 +11602,12 @@ class Event(GObject.GBoxed):
 
     Events are usually created with gst_event_new_*() which takes event-type
     specific parameters as arguments.
-    To send an event application will usually use gst_element_send_event() and
-    elements will use gst_pad_send_event() or gst_pad_push_event().
-    The event should be unreffed with gst_event_unref() if it has not been sent.
+    To send an event application will usually use `Gst.element_send_event` and
+    elements will use `Gst.pad_send_event` or `Gst.pad_push_event`.
+    The event should be unreffed with `Gst.event_unref` if it has not been sent.
 
     Events that have been received can be parsed with their respective
-    gst_event_parse_*() functions. It is valid to pass %NULL for unwanted details.
+    gst_event_parse_*() functions. It is valid to pass None for unwanted details.
 
     Events are passed between elements in parallel to the data stream. Some events
     are serialized with buffers, others are not. Some events only travel downstream,
@@ -11619,7 +11619,7 @@ class Event(GObject.GBoxed):
 
     Most of the event API is used inside plugins. Applications usually only
     construct and use seek events.
-    To do that gst_event_new_seek() is used to create a seek event. It takes
+    To do that `Gst.event_new_seek` is used to create a seek event. It takes
     the needed parameters to specify seeking time and mode.
     |[<!-- language="C" -->
       GstEvent *event;
@@ -11658,7 +11658,7 @@ class Event(GObject.GBoxed):
     """
     type: EventType = ...
     """
-    the #GstEventType of the event
+    the Gst.EventType of the event
 
     """
 
@@ -11669,15 +11669,15 @@ class Event(GObject.GBoxed):
         """
     def copy_segment(self, segment: Segment) -> None:
         """
-            Parses a segment @event and copies the #GstSegment into the location
-        given by @segment.
+            Parses a segment `event` and copies the Gst.Segment into the location
+        given by `segment`.
         """
     def get_running_time_offset(self) -> int:
         """
             Retrieve the accumulated running time offset of the event.
 
-        Events passing through #GstPads that have a running time
-        offset set via gst_pad_set_offset() will get their offset
+        Events passing through Gst.Pads that have a running time
+        offset set via `Gst.pad_set_offset` will get their offset
         adjusted according to the pad's offset.
 
         If the event contains any information that related to the
@@ -11689,7 +11689,7 @@ class Event(GObject.GBoxed):
             Retrieve the sequence number of a event.
 
         Events have ever-incrementing sequence numbers, which may also be set
-        explicitly via gst_event_set_seqnum(). Sequence numbers are typically used to
+        explicitly via `Gst.event_set_seqnum`. Sequence numbers are typically used to
         indicate that a event corresponds to some other set of events or messages,
         for example an EOS event corresponding to a SEEK event. It is considered good
         practice to make this correspondence when possible, though it is not
@@ -11705,13 +11705,13 @@ class Event(GObject.GBoxed):
         """
     def has_name(self, name: str) -> bool:
         """
-            Checks if @event has the given @name. This function is usually used to
+            Checks if `event` has the given `name`. This function is usually used to
         check the name of a custom event.
         """
     @deprecated("deprecated")
     def has_name_id(self, name: int) -> bool:
         """
-            Checks if @event has the given @name. This function is usually used to
+            Checks if `event` has the given `name`. This function is usually used to
         check the name of a custom event.
         """
     @classmethod
@@ -11720,12 +11720,12 @@ class Event(GObject.GBoxed):
             Create a new buffersize event. The event is sent downstream and notifies
         elements that they should provide a buffer of the specified dimensions.
 
-        When the @async flag is set, a thread boundary is preferred.
+        When the `async` flag is set, a thread boundary is preferred.
         """
     @classmethod
     def new_caps(cls, caps: Caps) -> Event:
         """
-            Create a new CAPS event for @caps. The caps event can only travel downstream
+            Create a new CAPS event for `caps`. The caps event can only travel downstream
         synchronized with the buffer flow and contains the format of the buffers
         that will follow after the event.
         """
@@ -11736,7 +11736,7 @@ class Event(GObject.GBoxed):
         handled by other event-specific functions to pass an event to another
         element.
 
-        Make sure to allocate an event type with the #GST_EVENT_MAKE_TYPE macro,
+        Make sure to allocate an event type with the GST_EVENT_MAKE_TYPE macro,
         assigning a free number and filling in the correct direction and
         serialization flags.
 
@@ -11748,11 +11748,11 @@ class Event(GObject.GBoxed):
         """
             Create a new EOS event. The eos event can only travel downstream
         synchronized with the buffer flow. Elements that receive the EOS
-        event on a pad can return #GST_FLOW_EOS as a #GstFlowReturn
+        event on a pad can return GST_FLOW_EOS as a Gst.FlowReturn
         when data after the EOS event arrives.
 
         The EOS event will travel down to the sink elements in the pipeline
-        which will then post the #GST_MESSAGE_EOS on the bus after they have
+        which will then post the GST_MESSAGE_EOS on the bus after they have
         finished playing any buffered data.
 
         When all sinks have posted an EOS message, an EOS message is
@@ -11767,10 +11767,10 @@ class Event(GObject.GBoxed):
         upstream and downstream and travels out-of-bounds with the dataflow.
 
         It marks pads as being flushing and will make them return
-        #GST_FLOW_FLUSHING when used for data flow with gst_pad_push(),
-        gst_pad_chain(), gst_pad_get_range() and gst_pad_pull_range().
-        Any event (except a #GST_EVENT_FLUSH_STOP) received
-        on a flushing pad will return %FALSE immediately.
+        GST_FLOW_FLUSHING when used for data flow with `Gst.pad_push`,
+        `Gst.pad_chain`, `Gst.pad_get_range` and `Gst.pad_pull_range`.
+        Any event (except a GST_EVENT_FLUSH_STOP) received
+        on a flushing pad will return False immediately.
 
         Elements should unlock any blocking functions and exit their streaming
         functions as fast as possible when this event is received.
@@ -11806,12 +11806,12 @@ class Event(GObject.GBoxed):
         """
             Create a new instant-rate-change event. This event is sent by seek
         handlers (e.g. demuxers) when receiving a seek with the
-        %GST_SEEK_FLAG_INSTANT_RATE_CHANGE and signals to downstream elements that
+        Gst.SEEK_FLAG_INSTANT_RATE_CHANGE and signals to downstream elements that
         the playback rate in the existing segment should be immediately multiplied
-        by the @rate_multiplier factor.
+        by the `rate_multiplier` factor.
 
         The flags provided replace any flags in the existing segment, for the
-        flags within the %GST_SEGMENT_INSTANT_FLAGS set. Other GstSegmentFlags
+        flags within the Gst.SEGMENT_INSTANT_FLAGS set. Other GstSegmentFlags
         are ignored and not transferred in the event.
         """
     @classmethod
@@ -11825,7 +11825,7 @@ class Event(GObject.GBoxed):
         of event delivery to each element and the magnitude of the change in
         playback rate being applied.
 
-        The @running_time and @upstream_running_time are the same if this
+        The `running_time` and `upstream_running_time` are the same if this
         is the first instant-rate adjustment, but will differ for later ones
         to compensate for the accumulated offset due to playing at a rate
         different to the one indicated in the playback segments.
@@ -11834,7 +11834,7 @@ class Event(GObject.GBoxed):
     def new_latency(cls, latency: int) -> Event:
         """
             Create a new latency event. The event is sent upstream from the sinks and
-        notifies elements that they should add an additional @latency to the
+        notifies elements that they should add an additional `latency` to the
         running time before synchronising against the clock.
 
         The latency is mostly used in live sinks and is always expressed in
@@ -11849,7 +11849,7 @@ class Event(GObject.GBoxed):
     def new_protection(cls, system_id: str, data: Buffer, origin: str) -> Event:
         """
             Creates a new event containing information specific to a particular
-        protection system (uniquely identified by @system_id), by which that
+        protection system (uniquely identified by `system_id`), by which that
         protection system can acquire key(s) to decrypt a protected stream.
 
         In order for a decryption element to decrypt media
@@ -11873,9 +11873,9 @@ class Event(GObject.GBoxed):
         some protection systems use different encodings depending upon where the
         information originates.
 
-        The events returned by gst_event_new_protection() are implemented
+        The events returned by `Gst.event_new_protection` are implemented
         in such a way as to ensure that the most recently-pushed protection info
-        event of a particular @origin and @system_id will
+        event of a particular `origin` and `system_id` will
         be stuck to the output pad of the sending element.
         """
     @classmethod
@@ -11888,37 +11888,37 @@ class Event(GObject.GBoxed):
         throttling. Typically sinks generate these events for each buffer
         they receive.
 
-        @type indicates the reason for the QoS event. #GST_QOS_TYPE_OVERFLOW is
+        `type` indicates the reason for the QoS event. GST_QOS_TYPE_OVERFLOW is
         used when a buffer arrived in time or when the sink cannot keep up with
-        the upstream datarate. #GST_QOS_TYPE_UNDERFLOW is when the sink is not
+        the upstream datarate. GST_QOS_TYPE_UNDERFLOW is when the sink is not
         receiving buffers fast enough and thus has to drop late buffers.
-        #GST_QOS_TYPE_THROTTLE is used when the datarate is artificially limited
+        GST_QOS_TYPE_THROTTLE is used when the datarate is artificially limited
         by the application, for example to reduce power consumption.
 
-        @proportion indicates the real-time performance of the streaming in the
+        `proportion` indicates the real-time performance of the streaming in the
         element that generated the QoS event (usually the sink). The value is
         generally computed based on more long term statistics about the streams
         timestamps compared to the clock.
         A value < 1.0 indicates that the upstream element is producing data faster
         than real-time. A value > 1.0 indicates that the upstream element is not
-        producing data fast enough. 1.0 is the ideal @proportion value. The
+        producing data fast enough. 1.0 is the ideal `proportion` value. The
         proportion value can safely be used to lower or increase the quality of
         the element.
 
-        @diff is the difference against the clock in running time of the last
+        `diff` is the difference against the clock in running time of the last
         buffer that caused the element to generate the QOS event. A negative value
-        means that the buffer with @timestamp arrived in time. A positive value
-        indicates how late the buffer with @timestamp was. When throttling is
-        enabled, @diff will be set to the requested throttling interval.
+        means that the buffer with `timestamp` arrived in time. A positive value
+        indicates how late the buffer with `timestamp` was. When throttling is
+        enabled, `diff` will be set to the requested throttling interval.
 
-        @timestamp is the timestamp of the last buffer that cause the element
+        `timestamp` is the timestamp of the last buffer that cause the element
         to generate the QOS event. It is expressed in running time and thus an ever
         increasing value.
 
-        The upstream element can use the @diff and @timestamp values to decide
-        whether to process more buffers. For positive @diff, all buffers with
-        timestamp <= @timestamp + @diff will certainly arrive late in the sink
-        as well. A (negative) @diff value so that @timestamp + @diff would yield a
+        The upstream element can use the `diff` and `timestamp` values to decide
+        whether to process more buffers. For positive `diff`, all buffers with
+        timestamp <= `timestamp` + `diff` will certainly arrive late in the sink
+        as well. A (negative) `diff` value so that `timestamp` + `diff` would yield a
         result smaller than 0 is not allowed.
 
         The application can use general event probes to intercept the QoS
@@ -11946,66 +11946,66 @@ class Event(GObject.GBoxed):
         """
             Allocate a new seek event with the given parameters.
 
-        The seek event configures playback of the pipeline between @start to @stop
-        at the speed given in @rate, also called a playback segment.
-        The @start and @stop values are expressed in @format.
+        The seek event configures playback of the pipeline between `start` to `stop`
+        at the speed given in `rate`, also called a playback segment.
+        The `start` and `stop` values are expressed in `format`.
 
-        A @rate of 1.0 means normal playback rate, 2.0 means double speed.
+        A `rate` of 1.0 means normal playback rate, 2.0 means double speed.
         Negatives values means backwards playback. A value of 0.0 for the
         rate is not allowed and should be accomplished instead by PAUSING the
         pipeline.
 
         A pipeline has a default playback segment configured with a start
         position of 0, a stop position of -1 and a rate of 1.0. The currently
-        configured playback segment can be queried with #GST_QUERY_SEGMENT.
+        configured playback segment can be queried with GST_QUERY_SEGMENT.
 
-        @start_type and @stop_type specify how to adjust the currently configured
+        `start_type` and `stop_type` specify how to adjust the currently configured
         start and stop fields in playback segment. Adjustments can be made relative
-        or absolute to the last configured values. A type of #GST_SEEK_TYPE_NONE
+        or absolute to the last configured values. A type of GST_SEEK_TYPE_NONE
         means that the position should not be updated.
 
-        When the rate is positive and @start has been updated, playback will start
+        When the rate is positive and `start` has been updated, playback will start
         from the newly configured start position.
 
         For negative rates, playback will start from the newly configured stop
         position (if any). If the stop position is updated, it must be different from
-        -1 (#GST_CLOCK_TIME_NONE) for negative rates.
+        -1 (GST_CLOCK_TIME_NONE) for negative rates.
 
         It is not possible to seek relative to the current playback position, to do
         this, PAUSE the pipeline, query the current playback position with
-        #GST_QUERY_POSITION and update the playback segment current position with a
-        #GST_SEEK_TYPE_SET to the desired position.
+        GST_QUERY_POSITION and update the playback segment current position with a
+        GST_SEEK_TYPE_SET to the desired position.
         """
     @classmethod
     def new_segment(cls, segment: Segment) -> Event:
         """
-            Create a new SEGMENT event for @segment. The segment event can only travel
+            Create a new SEGMENT event for `segment`. The segment event can only travel
         downstream synchronized with the buffer flow and contains timing information
         and playback properties for the buffers that will follow.
 
         The segment event marks the range of buffers to be processed. All
         data not within the segment range is not to be processed. This can be
         used intelligently by plugins to apply more efficient methods of skipping
-        unneeded data. The valid range is expressed with the @start and @stop
+        unneeded data. The valid range is expressed with the `start` and `stop`
         values.
 
         The time value of the segment is used in conjunction with the start
         value to convert the buffer timestamps into the stream time. This is
         usually done in sinks to report the current stream_time.
-        @time represents the stream_time of a buffer carrying a timestamp of
-        @start. @time cannot be -1.
+        `time` represents the stream_time of a buffer carrying a timestamp of
+        `start`. `time` cannot be -1.
 
-        @start cannot be -1, @stop can be -1. If there
-        is a valid @stop given, it must be greater or equal the @start, including
-        when the indicated playback @rate is < 0.
+        `start` cannot be -1, `stop` can be -1. If there
+        is a valid `stop` given, it must be greater or equal the `start`, including
+        when the indicated playback `rate` is < 0.
 
-        The @applied_rate value provides information about any rate adjustment that
+        The `applied_rate` value provides information about any rate adjustment that
         has already been made to the timestamps and content on the buffers of the
-        stream. (@rate * @applied_rate) should always equal the rate that has been
+        stream. (`rate` * `applied_rate`) should always equal the rate that has been
         requested for playback. For example, if an element has an input segment
-        with intended playback @rate of 2.0 and applied_rate of 1.0, it can adjust
+        with intended playback `rate` of 2.0 and applied_rate of 1.0, it can adjust
         incoming timestamps and buffer content by half and output a segment event
-        with @rate of 1.0 and @applied_rate of 2.0
+        with `rate` of 1.0 and `applied_rate` of 2.0
 
         After a segment event, the buffer stream time is calculated with:
 
@@ -12022,14 +12022,14 @@ class Event(GObject.GBoxed):
         """
             Allocate a new select-streams event.
 
-        The select-streams event requests the specified @streams to be activated.
+        The select-streams event requests the specified `streams` to be activated.
 
-        The list of @streams corresponds to the "Stream ID" of each stream to be
-        activated. Those ID can be obtained via the #GstStream objects present
-        in #GST_EVENT_STREAM_START, #GST_EVENT_STREAM_COLLECTION or
-        #GST_MESSAGE_STREAM_COLLECTION.
+        The list of `streams` corresponds to the "Stream ID" of each stream to be
+        activated. Those ID can be obtained via the Gst.Stream objects present
+        in GST_EVENT_STREAM_START, GST_EVENT_STREAM_COLLECTION or
+        GST_MESSAGE_STREAM_COLLECTION.
 
-        Note: The list of @streams can not be empty.
+        Note: The list of `streams` can not be empty.
         """
     @classmethod
     def new_sink_message(cls, name: str, msg: Message) -> Event:
@@ -12038,23 +12038,23 @@ class Event(GObject.GBoxed):
         to instruct a sink to post the message contained in the event synchronized
         with the stream.
 
-        @name is used to store multiple sticky events on one pad.
+        `name` is used to store multiple sticky events on one pad.
         """
     @classmethod
     def new_step(cls, format: Format, amount: int, rate: float, flush: bool, intermediate: bool) -> Event:
         """
             Create a new step event. The purpose of the step event is to instruct a sink
-        to skip @amount (expressed in @format) of media. It can be used to implement
+        to skip `amount` (expressed in `format`) of media. It can be used to implement
         stepping through the video frame by frame or for doing fast trick modes.
 
         A rate of <= 0.0 is not allowed. Pause the pipeline, for the effect of rate
         = 0.0 or first reverse the direction of playback using a seek event to get
         the same effect as rate < 0.0.
 
-        The @flush flag will clear any pending data in the pipeline before starting
+        The `flush` flag will clear any pending data in the pipeline before starting
         the step operation.
 
-        The @intermediate flag instructs the pipeline that this step operation is
+        The `intermediate` flag instructs the pipeline that this step operation is
         part of a larger step operation.
         """
     @classmethod
@@ -12064,7 +12064,7 @@ class Event(GObject.GBoxed):
         travel downstream synchronized with the buffer flow.
 
         Source elements, demuxers and other elements that manage collections
-        of streams and post #GstStreamCollection messages on the bus also send
+        of streams and post Gst.StreamCollection messages on the bus also send
         this event downstream on each pad involved in the collection, so that
         activation of a new collection can be tracked through the downstream
         data flow.
@@ -12096,12 +12096,12 @@ class Event(GObject.GBoxed):
         combining multiple streams must ensure that this event is only forwarded
         downstream once and not for every single input stream.
 
-        The @stream_id should be a unique string that consists of the upstream
+        The `stream_id` should be a unique string that consists of the upstream
         stream-id, / as separator and a unique stream-id for this specific
         stream. A new stream-id should only be created for a stream if the upstream
         stream is split into (potentially) multiple new streams, e.g. in a demuxer,
         but not for every single element in the pipeline.
-        gst_pad_create_stream_id() or gst_pad_create_stream_id_printf() can be
+        `Gst.pad_create_stream_id` or `Gst.pad_create_stream_id_printf` can be
         used to create a stream-id.  There are no particular semantics for the
         stream-id, though it should be deterministic (to support stream matching)
         and it might be used to order streams (besides any information conveyed by
@@ -12110,7 +12110,7 @@ class Event(GObject.GBoxed):
     @classmethod
     def new_tag(cls, taglist: TagList) -> Event:
         """
-            Generates a metadata tag event from the given @taglist.
+            Generates a metadata tag event from the given `taglist`.
 
         The scope of the taglist specifies if the taglist applies to the
         complete medium or only to this specific stream. As the tag event
@@ -12121,15 +12121,15 @@ class Event(GObject.GBoxed):
     @classmethod
     def new_toc(cls, toc: Toc, updated: bool) -> Event:
         """
-            Generate a TOC event from the given @toc. The purpose of the TOC event is to
+            Generate a TOC event from the given `toc`. The purpose of the TOC event is to
         inform elements that some kind of the TOC was found.
         """
     @classmethod
     def new_toc_select(cls, uid: str) -> Event:
         """
-            Generate a TOC select event with the given @uid. The purpose of the
+            Generate a TOC select event with the given `uid`. The purpose of the
         TOC select event is to start playback based on the TOC's entry with the
-        given @uid.
+        given `uid`.
         """
     def parse_buffer_size(self) -> tuple[Format, int, int, bool]:
         """
@@ -12137,12 +12137,12 @@ class Event(GObject.GBoxed):
         """
     def parse_caps(self) -> Caps:
         """
-            Get the caps from @event. The caps remains valid as long as @event remains
+            Get the caps from `event`. The caps remains valid as long as `event` remains
         valid.
         """
     def parse_flush_stop(self) -> bool:
         """
-        Parse the FLUSH_STOP event and retrieve the @reset_time member.
+        Parse the FLUSH_STOP event and retrieve the `reset_time` member.
         """
     def parse_gap(self) -> tuple[int, int]:
         """
@@ -12151,7 +12151,7 @@ class Event(GObject.GBoxed):
     def parse_gap_flags(self) -> GapFlags:
         """
             Retrieve the gap flags that may have been set on a gap event with
-        gst_event_set_gap_flags().
+        `Gst.event_set_gap_flags`.
         """
     def parse_group_id(self) -> tuple[bool, int]: ...
     def parse_instant_rate_change(self) -> tuple[float, SegmentFlags]:
@@ -12169,29 +12169,29 @@ class Event(GObject.GBoxed):
     def parse_protection(self) -> tuple[str, Buffer, str]:
         """
             Parses an event containing protection system specific information and stores
-        the results in @system_id, @data and @origin. The data stored in @system_id,
-        @origin and @data are valid until @event is released.
+        the results in `system_id`, `data` and `origin`. The data stored in `system_id`,
+        `origin` and `data` are valid until `event` is released.
         """
     def parse_qos(self) -> tuple[QOSType, float, int, int]:
         """
             Get the type, proportion, diff and timestamp in the qos event. See
-        gst_event_new_qos() for more information about the different QoS values.
+        `Gst.event_new_qos` for more information about the different QoS values.
 
-        @timestamp will be adjusted for any pad offsets of pads it was passing through.
+        `timestamp` will be adjusted for any pad offsets of pads it was passing through.
         """
     def parse_seek(self) -> tuple[float, Format, SeekFlags, SeekType, int, SeekType, int]:
         """
-        Parses a seek @event and stores the results in the given result locations.
+        Parses a seek `event` and stores the results in the given result locations.
         """
     def parse_seek_trickmode_interval(self) -> int:
         """
             Retrieve the trickmode interval that may have been set on a
-        seek event with gst_event_set_seek_trickmode_interval().
+        seek event with `Gst.event_set_seek_trickmode_interval`.
         """
     def parse_segment(self) -> Segment:
         """
-            Parses a segment @event and stores the result in the given @segment location.
-        @segment remains valid only until the @event is freed. Don't modify the segment
+            Parses a segment `event` and stores the result in the given `segment` location.
+        `segment` remains valid only until the `event` is freed. Don't modify the segment
         and make a copy if you want to modify it or store it for later use.
         """
     def parse_segment_done(self) -> tuple[Format, int]:
@@ -12204,7 +12204,7 @@ class Event(GObject.GBoxed):
         """
     def parse_sink_message(self) -> Message:
         """
-        Parse the sink-message event. Unref @msg after usage.
+        Parse the sink-message event. Unref `msg` after usage.
         """
     def parse_step(self) -> tuple[Format, int, float, bool, bool]:
         """
@@ -12212,44 +12212,44 @@ class Event(GObject.GBoxed):
         """
     def parse_stream(self) -> Stream:
         """
-        Parse a stream-start @event and extract the #GstStream from it.
+        Parse a stream-start `event` and extract the Gst.Stream from it.
         """
     def parse_stream_collection(self) -> StreamCollection:
         """
-        Retrieve new #GstStreamCollection from STREAM_COLLECTION event @event.
+        Retrieve new Gst.StreamCollection from STREAM_COLLECTION event `event`.
         """
     def parse_stream_flags(self) -> StreamFlags: ...
     def parse_stream_group_done(self) -> int:
         """
-            Parse a stream-group-done @event and store the result in the given
-        @group_id location.
+            Parse a stream-group-done `event` and store the result in the given
+        `group_id` location.
         """
     def parse_stream_start(self) -> str:
         """
-            Parse a stream-id @event and store the result in the given @stream_id
-        location. The string stored in @stream_id must not be modified and will
-        remain valid only until @event gets freed. Make a copy if you want to
+            Parse a stream-id `event` and store the result in the given `stream_id`
+        location. The string stored in `stream_id` must not be modified and will
+        remain valid only until `event` gets freed. Make a copy if you want to
         modify it or store it for later use.
         """
     def parse_tag(self) -> TagList:
         """
-            Parses a tag @event and stores the results in the given @taglist location.
+            Parses a tag `event` and stores the results in the given `taglist` location.
         No reference to the taglist will be returned, it remains valid only until
-        the @event is freed. Don't modify or free the taglist, make a copy if you
+        the `event` is freed. Don't modify or free the taglist, make a copy if you
         want to modify it or store it for later use.
         """
     def parse_toc(self) -> tuple[Toc, bool]:
         """
-        Parse a TOC @event and store the results in the given @toc and @updated locations.
+        Parse a TOC `event` and store the results in the given `toc` and `updated` locations.
         """
     def parse_toc_select(self) -> str:
         """
-        Parse a TOC select @event and store the results in the given @uid location.
+        Parse a TOC select `event` and store the results in the given `uid` location.
         """
     def set_gap_flags(self, flags: GapFlags) -> None:
         """
-            Sets @flags on @event to give additional information about the reason for
-        the #GST_EVENT_GAP.
+            Sets `flags` on `event` to give additional information about the reason for
+        the GST_EVENT_GAP.
         """
     def set_group_id(self, group_id: int) -> None:
         """
@@ -12259,12 +12259,12 @@ class Event(GObject.GBoxed):
         each time the stream is started, resulting in different group ids
         each time a file is played for example.
 
-        Use gst_util_group_id_next() to get a new group id.
+        Use `Gst.util_group_id_next` to get a new group id.
         """
     def set_running_time_offset(self, offset: int) -> None:
         """
             Set the running time offset of a event. See
-        gst_event_get_running_time_offset() for more information.
+        `Gst.event_get_running_time_offset` for more information.
 
         MT safe.
         """
@@ -12279,14 +12279,14 @@ class Event(GObject.GBoxed):
             Set the sequence number of a event.
 
         This function might be called by the creator of a event to indicate that the
-        event relates to other events or messages. See gst_event_get_seqnum() for
+        event relates to other events or messages. See `Gst.event_get_seqnum` for
         more information.
 
         MT safe.
         """
     def set_stream(self, stream: Stream) -> None:
         """
-        Set the @stream on the stream-start @event
+        Set the `stream` on the stream-start `event`
         """
     def set_stream_flags(self, flags: StreamFlags) -> None: ...
     def writable_structure(self) -> Structure:
@@ -12313,7 +12313,7 @@ class FlagSet(object):
     @staticmethod
     def register(flags_type: GObject.GType) -> GObject.GType:
         """
-            Create a new sub-class of #GST_TYPE_FLAG_SET
+            Create a new sub-class of GST_TYPE_FLAG_SET
         which will pretty-print the human-readable flags
         when serializing, for easier debugging.
         """
@@ -12370,7 +12370,7 @@ class Fraction(object):
 
 class FractionRange(object):
     """
-    A fundamental type that describes a #GstFractionRange range
+    A fundamental type that describes a Gst.FractionRange range
     """
 
     class Props: ...
@@ -12386,16 +12386,16 @@ class FractionRange(object):
 
 class GhostPad(ProxyPad):
     """
-    GhostPads are useful when organizing pipelines with #GstBin like elements.
+    GhostPads are useful when organizing pipelines with Gst.Bin like elements.
     The idea here is to create hierarchical element graphs. The bin element
     contains a sub-graph. Now one would like to treat the bin-element like any
-    other #GstElement. This is where GhostPads come into play. A GhostPad acts as
+    other Gst.Element. This is where GhostPads come into play. A GhostPad acts as
     a proxy for another pad. Thus the bin can have sink and source ghost-pads
     that are associated with sink and source pads of the child elements.
 
-    If the target pad is known at creation time, gst_ghost_pad_new() is the
-    function to use to get a ghost-pad. Otherwise one can use gst_ghost_pad_new_no_target()
-    to create the ghost-pad and use gst_ghost_pad_set_target() to establish the
+    If the target pad is known at creation time, `Gst.ghost_pad_new` is the
+    function to use to get a ghost-pad. Otherwise one can use `Gst.ghost_pad_new_no_target`
+    to create the ghost-pad and use `Gst.ghost_pad_set_target` to establish the
     association later on.
 
     Note that GhostPads add overhead to the data processing of a pipeline.
@@ -12421,13 +12421,13 @@ class GhostPad(ProxyPad):
             Finish initialization of a newly allocated ghost pad.
 
         This function is most useful in language bindings and when subclassing
-        #GstGhostPad; plugin and application developers normally will not call this
+        Gst.GhostPad; plugin and application developers normally will not call this
         function. Call this function directly after a call to g_object_new
-        (GST_TYPE_GHOST_PAD, "direction", @dir, ..., NULL).
+        (GST_TYPE_GHOST_PAD, "direction", `dir`, ..., None).
         """
     def get_target(self) -> Pad | None:
         """
-        Get the target pad of @gpad. Unref target pad after usage.
+        Get the target pad of `gpad`. Unref target pad after usage.
         """
     @staticmethod
     def internal_activate_mode_default(pad: Pad, parent: Object | None, mode: PadMode, active: bool) -> bool:
@@ -12438,16 +12438,16 @@ class GhostPad(ProxyPad):
     @classmethod
     def new(cls, name: str | None, target: Pad) -> GhostPad | None:
         """
-            Create a new ghostpad with @target as the target. The direction will be taken
-        from the target pad. @target must be unlinked.
+            Create a new ghostpad with `target` as the target. The direction will be taken
+        from the target pad. `target` must be unlinked.
 
         Will ref the target.
         """
     @classmethod
     def new_from_template(cls, name: str | None, target: Pad, templ: PadTemplate) -> GhostPad | None:
         """
-            Create a new ghostpad with @target as the target. The direction will be taken
-        from the target pad. The template used on the ghostpad will be @template.
+            Create a new ghostpad with `target` as the target. The direction will be taken
+        from the target pad. The template used on the ghostpad will be `template`.
 
         Will ref the target.
         """
@@ -12456,21 +12456,21 @@ class GhostPad(ProxyPad):
         """
             Create a new ghostpad without a target with the given direction.
         A target can be set on the ghostpad later with the
-        gst_ghost_pad_set_target() function.
+        `Gst.ghost_pad_set_target` function.
 
         The created ghostpad will not have a padtemplate.
         """
     @classmethod
     def new_no_target_from_template(cls, name: str | None, templ: PadTemplate) -> GhostPad | None:
         """
-            Create a new ghostpad based on @templ, without setting a target. The
-        direction will be taken from the @templ.
+            Create a new ghostpad based on `templ`, without setting a target. The
+        direction will be taken from the `templ`.
         """
     def set_target(self, newtarget: Pad | None = None) -> bool:
         """
-            Set the new target of the ghostpad @gpad. Any existing target
-        is unlinked and links to the new target are established. if @newtarget is
-        %NULL the target will be cleared.
+            Set the new target of the ghostpad `gpad`. Any existing target
+        is unlinked and links to the new target are established. if `newtarget` is
+        None the target will be cleared.
         """
 
 class GhostPadClass(GObject.GPointer):
@@ -12493,7 +12493,7 @@ class GhostPadPrivate(GObject.GPointer):
 
 class IdStr(GObject.GBoxed):
     """
-    A #GstIdStr is string type optimized for short strings and used for structure
+    A Gst.IdStr is string type optimized for short strings and used for structure
     names, structure field names and in other places.
 
     Strings up to 16 bytes (including NUL terminator) are stored inline, other
@@ -12517,49 +12517,49 @@ class IdStr(GObject.GBoxed):
     def as_str(self) -> str: ...
     def clear(self) -> None:
         """
-        Clears @s and sets it to the empty string.
+        Clears `s` and sets it to the empty string.
         """
     def copy(self) -> IdStr:
         """
-        Copies @s into newly allocated heap memory.
+        Copies `s` into newly allocated heap memory.
         """
     def copy_into(self, s: IdStr) -> None:
         """
-        Copies @s into @d.
+        Copies `s` into `d`.
         """
     def free(self) -> None:
         """
-        Frees @s. This should only be called for heap-allocated #GstIdStr.
+        Frees `s`. This should only be called for heap-allocated Gst.IdStr.
         """
     def get_len(self) -> int:
         """
-            Returns the length of @s, exluding the NUL-terminator. This is equivalent to
-        calling `strcmp()` but potentially faster.
+            Returns the length of `s`, exluding the NUL-terminator. This is equivalent to
+        calling ``strcmp`` but potentially faster.
         """
     def init(self) -> None:
         """
-            Initializes a (usually stack-allocated) id string @s. The newly-initialized
+            Initializes a (usually stack-allocated) id string `s`. The newly-initialized
         id string will contain an empty string by default as value.
         """
     def is_equal(self, s2: IdStr) -> bool:
         """
-        Compares @s1 and @s2 for equality.
+        Compares `s1` and `s2` for equality.
         """
     def is_equal_to_str(self, s2: str) -> bool:
         """
-        Compares @s1 and @s2 for equality.
+        Compares `s1` and `s2` for equality.
         """
     def is_equal_to_str_with_len(self, s2: str, len: int) -> bool:
         """
-            Compares @s1 and @s2 with length @len for equality. @s2 does not have to be
-        NUL-terminated and @len should not include the NUL-terminator.
+            Compares `s1` and `s2` with length `len` for equality. `s2` does not have to be
+        NUL-terminated and `len` should not include the NUL-terminator.
 
-        This is generally faster than gst_id_str_is_equal_to_str() if the length is
+        This is generally faster than `Gst.id_str_is_equal_to_str` if the length is
         already known.
         """
     def move(self, s: IdStr) -> None:
         """
-        Moves @s into @d and resets @s.
+        Moves `s` into `d` and resets `s`.
         """
     @classmethod
     def new(cls) -> IdStr:
@@ -12568,25 +12568,25 @@ class IdStr(GObject.GBoxed):
         """
     def set(self, value: str) -> None:
         """
-        Sets @s to the string @value.
+        Sets `s` to the string `value`.
         """
     def set_static_str(self, value: str) -> None:
         """
-            Sets @s to the string @value. @value needs to be valid for the remaining
+            Sets `s` to the string `value`. `value` needs to be valid for the remaining
         lifetime of the process, e.g. has to be a static string.
         """
     def set_static_str_with_len(self, value: str, len: int) -> None:
         """
-            Sets @s to the string @value of length @len. @value needs to be valid for the
+            Sets `s` to the string `value` of length `len`. `value` needs to be valid for the
         remaining lifetime of the process, e.g. has to be a static string.
 
-        @value must be NUL-terminated and @len should not include the
+        `value` must be NUL-terminated and `len` should not include the
         NUL-terminator.
         """
     def set_with_len(self, value: str, len: int) -> None:
         """
-            Sets @s to the string @value of length @len. @value does not have to be
-        NUL-terminated and @len should not include the NUL-terminator.
+            Sets `s` to the string `value` of length `len`. `value` does not have to be
+        NUL-terminated and `len` should not include the NUL-terminator.
         """
 
     # python methods (overrides?)
@@ -12637,7 +12637,7 @@ class Iterator(GObject.GBoxed):
     an iterator.
 
     Note that if calling a GstIterator function results in your code receiving
-    a refcounted object (with, say, g_value_get_object()), the refcount for that
+    a refcounted object (with, say, `g_value_get_object`), the refcount for that
     object will not be increased. Your code is responsible for taking a reference
     if it wants to continue using it later.
 
@@ -12645,7 +12645,7 @@ class Iterator(GObject.GBoxed):
     |[<!-- language="C" -->
       GstIterator *it = _get_iterator(object);
       GValue item = G_VALUE_INIT;
-      done = FALSE;
+      done = False;
       while (!done) {
         switch (gst_iterator_next (it, &item)) {
           case GST_ITERATOR_OK:
@@ -12658,10 +12658,10 @@ class Iterator(GObject.GBoxed):
             break;
           case GST_ITERATOR_ERROR:
             ...wrong parameters were given...
-            done = TRUE;
+            done = True;
             break;
           case GST_ITERATOR_DONE:
-            done = TRUE;
+            done = True;
             break;
         }
       }
@@ -12694,7 +12694,7 @@ class Iterator(GObject.GBoxed):
     """
     pushed: Iterator | None = ...
     """
-    The iterator that is currently pushed with gst_iterator_push()
+    The iterator that is currently pushed with `Gst.iterator_push`
 
     """
     size: int = ...
@@ -12720,47 +12720,47 @@ class Iterator(GObject.GBoxed):
     def filter(self, func: GLib.CompareFunc, user_data: GObject.Value) -> Iterator:
         """
             Create a new iterator from an existing iterator. The new iterator
-        will only return those elements that match the given compare function @func.
-        The first parameter that is passed to @func is the #GValue of the current
-        iterator element and the second parameter is @user_data. @func should
+        will only return those elements that match the given compare function `func`.
+        The first parameter that is passed to `func` is the GValue of the current
+        iterator element and the second parameter is `user_data`. `func` should
         return 0 for elements that should be included in the filtered iterator.
 
-        When this iterator is freed, @it will also be freed.
+        When this iterator is freed, `it` will also be freed.
         """
     def find_custom(self, func: GLib.CompareFunc, user_data: object | None = None) -> tuple[bool, GObject.Value]:
         """
-            Find the first element in @it that matches the compare function @func.
-        @func should return 0 when the element is found. The first parameter
-        to @func will be the current element of the iterator and the
-        second parameter will be @user_data.
-        The result will be stored in @elem if a result is found.
+            Find the first element in `it` that matches the compare function `func`.
+        `func` should return 0 when the element is found. The first parameter
+        to `func` will be the current element of the iterator and the
+        second parameter will be `user_data`.
+        The result will be stored in `elem` if a result is found.
 
         The iterator will not be freed.
 
-        This function will return %FALSE if an error happened to the iterator
+        This function will return False if an error happened to the iterator
         or if the element wasn't found.
         """
     def fold(self, func: IteratorFoldFunction, ret: GObject.Value, user_data: object | None = None) -> IteratorResult:
         """
-            Folds @func over the elements of @iter. That is to say, @func will be called
-        as @func (object, @ret, @user_data) for each object in @it. The normal use
+            Folds `func` over the elements of `iter`. That is to say, `func` will be called
+        as `func` (object, `ret`, `user_data`) for each object in `it`. The normal use
         of this procedure is to accumulate the results of operating on the objects in
-        @ret.
+        `ret`.
 
         This procedure can be used (and is used internally) to implement the
-        gst_iterator_foreach() and gst_iterator_find_custom() operations.
+        `Gst.iterator_foreach` and `Gst.iterator_find_custom` operations.
 
-        The fold will proceed as long as @func returns %TRUE. When the iterator has no
-        more arguments, %GST_ITERATOR_DONE will be returned. If @func returns %FALSE,
-        the fold will stop, and %GST_ITERATOR_OK will be returned. Errors or resyncs
-        will cause fold to return %GST_ITERATOR_ERROR or %GST_ITERATOR_RESYNC as
+        The fold will proceed as long as `func` returns True. When the iterator has no
+        more arguments, Gst.ITERATOR_DONE will be returned. If `func` returns False,
+        the fold will stop, and Gst.ITERATOR_OK will be returned. Errors or resyncs
+        will cause fold to return Gst.ITERATOR_ERROR or Gst.ITERATOR_RESYNC as
         appropriate.
 
         The iterator will not be freed.
         """
     def foreach(self, func: IteratorForeachFunction, user_data: object | None = None) -> IteratorResult:
         """
-            Iterate over all element of @it and call the given function @func for
+            Iterate over all element of `it` and call the given function `func` for
         each element.
         """
     def free(self) -> None:
@@ -12772,40 +12772,40 @@ class Iterator(GObject.GBoxed):
     @classmethod
     def new_single(cls, type: GObject.GType, object: GObject.Value) -> Iterator:
         """
-            This #GstIterator is a convenient iterator for the common
-        case where a #GstIterator needs to be returned but only
+            This Gst.Iterator is a convenient iterator for the common
+        case where a Gst.Iterator needs to be returned but only
         a single object has to be considered. This happens often
-        for the #GstPadIterIntLinkFunction.
+        for the Gst.PadIterIntLinkFunction.
         """
     def next(self) -> tuple[IteratorResult, GObject.Value]:
         """
-            Get the next item from the iterator in @elem.
+            Get the next item from the iterator in `elem`.
 
-        Only when this function returns %GST_ITERATOR_OK, @elem will contain a valid
-        value. @elem must have been initialized to the type of the iterator or
-        initialized to zeroes with g_value_unset(). The caller is responsible for
-        unsetting or resetting @elem with g_value_unset() or g_value_reset()
+        Only when this function returns Gst.ITERATOR_OK, `elem` will contain a valid
+        value. `elem` must have been initialized to the type of the iterator or
+        initialized to zeroes with `g_value_unset`. The caller is responsible for
+        unsetting or resetting `elem` with `g_value_unset` or `g_value_reset`
         after usage.
 
-        When this function returns %GST_ITERATOR_DONE, no more elements can be
-        retrieved from @it.
+        When this function returns Gst.ITERATOR_DONE, no more elements can be
+        retrieved from `it`.
 
-        A return value of %GST_ITERATOR_RESYNC indicates that the element list was
-        concurrently updated. The user of @it should call gst_iterator_resync() to
+        A return value of Gst.ITERATOR_RESYNC indicates that the element list was
+        concurrently updated. The user of `it` should call `Gst.iterator_resync` to
         get the newly updated list.
 
-        A return value of %GST_ITERATOR_ERROR indicates an unrecoverable fatal error.
+        A return value of Gst.ITERATOR_ERROR indicates an unrecoverable fatal error.
         """
     def push(self, other: Iterator) -> None:
         """
-            Pushes @other iterator onto @it. All calls performed on @it are
-        forwarded to @other. If @other returns %GST_ITERATOR_DONE, it is
-        popped again and calls are handled by @it again.
+            Pushes `other` iterator onto `it`. All calls performed on `it` are
+        forwarded to `other`. If `other` returns Gst.ITERATOR_DONE, it is
+        popped again and calls are handled by `it` again.
 
         This function is mainly used by objects implementing the iterator
         next function to recurse into substructures.
 
-        When gst_iterator_resync() is called on @it, @other will automatically be
+        When `Gst.iterator_resync` is called on `it`, `other` will automatically be
         popped.
 
         MT safe.
@@ -12813,9 +12813,9 @@ class Iterator(GObject.GBoxed):
     def resync(self) -> None:
         """
             Resync the iterator. this function is mostly called
-        after gst_iterator_next() returned %GST_ITERATOR_RESYNC.
+        after `Gst.iterator_next` returned Gst.ITERATOR_RESYNC.
 
-        When an iterator was pushed on @it, it will automatically be popped again
+        When an iterator was pushed on `it`, it will automatically be popped again
         with this function.
 
         MT safe.
@@ -12824,11 +12824,11 @@ class Iterator(GObject.GBoxed):
 class MapInfo(GObject.GPointer):
     """
     A structure containing the result of a map operation such as
-    gst_memory_map(). It contains the data and size.
+    `Gst.memory_map`. It contains the data and size.
 
-    #GstMapInfo cannot be used with g_auto() because it is ambiguous whether it
-    needs to be unmapped using gst_buffer_unmap() or gst_memory_unmap(). Instead,
-    #GstBufferMapInfo and #GstMemoryMapInfo can be used in that case.
+    Gst.MapInfo cannot be used with `g_auto` because it is ambiguous whether it
+    needs to be unmapped using `Gst.buffer_unmap` or `Gst.memory_unmap`. Instead,
+    Gst.BufferMapInfo and Gst.MemoryMapInfo can be used in that case.
     """
 
     # gi Fields
@@ -12844,7 +12844,7 @@ class MapInfo(GObject.GPointer):
     """
     maxsize: int = ...
     """
-    the maximum bytes in @data
+    the maximum bytes in `data`
 
     """
     memory: Memory | None = ...
@@ -12854,7 +12854,7 @@ class MapInfo(GObject.GPointer):
     """
     size: int = ...
     """
-    the valid size in @data
+    the valid size in `data`
 
     """
     user_data: list | None = ...
@@ -12873,41 +12873,41 @@ class MapInfo(GObject.GPointer):
 class Memory(GObject.GBoxed):
     """
     GstMemory is a lightweight refcounted object that wraps a region of memory.
-    They are typically used to manage the data of a #GstBuffer.
+    They are typically used to manage the data of a Gst.Buffer.
 
     A GstMemory object has an allocated region of memory of maxsize. The maximum
     size does not change during the lifetime of the memory object. The memory
     also has an offset and size property that specifies the valid range of memory
     in the allocated region.
 
-    Memory is usually created by allocators with a gst_allocator_alloc()
-    method call. When %NULL is used as the allocator, the default allocator will
+    Memory is usually created by allocators with a `Gst.allocator_alloc`
+    method call. When None is used as the allocator, the default allocator will
     be used.
 
-    New allocators can be registered with gst_allocator_register().
+    New allocators can be registered with `Gst.allocator_register`.
     Allocators are identified by name and can be retrieved with
-    gst_allocator_find(). gst_allocator_set_default() can be used to change the
+    `Gst.allocator_find`. `Gst.allocator_set_default` can be used to change the
     default allocator.
 
-    New memory can be created with gst_memory_new_wrapped() that wraps the memory
+    New memory can be created with `Gst.memory_new_wrapped` that wraps the memory
     allocated elsewhere.
 
-    Refcounting of the memory block is performed with gst_memory_ref() and
-    gst_memory_unref().
+    Refcounting of the memory block is performed with `Gst.memory_ref` and
+    `Gst.memory_unref`.
 
     The size of the memory can be retrieved and changed with
-    gst_memory_get_sizes() and gst_memory_resize() respectively.
+    `Gst.memory_get_sizes` and `Gst.memory_resize` respectively.
 
-    Getting access to the data of the memory is performed with gst_memory_map().
+    Getting access to the data of the memory is performed with `Gst.memory_map`.
     The call will return a pointer to offset bytes into the region of memory.
-    After the memory access is completed, gst_memory_unmap() should be called.
+    After the memory access is completed, `Gst.memory_unmap` should be called.
 
-    Memory can be copied with gst_memory_copy(), which will return a writable
-    copy. gst_memory_share() will create a new memory block that shares the
+    Memory can be copied with `Gst.memory_copy`, which will return a writable
+    copy. `Gst.memory_share` will create a new memory block that shares the
     memory with an existing memory block at a custom offset and with a custom
     size.
 
-    Memory can be efficiently merged when gst_memory_is_span() returns %TRUE.
+    Memory can be efficiently merged when `Gst.memory_is_span` returns True.
     """
 
     # gi Fields
@@ -12918,7 +12918,7 @@ class Memory(GObject.GBoxed):
     """
     allocator: Allocator | None = ...
     """
-    pointer to the #GstAllocator
+    pointer to the Gst.Allocator
 
     """
     maxsize: int = ...
@@ -12949,49 +12949,49 @@ class Memory(GObject.GBoxed):
         """
     def copy(self, offset: int, size: int) -> Memory | None:
         """
-            Return a copy of @size bytes from @mem starting from @offset. This copy is
-        guaranteed to be writable. @size can be set to -1 to return a copy
-        from @offset to the end of the memory region.
+            Return a copy of `size` bytes from `mem` starting from `offset`. This copy is
+        guaranteed to be writable. `size` can be set to -1 to return a copy
+        from `offset` to the end of the memory region.
         """
     def get_sizes(self) -> tuple[int, int, int]:
         """
-        Get the current @size, @offset and @maxsize of @mem.
+        Get the current `size`, `offset` and `maxsize` of `mem`.
         """
     def is_span(self, mem2: Memory) -> tuple[bool, int]:
         """
-            Check if @mem1 and mem2 share the memory with a common parent memory object
+            Check if `mem1` and mem2 share the memory with a common parent memory object
         and that the memory is contiguous.
 
-        If this is the case, the memory of @mem1 and @mem2 can be merged
-        efficiently by performing gst_memory_share() on the parent object from
-        the returned @offset.
+        If this is the case, the memory of `mem1` and `mem2` can be merged
+        efficiently by performing `Gst.memory_share` on the parent object from
+        the returned `offset`.
         """
     def is_type(self, mem_type: str) -> bool:
         """
-        Check if @mem if allocated with an allocator for @mem_type.
+        Check if `mem` if allocated with an allocator for `mem_type`.
         """
     def make_mapped(self, flags: MapFlags) -> tuple[Memory | None, MapInfo]:
         """
-            Create a #GstMemory object that is mapped with @flags. If @mem is mappable
-        with @flags, this function returns the mapped @mem directly. Otherwise a
-        mapped copy of @mem is returned.
+            Create a Gst.Memory object that is mapped with `flags`. If `mem` is mappable
+        with `flags`, this function returns the mapped `mem` directly. Otherwise a
+        mapped copy of `mem` is returned.
 
-        This function takes ownership of old @mem and returns a reference to a new
-        #GstMemory.
+        This function takes ownership of old `mem` and returns a reference to a new
+        Gst.Memory.
         """
     def map(self, flags: MapFlags) -> tuple[bool, MapInfo]:
         """
-            Fill @info with the pointer and sizes of the memory in @mem that can be
-        accessed according to @flags.
+            Fill `info` with the pointer and sizes of the memory in `mem` that can be
+        accessed according to `flags`.
 
-        This function can return %FALSE for various reasons:
-        - the memory backed by @mem is not accessible with the given @flags.
+        This function can return False for various reasons:
+        - the memory backed by `mem` is not accessible with the given `flags`.
         - the memory was already mapped with a different mapping.
 
-        @info and its contents remain valid for as long as @mem is valid and
-        until gst_memory_unmap() is called.
+        `info` and its contents remain valid for as long as `mem` is valid and
+        until `Gst.memory_unmap` is called.
 
-        For each gst_memory_map() call, a corresponding gst_memory_unmap() call
+        For each `Gst.memory_map` call, a corresponding `Gst.memory_unmap` call
         should be done.
         """
     @classmethod
@@ -13006,48 +13006,48 @@ class Memory(GObject.GBoxed):
         notify: GLib.DestroyNotify | None = None,
     ) -> Memory | None:
         """
-            Allocate a new memory block that wraps the given @data.
+            Allocate a new memory block that wraps the given `data`.
 
-        The prefix/padding must be filled with 0 if @flags contains
-        #GST_MEMORY_FLAG_ZERO_PREFIXED and #GST_MEMORY_FLAG_ZERO_PADDED respectively.
+        The prefix/padding must be filled with 0 if `flags` contains
+        GST_MEMORY_FLAG_ZERO_PREFIXED and GST_MEMORY_FLAG_ZERO_PADDED respectively.
         """
     def resize(self, offset: int, size: int) -> None:
         """
-            Resize the memory region. @mem should be writable and offset + size should be
-        less than the maxsize of @mem.
+            Resize the memory region. `mem` should be writable and offset + size should be
+        less than the maxsize of `mem`.
 
-        #GST_MEMORY_FLAG_ZERO_PREFIXED and #GST_MEMORY_FLAG_ZERO_PADDED will be
+        GST_MEMORY_FLAG_ZERO_PREFIXED and GST_MEMORY_FLAG_ZERO_PADDED will be
         cleared when offset or padding is increased respectively.
         """
     def share(self, offset: int, size: int) -> Memory:
         """
-            Return a shared copy of @size bytes from @mem starting from @offset. No
+            Return a shared copy of `size` bytes from `mem` starting from `offset`. No
         memory copy is performed and the memory region is simply shared. The result
-        is guaranteed to be non-writable. @size can be set to -1 to return a shared
-        copy from @offset to the end of the memory region.
+        is guaranteed to be non-writable. `size` can be set to -1 to return a shared
+        copy from `offset` to the end of the memory region.
         """
     def unmap(self, info: MapInfo) -> None:
         """
-        Release the memory obtained with gst_memory_map()
+        Release the memory obtained with `Gst.memory_map`
         """
 
 class Message(GObject.GBoxed):
     """
-    Messages are implemented as a subclass of #GstMiniObject with a generic
-    #GstStructure as the content. This allows for writing custom messages without
+    Messages are implemented as a subclass of Gst.MiniObject with a generic
+    Gst.Structure as the content. This allows for writing custom messages without
     requiring an API change while allowing a wide range of different types
     of messages.
 
     Messages are posted by objects in the pipeline and are passed to the
-    application using the #GstBus.
+    application using the Gst.Bus.
 
-    The basic use pattern of posting a message on a #GstBus is as follows:
+    The basic use pattern of posting a message on a Gst.Bus is as follows:
     |[<!-- language="C" -->
-      gst_bus_post (bus, gst_message_new_eos());
+      gst_bus_post (bus, `Gst.message_new_eos`);
     ]|
 
-    A #GstElement usually posts messages on the bus provided by the parent
-    container using gst_element_post_message().
+    A Gst.Element usually posts messages on the bus provided by the parent
+    container using `Gst.element_post_message`.
     """
 
     # gi Fields
@@ -13077,7 +13077,7 @@ class Message(GObject.GBoxed):
     """
     type: MessageType = ...
     """
-    the #GstMessageType of the message
+    the Gst.MessageType of the message
 
     """
 
@@ -13097,7 +13097,7 @@ class Message(GObject.GBoxed):
         """
     def get_details(self) -> Structure | None:
         """
-            Returns the optional details structure of the message. May be NULL if none.
+            Returns the optional details structure of the message. May be None if none.
 
         The returned structure must not be freed.
         """
@@ -13107,7 +13107,7 @@ class Message(GObject.GBoxed):
             Retrieve the sequence number of a message.
 
         Messages have ever-incrementing sequence numbers, which may also be set
-        explicitly via gst_message_set_seqnum(). Sequence numbers are typically used
+        explicitly via `Gst.message_set_seqnum`. Sequence numbers are typically used
         to indicate that a message corresponds to some other set of messages or
         events, for example a SEGMENT_DONE message corresponding to a SEEK event. It
         is considered good practice to make this correspondence when possible, though
@@ -13119,7 +13119,7 @@ class Message(GObject.GBoxed):
         """
     def get_stream_status_object(self) -> GObject.Value | None:
         """
-        Extracts the object managing the streaming thread from @message.
+        Extracts the object managing the streaming thread from `message`.
         """
     def get_structure(self) -> Structure | None:
         """
@@ -13127,7 +13127,7 @@ class Message(GObject.GBoxed):
         """
     def has_name(self, name: str) -> bool:
         """
-            Checks if @message has the given @name. This function is usually used to
+            Checks if `message` has the given `name`. This function is usually used to
         check the name of a custom message.
         """
     @classmethod
@@ -13140,8 +13140,8 @@ class Message(GObject.GBoxed):
     def new_async_done(cls, src: Object | None, running_time: int) -> Message:
         """
             The message is posted when elements completed an ASYNC state change.
-        @running_time contains the time of the desired running_time when this
-        elements goes to PLAYING. A value of #GST_CLOCK_TIME_NONE for @running_time
+        `running_time` contains the time of the desired running_time when this
+        elements goes to PLAYING. A value of GST_CLOCK_TIME_NONE for `running_time`
         means that the element has no clock interaction and thus doesn't care about
         the running_time of the pipeline.
         """
@@ -13154,14 +13154,14 @@ class Message(GObject.GBoxed):
     def new_buffering(cls, src: Object | None, percent: int) -> Message:
         """
             Create a new buffering message. This message can be posted by an element that
-        needs to buffer data before it can continue processing. @percent should be a
+        needs to buffer data before it can continue processing. `percent` should be a
         value between 0 and 100. A value of 100 means that the buffering completed.
 
-        When @percent is < 100 the application should PAUSE a PLAYING pipeline. When
-        @percent is 100, the application can set the pipeline (back) to PLAYING.
+        When `percent` is < 100 the application should PAUSE a PLAYING pipeline. When
+        `percent` is 100, the application can set the pipeline (back) to PLAYING.
         The application must be prepared to receive BUFFERING messages in the
         PREROLLING state and may only set the pipeline to PLAYING after receiving a
-        message with @percent set to 100, which can happen after the pipeline
+        message with `percent` set to 100, which can happen after the pipeline
         completed prerolling.
 
         MT safe.
@@ -13191,27 +13191,27 @@ class Message(GObject.GBoxed):
         """
             Create a new custom-typed message. This can be used for anything not
         handled by other message-specific functions to pass a message to the
-        app. The structure field can be %NULL.
+        app. The structure field can be None.
         """
     @classmethod
     def new_device_added(cls, src: Object | None, device: Device) -> Message:
         """
             Creates a new device-added message. The device-added message is produced by
-        #GstDeviceProvider or a #GstDeviceMonitor. They announce the appearance
+        Gst.DeviceProvider or a Gst.DeviceMonitor. They announce the appearance
         of monitored devices.
         """
     @classmethod
     def new_device_changed(cls, src: Object | None, device: Device, changed_device: Device) -> Message:
         """
             Creates a new device-changed message. The device-changed message is produced
-        by #GstDeviceProvider or a #GstDeviceMonitor. They announce that a device
-        properties has changed and @device represent the new modified version of @changed_device.
+        by Gst.DeviceProvider or a Gst.DeviceMonitor. They announce that a device
+        properties has changed and `device` represent the new modified version of `changed_device`.
         """
     @classmethod
     def new_device_removed(cls, src: Object | None, device: Device) -> Message:
         """
             Creates a new device-removed message. The device-removed message is produced
-        by #GstDeviceProvider or a #GstDeviceMonitor. They announce the
+        by Gst.DeviceProvider or a Gst.DeviceMonitor. They announce the
         disappearance of monitored devices.
         """
     @classmethod
@@ -13228,7 +13228,7 @@ class Message(GObject.GBoxed):
             Create a new element-specific message. This is meant as a generic way of
         allowing one-way communication from an element to an application, for example
         "the firewire cable was unplugged". The format of the message should be
-        documented in the element's documentation. The structure field can be %NULL.
+        documented in the element's documentation. The structure field can be None.
         """
     @classmethod
     def new_eos(cls, src: Object | None = None) -> Message:
@@ -13240,8 +13240,8 @@ class Message(GObject.GBoxed):
     @classmethod
     def new_error(cls, src: Object | None, error: GLib.Error, debug: str) -> Message:
         """
-            Create a new error message. The message will copy @error and
-        @debug. This message is posted by element when a fatal event
+            Create a new error message. The message will copy `error` and
+        `debug`. This message is posted by element when a fatal event
         occurred. The pipeline will probably (partially) stop. The application
         receiving this message should stop the pipeline.
         """
@@ -13250,29 +13250,29 @@ class Message(GObject.GBoxed):
         cls, src: Object | None, error: GLib.Error, debug: str, details: Structure | None = None
     ) -> Message:
         """
-            Create a new error message. The message will copy @error and
-        @debug. This message is posted by element when a fatal event
+            Create a new error message. The message will copy `error` and
+        `debug`. This message is posted by element when a fatal event
         occurred. The pipeline will probably (partially) stop. The application
         receiving this message should stop the pipeline.
         """
     @classmethod
     def new_have_context(cls, src: Object | None, context: Context) -> Message:
         """
-        This message is posted when an element has a new local #GstContext.
+        This message is posted when an element has a new local Gst.Context.
         """
     @classmethod
     def new_info(cls, src: Object | None, error: GLib.Error, debug: str) -> Message:
         """
-            Create a new info message. The message will make copies of @error and
-        @debug.
+            Create a new info message. The message will make copies of `error` and
+        `debug`.
         """
     @classmethod
     def new_info_with_details(
         cls, src: Object | None, error: GLib.Error, debug: str, details: Structure | None = None
     ) -> Message:
         """
-            Create a new info message. The message will make copies of @error and
-        @debug.
+            Create a new info message. The message will make copies of `error` and
+        `debug`.
         """
     @classmethod
     def new_instant_rate_request(cls, src: Object | None, rate_multiplier: float) -> Message:
@@ -13281,7 +13281,7 @@ class Message(GObject.GBoxed):
         instant-rate-change event must post this message. The message is
         handled at the pipeline, and allows the pipeline to select the
         running time when the rate change should happen and to send an
-        @GST_EVENT_INSTANT_RATE_SYNC_TIME event to notify the elements
+        `GST_EVENT_INSTANT_RATE_SYNC_TIME` event to notify the elements
         in the pipeline.
         """
     @classmethod
@@ -13293,7 +13293,7 @@ class Message(GObject.GBoxed):
     @classmethod
     def new_need_context(cls, src: Object | None, context_type: str) -> Message:
         """
-        This message is posted when an element needs a specific #GstContext.
+        This message is posted when an element needs a specific Gst.Context.
         """
     @classmethod
     def new_new_clock(cls, src: Object | None, clock: Clock) -> Message:
@@ -13307,8 +13307,8 @@ class Message(GObject.GBoxed):
             Progress messages are posted by elements when they use an asynchronous task
         to perform actions triggered by a state change.
 
-        @code contains a well defined string describing the action.
-        @text should contain a user visible string detailing the current action.
+        `code` contains a well defined string describing the action.
+        `text` should contain a user visible string detailing the current action.
         """
     @classmethod
     def new_property_notify(cls, src: Object, property_name: str, val: GObject.Value | None = None) -> Message: ...
@@ -13326,7 +13326,7 @@ class Message(GObject.GBoxed):
         clock (live) or it could be dropped by an element that performs QoS because of QOS
         events received from a downstream element (!live).
 
-        @running_time, @stream_time, @timestamp, @duration should be set to the
+        `running_time`, `stream_time`, `timestamp`, `duration` should be set to the
         respective running-time, stream-time, timestamp and duration of the (dropped)
         buffer that generated the QoS event. Values can be left to
         GST_CLOCK_TIME_NONE when unknown.
@@ -13344,7 +13344,7 @@ class Message(GObject.GBoxed):
 
         The redirect message can hold multiple entries. The first one is added
         when the redirect message is created, with the given location, tag_list,
-        entry_struct arguments. Use gst_message_add_redirect_entry() to add more
+        entry_struct arguments. Use `Gst.message_add_redirect_entry` to add more
         entries.
 
         Each entry has a location, a tag list, and a structure. All of these are
@@ -13373,7 +13373,7 @@ class Message(GObject.GBoxed):
     def new_reset_time(cls, src: Object | None, running_time: int) -> Message:
         """
             This message is posted when the pipeline running-time should be reset to
-        @running_time, like after a flushing seek.
+        `running_time`, like after a flushing seek.
         """
     @classmethod
     def new_segment_done(cls, src: Object | None, format: Format, position: int) -> Message:
@@ -13417,11 +13417,11 @@ class Message(GObject.GBoxed):
         eos: bool,
     ) -> Message:
         """
-            This message is posted by elements when they complete a part, when @intermediate set
-        to %TRUE, or a complete step operation.
+            This message is posted by elements when they complete a part, when `intermediate` set
+        to True, or a complete step operation.
 
-        @duration will contain the amount of time (in GST_FORMAT_TIME) of the stepped
-        @amount of media in format @format.
+        `duration` will contain the amount of time (in GST_FORMAT_TIME) of the stepped
+        `amount` of media in format `format`.
         """
     @classmethod
     def new_step_start(
@@ -13429,12 +13429,12 @@ class Message(GObject.GBoxed):
     ) -> Message:
         """
             This message is posted by elements when they accept or activate a new step
-        event for @amount in @format.
+        event for `amount` in `format`.
 
-        @active is set to %FALSE when the element accepted the new step event and has
+        `active` is set to False when the element accepted the new step event and has
         queued it for execution in the streaming threads.
 
-        @active is set to %TRUE when the element has activated the step operation and
+        `active` is set to True when the element has activated the step operation and
         is now ready to start executing the step in the streaming thread. After this
         message is emitted, the application can queue a new step operation in the
         element.
@@ -13443,7 +13443,7 @@ class Message(GObject.GBoxed):
     def new_stream_collection(cls, src: Object | None, collection: StreamCollection) -> Message:
         """
             Creates a new stream-collection message. The message is used to announce new
-        #GstStreamCollection
+        Gst.StreamCollection
         """
     @classmethod
     def new_stream_start(cls, src: Object | None = None) -> Message:
@@ -13463,14 +13463,14 @@ class Message(GObject.GBoxed):
         """
             Creates a new steams-selected message. The message is used to announce
         that an array of streams has been selected. This is generally in response
-        to a #GST_EVENT_SELECT_STREAMS event, or when an element (such as decodebin3)
+        to a GST_EVENT_SELECT_STREAMS event, or when an element (such as decodebin3)
         makes an initial selection of streams.
 
-        The message also contains the #GstStreamCollection to which the various streams
+        The message also contains the Gst.StreamCollection to which the various streams
         belong to.
 
-        Users of gst_message_new_streams_selected() can add the selected streams with
-        gst_message_streams_selected_add().
+        Users of `Gst.message_new_streams_selected` can add the selected streams with
+        `Gst.message_streams_selected_add`.
         """
     @classmethod
     def new_structure_change(cls, src: Object | None, type: StructureChangeType, owner: Element, busy: bool) -> Message:
@@ -13479,7 +13479,7 @@ class Message(GObject.GBoxed):
         structure of a pipeline is in the process of being changed, for example
         when pads are linked or unlinked.
 
-        @src should be the sinkpad that unlinked or linked.
+        `src` should be the sinkpad that unlinked or linked.
         """
     @classmethod
     def new_tag(cls, src: Object | None, tag_list: TagList) -> Message:
@@ -13496,16 +13496,16 @@ class Message(GObject.GBoxed):
     @classmethod
     def new_warning(cls, src: Object | None, error: GLib.Error, debug: str) -> Message:
         """
-            Create a new warning message. The message will make copies of @error and
-        @debug.
+            Create a new warning message. The message will make copies of `error` and
+        `debug`.
         """
     @classmethod
     def new_warning_with_details(
         cls, src: Object | None, error: GLib.Error, debug: str, details: Structure | None = None
     ) -> Message:
         """
-            Create a new warning message. The message will make copies of @error and
-        @debug.
+            Create a new warning message. The message will make copies of `error` and
+        `debug`.
         """
     def parse_async_done(self) -> int:
         """
@@ -13516,13 +13516,13 @@ class Message(GObject.GBoxed):
     def parse_buffering(self) -> int:
         """
             Extracts the buffering percent from the GstMessage. see also
-        gst_message_new_buffering().
+        `Gst.message_new_buffering`.
 
         MT safe.
         """
     def parse_buffering_stats(self) -> tuple[BufferingMode, int, int, int]:
         """
-        Extracts the buffering stats values from @message.
+        Extracts the buffering stats values from `message`.
         """
     def parse_clock_lost(self) -> Clock:
         """
@@ -13545,20 +13545,20 @@ class Message(GObject.GBoxed):
     def parse_device_added(self) -> Device:
         """
             Parses a device-added message. The device-added message is produced by
-        #GstDeviceProvider or a #GstDeviceMonitor. It announces the appearance
+        Gst.DeviceProvider or a Gst.DeviceMonitor. It announces the appearance
         of monitored devices.
         """
     def parse_device_changed(self) -> tuple[Device, Device]:
         """
             Parses a device-changed message. The device-changed message is produced by
-        #GstDeviceProvider or a #GstDeviceMonitor. It announces the
+        Gst.DeviceProvider or a Gst.DeviceMonitor. It announces the
         disappearance of monitored devices. * It announce that a device properties has
-        changed and @device represents the new modified version of @changed_device.
+        changed and `device` represents the new modified version of `changed_device`.
         """
     def parse_device_removed(self) -> Device:
         """
             Parses a device-removed message. The device-removed message is produced by
-        #GstDeviceProvider or a #GstDeviceMonitor. It announces the
+        Gst.DeviceProvider or a Gst.DeviceMonitor. It announces the
         disappearance of monitored devices.
         """
     def parse_error(self) -> tuple[GLib.Error, str | None]:
@@ -13571,8 +13571,8 @@ class Message(GObject.GBoxed):
           ...
           switch (GST_MESSAGE_TYPE (msg)) {
             case GST_MESSAGE_ERROR: {
-              GError *err = NULL;
-              gchar *dbg_info = NULL;
+              GError *err = None;
+              gchar *dbg_info = None;
 
               gst_message_parse_error (msg, &err, &dbg_info);
               g_printerr ("ERROR from element %s: %s\\n",
@@ -13591,7 +13591,7 @@ class Message(GObject.GBoxed):
         """
     def parse_error_details(self) -> Structure | None:
         """
-            Returns the optional details structure, may be NULL if none.
+            Returns the optional details structure, may be None if none.
         The returned structure must not be freed.
         """
     def parse_error_writable_details(self) -> Structure | None:
@@ -13618,7 +13618,7 @@ class Message(GObject.GBoxed):
         """
     def parse_info_details(self) -> Structure | None:
         """
-            Returns the optional details structure, may be NULL if none
+            Returns the optional details structure, may be None if none
         The returned structure must not be freed.
         """
     def parse_info_writable_details(self) -> Structure | None:
@@ -13639,13 +13639,13 @@ class Message(GObject.GBoxed):
         """
     def parse_progress(self) -> tuple[ProgressType, str, str]:
         """
-        Parses the progress @type, @code and @text.
+        Parses the progress `type`, `code` and `text`.
         """
     def parse_property_notify(self) -> tuple[Object, str, GObject.Value | None]:
         """
             Parses a property-notify message. These will be posted on the bus only
-        when set up with gst_element_add_property_notify_watch() or
-        gst_element_add_property_deep_notify_watch().
+        when set up with `Gst.element_add_property_notify_watch` or
+        `Gst.element_add_property_deep_notify_watch`.
         """
     def parse_qos(self) -> tuple[bool, int, int, int, int]:
         """
@@ -13662,8 +13662,8 @@ class Message(GObject.GBoxed):
             Extract the QoS stats representing the history of the current continuous
         pipeline playback period.
 
-        When @format is @GST_FORMAT_UNDEFINED both @dropped and @processed are
-        invalid. Values of -1 for either @processed or @dropped mean unknown values.
+        When `format` is `GST_FORMAT_UNDEFINED` both `dropped` and `processed` are
+        invalid. Values of -1 for either `processed` or `dropped` mean unknown values.
 
         MT safe.
         """
@@ -13676,7 +13676,7 @@ class Message(GObject.GBoxed):
     def parse_redirect_entry(self, entry_index: int) -> tuple[str, TagList | None, Structure | None]:
         """
             Parses the location and/or structure from the entry with the given index.
-        The index must be between 0 and gst_message_get_num_redirect_entries() - 1.
+        The index must be between 0 and `Gst.message_get_num_redirect_entries` - 1.
         Returned pointers are valid for as long as this message exists.
         """
     def parse_request_state(self) -> State:
@@ -13714,7 +13714,7 @@ class Message(GObject.GBoxed):
             case GST_MESSAGE_STATE_CHANGED: {
               GstState old_state, new_state;
 
-              gst_message_parse_state_changed (msg, &old_state, &new_state, NULL);
+              gst_message_parse_state_changed (msg, &old_state, &new_state, None);
               g_print ("Element %s changed state from %s to %s.\\n",
                   GST_OBJECT_NAME (msg->src),
                   gst_element_state_get_name (old_state),
@@ -13747,7 +13747,7 @@ class Message(GObject.GBoxed):
     def parse_stream_status(self) -> tuple[StreamStatusType, Element]:
         """
             Extracts the stream status type and owner the GstMessage. The returned
-        owner remains valid for as long as the reference to @message is valid and
+        owner remains valid for as long as the reference to `message` is valid and
         should thus not be unreffed.
 
         MT safe.
@@ -13772,7 +13772,7 @@ class Message(GObject.GBoxed):
           ...
           switch (GST_MESSAGE_TYPE (msg)) {
             case GST_MESSAGE_TAG: {
-              GstTagList *tags = NULL;
+              GstTagList *tags = None;
 
               gst_message_parse_tag (msg, &tags);
               g_print ("Got tags from element %s\\n", GST_OBJECT_NAME (msg->src));
@@ -13789,9 +13789,9 @@ class Message(GObject.GBoxed):
         """
     def parse_toc(self) -> tuple[Toc, bool]:
         """
-            Extract the TOC from the #GstMessage. The TOC returned in the
+            Extract the TOC from the Gst.Message. The TOC returned in the
         output argument is a copy; the caller must free it with
-        gst_toc_unref() when done.
+        `Gst.toc_unref` when done.
 
         MT safe.
         """
@@ -13804,7 +13804,7 @@ class Message(GObject.GBoxed):
         """
     def parse_warning_details(self) -> Structure | None:
         """
-            Returns the optional details structure, may be NULL if none
+            Returns the optional details structure, may be None if none
         The returned structure must not be freed.
         """
     def parse_warning_writable_details(self) -> Structure | None:
@@ -13814,11 +13814,11 @@ class Message(GObject.GBoxed):
         """
     def set_buffering_stats(self, mode: BufferingMode, avg_in: int, avg_out: int, buffering_left: int) -> None:
         """
-        Configures the buffering stats values in @message.
+        Configures the buffering stats values in `message`.
         """
     def set_details(self, details: Structure | None = None) -> None:
         """
-            Add @details to @message. Will fail if the message already has details set on
+            Add `details` to `message`. Will fail if the message already has details set on
         it or if it is not writable.
         """
     def set_group_id(self, group_id: int) -> None:
@@ -13838,8 +13838,8 @@ class Message(GObject.GBoxed):
             Set the QoS stats representing the history of the current continuous pipeline
         playback period.
 
-        When @format is @GST_FORMAT_UNDEFINED both @dropped and @processed are
-        invalid. Values of -1 for either @processed or @dropped mean unknown values.
+        When `format` is `GST_FORMAT_UNDEFINED` both `dropped` and `processed` are
+        invalid. Values of -1 for either `processed` or `dropped` mean unknown values.
 
         MT safe.
         """
@@ -13854,7 +13854,7 @@ class Message(GObject.GBoxed):
             Set the sequence number of a message.
 
         This function might be called by the creator of a message to indicate that
-        the message relates to other messages or events. See gst_message_get_seqnum()
+        the message relates to other messages or events. See `Gst.message_get_seqnum`
         for more information.
 
         MT safe.
@@ -13866,21 +13866,21 @@ class Message(GObject.GBoxed):
         """
     def streams_selected_add(self, stream: Stream) -> None:
         """
-        Adds the @stream to the @message.
+        Adds the `stream` to the `message`.
         """
     def streams_selected_get_size(self) -> int:
         """
-        Returns the number of streams contained in the @message.
+        Returns the number of streams contained in the `message`.
         """
     def streams_selected_get_stream(self, idx: int) -> Stream | None:
         """
-        Retrieves the #GstStream with index @index from the @message.
+        Retrieves the Gst.Stream with index `index` from the `message`.
         """
     def writable_details(self) -> Structure:
         """
-            Returns the details structure of the @message. If not present it will be
-        created. Use this function (instead of gst_message_get_details()) if you
-        want to write to the @details structure.
+            Returns the details structure of the `message`. If not present it will be
+        created. Use this function (instead of `Gst.message_get_details`) if you
+        want to write to the `details` structure.
 
         The returned structure must not be freed.
         """
@@ -13891,24 +13891,24 @@ class Message(GObject.GBoxed):
 
 class Meta(GObject.GPointer):
     """
-    The #GstMeta structure should be included as the first member of a #GstBuffer
+    The Gst.Meta structure should be included as the first member of a Gst.Buffer
     metadata structure. The structure defines the API of the metadata and should
     be accessible to all elements using the metadata.
 
-    A metadata API is registered with gst_meta_api_type_register() which takes a
+    A metadata API is registered with `Gst.meta_api_type_register` which takes a
     name for the metadata API and some tags associated with the metadata.
-    With gst_meta_api_type_has_tag() one can check if a certain metadata API
+    With `Gst.meta_api_type_has_tag` one can check if a certain metadata API
     contains a given tag.
 
     Multiple implementations of a metadata API can be registered.
-    To implement a metadata API, gst_meta_register() should be used. This
+    To implement a metadata API, `Gst.meta_register` should be used. This
     function takes all parameters needed to create, free and transform metadata
-    along with the size of the metadata. The function returns a #GstMetaInfo
+    along with the size of the metadata. The function returns a Gst.MetaInfo
     structure that contains the information for the implementation of the API.
 
-    A specific implementation can be retrieved by name with gst_meta_get_info().
+    A specific implementation can be retrieved by name with `Gst.meta_get_info`.
 
-    See #GstBuffer for how the metadata can be added, retrieved and removed from
+    See Gst.Buffer for how the metadata can be added, retrieved and removed from
     buffers.
     """
 
@@ -13920,7 +13920,7 @@ class Meta(GObject.GPointer):
     """
     info: MetaInfo | None = ...
     """
-    pointer to the #GstMetaInfo
+    pointer to the Gst.MetaInfo
 
     """
 
@@ -13935,23 +13935,23 @@ class Meta(GObject.GPointer):
     ) -> bool:
         """
             When a element like `tee` decides the allocation, each downstream element may
-        fill different parameters and pass them to gst_query_add_allocation_meta().
+        fill different parameters and pass them to `Gst.query_add_allocation_meta`.
         In order to keep these parameters, a merge operation is needed. This
-        aggregate function can combine the parameters from @params0 and @param1, and
-        write the result back into @aggregated_params.
+        aggregate function can combine the parameters from `params0` and `param1`, and
+        write the result back into `aggregated_params`.
         """
     @staticmethod
     def api_type_get_tags(api: GObject.GType) -> list: ...
     @staticmethod
     def api_type_has_tag(api: GObject.GType, tag: int) -> bool:
         """
-        Check if @api was registered with @tag.
+        Check if `api` was registered with `tag`.
         """
     @staticmethod
     def api_type_register(api: str, tags: list) -> GObject.GType:
         """
-            Register and return a GType for the @api and associate it with
-        @tags.
+            Register and return a GType for the `api` and associate it with
+        `tags`.
         """
     @staticmethod
     def api_type_set_params_aggregator(api: GObject.GType, aggregator: AllocationMetaParamsAggregator) -> None:
@@ -13960,27 +13960,27 @@ class Meta(GObject.GPointer):
         """
     def compare_seqnum(self, meta2: Meta) -> int:
         """
-            Meta sequence number compare function. Can be used as #GCompareFunc
-        or a #GCompareDataFunc.
+            Meta sequence number compare function. Can be used as GCompareFunc
+        or a GCompareDataFunc.
         """
     @staticmethod
     def deserialize(buffer: Buffer, data: int, size: int) -> tuple[Meta | None, int]:
         """
-            Recreate a #GstMeta from serialized data returned by
-        gst_meta_serialize() and add it to @buffer.
+            Recreate a Gst.Meta from serialized data returned by
+        `Gst.meta_serialize` and add it to `buffer`.
 
         Note that the meta must have been previously registered by calling one of
         `gst_*_meta_get_info ()` functions.
 
-        @consumed is set to the number of bytes that can be skipped from @data to
+        `consumed` is set to the number of bytes that can be skipped from `data` to
         find the next meta serialization, if any. In case of parsing error that does
-        not allow to determine that size, @consumed is set to 0.
+        not allow to determine that size, `consumed` is set to 0.
         """
     @staticmethod
     def get_info(impl: str) -> MetaInfo | None:
         """
             Lookup a previously registered meta info structure by its implementation name
-        @impl.
+        `impl`.
         """
     def get_seqnum(self) -> int:
         """
@@ -13995,50 +13995,50 @@ class Meta(GObject.GPointer):
         destroy_data: GLib.DestroyNotify,
     ) -> MetaInfo:
         """
-            Register a new custom #GstMeta implementation, backed by an opaque
-        structure holding a #GstStructure.
+            Register a new custom Gst.Meta implementation, backed by an opaque
+        structure holding a Gst.Structure.
 
-        The registered info can be retrieved later with gst_meta_get_info() by using
-        @name as the key.
+        The registered info can be retrieved later with `Gst.meta_get_info` by using
+        `name` as the key.
 
-        The backing #GstStructure can be retrieved with
-        gst_custom_meta_get_structure(), its mutability is conditioned by the
+        The backing Gst.Structure can be retrieved with
+        `Gst.custom_meta_get_structure`, its mutability is conditioned by the
         writability of the buffer the meta is attached to.
 
-        When @transform_func is %NULL, the meta and its backing #GstStructure
+        When `transform_func` is None, the meta and its backing Gst.Structure
         will always be copied when the transform operation is copy, other operations
         are discarded, copy regions are ignored.
         """
     @staticmethod
     def register_custom_simple(name: str) -> MetaInfo:
         """
-            Simplified version of gst_meta_register_custom(), with no tags and no
+            Simplified version of `Gst.meta_register_custom`, with no tags and no
         transform function.
         """
     def serialize(self, data: ByteArrayInterface) -> bool:
         """
-            Serialize @meta into a format that can be stored or transmitted and later
-        deserialized by gst_meta_deserialize().
+            Serialize `meta` into a format that can be stored or transmitted and later
+        deserialized by `Gst.meta_deserialize`.
 
-        This is only supported for meta that implements #GstMetaInfo.serialize_func,
-        %FALSE is returned otherwise.
+        This is only supported for meta that implements Gst.MetaInfo.serialize_func,
+        False is returned otherwise.
 
-        Upon failure, @data->data pointer could have been reallocated, but @data->len
+        Upon failure, `data`->data pointer could have been reallocated, but `data`->len
         won't be modified. This is intended to be able to append multiple metas
-        into the same #GByteArray.
+        into the same GByteArray.
 
         Since serialization size is often the same for every buffer, caller may want
         to remember the size of previous data to preallocate the next.
         """
     def serialize_simple(self, data: list) -> bool:
         """
-            Same as gst_meta_serialize() but with a #GByteArray instead of
-        #GstByteArrayInterface.
+            Same as `Gst.meta_serialize` but with a GByteArray instead of
+        Gst.ByteArrayInterface.
         """
 
 class MetaInfo(GObject.GPointer):
     """
-    The #GstMetaInfo provides information about a specific metadata
+    The Gst.MetaInfo provides information about a specific metadata
     structure.
     """
 
@@ -14050,14 +14050,14 @@ class MetaInfo(GObject.GPointer):
     """
     clear_func: MetaClearFunctionMetaInfoCB = ...
     """
-    Function for clearing the metadata, or %NULL if not supported by this
+    Function for clearing the metadata, or None if not supported by this
     meta. This is called by the buffer pool when a buffer is returned for
     pooled metas.
 
     """
     deserialize_func: MetaDeserializeFunctionMetaInfoCB | None = ...
     """
-    Function for deserializing the metadata, or %NULL if not supported by this
+    Function for deserializing the metadata, or None if not supported by this
     meta.
 
     """
@@ -14073,7 +14073,7 @@ class MetaInfo(GObject.GPointer):
     """
     serialize_func: MetaSerializeFunctionMetaInfoCB = ...
     """
-    Function for serializing the metadata, or %NULL if not supported by this
+    Function for serializing the metadata, or None if not supported by this
     meta.
 
     """
@@ -14103,30 +14103,30 @@ class MetaInfo(GObject.GPointer):
         """
             Registers a new meta.
 
-        Use the structure returned by gst_meta_info_new(), it consumes it and the
+        Use the structure returned by `Gst.meta_info_new`, it consumes it and the
         structure shouldnt be used after. The one returned by the function can be
         kept.
         """
 
 class MetaTransformCopy(GObject.GPointer):
     """
-    Extra data passed to a "gst-copy" transform #GstMetaTransformFunction.
+    Extra data passed to a "gst-copy" transform Gst.MetaTransformFunction.
     """
 
     # gi Fields
     offset: int = ...
     """
-    the offset to copy, 0 if @region is %FALSE, otherwise > 0
+    the offset to copy, 0 if `region` is False, otherwise > 0
 
     """
     region: bool = ...
     """
-    %TRUE if only region is copied
+    True if only region is copied
 
     """
     size: int = ...
     """
-    the size to copy, -1 or the buffer size when @region is %FALSE
+    the size to copy, -1 or the buffer size when `region` is False
 
     """
 
@@ -14138,32 +14138,32 @@ class MetaTransformCopy(GObject.GPointer):
 
 class MiniObject(GObject.GBoxed):
     """
-    #GstMiniObject is a simple structure that can be used to implement refcounted
+    Gst.MiniObject is a simple structure that can be used to implement refcounted
     types.
 
-    Subclasses will include #GstMiniObject as the first member in their structure
-    and then call gst_mini_object_init() to initialize the #GstMiniObject fields.
+    Subclasses will include Gst.MiniObject as the first member in their structure
+    and then call `Gst.mini_object_init` to initialize the Gst.MiniObject fields.
 
-    gst_mini_object_ref() and gst_mini_object_unref() increment and decrement the
+    `Gst.mini_object_ref` and `Gst.mini_object_unref` increment and decrement the
     refcount respectively. When the refcount of a mini-object reaches 0, the
-    dispose function is called first and when this returns %TRUE, the free
+    dispose function is called first and when this returns True, the free
     function of the miniobject is called.
 
-    A copy can be made with gst_mini_object_copy().
+    A copy can be made with `Gst.mini_object_copy`.
 
-    gst_mini_object_is_writable() will return %TRUE when the refcount of the
+    `Gst.mini_object_is_writable` will return True when the refcount of the
     object is exactly 1 and there is no parent or a single parent exists and is
     writable itself, meaning the current caller has the only reference to the
-    object. gst_mini_object_make_writable() will return a writable version of
+    object. `Gst.mini_object_make_writable` will return a writable version of
     the object, which might be a new copy when the refcount was not 1.
 
-    Opaque data can be associated with a #GstMiniObject with
-    gst_mini_object_set_qdata() and gst_mini_object_get_qdata(). The data is
+    Opaque data can be associated with a Gst.MiniObject with
+    `Gst.mini_object_set_qdata` and `Gst.mini_object_get_qdata`. The data is
     meant to be specific to the particular object and is not automatically copied
-    with gst_mini_object_copy() or similar methods.
+    with `Gst.mini_object_copy` or similar methods.
 
-    A weak reference can be added and remove with gst_mini_object_weak_ref()
-    and gst_mini_object_weak_unref() respectively.
+    A weak reference can be added and remove with `Gst.mini_object_weak_ref`
+    and `Gst.mini_object_weak_unref` respectively.
     """
 
     # gi Fields
@@ -14212,27 +14212,27 @@ class MiniObject(GObject.GBoxed):
         """
     def add_parent(self, parent: MiniObject) -> None:
         """
-            This adds @parent as a parent for @object. Having one ore more parents affects the
-        writability of @object: if a @parent is not writable, @object is also not
-        writable, regardless of its refcount. @object is only writable if all
+            This adds `parent` as a parent for `object`. Having one ore more parents affects the
+        writability of `object`: if a `parent` is not writable, `object` is also not
+        writable, regardless of its refcount. `object` is only writable if all
         the parents are writable and its own refcount is exactly 1.
 
-        Note: This function does not take ownership of @parent and also does not
+        Note: This function does not take ownership of `parent` and also does not
         take an additional reference. It is the responsibility of the caller to
         remove the parent again at a later time.
         """
     def get_qdata(self, quark: int) -> object | None:
         """
             This function gets back user data pointers stored via
-        gst_mini_object_set_qdata().
+        `Gst.mini_object_set_qdata`.
         """
     def is_writable(self) -> bool:
         """
-            If @mini_object has the LOCKABLE flag set, check if the current EXCLUSIVE
-        lock on @object is the only one, this means that changes to the object will
+            If `mini_object` has the LOCKABLE flag set, check if the current EXCLUSIVE
+        lock on `object` is the only one, this means that changes to the object will
         not be visible to any other object.
 
-        If the LOCKABLE flag is not set, check if the refcount of @mini_object is
+        If the LOCKABLE flag is not set, check if the refcount of `mini_object` is
         exactly 1, meaning that no other reference exists to the object and that the
         object is therefore writable.
 
@@ -14241,75 +14241,75 @@ class MiniObject(GObject.GBoxed):
         """
     def lock(self, flags: LockFlags) -> bool:
         """
-        Lock the mini-object with the specified access mode in @flags.
+        Lock the mini-object with the specified access mode in `flags`.
         """
     def remove_parent(self, parent: MiniObject) -> None:
         """
-            This removes @parent as a parent for @object. See
-        gst_mini_object_add_parent().
+            This removes `parent` as a parent for `object`. See
+        `Gst.mini_object_add_parent`.
         """
     @staticmethod
     def replace(olddata: MiniObject | None = None, newdata: MiniObject | None = None) -> tuple[bool, MiniObject | None]:
         """
             Atomically modifies a pointer to point to a new mini-object.
-        The reference count of @olddata is decreased and the reference count of
-        @newdata is increased.
+        The reference count of `olddata` is decreased and the reference count of
+        `newdata` is increased.
 
-        Either @newdata and the value pointed to by @olddata may be %NULL.
+        Either `newdata` and the value pointed to by `olddata` may be None.
         """
     def set_qdata(self, quark: int, data: object | None, destroy: GLib.DestroyNotify) -> None:
         """
             This sets an opaque, named pointer on a miniobject.
-        The name is specified through a #GQuark (retrieved e.g. via
-        g_quark_from_static_string()), and the pointer
-        can be gotten back from the @object with gst_mini_object_get_qdata()
-        until the @object is disposed.
+        The name is specified through a GQuark (retrieved e.g. via
+        `g_quark_from_static_string`), and the pointer
+        can be gotten back from the `object` with `Gst.mini_object_get_qdata`
+        until the `object` is disposed.
         Setting a previously set user data pointer, overrides (frees)
-        the old pointer set, using %NULL as pointer essentially
+        the old pointer set, using None as pointer essentially
         removes the data stored.
 
-        @destroy may be specified which is called with @data as argument
-        when the @object is disposed, or the data is being overwritten by
-        a call to gst_mini_object_set_qdata() with the same @quark.
+        `destroy` may be specified which is called with `data` as argument
+        when the `object` is disposed, or the data is being overwritten by
+        a call to `Gst.mini_object_set_qdata` with the same `quark`.
         """
     def steal_qdata(self, quark: int) -> object | None:
         """
-            This function gets back user data pointers stored via gst_mini_object_set_qdata()
-        and removes the data from @object without invoking its `destroy()` function (if
+            This function gets back user data pointers stored via `Gst.mini_object_set_qdata`
+        and removes the data from `object` without invoking its ``destroy`` function (if
         any was set).
         """
     @staticmethod
     def take(olddata: MiniObject, newdata: MiniObject) -> tuple[bool, MiniObject]:
         """
             Modifies a pointer to point to a new mini-object. The modification
-        is done atomically. This version is similar to gst_mini_object_replace()
-        except that it does not increase the refcount of @newdata and thus
-        takes ownership of @newdata.
+        is done atomically. This version is similar to `Gst.mini_object_replace`
+        except that it does not increase the refcount of `newdata` and thus
+        takes ownership of `newdata`.
 
-        Either @newdata and the value pointed to by @olddata may be %NULL.
+        Either `newdata` and the value pointed to by `olddata` may be None.
         """
     def unlock(self, flags: LockFlags) -> None:
         """
-        Unlock the mini-object with the specified access mode in @flags.
+        Unlock the mini-object with the specified access mode in `flags`.
         """
 
 class Object(GObject.InitiallyUnowned):
     """
-    #GstObject provides a root for the object hierarchy tree filed in by the
+    Gst.Object provides a root for the object hierarchy tree filed in by the
     GStreamer library.  It is currently a thin wrapper on top of
-    #GInitiallyUnowned. It is an abstract class that is not very usable on its own.
+    GInitiallyUnowned. It is an abstract class that is not very usable on its own.
 
-    #GstObject gives us basic refcounting, parenting functionality and locking.
+    Gst.Object gives us basic refcounting, parenting functionality and locking.
     Most of the functions are just extended for special GStreamer needs and can be
-    found under the same name in the base class of #GstObject which is #GObject
-    (e.g. g_object_ref() becomes gst_object_ref()).
+    found under the same name in the base class of Gst.Object which is GObject
+    (e.g. `g_object_ref` becomes `Gst.object_ref`).
 
-    Since #GstObject derives from #GInitiallyUnowned, it also inherits the
-    floating reference. Be aware that functions such as gst_bin_add() and
-    gst_element_add_pad() take ownership of the floating reference.
+    Since Gst.Object derives from GInitiallyUnowned, it also inherits the
+    floating reference. Be aware that functions such as `Gst.bin_add` and
+    `Gst.element_add_pad` take ownership of the floating reference.
 
-    In contrast to #GObject instances, #GstObject adds a name property. The functions
-    gst_object_set_name() and gst_object_get_name() are used to set/get the name
+    In contrast to GObject instances, Gst.Object adds a name property. The functions
+    `Gst.object_set_name` and `Gst.object_get_name` are used to set/get the name
     of the object.
 
     ## controlled properties
@@ -14319,7 +14319,7 @@ class Object(GObject.InitiallyUnowned):
     for element-properties. At run-time the elements continuously pull value
     changes for the current stream-time.
 
-    What needs to be changed in a #GstElement?
+    What needs to be changed in a Gst.Element?
     Very little - it is just two steps to make a plugin controllable!
 
       * mark gobject-properties paramspecs that make sense to be controlled,
@@ -14332,11 +14332,11 @@ class Object(GObject.InitiallyUnowned):
 
     What needs to be done in applications? Again it's not a lot to change.
 
-      * create a #GstControlSource.
+      * create a Gst.ControlSource.
         csource = gst_interpolation_control_source_new ();
-        g_object_set (csource, "mode", GST_INTERPOLATION_MODE_LINEAR, NULL);
+        g_object_set (csource, "mode", GST_INTERPOLATION_MODE_LINEAR, None);
 
-      * Attach the #GstControlSource on the controller to a property.
+      * Attach the Gst.ControlSource on the controller to a property.
         gst_object_add_control_binding (object, gst_direct_control_binding_new (object, "prop1", csource));
 
       * Set the control values
@@ -14351,9 +14351,9 @@ class Object(GObject.InitiallyUnowned):
         parent: Object | None
         """
         The parent of the object. Please note, that when changing the 'parent'
-        property, we don't emit #GObject::notify and #GstObject::deep-notify
+        property, we don't emit GObject::notify and Gst.Object::deep-notify
         signals due to locking issues. In some cases one can use
-        #GstBin::element-added or #GstBin::element-removed signals on the parent to
+        Gst.Bin::element-added or Gst.Bin::element-removed signals on the parent to
         achieve a similar effect.
         """
 
@@ -14392,19 +14392,19 @@ class Object(GObject.InitiallyUnowned):
         """
     def add_control_binding(self, binding: ControlBinding) -> bool:
         """
-            Attach the #GstControlBinding to the object. If there already was a
-        #GstControlBinding for this property it will be replaced.
+            Attach the Gst.ControlBinding to the object. If there already was a
+        Gst.ControlBinding for this property it will be replaced.
 
         The object's reference count will be incremented, and any floating
-        reference will be removed (see gst_object_ref_sink())
+        reference will be removed (see `Gst.object_ref_sink`)
         """
     @staticmethod
     def check_uniqueness(list: list, name: str) -> bool:
         """
-            Checks to see if there is any object named @name in @list. This function
+            Checks to see if there is any object named `name` in `list`. This function
         does not do any locking of any kind. You might want to protect the
         provided list with the lock of the owner of the list. This function
-        will lock each #GstObject in the list to compare the name, so be
+        will lock each Gst.Object in the list to compare the name, so be
         careful when passing a list with a locked object.
         """
     @staticmethod
@@ -14417,39 +14417,39 @@ class Object(GObject.InitiallyUnowned):
         from the notify. The default handler will print the new value of the property
         using g_print.
 
-        MT safe. This function grabs and releases @object's LOCK for getting its
+        MT safe. This function grabs and releases `object`'s LOCK for getting its
                  path string.
         """
     def default_error(self, error: GLib.Error, debug: str | None = None) -> None:
         """
-            A default error function that uses g_printerr() to display the error message
+            A default error function that uses `g_printerr` to display the error message
         and the optional debug string..
 
         The default handler will simply print the error string using g_print.
         """
     def get_control_binding(self, property_name: str) -> ControlBinding | None:
         """
-            Gets the corresponding #GstControlBinding for the property. This should be
+            Gets the corresponding Gst.ControlBinding for the property. This should be
         unreferenced again after use.
         """
     def get_control_rate(self) -> int:
         """
-            Obtain the control-rate for this @object. Audio processing #GstElement
+            Obtain the control-rate for this `object`. Audio processing Gst.Element
         objects will use this rate to sub-divide their processing loop and call
-        gst_object_sync_values() in between. The length of the processing segment
-        should be up to @control-rate nanoseconds.
+        `Gst.object_sync_values` in between. The length of the processing segment
+        should be up to `control`-rate nanoseconds.
 
-        If the @object is not under property control, this will return
-        %GST_CLOCK_TIME_NONE. This allows the element to avoid the sub-dividing.
+        If the `object` is not under property control, this will return
+        Gst.CLOCK_TIME_NONE. This allows the element to avoid the sub-dividing.
 
         The control-rate is not expected to change if the element is in
-        %GST_STATE_PAUSED or %GST_STATE_PLAYING.
+        Gst.STATE_PAUSED or Gst.STATE_PLAYING.
         """
     def get_g_value_array(self, property_name: str, timestamp: int, interval: int, n_values: int, values: list) -> bool:
         """
-            Gets a number of #GValues for the given controlled property starting at the
-        requested time. The array @values need to hold enough space for @n_values of
-        #GValue.
+            Gets a number of GValues for the given controlled property starting at the
+        requested time. The array `values` need to hold enough space for `n_values` of
+        GValue.
 
         This function is useful if one wants to e.g. draw a graph of the control
         curve or apply a control curve sample by sample.
@@ -14457,9 +14457,9 @@ class Object(GObject.InitiallyUnowned):
     @builtins.property
     def get_name(self) -> str | None:
         """
-            Returns a copy of the name of @object.
-        Caller should g_free() the return value after usage.
-        For a nameless object, this returns %NULL, which you can safely g_free()
+            Returns a copy of the name of `object`.
+        Caller should `g_free` the return value after usage.
+        For a nameless object, this returns None, which you can safely `g_free`
         as well.
 
         Free-function: g_free
@@ -14467,12 +14467,12 @@ class Object(GObject.InitiallyUnowned):
     @builtins.property
     def get_parent(self) -> Object | None:
         """
-            Returns the parent of @object. This function increases the refcount
-        of the parent object so you should gst_object_unref() it after usage.
+            Returns the parent of `object`. This function increases the refcount
+        of the parent object so you should `Gst.object_unref` it after usage.
         """
     def get_path_string(self) -> str:
         """
-            Generates a string describing the path of @object in
+            Generates a string describing the path of `object` in
         the object hierarchy. Only useful (or used) for debugging.
 
         Free-function: g_free
@@ -14483,28 +14483,28 @@ class Object(GObject.InitiallyUnowned):
         """
     def has_active_control_bindings(self) -> bool:
         """
-        Check if the @object has active controlled properties.
+        Check if the `object` has active controlled properties.
         """
     @deprecated("deprecated")
     def has_ancestor(self, ancestor: Object) -> bool:
         """
-            Check if @object has an ancestor @ancestor somewhere up in
-        the hierarchy. One can e.g. check if a #GstElement is inside a #GstPipeline.
+            Check if `object` has an ancestor `ancestor` somewhere up in
+        the hierarchy. One can e.g. check if a Gst.Element is inside a Gst.Pipeline.
         """
     def has_as_ancestor(self, ancestor: Object) -> bool:
         """
-            Check if @object has an ancestor @ancestor somewhere up in
-        the hierarchy. One can e.g. check if a #GstElement is inside a #GstPipeline.
+            Check if `object` has an ancestor `ancestor` somewhere up in
+        the hierarchy. One can e.g. check if a Gst.Element is inside a Gst.Pipeline.
         """
     def has_as_parent(self, parent: Object) -> bool:
         """
-            Check if @parent is the parent of @object.
-        E.g. a #GstElement can check if it owns a given #GstPad.
+            Check if `parent` is the parent of `object`.
+        E.g. a Gst.Element can check if it owns a given Gst.Pad.
         """
     def ref(self) -> Object:
         """
-            Increments the reference count on @object. This function
-        does not take the lock on @object because it relies on
+            Increments the reference count on `object`. This function
+        does not take the lock on `object` because it relies on
         atomic refcounting.
 
         This object returns the input parameter to ease writing
@@ -14513,50 +14513,50 @@ class Object(GObject.InitiallyUnowned):
         """
     def remove_control_binding(self, binding: ControlBinding) -> bool:
         """
-            Removes the corresponding #GstControlBinding. If it was the
+            Removes the corresponding Gst.ControlBinding. If it was the
         last ref of the binding, it will be disposed.
         """
     @staticmethod
     def replace(oldobj: Object | None = None, newobj: Object | None = None) -> tuple[bool, Object | None]:
         """
             Atomically modifies a pointer to point to a new object.
-        The reference count of @oldobj is decreased and the reference count of
-        @newobj is increased.
+        The reference count of `oldobj` is decreased and the reference count of
+        `newobj` is increased.
 
-        Either @newobj and the value pointed to by @oldobj may be %NULL.
+        Either `newobj` and the value pointed to by `oldobj` may be None.
         """
     def set_control_binding_disabled(self, property_name: str, disabled: bool) -> None:
         """
             This function is used to disable the control bindings on a property for
-        some time, i.e. gst_object_sync_values() will do nothing for the
+        some time, i.e. `Gst.object_sync_values` will do nothing for the
         property.
         """
     def set_control_bindings_disabled(self, disabled: bool) -> None:
         """
-            This function is used to disable all controlled properties of the @object for
-        some time, i.e. gst_object_sync_values() will do nothing.
+            This function is used to disable all controlled properties of the `object` for
+        some time, i.e. `Gst.object_sync_values` will do nothing.
         """
     def set_control_rate(self, control_rate: int) -> None:
         """
-            Change the control-rate for this @object. Audio processing #GstElement
+            Change the control-rate for this `object`. Audio processing Gst.Element
         objects will use this rate to sub-divide their processing loop and call
-        gst_object_sync_values() in between. The length of the processing segment
-        should be up to @control-rate nanoseconds.
+        `Gst.object_sync_values` in between. The length of the processing segment
+        should be up to `control`-rate nanoseconds.
 
-        The control-rate should not change if the element is in %GST_STATE_PAUSED or
-        %GST_STATE_PLAYING.
+        The control-rate should not change if the element is in Gst.STATE_PAUSED or
+        Gst.STATE_PLAYING.
         """
     def set_name(self, name: str | None = None) -> bool:
         """
-            Sets the name of @object, or gives @object a guaranteed unique
-        name (if @name is %NULL).
+            Sets the name of `object`, or gives `object` a guaranteed unique
+        name (if `name` is None).
         This function makes a copy of the provided name, so the caller
         retains ownership of the name it sent.
         """
     def set_parent(self, parent: Object) -> bool:
         """
-            Sets the parent of @object to @parent. The object's reference count will
-        be incremented, and any floating reference will be removed (see gst_object_ref_sink()).
+            Sets the parent of `object` to `parent`. The object's reference count will
+        be incremented, and any floating reference will be removed (see `Gst.object_ref_sink`).
         """
     def suggest_next_sync(self) -> int:
         """
@@ -14565,7 +14565,7 @@ class Object(GObject.InitiallyUnowned):
         """
     def sync_values(self, timestamp: int) -> bool:
         """
-            Sets the properties of the object, according to the #GstControlSources that
+            Sets the properties of the object, according to the Gst.ControlSources that
         (maybe) handle them and for the given timestamp.
 
         If this function fails, it is most likely the application developers fault.
@@ -14573,16 +14573,16 @@ class Object(GObject.InitiallyUnowned):
         """
     def unparent(self) -> None:
         """
-            Clear the parent of @object, removing the associated reference.
-        This function decreases the refcount of @object.
+            Clear the parent of `object`, removing the associated reference.
+        This function decreases the refcount of `object`.
 
-        MT safe. Grabs and releases @object's lock.
+        MT safe. Grabs and releases `object`'s lock.
         """
     def unref(self) -> None:
         """
-            Decrements the reference count on @object.  If reference count hits
-        zero, destroy @object. This function does not take the lock
-        on @object as it relies on atomic refcounting.
+            Decrements the reference count on `object`.  If reference count hits
+        zero, destroy `object`. This function does not take the lock
+        on `object` as it relies on atomic refcounting.
 
         The unref method should never be called with the LOCK held since
         this might deadlock the dispose function.
@@ -14649,7 +14649,7 @@ class ObjectClass(GObject.GPointer):
     @builtins.property
     def path_string_separator(self) -> str:
         """
-        separator used by gst_object_get_path_string()
+        separator used by `Gst.object_get_path_string`
         """
 
     # gi Methods
@@ -14660,64 +14660,64 @@ class ObjectClass(GObject.GPointer):
 
 class Pad(Object):
     """
-    A #GstElement is linked to other elements via "pads", which are extremely
+    A Gst.Element is linked to other elements via "pads", which are extremely
     light-weight generic link points.
 
-    Pads have a #GstPadDirection, source pads produce data, sink pads consume
+    Pads have a Gst.PadDirection, source pads produce data, sink pads consume
     data.
 
-    Pads are typically created from a #GstPadTemplate with
-    gst_pad_new_from_template() and are then added to a #GstElement. This usually
+    Pads are typically created from a Gst.PadTemplate with
+    `Gst.pad_new_from_template` and are then added to a Gst.Element. This usually
     happens when the element is created but it can also happen dynamically based
     on the data that the element is processing or based on the pads that the
     application requests.
 
-    Pads without pad templates can be created with gst_pad_new(),
-    which takes a direction and a name as an argument.  If the name is %NULL,
+    Pads without pad templates can be created with `Gst.pad_new`,
+    which takes a direction and a name as an argument.  If the name is None,
     then a guaranteed unique name will be assigned to it.
 
-    A #GstElement creating a pad will typically use the various
+    A Gst.Element creating a pad will typically use the various
     gst_pad_set_*_function() calls to register callbacks for events, queries or
     dataflow on the pads.
 
-    gst_pad_get_parent() will retrieve the #GstElement that owns the pad.
+    `Gst.pad_get_parent` will retrieve the Gst.Element that owns the pad.
 
-    After two pads are retrieved from an element by gst_element_get_static_pad(),
-    the pads can be linked with gst_pad_link(). (For quick links,
-    you can also use gst_element_link(), which will make the obvious
+    After two pads are retrieved from an element by `Gst.element_get_static_pad`,
+    the pads can be linked with `Gst.pad_link`. (For quick links,
+    you can also use `Gst.element_link`, which will make the obvious
     link for you if it's straightforward.). Pads can be unlinked again with
-    gst_pad_unlink(). gst_pad_get_peer() can be used to check what the pad is
+    `Gst.pad_unlink`. `Gst.pad_get_peer` can be used to check what the pad is
     linked to.
 
     Before dataflow is possible on the pads, they need to be activated with
-    gst_pad_set_active().
+    `Gst.pad_set_active`.
 
-    gst_pad_query() and gst_pad_peer_query() can be used to query various
+    `Gst.pad_query` and `Gst.pad_peer_query` can be used to query various
     properties of the pad and the stream.
 
-    To send a #GstEvent on a pad, use gst_pad_send_event() and
-    gst_pad_push_event(). Some events will be sticky on the pad, meaning that
+    To send a Gst.Event on a pad, use `Gst.pad_send_event` and
+    `Gst.pad_push_event`. Some events will be sticky on the pad, meaning that
     after they pass on the pad they can be queried later with
-    gst_pad_get_sticky_event() and gst_pad_sticky_events_foreach().
-    gst_pad_get_current_caps() and gst_pad_has_current_caps() are convenience
+    `Gst.pad_get_sticky_event` and `Gst.pad_sticky_events_foreach`.
+    `Gst.pad_get_current_caps` and `Gst.pad_has_current_caps` are convenience
     functions to query the current sticky CAPS event on a pad.
 
-    GstElements will use gst_pad_push() and gst_pad_pull_range() to push out
+    GstElements will use `Gst.pad_push` and `Gst.pad_pull_range` to push out
     or pull in a buffer.
 
     The dataflow, events and queries that happen on a pad can be monitored with
-    probes that can be installed with gst_pad_add_probe(). gst_pad_is_blocked()
+    probes that can be installed with `Gst.pad_add_probe`. `Gst.pad_is_blocked`
     can be used to check if a block probe is installed on the pad.
-    gst_pad_is_blocking() checks if the blocking probe is currently blocking the
-    pad. gst_pad_remove_probe() is used to remove a previously installed probe
+    `Gst.pad_is_blocking` checks if the blocking probe is currently blocking the
+    pad. `Gst.pad_remove_probe` is used to remove a previously installed probe
     and unblock blocking probes if any.
 
-    Pad have an offset that can be retrieved with gst_pad_get_offset(). This
+    Pad have an offset that can be retrieved with `Gst.pad_get_offset`. This
     offset will be applied to the running_time of all data passing over the pad.
-    gst_pad_set_offset() can be used to change the offset.
+    `Gst.pad_set_offset` can be used to change the offset.
 
     Convenience functions exist to start, pause and stop the task on a pad with
-    gst_pad_start_task(), gst_pad_pause_task() and gst_pad_stop_task()
+    `Gst.pad_start_task`, `Gst.pad_pause_task` and `Gst.pad_stop_task`
     respectively.
     """
 
@@ -14813,7 +14813,7 @@ class Pad(Object):
         """
     def activate_mode(self, mode: PadMode, active: bool) -> bool:
         """
-            Activates or deactivates the given pad in @mode via dispatching to the
+            Activates or deactivates the given pad in `mode` via dispatching to the
         pad's activatemodefunc. For use from within pad activation functions only.
 
         If you don't know what this is, you probably don't want to call it.
@@ -14823,12 +14823,12 @@ class Pad(Object):
     ) -> int:
         """
             Be notified of different states of pads. The provided callback is called for
-        every state that matches @mask.
+        every state that matches `mask`.
 
         Probes are called in groups: First GST_PAD_PROBE_TYPE_BLOCK probes are
         called, then others, then finally GST_PAD_PROBE_TYPE_IDLE. The only
         exception here are GST_PAD_PROBE_TYPE_IDLE probes that are called
-        immediately if the pad is already idle while calling gst_pad_add_probe().
+        immediately if the pad is already idle while calling `Gst.pad_add_probe`.
         In each of the groups, probes are called in the order in which they were
         added.
         """
@@ -14839,56 +14839,56 @@ class Pad(Object):
         """
     def chain(self, buffer: Buffer) -> FlowReturn:
         """
-            Chain a buffer to @pad.
+            Chain a buffer to `pad`.
 
-        The function returns #GST_FLOW_FLUSHING if the pad was flushing.
+        The function returns GST_FLOW_FLUSHING if the pad was flushing.
 
-        If the buffer type is not acceptable for @pad (as negotiated with a
+        If the buffer type is not acceptable for `pad` (as negotiated with a
         preceding GST_EVENT_CAPS event), this function returns
-        #GST_FLOW_NOT_NEGOTIATED.
+        GST_FLOW_NOT_NEGOTIATED.
 
-        The function proceeds calling the chain function installed on @pad (see
-        gst_pad_set_chain_function()) and the return value of that function is
-        returned to the caller. #GST_FLOW_NOT_SUPPORTED is returned if @pad has no
+        The function proceeds calling the chain function installed on `pad` (see
+        `Gst.pad_set_chain_function`) and the return value of that function is
+        returned to the caller. GST_FLOW_NOT_SUPPORTED is returned if `pad` has no
         chain function.
 
-        In all cases, success or failure, the caller loses its reference to @buffer
+        In all cases, success or failure, the caller loses its reference to `buffer`
         after calling this function.
         """
     def chain_list(self, list: BufferList) -> FlowReturn:
         """
-            Chain a bufferlist to @pad.
+            Chain a bufferlist to `pad`.
 
-        The function returns #GST_FLOW_FLUSHING if the pad was flushing.
+        The function returns GST_FLOW_FLUSHING if the pad was flushing.
 
-        If @pad was not negotiated properly with a CAPS event, this function
-        returns #GST_FLOW_NOT_NEGOTIATED.
+        If `pad` was not negotiated properly with a CAPS event, this function
+        returns GST_FLOW_NOT_NEGOTIATED.
 
-        The function proceeds calling the chainlist function installed on @pad (see
-        gst_pad_set_chain_list_function()) and the return value of that function is
-        returned to the caller. #GST_FLOW_NOT_SUPPORTED is returned if @pad has no
+        The function proceeds calling the chainlist function installed on `pad` (see
+        `Gst.pad_set_chain_list_function`) and the return value of that function is
+        returned to the caller. GST_FLOW_NOT_SUPPORTED is returned if `pad` has no
         chainlist function.
 
-        In all cases, success or failure, the caller loses its reference to @list
+        In all cases, success or failure, the caller loses its reference to `list`
         after calling this function.
 
         MT safe.
         """
     def check_reconfigure(self) -> bool:
         """
-            Check and clear the #GST_PAD_FLAG_NEED_RECONFIGURE flag on @pad and return %TRUE
+            Check and clear the GST_PAD_FLAG_NEED_RECONFIGURE flag on `pad` and return True
         if the flag was set.
         """
     def create_stream_id(self, parent: Element, stream_id: str | None = None) -> str:
         """
-            Creates a stream-id for the source #GstPad @pad by combining the
-        upstream information with the optional @stream_id of the stream
-        of @pad. @pad must have a parent #GstElement and which must have zero
-        or one sinkpad. @stream_id can only be %NULL if the parent element
-        of @pad has only a single source pad.
+            Creates a stream-id for the source Gst.Pad `pad` by combining the
+        upstream information with the optional `stream_id` of the stream
+        of `pad`. `pad` must have a parent Gst.Element and which must have zero
+        or one sinkpad. `stream_id` can only be None if the parent element
+        of `pad` has only a single source pad.
 
         This function generates an unique stream-id by getting the upstream
-        stream-start event stream ID and appending @stream_id to it. If the
+        stream-start event stream ID and appending `stream_id` to it. If the
         element has no sinkpad it will generate an upstream stream-id by
         doing an URI query on the element and in the worst case just uses
         a random number. Source elements that don't implement the URI
@@ -14897,39 +14897,39 @@ class Pad(Object):
 
         Since stream IDs are sorted alphabetically, any numbers in the
         stream ID should be printed with a fixed number of characters,
-        preceded by 0's, such as by using the format %03u instead of %u.
+        preceded by 0's, such as by using the format \\03u instead of %u.
         """
     def event_default(self, parent: Object | None, event: Event) -> bool:
         """
             Invokes the default event handler for the given pad.
 
-        The EOS event will pause the task associated with @pad before it is forwarded
+        The EOS event will pause the task associated with `pad` before it is forwarded
         to all internally linked pads,
 
-        The event is sent to all pads internally linked to @pad. This function
-        takes ownership of @event.
+        The event is sent to all pads internally linked to `pad`. This function
+        takes ownership of `event`.
         """
     def forward(self, forward: PadForwardFunction, user_data: object | None = None) -> bool:
         """
-            Calls @forward for all internally linked pads of @pad. This function deals with
-        dynamically changing internal pads and will make sure that the @forward
+            Calls `forward` for all internally linked pads of `pad`. This function deals with
+        dynamically changing internal pads and will make sure that the `forward`
         function is only called once for each pad.
 
-        When @forward returns %TRUE, no further pads will be processed.
+        When `forward` returns True, no further pads will be processed.
         """
     def get_allowed_caps(self) -> Caps | None:
         """
             Gets the capabilities of the allowed media types that can flow through
-        @pad and its peer.
+        `pad` and its peer.
 
         The allowed capabilities is calculated as the intersection of the results of
-        calling gst_pad_query_caps() on @pad and its peer. The caller owns a reference
+        calling `Gst.pad_query_caps` on `pad` and its peer. The caller owns a reference
         on the resulting caps.
         """
     def get_current_caps(self) -> Caps | None:
         """
-            Gets the capabilities currently configured on @pad with the last
-        #GST_EVENT_CAPS event.
+            Gets the capabilities currently configured on `pad` with the last
+        GST_EVENT_CAPS event.
         """
     @builtins.property
     def get_direction(self) -> PadDirection:
@@ -14945,98 +14945,98 @@ class Pad(Object):
         """
     def get_last_flow_return(self) -> FlowReturn:
         """
-        Gets the #GstFlowReturn return from the last data passed by this pad.
+        Gets the Gst.FlowReturn return from the last data passed by this pad.
         """
     @builtins.property
     def get_offset(self) -> int:
         """
-            Get the offset applied to the running time of @pad. @pad has to be a source
+            Get the offset applied to the running time of `pad`. `pad` has to be a source
         pad.
         """
     def get_pad_template(self) -> PadTemplate | None:
         """
-        Gets the template for @pad.
+        Gets the template for `pad`.
         """
     def get_pad_template_caps(self) -> Caps:
         """
-        Gets the capabilities for @pad's template.
+        Gets the capabilities for `pad`'s template.
         """
     def get_parent_element(self) -> Element | None:
         """
-            Gets the parent of @pad, cast to a #GstElement. If a @pad has no parent or
-        its parent is not an element, return %NULL.
+            Gets the parent of `pad`, cast to a Gst.Element. If a `pad` has no parent or
+        its parent is not an element, return None.
         """
     def get_peer(self) -> Pad | None:
         """
-            Gets the peer of @pad. This function refs the peer pad so
+            Gets the peer of `pad`. This function refs the peer pad so
         you need to unref it after use.
         """
     def get_range(self, offset: int, size: int) -> tuple[FlowReturn, Buffer]:
         """
-            When @pad is flushing this function returns #GST_FLOW_FLUSHING
-        immediately and @buffer is %NULL.
+            When `pad` is flushing this function returns GST_FLOW_FLUSHING
+        immediately and `buffer` is None.
 
-        Calls the getrange function of @pad, see #GstPadGetRangeFunction for a
-        description of a getrange function. If @pad has no getrange function
-        installed (see gst_pad_set_getrange_function()) this function returns
-        #GST_FLOW_NOT_SUPPORTED.
+        Calls the getrange function of `pad`, see Gst.PadGetRangeFunction for a
+        description of a getrange function. If `pad` has no getrange function
+        installed (see `Gst.pad_set_getrange_function`) this function returns
+        GST_FLOW_NOT_SUPPORTED.
 
-        If @buffer points to a variable holding %NULL, a valid new #GstBuffer will be
-        placed in @buffer when this function returns #GST_FLOW_OK. The new buffer
-        must be freed with gst_buffer_unref() after usage.
+        If `buffer` points to a variable holding None, a valid new Gst.Buffer will be
+        placed in `buffer` when this function returns GST_FLOW_OK. The new buffer
+        must be freed with `Gst.buffer_unref` after usage.
 
-        When @buffer points to a variable that points to a valid #GstBuffer, the
+        When `buffer` points to a variable that points to a valid Gst.Buffer, the
         buffer will be filled with the result data when this function returns
-        #GST_FLOW_OK. If the provided buffer is larger than @size, only
-        @size bytes will be filled in the result buffer and its size will be updated
+        GST_FLOW_OK. If the provided buffer is larger than `size`, only
+        `size` bytes will be filled in the result buffer and its size will be updated
         accordingly.
 
-        Note that less than @size bytes can be returned in @buffer when, for example,
-        an EOS condition is near or when @buffer is not large enough to hold @size
+        Note that less than `size` bytes can be returned in `buffer` when, for example,
+        an EOS condition is near or when `buffer` is not large enough to hold `size`
         bytes. The caller should check the result buffer size to get the result size.
 
-        When this function returns any other result value than #GST_FLOW_OK, @buffer
+        When this function returns any other result value than GST_FLOW_OK, `buffer`
         will be unchanged.
 
-        This is a lowlevel function. Usually gst_pad_pull_range() is used.
+        This is a lowlevel function. Usually `Gst.pad_pull_range` is used.
         """
     def get_single_internal_link(self) -> Pad | None:
         """
             If there is a single internal link of the given pad, this function will
-        return it. Otherwise, it will return NULL.
+        return it. Otherwise, it will return None.
         """
     def get_sticky_event(self, event_type: EventType, idx: int) -> Event | None:
         """
-            Returns a new reference of the sticky event of type @event_type
+            Returns a new reference of the sticky event of type `event_type`
         from the event.
         """
     def get_stream(self) -> Stream | None:
         """
-            Returns the current #GstStream for the @pad, or %NULL if none has been
+            Returns the current Gst.Stream for the `pad`, or None if none has been
         set yet, i.e. the pad has not received a stream-start event yet.
 
-        This is a convenience wrapper around gst_pad_get_sticky_event() and
-        gst_event_parse_stream().
+        This is a convenience wrapper around `Gst.pad_get_sticky_event` and
+        `Gst.event_parse_stream`.
         """
     def get_stream_id(self) -> str | None:
         """
-            Returns the current stream-id for the @pad, or %NULL if none has been
+            Returns the current stream-id for the `pad`, or None if none has been
         set yet, i.e. the pad has not received a stream-start event yet.
 
-        This is a convenience wrapper around gst_pad_get_sticky_event() and
-        gst_event_parse_stream_start().
+        This is a convenience wrapper around `Gst.pad_get_sticky_event` and
+        `Gst.event_parse_stream_start`.
 
         The returned stream-id string should be treated as an opaque string, its
         contents should not be interpreted.
         """
     def get_task_state(self) -> TaskState:
         """
-            Get @pad task state. If no task is currently
-        set, #GST_TASK_STOPPED is returned.
+            Get `pad` task state. If no task is currently
+        set, GST_TASK_STOPPED is returned.
         """
     def has_current_caps(self) -> bool:
         """
-        Check if @pad has caps set on it with a #GST_EVENT_CAPS event.
+        Check if `pad` has caps set on it with a GST_EVENT_CAPS event.
         """
     def is_active(self) -> bool:
         """
@@ -15046,23 +15046,23 @@ class Pad(Object):
         """
             Checks if the pad is blocked or not. This function returns the
         last requested state of the pad. It is not certain that the pad
-        is actually blocking at this point (see gst_pad_is_blocking()).
+        is actually blocking at this point (see `Gst.pad_is_blocking`).
         """
     def is_blocking(self) -> bool:
         """
             Checks if the pad is blocking or not. This is a guaranteed state
-        of whether the pad is actually blocking on a #GstBuffer or a #GstEvent.
+        of whether the pad is actually blocking on a Gst.Buffer or a Gst.Event.
         """
     def is_linked(self) -> bool:
         """
-        Checks if a @pad is linked to another pad or not.
+        Checks if a `pad` is linked to another pad or not.
         """
     def iterate_internal_links(self) -> Iterator | None:
         """
             Gets an iterator for the pads to which the given pad is linked to inside
         of the parent element.
 
-        Each #GstPad element yielded by the iterator will have its refcount increased,
+        Each Gst.Pad element yielded by the iterator will have its refcount increased,
         so unref after use.
 
         Free-function: gst_iterator_free
@@ -15074,7 +15074,7 @@ class Pad(Object):
         This is the default handler, and thus returns an iterator of all of the
         pads inside the parent element with opposite direction.
 
-        The caller must free this iterator after use with gst_iterator_free().
+        The caller must free this iterator after use with `Gst.iterator_free`.
         """
     def link(self, sinkpad: Pad) -> PadLinkReturn:
         """
@@ -15087,7 +15087,7 @@ class Pad(Object):
         This variant of #gst_pad_link provides a more granular control on the
         checks being done when linking. While providing some considerable speedups
         the caller of this method must be aware that wrong usage of those flags
-        can cause severe issues. Refer to the documentation of #GstPadLinkCheck
+        can cause severe issues. Refer to the documentation of Gst.PadLinkCheck
         for more information.
 
         MT Safe.
@@ -15099,43 +15099,43 @@ class Pad(Object):
         """
     def link_maybe_ghosting(self, sink: Pad) -> bool:
         """
-            Links @src to @sink, creating any #GstGhostPad's in between as necessary.
+            Links `src` to `sink`, creating any Gst.GhostPad's in between as necessary.
 
         This is a convenience function to save having to create and add intermediate
-        #GstGhostPad's as required for linking across #GstBin boundaries.
+        Gst.GhostPad's as required for linking across Gst.Bin boundaries.
 
-        If @src or @sink pads don't have parent elements or do not share a common
+        If `src` or `sink` pads don't have parent elements or do not share a common
         ancestor, the link will fail.
         """
     def link_maybe_ghosting_full(self, sink: Pad, flags: PadLinkCheck) -> bool:
         """
-            Links @src to @sink, creating any #GstGhostPad's in between as necessary.
+            Links `src` to `sink`, creating any Gst.GhostPad's in between as necessary.
 
         This is a convenience function to save having to create and add intermediate
-        #GstGhostPad's as required for linking across #GstBin boundaries.
+        Gst.GhostPad's as required for linking across Gst.Bin boundaries.
 
-        If @src or @sink pads don't have parent elements or do not share a common
+        If `src` or `sink` pads don't have parent elements or do not share a common
         ancestor, the link will fail.
 
-        Calling gst_pad_link_maybe_ghosting_full() with
-        @flags == %GST_PAD_LINK_CHECK_DEFAULT is the recommended way of linking
+        Calling `Gst.pad_link_maybe_ghosting_full` with
+        `flags` == Gst.PAD_LINK_CHECK_DEFAULT is the recommended way of linking
         pads with safety checks applied.
         """
     def mark_reconfigure(self) -> None:
         """
             Mark a pad for needing reconfiguration. The next call to
-        gst_pad_check_reconfigure() will return %TRUE after this call.
+        `Gst.pad_check_reconfigure` will return True after this call.
         """
     def needs_reconfigure(self) -> bool:
         """
-            Check the #GST_PAD_FLAG_NEED_RECONFIGURE flag on @pad and return %TRUE
+            Check the GST_PAD_FLAG_NEED_RECONFIGURE flag on `pad` and return True
         if the flag was set.
         """
     @classmethod
     def new(cls, name: str | None, direction: PadDirection) -> Pad:
         """
             Creates a new pad with the given name in the given direction.
-        If name is %NULL, a guaranteed unique name (across all pads)
+        If name is None, a guaranteed unique name (across all pads)
         will be assigned.
         This function makes a copy of the name so you can safely free the name.
         """
@@ -15143,7 +15143,7 @@ class Pad(Object):
     def new_from_static_template(cls, templ: StaticPadTemplate, name: str) -> Pad:
         """
             Creates a new pad with the given name from the given static template.
-        If name is %NULL, a guaranteed unique name (across all pads)
+        If name is None, a guaranteed unique name (across all pads)
         will be assigned.
         This function makes a copy of the name so you can safely free the name.
         """
@@ -15151,43 +15151,43 @@ class Pad(Object):
     def new_from_template(cls, templ: PadTemplate, name: str | None = None) -> Pad:
         """
             Creates a new pad with the given name from the given template.
-        If name is %NULL, a guaranteed unique name (across all pads)
+        If name is None, a guaranteed unique name (across all pads)
         will be assigned.
         This function makes a copy of the name so you can safely free the name.
         """
     def pause_task(self) -> bool:
         """
-            Pause the task of @pad. This function will also wait until the
+            Pause the task of `pad`. This function will also wait until the
         function executed by the task is finished if this function is not
         called from the task function.
         """
     def peer_query(self, query: Query) -> bool:
         """
-            Performs gst_pad_query() on the peer of @pad.
+            Performs `Gst.pad_query` on the peer of `pad`.
 
         The caller is responsible for both the allocation and deallocation of
         the query structure.
         """
     def peer_query_accept_caps(self, caps: Caps) -> bool:
         """
-            Check if the peer of @pad accepts @caps. If @pad has no peer, this function
-        returns %TRUE.
+            Check if the peer of `pad` accepts `caps`. If `pad` has no peer, this function
+        returns True.
         """
     def peer_query_caps(self, filter: Caps | None = None) -> Caps:
         """
             Gets the capabilities of the peer connected to this pad. Similar to
-        gst_pad_query_caps().
+        `Gst.pad_query_caps`.
 
-        When called on srcpads @filter contains the caps that
+        When called on srcpads `filter` contains the caps that
         upstream could produce in the order preferred by upstream. When
-        called on sinkpads @filter contains the caps accepted by
-        downstream in the preferred order. @filter might be %NULL but
-        if it is not %NULL the returned caps will be a subset of @filter.
+        called on sinkpads `filter` contains the caps accepted by
+        downstream in the preferred order. `filter` might be None but
+        if it is not None the returned caps will be a subset of `filter`.
         """
     def peer_query_convert(self, src_format: Format, src_val: int, dest_format: Format) -> tuple[bool, int]:
         """
-            Queries the peer pad of a given sink pad to convert @src_val in @src_format
-        to @dest_format.
+            Queries the peer pad of a given sink pad to convert `src_val` in `src_format`
+        to `dest_format`.
         """
     def peer_query_duration(self, format: Format) -> tuple[bool, int]:
         """
@@ -15199,7 +15199,7 @@ class Pad(Object):
         """
     def proxy_query_accept_caps(self, query: Query) -> bool:
         """
-            Checks if all internally linked pads of @pad accepts the caps in @query and
+            Checks if all internally linked pads of `pad` accepts the caps in `query` and
         returns the intersection of the results.
 
         This function is useful as a default accept caps query function for an element
@@ -15208,7 +15208,7 @@ class Pad(Object):
         """
     def proxy_query_caps(self, query: Query) -> bool:
         """
-            Calls gst_pad_query_caps() for all internally linked pads of @pad and returns
+            Calls `Gst.pad_query_caps` for all internally linked pads of `pad` and returns
         the intersection of the results.
 
         This function is useful as a default caps query function for an element
@@ -15217,44 +15217,44 @@ class Pad(Object):
         """
     def pull_range(self, offset: int, size: int) -> tuple[FlowReturn, Buffer]:
         """
-            Pulls a @buffer from the peer pad or fills up a provided buffer.
+            Pulls a `buffer` from the peer pad or fills up a provided buffer.
 
         This function will first trigger the pad block signal if it was
         installed.
 
-        When @pad is not linked #GST_FLOW_NOT_LINKED is returned else this
-        function returns the result of gst_pad_get_range() on the peer pad.
-        See gst_pad_get_range() for a list of return values and for the
+        When `pad` is not linked GST_FLOW_NOT_LINKED is returned else this
+        function returns the result of `Gst.pad_get_range` on the peer pad.
+        See `Gst.pad_get_range` for a list of return values and for the
         semantics of the arguments of this function.
 
-        If @buffer points to a variable holding %NULL, a valid new #GstBuffer will be
-        placed in @buffer when this function returns #GST_FLOW_OK. The new buffer
-        must be freed with gst_buffer_unref() after usage. When this function
-        returns any other result value, @buffer will still point to %NULL.
+        If `buffer` points to a variable holding None, a valid new Gst.Buffer will be
+        placed in `buffer` when this function returns GST_FLOW_OK. The new buffer
+        must be freed with `Gst.buffer_unref` after usage. When this function
+        returns any other result value, `buffer` will still point to None.
 
-        When @buffer points to a variable that points to a valid #GstBuffer, the
+        When `buffer` points to a variable that points to a valid Gst.Buffer, the
         buffer will be filled with the result data when this function returns
-        #GST_FLOW_OK. When this function returns any other result value,
-        @buffer will be unchanged. If the provided buffer is larger than @size, only
-        @size bytes will be filled in the result buffer and its size will be updated
+        GST_FLOW_OK. When this function returns any other result value,
+        `buffer` will be unchanged. If the provided buffer is larger than `size`, only
+        `size` bytes will be filled in the result buffer and its size will be updated
         accordingly.
 
-        Note that less than @size bytes can be returned in @buffer when, for example,
-        an EOS condition is near or when @buffer is not large enough to hold @size
+        Note that less than `size` bytes can be returned in `buffer` when, for example,
+        an EOS condition is near or when `buffer` is not large enough to hold `size`
         bytes. The caller should check the result buffer size to get the result size.
         """
     def push(self, buffer: Buffer) -> FlowReturn:
         """
-            Pushes a buffer to the peer of @pad.
+            Pushes a buffer to the peer of `pad`.
 
         This function will call installed block probes before triggering any
         installed data probes.
 
-        The function proceeds calling gst_pad_chain() on the peer pad and returns
-        the value from that function. If @pad has no peer, #GST_FLOW_NOT_LINKED will
+        The function proceeds calling `Gst.pad_chain` on the peer pad and returns
+        the value from that function. If `pad` has no peer, GST_FLOW_NOT_LINKED will
         be returned.
 
-        In all cases, success or failure, the caller loses its reference to @buffer
+        In all cases, success or failure, the caller loses its reference to `buffer`
         after calling this function.
         """
     def push_event(self, event: Event) -> bool:
@@ -15264,22 +15264,22 @@ class Pad(Object):
         elements.
 
         This function takes ownership of the provided event so you should
-        gst_event_ref() it if you want to reuse the event after this call.
+        `Gst.event_ref` it if you want to reuse the event after this call.
         """
     def push_list(self, list: BufferList) -> FlowReturn:
         """
-            Pushes a buffer list to the peer of @pad.
+            Pushes a buffer list to the peer of `pad`.
 
         This function will call installed block probes before triggering any
         installed data probes.
 
         The function proceeds calling the chain function on the peer pad and returns
-        the value from that function. If @pad has no peer, #GST_FLOW_NOT_LINKED will
+        the value from that function. If `pad` has no peer, GST_FLOW_NOT_LINKED will
         be returned. If the peer pad does not have any installed chainlist function
-        every group buffer of the list will be merged into a normal #GstBuffer and
-        chained via gst_pad_chain().
+        every group buffer of the list will be merged into a normal Gst.Buffer and
+        chained via `Gst.pad_chain`.
 
-        In all cases, success or failure, the caller loses its reference to @list
+        In all cases, success or failure, the caller loses its reference to `list`
         after calling this function.
         """
     def query(self, query: Query) -> bool:
@@ -15303,30 +15303,30 @@ class Pad(Object):
         """
             Gets the capabilities this pad can produce or consume.
         Note that this method doesn't necessarily return the caps set by sending a
-        gst_event_new_caps() - use gst_pad_get_current_caps() for that instead.
+        `Gst.event_new_caps` - use `Gst.pad_get_current_caps` for that instead.
         gst_pad_query_caps returns all possible caps a pad can operate with, using
         the pad's CAPS query function, If the query fails, this function will return
-        @filter, if not %NULL, otherwise ANY.
+        `filter`, if not None, otherwise ANY.
 
-        When called on sinkpads @filter contains the caps that
+        When called on sinkpads `filter` contains the caps that
         upstream could produce in the order preferred by upstream. When
-        called on srcpads @filter contains the caps accepted by
-        downstream in the preferred order. @filter might be %NULL but
-        if it is not %NULL the returned caps will be a subset of @filter.
+        called on srcpads `filter` contains the caps accepted by
+        downstream in the preferred order. `filter` might be None but
+        if it is not None the returned caps will be a subset of `filter`.
 
-        Note that this function does not return writable #GstCaps, use
-        gst_caps_make_writable() before modifying the caps.
+        Note that this function does not return writable Gst.Caps, use
+        `Gst.caps_make_writable` before modifying the caps.
         """
     def query_convert(self, src_format: Format, src_val: int, dest_format: Format) -> tuple[bool, int]:
         """
-        Queries a pad to convert @src_val in @src_format to @dest_format.
+        Queries a pad to convert `src_val` in `src_format` to `dest_format`.
         """
     def query_default(self, parent: Object | None, query: Query) -> bool:
         """
             Invokes the default query handler for the given pad.
-        The query is sent to all pads internally linked to @pad. Note that
+        The query is sent to all pads internally linked to `pad`. Note that
         if there are many possible sink pads that are internally linked to
-        @pad, only one will be sent the query.
+        `pad`, only one will be sent the query.
         Multi-sinkpad elements should implement custom query handlers.
         """
     def query_duration(self, format: Format) -> tuple[bool, int]:
@@ -15339,7 +15339,7 @@ class Pad(Object):
         """
     def remove_probe(self, id: int) -> None:
         """
-            Remove the probe with @id from @pad.
+            Remove the probe with `id` from `pad`.
 
         MT safe.
         """
@@ -15348,30 +15348,30 @@ class Pad(Object):
             Sends the event to the pad. This function can be used
         by applications to send events in the pipeline.
 
-        If @pad is a source pad, @event should be an upstream event. If @pad is a
-        sink pad, @event should be a downstream event. For example, you would not
-        send a #GST_EVENT_EOS on a src pad; EOS events only propagate downstream.
+        If `pad` is a source pad, `event` should be an upstream event. If `pad` is a
+        sink pad, `event` should be a downstream event. For example, you would not
+        send a GST_EVENT_EOS on a src pad; EOS events only propagate downstream.
         Furthermore, some downstream events have to be serialized with data flow,
-        like EOS, while some can travel out-of-band, like #GST_EVENT_FLUSH_START. If
+        like EOS, while some can travel out-of-band, like GST_EVENT_FLUSH_START. If
         the event needs to be serialized with data flow, this function will take the
         pad's stream lock while calling its event function.
 
         To find out whether an event type is upstream, downstream, or downstream and
-        serialized, see #GstEventTypeFlags, gst_event_type_get_flags(),
-        #GST_EVENT_IS_UPSTREAM, #GST_EVENT_IS_DOWNSTREAM, and
-        #GST_EVENT_IS_SERIALIZED. Note that in practice that an application or
+        serialized, see Gst.EventTypeFlags, `Gst.event_type_get_flags`,
+        GST_EVENT_IS_UPSTREAM, GST_EVENT_IS_DOWNSTREAM, and
+        GST_EVENT_IS_SERIALIZED. Note that in practice that an application or
         plugin doesn't need to bother itself with this information; the core handles
         all necessary locks and checks.
 
         This function takes ownership of the provided event so you should
-        gst_event_ref() it if you want to reuse the event after this call.
+        `Gst.event_ref` it if you want to reuse the event after this call.
         """
     def set_activate_function_full(
         self, activate: PadActivateFunction, user_data: object | None, notify: GLib.DestroyNotify
     ) -> None:
         """
-            Sets the given activate function for @pad. The activate function will
-        dispatch to gst_pad_activate_mode() to perform the actual activation.
+            Sets the given activate function for `pad`. The activate function will
+        dispatch to `Gst.pad_activate_mode` to perform the actual activation.
         Only makes sense to set on sink pads.
 
         Call this function if your sink pad can start a pull-based task.
@@ -15388,27 +15388,27 @@ class Pad(Object):
             Activates or deactivates the given pad.
         Normally called from within core state change functions.
 
-        If @active, makes sure the pad is active. If it is already active, either in
+        If `active`, makes sure the pad is active. If it is already active, either in
         push or pull mode, just return. Otherwise dispatches to the pad's activate
         function to perform the actual activation.
 
-        If not @active, calls gst_pad_activate_mode() with the pad's current mode
-        and a %FALSE argument.
+        If not `active`, calls `Gst.pad_activate_mode` with the pad's current mode
+        and a False argument.
         """
     def set_chain_function_full(
         self, chain: PadChainFunction, user_data: object | None, notify: GLib.DestroyNotify
     ) -> None:
         """
             Sets the given chain function for the pad. The chain function is called to
-        process a #GstBuffer input buffer. see #GstPadChainFunction for more details.
+        process a Gst.Buffer input buffer. see Gst.PadChainFunction for more details.
         """
     def set_chain_list_function_full(
         self, chainlist: PadChainListFunction, user_data: object | None, notify: GLib.DestroyNotify
     ) -> None:
         """
             Sets the given chain list function for the pad. The chainlist function is
-        called to process a #GstBufferList input buffer list. See
-        #GstPadChainListFunction for more details.
+        called to process a Gst.BufferList input buffer list. See
+        Gst.PadChainListFunction for more details.
         """
     def set_element_private(self, priv: object | None = None) -> None:
         """
@@ -15433,8 +15433,8 @@ class Pad(Object):
     ) -> None:
         """
             Sets the given getrange function for the pad. The getrange function is
-        called to produce a new #GstBuffer to start the processing pipeline. see
-        #GstPadGetRangeFunction for a description of the getrange function.
+        called to produce a new Gst.Buffer to start the processing pipeline. see
+        Gst.PadGetRangeFunction for a description of the getrange function.
         """
     def set_iterate_internal_links_function_full(
         self, iterintlink: PadIterIntLinkFunction, user_data: object | None, notify: GLib.DestroyNotify
@@ -15449,18 +15449,18 @@ class Pad(Object):
             Sets the given link function for the pad. It will be called when
         the pad is linked with another pad.
 
-        The return value #GST_PAD_LINK_OK should be used when the connection can be
+        The return value GST_PAD_LINK_OK should be used when the connection can be
         made.
 
-        The return value #GST_PAD_LINK_REFUSED should be used when the connection
+        The return value GST_PAD_LINK_REFUSED should be used when the connection
         cannot be made for some reason.
 
-        If @link is installed on a source pad, it should call the #GstPadLinkFunction
+        If `link` is installed on a source pad, it should call the Gst.PadLinkFunction
         of the peer sink pad, if present.
         """
     def set_offset(self, offset: int) -> None:
         """
-            Set the offset that will be applied to the running time of @pad. Upon next
+            Set the offset that will be applied to the running time of `pad`. Upon next
         buffer, every sticky events (notably segment) will be pushed again with
         their running time adjusted. For that reason this is only reliable on
         source pads.
@@ -15484,37 +15484,37 @@ class Pad(Object):
         """
     def start_task(self, func: TaskFunction, user_data: object | None, notify: GLib.DestroyNotify) -> bool:
         """
-            Starts a task that repeatedly calls @func with @user_data. This function
+            Starts a task that repeatedly calls `func` with `user_data`. This function
         is mostly used in pad activation functions to start the dataflow.
-        The #GST_PAD_STREAM_LOCK of @pad will automatically be acquired
-        before @func is called.
+        The GST_PAD_STREAM_LOCK of `pad` will automatically be acquired
+        before `func` is called.
         """
     def sticky_events_foreach(
         self, foreach_func: PadStickyEventsForeachFunction, user_data: object | None = None
     ) -> None:
         """
-            Iterates all sticky events on @pad and calls @foreach_func for every
-        event. If @foreach_func returns %FALSE the iteration is immediately stopped.
+            Iterates all sticky events on `pad` and calls `foreach_func` for every
+        event. If `foreach_func` returns False the iteration is immediately stopped.
         """
     def stop_task(self) -> bool:
         """
-            Stop the task of @pad. This function will also make sure that the
+            Stop the task of `pad`. This function will also make sure that the
         function executed by the task will effectively stop if not called
         from the GstTaskFunction.
 
         This function will deadlock if called from the GstTaskFunction of
-        the task. Use gst_task_pause() instead.
+        the task. Use `Gst.task_pause` instead.
 
         Regardless of whether the pad has a task, the stream lock is acquired and
         released so as to ensure that streaming through this pad has finished.
         """
     def store_sticky_event(self, event: Event) -> FlowReturn:
         """
-        Store the sticky @event on @pad
+        Store the sticky `event` on `pad`
         """
     def unlink(self, sinkpad: Pad) -> bool:
         """
-            Unlinks the source pad from the sink pad. Will emit the #GstPad::unlinked
+            Unlinks the source pad from the sink pad. Will emit the Gst.Pad::unlinked
         signal on both pads.
         """
     def use_fixed_caps(self) -> None:
@@ -15622,7 +15622,7 @@ class PadPrivate(GObject.GPointer):
 
 class PadProbeInfo(GObject.GPointer):
     """
-    Info passed in the #GstPadProbeCallback.
+    Info passed in the Gst.PadProbeCallback.
     """
 
     # gi Fields
@@ -15633,14 +15633,14 @@ class PadProbeInfo(GObject.GPointer):
     """
     offset: int = ...
     """
-    offset of pull probe, this field is valid when @type contains
-       #GST_PAD_PROBE_TYPE_PULL
+    offset of pull probe, this field is valid when `type` contains
+       GST_PAD_PROBE_TYPE_PULL
 
     """
     size: int = ...
     """
-    size of pull probe, this field is valid when @type contains
-       #GST_PAD_PROBE_TYPE_PULL
+    size of pull probe, this field is valid when `type` contains
+       GST_PAD_PROBE_TYPE_PULL
 
     """
     type: PadProbeType = ...
@@ -15666,26 +15666,26 @@ class PadTemplate(Object):
     element plugin as well as identifying pads on elements that are not yet
     created (request or sometimes pads).
 
-    Pad and PadTemplates have #GstCaps attached to it to describe the media type
-    they are capable of dealing with. gst_pad_template_get_caps() or
-    GST_PAD_TEMPLATE_CAPS() are used to get the caps of a padtemplate. It's not
+    Pad and PadTemplates have Gst.Caps attached to it to describe the media type
+    they are capable of dealing with. `Gst.pad_template_get_caps` or
+    `GST_PAD_TEMPLATE_CAPS` are used to get the caps of a padtemplate. It's not
     possible to modify the caps of a padtemplate after creation.
 
-    PadTemplates have a #GstPadPresence property which identifies the lifetime
-    of the pad and that can be retrieved with GST_PAD_TEMPLATE_PRESENCE(). Also
-    the direction of the pad can be retrieved from the #GstPadTemplate with
-    GST_PAD_TEMPLATE_DIRECTION().
+    PadTemplates have a Gst.PadPresence property which identifies the lifetime
+    of the pad and that can be retrieved with `GST_PAD_TEMPLATE_PRESENCE`. Also
+    the direction of the pad can be retrieved from the Gst.PadTemplate with
+    `GST_PAD_TEMPLATE_DIRECTION`.
 
     The GST_PAD_TEMPLATE_NAME_TEMPLATE () is important for GST_PAD_REQUEST pads
-    because it has to be used as the name in the gst_element_request_pad_simple()
+    because it has to be used as the name in the `Gst.element_request_pad_simple`
     call to instantiate a pad from this template.
 
-    Padtemplates can be created with gst_pad_template_new() or with
-    gst_static_pad_template_get (), which creates a #GstPadTemplate from a
-    #GstStaticPadTemplate that can be filled with the
-    convenient GST_STATIC_PAD_TEMPLATE() macro.
+    Padtemplates can be created with `Gst.pad_template_new` or with
+    gst_static_pad_template_get (), which creates a Gst.PadTemplate from a
+    Gst.StaticPadTemplate that can be filled with the
+    convenient `GST_STATIC_PAD_TEMPLATE` macro.
 
-    A padtemplate can be used to create a pad (see gst_pad_new_from_template()
+    A padtemplate can be used to create a pad (see `Gst.pad_new_from_template`
     or gst_pad_new_from_static_template ()) or to add to an element class
     (see gst_element_class_add_static_pad_template ()).
 
@@ -15779,7 +15779,7 @@ class PadTemplate(Object):
         """
     def get_documentation_caps(self) -> Caps:
         """
-        See gst_pad_template_set_documentation_caps().
+        See `Gst.pad_template_set_documentation_caps`.
         """
     @classmethod
     def new(cls, name_template: str, direction: PadDirection, presence: PadPresence, caps: Caps) -> PadTemplate | None:
@@ -15792,7 +15792,7 @@ class PadTemplate(Object):
         cls, pad_template: StaticPadTemplate, pad_type: GObject.GType
     ) -> PadTemplate | None:
         """
-        Converts a #GstStaticPadTemplate into a #GstPadTemplate with a type.
+        Converts a Gst.StaticPadTemplate into a Gst.PadTemplate with a type.
         """
     @classmethod
     def new_with_gtype(
@@ -15889,7 +15889,7 @@ class PadTemplateClass(GObject.GPointer):
 
 class ParamArray(GObject.ParamSpec):
     """
-    A fundamental type that describes a #GParamSpec for arrays of
+    A fundamental type that describes a GParamSpec for arrays of
     values
     """
 
@@ -15901,7 +15901,7 @@ class ParamArray(GObject.ParamSpec):
 
 class ParamFraction(GObject.ParamSpec):
     """
-    A fundamental type that describes a #GParamSpec for fractional
+    A fundamental type that describes a GParamSpec for fractional
     properties
     """
 
@@ -15919,7 +15919,7 @@ class ParamSpecArray(GObject.GPointer):
     # gi Fields
     element_spec: GObject.ParamSpec | None = ...  # type: ignore
     """
-    the #GParamSpec of the type of values in the array
+    the GParamSpec of the type of values in the array
 
     """
 
@@ -15975,20 +15975,20 @@ class ParamSpecFraction(GObject.GPointer):
 
 class ParentBufferMeta(GObject.GPointer):
     """
-    The #GstParentBufferMeta is a #GstMeta which can be attached to a #GstBuffer
+    The Gst.ParentBufferMeta is a Gst.Meta which can be attached to a Gst.Buffer
     to hold a reference to another buffer that is only released when the child
-    #GstBuffer is released.
+    Gst.Buffer is released.
 
-    Typically, #GstParentBufferMeta is used when the child buffer is directly
-    using the #GstMemory of the parent buffer, and wants to prevent the parent
-    buffer from being returned to a buffer pool until the #GstMemory is available
+    Typically, Gst.ParentBufferMeta is used when the child buffer is directly
+    using the Gst.Memory of the parent buffer, and wants to prevent the parent
+    buffer from being returned to a buffer pool until the Gst.Memory is available
     for re-use.
     """
 
     # gi Fields
     buffer: Buffer | None = ...
     """
-    the #GstBuffer on which a reference is being held.
+    the Gst.Buffer on which a reference is being held.
 
     """
 
@@ -16000,7 +16000,7 @@ class ParentBufferMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> MetaInfo:
         """
-        Gets the global #GstMetaInfo describing  the #GstParentBufferMeta meta.
+        Gets the global Gst.MetaInfo describing  the Gst.ParentBufferMeta meta.
         """
 
 class ParseContext(GObject.GBoxed):
@@ -16011,23 +16011,23 @@ class ParseContext(GObject.GBoxed):
     # gi Methods
     def copy(self) -> ParseContext | None:
         """
-        Copies the @context.
+        Copies the `context`.
         """
     def free(self) -> None:
         """
-        Frees a parse context previously allocated with gst_parse_context_new().
+        Frees a parse context previously allocated with `Gst.parse_context_new`.
         """
     def get_missing_elements(self) -> list | None:
         """
-            Retrieve missing elements from a previous run of gst_parse_launch_full()
-        or gst_parse_launchv_full(). Will only return results if an error code
-        of %GST_PARSE_ERROR_NO_SUCH_ELEMENT was returned.
+            Retrieve missing elements from a previous run of `Gst.parse_launch_full`
+        or `Gst.parse_launchv_full`. Will only return results if an error code
+        of Gst.PARSE_ERROR_NO_SUCH_ELEMENT was returned.
         """
     @classmethod
     def new(cls) -> ParseContext | None:
         """
-            Allocates a parse context for use with gst_parse_launch_full() or
-        gst_parse_launchv_full().
+            Allocates a parse context for use with `Gst.parse_launch_full` or
+        `Gst.parse_launchv_full`.
 
         Free-function: gst_parse_context_free
         """
@@ -16041,46 +16041,46 @@ class ParseContext(GObject.GBoxed):
 
 class Pipeline(Bin):
     """
-    A #GstPipeline is a special #GstBin used as the toplevel container for
-    the filter graph. The #GstPipeline will manage the selection and
-    distribution of a global #GstClock as well as provide a #GstBus to the
+    A Gst.Pipeline is a special Gst.Bin used as the toplevel container for
+    the filter graph. The Gst.Pipeline will manage the selection and
+    distribution of a global Gst.Clock as well as provide a Gst.Bus to the
     application.
 
-    gst_pipeline_new() is used to create a pipeline. when you are done with
-    the pipeline, use gst_object_unref() to free its resources including all
-    added #GstElement objects (if not otherwise referenced).
+    `Gst.pipeline_new` is used to create a pipeline. when you are done with
+    the pipeline, use `Gst.object_unref` to free its resources including all
+    added Gst.Element objects (if not otherwise referenced).
 
-    Elements are added and removed from the pipeline using the #GstBin
-    methods like gst_bin_add() and gst_bin_remove() (see #GstBin).
+    Elements are added and removed from the pipeline using the Gst.Bin
+    methods like `Gst.bin_add` and `Gst.bin_remove` (see Gst.Bin).
 
-    Before changing the state of the #GstPipeline (see #GstElement) a #GstBus
-    should be retrieved with gst_pipeline_get_bus(). This #GstBus should then
-    be used to receive #GstMessage from the elements in the pipeline. Listening
-    to the #GstBus is necessary for retrieving error messages from the
-    #GstPipeline and otherwise the #GstPipeline might stop without any
-    indication, why. Furthermore, the #GstPipeline posts messages even if
-    nobody listens on the #GstBus, which will pile up and use up memory.
+    Before changing the state of the Gst.Pipeline (see Gst.Element) a Gst.Bus
+    should be retrieved with `Gst.pipeline_get_bus`. This Gst.Bus should then
+    be used to receive Gst.Message from the elements in the pipeline. Listening
+    to the Gst.Bus is necessary for retrieving error messages from the
+    Gst.Pipeline and otherwise the Gst.Pipeline might stop without any
+    indication, why. Furthermore, the Gst.Pipeline posts messages even if
+    nobody listens on the Gst.Bus, which will pile up and use up memory.
 
-    By default, a #GstPipeline will automatically flush the pending #GstBus
-    messages when going to the NULL state to ensure that no circular
-    references exist when no messages are read from the #GstBus. This
-    behaviour can be changed with gst_pipeline_set_auto_flush_bus().
+    By default, a Gst.Pipeline will automatically flush the pending Gst.Bus
+    messages when going to the None state to ensure that no circular
+    references exist when no messages are read from the Gst.Bus. This
+    behaviour can be changed with `Gst.pipeline_set_auto_flush_bus`.
 
-    When the #GstPipeline performs the PAUSED to PLAYING state change it will
+    When the Gst.Pipeline performs the PAUSED to PLAYING state change it will
     select a clock for the elements. The clock selection algorithm will by
     default select a clock provided by an element that is most upstream
     (closest to the source). For live pipelines (ones that return
-    #GST_STATE_CHANGE_NO_PREROLL from the gst_element_set_state() call) this
+    GST_STATE_CHANGE_NO_PREROLL from the `Gst.element_set_state` call) this
     will select the clock provided by the live source. For normal pipelines
     this will select a clock provided by the sinks (most likely the audio
-    sink). If no element provides a clock, a default #GstSystemClock is used.
+    sink). If no element provides a clock, a default Gst.SystemClock is used.
 
-    The clock selection can be controlled with the gst_pipeline_use_clock()
+    The clock selection can be controlled with the `Gst.pipeline_use_clock`
     method, which will enforce a given clock on the pipeline. With
-    gst_pipeline_auto_clock() the default clock selection algorithm can be
+    `Gst.pipeline_auto_clock` the default clock selection algorithm can be
     restored.
 
-    A #GstPipeline maintains a running time for the elements. The running
+    A Gst.Pipeline maintains a running time for the elements. The running
     time is defined as the difference between the current clock time and
     the base time. When the pipeline goes to READY or a flushing seek is
     performed on it, the running time is reset to 0. When the pipeline is
@@ -16089,25 +16089,25 @@ class Pipeline(Bin):
     to PLAYING again. The effect is that the running time (as the difference
     between the clock time and the base time) will count how much time was spent
     in the PLAYING state. This default behaviour can be changed with the
-    gst_element_set_start_time() method.
+    `Gst.element_set_start_time` method.
     """
 
     class Props(Bin.Props):
         auto_flush_bus: bool  # [auto-flush-bus]: changed because contained invalid characters
         """
         Whether or not to automatically flush all messages on the
-        pipeline's bus when going from READY to NULL state. Please see
-        gst_pipeline_set_auto_flush_bus() for more information on this option.
+        pipeline's bus when going from READY to None state. Please see
+        `Gst.pipeline_set_auto_flush_bus` for more information on this option.
         """
         delay: int
         """
         The expected delay needed for elements to spin up to the
         PLAYING state expressed in nanoseconds.
-        see gst_pipeline_set_delay() for more information on this option.
+        see `Gst.pipeline_set_delay` for more information on this option.
         """
         latency: int
         """
-        Latency to configure on the pipeline. See gst_pipeline_set_latency().
+        Latency to configure on the pipeline. See `Gst.pipeline_set_latency`.
         """
 
     @builtins.property
@@ -16144,11 +16144,11 @@ class Pipeline(Bin):
         """
     def auto_clock(self) -> None:
         """
-            Let @pipeline select a clock automatically. This is the default
+            Let `pipeline` select a clock automatically. This is the default
         behaviour.
 
         Use this function if you previous forced a fixed clock with
-        gst_pipeline_use_clock() and want to restore the default
+        `Gst.pipeline_use_clock` and want to restore the default
         pipeline clock selection algorithm.
 
         MT safe.
@@ -16156,39 +16156,39 @@ class Pipeline(Bin):
     @builtins.property
     def get_auto_flush_bus(self) -> bool:
         """
-            Check if @pipeline will automatically flush messages when going to
-        the NULL state.
+            Check if `pipeline` will automatically flush messages when going to
+        the None state.
         """
     def get_bus(self) -> Bus:
         """
-            Gets the #GstBus of @pipeline. The bus allows applications to receive
-        #GstMessage packets.
+            Gets the Gst.Bus of `pipeline`. The bus allows applications to receive
+        Gst.Message packets.
         """
     def get_configured_latency(self) -> int:
         """
-        Return the configured latency on @pipeline.
+        Return the configured latency on `pipeline`.
         """
     @builtins.property
     def get_delay(self) -> int:
         """
-        Get the configured delay (see gst_pipeline_set_delay()).
+        Get the configured delay (see `Gst.pipeline_set_delay`).
         """
     @builtins.property
     def get_latency(self) -> int:
         """
             Gets the latency that should be configured on the pipeline. See
-        gst_pipeline_set_latency().
+        `Gst.pipeline_set_latency`.
         """
     def get_pipeline_clock(self) -> Clock:
         """
-            Gets the current clock used by @pipeline.
+            Gets the current clock used by `pipeline`.
 
-        Unlike gst_element_get_clock(), this function will always return a
+        Unlike `Gst.element_get_clock`, this function will always return a
         clock, even if the pipeline is not in the PLAYING state.
         """
     def is_live(self) -> bool:
         """
-        Check if @pipeline is live.
+        Check if `pipeline` is live.
         """
     @classmethod
     def new(cls, name: str | None = None) -> Pipeline:
@@ -16197,7 +16197,7 @@ class Pipeline(Bin):
         """
     def set_auto_flush_bus(self, auto_flush: bool) -> None:
         """
-            Usually, when a pipeline goes from READY to NULL state, it automatically
+            Usually, when a pipeline goes from READY to None state, it automatically
         flushes all pending messages on the bus, which is done for refcounting
         purposes, to break circular references.
 
@@ -16215,10 +16215,10 @@ class Pipeline(Bin):
     def set_delay(self, delay: int) -> None:
         """
             Set the expected delay needed for all elements to perform the
-        PAUSED to PLAYING state change. @delay will be added to the
-        base time of the elements so that they wait an additional @delay
+        PAUSED to PLAYING state change. `delay` will be added to the
+        base time of the elements so that they wait an additional `delay`
         amount of time before starting to process buffers and cannot be
-        #GST_CLOCK_TIME_NONE.
+        GST_CLOCK_TIME_NONE.
 
         This option is used for tuning purposes and should normally not be
         used.
@@ -16237,11 +16237,11 @@ class Pipeline(Bin):
         """
     def use_clock(self, clock: Clock | None = None) -> None:
         """
-            Force @pipeline to use the given @clock. The pipeline will
+            Force `pipeline` to use the given `clock`. The pipeline will
         always use the given clock even if new clock providers are added
         to this pipeline.
 
-        If @clock is %NULL all clocking will be disabled which will make
+        If `clock` is None all clocking will be disabled which will make
         the pipeline run as fast as possible.
 
         MT safe.
@@ -16294,24 +16294,24 @@ class PipelinePrivate(GObject.GPointer):
 
 class Plugin(Object):
     """
-    GStreamer is extensible, so #GstElement instances can be loaded at runtime.
+    GStreamer is extensible, so Gst.Element instances can be loaded at runtime.
     A plugin system can provide one or more of the basic GStreamer
-    #GstPluginFeature subclasses.
+    Gst.PluginFeature subclasses.
 
     A plugin should export a symbol `gst_plugin_desc` that is a
-    struct of type #GstPluginDesc.
+    struct of type Gst.PluginDesc.
     the plugin loader will check the version of the core library the plugin was
-    linked against and will create a new #GstPlugin. It will then call the
-    #GstPluginInitFunc function that was provided in the
+    linked against and will create a new Gst.Plugin. It will then call the
+    Gst.PluginInitFunc function that was provided in the
     `gst_plugin_desc`.
 
-    Once you have a handle to a #GstPlugin (e.g. from the #GstRegistry), you
-    can add any object that subclasses #GstPluginFeature.
+    Once you have a handle to a Gst.Plugin (e.g. from the Gst.Registry), you
+    can add any object that subclasses Gst.PluginFeature.
 
     Usually plugins are always automatically loaded so you don't need to call
-    gst_plugin_load() explicitly to bring it into memory. There are options to
+    `Gst.plugin_load` explicitly to bring it into memory. There are options to
     statically link plugins to an app or even use GStreamer without a plugin
-    repository in which case gst_plugin_load() can be needed to bring the plugin
+    repository in which case `Gst.plugin_load` can be needed to bring the plugin
     into memory.
     """
 
@@ -16348,7 +16348,7 @@ class Plugin(Object):
         codec loader which exposes elements and/or caps dependent on what external
         codec libraries are currently installed.
 
-        Convenience wrapper function for gst_plugin_add_dependency() which
+        Convenience wrapper function for `Gst.plugin_add_dependency` which
         takes simple strings as arguments instead of string arrays, with multiple
         arguments separated by predefined delimiters (see above).
         """
@@ -16357,7 +16357,7 @@ class Plugin(Object):
     def add_status_warning(self, message: str) -> None: ...
     def get_cache_data(self) -> Structure | None:
         """
-            Gets the plugin specific data cache. If it is %NULL there is no cached data
+            Gets the plugin specific data cache. If it is None there is no cached data
         stored. This is the case when the registry is getting rebuilt.
         """
     def get_description(self) -> str:
@@ -16413,11 +16413,11 @@ class Plugin(Object):
     @staticmethod
     def list_free(list: list) -> None:
         """
-        Unrefs each member of @list, then frees the list.
+        Unrefs each member of `list`, then frees the list.
         """
     def load(self) -> Plugin | None:
         """
-            Loads @plugin. Note that the *return value* is the loaded plugin; @plugin is
+            Loads `plugin`. Note that the *return value* is the loaded plugin; `plugin` is
         untouched. The normal use pattern of this function goes like this:
 
         |[
@@ -16456,8 +16456,8 @@ class Plugin(Object):
         or library and contained within the application or library (as opposed to
         being shipped as a separate module file).
 
-        You must make sure that GStreamer has been initialised (with gst_init() or
-        via gst_init_get_option_group()) before calling this function.
+        You must make sure that GStreamer has been initialised (with `Gst.init` or
+        via `Gst.init_get_option_group`) before calling this function.
         """
     @staticmethod
     def register_static_full(
@@ -16476,17 +16476,17 @@ class Plugin(Object):
         """
             Registers a static plugin, ie. a plugin which is private to an application
         or library and contained within the application or library (as opposed to
-        being shipped as a separate module file) with a #GstPluginInitFullFunc
+        being shipped as a separate module file) with a Gst.PluginInitFullFunc
         which allows user data to be passed to the callback function (useful
         for bindings).
 
-        You must make sure that GStreamer has been initialised (with gst_init() or
-        via gst_init_get_option_group()) before calling this function.
+        You must make sure that GStreamer has been initialised (with `Gst.init` or
+        via `Gst.init_get_option_group`) before calling this function.
         """
     def set_cache_data(self, cache_data: Structure) -> None:
         """
             Adds plugin specific data to cache. Passes the ownership of the structure to
-        the @plugin.
+        the `plugin`.
 
         The cache is flushed every time the registry is rebuilt.
         """
@@ -16503,7 +16503,7 @@ class PluginDesc(GObject.GPointer):
     A plugin should export a variable of this type called plugin_desc. The plugin
     loader will use the data provided there to initialize the plugin.
 
-    The @licence parameter must be one of: LGPL, GPL, QPL, GPL/QPL, MPL,
+    The `licence` parameter must be one of: LGPL, GPL, QPL, GPL/QPL, MPL,
     BSD, MIT/X11, Proprietary, unknown.
     """
 
@@ -16551,7 +16551,7 @@ class PluginDesc(GObject.GPointer):
     release_datetime: str = ...
     """
     date time string in ISO 8601
-        format (or rather, a subset thereof), or %NULL. Allowed are the
+        format (or rather, a subset thereof), or None. Allowed are the
         following formats: "YYYY-MM-DD" and "YYY-MM-DDTHH:MMZ" (with
         'T' a separator and 'Z' indicating UTC/Zulu time). This field
         should be set via the GST_PACKAGE_RELEASE_DATETIME
@@ -16577,7 +16577,7 @@ class PluginDesc(GObject.GPointer):
 
 class PluginFeature(Object):
     """
-    This is a base class for anything that can be added to a #GstPlugin.
+    This is a base class for anything that can be added to a Gst.Plugin.
     """
 
     # gi Methods
@@ -16589,9 +16589,9 @@ class PluginFeature(Object):
         """
             Checks whether the given plugin feature is at least the required version.
 
-        Note: Since version 1.24 this function no longer returns %TRUE if the
+        Note: Since version 1.24 this function no longer returns True if the
         version is a git development version (e.g. 1.23.0.1) and the check is
-        for the "next" micro version, that is it will no longer return %TRUE for
+        for the "next" micro version, that is it will no longer return True for
         e.g. 1.23.0.1 if the check is for 1.23.1. It is still possible to parse
         the nano version from the string and do this check that way if needed.
         """
@@ -16610,22 +16610,22 @@ class PluginFeature(Object):
     @staticmethod
     def list_copy(list: list) -> list:
         """
-            Copies the list of features. Caller should call @gst_plugin_feature_list_free
+            Copies the list of features. Caller should call `gst_plugin_feature_list_free`
         when done with the list.
         """
     @staticmethod
     def list_debug(list: list) -> None:
         """
-        Debug the plugin feature names in @list.
+        Debug the plugin feature names in `list`.
         """
     @staticmethod
     def list_free(list: list) -> None:
         """
-        Unrefs each member of @list, then frees the list.
+        Unrefs each member of `list`, then frees the list.
         """
     def load(self) -> PluginFeature | None:
         """
-            Loads the plugin containing @feature if it's not already loaded. @feature is
+            Loads the plugin containing `feature` if it's not already loaded. `feature` is
         unaffected; use the return value instead.
 
         Normally this function is used like this:
@@ -16641,8 +16641,8 @@ class PluginFeature(Object):
     @staticmethod
     def rank_compare_func(p1: object | None = None, p2: object | None = None) -> int:
         """
-            Compares the two given #GstPluginFeature instances. This function can be
-        used as a #GCompareFunc when sorting by rank and then by name.
+            Compares the two given Gst.PluginFeature instances. This function can be
+        used as a GCompareFunc when sorting by rank and then by name.
         """
     def set_rank(self, rank: int) -> None:
         """
@@ -16659,28 +16659,28 @@ class PluginFeatureClass(GObject.GPointer):
 
 class Poll(GObject.GPointer):
     """
-    A #GstPoll keeps track of file descriptors much like fd_set (used with
+    A Gst.Poll keeps track of file descriptors much like fd_set (used with
     select ()) or a struct pollfd array (used with poll ()). Once created with
-    gst_poll_new(), the set can be used to wait for file descriptors to be
+    `Gst.poll_new`, the set can be used to wait for file descriptors to be
     readable and/or writable. It is possible to make this wait be controlled
-    by specifying %TRUE for the @controllable flag when creating the set (or
-    later calling gst_poll_set_controllable()).
+    by specifying True for the `controllable` flag when creating the set (or
+    later calling `Gst.poll_set_controllable`).
 
-    New file descriptors are added to the set using gst_poll_add_fd(), and
-    removed using gst_poll_remove_fd(). Controlling which file descriptors
+    New file descriptors are added to the set using `Gst.poll_add_fd`, and
+    removed using `Gst.poll_remove_fd`. Controlling which file descriptors
     should be waited for to become readable and/or writable are done using
-    gst_poll_fd_ctl_read(), gst_poll_fd_ctl_write() and gst_poll_fd_ctl_pri().
+    `Gst.poll_fd_ctl_read`, `Gst.poll_fd_ctl_write` and `Gst.poll_fd_ctl_pri`.
 
-    Use gst_poll_wait() to wait for the file descriptors to actually become
+    Use `Gst.poll_wait` to wait for the file descriptors to actually become
     readable and/or writable, or to timeout if no file descriptor is available
-    in time. The wait can be controlled by calling gst_poll_restart() and
-    gst_poll_set_flushing().
+    in time. The wait can be controlled by calling `Gst.poll_restart` and
+    `Gst.poll_set_flushing`.
 
     Once the file descriptor set has been waited for, one can use
-    gst_poll_fd_has_closed() to see if the file descriptor has been closed,
-    gst_poll_fd_has_error() to see if it has generated an error,
-    gst_poll_fd_can_read() to see if it is possible to read from the file
-    descriptor, and gst_poll_fd_can_write() to see if it is possible to
+    `Gst.poll_fd_has_closed` to see if the file descriptor has been closed,
+    `Gst.poll_fd_has_error` to see if it has generated an error,
+    `Gst.poll_fd_can_read` to see if it is possible to read from the file
+    descriptor, and `Gst.poll_fd_can_write` to see if it is possible to
     write to it.
     """
 
@@ -16695,49 +16695,49 @@ class Poll(GObject.GPointer):
         """
     def fd_can_read(self, fd: PollFD) -> bool:
         """
-        Check if @fd in @set has data to be read.
+        Check if `fd` in `set` has data to be read.
         """
     def fd_can_write(self, fd: PollFD) -> bool:
         """
-        Check if @fd in @set can be used for writing.
+        Check if `fd` in `set` can be used for writing.
         """
     def fd_ctl_pri(self, fd: PollFD, active: bool) -> bool:
         """
-            Control whether the descriptor @fd in @set will be monitored for
+            Control whether the descriptor `fd` in `set` will be monitored for
         exceptional conditions (POLLPRI).
 
-        Not implemented on Windows (will just return %FALSE there).
+        Not implemented on Windows (will just return False there).
         """
     def fd_ctl_read(self, fd: PollFD, active: bool) -> bool:
         """
-            Control whether the descriptor @fd in @set will be monitored for
+            Control whether the descriptor `fd` in `set` will be monitored for
         readability.
         """
     def fd_ctl_write(self, fd: PollFD, active: bool) -> bool:
         """
-            Control whether the descriptor @fd in @set will be monitored for
+            Control whether the descriptor `fd` in `set` will be monitored for
         writability.
         """
     def fd_has_closed(self, fd: PollFD) -> bool:
         """
-        Check if @fd in @set has closed the connection.
+        Check if `fd` in `set` has closed the connection.
         """
     def fd_has_error(self, fd: PollFD) -> bool:
         """
-        Check if @fd in @set has an error.
+        Check if `fd` in `set` has an error.
         """
     def fd_has_pri(self, fd: PollFD) -> bool:
         """
-            Check if @fd in @set has an exceptional condition (POLLPRI).
+            Check if `fd` in `set` has an exceptional condition (POLLPRI).
 
-        Not implemented on Windows (will just return %FALSE there).
+        Not implemented on Windows (will just return False there).
         """
     def fd_ignored(self, fd: PollFD) -> None:
         """
-            Mark @fd as ignored so that the next call to gst_poll_wait() will yield
-        the same result for @fd as last time. This function must be called if no
-        operation (read/write/recv/send/etc.) will be performed on @fd before
-        the next call to gst_poll_wait().
+            Mark `fd` as ignored so that the next call to `Gst.poll_wait` will yield
+        the same result for `fd` as last time. This function must be called if no
+        operation (read/write/recv/send/etc.) will be performed on `fd` before
+        the next call to `Gst.poll_wait`.
 
         The reason why this is needed is because the underlying implementation
         might not allow querying the fd more than once between calls to one of
@@ -16754,10 +16754,10 @@ class Poll(GObject.GPointer):
         """
     def read_control(self) -> bool:
         """
-            Read a byte from the control socket of the controllable @set.
+            Read a byte from the control socket of the controllable `set`.
 
-        This function only works for timer #GstPoll objects created with
-        gst_poll_new_timer().
+        This function only works for timer Gst.Poll objects created with
+        `Gst.poll_new_timer`.
         """
     def remove_fd(self, fd: PollFD) -> bool:
         """
@@ -16765,59 +16765,59 @@ class Poll(GObject.GPointer):
         """
     def restart(self) -> None:
         """
-            Restart any gst_poll_wait() that is in progress. This function is typically
-        used after adding or removing descriptors to @set.
+            Restart any `Gst.poll_wait` that is in progress. This function is typically
+        used after adding or removing descriptors to `set`.
 
-        If @set is not controllable, then this call will have no effect.
+        If `set` is not controllable, then this call will have no effect.
 
-        This function only works for non-timer #GstPoll objects created with
-        gst_poll_new().
+        This function only works for non-timer Gst.Poll objects created with
+        `Gst.poll_new`.
         """
     def set_controllable(self, controllable: bool) -> bool:
         """
-            When @controllable is %TRUE, this function ensures that future calls to
-        gst_poll_wait() will be affected by gst_poll_restart() and
-        gst_poll_set_flushing().
+            When `controllable` is True, this function ensures that future calls to
+        `Gst.poll_wait` will be affected by `Gst.poll_restart` and
+        `Gst.poll_set_flushing`.
 
-        This function only works for non-timer #GstPoll objects created with
-        gst_poll_new().
+        This function only works for non-timer Gst.Poll objects created with
+        `Gst.poll_new`.
         """
     def set_flushing(self, flushing: bool) -> None:
         """
-            When @flushing is %TRUE, this function ensures that current and future calls
-        to gst_poll_wait() will return -1, with errno set to EBUSY.
+            When `flushing` is True, this function ensures that current and future calls
+        to `Gst.poll_wait` will return -1, with errno set to EBUSY.
 
-        Unsetting the flushing state will restore normal operation of @set.
+        Unsetting the flushing state will restore normal operation of `set`.
 
-        This function only works for non-timer #GstPoll objects created with
-        gst_poll_new().
+        This function only works for non-timer Gst.Poll objects created with
+        `Gst.poll_new`.
         """
     def wait(self, timeout: int) -> int:
         """
-            Wait for activity on the file descriptors in @set. This function waits up to
-        the specified @timeout.  A timeout of #GST_CLOCK_TIME_NONE waits forever.
+            Wait for activity on the file descriptors in `set`. This function waits up to
+        the specified `timeout`.  A timeout of GST_CLOCK_TIME_NONE waits forever.
 
-        For #GstPoll objects created with gst_poll_new(), this function can only be
+        For Gst.Poll objects created with `Gst.poll_new`, this function can only be
         called from a single thread at a time.  If called from multiple threads,
         -1 will be returned with errno set to EPERM.
 
-        This is not true for timer #GstPoll objects created with
-        gst_poll_new_timer(), where it is allowed to have multiple threads waiting
+        This is not true for timer Gst.Poll objects created with
+        `Gst.poll_new_timer`, where it is allowed to have multiple threads waiting
         simultaneously.
         """
     def write_control(self) -> bool:
         """
-            Write a byte to the control socket of the controllable @set.
-        This function is mostly useful for timer #GstPoll objects created with
-        gst_poll_new_timer().
+            Write a byte to the control socket of the controllable `set`.
+        This function is mostly useful for timer Gst.Poll objects created with
+        `Gst.poll_new_timer`.
 
-        It will make any current and future gst_poll_wait() function return with
+        It will make any current and future `Gst.poll_wait` function return with
         1, meaning the control socket is set. After an equal amount of calls to
-        gst_poll_read_control() have been performed, calls to gst_poll_wait() will
+        `Gst.poll_read_control` have been performed, calls to `Gst.poll_wait` will
         block again until their timeout expired.
 
-        This function only works for timer #GstPoll objects created with
-        gst_poll_new_timer().
+        This function only works for timer Gst.Poll objects created with
+        `Gst.poll_new_timer`.
         """
 
 class PollFD(GObject.GPointer):
@@ -16841,8 +16841,8 @@ class PollFD(GObject.GPointer):
         """
     def init(self) -> None:
         """
-            Initializes @fd. Alternatively you can initialize it with
-        #GST_POLL_FD_INIT.
+            Initializes `fd`. Alternatively you can initialize it with
+        GST_POLL_FD_INIT.
         """
 
 class Preset(GObject.GInterface):
@@ -16857,11 +16857,11 @@ class Preset(GObject.GInterface):
     The interface comes with a default implementation that serves most plugins.
     Wrapper plugins will override most methods to implement support for the
     native preset format of those wrapped plugins.
-    One method that is useful to be overridden is gst_preset_get_property_names().
+    One method that is useful to be overridden is `Gst.preset_get_property_names`.
     With that one can control which properties are saved and in which order.
     When implementing support for read-only presets, one should set the vmethods
-    for gst_preset_save_preset() and gst_preset_delete_preset() to %NULL.
-    Applications can use gst_preset_is_editable() to check for that.
+    for `Gst.preset_save_preset` and `Gst.preset_delete_preset` to None.
+    Applications can use `Gst.preset_is_editable` to check for that.
 
     The default implementation supports presets located in a system directory,
     application specific directory and in the users home directory. When getting
@@ -16889,12 +16889,12 @@ class Preset(GObject.GInterface):
         """
     def get_meta(self, name: str, tag: str) -> tuple[bool, str]:
         """
-            Gets the @value for an existing meta data @tag. Meta data @tag names can be
+            Gets the `value` for an existing meta data `tag`. Meta data `tag` names can be
         something like e.g. "comment". Returned values need to be released when done.
         """
     def get_preset_names(self) -> list:
         """
-        Get a copy of preset names as a %NULL terminated string array.
+        Get a copy of preset names as a None terminated string array.
         """
     def get_property_names(self) -> list:
         """
@@ -16910,13 +16910,13 @@ class Preset(GObject.GInterface):
         """
     def rename_preset(self, old_name: str, new_name: str) -> bool:
         """
-            Renames a preset. If there is already a preset by the @new_name it will be
+            Renames a preset. If there is already a preset by the `new_name` it will be
         overwritten.
         """
     def save_preset(self, name: str) -> bool:
         """
             Save the current object settings as a preset under the given name. If there
-        is already a preset by this @name it will be overwritten.
+        is already a preset by this `name` it will be overwritten.
         """
     @staticmethod
     def set_app_dir(app_dir: str) -> bool:
@@ -16927,14 +16927,14 @@ class Preset(GObject.GInterface):
         """
     def set_meta(self, name: str, tag: str, value: str | None = None) -> bool:
         """
-            Sets a new @value for an existing meta data item or adds a new item. Meta
-        data @tag names can be something like e.g. "comment". Supplying %NULL for the
-        @value will unset an existing value.
+            Sets a new `value` for an existing meta data item or adds a new item. Meta
+        data `tag` names can be something like e.g. "comment". Supplying None for the
+        `value` will unset an existing value.
         """
 
 class PresetInterface(GObject.GPointer):
     """
-    #GstPreset interface.
+    Gst.Preset interface.
     """
 
     # gi Fields
@@ -16987,26 +16987,26 @@ class PresetInterface(GObject.GPointer):
 
 class Promise(GObject.GBoxed):
     """
-    The #GstPromise object implements the container for values that may
+    The Gst.Promise object implements the container for values that may
     be available later. i.e. a Future or a Promise in
     <https://en.wikipedia.org/wiki/Futures_and_promises>.
     As with all Future/Promise-like functionality, there is the concept of the
     producer of the value and the consumer of the value.
 
-    A #GstPromise is created with gst_promise_new() by the consumer and passed
+    A Gst.Promise is created with `Gst.promise_new` by the consumer and passed
     to the producer to avoid thread safety issues with the change callback.
-    A #GstPromise can be replied to with a value (or an error) by the producer
-    with gst_promise_reply(). The exact value returned is defined by the API
-    contract of the producer and %NULL may be a valid reply.
-    gst_promise_interrupt() is for the consumer to
+    A Gst.Promise can be replied to with a value (or an error) by the producer
+    with `Gst.promise_reply`. The exact value returned is defined by the API
+    contract of the producer and None may be a valid reply.
+    `Gst.promise_interrupt` is for the consumer to
     indicate to the producer that the value is not needed anymore and producing
-    that value can stop.  The @GST_PROMISE_RESULT_EXPIRED state set by a call
-    to gst_promise_expire() indicates to the consumer that a value will never
+    that value can stop.  The `GST_PROMISE_RESULT_EXPIRED` state set by a call
+    to `Gst.promise_expire` indicates to the consumer that a value will never
     be produced and is intended to be called by a third party that implements
-    some notion of message handling such as #GstBus.
-    A callback can also be installed at #GstPromise creation for
-    result changes with gst_promise_new_with_change_func().
-    The change callback can be used to chain #GstPromises's together as in the
+    some notion of message handling such as Gst.Bus.
+    A callback can also be installed at Gst.Promise creation for
+    result changes with `Gst.promise_new_with_change_func`.
+    The change callback can be used to chain Gst.Promises's together as in the
     following example.
     |[<!-- language="C" -->
     const GstStructure *reply;
@@ -17020,44 +17020,44 @@ class Promise(GObject.GBoxed):
     pass p to promise-using API
     ]|
 
-    Each #GstPromise starts out with a #GstPromiseResult of
-    %GST_PROMISE_RESULT_PENDING and only ever transitions once
-    into one of the other #GstPromiseResult's.
+    Each Gst.Promise starts out with a Gst.PromiseResult of
+    Gst.PROMISE_RESULT_PENDING and only ever transitions once
+    into one of the other Gst.PromiseResult's.
 
-    In order to support multi-threaded code, gst_promise_reply(),
-    gst_promise_interrupt() and gst_promise_expire() may all be from
+    In order to support multi-threaded code, `Gst.promise_reply`,
+    `Gst.promise_interrupt` and `Gst.promise_expire` may all be from
     different threads with some restrictions and the final result of the promise
     is whichever call is made first.  There are two restrictions on ordering:
 
-    1. That gst_promise_reply() and gst_promise_interrupt() cannot be called
-    after gst_promise_expire()
-    2. That gst_promise_reply() and gst_promise_interrupt()
+    1. That `Gst.promise_reply` and `Gst.promise_interrupt` cannot be called
+    after `Gst.promise_expire`
+    2. That `Gst.promise_reply` and `Gst.promise_interrupt`
     cannot be called twice.
 
-    The change function set with gst_promise_new_with_change_func() is
-    called directly from either the gst_promise_reply(),
-    gst_promise_interrupt() or gst_promise_expire() and can be called
-    from an arbitrary thread.  #GstPromise using APIs can restrict this to
+    The change function set with `Gst.promise_new_with_change_func` is
+    called directly from either the `Gst.promise_reply`,
+    `Gst.promise_interrupt` or `Gst.promise_expire` and can be called
+    from an arbitrary thread.  Gst.Promise using APIs can restrict this to
     a single thread or a subset of threads but that is entirely up to the API
-    that uses #GstPromise.
+    that uses Gst.Promise.
     """
 
     # gi Methods
     def expire(self) -> None:
         """
-            Expire a @promise.  This will wake up any waiters with
-        %GST_PROMISE_RESULT_EXPIRED.  Called by a message loop when the parent
+            Expire a `promise`.  This will wake up any waiters with
+        Gst.PROMISE_RESULT_EXPIRED.  Called by a message loop when the parent
         message is handled and/or destroyed (possibly unanswered).
         """
     def get_reply(self) -> Structure | None:
         """
-            Retrieve the reply set on @promise.  @promise must be in
-        %GST_PROMISE_RESULT_REPLIED and the returned structure is owned by @promise
+            Retrieve the reply set on `promise`.  `promise` must be in
+        Gst.PROMISE_RESULT_REPLIED and the returned structure is owned by `promise`
         """
     def interrupt(self) -> None:
         """
-            Interrupt waiting for a @promise.  This will wake up any waiters with
-        %GST_PROMISE_RESULT_INTERRUPTED.  Called when the consumer does not want
+            Interrupt waiting for a `promise`.  This will wake up any waiters with
+        Gst.PROMISE_RESULT_INTERRUPTED.  Called when the consumer does not want
         the value produced anymore.
         """
     @classmethod
@@ -17067,23 +17067,23 @@ class Promise(GObject.GBoxed):
         cls, func: PromiseChangeFunc, user_data: object | None, notify: GLib.DestroyNotify
     ) -> Promise:
         """
-            @func will be called exactly once when transitioning out of
-        %GST_PROMISE_RESULT_PENDING into any of the other #GstPromiseResult
+            `func` will be called exactly once when transitioning out of
+        Gst.PROMISE_RESULT_PENDING into any of the other Gst.PromiseResult
         states.
         """
     def reply(self, s: Structure | None = None) -> None:
         """
-            Set a reply on @promise.  This will wake up any waiters with
-        %GST_PROMISE_RESULT_REPLIED.  Called by the producer of the value to
+            Set a reply on `promise`.  This will wake up any waiters with
+        Gst.PROMISE_RESULT_REPLIED.  Called by the producer of the value to
         indicate success (or failure).
 
-        If @promise has already been interrupted by the consumer, then this reply
+        If `promise` has already been interrupted by the consumer, then this reply
         is not visible to the consumer.
         """
     def wait(self) -> PromiseResult:
         """
-            Wait for @promise to move out of the %GST_PROMISE_RESULT_PENDING state.
-        If @promise is not in %GST_PROMISE_RESULT_PENDING then it will return
+            Wait for `promise` to move out of the Gst.PROMISE_RESULT_PENDING state.
+        If `promise` is not in Gst.PROMISE_RESULT_PENDING then it will return
         immediately with the current result.
         """
 
@@ -17108,7 +17108,7 @@ class ProtectionMeta(GObject.GPointer):
     """
     meta: Meta | None = ...
     """
-    the parent #GstMeta.
+    the parent Gst.Meta.
 
     """
 
@@ -17142,9 +17142,9 @@ class ProxyPad(Pad):
         """
     def get_internal(self) -> ProxyPad | None:
         """
-            Get the internal pad of @pad. Unref target pad after usage.
+            Get the internal pad of `pad`. Unref target pad after usage.
 
-        The internal pad of a #GstGhostPad is the internally used
+        The internal pad of a Gst.GhostPad is the internally used
         pad of opposite direction, which is used to link to the target.
         """
     @staticmethod
@@ -17178,8 +17178,8 @@ class ProxyPadPrivate(GObject.GPointer):
 
 class Query(GObject.GBoxed):
     """
-    Queries can be performed on pads (gst_pad_query()) and elements
-    (gst_element_query()). Please note that some queries might need a running
+    Queries can be performed on pads (`Gst.pad_query`) and elements
+    (`Gst.element_query`). Please note that some queries might need a running
     pipeline to work.
 
     Queries can be created using the gst_query_new_*() functions.
@@ -17194,7 +17194,7 @@ class Query(GObject.GBoxed):
       res = gst_element_query (pipeline, query);
       if (res) {
         gint64 duration;
-        gst_query_parse_duration (query, NULL, &duration);
+        gst_query_parse_duration (query, None, &duration);
         g_print ("duration = %"GST_TIME_FORMAT, GST_TIME_ARGS (duration));
       } else {
         g_print ("duration query failed...");
@@ -17206,12 +17206,12 @@ class Query(GObject.GBoxed):
     # gi Fields
     mini_object: MiniObject | None = ...
     """
-    The parent #GstMiniObject type
+    The parent Gst.MiniObject type
 
     """
     type: QueryType = ...
     """
-    the #GstQueryType
+    the Gst.QueryType
 
     """
 
@@ -17222,29 +17222,29 @@ class Query(GObject.GBoxed):
         """
     def add_allocation_meta(self, api: GObject.GType, params: Structure | None = None) -> None:
         """
-        Add @api with @params as one of the supported metadata API to @query.
+        Add `api` with `params` as one of the supported metadata API to `query`.
         """
     def add_allocation_param(self, allocator: Allocator | None = None, params: AllocationParams | None = None) -> None:
         """
-        Add @allocator and its @params as a supported memory allocator.
+        Add `allocator` and its `params` as a supported memory allocator.
         """
     def add_allocation_pool(self, pool: BufferPool | None, size: int, min_buffers: int, max_buffers: int) -> None:
         """
-        Set the pool parameters in @query.
+        Set the pool parameters in `query`.
         """
     def add_buffering_range(self, start: int, stop: int) -> bool:
         """
-            Set the buffering-ranges array field in @query. The current last
-        start position of the array should be inferior to @start.
+            Set the buffering-ranges array field in `query`. The current last
+        start position of the array should be inferior to `start`.
         """
     def add_scheduling_mode(self, mode: PadMode) -> None:
         """
-        Add @mode as one of the supported scheduling modes to @query.
+        Add `mode` as one of the supported scheduling modes to `query`.
         """
     def find_allocation_meta(self, api: GObject.GType) -> tuple[bool, int]:
         """
-            Check if @query has metadata @api set. When this function returns %TRUE,
-        @index will contain the index where the requested API and the parameters
+            Check if `query` has metadata `api` set. When this function returns True,
+        `index` will contain the index where the requested API and the parameters
         can be found.
         """
     def get_n_allocation_metas(self) -> int:
@@ -17283,39 +17283,39 @@ class Query(GObject.GBoxed):
         """
     def has_scheduling_mode(self, mode: PadMode) -> bool:
         """
-            Check if @query has scheduling mode set.
+            Check if `query` has scheduling mode set.
 
         > When checking if upstream supports pull mode, it is usually not
         > enough to just check for GST_PAD_MODE_PULL with this function, you
         > also want to check whether the scheduling flags returned by
-        > gst_query_parse_scheduling() have the seeking flag set (meaning
+        > `Gst.query_parse_scheduling` have the seeking flag set (meaning
         > random access is supported, not only sequential pulls).
         """
     def has_scheduling_mode_with_flags(self, mode: PadMode, flags: SchedulingFlags) -> bool:
         """
-            Check if @query has scheduling mode set and @flags is set in
+            Check if `query` has scheduling mode set and `flags` is set in
         query scheduling flags.
         """
     @classmethod
     def new_accept_caps(cls, caps: Caps) -> Query:
         """
-            Constructs a new query object for querying if @caps are accepted.
+            Constructs a new query object for querying if `caps` are accepted.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_allocation(cls, caps: Caps | None, need_pool: bool) -> Query:
         """
             Constructs a new query object for querying the allocation properties.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_bitrate(cls) -> Query:
         """
             Constructs a new query object for querying the bitrate.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_buffering(cls, format: Format) -> Query:
@@ -17323,7 +17323,7 @@ class Query(GObject.GBoxed):
             Constructs a new query object for querying the buffering status of
         a stream.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_caps(cls, filter: Caps) -> Query:
@@ -17333,7 +17333,7 @@ class Query(GObject.GBoxed):
         The CAPS query should return the allowable caps for a pad in the context
         of the element's state, its link to other elements, and the devices or files
         it has opened. These caps must be a subset of the pad template caps. In the
-        NULL state with no links, the CAPS query should ideally return the same caps
+        None state with no links, the CAPS query should ideally return the same caps
         as the pad template. In rare circumstances, an object property can affect
         the caps returned by the CAPS query, but this is discouraged.
 
@@ -17343,51 +17343,51 @@ class Query(GObject.GBoxed):
         the CAPS query should return the most specific caps it reasonably can, since this
         helps with autoplugging.
 
-        The @filter is used to restrict the result caps, only the caps matching
-        @filter should be returned from the CAPS query. Specifying a filter might
+        The `filter` is used to restrict the result caps, only the caps matching
+        `filter` should be returned from the CAPS query. Specifying a filter might
         greatly reduce the amount of processing an element needs to do.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_context(cls, context_type: str) -> Query:
         """
             Constructs a new query object for querying the pipeline-local context.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_convert(cls, src_format: Format, value: int, dest_format: Format) -> Query:
         """
-            Constructs a new convert query object. Use gst_query_unref()
+            Constructs a new convert query object. Use `Gst.query_unref`
         when done with it. A convert query is used to ask for a conversion between
         one format and another.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_custom(cls, type: QueryType, structure: Structure | None = None) -> Query:
         """
-            Constructs a new custom query object. Use gst_query_unref()
+            Constructs a new custom query object. Use `Gst.query_unref`
         when done with it.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_drain(cls) -> Query:
         """
             Constructs a new query object for querying the drain state.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_duration(cls, format: Format) -> Query:
         """
             Constructs a new stream duration query object to query in the given format.
-        Use gst_query_unref() when done with it. A duration query will give the
+        Use `Gst.query_unref` when done with it. A duration query will give the
         total length of the stream.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_formats(cls) -> Query:
@@ -17395,33 +17395,33 @@ class Query(GObject.GBoxed):
             Constructs a new query object for querying formats of
         the stream.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_latency(cls) -> Query:
         """
             Constructs a new latency query object.
-        Use gst_query_unref() when done with it. A latency query is usually performed
+        Use `Gst.query_unref` when done with it. A latency query is usually performed
         by sinks to compensate for additional latency introduced by elements in the
         pipeline.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_position(cls, format: Format) -> Query:
         """
-            Constructs a new query stream position query object. Use gst_query_unref()
+            Constructs a new query stream position query object. Use `Gst.query_unref`
         when done with it. A position query is used to query the current position
         of playback in the streams, in some format.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_scheduling(cls) -> Query:
         """
             Constructs a new query object for querying the scheduling properties.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_seeking(cls, format: Format) -> Query:
@@ -17429,84 +17429,84 @@ class Query(GObject.GBoxed):
             Constructs a new query object for querying seeking properties of
         the stream.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_segment(cls, format: Format) -> Query:
         """
-            Constructs a new segment query object. Use gst_query_unref()
+            Constructs a new segment query object. Use `Gst.query_unref`
         when done with it. A segment query is used to discover information about the
         currently configured segment for playback.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_selectable(cls) -> Query:
         """
             Constructs a new query object for querying the stream selection capability.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     @classmethod
     def new_uri(cls) -> Query:
         """
-            Constructs a new query URI query object. Use gst_query_unref()
+            Constructs a new query URI query object. Use `Gst.query_unref`
         when done with it. An URI query is used to query the current URI
         that is used by the source or sink.
 
-        Free-function: gst_query_unref()
+        Free-function: `Gst.query_unref`
         """
     def parse_accept_caps(self) -> Caps:
         """
-            Get the caps from @query. The caps remains valid as long as @query remains
+            Get the caps from `query`. The caps remains valid as long as `query` remains
         valid.
         """
     def parse_accept_caps_result(self) -> bool | None:
         """
-        Parse the result from @query and store in @result.
+        Parse the result from `query` and store in `result`.
         """
     def parse_allocation(self) -> tuple[Caps | None, bool]:
         """
-            Parse an allocation query, writing the requested caps in @caps and
-        whether a pool is needed in @need_pool, if the respective parameters
-        are non-%NULL.
+            Parse an allocation query, writing the requested caps in `caps` and
+        whether a pool is needed in `need_pool`, if the respective parameters
+        are non-None.
 
-        Pool details can be retrieved using gst_query_get_n_allocation_pools() and
-        gst_query_parse_nth_allocation_pool().
+        Pool details can be retrieved using `Gst.query_get_n_allocation_pools` and
+        `Gst.query_parse_nth_allocation_pool`.
         """
     def parse_bitrate(self) -> int:
         """
-        Get the results of a bitrate query. See also gst_query_set_bitrate().
+        Get the results of a bitrate query. See also `Gst.query_set_bitrate`.
         """
     def parse_buffering_percent(self) -> tuple[bool, int]:
         """
             Get the percentage of buffered data. This is a value between 0 and 100.
-        The @busy indicator is %TRUE when the buffering is in progress.
+        The `busy` indicator is True when the buffering is in progress.
         """
     def parse_buffering_range(self) -> tuple[Format, int, int, int]:
         """
-            Parse an available query, writing the format into @format, and
+            Parse an available query, writing the format into `format`, and
         other results into the passed parameters, if the respective parameters
-        are non-%NULL
+        are non-None
         """
     def parse_buffering_stats(self) -> tuple[BufferingMode, int, int, int]:
         """
-        Extracts the buffering stats values from @query.
+        Extracts the buffering stats values from `query`.
         """
     def parse_caps(self) -> Caps:
         """
-            Get the filter from the caps @query. The caps remains valid as long as
-        @query remains valid.
+            Get the filter from the caps `query`. The caps remains valid as long as
+        `query` remains valid.
         """
     def parse_caps_result(self) -> Caps | None:
         """
-            Get the caps result from @query. The caps remains valid as long as
-        @query remains valid.
+            Get the caps result from `query`. The caps remains valid as long as
+        `query` remains valid.
         """
     def parse_context(self) -> Context | None:
         """
-            Get the context from the context @query. The context remains valid as long as
-        @query remains valid.
+            Get the context from the context `query`. The context remains valid as long as
+        `query` remains valid.
         """
     def parse_context_type(self) -> tuple[bool, str]:
         """
@@ -17514,13 +17514,13 @@ class Query(GObject.GBoxed):
         """
     def parse_convert(self) -> tuple[Format, int, Format, int]:
         """
-            Parse a convert query answer. Any of @src_format, @src_value, @dest_format,
-        and @dest_value may be %NULL, in which case that value is omitted.
+            Parse a convert query answer. Any of `src_format`, `src_value`, `dest_format`,
+        and `dest_value` may be None, in which case that value is omitted.
         """
     def parse_duration(self) -> tuple[Format, int]:
         """
-            Parse a duration query answer. Write the format of the duration into @format,
-        and the value into @duration, if the respective variables are non-%NULL.
+            Parse a duration query answer. Write the format of the duration into `format`,
+        and the value into `duration`, if the respective variables are non-None.
         """
     def parse_latency(self) -> tuple[bool, int, int]:
         """
@@ -17528,44 +17528,44 @@ class Query(GObject.GBoxed):
         """
     def parse_n_formats(self) -> int:
         """
-        Parse the number of formats in the formats @query.
+        Parse the number of formats in the formats `query`.
         """
     def parse_nth_allocation_meta(self, index: int) -> tuple[GObject.GType, Structure]:
         """
             Parse an available query and get the metadata API
-        at @index of the metadata API array.
+        at `index` of the metadata API array.
         """
     def parse_nth_allocation_param(self, index: int) -> tuple[Allocator | None, AllocationParams]:
         """
             Parse an available query and get the allocator and its params
-        at @index of the allocator array.
+        at `index` of the allocator array.
         """
     def parse_nth_allocation_pool(self, index: int) -> tuple[BufferPool | None, int, int, int]:
         """
-            Get the pool parameters in @query.
+            Get the pool parameters in `query`.
 
-        Unref @pool with gst_object_unref() when it's not needed any more.
+        Unref `pool` with `Gst.object_unref` when it's not needed any more.
         """
     def parse_nth_buffering_range(self, index: int) -> tuple[bool, int, int]:
         """
             Parse an available query and get the start and stop values stored
-        at the @index of the buffered ranges array.
+        at the `index` of the buffered ranges array.
         """
     def parse_nth_format(self, nth: int) -> Format:
         """
-            Parse the format query and retrieve the @nth format from it into
-        @format. If the list contains less elements than @nth, @format will be
+            Parse the format query and retrieve the `nth` format from it into
+        `format`. If the list contains less elements than `nth`, `format` will be
         set to GST_FORMAT_UNDEFINED.
         """
     def parse_nth_scheduling_mode(self, index: int) -> PadMode:
         """
             Parse an available query and get the scheduling mode
-        at @index of the scheduling modes array.
+        at `index` of the scheduling modes array.
         """
     def parse_position(self) -> tuple[Format, int]:
         """
-            Parse a position query, writing the format into @format, and the position
-        into @cur, if the respective parameters are non-%NULL.
+            Parse a position query, writing the format into `format`, and the position
+        into `cur`, if the respective parameters are non-None.
         """
     def parse_scheduling(self) -> tuple[SchedulingFlags, int, int, int]:
         """
@@ -17573,55 +17573,55 @@ class Query(GObject.GBoxed):
         """
     def parse_seeking(self) -> tuple[Format, bool, int, int]:
         """
-            Parse a seeking query, writing the format into @format, and
+            Parse a seeking query, writing the format into `format`, and
         other results into the passed parameters, if the respective parameters
-        are non-%NULL
+        are non-None
         """
     def parse_segment(self) -> tuple[float, Format, int, int]:
         """
-            Parse a segment query answer. Any of @rate, @format, @start_value, and
-        @stop_value may be %NULL, which will cause this value to be omitted.
+            Parse a segment query answer. Any of `rate`, `format`, `start_value`, and
+        `stop_value` may be None, which will cause this value to be omitted.
 
-        See gst_query_set_segment() for an explanation of the function arguments.
+        See `Gst.query_set_segment` for an explanation of the function arguments.
         """
     def parse_selectable(self) -> bool:
         """
-        Get the results of a selectable query. See also gst_query_set_selectable().
+        Get the results of a selectable query. See also `Gst.query_set_selectable`.
         """
     def parse_uri(self) -> str | None:
         """
-            Parse an URI query, writing the URI into @uri as a newly
-        allocated string, if the respective parameters are non-%NULL.
-        Free the string with g_free() after usage.
+            Parse an URI query, writing the URI into `uri` as a newly
+        allocated string, if the respective parameters are non-None.
+        Free the string with `g_free` after usage.
         """
     def parse_uri_redirection(self) -> str | None:
         """
-            Parse an URI query, writing the URI into @uri as a newly
-        allocated string, if the respective parameters are non-%NULL.
-        Free the string with g_free() after usage.
+            Parse an URI query, writing the URI into `uri` as a newly
+        allocated string, if the respective parameters are non-None.
+        Free the string with `g_free` after usage.
         """
     def parse_uri_redirection_permanent(self) -> bool:
         """
-            Parse an URI query, and set @permanent to %TRUE if there is a redirection
+            Parse an URI query, and set `permanent` to True if there is a redirection
         and it should be considered permanent. If a redirection is permanent,
         applications should update their internal storage of the URI, otherwise
         they should make all future requests to the original URI.
         """
     def remove_nth_allocation_meta(self, index: int) -> None:
         """
-        Remove the metadata API at @index of the metadata API array.
+        Remove the metadata API at `index` of the metadata API array.
         """
     def remove_nth_allocation_param(self, index: int) -> None:
         """
-        Remove the allocation param at @index of the allocation param array.
+        Remove the allocation param at `index` of the allocation param array.
         """
     def remove_nth_allocation_pool(self, index: int) -> None:
         """
-        Remove the allocation pool at @index of the allocation pool array.
+        Remove the allocation pool at `index` of the allocation pool array.
         """
     def set_accept_caps_result(self, result: bool) -> None:
         """
-        Set @result as the result for the @query.
+        Set `result` as the result for the `query`.
         """
     def set_bitrate(self, nominal_bitrate: int) -> None:
         """
@@ -17632,19 +17632,19 @@ class Query(GObject.GBoxed):
     def set_buffering_percent(self, busy: bool, percent: int) -> None:
         """
             Set the percentage of buffered data. This is a value between 0 and 100.
-        The @busy indicator is %TRUE when the buffering is in progress.
+        The `busy` indicator is True when the buffering is in progress.
         """
     def set_buffering_range(self, format: Format, start: int, stop: int, estimated_total: int) -> None:
         """
-        Set the available query result fields in @query.
+        Set the available query result fields in `query`.
         """
     def set_buffering_stats(self, mode: BufferingMode, avg_in: int, avg_out: int, buffering_left: int) -> None:
         """
-        Configures the buffering stats values in @query.
+        Configures the buffering stats values in `query`.
         """
     def set_caps_result(self, caps: Caps | None = None) -> None:
         """
-        Set the @caps result in @query.
+        Set the `caps` result in `query`.
         """
     def set_context(self, context: Context | None = None) -> None:
         """
@@ -17660,8 +17660,8 @@ class Query(GObject.GBoxed):
         """
     def set_formatsv(self, n_formats: int, formats: list) -> None:
         """
-            Set the formats query result fields in @query. The number of formats passed
-        in the @formats array must be equal to @n_formats.
+            Set the formats query result fields in `query`. The number of formats passed
+        in the `formats` array must be equal to `n_formats`.
         """
     def set_latency(self, live: bool, min_latency: int, max_latency: int) -> None:
         """
@@ -17672,13 +17672,13 @@ class Query(GObject.GBoxed):
     ) -> None:
         """
             Parse an available query and get the allocator and its params
-        at @index of the allocator array.
+        at `index` of the allocator array.
         """
     def set_nth_allocation_pool(
         self, index: int, pool: BufferPool | None, size: int, min_buffers: int, max_buffers: int
     ) -> None:
         """
-        Set the pool parameters in @query.
+        Set the pool parameters in `query`.
         """
     def set_position(self, format: Format, cur: int) -> None:
         """
@@ -17690,7 +17690,7 @@ class Query(GObject.GBoxed):
         """
     def set_seeking(self, format: Format, seekable: bool, segment_start: int, segment_end: int) -> None:
         """
-        Set the seeking query result fields in @query.
+        Set the seeking query result fields in `query`.
         """
     def set_segment(self, rate: float, format: Format, start_value: int, stop_value: int) -> None:
         """
@@ -17699,17 +17699,17 @@ class Query(GObject.GBoxed):
         1.0. If a seek was performed on the pipeline to play a different
         segment, this query will return the range specified in the last seek.
 
-        @start_value and @stop_value will respectively contain the configured
-        playback range start and stop values expressed in @format.
+        `start_value` and `stop_value` will respectively contain the configured
+        playback range start and stop values expressed in `format`.
         The values are always between 0 and the duration of the media and
-        @start_value <= @stop_value. @rate will contain the playback rate. For
-        negative rates, playback will actually happen from @stop_value to
-        @start_value.
+        `start_value` <= `stop_value`. `rate` will contain the playback rate. For
+        negative rates, playback will actually happen from `stop_value` to
+        `start_value`.
         """
     def set_selectable(self, selectable: bool) -> None:
         """
             Set the results of a selectable query. If the element answering the query can
-        handle stream selection, @selectable should be set to %TRUE.
+        handle stream selection, `selectable` should be set to True.
         """
     def set_uri(self, uri: str | None = None) -> None:
         """
@@ -17727,17 +17727,17 @@ class Query(GObject.GBoxed):
     def writable_structure(self) -> Structure:
         """
             Get the structure of a query. This method should be called with a writable
-        @query so that the returned structure is guaranteed to be writable.
+        `query` so that the returned structure is guaranteed to be writable.
         """
 
 class ReferenceTimestampMeta(GObject.GPointer):
     """
-    #GstReferenceTimestampMeta can be used to attach alternative timestamps and
-    possibly durations to a #GstBuffer. These are generally not according to
+    Gst.ReferenceTimestampMeta can be used to attach alternative timestamps and
+    possibly durations to a Gst.Buffer. These are generally not according to
     the pipeline clock and could be e.g. the NTP timestamp when the media was
     captured.
 
-    The reference is stored as a #GstCaps in @reference. Examples of valid
+    The reference is stored as a Gst.Caps in `reference`. Examples of valid
     references would be
 
      * `timestamp/x-drivername-stream`: for timestamps that are locally
@@ -17751,14 +17751,14 @@ class ReferenceTimestampMeta(GObject.GPointer):
      * `timestamp/x-unix`: for timestamps based on the UNIX epoch according to
        the local clock.
 
-    Since 1.24 it can be serialized using gst_meta_serialize() and
-    gst_meta_deserialize().
+    Since 1.24 it can be serialized using `Gst.meta_serialize` and
+    `Gst.meta_deserialize`.
     """
 
     # gi Fields
     duration: int = ...
     """
-    duration, or %GST_CLOCK_TIME_NONE
+    duration, or Gst.CLOCK_TIME_NONE
 
     """
     reference: Caps | None = ...
@@ -17780,7 +17780,7 @@ class ReferenceTimestampMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> MetaInfo:
         """
-        Gets the global #GstMetaInfo describing the #GstReferenceTimestampMeta meta.
+        Gets the global Gst.MetaInfo describing the Gst.ReferenceTimestampMeta meta.
         """
 
 class Registry(Object):
@@ -17789,8 +17789,8 @@ class Registry(Object):
 
     <emphasis role="bold">Design:</emphasis>
 
-    The #GstRegistry object is a list of plugins and some functions for dealing
-    with them. Each #GstPlugin is matched 1-1 with a file on disk, and may or may
+    The Gst.Registry object is a list of plugins and some functions for dealing
+    with them. Each Gst.Plugin is matched 1-1 with a file on disk, and may or may
     not be loaded at a given time.
 
     The primary source, at all times, of plugin information is each plugin file
@@ -17841,7 +17841,7 @@ class Registry(Object):
     The "cache" and "registry" are different concepts and can represent
     different sets of plugins. For various reasons, at init time, the cache is
     stored in the default registry, and plugins not relevant to the current
-    process are marked with the %GST_PLUGIN_FLAG_CACHED bit. These plugins are
+    process are marked with the Gst.PLUGIN_FLAG_CACHED bit. These plugins are
     removed at the end of initialization.
     """
 
@@ -17858,20 +17858,20 @@ class Registry(Object):
         """
             Add the feature to the registry. The feature-added signal will be emitted.
 
-        @feature's reference count will be incremented, and any floating
-        reference will be removed (see gst_object_ref_sink())
+        `feature`'s reference count will be incremented, and any floating
+        reference will be removed (see `Gst.object_ref_sink`)
         """
     def add_plugin(self, plugin: Plugin) -> bool:
         """
             Add the plugin to the registry. The plugin-added signal will be emitted.
 
-        @plugin's reference count will be incremented, and any floating
-        reference will be removed (see gst_object_ref_sink())
+        `plugin`'s reference count will be incremented, and any floating
+        reference will be removed (see `Gst.object_ref_sink`)
         """
     def check_feature_version(self, feature_name: str, min_major: int, min_minor: int, min_micro: int) -> bool:
         """
             Checks whether a plugin feature by the given name exists in
-        @registry and whether its version is at least the
+        `registry` and whether its version is at least the
         version required.
         """
     def feature_filter(self, filter: PluginFeatureFilter, first: bool, user_data: object | None = None) -> list:
@@ -17897,14 +17897,14 @@ class Registry(Object):
         registry file using a helper child process.
 
         Applications might want to disable this behaviour with the
-        gst_registry_fork_set_enabled() function, in which case new plugins
+        `Gst.registry_fork_set_enabled` function, in which case new plugins
         are scanned (and loaded) into the application process.
         """
     @staticmethod
     def fork_set_enabled(enabled: bool) -> None:
         """
             Applications might want to disable/enable spawning of a child helper process
-        when rebuilding the registry. See gst_registry_fork_is_enabled() for more
+        when rebuilding the registry. See `Gst.registry_fork_is_enabled` for more
         information.
         """
     @staticmethod
@@ -17916,11 +17916,11 @@ class Registry(Object):
         """
     def get_feature_list(self, type: GObject.GType) -> list:
         """
-        Retrieves a #GList of #GstPluginFeature of @type.
+        Retrieves a GList of Gst.PluginFeature of `type`.
         """
     def get_feature_list_by_plugin(self, name: str) -> list:
         """
-        Retrieves a #GList of features of the plugin with name @name.
+        Retrieves a GList of features of the plugin with name `name`.
         """
     def get_feature_list_cookie(self) -> int:
         """
@@ -17939,14 +17939,14 @@ class Registry(Object):
         """
     def lookup_feature(self, name: str) -> PluginFeature | None:
         """
-        Find a #GstPluginFeature with @name in @registry.
+        Find a Gst.PluginFeature with `name` in `registry`.
         """
     def plugin_filter(self, filter: PluginFilter, first: bool, user_data: object | None = None) -> list:
         """
-            Runs a filter against all plugins in the registry and returns a #GList with
+            Runs a filter against all plugins in the registry and returns a GList with
         the results. If the first flag is set, only the first match is
         returned (as a list with a single object).
-        Every plugin is reffed; use gst_plugin_list_free() after use, which
+        Every plugin is reffed; use `Gst.plugin_list_free` after use, which
         will unref again.
         """
     def remove_feature(self, feature: PluginFeature) -> None:
@@ -18015,30 +18015,30 @@ class RegistryPrivate(GObject.GPointer):
 
 class Sample(GObject.GBoxed):
     """
-    A #GstSample is a small object containing data, a type, timing and
+    A Gst.Sample is a small object containing data, a type, timing and
     extra arbitrary information.
     """
 
     # gi Methods
     def get_buffer(self) -> Buffer | None:
         """
-        Get the buffer associated with @sample
+        Get the buffer associated with `sample`
         """
     def get_buffer_list(self) -> BufferList | None:
         """
-        Get the buffer list associated with @sample
+        Get the buffer list associated with `sample`
         """
     def get_caps(self) -> Caps | None:
         """
-        Get the caps associated with @sample
+        Get the caps associated with `sample`
         """
     def get_info(self) -> Structure | None:
         """
-        Get extra information associated with @sample.
+        Get extra information associated with `sample`.
         """
     def get_segment(self) -> Segment:
         """
-        Get the segment associated with @sample
+        Get the segment associated with `sample`
         """
     @classmethod
     def new(
@@ -18049,30 +18049,30 @@ class Sample(GObject.GBoxed):
         info: Structure | None = None,
     ) -> Sample:
         """
-            Create a new #GstSample with the provided details.
+            Create a new Gst.Sample with the provided details.
 
         Free-function: gst_sample_unref
         """
     def set_buffer(self, buffer: Buffer) -> None:
         """
-        Set the buffer associated with @sample. @sample must be writable.
+        Set the buffer associated with `sample`. `sample` must be writable.
         """
     def set_buffer_list(self, buffer_list: BufferList) -> None:
         """
-        Set the buffer list associated with @sample. @sample must be writable.
+        Set the buffer list associated with `sample`. `sample` must be writable.
         """
     def set_caps(self, caps: Caps) -> None:
         """
-        Set the caps associated with @sample. @sample must be writable.
+        Set the caps associated with `sample`. `sample` must be writable.
         """
     def set_info(self, info: Structure) -> bool:
         """
-            Set the info structure associated with @sample. @sample must be writable,
-        and @info must not have a parent set already.
+            Set the info structure associated with `sample`. `sample` must be writable,
+        and `info` must not have a parent set already.
         """
     def set_segment(self, segment: Segment) -> None:
         """
-        Set the segment associated with @sample. @sample must be writable.
+        Set the segment associated with `sample`. `sample` must be writable.
         """
 
     # python methods (overrides?)
@@ -18098,7 +18098,7 @@ class Segment(GObject.GBoxed):
     The configured segment is then propagated back downstream with a newsegment event.
     This information is then used to clip media to the segment boundaries.
 
-    A segment structure is initialized with gst_segment_init(), which takes a #GstFormat
+    A segment structure is initialized with `Gst.segment_init`, which takes a Gst.Format
     that will be used as the format of the segment values. The segment will be configured
     with a start value of 0 and a stop/duration of -1, which is undefined. The default
     rate and applied_rate is 1.0.
@@ -18112,23 +18112,23 @@ class Segment(GObject.GBoxed):
     member in the structure.
 
     For elements that perform seeks, the current segment should be updated with the
-    gst_segment_do_seek() and the values from the seek event. This method will update
+    `Gst.segment_do_seek` and the values from the seek event. This method will update
     all the segment fields. The position field will contain the new playback position.
     If the start_type was different from GST_SEEK_TYPE_NONE, playback continues from
     the position position, possibly with updated flags or rate.
 
-    For elements that want to use #GstSegment to track the playback region,
+    For elements that want to use Gst.Segment to track the playback region,
     update the segment fields with the information from the newsegment event.
-    The gst_segment_clip() method can be used to check and clip
+    The `Gst.segment_clip` method can be used to check and clip
     the media data to the segment boundaries.
 
-    For elements that want to synchronize to the pipeline clock, gst_segment_to_running_time()
+    For elements that want to synchronize to the pipeline clock, `Gst.segment_to_running_time`
     can be used to convert a timestamp to a value that can be used to synchronize
     to the clock. This function takes into account the base as well as
     any rate or applied_rate conversions.
 
     For elements that need to perform operations on media data in stream_time,
-    gst_segment_to_stream_time() can be used to convert a timestamp and the segment
+    `Gst.segment_to_stream_time` can be used to convert a timestamp and the segment
     info to stream time (which is always between 0 and the duration of the stream).
     """
 
@@ -18159,11 +18159,11 @@ class Segment(GObject.GBoxed):
     duration: int = ...
     """
     the duration of the segment is the maximum absolute difference
-                   between #GstSegment.start and #GstSegment.stop if stop is not
+                   between Gst.Segment.start and Gst.Segment.stop if stop is not
                    set, otherwise it should be the difference between those
                    two values. This should be set by elements that know the
                    overall stream duration (like demuxers) and will be used when
-                   seeking with #GST_SEEK_TYPE_END.
+                   seeking with GST_SEEK_TYPE_END.
 
     """
     flags: SegmentFlags = ...
@@ -18180,7 +18180,7 @@ class Segment(GObject.GBoxed):
     """
     the offset expresses the elapsed time (in buffer timestamps)
                    before a seek with its start (stop if rate < 0.0) seek type
-                   set to #GST_SEEK_TYPE_NONE, the value is set to the position
+                   set to GST_SEEK_TYPE_NONE, the value is set to the position
                    of the segment at the time of the seek.
 
     """
@@ -18189,7 +18189,7 @@ class Segment(GObject.GBoxed):
     the buffer timestamp position in the segment is supposed to be
                    updated by elements such as sources, demuxers or parsers to
                    track progress by setting it to the last pushed buffer' end time
-                   ([timestamp](GstBuffer.pts) + #GstBuffer.duration) for that
+                   ([timestamp](GstBuffer.pts) + Gst.Buffer.duration) for that
                    specific segment. The position is used when reconfiguring the
                    segment with #gst_segment_do_seek when the seek is only
                    updating the segment (see [offset](GstSegment.offset)).
@@ -18239,29 +18239,29 @@ class Segment(GObject.GBoxed):
     # gi Methods
     def clip(self, format: Format, start: int, stop: int) -> tuple[bool, int, int]:
         """
-            Clip the given @start and @stop values to the segment boundaries given
-        in @segment. @start and @stop are compared and clipped to @segment
+            Clip the given `start` and `stop` values to the segment boundaries given
+        in `segment`. `start` and `stop` are compared and clipped to `segment`
         start and stop values.
 
-        If the function returns %FALSE, @start and @stop are known to fall
-        outside of @segment and @clip_start and @clip_stop are not updated.
+        If the function returns False, `start` and `stop` are known to fall
+        outside of `segment` and `clip_start` and `clip_stop` are not updated.
 
-        When the function returns %TRUE, @clip_start and @clip_stop will be
-        updated. If @clip_start or @clip_stop are different from @start or @stop
+        When the function returns True, `clip_start` and `clip_stop` will be
+        updated. If `clip_start` or `clip_stop` are different from `start` or `stop`
         respectively, the region fell partially in the segment.
 
-        Note that when @stop is -1, @clip_stop will be set to the end of the
+        Note that when `stop` is -1, `clip_stop` will be set to the end of the
         segment. Depending on the use case, this may or may not be what you want.
         """
     def copy(self) -> Segment:
         """
-            Create a copy of given @segment.
+            Create a copy of given `segment`.
 
         Free-function: gst_segment_free
         """
     def copy_into(self, dest: Segment) -> None:
         """
-        Copy the contents of @src into @dest.
+        Copy the contents of `src` into `dest`.
         """
     def do_seek(
         self,
@@ -18275,36 +18275,36 @@ class Segment(GObject.GBoxed):
     ) -> tuple[bool, bool]:
         """
             Update the segment structure with the field values of a seek event (see
-        gst_event_new_seek()).
+        `Gst.event_new_seek`).
 
         After calling this method, the segment field position and time will
         contain the requested new position in the segment. The new requested
-        position in the segment depends on @rate and @start_type and @stop_type.
+        position in the segment depends on `rate` and `start_type` and `stop_type`.
 
-        For positive @rate, the new position in the segment is the new @segment
-        start field when it was updated with a @start_type different from
-        #GST_SEEK_TYPE_NONE. If no update was performed on @segment start position
-        (#GST_SEEK_TYPE_NONE), @start is ignored and @segment position is
+        For positive `rate`, the new position in the segment is the new `segment`
+        start field when it was updated with a `start_type` different from
+        GST_SEEK_TYPE_NONE. If no update was performed on `segment` start position
+        (GST_SEEK_TYPE_NONE), `start` is ignored and `segment` position is
         unmodified.
 
-        For negative @rate, the new position in the segment is the new @segment
-        stop field when it was updated with a @stop_type different from
-        #GST_SEEK_TYPE_NONE. If no stop was previously configured in the segment, the
+        For negative `rate`, the new position in the segment is the new `segment`
+        stop field when it was updated with a `stop_type` different from
+        GST_SEEK_TYPE_NONE. If no stop was previously configured in the segment, the
         duration of the segment will be used to update the stop position.
-        If no update was performed on @segment stop position (#GST_SEEK_TYPE_NONE),
-        @stop is ignored and @segment position is unmodified.
+        If no update was performed on `segment` stop position (GST_SEEK_TYPE_NONE),
+        `stop` is ignored and `segment` position is unmodified.
 
         The applied rate of the segment will be set to 1.0 by default.
-        If the caller can apply a rate change, it should update @segment
+        If the caller can apply a rate change, it should update `segment`
         rate and applied_rate after calling this function.
 
-        @update will be set to %TRUE if a seek should be performed to the segment
-        position field. This field can be %FALSE if, for example, only the @rate
+        `update` will be set to True if a seek should be performed to the segment
+        position field. This field can be False if, for example, only the `rate`
         has been changed but not the playback position.
         """
     def free(self) -> None:
         """
-        Free the allocated segment @segment.
+        Free the allocated segment `segment`.
         """
     def init(self, format: Format) -> None:
         """
@@ -18312,7 +18312,7 @@ class Segment(GObject.GBoxed):
         fields are set to -1 (unknown). The default rate of 1.0 and no
         flags are set.
 
-        Initialize @segment to its default values.
+        Initialize `segment` to its default values.
         """
     def is_equal(self, s1: Segment) -> bool:
         """
@@ -18322,133 +18322,133 @@ class Segment(GObject.GBoxed):
     @classmethod
     def new(cls) -> Segment:
         """
-            Allocate a new #GstSegment structure and initialize it using
-        gst_segment_init().
+            Allocate a new Gst.Segment structure and initialize it using
+        `Gst.segment_init`.
 
         Free-function: gst_segment_free
         """
     def offset_running_time(self, format: Format, offset: int) -> bool:
         """
-            Adjust the values in @segment so that @offset is applied to all
+            Adjust the values in `segment` so that `offset` is applied to all
         future running-time calculations.
         """
     def position_from_running_time(self, format: Format, running_time: int) -> int:
         """
-            Convert @running_time into a position in the segment so that
-        gst_segment_to_running_time() with that position returns @running_time.
+            Convert `running_time` into a position in the segment so that
+        `Gst.segment_to_running_time` with that position returns `running_time`.
         """
     def position_from_running_time_full(self, format: Format, running_time: int) -> tuple[int, int]:
         """
-            Translate @running_time to the segment position using the currently configured
-        segment. Compared to gst_segment_position_from_running_time() this function can
+            Translate `running_time` to the segment position using the currently configured
+        segment. Compared to `Gst.segment_position_from_running_time` this function can
         return negative segment position.
 
         This function is typically used by elements that need to synchronize buffers
         against the clock or each other.
 
-        @running_time can be any value and the result of this function for values
+        `running_time` can be any value and the result of this function for values
         outside of the segment is extrapolated.
 
-        When 1 is returned, @running_time resulted in a positive position returned
-        in @position.
+        When 1 is returned, `running_time` resulted in a positive position returned
+        in `position`.
 
-        When this function returns -1, the returned @position was < 0, and the value
+        When this function returns -1, the returned `position` was < 0, and the value
         in the position variable should be negated to get the real negative segment
         position.
         """
     def position_from_stream_time(self, format: Format, stream_time: int) -> int:
         """
-            Convert @stream_time into a position in the segment so that
-        gst_segment_to_stream_time() with that position returns @stream_time.
+            Convert `stream_time` into a position in the segment so that
+        `Gst.segment_to_stream_time` with that position returns `stream_time`.
         """
     def position_from_stream_time_full(self, format: Format, stream_time: int) -> tuple[int, int]:
         """
-            Translate @stream_time to the segment position using the currently configured
-        segment. Compared to gst_segment_position_from_stream_time() this function can
+            Translate `stream_time` to the segment position using the currently configured
+        segment. Compared to `Gst.segment_position_from_stream_time` this function can
         return negative segment position.
 
         This function is typically used by elements that need to synchronize buffers
         against the clock or each other.
 
-        @stream_time can be any value and the result of this function for values outside
+        `stream_time` can be any value and the result of this function for values outside
         of the segment is extrapolated.
 
-        When 1 is returned, @stream_time resulted in a positive position returned
-        in @position.
+        When 1 is returned, `stream_time` resulted in a positive position returned
+        in `position`.
 
-        When this function returns -1, the returned @position should be negated
+        When this function returns -1, the returned `position` should be negated
         to get the real negative segment position.
         """
     def set_running_time(self, format: Format, running_time: int) -> bool:
         """
-            Adjust the start/stop and base values of @segment such that the next valid
-        buffer will be one with @running_time.
+            Adjust the start/stop and base values of `segment` such that the next valid
+        buffer will be one with `running_time`.
         """
     @deprecated("deprecated")
     def to_position(self, format: Format, running_time: int) -> int:
         """
-            Convert @running_time into a position in the segment so that
-        gst_segment_to_running_time() with that position returns @running_time.
+            Convert `running_time` into a position in the segment so that
+        `Gst.segment_to_running_time` with that position returns `running_time`.
         """
     def to_running_time(self, format: Format, position: int) -> int:
         """
-            Translate @position to the total running time using the currently configured
-        segment. Position is a value between @segment start and stop time.
+            Translate `position` to the total running time using the currently configured
+        segment. Position is a value between `segment` start and stop time.
 
         This function is typically used by elements that need to synchronize to the
         global clock in a pipeline. The running time is a constantly increasing value
-        starting from 0. When gst_segment_init() is called, this value will reset to
+        starting from 0. When `Gst.segment_init` is called, this value will reset to
         0.
 
-        This function returns -1 if the position is outside of @segment start and stop.
+        This function returns -1 if the position is outside of `segment` start and stop.
         """
     def to_running_time_full(self, format: Format, position: int) -> tuple[int, int]:
         """
-            Translate @position to the total running time using the currently configured
-        segment. Compared to gst_segment_to_running_time() this function can return
+            Translate `position` to the total running time using the currently configured
+        segment. Compared to `Gst.segment_to_running_time` this function can return
         negative running-time.
 
         This function is typically used by elements that need to synchronize buffers
         against the clock or each other.
 
-        @position can be any value and the result of this function for values outside
+        `position` can be any value and the result of this function for values outside
         of the segment is extrapolated.
 
-        When 1 is returned, @position resulted in a positive running-time returned
-        in @running_time.
+        When 1 is returned, `position` resulted in a positive running-time returned
+        in `running_time`.
 
-        When this function returns -1, the returned @running_time should be negated
+        When this function returns -1, the returned `running_time` should be negated
         to get the real negative running time.
         """
     def to_stream_time(self, format: Format, position: int) -> int:
         """
-            Translate @position to stream time using the currently configured
-        segment. The @position value must be between @segment start and
+            Translate `position` to stream time using the currently configured
+        segment. The `position` value must be between `segment` start and
         stop value.
 
         This function is typically used by elements that need to operate on
         the stream time of the buffers it receives, such as effect plugins.
-        In those use cases, @position is typically the buffer timestamp or
+        In those use cases, `position` is typically the buffer timestamp or
         clock time that one wants to convert to the stream time.
         The stream time is always between 0 and the total duration of the
         media stream.
         """
     def to_stream_time_full(self, format: Format, position: int) -> tuple[int, int]:
         """
-            Translate @position to the total stream time using the currently configured
-        segment. Compared to gst_segment_to_stream_time() this function can return
+            Translate `position` to the total stream time using the currently configured
+        segment. Compared to `Gst.segment_to_stream_time` this function can return
         negative stream-time.
 
         This function is typically used by elements that need to synchronize buffers
         against the clock or each other.
 
-        @position can be any value and the result of this function for values outside
+        `position` can be any value and the result of this function for values outside
         of the segment is extrapolated.
 
-        When 1 is returned, @position resulted in a positive stream-time returned
-        in @stream_time.
+        When 1 is returned, `position` resulted in a positive stream-time returned
+        in `stream_time`.
 
-        When this function returns -1, the returned @stream_time should be negated
+        When this function returns -1, the returned `stream_time` should be negated
         to get the real negative stream time.
         """
 
@@ -18461,7 +18461,7 @@ class Segment(GObject.GBoxed):
 
 class SharedTaskPool(TaskPool):
     """
-    The #GstSharedTaskPool object.
+    The Gst.SharedTaskPool object.
     """
 
     # gi Methods
@@ -18476,22 +18476,22 @@ class SharedTaskPool(TaskPool):
             Create a new shared task pool. The shared task pool will queue tasks on
         a maximum number of threads, 1 by default.
 
-        Do not use a #GstSharedTaskPool to manage potentially inter-dependent tasks such
+        Do not use a Gst.SharedTaskPool to manage potentially inter-dependent tasks such
         as pad tasks, as having one task waiting on another to return before returning
         would cause obvious deadlocks if they happen to share the same thread.
         """
     def set_max_threads(self, max_threads: int) -> None:
         """
-            Update the maximal number of threads the @pool may spawn. When
+            Update the maximal number of threads the `pool` may spawn. When
         the maximal number of threads is reduced, existing threads are not
-        immediately shut down, see g_thread_pool_set_max_threads().
+        immediately shut down, see `g_thread_pool_set_max_threads`.
 
-        Setting @max_threads to 0 effectively freezes the pool.
+        Setting `max_threads` to 0 effectively freezes the pool.
         """
 
 class SharedTaskPoolClass(GObject.GPointer):
     """
-    The #GstSharedTaskPoolClass object.
+    The Gst.SharedTaskPoolClass object.
     """
 
     # gi Fields
@@ -18513,15 +18513,15 @@ class SharedTaskPoolPrivate(GObject.GPointer):
 
 class StaticCaps(GObject.GPointer):
     """
-    Data structure to initialize #GstCaps from a string description usually
-    used in conjunction with GST_STATIC_CAPS() and gst_static_caps_get() to
-    instantiate a #GstCaps.
+    Data structure to initialize Gst.Caps from a string description usually
+    used in conjunction with `GST_STATIC_CAPS` and `Gst.static_caps_get` to
+    instantiate a Gst.Caps.
     """
 
     # gi Fields
     caps: Caps | None = ...
     """
-    the cached #GstCaps
+    the cached Gst.Caps
 
     """
     string: str = ...
@@ -18537,16 +18537,16 @@ class StaticCaps(GObject.GPointer):
         """
     def cleanup(self) -> None:
         """
-        Cleans up the cached caps contained in @static_caps.
+        Cleans up the cached caps contained in `static_caps`.
         """
     def get(self) -> Caps | None:
         """
-        Converts a #GstStaticCaps to a #GstCaps.
+        Converts a Gst.StaticCaps to a Gst.Caps.
         """
 
 class StaticPadTemplate(GObject.GPointer):
     """
-    Structure describing the #GstStaticPadTemplate.
+    Structure describing the Gst.StaticPadTemplate.
     """
 
     # gi Fields
@@ -18578,7 +18578,7 @@ class StaticPadTemplate(GObject.GPointer):
         """
     def get(self) -> PadTemplate | None:
         """
-        Converts a #GstStaticPadTemplate into a #GstPadTemplate.
+        Converts a Gst.StaticPadTemplate into a Gst.PadTemplate.
         """
     def get_caps(self) -> Caps:
         """
@@ -18588,37 +18588,37 @@ class StaticPadTemplate(GObject.GPointer):
 class Stream(Object):
     """
     A high-level object representing a single stream. It might be backed, or
-    not, by an actual flow of data in a pipeline (#GstPad).
+    not, by an actual flow of data in a pipeline (Gst.Pad).
 
-    A #GstStream does not care about data changes (such as decoding, encoding,
+    A Gst.Stream does not care about data changes (such as decoding, encoding,
     parsing,...) as long as the underlying data flow corresponds to the same
     high-level flow (ex: a certain audio track).
 
-    A #GstStream contains all the information pertinent to a stream, such as
+    A Gst.Stream contains all the information pertinent to a stream, such as
     stream-id, tags, caps, type, ...
 
-    Elements can subclass a #GstStream for internal usage (to contain information
+    Elements can subclass a Gst.Stream for internal usage (to contain information
     pertinent to streams of data).
     """
 
     class Props(Object.Props):
         caps: Caps | None
         """
-        The #GstCaps of the #GstStream.
+        The Gst.Caps of the Gst.Stream.
         """
         stream_flags: StreamFlags  # [stream-flags]: changed because contained invalid characters
         stream_id: str  # [stream-id]: changed because contained invalid characters
         """
-        The unique identifier of the #GstStream. Can only be set at construction
+        The unique identifier of the Gst.Stream. Can only be set at construction
         time.
         """
         stream_type: StreamType  # [stream-type]: changed because contained invalid characters
         """
-        The #GstStreamType of the #GstStream. Can only be set at construction time.
+        The Gst.StreamType of the Gst.Stream. Can only be set at construction time.
         """
         tags: TagList | None
         """
-        The #GstTagList of the #GstStream.
+        The Gst.TagList of the Gst.Stream.
         """
 
     @builtins.property
@@ -18630,7 +18630,7 @@ class Stream(Object):
     @builtins.property
     def stream_id(self) -> str:
         """
-        The Stream Identifier for this #GstStream
+        The Stream Identifier for this Gst.Stream
         """
 
     # gi Methods
@@ -18648,49 +18648,49 @@ class Stream(Object):
     @builtins.property
     def get_caps(self) -> Caps | None:
         """
-        Retrieve the caps for @stream, if any
+        Retrieve the caps for `stream`, if any
         """
     @builtins.property
     def get_stream_flags(self) -> StreamFlags:
         """
-        Retrieve the current stream flags for @stream
+        Retrieve the current stream flags for `stream`
         """
     @builtins.property
     def get_stream_id(self) -> str | None:
         """
-        Returns the stream ID of @stream.
+        Returns the stream ID of `stream`.
         """
     @builtins.property
     def get_stream_type(self) -> StreamType:
         """
-        Retrieve the stream type for @stream
+        Retrieve the stream type for `stream`
         """
     @builtins.property
     def get_tags(self) -> TagList | None:
         """
-        Retrieve the tags for @stream, if any
+        Retrieve the tags for `stream`, if any
         """
     @classmethod
     def new(cls, stream_id: str | None, caps: Caps | None, type: StreamType, flags: StreamFlags) -> Stream:
         """
-            Create a new #GstStream for the given @stream_id, @caps, @type
-        and @flags
+            Create a new Gst.Stream for the given `stream_id`, `caps`, `type`
+        and `flags`
         """
     def set_caps(self, caps: Caps | None = None) -> None:
         """
-        Set the caps for the #GstStream
+        Set the caps for the Gst.Stream
         """
     def set_stream_flags(self, flags: StreamFlags) -> None:
         """
-        Set the @flags for the @stream.
+        Set the `flags` for the `stream`.
         """
     def set_stream_type(self, stream_type: StreamType) -> None:
         """
-        Set the stream type of @stream
+        Set the stream type of `stream`
         """
     def set_tags(self, tags: TagList | None = None) -> None:
         """
-        Set the tags for the #GstStream
+        Set the tags for the Gst.Stream
         """
 
     # Signals
@@ -18754,22 +18754,22 @@ class StreamClass(GObject.GPointer):
 
 class StreamCollection(Object):
     """
-    A collection of #GstStream that are available.
+    A collection of Gst.Stream that are available.
 
-    A #GstStreamCollection will be provided by elements that can make those
+    A Gst.StreamCollection will be provided by elements that can make those
     streams available. Applications can use the collection to show the user
-    what streams are available by using %gst_stream_collection_get_stream()
+    what streams are available by using %`Gst.stream_collection_get_stream`
 
-    Once posted, a #GstStreamCollection is immutable. Updates are made by sending
-    a new #GstStreamCollection message, which may or may not share some of
-    the #GstStream objects from the collection it replaces. The receiver can check
+    Once posted, a Gst.StreamCollection is immutable. Updates are made by sending
+    a new Gst.StreamCollection message, which may or may not share some of
+    the Gst.Stream objects from the collection it replaces. The receiver can check
     the sender of a stream collection message to know which collection is
     obsoleted.
 
-    Several elements in a pipeline can provide #GstStreamCollection.
+    Several elements in a pipeline can provide Gst.StreamCollection.
 
     Applications can activate streams from a collection by using the
-    #GST_EVENT_SELECT_STREAMS event on a pipeline, bin or element.
+    GST_EVENT_SELECT_STREAMS event on a pipeline, bin or element.
     """
 
     class Props(Object.Props):
@@ -18794,7 +18794,7 @@ class StreamCollection(Object):
         """
     def add_stream(self, stream: Stream) -> bool:
         """
-        Add the given @stream to the @collection.
+        Add the given `stream` to the `collection`.
         """
     def get_size(self) -> int:
         """
@@ -18802,19 +18802,19 @@ class StreamCollection(Object):
         """
     def get_stream(self, index: int) -> Stream | None:
         """
-            Retrieve the #GstStream with index @index from the collection.
+            Retrieve the Gst.Stream with index `index` from the collection.
 
-        The caller should not modify the returned #GstStream
+        The caller should not modify the returned Gst.Stream
         """
     @builtins.property
     def get_upstream_id(self) -> str | None:
         """
-        Returns the upstream id of the @collection.
+        Returns the upstream id of the `collection`.
         """
     @classmethod
     def new(cls, upstream_id: str | None = None) -> StreamCollection:
         """
-        Create a new #GstStreamCollection.
+        Create a new Gst.StreamCollection.
         """
 
     # python methods (overrides?)
@@ -18890,35 +18890,35 @@ class StreamPrivate(GObject.GPointer):
 
 class Structure(GObject.GBoxed):
     """
-    A #GstStructure is a collection of key/value pairs. The keys are expressed as
+    A Gst.Structure is a collection of key/value pairs. The keys are expressed as
     GQuarks and the values can be of any GType.
 
-    In addition to the key/value pairs, a #GstStructure also has a name. The name
+    In addition to the key/value pairs, a Gst.Structure also has a name. The name
     starts with a letter and can be filled by letters, numbers and any of
     "/-_.:".
 
-    #GstStructure is used by various GStreamer subsystems to store information in
-    a flexible and extensible way. A #GstStructure does not have a refcount
-    because it usually is part of a higher level object such as #GstCaps,
-    #GstMessage, #GstEvent, #GstQuery. It provides a means to enforce mutability
-    using the refcount of the parent with the gst_structure_set_parent_refcount()
+    Gst.Structure is used by various GStreamer subsystems to store information in
+    a flexible and extensible way. A Gst.Structure does not have a refcount
+    because it usually is part of a higher level object such as Gst.Caps,
+    Gst.Message, Gst.Event, Gst.Query. It provides a means to enforce mutability
+    using the refcount of the parent with the `Gst.structure_set_parent_refcount`
     method.
 
-    A #GstStructure can be created with gst_structure_new_empty() or
-    gst_structure_new(), which both take a name and an optional set of key/value
+    A Gst.Structure can be created with `Gst.structure_new_empty` or
+    `Gst.structure_new`, which both take a name and an optional set of key/value
     pairs along with the types of the values.
 
-    Field values can be changed with gst_structure_set_value() or
-    gst_structure_set().
+    Field values can be changed with `Gst.structure_set_value` or
+    `Gst.structure_set`.
 
-    Field values can be retrieved with gst_structure_get_value() or the more
+    Field values can be retrieved with `Gst.structure_get_value` or the more
     convenient gst_structure_get_*() functions.
 
-    Fields can be removed with gst_structure_remove_field() or
-    gst_structure_remove_fields().
+    Fields can be removed with `Gst.structure_remove_field` or
+    `Gst.structure_remove_fields`.
 
     Strings in structures must be ASCII or UTF-8 encoded. Other encodings are not
-    allowed. Strings may be %NULL however.
+    allowed. Strings may be None however.
 
     ## The serialization format
 
@@ -18959,7 +18959,7 @@ class Structure(GObject.GBoxed):
       `>`). For example `a-structure, array=<1, 2, 3>
     - Ranges are inside brackets (`[` and `]`). For example `a-structure,
       range=[1, 6, 2]` 1 being the min value, 6 the maximum and 2 the step. To
-      specify a #GST_TYPE_INT64_RANGE you need to explicitly specify it like:
+      specify a GST_TYPE_INT64_RANGE you need to explicitly specify it like:
       `a-structure, a-int64-range=(gint64) [1, 5]`
     - [GstValueList](GST_TYPE_LIST) are inside curly brackets (`{` and `}`).
       For example `a-structure, list={1, 2, 3}`
@@ -18969,7 +18969,7 @@ class Structure(GObject.GBoxed):
 
     Structures are delimited either by a null character `\\0` or a semicolon `;`
     the latter allowing to store multiple structures in the same string (see
-    #GstCaps).
+    Gst.Caps).
 
     Quotes are used as "default" delimiters and can be used around any types that
     don't use other delimiters (for example `a-struct, i=(int)"1"`). They are use
@@ -18994,8 +18994,8 @@ class Structure(GObject.GBoxed):
     a-struct, nested=[nested-struct, nested=true]
     ```
 
-    > *note*: gst_structure_to_string() won't use that syntax for backward
-    > compatibility reason, gst_structure_serialize_full() has been added for
+    > *note*: `Gst.structure_to_string` won't use that syntax for backward
+    > compatibility reason, `Gst.structure_serialize_full` has been added for
     > that purpose.
     """
 
@@ -19015,146 +19015,146 @@ class Structure(GObject.GBoxed):
         """
     def can_intersect(self, struct2: Structure) -> bool:
         """
-            Tries intersecting @struct1 and @struct2 and reports whether the result
+            Tries intersecting `struct1` and `struct2` and reports whether the result
         would not be empty.
         """
     def copy(self) -> Structure:
         """
-            Duplicates a #GstStructure and all its fields and values.
+            Duplicates a Gst.Structure and all its fields and values.
 
         Free-function: gst_structure_free
         """
     @deprecated("deprecated")
     def filter_and_map_in_place(self, func: StructureFilterMapFunc, user_data: object | None = None) -> None:
         """
-            Calls the provided function once for each field in the #GstStructure. In
-        contrast to gst_structure_foreach(), the function may modify the fields.
-        In contrast to gst_structure_map_in_place(), the field is removed from
-        the structure if %FALSE is returned from the function.
+            Calls the provided function once for each field in the Gst.Structure. In
+        contrast to `Gst.structure_foreach`, the function may modify the fields.
+        In contrast to `Gst.structure_map_in_place`, the field is removed from
+        the structure if False is returned from the function.
         The structure must be mutable.
         """
     def filter_and_map_in_place_id_str(
         self, func: StructureFilterMapIdStrFunc, user_data: object | None = None
     ) -> None:
         """
-            Calls the provided function once for each field in the #GstStructure. In
-        contrast to gst_structure_foreach_id_str(), the function may modify the fields.
-        In contrast to gst_structure_map_in_place_id_str(), the field is removed from
-        the structure if %FALSE is returned from the function.
+            Calls the provided function once for each field in the Gst.Structure. In
+        contrast to `Gst.structure_foreach_id_str`, the function may modify the fields.
+        In contrast to `Gst.structure_map_in_place_id_str`, the field is removed from
+        the structure if False is returned from the function.
         The structure must be mutable.
         """
     def fixate(self) -> None:
         """
-            Fixate all values in @structure using gst_value_fixate().
-        @structure will be modified in-place and should be writable.
+            Fixate all values in `structure` using `Gst.value_fixate`.
+        `structure` will be modified in-place and should be writable.
         """
     def fixate_field(self, field_name: str) -> bool:
         """
-        Fixates a #GstStructure by changing the given field with its fixated value.
+        Fixates a Gst.Structure by changing the given field with its fixated value.
         """
     def fixate_field_boolean(self, field_name: str, target: bool) -> bool:
         """
-            Fixates a #GstStructure by changing the given @field_name field to the given
-        @target boolean if that field is not fixed yet.
+            Fixates a Gst.Structure by changing the given `field_name` field to the given
+        `target` boolean if that field is not fixed yet.
         """
     def fixate_field_nearest_double(self, field_name: str, target: float) -> bool:
         """
-            Fixates a #GstStructure by changing the given field to the nearest
-        double to @target that is a subset of the existing field.
+            Fixates a Gst.Structure by changing the given field to the nearest
+        double to `target` that is a subset of the existing field.
         """
     def fixate_field_nearest_fraction(self, field_name: str, target_numerator: int, target_denominator: int) -> bool:
         """
-            Fixates a #GstStructure by changing the given field to the nearest
-        fraction to @target_numerator/@target_denominator that is a subset
+            Fixates a Gst.Structure by changing the given field to the nearest
+        fraction to `target_numerator`/`target_denominator` that is a subset
         of the existing field.
         """
     def fixate_field_nearest_int(self, field_name: str, target: int) -> bool:
         """
-            Fixates a #GstStructure by changing the given field to the nearest
-        integer to @target that is a subset of the existing field.
+            Fixates a Gst.Structure by changing the given field to the nearest
+        integer to `target` that is a subset of the existing field.
         """
     def fixate_field_string(self, field_name: str, target: str) -> bool:
         """
-            Fixates a #GstStructure by changing the given @field_name field to the given
-        @target string if that field is not fixed yet.
+            Fixates a Gst.Structure by changing the given `field_name` field to the given
+        `target` string if that field is not fixed yet.
         """
     @deprecated("deprecated")
     def foreach(self, func: StructureForeachFunc, user_data: object | None = None) -> bool:
         """
-            Calls the provided function once for each field in the #GstStructure. The
-        function must not modify the fields. Also see gst_structure_map_in_place()
-        and gst_structure_filter_and_map_in_place().
+            Calls the provided function once for each field in the Gst.Structure. The
+        function must not modify the fields. Also see `Gst.structure_map_in_place`
+        and `Gst.structure_filter_and_map_in_place`.
         """
     def foreach_id_str(self, func: StructureForeachIdStrFunc, user_data: object | None = None) -> bool:
         """
-            Calls the provided function once for each field in the #GstStructure. The
-        function must not modify the fields. Also see gst_structure_map_in_place_id_str()
-        and gst_structure_filter_and_map_in_place_id_str().
+            Calls the provided function once for each field in the Gst.Structure. The
+        function must not modify the fields. Also see `Gst.structure_map_in_place_id_str`
+        and `Gst.structure_filter_and_map_in_place_id_str`.
         """
     def free(self) -> None:
         """
-            Frees a #GstStructure and all its fields and values. The structure must not
+            Frees a Gst.Structure and all its fields and values. The structure must not
         have a parent when this function is called.
         """
     @classmethod
     def from_string(cls, string: str) -> tuple[Structure | None, str]:
         """
-            Creates a #GstStructure from a string representation.
-        If end is not %NULL, a pointer to the place inside the given string
+            Creates a Gst.Structure from a string representation.
+        If end is not None, a pointer to the place inside the given string
         where parsing ended will be returned.
 
         Free-function: gst_structure_free
         """
     def get_array(self, fieldname: str) -> tuple[bool, GObject.ValueArray]:
         """
-            This is useful in language bindings where unknown #GValue types are not
-        supported. This function will convert the %GST_TYPE_ARRAY into a newly
-        allocated #GValueArray and return it through @array. Be aware that this is
-        slower then getting the #GValue directly.
+            This is useful in language bindings where unknown GValue types are not
+        supported. This function will convert the Gst.TYPE_ARRAY into a newly
+        allocated GValueArray and return it through `array`. Be aware that this is
+        slower then getting the GValue directly.
         """
     def get_boolean(self, fieldname: str) -> tuple[bool, bool]:
         """
-            Sets the boolean pointed to by @value corresponding to the value of the
+            Sets the boolean pointed to by `value` corresponding to the value of the
         given field.  Caller is responsible for making sure the field exists
         and has the correct type.
         """
     def get_clock_time(self, fieldname: str) -> tuple[bool, int]:
         """
-            Sets the clock time pointed to by @value corresponding to the clock time
+            Sets the clock time pointed to by `value` corresponding to the clock time
         of the given field.  Caller is responsible for making sure the field exists
         and has the correct type.
         """
     def get_date(self, fieldname: str) -> tuple[bool, GLib.Date]:
         """
-            Sets the date pointed to by @value corresponding to the date of the
+            Sets the date pointed to by `value` corresponding to the date of the
         given field.  Caller is responsible for making sure the field exists
         and has the correct type.
 
-        On success @value will point to a newly-allocated copy of the date which
-        should be freed with g_date_free() when no longer needed (note: this is
-        inconsistent with e.g. gst_structure_get_string() which doesn't return a
+        On success `value` will point to a newly-allocated copy of the date which
+        should be freed with `g_date_free` when no longer needed (note: this is
+        inconsistent with e.g. `Gst.structure_get_string` which doesn't return a
         copy of the string).
         """
     def get_date_time(self, fieldname: str) -> tuple[bool, DateTime]:
         """
-            Sets the datetime pointed to by @value corresponding to the datetime of the
+            Sets the datetime pointed to by `value` corresponding to the datetime of the
         given field. Caller is responsible for making sure the field exists
         and has the correct type.
 
-        On success @value will point to a reference of the datetime which
-        should be unreffed with gst_date_time_unref() when no longer needed
-        (note: this is inconsistent with e.g. gst_structure_get_string()
+        On success `value` will point to a reference of the datetime which
+        should be unreffed with `Gst.date_time_unref` when no longer needed
+        (note: this is inconsistent with e.g. `Gst.structure_get_string`
         which doesn't return a copy of the string).
         """
     def get_double(self, fieldname: str) -> tuple[bool, float]:
         """
-            Sets the double pointed to by @value corresponding to the value of the
+            Sets the double pointed to by `value` corresponding to the value of the
         given field.  Caller is responsible for making sure the field exists
         and has the correct type.
         """
     def get_enum(self, fieldname: str, enumtype: GObject.GType) -> tuple[bool, int]:
         """
-            Sets the int pointed to by @value corresponding to the value of the
+            Sets the int pointed to by `value` corresponding to the value of the
         given field.  Caller is responsible for making sure the field exists,
         has the correct type and that the enumtype is correct.
         """
@@ -19166,7 +19166,7 @@ class Structure(GObject.GBoxed):
         """
     def get_flags(self, fieldname: str, flags_type: GObject.GType) -> tuple[bool, int]:
         """
-            Sets the unsigned int pointed to by @value corresponding to the value of the
+            Sets the unsigned int pointed to by `value` corresponding to the value of the
         given field. Caller is responsible for making sure the field exists,
         has the correct type and that the flagstype is correct.
         """
@@ -19177,45 +19177,45 @@ class Structure(GObject.GBoxed):
         """
     def get_fraction(self, fieldname: str) -> tuple[bool, int, int]:
         """
-            Sets the integers pointed to by @value_numerator and @value_denominator
+            Sets the integers pointed to by `value_numerator` and `value_denominator`
         corresponding to the value of the given field.  Caller is responsible
         for making sure the field exists and has the correct type.
         """
     def get_int(self, fieldname: str) -> tuple[bool, int]:
         """
-            Sets the int pointed to by @value corresponding to the value of the
+            Sets the int pointed to by `value` corresponding to the value of the
         given field.  Caller is responsible for making sure the field exists
         and has the correct type.
         """
     def get_int64(self, fieldname: str) -> tuple[bool, int]:
         """
-            Sets the #gint64 pointed to by @value corresponding to the value of the
+            Sets the #gint64 pointed to by `value` corresponding to the value of the
         given field. Caller is responsible for making sure the field exists
         and has the correct type.
         """
     def get_list(self, fieldname: str) -> tuple[bool, GObject.ValueArray]:
         """
-            This is useful in language bindings where unknown #GValue types are not
-        supported. This function will convert the %GST_TYPE_LIST into a newly
-        allocated GValueArray and return it through @array. Be aware that this is
-        slower then getting the #GValue directly.
+            This is useful in language bindings where unknown GValue types are not
+        supported. This function will convert the Gst.TYPE_LIST into a newly
+        allocated GValueArray and return it through `array`. Be aware that this is
+        slower then getting the GValue directly.
         """
     def get_name(self) -> str:
         """
-        Get the name of @structure as a string.
+        Get the name of `structure` as a string.
         """
     @deprecated("deprecated")
     def get_name_id(self) -> int:
         """
-        Get the name of @structure as a GQuark.
+        Get the name of `structure` as a GQuark.
         """
     def get_name_id_str(self) -> IdStr:
         """
-        Get the name of @structure as a GstIdStr.
+        Get the name of `structure` as a GstIdStr.
         """
     def get_string(self, fieldname: str) -> str | None:
         """
-            Finds the field corresponding to @fieldname, and returns the string
+            Finds the field corresponding to `fieldname`, and returns the string
         contained in the field's value.  Caller is responsible for making
         sure the field exists and has the correct type.
 
@@ -19224,27 +19224,27 @@ class Structure(GObject.GBoxed):
         """
     def get_uint(self, fieldname: str) -> tuple[bool, int]:
         """
-            Sets the uint pointed to by @value corresponding to the value of the
+            Sets the uint pointed to by `value` corresponding to the value of the
         given field.  Caller is responsible for making sure the field exists
         and has the correct type.
         """
     def get_uint64(self, fieldname: str) -> tuple[bool, int]:
         """
-            Sets the #guint64 pointed to by @value corresponding to the value of the
+            Sets the #guint64 pointed to by `value` corresponding to the value of the
         given field. Caller is responsible for making sure the field exists
         and has the correct type.
         """
     def get_value(self, fieldname: str) -> GObject.Value | None:
         """
-        Get the value of the field with name @fieldname.
+        Get the value of the field with name `fieldname`.
         """
     def has_field(self, fieldname: str) -> bool:
         """
-        Check if @structure contains a field named @fieldname.
+        Check if `structure` contains a field named `fieldname`.
         """
     def has_field_typed(self, fieldname: str, type: GObject.GType) -> bool:
         """
-        Check if @structure contains a field named @fieldname and with GType @type.
+        Check if `structure` contains a field named `fieldname` and with GType `type`.
         """
     def has_name(self, name: str) -> bool:
         """
@@ -19252,22 +19252,22 @@ class Structure(GObject.GBoxed):
         """
     def id_get_value(self, field: int) -> GObject.Value | None:
         """
-        Get the value of the field with GQuark @field.
+        Get the value of the field with GQuark `field`.
         """
     @deprecated("deprecated")
     def id_has_field(self, field: int) -> bool:
         """
-        Check if @structure contains a field named @field.
+        Check if `structure` contains a field named `field`.
         """
     @deprecated("deprecated")
     def id_has_field_typed(self, field: int, type: GObject.GType) -> bool:
         """
-        Check if @structure contains a field named @field and with GType @type.
+        Check if `structure` contains a field named `field` and with GType `type`.
         """
     @deprecated("deprecated")
     def id_set_value(self, field: int, value: GObject.Value) -> None:
         """
-            Sets the field with the given GQuark @field to @value.  If the field
+            Sets the field with the given GQuark `field` to `value`.  If the field
         does not exist, it is created.  If the field exists, the previous
         value is replaced and freed.
         """
@@ -19279,15 +19279,15 @@ class Structure(GObject.GBoxed):
         """
     def id_str_get_value(self, fieldname: IdStr) -> GObject.Value | None:
         """
-        Get the value of the field with name @fieldname.
+        Get the value of the field with name `fieldname`.
         """
     def id_str_has_field(self, fieldname: IdStr) -> bool:
         """
-        Check if @structure contains a field named @fieldname.
+        Check if `structure` contains a field named `fieldname`.
         """
     def id_str_has_field_typed(self, fieldname: IdStr, type: GObject.GType) -> bool:
         """
-        Check if @structure contains a field named @fieldname and with GType @type.
+        Check if `structure` contains a field named `fieldname` and with GType `type`.
         """
     def id_str_nth_field_name(self, index: int) -> IdStr:
         """
@@ -19301,48 +19301,48 @@ class Structure(GObject.GBoxed):
         """
     def id_str_set_value(self, fieldname: IdStr, value: GObject.Value) -> None:
         """
-            Sets the field with the given name @field to @value.  If the field
+            Sets the field with the given name `field` to `value`.  If the field
         does not exist, it is created.  If the field exists, the previous
         value is replaced and freed.
         """
     def id_str_take_value(self, fieldname: IdStr, value: GObject.Value) -> None:
         """
-            Sets the field with the given GstIdStr @field to @value.  If the field
+            Sets the field with the given GstIdStr `field` to `value`.  If the field
         does not exist, it is created.  If the field exists, the previous
         value is replaced and freed.
         """
     @deprecated("deprecated")
     def id_take_value(self, field: int, value: GObject.Value) -> None:
         """
-            Sets the field with the given GQuark @field to @value.  If the field
+            Sets the field with the given GQuark `field` to `value`.  If the field
         does not exist, it is created.  If the field exists, the previous
         value is replaced and freed.
         """
     def intersect(self, struct2: Structure) -> Structure | None:
         """
-        Intersects @struct1 and @struct2 and returns the intersection.
+        Intersects `struct1` and `struct2` and returns the intersection.
         """
     def is_equal(self, structure2: Structure) -> bool:
         """
-        Tests if the two #GstStructure are equal.
+        Tests if the two Gst.Structure are equal.
         """
     def is_subset(self, superset: Structure) -> bool:
         """
-            Checks if @subset is a subset of @superset, i.e. has the same
-        structure name and for all fields that are existing in @superset,
-        @subset has a value that is a subset of the value in @superset.
+            Checks if `subset` is a subset of `superset`, i.e. has the same
+        structure name and for all fields that are existing in `superset`,
+        `subset` has a value that is a subset of the value in `superset`.
         """
     @deprecated("deprecated")
     def map_in_place(self, func: StructureMapFunc, user_data: object | None = None) -> bool:
         """
-            Calls the provided function once for each field in the #GstStructure. In
-        contrast to gst_structure_foreach(), the function may modify but not delete the
+            Calls the provided function once for each field in the Gst.Structure. In
+        contrast to `Gst.structure_foreach`, the function may modify but not delete the
         fields. The structure must be mutable.
         """
     def map_in_place_id_str(self, func: StructureMapIdStrFunc, user_data: object | None = None) -> bool:
         """
-            Calls the provided function once for each field in the #GstStructure. In
-        contrast to gst_structure_foreach_id_str(), the function may modify but not delete the
+            Calls the provided function once for each field in the Gst.Structure. In
+        contrast to `Gst.structure_foreach_id_str`, the function may modify but not delete the
         fields. The structure must be mutable.
         """
     def n_fields(self) -> int:
@@ -19352,23 +19352,23 @@ class Structure(GObject.GBoxed):
     @classmethod
     def new_empty(cls, name: str) -> Structure:
         """
-            Creates a new, empty #GstStructure with the given @name.
+            Creates a new, empty Gst.Structure with the given `name`.
 
-        See gst_structure_set_name() for constraints on the @name parameter.
+        See `Gst.structure_set_name` for constraints on the `name` parameter.
 
         Free-function: gst_structure_free
         """
     @classmethod
     def new_from_string(cls, string: str) -> Structure | None:
         """
-            Creates a #GstStructure from a string representation.
-        If end is not %NULL, a pointer to the place inside the given string
+            Creates a Gst.Structure from a string representation.
+        If end is not None, a pointer to the place inside the given string
         where parsing ended will be returned.
 
         The current implementation of serialization will lead to unexpected results
-        when there are nested #GstCaps / #GstStructure deeper than one level unless
-        the gst_structure_serialize() function is used (without
-        #GST_SERIALIZE_FLAG_BACKWARD_COMPAT)
+        when there are nested Gst.Caps / Gst.Structure deeper than one level unless
+        the `Gst.structure_serialize` function is used (without
+        GST_SERIALIZE_FLAG_BACKWARD_COMPAT)
 
         Free-function: gst_structure_free
         """
@@ -19376,25 +19376,25 @@ class Structure(GObject.GBoxed):
     @classmethod
     def new_id_empty(cls, quark: int) -> Structure:
         """
-            Creates a new, empty #GstStructure with the given name as a GQuark.
+            Creates a new, empty Gst.Structure with the given name as a GQuark.
 
         Free-function: gst_structure_free
         """
     @classmethod
     def new_id_str_empty(cls, name: IdStr) -> Structure:
         """
-            Creates a new, empty #GstStructure with the given name.
+            Creates a new, empty Gst.Structure with the given name.
 
         Free-function: gst_structure_free
         """
     @classmethod
     def new_static_str_empty(cls, name: str) -> Structure:
         """
-            Creates a new, empty #GstStructure with the given @name.
+            Creates a new, empty Gst.Structure with the given `name`.
 
-        See gst_structure_set_name() for constraints on the @name parameter.
+        See `Gst.structure_set_name` for constraints on the `name` parameter.
 
-        @name needs to be valid for the remaining lifetime of the process, e.g. has
+        `name` needs to be valid for the remaining lifetime of the process, e.g. has
         to be a static string.
 
         Free-function: gst_structure_free
@@ -19415,120 +19415,120 @@ class Structure(GObject.GBoxed):
     @deprecated("deprecated")
     def serialize(self, flags: SerializeFlags) -> str:
         """
-            Converts @structure to a human-readable string representation.
+            Converts `structure` to a human-readable string representation.
 
         This version of the caps serialization function introduces support for nested
         structures and caps but the resulting strings won't be parsable with
-        GStreamer prior to 1.20 unless #GST_SERIALIZE_FLAG_BACKWARD_COMPAT is passed
-        as @flag.
+        GStreamer prior to 1.20 unless GST_SERIALIZE_FLAG_BACKWARD_COMPAT is passed
+        as `flag`.
 
-        %GST_SERIALIZE_FLAG_STRICT flags is not allowed because it would make this
+        Gst.SERIALIZE_FLAG_STRICT flags is not allowed because it would make this
         function nullable which is an API break for bindings.
-        Use gst_structure_serialize_full() instead.
+        Use `Gst.structure_serialize_full` instead.
 
         Free-function: g_free
         """
     def serialize_full(self, flags: SerializeFlags) -> str | None:
         """
-            Alias for gst_structure_serialize() but with nullable annotation because it
-        can return %NULL when %GST_SERIALIZE_FLAG_STRICT flag is set.
+            Alias for `Gst.structure_serialize` but with nullable annotation because it
+        can return None when Gst.SERIALIZE_FLAG_STRICT flag is set.
         """
     def set_array(self, fieldname: str, array: GObject.ValueArray) -> None:
         """
             This is useful in language bindings where unknown GValue types are not
-        supported. This function will convert a @array to %GST_TYPE_ARRAY and set
-        the field specified by @fieldname.  Be aware that this is slower then using
-        %GST_TYPE_ARRAY in a #GValue directly.
+        supported. This function will convert a `array` to Gst.TYPE_ARRAY and set
+        the field specified by `fieldname`.  Be aware that this is slower then using
+        Gst.TYPE_ARRAY in a GValue directly.
         """
     def set_list(self, fieldname: str, array: GObject.ValueArray) -> None:
         """
             This is useful in language bindings where unknown GValue types are not
-        supported. This function will convert a @array to %GST_TYPE_LIST and set
-        the field specified by @fieldname. Be aware that this is slower then using
-        %GST_TYPE_LIST in a #GValue directly.
+        supported. This function will convert a `array` to Gst.TYPE_LIST and set
+        the field specified by `fieldname`. Be aware that this is slower then using
+        Gst.TYPE_LIST in a GValue directly.
         """
     def set_name(self, name: str) -> None:
         """
-            Sets the name of the structure to the given @name.  The string
+            Sets the name of the structure to the given `name`.  The string
         provided is copied before being used. It must not be empty, start with a
         letter and can be followed by letters, numbers and any of "/-_.:".
         """
     def set_name_id_str(self, name: IdStr) -> None:
         """
-            Sets the name of the structure to the given @name.  The string
+            Sets the name of the structure to the given `name`.  The string
         provided is copied before being used. It must not be empty, start with a
         letter and can be followed by letters, numbers and any of "/-_.:".
         """
     def set_name_static_str(self, name: str) -> None:
         """
-            Sets the name of the structure to the given @name.  The string
+            Sets the name of the structure to the given `name`.  The string
         provided is copied before being used. It must not be empty, start with a
         letter and can be followed by letters, numbers and any of "/-_.:".
 
-        @name needs to be valid for the remaining lifetime of the process, e.g. has
+        `name` needs to be valid for the remaining lifetime of the process, e.g. has
         to be a static string.
         """
     def set_parent_refcount(self, refcount: int) -> bool:
         """
-            Sets the parent_refcount field of #GstStructure. This field is used to
+            Sets the parent_refcount field of Gst.Structure. This field is used to
         determine whether a structure is mutable or not. This function should only be
-        called by code implementing parent objects of #GstStructure, as described in
+        called by code implementing parent objects of Gst.Structure, as described in
         the MT Refcounting section of the design documents.
         """
     def set_value(self, fieldname: str, value: GObject.Value) -> None:
         """
-            Sets the field with the given name @field to @value.  If the field
+            Sets the field with the given name `field` to `value`.  If the field
         does not exist, it is created.  If the field exists, the previous
         value is replaced and freed.
         """
     def set_value_static_str(self, fieldname: str, value: GObject.Value) -> None:
         """
-            Sets the field with the given name @field to @value.  If the field
+            Sets the field with the given name `field` to `value`.  If the field
         does not exist, it is created.  If the field exists, the previous
         value is replaced and freed.
 
-        @fieldname needs to be valid for the remaining lifetime of the process, e.g.
+        `fieldname` needs to be valid for the remaining lifetime of the process, e.g.
         has to be a static string.
         """
     @staticmethod
     def take(oldstr_ptr: Structure | None = None, newstr: Structure | None = None) -> tuple[bool, Structure | None]:
         """
             Atomically modifies a pointer to point to a new structure.
-        The #GstStructure @oldstr_ptr is pointing to is freed and
-        @newstr is taken ownership over.
+        The Gst.Structure `oldstr_ptr` is pointing to is freed and
+        `newstr` is taken ownership over.
 
-        Either @newstr and the value pointed to by @oldstr_ptr may be %NULL.
+        Either `newstr` and the value pointed to by `oldstr_ptr` may be None.
 
-        It is a programming error if both @newstr and the value pointed to by
-        @oldstr_ptr refer to the same, non-%NULL structure.
+        It is a programming error if both `newstr` and the value pointed to by
+        `oldstr_ptr` refer to the same, non-None structure.
         """
     def take_value(self, fieldname: str, value: GObject.Value) -> None:
         """
-            Sets the field with the given name @field to @value.  If the field
+            Sets the field with the given name `field` to `value`.  If the field
         does not exist, it is created.  If the field exists, the previous
-        value is replaced and freed. The function will take ownership of @value.
+        value is replaced and freed. The function will take ownership of `value`.
         """
     def take_value_static_str(self, fieldname: str, value: GObject.Value) -> None:
         """
-            Sets the field with the given name @field to @value.  If the field
+            Sets the field with the given name `field` to `value`.  If the field
         does not exist, it is created.  If the field exists, the previous
-        value is replaced and freed. The function will take ownership of @value.
+        value is replaced and freed. The function will take ownership of `value`.
 
-        @fieldname needs to be valid for the remaining lifetime of the process, e.g.
+        `fieldname` needs to be valid for the remaining lifetime of the process, e.g.
         has to be a static string.
         """
     def to_string(self) -> str:
         """
-            Converts @structure to a human-readable string representation.
+            Converts `structure` to a human-readable string representation.
 
         For debugging purposes its easier to do something like this: |[<!--
         language="C" --> GST_LOG ("structure is %" GST_PTR_FORMAT, structure);
         ]|
         This prints the structure in human readable form.
 
-        This function will lead to unexpected results when there are nested #GstCaps
-        / #GstStructure deeper than one level, you should user
-        gst_structure_serialize_full() instead for those cases.
+        This function will lead to unexpected results when there are nested Gst.Caps
+        / Gst.Structure deeper than one level, you should user
+        `Gst.structure_serialize_full` instead for those cases.
 
         Free-function: g_free
         """
@@ -19572,7 +19572,7 @@ class SystemClock(Clock):
     def set_default(new_clock: Clock | None = None) -> None:
         """
             Sets the default system clock that can be obtained with
-        gst_system_clock_obtain().
+        `Gst.system_clock_obtain`.
 
         This is mostly used for testing and debugging purposes when you
         want to have control over the time reported by the default system
@@ -19617,7 +19617,7 @@ class TagList(GObject.GBoxed):
     List of tags and values used to describe media metadata.
 
     Strings in structures must be ASCII or UTF-8 encoded. Other encodings are
-    not allowed. Strings must not be empty or %NULL.
+    not allowed. Strings must not be empty or None.
     """
 
     # gi Fields
@@ -19638,15 +19638,15 @@ class TagList(GObject.GBoxed):
         """
     def copy(self) -> TagList:
         """
-            Creates a new #GstTagList as a copy of the old @taglist. The new taglist
+            Creates a new Gst.TagList as a copy of the old `taglist`. The new taglist
         will have a refcount of 1, owned by the caller, and will be writable as
         a result.
 
-        Note that this function is the semantic equivalent of a gst_tag_list_ref()
-        followed by a gst_tag_list_make_writable(). If you only want to hold on to a
-        reference to the data, you should use gst_tag_list_ref().
+        Note that this function is the semantic equivalent of a `Gst.tag_list_ref`
+        followed by a `Gst.tag_list_make_writable`. If you only want to hold on to a
+        reference to the data, you should use `Gst.tag_list_ref`.
 
-        When you are finished with the taglist, call gst_tag_list_unref() on it.
+        When you are finished with the taglist, call `Gst.tag_list_unref` on it.
         """
     @staticmethod
     def copy_value(list: TagList, tag: str) -> tuple[bool, GObject.Value]:
@@ -19654,7 +19654,7 @@ class TagList(GObject.GBoxed):
             Copies the contents for the given tag into the value,
         merging multiple values into one if multiple values are associated
         with the tag.
-        You must g_value_unset() the value after use.
+        You must `g_value_unset` the value after use.
         """
     def foreach(self, func: TagForeachFunc, user_data: object | None = None) -> None:
         """
@@ -19674,7 +19674,7 @@ class TagList(GObject.GBoxed):
     def get_date(self, tag: str) -> tuple[bool, GLib.Date]:
         """
             Copies the first date for the given tag in the taglist into the variable
-        pointed to by @value. Free the date with g_date_free() when it is no longer
+        pointed to by `value`. Free the date with `g_date_free` when it is no longer
         needed.
 
         Free-function: g_date_free
@@ -19682,15 +19682,15 @@ class TagList(GObject.GBoxed):
     def get_date_index(self, tag: str, index: int) -> tuple[bool, GLib.Date]:
         """
             Gets the date that is at the given index for the given tag in the given
-        list and copies it into the variable pointed to by @value. Free the date
-        with g_date_free() when it is no longer needed.
+        list and copies it into the variable pointed to by `value`. Free the date
+        with `g_date_free` when it is no longer needed.
 
         Free-function: g_date_free
         """
     def get_date_time(self, tag: str) -> tuple[bool, DateTime]:
         """
             Copies the first datetime for the given tag in the taglist into the variable
-        pointed to by @value. Unref the date with gst_date_time_unref() when
+        pointed to by `value`. Unref the date with `Gst.date_time_unref` when
         it is no longer needed.
 
         Free-function: gst_date_time_unref
@@ -19698,8 +19698,8 @@ class TagList(GObject.GBoxed):
     def get_date_time_index(self, tag: str, index: int) -> tuple[bool, DateTime]:
         """
             Gets the datetime that is at the given index for the given tag in the given
-        list and copies it into the variable pointed to by @value. Unref the datetime
-        with gst_date_time_unref() when it is no longer needed.
+        list and copies it into the variable pointed to by `value`. Unref the datetime
+        with `Gst.date_time_unref` when it is no longer needed.
 
         Free-function: gst_date_time_unref
         """
@@ -19756,26 +19756,26 @@ class TagList(GObject.GBoxed):
     def get_sample(self, tag: str) -> tuple[bool, Sample]:
         """
             Copies the first sample for the given tag in the taglist into the variable
-        pointed to by @sample. Free the sample with gst_sample_unref() when it is
+        pointed to by `sample`. Free the sample with `Gst.sample_unref` when it is
         no longer needed. You can retrieve the buffer from the sample using
-        gst_sample_get_buffer() and the associated caps (if any) with
-        gst_sample_get_caps().
+        `Gst.sample_get_buffer` and the associated caps (if any) with
+        `Gst.sample_get_caps`.
 
         Free-function: gst_sample_unref
         """
     def get_sample_index(self, tag: str, index: int) -> tuple[bool, Sample]:
         """
             Gets the sample that is at the given index for the given tag in the given
-        list and copies it into the variable pointed to by @sample. Free the sample
-        with gst_sample_unref() when it is no longer needed. You can retrieve the
-        buffer from the sample using gst_sample_get_buffer() and the associated
-        caps (if any) with gst_sample_get_caps().
+        list and copies it into the variable pointed to by `sample`. Free the sample
+        with `Gst.sample_unref` when it is no longer needed. You can retrieve the
+        buffer from the sample using `Gst.sample_get_buffer` and the associated
+        caps (if any) with `Gst.sample_get_caps`.
 
         Free-function: gst_sample_unref
         """
     def get_scope(self) -> TagScope:
         """
-        Gets the scope of @list.
+        Gets the scope of `list`.
         """
     def get_string(self, tag: str) -> tuple[bool, str]:
         """
@@ -19785,9 +19785,9 @@ class TagList(GObject.GBoxed):
         Use gst_tag_list_get_string_index (list, tag, 0, value) if you want
         to retrieve the first string associated with this tag unmodified.
 
-        The resulting string in @value will be in UTF-8 encoding and should be
+        The resulting string in `value` will be in UTF-8 encoding and should be
         freed by the caller using g_free when no longer needed. The
-        returned string is also guaranteed to be non-%NULL and non-empty.
+        returned string is also guaranteed to be non-None and non-empty.
 
         Free-function: g_free
         """
@@ -19796,9 +19796,9 @@ class TagList(GObject.GBoxed):
             Gets the value that is at the given index for the given tag in the given
         list.
 
-        The resulting string in @value will be in UTF-8 encoding and should be
+        The resulting string in `value` will be in UTF-8 encoding and should be
         freed by the caller using g_free when no longer needed. The
-        returned string is also guaranteed to be non-%NULL and non-empty.
+        returned string is also guaranteed to be non-None and non-empty.
 
         Free-function: g_free
         """
@@ -19833,7 +19833,7 @@ class TagList(GObject.GBoxed):
         """
     def insert(self, from_: TagList, mode: TagMergeMode) -> None:
         """
-        Inserts the tags of the @from list into the first list using the given mode.
+        Inserts the tags of the `from` list into the first list using the given mode.
         """
     def is_empty(self) -> bool:
         """
@@ -19845,14 +19845,14 @@ class TagList(GObject.GBoxed):
         """
     def merge(self, list2: TagList | None, mode: TagMergeMode) -> TagList | None:
         """
-            Merges the two given lists into a new list. If one of the lists is %NULL, a
-        copy of the other is returned. If both lists are %NULL, %NULL is returned.
+            Merges the two given lists into a new list. If one of the lists is None, a
+        copy of the other is returned. If both lists are None, None is returned.
 
         Free-function: gst_tag_list_unref
         """
     def n_tags(self) -> int:
         """
-        Get the number of tags in @list.
+        Get the number of tags in `list`.
         """
     @classmethod
     def new_empty(cls) -> TagList:
@@ -19868,16 +19868,16 @@ class TagList(GObject.GBoxed):
         """
     def nth_tag_name(self, index: int) -> str:
         """
-        Get the name of the tag in @list at @index.
+        Get the name of the tag in `list` at `index`.
         """
     def peek_string_index(self, tag: str, index: int) -> tuple[bool, str]:
         """
             Peeks at the value that is at the given index for the given tag in the given
         list.
 
-        The resulting string in @value will be in UTF-8 encoding and doesn't need
+        The resulting string in `value` will be in UTF-8 encoding and doesn't need
         to be freed by the caller. The returned string is also guaranteed to
-        be non-%NULL and non-empty.
+        be non-None and non-empty.
         """
     def remove_tag(self, tag: str) -> None:
         """
@@ -19885,7 +19885,7 @@ class TagList(GObject.GBoxed):
         """
     def set_scope(self, scope: TagScope) -> None:
         """
-            Sets the scope of @list to @scope. By default the scope
+            Sets the scope of `list` to `scope`. By default the scope
         of a taglist is stream scope.
         """
     def to_string(self) -> str:
@@ -19905,12 +19905,12 @@ class TagSetter(GObject.GInterface):
     need to do is watch for tag messages on your pipeline's bus. This
     interface is only for setting metadata, not for extracting it. To set tags
     from the application, find tagsetter elements and set tags using e.g.
-    gst_tag_setter_merge_tags() or gst_tag_setter_add_tags(). Also consider
-    setting the #GstTagMergeMode that is used for tag events that arrive at the
+    `Gst.tag_setter_merge_tags` or `Gst.tag_setter_add_tags`. Also consider
+    setting the Gst.TagMergeMode that is used for tag events that arrive at the
     tagsetter element (default mode is to keep existing tags).
-    The application should do that before the element goes to %GST_STATE_PAUSED.
+    The application should do that before the element goes to Gst.STATE_PAUSED.
 
-    Elements implementing the #GstTagSetter interface often have to merge
+    Elements implementing the Gst.TagSetter interface often have to merge
     any tags received from upstream and the tags set by the application via
     the interface. This can be done like this:
 
@@ -19970,13 +19970,13 @@ class TagSetter(GObject.GInterface):
     def set_tag_merge_mode(self, mode: TagMergeMode) -> None:
         """
             Sets the given merge mode that is used for adding tags from events to tags
-        specified by this interface. The default is #GST_TAG_MERGE_KEEP, which keeps
+        specified by this interface. The default is GST_TAG_MERGE_KEEP, which keeps
         the tags set with this interface and discards tags from events.
         """
 
 class TagSetterInterface(GObject.GPointer):
     """
-    #GstTagSetterInterface interface.
+    Gst.TagSetterInterface interface.
     """
 
     # gi Fields
@@ -19994,39 +19994,39 @@ class TagSetterInterface(GObject.GPointer):
 
 class Task(Object):
     """
-    #GstTask is used by #GstElement and #GstPad to provide the data passing
-    threads in a #GstPipeline.
+    Gst.Task is used by Gst.Element and Gst.Pad to provide the data passing
+    threads in a Gst.Pipeline.
 
-    A #GstPad will typically start a #GstTask to push or pull data to/from the
-    peer pads. Most source elements start a #GstTask to push data. In some cases
-    a demuxer element can start a #GstTask to pull data from a peer element. This
+    A Gst.Pad will typically start a Gst.Task to push or pull data to/from the
+    peer pads. Most source elements start a Gst.Task to push data. In some cases
+    a demuxer element can start a Gst.Task to pull data from a peer element. This
     is typically done when the demuxer can perform random access on the upstream
     peer element for improved performance.
 
-    Although convenience functions exist on #GstPad to start/pause/stop tasks, it
-    might sometimes be needed to create a #GstTask manually if it is not related to
-    a #GstPad.
+    Although convenience functions exist on Gst.Pad to start/pause/stop tasks, it
+    might sometimes be needed to create a Gst.Task manually if it is not related to
+    a Gst.Pad.
 
-    Before the #GstTask can be run, it needs a #GRecMutex that can be set with
-    gst_task_set_lock().
+    Before the Gst.Task can be run, it needs a GRecMutex that can be set with
+    `Gst.task_set_lock`.
 
-    The task can be started, paused and stopped with gst_task_start(), gst_task_pause()
-    and gst_task_stop() respectively or with the gst_task_set_state() function.
+    The task can be started, paused and stopped with `Gst.task_start`, `Gst.task_pause`
+    and `Gst.task_stop` respectively or with the `Gst.task_set_state` function.
 
-    A #GstTask will repeatedly call the #GstTaskFunction with the user data
-    that was provided when creating the task with gst_task_new(). While calling
+    A Gst.Task will repeatedly call the Gst.TaskFunction with the user data
+    that was provided when creating the task with `Gst.task_new`. While calling
     the function it will acquire the provided lock. The provided lock is released
     when the task pauses or stops.
 
-    Stopping a task with gst_task_stop() will not immediately make sure the task is
-    not running anymore. Use gst_task_join() to make sure the task is completely
+    Stopping a task with `Gst.task_stop` will not immediately make sure the task is
+    not running anymore. Use `Gst.task_join` to make sure the task is completely
     stopped and the thread is stopped.
 
-    After creating a #GstTask, use gst_object_unref() to free its resources. This can
+    After creating a Gst.Task, use `Gst.object_unref` to free its resources. This can
     only be done when the task is not running anymore.
 
-    Task functions can send a #GstMessage to send out-of-band data to the
-    application. The application can receive messages from the #GstBus in its
+    Task functions can send a Gst.Message to send out-of-band data to the
+    application. The application can receive messages from the Gst.Bus in its
     mainloop.
 
     For debugging purposes, the task will configure its object name as the thread
@@ -20054,7 +20054,7 @@ class Task(Object):
     @builtins.property
     def notify(self) -> GLib.DestroyNotify:
         """
-        GDestroyNotify for @user_data
+        GDestroyNotify for `user_data`
         """
     @builtins.property
     def object(self) -> Object | None: ...
@@ -20086,7 +20086,7 @@ class Task(Object):
         """
     def get_pool(self) -> TaskPool:
         """
-            Get the #GstTaskPool that this task will use for its streaming
+            Get the Gst.TaskPool that this task will use for its streaming
         threads.
 
         MT safe.
@@ -20097,8 +20097,8 @@ class Task(Object):
         """
     def join(self) -> bool:
         """
-            Joins @task. After this call, it is safe to unref the task
-        and clean up the lock set with gst_task_set_lock().
+            Joins `task`. After this call, it is safe to unref the task
+        and clean up the lock set with `Gst.task_set_lock`.
 
         The task will automatically be stopped with this call.
 
@@ -20109,85 +20109,85 @@ class Task(Object):
     @classmethod
     def new(cls, func: TaskFunction, user_data: object | None, notify: GLib.DestroyNotify) -> Task:
         """
-            Create a new Task that will repeatedly call the provided @func
-        with @user_data as a parameter. Typically the task will run in
+            Create a new Task that will repeatedly call the provided `func`
+        with `user_data` as a parameter. Typically the task will run in
         a new thread.
 
         The function cannot be changed after the task has been created. You
-        must create a new #GstTask to change the function.
+        must create a new Gst.Task to change the function.
 
-        This function will not yet create and start a thread. Use gst_task_start() or
-        gst_task_pause() to create and start the GThread.
+        This function will not yet create and start a thread. Use `Gst.task_start` or
+        `Gst.task_pause` to create and start the GThread.
 
-        Before the task can be used, a #GRecMutex must be configured using the
-        gst_task_set_lock() function. This lock will always be acquired while
-        @func is called.
+        Before the task can be used, a GRecMutex must be configured using the
+        `Gst.task_set_lock` function. This lock will always be acquired while
+        `func` is called.
         """
     def pause(self) -> bool:
         """
-            Pauses @task. This method can also be called on a task in the
+            Pauses `task`. This method can also be called on a task in the
         stopped state, in which case a thread will be started and will remain
         in the paused state. This function does not wait for the task to complete
         the paused state.
         """
     def resume(self) -> bool:
         """
-            Resume @task in case it was paused. If the task was stopped, it will
-        remain in that state and this function will return %FALSE.
+            Resume `task` in case it was paused. If the task was stopped, it will
+        remain in that state and this function will return False.
         """
     def set_enter_callback(
         self, enter_func: TaskThreadFunc, user_data: object | None, notify: GLib.DestroyNotify
     ) -> None:
         """
-            Call @enter_func when the task function of @task is entered. @user_data will
-        be passed to @enter_func and @notify will be called when @user_data is no
+            Call `enter_func` when the task function of `task` is entered. `user_data` will
+        be passed to `enter_func` and `notify` will be called when `user_data` is no
         longer referenced.
         """
     def set_leave_callback(
         self, leave_func: TaskThreadFunc, user_data: object | None, notify: GLib.DestroyNotify
     ) -> None:
         """
-            Call @leave_func when the task function of @task is left. @user_data will
-        be passed to @leave_func and @notify will be called when @user_data is no
+            Call `leave_func` when the task function of `task` is left. `user_data` will
+        be passed to `leave_func` and `notify` will be called when `user_data` is no
         longer referenced.
         """
     def set_lock(self, mutex: GLib.RecMutex) -> None:
         """
             Set the mutex used by the task. The mutex will be acquired before
-        calling the #GstTaskFunction.
+        calling the Gst.TaskFunction.
 
-        This function has to be called before calling gst_task_pause() or
-        gst_task_start().
+        This function has to be called before calling `Gst.task_pause` or
+        `Gst.task_start`.
 
         MT safe.
         """
     def set_pool(self, pool: TaskPool) -> None:
         """
-            Set @pool as the new GstTaskPool for @task. Any new streaming threads that
-        will be created by @task will now use @pool.
+            Set `pool` as the new GstTaskPool for `task`. Any new streaming threads that
+        will be created by `task` will now use `pool`.
 
         MT safe.
         """
     def set_state(self, state: TaskState) -> bool:
         """
-            Sets the state of @task to @state.
+            Sets the state of `task` to `state`.
 
-        The @task must have a lock associated with it using
-        gst_task_set_lock() when going to GST_TASK_STARTED or GST_TASK_PAUSED or
-        this function will return %FALSE.
+        The `task` must have a lock associated with it using
+        `Gst.task_set_lock` when going to GST_TASK_STARTED or GST_TASK_PAUSED or
+        this function will return False.
 
         MT safe.
         """
     def start(self) -> bool:
         """
-            Starts @task. The @task must have a lock associated with it using
-        gst_task_set_lock() or this function will return %FALSE.
+            Starts `task`. The `task` must have a lock associated with it using
+        `Gst.task_set_lock` or this function will return False.
         """
     def stop(self) -> bool:
         """
-            Stops @task. This method merely schedules the task to stop and
+            Stops `task`. This method merely schedules the task to stop and
         will not wait for the task to have completely stopped. Use
-        gst_task_join() to stop and wait for completion.
+        `Gst.task_join` to stop and wait for completion.
         """
 
 class TaskClass(GObject.GPointer):
@@ -20231,24 +20231,24 @@ class TaskPool(Object):
         """
     def dispose_handle(self, id: object | None = None) -> None:
         """
-            Dispose of the handle returned by gst_task_pool_push(). This does
+            Dispose of the handle returned by `Gst.task_pool_push`. This does
         not need to be called with the default implementation as the default
-        #GstTaskPoolClass::push implementation always returns %NULL. This does not need to be
-        called either when calling gst_task_pool_join(), but should be called
-        when joining is not necessary, but gst_task_pool_push() returned a
-        non-%NULL value.
+        Gst.TaskPoolClass::push implementation always returns None. This does not need to be
+        called either when calling `Gst.task_pool_join`, but should be called
+        when joining is not necessary, but `Gst.task_pool_push` returned a
+        non-None value.
 
-        This method should only be called with the same @pool instance that provided
-        @id.
+        This method should only be called with the same `pool` instance that provided
+        `id`.
         """
     def join(self, id: object | None = None) -> None:
         """
-            Join a task and/or return it to the pool. @id is the id obtained from
-        gst_task_pool_push(). The default implementation does nothing, as the
-        default #GstTaskPoolClass::push implementation always returns %NULL.
+            Join a task and/or return it to the pool. `id` is the id obtained from
+        `Gst.task_pool_push`. The default implementation does nothing, as the
+        default Gst.TaskPoolClass::push implementation always returns None.
 
-        This method should only be called with the same @pool instance that provided
-        @id.
+        This method should only be called with the same `pool` instance that provided
+        `id`.
         """
     @classmethod
     def new(cls) -> TaskPool:
@@ -20258,13 +20258,13 @@ class TaskPool(Object):
         """
     def prepare(self) -> None:
         """
-            Prepare the taskpool for accepting gst_task_pool_push() operations.
+            Prepare the taskpool for accepting `Gst.task_pool_push` operations.
 
         MT safe.
         """
     def push(self, func: TaskPoolFunction, user_data: object | None = None) -> object | None:
         """
-        Start the execution of a new thread from @pool.
+        Start the execution of a new thread from `pool`.
         """
 
     # python methods (overrides?)
@@ -20305,7 +20305,7 @@ class TaskPool(Object):
 
 class TaskPoolClass(GObject.GPointer):
     """
-    The #GstTaskPoolClass object.
+    The Gst.TaskPoolClass object.
     """
 
     # gi Fields
@@ -20375,31 +20375,31 @@ class TimedValue(GObject.GPointer):
 
 class Toc(GObject.GBoxed):
     """
-    #GstToc functions are used to create/free #GstToc and #GstTocEntry structures.
-    Also they are used to convert #GstToc into #GstStructure and vice versa.
+    Gst.Toc functions are used to create/free Gst.Toc and Gst.TocEntry structures.
+    Also they are used to convert Gst.Toc into Gst.Structure and vice versa.
 
-    #GstToc lets you to inform other elements in pipeline or application that playing
+    Gst.Toc lets you to inform other elements in pipeline or application that playing
     source has some kind of table of contents (TOC). These may be chapters, editions,
     angles or other types. For example: DVD chapters, Matroska chapters or cue sheet
     TOC. Such TOC will be useful for applications to display instead of just a
     playlist.
 
-    Using TOC is very easy. Firstly, create #GstToc structure which represents root
+    Using TOC is very easy. Firstly, create Gst.Toc structure which represents root
     contents of the source. You can also attach TOC-specific tags to it. Then fill
-    it with #GstTocEntry entries by appending them to the #GstToc using
-    gst_toc_append_entry(), and appending subentries to a #GstTocEntry using
-    gst_toc_entry_append_sub_entry().
+    it with Gst.TocEntry entries by appending them to the Gst.Toc using
+    `Gst.toc_append_entry`, and appending subentries to a Gst.TocEntry using
+    `Gst.toc_entry_append_sub_entry`.
 
     Note that root level of the TOC can contain only either editions or chapters. You
     should not mix them together at the same level. Otherwise you will get serialization
     /deserialization errors. Make sure that no one of the entries has negative start and
      stop values.
 
-    Use gst_event_new_toc() to create a new TOC #GstEvent, and gst_event_parse_toc() to
-    parse received TOC event. Use gst_event_new_toc_select() to create a new TOC select #GstEvent,
-    and gst_event_parse_toc_select() to parse received TOC select event. The same rule for
-    the #GstMessage: gst_message_new_toc() to create new TOC #GstMessage, and
-    gst_message_parse_toc() to parse received TOC message.
+    Use `Gst.event_new_toc` to create a new TOC Gst.Event, and `Gst.event_parse_toc` to
+    parse received TOC event. Use `Gst.event_new_toc_select` to create a new TOC select Gst.Event,
+    and `Gst.event_parse_toc_select` to parse received TOC select event. The same rule for
+    the Gst.Message: `Gst.message_new_toc` to create new TOC Gst.Message, and
+    `Gst.message_parse_toc` to parse received TOC message.
 
     TOCs can have global scope or current scope. Global scope TOCs contain
     all entries that can possibly be selected using a toc select event, and
@@ -20425,34 +20425,34 @@ class Toc(GObject.GBoxed):
     # gi Methods
     def append_entry(self, entry: TocEntry) -> None:
         """
-        Appends the #GstTocEntry @entry to @toc.
+        Appends the Gst.TocEntry `entry` to `toc`.
         """
     def dump(self) -> None: ...
     def find_entry(self, uid: str) -> TocEntry | None:
         """
-        Find #GstTocEntry with given @uid in the @toc.
+        Find Gst.TocEntry with given `uid` in the `toc`.
         """
     def get_entries(self) -> list:
         """
-        Gets the list of #GstTocEntry of @toc.
+        Gets the list of Gst.TocEntry of `toc`.
         """
     def get_scope(self) -> TocScope: ...
     def get_tags(self) -> TagList | None:
         """
-        Gets the tags for @toc.
+        Gets the tags for `toc`.
         """
     def merge_tags(self, tags: TagList | None, mode: TagMergeMode) -> None:
         """
-        Merge @tags into the existing tags of @toc using @mode.
+        Merge `tags` into the existing tags of `toc` using `mode`.
         """
     @classmethod
     def new(cls, scope: TocScope) -> Toc:
         """
-        Create a new #GstToc structure.
+        Create a new Gst.Toc structure.
         """
     def set_tags(self, tags: TagList | None = None) -> None:
         """
-        Set a #GstTagList with tags for the complete @toc.
+        Set a Gst.TagList with tags for the complete `toc`.
         """
 
     # python methods (overrides?)
@@ -20466,63 +20466,63 @@ class TocEntry(GObject.GBoxed):
     # gi Methods
     def append_sub_entry(self, subentry: TocEntry) -> None:
         """
-        Appends the #GstTocEntry @subentry to @entry.
+        Appends the Gst.TocEntry `subentry` to `entry`.
         """
     def get_entry_type(self) -> TocEntryType: ...
     def get_loop(self) -> tuple[bool, TocLoopType, int]:
         """
-            Get @loop_type and @repeat_count values from the @entry and write them into
+            Get `loop_type` and `repeat_count` values from the `entry` and write them into
         appropriate storages. Loops are e.g. used by sampled instruments. GStreamer
         is not automatically applying the loop. The application can process this
         meta data and use it e.g. to send a seek-event to loop a section.
         """
     def get_parent(self) -> TocEntry | None:
         """
-        Gets the parent #GstTocEntry of @entry.
+        Gets the parent Gst.TocEntry of `entry`.
         """
     def get_start_stop_times(self) -> tuple[bool, int, int]:
         """
-            Get @start and @stop values from the @entry and write them into appropriate
+            Get `start` and `stop` values from the `entry` and write them into appropriate
         storages.
         """
     def get_sub_entries(self) -> list:
         """
-        Gets the sub-entries of @entry.
+        Gets the sub-entries of `entry`.
         """
     def get_tags(self) -> TagList | None:
         """
-        Gets the tags for @entry.
+        Gets the tags for `entry`.
         """
     def get_toc(self) -> Toc | None:
         """
-        Gets the parent #GstToc of @entry.
+        Gets the parent Gst.Toc of `entry`.
         """
     def get_uid(self) -> str:
         """
-        Gets the UID of @entry.
+        Gets the UID of `entry`.
         """
     def is_alternative(self) -> bool: ...
     def is_sequence(self) -> bool: ...
     def merge_tags(self, tags: TagList | None, mode: TagMergeMode) -> None:
         """
-        Merge @tags into the existing tags of @entry using @mode.
+        Merge `tags` into the existing tags of `entry` using `mode`.
         """
     @classmethod
     def new(cls, type: TocEntryType, uid: str) -> TocEntry:
         """
-        Create new #GstTocEntry structure.
+        Create new Gst.TocEntry structure.
         """
     def set_loop(self, loop_type: TocLoopType, repeat_count: int) -> None:
         """
-        Set @loop_type and @repeat_count values for the @entry.
+        Set `loop_type` and `repeat_count` values for the `entry`.
         """
     def set_start_stop_times(self, start: int, stop: int) -> None:
         """
-        Set @start and @stop values for the @entry.
+        Set `start` and `stop` values for the `entry`.
         """
     def set_tags(self, tags: TagList | None = None) -> None:
         """
-        Set a #GstTagList with tags for the complete @entry.
+        Set a Gst.TagList with tags for the complete `entry`.
         """
 
     # python methods (overrides?)
@@ -20543,10 +20543,10 @@ class TocSetter(GObject.GInterface):
     need to do is watch for TOC messages on your pipeline's bus (or you can
     perform TOC query). This interface is only for setting TOC data, not for
     extracting it. To set TOC from the application, find proper tocsetter element
-    and set TOC using gst_toc_setter_set_toc().
+    and set TOC using `Gst.toc_setter_set_toc`.
 
-    Elements implementing the #GstTocSetter interface can extend existing TOC
-    by getting extend UID for that (you can use gst_toc_find_entry() to retrieve it)
+    Elements implementing the Gst.TocSetter interface can extend existing TOC
+    by getting extend UID for that (you can use `Gst.toc_find_entry` to retrieve it)
     with any TOC entries received from downstream.
     """
 
@@ -20573,7 +20573,7 @@ class TocSetter(GObject.GInterface):
 
 class TocSetterInterface(GObject.GPointer):
     """
-    #GstTocSetterInterface interface.
+    Gst.TocSetterInterface interface.
     """
 
     # gi Fields
@@ -20591,9 +20591,9 @@ class TocSetterInterface(GObject.GPointer):
 
 class Tracer(Object):
     """
-    Tracing modules will subclass #GstTracer and register through
-    gst_tracer_register(). Modules can attach to various hook-types - see
-    gst_tracing_register_hook(). When invoked they receive hook specific
+    Tracing modules will subclass Gst.Tracer and register through
+    `Gst.tracer_register`. Modules can attach to various hook-types - see
+    `Gst.tracing_register_hook`. When invoked they receive hook specific
     contextual data, which they must not modify.
     """
 
@@ -20612,7 +20612,7 @@ class Tracer(Object):
     def register(plugin: Plugin | None, name: str, type: GObject.GType) -> bool:
         """
             Create a new tracer-factory  capable of instantiating objects of the
-        @type and add the factory to @plugin.
+        `type` and add the factory to `plugin`.
         """
 
     # python methods (overrides?)
@@ -20667,13 +20667,13 @@ class TracerClass(GObject.GPointer):
     def uses_structure_params(self) -> bool:
         """
             If set, the tracer subsystem will consider parameters passed to the
-        `GST_TRACERS` environment variable as a #GstStructure and use its
+        `GST_TRACERS` environment variable as a Gst.Structure and use its
         fields as properties to instanciate the tracer.
         """
 
 class TracerFactory(PluginFeature):
     """
-    Use gst_tracer_factory_get_list() to get a list of tracer factories known to
+    Use `Gst.tracer_factory_get_list` to get a list of tracer factories known to
     GStreamer.
     """
 
@@ -20686,7 +20686,7 @@ class TracerFactory(PluginFeature):
     def get_list() -> list:
         """
             Gets the list of all registered tracer factories. You must free the
-        list using gst_plugin_feature_list_free().
+        list using `Gst.plugin_feature_list_free`.
 
         The returned factories are sorted by factory name.
 
@@ -20694,9 +20694,9 @@ class TracerFactory(PluginFeature):
         """
     def get_tracer_type(self) -> GObject.GType:
         """
-            Get the #GType for elements managed by this factory. The type can
+            Get the GType for elements managed by this factory. The type can
         only be retrieved if the element factory is loaded, which can be
-        assured with gst_plugin_feature_load().
+        assured with `Gst.plugin_feature_load`.
         """
 
 class TracerFactoryClass(GObject.GPointer):
@@ -20749,7 +20749,7 @@ class TypeFind(GObject.GPointer):
         """
     def peek(self, offset: int, size: int) -> int | None:
         """
-            Returns the @size bytes of the stream to identify beginning at offset. If
+            Returns the `size` bytes of the stream to identify beginning at offset. If
         offset is a positive number, the offset is relative to the beginning of the
         stream, if offset is a negative number the offset is relative to the end of
         the stream. The returned memory is valid until the typefinding function
@@ -20773,18 +20773,18 @@ class TypeFind(GObject.GPointer):
         """
     def suggest(self, probability: int, caps: Caps) -> None:
         """
-            If a #GstTypeFindFunction calls this function it suggests the caps with the
-        given probability. A #GstTypeFindFunction may supply different suggestions
+            If a Gst.TypeFindFunction calls this function it suggests the caps with the
+        given probability. A Gst.TypeFindFunction may supply different suggestions
         in one call.
-        It is up to the caller of the #GstTypeFindFunction to interpret these values.
+        It is up to the caller of the Gst.TypeFindFunction to interpret these values.
         """
     def suggest_empty_simple(self, probability: int, media_type: str) -> None:
         """
-            If a #GstTypeFindFunction calls this function it suggests caps of the
-        given @media_type with the given @probability.
+            If a Gst.TypeFindFunction calls this function it suggests caps of the
+        given `media_type` with the given `probability`.
 
-        This function is similar to gst_type_find_suggest_simple(), but uses
-        a #GstCaps with no fields.
+        This function is similar to `Gst.type_find_suggest_simple`, but uses
+        a Gst.Caps with no fields.
         """
 
 class TypeFindFactory(PluginFeature):
@@ -20811,7 +20811,7 @@ class TypeFindFactory(PluginFeature):
         if (offset >= 0 && offset + size <= find->size) {
           return find->data + offset;
         }
-        return NULL;
+        return None;
       }
       static void
       my_suggest (gpointer data, guint probability, GstCaps *caps)
@@ -20826,7 +20826,7 @@ class TypeFindFactory(PluginFeature):
       find_type (guint8 *data, guint size)
       {
         GList *walk, *type_list;
-        MyTypeFind find = {data, size, 0, NULL};
+        MyTypeFind find = {data, size, 0, None};
         GstTypeFind gst_find = {my_peek, my_suggest, &find, };
         walk = type_list = gst_type_find_factory_get_list ();
         while (walk) {
@@ -20847,24 +20847,24 @@ class TypeFindFactory(PluginFeature):
         """
     def call_function(self, find: TypeFind) -> None:
         """
-        Calls the #GstTypeFindFunction associated with this factory.
+        Calls the Gst.TypeFindFunction associated with this factory.
         """
     def get_caps(self) -> Caps | None:
         """
-        Gets the #GstCaps associated with a typefind factory.
+        Gets the Gst.Caps associated with a typefind factory.
         """
     def get_extensions(self) -> list | None:
         """
-            Gets the extensions associated with a #GstTypeFindFactory. The returned
+            Gets the extensions associated with a Gst.TypeFindFactory. The returned
         array should not be changed. If you need to change stuff in it, you should
-        copy it using g_strdupv().  This function may return %NULL to indicate
+        copy it using `g_strdupv`.  This function may return None to indicate
         a 0-length list.
         """
     @staticmethod
     def get_list() -> list:
         """
             Gets the list of all registered typefind factories. You must free the
-        list using gst_plugin_feature_list_free().
+        list using `Gst.plugin_feature_list_free`.
 
         The returned factories are sorted by highest rank first, and then by
         factory name.
@@ -20887,12 +20887,12 @@ class TypeFindFactoryClass(GObject.GPointer):
 
 class URIHandler(GObject.GInterface):
     """
-    The #GstURIHandler is an interface that is implemented by Source and Sink
-    #GstElement to unify handling of URI.
+    The Gst.URIHandler is an interface that is implemented by Source and Sink
+    Gst.Element to unify handling of URI.
 
     An application can use the following functions to quickly get an element
     that handles the given URI for reading or writing
-    (gst_element_make_from_uri()).
+    (`Gst.element_make_from_uri`).
 
     Source and Sink plugins should implement this interface when possible.
     """
@@ -20904,7 +20904,7 @@ class URIHandler(GObject.GInterface):
         """
     def get_protocols(self) -> list | None:
         """
-            Gets the list of protocols supported by @handler. This list may not be
+            Gets the list of protocols supported by `handler`. This list may not be
         modified.
         """
     def get_uri(self) -> str | None:
@@ -20922,7 +20922,7 @@ class URIHandler(GObject.GInterface):
 
 class URIHandlerInterface(GObject.GPointer):
     """
-    Any #GstElement using this interface should implement these methods.
+    Any Gst.Element using this interface should implement these methods.
     """
 
     # gi Fields
@@ -20955,8 +20955,8 @@ class URIHandlerInterface(GObject.GPointer):
 
 class Uri(GObject.GBoxed):
     """
-    A #GstUri object can be used to parse and split a URI string into its
-    constituent parts. Two #GstUri objects can be joined to make a new #GstUri
+    A Gst.Uri object can be used to parse and split a URI string into its
+    constituent parts. Two Gst.Uri objects can be joined to make a new Gst.Uri
     using the algorithm described in RFC3986.
     """
 
@@ -20964,7 +20964,7 @@ class Uri(GObject.GBoxed):
     def append_path(self, relative_path: str | None = None) -> bool:
         """
             Append a path onto the end of the path in the URI. The path is not
-        normalized, call #gst_uri_normalize() to normalize the path.
+        normalized, call #`Gst.uri_normalize` to normalize the path.
         """
     def append_path_segment(self, path_segment: str | None = None) -> bool:
         """
@@ -20980,26 +20980,26 @@ class Uri(GObject.GBoxed):
         """
     def equal(self, second: Uri) -> bool:
         """
-            Compares two #GstUri objects to see if they represent the same normalized
+            Compares two Gst.Uri objects to see if they represent the same normalized
         URI.
         """
     @staticmethod
     def from_string(uri: str) -> Uri | None:
         """
-            Parses a URI string into a new #GstUri object. Will return NULL if the URI
+            Parses a URI string into a new Gst.Uri object. Will return None if the URI
         cannot be parsed.
         """
     @staticmethod
     def from_string_escaped(uri: str) -> Uri | None:
         """
-            Parses a URI string into a new #GstUri object. Will return NULL if the URI
-        cannot be parsed. This is identical to gst_uri_from_string() except that
+            Parses a URI string into a new Gst.Uri object. Will return None if the URI
+        cannot be parsed. This is identical to `Gst.uri_from_string` except that
         the userinfo and fragment components of the URI will not be unescaped while
         parsing.
 
         Use this when you need to extract a username and password from the userinfo
-        such as https://user:password@example.com since either may contain
-        a URI-escaped ':' character. gst_uri_from_string() will unescape the entire
+        such as https://user:password`example`.com since either may contain
+        a URI-escaped ':' character. `Gst.uri_from_string` will unescape the entire
         userinfo component, which will make it impossible to know which ':'
         delineates the username and password.
 
@@ -21008,17 +21008,17 @@ class Uri(GObject.GBoxed):
         """
     def from_string_with_base(self, uri: str) -> Uri | None:
         """
-        Like gst_uri_from_string() but also joins with a base URI.
+        Like `Gst.uri_from_string` but also joins with a base URI.
         """
     def get_fragment(self) -> str | None:
         """
-            Get the fragment name from the URI or %NULL if it doesn't exist.
-        If @uri is %NULL then returns %NULL.
+            Get the fragment name from the URI or None if it doesn't exist.
+        If `uri` is None then returns None.
         """
     def get_host(self) -> str | None:
         """
-            Get the host name from the URI or %NULL if it doesn't exist.
-        If @uri is %NULL then returns %NULL.
+            Get the host name from the URI or None if it doesn't exist.
+        If `uri` is None then returns None.
         """
     @staticmethod
     def get_location(uri: str) -> str | None:
@@ -21026,7 +21026,7 @@ class Uri(GObject.GBoxed):
             Extracts the location out of a given valid URI, ie. the protocol and "://"
         are stripped from the URI, which means that the location returned includes
         the hostname if one is specified. The returned string must be freed using
-        g_free().
+        `g_free`.
 
         Free-function: g_free
         """
@@ -21037,9 +21037,9 @@ class Uri(GObject.GBoxed):
         pair is generated by splitting "URI fragment" per "&" sub-delims, then "key"
         and "value" are split by "=" sub-delims. The "key" returned by this API may
         be undefined keyword by standard.
-        A value may be %NULL to indicate that the key should appear in the fragment
-        string in the URI, but does not have a value. Free the returned #GHashTable
-        with #g_hash_table_unref() when it is no longer required.
+        A value may be None to indicate that the key should appear in the fragment
+        string in the URI, but does not have a value. Free the returned GHashTable
+        with #`g_hash_table_unref` when it is no longer required.
         Modifying this hash table does not affect the fragment in the URI.
 
         See more about Media Fragments URI 1.0 (W3C) at https://www.w3.org/TR/media-frags/
@@ -21058,14 +21058,14 @@ class Uri(GObject.GBoxed):
         """
     def get_port(self) -> int:
         """
-            Get the port number from the URI or %GST_URI_NO_PORT if it doesn't exist.
-        If @uri is %NULL then returns %GST_URI_NO_PORT.
+            Get the port number from the URI or Gst.URI_NO_PORT if it doesn't exist.
+        If `uri` is None then returns Gst.URI_NO_PORT.
         """
     @staticmethod
     def get_protocol(uri: str) -> str | None:
         """
             Extracts the protocol out of a given valid URI. The returned string must be
-        freed using g_free().
+        freed using `g_free`.
         """
     def get_query_keys(self) -> list:
         """
@@ -21073,51 +21073,51 @@ class Uri(GObject.GBoxed):
         """
     def get_query_string(self) -> str | None:
         """
-        Get a percent encoded URI query string from the @uri.
+        Get a percent encoded URI query string from the `uri`.
         """
     def get_query_string_ordered(self, keys: list | None = None) -> str | None:
         """
-            Get a percent encoded URI query string from the @uri, with query parameters
-        in the order provided by the @keys list. Only parameter keys in the list will
+            Get a percent encoded URI query string from the `uri`, with query parameters
+        in the order provided by the `keys` list. Only parameter keys in the list will
         be added to the resulting URI string. This method can be used by retrieving
-        the keys with gst_uri_get_query_keys() and then sorting the list, for
+        the keys with `Gst.uri_get_query_keys` and then sorting the list, for
         example.
         """
     def get_query_table(self) -> dict | None:
         """
             Get the query table from the URI. Keys and values in the table are freed
-        with g_free when they are deleted. A value may be %NULL to indicate that
+        with g_free when they are deleted. A value may be None to indicate that
         the key should appear in the query string in the URI, but does not have a
-        value. Free the returned #GHashTable with #g_hash_table_unref() when it is
+        value. Free the returned GHashTable with #`g_hash_table_unref` when it is
         no longer required. Modifying this hash table will modify the query in the
         URI.
         """
     def get_query_value(self, query_key: str) -> str | None:
         """
-            Get the value associated with the @query_key key. Will return %NULL if the
+            Get the value associated with the `query_key` key. Will return None if the
         key has no value or if the key does not exist in the URI query table. Because
-        %NULL is returned for both missing keys and keys with no value, you should
-        use gst_uri_query_has_key() to determine if a key is present in the URI
+        None is returned for both missing keys and keys with no value, you should
+        use `Gst.uri_query_has_key` to determine if a key is present in the URI
         query.
         """
     def get_scheme(self) -> str | None:
         """
-            Get the scheme name from the URI or %NULL if it doesn't exist.
-        If @uri is %NULL then returns %NULL.
+            Get the scheme name from the URI or None if it doesn't exist.
+        If `uri` is None then returns None.
         """
     def get_userinfo(self) -> str | None:
         """
             Get the userinfo (usually in the form "username:password") from the URI
-        or %NULL if it doesn't exist. If @uri is %NULL then returns %NULL.
+        or None if it doesn't exist. If `uri` is None then returns None.
         """
     @staticmethod
     def has_protocol(uri: str, protocol: str) -> bool:
         """
-        Checks if the protocol of a given valid URI matches @protocol.
+        Checks if the protocol of a given valid URI matches `protocol`.
         """
     def is_normalized(self) -> bool:
         """
-            Tests the @uri to see if it is normalized. A %NULL @uri is considered to be
+            Tests the `uri` to see if it is normalized. A None `uri` is considered to be
         normalized.
         """
     @staticmethod
@@ -21128,34 +21128,34 @@ class Uri(GObject.GBoxed):
         """
     def is_writable(self) -> bool:
         """
-            Check if it is safe to write to this #GstUri.
+            Check if it is safe to write to this Gst.Uri.
 
-        Check if the refcount of @uri is exactly 1, meaning that no other
-        reference exists to the #GstUri and that the #GstUri is therefore writable.
+        Check if the refcount of `uri` is exactly 1, meaning that no other
+        reference exists to the Gst.Uri and that the Gst.Uri is therefore writable.
 
-        Modification of a #GstUri should only be done after verifying that it is
+        Modification of a Gst.Uri should only be done after verifying that it is
         writable.
         """
     def join(self, ref_uri: Uri | None = None) -> Uri | None:
         """
             Join a reference URI onto a base URI using the method from RFC 3986.
-        If either URI is %NULL then the other URI will be returned with the ref count
+        If either URI is None then the other URI will be returned with the ref count
         increased.
         """
     @staticmethod
     def join_strings(base_uri: str, ref_uri: str) -> str | None:
         """
             This is a convenience function to join two URI strings and return the result.
-        The returned string should be g_free()'d after use.
+        The returned string should be `g_free`'d after use.
         """
     def make_writable(self) -> Uri:
         """
-            Make the #GstUri writable.
+            Make the Gst.Uri writable.
 
-        Checks if @uri is writable, and if so the original object is returned. If
+        Checks if `uri` is writable, and if so the original object is returned. If
         not, then a writable copy is made and returned. This gives away the
-        reference to @uri and returns a reference to the new #GstUri.
-        If @uri is %NULL then %NULL is returned.
+        reference to `uri` and returns a reference to the new Gst.Uri.
+        If `uri` is None then None is returned.
         """
     @classmethod
     def new(
@@ -21169,7 +21169,7 @@ class Uri(GObject.GBoxed):
         fragment: str | None = None,
     ) -> Uri:
         """
-            Creates a new #GstUri object with the given URI parts. The path and query
+            Creates a new Gst.Uri object with the given URI parts. The path and query
         strings will be broken down into their elements. All strings should not be
         escaped except where indicated.
         """
@@ -21184,7 +21184,7 @@ class Uri(GObject.GBoxed):
         fragment: str | None = None,
     ) -> Uri:
         """
-        Like gst_uri_new(), but joins the new URI onto a base URI.
+        Like `Gst.uri_new`, but joins the new URI onto a base URI.
         """
     def normalize(self) -> bool:
         """
@@ -21192,15 +21192,15 @@ class Uri(GObject.GBoxed):
         will also convert the scheme and host name to lower case and any
         percent-encoded values to uppercase.
 
-        The #GstUri object must be writable. Check with gst_uri_is_writable() or use
-        gst_uri_make_writable() first.
+        The Gst.Uri object must be writable. Check with `Gst.uri_is_writable` or use
+        `Gst.uri_make_writable` first.
         """
     @staticmethod
     def protocol_is_supported(type: URIType, protocol: str) -> bool:
         """
             Checks if an element exists that supports the given URI protocol. Note
         that a positive return value does not imply that a subsequent call to
-        gst_element_make_from_uri() is guaranteed to work.
+        `Gst.element_make_from_uri` is guaranteed to work.
         """
     @staticmethod
     def protocol_is_valid(protocol: str) -> bool:
@@ -21211,7 +21211,7 @@ class Uri(GObject.GBoxed):
         """
     def query_has_key(self, query_key: str) -> bool:
         """
-        Check if there is a query table entry for the @query_key key.
+        Check if there is a query table entry for the `query_key` key.
         """
     def remove_query_key(self, query_key: str) -> bool:
         """
@@ -21219,7 +21219,7 @@ class Uri(GObject.GBoxed):
         """
     def set_fragment(self, fragment: str | None = None) -> bool:
         """
-            Sets the fragment string in the URI. Use a value of %NULL in @fragment to
+            Sets the fragment string in the URI. Use a value of None in `fragment` to
         unset the fragment string.
         """
     def set_host(self, host: str) -> bool:
@@ -21249,12 +21249,12 @@ class Uri(GObject.GBoxed):
     def set_query_table(self, query_table: dict | None = None) -> bool:
         """
             Set the query table to use in the URI. The old table is unreferenced and a
-        reference to the new one is used instead. A value if %NULL for @query_table
+        reference to the new one is used instead. A value if None for `query_table`
         will remove the query string from the URI.
         """
     def set_query_value(self, query_key: str, query_value: str | None = None) -> bool:
         """
-            This inserts or replaces a key in the query table. A @query_value of %NULL
+            This inserts or replaces a key in the query table. A `query_value` of None
         indicates that the key has no associated value, but will still be present in
         the query string.
         """
@@ -21271,16 +21271,16 @@ class Uri(GObject.GBoxed):
             Convert the URI to a string.
 
         Returns the URI as held in this object as a #gchar* nul-terminated string.
-        The caller should g_free() the string once they are finished with it.
+        The caller should `g_free` the string once they are finished with it.
         The string is put together as described in RFC 3986.
         """
     def to_string_with_keys(self, keys: list | None = None) -> str:
         """
             Convert the URI to a string, with the query arguments in a specific order.
-        Only the keys in the @keys list will be added to the resulting string.
+        Only the keys in the `keys` list will be added to the resulting string.
 
         Returns the URI as held in this object as a #gchar* nul-terminated string.
-        The caller should g_free() the string once they are finished with it.
+        The caller should `g_free` the string once they are finished with it.
         The string is put together as described in RFC 3986.
         """
 
@@ -21293,7 +21293,7 @@ class Uri(GObject.GBoxed):
 
 class ValueArray(object):
     """
-    A fundamental type that describes an ordered list of #GValue
+    A fundamental type that describes an ordered list of GValue
     """
 
     class Props: ...
@@ -21309,38 +21309,38 @@ class ValueArray(object):
     @staticmethod
     def append_and_take_value(value: GObject.Value, append_value: GObject.Value) -> None:
         """
-        Appends @append_value to the GstValueArray in @value.
+        Appends `append_value` to the GstValueArray in `value`.
         """
     @staticmethod
     def append_value(value: GObject.Value, append_value: GObject.Value) -> None:
         """
-        Appends @append_value to the GstValueArray in @value.
+        Appends `append_value` to the GstValueArray in `value`.
         """
     @staticmethod
     def get_size(value: GObject.Value) -> int:
         """
-        Gets the number of values contained in @value.
+        Gets the number of values contained in `value`.
         """
     @staticmethod
     def get_value(value: GObject.Value, index: int) -> GObject.Value:
         """
-            Gets the value that is a member of the array contained in @value and
-        has the index @index.
+            Gets the value that is a member of the array contained in `value` and
+        has the index `index`.
         """
     @staticmethod
     def init(value: GObject.Value, prealloc: int) -> GObject.Value:
         """
-        Initializes and pre-allocates a #GValue of type #GST_TYPE_ARRAY.
+        Initializes and pre-allocates a GValue of type GST_TYPE_ARRAY.
         """
     @staticmethod
     def prepend_value(value: GObject.Value, prepend_value: GObject.Value) -> None:
         """
-        Prepends @prepend_value to the GstValueArray in @value.
+        Prepends `prepend_value` to the GstValueArray in `value`.
         """
 
 class ValueList(object):
     """
-    A fundamental type that describes an unordered list of #GValue
+    A fundamental type that describes an unordered list of GValue
     """
 
     class Props: ...
@@ -21356,81 +21356,81 @@ class ValueList(object):
     @staticmethod
     def append_and_take_value(value: GObject.Value, append_value: GObject.Value) -> None:
         """
-        Appends @append_value to the GstValueList in @value.
+        Appends `append_value` to the GstValueList in `value`.
         """
     @staticmethod
     def append_value(value: GObject.Value, append_value: GObject.Value) -> None:
         """
-        Appends @append_value to the GstValueList in @value.
+        Appends `append_value` to the GstValueList in `value`.
         """
     @staticmethod
     def concat(value1: GObject.Value, value2: GObject.Value) -> GObject.Value:
         """
-            Concatenates copies of @value1 and @value2 into a list.  Values that are not
-        of type #GST_TYPE_LIST are treated as if they were lists of length 1.
-        @dest will be initialized to the type #GST_TYPE_LIST.
+            Concatenates copies of `value1` and `value2` into a list.  Values that are not
+        of type GST_TYPE_LIST are treated as if they were lists of length 1.
+        `dest` will be initialized to the type GST_TYPE_LIST.
         """
     @staticmethod
     def get_size(value: GObject.Value) -> int:
         """
-        Gets the number of values contained in @value.
+        Gets the number of values contained in `value`.
         """
     @staticmethod
     def get_value(value: GObject.Value, index: int) -> GObject.Value:
         """
-            Gets the value that is a member of the list contained in @value and
-        has the index @index.
+            Gets the value that is a member of the list contained in `value` and
+        has the index `index`.
         """
     @staticmethod
     def init(value: GObject.Value, prealloc: int) -> GObject.Value:
         """
-        Initializes and pre-allocates a #GValue of type #GST_TYPE_LIST.
+        Initializes and pre-allocates a GValue of type GST_TYPE_LIST.
         """
     @staticmethod
     def merge(value1: GObject.Value, value2: GObject.Value) -> GObject.Value:
         """
-            Merges copies of @value1 and @value2.  Values that are not
-        of type #GST_TYPE_LIST are treated as if they were lists of length 1.
+            Merges copies of `value1` and `value2`.  Values that are not
+        of type GST_TYPE_LIST are treated as if they were lists of length 1.
 
-        The result will be put into @dest and will either be a list that will not
-        contain any duplicates, or a non-list type (if @value1 and @value2
+        The result will be put into `dest` and will either be a list that will not
+        contain any duplicates, or a non-list type (if `value1` and `value2`
         were equal).
         """
     @staticmethod
     def prepend_value(value: GObject.Value, prepend_value: GObject.Value) -> None:
         """
-        Prepends @prepend_value to the GstValueList in @value.
+        Prepends `prepend_value` to the GstValueList in `value`.
         """
 
 class ValueTable(GObject.GPointer):
     """
-    VTable for the #GValue @type.
+    VTable for the GValue `type`.
     """
 
     # gi Fields
     compare: ValueCompareFuncValueTableCB = ...
     """
-    a #GstValueCompareFunc
+    a Gst.ValueCompareFunc
 
     """
     deserialize: ValueDeserializeFuncValueTableCB = ...
     """
-    a #GstValueDeserializeFunc
+    a Gst.ValueDeserializeFunc
 
     """
     deserialize_with_pspec: ValueDeserializeWithPSpecFuncValueTableCB = ...
     """
-    a #GstValueDeserializeWithPSpecFunc
+    a Gst.ValueDeserializeWithPSpecFunc
 
     """
     serialize: ValueSerializeFuncValueTableCB = ...
     """
-    a #GstValueSerializeFunc
+    a Gst.ValueSerializeFunc
 
     """
     type: GObject.GType = ...  # type: ignore
     """
-    a #GType
+    a GType
 
     """
 
@@ -23450,12 +23450,12 @@ ALLOCATOR_SYSMEM: str = ...
 BUFFER_COPY_ALL = BufferCopyFlags.NONE
 """
 Combination of all possible fields that can be copied with
-gst_buffer_copy_into(). 
+`Gst.buffer_copy_into`. 
 """
 BUFFER_COPY_METADATA = BufferCopyFlags.NONE
 """
 Combination of all possible metadata fields that can be copied with
-gst_buffer_copy_into(). 
+`Gst.buffer_copy_into`. 
 """
 BUFFER_OFFSET_NONE: int = ...
 CAN_INLINE: int = ...
@@ -23517,7 +23517,7 @@ ELEMENT_METADATA_LONGNAME: str = ...
 EVENT_NUM_SHIFT: int = ...
 EVENT_TYPE_BOTH = EventTypeFlags(0)
 """
-The same thing as #GST_EVENT_TYPE_UPSTREAM | #GST_EVENT_TYPE_DOWNSTREAM. 
+The same thing as GST_EVENT_TYPE_UPSTREAM | GST_EVENT_TYPE_DOWNSTREAM. 
 """
 FLAG_SET_MASK_EXACT: int = ...
 FORMAT_PERCENT_MAX: int = ...
@@ -23548,7 +23548,7 @@ PROTECTION_UNSPECIFIED_SYSTEM_ID: str = ...
 QUERY_NUM_SHIFT: int = ...
 QUERY_TYPE_BOTH = QueryTypeFlags(0)
 """
-The same thing as #GST_QUERY_TYPE_UPSTREAM | #GST_QUERY_TYPE_DOWNSTREAM. 
+The same thing as GST_QUERY_TYPE_UPSTREAM | GST_QUERY_TYPE_DOWNSTREAM. 
 """
 SECOND: int = ...
 SEGMENT_INSTANT_FLAGS: int = ...

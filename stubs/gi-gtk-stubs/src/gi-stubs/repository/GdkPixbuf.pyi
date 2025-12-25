@@ -88,7 +88,7 @@ class InterpType(GObject.GEnum):
      hyperbolic-filter sampling the ideal hyperbolic-filter interpolated
      image (the filter is designed to be idempotent for 1:1 pixel mapping).
      **Deprecated**: this interpolation filter is deprecated, as in reality
-     it has a lower quality than the @GDK_INTERP_BILINEAR filter
+     it has a lower quality than the `GDK_INTERP_BILINEAR` filter
      (Since: 2.38)
     """
 
@@ -96,7 +96,7 @@ class PixbufAlphaMode(GObject.GEnum):
     """
     Control the alpha channel for drawables.
 
-    These values can be passed to gdk_pixbuf_xlib_render_to_drawable_alpha()
+    These values can be passed to `gdk_pixbuf_xlib_render_to_drawable_alpha`
     in gdk-pixbuf-xlib to control how the alpha channel of an image should
     be handled.
 
@@ -116,7 +116,7 @@ class PixbufAlphaMode(GObject.GEnum):
     """
     FULL = 1
     """
-    For now falls back to #GDK_PIXBUF_ALPHA_BILEVEL.
+    For now falls back to GDK_PIXBUF_ALPHA_BILEVEL.
      In the future it will do full alpha compositing.
     """
 
@@ -178,7 +178,7 @@ class PixbufFormatFlags(enum.IntFlag):
 
 class PixbufRotation(GObject.GEnum):
     """
-    The possible rotations which can be passed to gdk_pixbuf_rotate_simple().
+    The possible rotations which can be passed to `gdk_pixbuf_rotate_simple`.
 
     To make them easier to use, their numerical values are the actual degrees."""
 
@@ -215,31 +215,31 @@ class Pixbuf(GObject.Object):
     ## Creating new `GdkPixbuf`
 
     The most basic way to create a pixbuf is to wrap an existing pixel
-    buffer with a [class@GdkPixbuf.Pixbuf] instance. You can use the
-    [`ctor@GdkPixbuf.Pixbuf.new_from_data`] function to do this.
+    buffer with a [class`GdkPixbuf`.Pixbuf] instance. You can use the
+    [`ctor`GdkPixbuf`.Pixbuf.new_from_data`] function to do this.
 
     Every time you create a new `GdkPixbuf` instance for some data, you
     will need to specify the destroy notification function that will be
     called when the data buffer needs to be freed; this will happen when
     a `GdkPixbuf` is finalized by the reference counting functions. If
     you have a chunk of static data compiled into your application, you
-    can pass in `NULL` as the destroy notification function so that the
+    can pass in `None` as the destroy notification function so that the
     data will not be freed.
 
-    The [`ctor@GdkPixbuf.Pixbuf.new`] constructor function can be used
+    The [`ctor`GdkPixbuf`.Pixbuf.new`] constructor function can be used
     as a convenience to create a pixbuf with an empty buffer; this is
-    equivalent to allocating a data buffer using `malloc()` and then
-    wrapping it with `gdk_pixbuf_new_from_data()`. The `gdk_pixbuf_new()`
+    equivalent to allocating a data buffer using ``malloc`` and then
+    wrapping it with ``gdk_pixbuf_new_from_data``. The ``gdk_pixbuf_new``
     function will compute an optimal rowstride so that rendering can be
     performed with an efficient algorithm.
 
-    As a special case, you can use the [`ctor@GdkPixbuf.Pixbuf.new_from_xpm_data`]
+    As a special case, you can use the [`ctor`GdkPixbuf`.Pixbuf.new_from_xpm_data`]
     function to create a pixbuf from inline XPM image data.
 
-    You can also copy an existing pixbuf with the [method@Pixbuf.copy]
+    You can also copy an existing pixbuf with the [method`Pixbuf`.copy]
     function. This is not the same as just acquiring a reference to
     the old pixbuf instance: the copy function will actually duplicate
-    the pixel data in memory and create a new [class@Pixbuf] instance
+    the pixel data in memory and create a new [class`Pixbuf`] instance
     for it.
 
     ## Reference counting
@@ -247,9 +247,9 @@ class Pixbuf(GObject.Object):
     `GdkPixbuf` structures are reference counted. This means that an
     application can share a single pixbuf among many parts of the
     code. When a piece of the program needs to use a pixbuf, it should
-    acquire a reference to it by calling `g_object_ref()`; when it no
+    acquire a reference to it by calling ``g_object_ref``; when it no
     longer needs the pixbuf, it should release the reference it acquired
-    by calling `g_object_unref()`. The resources associated with a
+    by calling ``g_object_unref``. The resources associated with a
     `GdkPixbuf` will be freed when its reference count drops to zero.
     Newly-created `GdkPixbuf` instances start with a reference count
     of one.
@@ -262,14 +262,14 @@ class Pixbuf(GObject.Object):
 
     There may be padding at the end of a row.
 
-    The "rowstride" value of a pixbuf, as returned by [`method@GdkPixbuf.Pixbuf.get_rowstride`],
+    The "rowstride" value of a pixbuf, as returned by [`method`GdkPixbuf`.Pixbuf.get_rowstride`],
     indicates the number of bytes between rows.
 
-    **NOTE**: If you are copying raw pixbuf data with `memcpy()` note that the
+    **NOTE**: If you are copying raw pixbuf data with ``memcpy`` note that the
     last row in the pixbuf may not be as wide as the full rowstride, but rather
     just as wide as the pixel data needs to be; that is: it is unsafe to do
     `memcpy (dest, pixels, rowstride * height)` to copy a whole pixbuf. Use
-    [method@GdkPixbuf.Pixbuf.copy] instead, or compute the width in bytes of the
+    [method`GdkPixbuf`.Pixbuf.copy] instead, or compute the width in bytes of the
     last row as:
 
     ```c
@@ -279,7 +279,7 @@ class Pixbuf(GObject.Object):
     The same rule applies when iterating over each row of a `GdkPixbuf` pixels
     array.
 
-    The following code illustrates a simple `put_pixel()`
+    The following code illustrates a simple ``put_pixel``
     function for RGB pixbufs with 8 bits per channel with an alpha
     channel.
 
@@ -330,7 +330,7 @@ class Pixbuf(GObject.Object):
     For GUI applications, it is recommended to use the asynchronous
     stream API to avoid blocking the control flow of the application.
 
-    Additionally, `GdkPixbuf` provides the [class@GdkPixbuf.PixbufLoader`]
+    Additionally, `GdkPixbuf` provides the [class`GdkPixbuf`.PixbufLoader`]
     API for progressive image loading.
 
     ## Saving images
@@ -414,12 +414,12 @@ class Pixbuf(GObject.Object):
         values are copied from the original; otherwise, the alpha channel
         is initialized to 255 (full opacity).
 
-        If `substitute_color` is `TRUE`, then the color specified by the
+        If `substitute_color` is `True`, then the color specified by the
         (`r`, `g`, `b`) arguments will be assigned zero opacity. That is,
         if you pass `(255, 255, 255)` for the substitute color, all white
         pixels will become fully transparent.
 
-        If `substitute_color` is `FALSE`, then the (`r`, `g`, `b`) arguments
+        If `substitute_color` is `False`, then the (`r`, `g`, `b`) arguments
         will be ignored.
         """
     def apply_embedded_orientation(self) -> Pixbuf | None:
@@ -461,11 +461,11 @@ class Pixbuf(GObject.Object):
         overall_alpha: int,
     ) -> None:
         """
-            Creates a transformation of the source image @src by scaling by
-        @scale_x and @scale_y then translating by @offset_x and @offset_y.
+            Creates a transformation of the source image `src` by scaling by
+        `scale_x` and `scale_y` then translating by `offset_x` and `offset_y`.
 
         This gives an image in the coordinates of the destination pixbuf.
-        The rectangle (@dest_x, @dest_y, @dest_width, @dest_height)
+        The rectangle (`dest_x`, `dest_y`, `dest_width`, `dest_height`)
         is then alpha blended onto the corresponding rectangle of the
         original destination image.
 
@@ -495,17 +495,17 @@ class Pixbuf(GObject.Object):
         color2: int,
     ) -> None:
         """
-            Creates a transformation of the source image @src by scaling by
-        @scale_x and @scale_y then translating by @offset_x and @offset_y,
-        then alpha blends the rectangle (@dest_x ,@dest_y, @dest_width,
-        @dest_height) of the resulting image with a checkboard of the
-        colors @color1 and @color2 and renders it onto the destination
+            Creates a transformation of the source image `src` by scaling by
+        `scale_x` and `scale_y` then translating by `offset_x` and `offset_y`,
+        then alpha blends the rectangle (`dest_x` ,`dest_y`, `dest_width`,
+        `dest_height`) of the resulting image with a checkboard of the
+        colors `color1` and `color2` and renders it onto the destination
         image.
 
-        If the source image has no alpha channel, and @overall_alpha is 255, a fast
+        If the source image has no alpha channel, and `overall_alpha` is 255, a fast
         path is used which omits the alpha blending and just performs the scaling.
 
-        See gdk_pixbuf_composite_color_simple() for a simpler variant of this
+        See `gdk_pixbuf_composite_color_simple` for a simpler variant of this
         function suitable for many tasks.
         """
     def composite_color_simple(
@@ -529,7 +529,7 @@ class Pixbuf(GObject.Object):
         `pixbuf`.
 
         Note that this does not copy the options set on the original `GdkPixbuf`,
-        use gdk_pixbuf_copy_options() for this.
+        use `gdk_pixbuf_copy_options` for this.
         """
     def copy_area(
         self, src_x: int, src_y: int, width: int, height: int, dest_pixbuf: Pixbuf, dest_x: int, dest_y: int
@@ -595,18 +595,18 @@ class Pixbuf(GObject.Object):
             Asynchronously parses an image file far enough to determine its
         format and size.
 
-        For more details see gdk_pixbuf_get_file_info(), which is the synchronous
+        For more details see `gdk_pixbuf_get_file_info`, which is the synchronous
         version of this function.
 
-        When the operation is finished, @callback will be called in the
-        main thread. You can then call gdk_pixbuf_get_file_info_finish() to
+        When the operation is finished, `callback` will be called in the
+        main thread. You can then call `gdk_pixbuf_get_file_info_finish` to
         get the result of the operation.
         """
     @staticmethod
     def get_file_info_finish(async_result: Gio.AsyncResult) -> tuple[PixbufFormat | None, int, int]:
         """
             Finishes an asynchronous pixbuf parsing operation started with
-        gdk_pixbuf_get_file_info_async().
+        `gdk_pixbuf_get_file_info_async`.
         """
     @staticmethod
     def get_formats() -> list:
@@ -631,9 +631,9 @@ class Pixbuf(GObject.Object):
         """
     def get_option(self, key: str) -> str | None:
         """
-            Looks up @key in the list of options that may have been attached to the
-        @pixbuf when it was loaded, or that may have been attached by another
-        function using gdk_pixbuf_set_option().
+            Looks up `key` in the list of options that may have been attached to the
+        `pixbuf` when it was loaded, or that may have been attached by another
+        function using `gdk_pixbuf_set_option`.
 
         For instance, the ANI loader provides "Title" and "Artist" options.
         The ICO, XBM, and XPM loaders provide "x_hot" and "y_hot" hot-spot
@@ -651,7 +651,7 @@ class Pixbuf(GObject.Object):
         """
             Returns a `GHashTable` with a list of all the options that may have been
         attached to the `pixbuf` when it was loaded, or that may have been
-        attached by another function using [method@GdkPixbuf.Pixbuf.set_option].
+        attached by another function using [method`GdkPixbuf`.Pixbuf.set_option].
         """
     def get_pixels(self) -> tuple[list, int]:
         """
@@ -698,7 +698,7 @@ class Pixbuf(GObject.Object):
         """
             Creates a new `GdkPixbuf` structure and allocates a buffer for it.
 
-        If the allocation of the buffer failed, this function will return `NULL`.
+        If the allocation of the buffer failed, this function will return `None`.
 
         The buffer has an optimal rowstride. Note that the buffer is not cleared;
         you will have to fill it completely yourself.
@@ -715,11 +715,11 @@ class Pixbuf(GObject.Object):
         rowstride: int,
     ) -> Pixbuf:
         """
-            Creates a new #GdkPixbuf out of in-memory readonly image data.
+            Creates a new GdkPixbuf. out of in-memory readonly image data.
 
         Currently only RGB images with 8 bits per sample are supported.
 
-        This is the `GBytes` variant of gdk_pixbuf_new_from_data(), useful
+        This is the `GBytes` variant of `gdk_pixbuf_new_from_data`, useful
         for language bindings.
         """
     @classmethod
@@ -736,7 +736,7 @@ class Pixbuf(GObject.Object):
         destroy_fn_data: object | None = None,
     ) -> Pixbuf:
         """
-            Creates a new #GdkPixbuf out of in-memory image data.
+            Creates a new GdkPixbuf. out of in-memory image data.
 
         Currently only RGB images with 8 bits per sample are supported.
 
@@ -746,7 +746,7 @@ class Pixbuf(GObject.Object):
         finalized, your destroy notification function will be called, and
         it is its responsibility to free the pixel array.
 
-        See also: [ctor@GdkPixbuf.Pixbuf.new_from_bytes]
+        See also: [ctor`GdkPixbuf`.Pixbuf.new_from_bytes]
         """
     @classmethod
     def new_from_file(cls, filename: str) -> Pixbuf | None:
@@ -755,7 +755,7 @@ class Pixbuf(GObject.Object):
 
         The file format is detected automatically.
 
-        If `NULL` is returned, then @error will be set. Possible errors are:
+        If `None` is returned, then `error` will be set. Possible errors are:
 
          - the file could not be opened
          - there is no loader for the file's format
@@ -773,7 +773,7 @@ class Pixbuf(GObject.Object):
 
         The file format is detected automatically.
 
-        If `NULL` is returned, then @error will be set. Possible errors are:
+        If `None` is returned, then `error` will be set. Possible errors are:
 
          - the file could not be opened
          - there is no loader for the file's format
@@ -799,7 +799,7 @@ class Pixbuf(GObject.Object):
 
         The file format is detected automatically.
 
-        If `NULL` is returned, then @error will be set. Possible errors are:
+        If `None` is returned, then `error` will be set. Possible errors are:
 
          - the file could not be opened
          - there is no loader for the file's format
@@ -812,7 +812,7 @@ class Pixbuf(GObject.Object):
         the image's aspect ratio. Note that the returned pixbuf may be smaller
         than `width` x `height`, if the aspect ratio requires it. To load
         and image at the requested size, regardless of aspect ratio, use
-        [ctor@GdkPixbuf.Pixbuf.new_from_file_at_scale].
+        [ctor`GdkPixbuf`.Pixbuf.new_from_file_at_scale].
         """
     @deprecated("deprecated")
     @classmethod
@@ -836,8 +836,8 @@ class Pixbuf(GObject.Object):
 
         For the typical case where the inline pixbuf is read-only static data,
         you don't need to copy the pixel data unless you intend to write to
-        it, so you can pass `FALSE` for `copy_pixels`. If you pass `--rle` to
-        `gdk-pixbuf-csource`, a copy will be made even if `copy_pixels` is `FALSE`,
+        it, so you can pass `False` for `copy_pixels`. If you pass `--rle` to
+        `gdk-pixbuf-csource`, a copy will be made even if `copy_pixels` is `False`,
         so using this option is generally a bad idea.
 
         If you create a pixbuf from const inline data compiled into your
@@ -845,7 +845,7 @@ class Pixbuf(GObject.Object):
         since things will always succeed:
 
         ```c
-        pixbuf = gdk_pixbuf_new_from_inline (-1, myimage_inline, FALSE, NULL);
+        pixbuf = gdk_pixbuf_new_from_inline (-1, myimage_inline, False, None);
         ```
 
         For non-const inline data, you could get out of memory. For untrusted
@@ -857,8 +857,8 @@ class Pixbuf(GObject.Object):
         """
             Creates a new pixbuf by loading an image from an resource.
 
-        The file format is detected automatically. If `NULL` is returned, then
-        @error will be set.
+        The file format is detected automatically. If `None` is returned, then
+        `error` will be set.
         """
     @classmethod
     def new_from_resource_at_scale(
@@ -867,15 +867,15 @@ class Pixbuf(GObject.Object):
         """
             Creates a new pixbuf by loading an image from an resource.
 
-        The file format is detected automatically. If `NULL` is returned, then
-        @error will be set.
+        The file format is detected automatically. If `None` is returned, then
+        `error` will be set.
 
         The image will be scaled to fit in the requested size, optionally
         preserving the image's aspect ratio. When preserving the aspect ratio,
-        a @width of -1 will cause the image to be scaled to the exact given
-        height, and a @height of -1 will cause the image to be scaled to the
-        exact given width. When not preserving aspect ratio, a @width or
-        @height of -1 means to not scale the image at all in that dimension.
+        a `width` of -1 will cause the image to be scaled to the exact given
+        height, and a `height` of -1 will cause the image to be scaled to the
+        exact given width. When not preserving aspect ratio, a `width` or
+        `height` of -1 means to not scale the image at all in that dimension.
 
         The stream is not closed.
         """
@@ -886,7 +886,7 @@ class Pixbuf(GObject.Object):
 
         The file format is detected automatically.
 
-        If `NULL` is returned, then `error` will be set.
+        If `None` is returned, then `error` will be set.
 
         The `cancellable` can be used to abort the operation from another thread.
         If the operation was cancelled, the error `G_IO_ERROR_CANCELLED` will be
@@ -905,11 +905,11 @@ class Pixbuf(GObject.Object):
         """
             Creates a new pixbuf by asynchronously loading an image from an input stream.
 
-        For more details see gdk_pixbuf_new_from_stream(), which is the synchronous
+        For more details see `gdk_pixbuf_new_from_stream`, which is the synchronous
         version of this function.
 
-        When the operation is finished, @callback will be called in the main thread.
-        You can then call gdk_pixbuf_new_from_stream_finish() to get the result of
+        When the operation is finished, `callback` will be called in the main thread.
+        You can then call `gdk_pixbuf_new_from_stream_finish` to get the result of
         the operation.
         """
     @classmethod
@@ -924,8 +924,8 @@ class Pixbuf(GObject.Object):
         """
             Creates a new pixbuf by loading an image from an input stream.
 
-        The file format is detected automatically. If `NULL` is returned, then
-        @error will be set. The @cancellable can be used to abort the operation
+        The file format is detected automatically. If `None` is returned, then
+        `error` will be set. The `cancellable` can be used to abort the operation
         from another thread. If the operation was cancelled, the error
         `G_IO_ERROR_CANCELLED` will be returned. Other possible errors are in
         the `GDK_PIXBUF_ERROR` and `G_IO_ERROR` domains.
@@ -957,17 +957,17 @@ class Pixbuf(GObject.Object):
         """
             Creates a new pixbuf by asynchronously loading an image from an input stream.
 
-        For more details see gdk_pixbuf_new_from_stream_at_scale(), which is the synchronous
+        For more details see `gdk_pixbuf_new_from_stream_at_scale`, which is the synchronous
         version of this function.
 
-        When the operation is finished, @callback will be called in the main thread.
-        You can then call gdk_pixbuf_new_from_stream_finish() to get the result of the operation.
+        When the operation is finished, `callback` will be called in the main thread.
+        You can then call `gdk_pixbuf_new_from_stream_finish` to get the result of the operation.
         """
     @classmethod
     def new_from_stream_finish(cls, async_result: Gio.AsyncResult) -> Pixbuf | None:
         """
             Finishes an asynchronous pixbuf creation operation started with
-        gdk_pixbuf_new_from_stream_async().
+        `gdk_pixbuf_new_from_stream_async`.
         """
     @classmethod
     def new_from_xpm_data(cls, data: list) -> Pixbuf | None:
@@ -991,18 +991,18 @@ class Pixbuf(GObject.Object):
         """
     def read_pixel_bytes(self) -> GLib.Bytes:
         """
-            Provides a #GBytes buffer containing the raw pixel data; the data
+            Provides a GBytes buffer containing the raw pixel data; the data
         must not be modified.
 
         This function allows skipping the implicit copy that must be made
-        if gdk_pixbuf_get_pixels() is called on a read-only pixbuf.
+        if `gdk_pixbuf_get_pixels` is called on a read-only pixbuf.
         """
     def read_pixels(self) -> int:
         """
             Provides a read-only pointer to the raw pixel data.
 
         This function allows skipping the implicit copy that must be made
-        if gdk_pixbuf_get_pixels() is called on a read-only pixbuf.
+        if `gdk_pixbuf_get_pixels` is called on a read-only pixbuf.
         """
     def remove_option(self, key: str) -> bool:
         """
@@ -1029,19 +1029,19 @@ class Pixbuf(GObject.Object):
         saturation is reduced (the image turns toward grayscale); if greater than
         1.0, saturation is increased (the image gets more vivid colors).
 
-        If `pixelate` is `TRUE`, then pixels are faded in a checkerboard pattern to
+        If `pixelate` is `True`, then pixels are faded in a checkerboard pattern to
         create a pixelated image.
         """
     def save_to_bufferv(
         self, type: str, option_keys: list | None = None, option_values: list | None = None
     ) -> tuple[bool, list, int]:
         """
-            Vector version of `gdk_pixbuf_save_to_buffer()`.
+            Vector version of ``gdk_pixbuf_save_to_buffer``.
 
-        Saves pixbuf to a new buffer in format @type, which is currently "jpeg",
+        Saves pixbuf to a new buffer in format `type`, which is currently "jpeg",
         "tiff", "png", "ico" or "bmp".
 
-        See [method@GdkPixbuf.Pixbuf.save_to_buffer] for more details.
+        See [method`GdkPixbuf`.Pixbuf.save_to_buffer] for more details.
         """
     def save_to_callbackv(
         self,
@@ -1052,20 +1052,20 @@ class Pixbuf(GObject.Object):
         option_values: list | None = None,
     ) -> bool:
         """
-            Vector version of `gdk_pixbuf_save_to_callback()`.
+            Vector version of ``gdk_pixbuf_save_to_callback``.
 
-        Saves pixbuf to a callback in format @type, which is currently "jpeg",
+        Saves pixbuf to a callback in format `type`, which is currently "jpeg",
         "png", "tiff", "ico" or "bmp".
 
-        If @error is set, `FALSE` will be returned.
+        If `error` is set, `False` will be returned.
 
-        See [method@GdkPixbuf.Pixbuf.save_to_callback] for more details.
+        See [method`GdkPixbuf`.Pixbuf.save_to_callback] for more details.
         """
     @staticmethod
     def save_to_stream_finish(async_result: Gio.AsyncResult) -> bool:
         """
             Finishes an asynchronous pixbuf save operation started with
-        gdk_pixbuf_save_to_stream_async().
+        `gdk_pixbuf_save_to_stream_async`.
         """
     def save_to_streamv(
         self,
@@ -1081,7 +1081,7 @@ class Pixbuf(GObject.Object):
         Supported file formats are currently "jpeg", "tiff", "png", "ico" or
         "bmp".
 
-        See [method@GdkPixbuf.Pixbuf.save_to_stream] for more details.
+        See [method`GdkPixbuf`.Pixbuf.save_to_stream] for more details.
         """
     def save_to_streamv_async(
         self,
@@ -1096,25 +1096,25 @@ class Pixbuf(GObject.Object):
         """
             Saves `pixbuf` to an output stream asynchronously.
 
-        For more details see gdk_pixbuf_save_to_streamv(), which is the synchronous
+        For more details see `gdk_pixbuf_save_to_streamv`, which is the synchronous
         version of this function.
 
         When the operation is finished, `callback` will be called in the main thread.
 
-        You can then call gdk_pixbuf_save_to_stream_finish() to get the result of
+        You can then call `gdk_pixbuf_save_to_stream_finish` to get the result of
         the operation.
         """
     def savev(
         self, filename: str, type: str, option_keys: list | None = None, option_values: list | None = None
     ) -> bool:
         """
-            Vector version of `gdk_pixbuf_save()`.
+            Vector version of ``gdk_pixbuf_save``.
 
         Saves pixbuf to a file in `type`, which is currently "jpeg", "png", "tiff", "ico" or "bmp".
 
-        If @error is set, `FALSE` will be returned.
+        If `error` is set, `False` will be returned.
 
-        See [method@GdkPixbuf.Pixbuf.save] for more details.
+        See [method`GdkPixbuf`.Pixbuf.save] for more details.
         """
     def scale(
         self,
@@ -1130,15 +1130,15 @@ class Pixbuf(GObject.Object):
         interp_type: InterpType,
     ) -> None:
         """
-            Creates a transformation of the source image @src by scaling by
-        @scale_x and @scale_y then translating by @offset_x and @offset_y,
-        then renders the rectangle (@dest_x, @dest_y, @dest_width,
-        @dest_height) of the resulting image onto the destination image
+            Creates a transformation of the source image `src` by scaling by
+        `scale_x` and `scale_y` then translating by `offset_x` and `offset_y`,
+        then renders the rectangle (`dest_x`, `dest_y`, `dest_width`,
+        `dest_height`) of the resulting image onto the destination image
         replacing the previous contents.
 
-        Try to use gdk_pixbuf_scale_simple() first; this function is
+        Try to use `gdk_pixbuf_scale_simple` first; this function is
         the industrial-strength power tool you can fall back to, if
-        gdk_pixbuf_scale_simple() isn't powerful enough.
+        `gdk_pixbuf_scale_simple` isn't powerful enough.
 
         If the source rectangle overlaps the destination rectangle on the
         same pixbuf, it will be overwritten during the scaling which
@@ -1157,20 +1157,20 @@ class Pixbuf(GObject.Object):
         offers reasonable quality and speed.
 
         You can scale a sub-portion of `src` by creating a sub-pixbuf
-        pointing into `src`; see [method@GdkPixbuf.Pixbuf.new_subpixbuf].
+        pointing into `src`; see [method`GdkPixbuf`.Pixbuf.new_subpixbuf].
 
         If `dest_width` and `dest_height` are equal to the width and height of
         `src`, this function will return an unscaled copy of `src`.
 
-        For more complicated scaling/alpha blending see [method@GdkPixbuf.Pixbuf.scale]
-        and [method@GdkPixbuf.Pixbuf.composite].
+        For more complicated scaling/alpha blending see [method`GdkPixbuf`.Pixbuf.scale]
+        and [method`GdkPixbuf`.Pixbuf.composite].
         """
     def set_option(self, key: str, value: str) -> bool:
         """
             Attaches a key/value pair as an option to a `GdkPixbuf`.
 
         If `key` already exists in the list of options attached to the `pixbuf`,
-        the new value is ignored and `FALSE` is returned.
+        the new value is ignored and `False` is returned.
         """
 
     # Signals
@@ -1275,28 +1275,28 @@ class PixbufAnimation(GObject.Object):
         The iterator provides the frames that should be displayed at a
         given time.
 
-        @start_time would normally come from g_get_current_time(), and marks
+        `start_time` would normally come from `g_get_current_time`, and marks
         the beginning of animation playback. After creating an iterator, you
         should immediately display the pixbuf returned by
-        gdk_pixbuf_animation_iter_get_pixbuf(). Then, you should install
-        a timeout (with g_timeout_add()) or by some other mechanism ensure
+        `gdk_pixbuf_animation_iter_get_pixbuf`. Then, you should install
+        a timeout (with `g_timeout_add`) or by some other mechanism ensure
         that you'll update the image after
-        gdk_pixbuf_animation_iter_get_delay_time() milliseconds. Each time
+        `gdk_pixbuf_animation_iter_get_delay_time` milliseconds. Each time
         the image is updated, you should reinstall the timeout with the new,
         possibly-changed delay time.
 
-        As a shortcut, if @start_time is `NULL`, the result of
-        g_get_current_time() will be used automatically.
+        As a shortcut, if `start_time` is `None`, the result of
+        `g_get_current_time` will be used automatically.
 
         To update the image (i.e. possibly change the result of
-        gdk_pixbuf_animation_iter_get_pixbuf() to a new frame of the animation),
-        call gdk_pixbuf_animation_iter_advance().
+        `gdk_pixbuf_animation_iter_get_pixbuf` to a new frame of the animation),
+        call `gdk_pixbuf_animation_iter_advance`.
 
-        If you're using #GdkPixbufLoader, in addition to updating the image
+        If you're using GdkPixbuf.Loader, in addition to updating the image
         after the delay time, you should also update it whenever you
         receive the area_updated signal and
-        gdk_pixbuf_animation_iter_on_currently_loading_frame() returns
-        `TRUE`. In this case, the frame currently being fed into the loader
+        `gdk_pixbuf_animation_iter_on_currently_loading_frame` returns
+        `True`. In this case, the frame currently being fed into the loader
         has received new data, so needs to be refreshed. The delay time for
         a frame may also be modified after an area_updated signal, for
         example if the delay time for a frame is encoded in the data after
@@ -1317,7 +1317,7 @@ class PixbufAnimation(GObject.Object):
         frame, or something more sophisticated depending on the file format.
 
         If an animation hasn't loaded any frames yet, this function will
-        return `NULL`.
+        return `None`.
         """
     def get_width(self) -> int:
         """
@@ -1327,9 +1327,9 @@ class PixbufAnimation(GObject.Object):
         """
             Checks whether the animation is a static image.
 
-        If you load a file with gdk_pixbuf_animation_new_from_file() and it
+        If you load a file with `gdk_pixbuf_animation_new_from_file` and it
         turns out to be a plain, unanimated image, then this function will
-        return `TRUE`. Use gdk_pixbuf_animation_get_static_image() to retrieve
+        return `True`. Use `gdk_pixbuf_animation_get_static_image` to retrieve
         the image.
         """
     @classmethod
@@ -1349,8 +1349,8 @@ class PixbufAnimation(GObject.Object):
         """
             Creates a new pixbuf animation by loading an image from an resource.
 
-        The file format is detected automatically. If `NULL` is returned, then
-        @error will be set.
+        The file format is detected automatically. If `None` is returned, then
+        `error` will be set.
         """
     @classmethod
     def new_from_stream(
@@ -1361,9 +1361,9 @@ class PixbufAnimation(GObject.Object):
 
         The file format is detected automatically.
 
-        If `NULL` is returned, then @error will be set.
+        If `None` is returned, then `error` will be set.
 
-        The @cancellable can be used to abort the operation from another thread.
+        The `cancellable` can be used to abort the operation from another thread.
         If the operation was cancelled, the error `G_IO_ERROR_CANCELLED` will be
         returned. Other possible errors are in the `GDK_PIXBUF_ERROR` and
         `G_IO_ERROR` domains.
@@ -1380,18 +1380,18 @@ class PixbufAnimation(GObject.Object):
         """
             Creates a new animation by asynchronously loading an image from an input stream.
 
-        For more details see gdk_pixbuf_new_from_stream(), which is the synchronous
+        For more details see `gdk_pixbuf_new_from_stream`, which is the synchronous
         version of this function.
 
         When the operation is finished, `callback` will be called in the main thread.
-        You can then call gdk_pixbuf_animation_new_from_stream_finish() to get the
+        You can then call `gdk_pixbuf_animation_new_from_stream_finish` to get the
         result of the operation.
         """
     @classmethod
     def new_from_stream_finish(cls, async_result: Gio.AsyncResult) -> PixbufAnimation | None:
         """
             Finishes an asynchronous pixbuf animation creation operation started with
-        [func@GdkPixbuf.PixbufAnimation.new_from_stream_async].
+        [func`GdkPixbuf`.PixbufAnimation.new_from_stream_async].
         """
 
     # python methods (overrides?)
@@ -1426,7 +1426,7 @@ class PixbufAnimation(GObject.Object):
 class PixbufAnimationClass(GObject.GPointer):
     """
     Modules supporting animations must derive a type from
-    #GdkPixbufAnimation, providing suitable implementations of the
+    GdkPixbuf.Animation, providing suitable implementations of the
     virtual functions.
     """
 
@@ -1439,7 +1439,7 @@ class PixbufAnimationClass(GObject.GPointer):
     @builtins.property
     def get_size(self) -> get_sizePixbufAnimationClassCB:
         """
-        fills @width and @height with the frame size of the animation.
+        fills `width` and `height` with the frame size of the animation.
         """
     @builtins.property
     def get_static_image(self) -> get_static_imagePixbufAnimationClassCB:
@@ -1479,23 +1479,23 @@ class PixbufAnimationIter(GObject.Object):
             Possibly advances an animation to a new frame.
 
         Chooses the frame based on the start time passed to
-        gdk_pixbuf_animation_get_iter().
+        `gdk_pixbuf_animation_get_iter`.
 
-        @current_time would normally come from g_get_current_time(), and
+        `current_time` would normally come from `g_get_current_time`, and
         must be greater than or equal to the time passed to
-        gdk_pixbuf_animation_get_iter(), and must increase or remain
-        unchanged each time gdk_pixbuf_animation_iter_get_pixbuf() is
+        `gdk_pixbuf_animation_get_iter`, and must increase or remain
+        unchanged each time `gdk_pixbuf_animation_iter_get_pixbuf` is
         called. That is, you can't go backward in time; animations only
         play forward.
 
-        As a shortcut, pass `NULL` for the current time and g_get_current_time()
+        As a shortcut, pass `None` for the current time and `g_get_current_time`
         will be invoked on your behalf. So you only need to explicitly pass
-        @current_time if you're doing something odd like playing the animation
+        `current_time` if you're doing something odd like playing the animation
         at double speed.
 
-        If this function returns `FALSE`, there's no need to update the animation
+        If this function returns `False`, there's no need to update the animation
         display, assuming the display had been rendered prior to advancing;
-        if `TRUE`, you need to call gdk_pixbuf_animation_iter_get_pixbuf()
+        if `True`, you need to call `gdk_pixbuf_animation_iter_get_pixbuf`
         and update the display with the new pixbuf.
         """
     def get_delay_time(self) -> int:
@@ -1503,7 +1503,7 @@ class PixbufAnimationIter(GObject.Object):
             Gets the number of milliseconds the current pixbuf should be displayed,
         or -1 if the current pixbuf should be displayed forever.
 
-        The `g_timeout_add()` function conveniently takes a timeout in milliseconds,
+        The ``g_timeout_add`` function conveniently takes a timeout in milliseconds,
         so you can use a timeout to schedule the next update.
 
         Note that some formats, like GIF, might clamp the timeout values in the
@@ -1515,15 +1515,15 @@ class PixbufAnimationIter(GObject.Object):
             Gets the current pixbuf which should be displayed.
 
         The pixbuf might not be the same size as the animation itself
-        (gdk_pixbuf_animation_get_width(), gdk_pixbuf_animation_get_height()).
+        (`gdk_pixbuf_animation_get_width`, `gdk_pixbuf_animation_get_height`).
 
-        This pixbuf should be displayed for gdk_pixbuf_animation_iter_get_delay_time()
+        This pixbuf should be displayed for `gdk_pixbuf_animation_iter_get_delay_time`
         milliseconds.
 
         The caller of this function does not own a reference to the returned
         pixbuf; the returned pixbuf will become invalid when the iterator
         advances to the next frame, which may happen anytime you call
-        gdk_pixbuf_animation_iter_advance().
+        `gdk_pixbuf_animation_iter_advance`.
 
         Copy the pixbuf to keep it (don't just add a reference), as it may get
         recycled as you advance the iterator.
@@ -1531,7 +1531,7 @@ class PixbufAnimationIter(GObject.Object):
     def on_currently_loading_frame(self) -> bool:
         """
             Used to determine how to respond to the area_updated signal on
-        #GdkPixbufLoader when loading an animation.
+        GdkPixbuf.Loader when loading an animation.
 
         The `::area_updated` signal is emitted for an area of the frame currently
         streaming in to the loader. So if you're on the currently loading frame,
@@ -1568,7 +1568,7 @@ class PixbufAnimationIter(GObject.Object):
 class PixbufAnimationIterClass(GObject.GPointer):
     """
     Modules supporting animations must derive a type from
-    #GdkPixbufAnimationIter, providing suitable implementations of the
+    GdkPixbuf.AnimationIter, providing suitable implementations of the
     virtual functions.
     """
 
@@ -1576,7 +1576,7 @@ class PixbufAnimationIterClass(GObject.GPointer):
     @builtins.property
     def advance(self) -> advancePixbufAnimationIterClassCB:
         """
-           advances the iterator to @current_time, possibly changing the
+           advances the iterator to `current_time`, possibly changing the
         current frame.
         """
     @builtins.property
@@ -1593,7 +1593,7 @@ class PixbufAnimationIterClass(GObject.GPointer):
     @builtins.property
     def on_currently_loading_frame(self) -> on_currently_loading_framePixbufAnimationIterClassCB:
         """
-           returns whether the current frame of @iter is
+           returns whether the current frame of `iter` is
         being loaded.
         """
     @builtins.property
@@ -1678,7 +1678,7 @@ class PixbufFormat(GObject.GBoxed):
     def free(self) -> None:
         """
             Frees the resources allocated when copying a `GdkPixbufFormat`
-        using gdk_pixbuf_format_copy()
+        using `gdk_pixbuf_format_copy`
         """
     def get_description(self) -> str | None:
         """
@@ -1708,14 +1708,14 @@ class PixbufFormat(GObject.GBoxed):
         """
             Returns whether this image format is disabled.
 
-        See gdk_pixbuf_format_set_disabled().
+        See `gdk_pixbuf_format_set_disabled`.
         """
     def is_save_option_supported(self, option_key: str) -> bool:
         """
-            Returns `TRUE` if the save option specified by @option_key is supported when
-        saving a pixbuf using the module implementing @format.
+            Returns `True` if the save option specified by `option_key` is supported when
+        saving a pixbuf using the module implementing `format`.
 
-        See gdk_pixbuf_save() for more information about option keys.
+        See `gdk_pixbuf_save` for more information about option keys.
         """
     def is_scalable(self) -> bool:
         """
@@ -1737,7 +1737,7 @@ class PixbufFormat(GObject.GBoxed):
         this format to load images.
 
         Applications can use this to avoid using image loaders with an
-        inappropriate license, see gdk_pixbuf_format_get_license().
+        inappropriate license, see `gdk_pixbuf_format_get_license`.
         """
 
 class PixbufLoader(GObject.Object):
@@ -1748,30 +1748,30 @@ class PixbufLoader(GObject.Object):
     process of loading an image, by letting them send the image data
     directly to the loader instead of having the loader read the data
     from a file. Applications can use this functionality instead of
-    `gdk_pixbuf_new_from_file()` or `gdk_pixbuf_animation_new_from_file()`
+    ``gdk_pixbuf_new_from_file`` or ``gdk_pixbuf_animation_new_from_file``
     when they need to parse image data in small chunks. For example,
     it should be used when reading an image from a (potentially) slow
     network connection, or when loading an extremely large file.
 
     To use `GdkPixbufLoader` to load an image, create a new instance,
-    and call [method@GdkPixbuf.PixbufLoader.write] to send the data
-    to it. When done, [method@GdkPixbuf.PixbufLoader.close] should be
+    and call [method`GdkPixbuf`.PixbufLoader.write] to send the data
+    to it. When done, [method`GdkPixbuf`.PixbufLoader.close] should be
     called to end the stream and finalize everything.
 
     The loader will emit three important signals throughout the process:
 
-     - [signal@GdkPixbuf.PixbufLoader::size-prepared] will be emitted as
+     - [signal`GdkPixbuf`.PixbufLoader::size-prepared] will be emitted as
        soon as the image has enough information to determine the size of
        the image to be used. If you want to scale the image while loading
-       it, you can call [method@GdkPixbuf.PixbufLoader.set_size] in
+       it, you can call [method`GdkPixbuf`.PixbufLoader.set_size] in
        response to this signal.
-     - [signal@GdkPixbuf.PixbufLoader::area-prepared] will be emitted as
+     - [signal`GdkPixbuf`.PixbufLoader::area-prepared] will be emitted as
        soon as the pixbuf of the desired has been allocated. You can obtain
-       the `GdkPixbuf` instance by calling [method@GdkPixbuf.PixbufLoader.get_pixbuf].
+       the `GdkPixbuf` instance by calling [method`GdkPixbuf`.PixbufLoader.get_pixbuf].
        If you want to use it, simply acquire a reference to it. You can
-       also call `gdk_pixbuf_loader_get_pixbuf()` later to get the same
+       also call ``gdk_pixbuf_loader_get_pixbuf`` later to get the same
        pixbuf.
-     - [signal@GdkPixbuf.PixbufLoader::area-updated] will be emitted every
+     - [signal`GdkPixbuf`.PixbufLoader::area-updated] will be emitted every
        time a region is updated. This way you can update a partially
        completed image. Note that you do not know anything about the
        completeness of an image from the updated area. For example, in an
@@ -1781,11 +1781,11 @@ class PixbufLoader(GObject.Object):
     ## Loading an animation
 
     Loading an animation is almost as easy as loading an image. Once the
-    first [signal@GdkPixbuf.PixbufLoader::area-prepared] signal has been
-    emitted, you can call [method@GdkPixbuf.PixbufLoader.get_animation] to
-    get the [class@GdkPixbuf.PixbufAnimation] instance, and then call
-    and [method@GdkPixbuf.PixbufAnimation.get_iter] to get a
-    [class@GdkPixbuf.PixbufAnimationIter] to retrieve the pixbuf for the
+    first [signal`GdkPixbuf`.PixbufLoader::area-prepared] signal has been
+    emitted, you can call [method`GdkPixbuf`.PixbufLoader.get_animation] to
+    get the [class`GdkPixbuf`.PixbufAnimation] instance, and then call
+    and [method`GdkPixbuf`.PixbufAnimation.get_iter] to get a
+    [class`GdkPixbuf`.PixbufAnimationIter] to retrieve the pixbuf for the
     desired time stamp.
     """
 
@@ -1797,31 +1797,31 @@ class PixbufLoader(GObject.Object):
     def close(self) -> bool:
         """
             Informs a pixbuf loader that no further writes with
-        gdk_pixbuf_loader_write() will occur, so that it can free its
+        `gdk_pixbuf_loader_write` will occur, so that it can free its
         internal loading structures.
 
         This function also tries to parse any data that hasn't yet been parsed;
         if the remaining data is partial or corrupt, an error will be returned.
 
-        If `FALSE` is returned, `error` will be set to an error from the
+        If `False` is returned, `error` will be set to an error from the
         `GDK_PIXBUF_ERROR` or `G_FILE_ERROR` domains.
 
         If you're just cancelling a load rather than expecting it to be finished,
-        passing `NULL` for `error` to ignore it is reasonable.
+        passing `None` for `error` to ignore it is reasonable.
 
         Remember that this function does not release a reference on the loader, so
         you will need to explicitly release any reference you hold.
         """
     def get_animation(self) -> PixbufAnimation | None:
         """
-            Queries the #GdkPixbufAnimation that a pixbuf loader is currently creating.
+            Queries the GdkPixbuf.Animation that a pixbuf loader is currently creating.
 
         In general it only makes sense to call this function after the
-        [signal@GdkPixbuf.PixbufLoader::area-prepared] signal has been emitted by
+        [signal`GdkPixbuf`.PixbufLoader::area-prepared] signal has been emitted by
         the loader.
 
         If the loader doesn't have enough bytes yet, and hasn't emitted the `area-prepared`
-        signal, this function will return `NULL`.
+        signal, this function will return `None`.
         """
     def get_format(self) -> PixbufFormat | None:
         """
@@ -1830,21 +1830,21 @@ class PixbufLoader(GObject.Object):
         """
     def get_pixbuf(self) -> Pixbuf | None:
         """
-            Queries the #GdkPixbuf that a pixbuf loader is currently creating.
+            Queries the GdkPixbuf. that a pixbuf loader is currently creating.
 
         In general it only makes sense to call this function after the
-        [signal@GdkPixbuf.PixbufLoader::area-prepared] signal has been
+        [signal`GdkPixbuf`.PixbufLoader::area-prepared] signal has been
         emitted by the loader; this means that enough data has been read
         to know the size of the image that will be allocated.
 
-        If the loader has not received enough data via gdk_pixbuf_loader_write(),
-        then this function returns `NULL`.
+        If the loader has not received enough data via `gdk_pixbuf_loader_write`,
+        then this function returns `None`.
 
         The returned pixbuf will be the same in all future calls to the loader,
         so if you want to keep using it, you should acquire a reference to it.
 
         Additionally, if the loader is an animation, it will return the "static
-        image" of the animation (see gdk_pixbuf_animation_get_static_image()).
+        image" of the animation (see `gdk_pixbuf_animation_get_static_image`).
         """
     @classmethod
     def new(cls) -> PixbufLoader:
@@ -1855,7 +1855,7 @@ class PixbufLoader(GObject.Object):
     def new_with_mime_type(cls, mime_type: str) -> PixbufLoader:
         """
             Creates a new pixbuf loader object that always attempts to parse
-        image data as if it were an image of MIME type @mime_type, instead of
+        image data as if it were an image of MIME type `mime_type`, instead of
         identifying the type automatically.
 
         This function is useful if you want an error if the image isn't the
@@ -1867,14 +1867,14 @@ class PixbufLoader(GObject.Object):
         are installed, but typically "image/png", "image/jpeg", "image/gif",
         "image/tiff" and "image/x-xpixmap" are among the supported mime types.
         To obtain the full list of supported mime types, call
-        gdk_pixbuf_format_get_mime_types() on each of the #GdkPixbufFormat
-        structs returned by gdk_pixbuf_get_formats().
+        `gdk_pixbuf_format_get_mime_types` on each of the GdkPixbuf.Format
+        structs returned by `gdk_pixbuf_get_formats`.
         """
     @classmethod
     def new_with_type(cls, image_type: str) -> PixbufLoader:
         """
             Creates a new pixbuf loader object that always attempts to parse
-        image data as if it were an image of type @image_type, instead of
+        image data as if it were an image of type `image_type`, instead of
         identifying the type automatically.
 
         This function is useful if you want an error if the image isn't the
@@ -1885,15 +1885,15 @@ class PixbufLoader(GObject.Object):
         The list of supported image formats depends on what image loaders
         are installed, but typically "png", "jpeg", "gif", "tiff" and
         "xpm" are among the supported formats. To obtain the full list of
-        supported image formats, call gdk_pixbuf_format_get_name() on each
-        of the #GdkPixbufFormat structs returned by gdk_pixbuf_get_formats().
+        supported image formats, call `gdk_pixbuf_format_get_name` on each
+        of the GdkPixbuf.Format structs returned by `gdk_pixbuf_get_formats`.
         """
     def set_size(self, width: int, height: int) -> None:
         """
             Causes the image to be scaled while it is loaded.
 
         The desired image size can be determined relative to the original
-        size of the image by calling gdk_pixbuf_loader_set_size() from a
+        size of the image by calling `gdk_pixbuf_loader_set_size` from a
         signal handler for the ::size-prepared signal.
 
         Attempts to set the desired image size  are ignored after the
@@ -1950,7 +1950,7 @@ class PixbufLoader(GObject.Object):
         pixbuf in the desired size.
 
         After this signal is emitted, applications can call
-        gdk_pixbuf_loader_get_pixbuf() to fetch the partially-loaded
+        `gdk_pixbuf_loader_get_pixbuf` to fetch the partially-loaded
         pixbuf.
         """
     @typing.overload
@@ -1975,7 +1975,7 @@ class PixbufLoader(GObject.Object):
         self, detailed_signal: typing.Literal["closed"], handler: typing.Callable[..., None], *args: typing.Any
     ) -> int:
         """
-            This signal is emitted when gdk_pixbuf_loader_close() is called.
+            This signal is emitted when `gdk_pixbuf_loader_close` is called.
 
         It can be used by different parts of an application to receive
         notification when an image loader is closed by the code that
@@ -1993,7 +1993,7 @@ class PixbufLoader(GObject.Object):
         initial amount of data that is required to figure out the size
         of the image that it will create.
 
-        Applications can call gdk_pixbuf_loader_set_size() in response
+        Applications can call `gdk_pixbuf_loader_set_size` in response
         to this signal to set the desired size to which the image
         should be scaled.
         """
@@ -2140,7 +2140,7 @@ class PixbufModulePattern(GObject.GPointer):
 
     The signature of a module is a set of prefixes. Prefixes are encoded as
     pairs of ordinary strings, where the second string, called the mask, if
-    not `NULL`, must be of the same length as the first one and may contain
+    not `None`, must be of the same length as the first one and may contain
     ' ', '!', 'x', 'z', and 'n' to indicate bytes that must be matched,
     not matched, "don't-care"-bytes, zeros and non-zeros, respectively.
 
@@ -2154,13 +2154,13 @@ class PixbufModulePattern(GObject.GPointer):
 
     The signature of a module is stored as an array of
     `GdkPixbufModulePatterns`. The array is terminated by a pattern
-    where the `prefix` is `NULL`.
+    where the `prefix` is `None`.
 
     ```c
     GdkPixbufModulePattern *signature[] = {
       { "abcdx", " !x z", 100 },
-      { "bla", NULL,  90 },
-      { NULL, NULL, 0 }
+      { "bla", None,  90 },
+      { None, None, 0 }
     };
     ```
 
@@ -2222,14 +2222,14 @@ class PixbufSimpleAnim(PixbufAnimation):
         """
     def add_frame(self, pixbuf: Pixbuf) -> None:
         """
-            Adds a new frame to @animation. The @pixbuf must
+            Adds a new frame to `animation`. The `pixbuf` must
         have the dimensions specified when the animation
         was constructed.
         """
     @builtins.property
     def get_loop(self) -> bool:
         """
-        Gets whether @animation should loop indefinitely when it reaches the end.
+        Gets whether `animation` should loop indefinitely when it reaches the end.
         """
     @classmethod
     def new(cls, width: int, height: int, rate: float) -> PixbufSimpleAnim:
@@ -2238,7 +2238,7 @@ class PixbufSimpleAnim(PixbufAnimation):
         """
     def set_loop(self, loop: bool) -> None:
         """
-        Sets whether @animation should loop indefinitely when it reaches the end.
+        Sets whether `animation` should loop indefinitely when it reaches the end.
         """
 
     # Signals

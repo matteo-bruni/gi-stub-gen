@@ -35,12 +35,12 @@ def module_build_path(
     is added to the directory, using the correct separator character.
 
     The directory should specify the directory where the module can be found.
-    It can be %NULL or an empty string to indicate that the module is in a
+    It can be None or an empty string to indicate that the module is in a
     standard platform-specific directory, though this is not recommended
     since the wrong module may be found.
 
-    For example, calling g_module_build_path() on a Linux system with a
-    @directory of `/lib` and a @module_name of "mylibrary" will return
+    For example, calling `g_module_build_path` on a Linux system with a
+    `directory` of `/lib` and a `module_name` of "mylibrary" will return
     `/lib/libmylibrary.so`. On a Windows system, using `\\Windows` as the
     directory it will return `\\Windows\\mylibrary.dll`.
     """
@@ -68,7 +68,7 @@ def module_supported() -> bool:
 
 class ModuleError(enum.IntEnum):
     """
-    Errors returned by g_module_open_full()."""
+    Errors returned by `g_module_open_full`."""
 
     FAILED = 0
     """
@@ -76,12 +76,12 @@ class ModuleError(enum.IntEnum):
     """
     CHECK_FAILED = 1
     """
-    a module returned an error from its `g_module_check_init()` function
+    a module returned an error from its ``g_module_check_init`` function
     """
 
 class ModuleFlags(enum.IntFlag):
     """
-    Flags passed to g_module_open().
+    Flags passed to `g_module_open`.
     Note that these flags are not supported on all platforms."""
 
     LAZY = 1
@@ -108,7 +108,7 @@ class ModuleFlags(enum.IntFlag):
 
 class Module(GObject.GPointer):
     """
-    The #GModule struct is an opaque data structure to represent a
+    The GModule. struct is an opaque data structure to represent a
     [dynamically-loaded module](modules.html#dynamic-loading-of-modules).
     It should only be accessed via the following functions.
     """
@@ -127,12 +127,12 @@ class Module(GObject.GPointer):
         is added to the directory, using the correct separator character.
 
         The directory should specify the directory where the module can be found.
-        It can be %NULL or an empty string to indicate that the module is in a
+        It can be None or an empty string to indicate that the module is in a
         standard platform-specific directory, though this is not recommended
         since the wrong module may be found.
 
-        For example, calling g_module_build_path() on a Linux system with a
-        @directory of `/lib` and a @module_name of "mylibrary" will return
+        For example, calling `g_module_build_path` on a Linux system with a
+        `directory` of `/lib` and a `module_name` of "mylibrary" will return
         `/lib/libmylibrary.so`. On a Windows system, using `\\Windows` as the
         directory it will return `\\Windows\\mylibrary.dll`.
         """
@@ -150,13 +150,13 @@ class Module(GObject.GPointer):
     def make_resident(self) -> None:
         """
             Ensures that a module will never be unloaded.
-        Any future g_module_close() calls on the module will be ignored.
+        Any future `g_module_close` calls on the module will be ignored.
         """
     def name(self) -> str:
         """
             Returns the filename that the module was opened with.
 
-        If @module refers to the application itself, "main" is returned.
+        If `module` refers to the application itself, "main" is returned.
         """
     @staticmethod
     def supported() -> bool:
@@ -166,7 +166,7 @@ class Module(GObject.GPointer):
     def symbol(self, symbol_name: str) -> tuple[bool, object | None]:
         """
             Gets a symbol pointer from a module, such as one exported
-        by %G_MODULE_EXPORT. Note that a valid symbol can be %NULL.
+        by G_MODULE_EXPORT. Note that a valid symbol can be None.
         """
 
 ###############################################################

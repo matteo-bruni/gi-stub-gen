@@ -63,7 +63,7 @@ def get_major_version() -> int:
     For example, in GTK version 3.1.5 this is 3.
 
     This function is in the library, so it represents the GTK library
-    your code is running against. Contrast with the %GTK_MAJOR_VERSION
+    your code is running against. Contrast with the Gtk.MAJOR_VERSION
     macro, which represents the major version of the GTK headers you
     have included when compiling your code.
     """
@@ -78,7 +78,7 @@ def get_micro_version() -> int:
 
     This function is in the library, so it represents the GTK library
     your code is are running against. Contrast with the
-    %GTK_MICRO_VERSION macro, which represents the micro version of the
+    Gtk.MICRO_VERSION macro, which represents the micro version of the
     GTK headers you have included when compiling your code.
     """
     ...
@@ -92,7 +92,7 @@ def get_minor_version() -> int:
 
     This function is in the library, so it represents the GTK library
     your code is are running against. Contrast with the
-    %GTK_MINOR_VERSION macro, which represents the minor version of the
+    Gtk.MINOR_VERSION macro, which represents the minor version of the
     GTK headers you have included when compiling your code.
     """
     ...
@@ -1010,7 +1010,7 @@ class Image(GObject.GInterface):
 
     Various kinds of object can be displayed as an image; most typically,
     you would load a `GdkTexture` from a file, using the convenience function
-    [ctor@Gtk.Image.new_from_file], for instance:
+    [ctor`Gtk`.Image.new_from_file], for instance:
 
     ```c
     GtkWidget *image = gtk_image_new_from_file ("myfile.png");
@@ -1021,28 +1021,28 @@ class Image(GObject.GInterface):
 
     If you want to handle errors in loading the file yourself,
     for example by displaying an error message, then load the image with
-    [ctor@Gdk.Texture.new_from_file], then create the `GtkImage` with
-    [ctor@Gtk.Image.new_from_paintable].
+    [ctor`Gdk`.Texture.new_from_file], then create the `GtkImage` with
+    [ctor`Gtk`.Image.new_from_paintable].
 
     Sometimes an application will want to avoid depending on external data
     files, such as image files. See the documentation of `GResource` inside
-    GIO, for details. In this case, [property@Gtk.Image:resource],
-    [ctor@Gtk.Image.new_from_resource], and [method@Gtk.Image.set_from_resource]
+    GIO, for details. In this case, [property`Gtk`.Image:resource],
+    [ctor`Gtk`.Image.new_from_resource], and [method`Gtk`.Image.set_from_resource]
     should be used.
 
     `GtkImage` displays its image as an icon, with a size that is determined
-    by the application. See [class@Gtk.Picture] if you want to show an image
+    by the application. See [class`Gtk`.Picture] if you want to show an image
     at is actual size.
 
     ## CSS nodes
 
     `GtkImage` has a single CSS node with the name `image`. The style classes
     `.normal-icons` or `.large-icons` may appear, depending on the
-    [property@Gtk.Image:icon-size] property.
+    [property`Gtk`.Image:icon-size] property.
 
     ## Accessibility
 
-    `GtkImage` uses the [enum@Gtk.AccessibleRole.img] role.
+    `GtkImage` uses the [enum`Gtk`.AccessibleRole.img] role.
     """
 
     # gi Methods
@@ -1785,11 +1785,11 @@ class Range(GObject.GBoxed):
     Base class for widgets which visualize an adjustment.
 
     Widgets that are derived from `GtkRange` include
-    [class@Gtk.Scale] and [class@Gtk.Scrollbar].
+    [class`Gtk`.Scale] and [class`Gtk`.Scrollbar].
 
     Apart from signals for monitoring the parameters of the adjustment,
     `GtkRange` provides properties and methods for setting a
-    “fill level” on range widgets. See [method@Gtk.Range.set_fill_level].
+    “fill level” on range widgets. See [method`Gtk`.Range.set_fill_level].
 
     # Shortcuts and Gestures
 
@@ -2303,26 +2303,26 @@ class Text(GObject.GInterface):
     A single-line text entry.
 
     `GtkText` is the common implementation of single-line text editing
-    that is shared between [class@Gtk.Entry], [class@Gtk.PasswordEntry],
-    [class@Gtk.SpinButton], and other widgets. In all of these, a `GtkText`
-    instance is used as the delegate for the [iface@Gtk.Editable] implementation.
+    that is shared between [class`Gtk`.Entry], [class`Gtk`.PasswordEntry],
+    [class`Gtk`.SpinButton], and other widgets. In all of these, a `GtkText`
+    instance is used as the delegate for the [iface`Gtk`.Editable] implementation.
 
     A large number of key bindings s supported by default. If the entered
     text is longer than the allocation of the widget, the widget will scroll
     so that the cursor position is visible.
 
     When using an entry for passwords and other sensitive information,
-    it can be put into “password mode” using [method@Gtk.Text.set_visibility].
+    it can be put into “password mode” using [method`Gtk`.Text.set_visibility].
     In this mode, entered text is displayed using an “invisible” character.
     By default, GTK picks the best invisible character that is available
     in the current font, but it can be changed with
-    [method@Gtk.Text.set_invisible_char].
+    [method`Gtk`.Text.set_invisible_char].
 
     If you want to add icons or progress display in an entry, look at
-    [class@Gtk.Entry]. There are other alternatives for more specialized
-    use cases, such as [class@Gtk.SearchEntry].
+    [class`Gtk`.Entry]. There are other alternatives for more specialized
+    use cases, such as [class`Gtk`.SearchEntry].
 
-    If you need multi-line editable text, use [class@Gtk.TextView].
+    If you need multi-line editable text, use [class`Gtk`.TextView].
 
     # Shortcuts and Gestures
 
@@ -2340,15 +2340,15 @@ class Text(GObject.GInterface):
 
     Additionally, the following signals have default keybindings:
 
-    - [signal@Gtk.Text::activate]
-    - [signal@Gtk.Text::backspace]
-    - [signal@Gtk.Text::copy-clipboard]
-    - [signal@Gtk.Text::cut-clipboard]
-    - [signal@Gtk.Text::delete-from-cursor]
-    - [signal@Gtk.Text::insert-emoji]
-    - [signal@Gtk.Text::move-cursor]
-    - [signal@Gtk.Text::paste-clipboard]
-    - [signal@Gtk.Text::toggle-overwrite]
+    - [signal`Gtk`.Text::activate]
+    - [signal`Gtk`.Text::backspace]
+    - [signal`Gtk`.Text::copy-clipboard]
+    - [signal`Gtk`.Text::cut-clipboard]
+    - [signal`Gtk`.Text::delete-from-cursor]
+    - [signal`Gtk`.Text::insert-emoji]
+    - [signal`Gtk`.Text::move-cursor]
+    - [signal`Gtk`.Text::paste-clipboard]
+    - [signal`Gtk`.Text::toggle-overwrite]
 
     # Actions
 
@@ -2404,7 +2404,7 @@ class Text(GObject.GInterface):
 
     # Accessibility
 
-    `GtkText` uses the [enum@Gtk.AccessibleRole.none] role, which causes it to be
+    `GtkText` uses the [enum`Gtk`.AccessibleRole.none] role, which causes it to be
     skipped for accessibility. This is because `GtkText` is expected to be used
     as a delegate for a `GtkEditable` implementation that will be represented
     to accessibility.
@@ -2699,7 +2699,7 @@ class Window(GObject.GInterface):
 
     # GtkWindow as GtkBuildable
 
-    The `GtkWindow` implementation of the [iface@Gtk.Buildable] interface supports
+    The `GtkWindow` implementation of the [iface`Gtk`.Buildable] interface supports
     setting a child as the titlebar by specifying “titlebar” as the “type”
     attribute of a `<child>` element.
 
@@ -2712,9 +2712,9 @@ class Window(GObject.GInterface):
 
     The following signals have default keybindings:
 
-    - [signal@Gtk.Window::activate-default]
-    - [signal@Gtk.Window::activate-focus]
-    - [signal@Gtk.Window::enable-debugging]
+    - [signal`Gtk`.Window::activate-default]
+    - [signal`Gtk`.Window::activate-focus]
+    - [signal`Gtk`.Window::enable-debugging]
 
     # Actions
 
@@ -2757,9 +2757,9 @@ class Window(GObject.GInterface):
 
     # Accessibility
 
-    `GtkWindow` uses the [enum@Gtk.AccessibleRole.window] role.
+    `GtkWindow` uses the [enum`Gtk`.AccessibleRole.window] role.
 
-    From GTK 4.12 to 4.18, it used the [enum@Gtk.AccessibleRole.application] role.
+    From GTK 4.12 to 4.18, it used the [enum`Gtk`.AccessibleRole.application] role.
     """
 
     # gi Methods

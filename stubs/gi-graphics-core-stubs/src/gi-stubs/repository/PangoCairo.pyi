@@ -32,10 +32,10 @@ def context_get_font_options(
 ) -> cairo.FontOptions | None:
     """
     Retrieves any font rendering options previously set with
-    [func@PangoCairo.context_set_font_options].
+    [func`PangoCairo`.context_set_font_options].
 
     This function does not report options that are derived from
-    the target surface by [func@update_context].
+    the target surface by [func`update_context`].
     """
     ...
 
@@ -46,7 +46,7 @@ def context_get_resolution(
     """
     Gets the resolution for the context.
 
-    See [func@PangoCairo.context_set_resolution]
+    See [func`PangoCairo`.context_set_resolution]
     """
     ...
 
@@ -58,7 +58,7 @@ def context_set_font_options(
     """
     Sets the font options used when rendering text with this context.
 
-    These options override any options that [func@update_context]
+    These options override any options that [func`update_context`]
     derives from the target surface.
     """
     ...
@@ -86,7 +86,7 @@ def context_set_shape_renderer(
 ) -> None:
     """
     Sets callback function for context to use for rendering attributes
-    of type %PANGO_ATTR_SHAPE.
+    of type PANGO_ATTR_SHAPE.
 
     See `PangoCairoShapeRendererFunc` for details.
     """
@@ -101,12 +101,12 @@ def create_context(
     and target surface of the Cairo context.
 
     This context can then be
-    used to create a layout using [ctor@Pango.Layout.new].
+    used to create a layout using [ctor`Pango`.Layout.new].
 
     This function is a convenience function that creates a context using
-    the default font map, then updates it to @cr. If you just need to
-    create a layout for use with @cr and do not need to access `PangoContext`
-    directly, you can use [func@create_layout] instead.
+    the default font map, then updates it to `cr`. If you just need to
+    create a layout for use with `cr` and do not need to access `PangoContext`
+    directly, you can use [func`create_layout`] instead.
     """
     ...
 
@@ -119,9 +119,9 @@ def create_layout(
     and target surface of the Cairo context.
 
     This layout can then be used for text measurement with functions
-    like [method@Pango.Layout.get_size] or drawing with functions like
-    [func@show_layout]. If you change the transformation or target
-    surface for @cr, you need to call [func@update_layout].
+    like [method`Pango`.Layout.get_size] or drawing with functions like
+    [func`show_layout`]. If you change the transformation or target
+    surface for `cr`, you need to call [func`update_layout`].
 
     This function is the most convenient way to use Cairo with Pango,
     however it is slightly inefficient since it creates a separate
@@ -159,7 +159,7 @@ def font_map_get_default() -> Pango.FontMap:
     interfaces on the returned object.
 
     The default Cairo fontmap can be changed by using
-    [method@PangoCairo.FontMap.set_default]. This can be used to
+    [method`PangoCairo`.FontMap.set_default]. This can be used to
     change the Cairo font backend that the default fontmap uses
     for example.
 
@@ -176,7 +176,7 @@ def font_map_new() -> Pango.FontMap:
 
     A fontmap is used to cache information about available fonts,
     and holds certain global parameters such as the resolution.
-    In most cases, you can use `func@PangoCairo.font_map_get_default]
+    In most cases, you can use `func`PangoCairo`.font_map_get_default]
     instead.
 
     Note that the type of the returned object will depend
@@ -185,9 +185,9 @@ def font_map_new() -> Pango.FontMap:
     `PangoCairoFontMap` interfaces on the returned object.
 
     You can override the type of backend returned by using an
-    environment variable %PANGOCAIRO_BACKEND. Supported types,
+    environment variable PangoCairo.BACKEND. Supported types,
     based on your build, are fc (fontconfig), win32, and coretext.
-    If requested type is not available, NULL is returned. Ie.
+    If requested type is not available, None is returned. Ie.
     this is only useful for testing, when at least two backends
     are compiled in.
     """
@@ -199,10 +199,10 @@ def font_map_new_for_font_type(
 ) -> Pango.FontMap | None:
     """
     Creates a new `PangoCairoFontMap` object of the type suitable
-    to be used with cairo font backend of type @fonttype.
+    to be used with cairo font backend of type `fonttype`.
 
-    In most cases one should simply use [func@PangoCairo.FontMap.new], or
-    in fact in most of those cases, just use [func@PangoCairo.FontMap.get_default].
+    In most cases one should simply use [func`PangoCairo`.FontMap.new], or
+    in fact in most of those cases, just use [func`PangoCairo`.FontMap.get_default].
     """
     ...
 
@@ -213,7 +213,7 @@ def glyph_string_path(
     glyphs: Pango.GlyphString,
 ) -> None:
     """
-    Adds the glyphs in @glyphs to the current path in the specified
+    Adds the glyphs in `glyphs` to the current path in the specified
     cairo context.
 
     The origin of the glyphs (the left edge of the baseline)
@@ -275,16 +275,16 @@ def show_glyph_item(
     glyph_item: Pango.GlyphItem,
 ) -> None:
     """
-    Draws the glyphs in @glyph_item in the specified cairo context,
+    Draws the glyphs in `glyph_item` in the specified cairo context,
 
     embedding the text associated with the glyphs in the output if the
     output format supports it (PDF for example), otherwise it acts
-    similar to [func@show_glyph_string].
+    similar to [func`show_glyph_string`].
 
     The origin of the glyphs (the left edge of the baseline) will
     be drawn at the current point of the cairo context.
 
-    Note that @text is the start of the text for layout, which is then
+    Note that `text` is the start of the text for layout, which is then
     indexed by `glyph_item->item->offset`.
     """
     ...
@@ -296,7 +296,7 @@ def show_glyph_string(
     glyphs: Pango.GlyphString,
 ) -> None:
     """
-    Draws the glyphs in @glyphs in the specified cairo context.
+    Draws the glyphs in `glyphs` in the specified cairo context.
 
     The origin of the glyphs (the left edge of the baseline) will
     be drawn at the current point of the cairo context.
@@ -340,7 +340,7 @@ def update_context(
     context.
 
     If any layouts have been created for the context, it's necessary
-    to call [method@Pango.Layout.context_changed] on those layouts.
+    to call [method`Pango`.Layout.context_changed] on those layouts.
     """
     ...
 
@@ -351,7 +351,7 @@ def update_layout(
 ) -> None:
     """
     Updates the private `PangoContext` of a `PangoLayout` created with
-    [func@create_layout] to match the current transformation and target
+    [func`create_layout`] to match the current transformation and target
     surface of a Cairo context.
     """
     ...
@@ -376,9 +376,9 @@ class Font(GObject.GInterface):
         """
     def get_scaled_font(self) -> cairo.ScaledFont | None:
         """
-            Gets the `cairo_scaled_font_t` used by @font.
+            Gets the `cairo_scaled_font_t` used by `font`.
         The scaled font can be referenced and kept using
-        cairo_scaled_font_reference().
+        `cairo_scaled_font_reference`.
         """
 
 class FontMap(GObject.GInterface):
@@ -406,7 +406,7 @@ class FontMap(GObject.GInterface):
         interfaces on the returned object.
 
         The default Cairo fontmap can be changed by using
-        [method@PangoCairo.FontMap.set_default]. This can be used to
+        [method`PangoCairo`.FontMap.set_default]. This can be used to
         change the Cairo font backend that the default fontmap uses
         for example.
 
@@ -416,13 +416,13 @@ class FontMap(GObject.GInterface):
         """
     def get_font_type(self) -> cairo.FontType:
         """
-        Gets the type of Cairo font backend that @fontmap uses.
+        Gets the type of Cairo font backend that `fontmap` uses.
         """
     def get_resolution(self) -> float:
         """
             Gets the resolution for the fontmap.
 
-        See [method@PangoCairo.FontMap.set_resolution].
+        See [method`PangoCairo`.FontMap.set_resolution].
         """
     @staticmethod
     def new() -> Pango.FontMap:
@@ -431,7 +431,7 @@ class FontMap(GObject.GInterface):
 
         A fontmap is used to cache information about available fonts,
         and holds certain global parameters such as the resolution.
-        In most cases, you can use `func@PangoCairo.font_map_get_default]
+        In most cases, you can use `func`PangoCairo`.font_map_get_default]
         instead.
 
         Note that the type of the returned object will depend
@@ -440,9 +440,9 @@ class FontMap(GObject.GInterface):
         `PangoCairoFontMap` interfaces on the returned object.
 
         You can override the type of backend returned by using an
-        environment variable %PANGOCAIRO_BACKEND. Supported types,
+        environment variable PangoCairo.BACKEND. Supported types,
         based on your build, are fc (fontconfig), win32, and coretext.
-        If requested type is not available, NULL is returned. Ie.
+        If requested type is not available, None is returned. Ie.
         this is only useful for testing, when at least two backends
         are compiled in.
         """
@@ -450,10 +450,10 @@ class FontMap(GObject.GInterface):
     def new_for_font_type(fonttype: cairo.FontType) -> Pango.FontMap | None:
         """
             Creates a new `PangoCairoFontMap` object of the type suitable
-        to be used with cairo font backend of type @fonttype.
+        to be used with cairo font backend of type `fonttype`.
 
-        In most cases one should simply use [func@PangoCairo.FontMap.new], or
-        in fact in most of those cases, just use [func@PangoCairo.FontMap.get_default].
+        In most cases one should simply use [func`PangoCairo`.FontMap.new], or
+        in fact in most of those cases, just use [func`PangoCairo`.FontMap.get_default].
         """
     def set_default(self) -> None:
         """
@@ -467,11 +467,11 @@ class FontMap(GObject.GInterface):
         This function only changes the default fontmap for
         the current thread. Default fontmaps of existing threads
         are not changed. Default fontmaps of any new threads will
-        still be created using [func@PangoCairo.FontMap.new].
+        still be created using [func`PangoCairo`.FontMap.new].
 
-        A value of %NULL for @fontmap will cause the current default
+        A value of None for `fontmap` will cause the current default
         font map to be released and a new default font map to be created
-        on demand, using [func@PangoCairo.FontMap.new].
+        on demand, using [func`PangoCairo`.FontMap.new].
         """
     def set_resolution(self, dpi: float) -> None:
         """

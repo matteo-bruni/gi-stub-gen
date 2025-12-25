@@ -243,7 +243,7 @@ class EulerOrder(enum.IntEnum):
     """
     Specify the order of the rotations on each axis.
 
-    The %GRAPHENE_EULER_ORDER_DEFAULT value is special, and is used
+    The Graphene.EULER_ORDER_DEFAULT value is special, and is used
     as an alias for one of the other orders."""
 
     DEFAULT = -1
@@ -254,32 +254,32 @@ class EulerOrder(enum.IntEnum):
     XYZ = 0
     """
     Rotate in the X, Y, and Z order. Deprecated in
-      Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SXYZ
+      Graphene 1.10, it's an alias for Graphene.EULER_ORDER_SXYZ
     """
     YZX = 1
     """
     Rotate in the Y, Z, and X order. Deprecated in
-      Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SYZX
+      Graphene 1.10, it's an alias for Graphene.EULER_ORDER_SYZX
     """
     ZXY = 2
     """
     Rotate in the Z, X, and Y order. Deprecated in
-      Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SZXY
+      Graphene 1.10, it's an alias for Graphene.EULER_ORDER_SZXY
     """
     XZY = 3
     """
     Rotate in the X, Z, and Y order. Deprecated in
-      Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SXZY
+      Graphene 1.10, it's an alias for Graphene.EULER_ORDER_SXZY
     """
     YXZ = 4
     """
     Rotate in the Y, X, and Z order. Deprecated in
-      Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SYXZ
+      Graphene 1.10, it's an alias for Graphene.EULER_ORDER_SYXZ
     """
     ZYX = 5
     """
     Rotate in the Z, Y, and X order. Deprecated in
-      Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SZYX
+      Graphene 1.10, it's an alias for Graphene.EULER_ORDER_SZYX
     """
     SXYZ = 6
     """
@@ -427,12 +427,12 @@ class Box(GObject.GBoxed):
         """
     def contains_box(self, b: Box) -> bool:
         """
-            Checks whether the #graphene_box_t @a contains the given
-        #graphene_box_t @b.
+            Checks whether the #graphene_box_t `a` contains the given
+        #graphene_box_t `b`.
         """
     def contains_point(self, point: Point3D) -> bool:
         """
-        Checks whether @box contains the given @point.
+        Checks whether `box` contains the given `point`.
         """
     @staticmethod
     def empty() -> Box:
@@ -447,23 +447,23 @@ class Box(GObject.GBoxed):
         """
     def expand(self, point: Point3D) -> Box:
         """
-        Expands the dimensions of @box to include the coordinates at @point.
+        Expands the dimensions of `box` to include the coordinates at `point`.
         """
     def expand_scalar(self, scalar: float) -> Box:
         """
-            Expands the dimensions of @box by the given @scalar value.
+            Expands the dimensions of `box` by the given `scalar` value.
 
-        If @scalar is positive, the #graphene_box_t will grow; if @scalar is
+        If `scalar` is positive, the #graphene_box_t will grow; if `scalar` is
         negative, the #graphene_box_t will shrink.
         """
     def expand_vec3(self, vec: Vec3) -> Box:
         """
-            Expands the dimensions of @box to include the coordinates of the
+            Expands the dimensions of `box` to include the coordinates of the
         given vector.
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_box_alloc().
+        Frees the resources allocated by `Graphene.box_alloc`.
         """
     def get_bounding_sphere(self) -> Sphere:
         """
@@ -476,11 +476,11 @@ class Box(GObject.GBoxed):
         """
     def get_depth(self) -> float:
         """
-        Retrieves the size of the @box on the Z axis.
+        Retrieves the size of the `box` on the Z axis.
         """
     def get_height(self) -> float:
         """
-        Retrieves the size of the @box on the Y axis.
+        Retrieves the size of the `box` on the Y axis.
         """
     def get_max(self) -> Point3D:
         """
@@ -495,7 +495,7 @@ class Box(GObject.GBoxed):
     def get_size(self) -> Vec3:
         """
             Retrieves the size of the box on all three axes, and stores
-        it into the given @size vector.
+        it into the given `size` vector.
         """
     def get_vertices(self) -> list:
         """
@@ -503,7 +503,7 @@ class Box(GObject.GBoxed):
         """
     def get_width(self) -> float:
         """
-        Retrieves the size of the @box on the X axis.
+        Retrieves the size of the `box` on the X axis.
         """
     @staticmethod
     def infinite() -> Box:
@@ -526,8 +526,8 @@ class Box(GObject.GBoxed):
             Initializes the given #graphene_box_t with the given array
         of vertices.
 
-        If @n_points is 0, the returned box is initialized with
-        graphene_box_empty().
+        If `n_points` is 0, the returned box is initialized with
+        `Graphene.box_empty`.
         """
     def init_from_vec3(self, min: Vec3 | None = None, max: Vec3 | None = None) -> Box:
         """
@@ -539,15 +539,15 @@ class Box(GObject.GBoxed):
             Initializes the given #graphene_box_t with the given array
         of vertices.
 
-        If @n_vectors is 0, the returned box is initialized with
-        graphene_box_empty().
+        If `n_vectors` is 0, the returned box is initialized with
+        `Graphene.box_empty`.
         """
     def intersection(self, b: Box) -> tuple[bool, Box]:
         """
             Intersects the two given #graphene_box_t.
 
-        If the two boxes do not intersect, @res will contain a degenerate box
-        initialized with graphene_box_empty().
+        If the two boxes do not intersect, `res` will contain a degenerate box
+        initialized with `Graphene.box_empty`.
         """
     @staticmethod
     def minus_one() -> Box:
@@ -617,28 +617,28 @@ class Euler(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_euler_alloc().
+        Frees the resources allocated by `Graphene.euler_alloc`.
         """
     def get_alpha(self) -> float:
         """
             Retrieves the first component of the Euler angle vector,
         depending on the order of rotation.
 
-        See also: graphene_euler_get_x()
+        See also: `Graphene.euler_get_x`
         """
     def get_beta(self) -> float:
         """
             Retrieves the second component of the Euler angle vector,
         depending on the order of rotation.
 
-        See also: graphene_euler_get_y()
+        See also: `Graphene.euler_get_y`
         """
     def get_gamma(self) -> float:
         """
             Retrieves the third component of the Euler angle vector,
         depending on the order of rotation.
 
-        See also: graphene_euler_get_z()
+        See also: `Graphene.euler_get_z`
         """
     def get_order(self) -> EulerOrder:
         """
@@ -646,7 +646,7 @@ class Euler(GObject.GBoxed):
         #graphene_euler_t structure, when converting to and from other
         structures, like #graphene_quaternion_t and #graphene_matrix_t.
 
-        This function does not return the %GRAPHENE_EULER_ORDER_DEFAULT
+        This function does not return the Graphene.EULER_ORDER_DEFAULT
         enumeration value; it will return the effective order of rotation
         instead.
         """
@@ -666,28 +666,28 @@ class Euler(GObject.GBoxed):
         """
             Initializes a #graphene_euler_t using the given angles.
 
-        The order of the rotations is %GRAPHENE_EULER_ORDER_DEFAULT.
+        The order of the rotations is Graphene.EULER_ORDER_DEFAULT.
         """
     def init_from_euler(self, src: Euler | None = None) -> Euler:
         """
             Initializes a #graphene_euler_t using the angles and order of
         another #graphene_euler_t.
 
-        If the #graphene_euler_t @src is %NULL, this function is equivalent
-        to calling graphene_euler_init() with all angles set to 0.
+        If the #graphene_euler_t `src` is None, this function is equivalent
+        to calling `Graphene.euler_init` with all angles set to 0.
         """
     def init_from_matrix(self, m: Matrix | None, order: EulerOrder) -> Euler:
         """
             Initializes a #graphene_euler_t using the given rotation matrix.
 
-        If the #graphene_matrix_t @m is %NULL, the #graphene_euler_t will
+        If the #graphene_matrix_t `m` is None, the #graphene_euler_t will
         be initialized with all angles set to 0.
         """
     def init_from_quaternion(self, q: Quaternion | None, order: EulerOrder) -> Euler:
         """
             Initializes a #graphene_euler_t using the given normalized quaternion.
 
-        If the #graphene_quaternion_t @q is %NULL, the #graphene_euler_t will
+        If the #graphene_quaternion_t `q` is None, the #graphene_euler_t will
         be initialized with all angles set to 0.
         """
     def init_from_radians(self, x: float, y: float, z: float, order: EulerOrder) -> Euler:
@@ -700,16 +700,16 @@ class Euler(GObject.GBoxed):
             Initializes a #graphene_euler_t using the angles contained in a
         #graphene_vec3_t.
 
-        If the #graphene_vec3_t @v is %NULL, the #graphene_euler_t will be
+        If the #graphene_vec3_t `v` is None, the #graphene_euler_t will be
         initialized with all angles set to 0.
         """
     def init_with_order(self, x: float, y: float, z: float, order: EulerOrder) -> Euler:
         """
-        Initializes a #graphene_euler_t with the given angles and @order.
+        Initializes a #graphene_euler_t with the given angles and `order`.
         """
     def reorder(self, order: EulerOrder) -> Euler:
         """
-            Reorders a #graphene_euler_t using @order.
+            Reorders a #graphene_euler_t using `order`.
 
         This function is equivalent to creating a #graphene_quaternion_t from the
         given #graphene_euler_t, and then converting the quaternion into another
@@ -722,7 +722,7 @@ class Euler(GObject.GBoxed):
 
         The rotations are applied over the reference frame axes in the order
         associated with the #graphene_euler_t; for instance, if the order
-        used to initialize @e is %GRAPHENE_EULER_ORDER_XYZ:
+        used to initialize `e` is Graphene.EULER_ORDER_XYZ:
 
          * the first rotation moves the body around the X axis with
            an angle φ
@@ -779,7 +779,7 @@ class Frustum(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_frustum_alloc().
+        Frees the resources allocated by `Graphene.frustum_alloc`.
         """
     def get_planes(self) -> list:
         """
@@ -797,16 +797,16 @@ class Frustum(GObject.GBoxed):
         """
     def init_from_matrix(self, matrix: Matrix) -> Frustum:
         """
-        Initializes a #graphene_frustum_t using the given @matrix.
+        Initializes a #graphene_frustum_t using the given `matrix`.
         """
     def intersects_box(self, box: Box) -> bool:
         """
-            Checks whether the given @box intersects a plane of
+            Checks whether the given `box` intersects a plane of
         a #graphene_frustum_t.
         """
     def intersects_sphere(self, sphere: Sphere) -> bool:
         """
-            Checks whether the given @sphere intersects a plane of
+            Checks whether the given `sphere` intersects a plane of
         a #graphene_frustum_t.
         """
 
@@ -855,10 +855,10 @@ class Matrix(GObject.GBoxed):
             Checks whether the two given #graphene_matrix_t matrices are
         byte-by-byte equal.
 
-        While this function is faster than graphene_matrix_equal(), it
+        While this function is faster than `Graphene.matrix_equal`, it
         can also return false negatives, so it should be used in
-        conjuction with either graphene_matrix_equal() or
-        graphene_matrix_near(). For instance:
+        conjuction with either `Graphene.matrix_equal` or
+        `Graphene.matrix_near`. For instance:
 
         |[<!-- language="C" -->
           if (graphene_matrix_equal_fast (a, b))
@@ -878,39 +878,39 @@ class Matrix(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_matrix_alloc().
+        Frees the resources allocated by `Graphene.matrix_alloc`.
         """
     def get_row(self, index_: int) -> Vec4:
         """
-        Retrieves the given row vector at @index_ inside a matrix.
+        Retrieves the given row vector at `index_` inside a matrix.
         """
     def get_value(self, row: int, col: int) -> float:
         """
-        Retrieves the value at the given @row and @col index.
+        Retrieves the value at the given `row` and `col` index.
         """
     def get_x_scale(self) -> float:
         """
-        Retrieves the scaling factor on the X axis in @m.
+        Retrieves the scaling factor on the X axis in `m`.
         """
     def get_x_translation(self) -> float:
         """
-        Retrieves the translation component on the X axis from @m.
+        Retrieves the translation component on the X axis from `m`.
         """
     def get_y_scale(self) -> float:
         """
-        Retrieves the scaling factor on the Y axis in @m.
+        Retrieves the scaling factor on the Y axis in `m`.
         """
     def get_y_translation(self) -> float:
         """
-        Retrieves the translation component on the Y axis from @m.
+        Retrieves the translation component on the Y axis from `m`.
         """
     def get_z_scale(self) -> float:
         """
-        Retrieves the scaling factor on the Z axis in @m.
+        Retrieves the scaling factor on the Z axis in `m`.
         """
     def get_z_translation(self) -> float:
         """
-        Retrieves the translation component on the Z axis from @m.
+        Retrieves the translation component on the Z axis from `m`.
         """
     def init_from_2d(self, xx: float, yx: float, xy: float, yy: float, x_0: float, y_0: float) -> Matrix:
         """
@@ -947,7 +947,7 @@ class Matrix(GObject.GBoxed):
         """
             Initializes a #graphene_matrix_t compatible with #graphene_frustum_t.
 
-        See also: graphene_frustum_init_from_matrix()
+        See also: `Graphene.frustum_init_from_matrix`
         """
     def init_identity(self) -> Matrix:
         """
@@ -956,18 +956,18 @@ class Matrix(GObject.GBoxed):
     def init_look_at(self, eye: Vec3, center: Vec3, up: Vec3) -> Matrix:
         """
             Initializes a #graphene_matrix_t so that it positions the "camera"
-        at the given @eye coordinates towards an object at the @center
+        at the given `eye` coordinates towards an object at the `center`
         coordinates. The top of the camera is aligned to the direction
-        of the @up vector.
+        of the `up` vector.
 
         Before the transform, the camera is assumed to be placed at the
         origin, looking towards the negative Z axis, with the top side of
         the camera facing in the direction of the Y axis and the right
         side in the direction of the X axis.
 
-        In theory, one could use @m to transform a model of such a camera
+        In theory, one could use `m` to transform a model of such a camera
         into world-space. However, it is more common to use the inverse of
-        @m to transform another object from world coordinates to the view
+        `m` to transform another object from world coordinates to the view
         coordinates of the camera. Typically you would then apply the
         camera projection transform to get from view to screen
         coordinates.
@@ -982,8 +982,8 @@ class Matrix(GObject.GBoxed):
         """
     def init_rotate(self, angle: float, axis: Vec3) -> Matrix:
         """
-            Initializes @m to represent a rotation of @angle degrees on
-        the axis represented by the @axis vector.
+            Initializes `m` to represent a rotation of `angle` degrees on
+        the axis represented by the `axis` vector.
         """
     def init_scale(self, x: float, y: float, z: float) -> Matrix:
         """
@@ -1034,12 +1034,12 @@ class Matrix(GObject.GBoxed):
             Multiplies two #graphene_matrix_t.
 
         Matrix multiplication is not commutative in general; the order of the factors matters.
-        The product of this multiplication is (@a × @b)
+        The product of this multiplication is (`a` × `b`)
         """
     def near(self, b: Matrix, epsilon: float) -> bool:
         """
             Compares the two given #graphene_matrix_t matrices and checks
-        whether their values are within the given @epsilon of each
+        whether their values are within the given `epsilon` of each
         other.
         """
     def normalize(self) -> Matrix:
@@ -1048,18 +1048,18 @@ class Matrix(GObject.GBoxed):
         """
     def perspective(self, depth: float) -> Matrix:
         """
-        Applies a perspective of @depth to the matrix.
+        Applies a perspective of `depth` to the matrix.
         """
     def print_(self) -> None: ...
     def project_point(self, p: Point) -> Point:
         """
-        Projects a #graphene_point_t using the matrix @m.
+        Projects a #graphene_point_t using the matrix `m`.
         """
     def project_rect(self, r: Rect) -> Quad:
         """
             Projects all corners of a #graphene_rect_t using the given matrix.
 
-        See also: graphene_matrix_project_point()
+        See also: `Graphene.matrix_project_point`
         """
     def project_rect_bounds(self, r: Rect) -> Rect:
         """
@@ -1070,65 +1070,65 @@ class Matrix(GObject.GBoxed):
         """
     def rotate(self, angle: float, axis: Vec3) -> None:
         """
-            Adds a rotation transformation to @m, using the given @angle
-        and @axis vector.
+            Adds a rotation transformation to `m`, using the given `angle`
+        and `axis` vector.
 
-        This is the equivalent of calling graphene_matrix_init_rotate() and
-        then multiplying the matrix @m with the rotation matrix.
+        This is the equivalent of calling `Graphene.matrix_init_rotate` and
+        then multiplying the matrix `m` with the rotation matrix.
         """
     def rotate_euler(self, e: Euler) -> None:
         """
-            Adds a rotation transformation to @m, using the given
+            Adds a rotation transformation to `m`, using the given
         #graphene_euler_t.
         """
     def rotate_quaternion(self, q: Quaternion) -> None:
         """
-            Adds a rotation transformation to @m, using the given
+            Adds a rotation transformation to `m`, using the given
         #graphene_quaternion_t.
 
-        This is the equivalent of calling graphene_quaternion_to_matrix() and
-        then multiplying @m with the rotation matrix.
+        This is the equivalent of calling `Graphene.quaternion_to_matrix` and
+        then multiplying `m` with the rotation matrix.
         """
     def rotate_x(self, angle: float) -> None:
         """
-            Adds a rotation transformation around the X axis to @m, using
-        the given @angle.
+            Adds a rotation transformation around the X axis to `m`, using
+        the given `angle`.
 
-        See also: graphene_matrix_rotate()
+        See also: `Graphene.matrix_rotate`
         """
     def rotate_y(self, angle: float) -> None:
         """
-            Adds a rotation transformation around the Y axis to @m, using
-        the given @angle.
+            Adds a rotation transformation around the Y axis to `m`, using
+        the given `angle`.
 
-        See also: graphene_matrix_rotate()
+        See also: `Graphene.matrix_rotate`
         """
     def rotate_z(self, angle: float) -> None:
         """
-            Adds a rotation transformation around the Z axis to @m, using
-        the given @angle.
+            Adds a rotation transformation around the Z axis to `m`, using
+        the given `angle`.
 
-        See also: graphene_matrix_rotate()
+        See also: `Graphene.matrix_rotate`
         """
     def scale(self, factor_x: float, factor_y: float, factor_z: float) -> None:
         """
-            Adds a scaling transformation to @m, using the three
+            Adds a scaling transformation to `m`, using the three
         given factors.
 
-        This is the equivalent of calling graphene_matrix_init_scale() and then
-        multiplying the matrix @m with the scale matrix.
+        This is the equivalent of calling `Graphene.matrix_init_scale` and then
+        multiplying the matrix `m` with the scale matrix.
         """
     def skew_xy(self, factor: float) -> None:
         """
-        Adds a skew of @factor on the X and Y axis to the given matrix.
+        Adds a skew of `factor` on the X and Y axis to the given matrix.
         """
     def skew_xz(self, factor: float) -> None:
         """
-        Adds a skew of @factor on the X and Z axis to the given matrix.
+        Adds a skew of `factor` on the X and Z axis to the given matrix.
         """
     def skew_yz(self, factor: float) -> None:
         """
-        Adds a skew of @factor on the Y and Z axis to the given matrix.
+        Adds a skew of `factor` on the Y and Z axis to the given matrix.
         """
     def to_2d(self) -> tuple[bool, float, float, float, float, float, float]:
         """
@@ -1153,80 +1153,80 @@ class Matrix(GObject.GBoxed):
         """
     def transform_bounds(self, r: Rect) -> Rect:
         """
-            Transforms each corner of a #graphene_rect_t using the given matrix @m.
+            Transforms each corner of a #graphene_rect_t using the given matrix `m`.
 
         The result is the axis aligned bounding rectangle containing the coplanar
         quadrilateral.
 
-        See also: graphene_matrix_transform_point()
+        See also: `Graphene.matrix_transform_point`
         """
     def transform_box(self, b: Box) -> Box:
         """
-            Transforms the vertices of a #graphene_box_t using the given matrix @m.
+            Transforms the vertices of a #graphene_box_t using the given matrix `m`.
 
         The result is the axis aligned bounding box containing the transformed
         vertices.
         """
     def transform_point(self, p: Point) -> Point:
         """
-            Transforms the given #graphene_point_t using the matrix @m.
+            Transforms the given #graphene_point_t using the matrix `m`.
 
-        Unlike graphene_matrix_transform_vec3(), this function will take into
+        Unlike `Graphene.matrix_transform_vec3`, this function will take into
         account the fourth row vector of the #graphene_matrix_t when computing
         the dot product of each row vector of the matrix.
 
-        See also: graphene_simd4x4f_point3_mul()
+        See also: `Graphene.simd4x4f_point3_mul`
         """
     def transform_point3d(self, p: Point3D) -> Point3D:
         """
-            Transforms the given #graphene_point3d_t using the matrix @m.
+            Transforms the given #graphene_point3d_t using the matrix `m`.
 
-        Unlike graphene_matrix_transform_vec3(), this function will take into
+        Unlike `Graphene.matrix_transform_vec3`, this function will take into
         account the fourth row vector of the #graphene_matrix_t when computing
         the dot product of each row vector of the matrix.
 
-        See also: graphene_simd4x4f_point3_mul()
+        See also: `Graphene.simd4x4f_point3_mul`
         """
     def transform_ray(self, r: Ray) -> Ray:
         """
-        Transform a #graphene_ray_t using the given matrix @m.
+        Transform a #graphene_ray_t using the given matrix `m`.
         """
     def transform_rect(self, r: Rect) -> Quad:
         """
-            Transforms each corner of a #graphene_rect_t using the given matrix @m.
+            Transforms each corner of a #graphene_rect_t using the given matrix `m`.
 
         The result is a coplanar quadrilateral.
 
-        See also: graphene_matrix_transform_point()
+        See also: `Graphene.matrix_transform_point`
         """
     def transform_sphere(self, s: Sphere) -> Sphere:
         """
-            Transforms a #graphene_sphere_t using the given matrix @m. The
+            Transforms a #graphene_sphere_t using the given matrix `m`. The
         result is the bounding sphere containing the transformed sphere.
         """
     def transform_vec3(self, v: Vec3) -> Vec3:
         """
-            Transforms the given #graphene_vec3_t using the matrix @m.
+            Transforms the given #graphene_vec3_t using the matrix `m`.
 
-        This function will multiply the X, Y, and Z row vectors of the matrix @m
-        with the corresponding components of the vector @v. The W row vector will
+        This function will multiply the X, Y, and Z row vectors of the matrix `m`
+        with the corresponding components of the vector `v`. The W row vector will
         be ignored.
 
-        See also: graphene_simd4x4f_vec3_mul()
+        See also: `Graphene.simd4x4f_vec3_mul`
         """
     def transform_vec4(self, v: Vec4) -> Vec4:
         """
-            Transforms the given #graphene_vec4_t using the matrix @m.
+            Transforms the given #graphene_vec4_t using the matrix `m`.
 
-        See also: graphene_simd4x4f_vec4_mul()
+        See also: `Graphene.simd4x4f_vec4_mul`
         """
     def translate(self, pos: Point3D) -> None:
         """
-            Adds a translation transformation to @m using the coordinates
+            Adds a translation transformation to `m` using the coordinates
         of the given #graphene_point3d_t.
 
-        This is the equivalent of calling graphene_matrix_init_translate() and
-        then multiplying @m with the translation matrix.
+        This is the equivalent of calling `Graphene.matrix_init_translate` and
+        then multiplying `m` with the translation matrix.
         """
     def transpose(self) -> Matrix:
         """
@@ -1234,18 +1234,18 @@ class Matrix(GObject.GBoxed):
         """
     def unproject_point3d(self, modelview: Matrix, point: Point3D) -> Point3D:
         """
-            Unprojects the given @point using the @projection matrix and
-        a @modelview matrix.
+            Unprojects the given `point` using the `projection` matrix and
+        a `modelview` matrix.
         """
     def untransform_bounds(self, r: Rect, bounds: Rect) -> Rect:
         """
             Undoes the transformation on the corners of a #graphene_rect_t using the
-        given matrix, within the given axis aligned rectangular @bounds.
+        given matrix, within the given axis aligned rectangular `bounds`.
         """
     def untransform_point(self, p: Point, bounds: Rect) -> tuple[bool, Point]:
         """
             Undoes the transformation of a #graphene_point_t using the
-        given matrix, within the given axis aligned rectangular @bounds.
+        given matrix, within the given axis aligned rectangular `bounds`.
         """
 
 class Plane(GObject.GBoxed):
@@ -1276,7 +1276,7 @@ class Plane(GObject.GBoxed):
         """
     def distance(self, point: Point3D) -> float:
         """
-        Computes the distance of @point from a #graphene_plane_t.
+        Computes the distance of `point` from a #graphene_plane_t.
         """
     def equal(self, b: Plane) -> bool:
         """
@@ -1284,7 +1284,7 @@ class Plane(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_plane_alloc().
+        Frees the resources allocated by `Graphene.plane_alloc`.
         """
     def get_constant(self) -> float:
         """
@@ -1298,8 +1298,8 @@ class Plane(GObject.GBoxed):
         """
     def init(self, normal: Vec3 | None, constant: float) -> Plane:
         """
-            Initializes the given #graphene_plane_t using the given @normal vector
-        and @constant values.
+            Initializes the given #graphene_plane_t using the given `normal` vector
+        and `constant` values.
         """
     def init_from_plane(self, src: Plane) -> Plane:
         """
@@ -1336,12 +1336,12 @@ class Plane(GObject.GBoxed):
         """
     def transform(self, matrix: Matrix, normal_matrix: Matrix | None = None) -> Plane:
         """
-            Transforms a #graphene_plane_t @p using the given @matrix
-        and @normal_matrix.
+            Transforms a #graphene_plane_t `p` using the given `matrix`
+        and `normal_matrix`.
 
-        If @normal_matrix is %NULL, a transformation matrix for the plane
-        normal will be computed from @matrix. If you are transforming
-        multiple planes using the same @matrix it's recommended to compute
+        If `normal_matrix` is None, a transformation matrix for the plane
+        normal will be computed from `matrix`. If you are transforming
+        multiple planes using the same `matrix` it's recommended to compute
         the normal matrix beforehand to avoid incurring in the cost of
         recomputing it every time.
         """
@@ -1375,8 +1375,8 @@ class Point(GObject.GBoxed):
 
         The coordinates of the returned point are (0, 0).
 
-        It's possible to chain this function with graphene_point_init()
-        or graphene_point_init_from_point(), e.g.:
+        It's possible to chain this function with `Graphene.point_init`
+        or `Graphene.point_init_from_point`, e.g.:
 
         |[<!-- language="C" -->
           graphene_point_t *
@@ -1394,44 +1394,44 @@ class Point(GObject.GBoxed):
         """
     def distance(self, b: Point) -> tuple[float, float, float]:
         """
-        Computes the distance between @a and @b.
+        Computes the distance between `a` and `b`.
         """
     def equal(self, b: Point) -> bool:
         """
-            Checks if the two points @a and @b point to the same
+            Checks if the two points `a` and `b` point to the same
         coordinates.
 
         This function accounts for floating point fluctuations; if
         you want to control the fuzziness of the match, you can use
-        graphene_point_near() instead.
+        `Graphene.point_near` instead.
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_point_alloc().
+        Frees the resources allocated by `Graphene.point_alloc`.
         """
     def init(self, x: float, y: float) -> Point:
         """
-            Initializes @p to the given @x and @y coordinates.
+            Initializes `p` to the given `x` and `y` coordinates.
 
         It's safe to call this function multiple times.
         """
     def init_from_point(self, src: Point) -> Point:
         """
-        Initializes @p with the same coordinates of @src.
+        Initializes `p` with the same coordinates of `src`.
         """
     def init_from_vec2(self, src: Vec2) -> Point:
         """
-        Initializes @p with the coordinates inside the given #graphene_vec2_t.
+        Initializes `p` with the coordinates inside the given #graphene_vec2_t.
         """
     def interpolate(self, b: Point, factor: float) -> Point:
         """
-            Linearly interpolates the coordinates of @a and @b using the
-        given @factor.
+            Linearly interpolates the coordinates of `a` and `b` using the
+        given `factor`.
         """
     def near(self, b: Point, epsilon: float) -> bool:
         """
-            Checks whether the two points @a and @b are within
-        the threshold of @epsilon.
+            Checks whether the two points `a` and `b` are within
+        the threshold of `epsilon`.
         """
     def to_vec2(self) -> Vec2:
         """
@@ -1494,7 +1494,7 @@ class Point3D(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated via graphene_point3d_alloc().
+        Frees the resources allocated via `Graphene.point3d_alloc`.
         """
     def init(self, x: float, y: float, z: float) -> Point3D:
         """
@@ -1512,8 +1512,8 @@ class Point3D(GObject.GBoxed):
         """
     def interpolate(self, b: Point3D, factor: float) -> Point3D:
         """
-            Linearly interpolates each component of @a and @b using the
-        provided @factor, and places the result in @res.
+            Linearly interpolates each component of `a` and `b` using the
+        provided `factor`, and places the result in `res`.
         """
     def length(self) -> float:
         """
@@ -1523,7 +1523,7 @@ class Point3D(GObject.GBoxed):
     def near(self, b: Point3D, epsilon: float) -> bool:
         """
             Checks whether the two points are near each other, within
-        an @epsilon factor.
+        an `epsilon` factor.
         """
     def normalize(self) -> Point3D:
         """
@@ -1541,7 +1541,7 @@ class Point3D(GObject.GBoxed):
     def scale(self, factor: float) -> Point3D:
         """
             Scales the coordinates of the given #graphene_point3d_t by
-        the given @factor.
+        the given `factor`.
         """
     def to_vec3(self) -> Vec3:
         """
@@ -1580,7 +1580,7 @@ class Quad(GObject.GBoxed):
         """
     def bounds(self) -> Rect:
         """
-        Computes the bounding rectangle of @q and places it into @r.
+        Computes the bounding rectangle of `q` and places it into `r`.
         """
     def contains(self, p: Point) -> bool:
         """
@@ -1588,7 +1588,7 @@ class Quad(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_quad_alloc()
+        Frees the resources allocated by `Graphene.quad_alloc`
         """
     def get_point(self, index_: int) -> Point:
         """
@@ -1633,7 +1633,7 @@ class Quaternion(GObject.GBoxed):
         """
     def add(self, b: Quaternion) -> Quaternion:
         """
-        Adds two #graphene_quaternion_t @a and @b.
+        Adds two #graphene_quaternion_t `a` and `b`.
         """
     @classmethod
     def alloc(cls) -> Quaternion:
@@ -1652,7 +1652,7 @@ class Quaternion(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Releases the resources allocated by graphene_quaternion_alloc().
+        Releases the resources allocated by `Graphene.quaternion_alloc`.
         """
     def init(self, x: float, y: float, z: float, w: float) -> Quaternion:
         """
@@ -1660,8 +1660,8 @@ class Quaternion(GObject.GBoxed):
         """
     def init_from_angle_vec3(self, angle: float, axis: Vec3) -> Quaternion:
         """
-            Initializes a #graphene_quaternion_t using an @angle on a
-        specific @axis.
+            Initializes a #graphene_quaternion_t using an `angle` on a
+        specific `axis`.
         """
     def init_from_angles(self, deg_x: float, deg_y: float, deg_z: float) -> Quaternion:
         """
@@ -1669,7 +1669,7 @@ class Quaternion(GObject.GBoxed):
         the [Euler angles](http://en.wikipedia.org/wiki/Euler_angles)
         on each axis.
 
-        See also: graphene_quaternion_init_from_euler()
+        See also: `Graphene.quaternion_init_from_euler`
         """
     def init_from_euler(self, e: Euler) -> Quaternion:
         """
@@ -1682,7 +1682,7 @@ class Quaternion(GObject.GBoxed):
         """
     def init_from_quaternion(self, src: Quaternion) -> Quaternion:
         """
-        Initializes a #graphene_quaternion_t with the values from @src.
+        Initializes a #graphene_quaternion_t with the values from `src`.
         """
     def init_from_radians(self, rad_x: float, rad_y: float, rad_z: float) -> Quaternion:
         """
@@ -1690,11 +1690,11 @@ class Quaternion(GObject.GBoxed):
         the [Euler angles](http://en.wikipedia.org/wiki/Euler_angles)
         on each axis.
 
-        See also: graphene_quaternion_init_from_euler()
+        See also: `Graphene.quaternion_init_from_euler`
         """
     def init_from_vec4(self, src: Vec4) -> Quaternion:
         """
-        Initializes a #graphene_quaternion_t with the values from @src.
+        Initializes a #graphene_quaternion_t with the values from `src`.
         """
     def init_identity(self) -> Quaternion:
         """
@@ -1704,11 +1704,11 @@ class Quaternion(GObject.GBoxed):
     def invert(self) -> Quaternion:
         """
             Inverts a #graphene_quaternion_t, and returns the conjugate
-        quaternion of @q.
+        quaternion of `q`.
         """
     def multiply(self, b: Quaternion) -> Quaternion:
         """
-        Multiplies two #graphene_quaternion_t @a and @b.
+        Multiplies two #graphene_quaternion_t `a` and `b`.
         """
     def normalize(self) -> Quaternion:
         """
@@ -1716,18 +1716,18 @@ class Quaternion(GObject.GBoxed):
         """
     def scale(self, factor: float) -> Quaternion:
         """
-            Scales all the elements of a #graphene_quaternion_t @q using
+            Scales all the elements of a #graphene_quaternion_t `q` using
         the given scalar factor.
         """
     def slerp(self, b: Quaternion, factor: float) -> Quaternion:
         """
             Interpolates between the two given quaternions using a spherical
         linear interpolation, or [SLERP](http://en.wikipedia.org/wiki/Slerp),
-        using the given interpolation @factor.
+        using the given interpolation `factor`.
         """
     def to_angle_vec3(self) -> tuple[float, Vec3]:
         """
-        Converts a quaternion into an @angle, @axis pair.
+        Converts a quaternion into an `angle`, `axis` pair.
         """
     def to_angles(self) -> tuple[float, float, float]:
         """
@@ -1784,12 +1784,12 @@ class Ray(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_ray_alloc().
+        Frees the resources allocated by `Graphene.ray_alloc`.
         """
     def get_closest_point_to_point(self, p: Point3D) -> Point3D:
         """
             Computes the point on the given #graphene_ray_t that is closest to the
-        given point @p.
+        given point `p`.
         """
     def get_direction(self) -> Vec3:
         """
@@ -1805,7 +1805,7 @@ class Ray(GObject.GBoxed):
     def get_distance_to_point(self, p: Point3D) -> float:
         """
             Computes the distance of the closest approach between the
-        given #graphene_ray_t @r and the point @p.
+        given #graphene_ray_t `r` and the point `p`.
 
         The closest approach to a ray from a point is the distance
         between the point and the projection of the point on the
@@ -1817,13 +1817,13 @@ class Ray(GObject.GBoxed):
         """
     def get_position_at(self, t: float) -> Point3D:
         """
-            Retrieves the coordinates of a point at the distance @t along the
+            Retrieves the coordinates of a point at the distance `t` along the
         given #graphene_ray_t.
         """
     def init(self, origin: Point3D | None = None, direction: Vec3 | None = None) -> Ray:
         """
-            Initializes the given #graphene_ray_t using the given @origin
-        and @direction values.
+            Initializes the given #graphene_ray_t using the given `origin`
+        and `direction` values.
         """
     def init_from_ray(self, src: Ray) -> Ray:
         """
@@ -1836,39 +1836,39 @@ class Ray(GObject.GBoxed):
         """
     def intersect_box(self, b: Box) -> tuple[RayIntersectionKind, float]:
         """
-            Intersects the given #graphene_ray_t @r with the given
-        #graphene_box_t @b.
+            Intersects the given #graphene_ray_t `r` with the given
+        #graphene_box_t `b`.
         """
     def intersect_sphere(self, s: Sphere) -> tuple[RayIntersectionKind, float]:
         """
-            Intersects the given #graphene_ray_t @r with the given
-        #graphene_sphere_t @s.
+            Intersects the given #graphene_ray_t `r` with the given
+        #graphene_sphere_t `s`.
         """
     def intersect_triangle(self, t: Triangle) -> tuple[RayIntersectionKind, float]:
         """
-            Intersects the given #graphene_ray_t @r with the given
-        #graphene_triangle_t @t.
+            Intersects the given #graphene_ray_t `r` with the given
+        #graphene_triangle_t `t`.
         """
     def intersects_box(self, b: Box) -> bool:
         """
-            Checks whether the given #graphene_ray_t @r intersects the
-        given #graphene_box_t @b.
+            Checks whether the given #graphene_ray_t `r` intersects the
+        given #graphene_box_t `b`.
 
-        See also: graphene_ray_intersect_box()
+        See also: `Graphene.ray_intersect_box`
         """
     def intersects_sphere(self, s: Sphere) -> bool:
         """
-            Checks if the given #graphene_ray_t @r intersects the
-        given #graphene_sphere_t @s.
+            Checks if the given #graphene_ray_t `r` intersects the
+        given #graphene_sphere_t `s`.
 
-        See also: graphene_ray_intersect_sphere()
+        See also: `Graphene.ray_intersect_sphere`
         """
     def intersects_triangle(self, t: Triangle) -> bool:
         """
-            Checks whether the given #graphene_ray_t @r intersects the
-        given #graphene_triangle_t @b.
+            Checks whether the given #graphene_ray_t `r` intersects the
+        given #graphene_triangle_t `b`.
 
-        See also: graphene_ray_intersect_triangle()
+        See also: `Graphene.ray_intersect_triangle`
         """
 
 class Rect(GObject.GBoxed):
@@ -1880,7 +1880,7 @@ class Rect(GObject.GBoxed):
     equivalent to a #graphene_rect_t with an origin of [ 10, 10 ] and a size
     of [ -10, -10 ].
 
-    Application code can normalize rectangles using graphene_rect_normalize();
+    Application code can normalize rectangles using `Graphene.rect_normalize`;
     this function will ensure that the width and height of a rectangle are
     positive values. All functions taking a #graphene_rect_t as an argument
     will internally operate on a normalized copy; all functions returning a
@@ -1930,7 +1930,7 @@ class Rect(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_rect_alloc().
+        Frees the resources allocated by `Graphene.rect_alloc`.
         """
     def get_area(self) -> float:
         """
@@ -1987,7 +1987,7 @@ class Rect(GObject.GBoxed):
         """
     def init_from_rect(self, src: Rect) -> Rect:
         """
-            Initializes @r using the given @src rectangle.
+            Initializes `r` using the given `src` rectangle.
 
         This function will implicitly normalize the #graphene_rect_t
         before returning.
@@ -1997,13 +1997,13 @@ class Rect(GObject.GBoxed):
             Changes the given rectangle to be smaller, or larger depending on the
         given inset parameters.
 
-        To create an inset rectangle, use positive @d_x or @d_y values; to
-        create a larger, encompassing rectangle, use negative @d_x or @d_y
+        To create an inset rectangle, use positive `d_x` or `d_y` values; to
+        create a larger, encompassing rectangle, use negative `d_x` or `d_y`
         values.
 
-        The origin of the rectangle is offset by @d_x and @d_y, while the size
-        is adjusted by `(2 * @d_x, 2 * @d_y)`. If @d_x and @d_y are positive
-        values, the size of the rectangle is decreased; if @d_x and @d_y are
+        The origin of the rectangle is offset by `d_x` and `d_y`, while the size
+        is adjusted by `(2 * `d_x`, 2 * `d_y`)`. If `d_x` and `d_y` are positive
+        values, the size of the rectangle is decreased; if `d_x` and `d_y` are
         negative values, the size of the rectangle is increased.
 
         If the size of the resulting inset rectangle has a negative width or
@@ -2014,13 +2014,13 @@ class Rect(GObject.GBoxed):
             Changes the given rectangle to be smaller, or larger depending on the
         given inset parameters.
 
-        To create an inset rectangle, use positive @d_x or @d_y values; to
-        create a larger, encompassing rectangle, use negative @d_x or @d_y
+        To create an inset rectangle, use positive `d_x` or `d_y` values; to
+        create a larger, encompassing rectangle, use negative `d_x` or `d_y`
         values.
 
-        The origin of the rectangle is offset by @d_x and @d_y, while the size
-        is adjusted by `(2 * @d_x, 2 * @d_y)`. If @d_x and @d_y are positive
-        values, the size of the rectangle is decreased; if @d_x and @d_y are
+        The origin of the rectangle is offset by `d_x` and `d_y`, while the size
+        is adjusted by `(2 * `d_x`, 2 * `d_y`)`. If `d_x` and `d_y` are positive
+        values, the size of the rectangle is decreased; if `d_x` and `d_y` are
         negative values, the size of the rectangle is increased.
 
         If the size of the resulting inset rectangle has a negative width or
@@ -2039,7 +2039,7 @@ class Rect(GObject.GBoxed):
 
         The intersection in the image above is the blue outline.
 
-        If the two rectangles do not intersect, @res will contain
+        If the two rectangles do not intersect, `res` will contain
         a degenerate rectangle with origin in (0, 0) and a size of 0.
         """
     def normalize(self) -> Rect:
@@ -2060,13 +2060,13 @@ class Rect(GObject.GBoxed):
         """
     def offset(self, d_x: float, d_y: float) -> Rect:
         """
-            Offsets the origin by @d_x and @d_y.
+            Offsets the origin by `d_x` and `d_y`.
 
         The size of the rectangle is unchanged.
         """
     def offset_r(self, d_x: float, d_y: float) -> Rect:
         """
-            Offsets the origin of the given rectangle by @d_x and @d_y.
+            Offsets the origin of the given rectangle by `d_x` and `d_y`.
 
         The size of the rectangle is left unchanged.
         """
@@ -2077,7 +2077,7 @@ class Rect(GObject.GBoxed):
         their nearest integer values; the rounding is guaranteed
         to be large enough to have an area bigger or equal to the
         original rectangle, but might not fully contain its extents.
-        Use graphene_rect_round_extents() in case you need to round
+        Use `Graphene.rect_round_extents` in case you need to round
         to a rectangle that covers fully the original one.
 
         This function is the equivalent of calling `floor` on
@@ -2116,8 +2116,8 @@ class Rect(GObject.GBoxed):
         """
     def scale(self, s_h: float, s_v: float) -> Rect:
         """
-            Scales the size and origin of a rectangle horizontaly by @s_h,
-        and vertically by @s_v. The result @res is normalized.
+            Scales the size and origin of a rectangle horizontaly by `s_h`,
+        and vertically by `s_v`. The result `res` is normalized.
         """
     def union(self, b: Rect) -> Rect:
         """
@@ -2203,25 +2203,25 @@ class Size(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_size_alloc().
+        Frees the resources allocated by `Graphene.size_alloc`.
         """
     def init(self, width: float, height: float) -> Size:
         """
-        Initializes a #graphene_size_t using the given @width and @height.
+        Initializes a #graphene_size_t using the given `width` and `height`.
         """
     def init_from_size(self, src: Size) -> Size:
         """
             Initializes a #graphene_size_t using the width and height of
-        the given @src.
+        the given `src`.
         """
     def interpolate(self, b: Size, factor: float) -> Size:
         """
             Linearly interpolates the two given #graphene_size_t using the given
-        interpolation @factor.
+        interpolation `factor`.
         """
     def scale(self, factor: float) -> Size:
         """
-        Scales the components of a #graphene_size_t using the given @factor.
+        Scales the components of a #graphene_size_t using the given `factor`.
         """
     @staticmethod
     def zero() -> Size:
@@ -2255,12 +2255,12 @@ class Sphere(GObject.GBoxed):
         """
     def contains_point(self, point: Point3D) -> bool:
         """
-            Checks whether the given @point is contained in the volume
+            Checks whether the given `point` is contained in the volume
         of a #graphene_sphere_t.
         """
     def distance(self, point: Point3D) -> float:
         """
-            Computes the distance of the given @point from the surface of
+            Computes the distance of the given `point` from the surface of
         a #graphene_sphere_t.
         """
     def equal(self, b: Sphere) -> bool:
@@ -2269,7 +2269,7 @@ class Sphere(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_sphere_alloc().
+        Frees the resources allocated by `Graphene.sphere_alloc`.
         """
     def get_bounding_box(self) -> Box:
         """
@@ -2286,7 +2286,7 @@ class Sphere(GObject.GBoxed):
         """
     def init(self, center: Point3D | None, radius: float) -> Sphere:
         """
-        Initializes the given #graphene_sphere_t with the given @center and @radius.
+        Initializes the given #graphene_sphere_t with the given `center` and `radius`.
         """
     def init_from_points(self, n_points: int, points: list, center: Point3D | None = None) -> Sphere:
         """
@@ -2294,7 +2294,7 @@ class Sphere(GObject.GBoxed):
         of 3D coordinates so that the sphere includes them.
 
         The center of the sphere can either be specified, or will be center
-        of the 3D volume that encompasses all @points.
+        of the 3D volume that encompasses all `points`.
         """
     def init_from_vectors(self, n_vectors: int, vectors: list, center: Point3D | None = None) -> Sphere:
         """
@@ -2302,7 +2302,7 @@ class Sphere(GObject.GBoxed):
         of 3D coordinates so that the sphere includes them.
 
         The center of the sphere can either be specified, or will be center
-        of the 3D volume that encompasses all @vectors.
+        of the 3D volume that encompasses all `vectors`.
         """
     def is_empty(self) -> bool:
         """
@@ -2310,7 +2310,7 @@ class Sphere(GObject.GBoxed):
         """
     def translate(self, point: Point3D) -> Sphere:
         """
-            Translates the center of the given #graphene_sphere_t using the @point
+            Translates the center of the given #graphene_sphere_t using the `point`
         coordinates as the delta of the translation.
         """
 
@@ -2341,7 +2341,7 @@ class Triangle(GObject.GBoxed):
         """
     def contains_point(self, p: Point3D) -> bool:
         """
-        Checks whether the given triangle @t contains the point @p.
+        Checks whether the given triangle `t` contains the point `p`.
         """
     def equal(self, b: Triangle) -> bool:
         """
@@ -2349,7 +2349,7 @@ class Triangle(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by graphene_triangle_alloc().
+        Frees the resources allocated by `Graphene.triangle_alloc`.
         """
     def get_area(self) -> float:
         """
@@ -2358,9 +2358,9 @@ class Triangle(GObject.GBoxed):
     def get_barycoords(self, p: Point3D | None = None) -> tuple[bool, Vec2]:
         """
             Computes the [barycentric coordinates](http://en.wikipedia.org/wiki/Barycentric_coordinate_system)
-        of the given point @p.
+        of the given point `p`.
 
-        The point @p must lie on the same plane as the triangle @t; if the
+        The point `p` must lie on the same plane as the triangle `t`; if the
         point is not coplanar, the result of this function is undefined.
 
         If we place the origin in the coordinates of the triangle's A point,
@@ -2382,7 +2382,7 @@ class Triangle(GObject.GBoxed):
         """
             Computes the coordinates of the midpoint of the given #graphene_triangle_t.
 
-        The midpoint G is the [centroid](https://en.wikipedia.org/wiki/Centroid#Triangle_centroid)
+        The midpoint G is the [centroid](https://en.wikipedia.org/wiki/CentroidTriangle_centroid)
         of the triangle, i.e. the intersection of its medians.
         """
     def get_normal(self) -> Vec3:
@@ -2400,18 +2400,18 @@ class Triangle(GObject.GBoxed):
         """
     def get_uv(self, p: Point3D | None, uv_a: Vec2, uv_b: Vec2, uv_c: Vec2) -> tuple[bool, Vec2]:
         """
-            Computes the UV coordinates of the given point @p.
+            Computes the UV coordinates of the given point `p`.
 
-        The point @p must lie on the same plane as the triangle @t; if the point
-        is not coplanar, the result of this function is undefined. If @p is %NULL,
+        The point `p` must lie on the same plane as the triangle `t`; if the point
+        is not coplanar, the result of this function is undefined. If `p` is None,
         the point will be set in (0, 0, 0).
 
-        The UV coordinates will be placed in the @res vector:
+        The UV coordinates will be placed in the `res` vector:
 
          - `res.x = u`
          - `res.y = v`
 
-        See also: graphene_triangle_get_barycoords()
+        See also: `Graphene.triangle_get_barycoords`
         """
     def get_vertices(self) -> tuple[Vec3, Vec3, Vec3]:
         """
@@ -2454,7 +2454,7 @@ class Vec2(GObject.GBoxed):
     def add(self, b: Vec2) -> Vec2:
         """
             Adds each component of the two passed vectors and places
-        each result into the components of @res.
+        each result into the components of `res`.
         """
     @classmethod
     def alloc(cls) -> Vec2:
@@ -2463,13 +2463,13 @@ class Vec2(GObject.GBoxed):
 
         The contents of the returned structure are undefined.
 
-        Use graphene_vec2_init() to initialize the vector.
+        Use `Graphene.vec2_init` to initialize the vector.
         """
     def divide(self, b: Vec2) -> Vec2:
         """
-            Divides each component of the first operand @a by the corresponding
-        component of the second operand @b, and places the results into the
-        vector @res.
+            Divides each component of the first operand `a` by the corresponding
+        component of the second operand `b`, and places the results into the
+        vector `res`.
         """
     def dot(self, b: Vec2) -> float:
         """
@@ -2481,7 +2481,7 @@ class Vec2(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by @v
+        Frees the resources allocated by `v`
         """
     def get_x(self) -> float:
         """
@@ -2499,15 +2499,15 @@ class Vec2(GObject.GBoxed):
         """
     def init_from_float(self, src: list) -> Vec2:
         """
-        Initializes @v with the contents of the given array.
+        Initializes `v` with the contents of the given array.
         """
     def init_from_vec2(self, src: Vec2) -> Vec2:
         """
-        Copies the contents of @src into @v.
+        Copies the contents of `src` into `v`.
         """
     def interpolate(self, v2: Vec2, factor: float) -> Vec2:
         """
-        Linearly interpolates @v1 and @v2 using the given @factor.
+        Linearly interpolates `v1` and `v2` using the given `factor`.
         """
     def length(self) -> float:
         """
@@ -2516,22 +2516,22 @@ class Vec2(GObject.GBoxed):
     def max(self, b: Vec2) -> Vec2:
         """
             Compares the two given vectors and places the maximum
-        values of each component into @res.
+        values of each component into `res`.
         """
     def min(self, b: Vec2) -> Vec2:
         """
             Compares the two given vectors and places the minimum
-        values of each component into @res.
+        values of each component into `res`.
         """
     def multiply(self, b: Vec2) -> Vec2:
         """
             Multiplies each component of the two passed vectors and places
-        each result into the components of @res.
+        each result into the components of `res`.
         """
     def near(self, v2: Vec2, epsilon: float) -> bool:
         """
             Compares the two given #graphene_vec2_t vectors and checks
-        whether their values are within the given @epsilon.
+        whether their values are within the given `epsilon`.
         """
     def negate(self) -> Vec2:
         """
@@ -2539,7 +2539,7 @@ class Vec2(GObject.GBoxed):
         """
     def normalize(self) -> Vec2:
         """
-        Computes the normalized vector for the given vector @v.
+        Computes the normalized vector for the given vector `v`.
         """
     @staticmethod
     def one() -> Vec2:
@@ -2548,17 +2548,17 @@ class Vec2(GObject.GBoxed):
         """
     def scale(self, factor: float) -> Vec2:
         """
-        Multiplies all components of the given vector with the given scalar @factor.
+        Multiplies all components of the given vector with the given scalar `factor`.
         """
     def subtract(self, b: Vec2) -> Vec2:
         """
-            Subtracts from each component of the first operand @a the
-        corresponding component of the second operand @b and places
-        each result into the components of @res.
+            Subtracts from each component of the first operand `a` the
+        corresponding component of the second operand `b` and places
+        each result into the components of `res`.
         """
     def to_float(self) -> list:
         """
-        Stores the components of @v into an array.
+        Stores the components of `v` into an array.
         """
     @staticmethod
     def x_axis() -> Vec2:
@@ -2604,7 +2604,7 @@ class Vec3(GObject.GBoxed):
 
         The contents of the returned structure are undefined.
 
-        Use graphene_vec3_init() to initialize the vector.
+        Use `Graphene.vec3_init` to initialize the vector.
         """
     def cross(self, b: Vec3) -> Vec3:
         """
@@ -2612,9 +2612,9 @@ class Vec3(GObject.GBoxed):
         """
     def divide(self, b: Vec3) -> Vec3:
         """
-            Divides each component of the first operand @a by the corresponding
-        component of the second operand @b, and places the results into the
-        vector @res.
+            Divides each component of the first operand `a` by the corresponding
+        component of the second operand `b`, and places the results into the
+        vector `res`.
         """
     def dot(self, b: Vec3) -> float:
         """
@@ -2626,11 +2626,11 @@ class Vec3(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by @v
+        Frees the resources allocated by `v`
         """
     def get_x(self) -> float:
         """
-        Retrieves the first component of the given vector @v.
+        Retrieves the first component of the given vector `v`.
         """
     def get_xy(self) -> Vec2:
         """
@@ -2654,16 +2654,16 @@ class Vec3(GObject.GBoxed):
         """
     def get_xyzw(self, w: float) -> Vec4:
         """
-            Converts a #graphene_vec3_t in a #graphene_vec4_t using @w as
+            Converts a #graphene_vec3_t in a #graphene_vec4_t using `w` as
         the value of the fourth component of the resulting vector.
         """
     def get_y(self) -> float:
         """
-        Retrieves the second component of the given vector @v.
+        Retrieves the second component of the given vector `v`.
         """
     def get_z(self) -> float:
         """
-        Retrieves the third component of the given vector @v.
+        Retrieves the third component of the given vector `v`.
         """
     def init(self, x: float, y: float, z: float) -> Vec3:
         """
@@ -2682,11 +2682,11 @@ class Vec3(GObject.GBoxed):
         """
     def interpolate(self, v2: Vec3, factor: float) -> Vec3:
         """
-        Linearly interpolates @v1 and @v2 using the given @factor.
+        Linearly interpolates `v1` and `v2` using the given `factor`.
         """
     def length(self) -> float:
         """
-        Retrieves the length of the given vector @v.
+        Retrieves the length of the given vector `v`.
         """
     def max(self, b: Vec3) -> Vec3:
         """
@@ -2705,7 +2705,7 @@ class Vec3(GObject.GBoxed):
     def near(self, v2: Vec3, epsilon: float) -> bool:
         """
             Compares the two given #graphene_vec3_t vectors and checks
-        whether their values are within the given @epsilon.
+        whether their values are within the given `epsilon`.
         """
     def negate(self) -> Vec3:
         """
@@ -2723,13 +2723,13 @@ class Vec3(GObject.GBoxed):
         """
     def scale(self, factor: float) -> Vec3:
         """
-        Multiplies all components of the given vector with the given scalar @factor.
+        Multiplies all components of the given vector with the given scalar `factor`.
         """
     def subtract(self, b: Vec3) -> Vec3:
         """
-            Subtracts from each component of the first operand @a the
-        corresponding component of the second operand @b and places
-        each result into the components of @res.
+            Subtracts from each component of the first operand `a` the
+        corresponding component of the second operand `b` and places
+        each result into the components of `res`.
         """
     def to_float(self) -> list:
         """
@@ -2788,13 +2788,13 @@ class Vec4(GObject.GBoxed):
 
         The contents of the returned structure are undefined.
 
-        Use graphene_vec4_init() to initialize the vector.
+        Use `Graphene.vec4_init` to initialize the vector.
         """
     def divide(self, b: Vec4) -> Vec4:
         """
-            Divides each component of the first operand @a by the corresponding
-        component of the second operand @b, and places the results into the
-        vector @res.
+            Divides each component of the first operand `a` by the corresponding
+        component of the second operand `b`, and places the results into the
+        vector `res`.
         """
     def dot(self, b: Vec4) -> float:
         """
@@ -2806,7 +2806,7 @@ class Vec4(GObject.GBoxed):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by @v
+        Frees the resources allocated by `v`
         """
     def get_w(self) -> float:
         """
@@ -2847,12 +2847,12 @@ class Vec4(GObject.GBoxed):
     def init_from_vec2(self, src: Vec2, z: float, w: float) -> Vec4:
         """
             Initializes a #graphene_vec4_t using the components of a
-        #graphene_vec2_t and the values of @z and @w.
+        #graphene_vec2_t and the values of `z` and `w`.
         """
     def init_from_vec3(self, src: Vec3, w: float) -> Vec4:
         """
             Initializes a #graphene_vec4_t using the components of a
-        #graphene_vec3_t and the value of @w.
+        #graphene_vec3_t and the value of `w`.
         """
     def init_from_vec4(self, src: Vec4) -> Vec4:
         """
@@ -2861,7 +2861,7 @@ class Vec4(GObject.GBoxed):
         """
     def interpolate(self, v2: Vec4, factor: float) -> Vec4:
         """
-        Linearly interpolates @v1 and @v2 using the given @factor.
+        Linearly interpolates `v1` and `v2` using the given `factor`.
         """
     def length(self) -> float:
         """
@@ -2884,7 +2884,7 @@ class Vec4(GObject.GBoxed):
     def near(self, v2: Vec4, epsilon: float) -> bool:
         """
             Compares the two given #graphene_vec4_t vectors and checks
-        whether their values are within the given @epsilon.
+        whether their values are within the given `epsilon`.
         """
     def negate(self) -> Vec4:
         """
@@ -2902,13 +2902,13 @@ class Vec4(GObject.GBoxed):
         """
     def scale(self, factor: float) -> Vec4:
         """
-        Multiplies all components of the given vector with the given scalar @factor.
+        Multiplies all components of the given vector with the given scalar `factor`.
         """
     def subtract(self, b: Vec4) -> Vec4:
         """
-            Subtracts from each component of the first operand @a the
-        corresponding component of the second operand @b and places
-        each result into the components of @res.
+            Subtracts from each component of the first operand `a` the
+        corresponding component of the second operand `b` and places
+        each result into the components of `res`.
         """
     def to_float(self) -> list:
         """

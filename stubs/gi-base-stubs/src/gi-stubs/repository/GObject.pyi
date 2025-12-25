@@ -31,7 +31,7 @@ def boxed_copy(
     src_boxed: object,
 ) -> object:
     """
-    Provide a copy of a boxed structure @src_boxed which is of type @boxed_type.
+    Provide a copy of a boxed structure `src_boxed` which is of type `boxed_type`.
     """
     ...
 
@@ -41,7 +41,7 @@ def boxed_free(
     boxed: object,
 ) -> None:
     """
-    Free the boxed structure @boxed which is of type @boxed_type.
+    Free the boxed structure `boxed` which is of type `boxed_type`.
     """
     ...
 
@@ -52,15 +52,15 @@ def boxed_type_register_static(
     boxed_free: BoxedFreeFunc,
 ) -> GType:
     """
-    This function creates a new %G_TYPE_BOXED derived type id for a new
-    boxed type with name @name.
+    This function creates a new G_TYPE_BOXED derived type id for a new
+    boxed type with name `name`.
 
     Boxed type handling functions have to be provided to copy and free
     opaque boxed structures of this type.
 
-    For the general case, it is recommended to use G_DEFINE_BOXED_TYPE()
-    instead of calling g_boxed_type_register_static() directly. The macro
-    will create the appropriate `*_get_type()` function for the boxed type.
+    For the general case, it is recommended to use `G_DEFINE_BOXED_TYPE`
+    instead of calling `g_boxed_type_register_static` directly. The macro
+    will create the appropriate `*`_get_type`` function for the boxed type.
     """
     ...
 
@@ -74,10 +74,10 @@ def cclosure_marshal_BOOLEAN__BOXED_BOXED(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with handlers that
+    A GClosureMarshal function for use with signals with handlers that
     take two boxed pointers as arguments and return a boolean.  If you
     have such a signal, you will probably also need to use an
-    accumulator, such as g_signal_accumulator_true_handled().
+    accumulator, such as `g_signal_accumulator_true_handled`.
     """
     ...
 
@@ -91,10 +91,10 @@ def cclosure_marshal_BOOLEAN__FLAGS(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with handlers that
+    A GClosureMarshal function for use with signals with handlers that
     take a flags type as an argument and return a boolean.  If you have
     such a signal, you will probably also need to use an accumulator,
-    such as g_signal_accumulator_true_handled().
+    such as `g_signal_accumulator_true_handled`.
     """
     ...
 
@@ -108,8 +108,8 @@ def cclosure_marshal_STRING__OBJECT_POINTER(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with handlers that
-    take a #GObject and a pointer and produce a string.  It is highly
+    A GClosureMarshal function for use with signals with handlers that
+    take a GObject. and a pointer and produce a string.  It is highly
     unlikely that your signal handler fits this description.
     """
     ...
@@ -124,7 +124,7 @@ def cclosure_marshal_VOID__BOOLEAN(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
+    A GClosureMarshal function for use with signals with a single
     boolean argument.
     """
     ...
@@ -139,7 +139,7 @@ def cclosure_marshal_VOID__BOXED(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
+    A GClosureMarshal function for use with signals with a single
     argument which is any boxed pointer type.
     """
     ...
@@ -154,7 +154,7 @@ def cclosure_marshal_VOID__CHAR(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
+    A GClosureMarshal function for use with signals with a single
     character argument.
     """
     ...
@@ -169,7 +169,7 @@ def cclosure_marshal_VOID__DOUBLE(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with one
+    A GClosureMarshal function for use with signals with one
     double-precision floating point argument.
     """
     ...
@@ -184,7 +184,7 @@ def cclosure_marshal_VOID__ENUM(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
+    A GClosureMarshal function for use with signals with a single
     argument with an enumerated type.
     """
     ...
@@ -199,7 +199,7 @@ def cclosure_marshal_VOID__FLAGS(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
+    A GClosureMarshal function for use with signals with a single
     argument with a flags types.
     """
     ...
@@ -214,7 +214,7 @@ def cclosure_marshal_VOID__FLOAT(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with one
+    A GClosureMarshal function for use with signals with one
     single-precision floating point argument.
     """
     ...
@@ -229,7 +229,7 @@ def cclosure_marshal_VOID__INT(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
+    A GClosureMarshal function for use with signals with a single
     integer argument.
     """
     ...
@@ -244,7 +244,7 @@ def cclosure_marshal_VOID__LONG(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with with a single
+    A GClosureMarshal function for use with signals with with a single
     long integer argument.
     """
     ...
@@ -259,8 +259,8 @@ def cclosure_marshal_VOID__OBJECT(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
-    #GObject argument.
+    A GClosureMarshal function for use with signals with a single
+    GObject. argument.
     """
     ...
 
@@ -274,8 +274,8 @@ def cclosure_marshal_VOID__PARAM(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
-    argument of type #GParamSpec.
+    A GClosureMarshal function for use with signals with a single
+    argument of type GParamSpec.
     """
     ...
 
@@ -289,12 +289,12 @@ def cclosure_marshal_VOID__POINTER(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single raw
+    A GClosureMarshal function for use with signals with a single raw
     pointer argument type.
 
     If it is possible, it is better to use one of the more specific
-    functions such as g_cclosure_marshal_VOID__OBJECT() or
-    g_cclosure_marshal_VOID__OBJECT().
+    functions such as `g_cclosure_marshal_VOID__OBJECT` or
+    `g_cclosure_marshal_VOID__OBJECT`.
     """
     ...
 
@@ -308,7 +308,7 @@ def cclosure_marshal_VOID__STRING(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single string
+    A GClosureMarshal function for use with signals with a single string
     argument.
     """
     ...
@@ -323,7 +323,7 @@ def cclosure_marshal_VOID__UCHAR(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
+    A GClosureMarshal function for use with signals with a single
     unsigned character argument.
     """
     ...
@@ -338,7 +338,7 @@ def cclosure_marshal_VOID__UINT(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with with a single
+    A GClosureMarshal function for use with signals with with a single
     unsigned integer argument.
     """
     ...
@@ -353,7 +353,7 @@ def cclosure_marshal_VOID__UINT_POINTER(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with an unsigned int
+    A GClosureMarshal function for use with signals with an unsigned int
     and a pointer as arguments.
     """
     ...
@@ -368,7 +368,7 @@ def cclosure_marshal_VOID__ULONG(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
+    A GClosureMarshal function for use with signals with a single
     unsigned long integer argument.
     """
     ...
@@ -383,8 +383,8 @@ def cclosure_marshal_VOID__VARIANT(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with a single
-    #GVariant argument.
+    A GClosureMarshal function for use with signals with a single
+    GVariant argument.
     """
     ...
 
@@ -398,7 +398,7 @@ def cclosure_marshal_VOID__VOID(
     marshal_data: object | None = None,
 ) -> None:
     """
-    A #GClosureMarshal function for use with signals with no arguments.
+    A GClosureMarshal function for use with signals with no arguments.
     """
     ...
 
@@ -415,8 +415,8 @@ def cclosure_marshal_generic(
     A generic marshaller function implemented via
     [libffi](http://sourceware.org/libffi/).
 
-    Normally this function is not passed explicitly to g_signal_new(),
-    but used automatically by GLib when specifying a %NULL marshaller.
+    Normally this function is not passed explicitly to `g_signal_new`,
+    but used automatically by GLib when specifying a None marshaller.
     """
     ...
 
@@ -426,9 +426,9 @@ def clear_signal_handler(
     instance: Object,
 ) -> None:
     """
-    Disconnects a handler from @instance so it will not be called during
+    Disconnects a handler from `instance` so it will not be called during
     any future or currently ongoing emissions of the signal it has been
-    connected to. The @handler_id_ptr is then set to zero, which is never a valid handler ID value (see g_signal_connect()).
+    connected to. The `handler_id_ptr` is then set to zero, which is never a valid handler ID value (see `g_signal_connect`).
 
     If the handler ID is 0 then this function does nothing.
 
@@ -444,7 +444,7 @@ def enum_complete_type_info(
 ) -> TypeInfo:
     """
     This function is meant to be called from the `complete_type_info`
-    function of a #GTypePlugin implementation, as in the following
+    function of a GTypePlugin implementation, as in the following
     example:
 
     |[<!-- language="C" -->
@@ -457,7 +457,7 @@ def enum_complete_type_info(
       static const GEnumValue values[] = {
         { MY_ENUM_FOO, "MY_ENUM_FOO", "foo" },
         { MY_ENUM_BAR, "MY_ENUM_BAR", "bar" },
-        { 0, NULL, NULL }
+        { 0, None, None }
       };
 
       g_enum_complete_type_info (type, info, values);
@@ -472,7 +472,7 @@ def enum_get_value(
     value: int,
 ) -> EnumValue | None:
     """
-    Returns the #GEnumValue for a value.
+    Returns the GEnumValue for a value.
     """
     ...
 
@@ -482,7 +482,7 @@ def enum_get_value_by_name(
     name: str,
 ) -> EnumValue | None:
     """
-    Looks up a #GEnumValue by name.
+    Looks up a GEnumValue by name.
     """
     ...
 
@@ -492,7 +492,7 @@ def enum_get_value_by_nick(
     nick: str,
 ) -> EnumValue | None:
     """
-    Looks up a #GEnumValue by nickname.
+    Looks up a GEnumValue by nickname.
     """
     ...
 
@@ -502,11 +502,11 @@ def enum_register_static(
     const_static_values: list,
 ) -> GType:
     """
-    Registers a new static enumeration type with the name @name.
+    Registers a new static enumeration type with the name `name`.
 
     It is normally more convenient to let [glib-mkenums][glib-mkenums],
-    generate a my_enum_get_type() function from a usual C enumeration
-    definition  than to write one yourself using g_enum_register_static().
+    generate a `my_enum_get_type` function from a usual C enumeration
+    definition  than to write one yourself using `g_enum_register_static`.
     """
     ...
 
@@ -516,7 +516,7 @@ def enum_to_string(
     value: int,
 ) -> str:
     """
-    Pretty-prints @value in the form of the enum’s name.
+    Pretty-prints `value` in the form of the enum’s name.
 
     This is intended to be used for debugging purposes. The format of the output
     may change in the future.
@@ -529,9 +529,9 @@ def flags_complete_type_info(
     const_values: FlagsValue,
 ) -> TypeInfo:
     """
-    This function is meant to be called from the complete_type_info()
-    function of a #GTypePlugin implementation, see the example for
-    g_enum_complete_type_info() above.
+    This function is meant to be called from the `complete_type_info`
+    function of a GTypePlugin implementation, see the example for
+    `g_enum_complete_type_info` above.
     """
     ...
 
@@ -541,7 +541,7 @@ def flags_get_first_value(
     value: int,
 ) -> FlagsValue | None:
     """
-    Returns the first #GFlagsValue which is set in @value.
+    Returns the first GFlagsValue which is set in `value`.
     """
     ...
 
@@ -551,7 +551,7 @@ def flags_get_value_by_name(
     name: str,
 ) -> FlagsValue | None:
     """
-    Looks up a #GFlagsValue by name.
+    Looks up a GFlagsValue by name.
     """
     ...
 
@@ -561,7 +561,7 @@ def flags_get_value_by_nick(
     nick: str,
 ) -> FlagsValue | None:
     """
-    Looks up a #GFlagsValue by nickname.
+    Looks up a GFlagsValue by nickname.
     """
     ...
 
@@ -571,11 +571,11 @@ def flags_register_static(
     const_static_values: list,
 ) -> GType:
     """
-    Registers a new static flags type with the name @name.
+    Registers a new static flags type with the name `name`.
 
     It is normally more convenient to let [glib-mkenums][glib-mkenums]
-    generate a my_flags_get_type() function from a usual C enumeration
-    definition than to write one yourself using g_flags_register_static().
+    generate a `my_flags_get_type` function from a usual C enumeration
+    definition than to write one yourself using `g_flags_register_static`.
     """
     ...
 
@@ -585,7 +585,7 @@ def flags_to_string(
     value: int,
 ) -> str:
     """
-    Pretty-prints @value in the form of the flag names separated by ` | ` and
+    Pretty-prints `value` in the form of the flag names separated by ` | ` and
     sorted. Any extra bits will be shown at the end as a hexadecimal number.
 
     This is intended to be used for debugging purposes. The format of the output
@@ -604,13 +604,13 @@ def param_spec_boolean(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecBoolean instance specifying a %G_TYPE_BOOLEAN
+    Creates a new GParamSpecBoolean instance specifying a G_TYPE_BOOLEAN
     property. In many cases, it may be more appropriate to use an enum with
-    g_param_spec_enum(), both to improve code clarity by using explicitly named
+    `g_param_spec_enum`, both to improve code clarity by using explicitly named
     values, and to allow for more values to be added in future without breaking
     API.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -623,10 +623,10 @@ def param_spec_boxed(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecBoxed instance specifying a %G_TYPE_BOXED
+    Creates a new GParamSpecBoxed instance specifying a G_TYPE_BOXED
     derived property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -641,7 +641,7 @@ def param_spec_char(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecChar instance specifying a %G_TYPE_CHAR property.
+    Creates a new GParamSpecChar instance specifying a G_TYPE_CHAR property.
     """
     ...
 
@@ -656,10 +656,10 @@ def param_spec_double(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecDouble instance specifying a %G_TYPE_DOUBLE
+    Creates a new GParamSpecDouble instance specifying a G_TYPE_DOUBLE
     property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -673,10 +673,10 @@ def param_spec_enum(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecEnum instance specifying a %G_TYPE_ENUM
+    Creates a new GParamSpecEnum instance specifying a G_TYPE_ENUM
     property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -690,10 +690,10 @@ def param_spec_flags(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecFlags instance specifying a %G_TYPE_FLAGS
+    Creates a new GParamSpecFlags instance specifying a G_TYPE_FLAGS
     property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -708,9 +708,9 @@ def param_spec_float(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecFloat instance specifying a %G_TYPE_FLOAT property.
+    Creates a new GParamSpecFloat instance specifying a G_TYPE_FLOAT property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -723,10 +723,10 @@ def param_spec_gtype(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecGType instance specifying a
-    %G_TYPE_GTYPE property.
+    Creates a new GParamSpecGType instance specifying a
+    G_TYPE_GTYPE property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -741,9 +741,9 @@ def param_spec_int(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecInt instance specifying a %G_TYPE_INT property.
+    Creates a new GParamSpecInt instance specifying a G_TYPE_INT property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -758,9 +758,9 @@ def param_spec_int64(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecInt64 instance specifying a %G_TYPE_INT64 property.
+    Creates a new GParamSpecInt64 instance specifying a G_TYPE_INT64 property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -775,9 +775,9 @@ def param_spec_long(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecLong instance specifying a %G_TYPE_LONG property.
+    Creates a new GParamSpecLong instance specifying a G_TYPE_LONG property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -790,10 +790,10 @@ def param_spec_object(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecBoxed instance specifying a %G_TYPE_OBJECT
+    Creates a new GParamSpecBoxed instance specifying a G_TYPE_OBJECT
     derived property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -806,10 +806,10 @@ def param_spec_param(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecParam instance specifying a %G_TYPE_PARAM
+    Creates a new GParamSpecParam instance specifying a G_TYPE_PARAM
     property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -821,11 +821,11 @@ def param_spec_pointer(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecPointer instance specifying a pointer property.
-    Where possible, it is better to use g_param_spec_object() or
-    g_param_spec_boxed() to expose memory management information.
+    Creates a new GParamSpecPointer instance specifying a pointer property.
+    Where possible, it is better to use `g_param_spec_object` or
+    `g_param_spec_boxed` to expose memory management information.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -838,9 +838,9 @@ def param_spec_string(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecString instance.
+    Creates a new GParamSpecString instance.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -855,7 +855,7 @@ def param_spec_uchar(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecUChar instance specifying a %G_TYPE_UCHAR property.
+    Creates a new GParamSpecUChar instance specifying a G_TYPE_UCHAR property.
     """
     ...
 
@@ -870,9 +870,9 @@ def param_spec_uint(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecUInt instance specifying a %G_TYPE_UINT property.
+    Creates a new GParamSpecUInt instance specifying a G_TYPE_UINT property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -887,10 +887,10 @@ def param_spec_uint64(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecUInt64 instance specifying a %G_TYPE_UINT64
+    Creates a new GParamSpecUInt64 instance specifying a G_TYPE_UINT64
     property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -905,10 +905,10 @@ def param_spec_ulong(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecULong instance specifying a %G_TYPE_ULONG
+    Creates a new GParamSpecULong instance specifying a G_TYPE_ULONG
     property.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -921,11 +921,11 @@ def param_spec_unichar(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecUnichar instance specifying a %G_TYPE_UINT
-    property. #GValue structures for this property can be accessed with
-    g_value_set_uint() and g_value_get_uint().
+    Creates a new GParamSpecUnichar instance specifying a G_TYPE_UINT
+    property. GValue structures for this property can be accessed with
+    `g_value_set_uint` and `g_value_get_uint`.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -939,12 +939,12 @@ def param_spec_variant(
     flags: ParamFlags,
 ) -> ParamSpec:
     """
-    Creates a new #GParamSpecVariant instance specifying a #GVariant
+    Creates a new GParamSpecVariant instance specifying a GVariant
     property.
 
-    If @default_value is floating, it is consumed.
+    If `default_value` is floating, it is consumed.
 
-    See g_param_spec_internal() for details on property names.
+    See `g_param_spec_internal` for details on property names.
     """
     ...
 
@@ -954,11 +954,11 @@ def param_type_register_static(
     pspec_info: ParamSpecTypeInfo,
 ) -> GType:
     """
-    Registers @name as the name of a new static type derived
-    from %G_TYPE_PARAM.
+    Registers `name` as the name of a new static type derived
+    from G_TYPE_PARAM.
 
-    The type system uses the information contained in the #GParamSpecTypeInfo
-    structure pointed to by @info to manage the #GParamSpec type and its
+    The type system uses the information contained in the GParamSpecTypeInfo
+    structure pointed to by `info` to manage the GParamSpec type and its
     instances.
     """
     ...
@@ -971,13 +971,13 @@ def param_value_convert(
     strict_validation: bool,
 ) -> bool:
     """
-    Transforms @src_value into @dest_value if possible, and then
-    validates @dest_value, in order for it to conform to @pspec.  If
-    @strict_validation is %TRUE this function will only succeed if the
-    transformed @dest_value complied to @pspec without modifications.
+    Transforms `src_value` into `dest_value` if possible, and then
+    validates `dest_value`, in order for it to conform to `pspec`.  If
+    `strict_validation` is True this function will only succeed if the
+    transformed `dest_value` complied to `pspec` without modifications.
 
-    See also g_value_type_transformable(), g_value_transform() and
-    g_param_value_validate().
+    See also `g_value_type_transformable`, `g_value_transform` and
+    `g_param_value_validate`.
     """
     ...
 
@@ -987,7 +987,7 @@ def param_value_defaults(
     value: Value,
 ) -> bool:
     """
-    Checks whether @value contains the default value as specified in @pspec.
+    Checks whether `value` contains the default value as specified in `pspec`.
     """
     ...
 
@@ -997,8 +997,8 @@ def param_value_is_valid(
     value: Value,
 ) -> bool:
     """
-    Return whether the contents of @value comply with the specifications
-    set out by @pspec.
+    Return whether the contents of `value` comply with the specifications
+    set out by `pspec`.
     """
     ...
 
@@ -1008,7 +1008,7 @@ def param_value_set_default(
     value: Value,
 ) -> None:
     """
-    Sets @value to its default value as specified in @pspec.
+    Sets `value` to its default value as specified in `pspec`.
     """
     ...
 
@@ -1018,10 +1018,10 @@ def param_value_validate(
     value: Value,
 ) -> bool:
     """
-    Ensures that the contents of @value comply with the specifications
-    set out by @pspec. For example, a #GParamSpecInt might require
-    that integers stored in @value may not be smaller than -42 and not be
-    greater than +42. If @value contains an integer outside of this range,
+    Ensures that the contents of `value` comply with the specifications
+    set out by `pspec`. For example, a GParamSpecInt might require
+    that integers stored in `value` may not be smaller than -42 and not be
+    greater than +42. If `value` contains an integer outside of this range,
     it is modified accordingly, so the resulting value will fit into the
     range -42 .. +42.
     """
@@ -1034,8 +1034,8 @@ def param_values_cmp(
     value2: Value,
 ) -> int:
     """
-    Compares @value1 with @value2 according to @pspec, and return -1, 0 or +1,
-    if @value1 is found to be less than, equal to or greater than @value2,
+    Compares `value1` with `value2` according to `pspec`, and return -1, 0 or +1,
+    if `value1` is found to be less than, equal to or greater than `value2`,
     respectively.
     """
     ...
@@ -1045,8 +1045,8 @@ def pointer_type_register_static(
     name: str,
 ) -> GType:
     """
-    Creates a new %G_TYPE_POINTER derived type id for a new
-    pointer type with name @name.
+    Creates a new G_TYPE_POINTER derived type id for a new
+    pointer type with name `name`.
     """
     ...
 
@@ -1061,7 +1061,7 @@ def signal_add_emission_hook(
     """
     Adds an emission hook for a signal, which will get called for any emission
     of that signal, independent of the instance. This is possible only
-    for signals which don't have %G_SIGNAL_NO_HOOKS flag set.
+    for signals which don't have G_SIGNAL_NO_HOOKS flag set.
     """
     ...
 
@@ -1073,8 +1073,8 @@ def signal_chain_from_overridden(
     """
     Calls the original class closure of a signal. This function should only
     be called from an overridden class closure; see
-    g_signal_override_class_closure() and
-    g_signal_override_class_handler().
+    `g_signal_override_class_closure` and
+    `g_signal_override_class_handler`.
     """
     ...
 
@@ -1088,12 +1088,12 @@ def signal_connect_closure(
     """
     Connects a closure to a signal for a particular object.
 
-    If @closure is a floating reference (see g_closure_sink()), this function
-    takes ownership of @closure.
+    If `closure` is a floating reference (see `g_closure_sink`), this function
+    takes ownership of `closure`.
 
     This function cannot fail. If the given signal name doesn’t exist,
     a critical warning is emitted. No validation is performed on the
-    ‘detail’ string when specified in @detailed_signal, other than a
+    ‘detail’ string when specified in `detailed_signal`, other than a
     non-empty check.
 
     Refer to the [signals documentation](signals.html) for more
@@ -1112,12 +1112,12 @@ def signal_connect_closure_by_id(
     """
     Connects a closure to a signal for a particular object.
 
-    If @closure is a floating reference (see g_closure_sink()), this function
-    takes ownership of @closure.
+    If `closure` is a floating reference (see `g_closure_sink`), this function
+    takes ownership of `closure`.
 
     This function cannot fail. If the given signal name doesn’t exist,
     a critical warning is emitted. No validation is performed on the
-    ‘detail’ string when specified in @detailed_signal, other than a
+    ‘detail’ string when specified in `detailed_signal`, other than a
     non-empty check.
 
     Refer to the [signals documentation](signals.html) for more
@@ -1136,8 +1136,8 @@ def signal_emitv(
     Emits a signal. Signal emission is done synchronously.
     The method will only return control after all handlers are called or signal emission was stopped.
 
-    Note that g_signal_emitv() doesn't change @return_value if no handlers are
-    connected, in contrast to g_signal_emit() and g_signal_emit_valist().
+    Note that `g_signal_emitv` doesn't change `return_value` if no handlers are
+    connected, in contrast to `g_signal_emit` and `g_signal_emit_valist`.
     """
     ...
 
@@ -1158,10 +1158,10 @@ def signal_handler_disconnect(
     """
     Disconnects a handler from an instance so it will not be called during
     any future or currently ongoing emissions of the signal it has been
-    connected to. The @handler_id becomes invalid and may be reused.
+    connected to. The `handler_id` becomes invalid and may be reused.
 
-    The @handler_id has to be a valid signal handler id, connected to a
-    signal of @instance.
+    The `handler_id` has to be a valid signal handler id, connected to a
+    signal of `instance`.
     """
     ...
 
@@ -1177,9 +1177,9 @@ def signal_handler_find(
 ) -> int:
     """
     Finds the first signal handler that matches certain selection criteria.
-    The criteria mask is passed as an OR-ed combination of #GSignalMatchType
+    The criteria mask is passed as an OR-ed combination of GSignalMatchType
     flags, and the criteria values are passed as arguments.
-    The match @mask has to be non-0 for successful matches.
+    The match `mask` has to be non-0 for successful matches.
     If no handler was found, 0 is returned.
     """
     ...
@@ -1190,7 +1190,7 @@ def signal_handler_is_connected(
     handler_id: int,
 ) -> bool:
     """
-    Returns whether @handler_id is the ID of a handler connected to @instance.
+    Returns whether `handler_id` is the ID of a handler connected to `instance`.
     """
     ...
 
@@ -1200,7 +1200,7 @@ def signal_handler_unblock(
     handler_id: int,
 ) -> None:
     """
-    Undoes the effect of a previous g_signal_handler_block() call.  A
+    Undoes the effect of a previous `g_signal_handler_block` call.  A
     blocked handler is skipped during signal emissions and will not be
     invoked, unblocking it (for exactly the amount of times it has been
     blocked before) reverts its "blocked" state, so the handler will be
@@ -1211,8 +1211,8 @@ def signal_handler_unblock(
     currently ongoing emission depends on how far that emission has
     proceeded yet).
 
-    The @handler_id has to be a valid id of a signal handler that is
-    connected to a signal of @instance and is currently blocked.
+    The `handler_id` has to be a valid id of a signal handler that is
+    connected to a signal of `instance` and is currently blocked.
     """
     ...
 
@@ -1229,17 +1229,17 @@ def signal_handlers_block_matched(
     """
     Blocks all handlers on an instance that match a certain selection criteria.
 
-    The criteria mask is passed as a combination of #GSignalMatchType flags, and
+    The criteria mask is passed as a combination of GSignalMatchType flags, and
     the criteria values are passed as arguments. A handler must match on all
-    flags set in @mask to be blocked (i.e. the match is conjunctive).
+    flags set in `mask` to be blocked (i.e. the match is conjunctive).
 
-    Passing at least one of the %G_SIGNAL_MATCH_ID, %G_SIGNAL_MATCH_CLOSURE,
-    %G_SIGNAL_MATCH_FUNC
-    or %G_SIGNAL_MATCH_DATA match flags is required for successful matches.
+    Passing at least one of the G_SIGNAL_MATCH_ID, G_SIGNAL_MATCH_CLOSURE,
+    G_SIGNAL_MATCH_FUNC
+    or G_SIGNAL_MATCH_DATA match flags is required for successful matches.
     If no handlers were found, 0 is returned, the number of blocked handlers
     otherwise.
 
-    Support for %G_SIGNAL_MATCH_ID was added in GLib 2.78.
+    Support for G_SIGNAL_MATCH_ID was added in GLib 2.78.
     """
     ...
 
@@ -1249,7 +1249,7 @@ def signal_handlers_destroy(
 ) -> None:
     """
     Destroy all signal handlers of a type instance. This function is
-    an implementation detail of the #GObject dispose implementation,
+    an implementation detail of the GObject. dispose implementation,
     and should not be used outside of the type system.
     """
     ...
@@ -1268,17 +1268,17 @@ def signal_handlers_disconnect_matched(
     Disconnects all handlers on an instance that match a certain
     selection criteria.
 
-    The criteria mask is passed as a combination of #GSignalMatchType flags, and
+    The criteria mask is passed as a combination of GSignalMatchType flags, and
     the criteria values are passed as arguments. A handler must match on all
-    flags set in @mask to be disconnected (i.e. the match is conjunctive).
+    flags set in `mask` to be disconnected (i.e. the match is conjunctive).
 
-    Passing at least one of the %G_SIGNAL_MATCH_ID, %G_SIGNAL_MATCH_CLOSURE,
-    %G_SIGNAL_MATCH_FUNC or
-    %G_SIGNAL_MATCH_DATA match flags is required for successful
+    Passing at least one of the G_SIGNAL_MATCH_ID, G_SIGNAL_MATCH_CLOSURE,
+    G_SIGNAL_MATCH_FUNC or
+    G_SIGNAL_MATCH_DATA match flags is required for successful
     matches.  If no handlers were found, 0 is returned, the number of
     disconnected handlers otherwise.
 
-    Support for %G_SIGNAL_MATCH_ID was added in GLib 2.78.
+    Support for G_SIGNAL_MATCH_ID was added in GLib 2.78.
     """
     ...
 
@@ -1296,18 +1296,18 @@ def signal_handlers_unblock_matched(
     Unblocks all handlers on an instance that match a certain selection
     criteria.
 
-    The criteria mask is passed as a combination of #GSignalMatchType flags, and
+    The criteria mask is passed as a combination of GSignalMatchType flags, and
     the criteria values are passed as arguments. A handler must match on all
-    flags set in @mask to be unblocked (i.e. the match is conjunctive).
+    flags set in `mask` to be unblocked (i.e. the match is conjunctive).
 
-    Passing at least one of the %G_SIGNAL_MATCH_ID, %G_SIGNAL_MATCH_CLOSURE,
-    %G_SIGNAL_MATCH_FUNC
-    or %G_SIGNAL_MATCH_DATA match flags is required for successful matches.
+    Passing at least one of the G_SIGNAL_MATCH_ID, G_SIGNAL_MATCH_CLOSURE,
+    G_SIGNAL_MATCH_FUNC
+    or G_SIGNAL_MATCH_DATA match flags is required for successful matches.
     If no handlers were found, 0 is returned, the number of unblocked handlers
     otherwise. The match criteria should not apply to any handlers that are
     not currently blocked.
 
-    Support for %G_SIGNAL_MATCH_ID was added in GLib 2.78.
+    Support for G_SIGNAL_MATCH_ID was added in GLib 2.78.
     """
     ...
 
@@ -1319,13 +1319,13 @@ def signal_has_handler_pending(
     may_be_blocked: bool,
 ) -> bool:
     """
-    Returns whether there are any handlers connected to @instance for the
+    Returns whether there are any handlers connected to `instance` for the
     given signal id and detail.
 
-    If @detail is 0 then it will only match handlers that were connected
-    without detail.  If @detail is non-zero then it will match handlers
+    If `detail` is 0 then it will only match handlers that were connected
+    without detail.  If `detail` is non-zero then it will match handlers
     connected both without detail and with the given detail.  This is
-    consistent with how a signal emitted with @detail would be delivered
+    consistent with how a signal emitted with `detail` would be delivered
     to those handlers.
 
     Since 2.46 this also checks for a non-default class closure being
@@ -1346,7 +1346,7 @@ def signal_is_valid_name(
     Validate a signal name. This can be useful for dynamically-generated signals
     which need to be validated at run-time before actually trying to create them.
 
-    See [func@GObject.signal_new] for details of the rules for valid names.
+    See [func`GObject`.signal_new] for details of the rules for valid names.
     The rules for signal names are the same as those for property names.
     """
     ...
@@ -1370,11 +1370,11 @@ def signal_override_class_closure(
 ) -> None:
     """
     Overrides the class closure (i.e. the default handler) for the given signal
-    for emissions on instances of @instance_type. @instance_type must be derived
+    for emissions on instances of `instance_type`. `instance_type` must be derived
     from the type to which the signal belongs.
 
-    See g_signal_chain_from_overridden() and
-    g_signal_chain_from_overridden_handler() for how to chain up to the
+    See `g_signal_chain_from_overridden` and
+    `g_signal_chain_from_overridden_handler` for how to chain up to the
     parent class closure from inside the overridden one.
     """
     ...
@@ -1387,12 +1387,12 @@ def signal_override_class_handler(
 ) -> None:
     """
     Overrides the class closure (i.e. the default handler) for the
-    given signal for emissions on instances of @instance_type with
-    callback @class_handler. @instance_type must be derived from the
+    given signal for emissions on instances of `instance_type` with
+    callback `class_handler`. `instance_type` must be derived from the
     type to which the signal belongs.
 
-    See g_signal_chain_from_overridden() and
-    g_signal_chain_from_overridden_handler() for how to chain up to the
+    See `g_signal_chain_from_overridden` and
+    `g_signal_chain_from_overridden_handler` for how to chain up to the
     parent class closure from inside the overridden one.
     """
     ...
@@ -1417,7 +1417,7 @@ def signal_stop_emission(
     Stops a signal's current emission.
 
     This will prevent the default method from running, if the signal was
-    %G_SIGNAL_RUN_LAST and you connected normally (i.e. without the "after"
+    G_SIGNAL_RUN_LAST and you connected normally (i.e. without the "after"
     flag).
 
     Prints a warning if used on a signal which isn't being emitted.
@@ -1432,7 +1432,7 @@ def signal_stop_emission_by_name(
     """
     Stops a signal's current emission.
 
-    This is just like g_signal_stop_emission() except it will look up the
+    This is just like `g_signal_stop_emission` except it will look up the
     signal id for you.
     """
     ...
@@ -1444,8 +1444,8 @@ def signal_type_cclosure_new(
 ) -> Closure:
     """
     Creates a new closure which invokes the function found at the offset
-    @struct_offset in the class structure of the interface or classed type
-    identified by @itype.
+    `struct_offset` in the class structure of the interface or classed type
+    identified by `itype`.
     """
     ...
 
@@ -1455,10 +1455,10 @@ def source_set_closure(
     closure: Closure,
 ) -> None:
     """
-    Set the callback for a source as a #GClosure.
+    Set the callback for a source as a GClosure.
 
-    If the source is not one of the standard GLib types, the @closure_callback
-    and @closure_marshal fields of the #GSourceFuncs structure must have been
+    If the source is not one of the standard GLib types, the `closure_callback`
+    and `closure_marshal` fields of the GSourceFuncs structure must have been
     filled in with pointers to appropriate functions.
     """
     ...
@@ -1468,14 +1468,14 @@ def source_set_dummy_callback(
     source: GLib.Source,
 ) -> None:
     """
-    Sets a dummy callback for @source. The callback will do nothing, and
-    if the source expects a #gboolean return value, it will return %TRUE.
+    Sets a dummy callback for `source`. The callback will do nothing, and
+    if the source expects a #gboolean return value, it will return True.
     (If the source expects any other type of return value, it will return
-    a 0/%NULL value; whatever g_value_init() initializes a #GValue to for
+    a 0/None value; whatever `g_value_init` initializes a GValue to for
     that type.)
 
     If the source is not one of the standard GLib types, the
-    @closure_callback and @closure_marshal fields of the #GSourceFuncs
+    `closure_callback` and `closure_marshal` fields of the GSourceFuncs
     structure must have been filled in with pointers to appropriate
     functions.
     """
@@ -1487,7 +1487,7 @@ def strdup_value_contents(
 ) -> str:
     """
     Return a newly allocated string, which describes the contents of a
-    #GValue.  The main purpose of this function is to describe #GValue
+    GValue.  The main purpose of this function is to describe GValue
     contents for debugging output, the way in which the contents are
     described may change between different GLib versions.
     """
@@ -1506,9 +1506,9 @@ def type_add_class_private(
     structures, and are zero-filled.
 
     This function should be called in the
-    type's get_type() function after the type is registered.
+    type's `get_type` function after the type is registered.
     The private structure can be retrieved using the
-    G_TYPE_CLASS_GET_PRIVATE() macro.
+    `G_TYPE_CLASS_GET_PRIVATE` macro.
     """
     ...
 
@@ -1524,8 +1524,8 @@ def type_add_interface_dynamic(
     plugin: TypePlugin,
 ) -> None:
     """
-    Adds @interface_type to the dynamic @instance_type. The information
-    contained in the #GTypePlugin structure pointed to by @plugin
+    Adds `interface_type` to the dynamic `instance_type`. The information
+    contained in the GTypePlugin structure pointed to by `plugin`
     is used to manage the relationship.
     """
     ...
@@ -1537,9 +1537,9 @@ def type_add_interface_static(
     info: InterfaceInfo,
 ) -> None:
     """
-    Adds @interface_type to the static @instance_type.
-    The information contained in the #GInterfaceInfo structure
-    pointed to by @info is used to manage the relationship.
+    Adds `interface_type` to the static `instance_type`.
+    The information contained in the GInterfaceInfo structure
+    pointed to by `info` is used to manage the relationship.
     """
     ...
 
@@ -1554,7 +1554,7 @@ def type_check_instance(
 ) -> bool:
     """
     Private helper function to aid implementation of the
-    G_TYPE_CHECK_INSTANCE() macro.
+    `G_TYPE_CHECK_INSTANCE` macro.
     """
     ...
 
@@ -1587,7 +1587,7 @@ def type_children(
 ) -> tuple[list, int]:
     """
     Return a newly allocated and 0-terminated array of type IDs, listing
-    the child types of @type.
+    the child types of `type`.
     """
     ...
 
@@ -1601,12 +1601,12 @@ def type_class_get(
     type: GType,
 ) -> TypeClass:
     """
-    Retrieves the type class of the given @type.
+    Retrieves the type class of the given `type`.
 
     This function will create the class on demand if it does not exist
     already.
 
-    If you don't want to create the class, use g_type_class_peek() instead.
+    If you don't want to create the class, use `g_type_class_peek` instead.
     """
     ...
 
@@ -1617,10 +1617,10 @@ def type_class_peek(
     """
     Retrieves the class for a give type.
 
-    This function is essentially the same as g_type_class_get(),
+    This function is essentially the same as `g_type_class_get`,
     except that the class may have not been instantiated yet.
 
-    As a consequence, this function may return %NULL if the class
+    As a consequence, this function may return None if the class
     of the type passed in does not currently exist (hasn't been
     referenced before).
     """
@@ -1631,7 +1631,7 @@ def type_class_peek_static(
     type: GType,
 ) -> TypeClass | None:
     """
-    A more efficient version of g_type_class_peek() which works only for
+    A more efficient version of `g_type_class_peek` which works only for
     static types.
     """
     ...
@@ -1643,7 +1643,7 @@ def type_class_ref(
 ) -> TypeClass:
     """
     Increments the reference count of the class structure belonging to
-    @type.
+    `type`.
 
     This function will demand-create the class if it doesn't exist already.
     """
@@ -1654,17 +1654,17 @@ def type_default_interface_get(
     g_type: GType,
 ) -> TypeInterface:
     """
-    Returns the default interface vtable for the given @g_type.
+    Returns the default interface vtable for the given `g_type`.
 
     If the type is not currently in use, then the default vtable
     for the type will be created and initialized by calling
     the base interface init and default vtable init functions for
-    the type (the @base_init and @class_init members of #GTypeInfo).
+    the type (the `base_init` and `class_init` members of GTypeInfo).
 
     If you don't want to create the interface vtable, you should use
-    g_type_default_interface_peek() instead.
+    `g_type_default_interface_peek` instead.
 
-    Calling g_type_default_interface_get() is useful when you
+    Calling `g_type_default_interface_get` is useful when you
     want to make sure that signals and properties for an interface
     have been installed.
     """
@@ -1675,7 +1675,7 @@ def type_default_interface_peek(
     g_type: GType,
 ) -> TypeInterface:
     """
-    If the interface type @g_type is currently in use, returns its
+    If the interface type `g_type` is currently in use, returns its
     default interface vtable.
     """
     ...
@@ -1686,14 +1686,14 @@ def type_default_interface_ref(
     g_type: GType,
 ) -> TypeInterface:
     """
-    Increments the reference count for the interface type @g_type,
+    Increments the reference count for the interface type `g_type`,
     and returns the default interface vtable for the type.
 
     If the type is not currently in use, then the default vtable
     for the type will be created and initialized by calling
     the base interface init and default vtable init functions for
-    the type (the @base_init and @class_init members of #GTypeInfo).
-    Calling g_type_default_interface_ref() is useful when you
+    the type (the `base_init` and `class_init` members of GTypeInfo).
+    Calling `g_type_default_interface_ref` is useful when you
     want to make sure that signals and properties for an interface
     have been installed.
     """
@@ -1706,11 +1706,11 @@ def type_default_interface_unref(
 ) -> None:
     """
     Decrements the reference count for the type corresponding to the
-    interface default vtable @g_iface.
+    interface default vtable `g_iface`.
 
     If the type is dynamic, then when no one is using the interface and all
     references have been released, the finalize function for the interface's
-    default vtable (the @class_finalize member of #GTypeInfo) will be called.
+    default vtable (the `class_finalize` member of GTypeInfo) will be called.
     """
     ...
 
@@ -1729,18 +1729,18 @@ def type_ensure(
     type: GType,
 ) -> None:
     """
-    Ensures that the indicated @type has been registered with the
-    type system, and its _class_init() method has been run.
+    Ensures that the indicated `type` has been registered with the
+    type system, and its `_class_init` method has been run.
 
-    In theory, simply calling the type's _get_type() method (or using
+    In theory, simply calling the type's `_get_type` method (or using
     the corresponding macro) is supposed take care of this. However,
-    _get_type() methods are often marked %G_GNUC_CONST for performance
+    `_get_type` methods are often marked G_GNUC_CONST for performance
     reasons, even though this is technically incorrect (since
-    %G_GNUC_CONST requires that the function not have side effects,
-    which _get_type() methods do on the first call). As a result, if
-    you write a bare call to a _get_type() macro, it may get optimized
-    out by the compiler. Using g_type_ensure() guarantees that the
-    type's _get_type() method is called.
+    G_GNUC_CONST requires that the function not have side effects,
+    which `_get_type` methods do on the first call). As a result, if
+    you write a bare call to a `_get_type` macro, it may get optimized
+    out by the compiler. Using `g_type_ensure` guarantees that the
+    type's `_get_type` method is called.
     """
     ...
 
@@ -1752,7 +1752,7 @@ def type_free_instance(
     Frees an instance of a type, returning it to the instance pool for
     the type, if there is one.
 
-    Like g_type_create_instance(), this function is reserved for
+    Like `g_type_create_instance`, this function is reserved for
     implementors of fundamental types.
     """
     ...
@@ -1763,7 +1763,7 @@ def type_fundamental(
 ) -> GType:
     """
     Internal function, used to extract the fundamental type ID portion.
-    Use G_TYPE_FUNDAMENTAL() instead.
+    Use `G_TYPE_FUNDAMENTAL` instead.
     """
     ...
 
@@ -1771,7 +1771,7 @@ def type_fundamental(
 def type_fundamental_next() -> GType:
     """
     Returns the next free fundamental type id which can be used to
-    register a new fundamental type with g_type_register_fundamental().
+    register a new fundamental type with `g_type_register_fundamental`.
     The returned type ID represents the highest currently registered
     fundamental type identifier.
     """
@@ -1794,7 +1794,7 @@ def type_get_plugin(
     type: GType,
 ) -> TypePlugin:
     """
-    Returns the #GTypePlugin structure for @type.
+    Returns the GTypePlugin structure for `type`.
     """
     ...
 
@@ -1804,12 +1804,12 @@ def type_get_qdata(
     quark: int,
 ) -> object | None:
     """
-    Obtains data which has previously been attached to @type
-    with g_type_set_qdata().
+    Obtains data which has previously been attached to `type`
+    with `g_type_set_qdata`.
 
     Note that this does not take subtyping into account; data
-    attached to one type with g_type_set_qdata() cannot
-    be retrieved from a subtype using g_type_get_qdata().
+    attached to one type with `g_type_set_qdata` cannot
+    be retrieved from a subtype using `g_type_get_qdata`.
     """
     ...
 
@@ -1819,7 +1819,7 @@ def type_get_type_registration_serial() -> int:
     Returns an opaque serial number that represents the state of the set
     of registered types. Any time a type is registered this serial changes,
     which means you can cache information based on type lookups (such as
-    g_type_from_name()) and know if the cache is still valid at a later
+    `g_type_from_name`) and know if the cache is still valid at a later
     time by comparing the current serial with the one at the type lookup.
     """
     ...
@@ -1855,9 +1855,9 @@ def type_interface_add_prerequisite(
     prerequisite_type: GType,
 ) -> None:
     """
-    Adds @prerequisite_type to the list of prerequisites of @interface_type.
-    This means that any type implementing @interface_type must also implement
-    @prerequisite_type. Prerequisites can be thought of as an alternative to
+    Adds `prerequisite_type` to the list of prerequisites of `interface_type`.
+    This means that any type implementing `interface_type` must also implement
+    `prerequisite_type`. Prerequisites can be thought of as an alternative to
     interface derivation (which GType doesn't support). An interface can have
     at most one instantiatable prerequisite type.
     """
@@ -1869,10 +1869,10 @@ def type_interface_get_plugin(
     interface_type: GType,
 ) -> TypePlugin:
     """
-    Returns the #GTypePlugin structure for the dynamic interface
-    @interface_type which has been added to @instance_type, or %NULL
-    if @interface_type has not been added to @instance_type or does
-    not have a #GTypePlugin structure. See g_type_add_interface_dynamic().
+    Returns the GTypePlugin structure for the dynamic interface
+    `interface_type` which has been added to `instance_type`, or None
+    if `interface_type` has not been added to `instance_type` or does
+    not have a GTypePlugin structure. See `g_type_add_interface_dynamic`.
     """
     ...
 
@@ -1883,9 +1883,9 @@ def type_interface_instantiatable_prerequisite(
     """
     Returns the most specific instantiatable prerequisite of an
     interface type. If the interface type has no instantiatable
-    prerequisite, %G_TYPE_INVALID is returned.
+    prerequisite, G_TYPE_INVALID is returned.
 
-    See g_type_interface_add_prerequisite() for more information
+    See `g_type_interface_add_prerequisite` for more information
     about prerequisites.
     """
     ...
@@ -1896,7 +1896,7 @@ def type_interface_peek(
     iface_type: GType,
 ) -> TypeInterface | None:
     """
-    Returns the #GTypeInterface structure of an interface to which the
+    Returns the GTypeInterface structure of an interface to which the
     passed in class conforms.
     """
     ...
@@ -1916,7 +1916,7 @@ def type_interfaces(
 ) -> tuple[list, int]:
     """
     Return a newly allocated and 0-terminated array of type IDs, listing
-    the interface types that @type conforms to.
+    the interface types that `type` conforms to.
     """
     ...
 
@@ -1926,9 +1926,9 @@ def type_is_a(
     is_a_type: GType,
 ) -> bool:
     """
-    If @is_a_type is a derivable type, check whether @type is a
-    descendant of @is_a_type. If @is_a_type is an interface, check
-    whether @type conforms to it.
+    If `is_a_type` is a derivable type, check whether `type` is a
+    descendant of `is_a_type`. If `is_a_type` is an interface, check
+    whether `type` conforms to it.
     """
     ...
 
@@ -1940,7 +1940,7 @@ def type_name(
     Get the unique name that is assigned to a type ID.
 
     Note that this function (like all other GType API) cannot cope with
-    invalid type IDs. %G_TYPE_INVALID may be passed to this function, as
+    invalid type IDs. G_TYPE_INVALID may be passed to this function, as
     may be any other validly registered type ID, but randomized type IDs
     should not be passed in and will most likely lead to a crash.
     """
@@ -1960,11 +1960,11 @@ def type_next_base(
     root_type: GType,
 ) -> GType:
     """
-    Given a @leaf_type and a @root_type which is contained in its
-    ancestry, return the type that @root_type is the immediate parent
+    Given a `leaf_type` and a `root_type` which is contained in its
+    ancestry, return the type that `root_type` is the immediate parent
     of. In other words, this function determines the type that is
-    derived directly from @root_type which is also a base class of
-    @leaf_type.  Given a root type and a leaf type, this function can
+    derived directly from `root_type` which is also a base class of
+    `leaf_type`.  Given a root type and a leaf type, this function can
     be used to determine the types and order in which the leaf type is
     descended from the root type.
     """
@@ -1987,9 +1987,9 @@ def type_query(
     Queries the type system for information about a specific type.
 
     This function will fill in a user-provided structure to hold
-    type-specific information. If an invalid #GType is passed in, the
-    @type member of the #GTypeQuery is 0. All members filled into the
-    #GTypeQuery structure should be considered constant and have to be
+    type-specific information. If an invalid GType is passed in, the
+    `type` member of the GTypeQuery is 0. All members filled into the
+    GTypeQuery structure should be considered constant and have to be
     left untouched.
 
     Since GLib 2.78, this function allows queries on dynamic types. Previously
@@ -2005,10 +2005,10 @@ def type_register_dynamic(
     flags: TypeFlags,
 ) -> GType:
     """
-    Registers @type_name as the name of a new dynamic type derived from
-    @parent_type.  The type system uses the information contained in the
-    #GTypePlugin structure pointed to by @plugin to manage the type and its
-    instances (if not abstract).  The value of @flags determines the nature
+    Registers `type_name` as the name of a new dynamic type derived from
+    `parent_type`.  The type system uses the information contained in the
+    GTypePlugin structure pointed to by `plugin` to manage the type and its
+    instances (if not abstract).  The value of `flags` determines the nature
     (e.g. abstract or not) of the type.
     """
     ...
@@ -2022,12 +2022,12 @@ def type_register_fundamental(
     flags: TypeFlags,
 ) -> GType:
     """
-    Registers @type_id as the predefined identifier and @type_name as the
-    name of a fundamental type. If @type_id is already registered, or a
-    type named @type_name is already registered, the behaviour is undefined.
-    The type system uses the information contained in the #GTypeInfo structure
-    pointed to by @info and the #GTypeFundamentalInfo structure pointed to by
-    @finfo to manage the type and its instances. The value of @flags determines
+    Registers `type_id` as the predefined identifier and `type_name` as the
+    name of a fundamental type. If `type_id` is already registered, or a
+    type named `type_name` is already registered, the behaviour is undefined.
+    The type system uses the information contained in the GTypeInfo structure
+    pointed to by `info` and the GTypeFundamentalInfo structure pointed to by
+    `finfo` to manage the type and its instances. The value of `flags` determines
     additional characteristics of the fundamental type.
     """
     ...
@@ -2040,10 +2040,10 @@ def type_register_static(
     flags: TypeFlags,
 ) -> GType:
     """
-    Registers @type_name as the name of a new static type derived from
-    @parent_type. The type system uses the information contained in the
-    #GTypeInfo structure pointed to by @info to manage the type and its
-    instances (if not abstract). The value of @flags determines the nature
+    Registers `type_name` as the name of a new static type derived from
+    `parent_type`. The type system uses the information contained in the
+    GTypeInfo structure pointed to by `info` to manage the type and its
+    instances (if not abstract). The value of `flags` determines the nature
     (e.g. abstract or not) of the type.
     """
     ...
@@ -2070,8 +2070,8 @@ def value_type_compatible(
     dest_type: GType,
 ) -> bool:
     """
-    Returns whether a #GValue of type @src_type can be copied into
-    a #GValue of type @dest_type.
+    Returns whether a GValue of type `src_type` can be copied into
+    a GValue of type `dest_type`.
     """
     ...
 
@@ -2081,8 +2081,8 @@ def value_type_transformable(
     dest_type: GType,
 ) -> bool:
     """
-    Check whether g_value_transform() is able to transform values
-    of type @src_type into values of type @dest_type. Note that for
+    Check whether `g_value_transform` is able to transform values
+    of type `src_type` into values of type `dest_type`. Note that for
     the types to be transformable, they must be compatible or a
     transformation function must be registered.
     """
@@ -2189,8 +2189,8 @@ def type_parent(
 
 class BindingFlags(GFlags):
     """
-    Flags to be passed to g_object_bind_property() or
-    g_object_bind_property_full().
+    Flags to be passed to `g_object_bind_property` or
+    `g_object_bind_property_full`.
 
     This enumeration can be extended at later date."""
 
@@ -2214,10 +2214,10 @@ class BindingFlags(GFlags):
     INVERT_BOOLEAN = 4
     """
     If the two properties being bound are
-      booleans, setting one to %TRUE will result in the other being
-      set to %FALSE and vice versa. This flag will only work for
+      booleans, setting one to True will result in the other being
+      set to False and vice versa. This flag will only work for
       boolean properties, and cannot be used when passing custom
-      transformation functions to g_object_bind_property_full().
+      transformation functions to `g_object_bind_property_full`.
     """
 
 class ConnectFlags(enum.IntFlag):
@@ -2238,15 +2238,15 @@ class ConnectFlags(enum.IntFlag):
     SWAPPED = 2
     """
     If set, the instance and data should be swapped when
-     calling the handler; see g_signal_connect_swapped() for an example.
+     calling the handler; see `g_signal_connect_swapped` for an example.
     """
 
 class ParamFlags(enum.IntFlag):
     """
-    Through the #GParamFlags flag values, certain aspects of parameters
+    Through the GParamFlags flag values, certain aspects of parameters
     can be configured.
 
-    See also: %G_PARAM_STATIC_STRINGS"""
+    See also: G_PARAM_STATIC_STRINGS"""
 
     READABLE = 1
     """
@@ -2258,21 +2258,21 @@ class ParamFlags(enum.IntFlag):
     """
     READWRITE = 3
     """
-    alias for %G_PARAM_READABLE | %G_PARAM_WRITABLE
+    alias for G_PARAM_READABLE | G_PARAM_WRITABLE
     """
     CONSTRUCT = 4
     """
     the parameter will be set upon object construction.
-      See [vfunc@Object.constructed] for more details
+      See [vfunc`Object`.constructed] for more details
     """
     CONSTRUCT_ONLY = 8
     """
     the parameter can only be set upon object construction.
-      See [vfunc@Object.constructed] for more details
+      See [vfunc`Object`.constructed] for more details
     """
     LAX_VALIDATION = 16
     """
-    upon parameter conversion (see g_param_value_convert())
+    upon parameter conversion (see `g_param_value_convert`)
      strict validation is not required
     """
     STATIC_NAME = 32
@@ -2302,9 +2302,9 @@ class ParamFlags(enum.IntFlag):
     """
     EXPLICIT_NOTIFY = 1073741824
     """
-    calls to g_object_set_property() for this
+    calls to `g_object_set_property` for this
       property will not automatically result in a "notify" signal being
-      emitted: the implementation must call g_object_notify() themselves
+      emitted: the implementation must call `g_object_notify` themselves
       in case the property actually changes.  Since: 2.42.
     """
     DEPRECATED = 2147483648
@@ -2345,7 +2345,7 @@ class SignalFlags(enum.IntFlag):
     ACTION = 32
     """
     Action signals are signals that may freely be emitted on alive
-     objects from user code via g_signal_emit() and friends, without
+     objects from user code via `g_signal_emit` and friends, without
      the need of being embedded into extra code that performs pre or
      post emission adjustments on the object. They can also be thought
      of as object methods which can be called generically by
@@ -2371,15 +2371,15 @@ class SignalFlags(enum.IntFlag):
     """
     The signal accumulator was invoked for the first time.
     
-    This flag is only used in [callback@GObject.SignalAccumulator][accumulator functions]
-    for the `run_type` field of the [struct@GObject.SignalInvocationHint], to
+    This flag is only used in [callback`GObject`.SignalAccumulator][accumulator functions]
+    for the `run_type` field of the [struct`GObject`.SignalInvocationHint], to
     mark the first call to the accumulator function for a signal emission.
     """
 
 class SignalMatchType(enum.IntFlag):
     """
-    The match types specify what g_signal_handlers_block_matched(),
-    g_signal_handlers_unblock_matched() and g_signal_handlers_disconnect_matched()
+    The match types specify what `g_signal_handlers_block_matched`,
+    `g_signal_handlers_unblock_matched` and `g_signal_handlers_disconnect_matched`
     match signals by."""
 
     ID = 1
@@ -2409,7 +2409,7 @@ class SignalMatchType(enum.IntFlag):
 
 class TypeDebugFlags(enum.IntFlag):
     """
-    These flags used to be passed to g_type_init_with_debug_flags() which
+    These flags used to be passed to `g_type_init_with_debug_flags` which
     is now deprecated.
 
     If you need to enable debugging features, use the `GOBJECT_DEBUG`
@@ -2453,7 +2453,7 @@ class TypeFlags(enum.IntFlag):
     """
     Indicates an abstract value type, i.e. a type
      that introduces a value table, but can't be used for
-     g_value_init()
+     `g_value_init`
     """
     FINAL = 64
     """
@@ -2514,9 +2514,9 @@ class Binding(Object):
                               G_BINDING_DEFAULT);
     ```
 
-    will cause the property named "property-b" of @object2 to be updated
-    every time [method@GObject.set] or the specific accessor changes the value of
-    the property "property-a" of @object1.
+    will cause the property named "property-b" of `object2` to be updated
+    every time [method`GObject`.set] or the specific accessor changes the value of
+    the property "property-a" of `object1`.
 
     It is possible to create a bidirectional binding between two properties
     of two `GObject` instances, so that if either property changes, the
@@ -2541,20 +2541,20 @@ class Binding(Object):
                                    G_BINDING_BIDIRECTIONAL,
                                    celsius_to_fahrenheit,
                                    fahrenheit_to_celsius,
-                                   NULL, NULL);
+                                   None, None);
     ```
 
     will keep the "value" property of the two adjustments in sync; the
-    @celsius_to_fahrenheit function will be called whenever the "value"
-    property of @adjustment1 changes and will transform the current value
-    of the property before applying it to the "value" property of @adjustment2.
+    `celsius_to_fahrenheit` function will be called whenever the "value"
+    property of `adjustment1` changes and will transform the current value
+    of the property before applying it to the "value" property of `adjustment2`.
 
-    Vice versa, the @fahrenheit_to_celsius function will be called whenever
-    the "value" property of @adjustment2 changes, and will transform the
+    Vice versa, the `fahrenheit_to_celsius` function will be called whenever
+    the "value" property of `adjustment2` changes, and will transform the
     current value of the property before applying it to the "value" property
-    of @adjustment1.
+    of `adjustment1`.
 
-    Note that #GBinding does not resolve cycles by itself; a cycle like
+    Note that GBinding does not resolve cycles by itself; a cycle like
 
     ```
       object1:propertyA -> object2:propertyB
@@ -2566,15 +2566,15 @@ class Binding(Object):
     can be avoided if the objects emit the `GObject::notify` signal only
     if the value has effectively been changed. A binding is implemented
     using the `GObject::notify` signal, so it is susceptible to all the
-    various ways of blocking a signal emission, like [func@GObject.signal_stop_emission]
-    or [func@GObject.signal_handler_block].
+    various ways of blocking a signal emission, like [func`GObject`.signal_stop_emission]
+    or [func`GObject`.signal_handler_block].
 
     A binding will be severed, and the resources it allocates freed, whenever
     either one of the `GObject` instances it refers to are finalized, or when
-    the #GBinding instance loses its last reference.
+    the GBinding instance loses its last reference.
 
     Bindings for languages with garbage collection can use
-    [method@GObject.Binding.unbind] to explicitly release a binding between the source
+    [method`GObject`.Binding.unbind] to explicitly release a binding between the source
     and target properties, instead of relying on the last reference on the
     binding, source, and target instances to drop.
     """
@@ -2582,15 +2582,15 @@ class Binding(Object):
     class Props(Object.Props):
         flags: BindingFlags
         """
-        Flags to be used to control the #GBinding
+        Flags to be used to control the GBinding
         """
         source: Object | None
         """
-        The #GObject that should be used as the source of the binding
+        The GObject. that should be used as the source of the binding
         """
         source_property: str  # [source-property]: changed because contained invalid characters
         """
-        The name of the property of #GBinding:source that should be used
+        The name of the property of GBinding:source that should be used
         as the source of the binding.
 
         This should be in [canonical form][canonical-parameter-names] to get the
@@ -2598,11 +2598,11 @@ class Binding(Object):
         """
         target: Object | None
         """
-        The #GObject that should be used as the target of the binding
+        The GObject. that should be used as the target of the binding
         """
         target_property: str  # [target-property]: changed because contained invalid characters
         """
-        The name of the property of #GBinding:target that should be used
+        The name of the property of GBinding:target that should be used
         as the target of the binding.
 
         This should be in [canonical form][canonical-parameter-names] to get the
@@ -2626,78 +2626,78 @@ class Binding(Object):
         """
     def dup_source(self) -> Object | None:
         """
-            Retrieves the #GObject instance used as the source of the binding.
+            Retrieves the GObject. instance used as the source of the binding.
 
-        A #GBinding can outlive the source #GObject as the binding does not hold a
+        A GBinding can outlive the source GObject. as the binding does not hold a
         strong reference to the source. If the source is destroyed before the
-        binding then this function will return %NULL.
+        binding then this function will return None.
         """
     def dup_target(self) -> Object | None:
         """
-            Retrieves the #GObject instance used as the target of the binding.
+            Retrieves the GObject. instance used as the target of the binding.
 
-        A #GBinding can outlive the target #GObject as the binding does not hold a
+        A GBinding can outlive the target GObject. as the binding does not hold a
         strong reference to the target. If the target is destroyed before the
-        binding then this function will return %NULL.
+        binding then this function will return None.
         """
     @builtins.property
     def get_flags(self) -> BindingFlags:
         """
-        Retrieves the flags passed when constructing the #GBinding.
+        Retrieves the flags passed when constructing the GBinding.
         """
     @deprecated("deprecated")
     @builtins.property
     def get_source(self) -> Object | None:
         """
-            Retrieves the #GObject instance used as the source of the binding.
+            Retrieves the GObject. instance used as the source of the binding.
 
-        A #GBinding can outlive the source #GObject as the binding does not hold a
+        A GBinding can outlive the source GObject. as the binding does not hold a
         strong reference to the source. If the source is destroyed before the
-        binding then this function will return %NULL.
+        binding then this function will return None.
 
-        Use g_binding_dup_source() if the source or binding are used from different
+        Use `g_binding_dup_source` if the source or binding are used from different
         threads as otherwise the pointer returned from this function might become
         invalid if the source is finalized from another thread in the meantime.
         """
     @builtins.property
     def get_source_property(self) -> str:
         """
-            Retrieves the name of the property of #GBinding:source used as the source
+            Retrieves the name of the property of GBinding:source used as the source
         of the binding.
         """
     @deprecated("deprecated")
     @builtins.property
     def get_target(self) -> Object | None:
         """
-            Retrieves the #GObject instance used as the target of the binding.
+            Retrieves the GObject. instance used as the target of the binding.
 
-        A #GBinding can outlive the target #GObject as the binding does not hold a
+        A GBinding can outlive the target GObject. as the binding does not hold a
         strong reference to the target. If the target is destroyed before the
-        binding then this function will return %NULL.
+        binding then this function will return None.
 
-        Use g_binding_dup_target() if the target or binding are used from different
+        Use `g_binding_dup_target` if the target or binding are used from different
         threads as otherwise the pointer returned from this function might become
         invalid if the target is finalized from another thread in the meantime.
         """
     @builtins.property
     def get_target_property(self) -> str:
         """
-            Retrieves the name of the property of #GBinding:target used as the target
+            Retrieves the name of the property of GBinding:target used as the target
         of the binding.
         """
     def unbind(self) -> None:
         """
             Explicitly releases the binding between the source and the target
-        property expressed by @binding.
+        property expressed by `binding`.
 
         This function will release the reference that is being held on
-        the @binding instance if the binding is still bound; if you want to hold on
-        to the #GBinding instance after calling g_binding_unbind(), you will need
+        the `binding` instance if the binding is still bound; if you want to hold on
+        to the GBinding instance after calling `g_binding_unbind`, you will need
         to hold a reference to it.
 
-        Note however that this function does not take ownership of @binding, it
+        Note however that this function does not take ownership of `binding`, it
         only unrefs the reference that was initially created by
-        g_object_bind_property() and is owned by the binding.
+        `g_object_bind_property` and is owned by the binding.
         """
 
     # Signals
@@ -2749,7 +2749,7 @@ class BindingGroup(Object):
     Use the various methods to bind properties from a single source
     object to multiple destination objects. Properties can be bound
     bidirectionally and are connected when the source object is set
-    with [method@GObject.BindingGroup.set_source].
+    with [method`GObject`.BindingGroup.set_source].
     """
 
     class Props(Object.Props):
@@ -2768,12 +2768,12 @@ class BindingGroup(Object):
         """
     def bind(self, source_property: str, target: Object, target_property: str, flags: BindingFlags) -> None:
         """
-            Creates a binding between @source_property on the source object
-        and @target_property on @target. Whenever the @source_property
-        is changed the @target_property is updated using the same value.
-        The binding flag %G_BINDING_SYNC_CREATE is automatically specified.
+            Creates a binding between `source_property` on the source object
+        and `target_property` on `target`. Whenever the `source_property`
+        is changed the `target_property` is updated using the same value.
+        The binding flag G_BINDING_SYNC_CREATE is automatically specified.
 
-        See g_object_bind_property() for more information.
+        See `g_object_bind_property` for more information.
         """
     def bind_full(
         self,
@@ -2785,12 +2785,12 @@ class BindingGroup(Object):
         transform_from: Closure | None = None,
     ) -> None:
         """
-            Creates a binding between @source_property on the source object and
-        @target_property on @target, allowing you to set the transformation
+            Creates a binding between `source_property` on the source object and
+        `target_property` on `target`, allowing you to set the transformation
         functions to be used by the binding. The binding flag
-        %G_BINDING_SYNC_CREATE is automatically specified.
+        G_BINDING_SYNC_CREATE is automatically specified.
 
-        See g_object_bind_property_full() for more information.
+        See `g_object_bind_property_full` for more information.
         """
     def dup_source(self) -> Object | None:
         """
@@ -2799,15 +2799,15 @@ class BindingGroup(Object):
     @classmethod
     def new(cls) -> BindingGroup:
         """
-        Creates a new #GBindingGroup.
+        Creates a new GBindingGroup.
         """
     def set_source(self, source: Object | None = None) -> None:
         """
-            Sets @source as the source object used for creating property
+            Sets `source` as the source object used for creating property
         bindings. If there is already a source object all bindings from it
         will be removed.
 
-        Note that all properties that have been bound must exist on @source.
+        Note that all properties that have been bound must exist on `source`.
         """
 
     # Signals
@@ -2839,13 +2839,13 @@ class ByteArray(GBoxed):
 
 class CClosure(GPointer):
     """
-    A #GCClosure is a specialization of #GClosure for C function callbacks.
+    A GCClosure is a specialization of GClosure for C function callbacks.
     """
 
     # gi Fields
     closure: Closure | None = ...
     """
-    the #GClosure
+    the GClosure
 
     """
 
@@ -2864,10 +2864,10 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with handlers that
+            A GClosureMarshal function for use with signals with handlers that
         take two boxed pointers as arguments and return a boolean.  If you
         have such a signal, you will probably also need to use an
-        accumulator, such as g_signal_accumulator_true_handled().
+        accumulator, such as `g_signal_accumulator_true_handled`.
         """
     @staticmethod
     def marshal_BOOLEAN__FLAGS(
@@ -2879,10 +2879,10 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with handlers that
+            A GClosureMarshal function for use with signals with handlers that
         take a flags type as an argument and return a boolean.  If you have
         such a signal, you will probably also need to use an accumulator,
-        such as g_signal_accumulator_true_handled().
+        such as `g_signal_accumulator_true_handled`.
         """
     @staticmethod
     def marshal_STRING__OBJECT_POINTER(
@@ -2894,8 +2894,8 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with handlers that
-        take a #GObject and a pointer and produce a string.  It is highly
+            A GClosureMarshal function for use with signals with handlers that
+        take a GObject. and a pointer and produce a string.  It is highly
         unlikely that your signal handler fits this description.
         """
     @staticmethod
@@ -2908,7 +2908,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
+            A GClosureMarshal function for use with signals with a single
         boolean argument.
         """
     @staticmethod
@@ -2921,7 +2921,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
+            A GClosureMarshal function for use with signals with a single
         argument which is any boxed pointer type.
         """
     @staticmethod
@@ -2934,7 +2934,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
+            A GClosureMarshal function for use with signals with a single
         character argument.
         """
     @staticmethod
@@ -2947,7 +2947,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with one
+            A GClosureMarshal function for use with signals with one
         double-precision floating point argument.
         """
     @staticmethod
@@ -2960,7 +2960,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
+            A GClosureMarshal function for use with signals with a single
         argument with an enumerated type.
         """
     @staticmethod
@@ -2973,7 +2973,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
+            A GClosureMarshal function for use with signals with a single
         argument with a flags types.
         """
     @staticmethod
@@ -2986,7 +2986,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with one
+            A GClosureMarshal function for use with signals with one
         single-precision floating point argument.
         """
     @staticmethod
@@ -2999,7 +2999,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
+            A GClosureMarshal function for use with signals with a single
         integer argument.
         """
     @staticmethod
@@ -3012,7 +3012,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with with a single
+            A GClosureMarshal function for use with signals with with a single
         long integer argument.
         """
     @staticmethod
@@ -3025,8 +3025,8 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
-        #GObject argument.
+            A GClosureMarshal function for use with signals with a single
+        GObject. argument.
         """
     @staticmethod
     def marshal_VOID__PARAM(
@@ -3038,8 +3038,8 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
-        argument of type #GParamSpec.
+            A GClosureMarshal function for use with signals with a single
+        argument of type GParamSpec.
         """
     @staticmethod
     def marshal_VOID__POINTER(
@@ -3051,12 +3051,12 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single raw
+            A GClosureMarshal function for use with signals with a single raw
         pointer argument type.
 
         If it is possible, it is better to use one of the more specific
-        functions such as g_cclosure_marshal_VOID__OBJECT() or
-        g_cclosure_marshal_VOID__OBJECT().
+        functions such as `g_cclosure_marshal_VOID__OBJECT` or
+        `g_cclosure_marshal_VOID__OBJECT`.
         """
     @staticmethod
     def marshal_VOID__STRING(
@@ -3068,7 +3068,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single string
+            A GClosureMarshal function for use with signals with a single string
         argument.
         """
     @staticmethod
@@ -3081,7 +3081,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
+            A GClosureMarshal function for use with signals with a single
         unsigned character argument.
         """
     @staticmethod
@@ -3094,7 +3094,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with with a single
+            A GClosureMarshal function for use with signals with with a single
         unsigned integer argument.
         """
     @staticmethod
@@ -3107,7 +3107,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with an unsigned int
+            A GClosureMarshal function for use with signals with an unsigned int
         and a pointer as arguments.
         """
     @staticmethod
@@ -3120,7 +3120,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
+            A GClosureMarshal function for use with signals with a single
         unsigned long integer argument.
         """
     @staticmethod
@@ -3133,8 +3133,8 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-            A #GClosureMarshal function for use with signals with a single
-        #GVariant argument.
+            A GClosureMarshal function for use with signals with a single
+        GVariant argument.
         """
     @staticmethod
     def marshal_VOID__VOID(
@@ -3146,7 +3146,7 @@ class CClosure(GPointer):
         marshal_data: object | None = None,
     ) -> None:
         """
-        A #GClosureMarshal function for use with signals with no arguments.
+        A GClosureMarshal function for use with signals with no arguments.
         """
     @staticmethod
     def marshal_generic(
@@ -3161,8 +3161,8 @@ class CClosure(GPointer):
             A generic marshaller function implemented via
         [libffi](http://sourceware.org/libffi/).
 
-        Normally this function is not passed explicitly to g_signal_new(),
-        but used automatically by GLib when specifying a %NULL marshaller.
+        Normally this function is not passed explicitly to `g_signal_new`,
+        but used automatically by GLib when specifying a None marshaller.
         """
 
 class Checksum(GBoxed):
@@ -3178,29 +3178,29 @@ class Closure(GBoxed):
 
     It will generally comprise a function of some kind and a marshaller
     used to call it. It is the responsibility of the marshaller to
-    convert the arguments for the invocation from #GValues into
+    convert the arguments for the invocation from GValues into
     a suitable form, perform the callback on the converted arguments,
-    and transform the return value back into a #GValue.
+    and transform the return value back into a GValue.
 
     In the case of C programs, a closure usually just holds a pointer
     to a function and maybe a data argument, and the marshaller
-    converts between #GValue and native C types. The GObject
-    library provides the #GCClosure type for this purpose. Bindings for
-    other languages need marshallers which convert between #GValues
+    converts between GValue and native C types. The GObject
+    library provides the GCClosure type for this purpose. Bindings for
+    other languages need marshallers which convert between GValues
     and suitable representations in the runtime of the language in
     order to use functions written in that language as callbacks. Use
-    g_closure_set_marshal() to set the marshaller on such a custom
+    `g_closure_set_marshal` to set the marshaller on such a custom
     closure implementation.
 
     Within GObject, closures play an important role in the
     implementation of signals. When a signal is registered, the
-    @c_marshaller argument to g_signal_new() specifies the default C
+    `c_marshaller` argument to `g_signal_new` specifies the default C
     marshaller for any closure which is connected to this
     signal. GObject provides a number of C marshallers for this
     purpose, see the g_cclosure_marshal_*() functions. Additional C
     marshallers can be generated with the [glib-genmarshal][glib-genmarshal]
     utility.  Closures can be explicitly connected to signals with
-    g_signal_connect_closure(), but it usually more convenient to let
+    `g_signal_connect_closure`, but it usually more convenient to let
     GObject create a closure automatically by using one of the
     g_signal_connect_*() functions which take a callback function/user
     data pair.
@@ -3212,11 +3212,11 @@ class Closure(GBoxed):
       which means that language bindings don't have to write individual glue
       for each callback type.
 
-    - The reference counting of #GClosure makes it easy to handle reentrancy
+    - The reference counting of GClosure makes it easy to handle reentrancy
       right; if a callback is removed while it is being invoked, the closure
       and its parameters won't be freed until the invocation finishes.
 
-    - g_closure_invalidate() and invalidation notifiers allow callbacks to be
+    - `g_closure_invalidate` and invalidation notifiers allow callbacks to be
       automatically removed when the objects they point to go away.
     """
 
@@ -3230,13 +3230,13 @@ class Closure(GBoxed):
     in_marshal: int = ...
     """
     Indicates whether the closure is currently being invoked with
-      g_closure_invoke()
+      `g_closure_invoke`
 
     """
     is_invalid: int = ...
     """
     Indicates whether the closure has been invalidated by
-      g_closure_invalidate()
+      `g_closure_invalidate`
 
     """
     @builtins.property
@@ -3263,37 +3263,37 @@ class Closure(GBoxed):
         """
             Sets a flag on the closure to indicate that its calling
         environment has become invalid, and thus causes any future
-        invocations of g_closure_invoke() on this @closure to be
+        invocations of `g_closure_invoke` on this `closure` to be
         ignored.
 
         Also, invalidation notifiers installed on the closure will
         be called at this point. Note that unless you are holding a
         reference to the closure yourself, the invalidation notifiers may
         unref the closure and cause it to be destroyed, so if you need to
-        access the closure after calling g_closure_invalidate(), make sure
-        that you've previously called g_closure_ref().
+        access the closure after calling `g_closure_invalidate`, make sure
+        that you've previously called `g_closure_ref`.
 
-        Note that g_closure_invalidate() will also be called when the
+        Note that `g_closure_invalidate` will also be called when the
         reference count of a closure drops to zero (unless it has already
         been invalidated before).
         """
     def invoke(self, n_param_values: int, param_values: list, invocation_hint: object | None = None) -> Value:
         """
-        Invokes the closure, i.e. executes the callback represented by the @closure.
+        Invokes the closure, i.e. executes the callback represented by the `closure`.
         """
     @classmethod
     def new_object(cls, sizeof_closure: int, object: Object) -> Closure:
         """
-            A variant of g_closure_new_simple() which stores @object in the
-        @data field of the closure and calls g_object_watch_closure() on
-        @object and the created closure. This function is mainly useful
+            A variant of `g_closure_new_simple` which stores `object` in the
+        `data` field of the closure and calls `g_object_watch_closure` on
+        `object` and the created closure. This function is mainly useful
         when implementing new types of closures.
         """
     @classmethod
     def new_simple(cls, sizeof_closure: int, data: object | None = None) -> Closure:
         """
             Allocates a struct of the given size and initializes the initial
-        part as a #GClosure.
+        part as a GClosure.
 
         This function is mainly useful when implementing new types of closures:
 
@@ -3344,7 +3344,7 @@ class Closure(GBoxed):
 
         This function checks to see if the object is still floating, and if so,
         unsets the floating state and decreases the reference count. If the
-        closure is not floating, g_closure_sink() does nothing.
+        closure is not floating, `g_closure_sink` does nothing.
 
         The reason for the existence of the floating state is to prevent
         cumbersome code sequences like:
@@ -3355,18 +3355,18 @@ class Closure(GBoxed):
         g_closure_unref (closure); // GObject doesn't really need this
         ]|
 
-        Because g_source_set_closure() (and similar functions) take ownership of the
+        Because `g_source_set_closure` (and similar functions) take ownership of the
         initial reference count, if it is unowned, we instead can write:
 
         |[<!-- language="C" -->
         g_source_set_closure (source, g_cclosure_new (cb_func, cb_data));
         ]|
 
-        Generally, this function is used together with g_closure_ref(). An example
+        Generally, this function is used together with `g_closure_ref`. An example
         of storing a closure for later notification looks like:
 
         |[<!-- language="C" -->
-        static GClosure *notify_closure = NULL;
+        static GClosure *notify_closure = None;
         void
         foo_notify_set_closure (GClosure *closure)
         {
@@ -3381,9 +3381,9 @@ class Closure(GBoxed):
         }
         ]|
 
-        Because g_closure_sink() may decrement the reference count of a closure
-        (if it hasn't been called on @closure yet) just like g_closure_unref(),
-        g_closure_ref() should be called prior to this function.
+        Because `g_closure_sink` may decrement the reference count of a closure
+        (if it hasn't been called on `closure` yet) just like `g_closure_unref`,
+        `g_closure_ref` should be called prior to this function.
         """
     def unref(self) -> None:
         """
@@ -3447,7 +3447,7 @@ class EnumClass(GPointer):
     """
     values: EnumValue | None = ...
     """
-    an array of #GEnumValue structs describing the
+    an array of GEnumValue structs describing the
      individual values.
 
     """
@@ -3511,7 +3511,7 @@ class FlagsClass(GPointer):
     """
     values: FlagsValue | None = ...
     """
-    an array of #GFlagsValue structs describing the
+    an array of GFlagsValue structs describing the
      individual values.
 
     """
@@ -3748,35 +3748,35 @@ class InitiallyUnownedClass(GPointer):
     @builtins.property
     def constructed(self) -> constructedInitiallyUnownedClassCB:
         """
-           the @constructed function is called by g_object_new() as the
+           the `constructed` function is called by `g_object_new` as the
         final step of the object creation process.  At the point of the call, all
         construction properties have been set on the object.  The purpose of this
         call is to allow for object initialisation steps that can only be performed
-        after construction properties have been set.  @constructed implementors
-        should chain up to the @constructed call of their parent class to allow it
+        after construction properties have been set.  `constructed` implementors
+        should chain up to the `constructed` call of their parent class to allow it
         to complete its initialisation.
         """
     @builtins.property
     def dispatch_properties_changed(self) -> dispatch_properties_changedInitiallyUnownedClassCB:
         """
            emits property change notification for a bunch
-        of properties. Overriding @dispatch_properties_changed should be rarely
+        of properties. Overriding `dispatch_properties_changed` should be rarely
         needed.
         """
     @builtins.property
     def dispose(self) -> disposeInitiallyUnownedClassCB:
         """
-           the @dispose function is supposed to drop all references to other
+           the `dispose` function is supposed to drop all references to other
         objects, but keep the instance otherwise intact, so that client method
         invocations still work. It may be run multiple times (due to reference
-        loops). Before returning, @dispose should chain up to the @dispose method
+        loops). Before returning, `dispose` should chain up to the `dispose` method
         of the parent class.
         """
     @builtins.property
     def finalize(self) -> finalizeInitiallyUnownedClassCB:
         """
            instance finalization function, should finish the finalization of
-        the instance begun in @dispose and chain up to the @finalize method of the
+        the instance begun in `dispose` and chain up to the `finalize` method of the
         parent class.
         """
     @builtins.property
@@ -3808,7 +3808,7 @@ class InitiallyUnownedClass(GPointer):
         """
            the generic setter for all properties of this type. Should be
         overridden for every type with properties. If implementations of
-        @set_property don't emit property change notification explicitly, this will
+        `set_property` don't emit property change notification explicitly, this will
         be done implicitly by the type system. However, if the notify signal is
         emitted explicitly, the type system will not emit it a second time.
         """
@@ -3887,7 +3887,7 @@ class Object(object):
     should allocate it on the heap (aligned), or arrange for your `GObject` to be
     appropriately padded. This guarantee applies to the `GObject` (or derived)
     struct, the `GObjectClass` (or derived) struct, and any private data allocated
-    by `G_ADD_PRIVATE()`.
+    by ``G_ADD_PRIVATE``.
     """
 
     class Props: ...
@@ -3902,37 +3902,37 @@ class Object(object):
         """
     def bind_property(self, source_property: str, target: Object, target_property: str, flags: BindingFlags) -> Binding:
         """
-            Creates a binding between @source_property on @source and @target_property
-        on @target.
+            Creates a binding between `source_property` on `source` and `target_property`
+        on `target`.
 
-        Whenever the @source_property is changed the @target_property is
+        Whenever the `source_property` is changed the `target_property` is
         updated using the same value. For instance:
 
         |[<!-- language="C" -->
           g_object_bind_property (action, "active", widget, "sensitive", 0);
         ]|
 
-        Will result in the "sensitive" property of the widget #GObject instance to be
-        updated with the same value of the "active" property of the action #GObject
+        Will result in the "sensitive" property of the widget GObject. instance to be
+        updated with the same value of the "active" property of the action GObject.
         instance.
 
-        If @flags contains %G_BINDING_BIDIRECTIONAL then the binding will be mutual:
-        if @target_property on @target changes then the @source_property on @source
+        If `flags` contains G_BINDING_BIDIRECTIONAL then the binding will be mutual:
+        if `target_property` on `target` changes then the `source_property` on `source`
         will be updated as well.
 
-        The binding will automatically be removed when either the @source or the
-        @target instances are finalized. To remove the binding without affecting the
-        @source and the @target you can just call g_object_unref() on the returned
-        #GBinding instance.
+        The binding will automatically be removed when either the `source` or the
+        `target` instances are finalized. To remove the binding without affecting the
+        `source` and the `target` you can just call `g_object_unref` on the returned
+        GBinding instance.
 
-        Removing the binding by calling g_object_unref() on it must only be done if
-        the binding, @source and @target are only used from a single thread and it
-        is clear that both @source and @target outlive the binding. Especially it
-        is not safe to rely on this if the binding, @source or @target can be
+        Removing the binding by calling `g_object_unref` on it must only be done if
+        the binding, `source` and `target` are only used from a single thread and it
+        is clear that both `source` and `target` outlive the binding. Especially it
+        is not safe to rely on this if the binding, `source` or `target` can be
         finalized from different threads. Keep another reference to the binding and
-        use g_binding_unbind() instead to be on the safe side.
+        use `g_binding_unbind` instead to be on the safe side.
 
-        A #GObject can have multiple bindings.
+        A GObject. can have multiple bindings.
         """
     def bind_property_full(
         self,
@@ -3944,31 +3944,31 @@ class Object(object):
         transform_from: Closure,
     ) -> Binding:
         """
-            Complete version of g_object_bind_property().
+            Complete version of `g_object_bind_property`.
 
-        Creates a binding between @source_property on @source and @target_property
-        on @target, allowing you to set the transformation functions to be used by
+        Creates a binding between `source_property` on `source` and `target_property`
+        on `target`, allowing you to set the transformation functions to be used by
         the binding.
 
-        If @flags contains %G_BINDING_BIDIRECTIONAL then the binding will be mutual:
-        if @target_property on @target changes then the @source_property on @source
-        will be updated as well. The @transform_from function is only used in case
+        If `flags` contains G_BINDING_BIDIRECTIONAL then the binding will be mutual:
+        if `target_property` on `target` changes then the `source_property` on `source`
+        will be updated as well. The `transform_from` function is only used in case
         of bidirectional bindings, otherwise it will be ignored
 
-        The binding will automatically be removed when either the @source or the
-        @target instances are finalized. This will release the reference that is
-        being held on the #GBinding instance; if you want to hold on to the
-        #GBinding instance, you will need to hold a reference to it.
+        The binding will automatically be removed when either the `source` or the
+        `target` instances are finalized. This will release the reference that is
+        being held on the GBinding instance; if you want to hold on to the
+        GBinding instance, you will need to hold a reference to it.
 
-        To remove the binding, call g_binding_unbind().
+        To remove the binding, call `g_binding_unbind`.
 
-        A #GObject can have multiple bindings.
+        A GObject. can have multiple bindings.
 
-        The same @user_data parameter will be used for both @transform_to
-        and @transform_from transformation functions; the @notify function will
+        The same `user_data` parameter will be used for both `transform_to`
+        and `transform_from` transformation functions; the `notify` function will
         be called once, when the binding is removed. If you need different data
         for each transformation function, please use
-        g_object_bind_property_with_closures() instead.
+        `g_object_bind_property_with_closures` instead.
         """
     @staticmethod
     def compat_control(what: int, data: object | None = None) -> int: ...
@@ -3978,18 +3978,18 @@ class Object(object):
         """
     def force_floating(self) -> None:
         """
-            This function is intended for #GObject implementations to re-enforce
+            This function is intended for GObject. implementations to re-enforce
         a [floating][floating-ref] object reference. Doing this is seldom
-        required: all #GInitiallyUnowneds are created with a floating reference
-        which usually just needs to be sunken by calling g_object_ref_sink().
+        required: all GInitiallyUnowneds are created with a floating reference
+        which usually just needs to be sunken by calling `g_object_ref_sink`.
         """
     def freeze_notify(self) -> None:
         """
-            Increases the freeze count on @object. If the freeze count is
-        non-zero, the emission of "notify" signals on @object is
+            Increases the freeze count on `object`. If the freeze count is
+        non-zero, the emission of "notify" signals on `object` is
         stopped. The signals are queued until the freeze count is decreased
         to zero. Duplicate notifications are squashed so that at most one
-        #GObject::notify signal is emitted for each property modified while the
+        GObject.::notify signal is emitted for each property modified while the
         object is frozen.
 
         This is necessary for accessors that modify multiple properties to prevent
@@ -3997,36 +3997,36 @@ class Object(object):
         """
     def get_data(self, key: str) -> object | None:
         """
-        Gets a named field from the objects table of associations (see g_object_set_data()).
+        Gets a named field from the objects table of associations (see `g_object_set_data`).
         """
     def get_property(self, property_name: str, value: Value) -> None:
         """
             Gets a property of an object.
 
-        The @value can be:
+        The `value` can be:
 
-         - an empty #GValue initialized by %G_VALUE_INIT, which will be
+         - an empty GValue initialized by G_VALUE_INIT, which will be
            automatically initialized with the expected type of the property
            (since GLib 2.60)
-         - a #GValue initialized with the expected type of the property
-         - a #GValue initialized with a type to which the expected type
+         - a GValue initialized with the expected type of the property
+         - a GValue initialized with a type to which the expected type
            of the property can be transformed
 
         In general, a copy is made of the property contents and the caller is
-        responsible for freeing the memory by calling g_value_unset().
+        responsible for freeing the memory by calling `g_value_unset`.
 
-        Note that g_object_get_property() is really intended for language
-        bindings, g_object_get() is much more convenient for C programming.
+        Note that `g_object_get_property` is really intended for language
+        bindings, `g_object_get` is much more convenient for C programming.
         """
     def get_qdata(self, quark: int) -> object | None:
         """
             This function gets back user data pointers stored via
-        g_object_set_qdata().
+        `g_object_set_qdata`.
         """
     def getv(self, n_properties: int, names: list, values: list) -> None:
         """
-            Gets @n_properties properties for an @object.
-        Obtained properties will be set to @values. All properties must be valid.
+            Gets `n_properties` properties for an `object`.
+        Obtained properties will be set to `values`. All properties must be valid.
         Warnings will be emitted and undefined behaviour may result if invalid
         properties are passed in.
         """
@@ -4037,11 +4037,11 @@ class Object(object):
     @staticmethod
     def interface_find_property(g_iface: TypeInterface, property_name: str) -> ParamSpec:
         """
-            Find the #GParamSpec with the given name for an
-        interface. Generally, the interface vtable passed in as @g_iface
-        will be the default vtable from g_type_default_interface_ref(), or,
+            Find the GParamSpec with the given name for an
+        interface. Generally, the interface vtable passed in as `g_iface`
+        will be the default vtable from `g_type_default_interface_ref`, or,
         if you know the interface has already been loaded,
-        g_type_default_interface_peek().
+        `g_type_default_interface_peek`.
         """
     @staticmethod
     def interface_install_property(g_iface: TypeInterface, pspec: ParamSpec) -> None:
@@ -4050,64 +4050,64 @@ class Object(object):
         that are added to GObject-derived types. Adding a property to an
         interface forces all objects classes with that interface to have a
         compatible property. The compatible property could be a newly
-        created #GParamSpec, but normally
-        g_object_class_override_property() will be used so that the object
+        created GParamSpec, but normally
+        `g_object_class_override_property` will be used so that the object
         class only needs to provide an implementation and inherits the
         property description, default value, bounds, and so forth from the
         interface property.
 
         This function is meant to be called from the interface's default
-        vtable initialization function (the @class_init member of
-        #GTypeInfo.) It must not be called after after @class_init has
+        vtable initialization function (the `class_init` member of
+        GTypeInfo.) It must not be called after after `class_init` has
         been called for any object types implementing this interface.
 
-        If @pspec is a floating reference, it will be consumed.
+        If `pspec` is a floating reference, it will be consumed.
         """
     @staticmethod
     def interface_list_properties(g_iface: TypeInterface) -> tuple[list, int]:
         """
             Lists the properties of an interface.Generally, the interface
-        vtable passed in as @g_iface will be the default vtable from
-        g_type_default_interface_ref(), or, if you know the interface has
-        already been loaded, g_type_default_interface_peek().
+        vtable passed in as `g_iface` will be the default vtable from
+        `g_type_default_interface_ref`, or, if you know the interface has
+        already been loaded, `g_type_default_interface_peek`.
         """
     def is_floating(self) -> bool:
         """
-        Checks whether @object has a [floating][floating-ref] reference.
+        Checks whether `object` has a [floating][floating-ref] reference.
         """
     @deprecated("deprecated")
     @classmethod
     def newv(cls, object_type: GType, n_parameters: int, parameters: list) -> Object:
         """
-            Creates a new instance of a #GObject subtype and sets its properties.
+            Creates a new instance of a GObject. subtype and sets its properties.
 
-        Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
+        Construction parameters (see G_PARAM_CONSTRUCT, G_PARAM_CONSTRUCT_ONLY)
         which are not explicitly specified are set to their default values.
         """
     def notify(self, property_name: str) -> None:
         """
-            Emits a "notify" signal for the property @property_name on @object.
+            Emits a "notify" signal for the property `property_name` on `object`.
 
         When possible, eg. when signaling a property change from within the class
-        that registered the property, you should use g_object_notify_by_pspec()
+        that registered the property, you should use `g_object_notify_by_pspec`
         instead.
 
         Note that emission of the notify signal may be blocked with
-        g_object_freeze_notify(). In this case, the signal emissions are queued
-        and will be emitted (in reverse order) when g_object_thaw_notify() is
+        `g_object_freeze_notify`. In this case, the signal emissions are queued
+        and will be emitted (in reverse order) when `g_object_thaw_notify` is
         called.
         """
     def notify_by_pspec(self, pspec: ParamSpec) -> None:
         """
-            Emits a "notify" signal for the property specified by @pspec on @object.
+            Emits a "notify" signal for the property specified by `pspec` on `object`.
 
         This function omits the property name lookup, hence it is faster than
-        g_object_notify().
+        `g_object_notify`.
 
-        One way to avoid using g_object_notify() from within the
-        class that registered the properties, and using g_object_notify_by_pspec()
+        One way to avoid using `g_object_notify` from within the
+        class that registered the properties, and using `g_object_notify_by_pspec`
         instead, is to store the GParamSpec used with
-        g_object_class_install_property() inside a static array, e.g.:
+        `g_object_class_install_property` inside a static array, e.g.:
 
         |[<!-- language="C" -->
           typedef enum
@@ -4121,7 +4121,7 @@ class Object(object):
           static void
           my_object_class_init (MyObjectClass *klass)
           {
-            properties[PROP_FOO] = g_param_spec_int ("foo", NULL, NULL,
+            properties[PROP_FOO] = g_param_spec_int ("foo", None, None,
                                                      0, 100,
                                                      50,
                                                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
@@ -4139,17 +4139,17 @@ class Object(object):
         """
     def ref(self) -> Object:
         """
-            Increases the reference count of @object.
+            Increases the reference count of `object`.
 
         Since GLib 2.56, if `GLIB_VERSION_MAX_ALLOWED` is 2.56 or greater, the type
-        of @object will be propagated to the return type (using the GCC typeof()
+        of `object` will be propagated to the return type (using the GCC `typeof`
         extension), so any casting the caller needs to do on the return type must be
         explicit.
         """
     def ref_sink(self) -> Object:
         """
-            Increase the reference count of @object, and possibly remove the
-        [floating][floating-ref] reference, if @object has a floating reference.
+            Increase the reference count of `object`, and possibly remove the
+        [floating][floating-ref] reference, if `object` has a floating reference.
 
         In other words, if the object is floating, then this call "assumes
         ownership" of the floating reference, converting it to a normal
@@ -4157,8 +4157,8 @@ class Object(object):
         count unchanged.  If the object is not floating, then this call
         adds a new normal reference increasing the reference count by one.
 
-        Since GLib 2.56, the type of @object will be propagated to the return type
-        under the same conditions as for g_object_ref().
+        Since GLib 2.56, the type of `object` will be propagated to the return type
+        under the same conditions as for `g_object_ref`.
         """
     def run_dispose(self) -> None:
         """
@@ -4175,10 +4175,10 @@ class Object(object):
         If the object already had an association with that name,
         the old association will be destroyed.
 
-        Internally, the @key is converted to a #GQuark using g_quark_from_string().
-        This means a copy of @key is kept permanently (even after @object has been
+        Internally, the `key` is converted to a GQuark using `g_quark_from_string`.
+        This means a copy of `key` is kept permanently (even after `object` has been
         finalized) — so it is recommended to only use a small, bounded set of values
-        for @key in your program, to avoid the #GQuark storage growing unbounded.
+        for `key` in your program, to avoid the GQuark storage growing unbounded.
         """
     def set_property(self, property_name: str, value: Value) -> None:
         """
@@ -4192,8 +4192,8 @@ class Object(object):
     def steal_qdata(self, quark: int) -> object | None:
         """
             This function gets back user data pointers stored via
-        g_object_set_qdata() and removes the @data from object
-        without invoking its destroy() function (if any was
+        `g_object_set_qdata` and removes the `data` from object
+        without invoking its `destroy` function (if any was
         set).
         Usually, calling this function is only required to update
         user data pointers with a destroy notifier, for example:
@@ -4222,44 +4222,44 @@ class Object(object):
           g_list_free (list);
         }
         ]|
-        Using g_object_get_qdata() in the above example, instead of
-        g_object_steal_qdata() would have left the destroy function set,
+        Using `g_object_get_qdata` in the above example, instead of
+        `g_object_steal_qdata` would have left the destroy function set,
         and thus the partial string list would have been freed upon
-        g_object_set_qdata_full().
+        `g_object_set_qdata_full`.
         """
     def thaw_notify(self) -> None:
         """
             Reverts the effect of a previous call to
-        g_object_freeze_notify(). The freeze count is decreased on @object
+        `g_object_freeze_notify`. The freeze count is decreased on `object`
         and when it reaches zero, queued "notify" signals are emitted.
 
         Duplicate notifications for each property are squashed so that at most one
-        #GObject::notify signal is emitted for each property, in the reverse order
+        GObject.::notify signal is emitted for each property, in the reverse order
         in which they have been queued.
 
         It is an error to call this function when the freeze count is zero.
         """
     def unref(self) -> None:
         """
-            Decreases the reference count of @object. When its reference count
+            Decreases the reference count of `object`. When its reference count
         drops to 0, the object is finalized (i.e. its memory is freed).
 
-        If the pointer to the #GObject may be reused in future (for example, if it is
+        If the pointer to the GObject. may be reused in future (for example, if it is
         an instance variable of another object), it is recommended to clear the
-        pointer to %NULL rather than retain a dangling pointer to a potentially
-        invalid #GObject instance. Use g_clear_object() for this.
+        pointer to None rather than retain a dangling pointer to a potentially
+        invalid GObject. instance. Use `g_clear_object` for this.
         """
     def watch_closure(self, closure: Closure) -> None:
         """
-            This function essentially limits the life time of the @closure to
+            This function essentially limits the life time of the `closure` to
         the life time of the object. That is, when the object is finalized,
-        the @closure is invalidated by calling g_closure_invalidate() on
+        the `closure` is invalidated by calling `g_closure_invalidate` on
         it, in order to prevent invocations of the closure with a finalized
-        (nonexisting) object. Also, g_object_ref() and g_object_unref() are
-        added as marshal guards to the @closure, to ensure that an extra
-        reference count is held on @object during invocation of the
-        @closure.  Usually, this function will be called on closures that
-        use this @object as closure data.
+        (nonexisting) object. Also, `g_object_ref` and `g_object_unref` are
+        added as marshal guards to the `closure`, to ensure that an extra
+        reference count is held on `object` during invocation of the
+        `closure`.  Usually, this function will be called on closures that
+        use this `object` as closure data.
         """
     def weak_ref(self, callback: typing.Callable[[typing.Any], None] | None = None) -> typing.Any:
         """
@@ -4385,20 +4385,20 @@ class Object(object):
     ) -> int:
         """
             The notify signal is emitted on an object when one of its properties has
-        its value set through g_object_set_property(), g_object_set(), et al.
+        its value set through `g_object_set_property`, `g_object_set`, et al.
 
         Note that getting this signal doesn’t itself guarantee that the value of
         the property has actually changed. When it is emitted is determined by the
         derived GObject class. If the implementor did not create the property with
-        %G_PARAM_EXPLICIT_NOTIFY, then any call to g_object_set_property() results
+        G_PARAM_EXPLICIT_NOTIFY, then any call to `g_object_set_property` results
         in ::notify being emitted, even if the new value is the same as the old.
-        If they did pass %G_PARAM_EXPLICIT_NOTIFY, then this signal is emitted only
-        when they explicitly call g_object_notify() or g_object_notify_by_pspec(),
+        If they did pass G_PARAM_EXPLICIT_NOTIFY, then this signal is emitted only
+        when they explicitly call `g_object_notify` or `g_object_notify_by_pspec`,
         and common practice is to do that only when the value has actually changed.
 
         This signal is typically used to obtain change notification for a
         single property, by specifying the property name as a detail in the
-        g_signal_connect() call, like this:
+        `g_signal_connect` call, like this:
 
         |[<!-- language="C" -->
         g_signal_connect (text_view->buffer, "notify::paste-target-list",
@@ -4407,7 +4407,7 @@ class Object(object):
         ]|
 
         It is important to note that you must use
-        [canonical parameter names][class@GObject.ParamSpec#parameter-names] as
+        [canonical parameter names][class`GObject`.ParamSpec#parameter-names] as
         detail strings for the notify signal.
         """
     @typing.overload
@@ -4421,7 +4421,7 @@ class ObjectClass(GPointer):
 
     |[<!-- language="C" -->
     // Example of implementing a singleton using a constructor.
-    static MySingleton *the_singleton = NULL;
+    static MySingleton *the_singleton = None;
 
     static GObject*
     my_singleton_constructor (GType                  type,
@@ -4451,35 +4451,35 @@ class ObjectClass(GPointer):
     @builtins.property
     def constructed(self) -> constructedObjectClassCB:
         """
-           the @constructed function is called by g_object_new() as the
+           the `constructed` function is called by `g_object_new` as the
         final step of the object creation process.  At the point of the call, all
         construction properties have been set on the object.  The purpose of this
         call is to allow for object initialisation steps that can only be performed
-        after construction properties have been set.  @constructed implementors
-        should chain up to the @constructed call of their parent class to allow it
+        after construction properties have been set.  `constructed` implementors
+        should chain up to the `constructed` call of their parent class to allow it
         to complete its initialisation.
         """
     @builtins.property
     def dispatch_properties_changed(self) -> dispatch_properties_changedObjectClassCB:
         """
            emits property change notification for a bunch
-        of properties. Overriding @dispatch_properties_changed should be rarely
+        of properties. Overriding `dispatch_properties_changed` should be rarely
         needed.
         """
     @builtins.property
     def dispose(self) -> disposeObjectClassCB:
         """
-           the @dispose function is supposed to drop all references to other
+           the `dispose` function is supposed to drop all references to other
         objects, but keep the instance otherwise intact, so that client method
         invocations still work. It may be run multiple times (due to reference
-        loops). Before returning, @dispose should chain up to the @dispose method
+        loops). Before returning, `dispose` should chain up to the `dispose` method
         of the parent class.
         """
     @builtins.property
     def finalize(self) -> finalizeObjectClassCB:
         """
            instance finalization function, should finish the finalization of
-        the instance begun in @dispose and chain up to the @finalize method of the
+        the instance begun in `dispose` and chain up to the `finalize` method of the
         parent class.
         """
     @builtins.property
@@ -4511,7 +4511,7 @@ class ObjectClass(GPointer):
         """
            the generic setter for all properties of this type. Should be
         overridden for every type with properties. If implementations of
-        @set_property don't emit property change notification explicitly, this will
+        `set_property` don't emit property change notification explicitly, this will
         be done implicitly by the type system. However, if the notify signal is
         emitted explicitly, the type system will not emit it a second time.
         """
@@ -4523,25 +4523,25 @@ class ObjectClass(GPointer):
         """
     def find_property(self, property_name: str) -> ParamSpec:
         """
-        Looks up the #GParamSpec for a property of a class.
+        Looks up the GParamSpec for a property of a class.
         """
     def install_properties(self, n_pspecs: int, pspecs: list) -> None:
         """
-            Installs new properties from an array of #GParamSpecs.
+            Installs new properties from an array of GParamSpecs.
 
         All properties should be installed during the class initializer.  It
         is possible to install properties after that, but doing so is not
         recommend, and specifically, is not guaranteed to be thread-safe vs.
         use of properties on the same type on other threads.
 
-        The property id of each property is the index of each #GParamSpec in
-        the @pspecs array.
+        The property id of each property is the index of each GParamSpec in
+        the `pspecs` array.
 
-        The property id of 0 is treated specially by #GObject and it should not
-        be used to store a #GParamSpec.
+        The property id of 0 is treated specially by GObject. and it should not
+        be used to store a GParamSpec.
 
         This function should be used if you plan to use a static array of
-        #GParamSpecs and g_object_notify_by_pspec(). For instance, this
+        GParamSpecs and `g_object_notify_by_pspec`. For instance, this
         class initialization:
 
         |[<!-- language="C" -->
@@ -4551,7 +4551,7 @@ class ObjectClass(GPointer):
           N_PROPERTIES
         } MyObjectProperty;
 
-        static GParamSpec *obj_properties[N_PROPERTIES] = { NULL, };
+        static GParamSpec *obj_properties[N_PROPERTIES] = { None, };
 
         static void
         my_object_class_init (MyObjectClass *klass)
@@ -4559,14 +4559,14 @@ class ObjectClass(GPointer):
           GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
           obj_properties[PROP_FOO] =
-            g_param_spec_int ("foo", NULL, NULL,
+            g_param_spec_int ("foo", None, None,
                               -1, G_MAXINT,
                               0,
                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
           obj_properties[PROP_BAR] =
-            g_param_spec_string ("bar", NULL, NULL,
-                                 NULL,
+            g_param_spec_string ("bar", None, None,
+                                 None,
                                  G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
           gobject_class->set_property = my_object_set_property;
@@ -4577,7 +4577,7 @@ class ObjectClass(GPointer):
         }
         ]|
 
-        allows calling g_object_notify_by_pspec() to notify of property changes:
+        allows calling `g_object_notify_by_pspec` to notify of property changes:
 
         |[<!-- language="C" -->
         void
@@ -4606,38 +4606,38 @@ class ObjectClass(GPointer):
         """
     def list_properties(self) -> tuple[list, int]:
         """
-        Get an array of #GParamSpec* for all properties of a class.
+        Get an array of GParamSpec* for all properties of a class.
         """
     def override_property(self, property_id: int, name: str) -> None:
         """
-            Registers @property_id as referring to a property with the name
-        @name in a parent class or in an interface implemented by @oclass.
+            Registers `property_id` as referring to a property with the name
+        `name` in a parent class or in an interface implemented by `oclass`.
         This allows this class to "override" a property implementation in
         a parent class or to provide the implementation of a property from
         an interface.
 
         Internally, overriding is implemented by creating a property of type
-        #GParamSpecOverride; generally operations that query the properties of
-        the object class, such as g_object_class_find_property() or
-        g_object_class_list_properties() will return the overridden
-        property. However, in one case, the @construct_properties argument of
-        the @constructor virtual function, the #GParamSpecOverride is passed
-        instead, so that the @param_id field of the #GParamSpec will be
+        GParamSpecOverride; generally operations that query the properties of
+        the object class, such as `g_object_class_find_property` or
+        `g_object_class_list_properties` will return the overridden
+        property. However, in one case, the `construct_properties` argument of
+        the `constructor` virtual function, the GParamSpecOverride is passed
+        instead, so that the `param_id` field of the GParamSpec will be
         correct.  For virtually all uses, this makes no difference. If you
         need to get the overridden property, you can call
-        g_param_spec_get_redirect_target().
+        `g_param_spec_get_redirect_target`.
         """
 
 class ObjectConstructParam(GPointer):
     """
     The GObjectConstructParam struct is an auxiliary structure used to hand
-    #GParamSpec/#GValue pairs to the @constructor of a #GObjectClass.
+    GParamSpec/GValue pairs to the `constructor` of a GObject.Class.
     """
 
     # gi Fields
     pspec: ParamSpec | None = ...
     """
-    the #GParamSpec of the construct parameter
+    the GParamSpec of the construct parameter
 
     """
     value: Value | None = ...
@@ -4693,7 +4693,7 @@ class ParamSpec(object):
     A property name consists of one or more segments consisting of ASCII letters
     and digits, separated by either the `-` or `_` character. The first
     character of a property name must be a letter. These are the same rules as
-    for signal naming (see [func@GObject.signal_new]).
+    for signal naming (see [func`GObject`.signal_new]).
 
     When creating and looking up a `GParamSpec`, either separator can be
     used, but they cannot be mixed. Using `-` is considerably more
@@ -4712,19 +4712,19 @@ class ParamSpec(object):
         """
     def get_blurb(self) -> str | None:
         """
-        Get the short description of a #GParamSpec.
+        Get the short description of a GParamSpec.
         """
     def get_default_value(self) -> Value:
         """
-            Gets the default value of @pspec as a pointer to a #GValue.
+            Gets the default value of `pspec` as a pointer to a GValue.
 
-        The #GValue will remain valid for the life of @pspec.
+        The GValue will remain valid for the life of `pspec`.
         """
     def get_name(self) -> str:
         """
-            Get the name of a #GParamSpec.
+            Get the name of a GParamSpec.
 
-        The name is always an "interned" string (as per g_intern_string()).
+        The name is always an "interned" string (as per `g_intern_string`).
         This allows for pointer-value comparisons.
         """
     def get_name_quark(self) -> int:
@@ -4733,11 +4733,11 @@ class ParamSpec(object):
         """
     def get_nick(self) -> str:
         """
-        Get the nickname of a #GParamSpec.
+        Get the nickname of a GParamSpec.
         """
     def get_qdata(self, quark: int) -> object | None:
         """
-        Gets back user data pointers stored via g_param_spec_set_qdata().
+        Gets back user data pointers stored via `g_param_spec_set_qdata`.
         """
     def get_redirect_target(self) -> ParamSpec | None:
         """
@@ -4746,42 +4746,42 @@ class ParamSpec(object):
         providing a new implementation of a property in a derived
         type while preserving all the properties from the parent
         type. Redirection is established by creating a property
-        of type #GParamSpecOverride. See g_object_class_override_property()
+        of type GParamSpecOverride. See `g_object_class_override_property`
         for an example of the use of this capability.
         """
     @staticmethod
     def is_valid_name(name: str) -> bool:
         """
-            Validate a property name for a #GParamSpec. This can be useful for
+            Validate a property name for a GParamSpec. This can be useful for
         dynamically-generated properties which need to be validated at run-time
         before actually trying to create them.
 
-        See [canonical parameter names][class@GObject.ParamSpec#parameter-names]
+        See [canonical parameter names][class`GObject`.ParamSpec#parameter-names]
         for details of the rules for valid names.
         """
     def set_qdata(self, quark: int, data: object | None = None) -> None:
         """
-            Sets an opaque, named pointer on a #GParamSpec. The name is
-        specified through a #GQuark (retrieved e.g. via
-        g_quark_from_static_string()), and the pointer can be gotten back
-        from the @pspec with g_param_spec_get_qdata().  Setting a
+            Sets an opaque, named pointer on a GParamSpec. The name is
+        specified through a GQuark (retrieved e.g. via
+        `g_quark_from_static_string`), and the pointer can be gotten back
+        from the `pspec` with `g_param_spec_get_qdata`.  Setting a
         previously set user data pointer, overrides (frees) the old pointer
-        set, using %NULL as pointer essentially removes the data stored.
+        set, using None as pointer essentially removes the data stored.
         """
     def sink(self) -> None:
         """
-            The initial reference count of a newly created #GParamSpec is 1,
-        even though no one has explicitly called g_param_spec_ref() on it
+            The initial reference count of a newly created GParamSpec is 1,
+        even though no one has explicitly called `g_param_spec_ref` on it
         yet. So the initial reference count is flagged as "floating", until
         someone calls `g_param_spec_ref (pspec); g_param_spec_sink
         (pspec);` in sequence on it, taking over the initial
-        reference count (thus ending up with a @pspec that has a reference
+        reference count (thus ending up with a `pspec` that has a reference
         count of 1 still, but is not flagged "floating" anymore).
         """
     def steal_qdata(self, quark: int) -> object | None:
         """
-            Gets back user data pointers stored via g_param_spec_set_qdata()
-        and removes the @data from @pspec without invoking its destroy()
+            Gets back user data pointers stored via `g_param_spec_set_qdata`
+        and removes the `data` from `pspec` without invoking its `destroy`
         function (if any was set).  Usually, calling this function is only
         required to update user data pointers with a destroy notifier.
         """
@@ -4799,7 +4799,7 @@ class ParamSpec(object):
 
 class ParamSpecBoolean(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for boolean properties.
+    A GParamSpec derived structure that contains the meta data for boolean properties.
     """
 
     # gi Fields
@@ -4817,7 +4817,7 @@ class ParamSpecBoolean(ParamSpec):
 
 class ParamSpecBoxed(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for boxed properties.
+    A GParamSpec derived structure that contains the meta data for boxed properties.
     """
 
     # gi Methods
@@ -4828,7 +4828,7 @@ class ParamSpecBoxed(ParamSpec):
 
 class ParamSpecChar(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for character properties.
+    A GParamSpec derived structure that contains the meta data for character properties.
     """
 
     # gi Fields
@@ -4858,7 +4858,7 @@ class ParamSpecClass(GPointer):
     """
     The class structure for the GParamSpec type.
     Normally, GParamSpec classes are filled by
-    g_param_type_register_static().
+    `g_param_type_register_static`.
     """
 
     # gi Fields
@@ -4878,34 +4878,34 @@ class ParamSpecClass(GPointer):
     @builtins.property
     def value_is_valid(self) -> value_is_validParamSpecClassCB:
         """
-          Checks if contents of @value comply with the specifications
+          Checks if contents of `value` comply with the specifications
         set out by this type, without modifying the value. This vfunc is optional.
-        If it isn't set, GObject will use @value_validate. Since 2.74
+        If it isn't set, GObject will use `value_validate`. Since 2.74
         """
     @builtins.property
     def value_set_default(self) -> value_set_defaultParamSpecClassCB:
         """
-           Resets a @value to the default value for this type
-        (recommended, the default is g_value_reset()), see
-        g_param_value_set_default().
+           Resets a `value` to the default value for this type
+        (recommended, the default is `g_value_reset`), see
+        `g_param_value_set_default`.
         """
     @builtins.property
     def value_type(self) -> GType:
         """
-        the #GValue type for this parameter
+        the GValue type for this parameter
         """
     @builtins.property
     def value_validate(self) -> value_validateParamSpecClassCB:
         """
-           Ensures that the contents of @value comply with the
+           Ensures that the contents of `value` comply with the
         specifications set out by this type (optional), see
-        g_param_value_validate().
+        `g_param_value_validate`.
         """
     @builtins.property
     def values_cmp(self) -> values_cmpParamSpecClassCB:
         """
-           Compares @value1 with @value2 according to this type
-        (recommended, the default is memcmp()), see g_param_values_cmp().
+           Compares `value1` with `value2` according to this type
+        (recommended, the default is `memcmp`), see `g_param_values_cmp`.
         """
 
     # gi Methods
@@ -4916,7 +4916,7 @@ class ParamSpecClass(GPointer):
 
 class ParamSpecDouble(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for double properties.
+    A GParamSpec derived structure that contains the meta data for double properties.
     """
 
     # gi Fields
@@ -4928,8 +4928,8 @@ class ParamSpecDouble(ParamSpec):
     @builtins.property
     def epsilon(self) -> float:
         """
-           values closer than @epsilon will be considered identical
-        by g_param_values_cmp(); the default value is 1e-90.
+           values closer than `epsilon` will be considered identical
+        by `g_param_values_cmp`; the default value is 1e-90.
         """
     @builtins.property
     def maximum(self) -> float:
@@ -4950,7 +4950,7 @@ class ParamSpecDouble(ParamSpec):
 
 class ParamSpecEnum(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for enum
+    A GParamSpec derived structure that contains the meta data for enum
     properties.
     """
 
@@ -4958,7 +4958,7 @@ class ParamSpecEnum(ParamSpec):
     @builtins.property
     def enum_class(self) -> EnumClass | None:
         """
-        the #GEnumClass for the enum
+        the GEnumClass for the enum
         """
 
     # gi Methods
@@ -4980,7 +4980,7 @@ class ParamSpecEnum(ParamSpec):
 
 class ParamSpecFlags(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for flags
+    A GParamSpec derived structure that contains the meta data for flags
     properties.
     """
 
@@ -4988,7 +4988,7 @@ class ParamSpecFlags(ParamSpec):
     @builtins.property
     def flags_class(self) -> FlagsClass | None:
         """
-        the #GFlagsClass for the flags
+        the GFlagsClass for the flags
         """
 
     # gi Methods
@@ -5010,7 +5010,7 @@ class ParamSpecFlags(ParamSpec):
 
 class ParamSpecFloat(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for float properties.
+    A GParamSpec derived structure that contains the meta data for float properties.
     """
 
     # gi Fields
@@ -5022,8 +5022,8 @@ class ParamSpecFloat(ParamSpec):
     @builtins.property
     def epsilon(self) -> float:
         """
-           values closer than @epsilon will be considered identical
-        by g_param_values_cmp(); the default value is 1e-30.
+           values closer than `epsilon` will be considered identical
+        by `g_param_values_cmp`; the default value is 1e-30.
         """
     @builtins.property
     def maximum(self) -> float:
@@ -5044,14 +5044,14 @@ class ParamSpecFloat(ParamSpec):
 
 class ParamSpecGType(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for #GType properties.
+    A GParamSpec derived structure that contains the meta data for GType properties.
     """
 
     # gi Fields
     @builtins.property
     def is_a_type(self) -> GType:
         """
-        a #GType whose subtypes can occur as values
+        a GType whose subtypes can occur as values
         """
 
     # gi Methods
@@ -5062,7 +5062,7 @@ class ParamSpecGType(ParamSpec):
 
 class ParamSpecInt(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for integer properties.
+    A GParamSpec derived structure that contains the meta data for integer properties.
     """
 
     # gi Fields
@@ -5090,7 +5090,7 @@ class ParamSpecInt(ParamSpec):
 
 class ParamSpecInt64(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for 64bit integer properties.
+    A GParamSpec derived structure that contains the meta data for 64bit integer properties.
     """
 
     # gi Fields
@@ -5118,7 +5118,7 @@ class ParamSpecInt64(ParamSpec):
 
 class ParamSpecLong(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for long integer properties.
+    A GParamSpec derived structure that contains the meta data for long integer properties.
     """
 
     # gi Fields
@@ -5146,7 +5146,7 @@ class ParamSpecLong(ParamSpec):
 
 class ParamSpecObject(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for object properties.
+    A GParamSpec derived structure that contains the meta data for object properties.
     """
 
     # gi Methods
@@ -5157,16 +5157,16 @@ class ParamSpecObject(ParamSpec):
 
 class ParamSpecOverride(ParamSpec):
     """
-    A #GParamSpec derived structure that redirects operations to
-    other types of #GParamSpec.
+    A GParamSpec derived structure that redirects operations to
+    other types of GParamSpec.
 
     All operations other than getting or setting the value are redirected,
     including accessing the nick and blurb, validating a value, and so
     forth.
 
-    See g_param_spec_get_redirect_target() for retrieving the overridden
-    property. #GParamSpecOverride is used in implementing
-    g_object_class_override_property(), and will not be directly useful
+    See `g_param_spec_get_redirect_target` for retrieving the overridden
+    property. GParamSpecOverride is used in implementing
+    `g_object_class_override_property`, and will not be directly useful
     unless you are implementing a new base type similar to GObject.
     """
 
@@ -5182,7 +5182,7 @@ class ParamSpecOverride(ParamSpec):
 
 class ParamSpecParam(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for %G_TYPE_PARAM
+    A GParamSpec derived structure that contains the meta data for G_TYPE_PARAM
     properties.
     """
 
@@ -5194,7 +5194,7 @@ class ParamSpecParam(ParamSpec):
 
 class ParamSpecPointer(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for pointer properties.
+    A GParamSpec derived structure that contains the meta data for pointer properties.
     """
 
     # gi Methods
@@ -5205,11 +5205,11 @@ class ParamSpecPointer(ParamSpec):
 
 class ParamSpecPool(GPointer):
     """
-    A #GParamSpecPool maintains a collection of #GParamSpecs which can be
+    A GParamSpecPool maintains a collection of GParamSpecs which can be
     quickly accessed by owner and name.
 
-    The implementation of the #GObject property system uses such a pool to
-    store the #GParamSpecs of the properties all object types.
+    The implementation of the GObject. property system uses such a pool to
+    store the GParamSpecs of the properties all object types.
     """
 
     # gi Methods
@@ -5219,34 +5219,34 @@ class ParamSpecPool(GPointer):
         """
     def free(self) -> None:
         """
-        Frees the resources allocated by a #GParamSpecPool.
+        Frees the resources allocated by a GParamSpecPool.
         """
     def insert(self, pspec: ParamSpec, owner_type: GType) -> None:
         """
-        Inserts a #GParamSpec in the pool.
+        Inserts a GParamSpec in the pool.
         """
     def list(self, owner_type: GType) -> tuple[list, int]:
         """
-            Gets an array of all #GParamSpecs owned by @owner_type in
+            Gets an array of all GParamSpecs owned by `owner_type` in
         the pool.
         """
     def list_owned(self, owner_type: GType) -> list:
         """
-            Gets an #GList of all #GParamSpecs owned by @owner_type in
+            Gets an GList of all GParamSpecs owned by `owner_type` in
         the pool.
         """
     def lookup(self, param_name: str, owner_type: GType, walk_ancestors: bool) -> ParamSpec | None:
         """
-        Looks up a #GParamSpec in the pool.
+        Looks up a GParamSpec in the pool.
         """
     def remove(self, pspec: ParamSpec) -> None:
         """
-        Removes a #GParamSpec from the pool.
+        Removes a GParamSpec from the pool.
         """
 
 class ParamSpecString(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for string
+    A GParamSpec derived structure that contains the meta data for string
     properties.
     """
 
@@ -5269,17 +5269,17 @@ class ParamSpecString(ParamSpec):
     @builtins.property
     def ensure_non_null(self) -> int:
         """
-        replace %NULL strings by an empty string
+        replace None strings by an empty string
         """
     @builtins.property
     def null_fold_if_empty(self) -> int:
         """
-        replace empty string by %NULL
+        replace empty string by None
         """
     @builtins.property
     def substitutor(self) -> int:
         """
-        the replacement byte for bytes which don't match @cset_first or @cset_nth.
+        the replacement byte for bytes which don't match `cset_first` or `cset_nth`.
         """
 
     # gi Methods
@@ -5294,10 +5294,10 @@ class ParamSpecTypeInfo(GPointer):
     required to initialize and destruct (finalize) a parameter's class and
     instances thereof.
 
-    The initialized structure is passed to the g_param_type_register_static()
+    The initialized structure is passed to the `g_param_type_register_static`
     The type system will perform a deep copy of this structure, so its memory
     does not need to be persistent across invocation of
-    g_param_type_register_static().
+    `g_param_type_register_static`.
     """
 
     # gi Fields
@@ -5324,27 +5324,27 @@ class ParamSpecTypeInfo(GPointer):
     @builtins.property
     def value_set_default(self) -> value_set_defaultParamSpecTypeInfoCB:
         """
-           Resets a @value to the default value for @pspec
-        (recommended, the default is g_value_reset()), see
-        g_param_value_set_default().
+           Resets a `value` to the default value for `pspec`
+        (recommended, the default is `g_value_reset`), see
+        `g_param_value_set_default`.
         """
     value_type: GType = ...
     """
-    The #GType of values conforming to this #GParamSpec
+    The GType of values conforming to this GParamSpec
 
     """
     @builtins.property
     def value_validate(self) -> value_validateParamSpecTypeInfoCB:
         """
-           Ensures that the contents of @value comply with the
-        specifications set out by @pspec (optional), see
-        g_param_value_validate().
+           Ensures that the contents of `value` comply with the
+        specifications set out by `pspec` (optional), see
+        `g_param_value_validate`.
         """
     @builtins.property
     def values_cmp(self) -> values_cmpParamSpecTypeInfoCB:
         """
-           Compares @value1 with @value2 according to @pspec
-        (recommended, the default is memcmp()), see g_param_values_cmp().
+           Compares `value1` with `value2` according to `pspec`
+        (recommended, the default is `memcmp`), see `g_param_values_cmp`.
         """
 
     # gi Methods
@@ -5355,7 +5355,7 @@ class ParamSpecTypeInfo(GPointer):
 
 class ParamSpecUChar(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for unsigned character properties.
+    A GParamSpec derived structure that contains the meta data for unsigned character properties.
     """
 
     # gi Fields
@@ -5383,7 +5383,7 @@ class ParamSpecUChar(ParamSpec):
 
 class ParamSpecUInt(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for unsigned integer properties.
+    A GParamSpec derived structure that contains the meta data for unsigned integer properties.
     """
 
     # gi Fields
@@ -5411,7 +5411,7 @@ class ParamSpecUInt(ParamSpec):
 
 class ParamSpecUInt64(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for unsigned 64bit integer properties.
+    A GParamSpec derived structure that contains the meta data for unsigned 64bit integer properties.
     """
 
     # gi Fields
@@ -5439,7 +5439,7 @@ class ParamSpecUInt64(ParamSpec):
 
 class ParamSpecULong(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for unsigned long integer properties.
+    A GParamSpec derived structure that contains the meta data for unsigned long integer properties.
     """
 
     # gi Fields
@@ -5467,7 +5467,7 @@ class ParamSpecULong(ParamSpec):
 
 class ParamSpecUnichar(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for unichar (unsigned integer) properties.
+    A GParamSpec derived structure that contains the meta data for unichar (unsigned integer) properties.
     """
 
     # gi Fields
@@ -5485,14 +5485,14 @@ class ParamSpecUnichar(ParamSpec):
 
 class ParamSpecValueArray(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for #GValueArray properties.
+    A GParamSpec derived structure that contains the meta data for GValueArray properties.
     """
 
     # gi Fields
     @builtins.property
     def element_spec(self) -> ParamSpec | None:
         """
-        a #GParamSpec describing the elements contained in arrays of this property, may be %NULL
+        a GParamSpec describing the elements contained in arrays of this property, may be None
         """
     @builtins.property
     def fixed_n_elements(self) -> int:
@@ -5508,12 +5508,12 @@ class ParamSpecValueArray(ParamSpec):
 
 class ParamSpecVariant(ParamSpec):
     """
-    A #GParamSpec derived structure that contains the meta data for #GVariant properties.
+    A GParamSpec derived structure that contains the meta data for GVariant properties.
 
-    When comparing values with g_param_values_cmp(), scalar values with the same
-    type will be compared with g_variant_compare(). Other non-%NULL variants will
-    be checked for equality with g_variant_equal(), and their sort order is
-    otherwise undefined. %NULL is ordered before non-%NULL variants. Two %NULL
+    When comparing values with `g_param_values_cmp`, scalar values with the same
+    type will be compared with `g_variant_compare`. Other non-None variants will
+    be checked for equality with `g_variant_equal`, and their sort order is
+    otherwise undefined. None is ordered before non-None variants. Two None
     values compare equal.
     """
 
@@ -5521,14 +5521,14 @@ class ParamSpecVariant(ParamSpec):
     @builtins.property
     def default_value(self) -> GLib.Variant | None:
         """
-        a #GVariant, or %NULL
+        a GVariant, or None
         """
     @builtins.property
     def padding(self) -> list | None: ...
     @builtins.property
     def type(self) -> GLib.VariantType | None:
         """
-        a #GVariantType, or %NULL
+        a GVariantType, or None
         """
 
     # gi Methods
@@ -5540,7 +5540,7 @@ class ParamSpecVariant(ParamSpec):
 class Parameter(GPointer):
     """
     The GParameter struct is an auxiliary structure used
-    to hand parameter name/value pairs to g_object_newv().
+    to hand parameter name/value pairs to `g_object_newv`.
     """
 
     # gi Fields
@@ -5630,7 +5630,7 @@ class SignalGroup(Object):
         """
         target_type: GType  # [target-type]: changed because contained invalid characters
         """
-        The #GType of the target property.
+        The GType of the target property.
         """
 
     @builtins.property
@@ -5643,7 +5643,7 @@ class SignalGroup(Object):
         """
     def block(self) -> None:
         """
-            Blocks all signal handlers managed by @self so they will not
+            Blocks all signal handlers managed by `self` so they will not
         be called during any signal emissions. Must be unblocked exactly
         the same number of times it has been blocked to become active again.
 
@@ -5651,28 +5651,28 @@ class SignalGroup(Object):
         """
     def connect_closure(self, detailed_signal: str, closure: Closure, after: bool) -> None:
         """
-            Connects @closure to the signal @detailed_signal on #GSignalGroup:target.
+            Connects `closure` to the signal `detailed_signal` on GSignalGroup:target.
 
-        You cannot connect a signal handler after #GSignalGroup:target has been set.
+        You cannot connect a signal handler after GSignalGroup:target has been set.
         """
     def connect_data(
         self, detailed_signal: str, c_handler: Callback, data: object | None, notify: ClosureNotify, flags: ConnectFlags
     ) -> None:
         """
-            Connects @c_handler to the signal @detailed_signal
-        on the target instance of @self.
+            Connects `c_handler` to the signal `detailed_signal`
+        on the target instance of `self`.
 
-        You cannot connect a signal handler after #GSignalGroup:target has been set.
+        You cannot connect a signal handler after GSignalGroup:target has been set.
         """
     def connect_swapped(self, detailed_signal: str, c_handler: Callback, data: object | None = None) -> None:
         """
-            Connects @c_handler to the signal @detailed_signal
-        on the target instance of @self.
+            Connects `c_handler` to the signal `detailed_signal`
+        on the target instance of `self`.
 
-        The instance on which the signal is emitted and @data
-        will be swapped when calling @c_handler.
+        The instance on which the signal is emitted and `data`
+        will be swapped when calling `c_handler`.
 
-        You cannot connect a signal handler after #GSignalGroup:target has been set.
+        You cannot connect a signal handler after GSignalGroup:target has been set.
         """
     def dup_target(self) -> Object | None:
         """
@@ -5681,20 +5681,20 @@ class SignalGroup(Object):
     @classmethod
     def new(cls, target_type: GType) -> SignalGroup:
         """
-        Creates a new #GSignalGroup for target instances of @target_type.
+        Creates a new GSignalGroup for target instances of `target_type`.
         """
     def set_target(self, target: Object | None = None) -> None:
         """
             Sets the target instance used when connecting signals. Any signal
-        that has been registered with g_signal_group_connect_object() or
+        that has been registered with `g_signal_group_connect_object` or
         similar functions will be connected to this object.
 
         If the target instance was previously set, signals will be
-        disconnected from that object prior to connecting to @target.
+        disconnected from that object prior to connecting to `target`.
         """
     def unblock(self) -> None:
         """
-            Unblocks all signal handlers managed by @self so they will be
+            Unblocks all signal handlers managed by `self` so they will be
         called again during any signal emissions unless it is blocked
         again. Must be unblocked exactly the same number of times it
         has been blocked to become active again.
@@ -5709,21 +5709,21 @@ class SignalGroup(Object):
         *args: typing.Any,
     ) -> int:
         """
-            This signal is emitted when #GSignalGroup:target is set to a new value
-        other than %NULL. It is similar to #GObject::notify on `target` except it
-        will not emit when #GSignalGroup:target is %NULL and also allows for
-        receiving the #GObject without a data-race.
+            This signal is emitted when GSignalGroup:target is set to a new value
+        other than None. It is similar to GObject.::notify on `target` except it
+        will not emit when GSignalGroup:target is None and also allows for
+        receiving the GObject. without a data-race.
         """
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["unbind"], handler: typing.Callable[..., None], *args: typing.Any
     ) -> int:
         """
-            This signal is emitted when the target instance of @self is set to a
-        new #GObject.
+            This signal is emitted when the target instance of `self` is set to a
+        new GObject..
 
-        This signal will only be emitted if the previous target of @self is
-        non-%NULL.
+        This signal will only be emitted if the previous target of `self` is
+        non-None.
         """
     @typing.overload
     def connect(
@@ -5746,7 +5746,7 @@ class SignalGroup(Object):
 
 class SignalInvocationHint(GPointer):
     """
-    The #GSignalInvocationHint structure is used to pass on additional information
+    The GSignalInvocationHint structure is used to pass on additional information
     to callbacks during a signal emission.
     """
 
@@ -5759,9 +5759,9 @@ class SignalInvocationHint(GPointer):
     run_type: SignalFlags = ...
     """
     The stage the signal emission is currently in, this
-     field will contain one of %G_SIGNAL_RUN_FIRST,
-     %G_SIGNAL_RUN_LAST or %G_SIGNAL_RUN_CLEANUP and %G_SIGNAL_ACCUMULATOR_FIRST_RUN.
-     %G_SIGNAL_ACCUMULATOR_FIRST_RUN is only set for the first run of the accumulator
+     field will contain one of G_SIGNAL_RUN_FIRST,
+     G_SIGNAL_RUN_LAST or G_SIGNAL_RUN_CLEANUP and G_SIGNAL_ACCUMULATOR_FIRST_RUN.
+     G_SIGNAL_ACCUMULATOR_FIRST_RUN is only set for the first run of the accumulator
      function for a signal emission.
 
     """
@@ -5781,7 +5781,7 @@ class SignalQuery(GPointer):
     """
     A structure holding in-depth information for a specific signal.
 
-    See also: g_signal_query()
+    See also: `g_signal_query`
     """
 
     # gi Fields
@@ -5800,7 +5800,7 @@ class SignalQuery(GPointer):
     The individual parameter types for
      user callbacks, note that the effective callback signature is:
      |[<!-- language="C" -->
-     @return_type callback (#gpointer     data1,
+     `return_type` callback (#gpointer     data1,
      [param_types param_names,]
      gpointer     data2);
      ]|
@@ -5813,7 +5813,7 @@ class SignalQuery(GPointer):
     """
     signal_flags: SignalFlags = ...
     """
-    The signal flags as passed in to g_signal_new().
+    The signal flags as passed in to `g_signal_new`.
 
     """
     signal_id: int = ...
@@ -5902,16 +5902,16 @@ class TypeClass(GPointer):
         Note that the accumulated size of the private structures of
         a type and all its parent types cannot exceed 64 KiB.
 
-        This function should be called in the type's class_init() function.
+        This function should be called in the type's `class_init` function.
         The private structure can be retrieved using the
-        G_TYPE_INSTANCE_GET_PRIVATE() macro.
+        `G_TYPE_INSTANCE_GET_PRIVATE` macro.
 
         The following example shows attaching a private structure
         MyObjectPrivate to an object MyObject defined in the standard
-        GObject fashion in the type's class_init() function.
+        GObject fashion in the type's `class_init` function.
 
         Note the use of a structure member "priv" to avoid the overhead
-        of repeatedly calling MY_OBJECT_GET_PRIVATE().
+        of repeatedly calling `MY_OBJECT_GET_PRIVATE`.
 
         |[<!-- language="C" -->
         typedef struct _MyObject        MyObject;
@@ -5960,12 +5960,12 @@ class TypeClass(GPointer):
     @staticmethod
     def get(type: GType) -> TypeClass:
         """
-            Retrieves the type class of the given @type.
+            Retrieves the type class of the given `type`.
 
         This function will create the class on demand if it does not exist
         already.
 
-        If you don't want to create the class, use g_type_class_peek() instead.
+        If you don't want to create the class, use `g_type_class_peek` instead.
         """
     def get_private(self, private_type: GType) -> object | None: ...
     @staticmethod
@@ -5973,10 +5973,10 @@ class TypeClass(GPointer):
         """
             Retrieves the class for a give type.
 
-        This function is essentially the same as g_type_class_get(),
+        This function is essentially the same as `g_type_class_get`,
         except that the class may have not been instantiated yet.
 
-        As a consequence, this function may return %NULL if the class
+        As a consequence, this function may return None if the class
         of the type passed in does not currently exist (hasn't been
         referenced before).
         """
@@ -5996,7 +5996,7 @@ class TypeClass(GPointer):
     @staticmethod
     def peek_static(type: GType) -> TypeClass | None:
         """
-            A more efficient version of g_type_class_peek() which works only for
+            A more efficient version of `g_type_class_peek` which works only for
         static types.
         """
     @deprecated("deprecated")
@@ -6004,7 +6004,7 @@ class TypeClass(GPointer):
     def ref(type: GType) -> TypeClass:
         """
             Increments the reference count of the class structure belonging to
-        @type.
+        `type`.
 
         This function will demand-create the class if it doesn't exist already.
         """
@@ -6015,7 +6015,7 @@ class TypeClass(GPointer):
 
         Once the last reference count of a class has been released, classes
         may be finalized by the type system, so further dereferencing of a
-        class pointer after g_type_class_unref() are invalid.
+        class pointer after `g_type_class_unref` are invalid.
         """
 
 class TypeFundamentalInfo(GPointer):
@@ -6027,7 +6027,7 @@ class TypeFundamentalInfo(GPointer):
     # gi Fields
     type_flags: TypeFundamentalFlags = ...
     """
-    #GTypeFundamentalFlags describing the characteristics of the fundamental type
+    GTypeFundamentalFlags describing the characteristics of the fundamental type
 
     """
 
@@ -6043,11 +6043,11 @@ class TypeInfo(GPointer):
     required to initialize and destruct (finalize) a type's class and
     its instances.
 
-    The initialized structure is passed to the g_type_register_static() function
-    (or is copied into the provided #GTypeInfo structure in the
-    g_type_plugin_complete_type_info()). The type system will perform a deep
+    The initialized structure is passed to the `g_type_register_static` function
+    (or is copied into the provided GTypeInfo structure in the
+    `g_type_plugin_complete_type_info`). The type system will perform a deep
     copy of this structure, so its memory does not need to be persistent
-    across invocation of g_type_register_static().
+    across invocation of `g_type_register_static`.
     """
 
     # gi Fields
@@ -6100,7 +6100,7 @@ class TypeInfo(GPointer):
     """
     value_table: TypeValueTable | None = ...
     """
-    A #GTypeValueTable function table for generic handling of GValues
+    A GTypeValueTable function table for generic handling of GValues
      of this type (usually only useful for fundamental types)
 
     """
@@ -6146,40 +6146,40 @@ class TypeInterface(GPointer):
     @staticmethod
     def add_prerequisite(interface_type: GType, prerequisite_type: GType) -> None:
         """
-            Adds @prerequisite_type to the list of prerequisites of @interface_type.
-        This means that any type implementing @interface_type must also implement
-        @prerequisite_type. Prerequisites can be thought of as an alternative to
+            Adds `prerequisite_type` to the list of prerequisites of `interface_type`.
+        This means that any type implementing `interface_type` must also implement
+        `prerequisite_type`. Prerequisites can be thought of as an alternative to
         interface derivation (which GType doesn't support). An interface can have
         at most one instantiatable prerequisite type.
         """
     @staticmethod
     def get_plugin(instance_type: GType, interface_type: GType) -> TypePlugin:
         """
-            Returns the #GTypePlugin structure for the dynamic interface
-        @interface_type which has been added to @instance_type, or %NULL
-        if @interface_type has not been added to @instance_type or does
-        not have a #GTypePlugin structure. See g_type_add_interface_dynamic().
+            Returns the GTypePlugin structure for the dynamic interface
+        `interface_type` which has been added to `instance_type`, or None
+        if `interface_type` has not been added to `instance_type` or does
+        not have a GTypePlugin structure. See `g_type_add_interface_dynamic`.
         """
     @staticmethod
     def instantiatable_prerequisite(interface_type: GType) -> GType:
         """
             Returns the most specific instantiatable prerequisite of an
         interface type. If the interface type has no instantiatable
-        prerequisite, %G_TYPE_INVALID is returned.
+        prerequisite, G_TYPE_INVALID is returned.
 
-        See g_type_interface_add_prerequisite() for more information
+        See `g_type_interface_add_prerequisite` for more information
         about prerequisites.
         """
     @staticmethod
     def peek(instance_class: TypeClass, iface_type: GType) -> TypeInterface | None:
         """
-            Returns the #GTypeInterface structure of an interface to which the
+            Returns the GTypeInterface structure of an interface to which the
         passed in class conforms.
         """
     def peek_parent(self) -> TypeInterface | None:
         """
-            Returns the corresponding #GTypeInterface structure of the parent type
-        of the instance type to which @g_iface belongs.
+            Returns the corresponding GTypeInterface structure of the parent type
+        of the instance type to which `g_iface` belongs.
 
         This is useful when deriving the implementation of an interface from the
         parent type and then possibly overriding some methods.
@@ -6199,25 +6199,25 @@ class TypeModule(Object):
     implements some number of types and interface implementations.
 
     When the module is loaded, it registers its types and interfaces
-    using [method@GObject.TypeModule.register_type] and
-    [method@GObject.TypeModule.add_interface].
+    using [method`GObject`.TypeModule.register_type] and
+    [method`GObject`.TypeModule.add_interface].
     As long as any instances of these types and interface implementations
     are in use, the module is kept loaded. When the types and interfaces
     are gone, the module may be unloaded. If the types and interfaces
     become used again, the module will be reloaded. Note that the last
     reference cannot be released from within the module code, since that
-    would lead to the caller's code being unloaded before `g_object_unref()`
+    would lead to the caller's code being unloaded before ``g_object_unref``
     returns to it.
 
     Keeping track of whether the module should be loaded or not is done by
     using a use count - it starts at zero, and whenever it is greater than
     zero, the module is loaded. The use count is maintained internally by
     the type system, but also can be explicitly controlled by
-    [method@GObject.TypeModule.use] and [method@GObject.TypeModule.unuse].
-    Typically, when loading a module for the first type, `g_type_module_use()`
+    [method`GObject`.TypeModule.use] and [method`GObject`.TypeModule.unuse].
+    Typically, when loading a module for the first type, ``g_type_module_use``
     will be used to load it so that it can initialize its types. At some later
     point, when the module no longer needs to be loaded except for the type
-    implementations it contains, `g_type_module_unuse()` is called.
+    implementations it contains, ``g_type_module_unuse`` is called.
 
     `GTypeModule` does not actually provide any implementation of module
     loading and unloading. To create a particular module type you must
@@ -6252,67 +6252,67 @@ class TypeModule(Object):
         As long as any instances of the type exist, the type plugin will
         not be unloaded.
 
-        Since 2.56 if @module is %NULL this will call g_type_add_interface_static()
+        Since 2.56 if `module` is None this will call `g_type_add_interface_static`
         instead. This can be used when making a static build of the module.
         """
     def register_enum(self, name: str, const_static_values: EnumValue) -> GType:
         """
             Looks up or registers an enumeration that is implemented with a particular
-        type plugin. If a type with name @type_name was previously registered,
-        the #GType identifier for the type is returned, otherwise the type
-        is newly registered, and the resulting #GType identifier returned.
+        type plugin. If a type with name `type_name` was previously registered,
+        the GType identifier for the type is returned, otherwise the type
+        is newly registered, and the resulting GType identifier returned.
 
         As long as any instances of the type exist, the type plugin will
         not be unloaded.
 
-        Since 2.56 if @module is %NULL this will call g_type_register_static()
+        Since 2.56 if `module` is None this will call `g_type_register_static`
         instead. This can be used when making a static build of the module.
         """
     def register_flags(self, name: str, const_static_values: FlagsValue) -> GType:
         """
             Looks up or registers a flags type that is implemented with a particular
-        type plugin. If a type with name @type_name was previously registered,
-        the #GType identifier for the type is returned, otherwise the type
-        is newly registered, and the resulting #GType identifier returned.
+        type plugin. If a type with name `type_name` was previously registered,
+        the GType identifier for the type is returned, otherwise the type
+        is newly registered, and the resulting GType identifier returned.
 
         As long as any instances of the type exist, the type plugin will
         not be unloaded.
 
-        Since 2.56 if @module is %NULL this will call g_type_register_static()
+        Since 2.56 if `module` is None this will call `g_type_register_static`
         instead. This can be used when making a static build of the module.
         """
     def register_type(self, parent_type: GType, type_name: str, type_info: TypeInfo, flags: TypeFlags) -> GType:
         """
             Looks up or registers a type that is implemented with a particular
-        type plugin. If a type with name @type_name was previously registered,
-        the #GType identifier for the type is returned, otherwise the type
-        is newly registered, and the resulting #GType identifier returned.
+        type plugin. If a type with name `type_name` was previously registered,
+        the GType identifier for the type is returned, otherwise the type
+        is newly registered, and the resulting GType identifier returned.
 
         When reregistering a type (typically because a module is unloaded
-        then reloaded, and reinitialized), @module and @parent_type must
+        then reloaded, and reinitialized), `module` and `parent_type` must
         be the same as they were previously.
 
         As long as any instances of the type exist, the type plugin will
         not be unloaded.
 
-        Since 2.56 if @module is %NULL this will call g_type_register_static()
+        Since 2.56 if `module` is None this will call `g_type_register_static`
         instead. This can be used when making a static build of the module.
         """
     def set_name(self, name: str) -> None:
         """
-        Sets the name for a #GTypeModule
+        Sets the name for a GTypeModule
         """
     def unuse(self) -> None:
         """
-            Decreases the use count of a #GTypeModule by one. If the
+            Decreases the use count of a GTypeModule by one. If the
         result is zero, the module will be unloaded. (However, the
-        #GTypeModule will not be freed, and types associated with the
-        #GTypeModule are not unregistered. Once a #GTypeModule is
+        GTypeModule will not be freed, and types associated with the
+        GTypeModule are not unregistered. Once a GTypeModule is
         initialized, it must exist forever.)
         """
     def use(self) -> bool:
         """
-            Increases the use count of a #GTypeModule by one. If the
+            Increases the use count of a GTypeModule by one. If the
         use count was zero before, the plugin will be loaded.
         If loading the plugin fails, the use count is reset to
         its prior value.
@@ -6334,8 +6334,8 @@ class TypeModule(Object):
 
 class TypeModuleClass(GPointer):
     """
-    In order to implement dynamic loading of types based on #GTypeModule,
-    the @load and @unload functions in #GTypeModuleClass must be implemented.
+    In order to implement dynamic loading of types based on GTypeModule,
+    the `load` and `unload` functions in GTypeModuleClass must be implemented.
     """
 
     # gi Fields
@@ -6343,7 +6343,7 @@ class TypeModuleClass(GPointer):
     def load(self) -> loadTypeModuleClassCB:
         """
            loads the module and registers one or more types using
-        g_type_module_register_type().
+        `g_type_module_register_type`.
         """
     @builtins.property
     def parent_class(self) -> ObjectClass | None:
@@ -6390,34 +6390,34 @@ class TypePlugin(GInterface):
        `GTypePlugin` interface.
 
     2. The type's implementation is referenced, e.g. through
-       [func@GObject.TypeClass.ref] or through [func@GObject.type_create_instance]
-       (this is being called by [ctor@GObject.Object.new]) or through one of the above
+       [func`GObject`.TypeClass.ref] or through [func`GObject`.type_create_instance]
+       (this is being called by [ctor`GObject`.Object.new]) or through one of the above
        done on a type derived from `new_type_id`.
 
     3. This causes the type system to load the type's implementation by calling
-       [method@GObject.TypePlugin.use] and [method@GObject.TypePlugin.complete_type_info]
+       [method`GObject`.TypePlugin.use] and [method`GObject`.TypePlugin.complete_type_info]
        on `new_type_plugin`.
 
     4. At some point the type's implementation isn't required anymore, e.g. after
-       [method@GObject.TypeClass.unref] or [func@GObject.type_free_instance]
+       [method`GObject`.TypeClass.unref] or [func`GObject`.type_free_instance]
        (called when the reference count of an instance drops to zero).
 
     5. This causes the type system to throw away the information retrieved
-       from [method@GObject.TypePlugin.complete_type_info] and then it calls
-       [method@GObject.TypePlugin.unuse] on `new_type_plugin`.
+       from [method`GObject`.TypePlugin.complete_type_info] and then it calls
+       [method`GObject`.TypePlugin.unuse] on `new_type_plugin`.
 
     6. Things may repeat from the second step.
 
     So basically, you need to implement a `GTypePlugin` type that
     carries a use_count, once use_count goes from zero to one, you need
     to load the implementation to successfully handle the upcoming
-    [method@GObject.TypePlugin.complete_type_info] call. Later, maybe after
+    [method`GObject`.TypePlugin.complete_type_info] call. Later, maybe after
     succeeding use/unuse calls, once use_count drops to zero, you can
     unload the implementation again. The type system makes sure to call
-    [method@GObject.TypePlugin.use] and [method@GObject.TypePlugin.complete_type_info]
+    [method`GObject`.TypePlugin.use] and [method`GObject`.TypePlugin.complete_type_info]
     again when the type is needed again.
 
-    [class@GObject.TypeModule] is an implementation of `GTypePlugin` that
+    [class`GObject`.TypeModule] is an implementation of `GTypePlugin` that
     already implements most of this except for the actual module loading and
     unloading. It even handles multiple registered types per module.
     """
@@ -6429,32 +6429,32 @@ class TypePlugin(GInterface):
         """
     def complete_interface_info(self, instance_type: GType, interface_type: GType, info: InterfaceInfo) -> None:
         """
-            Calls the @complete_interface_info function from the
-        #GTypePluginClass of @plugin. There should be no need to use this
+            Calls the `complete_interface_info` function from the
+        GTypePluginClass of `plugin`. There should be no need to use this
         function outside of the GObject type system itself.
         """
     def complete_type_info(self, g_type: GType, info: TypeInfo, value_table: TypeValueTable) -> None:
         """
-            Calls the @complete_type_info function from the #GTypePluginClass of @plugin.
+            Calls the `complete_type_info` function from the GTypePluginClass of `plugin`.
         There should be no need to use this function outside of the GObject
         type system itself.
         """
     def unuse(self) -> None:
         """
-            Calls the @unuse_plugin function from the #GTypePluginClass of
-        @plugin.  There should be no need to use this function outside of
+            Calls the `unuse_plugin` function from the GTypePluginClass of
+        `plugin`.  There should be no need to use this function outside of
         the GObject type system itself.
         """
     def use(self) -> None:
         """
-            Calls the @use_plugin function from the #GTypePluginClass of
-        @plugin.  There should be no need to use this function outside of
+            Calls the `use_plugin` function from the GTypePluginClass of
+        `plugin`.  There should be no need to use this function outside of
         the GObject type system itself.
         """
 
 class TypePluginClass(GPointer):
     """
-    The #GTypePlugin interface is used by the type system in order to handle
+    The GTypePlugin interface is used by the type system in order to handle
     the lifecycle of dynamically loaded types.
     """
 
@@ -6463,15 +6463,15 @@ class TypePluginClass(GPointer):
     def base_iface(self) -> TypeInterface | None: ...
     complete_interface_info: TypePluginCompleteInterfaceInfoTypePluginClassCB = ...
     """
-    Fills in missing parts of the #GInterfaceInfo
+    Fills in missing parts of the GInterfaceInfo
      for the interface. The structs is initialized with
      `memset(s, 0, sizeof (s))` before calling this function.
 
     """
     complete_type_info: TypePluginCompleteTypeInfoTypePluginClassCB = ...
     """
-    Fills in the #GTypeInfo and
-     #GTypeValueTable structs for the type. The structs are initialized
+    Fills in the GTypeInfo and
+     GTypeValueTable structs for the type. The structs are initialized
      with `memset(s, 0, sizeof (s))` before calling this function.
 
     """
@@ -6496,7 +6496,7 @@ class TypeQuery(GPointer):
     """
     A structure holding information for a specific type.
 
-    See also: g_type_query()
+    See also: `g_type_query`
     """
 
     # gi Fields
@@ -6512,7 +6512,7 @@ class TypeQuery(GPointer):
     """
     type: GType = ...
     """
-    the #GType value of the type
+    the GType value of the type
 
     """
     type_name: str = ...
@@ -6538,7 +6538,7 @@ class TypeValueTable(GPointer):
       ANSI C promotes every type smaller than an integer to an int, and
       floats to doubles. So for collection of short int or char, `'i'`
       needs to be used, and for collection of floats `'d'`.
-    The #GTypeValueTable provides the functions required by the #GValue
+    The GTypeValueTable provides the functions required by the GValue
     implementation, to serve as a container for values of a type.
     """
 
@@ -6559,9 +6559,9 @@ class TypeValueTable(GPointer):
     """
     lcopy_format: str = ...
     """
-    Format description of the arguments to collect for @lcopy_value,
-      analogous to @collect_format. Usually, @lcopy_format string consists
-      only of `'p'`s to provide lcopy_value() with pointers to storage locations.
+    Format description of the arguments to collect for `lcopy_value`,
+      analogous to `collect_format`. Usually, `lcopy_format` string consists
+      only of `'p'`s to provide `lcopy_value` with pointers to storage locations.
 
     """
     lcopy_value: TypeValueLCopyFuncTypeValueTableCB | None = ...
@@ -6610,160 +6610,160 @@ class Value(GBoxed):
     An opaque structure used to hold different types of values.
 
     The data within the structure has protected scope: it is accessible only
-    to functions within a #GTypeValueTable structure, or implementations of
+    to functions within a GTypeValueTable structure, or implementations of
     the g_value_*() API. That is, code portions which implement new fundamental
     types.
 
-    #GValue users cannot make any assumptions about how data is stored
-    within the 2 element @data union, and the @g_type member should
-    only be accessed through the G_VALUE_TYPE() macro.
+    GValue users cannot make any assumptions about how data is stored
+    within the 2 element `data` union, and the `g_type` member should
+    only be accessed through the `G_VALUE_TYPE` macro.
     """
 
     # gi Methods
     def copy(self, dest_value: Value) -> None:
         """
-        Copies the value of @src_value into @dest_value.
+        Copies the value of `src_value` into `dest_value`.
         """
     def dup_object(self) -> Object | None:
         """
-            Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
-        its reference count. If the contents of the #GValue are %NULL, then
-        %NULL will be returned.
+            Get the contents of a G_TYPE_OBJECT derived GValue, increasing
+        its reference count. If the contents of the GValue are None, then
+        None will be returned.
         """
     def dup_string(self) -> str | None:
         """
-        Get a copy the contents of a %G_TYPE_STRING #GValue.
+        Get a copy the contents of a G_TYPE_STRING GValue.
         """
     def dup_variant(self) -> GLib.Variant | None:
         """
-            Get the contents of a variant #GValue, increasing its refcount. The returned
-        #GVariant is never floating.
+            Get the contents of a variant GValue, increasing its refcount. The returned
+        GVariant is never floating.
         """
     def fits_pointer(self) -> bool:
         """
-            Determines if @value will fit inside the size of a pointer value.
+            Determines if `value` will fit inside the size of a pointer value.
         This is an internal function introduced mainly for C marshallers.
         """
     def get_boolean(self) -> bool:
         """
-        Get the contents of a %G_TYPE_BOOLEAN #GValue.
+        Get the contents of a G_TYPE_BOOLEAN GValue.
         """
     def get_boxed(self) -> object | None:
         """
-        Get the contents of a %G_TYPE_BOXED derived #GValue.
+        Get the contents of a G_TYPE_BOXED derived GValue.
         """
     @deprecated("deprecated")
     def get_char(self) -> int:
         """
             Do not use this function; it is broken on platforms where the %char
-        type is unsigned, such as ARM and PowerPC.  See g_value_get_schar().
+        type is unsigned, such as ARM and PowerPC.  See `g_value_get_schar`.
 
-        Get the contents of a %G_TYPE_CHAR #GValue.
+        Get the contents of a G_TYPE_CHAR GValue.
         """
     def get_double(self) -> float:
         """
-        Get the contents of a %G_TYPE_DOUBLE #GValue.
+        Get the contents of a G_TYPE_DOUBLE GValue.
         """
     def get_enum(self) -> int:
         """
-        Get the contents of a %G_TYPE_ENUM #GValue.
+        Get the contents of a G_TYPE_ENUM GValue.
         """
     def get_flags(self) -> int:
         """
-        Get the contents of a %G_TYPE_FLAGS #GValue.
+        Get the contents of a G_TYPE_FLAGS GValue.
         """
     def get_float(self) -> float:
         """
-        Get the contents of a %G_TYPE_FLOAT #GValue.
+        Get the contents of a G_TYPE_FLOAT GValue.
         """
     def get_gtype(self) -> GType:
         """
-        Get the contents of a %G_TYPE_GTYPE #GValue.
+        Get the contents of a G_TYPE_GTYPE GValue.
         """
     def get_int(self) -> int:
         """
-        Get the contents of a %G_TYPE_INT #GValue.
+        Get the contents of a G_TYPE_INT GValue.
         """
     def get_int64(self) -> int:
         """
-        Get the contents of a %G_TYPE_INT64 #GValue.
+        Get the contents of a G_TYPE_INT64 GValue.
         """
     def get_long(self) -> int:
         """
-        Get the contents of a %G_TYPE_LONG #GValue.
+        Get the contents of a G_TYPE_LONG GValue.
         """
     def get_object(self) -> Object | None:
         """
-        Get the contents of a %G_TYPE_OBJECT derived #GValue.
+        Get the contents of a G_TYPE_OBJECT derived GValue.
         """
     def get_param(self) -> ParamSpec:
         """
-        Get the contents of a %G_TYPE_PARAM #GValue.
+        Get the contents of a G_TYPE_PARAM GValue.
         """
     def get_pointer(self) -> object | None:
         """
-        Get the contents of a pointer #GValue.
+        Get the contents of a pointer GValue.
         """
     def get_schar(self) -> int:
         """
-        Get the contents of a %G_TYPE_CHAR #GValue.
+        Get the contents of a G_TYPE_CHAR GValue.
         """
     def get_string(self) -> str | None:
         """
-        Get the contents of a %G_TYPE_STRING #GValue.
+        Get the contents of a G_TYPE_STRING GValue.
         """
     def get_uchar(self) -> int:
         """
-        Get the contents of a %G_TYPE_UCHAR #GValue.
+        Get the contents of a G_TYPE_UCHAR GValue.
         """
     def get_uint(self) -> int:
         """
-        Get the contents of a %G_TYPE_UINT #GValue.
+        Get the contents of a G_TYPE_UINT GValue.
         """
     def get_uint64(self) -> int:
         """
-        Get the contents of a %G_TYPE_UINT64 #GValue.
+        Get the contents of a G_TYPE_UINT64 GValue.
         """
     def get_ulong(self) -> int:
         """
-        Get the contents of a %G_TYPE_ULONG #GValue.
+        Get the contents of a G_TYPE_ULONG GValue.
         """
     def get_variant(self) -> GLib.Variant | None:
         """
-        Get the contents of a variant #GValue.
+        Get the contents of a variant GValue.
         """
     def init(self, g_type: GType) -> Value:
         """
-        Initializes @value with the default value of @type.
+        Initializes `value` with the default value of `type`.
         """
     def init_from_instance(self, instance: TypeInstance) -> None:
         """
-            Initializes and sets @value from an instantiatable type via the
-        value_table's collect_value() function.
+            Initializes and sets `value` from an instantiatable type via the
+        value_table's `collect_value` function.
 
-        Note: The @value will be initialised with the exact type of
-        @instance.  If you wish to set the @value's type to a different GType
+        Note: The `value` will be initialised with the exact type of
+        `instance`.  If you wish to set the `value`'s type to a different GType
         (such as a parent class GType), you need to manually call
-        g_value_init() and g_value_set_instance().
+        `g_value_init` and `g_value_set_instance`.
         """
     def peek_pointer(self) -> object | None:
         """
             Returns the value contents as pointer. This function asserts that
-        g_value_fits_pointer() returned %TRUE for the passed in value.
+        `g_value_fits_pointer` returned True for the passed in value.
         This is an internal function introduced mainly for C marshallers.
         """
     def reset(self) -> Value:
         """
-            Clears the current value in @value and resets it to the default value
+            Clears the current value in `value` and resets it to the default value
         (as if the value had just been initialized).
         """
     def set_boolean(self, v_boolean: bool) -> None:
         """
-        Set the contents of a %G_TYPE_BOOLEAN #GValue to @v_boolean.
+        Set the contents of a G_TYPE_BOOLEAN GValue to `v_boolean`.
         """
     def set_boxed(self, v_boxed: object | None = None) -> None:
         """
-        Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
+        Set the contents of a G_TYPE_BOXED derived GValue to `v_boxed`.
         """
     @deprecated("deprecated")
     def set_boxed_take_ownership(self, v_boxed: object | None = None) -> None:
@@ -6773,96 +6773,96 @@ class Value(GBoxed):
     @deprecated("deprecated")
     def set_char(self, v_char: int) -> None:
         """
-        Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
+        Set the contents of a G_TYPE_CHAR GValue to `v_char`.
         """
     def set_double(self, v_double: float) -> None:
         """
-        Set the contents of a %G_TYPE_DOUBLE #GValue to @v_double.
+        Set the contents of a G_TYPE_DOUBLE GValue to `v_double`.
         """
     def set_enum(self, v_enum: int) -> None:
         """
-        Set the contents of a %G_TYPE_ENUM #GValue to @v_enum.
+        Set the contents of a G_TYPE_ENUM GValue to `v_enum`.
         """
     def set_flags(self, v_flags: int) -> None:
         """
-        Set the contents of a %G_TYPE_FLAGS #GValue to @v_flags.
+        Set the contents of a G_TYPE_FLAGS GValue to `v_flags`.
         """
     def set_float(self, v_float: float) -> None:
         """
-        Set the contents of a %G_TYPE_FLOAT #GValue to @v_float.
+        Set the contents of a G_TYPE_FLOAT GValue to `v_float`.
         """
     def set_gtype(self, v_gtype: GType) -> None:
         """
-        Set the contents of a %G_TYPE_GTYPE #GValue to @v_gtype.
+        Set the contents of a G_TYPE_GTYPE GValue to `v_gtype`.
         """
     def set_instance(self, instance: object | None = None) -> None:
         """
-            Sets @value from an instantiatable type via the
-        value_table's collect_value() function.
+            Sets `value` from an instantiatable type via the
+        value_table's `collect_value` function.
         """
     def set_int(self, v_int: int) -> None:
         """
-        Set the contents of a %G_TYPE_INT #GValue to @v_int.
+        Set the contents of a G_TYPE_INT GValue to `v_int`.
         """
     def set_int64(self, v_int64: int) -> None:
         """
-        Set the contents of a %G_TYPE_INT64 #GValue to @v_int64.
+        Set the contents of a G_TYPE_INT64 GValue to `v_int64`.
         """
     def set_interned_string(self, v_string: str | None = None) -> None:
         """
-            Set the contents of a %G_TYPE_STRING #GValue to @v_string.  The string is
+            Set the contents of a G_TYPE_STRING GValue to `v_string`.  The string is
         assumed to be static and interned (canonical, for example from
-        g_intern_string()), and is thus not duplicated when setting the #GValue.
+        `g_intern_string`), and is thus not duplicated when setting the GValue.
         """
     def set_long(self, v_long: int) -> None:
         """
-        Set the contents of a %G_TYPE_LONG #GValue to @v_long.
+        Set the contents of a G_TYPE_LONG GValue to `v_long`.
         """
     def set_object(self, v_object: Object | None = None) -> None:
         """
-            Set the contents of a %G_TYPE_OBJECT derived #GValue to @v_object.
+            Set the contents of a G_TYPE_OBJECT derived GValue to `v_object`.
 
-        g_value_set_object() increases the reference count of @v_object
-        (the #GValue holds a reference to @v_object).  If you do not wish
+        `g_value_set_object` increases the reference count of `v_object`
+        (the GValue holds a reference to `v_object`).  If you do not wish
         to increase the reference count of the object (i.e. you wish to
-        pass your current reference to the #GValue because you no longer
-        need it), use g_value_take_object() instead.
+        pass your current reference to the GValue because you no longer
+        need it), use `g_value_take_object` instead.
 
-        It is important that your #GValue holds a reference to @v_object (either its
+        It is important that your GValue holds a reference to `v_object` (either its
         own, or one it has taken) to ensure that the object won't be destroyed while
-        the #GValue still exists).
+        the GValue still exists).
         """
     def set_param(self, param: ParamSpec | None = None) -> None:
         """
-        Set the contents of a %G_TYPE_PARAM #GValue to @param.
+        Set the contents of a G_TYPE_PARAM GValue to `param`.
         """
     def set_pointer(self, v_pointer: object | None = None) -> None:
         """
-        Set the contents of a pointer #GValue to @v_pointer.
+        Set the contents of a pointer GValue to `v_pointer`.
         """
     def set_schar(self, v_char: int) -> None:
         """
-        Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
+        Set the contents of a G_TYPE_CHAR GValue to `v_char`.
         """
     def set_static_boxed(self, v_boxed: object | None = None) -> None:
         """
-            Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
+            Set the contents of a G_TYPE_BOXED derived GValue to `v_boxed`.
 
         The boxed value is assumed to be static, and is thus not duplicated
-        when setting the #GValue.
+        when setting the GValue.
         """
     def set_static_string(self, v_string: str | None = None) -> None:
         """
-            Set the contents of a %G_TYPE_STRING #GValue to @v_string.
+            Set the contents of a G_TYPE_STRING GValue to `v_string`.
         The string is assumed to be static, and is thus not duplicated
-        when setting the #GValue.
+        when setting the GValue.
 
-        If the the string is a canonical string, using g_value_set_interned_string()
+        If the the string is a canonical string, using `g_value_set_interned_string`
         is more appropriate.
         """
     def set_string(self, v_string: str | None = None) -> None:
         """
-        Set the contents of a %G_TYPE_STRING #GValue to a copy of @v_string.
+        Set the contents of a G_TYPE_STRING GValue to a copy of `v_string`.
         """
     @deprecated("deprecated")
     def set_string_take_ownership(self, v_string: str | None = None) -> None:
@@ -6871,67 +6871,67 @@ class Value(GBoxed):
         """
     def set_uchar(self, v_uchar: int) -> None:
         """
-        Set the contents of a %G_TYPE_UCHAR #GValue to @v_uchar.
+        Set the contents of a G_TYPE_UCHAR GValue to `v_uchar`.
         """
     def set_uint(self, v_uint: int) -> None:
         """
-        Set the contents of a %G_TYPE_UINT #GValue to @v_uint.
+        Set the contents of a G_TYPE_UINT GValue to `v_uint`.
         """
     def set_uint64(self, v_uint64: int) -> None:
         """
-        Set the contents of a %G_TYPE_UINT64 #GValue to @v_uint64.
+        Set the contents of a G_TYPE_UINT64 GValue to `v_uint64`.
         """
     def set_ulong(self, v_ulong: int) -> None:
         """
-        Set the contents of a %G_TYPE_ULONG #GValue to @v_ulong.
+        Set the contents of a G_TYPE_ULONG GValue to `v_ulong`.
         """
     def set_variant(self, variant: GLib.Variant | None = None) -> None:
         """
-            Set the contents of a variant #GValue to @variant.
+            Set the contents of a variant GValue to `variant`.
         If the variant is floating, it is consumed.
         """
     def steal_string(self) -> str | None:
         """
-            Steal ownership on contents of a %G_TYPE_STRING #GValue.
-        As a result of this operation the value's contents will be reset to %NULL.
+            Steal ownership on contents of a G_TYPE_STRING GValue.
+        As a result of this operation the value's contents will be reset to None.
 
         The purpose of this call is to provide a way to avoid an extra copy
-        when some object have been serialized into string through #GValue API.
+        when some object have been serialized into string through GValue API.
 
-        NOTE: for safety and compatibility purposes, if #GValue contains
+        NOTE: for safety and compatibility purposes, if GValue contains
         static string, or an interned one, this function will return a copy
         of the string. Otherwise the transfer notation would be ambiguous.
         """
     def take_boxed(self, v_boxed: object | None = None) -> None:
         """
-            Sets the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed
-        and takes over the ownership of the caller’s reference to @v_boxed;
+            Sets the contents of a G_TYPE_BOXED derived GValue to `v_boxed`
+        and takes over the ownership of the caller’s reference to `v_boxed`;
         the caller doesn’t have to unref it any more.
         """
     def take_string(self, v_string: str | None = None) -> None:
         """
-        Sets the contents of a %G_TYPE_STRING #GValue to @v_string.
+        Sets the contents of a G_TYPE_STRING GValue to `v_string`.
         """
     def take_variant(self, variant: GLib.Variant | None = None) -> None:
         """
-            Set the contents of a variant #GValue to @variant, and takes over
-        the ownership of the caller's reference to @variant;
+            Set the contents of a variant GValue to `variant`, and takes over
+        the ownership of the caller's reference to `variant`;
         the caller doesn't have to unref it any more (i.e. the reference
         count of the variant is not increased).
 
-        If @variant was floating then its floating reference is converted to
+        If `variant` was floating then its floating reference is converted to
         a hard reference.
 
-        If you want the #GValue to hold its own reference to @variant, use
-        g_value_set_variant() instead.
+        If you want the GValue to hold its own reference to `variant`, use
+        `g_value_set_variant` instead.
 
         This is an internal function introduced mainly for C marshallers.
         """
     def transform(self, dest_value: Value) -> bool:
         """
-            Tries to cast the contents of @src_value into a type appropriate
-        to store in @dest_value, e.g. to transform a %G_TYPE_INT value
-        into a %G_TYPE_FLOAT value. Performing transformations between
+            Tries to cast the contents of `src_value` into a type appropriate
+        to store in `dest_value`, e.g. to transform a G_TYPE_INT value
+        into a G_TYPE_FLOAT value. Performing transformations between
         value types might incur precision lossage. Especially
         transformations into strings might reveal seemingly arbitrary
         results and shouldn't be relied upon for production code (such
@@ -6940,22 +6940,22 @@ class Value(GBoxed):
     @staticmethod
     def type_compatible(src_type: GType, dest_type: GType) -> bool:
         """
-            Returns whether a #GValue of type @src_type can be copied into
-        a #GValue of type @dest_type.
+            Returns whether a GValue of type `src_type` can be copied into
+        a GValue of type `dest_type`.
         """
     @staticmethod
     def type_transformable(src_type: GType, dest_type: GType) -> bool:
         """
-            Check whether g_value_transform() is able to transform values
-        of type @src_type into values of type @dest_type. Note that for
+            Check whether `g_value_transform` is able to transform values
+        of type `src_type` into values of type `dest_type`. Note that for
         the types to be transformable, they must be compatible or a
         transformation function must be registered.
         """
     def unset(self) -> None:
         """
-            Clears the current value in @value (if any) and "unsets" the type,
+            Clears the current value in `value` (if any) and "unsets" the type,
         this releases all resources associated with this GValue. An unset
-        value is the same as an uninitialized (zero-filled) #GValue
+        value is the same as an uninitialized (zero-filled) GValue
         structure.
         """
 
@@ -6988,8 +6988,8 @@ class ValueArray(GBoxed):
     `GValueArray` is deprecated in favour of `GArray` since GLib 2.32.
     It is possible to create a `GArray` that behaves like a `GValueArray`
     by using the size of `GValue` as the element size, and by setting
-    [method@GObject.Value.unset] as the clear function using
-    [func@GLib.Array.set_clear_func], for instance, the following code:
+    [method`GObject`.Value.unset] as the clear function using
+    [func`GLib`.Array.set_clear_func], for instance, the following code:
 
     ```c
       GValueArray *array = g_value_array_new (10);
@@ -6998,7 +6998,7 @@ class ValueArray(GBoxed):
     can be replaced by:
 
     ```c
-      GArray *array = g_array_sized_new (FALSE, TRUE, sizeof (GValue), 10);
+      GArray *array = g_array_sized_new (False, True, sizeof (GValue), 10);
       g_array_set_clear_func (array, (GDestroyNotify) g_value_unset);
     ```
     """
@@ -7025,53 +7025,53 @@ class ValueArray(GBoxed):
     @deprecated("deprecated")
     def append(self, value: Value | None = None) -> ValueArray:
         """
-            Insert a copy of @value as last element of @value_array. If @value is
-        %NULL, an uninitialized value is appended.
+            Insert a copy of `value` as last element of `value_array`. If `value` is
+        None, an uninitialized value is appended.
         """
     @deprecated("deprecated")
     def copy(self) -> ValueArray:
         """
-            Construct an exact copy of a #GValueArray by duplicating all its
+            Construct an exact copy of a GValueArray by duplicating all its
         contents.
         """
     @deprecated("deprecated")
     def get_nth(self, index_: int) -> Value:
         """
-        Return a pointer to the value at @index_ contained in @value_array.
+        Return a pointer to the value at `index_` contained in `value_array`.
         """
     @deprecated("deprecated")
     def insert(self, index_: int, value: Value | None = None) -> ValueArray:
         """
-            Insert a copy of @value at specified position into @value_array. If @value
-        is %NULL, an uninitialized value is inserted.
+            Insert a copy of `value` at specified position into `value_array`. If `value`
+        is None, an uninitialized value is inserted.
         """
     @deprecated("deprecated")
     @classmethod
     def new(cls, n_prealloced: int) -> ValueArray:
         """
-            Allocate and initialize a new #GValueArray, optionally preserve space
-        for @n_prealloced elements. New arrays always contain 0 elements,
-        regardless of the value of @n_prealloced.
+            Allocate and initialize a new GValueArray, optionally preserve space
+        for `n_prealloced` elements. New arrays always contain 0 elements,
+        regardless of the value of `n_prealloced`.
         """
     @deprecated("deprecated")
     def prepend(self, value: Value | None = None) -> ValueArray:
         """
-            Insert a copy of @value as first element of @value_array. If @value is
-        %NULL, an uninitialized value is prepended.
+            Insert a copy of `value` as first element of `value_array`. If `value` is
+        None, an uninitialized value is prepended.
         """
     @deprecated("deprecated")
     def remove(self, index_: int) -> ValueArray:
         """
-        Remove the value at position @index_ from @value_array.
+        Remove the value at position `index_` from `value_array`.
         """
     @deprecated("deprecated")
     def sort(self, compare_func: GLib.CompareDataFunc, user_data: object | None = None) -> ValueArray:
         """
-            Sort @value_array using @compare_func to compare the elements according to
-        the semantics of #GCompareFunc.
+            Sort `value_array` using `compare_func` to compare the elements according to
+        the semantics of GCompareFunc.
 
         The current implementation uses the same sorting algorithm as standard
-        C qsort() function.
+        C `qsort` function.
         """
 
 class Warning(Exception):
@@ -7083,29 +7083,29 @@ class Warning(Exception):
 
 class WeakRef(GPointer):
     """
-    A structure containing a weak reference to a #GObject.
+    A structure containing a weak reference to a GObject..
 
-    A `GWeakRef` can either be empty (i.e. point to %NULL), or point to an
+    A `GWeakRef` can either be empty (i.e. point to None), or point to an
     object for as long as at least one "strong" reference to that object
-    exists. Before the object's #GObjectClass.dispose method is called,
-    every #GWeakRef associated with becomes empty (i.e. points to %NULL).
+    exists. Before the object's GObject.Class.dispose method is called,
+    every GWeakRef associated with becomes empty (i.e. points to None).
 
-    Like #GValue, #GWeakRef can be statically allocated, stack- or
+    Like GValue, GWeakRef can be statically allocated, stack- or
     heap-allocated, or embedded in larger structures.
 
-    Unlike g_object_weak_ref() and g_object_add_weak_pointer(), this weak
+    Unlike `g_object_weak_ref` and `g_object_add_weak_pointer`, this weak
     reference is thread-safe: converting a weak pointer to a reference is
     atomic with respect to invalidation of weak pointers to destroyed
     objects.
 
-    If the object's #GObjectClass.dispose method results in additional
-    references to the object being held (‘re-referencing’), any #GWeakRefs taken
-    before it was disposed will continue to point to %NULL.  Any #GWeakRefs taken
+    If the object's GObject.Class.dispose method results in additional
+    references to the object being held (‘re-referencing’), any GWeakRefs taken
+    before it was disposed will continue to point to None.  Any GWeakRefs taken
     during disposal and after re-referencing, or after disposal has returned due
     to the re-referencing, will continue to point to the object until its refcount
     goes back to zero, at which point they too will be invalidated.
 
-    It is invalid to take a #GWeakRef on an object during #GObjectClass.dispose
+    It is invalid to take a GWeakRef on an object during GObject.Class.dispose
     without first having or creating a strong reference to the object.
     """
 

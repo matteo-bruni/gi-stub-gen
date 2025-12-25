@@ -27,7 +27,7 @@ from gi.repository import GObject
 @staticmethod
 def invoke_error_quark() -> int:
     """
-    Get the error quark which represents [type@GIRepository.InvokeError].
+    Get the error quark which represents [type`GIRepository`.InvokeError].
     """
     ...
 
@@ -38,10 +38,10 @@ def type_tag_argument_from_hash_pointer(
 ) -> Argument:
     """
     Convert a data pointer from a GLib data structure to a
-    [type@GIRepository.Argument].
+    [type`GIRepository`.Argument].
 
-    GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
-    [type@GLib.HashTable], all store data pointers.
+    GLib data structures, such as [type`GLib`.List], [type`GLib`.SList], and
+    [type`GLib`.HashTable], all store data pointers.
 
     In the case where the list or hash table is storing single types rather than
     structs, these data pointers may have values stuffed into them via macros
@@ -50,8 +50,8 @@ def type_tag_argument_from_hash_pointer(
     Use this function to ensure that all values are correctly extracted from
     stuffed pointers, regardless of the machine’s architecture or endianness.
 
-    This function fills in the appropriate field of @arg with the value extracted
-    from @hash_pointer, depending on @storage_type.
+    This function fills in the appropriate field of `arg` with the value extracted
+    from `hash_pointer`, depending on `storage_type`.
     """
     ...
 
@@ -61,11 +61,11 @@ def type_tag_hash_pointer_from_argument(
     arg: Argument,
 ) -> object | None:
     """
-    Convert a [type@GIRepository.Argument] to data pointer for use in a GLib
+    Convert a [type`GIRepository`.Argument] to data pointer for use in a GLib
     data structure.
 
-    GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
-    [type@GLib.HashTable], all store data pointers.
+    GLib data structures, such as [type`GLib`.List], [type`GLib`.SList], and
+    [type`GLib`.HashTable], all store data pointers.
 
     In the case where the list or hash table is storing single types rather than
     structs, these data pointers may have values stuffed into them via macros
@@ -74,8 +74,8 @@ def type_tag_hash_pointer_from_argument(
     Use this function to ensure that all values are correctly stuffed into
     pointers, regardless of the machine’s architecture or endianness.
 
-    This function returns a pointer stuffed with the appropriate field of @arg,
-    depending on @storage_type.
+    This function returns a pointer stuffed with the appropriate field of `arg`,
+    depending on `storage_type`.
     """
     ...
 
@@ -84,7 +84,7 @@ def type_tag_to_string(
     type: TypeTag,
 ) -> str:
     """
-    Obtain a string representation of @type
+    Obtain a string representation of `type`
     """
     ...
 
@@ -94,7 +94,7 @@ def type_tag_to_string(
 
 class ArrayType(enum.IntEnum):
     """
-    The type of array in a [class@GIRepository.TypeInfo]."""
+    The type of array in a [class`GIRepository`.TypeInfo]."""
 
     C = 0
     """
@@ -102,20 +102,20 @@ class ArrayType(enum.IntEnum):
     """
     ARRAY = 1
     """
-    a [type@GLib.Array] array
+    a [type`GLib`.Array] array
     """
     PTR_ARRAY = 2
     """
-    a [type@GLib.PtrArray] array
+    a [type`GLib`.PtrArray] array
     """
     BYTE_ARRAY = 3
     """
-    a [type@GLib.ByteArray] array
+    a [type`GLib`.ByteArray] array
     """
 
 class Direction(enum.IntEnum):
     """
-    The direction of a [class@GIRepository.ArgInfo]."""
+    The direction of a [class`GIRepository`.ArgInfo]."""
 
     IN = 0
     OUT = 1
@@ -129,7 +129,7 @@ class Direction(enum.IntEnum):
 
 class FieldInfoFlags(enum.IntFlag):
     """
-    Flags for a [class@GIRepository.FieldInfo]."""
+    Flags for a [class`GIRepository`.FieldInfo]."""
 
     READABLE = 1
     """
@@ -142,7 +142,7 @@ class FieldInfoFlags(enum.IntFlag):
 
 class FunctionInfoFlags(enum.IntFlag):
     """
-    Flags for a [class@GIRepository.FunctionInfo] struct."""
+    Flags for a [class`GIRepository`.FunctionInfo] struct."""
 
     IS_METHOD = 1
     """
@@ -154,11 +154,11 @@ class FunctionInfoFlags(enum.IntFlag):
     """
     IS_GETTER = 4
     """
-    is a getter of a [class@GIRepository.PropertyInfo].
+    is a getter of a [class`GIRepository`.PropertyInfo].
     """
     IS_SETTER = 8
     """
-    is a setter of a [class@GIRepository.PropertyInfo].
+    is a setter of a [class`GIRepository`.PropertyInfo].
     """
     WRAPS_VFUNC = 16
     """
@@ -169,7 +169,7 @@ class FunctionInfoFlags(enum.IntFlag):
 class InvokeError(enum.IntEnum):
     """
     An error occurring while invoking a function via
-    [method@GIRepository.FunctionInfo.invoke]."""
+    [method`GIRepository`.FunctionInfo.invoke]."""
 
     FAILED = 0
     """
@@ -188,8 +188,8 @@ class InvokeError(enum.IntEnum):
 
 class RepositoryError(enum.IntEnum):
     """
-    An error code used with `GI_REPOSITORY_ERROR` in a [type@GLib.Error]
-    returned from a [class@GIRepository.Repository] routine."""
+    An error code used with `GI_REPOSITORY_ERROR` in a [type`GLib`.Error]
+    returned from a [class`GIRepository`.Repository] routine."""
 
     TYPELIB_NOT_FOUND = 0
     """
@@ -226,7 +226,7 @@ class RepositoryLoadFlags(enum.IntFlag):
 
 class ScopeType(enum.IntEnum):
     """
-    Scope type of a [class@GIRepository.ArgInfo] representing callback,
+    Scope type of a [class`GIRepository`.ArgInfo] representing callback,
     determines how the callback is invoked and is used to decided when the invoke
     structs can be freed."""
 
@@ -244,7 +244,7 @@ class ScopeType(enum.IntEnum):
     """
     The callback and associated
       `user_data` is used until the caller is notified via the
-      [type@GLib.DestroyNotify].
+      [type`GLib`.DestroyNotify].
     """
     FOREVER = 4
     """
@@ -281,8 +281,8 @@ class Transfer(enum.IntEnum):
     Transfer the container (list, array, hash table) from
       the callee to the caller. The callee retains the ownership of the
       individual items in the container and the caller has to free up the
-      container resources ([func@GLib.List.free],
-      [func@GLib.HashTable.destroy], etc) of this transfer.
+      container resources ([func`GLib`.List.free],
+      [func`GLib`.HashTable.destroy], etc) of this transfer.
     """
     EVERYTHING = 2
     """
@@ -294,7 +294,7 @@ class Transfer(enum.IntEnum):
 
 class TypeTag(enum.IntEnum):
     """
-    The type tag of a [class@GIRepository.TypeInfo]."""
+    The type tag of a [class`GIRepository`.TypeInfo]."""
 
     VOID = 0
     """
@@ -346,7 +346,7 @@ class TypeTag(enum.IntEnum):
     """
     GTYPE = 12
     """
-    a [type@GObject.Type]
+    a [type`GObject`.Type]
     """
     UTF8 = 13
     """
@@ -367,19 +367,19 @@ class TypeTag(enum.IntEnum):
     """
     GLIST = 17
     """
-    a [type@GLib.List]
+    a [type`GLib`.List]
     """
     GSLIST = 18
     """
-    a [type@GLib.SList]
+    a [type`GLib`.SList]
     """
     GHASH = 19
     """
-    a [type@GLib.HashTable]
+    a [type`GLib`.HashTable]
     """
     ERROR = 20
     """
-    a [type@GLib.Error]
+    a [type`GLib`.Error]
     """
     UNICHAR = 21
     """
@@ -388,7 +388,7 @@ class TypeTag(enum.IntEnum):
 
 class VFuncInfoFlags(enum.IntFlag):
     """
-    Flags of a [class@GIRepository.VFuncInfo] struct."""
+    Flags of a [class`GIRepository`.VFuncInfo] struct."""
 
     CHAIN_UP = 1
     """
@@ -411,7 +411,7 @@ class ArgInfo(BaseInfo):
     """
     `GIArgInfo` represents an argument of a callable.
 
-    An argument is always part of a [class@GIRepository.CallableInfo].
+    An argument is always part of a [class`GIRepository`.CallableInfo].
     """
 
     # gi Fields
@@ -430,18 +430,18 @@ class ArgInfo(BaseInfo):
         """
     def get_destroy_index(self) -> tuple[bool, int]:
         """
-            Obtains the index of the [type@GLib.DestroyNotify] argument. This is only
+            Obtains the index of the [type`GLib`.DestroyNotify] argument. This is only
         valid for arguments which are callbacks.
         """
     def get_direction(self) -> Direction:
         """
-            Obtain the direction of the argument. Check [type@GIRepository.Direction]
+            Obtain the direction of the argument. Check [type`GIRepository`.Direction]
         for possible direction values.
         """
     def get_ownership_transfer(self) -> Transfer:
         """
             Obtain the ownership transfer for this argument.
-        [type@GIRepository.Transfer] contains a list of possible values.
+        [type`GIRepository`.Transfer] contains a list of possible values.
         """
     def get_scope(self) -> ScopeType:
         """
@@ -450,11 +450,11 @@ class ArgInfo(BaseInfo):
         The scope type explains how a callback is going to be invoked, most
         importantly when the resources required to invoke it can be freed.
 
-        [type@GIRepository.ScopeType] contains a list of possible values.
+        [type`GIRepository`.ScopeType] contains a list of possible values.
         """
     def get_type_info(self) -> TypeInfo:
         """
-        Obtain the type information for @info.
+        Obtain the type information for `info`.
         """
     def is_caller_allocates(self) -> bool:
         """
@@ -462,14 +462,14 @@ class ArgInfo(BaseInfo):
         receive an output of a function.
 
         The default assumption for `GI_DIRECTION_OUT` arguments which have allocation
-        is that the callee allocates; if this is `TRUE`, then the caller must
+        is that the callee allocates; if this is `True`, then the caller must
         allocate.
         """
     def is_optional(self) -> bool:
         """
             Obtain if the argument is optional.
 
-        For ‘out’ arguments this means that you can pass `NULL` in order to ignore
+        For ‘out’ arguments this means that you can pass `None` in order to ignore
         the result.
         """
     def is_return_value(self) -> bool:
@@ -483,23 +483,23 @@ class ArgInfo(BaseInfo):
         """
     def load_type_info(self) -> TypeInfo:
         """
-            Obtain information about a the type of given argument @info; this
-        function is a variant of [method@GIRepository.ArgInfo.get_type_info] designed
+            Obtain information about a the type of given argument `info`; this
+        function is a variant of [method`GIRepository`.ArgInfo.get_type_info] designed
         for stack allocation.
 
-        The initialized @type must not be referenced after @info is deallocated.
+        The initialized `type` must not be referenced after `info` is deallocated.
 
-        Once you are done with @type, it must be cleared using
-        [method@GIRepository.BaseInfo.clear].
+        Once you are done with `type`, it must be cleared using
+        [method`GIRepository`.BaseInfo.clear].
         """
     def may_be_null(self) -> bool:
         """
-            Obtain if the type of the argument includes the possibility of `NULL`.
+            Obtain if the type of the argument includes the possibility of `None`.
 
-        For ‘in’ values this means that `NULL` is a valid value.  For ‘out’
-        values, this means that `NULL` may be returned.
+        For ‘in’ values this means that `None` is a valid value.  For ‘out’
+        values, this means that `None` may be returned.
 
-        See also [method@GIRepository.ArgInfo.is_optional].
+        See also [method`GIRepository`.ArgInfo.is_optional].
         """
 
 class Argument(GObject.GPointer):
@@ -534,7 +534,7 @@ class Argument(GObject.GPointer):
 class AttributeIter(GObject.GPointer):
     """
     An opaque structure used to iterate over attributes
-    in a [class@GIRepository.BaseInfo] struct.
+    in a [class`GIRepository`.BaseInfo] struct.
     """
 
     # gi Methods
@@ -546,7 +546,7 @@ class AttributeIter(GObject.GPointer):
 class BaseInfo(object):
     """
     `GIBaseInfo` is the common base struct of all other Info structs
-    accessible through the [class@GIRepository.Repository] API.
+    accessible through the [class`GIRepository`.Repository] API.
 
     All info structures can be cast to a `GIBaseInfo`, for instance:
 
@@ -555,19 +555,19 @@ class BaseInfo(object):
        GIBaseInfo *info = (GIBaseInfo *) function_info;
     ```
 
-    Most [class@GIRepository.Repository] APIs returning a `GIBaseInfo` are
+    Most [class`GIRepository`.Repository] APIs returning a `GIBaseInfo` are
     actually creating a new struct; in other words,
-    [method@GIRepository.BaseInfo.unref] has to be called when done accessing the
+    [method`GIRepository`.BaseInfo.unref] has to be called when done accessing the
     data.
 
     `GIBaseInfo` structuress are normally accessed by calling either
-    [method@GIRepository.Repository.find_by_name],
-    [method@GIRepository.Repository.find_by_gtype] or
-    [method@GIRepository.get_info].
+    [method`GIRepository`.Repository.find_by_name],
+    [method`GIRepository`.Repository.find_by_gtype] or
+    [method`GIRepository`.get_info].
 
     ```c
     GIBaseInfo *button_info =
-      gi_repository_find_by_name (NULL, "Gtk", "Button");
+      gi_repository_find_by_name (None, "Gtk", "Button");
 
     // use button_info…
 
@@ -588,14 +588,14 @@ class BaseInfo(object):
     def clear(self) -> None:
         """
             Clears memory allocated internally by a stack-allocated
-        [type@GIRepository.BaseInfo].
+        [type`GIRepository`.BaseInfo].
 
-        This does not deallocate the [type@GIRepository.BaseInfo] struct itself. It
+        This does not deallocate the [type`GIRepository`.BaseInfo] struct itself. It
         does clear the struct to zero so that calling this function subsequent times
         on the same struct is a no-op.
 
-        This must only be called on stack-allocated [type@GIRepository.BaseInfo]s.
-        Use [method@GIRepository.BaseInfo.unref] for heap-allocated ones.
+        This must only be called on stack-allocated [type`GIRepository`.BaseInfo]s.
+        Use [method`GIRepository`.BaseInfo.unref] for heap-allocated ones.
         """
     def equal(self, info2: BaseInfo) -> bool:
         """
@@ -611,31 +611,31 @@ class BaseInfo(object):
         """
     def get_container(self) -> BaseInfo:
         """
-            Obtain the container of the @info.
+            Obtain the container of the `info`.
 
         The container is the parent `GIBaseInfo`. For instance, the parent of a
-        [class@GIRepository.FunctionInfo] is an [class@GIRepository.ObjectInfo] or
-        [class@GIRepository.InterfaceInfo].
+        [class`GIRepository`.FunctionInfo] is an [class`GIRepository`.ObjectInfo] or
+        [class`GIRepository`.InterfaceInfo].
         """
     def get_name(self) -> str | None:
         """
-            Obtain the name of the @info.
+            Obtain the name of the `info`.
 
         What the name represents depends on the type of the
-        @info. For instance for [class@GIRepository.FunctionInfo] it is the name of
+        `info`. For instance for [class`GIRepository`.FunctionInfo] it is the name of
         the function.
         """
     def get_namespace(self) -> str:
         """
-        Obtain the namespace of @info.
+        Obtain the namespace of `info`.
         """
     def get_typelib(self) -> Typelib:
         """
-        Obtain the typelib this @info belongs to
+        Obtain the typelib this `info` belongs to
         """
     def is_deprecated(self) -> bool:
         """
-            Obtain whether the @info is represents a metadata which is
+            Obtain whether the `info` is represents a metadata which is
         deprecated.
         """
     def iterate_attributes(self, iterator: AttributeIter) -> tuple[bool, AttributeIter, str, str]:
@@ -643,12 +643,12 @@ class BaseInfo(object):
             Iterate over all attributes associated with this node.
 
         The iterator structure is typically stack allocated, and must have its first
-        member initialized to `NULL`.  Attributes are arbitrary namespaced key–value
+        member initialized to `None`.  Attributes are arbitrary namespaced key–value
         pairs which can be attached to almost any item.  They are intended for use
         by software higher in the toolchain than bindings, and are distinct from
         normal GIR annotations.
 
-        Both the @name and @value should be treated as constants
+        Both the `name` and `value` should be treated as constants
         and must not be freed.
 
         ```c
@@ -667,15 +667,15 @@ class BaseInfo(object):
         """
     def ref(self) -> BaseInfo:
         """
-        Increases the reference count of @info.
+        Increases the reference count of `info`.
         """
     def unref(self) -> None:
         """
-            Decreases the reference count of @info. When its reference count
+            Decreases the reference count of `info`. When its reference count
         drops to 0, the info is freed.
 
-        This must not be called on stack-allocated [type@GIRepository.BaseInfo]s —
-        use [method@GIRepository.BaseInfo.clear] for that.
+        This must not be called on stack-allocated [type`GIRepository`.BaseInfo]s —
+        use [method`GIRepository`.BaseInfo.clear] for that.
         """
 
 class BaseInfoClass(GObject.GPointer):
@@ -708,12 +708,12 @@ class CallableInfo(BaseInfo):
 
     Examples of callable are:
 
-     - functions ([class@GIRepository.FunctionInfo])
-     - virtual functions ([class@GIRepository.VFuncInfo])
-     - callbacks ([class@GIRepository.CallbackInfo]).
+     - functions ([class`GIRepository`.FunctionInfo])
+     - virtual functions ([class`GIRepository`.VFuncInfo])
+     - callbacks ([class`GIRepository`.CallbackInfo]).
 
-    A callable has a list of arguments ([class@GIRepository.ArgInfo]), a return
-    type, direction and a flag which decides if it returns `NULL`.
+    A callable has a list of arguments ([class`GIRepository`.ArgInfo]), a return
+    type, direction and a flag which decides if it returns `None`.
     """
 
     # gi Methods
@@ -723,7 +723,7 @@ class CallableInfo(BaseInfo):
         """
     def can_throw_gerror(self) -> bool:
         """
-        Whether the callable can throw a [type@GLib.Error]
+        Whether the callable can throw a [type`GLib`.Error]
         """
     def get_arguments(self) -> list[ArgInfo]:
         """
@@ -737,7 +737,7 @@ class CallableInfo(BaseInfo):
         """
             See whether the caller owns the return value of this callable.
 
-        [type@GIRepository.Transfer] contains a list of possible transfer values.
+        [type`GIRepository`.Transfer] contains a list of possible transfer values.
         """
     def get_finish_function(self) -> CallableInfo | None:
         """
@@ -747,7 +747,7 @@ class CallableInfo(BaseInfo):
         """
             Obtains the ownership transfer for the instance argument.
 
-        [type@GIRepository.Transfer] contains a list of possible transfer values.
+        [type`GIRepository`.Transfer] contains a list of possible transfer values.
         """
     def get_return_attribute(self, name: str) -> str | None:
         """
@@ -755,10 +755,10 @@ class CallableInfo(BaseInfo):
         """
     def get_return_type(self) -> TypeInfo:
         """
-            Obtain the return type of a callable item as a [class@GIRepository.TypeInfo].
+            Obtain the return type of a callable item as a [class`GIRepository`.TypeInfo].
 
-        If the callable doesn’t return anything, a [class@GIRepository.TypeInfo] of
-        type [enum@GIRepository.TypeTag.VOID] will be returned.
+        If the callable doesn’t return anything, a [class`GIRepository`.TypeInfo] of
+        type [enum`GIRepository`.TypeTag.VOID] will be returned.
         """
     def get_sync_function(self) -> CallableInfo | None:
         """
@@ -768,30 +768,30 @@ class CallableInfo(BaseInfo):
         self, function: object | None, in_args: list, n_in_args: int, out_args: list, n_out_args: int
     ) -> tuple[bool, Argument]:
         """
-            Invoke the given `GICallableInfo` by calling the given @function pointer.
+            Invoke the given `GICallableInfo` by calling the given `function` pointer.
 
-        The set of arguments passed to @function will be constructed according to the
-        introspected type of the `GICallableInfo`, using @in_args, @out_args
-        and @error.
+        The set of arguments passed to `function` will be constructed according to the
+        introspected type of the `GICallableInfo`, using `in_args`, `out_args`
+        and `error`.
         """
     def is_async(self) -> bool:
         """
             Gets whether a callable is ‘async’. Async callables have a
-        [type@Gio.AsyncReadyCallback] parameter and user data.
+        [type`Gio`.AsyncReadyCallback] parameter and user data.
         """
     def is_method(self) -> bool:
         """
             Determines if the callable info is a method.
 
-        For [class@GIRepository.SignalInfo]s, this is always true, and for
-        [class@GIRepository.CallbackInfo]s always false.
-        For [class@GIRepository.FunctionInfo]s this looks at the
-        `GI_FUNCTION_IS_METHOD` flag on the [class@GIRepository.FunctionInfo].
-        For [class@GIRepository.VFuncInfo]s this is true when the virtual function
+        For [class`GIRepository`.SignalInfo]s, this is always true, and for
+        [class`GIRepository`.CallbackInfo]s always false.
+        For [class`GIRepository`.FunctionInfo]s this looks at the
+        `GI_FUNCTION_IS_METHOD` flag on the [class`GIRepository`.FunctionInfo].
+        For [class`GIRepository`.VFuncInfo]s this is true when the virtual function
         has an instance parameter.
 
         Concretely, this function returns whether
-        [method@GIRepository.CallableInfo.get_n_args] matches the number of arguments
+        [method`GIRepository`.CallableInfo.get_n_args] matches the number of arguments
         in the raw C method. For methods, there is one more C argument than is
         exposed by introspection: the `self` or `this` object.
         """
@@ -800,39 +800,39 @@ class CallableInfo(BaseInfo):
             Iterate over all attributes associated with the return value.
 
         The iterator structure is typically stack allocated, and must have its
-        first member initialized to `NULL`.
+        first member initialized to `None`.
 
-        Both the @name and @value should be treated as constants
+        Both the `name` and `value` should be treated as constants
         and must not be freed.
 
-        See [method@GIRepository.BaseInfo.iterate_attributes] for an example of how
+        See [method`GIRepository`.BaseInfo.iterate_attributes] for an example of how
         to use a similar API.
         """
     def load_arg(self, n: int) -> ArgInfo:
         """
             Obtain information about a particular argument of this callable; this
-        function is a variant of [method@GIRepository.CallableInfo.get_arg] designed
+        function is a variant of [method`GIRepository`.CallableInfo.get_arg] designed
         for stack allocation.
 
-        The initialized @arg must not be referenced after @info is deallocated.
+        The initialized `arg` must not be referenced after `info` is deallocated.
 
-        Once you are done with @arg, it must be cleared using
-        [method@GIRepository.BaseInfo.clear].
+        Once you are done with `arg`, it must be cleared using
+        [method`GIRepository`.BaseInfo.clear].
         """
     def load_return_type(self) -> TypeInfo:
         """
             Obtain information about a return value of callable; this
-        function is a variant of [method@GIRepository.CallableInfo.get_return_type]
+        function is a variant of [method`GIRepository`.CallableInfo.get_return_type]
         designed for stack allocation.
 
-        The initialized @type must not be referenced after @info is deallocated.
+        The initialized `type` must not be referenced after `info` is deallocated.
 
-        Once you are done with @type, it must be cleared using
-        [method@GIRepository.BaseInfo.clear].
+        Once you are done with `type`, it must be cleared using
+        [method`GIRepository`.BaseInfo.clear].
         """
     def may_return_null(self) -> bool:
         """
-        See if a callable could return `NULL`.
+        See if a callable could return `None`.
         """
     def skip_return(self) -> bool:
         """
@@ -855,8 +855,8 @@ class ConstantInfo(BaseInfo):
     `GIConstantInfo` represents a constant.
 
     A constant has a type associated – which can be obtained by calling
-    [method@GIRepository.ConstantInfo.get_type_info] – and a value – which can be
-    obtained by calling [method@GIRepository.ConstantInfo.get_value].
+    [method`GIRepository`.ConstantInfo.get_type_info] – and a value – which can be
+    obtained by calling [method`GIRepository`.ConstantInfo.get_value].
     """
 
     # gi Methods
@@ -866,7 +866,7 @@ class ConstantInfo(BaseInfo):
         """
     def get_type_info(self) -> TypeInfo:
         """
-        Obtain the type of the constant as a [class@GIRepository.TypeInfo].
+        Obtain the type of the constant as a [class`GIRepository`.TypeInfo].
         """
 
 class EnumInfo(RegisteredTypeInfo):
@@ -874,10 +874,10 @@ class EnumInfo(RegisteredTypeInfo):
     A `GIEnumInfo` represents an enumeration.
 
     The `GIEnumInfo` contains a set of values (each a
-    [class@GIRepository.ValueInfo]) and a type.
+    [class`GIRepository`.ValueInfo]) and a type.
 
-    The [class@GIRepository.ValueInfo] for a value is fetched by calling
-    [method@GIRepository.EnumInfo.get_value] on a `GIEnumInfo`.
+    The [class`GIRepository`.ValueInfo] for a value is fetched by calling
+    [method`GIRepository`.EnumInfo.get_value] on a `GIEnumInfo`.
     """
 
     # gi Methods
@@ -892,7 +892,7 @@ class EnumInfo(RegisteredTypeInfo):
         """
     def get_method(self, n: int) -> FunctionInfo:
         """
-        Obtain an enum type method at index @n.
+        Obtain an enum type method at index `n`.
         """
     def get_n_methods(self) -> int:
         """
@@ -921,15 +921,15 @@ class FieldInfo(BaseInfo):
     A `GIFieldInfo` struct represents a field of a struct, union, or object.
 
     The `GIFieldInfo` is fetched by calling
-    [method@GIRepository.StructInfo.get_field],
-    [method@GIRepository.UnionInfo.get_field] or
-    [method@GIRepository.ObjectInfo.get_field].
+    [method`GIRepository`.StructInfo.get_field],
+    [method`GIRepository`.UnionInfo.get_field] or
+    [method`GIRepository`.ObjectInfo.get_field].
 
     A field has a size, type and a struct offset associated and a set of flags,
     which are currently `GI_FIELD_IS_READABLE` or `GI_FIELD_IS_WRITABLE`.
 
-    See also: [type@GIRepository.StructInfo], [type@GIRepository.UnionInfo],
-    [type@GIRepository.ObjectInfo]
+    See also: [type`GIRepository`.StructInfo], [type`GIRepository`.UnionInfo],
+    [type`GIRepository`.ObjectInfo]
     """
 
     # gi Methods
@@ -940,7 +940,7 @@ class FieldInfo(BaseInfo):
     def get_flags(self) -> FieldInfoFlags:
         """
             Obtain the flags for this `GIFieldInfo`. See
-        [flags@GIRepository.FieldInfoFlags] for possible flag values.
+        [flags`GIRepository`.FieldInfoFlags] for possible flag values.
         """
     def get_offset(self) -> int:
         """
@@ -954,7 +954,7 @@ class FieldInfo(BaseInfo):
         """
     def get_type_info(self) -> TypeInfo:
         """
-        Obtain the type of a field as a [type@GIRepository.TypeInfo].
+        Obtain the type of a field as a [type`GIRepository`.TypeInfo].
         """
 
 class FlagsInfo(EnumInfo):
@@ -963,10 +963,10 @@ class FlagsInfo(EnumInfo):
     (independently set bits).
 
     The `GIFlagsInfo` contains a set of values (each a
-    [class@GIRepository.ValueInfo]) and a type.
+    [class`GIRepository`.ValueInfo]) and a type.
 
-    The [class@GIRepository.ValueInfo] for a value is fetched by calling
-    [method@GIRepository.EnumInfo.get_value] on a `GIFlagsInfo`.
+    The [class`GIRepository`.ValueInfo] for a value is fetched by calling
+    [method`GIRepository`.EnumInfo.get_value] on a `GIFlagsInfo`.
     """
 
     # gi Methods
@@ -980,9 +980,9 @@ class FunctionInfo(CallableInfo):
     `GIFunctionInfo` represents a function, method or constructor.
 
     To find out what kind of entity a `GIFunctionInfo` represents, call
-    [method@GIRepository.FunctionInfo.get_flags].
+    [method`GIRepository`.FunctionInfo.get_flags].
 
-    See also [class@GIRepository.CallableInfo] for information on how to retrieve
+    See also [class`GIRepository`.CallableInfo] for information on how to retrieve
     arguments and other metadata.
     """
 
@@ -993,7 +993,7 @@ class FunctionInfo(CallableInfo):
         """
     def get_flags(self) -> FunctionInfoFlags:
         """
-        Obtain the [type@GIRepository.FunctionInfoFlags] for the @info.
+        Obtain the [type`GIRepository`.FunctionInfoFlags] for the `info`.
         """
     def get_property(self) -> PropertyInfo | None:
         """
@@ -1001,21 +1001,21 @@ class FunctionInfo(CallableInfo):
 
         Only `GIFunctionInfo`s with the flag `GI_FUNCTION_IS_GETTER` or
         `GI_FUNCTION_IS_SETTER` have a property set. For other cases,
-        `NULL` will be returned.
+        `None` will be returned.
         """
     def get_symbol(self) -> str:
         """
             Obtain the symbol of the function.
 
         The symbol is the name of the exported function, suitable to be used as an
-        argument to [method@GModule.Module.symbol].
+        argument to [method`GModule`.Module.symbol].
         """
     def get_vfunc(self) -> VFuncInfo | None:
         """
             Obtain the virtual function associated with this `GIFunctionInfo`.
 
         Only `GIFunctionInfo`s with the flag `GI_FUNCTION_WRAPS_VFUNC` have
-        a virtual function set. For other cases, `NULL` will be returned.
+        a virtual function set. For other cases, `None` will be returned.
         """
 
 class InterfaceInfo(RegisteredTypeInfo):
@@ -1033,26 +1033,26 @@ class InterfaceInfo(RegisteredTypeInfo):
         """
     def find_method(self, name: str) -> FunctionInfo | None:
         """
-            Obtain a method of the interface type given a @name.
+            Obtain a method of the interface type given a `name`.
 
-        `NULL` will be returned if there’s no method available with that name.
+        `None` will be returned if there’s no method available with that name.
         """
     def find_signal(self, name: str) -> SignalInfo | None:
         """
-            Obtain a signal of the interface type given a @name.
+            Obtain a signal of the interface type given a `name`.
 
-        `NULL` will be returned if there’s no signal available with that name.
+        `None` will be returned if there’s no signal available with that name.
         """
     def find_vfunc(self, name: str) -> VFuncInfo | None:
         """
-            Locate a virtual function slot with name @name.
+            Locate a virtual function slot with name `name`.
 
-        See the documentation for [method@GIRepository.ObjectInfo.find_vfunc] for
+        See the documentation for [method`GIRepository`.ObjectInfo.find_vfunc] for
         more information on virtuals.
         """
     def get_constant(self, n: int) -> ConstantInfo:
         """
-        Obtain an interface type constant at index @n.
+        Obtain an interface type constant at index `n`.
         """
     def get_iface_struct(self) -> StructInfo | None:
         """
@@ -1060,7 +1060,7 @@ class InterfaceInfo(RegisteredTypeInfo):
         """
     def get_method(self, n: int) -> FunctionInfo:
         """
-        Obtain an interface type method at index @n.
+        Obtain an interface type method at index `n`.
         """
     def get_n_constants(self) -> int:
         """
@@ -1075,7 +1075,7 @@ class InterfaceInfo(RegisteredTypeInfo):
             Obtain the number of prerequisites for this interface type.
 
         A prerequisite is another interface that needs to be implemented for
-        interface, similar to a base class for [class@GObject.Object]s.
+        interface, similar to a base class for [class`GObject`.Object]s.
         """
     def get_n_properties(self) -> int:
         """
@@ -1091,27 +1091,27 @@ class InterfaceInfo(RegisteredTypeInfo):
         """
     def get_prerequisite(self, n: int) -> BaseInfo:
         """
-        Obtain an interface type’s prerequisite at index @n.
+        Obtain an interface type’s prerequisite at index `n`.
         """
     def get_property(self, n: int) -> PropertyInfo:
         """
-        Obtain an interface type property at index @n.
+        Obtain an interface type property at index `n`.
         """
     def get_signal(self, n: int) -> SignalInfo:
         """
-        Obtain an interface type signal at index @n.
+        Obtain an interface type signal at index `n`.
         """
     def get_vfunc(self, n: int) -> VFuncInfo:
         """
-        Obtain an interface type virtual function at index @n.
+        Obtain an interface type virtual function at index `n`.
         """
 
 class ObjectInfo(RegisteredTypeInfo):
     """
     `GIObjectInfo` represents a classed type.
 
-    Classed types in [type@GObject.Type] inherit from
-    [type@GObject.TypeInstance]; the most common type is [class@GObject.Object].
+    Classed types in [type`GObject`.Type] inherit from
+    [type`GObject`.TypeInstance]; the most common type is [class`GObject`.Object].
 
     A `GIObjectInfo` doesn’t represent a specific instance of a classed type,
     instead this represent the object type (i.e. the class).
@@ -1127,49 +1127,49 @@ class ObjectInfo(RegisteredTypeInfo):
         """
     def find_method(self, name: str) -> FunctionInfo | None:
         """
-            Obtain a method of the object type given a @name.
+            Obtain a method of the object type given a `name`.
 
-        `NULL` will be returned if there’s no method available with that name.
+        `None` will be returned if there’s no method available with that name.
         """
     def find_method_using_interfaces(self, name: str) -> tuple[FunctionInfo | None, BaseInfo | None]:
         """
-            Obtain a method of the object given a @name, searching both the
-        object @info and any interfaces it implements.
+            Obtain a method of the object given a `name`, searching both the
+        object `info` and any interfaces it implements.
 
-        `NULL` will be returned if there’s no method available with that name.
+        `None` will be returned if there’s no method available with that name.
 
         Note that this function does *not* search parent classes; you will have
         to chain up if that’s desired.
         """
     def find_signal(self, name: str) -> SignalInfo | None:
         """
-            Obtain a signal of the object type given a @name.
+            Obtain a signal of the object type given a `name`.
 
-        `NULL` will be returned if there’s no signal available with that name.
+        `None` will be returned if there’s no signal available with that name.
         """
     def find_vfunc(self, name: str) -> VFuncInfo | None:
         """
-            Locate a virtual function slot with name @name.
+            Locate a virtual function slot with name `name`.
 
         Note that the namespace for virtuals is distinct from that of methods; there
         may or may not be a concrete method associated for a virtual. If there is
-        one, it may be retrieved using [method@GIRepository.VFuncInfo.get_invoker],
-        otherwise that method will return `NULL`.
+        one, it may be retrieved using [method`GIRepository`.VFuncInfo.get_invoker],
+        otherwise that method will return `None`.
 
-        See the documentation for [method@GIRepository.VFuncInfo.get_invoker] for
+        See the documentation for [method`GIRepository`.VFuncInfo.get_invoker] for
         more information on invoking virtuals.
         """
     def find_vfunc_using_interfaces(self, name: str) -> tuple[VFuncInfo | None, BaseInfo | None]:
         """
-            Locate a virtual function slot with name @name, searching both the object
-        @info and any interfaces it implements.
+            Locate a virtual function slot with name `name`, searching both the object
+        `info` and any interfaces it implements.
 
-        `NULL` will be returned if there’s no vfunc available with that name.
+        `None` will be returned if there’s no vfunc available with that name.
 
         Note that the namespace for virtuals is distinct from that of methods; there
         may or may not be a concrete method associated for a virtual. If there is
-        one, it may be retrieved using [method@GIRepository.VFuncInfo.get_invoker],
-        otherwise that method will return `NULL`.
+        one, it may be retrieved using [method`GIRepository`.VFuncInfo.get_invoker],
+        otherwise that method will return `None`.
 
         Note that this function does *not* search parent classes; you will have
         to chain up if that’s desired.
@@ -1181,16 +1181,16 @@ class ObjectInfo(RegisteredTypeInfo):
         """
     def get_class_struct(self) -> StructInfo | None:
         """
-            Every [class@GObject.Object] has two structures; an instance structure and a
+            Every [class`GObject`.Object] has two structures; an instance structure and a
         class structure.  This function returns the metadata for the class structure.
         """
     def get_constant(self, n: int) -> ConstantInfo:
         """
-        Obtain an object type constant at index @n.
+        Obtain an object type constant at index `n`.
         """
     def get_field(self, n: int) -> FieldInfo:
         """
-        Obtain an object type field at index @n.
+        Obtain an object type field at index `n`.
         """
     def get_final(self) -> bool:
         """
@@ -1207,19 +1207,19 @@ class ObjectInfo(RegisteredTypeInfo):
     def get_get_value_function_name(self) -> str | None:
         """
             Obtain the symbol name of the function that should be called to convert
-        an object instance pointer of this object type to a [type@GObject.Value].
+        an object instance pointer of this object type to a [type`GObject`.Value].
 
         It’s mainly used for fundamental types. The type signature for the symbol
-        is [type@GIRepository.ObjectInfoGetValueFunction]. To fetch the function
-        pointer see [method@GIRepository.ObjectInfo.get_get_value_function_pointer].
+        is [type`GIRepository`.ObjectInfoGetValueFunction]. To fetch the function
+        pointer see [method`GIRepository`.ObjectInfo.get_get_value_function_pointer].
         """
     def get_interface(self, n: int) -> InterfaceInfo:
         """
-        Obtain an object type interface at index @n.
+        Obtain an object type interface at index `n`.
         """
     def get_method(self, n: int) -> FunctionInfo:
         """
-        Obtain an object type method at index @n.
+        Obtain an object type method at index `n`.
         """
     def get_n_constants(self) -> int:
         """
@@ -1255,7 +1255,7 @@ class ObjectInfo(RegisteredTypeInfo):
         """
     def get_property(self, n: int) -> PropertyInfo:
         """
-        Obtain an object type property at index @n.
+        Obtain an object type property at index `n`.
         """
     def get_ref_function_name(self) -> str | None:
         """
@@ -1263,27 +1263,27 @@ class ObjectInfo(RegisteredTypeInfo):
         object type.
 
         It’s mainly used for fundamental types. The type signature for
-        the symbol is [type@GIRepository.ObjectInfoRefFunction]. To fetch the
+        the symbol is [type`GIRepository`.ObjectInfoRefFunction]. To fetch the
         function pointer see
-        [method@GIRepository.ObjectInfo.get_ref_function_pointer].
+        [method`GIRepository`.ObjectInfo.get_ref_function_pointer].
         """
     def get_set_value_function_name(self) -> str | None:
         """
             Obtain the symbol name of the function that should be called to set a
-        [type@GObject.Value], given an object instance pointer of this object type.
+        [type`GObject`.Value], given an object instance pointer of this object type.
 
         It’s mainly used for fundamental types. The type signature for the symbol
-        is [type@GIRepository.ObjectInfoSetValueFunction]. To fetch the function
-        pointer see [method@GIRepository.ObjectInfo.get_set_value_function_pointer].
+        is [type`GIRepository`.ObjectInfoSetValueFunction]. To fetch the function
+        pointer see [method`GIRepository`.ObjectInfo.get_set_value_function_pointer].
         """
     def get_signal(self, n: int) -> SignalInfo:
         """
-        Obtain an object type signal at index @n.
+        Obtain an object type signal at index `n`.
         """
     def get_type_init_function_name(self) -> str:
         """
             Obtain the name of the function which, when called, will return the
-        [type@GObject.Type] for this object type.
+        [type`GObject`.Type] for this object type.
         """
     def get_type_name(self) -> str:
         """
@@ -1295,20 +1295,20 @@ class ObjectInfo(RegisteredTypeInfo):
         object type.
 
         It’s mainly used for fundamental types. The type signature for the symbol is
-        [type@GIRepository.ObjectInfoUnrefFunction]. To fetch the function pointer
-        see [method@GIRepository.ObjectInfo.get_unref_function_pointer].
+        [type`GIRepository`.ObjectInfoUnrefFunction]. To fetch the function pointer
+        see [method`GIRepository`.ObjectInfo.get_unref_function_pointer].
         """
     def get_vfunc(self, n: int) -> VFuncInfo:
         """
-        Obtain an object type virtual function at index @n.
+        Obtain an object type virtual function at index `n`.
         """
 
 class PropertyInfo(BaseInfo):
     """
-    `GIPropertyInfo` represents a property in a [class@GObject.Object].
+    `GIPropertyInfo` represents a property in a [class`GObject`.Object].
 
-    A property belongs to either a [class@GIRepository.ObjectInfo] or a
-    [class@GIRepository.InterfaceInfo].
+    A property belongs to either a [class`GIRepository`.ObjectInfo] or a
+    [class`GIRepository`.InterfaceInfo].
     """
 
     # gi Methods
@@ -1320,7 +1320,7 @@ class PropertyInfo(BaseInfo):
         """
             Obtain the flags for this property info.
 
-        See [type@GObject.ParamFlags] for more information about possible flag
+        See [type`GObject`.ParamFlags] for more information about possible flag
         values.
         """
     def get_getter(self) -> FunctionInfo | None:
@@ -1333,7 +1333,7 @@ class PropertyInfo(BaseInfo):
         """
             Obtain the ownership transfer for this property.
 
-        See [type@GIRepository.Transfer] for more information about transfer values.
+        See [type`GIRepository`.Transfer] for more information about transfer values.
         """
     def get_setter(self) -> FunctionInfo | None:
         """
@@ -1344,29 +1344,29 @@ class PropertyInfo(BaseInfo):
         """
     def get_type_info(self) -> TypeInfo:
         """
-        Obtain the type information for the property @info.
+        Obtain the type information for the property `info`.
         """
 
 class RegisteredTypeInfo(BaseInfo):
     """
-    `GIRegisteredTypeInfo` represents an entity with a [type@GObject.Type]
+    `GIRegisteredTypeInfo` represents an entity with a [type`GObject`.Type]
     associated.
 
-    Could be either a [class@GIRepository.EnumInfo],
-    [class@GIRepository.InterfaceInfo], [class@GIRepository.ObjectInfo],
-    [class@GIRepository.StructInfo] or a [class@GIRepository.UnionInfo].
+    Could be either a [class`GIRepository`.EnumInfo],
+    [class`GIRepository`.InterfaceInfo], [class`GIRepository`.ObjectInfo],
+    [class`GIRepository`.StructInfo] or a [class`GIRepository`.UnionInfo].
 
     A registered type info struct has a name and a type function.
 
-    To get the name call [method@GIRepository.RegisteredTypeInfo.get_type_name].
-    Most users want to call [method@GIRepository.RegisteredTypeInfo.get_g_type]
+    To get the name call [method`GIRepository`.RegisteredTypeInfo.get_type_name].
+    Most users want to call [method`GIRepository`.RegisteredTypeInfo.get_g_type]
     and don’t worry about the rest of the details.
 
     If the registered type is a subtype of `G_TYPE_BOXED`,
-    [method@GIRepository.RegisteredTypeInfo.is_boxed] will return true, and
-    [method@GIRepository.RegisteredTypeInfo.get_type_name] is guaranteed to
-    return a non-`NULL` value. This is relevant for the
-    [class@GIRepository.StructInfo] and [class@GIRepository.UnionInfo]
+    [method`GIRepository`.RegisteredTypeInfo.is_boxed] will return true, and
+    [method`GIRepository`.RegisteredTypeInfo.get_type_name] is guaranteed to
+    return a non-`None` value. This is relevant for the
+    [class`GIRepository`.StructInfo] and [class`GIRepository`.UnionInfo]
     subclasses.
     """
 
@@ -1377,46 +1377,46 @@ class RegisteredTypeInfo(BaseInfo):
         """
     def get_g_type(self) -> GObject.GType:
         """
-            Obtain the [type@GObject.Type] for this registered type.
+            Obtain the [type`GObject`.Type] for this registered type.
 
-        If there is no type information associated with @info, or the shared library
-        which provides the `type_init` function for @info cannot be called, then
+        If there is no type information associated with `info`, or the shared library
+        which provides the `type_init` function for `info` cannot be called, then
         `G_TYPE_NONE` is returned.
         """
     def get_type_init_function_name(self) -> str | None:
         """
-            Obtain the type init function for @info.
+            Obtain the type init function for `info`.
 
         The type init function is the function which will register the
-        [type@GObject.Type] within the GObject type system. Usually this is not
+        [type`GObject`.Type] within the GObject type system. Usually this is not
         called by language bindings or applications — use
-        [method@GIRepository.RegisteredTypeInfo.get_g_type] directly instead.
+        [method`GIRepository`.RegisteredTypeInfo.get_g_type] directly instead.
         """
     def get_type_name(self) -> str | None:
         """
             Obtain the type name of the struct within the GObject type system.
 
-        This type can be passed to [func@GObject.type_name] to get a
-        [type@GObject.Type].
+        This type can be passed to [func`GObject`.type_name] to get a
+        [type`GObject`.Type].
         """
     def is_boxed(self) -> bool:
         """
             Get whether the registered type is a boxed type.
 
         A boxed type is a subtype of the fundamental `G_TYPE_BOXED` type.
-        It’s a type which has registered a [type@GObject.Type], and which has
+        It’s a type which has registered a [type`GObject`.Type], and which has
         associated copy and free functions.
 
         Most boxed types are `struct`s; some are `union`s; and it’s possible for a
         boxed type to be neither, but that is currently unsupported by
         libgirepository. It’s also possible for a `struct` or `union` to have
         associated copy and/or free functions *without* being a boxed type, by virtue
-        of not having registered a [type@GObject.Type].
+        of not having registered a [type`GObject`.Type].
 
-        This function will return false for [type@GObject.Type]s which are not boxed,
+        This function will return false for [type`GObject`.Type]s which are not boxed,
         such as classes or interfaces. It will also return false for the `struct`s
         associated with a class or interface, which return true from
-        [method@GIRepository.StructInfo.is_gtype_struct].
+        [method`GIRepository`.StructInfo.is_gtype_struct].
         """
 
 class Repository(GObject.Object):
@@ -1425,13 +1425,13 @@ class Repository(GObject.Object):
     are represented on disk by type libraries (`.typelib` files).
 
     The individual pieces of API within a type library are represented by
-    subclasses of [class@GIRepository.BaseInfo]. These can be found using
-    methods like [method@GIRepository.Repository.find_by_name] or
-    [method@GIRepository.Repository.get_info].
+    subclasses of [class`GIRepository`.BaseInfo]. These can be found using
+    methods like [method`GIRepository`.Repository.find_by_name] or
+    [method`GIRepository`.Repository.get_info].
 
     You are responsible for ensuring that the lifetime of the
-    [class@GIRepository.Repository] exceeds that of the lifetime of any of its
-    [class@GIRepository.BaseInfo]s. This cannot be guaranteed by using internal
+    [class`GIRepository`.Repository] exceeds that of the lifetime of any of its
+    [class`GIRepository`.BaseInfo]s. This cannot be guaranteed by using internal
     references within libgirepository as that would affect performance.
 
     ### Discovery of type libraries
@@ -1441,10 +1441,10 @@ class Repository(GObject.Object):
     standard Linux system this will end up being `/usr/lib/girepository-1.0`.
 
     It is possible to control the search paths programmatically, using
-    [method@GIRepository.Repository.prepend_search_path]. It is also possible to
+    [method`GIRepository`.Repository.prepend_search_path]. It is also possible to
     modify the search paths by using the `GI_TYPELIB_PATH` environment variable.
     The environment variable takes precedence over the default search path
-    and the [method@GIRepository.Repository.prepend_search_path] calls.
+    and the [method`GIRepository`.Repository.prepend_search_path] calls.
 
     ### Namespace ordering
 
@@ -1472,12 +1472,12 @@ class Repository(GObject.Object):
     @staticmethod
     def dump(input_filename: str, output_filename: str) -> bool:
         """
-            Dump the introspection data from the types specified in @input_filename to
-        @output_filename.
+            Dump the introspection data from the types specified in `input_filename` to
+        `output_filename`.
 
         The input file should be a
         UTF-8 Unix-line-ending text file, with each line containing either
-        `get-type:` followed by the name of a [type@GObject.Type] `_get_type`
+        `get-type:` followed by the name of a [type`GObject`.Type] `_get_type`
         function, or `error-quark:` followed by the name of an error quark function.
         No extra whitespace is allowed.
 
@@ -1486,38 +1486,38 @@ class Repository(GObject.Object):
     def enumerate_versions(self, namespace_: str) -> tuple[list, int]:
         """
             Obtain an unordered list of versions (either currently loaded or
-        available) for @namespace_ in this @repository.
+        available) for `namespace_` in this `repository`.
 
-        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
-        counted in @n_versions_out.
+        The list is guaranteed to be `None` terminated. The `None` terminator is not
+        counted in `n_versions_out`.
         """
     @staticmethod
     def error_quark() -> int: ...
     def find_by_error_domain(self, domain: int) -> EnumInfo | None:
         """
-            Searches for the enum type corresponding to the given [type@GLib.Error]
+            Searches for the enum type corresponding to the given [type`GLib`.Error]
         domain.
 
         Before calling this function for a particular namespace, you must call
-        [method@GIRepository.Repository.require] to load the namespace, or otherwise
+        [method`GIRepository`.Repository.require] to load the namespace, or otherwise
         ensure the namespace has already been loaded.
         """
     def find_by_gtype(self, gtype: GObject.GType) -> BaseInfo | None:
         """
-            Searches all loaded namespaces for a particular [type@GObject.Type].
+            Searches all loaded namespaces for a particular [type`GObject`.Type].
 
         Note that in order to locate the metadata, the namespace corresponding to
         the type must first have been loaded.  There is currently no
         mechanism for determining the namespace which corresponds to an
-        arbitrary [type@GObject.Type] — thus, this function will operate most
-        reliably when you know the [type@GObject.Type] is from a loaded namespace.
+        arbitrary [type`GObject`.Type] — thus, this function will operate most
+        reliably when you know the [type`GObject`.Type] is from a loaded namespace.
         """
     def find_by_name(self, namespace_: str, name: str) -> BaseInfo | None:
         """
             Searches for a particular entry in a namespace.
 
         Before calling this function for a particular namespace, you must call
-        [method@GIRepository.Repository.require] to load the namespace, or otherwise
+        [method`GIRepository`.Repository.require] to load the namespace, or otherwise
         ensure the namespace has already been loaded.
         """
     def get_c_prefix(self, namespace_: str) -> str | None:
@@ -1525,93 +1525,93 @@ class Repository(GObject.Object):
             This function returns the ‘C prefix’, or the C level namespace
         associated with the given introspection namespace.
 
-        Each C symbol starts with this prefix, as well each [type@GObject.Type] in
+        Each C symbol starts with this prefix, as well each [type`GObject`.Type] in
         the library.
 
         Note: The namespace must have already been loaded using a function
-        such as [method@GIRepository.Repository.require] before calling this
+        such as [method`GIRepository`.Repository.require] before calling this
         function.
         """
     def get_dependencies(self, namespace_: str) -> tuple[list, int]:
         """
             Retrieves all (transitive) versioned dependencies for
-        @namespace_.
+        `namespace_`.
 
         The returned strings are of the form `namespace-version`.
 
-        Note: @namespace_ must have already been loaded using a function
-        such as [method@GIRepository.Repository.require] before calling this
+        Note: `namespace_` must have already been loaded using a function
+        such as [method`GIRepository`.Repository.require] before calling this
         function.
 
-        To get only the immediate dependencies for @namespace_, use
-        [method@GIRepository.Repository.get_immediate_dependencies].
+        To get only the immediate dependencies for `namespace_`, use
+        [method`GIRepository`.Repository.get_immediate_dependencies].
 
-        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
-        counted in @n_dependencies_out.
+        The list is guaranteed to be `None` terminated. The `None` terminator is not
+        counted in `n_dependencies_out`.
         """
     def get_immediate_dependencies(self, namespace_: str) -> tuple[list, int]:
         """
-            Return an array of the immediate versioned dependencies for @namespace_.
+            Return an array of the immediate versioned dependencies for `namespace_`.
         Returned strings are of the form `namespace-version`.
 
-        Note: @namespace_ must have already been loaded using a function
-        such as [method@GIRepository.Repository.require] before calling this
+        Note: `namespace_` must have already been loaded using a function
+        such as [method`GIRepository`.Repository.require] before calling this
         function.
 
-        To get the transitive closure of dependencies for @namespace_, use
-        [method@GIRepository.Repository.get_dependencies].
+        To get the transitive closure of dependencies for `namespace_`, use
+        [method`GIRepository`.Repository.get_dependencies].
 
-        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
-        counted in @n_dependencies_out.
+        The list is guaranteed to be `None` terminated. The `None` terminator is not
+        counted in `n_dependencies_out`.
         """
     def get_info(self, namespace_: str, idx: int) -> BaseInfo:
         """
             This function returns a particular metadata entry in the
-        given namespace @namespace_.
+        given namespace `namespace_`.
 
         The namespace must have already been loaded before calling this function.
-        See [method@GIRepository.Repository.get_n_infos] to find the maximum number
-        of entries. It is an error to pass an invalid @idx to this function.
+        See [method`GIRepository`.Repository.get_n_infos] to find the maximum number
+        of entries. It is an error to pass an invalid `idx` to this function.
         """
     def get_library_path(self) -> tuple[list, int]:
         """
-            Returns the current search path [class@GIRepository.Repository] will use when
+            Returns the current search path [class`GIRepository`.Repository] will use when
         loading shared libraries referenced by imported namespaces.
 
-        The list is internal to [class@GIRepository.Repository] and should not be
+        The list is internal to [class`GIRepository`.Repository] and should not be
         freed, nor should its string elements.
 
-        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
-        counted in @n_paths_out.
+        The list is guaranteed to be `None` terminated. The `None` terminator is not
+        counted in `n_paths_out`.
         """
     def get_loaded_namespaces(self) -> tuple[list, int]:
         """
             Return the list of currently loaded namespaces.
 
-        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
-        counted in @n_namespaces_out.
+        The list is guaranteed to be `None` terminated. The `None` terminator is not
+        counted in `n_namespaces_out`.
         """
     def get_n_infos(self, namespace_: str) -> int:
         """
             This function returns the number of metadata entries in
-        given namespace @namespace_.
+        given namespace `namespace_`.
 
         The namespace must have already been loaded before calling this function.
         """
     def get_object_gtype_interfaces(self, gtype: GObject.GType) -> tuple[int, list]:
         """
-            Look up the implemented interfaces for @gtype.
+            Look up the implemented interfaces for `gtype`.
 
         This function cannot fail per se; but for a totally ‘unknown’
-        [type@GObject.Type], it may return 0 implemented interfaces.
+        [type`GObject`.Type], it may return 0 implemented interfaces.
 
         The semantics of this function are designed for a dynamic binding,
         where in certain cases (such as a function which returns an
         interface which may have ‘hidden’ implementation classes), not all
         data may be statically known, and will have to be determined from
-        the [type@GObject.Type] of the object.  An example is
-        [func@Gio.File.new_for_path] returning a concrete class of
-        `GLocalFile`, which is a [type@GObject.Type] we see at runtime, but
+        the [type`GObject`.Type] of the object.  An example is
+        [func`Gio`.File.new_for_path] returning a concrete class of
+        `GLocalFile`, which is a [type`GObject`.Type] we see at runtime, but
         not statically.
         """
     @staticmethod
@@ -1624,48 +1624,48 @@ class Repository(GObject.Object):
         """
     def get_search_path(self) -> tuple[list, int]:
         """
-            Returns the current search path [class@GIRepository.Repository] will use when
+            Returns the current search path [class`GIRepository`.Repository] will use when
         loading typelib files.
 
-        The list is internal to [class@GIRepository.Repository] and should not be
+        The list is internal to [class`GIRepository`.Repository] and should not be
         freed, nor should its string elements.
 
-        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
-        counted in @n_paths_out.
+        The list is guaranteed to be `None` terminated. The `None` terminator is not
+        counted in `n_paths_out`.
         """
     def get_shared_libraries(self, namespace_: str) -> tuple[list | None, int]:
         """
             This function returns an array of paths to the
-        shared C libraries associated with the given namespace @namespace_.
+        shared C libraries associated with the given namespace `namespace_`.
 
         There may be no shared library path associated, in which case this
-        function will return `NULL`.
+        function will return `None`.
 
         Note: The namespace must have already been loaded using a function
-        such as [method@GIRepository.Repository.require] before calling this
+        such as [method`GIRepository`.Repository.require] before calling this
         function.
 
-        The list is internal to [class@GIRepository.Repository] and should not be
+        The list is internal to [class`GIRepository`.Repository] and should not be
         freed, nor should its string elements.
 
-        The list is guaranteed to be `NULL` terminated. The `NULL` terminator is not
-        counted in @out_n_elements.
+        The list is guaranteed to be `None` terminated. The `None` terminator is not
+        counted in `out_n_elements`.
         """
     def get_typelib_path(self, namespace_: str) -> str | None:
         """
-            If namespace @namespace_ is loaded, return the full path to the
+            If namespace `namespace_` is loaded, return the full path to the
         .typelib file it was loaded from.
 
-        If the typelib for namespace @namespace_ was included in a shared library,
+        If the typelib for namespace `namespace_` was included in a shared library,
         return the special string `<builtin>`.
         """
     def get_version(self, namespace_: str) -> str:
         """
             This function returns the loaded version associated with the given
-        namespace @namespace_.
+        namespace `namespace_`.
 
         Note: The namespace must have already been loaded using a function
-        such as [method@GIRepository.Repository.require] before calling this
+        such as [method`GIRepository`.Repository.require] before calling this
         function.
         """
     def is_registered(self, namespace_: str, version: str | None = None) -> bool:
@@ -1675,29 +1675,29 @@ class Repository(GObject.Object):
 
         This function is likely to only be useful in unusual circumstances; in order
         to act upon metadata in the namespace, you should call
-        [method@GIRepository.Repository.require] instead which will ensure the
+        [method`GIRepository`.Repository.require] instead which will ensure the
         namespace is loaded, and return as quickly as this function will if it has
         already been loaded.
         """
     def load_typelib(self, typelib: Typelib, flags: RepositoryLoadFlags) -> str:
         """
-        Load the given @typelib into the repository.
+        Load the given `typelib` into the repository.
         """
     @classmethod
     def new(cls) -> Repository:
         """
-        Create a new [class@GIRepository.Repository].
+        Create a new [class`GIRepository`.Repository].
         """
     def prepend_library_path(self, directory: str) -> None:
         """
-            Prepends @directory to the search path that is used to
+            Prepends `directory` to the search path that is used to
         search shared libraries referenced by imported namespaces.
 
         Multiple calls to this function all contribute to the final
         list of paths.
 
-        The list of paths is unique to @repository. When a typelib is loaded by the
-        repository, the list of paths from the @repository at that instant is used
+        The list of paths is unique to `repository`. When a typelib is loaded by the
+        repository, the list of paths from the `repository` at that instant is used
         by the typelib for loading its modules.
 
         If the library is not found in the directories configured
@@ -1707,28 +1707,28 @@ class Repository(GObject.Object):
         """
     def prepend_search_path(self, directory: str) -> None:
         """
-            Prepends @directory to the typelib search path.
+            Prepends `directory` to the typelib search path.
 
-        See also: gi_repository_get_search_path().
+        See also: `gi_repository_get_search_path`.
         """
     def require(self, namespace_: str, version: str | None, flags: RepositoryLoadFlags) -> Typelib:
         """
-            Force the namespace @namespace_ to be loaded if it isn’t already.
+            Force the namespace `namespace_` to be loaded if it isn’t already.
 
-        If @namespace_ is not loaded, this function will search for a
+        If `namespace_` is not loaded, this function will search for a
         `.typelib` file using the repository search path.  In addition, a
-        version @version of namespace may be specified.  If @version is
+        version `version` of namespace may be specified.  If `version` is
         not specified, the latest will be used.
         """
     def require_private(
         self, typelib_dir: str, namespace_: str, version: str | None, flags: RepositoryLoadFlags
     ) -> Typelib:
         """
-            Force the namespace @namespace_ to be loaded if it isn’t already.
+            Force the namespace `namespace_` to be loaded if it isn’t already.
 
-        If @namespace_ is not loaded, this function will search for a
+        If `namespace_` is not loaded, this function will search for a
         `.typelib` file within the private directory only. In addition, a
-        version @version of namespace should be specified.  If @version is
+        version `version` of namespace should be specified.  If `version` is
         not specified, the latest will be used.
         """
 
@@ -1747,10 +1747,10 @@ class SignalInfo(CallableInfo):
     """
     `GISignalInfo` represents a signal.
 
-    It’s a sub-struct of [class@GIRepository.CallableInfo] and contains a set of
+    It’s a sub-struct of [class`GIRepository`.CallableInfo] and contains a set of
     flags and a class closure.
 
-    See [class@GIRepository.CallableInfo] for information on how to retrieve
+    See [class`GIRepository`.CallableInfo] for information on how to retrieve
     arguments and other metadata from the signal.
     """
 
@@ -1764,18 +1764,18 @@ class SignalInfo(CallableInfo):
             Obtain the class closure for this signal if one is set.
 
         The class closure is a virtual function on the type that the signal belongs
-        to. If the signal lacks a closure, `NULL` will be returned.
+        to. If the signal lacks a closure, `None` will be returned.
         """
     def get_flags(self) -> GObject.SignalFlags:
         """
             Obtain the flags for this signal info.
 
-        See [flags@GObject.SignalFlags] for more information about possible flag
+        See [flags`GObject`.SignalFlags] for more information about possible flag
         values.
         """
     def true_stops_emit(self) -> bool:
         """
-            Obtain if the returning `TRUE` in the signal handler will stop the emission
+            Obtain if the returning `True` in the signal handler will stop the emission
         of the signal.
         """
 
@@ -1793,11 +1793,11 @@ class StructInfo(RegisteredTypeInfo):
         """
     def find_field(self, name: str) -> FieldInfo | None:
         """
-        Obtain the type information for field named @name.
+        Obtain the type information for field named `name`.
         """
     def find_method(self, name: str) -> FunctionInfo | None:
         """
-        Obtain the type information for method named @name.
+        Obtain the type information for method named `name`.
         """
     def get_alignment(self) -> int:
         """
@@ -1805,7 +1805,7 @@ class StructInfo(RegisteredTypeInfo):
         """
     def get_copy_function_name(self) -> str | None:
         """
-        Retrieves the name of the copy function for @info, if any is set.
+        Retrieves the name of the copy function for `info`, if any is set.
         """
     def get_field(self, n: int) -> FieldInfo:
         """
@@ -1813,7 +1813,7 @@ class StructInfo(RegisteredTypeInfo):
         """
     def get_free_function_name(self) -> str | None:
         """
-        Retrieves the name of the free function for @info, if any is set.
+        Retrieves the name of the free function for `info`, if any is set.
         """
     def get_method(self, n: int) -> FunctionInfo:
         """
@@ -1839,7 +1839,7 @@ class StructInfo(RegisteredTypeInfo):
     def is_gtype_struct(self) -> bool:
         """
             Return true if this structure represents the ‘class structure’ for some
-        [class@GObject.Object] or `GInterface`.
+        [class`GObject`.Object] or `GInterface`.
 
         This function is mainly useful to hide this kind of structure from generated
         public APIs.
@@ -1851,16 +1851,16 @@ class TypeInfo(BaseInfo):
     transfer.
 
     You can retrieve a type info from an argument (see
-    [class@GIRepository.ArgInfo]), a function’s return value (see
-    [class@GIRepository.FunctionInfo]), a field (see
-    [class@GIRepository.FieldInfo]), a property (see
-    [class@GIRepository.PropertyInfo]), a constant (see
-    [class@GIRepository.ConstantInfo]) or for a union discriminator (see
-    [class@GIRepository.UnionInfo]).
+    [class`GIRepository`.ArgInfo]), a function’s return value (see
+    [class`GIRepository`.FunctionInfo]), a field (see
+    [class`GIRepository`.FieldInfo]), a property (see
+    [class`GIRepository`.PropertyInfo]), a constant (see
+    [class`GIRepository`.ConstantInfo]) or for a union discriminator (see
+    [class`GIRepository`.UnionInfo]).
 
     A type can either be a of a basic type which is a standard C primitive
     type or an interface type. For interface types you need to call
-    [method@GIRepository.TypeInfo.get_interface] to get a reference to the base
+    [method`GIRepository`.TypeInfo.get_interface] to get a reference to the base
     info for that interface.
     """
 
@@ -1876,10 +1876,10 @@ class TypeInfo(BaseInfo):
     def argument_from_hash_pointer(self, hash_pointer: object | None = None) -> Argument:
         """
             Convert a data pointer from a GLib data structure to a
-        [type@GIRepository.Argument].
+        [type`GIRepository`.Argument].
 
-        GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
-        [type@GLib.HashTable], all store data pointers.
+        GLib data structures, such as [type`GLib`.List], [type`GLib`.SList], and
+        [type`GLib`.HashTable], all store data pointers.
 
         In the case where the list or hash table is storing single types rather than
         structs, these data pointers may have values stuffed into them via macros
@@ -1888,60 +1888,60 @@ class TypeInfo(BaseInfo):
         Use this function to ensure that all values are correctly extracted from
         stuffed pointers, regardless of the machine’s architecture or endianness.
 
-        This function fills in the appropriate field of @arg with the value extracted
-        from @hash_pointer, depending on the storage type of @info.
+        This function fills in the appropriate field of `arg` with the value extracted
+        from `hash_pointer`, depending on the storage type of `info`.
         """
     def get_array_fixed_size(self) -> tuple[bool, int]:
         """
             Obtain the fixed array size of the type, in number of elements (not bytes).
 
-        The type tag must be a `GI_TYPE_TAG_ARRAY` with a fixed size, or `FALSE` will
+        The type tag must be a `GI_TYPE_TAG_ARRAY` with a fixed size, or `False` will
         be returned.
         """
     def get_array_length_index(self) -> tuple[bool, int]:
         """
             Obtain the position of the argument which gives the array length of the type.
 
-        The type tag must be a `GI_TYPE_TAG_ARRAY` with a length argument, or `FALSE`
+        The type tag must be a `GI_TYPE_TAG_ARRAY` with a length argument, or `False`
         will be returned.
         """
     def get_array_type(self) -> ArrayType:
         """
             Obtain the array type for this type.
 
-        See [enum@GIRepository.ArrayType] for a list of possible values.
+        See [enum`GIRepository`.ArrayType] for a list of possible values.
 
-        It is an error to call this on an @info which is not an array type. Use
-        [method@GIRepository.TypeInfo.get_tag] to check.
+        It is an error to call this on an `info` which is not an array type. Use
+        [method`GIRepository`.TypeInfo.get_tag] to check.
         """
     def get_interface(self) -> BaseInfo | None:
         """
-            For types which have `GI_TYPE_TAG_INTERFACE` such as [class@GObject.Object]s
+            For types which have `GI_TYPE_TAG_INTERFACE` such as [class`GObject`.Object]s
         and boxed values, this function returns full information about the referenced
         type.
 
-        You can then inspect the type of the returned [class@GIRepository.BaseInfo]
-        to further query whether it is a concrete [class@GObject.Object], an
+        You can then inspect the type of the returned [class`GIRepository`.BaseInfo]
+        to further query whether it is a concrete [class`GObject`.Object], an
         interface, a structure, etc., using the type checking macros like
-        [func@GIRepository.IS_OBJECT_INFO], or raw [type@GObject.Type]s with
-        [func@GObject.TYPE_FROM_INSTANCE].
+        [func`GIRepository`.IS_OBJECT_INFO], or raw [type`GObject`.Type]s with
+        [func`GObject`.TYPE_FROM_INSTANCE].
         """
     def get_param_type(self, n: int) -> TypeInfo | None:
         """
-        Obtain the parameter type @n, or `NULL` if the type is not an array.
+        Obtain the parameter type `n`, or `None` if the type is not an array.
         """
     def get_storage_type(self) -> TypeTag:
         """
             Obtain the type tag corresponding to the underlying storage type in C for
         the type.
 
-        See [type@GIRepository.TypeTag] for a list of type tags.
+        See [type`GIRepository`.TypeTag] for a list of type tags.
         """
     def get_tag(self) -> TypeTag:
         """
             Obtain the type tag for the type.
 
-        See [type@GIRepository.TypeTag] for a list of type tags.
+        See [type`GIRepository`.TypeTag] for a list of type tags.
         """
     def get_tag_as_string(self) -> str:
         """
@@ -1949,11 +1949,11 @@ class TypeInfo(BaseInfo):
         """
     def hash_pointer_from_argument(self, arg: Argument) -> object | None:
         """
-            Convert a [type@GIRepository.Argument] to data pointer for use in a GLib
+            Convert a [type`GIRepository`.Argument] to data pointer for use in a GLib
         data structure.
 
-        GLib data structures, such as [type@GLib.List], [type@GLib.SList], and
-        [type@GLib.HashTable], all store data pointers.
+        GLib data structures, such as [type`GLib`.List], [type`GLib`.SList], and
+        [type`GLib`.HashTable], all store data pointers.
 
         In the case where the list or hash table is storing single types rather than
         structs, these data pointers may have values stuffed into them via macros
@@ -1962,8 +1962,8 @@ class TypeInfo(BaseInfo):
         Use this function to ensure that all values are correctly stuffed into
         pointers, regardless of the machine’s architecture or endianness.
 
-        This function returns a pointer stuffed with the appropriate field of @arg,
-        depending on the storage type of @info.
+        This function returns a pointer stuffed with the appropriate field of `arg`,
+        depending on the storage type of `info`.
         """
     def is_pointer(self) -> bool:
         """
@@ -1976,9 +1976,9 @@ class TypeInfo(BaseInfo):
         """
     def is_zero_terminated(self) -> bool:
         """
-            Obtain if the last element of the array is `NULL`.
+            Obtain if the last element of the array is `None`.
 
-        The type tag must be a `GI_TYPE_TAG_ARRAY` or `FALSE` will be returned.
+        The type tag must be a `GI_TYPE_TAG_ARRAY` or `False` will be returned.
         """
 
 class Typelib(GObject.GBoxed):
@@ -1994,19 +1994,19 @@ class Typelib(GObject.GBoxed):
         """
     def get_namespace(self) -> str:
         """
-        Get the name of the namespace represented by @typelib.
+        Get the name of the namespace represented by `typelib`.
         """
     @classmethod
     def new_from_bytes(cls, bytes: GLib.Bytes) -> Typelib:
         """
-            Creates a new [type@GIRepository.Typelib] from a [type@GLib.Bytes].
+            Creates a new [type`GIRepository`.Typelib] from a [type`GLib`.Bytes].
 
-        The [type@GLib.Bytes] can point to a memory location or a mapped file, and
+        The [type`GLib`.Bytes] can point to a memory location or a mapped file, and
         the typelib will hold a reference to it until the repository is destroyed.
         """
     def ref(self) -> Typelib:
         """
-        Increment the reference count of a [type@GIRepository.Typelib].
+        Increment the reference count of a [type`GIRepository`.Typelib].
         """
     def symbol(self, symbol_name: str) -> tuple[bool, object | None]:
         """
@@ -2014,7 +2014,7 @@ class Typelib(GObject.GBoxed):
         """
     def unref(self) -> None:
         """
-            Decrement the reference count of a [type@GIRepository.Typelib].
+            Decrement the reference count of a [type`GIRepository`.Typelib].
 
         Once the reference count reaches zero, the typelib is freed.
         """
@@ -2035,7 +2035,7 @@ class UnionInfo(RegisteredTypeInfo):
         """
     def find_method(self, name: str) -> FunctionInfo | None:
         """
-        Obtain the type information for the method named @name.
+        Obtain the type information for the method named `name`.
         """
     def get_alignment(self) -> int:
         """
@@ -2043,7 +2043,7 @@ class UnionInfo(RegisteredTypeInfo):
         """
     def get_copy_function_name(self) -> str | None:
         """
-        Retrieves the name of the copy function for @info, if any is set.
+        Retrieves the name of the copy function for `info`, if any is set.
         """
     def get_discriminator(self, n: int) -> ConstantInfo | None:
         """
@@ -2051,13 +2051,13 @@ class UnionInfo(RegisteredTypeInfo):
         union field is the active one if the discriminator contains this
         constant.
 
-        If the union is not discriminated, `NULL` is returned.
+        If the union is not discriminated, `None` is returned.
         """
     def get_discriminator_offset(self) -> tuple[bool, int]:
         """
             Obtain the offset of the discriminator field within the structure.
 
-        The union must be discriminated, or `FALSE` will be returned.
+        The union must be discriminated, or `False` will be returned.
         """
     def get_discriminator_type(self) -> TypeInfo | None:
         """
@@ -2069,7 +2069,7 @@ class UnionInfo(RegisteredTypeInfo):
         """
     def get_free_function_name(self) -> str | None:
         """
-        Retrieves the name of the free function for @info, if any is set.
+        Retrieves the name of the free function for `info`, if any is set.
         """
     def get_method(self, n: int) -> FunctionInfo:
         """
@@ -2089,7 +2089,7 @@ class UnionInfo(RegisteredTypeInfo):
         """
     def is_discriminated(self) -> bool:
         """
-        Return `TRUE` if this union contains a discriminator field.
+        Return `True` if this union contains a discriminator field.
         """
 
 class UnresolvedInfo(BaseInfo):
@@ -2108,7 +2108,7 @@ class VFuncInfo(CallableInfo):
     `GIVFuncInfo` represents a virtual function.
 
     A virtual function is a callable object that belongs to either a
-    [type@GIRepository.ObjectInfo] or a [type@GIRepository.InterfaceInfo].
+    [type`GIRepository`.ObjectInfo] or a [type`GIRepository`.InterfaceInfo].
     """
 
     # gi Methods
@@ -2118,14 +2118,14 @@ class VFuncInfo(CallableInfo):
         """
     def get_address(self, implementor_gtype: GObject.GType) -> object | None:
         """
-            Looks up where the implementation for @info is inside the type struct of
-        @implementor_gtype.
+            Looks up where the implementation for `info` is inside the type struct of
+        `implementor_gtype`.
         """
     def get_flags(self) -> VFuncInfoFlags:
         """
             Obtain the flags for this virtual function info.
 
-        See [flags@GIRepository.VFuncInfoFlags] for more information about possible
+        See [flags`GIRepository`.VFuncInfoFlags] for more information about possible
         flag values.
         """
     def get_invoker(self) -> FunctionInfo | None:
@@ -2154,7 +2154,7 @@ class ValueInfo(BaseInfo):
     A `GIValueInfo` represents a value in an enumeration.
 
     The `GIValueInfo` is fetched by calling
-    [method@GIRepository.EnumInfo.get_value] on a [class@GIRepository.EnumInfo].
+    [method`GIRepository`.EnumInfo.get_value] on a [class`GIRepository`.EnumInfo].
     """
 
     # gi Methods

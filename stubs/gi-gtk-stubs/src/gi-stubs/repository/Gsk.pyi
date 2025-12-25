@@ -36,8 +36,8 @@ def path_parse(
     Constructs a path from a serialized form.
 
     The string is expected to be in (a superset of)
-    [SVG path syntax](https://www.w3.org/TR/SVG11/paths.html#PathData),
-    as e.g. produced by [method@Gsk.Path.to_string].
+    [SVG path syntax](https://www.w3.org/TR/SVG11/paths.htmlPathData),
+    as e.g. produced by [method`Gsk`.Path.to_string].
 
     A high-level summary of the syntax:
 
@@ -63,7 +63,7 @@ def path_parse(
 @staticmethod
 def serialization_error_quark() -> int:
     """
-    Registers an error quark for [class@Gsk.RenderNode] errors.
+    Registers an error quark for [class`Gsk`.RenderNode] errors.
     """
     ...
 
@@ -84,11 +84,11 @@ def transform_parse(
     """
     Parses a given into a transform.
 
-    Strings printed via [method@Gsk.Transform.to_string]
+    Strings printed via [method`Gsk`.Transform.to_string]
     can be read in again successfully using this function.
 
-    If @string does not describe a valid transform, false
-    is returned and `NULL` is put in @out_transform.
+    If `string` does not describe a valid transform, false
+    is returned and `None` is put in `out_transform`.
     """
     ...
 
@@ -119,7 +119,7 @@ def value_set_render_node(
     """
     Stores the given render node inside a `GValue`.
 
-    The [struct@GObject.Value] will acquire a reference
+    The [struct`GObject`.Value] will acquire a reference
     to the render node.
     """
     ...
@@ -402,8 +402,8 @@ class PathDirection(GObject.GEnum):
     """
     Used to pick one of the four tangents at a given point on the path.
 
-    Note that the directions for @GSK_PATH_FROM_START/@GSK_PATH_TO_END and
-    @GSK_PATH_TO_START/@GSK_PATH_FROM_END will coincide for smooth points.
+    Note that the directions for `GSK_PATH_FROM_START`/`GSK_PATH_TO_END` and
+    `GSK_PATH_TO_START`/`GSK_PATH_FROM_END` will coincide for smooth points.
     Only sharp turns will exhibit four different directions.
 
     <picture>
@@ -434,10 +434,10 @@ class PathDirection(GObject.GEnum):
 
 class PathForeachFlags(GObject.GFlags):
     """
-    Flags that can be passed to gsk_path_foreach() to influence what
+    Flags that can be passed to `Gsk.path_foreach` to influence what
     kinds of operations the path is decomposed into.
 
-    By default, [method@Gsk.Path.foreach] will only emit a path with all
+    By default, [method`Gsk`.Path.foreach] will only emit a path with all
     operations flattened to straight lines to allow for maximum compatibility.
     The only operations emitted will be `GSK_PATH_MOVE`, `GSK_PATH_LINE` and
     `GSK_PATH_CLOSE`."""
@@ -699,7 +699,7 @@ class TransformCategory(GObject.GEnum):
     _2D = 3  # [2d]: changed because started with a number
     """
     The matrix is a 2D matrix. This is equivalent
-      to graphene_matrix_is_2d() returning %TRUE. In particular, this
+      to `graphene_matrix_is_2d` returning True. In particular, this
       means that Cairo can deal with the matrix.
     """
     _2D_AFFINE = 4  # [2d_affine]: changed because started with a number
@@ -733,21 +733,21 @@ class BlendNode(RenderNode):
         """
     def get_blend_mode(self) -> BlendMode:
         """
-        Retrieves the blend mode used by @node.
+        Retrieves the blend mode used by `node`.
         """
     def get_bottom_child(self) -> RenderNode:
         """
-        Retrieves the bottom `GskRenderNode` child of the @node.
+        Retrieves the bottom `GskRenderNode` child of the `node`.
         """
     def get_top_child(self) -> RenderNode:
         """
-        Retrieves the top `GskRenderNode` child of the @node.
+        Retrieves the top `GskRenderNode` child of the `node`.
         """
     @classmethod
     def new(cls, bottom: RenderNode, top: RenderNode, blend_mode: BlendMode) -> BlendNode:
         """
-            Creates a `GskRenderNode` that will use @blend_mode to blend the @top
-        node onto the @bottom node.
+            Creates a `GskRenderNode` that will use `blend_mode` to blend the `top`
+        node onto the `bottom` node.
         """
 
 class BlurNode(RenderNode):
@@ -762,11 +762,11 @@ class BlurNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Retrieves the child `GskRenderNode` of the blur @node.
+        Retrieves the child `GskRenderNode` of the blur `node`.
         """
     def get_radius(self) -> float:
         """
-        Retrieves the blur radius of the @node.
+        Retrieves the blur radius of the `node`.
         """
     @classmethod
     def new(cls, child: RenderNode, radius: float) -> BlurNode:
@@ -800,7 +800,7 @@ class BorderNode(RenderNode):
     def new(cls, outline: RoundedRect, border_width: list, border_color: list) -> BorderNode:
         """
             Creates a `GskRenderNode` that will stroke a border rectangle inside the
-        given @outline.
+        given `outline`.
 
         The 4 sides of the border can have different widths and colors.
         """
@@ -809,7 +809,7 @@ class BroadwayRenderer(Renderer):
     """
     A Broadway based renderer.
 
-    See [class@Gsk.Renderer].
+    See [class`Gsk`.Renderer].
     """
 
     # gi Methods
@@ -824,7 +824,7 @@ class BroadwayRenderer(Renderer):
 
         The Broadway renderer is the default renderer for the broadway backend.
         It will only work with broadway surfaces, otherwise it will fail the
-        call to gsk_renderer_realize().
+        call to `Gsk.renderer_realize`.
 
         This function is only available when GTK was compiled with Broadway
         support.
@@ -853,7 +853,7 @@ class CairoNode(RenderNode):
         to the render node.
 
         If no surface exists yet, a surface will be created optimized for
-        rendering to @renderer.
+        rendering to `renderer`.
         """
     def get_surface(self) -> cairo.Surface:
         """
@@ -863,9 +863,9 @@ class CairoNode(RenderNode):
     def new(cls, bounds: Graphene.Rect) -> CairoNode:
         """
             Creates a `GskRenderNode` that will render a cairo surface
-        into the area given by @bounds.
+        into the area given by `bounds`.
 
-        You can draw to the cairo surface using [method@Gsk.CairoNode.get_draw_context].
+        You can draw to the cairo surface using [method`Gsk`.CairoNode.get_draw_context].
         """
 
 class CairoRenderer(Renderer):
@@ -913,17 +913,17 @@ class ClipNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Gets the child node that is getting clipped by the given @node.
+        Gets the child node that is getting clipped by the given `node`.
         """
     def get_clip(self) -> Graphene.Rect:
         """
-        Retrieves the clip rectangle for @node.
+        Retrieves the clip rectangle for `node`.
         """
     @classmethod
     def new(cls, child: RenderNode, clip: Graphene.Rect) -> ClipNode:
         """
-            Creates a `GskRenderNode` that will clip the @child to the area
-        given by @clip.
+            Creates a `GskRenderNode` that will clip the `child` to the area
+        given by `clip`.
         """
 
 class ColorMatrixNode(RenderNode):
@@ -938,21 +938,21 @@ class ColorMatrixNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Gets the child node that is getting its colors modified by the given @node.
+        Gets the child node that is getting its colors modified by the given `node`.
         """
     def get_color_matrix(self) -> Graphene.Matrix:
         """
-        Retrieves the color matrix used by the @node.
+        Retrieves the color matrix used by the `node`.
         """
     def get_color_offset(self) -> Graphene.Vec4:
         """
-        Retrieves the color offset used by the @node.
+        Retrieves the color offset used by the `node`.
         """
     @classmethod
     def new(cls, child: RenderNode, color_matrix: Graphene.Matrix, color_offset: Graphene.Vec4) -> ColorMatrixNode:
         """
-            Creates a `GskRenderNode` that will drawn the @child with
-        @color_matrix.
+            Creates a `GskRenderNode` that will drawn the `child` with
+        `color_matrix`.
 
         In particular, the node will transform colors by applying
 
@@ -974,7 +974,7 @@ class ColorNode(RenderNode):
         """
     def get_color(self) -> Gdk.RGBA:
         """
-            Retrieves the color of the given @node.
+            Retrieves the color of the given `node`.
 
         The value returned by this function will not be correct
         if the render node was created for a non-sRGB color.
@@ -982,8 +982,8 @@ class ColorNode(RenderNode):
     @classmethod
     def new(cls, rgba: Gdk.RGBA, bounds: Graphene.Rect) -> ColorNode:
         """
-            Creates a `GskRenderNode` that will render the color specified by @rgba into
-        the area given by @bounds.
+            Creates a `GskRenderNode` that will render the color specified by `rgba` into
+        the area given by `bounds`.
         """
 
 class ColorStop(GObject.GPointer):
@@ -1026,7 +1026,7 @@ class ConicGradientNode(RenderNode):
         The angle is starting at the top and going clockwise, as expressed
         in the css specification:
 
-            angle = 90 - gsk_conic_gradient_node_get_rotation()
+            angle = 90 - `Gsk.conic_gradient_node_get_rotation`
         """
     def get_center(self) -> Graphene.Point:
         """
@@ -1052,7 +1052,7 @@ class ConicGradientNode(RenderNode):
             Creates a `GskRenderNode` that draws a conic gradient.
 
         The conic gradient
-        starts around @center in the direction of @rotation. A rotation of 0 means
+        starts around `center` in the direction of `rotation`. A rotation of 0 means
         that the gradient points up. Color stops are then added clockwise.
         """
 
@@ -1068,16 +1068,16 @@ class ContainerNode(RenderNode):
         """
     def get_child(self, idx: int) -> RenderNode:
         """
-        Gets one of the children of @container.
+        Gets one of the children of `container`.
         """
     def get_n_children(self) -> int:
         """
-        Retrieves the number of direct children of @node.
+        Retrieves the number of direct children of `node`.
         """
     @classmethod
     def new(cls, children: list, n_children: int) -> ContainerNode:
         """
-            Creates a new `GskRenderNode` instance for holding the given @children.
+            Creates a new `GskRenderNode` instance for holding the given `children`.
 
         The new node will acquire a reference to each of the children.
         """
@@ -1107,7 +1107,7 @@ class CrossFadeNode(RenderNode):
     @classmethod
     def new(cls, start: RenderNode, end: RenderNode, progress: float) -> CrossFadeNode:
         """
-        Creates a `GskRenderNode` that will do a cross-fade between @start and @end.
+        Creates a `GskRenderNode` that will do a cross-fade between `start` and `end`.
         """
 
 class DebugNode(RenderNode):
@@ -1123,7 +1123,7 @@ class DebugNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Gets the child node that is getting drawn by the given @node.
+        Gets the child node that is getting drawn by the given `node`.
         """
     def get_message(self) -> str:
         """
@@ -1133,15 +1133,15 @@ class DebugNode(RenderNode):
     def new(cls, child: RenderNode, message: str) -> DebugNode:
         """
             Creates a `GskRenderNode` that will add debug information about
-        the given @child.
+        the given `child`.
 
         Adding this node has no visual effect.
         """
 
 class FillNode(RenderNode):
     """
-    A render node filling the area given by [struct@Gsk.Path]
-    and [enum@Gsk.FillRule] with the child node.
+    A render node filling the area given by [struct`Gsk`.Path]
+    and [enum`Gsk`.FillRule] with the child node.
     """
 
     # gi Methods
@@ -1151,7 +1151,7 @@ class FillNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Gets the child node that is getting drawn by the given @node.
+        Gets the child node that is getting drawn by the given `node`.
         """
     def get_fill_rule(self) -> FillRule:
         """
@@ -1160,20 +1160,20 @@ class FillNode(RenderNode):
     def get_path(self) -> Path:
         """
             Retrieves the path used to describe the area filled with the contents of
-        the @node.
+        the `node`.
         """
     @classmethod
     def new(cls, child: RenderNode, path: Path, fill_rule: FillRule) -> FillNode:
         """
-            Creates a `GskRenderNode` that will fill the @child in the area
-        given by @path and @fill_rule.
+            Creates a `GskRenderNode` that will fill the `child` in the area
+        given by `path` and `fill_rule`.
         """
 
 class GLRenderer(Renderer):
     """
     Renders a GSK rendernode tree with OpenGL.
 
-    See [class@Gsk.Renderer].
+    See [class`Gsk`.Renderer].
     """
 
     # gi Methods
@@ -1205,8 +1205,8 @@ class GLShader(GObject.Object):
     each instance of use). A shader can also receive up to 4
     textures that it can use as input when producing the pixel data.
 
-    `GskGLShader` is usually used with gtk_snapshot_push_gl_shader()
-    to produce a [class@Gsk.GLShaderNode] in the rendering hierarchy,
+    `GskGLShader` is usually used with `gtk_snapshot_push_gl_shader`
+    to produce a [class`Gsk`.GLShaderNode] in the rendering hierarchy,
     and then its input textures are constructed by rendering the child
     nodes to textures before rendering the shader node itself. (You can
     pass texture nodes as children if you want to directly use a texture
@@ -1238,17 +1238,17 @@ class GLShader(GObject.Object):
                     in vec2 uv)
     ```
 
-    Where the input @fragCoord is the coordinate of the pixel we're
+    Where the input `fragCoord` is the coordinate of the pixel we're
     currently rendering, relative to the boundary rectangle that was
-    specified in the `GskGLShaderNode`, and @resolution is the width and
+    specified in the `GskGLShaderNode`, and `resolution` is the width and
     height of that rectangle. This is in the typical GTK coordinate
-    system with the origin in the top left. @uv contains the u and v
+    system with the origin in the top left. `uv` contains the u and v
     coordinates that can be used to index a texture at the
     corresponding point. These coordinates are in the [0..1]x[0..1]
     region, with 0, 0 being in the lower left corder (which is typical
     for OpenGL).
 
-    The output @fragColor should be a RGBA color (with
+    The output `fragColor` should be a RGBA color (with
     premultiplied alpha) that will be used as the output for the
     specified pixel location. Note that this output will be
     automatically clipped to the clip region of the glshader node.
@@ -1259,7 +1259,7 @@ class GLShader(GObject.Object):
     you want of types int, uint, bool, float, vec2, vec3 or vec4.
 
     All textures sources contain premultiplied alpha colors, but if some
-    there are outer sources of colors there is a gsk_premultiply() helper
+    there are outer sources of colors there is a `Gsk.premultiply` helper
     to compute premultiplication when needed.
 
     Note that GTK parses the uniform declarations, so each uniform has to
@@ -1284,9 +1284,9 @@ class GLShader(GObject.Object):
     coordinates, and contains some helper ifdefs to ensure that
     it works on all OpenGL versions.
 
-    You can compile the shader yourself using [method@Gsk.GLShader.compile],
+    You can compile the shader yourself using [method`Gsk`.GLShader.compile],
     otherwise the GSK renderer will do it when it handling the glshader
-    node. If errors occurs, the returned @error will include the glsl
+    node. If errors occurs, the returned `error` will include the glsl
     sources, so you can see what GSK was passing to the compiler. You
     can also set GSK_DEBUG=shaders in the environment to see the sources
     and other relevant information about all shaders that GSK is handling.
@@ -1316,7 +1316,7 @@ class GLShader(GObject.Object):
         Resource containing the source code for the shader.
 
         If the shader source is not coming from a resource, this
-        will be %NULL.
+        will be None.
         """
         source: GLib.Bytes | None
         """
@@ -1334,9 +1334,9 @@ class GLShader(GObject.Object):
     @deprecated("deprecated")
     def compile(self, renderer: Renderer) -> bool:
         """
-            Tries to compile the @shader for the given @renderer.
+            Tries to compile the `shader` for the given `renderer`.
 
-        If there is a problem, this function returns %FALSE and reports
+        If there is a problem, this function returns False and reports
         an error. You should use this function before relying on the shader
         for rendering and use a fallback with a simpler shader or without
         shaders if it fails.
@@ -1350,55 +1350,55 @@ class GLShader(GObject.Object):
     @deprecated("deprecated")
     def find_uniform_by_name(self, name: str) -> int:
         """
-            Looks for a uniform by the name @name, and returns the index
+            Looks for a uniform by the name `name`, and returns the index
         of the uniform, or -1 if it was not found.
         """
     @deprecated("deprecated")
     def get_arg_bool(self, args: GLib.Bytes, idx: int) -> bool:
         """
-            Gets the value of the uniform @idx in the @args block.
+            Gets the value of the uniform `idx` in the `args` block.
 
         The uniform must be of bool type.
         """
     @deprecated("deprecated")
     def get_arg_float(self, args: GLib.Bytes, idx: int) -> float:
         """
-            Gets the value of the uniform @idx in the @args block.
+            Gets the value of the uniform `idx` in the `args` block.
 
         The uniform must be of float type.
         """
     @deprecated("deprecated")
     def get_arg_int(self, args: GLib.Bytes, idx: int) -> int:
         """
-            Gets the value of the uniform @idx in the @args block.
+            Gets the value of the uniform `idx` in the `args` block.
 
         The uniform must be of int type.
         """
     @deprecated("deprecated")
     def get_arg_uint(self, args: GLib.Bytes, idx: int) -> int:
         """
-            Gets the value of the uniform @idx in the @args block.
+            Gets the value of the uniform `idx` in the `args` block.
 
         The uniform must be of uint type.
         """
     @deprecated("deprecated")
     def get_arg_vec2(self, args: GLib.Bytes, idx: int, out_value: Graphene.Vec2) -> None:
         """
-            Gets the value of the uniform @idx in the @args block.
+            Gets the value of the uniform `idx` in the `args` block.
 
         The uniform must be of vec2 type.
         """
     @deprecated("deprecated")
     def get_arg_vec3(self, args: GLib.Bytes, idx: int, out_value: Graphene.Vec3) -> None:
         """
-            Gets the value of the uniform @idx in the @args block.
+            Gets the value of the uniform `idx` in the `args` block.
 
         The uniform must be of vec3 type.
         """
     @deprecated("deprecated")
     def get_arg_vec4(self, args: GLib.Bytes, idx: int, out_value: Graphene.Vec4) -> None:
         """
-            Gets the value of the uniform @idx in the @args block.
+            Gets the value of the uniform `idx` in the `args` block.
 
         The uniform must be of vec4 type.
         """
@@ -1437,7 +1437,7 @@ class GLShader(GObject.Object):
     @deprecated("deprecated")
     def get_uniform_name(self, idx: int) -> str:
         """
-        Get the name of the declared uniform for this shader at index @idx.
+        Get the name of the declared uniform for this shader at index `idx`.
         """
     @deprecated("deprecated")
     def get_uniform_offset(self, idx: int) -> int:
@@ -1447,7 +1447,7 @@ class GLShader(GObject.Object):
     @deprecated("deprecated")
     def get_uniform_type(self, idx: int) -> GLUniformType:
         """
-        Get the type of the declared uniform for this shader at index @idx.
+        Get the type of the declared uniform for this shader at index `idx`.
         """
     @deprecated("deprecated")
     @classmethod
@@ -1528,14 +1528,14 @@ class GLShaderNode(RenderNode):
         cls, shader: GLShader, bounds: Graphene.Rect, args: GLib.Bytes, children: list | None, n_children: int
     ) -> GLShaderNode:
         """
-            Creates a `GskRenderNode` that will render the given @shader into the
-        area given by @bounds.
+            Creates a `GskRenderNode` that will render the given `shader` into the
+        area given by `bounds`.
 
-        The @args is a block of data to use for uniform input, as per types and
-        offsets defined by the @shader. Normally this is generated by
-        [method@Gsk.GLShader.format_args] or [struct@Gsk.ShaderArgsBuilder].
+        The `args` is a block of data to use for uniform input, as per types and
+        offsets defined by the `shader`. Normally this is generated by
+        [method`Gsk`.GLShader.format_args] or [struct`Gsk`.ShaderArgsBuilder].
 
-        See [class@Gsk.GLShader] for details about how the shader should be written.
+        See [class`Gsk`.GLShader] for details about how the shader should be written.
 
         All the children will be rendered into textures (if they aren't already
         `GskTextureNodes`, which will be used directly). These textures will be
@@ -1543,7 +1543,7 @@ class GLShaderNode(RenderNode):
 
         If the renderer doesn't support GL shaders, or if there is any problem
         when compiling the shader, then the node will draw pink. You should use
-        [method@Gsk.GLShader.compile] to ensure the @shader will work for the
+        [method`Gsk`.GLShader.compile] to ensure the `shader` will work for the
         renderer before using it.
         """
 
@@ -1590,7 +1590,7 @@ class InsetShadowNode(RenderNode):
     ) -> InsetShadowNode:
         """
             Creates a `GskRenderNode` that will render an inset shadow
-        into the box given by @outline.
+        into the box given by `outline`.
         """
 
 class LinearGradientNode(RenderNode):
@@ -1625,7 +1625,7 @@ class LinearGradientNode(RenderNode):
     ) -> LinearGradientNode:
         """
             Creates a `GskRenderNode` that will create a linear gradient from the given
-        points and color stops, and render that into the area given by @bounds.
+        points and color stops, and render that into the area given by `bounds`.
         """
 
 class MaskNode(RenderNode):
@@ -1640,23 +1640,23 @@ class MaskNode(RenderNode):
         """
     def get_mask(self) -> RenderNode:
         """
-        Retrieves the mask `GskRenderNode` child of the @node.
+        Retrieves the mask `GskRenderNode` child of the `node`.
         """
     def get_mask_mode(self) -> MaskMode:
         """
-        Retrieves the mask mode used by @node.
+        Retrieves the mask mode used by `node`.
         """
     def get_source(self) -> RenderNode:
         """
-        Retrieves the source `GskRenderNode` child of the @node.
+        Retrieves the source `GskRenderNode` child of the `node`.
         """
     @classmethod
     def new(cls, source: RenderNode, mask: RenderNode, mask_mode: MaskMode) -> MaskNode:
         """
             Creates a `GskRenderNode` that will mask a given node by another.
 
-        The @mask_mode determines how the 'mask values' are derived from
-        the colors of the @mask. Applying the mask consists of multiplying
+        The `mask_mode` determines how the 'mask values' are derived from
+        the colors of the `mask`. Applying the mask consists of multiplying
         the 'mask value' with the alpha of the source.
         """
 
@@ -1664,7 +1664,7 @@ class NglRenderer(Renderer):
     """
     A GL based renderer.
 
-    See [class@Gsk.Renderer].
+    See [class`Gsk`.Renderer].
     """
 
     # gi Methods
@@ -1676,7 +1676,7 @@ class NglRenderer(Renderer):
     @classmethod
     def new(cls) -> NglRenderer:
         """
-        Same as gsk_gl_renderer_new().
+        Same as `Gsk.gl_renderer_new`.
         """
 
 class OpacityNode(RenderNode):
@@ -1691,7 +1691,7 @@ class OpacityNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Gets the child node that is getting opacityed by the given @node.
+        Gets the child node that is getting opacityed by the given `node`.
         """
     def get_opacity(self) -> float:
         """
@@ -1700,8 +1700,8 @@ class OpacityNode(RenderNode):
     @classmethod
     def new(cls, child: RenderNode, opacity: float) -> OpacityNode:
         """
-            Creates a `GskRenderNode` that will drawn the @child with reduced
-        @opacity.
+            Creates a `GskRenderNode` that will drawn the `child` with reduced
+        `opacity`.
         """
 
 class OutsetShadowNode(RenderNode):
@@ -1747,7 +1747,7 @@ class OutsetShadowNode(RenderNode):
     ) -> OutsetShadowNode:
         """
             Creates a `GskRenderNode` that will render an outset shadow
-        around the box given by @outline.
+        around the box given by `outline`.
         """
 
 class ParseLocation(GObject.GPointer):
@@ -1797,7 +1797,7 @@ class Path(GObject.GBoxed):
 
     `GskPath` is an immutable, opaque, reference-counted struct.
     After creation, you cannot change the types it represents. Instead,
-    new `GskPath` objects have to be created. The [struct@Gsk.PathBuilder]
+    new `GskPath` objects have to be created. The [struct`Gsk`.PathBuilder]
     structure is meant to help in this endeavor.
 
     Conceptually, a path consists of zero or more contours (continuous, connected
@@ -1817,18 +1817,18 @@ class Path(GObject.GBoxed):
         """
     def foreach(self, flags: PathForeachFlags, func: PathForeachFunc, user_data: object | None = None) -> bool:
         """
-            Calls @func for every operation of the path.
+            Calls `func` for every operation of the path.
 
-        Note that this may only approximate @self, because paths can contain
+        Note that this may only approximate `self`, because paths can contain
         optimizations for various specialized contours, and depending on the
-        @flags, the path may be decomposed into simpler curves than the ones
+        `flags`, the path may be decomposed into simpler curves than the ones
         that it contained originally.
 
         This function serves two purposes:
 
-        - When the @flags allow everything, it provides access to the raw,
+        - When the `flags` allow everything, it provides access to the raw,
           unmodified data of the path.
-        - When the @flags disallow certain operations, it provides
+        - When the `flags` disallow certain operations, it provides
           an approximation of the path using just the allowed operations.
         """
     def get_bounds(self) -> tuple[bool, Graphene.Rect]:
@@ -1843,9 +1843,9 @@ class Path(GObject.GBoxed):
         This can happen when the path only describes a point or an
         axis-aligned line.
 
-        If the path is empty, false is returned and @bounds are set to
-        graphene_rect_zero(). This is different from the case where the path
-        is a single point at the origin, where the @bounds will also be set to
+        If the path is empty, false is returned and `bounds` are set to
+        `graphene_rect_zero`. This is different from the case where the path
+        is a single point at the origin, where the `bounds` will also be set to
         the zero rectangle but true will be returned.
         """
     def get_closest_point(self, point: Graphene.Point, threshold: float) -> tuple[bool, PathPoint, float]:
@@ -1900,8 +1900,8 @@ class Path(GObject.GBoxed):
             Constructs a path from a serialized form.
 
         The string is expected to be in (a superset of)
-        [SVG path syntax](https://www.w3.org/TR/SVG11/paths.html#PathData),
-        as e.g. produced by [method@Gsk.Path.to_string].
+        [SVG path syntax](https://www.w3.org/TR/SVG11/paths.htmlPathData),
+        as e.g. produced by [method`Gsk`.Path.to_string].
 
         A high-level summary of the syntax:
 
@@ -1935,7 +1935,7 @@ class Path(GObject.GBoxed):
         Cairo does not support all features of `GskPath`.
 
         This function does not clear the existing Cairo path. Call
-        cairo_new_path() if you want this.
+        `cairo_new_path` if you want this.
         """
     def to_string(self) -> str:
         """
@@ -1944,7 +1944,7 @@ class Path(GObject.GBoxed):
         You can use this function in a debugger to get a quick overview
         of the path.
 
-        This is a wrapper around [method@Gsk.Path.print], see that function
+        This is a wrapper around [method`Gsk`.Path.print], see that function
         for details.
         """
     def unref(self) -> None:
@@ -1976,18 +1976,18 @@ class PathBuilder(GObject.GBoxed):
     Adding contours to the path can be done in two ways.
     The easiest option is to use the `gsk_path_builder_add_*` group
     of functions that add predefined contours to the current path,
-    either common shapes like [method@Gsk.PathBuilder.add_circle]
-    or by adding from other paths like [method@Gsk.PathBuilder.add_path].
+    either common shapes like [method`Gsk`.PathBuilder.add_circle]
+    or by adding from other paths like [method`Gsk`.PathBuilder.add_path].
 
     The `gsk_path_builder_add_*` methods always add complete contours,
     and do not use or modify the current point.
 
     The other option is to define each line and curve manually with
     the `gsk_path_builder_*_to` group of functions. You start with
-    a call to [method@Gsk.PathBuilder.move_to] to set the starting point
+    a call to [method`Gsk`.PathBuilder.move_to] to set the starting point
     and then use multiple calls to any of the drawing functions to
     move the pen along the plane. Once you are done, you can call
-    [method@Gsk.PathBuilder.close] to close the path by connecting it
+    [method`Gsk`.PathBuilder.close] to close the path by connecting it
     back with a line to the starting point.
 
     This is similar to how paths are drawn in Cairo.
@@ -2001,7 +2001,7 @@ class PathBuilder(GObject.GBoxed):
         """
             Adds a Cairo path to the builder.
 
-        You can use cairo_copy_path() to access the path
+        You can use `cairo_copy_path` to access the path
         from a Cairo context.
         """
     def add_circle(self, center: Graphene.Point, radius: float) -> None:
@@ -2010,15 +2010,15 @@ class PathBuilder(GObject.GBoxed):
 
         The path is going around the circle in clockwise direction.
 
-        If @radius is zero, the contour will be a closed point.
+        If `radius` is zero, the contour will be a closed point.
         """
     def add_layout(self, layout: Pango.Layout) -> None:
         """
-        Adds the outlines for the glyphs in @layout to the builder.
+        Adds the outlines for the glyphs in `layout` to the builder.
         """
     def add_path(self, path: Path) -> None:
         """
-        Appends all of @path to the builder.
+        Appends all of `path` to the builder.
         """
     def add_rect(self, rect: Graphene.Rect) -> None:
         """
@@ -2031,7 +2031,7 @@ class PathBuilder(GObject.GBoxed):
         """
     def add_reverse_path(self, path: Path) -> None:
         """
-        Appends all of @path to the builder, in reverse order.
+        Appends all of `path` to the builder, in reverse order.
         """
     def add_rounded_rect(self, rect: RoundedRect) -> None:
         """
@@ -2043,25 +2043,25 @@ class PathBuilder(GObject.GBoxed):
         """
             Adds a segment of a path to the builder.
 
-        If @start is equal to or after @end, the path will first add the
-        segment from @start to the end of the path, and then add the segment
-        from the beginning to @end. If the path is closed, these segments
+        If `start` is equal to or after `end`, the path will first add the
+        segment from `start` to the end of the path, and then add the segment
+        from the beginning to `end`. If the path is closed, these segments
         will be connected.
 
         Note that this method always adds a path with the given start point
-        and end point. To add a closed path, use [method@Gsk.PathBuilder.add_path].
+        and end point. To add a closed path, use [method`Gsk`.PathBuilder.add_path].
         """
     def arc_to(self, x1: float, y1: float, x2: float, y2: float) -> None:
         """
-            Adds an elliptical arc from the current point to @x2, @y2
-        with @x1, @y1 determining the tangent directions.
+            Adds an elliptical arc from the current point to `x2`, `y2`
+        with `x1`, `y1` determining the tangent directions.
 
-        After this, @x2, @y2 will be the new current point.
+        After this, `x2`, `y2` will be the new current point.
 
         Note: Two points and their tangents do not determine
         a unique ellipse, so GSK just picks one. If you need more
-        precise control, use [method@Gsk.PathBuilder.conic_to]
-        or [method@Gsk.PathBuilder.svg_arc_to].
+        precise control, use [method`Gsk`.PathBuilder.conic_to]
+        or [method`Gsk`.PathBuilder.svg_arc_to].
 
         <picture>
           <source srcset="arc-dark.png" media="(prefers-color-scheme: dark)">
@@ -2072,7 +2072,7 @@ class PathBuilder(GObject.GBoxed):
         """
             Ends the current contour with a line back to the start point.
 
-        Note that this is different from calling [method@Gsk.PathBuilder.line_to]
+        Note that this is different from calling [method`Gsk`.PathBuilder.line_to]
         with the start point in that the contour will be closed. A closed
         contour behaves differently from an open one. When stroking, its
         start and end point are considered connected, so they will be
@@ -2081,7 +2081,7 @@ class PathBuilder(GObject.GBoxed):
     def conic_to(self, x1: float, y1: float, x2: float, y2: float, weight: float) -> None:
         """
             Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
-        from the current point to @x2, @y2 with the given @weight and @x1, @y1 as the
+        from the current point to `x2`, `y2` with the given `weight` and `x1`, `y1` as the
         control point.
 
         The weight determines how strongly the curve is pulled towards the control point.
@@ -2090,7 +2090,7 @@ class PathBuilder(GObject.GBoxed):
         Conic curves can be used to draw ellipses and circles. They are also known as
         rational quadratic Bézier curves.
 
-        After this, @x2, @y2 will be the new current point.
+        After this, `x2`, `y2` will be the new current point.
 
         <picture>
           <source srcset="conic-dark.png" media="(prefers-color-scheme: dark)">
@@ -2099,11 +2099,11 @@ class PathBuilder(GObject.GBoxed):
         """
     def cubic_to(self, x1: float, y1: float, x2: float, y2: float, x3: float, y3: float) -> None:
         """
-            Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
-        from the current point to @x3, @y3 with @x1, @y1 and @x2, @y2 as the control
+            Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/BC3A9zier_curve)
+        from the current point to `x3`, `y3` with `x1`, `y1` and `x2`, `y2` as the control
         points.
 
-        After this, @x3, @y3 will be the new current point.
+        After this, `x3`, `y3` will be the new current point.
 
         <picture>
           <source srcset="cubic-dark.png" media="(prefers-color-scheme: dark)">
@@ -2131,11 +2131,11 @@ class PathBuilder(GObject.GBoxed):
 
         After this, the current point will be the point where
         the circle with the given radius touches the line from
-        @x1, @y1 to @x2, @y2.
+        `x1`, `y1` to `x2`, `y2`.
         """
     def line_to(self, x: float, y: float) -> None:
         """
-            Draws a line from the current point to @x, @y and makes it
+            Draws a line from the current point to `x`, `y` and makes it
         the new current point.
 
         <picture>
@@ -2145,7 +2145,7 @@ class PathBuilder(GObject.GBoxed):
         """
     def move_to(self, x: float, y: float) -> None:
         """
-            Starts a new contour by placing the pen at @x, @y.
+            Starts a new contour by placing the pen at `x`, `y`.
 
         If this function is called twice in succession, the first
         call will result in a contour made up of a single point.
@@ -2161,10 +2161,10 @@ class PathBuilder(GObject.GBoxed):
         """
     def quad_to(self, x1: float, y1: float, x2: float, y2: float) -> None:
         """
-            Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
-        from the current point to @x2, @y2 with @x1, @y1 as the control point.
+            Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/BC3A9zier_curve)
+        from the current point to `x2`, `y2` with `x1`, `y1` as the control point.
 
-        After this, @x2, @y2 will be the new current point.
+        After this, `x2`, `y2` will be the new current point.
 
         <picture>
           <source srcset="quad-dark.png" media="(prefers-color-scheme: dark)">
@@ -2180,32 +2180,32 @@ class PathBuilder(GObject.GBoxed):
         """
     def rel_arc_to(self, x1: float, y1: float, x2: float, y2: float) -> None:
         """
-            Adds an elliptical arc from the current point to @x2, @y2
-        with @x1, @y1 determining the tangent directions.
+            Adds an elliptical arc from the current point to `x2`, `y2`
+        with `x1`, `y1` determining the tangent directions.
 
         All coordinates are given relative to the current point.
 
-        This is the relative version of [method@Gsk.PathBuilder.arc_to].
+        This is the relative version of [method`Gsk`.PathBuilder.arc_to].
         """
     def rel_conic_to(self, x1: float, y1: float, x2: float, y2: float, weight: float) -> None:
         """
             Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
-        from the current point to @x2, @y2 with the given @weight and @x1, @y1 as the
+        from the current point to `x2`, `y2` with the given `weight` and `x1`, `y1` as the
         control point.
 
         All coordinates are given relative to the current point.
 
-        This is the relative version of [method@Gsk.PathBuilder.conic_to].
+        This is the relative version of [method`Gsk`.PathBuilder.conic_to].
         """
     def rel_cubic_to(self, x1: float, y1: float, x2: float, y2: float, x3: float, y3: float) -> None:
         """
-            Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
-        from the current point to @x3, @y3 with @x1, @y1 and @x2, @y2 as the control
+            Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/BC3A9zier_curve)
+        from the current point to `x3`, `y3` with `x1`, `y1` and `x2`, `y2` as the control
         points.
 
         All coordinates are given relative to the current point.
 
-        This is the relative version of [method@Gsk.PathBuilder.cubic_to].
+        This is the relative version of [method`Gsk`.PathBuilder.cubic_to].
         """
     def rel_html_arc_to(self, x1: float, y1: float, x2: float, y2: float, radius: float) -> None:
         """
@@ -2213,30 +2213,30 @@ class PathBuilder(GObject.GBoxed):
 
         All coordinates are given relative to the current point.
 
-        This is the relative version of [method@Gsk.PathBuilder.html_arc_to].
+        This is the relative version of [method`Gsk`.PathBuilder.html_arc_to].
         """
     def rel_line_to(self, x: float, y: float) -> None:
         """
             Draws a line from the current point to a point offset from it
-        by @x, @y and makes it the new current point.
+        by `x`, `y` and makes it the new current point.
 
-        This is the relative version of [method@Gsk.PathBuilder.line_to].
+        This is the relative version of [method`Gsk`.PathBuilder.line_to].
         """
     def rel_move_to(self, x: float, y: float) -> None:
         """
-            Starts a new contour by placing the pen at @x, @y
+            Starts a new contour by placing the pen at `x`, `y`
         relative to the current point.
 
-        This is the relative version of [method@Gsk.PathBuilder.move_to].
+        This is the relative version of [method`Gsk`.PathBuilder.move_to].
         """
     def rel_quad_to(self, x1: float, y1: float, x2: float, y2: float) -> None:
         """
-            Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
-        from the current point to @x2, @y2 with @x1, @y1 the control point.
+            Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/BC3A9zier_curve)
+        from the current point to `x2`, `y2` with `x1`, `y1` the control point.
 
         All coordinates are given relative to the current point.
 
-        This is the relative version of [method@Gsk.PathBuilder.quad_to].
+        This is the relative version of [method`Gsk`.PathBuilder.quad_to].
         """
     def rel_svg_arc_to(
         self, rx: float, ry: float, x_axis_rotation: float, large_arc: bool, positive_sweep: bool, x: float, y: float
@@ -2246,7 +2246,7 @@ class PathBuilder(GObject.GBoxed):
 
         All coordinates are given relative to the current point.
 
-        This is the relative version of [method@Gsk.PathBuilder.svg_arc_to].
+        This is the relative version of [method`Gsk`.PathBuilder.svg_arc_to].
         """
     def svg_arc_to(
         self, rx: float, ry: float, x_axis_rotation: float, large_arc: bool, positive_sweep: bool, x: float, y: float
@@ -2255,10 +2255,10 @@ class PathBuilder(GObject.GBoxed):
             Implements arc-to according to the SVG spec.
 
         A convenience function that implements the
-        [SVG arc_to](https://www.w3.org/TR/SVG11/paths.html#PathDataEllipticalArcCommands)
+        [SVG arc_to](https://www.w3.org/TR/SVG11/paths.htmlPathDataEllipticalArcCommands)
         functionality.
 
-        After this, @x, @y will be the new current point.
+        After this, `x`, `y` will be the new current point.
         """
     def to_path(self) -> Path:
         """
@@ -2269,7 +2269,7 @@ class PathBuilder(GObject.GBoxed):
         instance.
 
         This function is intended primarily for language bindings.
-        C code should use [method@Gsk.PathBuilder.free_to_path].
+        C code should use [method`Gsk`.PathBuilder.free_to_path].
         """
     def unref(self) -> None:
         """
@@ -2320,13 +2320,13 @@ class PathMeasure(GObject.GBoxed):
     @classmethod
     def new(cls, path: Path) -> PathMeasure:
         """
-            Creates a measure object for the given @path with the
+            Creates a measure object for the given `path` with the
         default tolerance.
         """
     @classmethod
     def new_with_tolerance(cls, path: Path, tolerance: float) -> PathMeasure:
         """
-        Creates a measure object for the given @path and @tolerance.
+        Creates a measure object for the given `path` and `tolerance`.
         """
     def ref(self) -> PathMeasure:
         """
@@ -2353,9 +2353,9 @@ class PathPoint(GObject.GBoxed):
     It can be queried for properties of the path at that point,
     such as its tangent or its curvature.
 
-    To obtain a `GskPathPoint`, use [method@Gsk.Path.get_closest_point],
-    [method@Gsk.Path.get_start_point], [method@Gsk.Path.get_end_point]
-    or [method@Gsk.PathMeasure.get_point].
+    To obtain a `GskPathPoint`, use [method`Gsk`.Path.get_closest_point],
+    [method`Gsk`.Path.get_start_point], [method`Gsk`.Path.get_end_point]
+    or [method`Gsk`.PathMeasure.get_point].
 
     Note that `GskPathPoint` structs are meant to be stack-allocated,
     and don't hold a reference to the path object they are obtained from.
@@ -2370,7 +2370,7 @@ class PathPoint(GObject.GBoxed):
         """
     def compare(self, point2: PathPoint) -> int:
         """
-        Returns whether @point1 is before or after @point2.
+        Returns whether `point1` is before or after `point2`.
         """
     def copy(self) -> PathPoint:
         """
@@ -2383,13 +2383,13 @@ class PathPoint(GObject.GBoxed):
 
         Note that the start- and endpoint of a closed contour
         will compare nonequal according to this definition.
-        Use [method@Gsk.Path.is_closed] to find out if the
+        Use [method`Gsk`.Path.is_closed] to find out if the
         start- and endpoint of a concrete path refer to the
         same location.
         """
     def free(self) -> None:
         """
-        Frees a path point copied by [method@Gsk.PathPoint.copy].
+        Frees a path point copied by [method`Gsk`.PathPoint.copy].
         """
     def get_curvature(self, path: Path, direction: PathDirection) -> tuple[float, Graphene.Point | None]:
         """
@@ -2399,14 +2399,14 @@ class PathPoint(GObject.GBoxed):
         The curvature is the inverse of the radius of the osculating circle.
 
         Lines have a curvature of zero (indicating an osculating circle of
-        infinite radius). In this case, the @center is not modified.
+        infinite radius). In this case, the `center` is not modified.
 
         Circles with a radius of zero have `INFINITY` as curvature
 
         Note that certain points on a path may not have a single curvature,
         such as sharp turns. At such points, there are two curvatures — the
         (limit of) the curvature of the path going into the point, and the
-        (limit of) the curvature of the path coming out of it. The @direction
+        (limit of) the curvature of the path coming out of it. The `direction`
         argument lets you choose which one to get.
 
         <picture>
@@ -2427,10 +2427,10 @@ class PathPoint(GObject.GBoxed):
         """
             Gets the direction of the tangent at a given point.
 
-        This is a convenience variant of [method@Gsk.PathPoint.get_tangent]
+        This is a convenience variant of [method`Gsk`.PathPoint.get_tangent]
         that returns the angle between the tangent and the X axis. The angle
         can e.g. be used in
-        [gtk_snapshot_rotate()](../gtk4/method.Snapshot.rotate.html).
+        [`gtk_snapshot_rotate`](../gtk4/method.Snapshot.rotate.html).
         """
     def get_tangent(self, path: Path, direction: PathDirection) -> Graphene.Vec2:
         """
@@ -2439,14 +2439,14 @@ class PathPoint(GObject.GBoxed):
         Note that certain points on a path may not have a single
         tangent, such as sharp turns. At such points, there are
         two tangents — the direction of the path going into the
-        point, and the direction coming out of it. The @direction
+        point, and the direction coming out of it. The `direction`
         argument lets you choose which one to get.
 
         If the path is just a single point (e.g. a circle with
         radius zero), then the tangent is set to `0, 0`.
 
         If you want to orient something in the direction of the
-        path, [method@Gsk.PathPoint.get_rotation] may be more
+        path, [method`Gsk`.PathPoint.get_rotation] may be more
         convenient to use.
         """
 
@@ -2504,13 +2504,13 @@ class RadialGradientNode(RenderNode):
             Creates a `GskRenderNode` that draws a radial gradient.
 
         The radial gradient
-        starts around @center. The size of the gradient is dictated by @hradius
-        in horizontal orientation and by @vradius in vertical orientation.
+        starts around `center`. The size of the gradient is dictated by `hradius`
+        in horizontal orientation and by `vradius` in vertical orientation.
         """
 
 class RenderNode(object):
     """
-    The basic block in a scene graph to be rendered using [class@Gsk.Renderer].
+    The basic block in a scene graph to be rendered using [class`Gsk`.Renderer].
 
     Each node has a parent, except the top-level node; each node may have
     children nodes.
@@ -2519,8 +2519,8 @@ class RenderNode(object):
     the rectangle set when creating it.
 
     Render nodes are meant to be transient; once they have been associated
-    to a [class@Gsk.Renderer] it's safe to release any reference you have on
-    them. All [class@Gsk.RenderNode]s are immutable, you can only specify their
+    to a [class`Gsk`.Renderer] it's safe to release any reference you have on
+    them. All [class`Gsk`.RenderNode]s are immutable, you can only specify their
     properties during construction.
     """
 
@@ -2539,7 +2539,7 @@ class RenderNode(object):
         bytes: GLib.Bytes, error_func: ParseErrorFunc | None = None, user_data: object | None = None
     ) -> RenderNode | None:
         """
-            Loads data previously created via [method@Gsk.RenderNode.serialize].
+            Loads data previously created via [method`Gsk`.RenderNode.serialize].
 
         For a discussion of the supported format, see that function.
         """
@@ -2549,14 +2549,14 @@ class RenderNode(object):
 
         Typically, you'll use this function to implement fallback rendering
         of render nodes on an intermediate Cairo context, instead of using
-        the drawing context associated to a [class@Gdk.Surface]'s rendering buffer.
+        the drawing context associated to a [class`Gdk`.Surface]'s rendering buffer.
 
         For advanced nodes that cannot be supported using Cairo, in particular
         for nodes doing 3D operations, this function may fail.
         """
     def get_bounds(self) -> Graphene.Rect:
         """
-            Retrieves the boundaries of the @node.
+            Retrieves the boundaries of the `node`.
 
         The node will not draw outside of its boundaries.
         """
@@ -2581,11 +2581,11 @@ class RenderNode(object):
         """
     def serialize(self) -> GLib.Bytes:
         """
-            Serializes the @node for later deserialization via
-        gsk_render_node_deserialize(). No guarantees are made about the format
+            Serializes the `node` for later deserialization via
+        `Gsk.render_node_deserialize`. No guarantees are made about the format
         used other than that the same version of GTK will be able to deserialize
-        the result of a call to gsk_render_node_serialize() and
-        gsk_render_node_deserialize() will correctly reject files it cannot open
+        the result of a call to `Gsk.render_node_serialize` and
+        `Gsk.render_node_deserialize` will correctly reject files it cannot open
         that were created with previous versions of GTK.
 
         The intended use of this functions is testing, benchmarking and debugging.
@@ -2595,13 +2595,13 @@ class RenderNode(object):
         """
             Releases a reference on the given `GskRenderNode`.
 
-        If the reference was the last, the resources associated to the @node are
+        If the reference was the last, the resources associated to the `node` are
         freed.
         """
     def write_to_file(self, filename: str) -> bool:
         """
-            This function is equivalent to calling [method@Gsk.RenderNode.serialize]
-        followed by [func@GLib.file_set_contents].
+            This function is equivalent to calling [method`Gsk`.RenderNode.serialize]
+        followed by [func`GLib`.file_set_contents].
 
         See those two functions for details on the arguments.
 
@@ -2611,14 +2611,14 @@ class RenderNode(object):
 
 class Renderer(GObject.Object):
     """
-    Renders a scene graph defined via a tree of [class@Gsk.RenderNode] instances.
+    Renders a scene graph defined via a tree of [class`Gsk`.RenderNode] instances.
 
     Typically you will use a `GskRenderer` instance to repeatedly call
-    [method@Gsk.Renderer.render] to update the contents of its associated
-    [class@Gdk.Surface].
+    [method`Gsk`.Renderer.render] to update the contents of its associated
+    [class`Gdk`.Surface].
 
     It is necessary to realize a `GskRenderer` instance using
-    [method@Gsk.Renderer.realize] before calling [method@Gsk.Renderer.render],
+    [method`Gsk`.Renderer.realize] before calling [method`Gsk`.Renderer.render],
     in order to create the appropriate windowing system resources needed
     to render the scene.
     """
@@ -2646,7 +2646,7 @@ class Renderer(GObject.Object):
         """
             Retrieves the surface that the renderer is associated with.
 
-        If the renderer has not been realized yet, `NULL` will be returned.
+        If the renderer has not been realized yet, `None` will be returned.
         """
     @builtins.property
     def is_realized(self) -> bool:
@@ -2668,19 +2668,19 @@ class Renderer(GObject.Object):
         """
             Creates the resources needed by the renderer.
 
-        Since GTK 4.6, the surface may be `NULL`, which allows using
+        Since GTK 4.6, the surface may be `None`, which allows using
         renderers without having to create a surface. Since GTK 4.14,
-        it is recommended to use [method@Gsk.Renderer.realize_for_display]
+        it is recommended to use [method`Gsk`.Renderer.realize_for_display]
         for this case.
 
-        Note that it is mandatory to call [method@Gsk.Renderer.unrealize]
+        Note that it is mandatory to call [method`Gsk`.Renderer.unrealize]
         before destroying the renderer.
         """
     def realize_for_display(self, display: Gdk.Display) -> bool:
         """
             Creates the resources needed by the renderer.
 
-        Note that it is mandatory to call [method@Gsk.Renderer.unrealize]
+        Note that it is mandatory to call [method`Gsk`.Renderer.unrealize]
         before destroying the renderer.
         """
     def render(self, root: RenderNode, region: cairo.Region | None = None) -> None:
@@ -2690,9 +2690,9 @@ class Renderer(GObject.Object):
 
         If the renderer has no associated surface, this function does nothing.
 
-        Renderers must ensure that changes of the contents given by the @root
-        node as well as the area given by @region are redrawn. They are however
-        free to not redraw any pixel outside of @region if they can guarantee that
+        Renderers must ensure that changes of the contents given by the `root`
+        node as well as the area given by `region` are redrawn. They are however
+        free to not redraw any pixel outside of `region` if they can guarantee that
         it didn't change.
 
         The renderer will acquire a reference on the `GskRenderNode` tree while
@@ -2706,12 +2706,12 @@ class Renderer(GObject.Object):
         The renderer will acquire a reference on the `GskRenderNode` tree while
         the rendering is in progress.
 
-        If you want to apply any transformations to @root, you should put it into a
+        If you want to apply any transformations to `root`, you should put it into a
         transform node and pass that node instead.
         """
     def unrealize(self) -> None:
         """
-        Releases all the resources created by [method@Gsk.Renderer.realize].
+        Releases all the resources created by [method`Gsk`.Renderer.realize].
         """
 
     # Signals
@@ -2753,17 +2753,17 @@ class RepeatNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Retrieves the child of @node.
+        Retrieves the child of `node`.
         """
     def get_child_bounds(self) -> Graphene.Rect:
         """
-        Retrieves the bounding rectangle of the child of @node.
+        Retrieves the bounding rectangle of the child of `node`.
         """
     @classmethod
     def new(cls, bounds: Graphene.Rect, child: RenderNode, child_bounds: Graphene.Rect | None = None) -> RepeatNode:
         """
-            Creates a `GskRenderNode` that will repeat the drawing of @child across
-        the given @bounds.
+            Creates a `GskRenderNode` that will repeat the drawing of `child` across
+        the given `bounds`.
         """
 
 class RepeatingLinearGradientNode(RenderNode):
@@ -2783,7 +2783,7 @@ class RepeatingLinearGradientNode(RenderNode):
         """
             Creates a `GskRenderNode` that will create a repeating linear gradient
         from the given points and color stops, and render that into the area
-        given by @bounds.
+        given by `bounds`.
         """
 
 class RepeatingRadialGradientNode(RenderNode):
@@ -2811,8 +2811,8 @@ class RepeatingRadialGradientNode(RenderNode):
         """
             Creates a `GskRenderNode` that draws a repeating radial gradient.
 
-        The radial gradient starts around @center. The size of the gradient
-        is dictated by @hradius in horizontal orientation and by @vradius
+        The radial gradient starts around `center`. The size of the gradient
+        is dictated by `hradius` in horizontal orientation and by `vradius`
         in vertical orientation.
         """
 
@@ -2828,17 +2828,17 @@ class RoundedClipNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Gets the child node that is getting clipped by the given @node.
+        Gets the child node that is getting clipped by the given `node`.
         """
     def get_clip(self) -> RoundedRect:
         """
-        Retrieves the rounded rectangle used to clip the contents of the @node.
+        Retrieves the rounded rectangle used to clip the contents of the `node`.
         """
     @classmethod
     def new(cls, child: RenderNode, clip: RoundedRect) -> RoundedClipNode:
         """
-            Creates a `GskRenderNode` that will clip the @child to the area
-        given by @clip.
+            Creates a `GskRenderNode` that will clip the `child` to the area
+        given by `clip`.
         """
 
 class RoundedRect(GObject.GPointer):
@@ -2846,7 +2846,7 @@ class RoundedRect(GObject.GPointer):
     A rectangular region with rounded corners.
 
     Application code should normalize rectangles using
-    [method@Gsk.RoundedRect.normalize]; this function will ensure that
+    [method`Gsk`.RoundedRect.normalize]; this function will ensure that
     the bounds of the rectangle are normalized and ensure that the corner
     values are positive and the corners do not overlap.
 
@@ -2919,8 +2919,8 @@ class RoundedRect(GObject.GPointer):
             Checks if all corners of a rounded rectangle are right angles
         and the rectangle covers all of its bounds.
 
-        This information can be used to decide if [ctor@Gsk.ClipNode.new]
-        or [ctor@Gsk.RoundedClipNode.new] should be called.
+        This information can be used to decide if [ctor`Gsk`.ClipNode.new]
+        or [ctor`Gsk`.RoundedClipNode.new] should be called.
         """
     def normalize(self) -> RoundedRect:
         """
@@ -2932,7 +2932,7 @@ class RoundedRect(GObject.GPointer):
         """
     def offset(self, dx: float, dy: float) -> RoundedRect:
         """
-            Offsets the rounded rectangle's origin by @dx and @dy.
+            Offsets the rounded rectangle's origin by `dx` and `dy`.
 
         The size and corners of the rounded rectangle are unchanged.
         """
@@ -2945,7 +2945,7 @@ class RoundedRect(GObject.GPointer):
         the center of the corner circle intact. This emulates CSS behavior.
 
         This function also works for growing rounded rectangles
-        if you pass negative values for the @top, @right, @bottom or @left.
+        if you pass negative values for the `top`, `right`, `bottom` or `left`.
         """
 
 class ShaderArgsBuilder(GObject.GBoxed):
@@ -2969,48 +2969,48 @@ class ShaderArgsBuilder(GObject.GBoxed):
     @deprecated("deprecated")
     def set_bool(self, idx: int, value: bool) -> None:
         """
-            Sets the value of the uniform @idx.
+            Sets the value of the uniform `idx`.
 
         The uniform must be of bool type.
         """
     def set_float(self, idx: int, value: float) -> None:
         """
-            Sets the value of the uniform @idx.
+            Sets the value of the uniform `idx`.
 
         The uniform must be of float type.
         """
     @deprecated("deprecated")
     def set_int(self, idx: int, value: int) -> None:
         """
-            Sets the value of the uniform @idx.
+            Sets the value of the uniform `idx`.
 
         The uniform must be of int type.
         """
     @deprecated("deprecated")
     def set_uint(self, idx: int, value: int) -> None:
         """
-            Sets the value of the uniform @idx.
+            Sets the value of the uniform `idx`.
 
         The uniform must be of uint type.
         """
     @deprecated("deprecated")
     def set_vec2(self, idx: int, value: Graphene.Vec2) -> None:
         """
-            Sets the value of the uniform @idx.
+            Sets the value of the uniform `idx`.
 
         The uniform must be of vec2 type.
         """
     @deprecated("deprecated")
     def set_vec3(self, idx: int, value: Graphene.Vec3) -> None:
         """
-            Sets the value of the uniform @idx.
+            Sets the value of the uniform `idx`.
 
         The uniform must be of vec3 type.
         """
     @deprecated("deprecated")
     def set_vec4(self, idx: int, value: Graphene.Vec4) -> None:
         """
-            Sets the value of the uniform @idx.
+            Sets the value of the uniform `idx`.
 
         The uniform must be of vec4 type.
         """
@@ -3018,16 +3018,16 @@ class ShaderArgsBuilder(GObject.GBoxed):
     def to_args(self) -> GLib.Bytes:
         """
             Creates a new `GBytes` args from the current state of the
-        given @builder.
+        given `builder`.
 
         Any uniforms of the shader that have not been explicitly set on
-        the @builder are zero-initialized.
+        the `builder` are zero-initialized.
 
         The given `GskShaderArgsBuilder` is reset once this function returns;
-        you cannot call this function multiple times on the same @builder instance.
+        you cannot call this function multiple times on the same `builder` instance.
 
         This function is intended primarily for bindings. C code should use
-        [method@Gsk.ShaderArgsBuilder.free_to_args].
+        [method`Gsk`.ShaderArgsBuilder.free_to_args].
         """
     @deprecated("deprecated")
     def unref(self) -> None:
@@ -3089,21 +3089,21 @@ class ShadowNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Retrieves the child `GskRenderNode` of the shadow @node.
+        Retrieves the child `GskRenderNode` of the shadow `node`.
         """
     def get_n_shadows(self) -> int:
         """
-        Retrieves the number of shadows in the @node.
+        Retrieves the number of shadows in the `node`.
         """
     def get_shadow(self, i: int) -> Shadow:
         """
-        Retrieves the shadow data at the given index @i.
+        Retrieves the shadow data at the given index `i`.
         """
     @classmethod
     def new(cls, child: RenderNode, shadows: list, n_shadows: int) -> ShadowNode:
         """
-            Creates a `GskRenderNode` that will draw a @child with the given
-        @shadows below it.
+            Creates a `GskRenderNode` that will draw a `child` with the given
+        `shadows` below it.
         """
 
 class Stroke(GObject.GBoxed):
@@ -3137,13 +3137,13 @@ class Stroke(GObject.GBoxed):
         """
             Gets the line cap used.
 
-        See [enum@Gsk.LineCap] for details.
+        See [enum`Gsk`.LineCap] for details.
         """
     def get_line_join(self) -> LineJoin:
         """
             Gets the line join used.
 
-        See [enum@Gsk.LineJoin] for details.
+        See [enum`Gsk`.LineJoin] for details.
         """
     def get_line_width(self) -> float:
         """
@@ -3156,7 +3156,7 @@ class Stroke(GObject.GBoxed):
     @classmethod
     def new(cls, line_width: float) -> Stroke:
         """
-        Creates a new `GskStroke` with the given @line_width.
+        Creates a new `GskStroke` with the given `line_width`.
         """
     def set_dash(self, dash: list | None, n_dash: int) -> None:
         """
@@ -3168,21 +3168,21 @@ class Stroke(GObject.GBoxed):
 
         Each "on" segment will have caps applied as if the segment were a
         separate contour. In particular, it is valid to use an "on" length
-        of 0 with [enum@Gsk.LineCap.round] or [enum@Gsk.LineCap.square]
+        of 0 with [enum`Gsk`.LineCap.round] or [enum`Gsk`.LineCap.square]
         to draw dots or squares along a path.
 
-        If @n_dash is 0, if all elements in @dash are 0, or if there are
-        negative values in @dash, then dashing is disabled.
+        If `n_dash` is 0, if all elements in `dash` are 0, or if there are
+        negative values in `dash`, then dashing is disabled.
 
-        If @n_dash is 1, an alternating "on" and "off" pattern with the
+        If `n_dash` is 1, an alternating "on" and "off" pattern with the
         single dash length provided is assumed.
 
-        If @n_dash is uneven, the dash array will be used with the first
-        element in @dash defining an "on" or "off" in alternating passes
+        If `n_dash` is uneven, the dash array will be used with the first
+        element in `dash` defining an "on" or "off" in alternating passes
         through the array.
 
         You can specify a starting offset into the dash with
-        [method@Gsk.Stroke.set_dash_offset].
+        [method`Gsk`.Stroke.set_dash_offset].
         """
     def set_dash_offset(self, offset: float) -> None:
         """
@@ -3191,19 +3191,19 @@ class Stroke(GObject.GBoxed):
         This is an offset into the length of the path, not an index into
         the array values of the dash array.
 
-        See [method@Gsk.Stroke.set_dash] for more details on dashing.
+        See [method`Gsk`.Stroke.set_dash] for more details on dashing.
         """
     def set_line_cap(self, line_cap: LineCap) -> None:
         """
             Sets the line cap to be used when stroking.
 
-        See [enum@Gsk.LineCap] for details.
+        See [enum`Gsk`.LineCap] for details.
         """
     def set_line_join(self, line_join: LineJoin) -> None:
         """
             Sets the line join to be used when stroking.
 
-        See [enum@Gsk.LineJoin] for details.
+        See [enum`Gsk`.LineJoin] for details.
         """
     def set_line_width(self, line_width: float) -> None:
         """
@@ -3220,8 +3220,8 @@ class Stroke(GObject.GBoxed):
 
         The limit is specfied in units of line width and must be non-negative.
 
-        For joins of type [enum@Gsk.LineJoin.miter] that exceed the miter limit,
-        the join gets rendered as if it was of type [enum@Gsk.LineJoin.bevel].
+        For joins of type [enum`Gsk`.LineJoin.miter] that exceed the miter limit,
+        the join gets rendered as if it was of type [enum`Gsk`.LineJoin.bevel].
         """
     def to_cairo(self, cr: cairo.Context) -> None:
         """
@@ -3239,7 +3239,7 @@ class Stroke(GObject.GBoxed):
 class StrokeNode(RenderNode):
     """
     A render node that will fill the area determined by stroking the the given
-    [struct@Gsk.Path] using the [struct@Gsk.Stroke] attributes.
+    [struct`Gsk`.Path] using the [struct`Gsk`.Stroke] attributes.
     """
 
     # gi Methods
@@ -3249,24 +3249,24 @@ class StrokeNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Gets the child node that is getting drawn by the given @node.
+        Gets the child node that is getting drawn by the given `node`.
         """
     def get_path(self) -> Path:
         """
             Retrieves the path that will be stroked with the contents of
-        the @node.
+        the `node`.
         """
     def get_stroke(self) -> Stroke:
         """
-        Retrieves the stroke attributes used in this @node.
+        Retrieves the stroke attributes used in this `node`.
         """
     @classmethod
     def new(cls, child: RenderNode, path: Path, stroke: Stroke) -> StrokeNode:
         """
-            Creates a #GskRenderNode that will fill the outline generated by stroking
-        the given @path using the attributes defined in @stroke.
+            Creates a Gsk.RenderNode that will fill the outline generated by stroking
+        the given `path` using the attributes defined in `stroke`.
 
-        The area is filled with @child.
+        The area is filled with `child`.
         """
 
 class SubsurfaceNode(RenderNode):
@@ -3281,7 +3281,7 @@ class SubsurfaceNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Gets the child node that is getting drawn by the given @node.
+        Gets the child node that is getting drawn by the given `node`.
         """
 
 class TextNode(RenderNode):
@@ -3296,18 +3296,18 @@ class TextNode(RenderNode):
         """
     def get_color(self) -> Gdk.RGBA:
         """
-            Retrieves the color used by the text @node.
+            Retrieves the color used by the text `node`.
 
         The value returned by this function will not be correct
         if the render node was created for a non-sRGB color.
         """
     def get_font(self) -> Pango.Font:
         """
-        Returns the font used by the text @node.
+        Returns the font used by the text `node`.
         """
     def get_glyphs(self) -> tuple[list, int]:
         """
-        Retrieves the glyph information in the @node.
+        Retrieves the glyph information in the `node`.
         """
     def get_num_glyphs(self) -> int:
         """
@@ -3319,7 +3319,7 @@ class TextNode(RenderNode):
         """
     def has_color_glyphs(self) -> bool:
         """
-        Checks whether the text @node has color glyphs.
+        Checks whether the text `node` has color glyphs.
         """
     @classmethod
     def new(
@@ -3328,7 +3328,7 @@ class TextNode(RenderNode):
         """
             Creates a render node that renders the given glyphs.
 
-        Note that @color may not be used if the font contains
+        Note that `color` may not be used if the font contains
         color glyphs.
         """
 
@@ -3350,10 +3350,10 @@ class TextureNode(RenderNode):
     def new(cls, texture: Gdk.Texture, bounds: Graphene.Rect) -> TextureNode:
         """
             Creates a `GskRenderNode` that will render the given
-        @texture into the area given by @bounds.
+        `texture` into the area given by `bounds`.
 
         Note that GSK applies linear filtering when textures are
-        scaled and transformed. See [class@Gsk.TextureScaleNode]
+        scaled and transformed. See [class`Gsk`.TextureScaleNode]
         for a way to influence filtering.
         """
 
@@ -3418,20 +3418,20 @@ class Transform(GObject.GBoxed):
         """
             Inverts the given transform.
 
-        If @self is not invertible, `NULL` is returned.
-        Note that inverting `NULL` also returns `NULL`, which is
-        the correct inverse of `NULL`. If you need to differentiate
-        between those cases, you should check @self is not `NULL`
+        If `self` is not invertible, `None` is returned.
+        Note that inverting `None` also returns `None`, which is
+        the correct inverse of `None`. If you need to differentiate
+        between those cases, you should check `self` is not `None`
         before calling this function.
 
-        This function consumes @self. Use [method@Gsk.Transform.ref] first
+        This function consumes `self`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def matrix(self, matrix: Graphene.Matrix) -> Transform:
         """
-            Multiplies @next with the given @matrix.
+            Multiplies `next` with the given `matrix`.
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     @classmethod
@@ -3440,18 +3440,18 @@ class Transform(GObject.GBoxed):
             Creates a new identity transform.
 
         This function is meant to be used by language
-        bindings. For C code, this is equivalent to using `NULL`.
+        bindings. For C code, this is equivalent to using `None`.
         """
     @staticmethod
     def parse(string: str) -> tuple[bool, Transform]:
         """
             Parses a given into a transform.
 
-        Strings printed via [method@Gsk.Transform.to_string]
+        Strings printed via [method`Gsk`.Transform.to_string]
         can be read in again successfully using this function.
 
-        If @string does not describe a valid transform, false
-        is returned and `NULL` is put in @out_transform.
+        If `string` does not describe a valid transform, false
+        is returned and `None` is put in `out_transform`.
         """
     def perspective(self, depth: float) -> Transform:
         """
@@ -3462,7 +3462,7 @@ class Transform(GObject.GBoxed):
         those with negative Z values towards the origin. Points
         on the z=0 plane are unchanged.
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def print_(self, string: GLib.String) -> None: ...
@@ -3472,58 +3472,58 @@ class Transform(GObject.GBoxed):
         """
     def rotate(self, angle: float) -> Transform | None:
         """
-            Rotates @next by an angle around the Z axis.
+            Rotates `next` by an angle around the Z axis.
 
         The rotation happens around the origin point of (0, 0).
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def rotate_3d(self, angle: float, axis: Graphene.Vec3) -> Transform | None:
         """
-            Rotates @next @angle degrees around @axis.
+            Rotates `next` `angle` degrees around `axis`.
 
-        For a rotation in 2D space, use [method@Gsk.Transform.rotate]
+        For a rotation in 2D space, use [method`Gsk`.Transform.rotate]
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def scale(self, factor_x: float, factor_y: float) -> Transform | None:
         """
-            Scales @next in 2-dimensional space by the given factors.
+            Scales `next` in 2-dimensional space by the given factors.
 
-        Use [method@Gsk.Transform.scale_3d] to scale in all 3 dimensions.
+        Use [method`Gsk`.Transform.scale_3d] to scale in all 3 dimensions.
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def scale_3d(self, factor_x: float, factor_y: float, factor_z: float) -> Transform | None:
         """
-            Scales @next by the given factors.
+            Scales `next` by the given factors.
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def skew(self, skew_x: float, skew_y: float) -> Transform | None:
         """
             Applies a skew transform.
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def to_2d(self) -> tuple[float, float, float, float, float, float]:
         """
             Converts a transform to a 2D transformation matrix.
 
-        @self must be a 2D transformation. If you are not
+        `self` must be a 2D transformation. If you are not
         sure, use
 
-            gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D
+            `Gsk.transform_get_category` >= GSK_TRANSFORM_CATEGORY_2D
 
         to check.
 
         The returned values are a subset of the full 4x4 matrix that
-        is computed by [method@Gsk.Transform.to_matrix] and have the
+        is computed by [method`Gsk`.Transform.to_matrix] and have the
         following layout:
 
         ```
@@ -3546,14 +3546,14 @@ class Transform(GObject.GBoxed):
             gsk_transform_skew (
                 gsk_transform_scale (
                     gsk_transform_rotate (
-                        gsk_transform_translate (NULL, &GRAPHENE_POINT_T (dx, dy)),
+                        gsk_transform_translate (None, &GRAPHENE_POINT_T (dx, dy)),
                         angle),
                     scale_x, scale_y),
                 skew_x, skew_y)
 
-        @self must be a 2D transformation. If you are not sure, use
+        `self` must be a 2D transformation. If you are not sure, use
 
-            gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D
+            `Gsk.transform_get_category` >= GSK_TRANSFORM_CATEGORY_2D
 
         to check.
         """
@@ -3566,14 +3566,14 @@ class Transform(GObject.GBoxed):
 
             gsk_transform_scale (
                 gsk_transform_translate (
-                    NULL,
+                    None,
                     &GRAPHENE_POINT_T (dx, dy)),
                 sx, sy)
 
-        @self must be a 2D affine transformation. If you are not
+        `self` must be a 2D affine transformation. If you are not
         sure, use
 
-            gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D_AFFINE
+            `Gsk.transform_get_category` >= GSK_TRANSFORM_CATEGORY_2D_AFFINE
 
         to check.
         """
@@ -3581,32 +3581,32 @@ class Transform(GObject.GBoxed):
         """
             Computes the 4x4 matrix for the transform.
 
-        The previous value of @out_matrix will be ignored.
+        The previous value of `out_matrix` will be ignored.
         """
     def to_string(self) -> str:
         """
             Converts the transform into a human-readable string.
 
-        The resulting string can be parsed with [func@Gsk.Transform.parse].
+        The resulting string can be parsed with [func`Gsk`.Transform.parse].
 
-        This is a wrapper around [method@Gsk.Transform.print].
+        This is a wrapper around [method`Gsk`.Transform.print].
         """
     def to_translate(self) -> tuple[float, float]:
         """
             Converts a transform to a translation operation.
 
-        @self must be a 2D transformation. If you are not
+        `self` must be a 2D transformation. If you are not
         sure, use
 
-            gsk_transform_get_category() >= GSK_TRANSFORM_CATEGORY_2D_TRANSLATE
+            `Gsk.transform_get_category` >= GSK_TRANSFORM_CATEGORY_2D_TRANSLATE
 
         to check.
         """
     def transform(self, other: Transform | None = None) -> Transform | None:
         """
-            Applies all the operations from @other to @next.
+            Applies all the operations from `other` to `next`.
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def transform_bounds(self, rect: Graphene.Rect) -> Graphene.Rect:
@@ -3621,23 +3621,23 @@ class Transform(GObject.GBoxed):
         """
     def translate(self, point: Graphene.Point) -> Transform | None:
         """
-            Translates @next in 2-dimensional space by @point.
+            Translates `next` in 2-dimensional space by `point`.
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def translate_3d(self, point: Graphene.Point3D) -> Transform | None:
         """
-            Translates @next by @point.
+            Translates `next` by `point`.
 
-        This function consumes @next. Use [method@Gsk.Transform.ref] first
+        This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
         """
     def unref(self) -> None:
         """
             Releases a reference on the given transform.
 
-        If the reference was the last, the resources associated to the @self are
+        If the reference was the last, the resources associated to the `self` are
         freed.
         """
 
@@ -3660,17 +3660,17 @@ class TransformNode(RenderNode):
         """
     def get_child(self) -> RenderNode:
         """
-        Gets the child node that is getting transformed by the given @node.
+        Gets the child node that is getting transformed by the given `node`.
         """
     def get_transform(self) -> Transform:
         """
-        Retrieves the `GskTransform` used by the @node.
+        Retrieves the `GskTransform` used by the `node`.
         """
     @classmethod
     def new(cls, child: RenderNode, transform: Transform) -> TransformNode:
         """
-            Creates a `GskRenderNode` that will transform the given @child
-        with the given @transform.
+            Creates a `GskRenderNode` that will transform the given `child`
+        with the given `transform`.
         """
 
 class VulkanRenderer(Renderer):
