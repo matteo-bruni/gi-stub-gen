@@ -7532,7 +7532,9 @@ class Bus(Object):
         references to the message origin objects. Will flush future messages until
         `Gst.Bus.set_flushing` sets `flushing` to False.
         """
-    def set_sync_handler(self, func: BusSyncHandler | None = None, *user_data: object | None) -> None:
+    def set_sync_handler(
+        self, func: BusSyncHandler | None | typing.Callable[..., BusSyncReply] = None, *user_data: object | None
+    ) -> None:
         """
             Sets the synchronous handler on the bus. The function will be called
         every time a new message is posted on the bus. Note that the function
@@ -14973,7 +14975,12 @@ class Pad(Object):
 
         If you don't know what this is, you probably don't want to call it.
         """
-    def add_probe(self, mask: PadProbeType, callback: PadProbeCallback, *user_data: object | None) -> int:
+    def add_probe(
+        self,
+        mask: PadProbeType,
+        callback: PadProbeCallback | typing.Callable[..., PadProbeReturn],
+        *user_data: object | None,
+    ) -> int:
         """
             Be notified of different states of pads. The provided callback is called for
         every state that matches `mask`.
@@ -15544,12 +15551,16 @@ class Pad(Object):
         If not `active`, calls `Gst.Pad.activate_mode` with the pad's current mode
         and a False argument.
         """
-    def set_chain_function_full(self, chain: PadChainFunction, *user_data: object | None) -> None:
+    def set_chain_function_full(
+        self, chain: PadChainFunction | typing.Callable[..., FlowReturn], *user_data: object | None
+    ) -> None:
         """
             Sets the given chain function for the pad. The chain function is called to
         process a Gst.Buffer input buffer. see Gst.PadChainFunction for more details.
         """
-    def set_chain_list_function_full(self, chainlist: PadChainListFunction, *user_data: object | None) -> None:
+    def set_chain_list_function_full(
+        self, chainlist: PadChainListFunction | typing.Callable[..., FlowReturn], *user_data: object | None
+    ) -> None:
         """
             Sets the given chain list function for the pad. The chainlist function is
         called to process a Gst.BufferList input buffer list. See
@@ -15561,7 +15572,9 @@ class Pad(Object):
         This function can only be used by the element that owns the pad.
         No locking is performed in this function.
         """
-    def set_event_full_function_full(self, event: PadEventFullFunction, *user_data: object | None) -> None:
+    def set_event_full_function_full(
+        self, event: PadEventFullFunction | typing.Callable[..., FlowReturn], *user_data: object | None
+    ) -> None:
         """
         Sets the given event handler for the pad.
         """
@@ -15569,19 +15582,23 @@ class Pad(Object):
         """
         Sets the given event handler for the pad.
         """
-    def set_getrange_function_full(self, get: PadGetRangeFunction, *user_data: object | None) -> None:
+    def set_getrange_function_full(
+        self, get: PadGetRangeFunction | typing.Callable[..., FlowReturn], *user_data: object | None
+    ) -> None:
         """
             Sets the given getrange function for the pad. The getrange function is
         called to produce a new Gst.Buffer to start the processing pipeline. see
         Gst.PadGetRangeFunction for a description of the getrange function.
         """
     def set_iterate_internal_links_function_full(
-        self, iterintlink: PadIterIntLinkFunction, *user_data: object | None
+        self, iterintlink: PadIterIntLinkFunction | typing.Callable[..., Iterator], *user_data: object | None
     ) -> None:
         """
         Sets the given internal link iterator function for the pad.
         """
-    def set_link_function_full(self, link: PadLinkFunction, *user_data: object | None) -> None:
+    def set_link_function_full(
+        self, link: PadLinkFunction | typing.Callable[..., PadLinkReturn], *user_data: object | None
+    ) -> None:
         """
             Sets the given link function for the pad. It will be called when
         the pad is linked with another pad.

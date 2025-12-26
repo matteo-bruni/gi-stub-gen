@@ -118,6 +118,22 @@ To build and install directly in one step, you can run:
 just build-and-install
 ```
 
+### Testing the Generated Stubs in Your IDE
+
+To test the generated stubs in your IDE (like VSCode or PyCharm), you can add our sample packages with uv like this (until they are published on PyPI or as wheels):
+
+```bash
+uv add "git+https://github.com/matteo-bruni/gi-stub-gen.git#subdirectory=stubs/gi-base-stubs"
+uv add "git+https://github.com/matteo-bruni/gi-stub-gen.git#subdirectory=stubs/gi-gst-stubs"
+```
+note: until the packages are published as wheels (pypi or github releases), i will not bother to update the versions, so to update to latest generated stubs, you can use:
+
+```bash
+uv sync --refresh -P gi-base-stubs
+uv sync --refresh -P gi-gst-stubs
+```
+to trigger and overwrite the existing packages with the latest generated stubs.
+
 ---
 
 ## Architecture & Design Decisions

@@ -197,7 +197,7 @@ def type_find_helper_for_extension(
 def type_find_helper_get_range(
     obj: Gst.Object,
     parent: Gst.Object | None,
-    func: TypeFindHelperGetRangeFunction,
+    func: TypeFindHelperGetRangeFunction | typing.Callable[..., Gst.FlowReturn],
     size: int,
     extension: str | None = None,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
@@ -223,7 +223,7 @@ def type_find_helper_get_range(
 def type_find_helper_get_range_full(
     obj: Gst.Object,
     parent: Gst.Object | None,
-    func: TypeFindHelperGetRangeFunction,
+    func: TypeFindHelperGetRangeFunction | typing.Callable[..., Gst.FlowReturn],
     size: int,
     extension: str | None = None,
 ) -> tuple[Gst.FlowReturn, Gst.Caps, Gst.TypeFindProbability]:
@@ -5428,7 +5428,9 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_buffer_function(self, func: CollectPadsBufferFunction, *user_data: object | None) -> None:
+    def set_buffer_function(
+        self, func: CollectPadsBufferFunction | typing.Callable[..., Gst.FlowReturn], *user_data: object | None
+    ) -> None:
         """
             Set the callback function and user data that will be called with
         the oldest buffer when all pads have been collected, or None on EOS.
@@ -5437,7 +5439,9 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_clip_function(self, clipfunc: CollectPadsClipFunction, *user_data: object | None) -> None:
+    def set_clip_function(
+        self, clipfunc: CollectPadsClipFunction | typing.Callable[..., Gst.FlowReturn], *user_data: object | None
+    ) -> None:
         """
             Install a clipping function that is called right after a buffer is received
         on a pad managed by `pads`. See GstCollectPadsClipFunction for more info.
@@ -5475,7 +5479,9 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_function(self, func: CollectPadsFunction, *user_data: object | None) -> None:
+    def set_function(
+        self, func: CollectPadsFunction | typing.Callable[..., Gst.FlowReturn], *user_data: object | None
+    ) -> None:
         """
             CollectPads provides a default collection algorithm that will determine
         the oldest buffer available on all of its pads, and then delegate

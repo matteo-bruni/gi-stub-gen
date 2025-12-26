@@ -80,6 +80,12 @@ class FunctionArgumentSchema(BaseSchema):
     is_variadic: bool = False
     """Whether this argument is variadic (i.e., part of *args)"""
 
+    type_hint_cb_return_name: str | None = None
+    """If is a callback, the callback return name for type hinting"""
+
+    type_hint_cb_return_namespace: str | None = None
+    """If is a callback, the callback return namespace for type hinting"""
+
     # @property
     # def default_value(self) -> str | None:
     #     """Get the default value representation for optional arguments."""
@@ -106,6 +112,11 @@ class FunctionArgumentSchema(BaseSchema):
         type_hint_name: str
         type_hint_comment: str | None = None
 
+        # if is a callback, we record its return type for type hinting
+        # to create something like arg: Callback | typing.Callable[..., PadProbeReturn]
+        type_hint_cb_return_name = None
+        type_hint_cb_return_namespace = None
+
         is_callback = gi_type_is_callback(gi_type)
 
         # callback cant be instantiated directly to python objects
@@ -124,6 +135,11 @@ class FunctionArgumentSchema(BaseSchema):
             type_hint_namespace = cb_namespace
             type_hint_name = cb_name
 
+            # retrieve the cb return type
+            cb_schema = FunctionSchema.from_gi_object(cb_info)  # type: ignore
+            type_hint_cb_return_name = cb_schema.return_hint
+            type_hint_cb_return_namespace = cb_schema.return_hint_namespace
+
             if cb_namespace != function_namespace:
                 # The callback is defined in another namespace
                 # use the fully qualified name
@@ -134,7 +150,6 @@ class FunctionArgumentSchema(BaseSchema):
             else:
                 # the callback is defined in the same namespace
                 # create the CallbackSchema so we later generate its stub
-                cb_schema = FunctionSchema.from_gi_object(cb_info)  # type: ignore
                 found_callback = CallbackSchema(
                     name=cb_name,
                     function=cb_schema,
@@ -167,6 +182,8 @@ class FunctionArgumentSchema(BaseSchema):
             default_value=None,
             is_pointer=gi_type.is_pointer(),
             is_variadic=variadic,
+            type_hint_cb_return_name=type_hint_cb_return_name,
+            type_hint_cb_return_namespace=type_hint_cb_return_namespace,
         ), found_callback
 
     @property
@@ -194,14 +211,24 @@ class FunctionArgumentSchema(BaseSchema):
             pass
 
         full_type = base_type
-        # if self.py_type_namespace and self.py_type_namespace != self.namespace:
-        #     full_type = f"{self.py_type_namespace}.{base_type}"
 
         if self.py_type_namespace and self.py_type_namespace != namespace:
             full_type = f"{self.py_type_namespace}.{base_type}"
 
         if self.may_be_null or (self.is_optional and self.direction in ("IN", "INOUT")):
             full_type = f"{full_type} | None"
+
+        if (
+            self.is_callback
+            and self.type_hint_cb_return_name is not None
+            and self.type_hint_cb_return_namespace is not None
+        ):
+            cb_return_type = self.type_hint_cb_return_name
+            if self.type_hint_cb_return_namespace != namespace:
+                cb_return_type = f"{self.type_hint_cb_return_namespace}.{cb_return_type}"
+            # add generic Callable type other than the Protocol
+            # to be more flexible
+            full_type = f"{full_type} | typing.Callable[..., {cb_return_type}]"
 
         return full_type
 
