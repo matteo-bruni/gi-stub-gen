@@ -50,6 +50,18 @@ class GIRDocs(metaclass=SingletonMeta):
         self._module_gir_docs = docs
         return True
 
+    def translate_c_doc_to_python(self, raw_text: str | None) -> str:
+        """
+        Translate a C/GObject style docstring to a Python-friendly format.
+        """
+        from gi_stub_gen.utils.gir_docs import translate_docstring
+
+        if not self._module_gir_docs:
+            # logger.warning("GIR docs not loaded, please load a GIR file first using GIRDocs.load()")
+            return ""
+
+        return translate_docstring(raw_text, self._module_gir_docs.module_namespace)
+
     def get_constant_docs(self, constant_name: str) -> str | None:
         """
         Get the parsed documentation for a constant.
@@ -58,7 +70,10 @@ class GIRDocs(metaclass=SingletonMeta):
             # logger.warning("GIR docs not loaded, please load a GIR file first using GIRDocs.load()")
             return None
 
-        return self._module_gir_docs.constants.get(constant_name, None)
+        docstring = self._module_gir_docs.constants.get(constant_name, None)
+        if docstring is not None:
+            return self.translate_c_doc_to_python(docstring)
+        return None
 
     def get_function_docstring(self, function_name: str) -> str | None:
         """
@@ -71,7 +86,8 @@ class GIRDocs(metaclass=SingletonMeta):
         if function_name not in self._module_gir_docs.functions:
             return None
 
-        return self._module_gir_docs.functions[function_name].docstring
+        docstring = self._module_gir_docs.functions[function_name].docstring
+        return self.translate_c_doc_to_python(docstring)
 
     def get_function_param_docstring(
         self,
@@ -87,7 +103,8 @@ class GIRDocs(metaclass=SingletonMeta):
 
         func_docs = self._module_gir_docs.functions.get(function_name)
         if func_docs and param_name in func_docs.params:
-            return func_docs.params[param_name]
+            docstring = func_docs.params[param_name]
+            return self.translate_c_doc_to_python(docstring)
 
         return None
 
@@ -104,7 +121,8 @@ class GIRDocs(metaclass=SingletonMeta):
 
         func_docs = self._module_gir_docs.functions.get(function_name)
         if func_docs:
-            return func_docs.return_doc
+            docstring = func_docs.return_doc
+            return self.translate_c_doc_to_python(docstring)
 
         return None
 
@@ -118,7 +136,8 @@ class GIRDocs(metaclass=SingletonMeta):
 
         class_docs = self._module_gir_docs.classes.get(class_name)
         if class_docs:
-            return class_docs.class_docstring
+            docstring = class_docs.class_docstring
+            return self.translate_c_doc_to_python(docstring)
 
         return None
 
@@ -136,7 +155,9 @@ class GIRDocs(metaclass=SingletonMeta):
 
         class_docs = self._module_gir_docs.classes.get(class_name)
         if class_docs and field_name in class_docs.fields:
-            return class_docs.fields[field_name]
+            docstring = class_docs.fields[field_name]
+            return self.translate_c_doc_to_python(docstring)
+
         return None
 
     def get_class_method_docstring(
@@ -153,7 +174,9 @@ class GIRDocs(metaclass=SingletonMeta):
 
         class_docs = self._module_gir_docs.classes.get(class_name)
         if class_docs and method_name in class_docs.methods:
-            return class_docs.methods[method_name].docstring
+            docstring = class_docs.methods[method_name].docstring
+            return self.translate_c_doc_to_python(docstring)
+
         return None
 
     def get_class_signal_docstring(
@@ -170,7 +193,8 @@ class GIRDocs(metaclass=SingletonMeta):
 
         class_docs = self._module_gir_docs.classes.get(class_name)
         if class_docs and signal_name in class_docs.signals:
-            return class_docs.signals[signal_name].docstring
+            docstring = class_docs.signals[signal_name].docstring
+            return self.translate_c_doc_to_python(docstring)
         return None
 
     def get_class_property_docstring(
@@ -187,7 +211,8 @@ class GIRDocs(metaclass=SingletonMeta):
 
         class_docs = self._module_gir_docs.classes.get(class_name)
         if class_docs and property_name in class_docs.properties:
-            return class_docs.properties[property_name]
+            docstring = class_docs.properties[property_name]
+            return self.translate_c_doc_to_python(docstring)
         return None
 
     def get_enum_docstring(
@@ -203,7 +228,8 @@ class GIRDocs(metaclass=SingletonMeta):
 
         enum_docs = self._module_gir_docs.enums.get(enum_name)
         if enum_docs:
-            return enum_docs.class_docstring
+            docstring = enum_docs.class_docstring
+            return self.translate_c_doc_to_python(docstring)
         return None
 
     def get_enum_field_docstring(
@@ -220,5 +246,6 @@ class GIRDocs(metaclass=SingletonMeta):
 
         enum_docs = self._module_gir_docs.enums.get(enum_name)
         if enum_docs and field_name in enum_docs.fields:
-            return enum_docs.fields[field_name]
+            docstring = enum_docs.fields[field_name]
+            return self.translate_c_doc_to_python(docstring)
         return None
