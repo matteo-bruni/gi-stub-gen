@@ -1,12 +1,12 @@
 from types import ModuleType
 from typing import Any
-from gi_stub_gen.gi_utils import catch_gi_deprecation_warnings
+from gi_stub_gen.utils.gi_utils import catch_gi_deprecation_warnings
 from gi_stub_gen.overrides.class_.GObject import GFLAG_SCHEMA
 from gi_stub_gen.overrides.class_.GObject import GENUM_SCHEMA
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.schema.alias import AliasSchema
 from gi_stub_gen.schema.class_ import ClassSchema
-from gi_stub_gen.utils import sanitize_gi_module_name
+from gi_stub_gen.utils.utils import sanitize_gi_module_name
 
 
 def parse_alias(

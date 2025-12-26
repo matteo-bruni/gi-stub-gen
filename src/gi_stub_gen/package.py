@@ -3,7 +3,7 @@ import shutil
 import tomlkit
 from pathlib import Path
 
-from gi_stub_gen.utils import format_stub_with_ruff
+from gi_stub_gen.utils.utils import format_stub_with_ruff
 
 logger = logging.getLogger(__name__)
 

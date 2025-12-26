@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 
 def get_callback_schema(namespace: str, callback_name: str) -> CallbackSchema:
-    from gi_stub_gen.gi_repo import GIRepo
+    from gi_stub_gen.manager.gi_repo import GIRepo
     from gi_stub_gen.schema.function import FunctionSchema, CallbackSchema
 
     repo = GIRepo()

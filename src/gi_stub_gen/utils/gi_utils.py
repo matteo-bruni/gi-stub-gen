@@ -6,7 +6,7 @@ from gi._gi import Repository  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject, GLib  # pyright: ignore[reportMissingModuleSource]
 from gi.repository import GIRepository
 
-from gi_stub_gen.utils import logger
+from gi_stub_gen.utils.utils import logger
 
 
 repository = Repository.get_default()

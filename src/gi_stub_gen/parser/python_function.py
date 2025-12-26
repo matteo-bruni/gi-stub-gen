@@ -5,12 +5,12 @@ from typing import Any
 import inspect
 
 
-from gi_stub_gen.inspect_utils import extract_inspect_params_type_info
+from gi_stub_gen.utils.inspect_utils import extract_inspect_params_type_info
 from gi_stub_gen.schema.builtin_function import ArgKind, BuiltinFunctionArgumentSchema, FunctionMethodType
 from gi_stub_gen.schema.builtin_function import (
     BuiltinFunctionSchema,
 )
-from gi_stub_gen.utils import get_redacted_stub_value
+from gi_stub_gen.utils.utils import get_redacted_stub_value
 
 
 def classify_method(

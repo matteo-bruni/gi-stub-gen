@@ -4,7 +4,7 @@ import pytest
 # from gi.repository import GIRepository  # noqa: E402
 from gi.repository import Gst
 
-from gi_stub_gen.gir_manager import GIRDocs
+from gi_stub_gen.manager.gir_docs import GIRDocs
 
 
 @pytest.fixture(scope="session", autouse=True)

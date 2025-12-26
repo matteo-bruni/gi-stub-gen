@@ -14,14 +14,14 @@ from types import (
 )
 
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
-from gi_stub_gen.gi_repo import GIRepo
-from gi_stub_gen.gi_utils import (
+from gi_stub_gen.manager.gi_repo import GIRepo
+from gi_stub_gen.utils.gi_utils import (
     get_gi_type_info,
     gi_type_is_callback,
     gi_type_to_py_type,
     is_class_field_nullable,
 )
-from gi_stub_gen.gir_manager import GIRDocs
+from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.overrides import apply_method_overrides
 
 from gi_stub_gen.parser.python_function import parse_python_function
@@ -38,7 +38,7 @@ from gi_stub_gen.schema.signals import (
     SignalSchema,
     generate_notify_signal,
 )
-from gi_stub_gen.utils import (
+from gi_stub_gen.utils.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
     sanitize_variable_name,

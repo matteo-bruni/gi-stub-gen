@@ -3,9 +3,9 @@ from __future__ import annotations
 import enum
 import logging
 
-from gi_stub_gen.template_manager import TemplateManager
+from gi_stub_gen.manager.template_manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.utils import sanitize_variable_name
+from gi_stub_gen.utils.utils import sanitize_variable_name
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject
 from typing import Literal, Any

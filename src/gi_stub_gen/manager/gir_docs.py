@@ -5,7 +5,7 @@ from pathlib import Path
 from gi_stub_gen.parser.gir import ModuleDocs, parse_gir_docs
 
 # from gi_stub_gen.parser.gir import ModuleDocs, parse_gir_docs
-from gi_stub_gen.utils import SingletonMeta
+from gi_stub_gen.utils.utils import SingletonMeta
 
 
 logger = logging.getLogger(__name__)

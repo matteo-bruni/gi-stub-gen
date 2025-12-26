@@ -4,16 +4,16 @@ from __future__ import annotations
 import logging
 
 from typing import Any
-from gi_stub_gen.gir_manager import GIRDocs
+from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
-from gi_stub_gen.template_manager import TemplateManager
+from gi_stub_gen.manager.template_manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import (
     FunctionArgumentSchema,
     FunctionSchema,
 )
 from gi_stub_gen.schema.signals import SignalSchema
-from gi_stub_gen.utils import get_super_class_name, sanitize_gi_module_name
+from gi_stub_gen.utils.utils import get_super_class_name, sanitize_gi_module_name
 
 
 # GObject.remove_emission_hook

@@ -3,7 +3,7 @@ from __future__ import annotations
 import keyword
 import logging
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
-from gi_stub_gen.gi_utils import (
+from gi_stub_gen.utils.gi_utils import (
     catch_gi_deprecation_warnings,
     get_gi_type_info,
     get_safe_gi_arg_closure_index,
@@ -11,14 +11,14 @@ from gi_stub_gen.gi_utils import (
     get_safe_gi_destroy_index,
     gi_type_is_callback,
 )
-from gi_stub_gen.template_manager import TemplateManager
+from gi_stub_gen.manager.template_manager import TemplateManager
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.utils import (
+from gi_stub_gen.utils.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
     sanitize_variable_name,
 )
-from gi_stub_gen.gi_utils import (
+from gi_stub_gen.utils.gi_utils import (
     gi_type_to_py_type,
 )
 from pydantic import (

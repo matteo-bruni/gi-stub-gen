@@ -2,7 +2,7 @@ import inspect
 import typing
 from typing import Any, get_origin, get_args
 
-from gi_stub_gen.utils import sanitize_gi_module_name
+from gi_stub_gen.utils.utils import sanitize_gi_module_name
 
 
 def extract_inspect_params_type_info(

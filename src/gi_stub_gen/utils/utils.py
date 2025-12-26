@@ -121,7 +121,7 @@ def get_py_type_namespace_repr(py_type: Any) -> str | None:
 
         # we search for alternatives
         if name == "gi._gi":
-            from gi_stub_gen.gi_utils import get_gi_module_from_name
+            from gi_stub_gen.utils.gi_utils import get_gi_module_from_name
 
             # ie gi._gi.OptionGroup is also in GLib.OptionGroup
             target = get_py_type_name_repr(py_type)

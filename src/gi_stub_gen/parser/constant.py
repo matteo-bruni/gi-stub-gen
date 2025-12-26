@@ -4,7 +4,7 @@ import enum
 # import gi
 
 import gi._gi as GI  # type: ignore
-from gi_stub_gen.gi_utils import catch_gi_deprecation_warnings  # type: ignore
+from gi_stub_gen.utils.gi_utils import catch_gi_deprecation_warnings  # type: ignore
 
 # from gi._gi import Repository  # type: ignore
 from gi.repository import GObject

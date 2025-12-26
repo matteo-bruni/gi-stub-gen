@@ -5,7 +5,7 @@ from enum import Enum, Flag
 from typing import Any
 from gi.repository import GObject
 
-from gi_stub_gen.gir_manager import GIRDocs
+from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.schema.enum import EnumFieldSchema, EnumSchema
 from gi.repository import GIRepository
 

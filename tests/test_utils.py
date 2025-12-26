@@ -19,7 +19,7 @@ def test_sanitize_variable_name(
     expected_sane_name: str,
     expected_comment: str | None,
 ):
-    from gi_stub_gen.utils import sanitize_variable_name
+    from gi_stub_gen.utils.utils import sanitize_variable_name
 
     sane_variable, comment = sanitize_variable_name(name)
     assert sane_variable == expected_sane_name
@@ -27,7 +27,7 @@ def test_sanitize_variable_name(
 
 
 def test_expected_failure_on_empty_name():
-    from gi_stub_gen.utils import sanitize_variable_name
+    from gi_stub_gen.utils.utils import sanitize_variable_name
 
     with pytest.raises(ValueError):
         sane_variable, comment = sanitize_variable_name(None)  # type: ignore

@@ -8,10 +8,10 @@ from typing import Literal
 from rich.logging import RichHandler
 from typing_extensions import Annotated
 
-from gi_stub_gen.gi_repo import GIRepo
-from gi_stub_gen.gi_utils import get_gi_module_from_name
-from gi_stub_gen.gir_manager import GIRDocs
-from gi_stub_gen.utils import format_stub_with_ruff
+from gi_stub_gen.manager.gi_repo import GIRepo
+from gi_stub_gen.utils.gi_utils import get_gi_module_from_name
+from gi_stub_gen.manager.gir_docs import GIRDocs
+from gi_stub_gen.utils.utils import format_stub_with_ruff
 
 
 app = typer.Typer(pretty_exceptions_enable=False)
@@ -132,7 +132,7 @@ def main(
         handlers=[RichHandler(show_path=debug)],
     )
 
-    from gi_stub_gen.utils import split_gi_name_version
+    from gi_stub_gen.utils.utils import split_gi_name_version
 
     logger.info(f"Generating stub package for modules: {name}")
     if debug:
