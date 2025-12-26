@@ -80,7 +80,7 @@ def context_set_resolution(
 def context_set_shape_renderer(
     context: Pango.Context,
     func: ShapeRendererFunc | None = None,
-    data: object | None = None,
+    *data: object | None,
 ) -> None:
     """
     Sets callback function for context to use for rendering attributes
@@ -496,7 +496,7 @@ class ShapeRendererFunc(typing.Protocol):
         cr: cairo.Context,
         attr: Pango.AttrShape,
         do_path: bool,
-        data: object | None = None,
+        *data: object | None,
     ) -> None: ...
 
 ###############################################################

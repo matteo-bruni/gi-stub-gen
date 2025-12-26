@@ -220,7 +220,7 @@ def install_plugins_async(
     details: list,
     ctx: InstallPluginsContext | None,
     func: InstallPluginsResultFunc,
-    *user_data: object,
+    *user_data: object | None,
 ) -> InstallPluginsReturn: ...
 @staticmethod
 def install_plugins_installation_in_progress() -> bool: ...
@@ -1024,7 +1024,7 @@ class InstallPluginsResultFunc(typing.Protocol):
     def __call__(
         self,
         result: InstallPluginsReturn,
-        *user_data: object,
+        *user_data: object | None,
     ) -> None: ...
 
 ###############################################################

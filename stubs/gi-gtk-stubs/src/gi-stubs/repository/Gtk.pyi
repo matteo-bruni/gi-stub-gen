@@ -422,7 +422,7 @@ def editable_install_properties(
 @staticmethod
 def enumerate_printers(
     func: PrinterFunc,
-    data: object | None,
+    *data: object | None,
     wait: bool,
 ) -> None:
     """
@@ -704,7 +704,7 @@ def print_run_page_setup_dialog_async(
     page_setup: PageSetup | None,
     settings: PrintSettings,
     done_cb: PageSetupDoneFunc,
-    data: object | None = None,
+    *data: object | None,
 ) -> None:
     """
     Runs a page setup dialog, letting the user modify the values from `page_setup`.
@@ -993,7 +993,7 @@ def show_uri_full(
     timestamp: int,
     cancellable: Gio.Cancellable | None = None,
     callback: Gio.AsyncReadyCallback | None = None,  # type: ignore
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     This function launches the default application for showing
@@ -7130,7 +7130,7 @@ class AlertDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Shows the alert to the user.
@@ -8959,7 +8959,7 @@ class Assistant(Window):
         `Gtk.assistant_set_forward_page_func`.
         """
     @deprecated("deprecated")
-    def set_forward_page_func(self, page_func: AssistantPageFunc | None = None, data: object | None = None) -> None:
+    def set_forward_page_func(self, page_func: AssistantPageFunc | None = None, *data: object | None) -> None:
         """
             Sets the page forwarding function to be `page_func`.
 
@@ -11648,7 +11648,7 @@ class CClosureExpression(Expression):
         n_params: int,
         params: list,
         callback_func: GObject.Callback,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> CClosureExpression:
         """
             Creates a `GtkExpression` that calls `callback_func` when it is evaluated.
@@ -11970,7 +11970,7 @@ class CallbackAction(ShortcutAction):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, callback: ShortcutFunc, data: object | None = None) -> CallbackAction:
+    def new(cls, callback: ShortcutFunc, *data: object | None) -> CallbackAction:
         """
             Create a custom action that calls the given `callback` when
         activated.
@@ -12460,7 +12460,7 @@ class CellArea(GObject.InitiallyUnowned):
         to how it lays out cells.
         """
     @deprecated("deprecated")
-    def foreach(self, callback: CellCallback, callback_data: object | None = None) -> None:
+    def foreach(self, callback: CellCallback, *callback_data: object | None) -> None:
         """
         Calls `callback` for every `GtkCellRenderer` in `area`.
         """
@@ -12471,7 +12471,7 @@ class CellArea(GObject.InitiallyUnowned):
         cell_area: Gdk.Rectangle,
         background_area: Gdk.Rectangle,
         callback: CellAllocCallback,
-        callback_data: object | None = None,
+        *callback_data: object | None,
     ) -> None:
         """
             Calls `callback` for every `GtkCellRenderer` in `area` with the
@@ -13807,7 +13807,7 @@ class CellLayout(GObject.GInterface):
         """
     @deprecated("deprecated")
     def set_cell_data_func(
-        self, cell: CellRenderer, func: CellLayoutDataFunc | None = None, func_data: object | None = None
+        self, cell: CellRenderer, func: CellLayoutDataFunc | None = None, *func_data: object | None
     ) -> None:
         """
             Sets the `GtkCellLayout`DataFunc to use for `cell_layout`.
@@ -17180,7 +17180,7 @@ class ColorDialog(GObject.Object):
         initial_color: Gdk.RGBA | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
         Presents a color chooser dialog to the user.
@@ -18999,7 +18999,7 @@ class ComboBox(Widget):
         allocated width of the combo box.
         """
     @deprecated("deprecated")
-    def set_row_separator_func(self, func: TreeViewRowSeparatorFunc | None = None, data: object | None = None) -> None:
+    def set_row_separator_func(self, func: TreeViewRowSeparatorFunc | None = None, *data: object | None) -> None:
         """
             Sets the row separator function, which is used to determine
         whether a row should be drawn as a separator.
@@ -20419,7 +20419,7 @@ class CustomFilter(Filter):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, match_func: CustomFilterFunc | None = None, user_data: object | None = None) -> CustomFilter:
+    def new(cls, match_func: CustomFilterFunc | None = None, *user_data: object | None) -> CustomFilter:
         """
             Creates a new filter using the given function to filter items.
 
@@ -20428,7 +20428,7 @@ class CustomFilter(Filter):
         If the filter func changes its filtering behavior,
         [method`Gtk`.Filter.changed] needs to be called.
         """
-    def set_filter_func(self, match_func: CustomFilterFunc | None = None, user_data: object | None = None) -> None:
+    def set_filter_func(self, match_func: CustomFilterFunc | None = None, *user_data: object | None) -> None:
         """
             Sets the function used for filtering items.
 
@@ -20501,14 +20501,14 @@ class CustomSorter(Sorter):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, sort_func: GLib.CompareDataFunc | None = None, user_data: object | None = None) -> CustomSorter:
+    def new(cls, sort_func: GLib.CompareDataFunc | None = None, *user_data: object | None) -> CustomSorter:
         """
             Creates a new `GtkSorter` that works by calling
         `sort_func` to compare items.
 
         If `sort_func` is None, all items are considered equal.
         """
-    def set_sort_func(self, sort_func: GLib.CompareDataFunc | None = None, user_data: object | None = None) -> None:
+    def set_sort_func(self, sort_func: GLib.CompareDataFunc | None = None, *user_data: object | None) -> None:
         """
             Sets (or unsets) the function used for sorting items.
 
@@ -21578,7 +21578,7 @@ class DrawingArea(Widget):
 
         If the width is set to 0 (the default), the drawing area may disappear.
         """
-    def set_draw_func(self, draw_func: DrawingAreaDrawFunc | None = None, user_data: object | None = None) -> None:
+    def set_draw_func(self, draw_func: DrawingAreaDrawFunc | None = None, *user_data: object | None) -> None:
         """
             Setting a draw function is the main thing you want to do when using
         a drawing area.
@@ -25096,7 +25096,7 @@ class EntryCompletion(GObject.Object):
         inside the entry.
         """
     @deprecated("deprecated")
-    def set_match_func(self, func: EntryCompletionMatchFunc, func_data: object | None = None) -> None:
+    def set_match_func(self, func: EntryCompletionMatchFunc, *func_data: object | None) -> None:
         """
             Sets the match function for `completion` to be `func`.
 
@@ -26515,7 +26515,7 @@ class Expression(object):
         freed.
         """
     def watch(
-        self, this_: GObject.Object | None, notify: ExpressionNotify, user_data: object | None = None
+        self, this_: GObject.Object | None, notify: ExpressionNotify, *user_data: object | None
     ) -> ExpressionWatch:
         """
             Watch the given `expression` for changes.
@@ -27812,7 +27812,7 @@ class FileDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a file chooser dialog to the user.
@@ -27830,7 +27830,7 @@ class FileDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a file chooser dialog to the user.
@@ -27851,7 +27851,7 @@ class FileDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a file chooser dialog to the user.
@@ -27875,7 +27875,7 @@ class FileDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Initiates a file selection operation by presenting a file chooser
@@ -27901,7 +27901,7 @@ class FileDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a file chooser dialog to the user.
@@ -27919,7 +27919,7 @@ class FileDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Initiates a file save operation by presenting a file chooser
@@ -27949,7 +27949,7 @@ class FileDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a file chooser dialog to the user.
@@ -27971,7 +27971,7 @@ class FileDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a file chooser dialog to the user.
@@ -28380,7 +28380,7 @@ class FileLauncher(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Launches an application to open the file.
@@ -28402,7 +28402,7 @@ class FileLauncher(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Launches a file manager to show the file in its parent directory.
@@ -29217,7 +29217,7 @@ class FlowBox(Widget):
         See also: [method`Gtk`.FlowBox.insert].
         """
     def bind_model(
-        self, model: Gio.ListModel | None, create_widget_func: FlowBoxCreateWidgetFunc, user_data: object | None = None
+        self, model: Gio.ListModel | None, create_widget_func: FlowBoxCreateWidgetFunc, *user_data: object | None
     ) -> None:
         """
             Binds `model` to `box`.
@@ -29346,7 +29346,7 @@ class FlowBox(Widget):
             Selects a single child of `box`, if the selection
         mode allows it.
         """
-    def selected_foreach(self, func: FlowBoxForeachFunc, data: object | None = None) -> None:
+    def selected_foreach(self, func: FlowBoxForeachFunc, *data: object | None) -> None:
         """
             Calls a function for each selected child.
 
@@ -29362,7 +29362,7 @@ class FlowBox(Widget):
         """
         Sets the horizontal space to add between children.
         """
-    def set_filter_func(self, filter_func: FlowBoxFilterFunc | None = None, user_data: object | None = None) -> None:
+    def set_filter_func(self, filter_func: FlowBoxFilterFunc | None = None, *user_data: object | None) -> None:
         """
             By setting a filter function on the `box` one can decide dynamically
         which of the children to show.
@@ -29419,7 +29419,7 @@ class FlowBox(Widget):
         """
         Sets how selection works in `box`.
         """
-    def set_sort_func(self, sort_func: FlowBoxSortFunc | None = None, user_data: object | None = None) -> None:
+    def set_sort_func(self, sort_func: FlowBoxSortFunc | None = None, *user_data: object | None) -> None:
         """
             By setting a sort function on the `box`, one can dynamically
         reorder the children of the box, based on the contents of
@@ -30063,7 +30063,7 @@ class FontChooser(GObject.GInterface):
         Returns whether the preview entry is shown or not.
         """
     @deprecated("deprecated")
-    def set_filter_func(self, filter: FontFilterFunc | None = None, user_data: object | None = None) -> None:
+    def set_filter_func(self, filter: FontFilterFunc | None = None, *user_data: object | None) -> None:
         """
             Adds a filter function that decides which fonts to display
         in the font chooser.
@@ -30386,7 +30386,7 @@ class FontDialog(GObject.Object):
         initial_value: Pango.FontFace | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a font chooser dialog to the user.
@@ -30405,7 +30405,7 @@ class FontDialog(GObject.Object):
         initial_value: Pango.FontFamily | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a font chooser dialog to the user.
@@ -30426,7 +30426,7 @@ class FontDialog(GObject.Object):
         initial_value: Pango.FontDescription | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a font chooser dialog to the user.
@@ -30442,7 +30442,7 @@ class FontDialog(GObject.Object):
         initial_value: Pango.FontDescription | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Presents a font chooser dialog to the user.
@@ -35464,7 +35464,7 @@ class IconView(Widget):
         Selects the row at `path`.
         """
     @deprecated("deprecated")
-    def selected_foreach(self, func: IconViewForeachFunc, data: object | None = None) -> None:
+    def selected_foreach(self, func: IconViewForeachFunc, *data: object | None) -> None:
         """
             Calls a function for each selected icon. Note that the model or
         selection cannot be modified from within this function.
@@ -38959,7 +38959,7 @@ class ListBox(Widget):
         self,
         model: Gio.ListModel | None = None,
         create_widget_func: ListBoxCreateWidgetFunc | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Binds `model` to `box`.
@@ -39110,7 +39110,7 @@ class ListBox(Widget):
         """
         Make `row` the currently selected row.
         """
-    def selected_foreach(self, func: ListBoxForeachFunc, data: object | None = None) -> None:
+    def selected_foreach(self, func: ListBoxForeachFunc, *data: object | None) -> None:
         """
             Calls a function for each selected child.
 
@@ -39134,7 +39134,7 @@ class ListBox(Widget):
         be picked up automatically, so there is no need
         to manually do that.
         """
-    def set_filter_func(self, filter_func: ListBoxFilterFunc | None = None, user_data: object | None = None) -> None:
+    def set_filter_func(self, filter_func: ListBoxFilterFunc | None = None, *user_data: object | None) -> None:
         """
             By setting a filter function on the `box` one can decide dynamically which
         of the rows to show.
@@ -39150,9 +39150,7 @@ class ListBox(Widget):
         Note that using a filter function is incompatible with using a model
         (see [method`Gtk`.ListBox.bind_model]).
         """
-    def set_header_func(
-        self, update_header: ListBoxUpdateHeaderFunc | None = None, user_data: object | None = None
-    ) -> None:
+    def set_header_func(self, update_header: ListBoxUpdateHeaderFunc | None = None, *user_data: object | None) -> None:
         """
             Sets a header function.
 
@@ -39194,7 +39192,7 @@ class ListBox(Widget):
             Sets whether the list box should show separators
         between rows.
         """
-    def set_sort_func(self, sort_func: ListBoxSortFunc | None = None, user_data: object | None = None) -> None:
+    def set_sort_func(self, sort_func: ListBoxSortFunc | None = None, *user_data: object | None) -> None:
         """
             Sets a sort function.
 
@@ -40936,15 +40934,12 @@ class MapListModel(GObject.Object):
         """
     @classmethod
     def new(
-        cls,
-        model: Gio.ListModel | None = None,
-        map_func: MapListModelMapFunc | None = None,
-        user_data: object | None = None,
+        cls, model: Gio.ListModel | None = None, map_func: MapListModelMapFunc | None = None, *user_data: object | None
     ) -> MapListModel:
         """
         Creates a new `GtkMapListModel` for the given arguments.
         """
-    def set_map_func(self, map_func: MapListModelMapFunc | None = None, user_data: object | None = None) -> None:
+    def set_map_func(self, map_func: MapListModelMapFunc | None = None, *user_data: object | None) -> None:
         """
             Sets the function used to map items.
 
@@ -42046,9 +42041,7 @@ class MenuButton(Widget):
         [property`Gtk`.MenuButton:direction] is not `GTK_ARROW_NONE`, a dropdown arrow
         will be shown next to the child.
         """
-    def set_create_popup_func(
-        self, func: MenuButtonCreatePopupFunc | None = None, user_data: object | None = None
-    ) -> None:
+    def set_create_popup_func(self, func: MenuButtonCreatePopupFunc | None = None, *user_data: object | None) -> None:
         """
             Sets `func` to be called when a popup is about to be shown.
 
@@ -47130,7 +47123,7 @@ class PrintDialog(GObject.Object):
         setup: PrintSetup | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
     def print_file(
         self,
@@ -47139,7 +47132,7 @@ class PrintDialog(GObject.Object):
         file: Gio.File,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             This function prints a file.
@@ -47196,7 +47189,7 @@ class PrintDialog(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             This function presents a print dialog to let the user select a printer,
@@ -47400,7 +47393,7 @@ class PrintJob(GObject.Object):
         """
         Creates a new `GtkPrintJob`.
         """
-    def send(self, callback: PrintJobCompleteFunc, user_data: object | None = None) -> None:
+    def send(self, callback: PrintJobCompleteFunc, *user_data: object | None) -> None:
         """
         Sends the print job off to the printer.
         """
@@ -48748,7 +48741,7 @@ class PrintSettings(GObject.Object):
         """
         Copies a `GtkPrintSettings` object.
         """
-    def foreach(self, func: PrintSettingsFunc, user_data: object | None = None) -> None:
+    def foreach(self, func: PrintSettingsFunc, *user_data: object | None) -> None:
         """
         Calls `func` for each key-value pair of `settings`.
         """
@@ -51406,7 +51399,7 @@ class Scale(Range):
             Specifies whether the current value is displayed as a string next
         to the slider.
         """
-    def set_format_value_func(self, func: ScaleFormatValueFunc | None = None, user_data: object | None = None) -> None:
+    def set_format_value_func(self, func: ScaleFormatValueFunc | None = None, *user_data: object | None) -> None:
         """
             `func` allows you to change how the scale value is displayed.
 
@@ -60456,7 +60449,7 @@ class TextBuffer(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_commit_notify(
-        self, flags: TextBufferNotifyFlags, commit_notify: TextBufferCommitNotify, user_data: object | None = None
+        self, flags: TextBufferNotifyFlags, commit_notify: TextBufferCommitNotify, *user_data: object | None
     ) -> int:
         """
             Adds a [callback`Gtk`.TextBufferCommitNotify] to be called when a change
@@ -61714,7 +61707,7 @@ class TextIter(GObject.GBoxed):
         See [method`Gtk`.TextIter.forward_cursor_position] for details.
         """
     def backward_find_char(
-        self, pred: TextCharPredicate, user_data: object | None = None, limit: TextIter | None = None
+        self, pred: TextCharPredicate, *user_data: object | None, limit: TextIter | None = None
     ) -> bool:
         """
             Same as [method`Gtk`.TextIter.forward_find_char],
@@ -61990,7 +61983,7 @@ class TextIter(GObject.GBoxed):
         See [method`Gtk`.TextIter.forward_cursor_position] for details.
         """
     def forward_find_char(
-        self, pred: TextCharPredicate, user_data: object | None = None, limit: TextIter | None = None
+        self, pred: TextCharPredicate, *user_data: object | None, limit: TextIter | None = None
     ) -> bool:
         """
             Advances `iter`, calling `pred` on each character.
@@ -63888,7 +63881,7 @@ class TextTagTable(GObject.Object):
         `tag` must not be in a tag table already, and may not have
         the same name as an already-added tag.
         """
-    def foreach(self, func: TextTagTableForeach, data: object | None = None) -> None:
+    def foreach(self, func: TextTagTableForeach, *data: object | None) -> None:
         """
             Calls `func` on each tag in `table`, with user data `data`.
 
@@ -66216,7 +66209,7 @@ class TreeListModel(GObject.Object):
         passthrough: bool,
         autoexpand: bool,
         create_func: TreeListModelCreateModelFunc,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> TreeListModel:
         """
             Creates a new empty `GtkTreeListModel` displaying `root`
@@ -66747,7 +66740,7 @@ class TreeModel(GObject.GInterface):
         and `root` as the virtual root.
         """
     @deprecated("deprecated")
-    def foreach(self, func: TreeModelForeachFunc, user_data: object | None = None) -> None:
+    def foreach(self, func: TreeModelForeachFunc, *user_data: object | None) -> None:
         """
             Calls `func` on each node in model in a depth-first fashion.
 
@@ -67189,7 +67182,7 @@ class TreeModelFilter(GObject.Object):
         """
     @deprecated("deprecated")
     def set_modify_func(
-        self, n_columns: int, types: list, func: TreeModelFilterModifyFunc, data: object | None = None
+        self, n_columns: int, types: list, func: TreeModelFilterModifyFunc, *data: object | None
     ) -> None:
         """
             With the `n_columns` and `types` parameters, you give an array of column
@@ -67216,7 +67209,7 @@ class TreeModelFilter(GObject.Object):
         once for a given filter model.
         """
     @deprecated("deprecated")
-    def set_visible_func(self, func: TreeModelFilterVisibleFunc, data: object | None = None) -> None:
+    def set_visible_func(self, func: TreeModelFilterVisibleFunc, *data: object | None) -> None:
         """
             Sets the visible function used when filtering the `filter` to be `func`.
         The function should return True if the given row should be visible and
@@ -68050,7 +68043,7 @@ class TreeSelection(GObject.Object):
         `selection` must be set to Gtk.SELECTION_MULTIPLE mode.
         """
     @deprecated("deprecated")
-    def selected_foreach(self, func: TreeSelectionForeachFunc, data: object | None = None) -> None:
+    def selected_foreach(self, func: TreeSelectionForeachFunc, *data: object | None) -> None:
         """
             Calls a function for each selected node. Note that you cannot modify
         the tree or selection from within this function. As a result,
@@ -68064,7 +68057,7 @@ class TreeSelection(GObject.Object):
         previously selected.
         """
     @deprecated("deprecated")
-    def set_select_function(self, func: TreeSelectionFunc | None = None, data: object | None = None) -> None:
+    def set_select_function(self, func: TreeSelectionFunc | None = None, *data: object | None) -> None:
         """
             Sets the selection function.
 
@@ -68148,7 +68141,7 @@ class TreeSortable(GObject.GInterface):
         go back to the default state, or not.
         """
     @deprecated("deprecated")
-    def set_default_sort_func(self, sort_func: TreeIterCompareFunc, user_data: object | None = None) -> None:
+    def set_default_sort_func(self, sort_func: TreeIterCompareFunc, *user_data: object | None) -> None:
         """
             Sets the default comparison function used when sorting to be `sort_func`.
         If the current sort column id of `sortable` is
@@ -68174,9 +68167,7 @@ class TreeSortable(GObject.GInterface):
         - Gtk.TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: no sorting will occur
         """
     @deprecated("deprecated")
-    def set_sort_func(
-        self, sort_column_id: int, sort_func: TreeIterCompareFunc, user_data: object | None = None
-    ) -> None:
+    def set_sort_func(self, sort_column_id: int, sort_func: TreeIterCompareFunc, *user_data: object | None) -> None:
         """
             Sets the comparison function used when sorting to be `sort_func`. If the
         current sort column id of `sortable` is the same as `sort_column_id`, then
@@ -69077,7 +69068,7 @@ class TreeView(Widget):
         """
     @deprecated("deprecated")
     def insert_column_with_data_func(
-        self, position: int, title: str, cell: CellRenderer, func: TreeCellDataFunc, data: object | None = None
+        self, position: int, title: str, cell: CellRenderer, func: TreeCellDataFunc, *data: object | None
     ) -> int:
         """
             Convenience function that inserts a new column into the `GtkTreeView`
@@ -69115,7 +69106,7 @@ class TreeView(Widget):
         in `tree_view`.
         """
     @deprecated("deprecated")
-    def map_expanded_rows(self, func: TreeViewMappingFunc, data: object | None = None) -> None:
+    def map_expanded_rows(self, func: TreeViewMappingFunc, *data: object | None) -> None:
         """
         Calls `func` on all expanded rows.
         """
@@ -69192,9 +69183,7 @@ class TreeView(Widget):
         on a single click instead of a double click.
         """
     @deprecated("deprecated")
-    def set_column_drag_function(
-        self, func: TreeViewColumnDropFunc | None = None, user_data: object | None = None
-    ) -> None:
+    def set_column_drag_function(self, func: TreeViewColumnDropFunc | None = None, *user_data: object | None) -> None:
         """
             Sets a user function for determining where a column may be dropped when
         dragged.  This function is called on every column pair in turn at the
@@ -69346,7 +69335,7 @@ class TreeView(Widget):
         handle drag and drop manually.
         """
     @deprecated("deprecated")
-    def set_row_separator_func(self, func: TreeViewRowSeparatorFunc | None = None, data: object | None = None) -> None:
+    def set_row_separator_func(self, func: TreeViewRowSeparatorFunc | None = None, *data: object | None) -> None:
         """
             Sets the row separator function, which is used to determine
         whether a row should be drawn as a separator. If the row separator
@@ -69383,7 +69372,7 @@ class TreeView(Widget):
         """
     @deprecated("deprecated")
     def set_search_equal_func(
-        self, search_equal_func: TreeViewSearchEqualFunc, search_user_data: object | None = None
+        self, search_equal_func: TreeViewSearchEqualFunc, *search_user_data: object | None
     ) -> None:
         """
             Sets the compare function for the interactive search capabilities; note
@@ -70058,7 +70047,7 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         """
     @deprecated("deprecated")
     def set_cell_data_func(
-        self, cell_renderer: CellRenderer, func: TreeCellDataFunc | None = None, func_data: object | None = None
+        self, cell_renderer: CellRenderer, func: TreeCellDataFunc | None = None, *func_data: object | None
     ) -> None:
         """
             Sets the `GtkTreeCellDataFunc` to use for the column.
@@ -70390,7 +70379,7 @@ class UriLauncher(GObject.Object):
         parent: Window | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Launches an application to open the uri.
@@ -71534,7 +71523,7 @@ class Widget(GObject.InitiallyUnowned):
         when the widget is destroyed, so the caller must make sure
         to update its internal state at this point as well.
         """
-    def add_tick_callback(self, callback: TickCallback, user_data: object | None = None) -> int:
+    def add_tick_callback(self, callback: TickCallback, *user_data: object | None) -> int:
         """
             Queues an animation frame update and adds a callback to be called
         before each frame.
@@ -75820,7 +75809,7 @@ class AssistantPageFunc(typing.Protocol):
     def __call__(
         self,
         current_page: int,
-        data: object | None = None,
+        *data: object | None,
     ) -> int: ...
 
 class set_idBuildableIfaceCB(typing.Protocol):
@@ -75955,7 +75944,7 @@ class start_elementBuildableParserCB(typing.Protocol):
         element_name: str,
         attribute_names: str,
         attribute_values: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class end_elementBuildableParserCB(typing.Protocol):
@@ -75968,7 +75957,7 @@ class end_elementBuildableParserCB(typing.Protocol):
         self,
         context: BuildableParseContext,
         element_name: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class textBuildableParserCB(typing.Protocol):
@@ -75982,7 +75971,7 @@ class textBuildableParserCB(typing.Protocol):
         context: BuildableParseContext,
         text: str,
         text_len: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class errorBuildableParserCB(typing.Protocol):
@@ -75995,7 +75984,7 @@ class errorBuildableParserCB(typing.Protocol):
         self,
         context: BuildableParseContext,
         error: GLib.Error,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class get_type_from_nameBuilderScopeInterfaceCB(typing.Protocol):
@@ -76068,7 +76057,7 @@ class ShortcutFunc(typing.Protocol):
         self,
         widget: Widget,
         args: GLib.Variant | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class CellCallback(typing.Protocol):
@@ -76080,7 +76069,7 @@ class CellCallback(typing.Protocol):
     def __call__(
         self,
         renderer: CellRenderer,
-        data: object | None = None,
+        *data: object | None,
     ) -> bool: ...
 
 class CellAllocCallback(typing.Protocol):
@@ -76094,7 +76083,7 @@ class CellAllocCallback(typing.Protocol):
         renderer: CellRenderer,
         cell_area: Gdk.Rectangle,
         cell_background: Gdk.Rectangle,
-        data: object | None = None,
+        *data: object | None,
     ) -> bool: ...
 
 class addCellAreaClassCB(typing.Protocol):
@@ -76131,7 +76120,7 @@ class foreachCellAreaClassCB(typing.Protocol):
         self,
         area: CellArea,
         callback: CellCallback,
-        callback_data: object | None = None,
+        *callback_data: object | None,
     ) -> None: ...
 
 class foreach_allocCellAreaClassCB(typing.Protocol):
@@ -76148,7 +76137,7 @@ class foreach_allocCellAreaClassCB(typing.Protocol):
         cell_area: Gdk.Rectangle,
         background_area: Gdk.Rectangle,
         callback: CellAllocCallback,
-        callback_data: object | None = None,
+        *callback_data: object | None,
     ) -> None: ...
 
 class eventCellAreaClassCB(typing.Protocol):
@@ -76451,7 +76440,7 @@ class CellLayoutDataFunc(typing.Protocol):
         cell: CellRenderer,
         tree_model: TreeModel,
         iter: TreeIter,
-        data: object | None = None,
+        *data: object | None,
     ) -> None: ...
 
 class pack_startCellLayoutIfaceCB(typing.Protocol):
@@ -76516,7 +76505,7 @@ class set_cell_data_funcCellLayoutIfaceCB(typing.Protocol):
         cell_layout: CellLayout,
         cell: CellRenderer,
         func: CellLayoutDataFunc | None = None,
-        func_data: object | None = None,
+        *func_data: object | None,
     ) -> None: ...
 
 class clear_attributesCellLayoutIfaceCB(typing.Protocol):
@@ -76810,7 +76799,7 @@ class TreeViewRowSeparatorFunc(typing.Protocol):
         self,
         model: TreeModel,
         iter: TreeIter,
-        data: object | None = None,
+        *data: object | None,
     ) -> bool: ...
 
 class changedComboBoxClassCB(typing.Protocol):
@@ -76856,7 +76845,7 @@ class CustomFilterFunc(typing.Protocol):
     def __call__(
         self,
         item: GObject.Object,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class CustomRequestModeFunc(typing.Protocol):
@@ -76932,7 +76921,7 @@ class DrawingAreaDrawFunc(typing.Protocol):
         cr: cairo.Context,
         width: int,
         height: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class resizeDrawingAreaClassCB(typing.Protocol):
@@ -77158,7 +77147,7 @@ class EntryCompletionMatchFunc(typing.Protocol):
         completion: EntryCompletion,
         key: str,
         iter: TreeIter,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class ExpressionNotify(typing.Protocol):
@@ -77169,7 +77158,7 @@ class ExpressionNotify(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class matchFilterClassCB(typing.Protocol):
@@ -77202,7 +77191,7 @@ class FlowBoxCreateWidgetFunc(typing.Protocol):
     def __call__(
         self,
         item: GObject.Object,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> Widget: ...
 
 class FlowBoxForeachFunc(typing.Protocol):
@@ -77215,7 +77204,7 @@ class FlowBoxForeachFunc(typing.Protocol):
         self,
         box: FlowBox,
         child: FlowBoxChild,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class FlowBoxFilterFunc(typing.Protocol):
@@ -77227,7 +77216,7 @@ class FlowBoxFilterFunc(typing.Protocol):
     def __call__(
         self,
         child: FlowBoxChild,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class FlowBoxSortFunc(typing.Protocol):
@@ -77240,7 +77229,7 @@ class FlowBoxSortFunc(typing.Protocol):
         self,
         child1: FlowBoxChild,
         child2: FlowBoxChild,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class activateFlowBoxChildClassCB(typing.Protocol):
@@ -77264,7 +77253,7 @@ class FontFilterFunc(typing.Protocol):
         self,
         family: Pango.FontFamily,
         face: Pango.FontFace,
-        data: object | None = None,
+        *data: object | None,
     ) -> bool: ...
 
 class get_font_familyFontChooserIfaceCB(typing.Protocol):
@@ -77310,7 +77299,7 @@ class set_filter_funcFontChooserIfaceCB(typing.Protocol):
         self,
         fontchooser: FontChooser,
         filter: FontFilterFunc | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class font_activatedFontChooserIfaceCB(typing.Protocol):
@@ -77630,7 +77619,7 @@ class IconViewForeachFunc(typing.Protocol):
         self,
         icon_view: IconView,
         path: TreePath,
-        data: object | None = None,
+        *data: object | None,
     ) -> None: ...
 
 class get_request_modeLayoutManagerClassCB(typing.Protocol):
@@ -77718,7 +77707,7 @@ class ListBoxCreateWidgetFunc(typing.Protocol):
     def __call__(
         self,
         item: GObject.Object,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> Widget: ...
 
 class ListBoxForeachFunc(typing.Protocol):
@@ -77731,7 +77720,7 @@ class ListBoxForeachFunc(typing.Protocol):
         self,
         box: ListBox,
         row: ListBoxRow,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class ListBoxFilterFunc(typing.Protocol):
@@ -77743,7 +77732,7 @@ class ListBoxFilterFunc(typing.Protocol):
     def __call__(
         self,
         row: ListBoxRow,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class ListBoxUpdateHeaderFunc(typing.Protocol):
@@ -77756,7 +77745,7 @@ class ListBoxUpdateHeaderFunc(typing.Protocol):
         self,
         row: ListBoxRow,
         before: ListBoxRow | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class ListBoxSortFunc(typing.Protocol):
@@ -77769,7 +77758,7 @@ class ListBoxSortFunc(typing.Protocol):
         self,
         row1: ListBoxRow,
         row2: ListBoxRow,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class activateListBoxRowClassCB(typing.Protocol):
@@ -77792,7 +77781,7 @@ class MapListModelMapFunc(typing.Protocol):
     def __call__(
         self,
         item: GObject.Object,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> GObject.Object: ...
 
 class openMediaFileClassCB(typing.Protocol):
@@ -77889,7 +77878,7 @@ class MenuButtonCreatePopupFunc(typing.Protocol):
     def __call__(
         self,
         menu_button: MenuButton,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class responseNativeDialogClassCB(typing.Protocol):
@@ -77954,7 +77943,7 @@ class PrintJobCompleteFunc(typing.Protocol):
     def __call__(
         self,
         print_job: PrintJob,
-        user_data: object | None,
+        *user_data: object | None,
         error: GLib.Error,
     ) -> None: ...
 
@@ -78154,7 +78143,7 @@ class PrintSettingsFunc(typing.Protocol):
         self,
         key: str,
         value: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class value_changedRangeClassCB(typing.Protocol):
@@ -78238,7 +78227,7 @@ class ScaleFormatValueFunc(typing.Protocol):
         self,
         scale: Scale,
         value: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> str: ...
 
 class value_changedScaleButtonClassCB(typing.Protocol):
@@ -78481,7 +78470,7 @@ class TextBufferCommitNotify(typing.Protocol):
         flags: TextBufferNotifyFlags,
         position: int,
         length: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class insert_textTextBufferClassCB(typing.Protocol):
@@ -78677,7 +78666,7 @@ class TextCharPredicate(typing.Protocol):
     def __call__(
         self,
         ch: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class TextTagTableForeach(typing.Protocol):
@@ -78689,7 +78678,7 @@ class TextTagTableForeach(typing.Protocol):
     def __call__(
         self,
         tag: TextTag,
-        data: object | None = None,
+        *data: object | None,
     ) -> None: ...
 
 class move_cursorTextViewClassCB(typing.Protocol):
@@ -78918,7 +78907,7 @@ class TreeListModelCreateModelFunc(typing.Protocol):
     def __call__(
         self,
         item: GObject.Object,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> Gio.ListModel | None: ...
 
 class TreeModelForeachFunc(typing.Protocol):
@@ -78932,7 +78921,7 @@ class TreeModelForeachFunc(typing.Protocol):
         model: TreeModel,
         path: TreePath,
         iter: TreeIter,
-        data: object | None = None,
+        *data: object | None,
     ) -> bool: ...
 
 class TreeModelFilterModifyFunc(typing.Protocol):
@@ -78946,7 +78935,7 @@ class TreeModelFilterModifyFunc(typing.Protocol):
         model: TreeModel,
         iter: TreeIter,
         column: int,
-        data: object | None = None,
+        *data: object | None,
     ) -> GObject.Value: ...
 
 class TreeModelFilterVisibleFunc(typing.Protocol):
@@ -78959,7 +78948,7 @@ class TreeModelFilterVisibleFunc(typing.Protocol):
         self,
         model: TreeModel,
         iter: TreeIter,
-        data: object | None = None,
+        *data: object | None,
     ) -> bool: ...
 
 class visibleTreeModelFilterClassCB(typing.Protocol):
@@ -79244,7 +79233,7 @@ class TreeSelectionForeachFunc(typing.Protocol):
         model: TreeModel,
         path: TreePath,
         iter: TreeIter,
-        data: object | None = None,
+        *data: object | None,
     ) -> None: ...
 
 class TreeSelectionFunc(typing.Protocol):
@@ -79259,7 +79248,7 @@ class TreeSelectionFunc(typing.Protocol):
         model: TreeModel,
         path: TreePath,
         path_currently_selected: bool,
-        data: object | None = None,
+        *data: object | None,
     ) -> bool: ...
 
 class TreeIterCompareFunc(typing.Protocol):
@@ -79273,7 +79262,7 @@ class TreeIterCompareFunc(typing.Protocol):
         model: TreeModel,
         a: TreeIter,
         b: TreeIter,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class sort_column_changedTreeSortableIfaceCB(typing.Protocol):
@@ -79322,7 +79311,7 @@ class set_sort_funcTreeSortableIfaceCB(typing.Protocol):
         sortable: TreeSortable,
         sort_column_id: int,
         sort_func: TreeIterCompareFunc,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class set_default_sort_funcTreeSortableIfaceCB(typing.Protocol):
@@ -79335,7 +79324,7 @@ class set_default_sort_funcTreeSortableIfaceCB(typing.Protocol):
         self,
         sortable: TreeSortable,
         sort_func: TreeIterCompareFunc,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class has_default_sort_funcTreeSortableIfaceCB(typing.Protocol):
@@ -79361,7 +79350,7 @@ class TreeCellDataFunc(typing.Protocol):
         cell: CellRenderer,
         tree_model: TreeModel,
         iter: TreeIter,
-        data: object | None = None,
+        *data: object | None,
     ) -> None: ...
 
 class TreeViewMappingFunc(typing.Protocol):
@@ -79374,7 +79363,7 @@ class TreeViewMappingFunc(typing.Protocol):
         self,
         tree_view: TreeView,
         path: TreePath,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class TreeViewColumnDropFunc(typing.Protocol):
@@ -79389,7 +79378,7 @@ class TreeViewColumnDropFunc(typing.Protocol):
         column: TreeViewColumn,
         prev_column: TreeViewColumn,
         next_column: TreeViewColumn,
-        data: object | None = None,
+        *data: object | None,
     ) -> bool: ...
 
 class TreeViewSearchEqualFunc(typing.Protocol):
@@ -79404,7 +79393,7 @@ class TreeViewSearchEqualFunc(typing.Protocol):
         column: int,
         key: str,
         iter: TreeIter,
-        search_data: object | None = None,
+        *search_data: object | None,
     ) -> bool: ...
 
 class row_activatedTreeViewClassCB(typing.Protocol):
@@ -79600,7 +79589,7 @@ class TickCallback(typing.Protocol):
         self,
         widget: Widget,
         frame_clock: Gdk.FrameClock,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class showWidgetClassCB(typing.Protocol):
@@ -79979,7 +79968,7 @@ class PrinterFunc(typing.Protocol):
     def __call__(
         self,
         printer: Printer,
-        data: object | None = None,
+        *data: object | None,
     ) -> bool: ...
 
 class PageSetupDoneFunc(typing.Protocol):
@@ -79991,7 +79980,7 @@ class PageSetupDoneFunc(typing.Protocol):
     def __call__(
         self,
         page_setup: PageSetup,
-        data: object | None = None,
+        *data: object | None,
     ) -> None: ...
 
 ###############################################################

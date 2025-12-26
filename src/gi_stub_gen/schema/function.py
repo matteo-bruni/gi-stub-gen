@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import keyword
 import logging
-from operator import is_
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi_stub_gen.gi_utils import (
     catch_gi_deprecation_warnings,
@@ -25,7 +24,7 @@ from gi_stub_gen.gi_utils import (
 from pydantic import (
     PrivateAttr,
 )
-from gi.repository import GIRepository, GObject
+from gi.repository import GIRepository
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 from typing import Literal
 from typing_extensions import Self
@@ -200,11 +199,6 @@ class FunctionArgumentSchema(BaseSchema):
 
         if self.py_type_namespace and self.py_type_namespace != namespace:
             full_type = f"{self.py_type_namespace}.{base_type}"
-
-        if self.is_variadic:
-            # for variadic arguments we use *args: type
-            # no need to add None
-            return full_type
 
         if self.may_be_null or (self.is_optional and self.direction in ("IN", "INOUT")):
             full_type = f"{full_type} | None"
@@ -488,7 +482,8 @@ class FunctionSchema(BaseSchema):
             if closure_idx >= 0:
                 closure_indices.add(closure_idx)
 
-        # out_args = []
+        # only the last closure index is variadic
+        last_closure_index = max(closure_indices) if closure_indices else -1
         for i, arg in enumerate(obj_arguments):
             # Skip this argument if it was identified as an internal C
             # implementation detail (like array length)
@@ -505,7 +500,7 @@ class FunctionSchema(BaseSchema):
             else:
                 raise ValueError(f"Unknown GI.Direction: {arg.get_direction()}")
 
-            is_variadic = i in closure_indices
+            is_variadic = i == last_closure_index
             # IMPORTANT: For standard Function Stubs, arguments marked as 'OUT'
             # are NOT part of the Python input signature. They are returned in the tuple.
             # However, 'INOUT' arguments ARE passed as input (and returned modified).

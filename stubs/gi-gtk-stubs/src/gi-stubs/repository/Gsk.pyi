@@ -1815,7 +1815,7 @@ class Path(GObject.GBoxed):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def foreach(self, flags: PathForeachFlags, func: PathForeachFunc, user_data: object | None = None) -> bool:
+    def foreach(self, flags: PathForeachFlags, func: PathForeachFunc, *user_data: object | None) -> bool:
         """
             Calls `func` for every operation of the path.
 
@@ -2536,7 +2536,7 @@ class RenderNode(object):
         """
     @staticmethod
     def deserialize(
-        bytes: GLib.Bytes, error_func: ParseErrorFunc | None = None, user_data: object | None = None
+        bytes: GLib.Bytes, error_func: ParseErrorFunc | None = None, *user_data: object | None
     ) -> RenderNode | None:
         """
             Loads data previously created via [method`Gsk`.RenderNode.serialize].
@@ -3720,7 +3720,7 @@ class PathForeachFunc(typing.Protocol):
         pts: Graphene.Point,
         n_pts: int,
         weight: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class ParseErrorFunc(typing.Protocol):
@@ -3734,7 +3734,7 @@ class ParseErrorFunc(typing.Protocol):
         start: ParseLocation,
         end: ParseLocation,
         error: GLib.Error,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 ###############################################################

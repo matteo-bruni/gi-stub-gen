@@ -3424,7 +3424,7 @@ class FunctionGObjectAccessibleClassCB(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class get_uriHyperlinkClassCB(typing.Protocol):
@@ -3536,7 +3536,7 @@ class FunctionHyperlinkClassCB(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class get_hyperlinkHyperlinkImplIfaceCB(typing.Protocol):
@@ -3961,7 +3961,7 @@ class FunctionObjectClassCB(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class invalidateObjectFactoryClassCB(typing.Protocol):
@@ -3993,7 +3993,7 @@ class FunctionObjectFactoryClassCB(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class get_object_idPlugClassCB(typing.Protocol):
@@ -4015,7 +4015,7 @@ class FunctionRelationSetClassCB(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class add_selectionSelectionIfaceCB(typing.Protocol):
@@ -4177,7 +4177,7 @@ class FunctionStreamableContentIfaceCB(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class get_column_spanTableCellIfaceCB(typing.Protocol):

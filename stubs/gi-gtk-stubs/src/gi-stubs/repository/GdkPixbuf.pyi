@@ -589,7 +589,7 @@ class Pixbuf(GObject.Object):
         filename: str,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously parses an image file far enough to determine its
@@ -733,7 +733,7 @@ class Pixbuf(GObject.Object):
         height: int,
         rowstride: int,
         destroy_fn: PixbufDestroyNotify | None = None,
-        destroy_fn_data: object | None = None,
+        *destroy_fn_data: object | None,
     ) -> Pixbuf:
         """
             Creates a new GdkPixbuf. out of in-memory image data.
@@ -900,7 +900,7 @@ class Pixbuf(GObject.Object):
         stream: Gio.InputStream,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Creates a new pixbuf by asynchronously loading an image from an input stream.
@@ -952,7 +952,7 @@ class Pixbuf(GObject.Object):
         preserve_aspect_ratio: bool,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Creates a new pixbuf by asynchronously loading an image from an input stream.
@@ -1046,7 +1046,7 @@ class Pixbuf(GObject.Object):
     def save_to_callbackv(
         self,
         save_func: PixbufSaveFunc,
-        user_data: object | None,
+        *user_data: object | None,
         type: str,
         option_keys: list | None = None,
         option_values: list | None = None,
@@ -1091,7 +1091,7 @@ class Pixbuf(GObject.Object):
         option_values: list | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Saves `pixbuf` to an output stream asynchronously.
@@ -1379,7 +1379,7 @@ class PixbufAnimation(GObject.Object):
         stream: Gio.InputStream,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Creates a new animation by asynchronously loading an image from an input stream.
@@ -2313,7 +2313,7 @@ class PixbufDestroyNotify(typing.Protocol):
     def __call__(
         self,
         pixels: list,
-        data: object | None = None,
+        *data: object | None,
     ) -> None: ...
 
 class PixbufSaveFunc(typing.Protocol):
@@ -2326,7 +2326,7 @@ class PixbufSaveFunc(typing.Protocol):
         self,
         buf: list,
         count: int,
-        data: object | None = None,
+        *data: object | None,
     ) -> tuple[bool, GLib.Error]: ...
 
 class is_static_imagePixbufAnimationClassCB(typing.Protocol):

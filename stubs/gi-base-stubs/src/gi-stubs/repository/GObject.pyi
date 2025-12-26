@@ -5865,14 +5865,16 @@ class SignalGroup(Object):
 
         You cannot connect a signal handler after GSignalGroup:target has been set.
         """
-    def connect_data(self, detailed_signal: str, c_handler: Callback, data: object | None, flags: ConnectFlags) -> None:
+    def connect_data(
+        self, detailed_signal: str, c_handler: Callback, *data: object | None, flags: ConnectFlags
+    ) -> None:
         """
             Connects `c_handler` to the signal `detailed_signal`
         on the target instance of `self`.
 
         You cannot connect a signal handler after GSignalGroup:target has been set.
         """
-    def connect_swapped(self, detailed_signal: str, c_handler: Callback, data: object | None = None) -> None:
+    def connect_swapped(self, detailed_signal: str, c_handler: Callback, *data: object | None) -> None:
         """
             Connects `c_handler` to the signal `detailed_signal`
         on the target instance of `self`.
@@ -7285,7 +7287,7 @@ class ValueArray(GBoxed):
         Remove the value at position `index_` from `value_array`.
         """
     @deprecated("deprecated")
-    def sort(self, compare_func: GLib.CompareDataFunc, user_data: object | None = None) -> ValueArray:
+    def sort(self, compare_func: GLib.CompareDataFunc, *user_data: object | None) -> ValueArray:
         """
             Sort `value_array` using `compare_func` to compare the elements according to
         the semantics of GCompareFunc.

@@ -5428,7 +5428,7 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_buffer_function(self, func: CollectPadsBufferFunction, *user_data: object) -> None:
+    def set_buffer_function(self, func: CollectPadsBufferFunction, *user_data: object | None) -> None:
         """
             Set the callback function and user data that will be called with
         the oldest buffer when all pads have been collected, or None on EOS.
@@ -5437,18 +5437,18 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_clip_function(self, clipfunc: CollectPadsClipFunction, *user_data: object) -> None:
+    def set_clip_function(self, clipfunc: CollectPadsClipFunction, *user_data: object | None) -> None:
         """
             Install a clipping function that is called right after a buffer is received
         on a pad managed by `pads`. See GstCollectPadsClipFunction for more info.
         """
-    def set_compare_function(self, func: CollectPadsCompareFunction, *user_data: object) -> None:
+    def set_compare_function(self, func: CollectPadsCompareFunction, *user_data: object | None) -> None:
         """
             Set the timestamp comparison function.
 
         MT safe.
         """
-    def set_event_function(self, func: CollectPadsEventFunction, *user_data: object) -> None:
+    def set_event_function(self, func: CollectPadsEventFunction, *user_data: object | None) -> None:
         """
             Set the event callback function and user data that will be called when
         collectpads has received an event originating from one of the collected
@@ -5459,7 +5459,7 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_flush_function(self, func: CollectPadsFlushFunction, *user_data: object) -> None:
+    def set_flush_function(self, func: CollectPadsFlushFunction, *user_data: object | None) -> None:
         """
             Install a flush function that is called when the internal
         state of all pads should be flushed as part of flushing seek
@@ -5475,7 +5475,7 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_function(self, func: CollectPadsFunction, *user_data: object) -> None:
+    def set_function(self, func: CollectPadsFunction, *user_data: object | None) -> None:
         """
             CollectPads provides a default collection algorithm that will determine
         the oldest buffer available on all of its pads, and then delegate
@@ -5489,7 +5489,7 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_query_function(self, func: CollectPadsQueryFunction, *user_data: object) -> None:
+    def set_query_function(self, func: CollectPadsQueryFunction, *user_data: object | None) -> None:
         """
             Set the query callback function and user data that will be called after
         collectpads has received a query originating from one of the collected
@@ -7039,7 +7039,7 @@ class CollectPadsBufferFunction(typing.Protocol):
         pads: CollectPads,
         data: CollectData,
         buffer: Gst.Buffer,
-        *user_data: object,
+        *user_data: object | None,
     ) -> Gst.FlowReturn: ...
 
 class CollectPadsClipFunction(typing.Protocol):
@@ -7053,7 +7053,7 @@ class CollectPadsClipFunction(typing.Protocol):
         pads: CollectPads,
         data: CollectData,
         inbuffer: Gst.Buffer,
-        *user_data: object,
+        *user_data: object | None,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer]: ...
 
 class CollectPadsCompareFunction(typing.Protocol):
@@ -7069,7 +7069,7 @@ class CollectPadsCompareFunction(typing.Protocol):
         timestamp1: int,
         data2: CollectData,
         timestamp2: int,
-        *user_data: object,
+        *user_data: object | None,
     ) -> int: ...
 
 class CollectPadsEventFunction(typing.Protocol):
@@ -7083,7 +7083,7 @@ class CollectPadsEventFunction(typing.Protocol):
         pads: CollectPads,
         pad: CollectData,
         event: Gst.Event,
-        *user_data: object,
+        *user_data: object | None,
     ) -> bool: ...
 
 class CollectPadsFlushFunction(typing.Protocol):
@@ -7095,7 +7095,7 @@ class CollectPadsFlushFunction(typing.Protocol):
     def __call__(
         self,
         pads: CollectPads,
-        *user_data: object,
+        *user_data: object | None,
     ) -> None: ...
 
 class CollectPadsFunction(typing.Protocol):
@@ -7107,7 +7107,7 @@ class CollectPadsFunction(typing.Protocol):
     def __call__(
         self,
         pads: CollectPads,
-        *user_data: object,
+        *user_data: object | None,
     ) -> Gst.FlowReturn: ...
 
 class CollectPadsQueryFunction(typing.Protocol):
@@ -7121,7 +7121,7 @@ class CollectPadsQueryFunction(typing.Protocol):
         pads: CollectPads,
         pad: CollectData,
         query: Gst.Query,
-        *user_data: object,
+        *user_data: object | None,
     ) -> bool: ...
 
 class emptyDataQueueClassCB(typing.Protocol):

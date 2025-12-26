@@ -207,7 +207,7 @@ def content_deserialize_async(
     io_priority: int,
     cancellable: Gio.Cancellable | None = None,
     callback: Gio.AsyncReadyCallback | None = None,  # type: ignore
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Reads content from the given input stream and deserialize it, asynchronously.
@@ -247,7 +247,7 @@ def content_register_deserializer(
     mime_type: str,
     type: GObject.GType,
     deserialize: ContentDeserializeFunc,
-    data: object | None = None,
+    *data: object | None,
 ) -> None:
     """
     Registers a function to deserialize object of a given type.
@@ -259,7 +259,7 @@ def content_register_serializer(
     type: GObject.GType,
     mime_type: str,
     serialize: ContentSerializeFunc,
-    data: object | None = None,
+    *data: object | None,
 ) -> None:
     """
     Registers a function to serialize objects of a given type.
@@ -274,7 +274,7 @@ def content_serialize_async(
     io_priority: int,
     cancellable: Gio.Cancellable | None = None,
     callback: Gio.AsyncReadyCallback | None = None,  # type: ignore
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Serialize content and write it to the given output stream, asynchronously.
@@ -2282,7 +2282,7 @@ class Clipboard(GObject.Object):
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously requests an input stream to read the `clipboard`'s
@@ -2301,7 +2301,7 @@ class Clipboard(GObject.Object):
         self,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously request the `clipboard` contents converted to a string.
@@ -2320,7 +2320,7 @@ class Clipboard(GObject.Object):
         self,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously request the `clipboard` contents converted to a `GdkPixbuf`.
@@ -2341,7 +2341,7 @@ class Clipboard(GObject.Object):
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously request the `clipboard` contents converted to the given
@@ -2391,7 +2391,7 @@ class Clipboard(GObject.Object):
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously instructs the `clipboard` to store its contents remotely.
@@ -2957,7 +2957,7 @@ class ContentProvider(GObject.Object):
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously writes the contents of `provider` to `stream` in the given
@@ -3324,7 +3324,7 @@ class Cursor(GObject.Object):
         """
     @classmethod
     def new_from_callback(
-        cls, callback: CursorGetTextureCallback, data: object | None = None, fallback: Cursor | None = None
+        cls, callback: CursorGetTextureCallback, *data: object | None, fallback: Cursor | None = None
     ) -> Cursor | None:
         """
             Creates a new callback-based cursor object.
@@ -5589,7 +5589,7 @@ class Drop(GObject.Object):
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously read the dropped data from a `GdkDrop`
@@ -5612,7 +5612,7 @@ class Drop(GObject.Object):
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously request the drag operation's contents converted
@@ -9944,7 +9944,7 @@ class write_mime_type_asyncContentProviderClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,  # type: ignore
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class write_mime_type_finishContentProviderClassCB(typing.Protocol):

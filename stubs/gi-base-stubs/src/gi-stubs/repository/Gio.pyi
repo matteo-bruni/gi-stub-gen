@@ -163,7 +163,7 @@ async def app_info_get_default_for_type_async(
     must_support_uris: bool,
     cancellable: Cancellable | None = None,
     callback: AsyncReadyCallback | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Asynchronously gets the default [iface`Gio`.AppInfo] for a given content
@@ -201,7 +201,7 @@ async def app_info_get_default_for_uri_scheme_async(
     uri_scheme: str,
     cancellable: Cancellable | None = None,
     callback: AsyncReadyCallback | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Asynchronously gets the default application for handling URIs with
@@ -272,7 +272,7 @@ async def app_info_launch_default_for_uri_async(
     context: AppLaunchContext | None = None,
     cancellable: Cancellable | None = None,
     callback: AsyncReadyCallback | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Async version of [func`Gio`.AppInfo.launch_default_for_uri].
@@ -318,7 +318,7 @@ def async_initable_newv_async(
     io_priority: int,
     cancellable: Cancellable | None = None,
     callback: AsyncReadyCallback | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Helper function for constructing GAsyncInitable object. This is
@@ -335,7 +335,7 @@ async def bus_get(
     bus_type: BusType,
     cancellable: Cancellable | None = None,
     callback: AsyncReadyCallback | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Asynchronously connects to the message bus specified by `bus_type`.
@@ -788,7 +788,7 @@ async def dbus_address_get_stream(
     address: str,
     cancellable: Cancellable | None = None,
     callback: AsyncReadyCallback | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Asynchronously connects to an endpoint specified by `address` and
@@ -1315,7 +1315,7 @@ async def file_new_tmp_async(
     io_priority: int,
     cancellable: Cancellable | None = None,
     callback: AsyncReadyCallback | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Asynchronously opens a file in the preferred directory for temporary files
@@ -1333,7 +1333,7 @@ async def file_new_tmp_dir_async(
     io_priority: int,
     cancellable: Cancellable | None = None,
     callback: AsyncReadyCallback | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Asynchronously creates a directory in the preferred directory for
@@ -1572,7 +1572,7 @@ def io_scheduler_cancel_all_jobs() -> None:
 @staticmethod
 def io_scheduler_push_job(
     job_func: IOSchedulerJobFunc,
-    user_data: object | None,
+    *user_data: object | None,
     io_priority: int,
     cancellable: Cancellable | None = None,
 ) -> None:
@@ -1970,7 +1970,7 @@ def settings_schema_source_get_default() -> SettingsSchemaSource | None:
 def simple_async_report_gerror_in_idle(
     object: GObject.Object | None,
     callback: AsyncReadyCallback | None,
-    user_data: object | None,
+    *user_data: object | None,
     error: GLib.Error,
 ) -> None:
     """
@@ -6116,7 +6116,7 @@ class AppInfo(GObject.GInterface):
         must_support_uris: bool,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously gets the default [iface`Gio`.AppInfo] for a given content
@@ -6144,7 +6144,7 @@ class AppInfo(GObject.GInterface):
         uri_scheme: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously gets the default application for handling URIs with
@@ -6270,7 +6270,7 @@ class AppInfo(GObject.GInterface):
         context: AppLaunchContext | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Async version of [func`Gio`.AppInfo.launch_default_for_uri].
@@ -6309,7 +6309,7 @@ class AppInfo(GObject.GInterface):
         context: AppLaunchContext | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Async version of [method`Gio`.AppInfo.launch_uris].
@@ -8584,7 +8584,7 @@ class AsyncInitable(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Starts asynchronous initialization of the object implementing the
@@ -8643,7 +8643,7 @@ class AsyncInitable(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Helper function for constructing GAsyncInitable object. This is
@@ -8908,7 +8908,7 @@ class BufferedInputStream(FilterInputStream):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Reads data into `stream`'s buffer asynchronously, up to `count` size.
@@ -9256,7 +9256,7 @@ class Cancellable(GObject.Object):
         It is safe (although useless, since it will be a no-op) to call
         this function from a [signal`Gio`.Cancellable::cancelled] signal handler.
         """
-    def connect(self, callback: GObject.Callback, data: object | None = None) -> int:
+    def connect(self, callback: GObject.Callback, *data: object | None) -> int:
         """
             Convenience function to connect to the GCancellable::cancelled
         signal. Also handles the race condition that may happen
@@ -10383,7 +10383,7 @@ class DBusConnection(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def add_filter(self, filter_function: DBusMessageFilterFunction, user_data: object | None = None) -> int:
+    def add_filter(self, filter_function: DBusMessageFilterFunction, *user_data: object | None) -> int:
         """
             Adds a message filter. Filters are handlers that are run on all
         incoming and outgoing messages, prior to standard dispatch. Filters
@@ -10425,7 +10425,7 @@ class DBusConnection(GObject.Object):
         timeout_msec: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously invokes the `method_name` method on the
@@ -10541,7 +10541,7 @@ class DBusConnection(GObject.Object):
         fd_list: UnixFDList | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Like `g_dbus_connection_call` but also takes a GUnixFDList object.
@@ -10599,7 +10599,7 @@ class DBusConnection(GObject.Object):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Closes `connection`. Note that this never causes the process to
@@ -10702,7 +10702,7 @@ class DBusConnection(GObject.Object):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously flushes `connection`, that is, writes all queued
@@ -10803,7 +10803,7 @@ class DBusConnection(GObject.Object):
         observer: DBusAuthObserver | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously sets up a D-Bus connection for exchanging D-Bus messages
@@ -10839,7 +10839,7 @@ class DBusConnection(GObject.Object):
         observer: DBusAuthObserver | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously connects and sets up a D-Bus client connection for
@@ -11082,7 +11082,7 @@ class DBusConnection(GObject.Object):
         timeout_msec: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int:
         """
             Asynchronously sends `message` to the peer represented by `connection`.
@@ -11192,7 +11192,7 @@ class DBusConnection(GObject.Object):
         arg0: str | None,
         flags: DBusSignalFlags,
         callback: DBusSignalCallback,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int:
         """
             Subscribes to signals on `connection` and invokes `callback` whenever
@@ -12872,7 +12872,7 @@ class DBusObjectManagerClient(GObject.Object):
         get_proxy_type_user_data: object | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously creates a new GDBusObjectManagerClient object.
@@ -12899,7 +12899,7 @@ class DBusObjectManagerClient(GObject.Object):
         get_proxy_type_user_data: object | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Like `g_dbus_object_manager_client_new` but takes a GBusType instead of a
@@ -12925,7 +12925,7 @@ class DBusObjectManagerClient(GObject.Object):
         name: str,
         object_path: str,
         get_proxy_type_func: DBusProxyTypeFunc | None = None,
-        get_proxy_type_user_data: object | None = None,
+        *get_proxy_type_user_data: object | None,
         cancellable: Cancellable | None = None,
     ) -> DBusObjectManagerClient:
         """
@@ -12944,7 +12944,7 @@ class DBusObjectManagerClient(GObject.Object):
         name: str | None,
         object_path: str,
         get_proxy_type_func: DBusProxyTypeFunc | None = None,
-        get_proxy_type_user_data: object | None = None,
+        *get_proxy_type_user_data: object | None,
         cancellable: Cancellable | None = None,
     ) -> DBusObjectManagerClient:
         """
@@ -13763,7 +13763,7 @@ class DBusProxy(GObject.Object):
         timeout_msec: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously invokes the `method_name` method on `proxy`.
@@ -13866,7 +13866,7 @@ class DBusProxy(GObject.Object):
         fd_list: UnixFDList | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Like `g_dbus_proxy_call` but also takes a GUnixFDList object.
@@ -13959,7 +13959,7 @@ class DBusProxy(GObject.Object):
         interface_name: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Creates a proxy for accessing `interface_name` on the remote object
@@ -14005,7 +14005,7 @@ class DBusProxy(GObject.Object):
         interface_name: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Like `g_dbus_proxy_new` but takes a GBusType instead of a GDBusConnection.
@@ -14640,7 +14640,7 @@ class DataInputStream(BufferedInputStream):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             The asynchronous version of `g_data_input_stream_read_line`.  It is
@@ -14721,7 +14721,7 @@ class DataInputStream(BufferedInputStream):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             The asynchronous version of `g_data_input_stream_read_until`.
@@ -14770,7 +14770,7 @@ class DataInputStream(BufferedInputStream):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             The asynchronous version of `g_data_input_stream_read_upto`.
@@ -15717,7 +15717,7 @@ class DesktopAppInfo(GObject.Object):
         user_setup: GLib.SpawnChildSetupFunc | None = None,
         user_setup_data: object | None = None,
         pid_callback: DesktopAppLaunchCallback | None = None,
-        pid_callback_data: object | None = None,
+        *pid_callback_data: object | None,
     ) -> bool:
         """
             This function performs the equivalent of [method`Gio`.AppInfo.launch_uris],
@@ -15745,7 +15745,7 @@ class DesktopAppInfo(GObject.Object):
         user_setup: GLib.SpawnChildSetupFunc | None,
         user_setup_data: object | None,
         pid_callback: DesktopAppLaunchCallback | None,
-        pid_callback_data: object | None,
+        *pid_callback_data: object | None,
         stdin_fd: int,
         stdout_fd: int,
         stderr_fd: int,
@@ -15958,7 +15958,7 @@ class Drive(GObject.GInterface):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously ejects a drive.
@@ -15978,7 +15978,7 @@ class Drive(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Ejects a drive. This is an asynchronous operation, and is
@@ -16056,7 +16056,7 @@ class Drive(GObject.GInterface):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously polls `drive` to see if media has been inserted or removed.
@@ -16075,7 +16075,7 @@ class Drive(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously starts a drive.
@@ -16094,7 +16094,7 @@ class Drive(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously stops a drive.
@@ -16650,7 +16650,7 @@ class DtlsConnection(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously close the DTLS connection. See `g_dtls_connection_close` for
@@ -16794,7 +16794,7 @@ class DtlsConnection(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously performs a TLS handshake on `conn`. See
@@ -16924,7 +16924,7 @@ class DtlsConnection(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously shut down part or all of the DTLS connection. See
@@ -17491,7 +17491,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously opens `file` for appending.
@@ -17526,7 +17526,7 @@ class File(GObject.GInterface):
         flags: FileCopyFlags,
         cancellable: Cancellable | None = None,
         progress_callback: FileProgressCallback | None = None,
-        progress_callback_data: object | None = None,
+        *progress_callback_data: object | None,
     ) -> bool:
         """
             Copies the file `source` to the location specified by `destination`.
@@ -17634,7 +17634,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously creates a new file and returns an output stream
@@ -17684,7 +17684,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously creates a new file and returns a stream
@@ -17731,7 +17731,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously delete a file. If the `file` is a directory, it will
@@ -17761,7 +17761,7 @@ class File(GObject.GInterface):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Starts an asynchronous eject on a mountable.
@@ -17785,7 +17785,7 @@ class File(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Starts an asynchronous eject on a mountable.
@@ -17839,7 +17839,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously gets the requested information about the files
@@ -17885,7 +17885,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously gets the mount for the file.
@@ -18066,7 +18066,7 @@ class File(GObject.GInterface):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously loads the contents of `file` as GBytes.
@@ -18107,7 +18107,7 @@ class File(GObject.GInterface):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Starts an asynchronous load of the `file`'s contents.
@@ -18166,7 +18166,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
         Asynchronously creates a directory.
@@ -18207,7 +18207,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously creates a symbolic link named `file` which contains the
@@ -18223,7 +18223,7 @@ class File(GObject.GInterface):
         flags: FileMeasureFlags,
         cancellable: Cancellable | None = None,
         progress_callback: FileMeasureProgressCallback | None = None,
-        progress_data: object | None = None,
+        *progress_data: object | None,
     ) -> tuple[bool, int, int, int]:
         """
             Recursively measures the disk usage of `file`.
@@ -18298,7 +18298,7 @@ class File(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Starts a `mount_operation`, mounting the volume that contains
@@ -18322,7 +18322,7 @@ class File(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Mounts a file of type G_FILE_TYPE_MOUNTABLE.
@@ -18350,7 +18350,7 @@ class File(GObject.GInterface):
         flags: FileCopyFlags,
         cancellable: Cancellable | None = None,
         progress_callback: FileProgressCallback | None = None,
-        progress_callback_data: object | None = None,
+        *progress_callback_data: object | None,
     ) -> bool:
         """
             Tries to move the file or directory `source` to the location specified
@@ -18489,7 +18489,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously opens a file in the preferred directory for temporary files
@@ -18505,7 +18505,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously creates a directory in the preferred directory for
@@ -18550,7 +18550,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously opens `file` for reading and writing.
@@ -18589,7 +18589,7 @@ class File(GObject.GInterface):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Polls a file of type G_FILE_TYPE_MOUNTABLE.
@@ -18623,7 +18623,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
         Async version of `g_file_query_default_handler`.
@@ -18702,7 +18702,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously gets the requested information about the filesystem
@@ -18764,7 +18764,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously gets the requested information about specified `file`.
@@ -18824,7 +18824,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously opens `file` for reading.
@@ -18895,7 +18895,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously overwrites the file, replacing the contents,
@@ -18944,7 +18944,7 @@ class File(GObject.GInterface):
         flags: FileCreateFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Starts an asynchronous replacement of `file` with the given
@@ -18975,7 +18975,7 @@ class File(GObject.GInterface):
         flags: FileCreateFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Same as `g_file_replace_contents_async` but takes a GBytes input instead.
@@ -19021,7 +19021,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously overwrites the file in read-write mode,
@@ -19141,7 +19141,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously sets the attributes of `file` with `info`.
@@ -19198,7 +19198,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously sets the display name for a given GFile.
@@ -19221,7 +19221,7 @@ class File(GObject.GInterface):
         start_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Starts a file of type G_FILE_TYPE_MOUNTABLE.
@@ -19249,7 +19249,7 @@ class File(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Stops a file of type G_FILE_TYPE_MOUNTABLE.
@@ -19297,7 +19297,7 @@ class File(GObject.GInterface):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
         Asynchronously sends `file` to the Trash location, if possible.
@@ -19313,7 +19313,7 @@ class File(GObject.GInterface):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Unmounts a file of type G_FILE_TYPE_MOUNTABLE.
@@ -19340,7 +19340,7 @@ class File(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Unmounts a file of type G_FILE_TYPE_MOUNTABLE.
@@ -19641,7 +19641,7 @@ class FileEnumerator(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously closes the file enumerator.
@@ -19753,7 +19753,7 @@ class FileEnumerator(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Request information for a number of files from the enumerator asynchronously.
@@ -19953,7 +19953,7 @@ class FileIOStream(IOStream):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously queries the `stream` for a GFileInfo. When completed,
@@ -21224,7 +21224,7 @@ class FileInputStream(InputStream):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Queries the stream information asynchronously.
@@ -21566,7 +21566,7 @@ class FileOutputStream(OutputStream):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously queries the `stream` for a GFileInfo. When completed,
@@ -22163,14 +22163,14 @@ class IOSchedulerJob(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def send_to_mainloop(self, func: GLib.SourceFunc, user_data: object | None = None) -> bool:
+    def send_to_mainloop(self, func: GLib.SourceFunc, *user_data: object | None) -> bool:
         """
             Used from an I/O job to send a callback to be run in the thread
         that the job was started from, waiting for the result (and thus
         blocking the I/O job).
         """
     @deprecated("deprecated")
-    def send_to_mainloop_async(self, func: GLib.SourceFunc, user_data: object | None = None) -> None:
+    def send_to_mainloop_async(self, func: GLib.SourceFunc, *user_data: object | None) -> None:
         """
             Used from an I/O job to send a callback to be run asynchronously in
         the thread that the job was started from. The callback will be run
@@ -22308,7 +22308,7 @@ class IOStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Requests an asynchronous close of the stream, releasing resources
@@ -22360,7 +22360,7 @@ class IOStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously splice the output stream of `stream1` to the input stream of
@@ -23439,7 +23439,7 @@ class InputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Requests an asynchronous closes of the stream, releasing resources related to it.
@@ -23517,7 +23517,7 @@ class InputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> list:
         """
             Request an asynchronous read of `count` bytes from the stream into the
@@ -23549,7 +23549,7 @@ class InputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> list:
         """
             Request an asynchronous read of `count` bytes from the stream into the buffer
@@ -23608,7 +23608,7 @@ class InputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Request an asynchronous read of `count` bytes from the stream into a
@@ -23669,7 +23669,7 @@ class InputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Request an asynchronous skip of `count` bytes from the stream.
@@ -24091,7 +24091,7 @@ class ListStore(GObject.Object):
         Since GLib 2.76 it is possible to pass `None` for `item`.
         """
     def find_with_equal_func_full(
-        self, item: GObject.Object | None, equal_func: GLib.EqualFuncFull, user_data: object | None = None
+        self, item: GObject.Object | None, equal_func: GLib.EqualFuncFull, *user_data: object | None
     ) -> tuple[bool, int]:
         """
             Like `g_list_store_find_with_equal_func` but with an additional `user_data`
@@ -24112,9 +24112,7 @@ class ListStore(GObject.Object):
         Use `g_list_store_splice` to insert multiple items at the same time
         efficiently.
         """
-    def insert_sorted(
-        self, item: GObject.Object, compare_func: GLib.CompareDataFunc, user_data: object | None = None
-    ) -> int:
+    def insert_sorted(self, item: GObject.Object, compare_func: GLib.CompareDataFunc, *user_data: object | None) -> int:
         """
             Inserts `item` into `store` at a position to be determined by the
         `compare_func`.
@@ -24143,7 +24141,7 @@ class ListStore(GObject.Object):
         """
         Removes all items from `store`.
         """
-    def sort(self, compare_func: GLib.CompareDataFunc, user_data: object | None = None) -> None:
+    def sort(self, compare_func: GLib.CompareDataFunc, *user_data: object | None) -> None:
         """
         Sort the items in `store` according to `compare_func`.
         """
@@ -24216,7 +24214,7 @@ class LoadableIcon(GObject.GInterface):
         size: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Loads an icon asynchronously. To finish this function, see
@@ -25530,7 +25528,7 @@ class Mount(GObject.GInterface):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Ejects a mount. This is an asynchronous operation, and is
@@ -25549,7 +25547,7 @@ class Mount(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Ejects a mount. This is an asynchronous operation, and is
@@ -25610,7 +25608,7 @@ class Mount(GObject.GInterface):
         force_rescan: bool,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Tries to guess the type of content stored on `mount`. Returns one or
@@ -25677,7 +25675,7 @@ class Mount(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Remounts a mount. This is an asynchronous operation, and is
@@ -25708,7 +25706,7 @@ class Mount(GObject.GInterface):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Unmounts a mount. This is an asynchronous operation, and is
@@ -25727,7 +25725,7 @@ class Mount(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Unmounts a mount. This is an asynchronous operation, and is
@@ -26721,7 +26719,7 @@ class NetworkMonitor(GObject.GInterface):
         connectable: SocketConnectable,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously attempts to determine whether or not the host
@@ -27261,7 +27259,7 @@ class OutputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Requests an asynchronous close of the stream, releasing resources
@@ -27296,7 +27294,7 @@ class OutputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Forces an asynchronous write of all user-space buffered data for
@@ -27345,7 +27343,7 @@ class OutputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Splices a stream asynchronously.
@@ -27412,7 +27410,7 @@ class OutputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Request an asynchronous write of `count` bytes from `buffer` into
@@ -27451,7 +27449,7 @@ class OutputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Request an asynchronous write of `count` bytes from `buffer` into
@@ -27510,7 +27508,7 @@ class OutputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             This function is similar to `g_output_stream_write_async`, but
@@ -27593,7 +27591,7 @@ class OutputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Request an asynchronous write of the bytes contained in the `n_vectors` `vectors` into
@@ -27633,7 +27631,7 @@ class OutputStream(GObject.Object):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Request an asynchronous write of the bytes contained in `n_vectors` `vectors` into
@@ -27958,7 +27956,7 @@ class Permission(GObject.Object):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Attempts to acquire the permission represented by `permission`.
@@ -28025,7 +28023,7 @@ class Permission(GObject.Object):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Attempts to release the permission represented by `permission`.
@@ -28740,7 +28738,7 @@ class Proxy(GObject.GInterface):
         proxy_address: ProxyAddress,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
         Asynchronous version of `g_proxy_connect`.
@@ -29177,7 +29175,7 @@ class ProxyResolver(GObject.GInterface):
         uri: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronous lookup of proxy. See `g_proxy_resolver_lookup` for more
@@ -29393,7 +29391,7 @@ class Resolver(GObject.Object):
         address: InetAddress,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Begins asynchronously reverse-resolving `address` to determine its
@@ -29440,7 +29438,7 @@ class Resolver(GObject.Object):
         hostname: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Begins asynchronously resolving `hostname` to determine its
@@ -29471,7 +29469,7 @@ class Resolver(GObject.Object):
         flags: ResolverNameLookupFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Begins asynchronously resolving `hostname` to determine its
@@ -29509,7 +29507,7 @@ class Resolver(GObject.Object):
         record_type: ResolverRecordType,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Begins asynchronously performing a DNS lookup for the given
@@ -29559,7 +29557,7 @@ class Resolver(GObject.Object):
         domain: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Begins asynchronously performing a DNS SRV lookup for the given
@@ -30843,7 +30841,7 @@ class Settings(GObject.Object):
         It is a programmer error to give a `key` that isn’t specified as
         having an `x` type in the schema for `settings` (see [struct`GLib`.VariantType]).
         """
-    def get_mapped(self, key: str, mapping: SettingsGetMapping, user_data: object | None = None) -> object | None:
+    def get_mapped(self, key: str, mapping: SettingsGetMapping, *user_data: object | None) -> object | None:
         """
             Gets the value that is stored at `key` in `settings`, subject to
         application-level validation/mapping.
@@ -32586,7 +32584,7 @@ class SimpleAsyncResult(GObject.Object):
         cls,
         source_object: GObject.Object | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
         source_tag: object | None = None,
     ) -> SimpleAsyncResult:
         """
@@ -32607,7 +32605,7 @@ class SimpleAsyncResult(GObject.Object):
         cls,
         source_object: GObject.Object | None,
         callback: AsyncReadyCallback | None,
-        user_data: object | None,
+        *user_data: object | None,
         error: GLib.Error,
     ) -> SimpleAsyncResult:
         """
@@ -34113,7 +34111,7 @@ class SocketAddressEnumerator(GObject.Object):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously retrieves the next GSocketAddress from `enumerator`
@@ -34363,7 +34361,7 @@ class SocketClient(GObject.Object):
         connectable: SocketConnectable,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             This is the asynchronous version of `g_socket_client_connect`.
@@ -34426,7 +34424,7 @@ class SocketClient(GObject.Object):
         default_port: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             This is the asynchronous version of `g_socket_client_connect_to_host`.
@@ -34462,7 +34460,7 @@ class SocketClient(GObject.Object):
         service: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             This is the asynchronous version of
@@ -34502,7 +34500,7 @@ class SocketClient(GObject.Object):
         default_port: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             This is the asynchronous version of `g_socket_client_connect_to_uri`.
@@ -34898,7 +34896,7 @@ class SocketConnection(IOStream):
         address: SocketAddress,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously connect `connection` to the specified remote address.
@@ -35202,7 +35200,7 @@ class SocketListener(GObject.Object):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             This is the asynchronous version of `g_socket_listener_accept`.
@@ -35236,7 +35234,7 @@ class SocketListener(GObject.Object):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             This is the asynchronous version of `g_socket_listener_accept_socket`.
@@ -35864,7 +35862,7 @@ class Subprocess(GObject.Object):
         stdin_buf: GLib.Bytes | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronous version of `g_subprocess_communicate`.  Complete
@@ -35889,7 +35887,7 @@ class Subprocess(GObject.Object):
         stdin_buf: str | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronous version of `g_subprocess_communicate_utf8`.  Complete
@@ -36041,7 +36039,7 @@ class Subprocess(GObject.Object):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Wait for the subprocess to terminate.
@@ -36056,7 +36054,7 @@ class Subprocess(GObject.Object):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Combines `g_subprocess_wait_async` with `g_spawn_check_wait_status`.
@@ -36975,7 +36973,7 @@ class Task(GObject.Object):
         source_object: GObject.Object | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        callback_data: object | None = None,
+        *callback_data: object | None,
     ) -> Task:
         """
             Creates a GTask acting on `source_object`, which will eventually be
@@ -37043,7 +37041,7 @@ class Task(GObject.Object):
     def report_error(
         source_object: GObject.Object | None,
         callback: AsyncReadyCallback | None,
-        callback_data: object | None,
+        *callback_data: object | None,
         source_tag: object | None,
         error: GLib.Error,
     ) -> None:
@@ -39038,7 +39036,7 @@ class TlsConnection(IOStream):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously performs a TLS handshake on `conn`. See
@@ -39472,7 +39470,7 @@ class TlsDatabase(GObject.Object):
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously look up a certificate by its handle in the database. See
@@ -39522,7 +39520,7 @@ class TlsDatabase(GObject.Object):
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously look up the issuer of `certificate` in the database. See
@@ -39553,7 +39551,7 @@ class TlsDatabase(GObject.Object):
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously look up certificates issued by this issuer in the database. See
@@ -39648,7 +39646,7 @@ class TlsDatabase(GObject.Object):
         flags: TlsDatabaseVerifyFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously determines the validity of a certificate chain after
@@ -40025,7 +40023,7 @@ class TlsInteraction(GObject.Object):
         password: TlsPassword,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Run asynchronous interaction to ask the user for a password. In general,
@@ -40132,7 +40130,7 @@ class TlsInteraction(GObject.Object):
         flags: TlsCertificateRequestFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Run asynchronous interaction to ask the user for a certificate to use with
@@ -40599,7 +40597,7 @@ class UnixConnection(SocketConnection):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously receive credentials.
@@ -40651,7 +40649,7 @@ class UnixConnection(SocketConnection):
         self,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Asynchronously send credentials.
@@ -41282,7 +41280,7 @@ class Vfs(GObject.Object):
         uri_func: VfsFileLookupFunc | None = None,
         uri_data: object | None = None,
         parse_name_func: VfsFileLookupFunc | None = None,
-        parse_name_data: object | None = None,
+        *parse_name_data: object | None,
     ) -> bool:
         """
             Registers `uri_func` and `parse_name_func` as the GFile URI and parse name
@@ -41507,7 +41505,7 @@ class Volume(GObject.GInterface):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Ejects a volume. This is an asynchronous operation, and is
@@ -41526,7 +41524,7 @@ class Volume(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Ejects a volume. This is an asynchronous operation, and is
@@ -41615,7 +41613,7 @@ class Volume(GObject.GInterface):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None:
         """
             Mounts a volume. This is an asynchronous operation, and is
@@ -42253,7 +42251,7 @@ class activateActionEntryCB(typing.Protocol):
         self,
         action: SimpleAction,
         parameter: GLib.Variant,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class change_stateActionEntryCB(typing.Protocol):
@@ -42266,7 +42264,7 @@ class change_stateActionEntryCB(typing.Protocol):
         self,
         action: SimpleAction,
         value: GLib.Variant,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class has_actionActionGroupInterfaceCB(typing.Protocol):
@@ -42855,7 +42853,7 @@ class launch_uris_asyncAppInfoIfaceCB(typing.Protocol):
         context: AppLaunchContext | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class launch_uris_finishAppInfoIfaceCB(typing.Protocol):
@@ -43170,7 +43168,7 @@ class init_asyncAsyncInitableIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class init_finishAsyncInitableIfaceCB(typing.Protocol):
@@ -43245,7 +43243,7 @@ class fill_asyncBufferedInputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class fill_finishBufferedInputStreamClassCB(typing.Protocol):
@@ -43309,7 +43307,7 @@ class DBusMessageFilterFunction(typing.Protocol):
         connection: DBusConnection,
         message: DBusMessage,
         incoming: bool,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> DBusMessage | None: ...
 
 class DBusSignalCallback(typing.Protocol):
@@ -43326,7 +43324,7 @@ class DBusSignalCallback(typing.Protocol):
         interface_name: str,
         signal_name: str,
         parameters: GLib.Variant,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class get_infoDBusInterfaceIfaceCB(typing.Protocol):
@@ -43445,7 +43443,7 @@ class DBusInterfaceMethodCallFuncDBusInterfaceVTableCB(typing.Protocol):
         method_name: str,
         parameters: GLib.Variant,
         invocation: DBusMethodInvocation,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class DBusInterfaceGetPropertyFuncDBusInterfaceVTableCB(typing.Protocol):
@@ -43462,7 +43460,7 @@ class DBusInterfaceGetPropertyFuncDBusInterfaceVTableCB(typing.Protocol):
         interface_name: str,
         property_name: str,
         error: GLib.Error,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> GLib.Variant: ...
 
 class DBusInterfaceSetPropertyFuncDBusInterfaceVTableCB(typing.Protocol):
@@ -43480,7 +43478,7 @@ class DBusInterfaceSetPropertyFuncDBusInterfaceVTableCB(typing.Protocol):
         property_name: str,
         value: GLib.Variant,
         error: GLib.Error,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class get_object_pathDBusObjectIfaceCB(typing.Protocol):
@@ -43734,7 +43732,7 @@ class DBusSubtreeEnumerateFuncDBusSubtreeVTableCB(typing.Protocol):
         connection: DBusConnection,
         sender: str,
         object_path: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> list: ...
 
 class DBusSubtreeIntrospectFuncDBusSubtreeVTableCB(typing.Protocol):
@@ -43749,7 +43747,7 @@ class DBusSubtreeIntrospectFuncDBusSubtreeVTableCB(typing.Protocol):
         sender: str,
         object_path: str,
         node: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> list | None: ...
 
 class DBusSubtreeDispatchFuncDBusSubtreeVTableCB(typing.Protocol):
@@ -43766,7 +43764,7 @@ class DBusSubtreeDispatchFuncDBusSubtreeVTableCB(typing.Protocol):
         interface_name: str,
         node: str,
         out_user_data: object,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> DBusInterfaceVTable | None: ...
 
 class receive_messagesDatagramBasedInterfaceCB(typing.Protocol):
@@ -43862,7 +43860,7 @@ class DesktopAppLaunchCallback(typing.Protocol):
         self,
         appinfo: DesktopAppInfo,
         pid: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class get_default_for_uri_schemeDesktopAppInfoLookupIfaceCB(typing.Protocol):
@@ -44021,7 +44019,7 @@ class ejectDriveIfaceCB(typing.Protocol):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class eject_finishDriveIfaceCB(typing.Protocol):
@@ -44047,7 +44045,7 @@ class poll_for_mediaDriveIfaceCB(typing.Protocol):
         drive: Drive,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class poll_for_media_finishDriveIfaceCB(typing.Protocol):
@@ -44131,7 +44129,7 @@ class startDriveIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class start_finishDriveIfaceCB(typing.Protocol):
@@ -44170,7 +44168,7 @@ class stopDriveIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class stop_finishDriveIfaceCB(typing.Protocol):
@@ -44209,7 +44207,7 @@ class eject_with_operationDriveIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class eject_with_operation_finishDriveIfaceCB(typing.Protocol):
@@ -44294,7 +44292,7 @@ class handshake_asyncDtlsConnectionInterfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class handshake_finishDtlsConnectionInterfaceCB(typing.Protocol):
@@ -44337,7 +44335,7 @@ class shutdown_asyncDtlsConnectionInterfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class shutdown_finishDtlsConnectionInterfaceCB(typing.Protocol):
@@ -44464,7 +44462,7 @@ class next_files_asyncFileEnumeratorClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class next_files_finishFileEnumeratorClassCB(typing.Protocol):
@@ -44491,7 +44489,7 @@ class close_asyncFileEnumeratorClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class close_finishFileEnumeratorClassCB(typing.Protocol):
@@ -44592,7 +44590,7 @@ class query_info_asyncFileIOStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class query_info_finishFileIOStreamClassCB(typing.Protocol):
@@ -44817,7 +44815,7 @@ class enumerate_children_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class enumerate_children_finishFileIfaceCB(typing.Protocol):
@@ -44860,7 +44858,7 @@ class query_info_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class query_info_finishFileIfaceCB(typing.Protocol):
@@ -44901,7 +44899,7 @@ class query_filesystem_info_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class query_filesystem_info_finishFileIfaceCB(typing.Protocol):
@@ -44940,7 +44938,7 @@ class find_enclosing_mount_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class find_enclosing_mount_finishFileIfaceCB(typing.Protocol):
@@ -44981,7 +44979,7 @@ class set_display_name_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class set_display_name_finishFileIfaceCB(typing.Protocol):
@@ -45064,7 +45062,7 @@ class set_attributes_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class set_attributes_finishFileIfaceCB(typing.Protocol):
@@ -45103,7 +45101,7 @@ class read_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class read_finishFileIfaceCB(typing.Protocol):
@@ -45144,7 +45142,7 @@ class append_to_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class append_to_finishFileIfaceCB(typing.Protocol):
@@ -45185,7 +45183,7 @@ class create_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class create_finishFileIfaceCB(typing.Protocol):
@@ -45230,7 +45228,7 @@ class replace_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class replace_finishFileIfaceCB(typing.Protocol):
@@ -45269,7 +45267,7 @@ class delete_file_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class delete_file_finishFileIfaceCB(typing.Protocol):
@@ -45308,7 +45306,7 @@ class trash_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class trash_finishFileIfaceCB(typing.Protocol):
@@ -45347,7 +45345,7 @@ class make_directory_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class make_directory_finishFileIfaceCB(typing.Protocol):
@@ -45388,7 +45386,7 @@ class make_symbolic_link_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class make_symbolic_link_finishFileIfaceCB(typing.Protocol):
@@ -45416,7 +45414,7 @@ class copyFileIfaceCB(typing.Protocol):
         flags: FileCopyFlags,
         cancellable: Cancellable | None = None,
         progress_callback: FileProgressCallback | None = None,
-        progress_callback_data: object | None = None,
+        *progress_callback_data: object | None,
     ) -> bool: ...
 
 class copy_asyncFileIfaceCB(typing.Protocol):
@@ -45435,7 +45433,7 @@ class copy_asyncFileIfaceCB(typing.Protocol):
         progress_callback: FileProgressCallback | None = None,
         progress_callback_data: object | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class copy_finishFileIfaceCB(typing.Protocol):
@@ -45463,7 +45461,7 @@ class moveFileIfaceCB(typing.Protocol):
         flags: FileCopyFlags,
         cancellable: Cancellable | None = None,
         progress_callback: FileProgressCallback | None = None,
-        progress_callback_data: object | None = None,
+        *progress_callback_data: object | None,
     ) -> bool: ...
 
 class move_asyncFileIfaceCB(typing.Protocol):
@@ -45482,7 +45480,7 @@ class move_asyncFileIfaceCB(typing.Protocol):
         progress_callback: FileProgressCallback | None = None,
         progress_callback_data: object | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class move_finishFileIfaceCB(typing.Protocol):
@@ -45510,7 +45508,7 @@ class mount_mountableFileIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class mount_mountable_finishFileIfaceCB(typing.Protocol):
@@ -45537,7 +45535,7 @@ class unmount_mountableFileIfaceCB(typing.Protocol):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class unmount_mountable_finishFileIfaceCB(typing.Protocol):
@@ -45564,7 +45562,7 @@ class eject_mountableFileIfaceCB(typing.Protocol):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class eject_mountable_finishFileIfaceCB(typing.Protocol):
@@ -45592,7 +45590,7 @@ class mount_enclosing_volumeFileIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class mount_enclosing_volume_finishFileIfaceCB(typing.Protocol):
@@ -45657,7 +45655,7 @@ class open_readwrite_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class open_readwrite_finishFileIfaceCB(typing.Protocol):
@@ -45698,7 +45696,7 @@ class create_readwrite_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class create_readwrite_finishFileIfaceCB(typing.Protocol):
@@ -45743,7 +45741,7 @@ class replace_readwrite_asyncFileIfaceCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class replace_readwrite_finishFileIfaceCB(typing.Protocol):
@@ -45771,7 +45769,7 @@ class start_mountableFileIfaceCB(typing.Protocol):
         start_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class start_mountable_finishFileIfaceCB(typing.Protocol):
@@ -45799,7 +45797,7 @@ class stop_mountableFileIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class stop_mountable_finishFileIfaceCB(typing.Protocol):
@@ -45827,7 +45825,7 @@ class unmount_mountable_with_operationFileIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class unmount_mountable_with_operation_finishFileIfaceCB(typing.Protocol):
@@ -45855,7 +45853,7 @@ class eject_mountable_with_operationFileIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class eject_mountable_with_operation_finishFileIfaceCB(typing.Protocol):
@@ -45881,7 +45879,7 @@ class poll_mountableFileIfaceCB(typing.Protocol):
         file: File,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class poll_mountable_finishFileIfaceCB(typing.Protocol):
@@ -45908,7 +45906,7 @@ class measure_disk_usageFileIfaceCB(typing.Protocol):
         flags: FileMeasureFlags,
         cancellable: Cancellable | None = None,
         progress_callback: FileMeasureProgressCallback | None = None,
-        progress_data: object | None = None,
+        *progress_data: object | None,
     ) -> tuple[bool, int, int, int]: ...
 
 class measure_disk_usage_finishFileIfaceCB(typing.Protocol):
@@ -45997,7 +45995,7 @@ class query_info_asyncFileInputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class query_info_finishFileInputStreamClassCB(typing.Protocol):
@@ -46123,7 +46121,7 @@ class query_info_asyncFileOutputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class query_info_finishFileOutputStreamClassCB(typing.Protocol):
@@ -46206,7 +46204,7 @@ class close_asyncIOStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class close_finishIOStreamClassCB(typing.Protocol):
@@ -46352,7 +46350,7 @@ class read_asyncInputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> list | None: ...
 
 class read_finishInputStreamClassCB(typing.Protocol):
@@ -46380,7 +46378,7 @@ class skip_asyncInputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class skip_finishInputStreamClassCB(typing.Protocol):
@@ -46407,7 +46405,7 @@ class close_asyncInputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class close_finishInputStreamClassCB(typing.Protocol):
@@ -46481,7 +46479,7 @@ class load_asyncLoadableIconIfaceCB(typing.Protocol):
         size: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class load_finishLoadableIconIfaceCB(typing.Protocol):
@@ -46749,7 +46747,7 @@ class unmountMountIfaceCB(typing.Protocol):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class unmount_finishMountIfaceCB(typing.Protocol):
@@ -46776,7 +46774,7 @@ class ejectMountIfaceCB(typing.Protocol):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class eject_finishMountIfaceCB(typing.Protocol):
@@ -46804,7 +46802,7 @@ class remountMountIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class remount_finishMountIfaceCB(typing.Protocol):
@@ -46831,7 +46829,7 @@ class guess_content_typeMountIfaceCB(typing.Protocol):
         force_rescan: bool,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class guess_content_type_finishMountIfaceCB(typing.Protocol):
@@ -46883,7 +46881,7 @@ class unmount_with_operationMountIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class unmount_with_operation_finishMountIfaceCB(typing.Protocol):
@@ -46911,7 +46909,7 @@ class eject_with_operationMountIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class eject_with_operation_finishMountIfaceCB(typing.Protocol):
@@ -47075,7 +47073,7 @@ class can_reach_asyncNetworkMonitorInterfaceCB(typing.Protocol):
         connectable: SocketConnectable,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class can_reach_finishNetworkMonitorInterfaceCB(typing.Protocol):
@@ -47156,7 +47154,7 @@ class write_asyncOutputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class write_finishOutputStreamClassCB(typing.Protocol):
@@ -47185,7 +47183,7 @@ class splice_asyncOutputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class splice_finishOutputStreamClassCB(typing.Protocol):
@@ -47212,7 +47210,7 @@ class flush_asyncOutputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class flush_finishOutputStreamClassCB(typing.Protocol):
@@ -47239,7 +47237,7 @@ class close_asyncOutputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class close_finishOutputStreamClassCB(typing.Protocol):
@@ -47282,7 +47280,7 @@ class writev_asyncOutputStreamClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class writev_finishOutputStreamClassCB(typing.Protocol):
@@ -47320,7 +47318,7 @@ class acquire_asyncPermissionClassCB(typing.Protocol):
         permission: Permission,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class acquire_finishPermissionClassCB(typing.Protocol):
@@ -47358,7 +47356,7 @@ class release_asyncPermissionClassCB(typing.Protocol):
         permission: Permission,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class release_finishPermissionClassCB(typing.Protocol):
@@ -47506,7 +47504,7 @@ class connect_asyncProxyInterfaceCB(typing.Protocol):
         proxy_address: ProxyAddress,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class connect_finishProxyInterfaceCB(typing.Protocol):
@@ -47568,7 +47566,7 @@ class lookup_asyncProxyResolverInterfaceCB(typing.Protocol):
         uri: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class lookup_finishProxyResolverInterfaceCB(typing.Protocol):
@@ -47647,7 +47645,7 @@ class lookup_by_name_asyncResolverClassCB(typing.Protocol):
         hostname: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class lookup_by_name_finishResolverClassCB(typing.Protocol):
@@ -47687,7 +47685,7 @@ class lookup_by_address_asyncResolverClassCB(typing.Protocol):
         address: InetAddress,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class lookup_by_address_finishResolverClassCB(typing.Protocol):
@@ -47714,7 +47712,7 @@ class lookup_service_asyncResolverClassCB(typing.Protocol):
         rrname: str,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class lookup_service_finishResolverClassCB(typing.Protocol):
@@ -47756,7 +47754,7 @@ class lookup_records_asyncResolverClassCB(typing.Protocol):
         record_type: ResolverRecordType,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class lookup_records_finishResolverClassCB(typing.Protocol):
@@ -47784,7 +47782,7 @@ class lookup_by_name_with_flags_asyncResolverClassCB(typing.Protocol):
         flags: ResolverNameLookupFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class lookup_by_name_with_flags_finishResolverClassCB(typing.Protocol):
@@ -47882,7 +47880,7 @@ class SettingsGetMapping(typing.Protocol):
     def __call__(
         self,
         value: GLib.Variant | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[bool, object | None]: ...
 
 class readSettingsBackendClassCB(typing.Protocol):
@@ -48106,7 +48104,7 @@ class next_asyncSocketAddressEnumeratorClassCB(typing.Protocol):
         enumerator: SocketAddressEnumerator,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class next_finishSocketAddressEnumeratorClassCB(typing.Protocol):
@@ -48432,7 +48430,7 @@ class handshake_asyncTlsConnectionClassCB(typing.Protocol):
         io_priority: int,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class handshake_finishTlsConnectionClassCB(typing.Protocol):
@@ -48502,7 +48500,7 @@ class verify_chain_asyncTlsDatabaseClassCB(typing.Protocol):
         flags: TlsDatabaseVerifyFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class verify_chain_finishTlsDatabaseClassCB(typing.Protocol):
@@ -48554,7 +48552,7 @@ class lookup_certificate_for_handle_asyncTlsDatabaseClassCB(typing.Protocol):
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class lookup_certificate_for_handle_finishTlsDatabaseClassCB(typing.Protocol):
@@ -48595,7 +48593,7 @@ class lookup_certificate_issuer_asyncTlsDatabaseClassCB(typing.Protocol):
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class lookup_certificate_issuer_finishTlsDatabaseClassCB(typing.Protocol):
@@ -48636,7 +48634,7 @@ class lookup_certificates_issued_by_asyncTlsDatabaseClassCB(typing.Protocol):
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class lookup_certificates_issued_by_finishTlsDatabaseClassCB(typing.Protocol):
@@ -48675,7 +48673,7 @@ class ask_password_asyncTlsInteractionClassCB(typing.Protocol):
         password: TlsPassword,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class ask_password_finishTlsInteractionClassCB(typing.Protocol):
@@ -48717,7 +48715,7 @@ class request_certificate_asyncTlsInteractionClassCB(typing.Protocol):
         flags: TlsCertificateRequestFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class request_certificate_finishTlsInteractionClassCB(typing.Protocol):
@@ -48778,7 +48776,7 @@ class VfsFileLookupFunc(typing.Protocol):
         self,
         vfs: Vfs,
         identifier: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> File | None: ...
 
 class is_activeVfsClassCB(typing.Protocol):
@@ -49021,7 +49019,7 @@ class mount_fnVolumeIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class mount_finishVolumeIfaceCB(typing.Protocol):
@@ -49048,7 +49046,7 @@ class ejectVolumeIfaceCB(typing.Protocol):
         flags: MountUnmountFlags,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class eject_finishVolumeIfaceCB(typing.Protocol):
@@ -49121,7 +49119,7 @@ class eject_with_operationVolumeIfaceCB(typing.Protocol):
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class eject_with_operation_finishVolumeIfaceCB(typing.Protocol):

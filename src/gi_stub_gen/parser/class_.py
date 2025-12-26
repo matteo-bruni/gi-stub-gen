@@ -13,8 +13,6 @@ from types import (
     MethodType,
 )
 
-from pydantic import deprecated
-
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi_stub_gen.gi_repo import GIRepo
 from gi_stub_gen.gi_utils import (

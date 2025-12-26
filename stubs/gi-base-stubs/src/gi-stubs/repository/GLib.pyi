@@ -1485,7 +1485,7 @@ def byte_array_sort(
 def byte_array_sort_with_data(
     array: list,
     compare_func: CompareDataFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Like `g_byte_array_sort`, but the comparison function takes an extra
@@ -1885,7 +1885,7 @@ def creat(
 def datalist_foreach(
     datalist: Data,
     func: DataForeachFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Calls the given function for each data element of the datalist. The
@@ -1988,7 +1988,7 @@ def dataset_destroy(
 def dataset_foreach(
     dataset_location: object,
     func: DataForeachFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Calls the given function for each data element which is associated
@@ -3562,7 +3562,7 @@ def hash_table_destroy(
 def hash_table_find(
     hash_table: dict,
     predicate: HRFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> object | None:
     """
     Calls the given function for key/value pairs in the GHashTable
@@ -3585,7 +3585,7 @@ def hash_table_find(
 def hash_table_foreach(
     hash_table: dict,
     func: HFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Calls the given function for each of the key/value pairs in the
@@ -3607,7 +3607,7 @@ def hash_table_foreach(
 def hash_table_foreach_remove(
     hash_table: dict,
     func: HRFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> int:
     """
     Calls the given function for each key/value pair in the
@@ -3625,7 +3625,7 @@ def hash_table_foreach_remove(
 def hash_table_foreach_steal(
     hash_table: dict,
     func: HRFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> int:
     """
     Calls the given function for each key/value pair in the
@@ -4326,7 +4326,7 @@ def log_set_handler(
     log_domain: str | None,
     log_levels: LogLevelFlags,
     log_func: LogFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> int:
     """
     Sets the log handler for a domain and a set of log levels.
@@ -4371,7 +4371,7 @@ def log_set_handler(
 
 @staticmethod
 def log_set_writer_func(
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Set a writer function which will be called to format and write out each log
@@ -5476,7 +5476,7 @@ def qsort_with_data(
     total_elems: int,
     size: int,
     compare_func: CompareDataFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     This is just like the standard C [``qsort``](man:qsort(3)) function, but
@@ -6021,7 +6021,7 @@ def sequence_foreach_range(
     begin: SequenceIter,
     end: SequenceIter,
     func: Func,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Calls `func` for each item in the range (`begin`, `end`) passing
@@ -6137,7 +6137,7 @@ def sequence_set(
 def sequence_sort_changed(
     iter: SequenceIter,
     cmp_func: CompareDataFunc,
-    cmp_data: object | None = None,
+    *cmp_data: object | None,
 ) -> None:
     """
     Moves the data pointed to by `iter` to a new position as indicated by
@@ -6157,7 +6157,7 @@ def sequence_sort_changed(
 def sequence_sort_changed_iter(
     iter: SequenceIter,
     iter_cmp: SequenceIterCompareFunc,
-    cmp_data: object | None = None,
+    *cmp_data: object | None,
 ) -> None:
     """
     Like `g_sequence_sort_changed`, but uses
@@ -6556,7 +6556,7 @@ def spawn_async_with_fds(
     envp: list | None,
     flags: SpawnFlags,
     child_setup: SpawnChildSetupFunc | None,
-    user_data: object | None,
+    *user_data: object | None,
     stdin_fd: int,
     stdout_fd: int,
     stderr_fd: int,
@@ -6576,7 +6576,7 @@ def spawn_async_with_pipes(
     envp: list | None,
     flags: SpawnFlags,
     child_setup: SpawnChildSetupFunc | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> tuple[bool, int, int, int, int]:
     """
     Identical to `g_spawn_async_with_pipes_and_fds` but with `n_fds` set to zero,
@@ -6591,7 +6591,7 @@ def spawn_async_with_pipes_and_fds(
     envp: list | None,
     flags: SpawnFlags,
     child_setup: SpawnChildSetupFunc | None,
-    user_data: object | None,
+    *user_data: object | None,
     stdin_fd: int,
     stdout_fd: int,
     stderr_fd: int,
@@ -6939,7 +6939,7 @@ def spawn_sync(
     envp: list | None,
     flags: SpawnFlags,
     child_setup: SpawnChildSetupFunc | None = None,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> tuple[bool, list, list, int]:
     """
     Executes a child synchronously (waits for the child to exit before returning).
@@ -9184,7 +9184,7 @@ def unix_fd_add_full(
     fd: int,
     condition: IOCondition,
     function: UnixFDSourceFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> int:
     """
     Sets a function to be called when the IO condition, as specified by
@@ -9276,7 +9276,7 @@ def unix_signal_add(
     priority: int,
     signum: int,
     handler: SourceFunc,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> int:
     """
     A convenience function for `g_unix_signal_source_new`, which
@@ -14338,7 +14338,7 @@ class AsyncQueue(GObject.GPointer):
 
         This function must be called while holding the `queue`'s lock.
         """
-    def push_sorted(self, data: object, func: CompareDataFunc, user_data: object | None = None) -> None:
+    def push_sorted(self, data: object, func: CompareDataFunc, *user_data: object | None) -> None:
         """
             Inserts `data` into `queue` using `func` to determine the new
         position.
@@ -14351,7 +14351,7 @@ class AsyncQueue(GObject.GPointer):
 
         For an example of `func` see `g_async_queue_sort`.
         """
-    def push_sorted_unlocked(self, data: object | None, func: CompareDataFunc, user_data: object | None = None) -> None:
+    def push_sorted_unlocked(self, data: object | None, func: CompareDataFunc, *user_data: object | None) -> None:
         """
             Inserts `data` into `queue` using `func` to determine the new
         position.
@@ -14397,7 +14397,7 @@ class AsyncQueue(GObject.GPointer):
 
         This function must be called while holding the `queue`'s lock.
         """
-    def sort(self, func: CompareDataFunc, user_data: object | None = None) -> None:
+    def sort(self, func: CompareDataFunc, *user_data: object | None) -> None:
         """
             Sorts `queue` using `func`.
 
@@ -14422,7 +14422,7 @@ class AsyncQueue(GObject.GPointer):
          return (id1 > id2 ? +1 : id1 == id2 ? 0 : -1);
         ]|
         """
-    def sort_unlocked(self, func: CompareDataFunc, user_data: object | None = None) -> None:
+    def sort_unlocked(self, func: CompareDataFunc, *user_data: object | None) -> None:
         """
             Sorts `queue` using `func`.
 
@@ -14740,7 +14740,7 @@ class Cache(GObject.GPointer):
         are inserted into the GCache.
         """
     @deprecated("deprecated")
-    def key_foreach(self, func: HFunc, user_data: object | None = None) -> None:
+    def key_foreach(self, func: HFunc, *user_data: object | None) -> None:
         """
             Calls the given function for each of the keys in the GCache.
 
@@ -14757,7 +14757,7 @@ class Cache(GObject.GPointer):
         `value_destroy_func` and `key_destroy_func` passed to `g_cache_new`.
         """
     @deprecated("deprecated")
-    def value_foreach(self, func: HFunc, user_data: object | None = None) -> None:
+    def value_foreach(self, func: HFunc, *user_data: object | None) -> None:
         """
         Calls the given function for each of the values in the GCache.
         """
@@ -16063,13 +16063,11 @@ class HookList(GObject.GPointer):
             Calls all of the GHook functions in a GHookList.
         Any function which returns False is removed from the GHookList.
         """
-    def marshal(self, may_recurse: bool, marshaller: HookMarshaller, marshal_data: object | None = None) -> None:
+    def marshal(self, may_recurse: bool, marshaller: HookMarshaller, *marshal_data: object | None) -> None:
         """
         Calls a function on each valid GHook.
         """
-    def marshal_check(
-        self, may_recurse: bool, marshaller: HookCheckMarshaller, marshal_data: object | None = None
-    ) -> None:
+    def marshal_check(self, may_recurse: bool, marshaller: HookCheckMarshaller, *marshal_data: object | None) -> None:
         """
             Calls a function on each valid GHook and destroys it if the
         function returns False.
@@ -16560,7 +16558,7 @@ class Idle(Source):
     def remove_child_source(self, child_source: Source) -> None: ...
     def remove_poll(self, fd: PollFD) -> None: ...
     def remove_unix_fd(self, tag: object) -> None: ...
-    def set_callback(self, func: SourceFunc, data: object | None = None) -> None: ...
+    def set_callback(self, func: SourceFunc, *data: object | None) -> None: ...
     def set_callback_indirect(self, callback_data: object | None, callback_funcs: SourceCallbackFuncs) -> None: ...
     def set_can_recurse(self, can_recurse: bool) -> None: ...
     def set_funcs(self, funcs: SourceFuncs) -> None: ...
@@ -17306,7 +17304,7 @@ class MainContext(GObject.GBoxed):
         If you need to hold a reference on the context, use
         [func`GLib`.MainContext.ref_thread_default] instead.
         """
-    def invoke_full(self, priority: int, function: SourceFunc, data: object | None = None) -> None:
+    def invoke_full(self, priority: int, function: SourceFunc, *data: object | None) -> None:
         """
             Invokes a function in such a way that `context` is owned during the
         invocation of `function`.
@@ -17778,7 +17776,7 @@ class Node(GObject.GPointer):
         `child` must be a child of `node`. The first child is numbered 0,
         the second 1, and so on.
         """
-    def children_foreach(self, flags: TraverseFlags, func: NodeForeachFunc, data: object | None = None) -> None:
+    def children_foreach(self, flags: TraverseFlags, func: NodeForeachFunc, *data: object | None) -> None:
         """
             Calls a function for each of the children of a GNode. Note that it
         doesn't descend beneath the child nodes. `func` must not do anything
@@ -17828,12 +17826,7 @@ class Node(GObject.GPointer):
         (It doesn't change the order of the grandchildren.)
         """
     def traverse(
-        self,
-        order: TraverseType,
-        flags: TraverseFlags,
-        max_depth: int,
-        func: NodeTraverseFunc,
-        data: object | None = None,
+        self, order: TraverseType, flags: TraverseFlags, max_depth: int, func: NodeTraverseFunc, *data: object | None
     ) -> None:
         """
             Traverses a tree starting at the given root GNode.
@@ -18416,7 +18409,7 @@ class Queue(GObject.GPointer):
             Convenience method, which frees all the memory used by a GQueue,
         and calls the provided `free_func` on each item in the GQueue.
         """
-    def foreach(self, func: Func, user_data: object | None = None) -> None:
+    def foreach(self, func: Func, *user_data: object | None) -> None:
         """
             Calls `func` for each element in the queue passing `user_data` to the
         function.
@@ -18456,7 +18449,7 @@ class Queue(GObject.GPointer):
         G_QUEUE_INIT. It is not necessary to initialize queues created with
         `g_queue_new`.
         """
-    def insert_sorted(self, data: object | None, func: CompareDataFunc, user_data: object | None = None) -> None:
+    def insert_sorted(self, data: object | None, func: CompareDataFunc, *user_data: object | None) -> None:
         """
         Inserts `data` into `queue` using `func` to determine the new position.
         """
@@ -18512,7 +18505,7 @@ class Queue(GObject.GPointer):
         """
         Reverses the order of the items in `queue`.
         """
-    def sort(self, compare_func: CompareDataFunc, user_data: object | None = None) -> None:
+    def sort(self, compare_func: CompareDataFunc, *user_data: object | None) -> None:
         """
         Sorts `queue` using `compare_func`.
         """
@@ -19056,7 +19049,7 @@ class Scanner(GObject.GPointer):
         """
         Adds a symbol to the given scope.
         """
-    def scope_foreach_symbol(self, scope_id: int, func: HFunc, user_data: object | None = None) -> None:
+    def scope_foreach_symbol(self, scope_id: int, func: HFunc, *user_data: object | None) -> None:
         """
             Calls the given function for each of the symbol/value pairs
         in the given scope of the GScanner. The function is passed
@@ -19294,13 +19287,13 @@ class Sequence(GObject.GPointer):
         """
         Adds a new item to the end of `seq`.
         """
-    def foreach(self, func: Func, user_data: object | None = None) -> None:
+    def foreach(self, func: Func, *user_data: object | None) -> None:
         """
             Calls `func` for each item in the sequence passing `user_data`
         to the function. `func` must not modify the sequence itself.
         """
     @staticmethod
-    def foreach_range(begin: SequenceIter, end: SequenceIter, func: Func, user_data: object | None = None) -> None:
+    def foreach_range(begin: SequenceIter, end: SequenceIter, func: Func, *user_data: object | None) -> None:
         """
             Calls `func` for each item in the range (`begin`, `end`) passing
         `user_data` to the function. `func` must not modify the sequence
@@ -19341,9 +19334,7 @@ class Sequence(GObject.GPointer):
         """
         Inserts a new item just before the item pointed to by `iter`.
         """
-    def insert_sorted(
-        self, data: object | None, cmp_func: CompareDataFunc, cmp_data: object | None = None
-    ) -> SequenceIter:
+    def insert_sorted(self, data: object | None, cmp_func: CompareDataFunc, *cmp_data: object | None) -> SequenceIter:
         """
             Inserts `data` into `seq` using `cmp_func` to determine the new
         position. The sequence must already be sorted according to `cmp_func`;
@@ -19359,7 +19350,7 @@ class Sequence(GObject.GPointer):
         `g_sequence_sort` or `g_sequence_sort_iter`.
         """
     def insert_sorted_iter(
-        self, data: object | None, iter_cmp: SequenceIterCompareFunc, cmp_data: object | None = None
+        self, data: object | None, iter_cmp: SequenceIterCompareFunc, *cmp_data: object | None
     ) -> SequenceIter:
         """
             Like `g_sequence_insert_sorted`, but uses
@@ -19383,9 +19374,7 @@ class Sequence(GObject.GPointer):
         `g_sequence_get_length` being equal to zero. However this function is
         implemented in O(1) running time.
         """
-    def lookup(
-        self, data: object | None, cmp_func: CompareDataFunc, cmp_data: object | None = None
-    ) -> SequenceIter | None:
+    def lookup(self, data: object | None, cmp_func: CompareDataFunc, *cmp_data: object | None) -> SequenceIter | None:
         """
             Returns an iterator pointing to the position of the first item found
         equal to `data` according to `cmp_func` and `cmp_data`. If more than one
@@ -19402,7 +19391,7 @@ class Sequence(GObject.GPointer):
         unsorted.
         """
     def lookup_iter(
-        self, data: object | None, iter_cmp: SequenceIterCompareFunc, cmp_data: object | None = None
+        self, data: object | None, iter_cmp: SequenceIterCompareFunc, *cmp_data: object | None
     ) -> SequenceIter | None:
         """
             Like `g_sequence_lookup`, but uses a GSequenceIterCompareFunc
@@ -19467,7 +19456,7 @@ class Sequence(GObject.GPointer):
         If the sequence has a data destroy function associated with it, this
         function is called on the data for the removed items.
         """
-    def search(self, data: object | None, cmp_func: CompareDataFunc, cmp_data: object | None = None) -> SequenceIter:
+    def search(self, data: object | None, cmp_func: CompareDataFunc, *cmp_data: object | None) -> SequenceIter:
         """
             Returns an iterator pointing to the position where `data` would
         be inserted according to `cmp_func` and `cmp_data`.
@@ -19484,7 +19473,7 @@ class Sequence(GObject.GPointer):
         unsorted.
         """
     def search_iter(
-        self, data: object | None, iter_cmp: SequenceIterCompareFunc, cmp_data: object | None = None
+        self, data: object | None, iter_cmp: SequenceIterCompareFunc, *cmp_data: object | None
     ) -> SequenceIter:
         """
             Like `g_sequence_search`, but uses a GSequenceIterCompareFunc
@@ -19508,7 +19497,7 @@ class Sequence(GObject.GPointer):
         the sequence has a data destroy function associated with it, that
         function is called on the existing data that `iter` pointed to.
         """
-    def sort(self, cmp_func: CompareDataFunc, cmp_data: object | None = None) -> None:
+    def sort(self, cmp_func: CompareDataFunc, *cmp_data: object | None) -> None:
         """
             Sorts `seq` using `cmp_func`.
 
@@ -19518,7 +19507,7 @@ class Sequence(GObject.GPointer):
         if the second comes before the first.
         """
     @staticmethod
-    def sort_changed(iter: SequenceIter, cmp_func: CompareDataFunc, cmp_data: object | None = None) -> None:
+    def sort_changed(iter: SequenceIter, cmp_func: CompareDataFunc, *cmp_data: object | None) -> None:
         """
             Moves the data pointed to by `iter` to a new position as indicated by
         `cmp_func`. This
@@ -19532,9 +19521,7 @@ class Sequence(GObject.GPointer):
         the second item comes before the first.
         """
     @staticmethod
-    def sort_changed_iter(
-        iter: SequenceIter, iter_cmp: SequenceIterCompareFunc, cmp_data: object | None = None
-    ) -> None:
+    def sort_changed_iter(iter: SequenceIter, iter_cmp: SequenceIterCompareFunc, *cmp_data: object | None) -> None:
         """
             Like `g_sequence_sort_changed`, but uses
         a GSequenceIterCompareFunc instead of a GCompareDataFunc as
@@ -19546,7 +19533,7 @@ class Sequence(GObject.GPointer):
         iterator comes before the second, and a positive value if the second
         iterator comes before the first.
         """
-    def sort_iter(self, cmp_func: SequenceIterCompareFunc, cmp_data: object | None = None) -> None:
+    def sort_iter(self, cmp_func: SequenceIterCompareFunc, *cmp_data: object | None) -> None:
         """
             Like `g_sequence_sort`, but uses a GSequenceIterCompareFunc instead
         of a GCompareDataFunc as the compare function
@@ -19980,7 +19967,7 @@ class Source(GObject.GBoxed):
 
         As the name suggests, this function is not available on Windows.
         """
-    def set_callback(self, func: SourceFunc, data: object | None = None) -> None:
+    def set_callback(self, func: SourceFunc, *data: object | None) -> None:
         """
             Sets the callback function for a source. The callback for a source is
         called from the source's dispatch function.
@@ -21011,7 +20998,7 @@ class Timeout(Source):
     def remove_child_source(self, child_source: Source) -> None: ...
     def remove_poll(self, fd: PollFD) -> None: ...
     def remove_unix_fd(self, tag: object) -> None: ...
-    def set_callback(self, func: SourceFunc, data: object | None = None) -> None: ...
+    def set_callback(self, func: SourceFunc, *data: object | None) -> None: ...
     def set_callback_indirect(self, callback_data: object | None, callback_funcs: SourceCallbackFuncs) -> None: ...
     def set_can_recurse(self, can_recurse: bool) -> None: ...
     def set_funcs(self, funcs: SourceFuncs) -> None: ...
@@ -21185,7 +21172,7 @@ class Tree(GObject.GBoxed):
         you supplied will be called on all keys and values before destroying
         the GTree.
         """
-    def foreach(self, func: TraverseFunc, user_data: object | None = None) -> None:
+    def foreach(self, func: TraverseFunc, *user_data: object | None) -> None:
         """
             Calls the given function for each of the key/value pairs in the GTree.
         The function is passed the key and value of each pair, and the given
@@ -21196,7 +21183,7 @@ class Tree(GObject.GBoxed):
         to add each item to a list in your GTraverseFunc as you walk over
         the tree, then walk the list and remove each item.
         """
-    def foreach_node(self, func: TraverseNodeFunc, user_data: object | None = None) -> None:
+    def foreach_node(self, func: TraverseNodeFunc, *user_data: object | None) -> None:
         """
             Calls the given function for each of the nodes in the GTree.
         The function is passed the pointer to the particular node, and the given
@@ -21268,7 +21255,7 @@ class Tree(GObject.GBoxed):
         """
     @classmethod
     def new_full(
-        cls, key_compare_func: CompareDataFunc, key_compare_data: object | None, key_destroy_func: DestroyNotify
+        cls, key_compare_func: CompareDataFunc, *key_compare_data: object | None, key_destroy_func: DestroyNotify
     ) -> Tree:
         """
             Creates a new GTree like `g_tree_new` and allows to specify functions
@@ -21330,7 +21317,7 @@ class Tree(GObject.GBoxed):
         The tree is automatically 'balanced' as new key/value pairs are added,
         so that the distance from the root to every leaf is as small as possible.
         """
-    def search(self, search_func: CompareFunc, user_data: object | None = None) -> object | None:
+    def search(self, search_func: CompareFunc, *user_data: object | None) -> object | None:
         """
             Searches a GTree using `search_func`.
 
@@ -21342,7 +21329,7 @@ class Tree(GObject.GBoxed):
         `search_func` returns 1, searching will proceed among the key/value
         pairs that have a larger key.
         """
-    def search_node(self, search_func: CompareFunc, user_data: object | None = None) -> TreeNode | None:
+    def search_node(self, search_func: CompareFunc, *user_data: object | None) -> TreeNode | None:
         """
             Searches a GTree using `search_func`.
 
@@ -21362,9 +21349,7 @@ class Tree(GObject.GBoxed):
         If the key does not exist in the GTree, the function does nothing.
         """
     @deprecated("deprecated")
-    def traverse(
-        self, traverse_func: TraverseFunc, traverse_type: TraverseType, user_data: object | None = None
-    ) -> None:
+    def traverse(self, traverse_func: TraverseFunc, traverse_type: TraverseType, *user_data: object | None) -> None:
         """
         Calls the given function for each node in the GTree.
         """
@@ -23550,7 +23535,7 @@ class CompareDataFunc(typing.Protocol):
         self,
         a: object | None = None,
         b: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class DestroyNotify(typing.Protocol):
@@ -23574,7 +23559,7 @@ class HFunc(typing.Protocol):
         self,
         key: object | None = None,
         value: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class CompletionFuncCompletionCB(typing.Protocol):
@@ -23755,7 +23740,7 @@ class SourceFunc(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class start_elementMarkupParserCB(typing.Protocol):
@@ -23770,7 +23755,7 @@ class start_elementMarkupParserCB(typing.Protocol):
         element_name: str,
         attribute_names: str,
         attribute_values: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class end_elementMarkupParserCB(typing.Protocol):
@@ -23783,7 +23768,7 @@ class end_elementMarkupParserCB(typing.Protocol):
         self,
         context: GObject.MarkupParseContext,
         element_name: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class textMarkupParserCB(typing.Protocol):
@@ -23797,7 +23782,7 @@ class textMarkupParserCB(typing.Protocol):
         context: GObject.MarkupParseContext,
         text: str,
         text_len: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class passthroughMarkupParserCB(typing.Protocol):
@@ -23811,7 +23796,7 @@ class passthroughMarkupParserCB(typing.Protocol):
         context: GObject.MarkupParseContext,
         passthrough_text: str,
         text_len: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class errorMarkupParserCB(typing.Protocol):
@@ -23824,7 +23809,7 @@ class errorMarkupParserCB(typing.Protocol):
         self,
         context: GObject.MarkupParseContext,
         error: Error,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class mallocMemVTableCB(typing.Protocol):
@@ -23940,7 +23925,7 @@ class Func(typing.Protocol):
     def __call__(
         self,
         data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class ScannerMsgFuncScannerCB(typing.Protocol):
@@ -24032,7 +24017,7 @@ class SourceFuncSourceFuncsCB(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class SourceDummyMarshalSourceFuncsCB(typing.Protocol):
@@ -24054,7 +24039,7 @@ class FuncThreadPoolCB(typing.Protocol):
     def __call__(
         self,
         data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class TraverseFunc(typing.Protocol):
@@ -24114,7 +24099,7 @@ class DataForeachFunc(typing.Protocol):
         self,
         key_id: int,
         data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class ErrorInitFunc(typing.Protocol):
@@ -24161,7 +24146,7 @@ class HRFunc(typing.Protocol):
         self,
         key: object | None = None,
         value: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class LogFunc(typing.Protocol):
@@ -24175,7 +24160,7 @@ class LogFunc(typing.Protocol):
         log_domain: str | None,
         log_level: LogLevelFlags,
         message: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class SpawnChildSetupFunc(typing.Protocol):
@@ -24197,7 +24182,7 @@ class TestDataFunc(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class TestFunc(typing.Protocol):
@@ -24220,7 +24205,7 @@ class UnixFDSourceFunc(typing.Protocol):
         self,
         fd: int,
         condition: IOCondition,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class EqualFunc(typing.Protocol):
@@ -24245,7 +24230,7 @@ class EqualFuncFull(typing.Protocol):
         self,
         a: object | None = None,
         b: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 ###############################################################

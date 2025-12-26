@@ -85,4 +85,5 @@ ty:
         --ignore invalid-type-form \
         --ignore deprecated \
         --ignore unresolved-import \
-        --ignore possibly-missing-attribute 
+        --ignore possibly-missing-attribute \
+        stubs

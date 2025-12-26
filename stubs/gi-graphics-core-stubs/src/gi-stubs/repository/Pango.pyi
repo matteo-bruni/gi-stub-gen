@@ -3303,7 +3303,7 @@ class AttrList(GObject.GBoxed):
         Beware that this will return wrong values if any list
         contains duplicates.
         """
-    def filter(self, func: AttrFilterFunc, data: object | None = None) -> AttrList | None:
+    def filter(self, func: AttrFilterFunc, *data: object | None) -> AttrList | None:
         """
             Given a `PangoAttrList` and callback function, removes
         any elements of `list` for which `func` returns True and
@@ -5331,7 +5331,7 @@ class Fontset(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def foreach(self, func: FontsetForeachFunc, data: object | None = None) -> None:
+    def foreach(self, func: FontsetForeachFunc, *data: object | None) -> None:
         """
             Iterates through all the fonts in a fontset, calling `func` for
         each one.
@@ -8077,7 +8077,7 @@ class AttrFilterFunc(typing.Protocol):
     def __call__(
         self,
         attribute: Attribute,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class AttrDataCopyFuncAttrShapeCB(typing.Protocol):
@@ -8088,7 +8088,7 @@ class AttrDataCopyFuncAttrShapeCB(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> object | None: ...
 
 DestroyNotify = GLib.DestroyNotify  # type: ignore
@@ -8101,7 +8101,7 @@ class AttrDataCopyFunc(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> object | None: ...
 
 class describeFontClassCB(typing.Protocol):
@@ -8390,7 +8390,7 @@ class FontsetForeachFunc(typing.Protocol):
         self,
         fontset: Fontset,
         font: Font,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> bool: ...
 
 class get_fontFontsetClassCB(typing.Protocol):
@@ -8437,7 +8437,7 @@ class foreachFontsetClassCB(typing.Protocol):
         self,
         fontset: Fontset,
         func: FontsetForeachFunc,
-        data: object | None = None,
+        *data: object | None,
     ) -> None: ...
 
 class draw_glyphsRendererClassCB(typing.Protocol):

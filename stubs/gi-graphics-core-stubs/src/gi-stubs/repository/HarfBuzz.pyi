@@ -936,7 +936,7 @@ def buffer_set_length(
 def buffer_set_message_func(
     buffer: buffer_t,
     func: buffer_message_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_buffer_message_func_t.
@@ -1193,7 +1193,7 @@ def draw_funcs_make_immutable(
 def draw_funcs_set_close_path_func(
     dfuncs: draw_funcs_t,
     func: draw_close_path_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets close-path callback to the draw functions object.
@@ -1204,7 +1204,7 @@ def draw_funcs_set_close_path_func(
 def draw_funcs_set_cubic_to_func(
     dfuncs: draw_funcs_t,
     func: draw_cubic_to_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets cubic-to callback to the draw functions object.
@@ -1215,7 +1215,7 @@ def draw_funcs_set_cubic_to_func(
 def draw_funcs_set_line_to_func(
     dfuncs: draw_funcs_t,
     func: draw_line_to_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets line-to callback to the draw functions object.
@@ -1226,7 +1226,7 @@ def draw_funcs_set_line_to_func(
 def draw_funcs_set_move_to_func(
     dfuncs: draw_funcs_t,
     func: draw_move_to_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets move-to callback to the draw functions object.
@@ -1237,7 +1237,7 @@ def draw_funcs_set_move_to_func(
 def draw_funcs_set_quadratic_to_func(
     dfuncs: draw_funcs_t,
     func: draw_quadratic_to_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets quadratic-to callback to the draw functions object.
@@ -1394,7 +1394,7 @@ def face_create(
 @staticmethod
 def face_create_for_tables(
     reference_table_func: reference_table_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> face_t:
     """
     Variant of `hb_face_create`, built for those cases where it is more
@@ -1525,7 +1525,7 @@ def face_reference_table(
 def face_set_get_table_tags_func(
     face: face_t,
     func: get_table_tags_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the table-tag-fetching function for the specified face object.
@@ -1732,7 +1732,7 @@ def font_funcs_make_immutable(
 def font_funcs_set_draw_glyph_func(
     ffuncs: font_funcs_t,
     func: font_draw_glyph_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_draw_glyph_func_t.
@@ -1743,7 +1743,7 @@ def font_funcs_set_draw_glyph_func(
 def font_funcs_set_font_h_extents_func(
     ffuncs: font_funcs_t,
     func: font_get_font_extents_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_font_h_extents_func_t.
@@ -1754,7 +1754,7 @@ def font_funcs_set_font_h_extents_func(
 def font_funcs_set_font_v_extents_func(
     ffuncs: font_funcs_t,
     func: font_get_font_extents_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_font_v_extents_func_t.
@@ -1765,7 +1765,7 @@ def font_funcs_set_font_v_extents_func(
 def font_funcs_set_glyph_contour_point_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_contour_point_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_contour_point_func_t.
@@ -1776,7 +1776,7 @@ def font_funcs_set_glyph_contour_point_func(
 def font_funcs_set_glyph_extents_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_extents_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_extents_func_t.
@@ -1787,7 +1787,7 @@ def font_funcs_set_glyph_extents_func(
 def font_funcs_set_glyph_from_name_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_from_name_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_from_name_func_t.
@@ -1799,7 +1799,7 @@ def font_funcs_set_glyph_from_name_func(
 def font_funcs_set_glyph_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Deprecated.  Use `hb_font_funcs_set_nominal_glyph_func` and
@@ -1811,7 +1811,7 @@ def font_funcs_set_glyph_func(
 def font_funcs_set_glyph_h_advance_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_advance_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_h_advance_func_t.
@@ -1822,7 +1822,7 @@ def font_funcs_set_glyph_h_advance_func(
 def font_funcs_set_glyph_h_advances_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_advances_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_h_advances_func_t.
@@ -1833,7 +1833,7 @@ def font_funcs_set_glyph_h_advances_func(
 def font_funcs_set_glyph_h_kerning_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_kerning_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_h_kerning_func_t.
@@ -1844,7 +1844,7 @@ def font_funcs_set_glyph_h_kerning_func(
 def font_funcs_set_glyph_h_origin_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_origin_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_h_origin_func_t.
@@ -1855,7 +1855,7 @@ def font_funcs_set_glyph_h_origin_func(
 def font_funcs_set_glyph_name_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_name_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_name_func_t.
@@ -1867,7 +1867,7 @@ def font_funcs_set_glyph_name_func(
 def font_funcs_set_glyph_shape_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_shape_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_shape_func_t,
@@ -1879,7 +1879,7 @@ def font_funcs_set_glyph_shape_func(
 def font_funcs_set_glyph_v_advance_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_advance_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_v_advance_func_t.
@@ -1890,7 +1890,7 @@ def font_funcs_set_glyph_v_advance_func(
 def font_funcs_set_glyph_v_advances_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_advances_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_v_advances_func_t.
@@ -1902,7 +1902,7 @@ def font_funcs_set_glyph_v_advances_func(
 def font_funcs_set_glyph_v_kerning_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_kerning_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_v_kerning_func_t.
@@ -1913,7 +1913,7 @@ def font_funcs_set_glyph_v_kerning_func(
 def font_funcs_set_glyph_v_origin_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_origin_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_v_origin_func_t.
@@ -1924,7 +1924,7 @@ def font_funcs_set_glyph_v_origin_func(
 def font_funcs_set_nominal_glyph_func(
     ffuncs: font_funcs_t,
     func: font_get_nominal_glyph_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_nominal_glyph_func_t.
@@ -1935,7 +1935,7 @@ def font_funcs_set_nominal_glyph_func(
 def font_funcs_set_nominal_glyphs_func(
     ffuncs: font_funcs_t,
     func: font_get_nominal_glyphs_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_nominal_glyphs_func_t.
@@ -1946,7 +1946,7 @@ def font_funcs_set_nominal_glyphs_func(
 def font_funcs_set_paint_glyph_func(
     ffuncs: font_funcs_t,
     func: font_paint_glyph_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_paint_glyph_func_t.
@@ -1957,7 +1957,7 @@ def font_funcs_set_paint_glyph_func(
 def font_funcs_set_variation_glyph_func(
     ffuncs: font_funcs_t,
     func: font_get_variation_glyph_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_variation_glyph_func_t.
@@ -4524,7 +4524,7 @@ def paint_funcs_make_immutable(
 def paint_funcs_set_color_func(
     funcs: paint_funcs_t,
     func: paint_color_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the paint-color callback on the paint functions struct.
@@ -4535,7 +4535,7 @@ def paint_funcs_set_color_func(
 def paint_funcs_set_color_glyph_func(
     funcs: paint_funcs_t,
     func: paint_color_glyph_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the color-glyph callback on the paint functions struct.
@@ -4546,7 +4546,7 @@ def paint_funcs_set_color_glyph_func(
 def paint_funcs_set_custom_palette_color_func(
     funcs: paint_funcs_t,
     func: paint_custom_palette_color_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the custom-palette-color callback on the paint functions struct.
@@ -4557,7 +4557,7 @@ def paint_funcs_set_custom_palette_color_func(
 def paint_funcs_set_image_func(
     funcs: paint_funcs_t,
     func: paint_image_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the paint-image callback on the paint functions struct.
@@ -4568,7 +4568,7 @@ def paint_funcs_set_image_func(
 def paint_funcs_set_linear_gradient_func(
     funcs: paint_funcs_t,
     func: paint_linear_gradient_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the linear-gradient callback on the paint functions struct.
@@ -4579,7 +4579,7 @@ def paint_funcs_set_linear_gradient_func(
 def paint_funcs_set_pop_clip_func(
     funcs: paint_funcs_t,
     func: paint_pop_clip_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the pop-clip callback on the paint functions struct.
@@ -4590,7 +4590,7 @@ def paint_funcs_set_pop_clip_func(
 def paint_funcs_set_pop_group_func(
     funcs: paint_funcs_t,
     func: paint_pop_group_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the pop-group callback on the paint functions struct.
@@ -4601,7 +4601,7 @@ def paint_funcs_set_pop_group_func(
 def paint_funcs_set_pop_transform_func(
     funcs: paint_funcs_t,
     func: paint_pop_transform_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the pop-transform callback on the paint functions struct.
@@ -4612,7 +4612,7 @@ def paint_funcs_set_pop_transform_func(
 def paint_funcs_set_push_clip_glyph_func(
     funcs: paint_funcs_t,
     func: paint_push_clip_glyph_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the push-clip-glyph callback on the paint functions struct.
@@ -4623,7 +4623,7 @@ def paint_funcs_set_push_clip_glyph_func(
 def paint_funcs_set_push_clip_rectangle_func(
     funcs: paint_funcs_t,
     func: paint_push_clip_rectangle_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the push-clip-rect callback on the paint functions struct.
@@ -4634,7 +4634,7 @@ def paint_funcs_set_push_clip_rectangle_func(
 def paint_funcs_set_push_group_func(
     funcs: paint_funcs_t,
     func: paint_push_group_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the push-group callback on the paint functions struct.
@@ -4645,7 +4645,7 @@ def paint_funcs_set_push_group_func(
 def paint_funcs_set_push_transform_func(
     funcs: paint_funcs_t,
     func: paint_push_transform_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the push-transform callback on the paint functions struct.
@@ -4656,7 +4656,7 @@ def paint_funcs_set_push_transform_func(
 def paint_funcs_set_radial_gradient_func(
     funcs: paint_funcs_t,
     func: paint_radial_gradient_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the radial-gradient callback on the paint functions struct.
@@ -4667,7 +4667,7 @@ def paint_funcs_set_radial_gradient_func(
 def paint_funcs_set_sweep_gradient_func(
     funcs: paint_funcs_t,
     func: paint_sweep_gradient_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the sweep-gradient callback on the paint functions struct.
@@ -5500,7 +5500,7 @@ def unicode_funcs_make_immutable(
 def unicode_funcs_set_combining_class_func(
     ufuncs: unicode_funcs_t,
     func: unicode_combining_class_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_combining_class_func_t.
@@ -5511,7 +5511,7 @@ def unicode_funcs_set_combining_class_func(
 def unicode_funcs_set_compose_func(
     ufuncs: unicode_funcs_t,
     func: unicode_compose_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_compose_func_t.
@@ -5523,7 +5523,7 @@ def unicode_funcs_set_compose_func(
 def unicode_funcs_set_decompose_compatibility_func(
     ufuncs: unicode_funcs_t,
     func: unicode_decompose_compatibility_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_decompose_compatibility_func_t.
@@ -5534,7 +5534,7 @@ def unicode_funcs_set_decompose_compatibility_func(
 def unicode_funcs_set_decompose_func(
     ufuncs: unicode_funcs_t,
     func: unicode_decompose_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_decompose_func_t.
@@ -5546,7 +5546,7 @@ def unicode_funcs_set_decompose_func(
 def unicode_funcs_set_eastasian_width_func(
     ufuncs: unicode_funcs_t,
     func: unicode_eastasian_width_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_eastasian_width_func_t.
@@ -5557,7 +5557,7 @@ def unicode_funcs_set_eastasian_width_func(
 def unicode_funcs_set_general_category_func(
     ufuncs: unicode_funcs_t,
     func: unicode_general_category_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_general_category_func_t.
@@ -5568,7 +5568,7 @@ def unicode_funcs_set_general_category_func(
 def unicode_funcs_set_mirroring_func(
     ufuncs: unicode_funcs_t,
     func: unicode_mirroring_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_mirroring_func_t.
@@ -5579,7 +5579,7 @@ def unicode_funcs_set_mirroring_func(
 def unicode_funcs_set_script_func(
     ufuncs: unicode_funcs_t,
     func: unicode_script_func_t,
-    user_data: object | None = None,
+    *user_data: object | None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_script_func_t.
@@ -10034,7 +10034,7 @@ class buffer_message_func_t(typing.Protocol):
         buffer: buffer_t,
         font: font_t,
         message: str,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class color_line_get_color_stops_func_tcolor_line_tCB(typing.Protocol):
@@ -10048,7 +10048,7 @@ class color_line_get_color_stops_func_tcolor_line_tCB(typing.Protocol):
         color_line: color_line_t,
         color_line_data: object | None,
         start: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int, list]: ...
 
 class color_line_get_extend_func_tcolor_line_tCB(typing.Protocol):
@@ -10061,7 +10061,7 @@ class color_line_get_extend_func_tcolor_line_tCB(typing.Protocol):
         self,
         color_line: color_line_t,
         color_line_data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> paint_extend_t: ...
 
 class draw_close_path_func_t(typing.Protocol):
@@ -10075,7 +10075,7 @@ class draw_close_path_func_t(typing.Protocol):
         dfuncs: draw_funcs_t,
         draw_data: object | None,
         st: draw_state_t,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class draw_cubic_to_func_t(typing.Protocol):
@@ -10095,7 +10095,7 @@ class draw_cubic_to_func_t(typing.Protocol):
         control2_y: float,
         to_x: float,
         to_y: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class draw_line_to_func_t(typing.Protocol):
@@ -10111,7 +10111,7 @@ class draw_line_to_func_t(typing.Protocol):
         st: draw_state_t,
         to_x: float,
         to_y: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class draw_move_to_func_t(typing.Protocol):
@@ -10127,7 +10127,7 @@ class draw_move_to_func_t(typing.Protocol):
         st: draw_state_t,
         to_x: float,
         to_y: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class draw_quadratic_to_func_t(typing.Protocol):
@@ -10145,7 +10145,7 @@ class draw_quadratic_to_func_t(typing.Protocol):
         control_y: float,
         to_x: float,
         to_y: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class reference_table_func_t(typing.Protocol):
@@ -10158,7 +10158,7 @@ class reference_table_func_t(typing.Protocol):
         self,
         face: face_t,
         tag: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> blob_t: ...
 
 class get_table_tags_func_t(typing.Protocol):
@@ -10171,7 +10171,7 @@ class get_table_tags_func_t(typing.Protocol):
         self,
         face: face_t,
         start_offset: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int, list]: ...
 
 class font_draw_glyph_func_t(typing.Protocol):
@@ -10187,7 +10187,7 @@ class font_draw_glyph_func_t(typing.Protocol):
         glyph: int,
         draw_funcs: draw_funcs_t,
         draw_data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class font_get_font_extents_func_t(typing.Protocol):
@@ -10200,7 +10200,7 @@ class font_get_font_extents_func_t(typing.Protocol):
         self,
         font: font_t,
         font_data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, font_extents_t]: ...
 
 class font_get_glyph_contour_point_func_t(typing.Protocol):
@@ -10215,7 +10215,7 @@ class font_get_glyph_contour_point_func_t(typing.Protocol):
         font_data: object | None,
         glyph: int,
         point_index: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int, int]: ...
 
 class font_get_glyph_extents_func_t(typing.Protocol):
@@ -10229,7 +10229,7 @@ class font_get_glyph_extents_func_t(typing.Protocol):
         font: font_t,
         font_data: object | None,
         glyph: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, glyph_extents_t]: ...
 
 class font_get_glyph_from_name_func_t(typing.Protocol):
@@ -10244,7 +10244,7 @@ class font_get_glyph_from_name_func_t(typing.Protocol):
         font_data: object | None,
         name: list,
         len: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int]: ...
 
 class font_get_glyph_func_t(typing.Protocol):
@@ -10259,7 +10259,7 @@ class font_get_glyph_func_t(typing.Protocol):
         font_data: object | None,
         unicode: int,
         variation_selector: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int]: ...
 
 class font_get_glyph_advance_func_t(typing.Protocol):
@@ -10273,7 +10273,7 @@ class font_get_glyph_advance_func_t(typing.Protocol):
         font: font_t,
         font_data: object | None,
         glyph: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class font_get_glyph_advances_func_t(typing.Protocol):
@@ -10290,7 +10290,7 @@ class font_get_glyph_advances_func_t(typing.Protocol):
         first_glyph: int,
         glyph_stride: int,
         advance_stride: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class font_get_glyph_kerning_func_t(typing.Protocol):
@@ -10305,7 +10305,7 @@ class font_get_glyph_kerning_func_t(typing.Protocol):
         font_data: object | None,
         first_glyph: int,
         second_glyph: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class font_get_glyph_origin_func_t(typing.Protocol):
@@ -10319,7 +10319,7 @@ class font_get_glyph_origin_func_t(typing.Protocol):
         font: font_t,
         font_data: object | None,
         glyph: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int, int]: ...
 
 class font_get_glyph_name_func_t(typing.Protocol):
@@ -10333,7 +10333,7 @@ class font_get_glyph_name_func_t(typing.Protocol):
         font: font_t,
         font_data: object | None,
         glyph: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, list, int]: ...
 
 class font_get_glyph_shape_func_t(typing.Protocol):
@@ -10349,7 +10349,7 @@ class font_get_glyph_shape_func_t(typing.Protocol):
         glyph: int,
         draw_funcs: draw_funcs_t,
         draw_data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class font_get_nominal_glyph_func_t(typing.Protocol):
@@ -10363,7 +10363,7 @@ class font_get_nominal_glyph_func_t(typing.Protocol):
         font: font_t,
         font_data: object | None,
         unicode: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int]: ...
 
 class font_get_nominal_glyphs_func_t(typing.Protocol):
@@ -10380,7 +10380,7 @@ class font_get_nominal_glyphs_func_t(typing.Protocol):
         first_unicode: int,
         unicode_stride: int,
         glyph_stride: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int]: ...
 
 class font_paint_glyph_func_t(typing.Protocol):
@@ -10398,7 +10398,7 @@ class font_paint_glyph_func_t(typing.Protocol):
         paint_data: object | None,
         palette_index: int,
         foreground: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class font_get_variation_glyph_func_t(typing.Protocol):
@@ -10413,7 +10413,7 @@ class font_get_variation_glyph_func_t(typing.Protocol):
         font_data: object | None,
         unicode: int,
         variation_selector: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int]: ...
 
 class paint_color_func_t(typing.Protocol):
@@ -10428,7 +10428,7 @@ class paint_color_func_t(typing.Protocol):
         paint_data: object | None,
         is_foreground: int,
         color: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_color_glyph_func_t(typing.Protocol):
@@ -10443,7 +10443,7 @@ class paint_color_glyph_func_t(typing.Protocol):
         paint_data: object | None,
         glyph: int,
         font: font_t,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class paint_custom_palette_color_func_t(typing.Protocol):
@@ -10457,7 +10457,7 @@ class paint_custom_palette_color_func_t(typing.Protocol):
         funcs: paint_funcs_t,
         paint_data: object | None,
         color_index: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int]: ...
 
 class paint_image_func_t(typing.Protocol):
@@ -10476,7 +10476,7 @@ class paint_image_func_t(typing.Protocol):
         format: int,
         slant: float,
         extents: glyph_extents_t | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class paint_linear_gradient_func_t(typing.Protocol):
@@ -10496,7 +10496,7 @@ class paint_linear_gradient_func_t(typing.Protocol):
         y1: float,
         x2: float,
         y2: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_pop_clip_func_t(typing.Protocol):
@@ -10509,7 +10509,7 @@ class paint_pop_clip_func_t(typing.Protocol):
         self,
         funcs: paint_funcs_t,
         paint_data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_pop_group_func_t(typing.Protocol):
@@ -10523,7 +10523,7 @@ class paint_pop_group_func_t(typing.Protocol):
         funcs: paint_funcs_t,
         paint_data: object | None,
         mode: paint_composite_mode_t,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_pop_transform_func_t(typing.Protocol):
@@ -10536,7 +10536,7 @@ class paint_pop_transform_func_t(typing.Protocol):
         self,
         funcs: paint_funcs_t,
         paint_data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_push_clip_glyph_func_t(typing.Protocol):
@@ -10551,7 +10551,7 @@ class paint_push_clip_glyph_func_t(typing.Protocol):
         paint_data: object | None,
         glyph: int,
         font: font_t,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_push_clip_rectangle_func_t(typing.Protocol):
@@ -10568,7 +10568,7 @@ class paint_push_clip_rectangle_func_t(typing.Protocol):
         ymin: float,
         xmax: float,
         ymax: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_push_group_func_t(typing.Protocol):
@@ -10581,7 +10581,7 @@ class paint_push_group_func_t(typing.Protocol):
         self,
         funcs: paint_funcs_t,
         paint_data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_push_transform_func_t(typing.Protocol):
@@ -10600,7 +10600,7 @@ class paint_push_transform_func_t(typing.Protocol):
         yy: float,
         dx: float,
         dy: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_radial_gradient_func_t(typing.Protocol):
@@ -10620,7 +10620,7 @@ class paint_radial_gradient_func_t(typing.Protocol):
         x1: float,
         y1: float,
         r1: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class paint_sweep_gradient_func_t(typing.Protocol):
@@ -10638,7 +10638,7 @@ class paint_sweep_gradient_func_t(typing.Protocol):
         y0: float,
         start_angle: float,
         end_angle: float,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> None: ...
 
 class unicode_combining_class_func_t(typing.Protocol):
@@ -10651,7 +10651,7 @@ class unicode_combining_class_func_t(typing.Protocol):
         self,
         ufuncs: unicode_funcs_t,
         unicode: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> unicode_combining_class_t: ...
 
 class unicode_compose_func_t(typing.Protocol):
@@ -10665,7 +10665,7 @@ class unicode_compose_func_t(typing.Protocol):
         ufuncs: unicode_funcs_t,
         a: int,
         b: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int]: ...
 
 class unicode_decompose_compatibility_func_t(typing.Protocol):
@@ -10679,7 +10679,7 @@ class unicode_decompose_compatibility_func_t(typing.Protocol):
         ufuncs: unicode_funcs_t,
         u: int,
         decomposed: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class unicode_decompose_func_t(typing.Protocol):
@@ -10692,7 +10692,7 @@ class unicode_decompose_func_t(typing.Protocol):
         self,
         ufuncs: unicode_funcs_t,
         ab: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> tuple[int, int, int]: ...
 
 class unicode_eastasian_width_func_t(typing.Protocol):
@@ -10705,7 +10705,7 @@ class unicode_eastasian_width_func_t(typing.Protocol):
         self,
         ufuncs: unicode_funcs_t,
         unicode: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class unicode_general_category_func_t(typing.Protocol):
@@ -10718,7 +10718,7 @@ class unicode_general_category_func_t(typing.Protocol):
         self,
         ufuncs: unicode_funcs_t,
         unicode: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> unicode_general_category_t: ...
 
 class unicode_mirroring_func_t(typing.Protocol):
@@ -10731,7 +10731,7 @@ class unicode_mirroring_func_t(typing.Protocol):
         self,
         ufuncs: unicode_funcs_t,
         unicode: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> int: ...
 
 class unicode_script_func_t(typing.Protocol):
@@ -10744,7 +10744,7 @@ class unicode_script_func_t(typing.Protocol):
         self,
         ufuncs: unicode_funcs_t,
         unicode: int,
-        user_data: object | None = None,
+        *user_data: object | None,
     ) -> script_t: ...
 
 ###############################################################
