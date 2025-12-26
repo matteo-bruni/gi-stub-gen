@@ -166,6 +166,9 @@ class GirClassDocs(BaseModel):
 class ModuleDocs(BaseModel):
     """Top-level container for all documentation in a GIR module."""
 
+    module_namespace: str
+    """Namespace of the module, e.g., "Gst", "GLib"."""
+
     constants: dict[str, str]
     functions: dict[str, GirFunctionDocs]  # Global functions
     enums: dict[str, GirClassDocs]  # Enums and Bitfields
@@ -406,6 +409,7 @@ def parse_gir_docs(path: Path) -> ModuleDocs | None:
     all_classes = {**class_docs, **record_docs, **interface_docs}
 
     return ModuleDocs(
+        module_namespace=gir_namespace,
         constants=constant_docs,
         functions=function_docs,
         enums={**bitfield_docs, **enumeration_docs},

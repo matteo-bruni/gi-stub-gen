@@ -5,7 +5,7 @@ import enum
 import logging
 
 from gi_stub_gen.utils.gi_utils import get_gi_module_from_name
-from gi_stub_gen.manager.template_manager import TemplateManager
+from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.utils import ValueAny
 from gi_stub_gen.utils.utils import (

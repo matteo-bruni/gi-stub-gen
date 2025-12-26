@@ -11,7 +11,7 @@ from gi_stub_gen.utils.gi_utils import (
     get_safe_gi_destroy_index,
     gi_type_is_callback,
 )
-from gi_stub_gen.manager.template_manager import TemplateManager
+from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.utils.utils import (
     get_py_type_name_repr,

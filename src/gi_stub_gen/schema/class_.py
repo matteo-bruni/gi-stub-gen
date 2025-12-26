@@ -6,7 +6,7 @@ import logging
 from typing import Any
 from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
-from gi_stub_gen.manager.template_manager import TemplateManager
+from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import (
     FunctionArgumentSchema,

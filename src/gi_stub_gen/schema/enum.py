@@ -3,7 +3,7 @@ from __future__ import annotations
 import enum
 import logging
 
-from gi_stub_gen.manager.template_manager import TemplateManager
+from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.utils.utils import sanitize_variable_name
 import gi._gi as GI  # pyright: ignore[reportMissingImports]

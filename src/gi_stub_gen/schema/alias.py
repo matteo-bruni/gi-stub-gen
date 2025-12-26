@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Literal
 
-from gi_stub_gen.manager.template_manager import TemplateManager
+from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 
 __all__ = ["AliasSchema"]

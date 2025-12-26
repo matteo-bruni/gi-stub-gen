@@ -6,7 +6,7 @@ from importlib.metadata import version, PackageNotFoundError
 
 from gi_stub_gen.utils.gi_utils import get_gi_module_from_name
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
-from gi_stub_gen.manager.template_manager import TemplateManager
+from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.utils.utils import sanitize_gi_module_name
 
 from gi_stub_gen.schema import BaseSchema
