@@ -29,3 +29,23 @@ def test_parse_class_gobject_initially_unowned():
     assert class_schema is not None
     assert class_schema.name == "InitiallyUnowned"
     assert "Object" == class_schema.super_class
+
+
+def test_runtime_fields():
+    """
+    In some cases, certain fields are only discoverable at runtime.
+    eg: GLib.Error.message, GLib.Error.code, GLib.Error.domain
+    This test ensures we can parse such classes and find these fields.
+
+    We discover them using GIRepository directly.
+    """
+    from gi.repository import GLib
+
+    class_schema, callbacks = parse_class("gi.repository.GLib", GLib.Error)
+
+    assert class_schema is not None
+    assert class_schema.name == "Error"
+    field_names = [f.name for f in class_schema.fields]
+    assert "message" in field_names
+    assert "code" in field_names
+    assert "domain" in field_names

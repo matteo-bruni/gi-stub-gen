@@ -6818,6 +6818,10 @@ class Adjustment(GObject.InitiallyUnowned):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.InitiallyUnowned | None: ...
+
     # gi Methods
     def clamp_page(self, lower: float, upper: float) -> None:
         """
@@ -7026,6 +7030,14 @@ class Adjustment(GObject.InitiallyUnowned):
 
 class AdjustmentClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
     @builtins.property
     def changed(self) -> changedAdjustmentClassCB: ...
     @builtins.property
@@ -8116,6 +8128,10 @@ class Application(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Gio.Application | None: ...
+
     # gi Methods
     def __init__(self, menubar: Gio.MenuModel | None = ..., register_session: bool = ...) -> None:
         """
@@ -8520,6 +8536,10 @@ class ApplicationWindow(Window):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Window | None: ...
 
     # gi Methods
     def __init__(self, show_menubar: bool = ...) -> None:
@@ -9793,6 +9813,10 @@ class Box(Widget):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -10138,6 +10162,15 @@ class BuildableIface(GObject.GPointer):
         to add event controllers to the widget, `GtkNotebook` uses
         the `type` to distinguish between page labels (of type "page-label")
         and normal children.
+        """
+    @builtins.property
+    def construct_child(self) -> object | None:
+        """
+           Constructs a child of a buildable that has been
+        specified as “constructor” in the UI definition. This can be used to
+        reference a widget created in a `<ui>` tag which is outside
+        of the normal GtkBuilder UI definition hierarchy.  A reference to the
+        constructed object is returned and becomes owned by the caller.
         """
     @builtins.property
     def custom_finished(self) -> custom_finishedBuildableIfaceCB:
@@ -11035,6 +11068,10 @@ class BuilderCScope(GObject.Object):
     this functionality will require that `GModule` be supported on the platform.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -11342,6 +11379,10 @@ class Button(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
 
     # gi Methods
     def __init__(
@@ -12286,6 +12327,10 @@ class CellArea(GObject.InitiallyUnowned):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.InitiallyUnowned | None: ...
+
     # gi Methods
     def __init__(self, focus_cell: CellRenderer | None = ...) -> None:
         """
@@ -13214,6 +13259,10 @@ class CellAreaContext(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self, area: CellArea | None = ...) -> None:
         """
@@ -13900,6 +13949,12 @@ class CellRenderer(GObject.InitiallyUnowned):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.InitiallyUnowned | None: ...
+    @builtins.property
+    def priv(self) -> CellRendererPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -15177,6 +15232,10 @@ class CellRendererText(CellRenderer):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent(self) -> CellRenderer | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -16425,6 +16484,10 @@ class CheckButton(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
 
     # gi Methods
     def __init__(
@@ -18699,6 +18762,10 @@ class ComboBox(Widget):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -20142,6 +20209,10 @@ class CssProvider(GObject.Object):
     [signal`Gtk`.CssProvider::parsing-error] signal.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -20634,6 +20705,10 @@ class Dialog(Window):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Window | None: ...
 
     # gi Methods
     def __init__(self, use_header_bar: int = ...) -> None:
@@ -23722,6 +23797,10 @@ class Entry(Widget):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -24547,6 +24626,10 @@ class EntryBuffer(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self, max_length: int = ..., text: str = ...) -> None:
         """
@@ -24736,6 +24819,22 @@ class EntryBuffer(GObject.Object):
 
 class EntryBufferClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved7(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved8(self) -> object | None: ...
     @builtins.property
     def delete_text(self) -> delete_textEntryBufferClassCB: ...
     @builtins.property
@@ -28419,6 +28518,10 @@ class Filter(GObject.Object):
     also possible to subclass `GtkFilter` and provide one's own filter.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -28498,6 +28601,22 @@ class Filter(GObject.Object):
 
 class FilterClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved7(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved8(self) -> object | None: ...
     @builtins.property
     def get_strictness(self) -> get_strictnessFilterClassCB: ...
     @builtins.property
@@ -28734,6 +28853,10 @@ class Fixed(Widget):
     and prefer the simplicity of `GtkFixed`, by all means use the
     widget. But you should be aware of the tradeoffs.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -29548,6 +29671,10 @@ class FlowBoxChild(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
 
     # gi Methods
     def __init__(self, child: Widget | None = ...) -> None:
@@ -30820,6 +30947,10 @@ class Frame(Widget):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
+
     # gi Methods
     def __init__(
         self, child: Widget | None = ..., label: str = ..., label_widget: Widget | None = ..., label_xalign: float = ...
@@ -31113,6 +31244,10 @@ class GLArea(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
 
     # gi Methods
     def __init__(
@@ -31408,6 +31543,13 @@ class GLAreaClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _padding(self) -> list | None: ...
+    @builtins.property
+    def create_context(self) -> object | None:
+        """
+        class closure for the `GtkGLArea::create-context` signal
+        """
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
     @builtins.property
@@ -32876,6 +33018,10 @@ class Grid(Widget):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -33961,6 +34107,10 @@ class IMContext(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self, input_hints: InputHints = ..., input_purpose: InputPurpose = ...) -> None:
         """
@@ -34218,6 +34368,12 @@ class IMContext(GObject.Object):
 class IMContextClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
     def activate_osk(self) -> activate_oskIMContextClassCB: ...
     @builtins.property
     def activate_osk_with_event(self) -> activate_osk_with_eventIMContextClassCB: ...
@@ -34415,6 +34571,8 @@ class IMContextSimple(IMContext):
     # gi Fields
     @builtins.property
     def object(self) -> IMContext | None: ...
+    @builtins.property
+    def priv(self) -> IMContextSimplePrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -34461,6 +34619,8 @@ class IMMulticontext(IMContext):
     # gi Fields
     @builtins.property
     def object(self) -> IMContext | None: ...
+    @builtins.property
+    def priv(self) -> IMMulticontextPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -34490,6 +34650,14 @@ class IMMulticontext(IMContext):
 
 class IMMulticontextClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> IMContextClass | None: ...
 
@@ -37929,6 +38097,10 @@ class LayoutChild(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self, child_widget: Widget | None = ..., layout_manager: LayoutManager | None = ...) -> None:
         """
@@ -38027,6 +38199,10 @@ class LayoutManager(GObject.Object):
     [method`Gtk`.LayoutManager.layout_changed] every time a property is
     updated, in order to queue a new size measuring and allocation.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -38130,6 +38306,8 @@ class LayoutManagerClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _padding(self) -> list | None: ...
     @builtins.property
     def allocate(self) -> allocateLayoutManagerClassCB:
         """
@@ -39256,6 +39434,10 @@ class ListBoxRow(Widget):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
+
     # gi Methods
     def __init__(self, activatable: bool = ..., child: Widget | None = ..., selectable: bool = ...) -> None:
         """
@@ -40016,6 +40198,12 @@ class ListStore(GObject.Object):
     </object>
     ```
     """
+
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> ListStorePrivate | None: ...
 
     # gi Methods
     @deprecated("deprecated")
@@ -40962,6 +41150,10 @@ class MediaFile(MediaStream):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> MediaStream | None: ...
+
     # gi Methods
     def __init__(self, file: Gio.File | None = ..., input_stream: Gio.InputStream | None = ...) -> None:
         """
@@ -41088,6 +41280,14 @@ class MediaFile(MediaStream):
 class MediaFileClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
     def close(self) -> closeMediaFileClassCB: ...
     @builtins.property
     def open(self) -> openMediaFileClassCB: ...
@@ -41179,6 +41379,10 @@ class MediaStream(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self, loop: bool = ..., muted: bool = ..., playing: bool = ..., volume: float = ...) -> None:
@@ -41591,6 +41795,22 @@ class MediaStream(GObject.Object):
 
 class MediaStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved7(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved8(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
     @builtins.property
@@ -42168,6 +42388,10 @@ class MessageDialog(Dialog):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Dialog | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -42379,6 +42603,12 @@ class MountOperation(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Gio.MountOperation | None: ...
+    @builtins.property
+    def priv(self) -> MountOperationPrivate | None: ...
+
     # gi Methods
     def __init__(self, display: Gdk.Display | None = ..., parent: Window | None = ...) -> None:
         """
@@ -42445,6 +42675,14 @@ class MountOperation(GObject.Object):
 
 class MountOperationClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> Gio.MountOperationClass | None:
         """
@@ -42852,6 +43090,10 @@ class NativeDialog(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(
         self, modal: bool = ..., title: str = ..., transient_for: Window | None = ..., visible: bool = ...
@@ -43014,6 +43256,14 @@ class NativeDialogClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
     @builtins.property
     def hide(self) -> hideNativeDialogClassCB: ...
     @builtins.property
@@ -45434,6 +45684,10 @@ class ParamSpecExpression(GObject.ParamSpec):
     A `GParamSpec` for properties holding a `GtkExpression`.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.ParamSpec | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -46078,6 +46332,10 @@ class Popover(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent(self) -> Widget | None: ...
 
     # gi Methods
     def __init__(
@@ -47553,6 +47811,12 @@ class PrintOperation(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> PrintOperationPrivate | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -48323,6 +48587,11 @@ class PrintOperationClass(GObject.GPointer):
         print settings in the dialog, before the actual rendering starts.
         """
     @builtins.property
+    def create_custom_widget(self) -> object | None:
+        """
+        Signal emitted when displaying the print dialog.
+        """
+    @builtins.property
     def custom_widget_apply(self) -> custom_widget_applyPrintOperationClassCB:
         """
          Signal emitted right before “begin-print” if
@@ -48462,6 +48731,22 @@ class PrintOperationPreview(GObject.GInterface):
 
 class PrintOperationPreviewIface(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved7(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved8(self) -> object | None: ...
     @builtins.property
     def end_preview(self) -> end_previewPrintOperationPreviewIfaceCB: ...
     @builtins.property
@@ -49865,6 +50150,10 @@ class Range(Widget):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -50481,6 +50770,12 @@ class RecentManager(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> RecentManagerPrivate | None: ...
+
     # gi Methods
     def __init__(self, filename: str = ...) -> None:
         """
@@ -50618,6 +50913,14 @@ class RecentManagerClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gtk_recent1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_recent2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_recent3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_recent4(self) -> object | None: ...
+    @builtins.property
     def changed(self) -> changedRecentManagerClassCB: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -50644,6 +50947,11 @@ class RequestedSize(GObject.GPointer):
     """
 
     # gi Fields
+    data: object | None = ...
+    """
+    A client pointer
+
+    """
     minimum_size: int = ...
     """
     The minimum size needed for allocation in a given orientation
@@ -51041,6 +51349,10 @@ class Scale(Range):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Range | None: ...
+
     # gi Methods
     def __init__(
         self, digits: int = ..., draw_value: bool = ..., has_origin: bool = ..., value_pos: PositionType = ...
@@ -51279,6 +51591,10 @@ class ScaleButton(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
 
     # gi Methods
     def __init__(
@@ -55956,6 +56272,10 @@ class SizeGroup(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self, mode: SizeGroupMode = ...) -> None:
         """
@@ -56856,6 +57176,10 @@ class Sorter(GObject.Object):
     `GtkSorter` and provide one's own sorter.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -56948,6 +57272,22 @@ class SorterClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved7(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved8(self) -> object | None: ...
     @builtins.property
     def compare(self) -> compareSorterClassCB:
         """
@@ -59068,6 +59408,14 @@ class StyleContext(GObject.Object):
 class StyleContextClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
     def changed(self) -> changedStyleContextClassCB: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -59523,6 +59871,10 @@ class Text(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
 
     # gi Methods
     def __init__(
@@ -60145,6 +60497,12 @@ class TextBuffer(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> TextBufferPrivate | None: ...
 
     # gi Methods
     def __init__(self, enable_undo: bool = ..., tag_table: TextTagTable | None = ..., text: str = ...) -> None:
@@ -61155,6 +61513,14 @@ class TextBufferClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
     def apply_tag(self) -> apply_tagTextBufferClassCB:
         """
         The class handler for the `GtkTextBuffer::apply-tag` signal.
@@ -61255,6 +61621,12 @@ class TextChildAnchor(GObject.Object):
     The anchor can have multiple widgets anchored, to allow for multiple views.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def segment(self) -> object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -61299,6 +61671,14 @@ class TextChildAnchor(GObject.Object):
 class TextChildAnchorClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -61316,6 +61696,36 @@ class TextIter(GObject.GBoxed):
     which gives an overview of all the objects and data types
     related to the text widget and how they work together.
     """
+
+    # gi Fields
+    @builtins.property
+    def dummy1(self) -> object | None: ...
+    @builtins.property
+    def dummy10(self) -> object | None: ...
+    @builtins.property
+    def dummy11(self) -> int: ...
+    @builtins.property
+    def dummy12(self) -> int: ...
+    @builtins.property
+    def dummy13(self) -> int: ...
+    @builtins.property
+    def dummy14(self) -> object | None: ...
+    @builtins.property
+    def dummy2(self) -> object | None: ...
+    @builtins.property
+    def dummy3(self) -> int: ...
+    @builtins.property
+    def dummy4(self) -> int: ...
+    @builtins.property
+    def dummy5(self) -> int: ...
+    @builtins.property
+    def dummy6(self) -> int: ...
+    @builtins.property
+    def dummy7(self) -> int: ...
+    @builtins.property
+    def dummy8(self) -> int: ...
+    @builtins.property
+    def dummy9(self) -> object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -62177,6 +62587,12 @@ class TextMark(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def segment(self) -> object | None: ...
+
     # gi Methods
     def __init__(self, left_gravity: bool = ..., name: str = ...) -> None:
         """
@@ -62704,6 +63120,12 @@ class TextTag(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> TextTagPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -63801,6 +64223,12 @@ class TextView(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
+    @builtins.property
+    def priv(self) -> TextViewPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -64938,6 +65366,13 @@ class TextViewClass(GObject.GPointer):
         keybinding signal.
         """
     @builtins.property
+    def create_buffer(self) -> object | None:
+        """
+          The create_buffer vfunc is called to create a `GtkTextBuffer`
+        for the text view. The default implementation is to just call
+        `Gtk.text_buffer_new`.
+        """
+    @builtins.property
     def cut_clipboard(self) -> cut_clipboardTextViewClassCB:
         """
           The class handler for the `GtkTextView::cut-clipboard`
@@ -65694,6 +66129,21 @@ class TreeIter(GObject.GBoxed):
     stamp: int = ...
     """
     a unique stamp to catch invalid iterators
+
+    """
+    user_data: object | None = ...
+    """
+    model-specific data
+
+    """
+    user_data2: object | None = ...
+    """
+    model-specific data
+
+    """
+    user_data3: object | None = ...
+    """
+    model-specific data
 
     """
 
@@ -66735,6 +67185,12 @@ class TreeModelFilter(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> TreeModelFilterPrivate | None: ...
+
     # gi Methods
     def __init__(self, child_model: TreeModel | None = ..., virtual_root: TreePath | None = ...) -> None:
         """
@@ -67186,6 +67642,12 @@ class TreeModelSort(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> TreeModelSortPrivate | None: ...
 
     # gi Methods
     def __init__(self, model: TreeModel | None = ...) -> None:
@@ -67900,6 +68362,12 @@ class TreeStore(GObject.Object):
     ```
     """
 
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> TreeStorePrivate | None: ...
+
     # gi Methods
     @deprecated("deprecated")
     def append(self, parent: TreeIter | None = None) -> TreeIter:
@@ -68310,6 +68778,10 @@ class TreeView(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
 
     # gi Methods
     def __init__(
@@ -69354,6 +69826,8 @@ class TreeView(Widget):
 class TreeViewClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _reserved(self) -> list | None: ...
+    @builtins.property
     def columns_changed(self) -> columns_changedTreeViewClassCB: ...
     @builtins.property
     def cursor_changed(self) -> cursor_changedTreeViewClassCB: ...
@@ -70392,6 +70866,10 @@ class VolumeButton(ScaleButton):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent(self) -> ScaleButton | None: ...
+
     # gi Methods
     def __init__(self, use_symbolic: bool = ...) -> None:
         """
@@ -71038,6 +71516,12 @@ class Widget(GObject.InitiallyUnowned):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.InitiallyUnowned | None: ...
+    @builtins.property
+    def priv(self) -> WidgetPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -73303,6 +73787,8 @@ class WidgetClass(GObject.GPointer):
         a GObjectClass pointer.
         """
     @builtins.property
+    def priv(self) -> WidgetClassPrivate | None: ...
+    @builtins.property
     def query_tooltip(self) -> query_tooltipWidgetClassCB:
         """
           Signal emitted when “has-tooltip” is True and the
@@ -73885,6 +74371,10 @@ class Window(Widget):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Widget | None: ...
 
     # gi Methods
     def close(self) -> None:
@@ -75028,6 +75518,12 @@ class WindowGroup(GObject.Object):
     freed.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> WindowGroupPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -75056,6 +75552,14 @@ class WindowGroup(GObject.Object):
 
 class WindowGroupClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gtk_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _gtk_reserved4(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 

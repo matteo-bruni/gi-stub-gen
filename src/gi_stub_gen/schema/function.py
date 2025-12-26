@@ -133,6 +133,8 @@ class FunctionArgumentSchema(BaseSchema):
                     name=cb_name,
                     function=cb_schema,
                 )
+                # TODO: callback can have callback as param? handle that case
+                # cb_schema._gi_callbacks <- extend with found_callback and return list?
 
         else:
             # Standard type logic

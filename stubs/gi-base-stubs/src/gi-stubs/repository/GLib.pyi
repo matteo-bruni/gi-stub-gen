@@ -14926,6 +14926,8 @@ class Cond(GObject.GPointer):
     # gi Fields
     @builtins.property
     def i(self) -> list | None: ...
+    @builtins.property
+    def p(self) -> object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -15756,6 +15758,23 @@ class Error(RuntimeError):
     an error that has occurred.
     """
 
+    # gi Fields
+    code: int = ...
+    """
+    error code, e.g. G_FILE_ERROR_NOENT
+
+    """
+    domain: int = ...
+    """
+    error domain, e.g. G_FILE_ERROR
+
+    """
+    message: str = ...
+    """
+    human-readable informative error message
+
+    """
+
     # python methods (overrides?)
     def __init__(
         self,
@@ -15804,9 +15823,17 @@ class HashTableIter(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def dummy1(self) -> object | None: ...
+    @builtins.property
+    def dummy2(self) -> object | None: ...
+    @builtins.property
+    def dummy3(self) -> object | None: ...
+    @builtins.property
     def dummy4(self) -> int: ...
     @builtins.property
     def dummy5(self) -> bool: ...
+    @builtins.property
+    def dummy6(self) -> object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -15888,10 +15915,21 @@ class Hook(GObject.GPointer):
     """
 
     # gi Fields
+    data: object | None = ...
+    """
+    data which is passed to func when this hook is invoked
+
+    """
     flags: int = ...
     """
     flags which are set for this hook. See GHookFlagMask for
         predefined flags
+
+    """
+    func: object | None = ...
+    """
+    the function to call when this hook is invoked. The possible
+        signatures for this function are GHookFunc and GHookCheckFunc
 
     """
     hook_id: int = ...
@@ -15972,6 +16010,11 @@ class HookList(GObject.GPointer):
 
     # gi Fields
     dummy: list | None = ...
+    """
+    unused
+
+    """
+    dummy3: object | None = ...
     """
     unused
 
@@ -16077,6 +16120,48 @@ class IOChannel(GObject.GBoxed):
     [method`GLib`.IOChannel.read], [method`GLib`.IOChannel.write], and
     [method`GLib`.IOChannel.seek] on the same channel.
     """
+
+    # gi Fields
+    @builtins.property
+    def buf_size(self) -> int: ...
+    @builtins.property
+    def close_on_unref(self) -> int: ...
+    @builtins.property
+    def do_encode(self) -> int: ...
+    @builtins.property
+    def encoded_read_buf(self) -> String | None: ...
+    @builtins.property
+    def encoding(self) -> str: ...
+    @builtins.property
+    def funcs(self) -> IOFuncs | None: ...
+    @builtins.property
+    def is_readable(self) -> int: ...
+    @builtins.property
+    def is_seekable(self) -> int: ...
+    @builtins.property
+    def is_writeable(self) -> int: ...
+    @builtins.property
+    def line_term(self) -> str: ...
+    @builtins.property
+    def line_term_len(self) -> int: ...
+    @builtins.property
+    def partial_write_buf(self) -> list | None: ...
+    @builtins.property
+    def read_buf(self) -> String | None: ...
+    @builtins.property
+    def read_cd(self) -> object | None: ...
+    @builtins.property
+    def ref_count(self) -> int: ...
+    @builtins.property
+    def reserved1(self) -> object | None: ...
+    @builtins.property
+    def reserved2(self) -> object | None: ...
+    @builtins.property
+    def use_buffer(self) -> int: ...
+    @builtins.property
+    def write_buf(self) -> String | None: ...
+    @builtins.property
+    def write_cd(self) -> object | None: ...
 
     # gi Methods
     @deprecated("deprecated")
@@ -17060,6 +17145,13 @@ class List(GObject.GPointer):
     """
 
     # gi Fields
+    data: object | None = ...
+    """
+    holds the element's data, which can be a pointer to any kind
+           of data, or any integer value using the
+           [Type Conversion Macros](conversion-macros.html#conversion-macros)
+
+    """
     next: list | None = ...
     """
     contains the link to the next element in the list
@@ -17101,6 +17193,11 @@ class LogField(GObject.GPointer):
     length: int = ...
     """
     length of `value`, in bytes, or -1 if it is nul-terminated
+
+    """
+    value: object | None = ...
+    """
+    field value (arbitrary bytes)
 
     """
 
@@ -17652,10 +17749,21 @@ class Node(GObject.GPointer):
                child.
 
     """
+    data: object | None = ...
+    """
+    contains the actual data of the node.
+
+    """
     next: Node | None = ...
     """
     points to the node's next sibling (a sibling is another
            GNode with the same parent).
+
+    """
+    parent: Node | None = ...
+    """
+    points to the parent of the GNode, or is None if the
+             GNode is the root of the tree.
 
     """
     prev: Node | None = ...
@@ -17756,6 +17864,12 @@ class Once(GObject.GPointer):
     """
 
     # gi Fields
+    retval: object | None = ...
+    """
+    the value returned by the call to the function, if `status`
+             is G_ONCE_STATUS_READY
+
+    """
     status: OnceStatus = ...
     """
     the status of the GOnce
@@ -17886,6 +18000,15 @@ class OptionEntry(GObject.GPointer):
     arg: OptionArg = ...
     """
     The type of the option, as a GOptionArg
+
+    """
+    arg_data: object | None = ...
+    """
+    If the `arg` type is G_OPTION_ARG_CALLBACK, then `arg_data`
+        must point to a GOptionArgFunc callback function, which will be
+        called to handle the extra argument. Otherwise, `arg_data` is a
+        pointer to a location to store the value, the required type of
+        the location depends on the `arg` type:
 
     """
     arg_description: str = ...
@@ -18174,6 +18297,27 @@ class PollFD(GObject.GBoxed):
     occurred.
     """
 
+    # gi Fields
+    events: int = ...
+    """
+    a bitwise combination from GIOCondition, specifying which
+        events should be polled for. Typically for reading from a file
+        descriptor you would use G_IO_IN | G_IO_HUP | G_IO_ERR, and
+        for writing you would use G_IO_OUT | G_IO_ERR.
+
+    """
+    fd: int = ...
+    """
+    the file descriptor to poll (or a HANDLE on Win32)
+
+    """
+    revents: int = ...
+    """
+    a bitwise combination of flags from GIOCondition, returned
+        from the `poll` function to indicate which events occurred.
+
+    """
+
     # python methods (overrides?)
     def __init__(
         self,
@@ -18210,6 +18354,8 @@ class Private(GObject.GPointer):
     def future(self) -> list | None: ...
     @builtins.property
     def notify(self) -> DestroyNotifyPrivateCB: ...
+    @builtins.property
+    def p(self) -> object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -18451,6 +18597,8 @@ class RWLock(GObject.GPointer):
     # gi Fields
     @builtins.property
     def i(self) -> list | None: ...
+    @builtins.property
+    def p(self) -> object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -18568,6 +18716,8 @@ class RecMutex(GObject.GPointer):
     # gi Fields
     @builtins.property
     def i(self) -> list | None: ...
+    @builtins.property
+    def p(self) -> object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -18716,6 +18866,13 @@ class SList(GObject.GPointer):
     """
 
     # gi Fields
+    data: object | None = ...
+    """
+    holds the element's data, which can be a pointer to any kind
+           of data, or any integer value using the
+           [Type Conversion Macros](conversion-macros.html#conversion-macros)
+
+    """
     next: list | None = ...
     """
     contains the link to the next element in the list.
@@ -18826,6 +18983,11 @@ class Scanner(GObject.GPointer):
     token: TokenType = ...
     """
     token parsed by the last `g_scanner_get_next_token`
+
+    """
+    user_data: object | None = ...
+    """
+    unused
 
     """
     value: TokenValue | None = ...
@@ -19471,7 +19633,31 @@ class Source(GObject.GBoxed):
 
     # gi Fields
     @builtins.property
+    def callback_data(self) -> object | None: ...
+    @builtins.property
+    def callback_funcs(self) -> SourceCallbackFuncs | None: ...
+    @builtins.property
+    def context(self) -> MainContext | None: ...
+    @builtins.property
+    def flags(self) -> int: ...
+    @builtins.property
+    def name(self) -> str: ...
+    @builtins.property
+    def next(self) -> Source | None: ...
+    @builtins.property
+    def poll_fds(self) -> list | None: ...
+    @builtins.property
+    def prev(self) -> Source | None: ...
+    @builtins.property
     def priority(self) -> int: ...
+    @builtins.property
+    def priv(self) -> SourcePrivate | None: ...
+    @builtins.property
+    def ref_count(self) -> int: ...
+    @builtins.property
+    def source_funcs(self) -> SourceFuncs | None: ...
+    @builtins.property
+    def source_id(self) -> int: ...
 
     # gi Methods
     def add_child_source(self, child_source: Source) -> None:
@@ -19964,6 +20150,12 @@ class SourceCallbackFuncs(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def get(self) -> object | None:
+        """
+        Called to extract the callback function and data from the
+        callback object.
+        """
+    @builtins.property
     def ref(self) -> refSourceCallbackFuncsCB:
         """
         Called when a reference is added to the callback object
@@ -20019,6 +20211,20 @@ class SourceFuncs(GObject.GPointer):
     def closure_callback(self) -> SourceFuncSourceFuncsCB: ...
     @builtins.property
     def closure_marshal(self) -> SourceDummyMarshalSourceFuncsCB: ...
+    dispatch: object | None = ...
+    """
+    Called to dispatch the event source, after it has returned
+        True in either its `prepare` or its `check` function, or if a ready time
+        has been reached. The `dispatch` function receives a callback function and
+        user data. The callback function may be None if the source was never
+        connected to a callback using [method`GLib`.Source.set_callback]. The
+        `dispatch` function should call the callback function with `user_data` and
+        whatever additional parameters are needed for this type of event source.
+        The return value of the `dispatch` function should be
+        [const`GLib`.SOURCE_REMOVE] if the source should be removed or
+        [const`GLib`.SOURCE_CONTINUE] to keep it.
+
+    """
     finalize: SourceFuncsFinalizeFuncSourceFuncsCB = ...
     """
     Called when the source is finalized. At this point, the source
@@ -20474,6 +20680,7 @@ class TestLogMsg(GObject.GPointer):
     log_type: TestLogType = ...
     n_nums: int = ...
     n_strings: int = ...
+    nums: object | None = ...
     strings: str = ...
 
     # gi Methods
@@ -20548,6 +20755,11 @@ class ThreadPool(GObject.GPointer):
     func: FuncThreadPoolCB = ...
     """
     the function to execute in the threads of this pool
+
+    """
+    user_data: object | None = ...
+    """
+    the user data for the threads of this pool
 
     """
 
@@ -21294,6 +21506,10 @@ class UriParamsIter(GObject.GPointer):
     # gi Fields
     @builtins.property
     def dummy0(self) -> int: ...
+    @builtins.property
+    def dummy1(self) -> object | None: ...
+    @builtins.property
+    def dummy2(self) -> object | None: ...
     @builtins.property
     def dummy3(self) -> list | None: ...
 

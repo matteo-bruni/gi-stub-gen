@@ -1259,6 +1259,10 @@ class PixbufAnimation(GObject.Object):
     be displayed at a given point in time.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1468,6 +1472,10 @@ class PixbufAnimationIter(GObject.Object):
     An opaque object representing an iterator which points to a
     certain position in an animation.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -1789,6 +1797,12 @@ class PixbufLoader(GObject.Object):
     desired time stamp.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2071,6 +2085,19 @@ class PixbufModule(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _reserved1(self) -> object | None: ...
+    @builtins.property
+    def _reserved2(self) -> object | None: ...
+    @builtins.property
+    def _reserved3(self) -> object | None: ...
+    @builtins.property
+    def _reserved4(self) -> object | None: ...
+    begin_load: object | None = ...
+    """
+    begins an incremental load.
+
+    """
     info: PixbufFormat | None = ...
     """
     a `GdkPixbufFormat` holding information about the module.
@@ -2120,6 +2147,11 @@ class PixbufModule(GObject.GPointer):
     save: PixbufModuleSaveFuncPixbufModuleCB = ...
     """
     saves a `GdkPixbuf` to a file.
+
+    """
+    save_to_callback: object | None = ...
+    """
+    saves a `GdkPixbuf` by calling the given `GdkPixbufSaveFunc`.
 
     """
     stop_load: PixbufModuleStopLoadFuncPixbufModuleCB = ...

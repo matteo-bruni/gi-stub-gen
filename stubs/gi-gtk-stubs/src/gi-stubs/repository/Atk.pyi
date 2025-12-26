@@ -542,6 +542,8 @@ class ActionIface(GObject.GPointer):
     @builtins.property
     def get_name(self) -> get_nameActionIfaceCB | None: ...
     @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
+    @builtins.property
     def set_description(self) -> set_descriptionActionIfaceCB: ...
 
     # gi Methods
@@ -604,6 +606,8 @@ class Component(GObject.GInterface):
 class ComponentIface(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def add_focus_handler(self) -> object | None: ...
+    @builtins.property
     def bounds_changed(self) -> bounds_changedComponentIfaceCB: ...
     @builtins.property
     def contains(self) -> containsComponentIfaceCB: ...
@@ -621,6 +625,8 @@ class ComponentIface(GObject.GPointer):
     def get_size(self) -> get_sizeComponentIfaceCB: ...
     @builtins.property
     def grab_focus(self) -> grab_focusComponentIfaceCB: ...
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
     @builtins.property
     def ref_accessible_at_point(self) -> ref_accessible_at_pointComponentIfaceCB | None: ...
     @builtins.property
@@ -713,6 +719,8 @@ class DocumentIface(GObject.GPointer):
     @builtins.property
     def get_text_selections(self) -> get_text_selectionsDocumentIfaceCB: ...
     @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
+    @builtins.property
     def set_document_attribute(self) -> set_document_attributeDocumentIfaceCB: ...
     @builtins.property
     def set_text_selections(self) -> set_text_selectionsDocumentIfaceCB: ...
@@ -763,6 +771,10 @@ class EditableTextIface(GObject.GPointer):
         """
 
 class GObjectAccessible(Object):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -796,6 +808,10 @@ class Hyperlink(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -933,6 +949,8 @@ class HyperlinkClass(GObject.GPointer):
     def link_state(self) -> link_stateHyperlinkClassCB: ...
     @builtins.property
     def pad1(self) -> FunctionHyperlinkClassCB: ...
+    @builtins.property
+    def parent(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -952,6 +970,8 @@ class HyperlinkImplIface(GObject.GPointer):
     # gi Fields
     @builtins.property
     def get_hyperlink(self) -> get_hyperlinkHyperlinkImplIfaceCB: ...
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -992,6 +1012,8 @@ class HypertextIface(GObject.GPointer):
     def get_n_links(self) -> get_n_linksHypertextIfaceCB: ...
     @builtins.property
     def link_selected(self) -> link_selectedHypertextIfaceCB: ...
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -1067,6 +1089,8 @@ class ImageIface(GObject.GPointer):
     @builtins.property
     def get_image_size(self) -> get_image_sizeImageIfaceCB: ...
     @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
+    @builtins.property
     def set_image_description(self) -> set_image_descriptionImageIfaceCB: ...
 
     # gi Methods
@@ -1107,6 +1131,10 @@ class KeyEventStruct(GObject.GPointer):
         """
 
 class Misc(GObject.Object):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1137,6 +1165,8 @@ class Misc(GObject.Object):
 class MiscClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def parent(self) -> GObject.ObjectClass | None: ...
+    @builtins.property
     def threads_enter(self) -> threads_enterMiscClassCB: ...
     @builtins.property
     def threads_leave(self) -> threads_leaveMiscClassCB: ...
@@ -1150,6 +1180,10 @@ class MiscClass(GObject.GPointer):
         """
 
 class NoOpObject(Object):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1170,6 +1204,10 @@ class NoOpObjectClass(GObject.GPointer):
         """
 
 class NoOpObjectFactory(ObjectFactory):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> ObjectFactory | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1235,6 +1273,8 @@ class Object(object):
     def layer(self) -> Layer: ...
     @builtins.property
     def name(self) -> str: ...
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
     @builtins.property
     def relation_set(self) -> RelationSet | None: ...
     @builtins.property
@@ -1647,6 +1687,8 @@ class ObjectClass(GObject.GPointer):
     @builtins.property
     def children_changed(self) -> children_changedObjectClassCB: ...
     @builtins.property
+    def connect_property_change_handler(self) -> object | None: ...
+    @builtins.property
     def focus_event(self) -> focus_eventObjectClassCB: ...
     @builtins.property
     def get_attributes(self) -> get_attributesObjectClassCB: ...
@@ -1673,7 +1715,11 @@ class ObjectClass(GObject.GPointer):
     @builtins.property
     def pad1(self) -> FunctionObjectClassCB: ...
     @builtins.property
+    def parent(self) -> GObject.ObjectClass | None: ...
+    @builtins.property
     def property_change(self) -> property_changeObjectClassCB: ...
+    @builtins.property
+    def ref_child(self) -> object | None: ...
     @builtins.property
     def ref_relation_set(self) -> ref_relation_setObjectClassCB: ...
     @builtins.property
@@ -1700,6 +1746,10 @@ class ObjectClass(GObject.GPointer):
         """
 
 class ObjectFactory(GObject.Object):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1720,6 +1770,8 @@ class ObjectFactory(GObject.Object):
 class ObjectFactoryClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def create_accessible(self) -> object | None: ...
+    @builtins.property
     def get_accessible_type(self) -> get_accessible_typeObjectFactoryClassCB: ...
     @builtins.property
     def invalidate(self) -> invalidateObjectFactoryClassCB: ...
@@ -1737,6 +1789,10 @@ class ObjectFactoryClass(GObject.GPointer):
         """
 
 class Plug(Object):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1833,6 +1889,8 @@ class Registry(GObject.Object):
     def factory_singleton_cache(self) -> dict | None: ...
     @builtins.property
     def factory_type_registry(self) -> dict | None: ...
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -1863,6 +1921,8 @@ class Relation(GObject.Object):
     def props(self) -> Props: ...
 
     # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
     @builtins.property
     def relationship(self) -> RelationType: ...
     @builtins.property
@@ -1903,6 +1963,10 @@ class Relation(GObject.Object):
     ) -> int: ...
 
 class RelationClass(GObject.GPointer):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.ObjectClass | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1911,6 +1975,8 @@ class RelationClass(GObject.GPointer):
 
 class RelationSet(GObject.Object):
     # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
     @builtins.property
     def relations(self) -> list | None: ...
 
@@ -1936,6 +2002,8 @@ class RelationSetClass(GObject.GPointer):
     def pad1(self) -> FunctionRelationSetClassCB: ...
     @builtins.property
     def pad2(self) -> FunctionRelationSetClassCB: ...
+    @builtins.property
+    def parent(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -1981,6 +2049,8 @@ class SelectionIface(GObject.GPointer):
     @builtins.property
     def is_child_selected(self) -> is_child_selectedSelectionIfaceCB: ...
     @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
+    @builtins.property
     def ref_selection(self) -> ref_selectionSelectionIfaceCB | None: ...
     @builtins.property
     def remove_selection(self) -> remove_selectionSelectionIfaceCB: ...
@@ -1999,6 +2069,8 @@ class Socket(Object):
     # gi Fields
     @builtins.property
     def embedded_plug_id(self) -> str: ...
+    @builtins.property
+    def parent(self) -> Object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -2033,6 +2105,10 @@ class SocketClass(GObject.GPointer):
         """
 
 class StateSet(GObject.Object):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2052,6 +2128,10 @@ class StateSet(GObject.Object):
     def xor_sets(self, compare_set: StateSet) -> StateSet: ...
 
 class StateSetClass(GObject.GPointer):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.ObjectClass | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2085,6 +2165,8 @@ class StreamableContentIface(GObject.GPointer):
     def pad2(self) -> FunctionStreamableContentIfaceCB: ...
     @builtins.property
     def pad3(self) -> FunctionStreamableContentIfaceCB: ...
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -2210,6 +2292,8 @@ class TableCellIface(GObject.GPointer):
     def get_row_span(self) -> get_row_spanTableCellIfaceCB: ...
     @builtins.property
     def get_table(self) -> get_tableTableCellIfaceCB: ...
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -2267,6 +2351,8 @@ class TableIface(GObject.GPointer):
     def is_selected(self) -> is_selectedTableIfaceCB: ...
     @builtins.property
     def model_changed(self) -> model_changedTableIfaceCB: ...
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
     @builtins.property
     def ref_at(self) -> ref_atTableIfaceCB: ...
     @builtins.property
@@ -2532,6 +2618,8 @@ class TextIface(GObject.GPointer):
     @builtins.property
     def get_text_before_offset(self) -> get_text_before_offsetTextIfaceCB: ...
     @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
+    @builtins.property
     def remove_selection(self) -> remove_selectionTextIfaceCB: ...
     @builtins.property
     def scroll_substring_to(self) -> scroll_substring_toTextIfaceCB: ...
@@ -2597,6 +2685,10 @@ class TextSelection(GObject.GPointer):
         """
 
 class Util(GObject.Object):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2606,9 +2698,17 @@ class Util(GObject.Object):
 class UtilClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def add_global_event_listener(self) -> object | None: ...
+    @builtins.property
+    def add_key_event_listener(self) -> object | None: ...
+    @builtins.property
+    def get_root(self) -> object | None: ...
+    @builtins.property
     def get_toolkit_name(self) -> get_toolkit_nameUtilClassCB: ...
     @builtins.property
     def get_toolkit_version(self) -> get_toolkit_versionUtilClassCB: ...
+    @builtins.property
+    def parent(self) -> GObject.ObjectClass | None: ...
     @builtins.property
     def remove_global_event_listener(self) -> remove_global_event_listenerUtilClassCB: ...
     @builtins.property
@@ -2673,6 +2773,8 @@ class ValueIface(GObject.GPointer):
     def get_sub_ranges(self) -> get_sub_rangesValueIfaceCB: ...
     @builtins.property
     def get_value_and_text(self) -> get_value_and_textValueIfaceCB: ...
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
     @builtins.property
     def set_current_value(self) -> set_current_valueValueIfaceCB: ...
     @builtins.property
@@ -2811,6 +2913,10 @@ class Window(GObject.GInterface):
     ) -> int: ...
 
 class WindowIface(GObject.GPointer):
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """

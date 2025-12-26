@@ -417,6 +417,8 @@ class ArgInfo(BaseInfo):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
+    @builtins.property
+    def parent(self) -> BaseInfoStack | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -536,6 +538,12 @@ class AttributeIter(GObject.GPointer):
     An opaque structure used to iterate over attributes
     in a [class`GIRepository`.BaseInfo] struct.
     """
+
+    # gi Fields
+    @builtins.property
+    def _dummy(self) -> list | None: ...
+    @builtins.property
+    def data(self) -> object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -695,6 +703,8 @@ class BaseInfoStack(GObject.GPointer):
     def dummy2(self) -> list | None: ...
     @builtins.property
     def dummy3(self) -> list | None: ...
+    @builtins.property
+    def parent_instance(self) -> GObject.TypeInstance | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -1867,6 +1877,8 @@ class TypeInfo(BaseInfo):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
+    @builtins.property
+    def parent(self) -> BaseInfoStack | None: ...
 
     # gi Methods
     def __init__(self) -> None:

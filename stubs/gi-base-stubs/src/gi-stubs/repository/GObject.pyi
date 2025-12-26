@@ -2843,6 +2843,11 @@ class CClosure(GPointer):
     """
 
     # gi Fields
+    callback: object | None = ...
+    """
+    the callback function
+
+    """
     closure: Closure | None = ...
     """
     the GClosure
@@ -3222,6 +3227,8 @@ class Closure(GBoxed):
 
     # gi Fields
     @builtins.property
+    def data(self) -> object | None: ...
+    @builtins.property
     def derivative_flag(self) -> int: ...
     @builtins.property
     def floating(self) -> int: ...
@@ -3396,6 +3403,7 @@ class Closure(GBoxed):
 
 class ClosureNotifyData(GPointer):
     # gi Fields
+    data: object | None = ...
     notify: ClosureNotifyClosureNotifyDataCB = ...
 
     # gi Methods
@@ -3727,6 +3735,8 @@ class InitiallyUnowned(Object):
 
     # gi Fields
     @builtins.property
+    def g_type_instance(self) -> TypeInstance | None: ...
+    @builtins.property
     def qdata(self) -> GLib.Data | None: ...
     @builtins.property
     def ref_count(self) -> int: ...
@@ -3755,6 +3765,15 @@ class InitiallyUnownedClass(GPointer):
         after construction properties have been set.  `constructed` implementors
         should chain up to the `constructed` call of their parent class to allow it
         to complete its initialisation.
+        """
+    @builtins.property
+    def constructor(self) -> object | None:
+        """
+           the `constructor` function is called by g_object_new () to
+        complete the object initialization after all the construction properties are
+        set. The first thing a `constructor` implementation must do is chain up to the
+        `constructor` of the parent class. Overriding `constructor` should be rarely
+        needed, e.g. to handle construct properties, or to implement singletons.
         """
     @builtins.property
     def dispatch_properties_changed(self) -> dispatch_properties_changedInitiallyUnownedClassCB:
@@ -3804,6 +3823,8 @@ class InitiallyUnownedClass(GPointer):
     @builtins.property
     def pdummy(self) -> list | None: ...
     @builtins.property
+    def pspecs(self) -> object | None: ...
+    @builtins.property
     def set_property(self) -> set_propertyInitiallyUnownedClassCB:
         """
            the generic setter for all properties of this type. Should be
@@ -3826,6 +3847,11 @@ class InterfaceInfo(GPointer):
     """
 
     # gi Fields
+    interface_data: object | None = ...
+    """
+    user-supplied data passed to the interface init/finalize functions
+
+    """
     interface_finalize: InterfaceFinalizeFuncInterfaceInfoCB = ...
     """
     location of the interface finalization function
@@ -3894,6 +3920,14 @@ class Object(object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def g_type_instance(self) -> TypeInstance | None: ...
+    @builtins.property
+    def qdata(self) -> GLib.Data | None: ...
+    @builtins.property
+    def ref_count(self) -> int: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -4460,6 +4494,15 @@ class ObjectClass(GPointer):
         to complete its initialisation.
         """
     @builtins.property
+    def constructor(self) -> object | None:
+        """
+           the `constructor` function is called by g_object_new () to
+        complete the object initialization after all the construction properties are
+        set. The first thing a `constructor` implementation must do is chain up to the
+        `constructor` of the parent class. Overriding `constructor` should be rarely
+        needed, e.g. to handle construct properties, or to implement singletons.
+        """
+    @builtins.property
     def dispatch_properties_changed(self) -> dispatch_properties_changedObjectClassCB:
         """
            emits property change notification for a bunch
@@ -4506,6 +4549,8 @@ class ObjectClass(GPointer):
         """
     @builtins.property
     def pdummy(self) -> list | None: ...
+    @builtins.property
+    def pspecs(self) -> object | None: ...
     @builtins.property
     def set_property(self) -> set_propertyObjectClassCB:
         """
@@ -4705,6 +4750,43 @@ class ParamSpec(object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def _blurb(self) -> str: ...
+    @builtins.property
+    def _nick(self) -> str: ...
+    @builtins.property
+    def flags(self) -> ParamFlags | None:
+        """
+        `GParamFlags` flags for this parameter
+        """
+    @builtins.property
+    def g_type_instance(self) -> TypeInstance | None:
+        """
+        private `GTypeInstance` portion
+        """
+    @builtins.property
+    def name(self) -> str:
+        """
+        name of this parameter: always an interned string
+        """
+    @builtins.property
+    def owner_type(self) -> GType:
+        """
+        `GType` type that uses (introduces) this parameter
+        """
+    @builtins.property
+    def param_id(self) -> int: ...
+    @builtins.property
+    def qdata(self) -> GLib.Data | None: ...
+    @builtins.property
+    def ref_count(self) -> int: ...
+    @builtins.property
+    def value_type(self) -> GType:
+        """
+        the `GValue` type for this parameter
+        """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -4808,6 +4890,11 @@ class ParamSpecBoolean(ParamSpec):
         """
         default value for the property specified
         """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -4819,6 +4906,13 @@ class ParamSpecBoxed(ParamSpec):
     """
     A GParamSpec derived structure that contains the meta data for boxed properties.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -4846,6 +4940,11 @@ class ParamSpecChar(ParamSpec):
     def minimum(self) -> int:
         """
         minimum value for the property specified
+        """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
         """
 
     # gi Methods
@@ -4941,6 +5040,11 @@ class ParamSpecDouble(ParamSpec):
         """
         minimum value for the property specified
         """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -4956,9 +5060,19 @@ class ParamSpecEnum(ParamSpec):
 
     # gi Fields
     @builtins.property
+    def default_value(self) -> int:
+        """
+        default value for the property specified
+        """
+    @builtins.property
     def enum_class(self) -> EnumClass | None:
         """
         the GEnumClass for the enum
+        """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
         """
 
     # gi Methods
@@ -4986,9 +5100,19 @@ class ParamSpecFlags(ParamSpec):
 
     # gi Fields
     @builtins.property
+    def default_value(self) -> int:
+        """
+        default value for the property specified
+        """
+    @builtins.property
     def flags_class(self) -> FlagsClass | None:
         """
         the GFlagsClass for the flags
+        """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
         """
 
     # gi Methods
@@ -5035,6 +5159,11 @@ class ParamSpecFloat(ParamSpec):
         """
         minimum value for the property specified
         """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -5052,6 +5181,11 @@ class ParamSpecGType(ParamSpec):
     def is_a_type(self) -> GType:
         """
         a GType whose subtypes can occur as values
+        """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
         """
 
     # gi Methods
@@ -5081,6 +5215,11 @@ class ParamSpecInt(ParamSpec):
         """
         minimum value for the property specified
         """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -5108,6 +5247,11 @@ class ParamSpecInt64(ParamSpec):
     def minimum(self) -> int:
         """
         minimum value for the property specified
+        """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
         """
 
     # gi Methods
@@ -5137,6 +5281,11 @@ class ParamSpecLong(ParamSpec):
         """
         minimum value for the property specified
         """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -5148,6 +5297,13 @@ class ParamSpecObject(ParamSpec):
     """
     A GParamSpec derived structure that contains the meta data for object properties.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -5173,6 +5329,8 @@ class ParamSpecOverride(ParamSpec):
     # gi Fields
     @builtins.property
     def overridden(self) -> ParamSpec | None: ...
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -5186,6 +5344,13 @@ class ParamSpecParam(ParamSpec):
     properties.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -5196,6 +5361,13 @@ class ParamSpecPointer(ParamSpec):
     """
     A GParamSpec derived structure that contains the meta data for pointer properties.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -5275,6 +5447,11 @@ class ParamSpecString(ParamSpec):
     def null_fold_if_empty(self) -> int:
         """
         replace empty string by None
+        """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
         """
     @builtins.property
     def substitutor(self) -> int:
@@ -5374,6 +5551,11 @@ class ParamSpecUChar(ParamSpec):
         """
         minimum value for the property specified
         """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -5401,6 +5583,11 @@ class ParamSpecUInt(ParamSpec):
     def minimum(self) -> int:
         """
         minimum value for the property specified
+        """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
         """
 
     # gi Methods
@@ -5430,6 +5617,11 @@ class ParamSpecUInt64(ParamSpec):
         """
         minimum value for the property specified
         """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -5458,6 +5650,11 @@ class ParamSpecULong(ParamSpec):
         """
         minimum value for the property specified
         """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -5475,6 +5672,11 @@ class ParamSpecUnichar(ParamSpec):
     def default_value(self) -> str:
         """
         default value for the property specified
+        """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
         """
 
     # gi Methods
@@ -5498,6 +5700,11 @@ class ParamSpecValueArray(ParamSpec):
     def fixed_n_elements(self) -> int:
         """
         if greater than 0, arrays of this property will always have this many elements
+        """
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
         """
 
     # gi Methods
@@ -5525,6 +5732,11 @@ class ParamSpecVariant(ParamSpec):
         """
     @builtins.property
     def padding(self) -> list | None: ...
+    @builtins.property
+    def parent_instance(self) -> ParamSpec | None:
+        """
+        private GParamSpec portion
+        """
     @builtins.property
     def type(self) -> GLib.VariantType | None:
         """
@@ -6061,6 +6273,11 @@ class TypeInfo(GPointer):
     Location of the base initialization function (optional)
 
     """
+    class_data: object | None = ...
+    """
+    User-supplied data passed to the class init/finalize functions
+
+    """
     class_finalize: ClassFinalizeFuncTypeInfoCB = ...
     """
     Location of the class finalization function for
@@ -6233,6 +6450,8 @@ class TypeModule(Object):
         """
         the name of the module
         """
+    @builtins.property
+    def parent_instance(self) -> Object | None: ...
     @builtins.property
     def type_infos(self) -> list | None: ...
     @builtins.property
@@ -6618,6 +6837,11 @@ class Value(GBoxed):
     within the 2 element `data` union, and the `g_type` member should
     only be accessed through the `G_VALUE_TYPE` macro.
     """
+
+    # gi Fields
+    data: list | None = ...
+    @builtins.property
+    def g_type(self) -> GType: ...
 
     # gi Methods
     def copy(self, dest_value: Value) -> None:

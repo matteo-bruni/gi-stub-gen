@@ -810,6 +810,12 @@ class DesktopAppInfoLookupIface(GObject.GPointer):
     # gi Fields
     @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
+    @builtins.property
+    def get_default_for_uri_scheme(self) -> object | None:
+        """
+           Virtual method for
+        `g_desktop_app_info_lookup_get_default_for_uri_scheme`.
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -842,6 +848,12 @@ class FDMessage(Gio.SocketControlMessage):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Gio.SocketControlMessage | None: ...
+    @builtins.property
+    def priv(self) -> Gio.UnixFDMessagePrivate | None: ...
 
     # gi Methods
     def __init__(self, fd_list: Gio.UnixFDList | None = ...) -> None:
@@ -916,6 +928,10 @@ class FDMessage(Gio.SocketControlMessage):
 class FDMessageClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> Gio.SocketControlMessageClass | None: ...
 
     # gi Methods
@@ -980,6 +996,12 @@ class InputStream(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Gio.InputStream | None: ...
+    @builtins.property
+    def priv(self) -> Gio.UnixInputStreamPrivate | None: ...
+
     # gi Methods
     def __init__(self, close_fd: bool = ..., fd: int = ...) -> None:
         """
@@ -1033,6 +1055,16 @@ class InputStream(GObject.Object):
 
 class InputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> Gio.InputStreamClass | None: ...
 
@@ -1375,6 +1407,12 @@ class OutputStream(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> Gio.OutputStream | None: ...
+    @builtins.property
+    def priv(self) -> Gio.UnixOutputStreamPrivate | None: ...
+
     # gi Methods
     def __init__(self, close_fd: bool = ..., fd: int = ...) -> None:
         """
@@ -1428,6 +1466,16 @@ class OutputStream(GObject.Object):
 
 class OutputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> Gio.OutputStreamClass | None: ...
 

@@ -127,7 +127,9 @@ def gi_type_is_callback(gi_type_info: GI.TypeInfo) -> bool:
         bool: True if the type is a callback
 
     """
-    return gi_type_info.get_tag() == GI.TypeTag.INTERFACE and isinstance(gi_type_info.get_interface(), GI.CallbackInfo)
+    return gi_type_info.get_tag() == GI.TypeTag.INTERFACE and isinstance(
+        gi_type_info.get_interface(), (GI.CallbackInfo, GIRepository.CallbackInfo)
+    )
 
 
 # def gi_callback_to_py_type(gi_type_info: GI.TypeInfo):
@@ -198,7 +200,8 @@ def gi_type_to_py_type(
         if isinstance(iface, (GI.CallbackInfo, GIRepository.CallbackInfo)):
             # cant return the type, will not work since
             # a callback is not implemented in python
-            raise NotImplementedError("CallbackInfo to Python type conversion not possible")
+            breakpoint()
+            raise NotImplementedError(f"CallbackInfo to Python type conversion not possible, found {type(iface)}")
             # return gi_callback_to_py_type(iface)
             # cant return the type, will not work since it is not implemented
             # raise NotImplementedError

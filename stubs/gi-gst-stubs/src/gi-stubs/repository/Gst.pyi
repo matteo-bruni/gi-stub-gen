@@ -5506,6 +5506,8 @@ class AllocationParams(GObject.GBoxed):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     align: int = ...
     """
     the desired alignment of the memory
@@ -5576,6 +5578,8 @@ class Allocator(Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def mem_copy(self) -> MemoryCopyFunctionAllocatorCB:
         """
         the implementation of the GstMemoryCopyFunction
@@ -5616,6 +5620,8 @@ class Allocator(Object):
         """
     @builtins.property
     def object(self) -> Object | None: ...
+    @builtins.property
+    def priv(self) -> AllocatorPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -5683,6 +5689,8 @@ class AllocatorClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def alloc(self) -> allocAllocatorClassCB | None:
         """
@@ -5888,6 +5896,8 @@ class Bin(Element):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def child_bus(self) -> Bus | None:
         """
         internal bus for handling child messages
@@ -5929,6 +5939,8 @@ class Bin(Element):
         """
         the bin is currently calculating its state
         """
+    @builtins.property
+    def priv(self) -> BinPrivate | None: ...
     @builtins.property
     def provided_clock(self) -> Clock | None:
         """
@@ -6220,6 +6232,8 @@ class BinClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def add_element(self) -> add_elementBinClassCB: ...
     @builtins.property
@@ -6924,6 +6938,8 @@ class BufferPool(Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def flushing(self) -> int:
         """
         whether the pool is currently gathering back outstanding buffers
@@ -6933,6 +6949,8 @@ class BufferPool(Object):
         """
         the parent structure
         """
+    @builtins.property
+    def priv(self) -> BufferPoolPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -7175,6 +7193,8 @@ class BufferPoolAcquireParams(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     flags: BufferPoolAcquireFlags = ...
     """
     additional flags
@@ -7208,6 +7228,8 @@ class BufferPoolClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def acquire_buffer(self) -> acquire_bufferBufferPoolClassCB: ...
     @builtins.property
@@ -7308,10 +7330,14 @@ class Bus(Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def object(self) -> Object | None:
         """
         the parent structure
         """
+    @builtins.property
+    def priv(self) -> BusPrivate | None: ...
 
     # gi Methods
     def __init__(self, enable_async: bool = ...) -> None:
@@ -7609,6 +7635,8 @@ class BusClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def message(self) -> messageBusClassCB: ...
     @builtins.property
     def parent_class(self) -> ObjectClass | None:
@@ -7643,6 +7671,8 @@ class ByteArrayInterface(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     data: int = ...
     """
     A pointer to an array of bytes.
@@ -8303,6 +8333,8 @@ class ChildProxyInterface(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def child_added(self) -> child_addedChildProxyInterfaceCB:
         """
         Called when `child` is added to `parent`
@@ -8326,6 +8358,11 @@ class ChildProxyInterface(GObject.GPointer):
     def get_children_count(self) -> get_children_countChildProxyInterfaceCB:
         """
         Get the number of children in `parent`
+        """
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None:
+        """
+        parent interface type.
         """
 
     # gi Methods
@@ -8420,10 +8457,14 @@ class Clock(Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def object(self) -> Object | None:
         """
         the parent structure
         """
+    @builtins.property
+    def priv(self) -> ClockPrivate | None: ...
 
     # gi Methods
     def __init__(self, timeout: int = ..., window_size: int = ..., window_threshold: int = ...) -> None:
@@ -8792,6 +8833,8 @@ class ClockClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def change_resolution(self) -> change_resolutionClockClassCB: ...
     @builtins.property
     def get_internal_time(self) -> get_internal_timeClockClassCB: ...
@@ -8825,6 +8868,8 @@ class ClockEntry(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def clock(self) -> Clock | None: ...
     @builtins.property
     def destroy_data(self) -> GLib.DestroyNotify: ...
@@ -8845,6 +8890,8 @@ class ClockEntry(GObject.GPointer):
     def type(self) -> ClockEntryType: ...
     @builtins.property
     def unscheduled(self) -> bool: ...
+    @builtins.property
+    def user_data(self) -> object | None: ...
     @builtins.property
     def woken_up(self) -> bool: ...
 
@@ -8954,6 +9001,11 @@ class ControlBinding(Object):
     @builtins.property
     def object(self) -> Object | None: ...
     @builtins.property
+    def parent(self) -> Object | None:
+        """
+        the parent structure
+        """
+    @builtins.property
     def pspec(self) -> GObject.ParamSpec | None:
         """
         GParamSpec for this property
@@ -9049,9 +9101,13 @@ class ControlBindingClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def get_g_value_array(self) -> get_g_value_arrayControlBindingClassCB: ...
     @builtins.property
     def get_value(self) -> get_valueControlBindingClassCB | None: ...
+    @builtins.property
+    def get_value_array(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> ObjectClass | None:
         """
@@ -9092,6 +9148,8 @@ class ControlSource(Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def get_value(self) -> ControlSourceGetValueControlSourceCB:
         """
         Function for returning a value for a given timestamp
@@ -9100,6 +9158,11 @@ class ControlSource(Object):
     def get_value_array(self) -> ControlSourceGetValueArrayControlSourceCB:
         """
         Function for returning a values array for a given timestamp
+        """
+    @builtins.property
+    def parent(self) -> Object | None:
+        """
+        the parent structure
         """
 
     # gi Methods
@@ -9123,6 +9186,8 @@ class ControlSourceClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> ObjectClass | None:
         """
@@ -9478,6 +9543,17 @@ class Device(Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
+    def parent(self) -> Object | None:
+        """
+        The parent Gst.Object structure.
+        """
+    @builtins.property
+    def priv(self) -> DevicePrivate | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -9595,6 +9671,8 @@ class DeviceClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def create_element(self) -> create_elementDeviceClassCB | None:
         """
            Creates the fully configured element to access this device.
@@ -9690,6 +9768,17 @@ class DeviceMonitor(Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
+    def parent(self) -> Object | None:
+        """
+        the parent Gst.Object structure
+        """
+    @builtins.property
+    def priv(self) -> DeviceMonitorPrivate | None: ...
+
     # gi Methods
     def __init__(self, show_all: bool = ...) -> None:
         """
@@ -9775,6 +9864,8 @@ class DeviceMonitorClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def parent_class(self) -> ObjectClass | None:
         """
         the parent Gst.ObjectClass structure
@@ -9815,10 +9906,19 @@ class DeviceProvider(Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def devices(self) -> list | None:
         """
         a GList of the Gst.Device objects
         """
+    @builtins.property
+    def parent(self) -> Object | None:
+        """
+        The parent Gst.Object
+        """
+    @builtins.property
+    def priv(self) -> DeviceProviderPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -10006,15 +10106,26 @@ class DeviceProviderClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def factory(self) -> DeviceProviderFactory | None:
         """
            a pointer to the Gst.DeviceProviderFactory that creates this
         provider
         """
     @builtins.property
+    def metadata(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> ObjectClass | None:
         """
         the parent Gst.ObjectClass structure
+        """
+    @builtins.property
+    def probe(self) -> object | None:
+        """
+           Returns a list of devices that are currently available.
+        This should never block. The devices should not have a parent and should
+        be floating.
         """
     @builtins.property
     def start(self) -> startDeviceProviderClassCB:
@@ -10258,6 +10369,8 @@ class Element(Object):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def base_time(self) -> int:
         """
@@ -11267,6 +11380,8 @@ class ElementClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def change_state(self) -> change_stateElementClassCB:
         """
         called by `set_state` to perform an incremental state change
@@ -11280,6 +11395,11 @@ class ElementClass(GObject.GPointer):
     def get_state(self) -> get_stateElementClassCB:
         """
         get the state of the element
+        """
+    @builtins.property
+    def metadata(self) -> object | None:
+        """
+        metadata for elements of this class
         """
     @builtins.property
     def no_more_pads(self) -> no_more_padsElementClassCB: ...
@@ -12404,6 +12524,8 @@ class GhostPad(ProxyPad):
     # gi Fields
     @builtins.property
     def pad(self) -> ProxyPad | None: ...
+    @builtins.property
+    def priv(self) -> GhostPadPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -12476,6 +12598,8 @@ class GhostPad(ProxyPad):
 class GhostPadClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def parent_class(self) -> ProxyPadClass | None: ...
 
     # gi Methods
@@ -12512,6 +12636,8 @@ class IdStr(GObject.GBoxed):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
+    @builtins.property
+    def pointer(self) -> object | None: ...
 
     # gi Methods
     def as_str(self) -> str: ...
@@ -12671,6 +12797,8 @@ class Iterator(GObject.GBoxed):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     cookie: int = ...
     """
     The cookie; the value of the master_cookie when this iterator was
@@ -12832,6 +12960,8 @@ class MapInfo(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     data: list | None = ...
     """
     a pointer to the mapped data
@@ -12934,6 +13064,11 @@ class Memory(GObject.GBoxed):
     offset: int = ...
     """
     the offset where valid data starts
+
+    """
+    parent: Memory | None = ...
+    """
+    parent memory block
 
     """
     size: int = ...
@@ -14193,6 +14328,8 @@ class MiniObject(GObject.GBoxed):
 
     """
     @builtins.property
+    def priv_pointer(self) -> object | None: ...
+    @builtins.property
     def priv_uint(self) -> int: ...
     refcount: int = ...
     """
@@ -14361,6 +14498,8 @@ class Object(GObject.InitiallyUnowned):
     def props(self) -> Props: ...
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> object | None: ...
     @builtins.property
     def control_bindings(self) -> list | None: ...
     @builtins.property
@@ -14637,6 +14776,8 @@ class ObjectClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def deep_notify(self) -> deep_notifyObjectClassCB:
         """
         default signal handler
@@ -14735,7 +14876,11 @@ class Pad(Object):
 
     # gi Fields
     @builtins.property
+    def activatedata(self) -> object | None: ...
+    @builtins.property
     def activatefunc(self) -> PadActivateFunctionPadCB: ...
+    @builtins.property
+    def activatemodedata(self) -> object | None: ...
     @builtins.property
     def activatemodefunc(self) -> PadActivateModeFunctionPadCB: ...
     @builtins.property
@@ -14745,7 +14890,11 @@ class Pad(Object):
     @builtins.property
     def block_cond(self) -> GLib.Cond | None: ...
     @builtins.property
+    def chaindata(self) -> object | None: ...
+    @builtins.property
     def chainfunc(self) -> PadChainFunctionPadCB: ...
+    @builtins.property
+    def chainlistdata(self) -> object | None: ...
     @builtins.property
     def chainlistfunc(self) -> PadChainListFunctionPadCB: ...
     @builtins.property
@@ -14759,17 +14908,30 @@ class Pad(Object):
                 the pad.
         """
     @builtins.property
+    def element_private(self) -> object | None:
+        """
+        private data owned by the parent element
+        """
+    @builtins.property
+    def eventdata(self) -> object | None: ...
+    @builtins.property
     def eventfunc(self) -> PadEventFunctionPadCB: ...
     @builtins.property
     def eventnotify(self) -> GLib.DestroyNotify: ...
+    @builtins.property
+    def getrangedata(self) -> object | None: ...
     @builtins.property
     def getrangefunc(self) -> PadGetRangeFunctionPadCB: ...
     @builtins.property
     def getrangenotify(self) -> GLib.DestroyNotify: ...
     @builtins.property
+    def iterintlinkdata(self) -> object | None: ...
+    @builtins.property
     def iterintlinkfunc(self) -> PadIterIntLinkFunctionPadCB: ...
     @builtins.property
     def iterintlinknotify(self) -> GLib.DestroyNotify: ...
+    @builtins.property
+    def linkdata(self) -> object | None: ...
     @builtins.property
     def linkfunc(self) -> PadLinkFunctionPadCB: ...
     @builtins.property
@@ -14792,7 +14954,11 @@ class Pad(Object):
     @builtins.property
     def peer(self) -> Pad | None: ...
     @builtins.property
+    def priv(self) -> PadPrivate | None: ...
+    @builtins.property
     def probes(self) -> GLib.HookList | None: ...
+    @builtins.property
+    def querydata(self) -> object | None: ...
     @builtins.property
     def queryfunc(self) -> PadQueryFunctionPadCB: ...
     @builtins.property
@@ -14801,6 +14967,8 @@ class Pad(Object):
     def stream_rec_lock(self) -> GLib.RecMutex | None: ...
     @builtins.property
     def task(self) -> Task | None: ...
+    @builtins.property
+    def unlinkdata(self) -> object | None: ...
     @builtins.property
     def unlinkfunc(self) -> PadUnlinkFunctionPadCB: ...
     @builtins.property
@@ -15601,6 +15769,8 @@ class Pad(Object):
 class PadClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def linked(self) -> linkedPadClassCB: ...
     @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
@@ -15626,6 +15796,12 @@ class PadProbeInfo(GObject.GPointer):
     """
 
     # gi Fields
+    data: object | None = ...
+    """
+    type specific data, check the `type` field to know the
+       datatype.  This field can be None.
+
+    """
     id: int = ...
     """
     the id of the probe
@@ -15877,6 +16053,8 @@ class PadTemplate(Object):
 class PadTemplateClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def pad_created(self) -> pad_createdPadTemplateClassCB: ...
     @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
@@ -15920,6 +16098,11 @@ class ParamSpecArray(GObject.GPointer):
     element_spec: GObject.ParamSpec | None = ...  # type: ignore
     """
     the GParamSpec of the type of values in the array
+
+    """
+    parent_instance: GObject.ParamSpec | None = ...  # type: ignore
+    """
+    super class
 
     """
 
@@ -15966,6 +16149,11 @@ class ParamSpecFraction(GObject.GPointer):
     minimal numerator
 
     """
+    parent_instance: GObject.ParamSpec | None = ...  # type: ignore
+    """
+    super class
+
+    """
 
     # gi Methods
     def __init__(self) -> None:
@@ -15989,6 +16177,11 @@ class ParentBufferMeta(GObject.GPointer):
     buffer: Buffer | None = ...
     """
     the Gst.Buffer on which a reference is being held.
+
+    """
+    parent: Meta | None = ...
+    """
+    the parent Gst.Meta structure
 
     """
 
@@ -16115,6 +16308,8 @@ class Pipeline(Bin):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def bin(self) -> Bin | None: ...
     @builtins.property
     def delay(self) -> int:
@@ -16128,6 +16323,8 @@ class Pipeline(Bin):
         The fixed clock of the pipeline, used when
                   GST_PIPELINE_FLAG_FIXED_CLOCK is set.
         """
+    @builtins.property
+    def priv(self) -> PipelinePrivate | None: ...
     @builtins.property
     def stream_time(self) -> int:
         """
@@ -16276,6 +16473,8 @@ class Pipeline(Bin):
 
 class PipelineClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> BinClass | None: ...
 
@@ -16508,6 +16707,8 @@ class PluginDesc(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     description: str = ...
     """
     description of plugin
@@ -16939,6 +17140,8 @@ class PresetInterface(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def delete_preset(self) -> delete_presetPresetInterfaceCB:
         """
         virtual methods to remove a preset
@@ -16962,6 +17165,11 @@ class PresetInterface(GObject.GPointer):
     def load_preset(self) -> load_presetPresetInterfaceCB:
         """
         virtual methods to load a preset into properties
+        """
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None:
+        """
+        parent interface type.
         """
     @builtins.property
     def rename_preset(self) -> rename_presetPresetInterfaceCB:
@@ -17040,6 +17248,13 @@ class Promise(GObject.GBoxed):
     from an arbitrary thread.  Gst.Promise using APIs can restrict this to
     a single thread or a subset of threads but that is entirely up to the API
     that uses Gst.Promise.
+    """
+
+    # gi Fields
+    parent: MiniObject | None = ...
+    """
+    parent Gst.MiniObject
+
     """
 
     # gi Methods
@@ -17124,6 +17339,8 @@ class ProxyPad(Pad):
     # gi Fields
     @builtins.property
     def pad(self) -> Pad | None: ...
+    @builtins.property
+    def priv(self) -> ProxyPadPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -17160,6 +17377,8 @@ class ProxyPad(Pad):
 
 class ProxyPadClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> PadClass | None: ...
 
@@ -17761,6 +17980,11 @@ class ReferenceTimestampMeta(GObject.GPointer):
     duration, or Gst.CLOCK_TIME_NONE
 
     """
+    parent: Meta | None = ...
+    """
+    the parent Gst.Meta structure
+
+    """
     reference: Caps | None = ...
     """
     identifier for the timestamp reference.
@@ -17848,6 +18072,8 @@ class Registry(Object):
     # gi Fields
     @builtins.property
     def object(self) -> Object | None: ...
+    @builtins.property
+    def priv(self) -> RegistryPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -18133,6 +18359,8 @@ class Segment(GObject.GBoxed):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     applied_rate: float = ...
     """
     The applied rate is the rate that has been applied to the stream.
@@ -18464,6 +18692,14 @@ class SharedTaskPool(TaskPool):
     The Gst.SharedTaskPool object.
     """
 
+    # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
+    def parent(self) -> TaskPool | None: ...
+    @builtins.property
+    def priv(self) -> SharedTaskPoolPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -18496,6 +18732,8 @@ class SharedTaskPoolClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def parent_class(self) -> TaskPoolClass | None: ...
 
     # gi Methods
@@ -18519,6 +18757,8 @@ class StaticCaps(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     caps: Caps | None = ...
     """
     the cached Gst.Caps
@@ -18626,7 +18866,11 @@ class Stream(Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def object(self) -> Object | None: ...
+    @builtins.property
+    def priv(self) -> StreamPrivate | None: ...
     @builtins.property
     def stream_id(self) -> str:
         """
@@ -18741,6 +18985,8 @@ class StreamClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def parent_class(self) -> ObjectClass | None:
         """
         the parent class structure
@@ -18783,7 +19029,11 @@ class StreamCollection(Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def object(self) -> Object | None: ...
+    @builtins.property
+    def priv(self) -> StreamCollectionPrivate | None: ...
     @builtins.property
     def upstream_id(self) -> str: ...
 
@@ -18857,6 +19107,8 @@ class StreamCollectionClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> ObjectClass | None:
         """
@@ -19554,7 +19806,11 @@ class SystemClock(Clock):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def clock(self) -> Clock | None: ...
+    @builtins.property
+    def priv(self) -> SystemClockPrivate | None: ...
 
     # gi Methods
     def __init__(self, clock_type: ClockType = ...) -> None:
@@ -19596,6 +19852,8 @@ class SystemClock(Clock):
 
 class SystemClockClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> ClockClass | None: ...
 
@@ -20037,6 +20295,8 @@ class Task(Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def cond(self) -> GLib.Cond | None:
         """
         used to pause/resume the task
@@ -20059,6 +20319,8 @@ class Task(Object):
     @builtins.property
     def object(self) -> Object | None: ...
     @builtins.property
+    def priv(self) -> TaskPrivate | None: ...
+    @builtins.property
     def running(self) -> bool:
         """
         a flag indicating that the task is running
@@ -20070,6 +20332,11 @@ class Task(Object):
         """
     @builtins.property
     def thread(self) -> GLib.Thread | None: ...
+    @builtins.property
+    def user_data(self) -> object | None:
+        """
+        user_data passed to the task function
+        """
 
     # gi Methods
     def __init__(self) -> None:
@@ -20193,6 +20460,8 @@ class Task(Object):
 class TaskClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
     @builtins.property
     def pool(self) -> TaskPool | None: ...
@@ -20212,6 +20481,8 @@ class TaskPool(Object):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def object(self) -> Object | None: ...
     @builtins.property
@@ -20309,6 +20580,8 @@ class TaskPoolClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def cleanup(self) -> cleanupTaskPoolClassCB:
         """
@@ -20603,6 +20876,14 @@ class Tracer(Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
+    def parent(self) -> Object | None: ...
+    @builtins.property
+    def priv(self) -> TracerPrivate | None: ...
+
     # gi Methods
     def __init__(self, params: str = ...) -> None:
         """
@@ -20647,6 +20928,8 @@ class Tracer(Object):
 
 class TracerClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
 
@@ -20736,6 +21019,15 @@ class TypeFind(GObject.GPointer):
     """
     The following functions allow you to detect the media type of an unknown
     stream.
+    """
+
+    # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    data: object | None = ...
+    """
+    The data used by the caller of the typefinding function.
+
     """
 
     # gi Methods
@@ -20940,6 +21232,11 @@ class URIHandlerInterface(GObject.GPointer):
     def get_uri(self) -> get_uriURIHandlerInterfaceCB | None:
         """
         Method to return the URI currently handled by the element.
+        """
+    @builtins.property
+    def parent(self) -> GObject.TypeInterface | None:
+        """
+        The parent interface type
         """
     @builtins.property
     def set_uri(self) -> set_uriURIHandlerInterfaceCB:
@@ -21408,6 +21705,8 @@ class ValueTable(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     compare: ValueCompareFuncValueTableCB = ...
     """
     a Gst.ValueCompareFunc

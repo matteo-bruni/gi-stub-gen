@@ -146,6 +146,8 @@ As an example:
 - [ ] Add comprehensive test suite.
 - [ ] Create Docker-based build system for consistent environment reproduction.
 - [ ] typing.overload hides the parents implementations. We are using this for signals connect() methods. TODO: for each class traverse the MRO and collect all overloads for methods that are overloaded in parents too. or get_parent() and check if method exists there.
+- [ ] Handle VFunctionInfo (virtual functions) ??? no examples
+- [ ] Handle UnionInfo ??? no examples maybe GLib.TokenValue?
 ---
 
 ### License

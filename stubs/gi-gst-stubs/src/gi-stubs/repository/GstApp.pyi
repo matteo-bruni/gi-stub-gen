@@ -56,7 +56,11 @@ class AppSink(GstBase.BaseSink):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def basesink(self) -> GstBase.BaseSink | None: ...
+    @builtins.property
+    def priv(self) -> AppSinkPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -288,6 +292,8 @@ class AppSink(GstBase.BaseSink):
 class AppSinkClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def basesink_class(self) -> GstBase.BaseSinkClass | None: ...
     @builtins.property
     def eos(self) -> eosAppSinkClassCB: ...
@@ -346,7 +352,11 @@ class AppSrc(GstBase.BaseSrc):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def basesrc(self) -> GstBase.BaseSrc | None: ...
+    @builtins.property
+    def priv(self) -> AppSrcPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -647,6 +657,8 @@ class AppSrc(GstBase.BaseSrc):
 
 class AppSrcClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def basesrc_class(self) -> GstBase.BaseSrcClass | None: ...
     @builtins.property

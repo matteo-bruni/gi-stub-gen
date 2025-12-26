@@ -2966,6 +2966,11 @@ class Analysis(GObject.GPointer):
     the glyph orientation for this segment (A `PangoGravity`).
 
     """
+    lang_engine: object | None = ...
+    """
+    unused, reserved
+
+    """
     language: Language | None = ...
     """
     the detected language for this segment.
@@ -2979,6 +2984,11 @@ class Analysis(GObject.GPointer):
     script: int = ...
     """
     the detected script for this segment (A `PangoScript`) (Since: 1.18).
+
+    """
+    shape_engine: object | None = ...
+    """
+    unused, reserved
 
     """
 
@@ -3449,6 +3459,11 @@ class AttrShape(GObject.GPointer):
     copy_func: AttrDataCopyFuncAttrShapeCB | None = ...
     """
     copy function for the user data
+
+    """
+    data: object | None = ...
+    """
+    user data set (see [func`Pango`.AttrShape.new_with_data])
 
     """
     destroy_func: GLib.DestroyNotify = ...  # type: ignore
@@ -4042,6 +4057,10 @@ class Font(GObject.Object):
     A `PangoFont` is used to represent a font in a
     rendering-system-independent manner.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -4640,6 +4659,10 @@ class FontFace(GObject.Object):
     the same family, slant, weight, and width, but varying sizes.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -4718,6 +4741,10 @@ class FontFace(GObject.Object):
 class FontFaceClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _pango_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _pango_reserved4(self) -> object | None: ...
+    @builtins.property
     def describe(self) -> describeFontFaceClassCB: ...
     @builtins.property
     def get_face_name(self) -> get_face_nameFontFaceClassCB: ...
@@ -4769,6 +4796,10 @@ class FontFamily(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -4906,6 +4937,8 @@ class FontFamily(GObject.Object):
 class FontFamilyClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _pango_reserved2(self) -> object | None: ...
+    @builtins.property
     def get_face(self) -> get_faceFontFamilyClassCB | None: ...
     @builtins.property
     def get_name(self) -> get_nameFontFamilyClassCB: ...
@@ -4945,6 +4978,10 @@ class FontMap(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -5107,6 +5144,8 @@ class FontMapClass(GObject.GPointer):
         """
         See `Pango.font_map_changed`
         """
+    @builtins.property
+    def get_face(self) -> object | None: ...
     @builtins.property
     def get_family(self) -> get_familyFontMapClassCB: ...
     @builtins.property
@@ -5285,6 +5324,10 @@ class Fontset(GObject.Object):
     composite set of metrics for the entire fontset.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -5343,6 +5386,14 @@ class FontsetClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _pango_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _pango_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _pango_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _pango_reserved4(self) -> object | None: ...
     @builtins.property
     def foreach(self) -> foreachFontsetClassCB:
         """
@@ -7430,6 +7481,10 @@ class Renderer(GObject.Object):
         same as the identity matrix.
         """
     @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> RendererPrivate | None: ...
+    @builtins.property
     def strikethrough(self) -> bool: ...
     @builtins.property
     def underline(self) -> Underline: ...
@@ -7721,6 +7776,12 @@ class RendererClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _pango_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _pango_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _pango_reserved4(self) -> object | None: ...
     @builtins.property
     def begin(self) -> beginRendererClassCB:
         """

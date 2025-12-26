@@ -2884,6 +2884,10 @@ class ContentProvider(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -8133,6 +8137,29 @@ class RGBA(GObject.GBoxed):
     be clamped to this range when drawing.
     """
 
+    # gi Fields
+    alpha: float = ...
+    """
+    The opacity of the color from 0.0 for completely translucent to
+      1.0 for opaque
+
+    """
+    blue: float = ...
+    """
+    The intensity of the blue channel from 0.0 to 1.0 inclusive
+
+    """
+    green: float = ...
+    """
+    The intensity of the green channel from 0.0 to 1.0 inclusive
+
+    """
+    red: float = ...
+    """
+    The intensity of the red channel from 0.0 to 1.0 inclusive
+
+    """
+
     # gi Methods
     def copy(self) -> RGBA:
         """
@@ -8351,6 +8378,10 @@ class Seat(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self, display: Display | None = ...) -> None:

@@ -6612,6 +6612,12 @@ class AppLaunchContext(GObject.Object):
     on the same screen as the launching window.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> AppLaunchContextPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -6795,6 +6801,12 @@ class AppLaunchContext(GObject.Object):
 
 class AppLaunchContextClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
     @builtins.property
     def get_display(self) -> get_displayAppLaunchContextClassCB | None: ...
     @builtins.property
@@ -6989,6 +7001,12 @@ class Application(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> ApplicationPrivate | None: ...
 
     # gi Methods
     def activate(self) -> None:
@@ -8154,6 +8172,12 @@ class ApplicationCommandLine(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> ApplicationCommandLinePrivate | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -8840,6 +8864,12 @@ class BufferedInputStream(FilterInputStream):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> FilterInputStream | None: ...
+    @builtins.property
+    def priv(self) -> BufferedInputStreamPrivate | None: ...
+
     # gi Methods
     def __init__(self, buffer_size: int = ...) -> None:
         """
@@ -8992,6 +9022,16 @@ class BufferedInputStream(FilterInputStream):
 class BufferedInputStreamClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
     def fill(self) -> fillBufferedInputStreamClassCB: ...
     @builtins.property
     def fill_async(self) -> fill_asyncBufferedInputStreamClassCB: ...
@@ -9042,6 +9082,12 @@ class BufferedOutputStream(FilterOutputStream):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> FilterOutputStream | None: ...
+    @builtins.property
+    def priv(self) -> BufferedOutputStreamPrivate | None: ...
 
     # gi Methods
     def __init__(self, auto_grow: bool = ..., buffer_size: int = ...) -> None:
@@ -9102,6 +9148,10 @@ class BufferedOutputStream(FilterOutputStream):
 
 class BufferedOutputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> FilterOutputStreamClass | None: ...
 
@@ -9173,6 +9223,12 @@ class Cancellable(GObject.Object):
     throughout GIO to allow for cancellation of synchronous and
     asynchronous operations.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> CancellablePrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -9406,6 +9462,16 @@ class Cancellable(GObject.Object):
 
 class CancellableClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def cancelled(self) -> cancelledCancellableClassCB: ...
     @builtins.property
@@ -9673,6 +9739,12 @@ class ConverterInputStream(FilterInputStream):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> FilterInputStream | None: ...
+    @builtins.property
+    def priv(self) -> ConverterInputStreamPrivate | None: ...
+
     # gi Methods
     def __init__(self, converter: Converter | None = ...) -> None:
         """
@@ -9704,6 +9776,16 @@ class ConverterInputStream(FilterInputStream):
 
 class ConverterInputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> FilterInputStreamClass | None: ...
 
@@ -9738,6 +9820,12 @@ class ConverterOutputStream(FilterOutputStream):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> FilterOutputStream | None: ...
+    @builtins.property
+    def priv(self) -> ConverterOutputStreamPrivate | None: ...
+
     # gi Methods
     def __init__(self, converter: Converter | None = ...) -> None:
         """
@@ -9769,6 +9857,16 @@ class ConverterOutputStream(FilterOutputStream):
 
 class ConverterOutputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> FilterOutputStreamClass | None: ...
 
@@ -9934,6 +10032,28 @@ class DBusAnnotationInfo(GObject.GBoxed):
     Information about an annotation.
     """
 
+    # gi Fields
+    annotations: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
+
+    """
+    key: str = ...
+    """
+    The name of the annotation, e.g. "org.freedesktop.DBus.Deprecated".
+
+    """
+    ref_count: int = ...
+    """
+    The reference count or -1 if statically allocated.
+
+    """
+    value: str = ...
+    """
+    The value of the annotation.
+
+    """
+
     # gi Methods
     @staticmethod
     def lookup(annotations: list | None, name: str) -> str | None:
@@ -9964,6 +10084,28 @@ class DBusAnnotationInfo(GObject.GBoxed):
 class DBusArgInfo(GObject.GBoxed):
     """
     Information about an argument for a method or a signal.
+    """
+
+    # gi Fields
+    annotations: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
+
+    """
+    name: str = ...
+    """
+    Name of the argument, e.g. `unix_user_id`.
+
+    """
+    ref_count: int = ...
+    """
+    The reference count or -1 if statically allocated.
+
+    """
+    signature: str = ...
+    """
+    D-Bus signature of the argument (a single complete type).
+
     """
 
     # gi Methods
@@ -11358,6 +11500,38 @@ class DBusInterfaceInfo(GObject.GBoxed):
     Information about a D-Bus interface.
     """
 
+    # gi Fields
+    annotations: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
+
+    """
+    methods: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusMethodInfo structures or None if there are no methods.
+
+    """
+    name: str = ...
+    """
+    The name of the D-Bus interface, e.g. "org.freedesktop.DBus.Properties".
+
+    """
+    properties: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusPropertyInfo structures or None if there are no properties.
+
+    """
+    ref_count: int = ...
+    """
+    The reference count or -1 if statically allocated.
+
+    """
+    signals: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusSignalInfo structures or None if there are no signals.
+
+    """
+
     # gi Methods
     def cache_build(self) -> None:
         """
@@ -11440,6 +11614,12 @@ class DBusInterfaceSkeleton(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> DBusInterfaceSkeletonPrivate | None: ...
 
     # gi Methods
     def __init__(self, g_flags: DBusInterfaceSkeletonFlags = ...) -> None:
@@ -12047,6 +12227,33 @@ class DBusMethodInfo(GObject.GBoxed):
     Information about a method on a D-Bus interface.
     """
 
+    # gi Fields
+    annotations: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
+
+    """
+    in_args: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusArgInfo structures or None if there are no in arguments.
+
+    """
+    name: str = ...
+    """
+    The name of the D-Bus method, e.g. `RequestName`.
+
+    """
+    out_args: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusArgInfo structures or None if there are no out arguments.
+
+    """
+    ref_count: int = ...
+    """
+    The reference count or -1 if statically allocated.
+
+    """
+
     # gi Methods
     def ref(self) -> DBusMethodInfo:
         """
@@ -12233,6 +12440,33 @@ class DBusMethodInvocation(GObject.Object):
 class DBusNodeInfo(GObject.GBoxed):
     """
     Information about nodes in a remote object hierarchy.
+    """
+
+    # gi Fields
+    annotations: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
+
+    """
+    interfaces: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusInterfaceInfo structures or None if there are no interfaces.
+
+    """
+    nodes: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusNodeInfo structures or None if there are no nodes.
+
+    """
+    path: str = ...
+    """
+    The path of the node or None if omitted. Note that this may be a relative path. See the D-Bus specification for more details.
+
+    """
+    ref_count: int = ...
+    """
+    The reference count or -1 if statically allocated.
+
     """
 
     # gi Methods
@@ -12594,6 +12828,12 @@ class DBusObjectManagerClient(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> DBusObjectManagerClientPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -12993,6 +13233,12 @@ class DBusObjectManagerServer(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> DBusObjectManagerServerPrivate | None: ...
+
     # gi Methods
     def __init__(self, connection: DBusConnection | None = ..., object_path: str = ...) -> None:
         """
@@ -13120,6 +13366,12 @@ class DBusObjectProxy(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> DBusObjectProxyPrivate | None: ...
+
     # gi Methods
     def __init__(self, g_connection: DBusConnection | None = ..., g_object_path: str = ...) -> None:
         """
@@ -13200,6 +13452,12 @@ class DBusObjectSkeleton(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> DBusObjectSkeletonPrivate | None: ...
 
     # gi Methods
     def __init__(self, g_object_path: str = ...) -> None:
@@ -13491,6 +13749,12 @@ class DBusProxy(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> DBusProxyPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -14224,6 +14488,28 @@ class DBusSignalInfo(GObject.GBoxed):
     Information about a signal on a D-Bus interface.
     """
 
+    # gi Fields
+    annotations: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
+
+    """
+    args: list | None = ...
+    """
+    A pointer to a None-terminated array of pointers to GDBusArgInfo structures or None if there are no arguments.
+
+    """
+    name: str = ...
+    """
+    The name of the D-Bus signal, e.g. "NameOwnerChanged".
+
+    """
+    ref_count: int = ...
+    """
+    The reference count or -1 if statically allocated.
+
+    """
+
     # gi Methods
     def ref(self) -> DBusSignalInfo:
         """
@@ -14295,6 +14581,12 @@ class DataInputStream(BufferedInputStream):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> BufferedInputStream | None: ...
+    @builtins.property
+    def priv(self) -> DataInputStreamPrivate | None: ...
 
     # gi Methods
     def __init__(self, byte_order: DataStreamByteOrder = ..., newline_type: DataStreamNewlineType = ...) -> None:
@@ -14560,6 +14852,16 @@ class DataInputStream(BufferedInputStream):
 class DataInputStreamClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> BufferedInputStreamClass | None: ...
 
     # gi Methods
@@ -14590,6 +14892,12 @@ class DataOutputStream(FilterOutputStream):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> FilterOutputStream | None: ...
+    @builtins.property
+    def priv(self) -> DataOutputStreamPrivate | None: ...
 
     # gi Methods
     def __init__(self, byte_order: DataStreamByteOrder = ...) -> None:
@@ -14658,6 +14966,16 @@ class DataOutputStream(FilterOutputStream):
 
 class DataOutputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> FilterOutputStreamClass | None: ...
 
@@ -15131,6 +15449,10 @@ class DebugControllerDBus(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self, connection: DBusConnection | None = ...) -> None:
@@ -16994,6 +17316,12 @@ class EmblemedIcon(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> EmblemedIconPrivate | None: ...
 
     # gi Methods
     def __init__(self, gicon: Icon | None = ...) -> None:
@@ -19304,6 +19632,12 @@ class FileEnumerator(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> FileEnumeratorPrivate | None: ...
+
     # gi Methods
     def __init__(self, container: File | None = ...) -> None:
         """
@@ -19528,6 +19862,20 @@ class FileEnumerator(GObject.Object):
 class FileEnumeratorClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved7(self) -> object | None: ...
+    @builtins.property
     def close_async(self) -> close_asyncFileEnumeratorClassCB: ...
     @builtins.property
     def close_finish(self) -> close_finishFileEnumeratorClassCB: ...
@@ -19577,6 +19925,12 @@ class FileIOStream(IOStream):
     and the implementation of [iface`Gio`.Seekable] just call into the same
     operations on the output stream.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> IOStream | None: ...
+    @builtins.property
+    def priv(self) -> FileIOStreamPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -19703,6 +20057,16 @@ class FileIOStream(IOStream):
 class FileIOStreamClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
     def can_seek(self) -> can_seekFileIOStreamClassCB: ...
     @builtins.property
     def can_truncate(self) -> can_truncateFileIOStreamClassCB: ...
@@ -19795,6 +20159,26 @@ class FileIface(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _query_settable_attributes_async(self) -> object | None:
+        """
+        Asynchronously gets a list of GFileAttributeInfos that can be set.
+        """
+    @builtins.property
+    def _query_settable_attributes_finish(self) -> object | None:
+        """
+        Finishes asynchronously querying settable attributes.
+        """
+    @builtins.property
+    def _query_writable_namespaces_async(self) -> object | None:
+        """
+        Asynchronously gets a list of GFileAttributeInfo namespaces that are writable.
+        """
+    @builtins.property
+    def _query_writable_namespaces_finish(self) -> object | None:
+        """
+        Finishes asynchronously querying the writable namespaces.
+        """
     @builtins.property
     def append_to(self) -> append_toFileIfaceCB:
         """
@@ -20027,6 +20411,11 @@ class FileIface(GObject.GPointer):
     def measure_disk_usage(self) -> measure_disk_usageFileIfaceCB:
         """
         Recursively measures the disk usage of `file`. Since 2.38
+        """
+    @builtins.property
+    def measure_disk_usage_async(self) -> object | None:
+        """
+        Asynchronously recursively measures the disk usage of `file`. Since 2.38
         """
     @builtins.property
     def measure_disk_usage_finish(self) -> measure_disk_usage_finishFileIfaceCB:
@@ -20826,6 +21215,12 @@ class FileInputStream(InputStream):
     To position a file input stream, use [vfunc`Gio`.Seekable.seek].
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> InputStream | None: ...
+    @builtins.property
+    def priv(self) -> FileInputStreamPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -20917,6 +21312,16 @@ class FileInputStream(InputStream):
 class FileInputStreamClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
     def can_seek(self) -> can_seekFileInputStreamClassCB: ...
     @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
@@ -20973,6 +21378,12 @@ class FileMonitor(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> FileMonitorPrivate | None: ...
 
     # gi Methods
     def __init__(self, rate_limit: int = ...) -> None:
@@ -21081,6 +21492,16 @@ class FileMonitor(GObject.Object):
 class FileMonitorClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
     def cancel(self) -> cancelFileMonitorClassCB: ...
     @builtins.property
     def changed(self) -> changedFileMonitorClassCB: ...
@@ -21117,6 +21538,12 @@ class FileOutputStream(OutputStream):
     truncating, use [method`Gio`.Seekable.can_truncate]. To truncate a file output
     stream, use [method`Gio`.Seekable.truncate].
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> OutputStream | None: ...
+    @builtins.property
+    def priv(self) -> FileOutputStreamPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -21243,6 +21670,16 @@ class FileOutputStream(OutputStream):
 class FileOutputStreamClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
     def can_seek(self) -> can_seekFileOutputStreamClassCB: ...
     @builtins.property
     def can_truncate(self) -> can_truncateFileOutputStreamClassCB: ...
@@ -21334,6 +21771,12 @@ class FilenameCompleter(GObject.Object):
 class FilenameCompleterClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
     def got_completion_data(self) -> got_completion_dataFilenameCompleterClassCB: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -21368,6 +21811,8 @@ class FilterInputStream(InputStream):
     # gi Fields
     @builtins.property
     def base_stream(self) -> InputStream | None: ...
+    @builtins.property
+    def parent_instance(self) -> InputStream | None: ...
 
     # gi Methods
     def __init__(self, base_stream: InputStream | None = ..., close_base_stream: bool = ...) -> None:
@@ -21413,6 +21858,12 @@ class FilterInputStream(InputStream):
 class FilterInputStreamClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
 
     # gi Methods
@@ -21445,6 +21896,8 @@ class FilterOutputStream(OutputStream):
     # gi Fields
     @builtins.property
     def base_stream(self) -> OutputStream | None: ...
+    @builtins.property
+    def parent_instance(self) -> OutputStream | None: ...
 
     # gi Methods
     def __init__(self, base_stream: OutputStream | None = ..., close_base_stream: bool = ...) -> None:
@@ -21489,6 +21942,12 @@ class FilterOutputStream(OutputStream):
 
 class FilterOutputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
 
@@ -21813,6 +22272,12 @@ class IOStream(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> IOStreamPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -22007,6 +22472,26 @@ class IOStreamAdapter(GObject.GPointer):
 class IOStreamClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved10(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved7(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved8(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved9(self) -> object | None: ...
+    @builtins.property
     def close_async(self) -> close_asyncIOStreamClassCB: ...
     @builtins.property
     def close_finish(self) -> close_finishIOStreamClassCB: ...
@@ -22136,6 +22621,13 @@ class IconIface(GObject.GPointer):
         Checks if two GIcons are equal.
         """
     @builtins.property
+    def from_tokens(self) -> object | None:
+        """
+            Constructs a GIcon from tokens. Set the GError if
+        the tokens are malformed. Don't implement if the GIcon can't be
+        serialized (Since 2.20).
+        """
+    @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None:
         """
         The parent interface.
@@ -22240,6 +22732,12 @@ class InetAddress(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> InetAddressPrivate | None: ...
 
     # gi Methods
     def __init__(self, bytes: object | None = ..., family: SocketFamily = ...) -> None:
@@ -22481,6 +22979,12 @@ class InetAddressMask(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> InetAddressMaskPrivate | None: ...
+
     # gi Methods
     def __init__(self, address: InetAddress | None = ..., length: int = ...) -> None:
         """
@@ -22609,6 +23113,12 @@ class InetSocketAddress(SocketAddress):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> SocketAddress | None: ...
+    @builtins.property
+    def priv(self) -> InetSocketAddressPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -22902,6 +23412,12 @@ class InputStream(GObject.Object):
 
     All of these functions have async variants too.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> InputStreamPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -23286,6 +23802,16 @@ class InputStream(GObject.Object):
 class InputStreamClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
     def close_async(self) -> close_asyncInputStreamClassCB: ...
     @builtins.property
     def close_finish(self) -> close_finishInputStreamClassCB: ...
@@ -23328,6 +23854,11 @@ class InputVector(GObject.GPointer):
     """
 
     # gi Fields
+    buffer: object | None = ...
+    """
+    Pointer to a buffer where data will be written.
+
+    """
     size: int = ...
     """
     the available size in `buffer`.
@@ -23759,6 +24290,12 @@ class MemoryInputStream(InputStream):
     [iface`Gio`.PollableInputStream].
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> InputStream | None: ...
+    @builtins.property
+    def priv(self) -> MemoryInputStreamPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -23790,6 +24327,16 @@ class MemoryInputStream(InputStream):
 
 class MemoryInputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
 
@@ -23938,6 +24485,12 @@ class MemoryOutputStream(OutputStream):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> OutputStream | None: ...
+    @builtins.property
+    def priv(self) -> MemoryOutputStreamPrivate | None: ...
+
     # gi Methods
     def __init__(self, data: object | None = ..., size: int = ...) -> None:
         """
@@ -24026,6 +24579,16 @@ class MemoryOutputStream(OutputStream):
 
 class MemoryOutputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
 
@@ -24186,6 +24749,12 @@ class MenuAttributeIter(GObject.Object):
     GMenuAttributeIter is an opaque structure type.  You must access it
     using the functions below.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> MenuAttributeIterPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -24523,6 +25092,12 @@ class MenuLinkIter(GObject.Object):
     the functions below.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> MenuLinkIterPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -24719,6 +25294,12 @@ class MenuModel(GObject.Object):
     be rendered as ‘selected’ when the state of the action is equal to the
     target value of the menu item.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> MenuModelPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -25451,6 +26032,12 @@ class MountOperation(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> MountOperationPrivate | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -25780,6 +26367,24 @@ class MountOperation(GObject.Object):
 class MountOperationClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved7(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved8(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved9(self) -> object | None: ...
+    @builtins.property
     def aborted(self) -> abortedMountOperationClassCB: ...
     @builtins.property
     def ask_password(self) -> ask_passwordMountOperationClassCB: ...
@@ -25815,6 +26420,12 @@ class NativeSocketAddress(SocketAddress):
     handled by GLib.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> SocketAddress | None: ...
+    @builtins.property
+    def priv(self) -> NativeSocketAddressPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -25845,6 +26456,10 @@ class NativeSocketAddressPrivate(GObject.GPointer):
         """
 
 class NativeVolumeMonitor(VolumeMonitor):
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> VolumeMonitor | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -25853,6 +26468,8 @@ class NativeVolumeMonitor(VolumeMonitor):
 
 class NativeVolumeMonitorClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def get_mount_for_mount_path(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> VolumeMonitorClass | None: ...
 
@@ -25892,6 +26509,12 @@ class NetworkAddress(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> NetworkAddressPrivate | None: ...
 
     # gi Methods
     def __init__(self, hostname: str = ..., port: int = ..., scheme: str = ...) -> None:
@@ -26291,6 +26914,12 @@ class NetworkService(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> NetworkServicePrivate | None: ...
+
     # gi Methods
     def __init__(self, domain: str = ..., protocol: str = ..., scheme: str = ..., service: str = ...) -> None:
         """
@@ -26599,6 +27228,12 @@ class OutputStream(GObject.Object):
     writing, splicing, flushing and closing streams, but *may* implement
     asynchronous versions.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> OutputStreamPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -27190,6 +27825,16 @@ class OutputStream(GObject.Object):
 class OutputStreamClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved7(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved8(self) -> object | None: ...
+    @builtins.property
     def close_async(self) -> close_asyncOutputStreamClassCB: ...
     @builtins.property
     def close_finish(self) -> close_finishOutputStreamClassCB: ...
@@ -27244,6 +27889,11 @@ class OutputVector(GObject.GPointer):
     """
 
     # gi Fields
+    buffer: object | None = ...
+    """
+    Pointer to a buffer of data to read.
+
+    """
     size: int = ...
     """
     the size of `buffer`.
@@ -27294,6 +27944,12 @@ class Permission(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> PermissionPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -28170,6 +28826,12 @@ class ProxyAddress(InetSocketAddress):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> InetSocketAddress | None: ...
+    @builtins.property
+    def priv(self) -> ProxyAddressPrivate | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -28350,6 +29012,12 @@ class ProxyAddressEnumerator(SocketAddressEnumerator):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> SocketAddressEnumerator | None: ...
+    @builtins.property
+    def priv(self) -> ProxyAddressEnumeratorPrivate | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -28402,6 +29070,20 @@ class ProxyAddressEnumeratorClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved7(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> SocketAddressEnumeratorClass | None: ...
 
@@ -28690,6 +29372,12 @@ class Resolver(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> ResolverPrivate | None: ...
 
     # gi Methods
     def __init__(self, timeout: int = ...) -> None:
@@ -29102,6 +29790,8 @@ class ResolverClass(GObject.GPointer):
     def lookup_records_async(self) -> lookup_records_asyncResolverClassCB: ...
     @builtins.property
     def lookup_records_finish(self) -> lookup_records_finishResolverClassCB: ...
+    @builtins.property
+    def lookup_service(self) -> object | None: ...
     @builtins.property
     def lookup_service_async(self) -> lookup_service_asyncResolverClassCB: ...
     @builtins.property
@@ -29956,6 +30646,12 @@ class Settings(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> SettingsPrivate | None: ...
+
     # gi Methods
     def apply(self) -> None:
         """
@@ -30738,6 +31434,12 @@ class SettingsBackend(GObject.Object):
     `gio/gsettingsbackend.h`.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> SettingsBackendPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -30935,6 +31637,11 @@ class SettingsBackendClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def get_permission(self) -> object | None:
+        """
+        virtual method to get permission of a key
+        """
     @builtins.property
     def get_writable(self) -> get_writableSettingsBackendClassCB:
         """
@@ -31602,6 +32309,12 @@ class SimpleActionGroup(GObject.Object):
     interfaces.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> SimpleActionGroupPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -32127,6 +32840,12 @@ class SimpleProxyResolver(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> SimpleProxyResolverPrivate | None: ...
+
     # gi Methods
     def __init__(self, default_proxy: str = ..., ignore_hosts: list | None = ...) -> None:
         """
@@ -32191,6 +32910,16 @@ class SimpleProxyResolver(GObject.Object):
 
 class SimpleProxyResolverClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
@@ -32341,6 +33070,12 @@ class Socket(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> SocketPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -33262,6 +33997,10 @@ class SocketAddress(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -33365,6 +34104,10 @@ class SocketAddressEnumerator(GObject.Object):
     be unreffed.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -33465,6 +34208,26 @@ class SocketAddressEnumeratorClass(GObject.GPointer):
 class SocketClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved10(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved7(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved8(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved9(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -33547,6 +34310,12 @@ class SocketClient(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> SocketClientPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -33947,6 +34716,14 @@ class SocketClient(GObject.Object):
 class SocketClientClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
     def event(self) -> eventSocketClientClassCB: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -34119,6 +34896,12 @@ class SocketConnection(IOStream):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> IOStream | None: ...
+    @builtins.property
+    def priv(self) -> SocketConnectionPrivate | None: ...
+
     # gi Methods
     def __init__(self, socket: Socket | None = ...) -> None:
         """
@@ -34200,6 +34983,18 @@ class SocketConnection(IOStream):
 class SocketConnectionClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> IOStreamClass | None: ...
 
     # gi Methods
@@ -34238,6 +35033,12 @@ class SocketControlMessage(GObject.Object):
     class is registered with the [type`GObject`.Type] type system before calling
     [method`Gio`.Socket.receive_message] to read such a message.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> SocketControlMessagePrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -34314,6 +35115,21 @@ class SocketControlMessageClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def deserialize(self) -> object | None:
+        """
+        Tries to deserialize a message.
+        """
+    @builtins.property
     def get_level(self) -> get_levelSocketControlMessageClassCB:
         """
         gets the protocol of the message.
@@ -34376,6 +35192,12 @@ class SocketListener(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> SocketListenerPrivate | None: ...
 
     # gi Methods
     def __init__(self, listen_backlog: int = ...) -> None:
@@ -34592,6 +35414,16 @@ class SocketListenerClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
     def changed(self) -> changedSocketListenerClassCB:
         """
         virtual method called when the set of socket listened to changes
@@ -34659,6 +35491,12 @@ class SocketService(SocketListener):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> SocketListener | None: ...
+    @builtins.property
+    def priv(self) -> SocketServicePrivate | None: ...
 
     # gi Methods
     def __init__(self, active: bool = ...) -> None:
@@ -34758,6 +35596,18 @@ class SocketServiceClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
     @builtins.property
     def incoming(self) -> incomingSocketServiceClassCB:
         """
@@ -34860,6 +35710,8 @@ class StaticResource(GObject.GPointer):
     def data_len(self) -> int: ...
     @builtins.property
     def next(self) -> StaticResource | None: ...
+    @builtins.property
+    def padding(self) -> object | None: ...
     @builtins.property
     def resource(self) -> Resource | None: ...
 
@@ -36478,6 +37330,12 @@ class TcpConnection(SocketConnection):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> SocketConnection | None: ...
+    @builtins.property
+    def priv(self) -> TcpConnectionPrivate | None: ...
+
     # gi Methods
     def __init__(self, graceful_disconnect: bool = ...) -> None:
         """
@@ -36551,6 +37409,12 @@ class TcpWrapperConnection(TcpConnection):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> TcpConnection | None: ...
+    @builtins.property
+    def priv(self) -> TcpWrapperConnectionPrivate | None: ...
 
     # gi Methods
     def __init__(self, base_io_stream: IOStream | None = ...) -> None:
@@ -36953,6 +37817,12 @@ class ThreadedSocketService(SocketService):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> SocketService | None: ...
+    @builtins.property
+    def priv(self) -> ThreadedSocketServicePrivate | None: ...
+
     # gi Methods
     def __init__(self, max_threads: int = ...) -> None:
         """
@@ -37003,6 +37873,16 @@ class ThreadedSocketService(SocketService):
 
 class ThreadedSocketServiceClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> SocketServiceClass | None: ...
     @builtins.property
@@ -37289,6 +38169,12 @@ class TlsCertificate(GObject.Object):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> TlsCertificatePrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -38004,6 +38890,12 @@ class TlsConnection(IOStream):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> IOStream | None: ...
+    @builtins.property
+    def priv(self) -> TlsConnectionPrivate | None: ...
+
     # gi Methods
     def __init__(
         self,
@@ -38549,6 +39441,12 @@ class TlsDatabase(GObject.Object):
     Most common client applications will not directly interact with
     `GTlsDatabase`. It is used internally by [class`Gio`.TlsConnection].
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> TlsDatabasePrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -39115,6 +40013,12 @@ class TlsInteraction(GObject.Object):
     it must also implement the corresponding finish method.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> TlsInteractionPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -39430,6 +40334,12 @@ class TlsPassword(GObject.Object):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> TlsPasswordPrivate | None: ...
+
     # gi Methods
     def __init__(self, description: str = ..., flags: TlsPasswordFlags = ..., warning: str = ...) -> None:
         """
@@ -39673,6 +40583,12 @@ class UnixConnection(SocketConnection):
     using it. This is no longer necessary since GLib 2.72.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> SocketConnection | None: ...
+    @builtins.property
+    def priv(self) -> UnixConnectionPrivate | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -39832,6 +40748,12 @@ class UnixCredentialsMessage(SocketControlMessage):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> SocketControlMessage | None: ...
+    @builtins.property
+    def priv(self) -> UnixCredentialsMessagePrivate | None: ...
+
     # gi Methods
     def __init__(self, credentials: Credentials | None = ...) -> None:
         """
@@ -39878,6 +40800,10 @@ class UnixCredentialsMessageClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> SocketControlMessageClass | None: ...
 
     # gi Methods
@@ -39910,6 +40836,12 @@ class UnixFDList(GObject.Object):
 
     Since 2.74, the API is available for Windows.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> UnixFDListPrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -40009,6 +40941,16 @@ class UnixFDList(GObject.Object):
 class UnixFDListClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
     # gi Methods
@@ -40027,6 +40969,10 @@ class UnixFDListPrivate(GObject.GPointer):
 class UnixFDMessageClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
     def parent_class(self) -> SocketControlMessageClass | None: ...
 
     # gi Methods
@@ -40044,6 +40990,16 @@ class UnixFDMessagePrivate(GObject.GPointer):
 
 class UnixInputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
 
@@ -40069,6 +41025,16 @@ class UnixMountMonitorClass(GObject.GPointer):
 
 class UnixOutputStreamClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
     @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
 
@@ -40128,6 +41094,12 @@ class UnixSocketAddress(SocketAddress):
 
     @builtins.property
     def props(self) -> Props: ...
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> SocketAddress | None: ...
+    @builtins.property
+    def priv(self) -> UnixSocketAddressPrivate | None: ...
 
     # gi Methods
     def __init__(
@@ -40278,6 +41250,10 @@ class Vfs(GObject.Object):
     """
     Entry point for using GIO functionality.
     """
+
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -40441,7 +41417,21 @@ class Vfs(GObject.Object):
 class VfsClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
     def add_writable_namespaces(self) -> add_writable_namespacesVfsClassCB: ...
+    @builtins.property
+    def deserialize_icon(self) -> object | None: ...
     @builtins.property
     def get_file_for_path(self) -> get_file_for_pathVfsClassCB: ...
     @builtins.property
@@ -40835,6 +41825,12 @@ class VolumeMonitor(GObject.Object):
     a main loop must be running.
     """
 
+    # gi Fields
+    @builtins.property
+    def parent_instance(self) -> GObject.Object | None: ...
+    @builtins.property
+    def priv(self) -> object | None: ...
+
     # gi Methods
     @deprecated("deprecated")
     @staticmethod
@@ -41042,6 +42038,20 @@ class VolumeMonitor(GObject.Object):
 
 class VolumeMonitorClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _g_reserved1(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved2(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved3(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved4(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved5(self) -> object | None: ...
+    @builtins.property
+    def _g_reserved6(self) -> object | None: ...
+    @builtins.property
+    def adopt_orphan_mount(self) -> object | None: ...
     @builtins.property
     def drive_changed(self) -> drive_changedVolumeMonitorClassCB: ...
     @builtins.property

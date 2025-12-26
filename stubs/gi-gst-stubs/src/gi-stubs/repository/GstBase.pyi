@@ -861,6 +861,12 @@ class Aggregator(Gst.Element):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
+    def parent(self) -> Gst.Element | None: ...
+    @builtins.property
+    def priv(self) -> AggregatorPrivate | None: ...
+    @builtins.property
     def srcpad(self) -> Gst.Pad | None:
         """
         the aggregator's source pad
@@ -1219,6 +1225,8 @@ class AggregatorClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def aggregate(self) -> aggregateAggregatorClassCB:
         """
         Mandatory.
@@ -1240,6 +1248,14 @@ class AggregatorClass(GObject.GPointer):
                      clipping of input buffer. This function takes ownership of
                      buf and should output a buffer or return None in
                      if the buffer should be dropped.
+        """
+    @builtins.property
+    def create_new_pad(self) -> object | None:
+        """
+        Optional.
+                     Called when a new pad needs to be created. Allows subclass that
+                     don't have a single sink pad template to provide a pad based
+                     on the provided information.
         """
     @builtins.property
     def decide_allocation(self) -> decide_allocationAggregatorClassCB:
@@ -1410,6 +1426,12 @@ class AggregatorPad(Gst.Pad):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
+    def parent(self) -> Gst.Pad | None: ...
+    @builtins.property
+    def priv(self) -> AggregatorPadPrivate | None: ...
+    @builtins.property
     def segment(self) -> Gst.Segment | None:
         """
         last segment received.
@@ -1480,6 +1502,8 @@ class AggregatorPad(Gst.Pad):
 
 class AggregatorPadClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def flush(self) -> flushAggregatorPadClassCB:
         """
@@ -1673,12 +1697,16 @@ class BaseParse(Gst.Element):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def element(self) -> Gst.Element | None:
         """
         the parent element.
         """
     @builtins.property
     def flags(self) -> int: ...
+    @builtins.property
+    def priv(self) -> BaseParsePrivate | None: ...
     @builtins.property
     def segment(self) -> Gst.Segment | None: ...
     @builtins.property
@@ -1939,6 +1967,8 @@ class BaseParseClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def convert(self) -> convertBaseParseClassCB:
         """
         Optional.
@@ -2056,6 +2086,12 @@ class BaseParseFrame(GObject.GBoxed):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved_i(self) -> list | None: ...
+    @builtins.property
+    def _gst_reserved_p(self) -> list | None: ...
+    @builtins.property
+    def _private_flags(self) -> int: ...
     buffer: Gst.Buffer | None = ...  # type: ignore
     """
     input data to be parsed for frames.
@@ -2310,9 +2346,13 @@ class BaseSink(Gst.Element):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def can_activate_pull(self) -> bool: ...
     @builtins.property
     def can_activate_push(self) -> bool: ...
+    @builtins.property
+    def clock_id(self) -> object | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None: ...
     @builtins.property
@@ -2337,6 +2377,8 @@ class BaseSink(Gst.Element):
     def preroll_cond(self) -> GLib.Cond | None: ...
     @builtins.property
     def preroll_lock(self) -> GLib.Mutex | None: ...
+    @builtins.property
+    def priv(self) -> BaseSinkPrivate | None: ...
     @builtins.property
     def running(self) -> bool: ...
     @builtins.property
@@ -2831,6 +2873,8 @@ class BaseSinkClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def activate_pull(self) -> activate_pullBaseSinkClassCB:
         """
         Subclasses should override this when they can provide an
@@ -3087,9 +3131,13 @@ class BaseSrc(Gst.Element):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def blocksize(self) -> int: ...
     @builtins.property
     def can_activate_push(self) -> bool: ...
+    @builtins.property
+    def clock_id(self) -> object | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None: ...
     @builtins.property
@@ -3106,6 +3154,8 @@ class BaseSrc(Gst.Element):
     def num_buffers_left(self) -> int: ...
     @builtins.property
     def pending_seek(self) -> Gst.Event | None: ...
+    @builtins.property
+    def priv(self) -> BaseSrcPrivate | None: ...
     @builtins.property
     def random_access(self) -> bool: ...
     @builtins.property
@@ -3501,6 +3551,8 @@ class BaseSrcClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def alloc(self) -> allocBaseSrcClassCB:
         """
           Ask the subclass to allocate a buffer with for offset and size. The
@@ -3757,9 +3809,13 @@ class BaseTransform(Gst.Element):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def element(self) -> Gst.Element | None: ...
     @builtins.property
     def have_segment(self) -> bool: ...
+    @builtins.property
+    def priv(self) -> BaseTransformPrivate | None: ...
     @builtins.property
     def queued_buf(self) -> Gst.Buffer | None: ...
     @builtins.property
@@ -4085,6 +4141,8 @@ class BaseTransformClass(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def accept_caps(self) -> accept_capsBaseTransformClassCB:
         """
         Optional.
@@ -4312,6 +4370,8 @@ class BitReader(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     bit: int = ...
     """
     Bit position in the current byte
@@ -4415,6 +4475,8 @@ class BitWriter(GObject.GPointer):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def auto_grow(self) -> bool: ...
     @builtins.property
     def bit_capacity(self) -> int: ...
@@ -4517,6 +4579,8 @@ class ByteReader(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     byte: int = ...
     """
     Current byte position
@@ -4939,6 +5003,8 @@ class ByteWriter(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     alloc_size: int = ...
     """
     Allocation size of the data
@@ -4952,6 +5018,11 @@ class ByteWriter(GObject.GPointer):
     owned: bool = ...
     """
     If False no reallocations are allowed and copies of data are returned
+
+    """
+    parent: ByteReader | None = ...
+    """
+    GstByteReader parent
 
     """
 
@@ -5158,6 +5229,8 @@ class CollectData(GObject.GPointer):
     position in the buffer
 
     """
+    @builtins.property
+    def priv(self) -> CollectDataPrivate | None: ...
     segment: Gst.Segment | None = ...  # type: ignore
     """
     last segment received.
@@ -5221,6 +5294,8 @@ class CollectPads(Gst.Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def data(self) -> list | None:
         """
           GList of GstCollectData managed
@@ -5228,6 +5303,8 @@ class CollectPads(Gst.Object):
         """
     @builtins.property
     def object(self) -> Gst.Object | None: ...
+    @builtins.property
+    def priv(self) -> CollectPadsPrivate | None: ...
     @builtins.property
     def stream_lock(self) -> GLib.RecMutex | None: ...
 
@@ -5467,6 +5544,8 @@ class CollectPads(Gst.Object):
 class CollectPadsClass(GObject.GPointer):
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def parent_class(self) -> Gst.ObjectClass | None: ...
 
     # gi Methods
@@ -5499,10 +5578,14 @@ class DataQueue(GObject.Object):
 
     # gi Fields
     @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
     def object(self) -> GObject.Object | None:
         """
         the parent structure
         """
+    @builtins.property
+    def priv(self) -> DataQueuePrivate | None: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -5553,6 +5636,8 @@ class DataQueue(GObject.Object):
 
 class DataQueueClass(GObject.GPointer):
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def empty(self) -> emptyDataQueueClassCB: ...
     @builtins.property
@@ -5692,6 +5777,12 @@ class PushSrc(BaseSrc):
     base class.
     """
 
+    # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
+    @builtins.property
+    def parent(self) -> BaseSrc | None: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -5728,6 +5819,8 @@ class PushSrcClass(GObject.GPointer):
     """
 
     # gi Fields
+    @builtins.property
+    def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def alloc(self) -> allocPushSrcClassCB:
         """
