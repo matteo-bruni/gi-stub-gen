@@ -937,7 +937,6 @@ def buffer_set_message_func(
     buffer: buffer_t,
     func: buffer_message_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_buffer_message_func_t.
@@ -1195,7 +1194,6 @@ def draw_funcs_set_close_path_func(
     dfuncs: draw_funcs_t,
     func: draw_close_path_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets close-path callback to the draw functions object.
@@ -1207,7 +1205,6 @@ def draw_funcs_set_cubic_to_func(
     dfuncs: draw_funcs_t,
     func: draw_cubic_to_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets cubic-to callback to the draw functions object.
@@ -1219,7 +1216,6 @@ def draw_funcs_set_line_to_func(
     dfuncs: draw_funcs_t,
     func: draw_line_to_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets line-to callback to the draw functions object.
@@ -1231,7 +1227,6 @@ def draw_funcs_set_move_to_func(
     dfuncs: draw_funcs_t,
     func: draw_move_to_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets move-to callback to the draw functions object.
@@ -1243,7 +1238,6 @@ def draw_funcs_set_quadratic_to_func(
     dfuncs: draw_funcs_t,
     func: draw_quadratic_to_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets quadratic-to callback to the draw functions object.
@@ -1401,7 +1395,6 @@ def face_create(
 def face_create_for_tables(
     reference_table_func: reference_table_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> face_t:
     """
     Variant of `hb_face_create`, built for those cases where it is more
@@ -1533,7 +1526,6 @@ def face_set_get_table_tags_func(
     face: face_t,
     func: get_table_tags_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the table-tag-fetching function for the specified face object.
@@ -1741,7 +1733,6 @@ def font_funcs_set_draw_glyph_func(
     ffuncs: font_funcs_t,
     func: font_draw_glyph_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_draw_glyph_func_t.
@@ -1753,7 +1744,6 @@ def font_funcs_set_font_h_extents_func(
     ffuncs: font_funcs_t,
     func: font_get_font_extents_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_font_h_extents_func_t.
@@ -1765,7 +1755,6 @@ def font_funcs_set_font_v_extents_func(
     ffuncs: font_funcs_t,
     func: font_get_font_extents_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_font_v_extents_func_t.
@@ -1777,7 +1766,6 @@ def font_funcs_set_glyph_contour_point_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_contour_point_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_contour_point_func_t.
@@ -1789,7 +1777,6 @@ def font_funcs_set_glyph_extents_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_extents_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_extents_func_t.
@@ -1801,7 +1788,6 @@ def font_funcs_set_glyph_from_name_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_from_name_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_from_name_func_t.
@@ -1814,7 +1800,6 @@ def font_funcs_set_glyph_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Deprecated.  Use `hb_font_funcs_set_nominal_glyph_func` and
@@ -1827,7 +1812,6 @@ def font_funcs_set_glyph_h_advance_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_advance_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_h_advance_func_t.
@@ -1839,7 +1823,6 @@ def font_funcs_set_glyph_h_advances_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_advances_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_h_advances_func_t.
@@ -1851,7 +1834,6 @@ def font_funcs_set_glyph_h_kerning_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_kerning_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_h_kerning_func_t.
@@ -1863,7 +1845,6 @@ def font_funcs_set_glyph_h_origin_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_origin_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_h_origin_func_t.
@@ -1875,7 +1856,6 @@ def font_funcs_set_glyph_name_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_name_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_name_func_t.
@@ -1888,7 +1868,6 @@ def font_funcs_set_glyph_shape_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_shape_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_shape_func_t,
@@ -1901,7 +1880,6 @@ def font_funcs_set_glyph_v_advance_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_advance_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_v_advance_func_t.
@@ -1913,7 +1891,6 @@ def font_funcs_set_glyph_v_advances_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_advances_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_v_advances_func_t.
@@ -1926,7 +1903,6 @@ def font_funcs_set_glyph_v_kerning_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_kerning_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_v_kerning_func_t.
@@ -1938,7 +1914,6 @@ def font_funcs_set_glyph_v_origin_func(
     ffuncs: font_funcs_t,
     func: font_get_glyph_origin_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_glyph_v_origin_func_t.
@@ -1950,7 +1925,6 @@ def font_funcs_set_nominal_glyph_func(
     ffuncs: font_funcs_t,
     func: font_get_nominal_glyph_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_nominal_glyph_func_t.
@@ -1962,7 +1936,6 @@ def font_funcs_set_nominal_glyphs_func(
     ffuncs: font_funcs_t,
     func: font_get_nominal_glyphs_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_nominal_glyphs_func_t.
@@ -1974,7 +1947,6 @@ def font_funcs_set_paint_glyph_func(
     ffuncs: font_funcs_t,
     func: font_paint_glyph_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_paint_glyph_func_t.
@@ -1986,7 +1958,6 @@ def font_funcs_set_variation_glyph_func(
     ffuncs: font_funcs_t,
     func: font_get_variation_glyph_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_font_get_variation_glyph_func_t.
@@ -4554,7 +4525,6 @@ def paint_funcs_set_color_func(
     funcs: paint_funcs_t,
     func: paint_color_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the paint-color callback on the paint functions struct.
@@ -4566,7 +4536,6 @@ def paint_funcs_set_color_glyph_func(
     funcs: paint_funcs_t,
     func: paint_color_glyph_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the color-glyph callback on the paint functions struct.
@@ -4578,7 +4547,6 @@ def paint_funcs_set_custom_palette_color_func(
     funcs: paint_funcs_t,
     func: paint_custom_palette_color_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the custom-palette-color callback on the paint functions struct.
@@ -4590,7 +4558,6 @@ def paint_funcs_set_image_func(
     funcs: paint_funcs_t,
     func: paint_image_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the paint-image callback on the paint functions struct.
@@ -4602,7 +4569,6 @@ def paint_funcs_set_linear_gradient_func(
     funcs: paint_funcs_t,
     func: paint_linear_gradient_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the linear-gradient callback on the paint functions struct.
@@ -4614,7 +4580,6 @@ def paint_funcs_set_pop_clip_func(
     funcs: paint_funcs_t,
     func: paint_pop_clip_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the pop-clip callback on the paint functions struct.
@@ -4626,7 +4591,6 @@ def paint_funcs_set_pop_group_func(
     funcs: paint_funcs_t,
     func: paint_pop_group_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the pop-group callback on the paint functions struct.
@@ -4638,7 +4602,6 @@ def paint_funcs_set_pop_transform_func(
     funcs: paint_funcs_t,
     func: paint_pop_transform_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the pop-transform callback on the paint functions struct.
@@ -4650,7 +4613,6 @@ def paint_funcs_set_push_clip_glyph_func(
     funcs: paint_funcs_t,
     func: paint_push_clip_glyph_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the push-clip-glyph callback on the paint functions struct.
@@ -4662,7 +4624,6 @@ def paint_funcs_set_push_clip_rectangle_func(
     funcs: paint_funcs_t,
     func: paint_push_clip_rectangle_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the push-clip-rect callback on the paint functions struct.
@@ -4674,7 +4635,6 @@ def paint_funcs_set_push_group_func(
     funcs: paint_funcs_t,
     func: paint_push_group_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the push-group callback on the paint functions struct.
@@ -4686,7 +4646,6 @@ def paint_funcs_set_push_transform_func(
     funcs: paint_funcs_t,
     func: paint_push_transform_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the push-transform callback on the paint functions struct.
@@ -4698,7 +4657,6 @@ def paint_funcs_set_radial_gradient_func(
     funcs: paint_funcs_t,
     func: paint_radial_gradient_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the radial-gradient callback on the paint functions struct.
@@ -4710,7 +4668,6 @@ def paint_funcs_set_sweep_gradient_func(
     funcs: paint_funcs_t,
     func: paint_sweep_gradient_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the sweep-gradient callback on the paint functions struct.
@@ -5544,7 +5501,6 @@ def unicode_funcs_set_combining_class_func(
     ufuncs: unicode_funcs_t,
     func: unicode_combining_class_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_combining_class_func_t.
@@ -5556,7 +5512,6 @@ def unicode_funcs_set_compose_func(
     ufuncs: unicode_funcs_t,
     func: unicode_compose_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_compose_func_t.
@@ -5569,7 +5524,6 @@ def unicode_funcs_set_decompose_compatibility_func(
     ufuncs: unicode_funcs_t,
     func: unicode_decompose_compatibility_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_decompose_compatibility_func_t.
@@ -5581,7 +5535,6 @@ def unicode_funcs_set_decompose_func(
     ufuncs: unicode_funcs_t,
     func: unicode_decompose_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_decompose_func_t.
@@ -5594,7 +5547,6 @@ def unicode_funcs_set_eastasian_width_func(
     ufuncs: unicode_funcs_t,
     func: unicode_eastasian_width_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_eastasian_width_func_t.
@@ -5606,7 +5558,6 @@ def unicode_funcs_set_general_category_func(
     ufuncs: unicode_funcs_t,
     func: unicode_general_category_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_general_category_func_t.
@@ -5618,7 +5569,6 @@ def unicode_funcs_set_mirroring_func(
     ufuncs: unicode_funcs_t,
     func: unicode_mirroring_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_mirroring_func_t.
@@ -5630,7 +5580,6 @@ def unicode_funcs_set_script_func(
     ufuncs: unicode_funcs_t,
     func: unicode_script_func_t,
     user_data: object | None = None,
-    destroy: destroy_func_t | None = None,
 ) -> None:
     """
     Sets the implementation function for #hb_unicode_script_func_t.
@@ -10087,17 +10036,6 @@ class buffer_message_func_t(typing.Protocol):
         message: str,
         user_data: object | None = None,
     ) -> int: ...
-
-class destroy_func_t(typing.Protocol):
-    """
-    This callback was used in:
-        HarfBuzz.buffer_set_message_func, HarfBuzz.draw_funcs_set_close_path_func, HarfBuzz.draw_funcs_set_cubic_to_func, HarfBuzz.draw_funcs_set_line_to_func, HarfBuzz.draw_funcs_set_move_to_func, HarfBuzz.draw_funcs_set_quadratic_to_func, HarfBuzz.face_create_for_tables, HarfBuzz.face_set_get_table_tags_func, HarfBuzz.font_funcs_set_draw_glyph_func, HarfBuzz.font_funcs_set_font_h_extents_func, HarfBuzz.font_funcs_set_font_v_extents_func, HarfBuzz.font_funcs_set_glyph_contour_point_func, HarfBuzz.font_funcs_set_glyph_extents_func, HarfBuzz.font_funcs_set_glyph_from_name_func, HarfBuzz.font_funcs_set_glyph_func, HarfBuzz.font_funcs_set_glyph_h_advance_func, HarfBuzz.font_funcs_set_glyph_h_advances_func, HarfBuzz.font_funcs_set_glyph_h_kerning_func, HarfBuzz.font_funcs_set_glyph_h_origin_func, HarfBuzz.font_funcs_set_glyph_name_func, HarfBuzz.font_funcs_set_glyph_shape_func, HarfBuzz.font_funcs_set_glyph_v_advance_func, HarfBuzz.font_funcs_set_glyph_v_advances_func, HarfBuzz.font_funcs_set_glyph_v_kerning_func, HarfBuzz.font_funcs_set_glyph_v_origin_func, HarfBuzz.font_funcs_set_nominal_glyph_func, HarfBuzz.font_funcs_set_nominal_glyphs_func, HarfBuzz.font_funcs_set_paint_glyph_func, HarfBuzz.font_funcs_set_variation_glyph_func, HarfBuzz.paint_funcs_set_color_func, HarfBuzz.paint_funcs_set_color_glyph_func, HarfBuzz.paint_funcs_set_custom_palette_color_func, HarfBuzz.paint_funcs_set_image_func, HarfBuzz.paint_funcs_set_linear_gradient_func, HarfBuzz.paint_funcs_set_pop_clip_func, HarfBuzz.paint_funcs_set_pop_group_func, HarfBuzz.paint_funcs_set_pop_transform_func, HarfBuzz.paint_funcs_set_push_clip_glyph_func, HarfBuzz.paint_funcs_set_push_clip_rectangle_func, HarfBuzz.paint_funcs_set_push_group_func, HarfBuzz.paint_funcs_set_push_transform_func, HarfBuzz.paint_funcs_set_radial_gradient_func, HarfBuzz.paint_funcs_set_sweep_gradient_func, HarfBuzz.unicode_funcs_set_combining_class_func, HarfBuzz.unicode_funcs_set_compose_func, HarfBuzz.unicode_funcs_set_decompose_compatibility_func, HarfBuzz.unicode_funcs_set_decompose_func, HarfBuzz.unicode_funcs_set_eastasian_width_func, HarfBuzz.unicode_funcs_set_general_category_func, HarfBuzz.unicode_funcs_set_mirroring_func, HarfBuzz.unicode_funcs_set_script_func
-    """
-    #  user_data
-    def __call__(
-        self,
-        user_data: object | None = None,
-    ) -> None: ...
 
 class color_line_get_color_stops_func_tcolor_line_tCB(typing.Protocol):
     """

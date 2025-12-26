@@ -18,7 +18,6 @@ import _thread
 import typing
 
 # gi.repository imports needed by this Stub
-from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Pango
 from gi.repository import cairo
@@ -82,7 +81,6 @@ def context_set_shape_renderer(
     context: Pango.Context,
     func: ShapeRendererFunc | None = None,
     data: object | None = None,
-    dnotify: GLib.DestroyNotify | None = None,  # type: ignore
 ) -> None:
     """
     Sets callback function for context to use for rendering attributes

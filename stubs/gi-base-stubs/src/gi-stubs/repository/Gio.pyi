@@ -1573,7 +1573,6 @@ def io_scheduler_cancel_all_jobs() -> None:
 def io_scheduler_push_job(
     job_func: IOSchedulerJobFunc,
     user_data: object | None,
-    notify: GLib.DestroyNotify | None,  # type: ignore
     io_priority: int,
     cancellable: Cancellable | None = None,
 ) -> None:
@@ -9257,12 +9256,7 @@ class Cancellable(GObject.Object):
         It is safe (although useless, since it will be a no-op) to call
         this function from a [signal`Gio`.Cancellable::cancelled] signal handler.
         """
-    def connect(
-        self,
-        callback: GObject.Callback,
-        data: object | None = None,
-        data_destroy_func: GLib.DestroyNotify | None = None,
-    ) -> int:
+    def connect(self, callback: GObject.Callback, data: object | None = None) -> int:
         """
             Convenience function to connect to the GCancellable::cancelled
         signal. Also handles the race condition that may happen
@@ -10389,12 +10383,7 @@ class DBusConnection(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def add_filter(
-        self,
-        filter_function: DBusMessageFilterFunction,
-        user_data: object | None,
-        user_data_free_func: GLib.DestroyNotify,
-    ) -> int:
+    def add_filter(self, filter_function: DBusMessageFilterFunction, user_data: object | None = None) -> int:
         """
             Adds a message filter. Filters are handlers that are run on all
         incoming and outgoing messages, prior to standard dispatch. Filters
@@ -11204,7 +11193,6 @@ class DBusConnection(GObject.Object):
         flags: DBusSignalFlags,
         callback: DBusSignalCallback,
         user_data: object | None = None,
-        user_data_free_func: GLib.DestroyNotify | None = None,
     ) -> int:
         """
             Subscribes to signals on `connection` and invokes `callback` whenever
@@ -12882,7 +12870,6 @@ class DBusObjectManagerClient(GObject.Object):
         object_path: str,
         get_proxy_type_func: DBusProxyTypeFunc | None = None,
         get_proxy_type_user_data: object | None = None,
-        get_proxy_type_destroy_notify: GLib.DestroyNotify | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
         user_data: object | None = None,
@@ -12910,7 +12897,6 @@ class DBusObjectManagerClient(GObject.Object):
         object_path: str,
         get_proxy_type_func: DBusProxyTypeFunc | None = None,
         get_proxy_type_user_data: object | None = None,
-        get_proxy_type_destroy_notify: GLib.DestroyNotify | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
         user_data: object | None = None,
@@ -12940,7 +12926,6 @@ class DBusObjectManagerClient(GObject.Object):
         object_path: str,
         get_proxy_type_func: DBusProxyTypeFunc | None = None,
         get_proxy_type_user_data: object | None = None,
-        get_proxy_type_destroy_notify: GLib.DestroyNotify | None = None,
         cancellable: Cancellable | None = None,
     ) -> DBusObjectManagerClient:
         """
@@ -12960,7 +12945,6 @@ class DBusObjectManagerClient(GObject.Object):
         object_path: str,
         get_proxy_type_func: DBusProxyTypeFunc | None = None,
         get_proxy_type_user_data: object | None = None,
-        get_proxy_type_destroy_notify: GLib.DestroyNotify | None = None,
         cancellable: Cancellable | None = None,
     ) -> DBusObjectManagerClient:
         """
@@ -22179,18 +22163,14 @@ class IOSchedulerJob(GObject.GPointer):
         Generated __init__ stub method. order not guaranteed.
         """
     @deprecated("deprecated")
-    def send_to_mainloop(
-        self, func: GLib.SourceFunc, user_data: object | None = None, notify: GLib.DestroyNotify | None = None
-    ) -> bool:
+    def send_to_mainloop(self, func: GLib.SourceFunc, user_data: object | None = None) -> bool:
         """
             Used from an I/O job to send a callback to be run in the thread
         that the job was started from, waiting for the result (and thus
         blocking the I/O job).
         """
     @deprecated("deprecated")
-    def send_to_mainloop_async(
-        self, func: GLib.SourceFunc, user_data: object | None = None, notify: GLib.DestroyNotify | None = None
-    ) -> None:
+    def send_to_mainloop_async(self, func: GLib.SourceFunc, user_data: object | None = None) -> None:
         """
             Used from an I/O job to send a callback to be run asynchronously in
         the thread that the job was started from. The callback will be run
@@ -41301,10 +41281,8 @@ class Vfs(GObject.Object):
         scheme: str,
         uri_func: VfsFileLookupFunc | None = None,
         uri_data: object | None = None,
-        uri_destroy: GLib.DestroyNotify | None = None,
         parse_name_func: VfsFileLookupFunc | None = None,
         parse_name_data: object | None = None,
-        parse_name_destroy: GLib.DestroyNotify | None = None,
     ) -> bool:
         """
             Registers `uri_func` and `parse_name_func` as the GFile URI and parse name

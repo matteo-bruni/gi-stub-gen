@@ -247,8 +247,7 @@ def content_register_deserializer(
     mime_type: str,
     type: GObject.GType,
     deserialize: ContentDeserializeFunc,
-    data: object | None,
-    notify: GLib.DestroyNotify,  # type: ignore
+    data: object | None = None,
 ) -> None:
     """
     Registers a function to deserialize object of a given type.
@@ -260,8 +259,7 @@ def content_register_serializer(
     type: GObject.GType,
     mime_type: str,
     serialize: ContentSerializeFunc,
-    data: object | None,
-    notify: GLib.DestroyNotify,  # type: ignore
+    data: object | None = None,
 ) -> None:
     """
     Registers a function to serialize objects of a given type.
@@ -3326,11 +3324,7 @@ class Cursor(GObject.Object):
         """
     @classmethod
     def new_from_callback(
-        cls,
-        callback: CursorGetTextureCallback,
-        data: object | None,
-        destroy: GLib.DestroyNotify,
-        fallback: Cursor | None = None,
+        cls, callback: CursorGetTextureCallback, data: object | None = None, fallback: Cursor | None = None
     ) -> Cursor | None:
         """
             Creates a new callback-based cursor object.

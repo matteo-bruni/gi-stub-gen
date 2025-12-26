@@ -423,7 +423,6 @@ def editable_install_properties(
 def enumerate_printers(
     func: PrinterFunc,
     data: object | None,
-    destroy: GLib.DestroyNotify,  # type: ignore
     wait: bool,
 ) -> None:
     """
@@ -8960,9 +8959,7 @@ class Assistant(Window):
         `Gtk.assistant_set_forward_page_func`.
         """
     @deprecated("deprecated")
-    def set_forward_page_func(
-        self, page_func: AssistantPageFunc | None, data: object | None, destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_forward_page_func(self, page_func: AssistantPageFunc | None = None, data: object | None = None) -> None:
         """
             Sets the page forwarding function to be `page_func`.
 
@@ -11652,7 +11649,6 @@ class CClosureExpression(Expression):
         params: list,
         callback_func: GObject.Callback,
         user_data: object | None = None,
-        user_destroy: GObject.ClosureNotify | None = None,
     ) -> CClosureExpression:
         """
             Creates a `GtkExpression` that calls `callback_func` when it is evaluated.
@@ -11974,7 +11970,7 @@ class CallbackAction(ShortcutAction):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(cls, callback: ShortcutFunc, data: object | None, destroy: GLib.DestroyNotify) -> CallbackAction:
+    def new(cls, callback: ShortcutFunc, data: object | None = None) -> CallbackAction:
         """
             Create a custom action that calls the given `callback` when
         activated.
@@ -13811,7 +13807,7 @@ class CellLayout(GObject.GInterface):
         """
     @deprecated("deprecated")
     def set_cell_data_func(
-        self, cell: CellRenderer, func: CellLayoutDataFunc | None, func_data: object | None, destroy: GLib.DestroyNotify
+        self, cell: CellRenderer, func: CellLayoutDataFunc | None = None, func_data: object | None = None
     ) -> None:
         """
             Sets the `GtkCellLayout`DataFunc to use for `cell_layout`.
@@ -19003,12 +18999,7 @@ class ComboBox(Widget):
         allocated width of the combo box.
         """
     @deprecated("deprecated")
-    def set_row_separator_func(
-        self,
-        func: TreeViewRowSeparatorFunc | None = None,
-        data: object | None = None,
-        destroy: GLib.DestroyNotify | None = None,
-    ) -> None:
+    def set_row_separator_func(self, func: TreeViewRowSeparatorFunc | None = None, data: object | None = None) -> None:
         """
             Sets the row separator function, which is used to determine
         whether a row should be drawn as a separator.
@@ -20428,9 +20419,7 @@ class CustomFilter(Filter):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(
-        cls, match_func: CustomFilterFunc | None, user_data: object | None, user_destroy: GLib.DestroyNotify
-    ) -> CustomFilter:
+    def new(cls, match_func: CustomFilterFunc | None = None, user_data: object | None = None) -> CustomFilter:
         """
             Creates a new filter using the given function to filter items.
 
@@ -20439,9 +20428,7 @@ class CustomFilter(Filter):
         If the filter func changes its filtering behavior,
         [method`Gtk`.Filter.changed] needs to be called.
         """
-    def set_filter_func(
-        self, match_func: CustomFilterFunc | None, user_data: object | None, user_destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_filter_func(self, match_func: CustomFilterFunc | None = None, user_data: object | None = None) -> None:
         """
             Sets the function used for filtering items.
 
@@ -20514,21 +20501,14 @@ class CustomSorter(Sorter):
         Generated __init__ stub method. order not guaranteed.
         """
     @classmethod
-    def new(
-        cls,
-        sort_func: GLib.CompareDataFunc | None = None,
-        user_data: object | None = None,
-        user_destroy: GLib.DestroyNotify | None = None,
-    ) -> CustomSorter:
+    def new(cls, sort_func: GLib.CompareDataFunc | None = None, user_data: object | None = None) -> CustomSorter:
         """
             Creates a new `GtkSorter` that works by calling
         `sort_func` to compare items.
 
         If `sort_func` is None, all items are considered equal.
         """
-    def set_sort_func(
-        self, sort_func: GLib.CompareDataFunc | None, user_data: object | None, user_destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_sort_func(self, sort_func: GLib.CompareDataFunc | None = None, user_data: object | None = None) -> None:
         """
             Sets (or unsets) the function used for sorting items.
 
@@ -21598,9 +21578,7 @@ class DrawingArea(Widget):
 
         If the width is set to 0 (the default), the drawing area may disappear.
         """
-    def set_draw_func(
-        self, draw_func: DrawingAreaDrawFunc | None, user_data: object | None, destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_draw_func(self, draw_func: DrawingAreaDrawFunc | None = None, user_data: object | None = None) -> None:
         """
             Setting a draw function is the main thing you want to do when using
         a drawing area.
@@ -25118,9 +25096,7 @@ class EntryCompletion(GObject.Object):
         inside the entry.
         """
     @deprecated("deprecated")
-    def set_match_func(
-        self, func: EntryCompletionMatchFunc, func_data: object | None, func_notify: GLib.DestroyNotify
-    ) -> None:
+    def set_match_func(self, func: EntryCompletionMatchFunc, func_data: object | None = None) -> None:
         """
             Sets the match function for `completion` to be `func`.
 
@@ -26539,11 +26515,7 @@ class Expression(object):
         freed.
         """
     def watch(
-        self,
-        this_: GObject.Object | None,
-        notify: ExpressionNotify,
-        user_data: object | None,
-        user_destroy: GLib.DestroyNotify,
+        self, this_: GObject.Object | None, notify: ExpressionNotify, user_data: object | None = None
     ) -> ExpressionWatch:
         """
             Watch the given `expression` for changes.
@@ -29245,11 +29217,7 @@ class FlowBox(Widget):
         See also: [method`Gtk`.FlowBox.insert].
         """
     def bind_model(
-        self,
-        model: Gio.ListModel | None,
-        create_widget_func: FlowBoxCreateWidgetFunc,
-        user_data: object | None,
-        user_data_free_func: GLib.DestroyNotify,
+        self, model: Gio.ListModel | None, create_widget_func: FlowBoxCreateWidgetFunc, user_data: object | None = None
     ) -> None:
         """
             Binds `model` to `box`.
@@ -29394,9 +29362,7 @@ class FlowBox(Widget):
         """
         Sets the horizontal space to add between children.
         """
-    def set_filter_func(
-        self, filter_func: FlowBoxFilterFunc | None, user_data: object | None, destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_filter_func(self, filter_func: FlowBoxFilterFunc | None = None, user_data: object | None = None) -> None:
         """
             By setting a filter function on the `box` one can decide dynamically
         which of the children to show.
@@ -29453,9 +29419,7 @@ class FlowBox(Widget):
         """
         Sets how selection works in `box`.
         """
-    def set_sort_func(
-        self, sort_func: FlowBoxSortFunc | None, user_data: object | None, destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_sort_func(self, sort_func: FlowBoxSortFunc | None = None, user_data: object | None = None) -> None:
         """
             By setting a sort function on the `box`, one can dynamically
         reorder the children of the box, based on the contents of
@@ -30099,9 +30063,7 @@ class FontChooser(GObject.GInterface):
         Returns whether the preview entry is shown or not.
         """
     @deprecated("deprecated")
-    def set_filter_func(
-        self, filter: FontFilterFunc | None, user_data: object | None, destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_filter_func(self, filter: FontFilterFunc | None = None, user_data: object | None = None) -> None:
         """
             Adds a filter function that decides which fonts to display
         in the font chooser.
@@ -38995,10 +38957,9 @@ class ListBox(Widget):
         """
     def bind_model(
         self,
-        model: Gio.ListModel | None,
-        create_widget_func: ListBoxCreateWidgetFunc | None,
-        user_data: object | None,
-        user_data_free_func: GLib.DestroyNotify,
+        model: Gio.ListModel | None = None,
+        create_widget_func: ListBoxCreateWidgetFunc | None = None,
+        user_data: object | None = None,
     ) -> None:
         """
             Binds `model` to `box`.
@@ -39173,9 +39134,7 @@ class ListBox(Widget):
         be picked up automatically, so there is no need
         to manually do that.
         """
-    def set_filter_func(
-        self, filter_func: ListBoxFilterFunc | None, user_data: object | None, destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_filter_func(self, filter_func: ListBoxFilterFunc | None = None, user_data: object | None = None) -> None:
         """
             By setting a filter function on the `box` one can decide dynamically which
         of the rows to show.
@@ -39192,7 +39151,7 @@ class ListBox(Widget):
         (see [method`Gtk`.ListBox.bind_model]).
         """
     def set_header_func(
-        self, update_header: ListBoxUpdateHeaderFunc | None, user_data: object | None, destroy: GLib.DestroyNotify
+        self, update_header: ListBoxUpdateHeaderFunc | None = None, user_data: object | None = None
     ) -> None:
         """
             Sets a header function.
@@ -39235,9 +39194,7 @@ class ListBox(Widget):
             Sets whether the list box should show separators
         between rows.
         """
-    def set_sort_func(
-        self, sort_func: ListBoxSortFunc | None, user_data: object | None, destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_sort_func(self, sort_func: ListBoxSortFunc | None = None, user_data: object | None = None) -> None:
         """
             Sets a sort function.
 
@@ -40980,17 +40937,14 @@ class MapListModel(GObject.Object):
     @classmethod
     def new(
         cls,
-        model: Gio.ListModel | None,
-        map_func: MapListModelMapFunc | None,
-        user_data: object | None,
-        user_destroy: GLib.DestroyNotify,
+        model: Gio.ListModel | None = None,
+        map_func: MapListModelMapFunc | None = None,
+        user_data: object | None = None,
     ) -> MapListModel:
         """
         Creates a new `GtkMapListModel` for the given arguments.
         """
-    def set_map_func(
-        self, map_func: MapListModelMapFunc | None, user_data: object | None, user_destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_map_func(self, map_func: MapListModelMapFunc | None = None, user_data: object | None = None) -> None:
         """
             Sets the function used to map items.
 
@@ -42093,10 +42047,7 @@ class MenuButton(Widget):
         will be shown next to the child.
         """
     def set_create_popup_func(
-        self,
-        func: MenuButtonCreatePopupFunc | None = None,
-        user_data: object | None = None,
-        destroy_notify: GLib.DestroyNotify | None = None,
+        self, func: MenuButtonCreatePopupFunc | None = None, user_data: object | None = None
     ) -> None:
         """
             Sets `func` to be called when a popup is about to be shown.
@@ -47449,7 +47400,7 @@ class PrintJob(GObject.Object):
         """
         Creates a new `GtkPrintJob`.
         """
-    def send(self, callback: PrintJobCompleteFunc, user_data: object | None, dnotify: GLib.DestroyNotify) -> None:
+    def send(self, callback: PrintJobCompleteFunc, user_data: object | None = None) -> None:
         """
         Sends the print job off to the printer.
         """
@@ -51455,12 +51406,7 @@ class Scale(Range):
             Specifies whether the current value is displayed as a string next
         to the slider.
         """
-    def set_format_value_func(
-        self,
-        func: ScaleFormatValueFunc | None = None,
-        user_data: object | None = None,
-        destroy_notify: GLib.DestroyNotify | None = None,
-    ) -> None:
+    def set_format_value_func(self, func: ScaleFormatValueFunc | None = None, user_data: object | None = None) -> None:
         """
             `func` allows you to change how the scale value is displayed.
 
@@ -60510,11 +60456,7 @@ class TextBuffer(GObject.Object):
         Generated __init__ stub method. order not guaranteed.
         """
     def add_commit_notify(
-        self,
-        flags: TextBufferNotifyFlags,
-        commit_notify: TextBufferCommitNotify,
-        user_data: object | None,
-        destroy: GLib.DestroyNotify,
+        self, flags: TextBufferNotifyFlags, commit_notify: TextBufferCommitNotify, user_data: object | None = None
     ) -> int:
         """
             Adds a [callback`Gtk`.TextBufferCommitNotify] to be called when a change
@@ -66274,8 +66216,7 @@ class TreeListModel(GObject.Object):
         passthrough: bool,
         autoexpand: bool,
         create_func: TreeListModelCreateModelFunc,
-        user_data: object | None,
-        user_destroy: GLib.DestroyNotify,
+        user_data: object | None = None,
     ) -> TreeListModel:
         """
             Creates a new empty `GtkTreeListModel` displaying `root`
@@ -67248,12 +67189,7 @@ class TreeModelFilter(GObject.Object):
         """
     @deprecated("deprecated")
     def set_modify_func(
-        self,
-        n_columns: int,
-        types: list,
-        func: TreeModelFilterModifyFunc,
-        data: object | None = None,
-        destroy: GLib.DestroyNotify | None = None,
+        self, n_columns: int, types: list, func: TreeModelFilterModifyFunc, data: object | None = None
     ) -> None:
         """
             With the `n_columns` and `types` parameters, you give an array of column
@@ -67280,9 +67216,7 @@ class TreeModelFilter(GObject.Object):
         once for a given filter model.
         """
     @deprecated("deprecated")
-    def set_visible_func(
-        self, func: TreeModelFilterVisibleFunc, data: object | None = None, destroy: GLib.DestroyNotify | None = None
-    ) -> None:
+    def set_visible_func(self, func: TreeModelFilterVisibleFunc, data: object | None = None) -> None:
         """
             Sets the visible function used when filtering the `filter` to be `func`.
         The function should return True if the given row should be visible and
@@ -68130,9 +68064,7 @@ class TreeSelection(GObject.Object):
         previously selected.
         """
     @deprecated("deprecated")
-    def set_select_function(
-        self, func: TreeSelectionFunc | None, data: object | None, destroy: GLib.DestroyNotify
-    ) -> None:
+    def set_select_function(self, func: TreeSelectionFunc | None = None, data: object | None = None) -> None:
         """
             Sets the selection function.
 
@@ -68216,9 +68148,7 @@ class TreeSortable(GObject.GInterface):
         go back to the default state, or not.
         """
     @deprecated("deprecated")
-    def set_default_sort_func(
-        self, sort_func: TreeIterCompareFunc, user_data: object | None = None, destroy: GLib.DestroyNotify | None = None
-    ) -> None:
+    def set_default_sort_func(self, sort_func: TreeIterCompareFunc, user_data: object | None = None) -> None:
         """
             Sets the default comparison function used when sorting to be `sort_func`.
         If the current sort column id of `sortable` is
@@ -68245,11 +68175,7 @@ class TreeSortable(GObject.GInterface):
         """
     @deprecated("deprecated")
     def set_sort_func(
-        self,
-        sort_column_id: int,
-        sort_func: TreeIterCompareFunc,
-        user_data: object | None = None,
-        destroy: GLib.DestroyNotify | None = None,
+        self, sort_column_id: int, sort_func: TreeIterCompareFunc, user_data: object | None = None
     ) -> None:
         """
             Sets the comparison function used when sorting to be `sort_func`. If the
@@ -69151,13 +69077,7 @@ class TreeView(Widget):
         """
     @deprecated("deprecated")
     def insert_column_with_data_func(
-        self,
-        position: int,
-        title: str,
-        cell: CellRenderer,
-        func: TreeCellDataFunc,
-        data: object | None,
-        dnotify: GLib.DestroyNotify,
+        self, position: int, title: str, cell: CellRenderer, func: TreeCellDataFunc, data: object | None = None
     ) -> int:
         """
             Convenience function that inserts a new column into the `GtkTreeView`
@@ -69273,10 +69193,7 @@ class TreeView(Widget):
         """
     @deprecated("deprecated")
     def set_column_drag_function(
-        self,
-        func: TreeViewColumnDropFunc | None = None,
-        user_data: object | None = None,
-        destroy: GLib.DestroyNotify | None = None,
+        self, func: TreeViewColumnDropFunc | None = None, user_data: object | None = None
     ) -> None:
         """
             Sets a user function for determining where a column may be dropped when
@@ -69429,12 +69346,7 @@ class TreeView(Widget):
         handle drag and drop manually.
         """
     @deprecated("deprecated")
-    def set_row_separator_func(
-        self,
-        func: TreeViewRowSeparatorFunc | None = None,
-        data: object | None = None,
-        destroy: GLib.DestroyNotify | None = None,
-    ) -> None:
+    def set_row_separator_func(self, func: TreeViewRowSeparatorFunc | None = None, data: object | None = None) -> None:
         """
             Sets the row separator function, which is used to determine
         whether a row should be drawn as a separator. If the row separator
@@ -69471,10 +69383,7 @@ class TreeView(Widget):
         """
     @deprecated("deprecated")
     def set_search_equal_func(
-        self,
-        search_equal_func: TreeViewSearchEqualFunc,
-        search_user_data: object | None = None,
-        search_destroy: GLib.DestroyNotify | None = None,
+        self, search_equal_func: TreeViewSearchEqualFunc, search_user_data: object | None = None
     ) -> None:
         """
             Sets the compare function for the interactive search capabilities; note
@@ -70149,11 +70058,7 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         """
     @deprecated("deprecated")
     def set_cell_data_func(
-        self,
-        cell_renderer: CellRenderer,
-        func: TreeCellDataFunc | None,
-        func_data: object | None,
-        destroy: GLib.DestroyNotify,
+        self, cell_renderer: CellRenderer, func: TreeCellDataFunc | None = None, func_data: object | None = None
     ) -> None:
         """
             Sets the `GtkTreeCellDataFunc` to use for the column.
@@ -71629,7 +71534,7 @@ class Widget(GObject.InitiallyUnowned):
         when the widget is destroyed, so the caller must make sure
         to update its internal state at this point as well.
         """
-    def add_tick_callback(self, callback: TickCallback, user_data: object | None, notify: GLib.DestroyNotify) -> int:
+    def add_tick_callback(self, callback: TickCallback, user_data: object | None = None) -> int:
         """
             Queues an animation frame update and adds a callback to be called
         before each frame.
@@ -76610,9 +76515,8 @@ class set_cell_data_funcCellLayoutIfaceCB(typing.Protocol):
         self,
         cell_layout: CellLayout,
         cell: CellRenderer,
-        func: CellLayoutDataFunc | None,
-        func_data: object | None,
-        destroy: GLib.DestroyNotify,  # type: ignore
+        func: CellLayoutDataFunc | None = None,
+        func_data: object | None = None,
     ) -> None: ...
 
 class clear_attributesCellLayoutIfaceCB(typing.Protocol):
@@ -77405,9 +77309,8 @@ class set_filter_funcFontChooserIfaceCB(typing.Protocol):
     def __call__(
         self,
         fontchooser: FontChooser,
-        filter: FontFilterFunc | None,
-        user_data: object | None,
-        destroy: GLib.DestroyNotify,  # type: ignore
+        filter: FontFilterFunc | None = None,
+        user_data: object | None = None,
     ) -> None: ...
 
 class font_activatedFontChooserIfaceCB(typing.Protocol):
@@ -79420,7 +79323,6 @@ class set_sort_funcTreeSortableIfaceCB(typing.Protocol):
         sort_column_id: int,
         sort_func: TreeIterCompareFunc,
         user_data: object | None = None,
-        destroy: GLib.DestroyNotify | None = None,  # type: ignore
     ) -> None: ...
 
 class set_default_sort_funcTreeSortableIfaceCB(typing.Protocol):
@@ -79434,7 +79336,6 @@ class set_default_sort_funcTreeSortableIfaceCB(typing.Protocol):
         sortable: TreeSortable,
         sort_func: TreeIterCompareFunc,
         user_data: object | None = None,
-        destroy: GLib.DestroyNotify | None = None,  # type: ignore
     ) -> None: ...
 
 class has_default_sort_funcTreeSortableIfaceCB(typing.Protocol):

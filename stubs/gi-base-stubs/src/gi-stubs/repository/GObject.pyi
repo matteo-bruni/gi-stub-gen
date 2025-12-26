@@ -1055,8 +1055,6 @@ def signal_add_emission_hook(
     signal_id: int,
     detail: int,
     hook_func: SignalEmissionHook,
-    hook_data: object | None = None,
-    data_destroy: GLib.DestroyNotify | None = None,  # type: ignore
 ) -> int:
     """
     Adds an emission hook for a signal, which will get called for any emission
@@ -5867,9 +5865,7 @@ class SignalGroup(Object):
 
         You cannot connect a signal handler after GSignalGroup:target has been set.
         """
-    def connect_data(
-        self, detailed_signal: str, c_handler: Callback, data: object | None, notify: ClosureNotify, flags: ConnectFlags
-    ) -> None:
+    def connect_data(self, detailed_signal: str, c_handler: Callback, data: object | None, flags: ConnectFlags) -> None:
         """
             Connects `c_handler` to the signal `detailed_signal`
         on the target instance of `self`.
@@ -7711,18 +7707,6 @@ class Callback(typing.Protocol):
     #
     def __call__(
         self,
-    ) -> None: ...
-
-class ClosureNotify(typing.Protocol):
-    """
-    This callback was used in:
-        GObject.connect_data
-    """
-    #  data
-    def __call__(
-        self,
-        data: object | None,
-        closure: Closure,
     ) -> None: ...
 
 class BaseInitFuncTypeInfoCB(typing.Protocol):

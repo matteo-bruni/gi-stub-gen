@@ -61,8 +61,7 @@ def core_error_quark() -> int: ...
 @staticmethod
 def debug_add_log_function(
     func: LogFunction,
-    user_data: object | None,
-    notify: GLib.DestroyNotify,  # type: ignore
+    user_data: object | None = None,
 ) -> None:
     """
     Adds the logging function to the list of logging functions.
@@ -778,9 +777,8 @@ def meta_get_info(
 def meta_register_custom(
     name: str,
     tags: list,
-    transform_func: CustomMetaTransformFunction | None,
-    user_data: object | None,
-    destroy_data: GLib.DestroyNotify,  # type: ignore
+    transform_func: CustomMetaTransformFunction | None = None,
+    user_data: object | None = None,
 ) -> MetaInfo:
     """
     Register a new custom Gst.Meta implementation, backed by an opaque
@@ -1269,10 +1267,9 @@ def type_find_register(
     name: str,
     rank: int,
     func: TypeFindFunction,
-    extensions: str | None,
-    possible_caps: Caps | None,
-    data: object | None,
-    data_notify: GLib.DestroyNotify,  # type: ignore
+    extensions: str | None = None,
+    possible_caps: Caps | None = None,
+    data: object | None = None,
 ) -> bool:
     """
     Registers a new typefind function to be used for typefinding. After
@@ -7377,7 +7374,7 @@ class Bus(Object):
         There can only be a single bus watch per bus, you must remove any signal
         watch before you can set another type of watch.
         """
-    def add_watch(self, priority: int, func: BusFunc, user_data: object | None, notify: GLib.DestroyNotify) -> int:
+    def add_watch(self, priority: int, func: BusFunc, user_data: object | None = None) -> int:
         """
             Adds a bus watch to the default main context with the default priority
         ( G_PRIORITY_DEFAULT ). It is also possible to use a non-default main
@@ -7535,9 +7532,7 @@ class Bus(Object):
         references to the message origin objects. Will flush future messages until
         `Gst.bus_set_flushing` sets `flushing` to False.
         """
-    def set_sync_handler(
-        self, func: BusSyncHandler | None, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_sync_handler(self, func: BusSyncHandler | None = None, user_data: object | None = None) -> None:
         """
             Sets the synchronous handler on the bus. The function will be called
         every time a new message is posted on the bus. Note that the function
@@ -8611,9 +8606,7 @@ class Clock(Object):
         before this function returned.
         """
     @staticmethod
-    def id_wait_async(
-        id: object, func: ClockCallback, user_data: object | None, destroy_data: GLib.DestroyNotify
-    ) -> ClockReturn:
+    def id_wait_async(id: object, func: ClockCallback, user_data: object | None = None) -> ClockReturn:
         """
             Registers a callback on the given Gst.ClockID `id` with the given
         function and user_data. When passing a Gst.ClockID with an invalid
@@ -10510,9 +10503,7 @@ class Element(Object):
         """
     def add_property_deep_notify_watch(self, property_name: str | None, include_value: bool) -> int: ...
     def add_property_notify_watch(self, property_name: str | None, include_value: bool) -> int: ...
-    def call_async(
-        self, func: ElementCallAsyncFunc, user_data: object | None, destroy_notify: GLib.DestroyNotify
-    ) -> None:
+    def call_async(self, func: ElementCallAsyncFunc, user_data: object | None = None) -> None:
         """
             Calls `func` from another thread and passes `user_data` to it. This is to be
         used for cases when a state change has to be performed from a streaming
@@ -14125,9 +14116,8 @@ class Meta(GObject.GPointer):
     def register_custom(
         name: str,
         tags: list,
-        transform_func: CustomMetaTransformFunction | None,
-        user_data: object | None,
-        destroy_data: GLib.DestroyNotify,
+        transform_func: CustomMetaTransformFunction | None = None,
+        user_data: object | None = None,
     ) -> MetaInfo:
         """
             Register a new custom Gst.Meta implementation, backed by an opaque
@@ -14986,9 +14976,7 @@ class Pad(Object):
 
         If you don't know what this is, you probably don't want to call it.
         """
-    def add_probe(
-        self, mask: PadProbeType, callback: PadProbeCallback, user_data: object | None, destroy_data: GLib.DestroyNotify
-    ) -> int:
+    def add_probe(self, mask: PadProbeType, callback: PadProbeCallback, user_data: object | None = None) -> int:
         """
             Be notified of different states of pads. The provided callback is called for
         every state that matches `mask`.
@@ -15534,9 +15522,7 @@ class Pad(Object):
         This function takes ownership of the provided event so you should
         `Gst.event_ref` it if you want to reuse the event after this call.
         """
-    def set_activate_function_full(
-        self, activate: PadActivateFunction, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_activate_function_full(self, activate: PadActivateFunction, user_data: object | None = None) -> None:
         """
             Sets the given activate function for `pad`. The activate function will
         dispatch to `Gst.pad_activate_mode` to perform the actual activation.
@@ -15545,7 +15531,7 @@ class Pad(Object):
         Call this function if your sink pad can start a pull-based task.
         """
     def set_activatemode_function_full(
-        self, activatemode: PadActivateModeFunction, user_data: object | None, notify: GLib.DestroyNotify
+        self, activatemode: PadActivateModeFunction, user_data: object | None = None
     ) -> None:
         """
             Sets the given activate_mode function for the pad. An activate_mode function
@@ -15563,16 +15549,12 @@ class Pad(Object):
         If not `active`, calls `Gst.pad_activate_mode` with the pad's current mode
         and a False argument.
         """
-    def set_chain_function_full(
-        self, chain: PadChainFunction, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_chain_function_full(self, chain: PadChainFunction, user_data: object | None = None) -> None:
         """
             Sets the given chain function for the pad. The chain function is called to
         process a Gst.Buffer input buffer. see Gst.PadChainFunction for more details.
         """
-    def set_chain_list_function_full(
-        self, chainlist: PadChainListFunction, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_chain_list_function_full(self, chainlist: PadChainListFunction, user_data: object | None = None) -> None:
         """
             Sets the given chain list function for the pad. The chainlist function is
         called to process a Gst.BufferList input buffer list. See
@@ -15584,35 +15566,27 @@ class Pad(Object):
         This function can only be used by the element that owns the pad.
         No locking is performed in this function.
         """
-    def set_event_full_function_full(
-        self, event: PadEventFullFunction, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_event_full_function_full(self, event: PadEventFullFunction, user_data: object | None = None) -> None:
         """
         Sets the given event handler for the pad.
         """
-    def set_event_function_full(
-        self, event: PadEventFunction, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_event_function_full(self, event: PadEventFunction, user_data: object | None = None) -> None:
         """
         Sets the given event handler for the pad.
         """
-    def set_getrange_function_full(
-        self, get: PadGetRangeFunction, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_getrange_function_full(self, get: PadGetRangeFunction, user_data: object | None = None) -> None:
         """
             Sets the given getrange function for the pad. The getrange function is
         called to produce a new Gst.Buffer to start the processing pipeline. see
         Gst.PadGetRangeFunction for a description of the getrange function.
         """
     def set_iterate_internal_links_function_full(
-        self, iterintlink: PadIterIntLinkFunction, user_data: object | None, notify: GLib.DestroyNotify
+        self, iterintlink: PadIterIntLinkFunction, user_data: object | None = None
     ) -> None:
         """
         Sets the given internal link iterator function for the pad.
         """
-    def set_link_function_full(
-        self, link: PadLinkFunction, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_link_function_full(self, link: PadLinkFunction, user_data: object | None = None) -> None:
         """
             Sets the given link function for the pad. It will be called when
         the pad is linked with another pad.
@@ -15633,15 +15607,11 @@ class Pad(Object):
         their running time adjusted. For that reason this is only reliable on
         source pads.
         """
-    def set_query_function_full(
-        self, query: PadQueryFunction, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_query_function_full(self, query: PadQueryFunction, user_data: object | None = None) -> None:
         """
         Set the given query function for the pad.
         """
-    def set_unlink_function_full(
-        self, unlink: PadUnlinkFunction, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_unlink_function_full(self, unlink: PadUnlinkFunction, user_data: object | None = None) -> None:
         """
             Sets the given unlink function for the pad. It will be called
         when the pad is unlinked.
@@ -15650,7 +15620,7 @@ class Pad(Object):
         function is called, so most pad functions cannot be called
         from within the callback.
         """
-    def start_task(self, func: TaskFunction, user_data: object | None, notify: GLib.DestroyNotify) -> bool:
+    def start_task(self, func: TaskFunction, user_data: object | None = None) -> bool:
         """
             Starts a task that repeatedly calls `func` with `user_data`. This function
         is mostly used in pad activation functions to start the dataflow.
@@ -17278,9 +17248,7 @@ class Promise(GObject.GBoxed):
     @classmethod
     def new(cls) -> Promise: ...
     @classmethod
-    def new_with_change_func(
-        cls, func: PromiseChangeFunc, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> Promise:
+    def new_with_change_func(cls, func: PromiseChangeFunc, user_data: object | None = None) -> Promise:
         """
             `func` will be called exactly once when transitioning out of
         Gst.PROMISE_RESULT_PENDING into any of the other Gst.PromiseResult
@@ -20374,7 +20342,7 @@ class Task(Object):
         g_warning.
         """
     @classmethod
-    def new(cls, func: TaskFunction, user_data: object | None, notify: GLib.DestroyNotify) -> Task:
+    def new(cls, func: TaskFunction, user_data: object | None = None) -> Task:
         """
             Create a new Task that will repeatedly call the provided `func`
         with `user_data` as a parameter. Typically the task will run in
@@ -20402,17 +20370,13 @@ class Task(Object):
             Resume `task` in case it was paused. If the task was stopped, it will
         remain in that state and this function will return False.
         """
-    def set_enter_callback(
-        self, enter_func: TaskThreadFunc, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_enter_callback(self, enter_func: TaskThreadFunc, user_data: object | None = None) -> None:
         """
             Call `enter_func` when the task function of `task` is entered. `user_data` will
         be passed to `enter_func` and `notify` will be called when `user_data` is no
         longer referenced.
         """
-    def set_leave_callback(
-        self, leave_func: TaskThreadFunc, user_data: object | None, notify: GLib.DestroyNotify
-    ) -> None:
+    def set_leave_callback(self, leave_func: TaskThreadFunc, user_data: object | None = None) -> None:
         """
             Call `leave_func` when the task function of `task` is left. `user_data` will
         be passed to `leave_func` and `notify` will be called when `user_data` is no
@@ -21053,10 +21017,9 @@ class TypeFind(GObject.GPointer):
         name: str,
         rank: int,
         func: TypeFindFunction,
-        extensions: str | None,
-        possible_caps: Caps | None,
-        data: object | None,
-        data_notify: GLib.DestroyNotify,
+        extensions: str | None = None,
+        possible_caps: Caps | None = None,
+        data: object | None = None,
     ) -> bool:
         """
             Registers a new typefind function to be used for typefinding. After

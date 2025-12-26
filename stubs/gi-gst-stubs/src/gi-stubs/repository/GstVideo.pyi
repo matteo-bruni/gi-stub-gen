@@ -507,8 +507,7 @@ def video_convert_sample_async(
     to_caps: Gst.Caps,
     timeout: int,
     callback: VideoConvertSampleCallback,
-    user_data: object | None,
-    destroy_notify: GLib.DestroyNotify,  # type: ignore
+    user_data: object | None = None,
 ) -> None: ...
 @staticmethod
 def video_crop_meta_api_get_type() -> GObject.GType: ...

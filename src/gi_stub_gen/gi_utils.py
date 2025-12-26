@@ -92,6 +92,32 @@ def get_safe_gi_array_length(
     except AttributeError:
         # Fallback per versioni dove il metodo manca su certi oggetti
         return -1
+    
+def get_safe_gi_destroy_index(
+    gi_arg: Any,
+) -> int:
+    """
+    get_destroy_index was previously returning just an int
+    but seems to have changed in newer versions of pygobject (3.54.0?)
+    to return a tuple (bool, int).
+
+    We return -1 if there is no destroy index.
+
+    Args:
+        gi_arg (Any): arg info object
+    Returns:
+        int: destroy index or -1 if not present
+    """
+    try:
+        result = gi_arg.get_destroy_index()
+        if isinstance(result, tuple):
+            has_destroy, destroy_idx = result
+            if has_destroy:
+                return destroy_idx
+            return -1
+        return result
+    except AttributeError:
+        return -1
 
 
 def get_gi_type_info(

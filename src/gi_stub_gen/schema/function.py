@@ -7,6 +7,7 @@ from gi_stub_gen.gi_utils import (
     catch_gi_deprecation_warnings,
     get_gi_type_info,
     get_safe_gi_array_length,
+    get_safe_gi_destroy_index,
     gi_type_is_callback,
 )
 from gi_stub_gen.template_manager import TemplateManager
@@ -451,13 +452,17 @@ class FunctionSchema(BaseSchema):
         # first loop to identify indices to skip
         obj_arguments = list(obj.get_arguments())
         for i, arg in enumerate(obj_arguments):
-            # Use a safe wrapper to get TypeInfo (handles PyGObject version diffs)
             arg_type = get_gi_type_info(arg)
             array_length: int = get_safe_gi_array_length(arg_type)
             if array_length >= 0:
                 indices_to_skip.add(array_length)
-            # TODO: add logic to skip 'user_data' and 'GDestroyNotify'
-            # for callbacks, but that is more complex and depends on specific GI flags (Closure/Destroy).
+
+            # ask to this arg if another arg is its destroy notifier
+            # WARNING!! in GIRepository.ArgInfo this returns a (bool, int)
+            # while in pygobject GI.ArgInfo it returns just the int
+            destroy_idx = get_safe_gi_destroy_index(arg)
+            if destroy_idx >= 0:
+                indices_to_skip.add(destroy_idx)
 
         # out_args = []
         for i, arg in enumerate(obj_arguments):

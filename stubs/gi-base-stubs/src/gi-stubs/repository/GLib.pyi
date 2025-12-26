@@ -4326,8 +4326,7 @@ def log_set_handler(
     log_domain: str | None,
     log_levels: LogLevelFlags,
     log_func: LogFunc,
-    user_data: object | None,
-    destroy: DestroyNotify,
+    user_data: object | None = None,
 ) -> int:
     """
     Sets the log handler for a domain and a set of log levels.
@@ -4372,9 +4371,7 @@ def log_set_handler(
 
 @staticmethod
 def log_set_writer_func(
-    func: LogWriterFunc,
-    user_data: object | None,
-    user_data_free: DestroyNotify,
+    user_data: object | None = None,
 ) -> None:
     """
     Set a writer function which will be called to format and write out each log
@@ -7741,7 +7738,6 @@ def test_add_data_func_full(
     testpath: str,
     test_data: object | None,
     test_func: TestDataFunc,
-    data_free_func: DestroyNotify,
 ) -> None:
     """
     Creates a new test case.
@@ -9188,8 +9184,7 @@ def unix_fd_add_full(
     fd: int,
     condition: IOCondition,
     function: UnixFDSourceFunc,
-    user_data: object | None,
-    notify: DestroyNotify,
+    user_data: object | None = None,
 ) -> int:
     """
     Sets a function to be called when the IO condition, as specified by
@@ -9281,8 +9276,7 @@ def unix_signal_add(
     priority: int,
     signum: int,
     handler: SourceFunc,
-    user_data: object | None,
-    notify: DestroyNotify,
+    user_data: object | None = None,
 ) -> int:
     """
     A convenience function for `g_unix_signal_source_new`, which
@@ -16566,9 +16560,7 @@ class Idle(Source):
     def remove_child_source(self, child_source: Source) -> None: ...
     def remove_poll(self, fd: PollFD) -> None: ...
     def remove_unix_fd(self, tag: object) -> None: ...
-    def set_callback(
-        self, func: SourceFunc, data: object | None = None, notify: DestroyNotify | None = None
-    ) -> None: ...
+    def set_callback(self, func: SourceFunc, data: object | None = None) -> None: ...
     def set_callback_indirect(self, callback_data: object | None, callback_funcs: SourceCallbackFuncs) -> None: ...
     def set_can_recurse(self, can_recurse: bool) -> None: ...
     def set_funcs(self, funcs: SourceFuncs) -> None: ...
@@ -17314,9 +17306,7 @@ class MainContext(GObject.GBoxed):
         If you need to hold a reference on the context, use
         [func`GLib`.MainContext.ref_thread_default] instead.
         """
-    def invoke_full(
-        self, priority: int, function: SourceFunc, data: object | None = None, notify: DestroyNotify | None = None
-    ) -> None:
+    def invoke_full(self, priority: int, function: SourceFunc, data: object | None = None) -> None:
         """
             Invokes a function in such a way that `context` is owned during the
         invocation of `function`.
@@ -19990,7 +19980,7 @@ class Source(GObject.GBoxed):
 
         As the name suggests, this function is not available on Windows.
         """
-    def set_callback(self, func: SourceFunc, data: object | None = None, notify: DestroyNotify | None = None) -> None:
+    def set_callback(self, func: SourceFunc, data: object | None = None) -> None:
         """
             Sets the callback function for a source. The callback for a source is
         called from the source's dispatch function.
@@ -21021,9 +21011,7 @@ class Timeout(Source):
     def remove_child_source(self, child_source: Source) -> None: ...
     def remove_poll(self, fd: PollFD) -> None: ...
     def remove_unix_fd(self, tag: object) -> None: ...
-    def set_callback(
-        self, func: SourceFunc, data: object | None = None, notify: DestroyNotify | None = None
-    ) -> None: ...
+    def set_callback(self, func: SourceFunc, data: object | None = None) -> None: ...
     def set_callback_indirect(self, callback_data: object | None, callback_funcs: SourceCallbackFuncs) -> None: ...
     def set_can_recurse(self, can_recurse: bool) -> None: ...
     def set_funcs(self, funcs: SourceFuncs) -> None: ...
@@ -21280,11 +21268,7 @@ class Tree(GObject.GBoxed):
         """
     @classmethod
     def new_full(
-        cls,
-        key_compare_func: CompareDataFunc,
-        key_compare_data: object | None,
-        key_destroy_func: DestroyNotify,
-        value_destroy_func: DestroyNotify,
+        cls, key_compare_func: CompareDataFunc, key_compare_data: object | None, key_destroy_func: DestroyNotify
     ) -> Tree:
         """
             Creates a new GTree like `g_tree_new` and allows to specify functions
@@ -23572,7 +23556,7 @@ class CompareDataFunc(typing.Protocol):
 class DestroyNotify(typing.Protocol):
     """
     This callback was used in:
-        GLib.async_queue_new_full, GLib.atomic_rc_box_release_full, GLib.clear_full, GLib.free_full, GLib.invoke_full, GLib.log_set_handler, GLib.log_set_writer_func, GLib.new_from_data, GLib.new_full, GLib.rc_box_release_full, GLib.set_callback, GLib.test_add_data_func_full, GLib.test_queue_destroy, GLib.unix_fd_add_full, GLib.unix_signal_add
+        GLib.async_queue_new_full, GLib.atomic_rc_box_release_full, GLib.clear_full, GLib.free_full, GLib.new_from_data, GLib.new_full, GLib.rc_box_release_full, GLib.test_queue_destroy
     """
     #  data
     def __call__(
@@ -24193,20 +24177,6 @@ class LogFunc(typing.Protocol):
         message: str,
         user_data: object | None = None,
     ) -> None: ...
-
-class LogWriterFunc(typing.Protocol):
-    """
-    This callback was used in:
-        GLib.log_set_writer_func
-    """
-    #  log_level
-    def __call__(
-        self,
-        log_level: LogLevelFlags,
-        fields: list,
-        n_fields: int,
-        user_data: object | None = None,
-    ) -> LogWriterOutput: ...
 
 class SpawnChildSetupFunc(typing.Protocol):
     """

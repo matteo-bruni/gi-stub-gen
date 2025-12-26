@@ -333,7 +333,6 @@ def attr_shape_new_with_data(
     logical_rect: Rectangle,
     data: object | None = None,
     copy_func: AttrDataCopyFunc | None = None,
-    destroy_func: GLib.DestroyNotify | None = None,  # type: ignore
 ) -> Attribute:
     """
     Creates a new shape attribute.
@@ -3503,7 +3502,6 @@ class AttrShape(GObject.GPointer):
         logical_rect: Rectangle,
         data: object | None = None,
         copy_func: AttrDataCopyFunc | None = None,
-        destroy_func: GLib.DestroyNotify | None = None,
     ) -> Attribute:
         """
             Creates a new shape attribute.
