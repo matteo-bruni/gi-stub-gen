@@ -140,34 +140,3 @@ def test_translate_docstring_smart_class_resolution():
     # In pytest, we simply use the `assert` keyword.
     # If it fails, pytest provides a detailed diff.
     assert result == expected_doc, f"\nExpected:\n{expected_doc}\n\nGot:\n{result}"
-
-
-MessageType_EXTENDED = """
-    Message is an extended message type (see below).
-        These extended message IDs can't be used directly with mask-based API
-        like gst_bus_poll() or gst_bus_timed_pop_filtered(), but you can still
-        filter for GST_MESSAGE_EXTENDED and then check the result for the
-        specific type. (Since: 1.4)
-    """
-
-GstBus = """
-    The GstBus provides support for #GSource based notifications. This makes it
-    possible to handle the delivery in the glib #GMainLoop.
-
-    The #GSource callback function gst_bus_async_signal_func() can be used to
-    convert all bus messages into signal emissions.
-
-    A message is posted on the bus with the gst_bus_post() method. With the
-    gst_bus_peek() and gst_bus_pop() methods one can look at or retrieve a
-    previously posted message.
-
-    The bus can be polled with the gst_bus_poll() method. This methods blocks
-    up to the specified timeout value until one of the specified messages types
-    is posted on the bus. The application can then gst_bus_pop() the messages
-    from the bus to handle them.
-    Alternatively the application can register an asynchronous bus function
-    using gst_bus_add_watch_full() or gst_bus_add_watch(). This function will
-    install a #GSource in the default glib main loop and will deliver messages
-    a short while after they have been posted. Note that the main loop should
-    be running for the asynchronous callbacks.
-"""
