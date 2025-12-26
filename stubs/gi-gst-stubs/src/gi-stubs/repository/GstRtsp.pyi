@@ -510,9 +510,7 @@ class RTSPConnection(GObject.GPointer):
     def send_messages(self, messages: list, n_messages: int, timeout: GLib.TimeVal) -> RTSPResult: ...
     def send_messages_usec(self, messages: list, n_messages: int, timeout: int) -> RTSPResult: ...
     def send_usec(self, message: RTSPMessage, timeout: int) -> RTSPResult: ...
-    def set_accept_certificate_func(
-        self, func: RTSPConnectionAcceptCertificateFunc, user_data: object | None = None
-    ) -> None: ...
+    def set_accept_certificate_func(self, func: RTSPConnectionAcceptCertificateFunc, *user_data: object) -> None: ...
     def set_auth(self, method: RTSPAuthMethod, user: str, pass_: str) -> RTSPResult: ...
     def set_auth_param(self, param: str, value: str) -> None: ...
     def set_content_length_limit(self, limit: int) -> None: ...
@@ -834,7 +832,7 @@ class RTSPConnectionAcceptCertificateFunc(typing.Protocol):
         conn: Gio.TlsConnection,
         peer_cert: Gio.TlsCertificate,
         errors: Gio.TlsCertificateFlags,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class detect_serverRTSPExtensionInterfaceCB(typing.Protocol):
@@ -971,7 +969,7 @@ class message_receivedRTSPWatchFuncsCB(typing.Protocol):
         self,
         watch: RTSPWatch,
         message: RTSPMessage,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> RTSPResult: ...
 
 class message_sentRTSPWatchFuncsCB(typing.Protocol):
@@ -984,7 +982,7 @@ class message_sentRTSPWatchFuncsCB(typing.Protocol):
         self,
         watch: RTSPWatch,
         id: int,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> RTSPResult: ...
 
 class closedRTSPWatchFuncsCB(typing.Protocol):
@@ -996,7 +994,7 @@ class closedRTSPWatchFuncsCB(typing.Protocol):
     def __call__(
         self,
         watch: RTSPWatch,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> RTSPResult: ...
 
 class errorRTSPWatchFuncsCB(typing.Protocol):
@@ -1009,7 +1007,7 @@ class errorRTSPWatchFuncsCB(typing.Protocol):
         self,
         watch: RTSPWatch,
         result: RTSPResult,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> RTSPResult: ...
 
 class tunnel_startRTSPWatchFuncsCB(typing.Protocol):
@@ -1021,7 +1019,7 @@ class tunnel_startRTSPWatchFuncsCB(typing.Protocol):
     def __call__(
         self,
         watch: RTSPWatch,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> RTSPStatusCode: ...
 
 class tunnel_completeRTSPWatchFuncsCB(typing.Protocol):
@@ -1033,7 +1031,7 @@ class tunnel_completeRTSPWatchFuncsCB(typing.Protocol):
     def __call__(
         self,
         watch: RTSPWatch,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> RTSPResult: ...
 
 class error_fullRTSPWatchFuncsCB(typing.Protocol):
@@ -1048,7 +1046,7 @@ class error_fullRTSPWatchFuncsCB(typing.Protocol):
         result: RTSPResult,
         message: RTSPMessage,
         id: int,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> RTSPResult: ...
 
 class tunnel_lostRTSPWatchFuncsCB(typing.Protocol):
@@ -1060,7 +1058,7 @@ class tunnel_lostRTSPWatchFuncsCB(typing.Protocol):
     def __call__(
         self,
         watch: RTSPWatch,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> RTSPResult: ...
 
 class tunnel_http_responseRTSPWatchFuncsCB(typing.Protocol):
@@ -1074,7 +1072,7 @@ class tunnel_http_responseRTSPWatchFuncsCB(typing.Protocol):
         watch: RTSPWatch,
         request: RTSPMessage,
         response: RTSPMessage,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> RTSPResult: ...
 
 ###############################################################

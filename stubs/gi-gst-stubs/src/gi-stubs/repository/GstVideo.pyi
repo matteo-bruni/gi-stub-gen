@@ -72,7 +72,7 @@ def buffer_add_video_gl_texture_upload_meta(
     n_textures: int,
     texture_type: VideoGLTextureType,
     upload: VideoGLTextureUpload,
-    user_data: object | None,
+    *user_data: object,
     user_data_copy: GObject.BoxedCopyFunc,  # type: ignore
     user_data_free: GObject.BoxedFreeFunc,  # type: ignore
 ) -> VideoGLTextureUploadMeta: ...
@@ -507,7 +507,7 @@ def video_convert_sample_async(
     to_caps: Gst.Caps,
     timeout: int,
     callback: VideoConvertSampleCallback,
-    user_data: object | None = None,
+    *user_data: object,
 ) -> None: ...
 @staticmethod
 def video_crop_meta_api_get_type() -> GObject.GType: ...
@@ -2077,7 +2077,7 @@ class VideoCodecFrame(GObject.GBoxed):
         """
     def get_user_data(self) -> object | None: ...
     def ref(self) -> VideoCodecFrame: ...
-    def set_user_data(self, user_data: object | None, notify: GLib.DestroyNotify) -> None: ...
+    def set_user_data(self, *user_data: object, notify: GLib.DestroyNotify) -> None: ...
     def unref(self) -> None: ...
 
 class VideoCodecState(GObject.GBoxed):
@@ -4622,7 +4622,7 @@ class VideoConvertSampleCallback(typing.Protocol):
         self,
         sample: Gst.Sample,
         error: GLib.Error,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 ###############################################################

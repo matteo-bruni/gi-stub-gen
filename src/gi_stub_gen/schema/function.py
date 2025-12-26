@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import keyword
 import logging
+from operator import is_
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi_stub_gen.gi_utils import (
     catch_gi_deprecation_warnings,
     get_gi_type_info,
+    get_safe_gi_arg_closure_index,
     get_safe_gi_array_length,
     get_safe_gi_destroy_index,
     gi_type_is_callback,
@@ -76,6 +78,9 @@ class FunctionArgumentSchema(BaseSchema):
     is_pointer: bool
     """Whether this argument is a pointer type"""
 
+    is_variadic: bool = False
+    """Whether this argument is variadic (i.e., part of *args)"""
+
     # @property
     # def default_value(self) -> str | None:
     #     """Get the default value representation for optional arguments."""
@@ -88,6 +93,7 @@ class FunctionArgumentSchema(BaseSchema):
         cls,
         obj: GIRepository.ArgInfo,
         direction: Literal["IN", "OUT", "INOUT"],
+        variadic: bool = False,  # i.e in case of (*args) -> (arg0, arg1, ...)
     ) -> tuple[Self, CallbackSchema | None]:
         found_callback: CallbackSchema | None = None
 
@@ -161,6 +167,7 @@ class FunctionArgumentSchema(BaseSchema):
             is_caller_allocates=obj.is_caller_allocates(),
             default_value=None,
             is_pointer=gi_type.is_pointer(),
+            is_variadic=variadic,
         ), found_callback
 
     @property
@@ -193,6 +200,11 @@ class FunctionArgumentSchema(BaseSchema):
 
         if self.py_type_namespace and self.py_type_namespace != namespace:
             full_type = f"{self.py_type_namespace}.{base_type}"
+
+        if self.is_variadic:
+            # for variadic arguments we use *args: type
+            # no need to add None
+            return full_type
 
         if self.may_be_null or (self.is_optional and self.direction in ("IN", "INOUT")):
             full_type = f"{full_type} | None"
@@ -375,18 +387,24 @@ class FunctionSchema(BaseSchema):
             if arg.direction == "OUT":
                 continue
 
-            arg_repr = f"{arg.name}: {arg.type_hint(namespace)}"
-            # default_value
-            # add default value for optional arguments
-            is_nullable = arg.may_be_null or arg.is_optional
-            if (is_nullable or arg.default_value is not None) and allow_default:
-                if arg.default_value is not None:
-                    arg_repr = f"{arg_repr} = {arg.default_value}"
-                else:
-                    arg_repr = f"{arg_repr} = None"
+            type_str = arg.type_hint(namespace)
+            if arg.is_variadic:
+                arg_repr = f"*{arg.name}: {type_str}"
             else:
-                # once we find a non-optional, stop adding defaults
-                allow_default = False
+                arg_repr = f"{arg.name}: {type_str}"
+                # default_value
+                # add default value for optional arguments
+                is_nullable = arg.may_be_null or arg.is_optional
+                has_default_value = arg.default_value is not None
+                if (is_nullable or has_default_value) and allow_default:
+                    if has_default_value:
+                        arg_repr = f"{arg_repr} = {arg.default_value}"
+                    else:
+                        arg_repr = f"{arg_repr} = None"
+                else:
+                    # once we find a non-optional, stop adding defaults
+                    allow_default = False
+
             # add line comment if any
             if not one_line and arg.line_comment:
                 arg_comment = arg.line_comment
@@ -451,6 +469,7 @@ class FunctionSchema(BaseSchema):
 
         # first loop to identify indices to skip
         obj_arguments = list(obj.get_arguments())
+        closure_indices = set()
         for i, arg in enumerate(obj_arguments):
             arg_type = get_gi_type_info(arg)
             array_length: int = get_safe_gi_array_length(arg_type)
@@ -463,6 +482,11 @@ class FunctionSchema(BaseSchema):
             destroy_idx = get_safe_gi_destroy_index(arg)
             if destroy_idx >= 0:
                 indices_to_skip.add(destroy_idx)
+
+            # get closure indices
+            closure_idx = get_safe_gi_arg_closure_index(arg)
+            if closure_idx >= 0:
+                closure_indices.add(closure_idx)
 
         # out_args = []
         for i, arg in enumerate(obj_arguments):
@@ -481,16 +505,16 @@ class FunctionSchema(BaseSchema):
             else:
                 raise ValueError(f"Unknown GI.Direction: {arg.get_direction()}")
 
+            is_variadic = i in closure_indices
             # IMPORTANT: For standard Function Stubs, arguments marked as 'OUT'
             # are NOT part of the Python input signature. They are returned in the tuple.
             # However, 'INOUT' arguments ARE passed as input (and returned modified).
-            # if direction == "OUT":
-            #     continue
-
             function_arg, found_callback = FunctionArgumentSchema.from_gi_object(
                 obj=arg,
                 direction=direction,
+                variadic=is_variadic,
             )
+
             function_args.append(function_arg)
             if found_callback:
                 # Found a callback argument

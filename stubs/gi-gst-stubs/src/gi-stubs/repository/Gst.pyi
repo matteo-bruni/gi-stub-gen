@@ -61,7 +61,7 @@ def core_error_quark() -> int: ...
 @staticmethod
 def debug_add_log_function(
     func: LogFunction,
-    user_data: object | None = None,
+    *user_data: object,
 ) -> None:
     """
     Adds the logging function to the list of logging functions.
@@ -778,7 +778,7 @@ def meta_register_custom(
     name: str,
     tags: list,
     transform_func: CustomMetaTransformFunction | None = None,
-    user_data: object | None = None,
+    *user_data: object,
 ) -> MetaInfo:
     """
     Register a new custom Gst.Meta implementation, backed by an opaque
@@ -1269,7 +1269,7 @@ def type_find_register(
     func: TypeFindFunction,
     extensions: str | None = None,
     possible_caps: Caps | None = None,
-    data: object | None = None,
+    *data: object,
 ) -> bool:
     """
     Registers a new typefind function to be used for typefinding. After
@@ -1461,7 +1461,7 @@ def util_array_binary_search(
     search_func: GLib.CompareDataFunc,  # type: ignore
     mode: SearchMode,
     search_data: object | None = None,
-    user_data: object | None = None,
+    *user_data: object,
 ) -> object | None:
     """
     Searches inside `array` for `search_data` by using the comparison function
@@ -6521,7 +6521,7 @@ class Buffer(GObject.GBoxed):
 
         `size` can be -1 to get all the memory blocks after `idx`.
         """
-    def foreach_meta(self, func: BufferForeachMetaFunc, user_data: object | None = None) -> bool:
+    def foreach_meta(self, func: BufferForeachMetaFunc, *user_data: object) -> bool:
         """
             Calls `func` with `user_data` for each meta in `buffer`.
 
@@ -6720,7 +6720,7 @@ class Buffer(GObject.GBoxed):
         maxsize: int,
         offset: int,
         size: int,
-        user_data: object | None = None,
+        *user_data: object,
         notify: GLib.DestroyNotify | None = None,
     ) -> Buffer:
         """
@@ -6838,7 +6838,7 @@ class BufferList(GObject.GBoxed):
             Creates a copy of the given buffer list. This will make a newly allocated
         copy of the buffers that the source buffer list contains.
         """
-    def foreach(self, func: BufferListFunc, user_data: object | None = None) -> bool:
+    def foreach(self, func: BufferListFunc, *user_data: object) -> bool:
         """
             Calls `func` with `data` for each buffer in `list`.
 
@@ -7374,7 +7374,7 @@ class Bus(Object):
         There can only be a single bus watch per bus, you must remove any signal
         watch before you can set another type of watch.
         """
-    def add_watch(self, priority: int, func: BusFunc, user_data: object | None = None) -> int:
+    def add_watch(self, priority: int, func: BusFunc, *user_data: object) -> int:
         """
             Adds a bus watch to the default main context with the default priority
         ( G_PRIORITY_DEFAULT ). It is also possible to use a non-default main
@@ -7532,7 +7532,7 @@ class Bus(Object):
         references to the message origin objects. Will flush future messages until
         `Gst.bus_set_flushing` sets `flushing` to False.
         """
-    def set_sync_handler(self, func: BusSyncHandler | None = None, user_data: object | None = None) -> None:
+    def set_sync_handler(self, func: BusSyncHandler | None = None, *user_data: object) -> None:
         """
             Sets the synchronous handler on the bus. The function will be called
         every time a new message is posted on the bus. Note that the function
@@ -7776,7 +7776,7 @@ class Caps(GObject.GBoxed):
             Creates a new Gst.Caps and appends a copy of the nth structure
         contained in `caps`.
         """
-    def filter_and_map_in_place(self, func: CapsFilterMapFunc, user_data: object | None = None) -> None:
+    def filter_and_map_in_place(self, func: CapsFilterMapFunc, *user_data: object) -> None:
         """
             Calls the provided function once for each structure and caps feature in the
         Gst.Caps. In contrast to `Gst.caps_foreach`, the function may modify the
@@ -7800,7 +7800,7 @@ class Caps(GObject.GBoxed):
 
         Calling this function with ANY caps is not allowed.
         """
-    def foreach(self, func: CapsForeachFunc, user_data: object | None = None) -> bool:
+    def foreach(self, func: CapsForeachFunc, *user_data: object) -> bool:
         """
             Calls the provided function once for each structure and caps feature in the
         Gst.Caps. The function must not modify the fields.
@@ -7908,7 +7908,7 @@ class Caps(GObject.GBoxed):
             Checks if `structure` is a subset of `caps`. See `Gst.caps_is_subset`
         for more information.
         """
-    def map_in_place(self, func: CapsMapFunc, user_data: object | None = None) -> bool:
+    def map_in_place(self, func: CapsMapFunc, *user_data: object) -> bool:
         """
             Calls the provided function once for each structure and caps feature in the
         Gst.Caps. In contrast to `Gst.caps_foreach`, the function may modify but not
@@ -8606,7 +8606,7 @@ class Clock(Object):
         before this function returned.
         """
     @staticmethod
-    def id_wait_async(id: object, func: ClockCallback, user_data: object | None = None) -> ClockReturn:
+    def id_wait_async(id: object, func: ClockCallback, *user_data: object) -> ClockReturn:
         """
             Registers a callback on the given Gst.ClockID `id` with the given
         function and user_data. When passing a Gst.ClockID with an invalid
@@ -10503,7 +10503,7 @@ class Element(Object):
         """
     def add_property_deep_notify_watch(self, property_name: str | None, include_value: bool) -> int: ...
     def add_property_notify_watch(self, property_name: str | None, include_value: bool) -> int: ...
-    def call_async(self, func: ElementCallAsyncFunc, user_data: object | None = None) -> None:
+    def call_async(self, func: ElementCallAsyncFunc, *user_data: object) -> None:
         """
             Calls `func` from another thread and passes `user_data` to it. This is to be
         used for cases when a state change has to be performed from a streaming
@@ -10561,7 +10561,7 @@ class Element(Object):
         should be printed with a fixed number of characters, preceded by 0's, such as
         by using the format \\03u instead of %u.
         """
-    def foreach_pad(self, func: ElementForeachPadFunc, user_data: object | None = None) -> bool:
+    def foreach_pad(self, func: ElementForeachPadFunc, *user_data: object) -> bool:
         """
             Call `func` with `user_data` for each of `element`'s pads. `func` will be called
         exactly once for each pad that exists at the time of this call, unless
@@ -10570,7 +10570,7 @@ class Element(Object):
         while pads are being iterated, this will not be taken into account until
         next time this function is used.
         """
-    def foreach_sink_pad(self, func: ElementForeachPadFunc, user_data: object | None = None) -> bool:
+    def foreach_sink_pad(self, func: ElementForeachPadFunc, *user_data: object) -> bool:
         """
             Call `func` with `user_data` for each of `element`'s sink pads. `func` will be
         called exactly once for each sink pad that exists at the time of this call,
@@ -10579,7 +10579,7 @@ class Element(Object):
         are removed while the sink pads are being iterated, this will not be taken
         into account until next time this function is used.
         """
-    def foreach_src_pad(self, func: ElementForeachPadFunc, user_data: object | None = None) -> bool:
+    def foreach_src_pad(self, func: ElementForeachPadFunc, *user_data: object) -> bool:
         """
             Call `func` with `user_data` for each of `element`'s source pads. `func` will be
         called exactly once for each source pad that exists at the time of this call,
@@ -12846,7 +12846,7 @@ class Iterator(GObject.GBoxed):
 
         When this iterator is freed, `it` will also be freed.
         """
-    def find_custom(self, func: GLib.CompareFunc, user_data: object | None = None) -> tuple[bool, GObject.Value]:
+    def find_custom(self, func: GLib.CompareFunc, *user_data: object) -> tuple[bool, GObject.Value]:
         """
             Find the first element in `it` that matches the compare function `func`.
         `func` should return 0 when the element is found. The first parameter
@@ -12859,7 +12859,7 @@ class Iterator(GObject.GBoxed):
         This function will return False if an error happened to the iterator
         or if the element wasn't found.
         """
-    def fold(self, func: IteratorFoldFunction, ret: GObject.Value, user_data: object | None = None) -> IteratorResult:
+    def fold(self, func: IteratorFoldFunction, ret: GObject.Value, *user_data: object) -> IteratorResult:
         """
             Folds `func` over the elements of `iter`. That is to say, `func` will be called
         as `func` (object, `ret`, `user_data`) for each object in `it`. The normal use
@@ -12877,7 +12877,7 @@ class Iterator(GObject.GBoxed):
 
         The iterator will not be freed.
         """
-    def foreach(self, func: IteratorForeachFunction, user_data: object | None = None) -> IteratorResult:
+    def foreach(self, func: IteratorForeachFunction, *user_data: object) -> IteratorResult:
         """
             Iterate over all element of `it` and call the given function `func` for
         each element.
@@ -13128,7 +13128,7 @@ class Memory(GObject.GBoxed):
         maxsize: int,
         offset: int,
         size: int,
-        user_data: object | None = None,
+        *user_data: object,
         notify: GLib.DestroyNotify | None = None,
     ) -> Memory | None:
         """
@@ -14114,10 +14114,7 @@ class Meta(GObject.GPointer):
         """
     @staticmethod
     def register_custom(
-        name: str,
-        tags: list,
-        transform_func: CustomMetaTransformFunction | None = None,
-        user_data: object | None = None,
+        name: str, tags: list, transform_func: CustomMetaTransformFunction | None = None, *user_data: object
     ) -> MetaInfo:
         """
             Register a new custom Gst.Meta implementation, backed by an opaque
@@ -14976,7 +14973,7 @@ class Pad(Object):
 
         If you don't know what this is, you probably don't want to call it.
         """
-    def add_probe(self, mask: PadProbeType, callback: PadProbeCallback, user_data: object | None = None) -> int:
+    def add_probe(self, mask: PadProbeType, callback: PadProbeCallback, *user_data: object) -> int:
         """
             Be notified of different states of pads. The provided callback is called for
         every state that matches `mask`.
@@ -15065,7 +15062,7 @@ class Pad(Object):
         The event is sent to all pads internally linked to `pad`. This function
         takes ownership of `event`.
         """
-    def forward(self, forward: PadForwardFunction, user_data: object | None = None) -> bool:
+    def forward(self, forward: PadForwardFunction, *user_data: object) -> bool:
         """
             Calls `forward` for all internally linked pads of `pad`. This function deals with
         dynamically changing internal pads and will make sure that the `forward`
@@ -15522,7 +15519,7 @@ class Pad(Object):
         This function takes ownership of the provided event so you should
         `Gst.event_ref` it if you want to reuse the event after this call.
         """
-    def set_activate_function_full(self, activate: PadActivateFunction, user_data: object | None = None) -> None:
+    def set_activate_function_full(self, activate: PadActivateFunction, *user_data: object) -> None:
         """
             Sets the given activate function for `pad`. The activate function will
         dispatch to `Gst.pad_activate_mode` to perform the actual activation.
@@ -15530,9 +15527,7 @@ class Pad(Object):
 
         Call this function if your sink pad can start a pull-based task.
         """
-    def set_activatemode_function_full(
-        self, activatemode: PadActivateModeFunction, user_data: object | None = None
-    ) -> None:
+    def set_activatemode_function_full(self, activatemode: PadActivateModeFunction, *user_data: object) -> None:
         """
             Sets the given activate_mode function for the pad. An activate_mode function
         prepares the element for data passing.
@@ -15549,12 +15544,12 @@ class Pad(Object):
         If not `active`, calls `Gst.pad_activate_mode` with the pad's current mode
         and a False argument.
         """
-    def set_chain_function_full(self, chain: PadChainFunction, user_data: object | None = None) -> None:
+    def set_chain_function_full(self, chain: PadChainFunction, *user_data: object) -> None:
         """
             Sets the given chain function for the pad. The chain function is called to
         process a Gst.Buffer input buffer. see Gst.PadChainFunction for more details.
         """
-    def set_chain_list_function_full(self, chainlist: PadChainListFunction, user_data: object | None = None) -> None:
+    def set_chain_list_function_full(self, chainlist: PadChainListFunction, *user_data: object) -> None:
         """
             Sets the given chain list function for the pad. The chainlist function is
         called to process a Gst.BufferList input buffer list. See
@@ -15566,27 +15561,25 @@ class Pad(Object):
         This function can only be used by the element that owns the pad.
         No locking is performed in this function.
         """
-    def set_event_full_function_full(self, event: PadEventFullFunction, user_data: object | None = None) -> None:
+    def set_event_full_function_full(self, event: PadEventFullFunction, *user_data: object) -> None:
         """
         Sets the given event handler for the pad.
         """
-    def set_event_function_full(self, event: PadEventFunction, user_data: object | None = None) -> None:
+    def set_event_function_full(self, event: PadEventFunction, *user_data: object) -> None:
         """
         Sets the given event handler for the pad.
         """
-    def set_getrange_function_full(self, get: PadGetRangeFunction, user_data: object | None = None) -> None:
+    def set_getrange_function_full(self, get: PadGetRangeFunction, *user_data: object) -> None:
         """
             Sets the given getrange function for the pad. The getrange function is
         called to produce a new Gst.Buffer to start the processing pipeline. see
         Gst.PadGetRangeFunction for a description of the getrange function.
         """
-    def set_iterate_internal_links_function_full(
-        self, iterintlink: PadIterIntLinkFunction, user_data: object | None = None
-    ) -> None:
+    def set_iterate_internal_links_function_full(self, iterintlink: PadIterIntLinkFunction, *user_data: object) -> None:
         """
         Sets the given internal link iterator function for the pad.
         """
-    def set_link_function_full(self, link: PadLinkFunction, user_data: object | None = None) -> None:
+    def set_link_function_full(self, link: PadLinkFunction, *user_data: object) -> None:
         """
             Sets the given link function for the pad. It will be called when
         the pad is linked with another pad.
@@ -15607,11 +15600,11 @@ class Pad(Object):
         their running time adjusted. For that reason this is only reliable on
         source pads.
         """
-    def set_query_function_full(self, query: PadQueryFunction, user_data: object | None = None) -> None:
+    def set_query_function_full(self, query: PadQueryFunction, *user_data: object) -> None:
         """
         Set the given query function for the pad.
         """
-    def set_unlink_function_full(self, unlink: PadUnlinkFunction, user_data: object | None = None) -> None:
+    def set_unlink_function_full(self, unlink: PadUnlinkFunction, *user_data: object) -> None:
         """
             Sets the given unlink function for the pad. It will be called
         when the pad is unlinked.
@@ -15620,16 +15613,14 @@ class Pad(Object):
         function is called, so most pad functions cannot be called
         from within the callback.
         """
-    def start_task(self, func: TaskFunction, user_data: object | None = None) -> bool:
+    def start_task(self, func: TaskFunction, *user_data: object) -> bool:
         """
             Starts a task that repeatedly calls `func` with `user_data`. This function
         is mostly used in pad activation functions to start the dataflow.
         The GST_PAD_STREAM_LOCK of `pad` will automatically be acquired
         before `func` is called.
         """
-    def sticky_events_foreach(
-        self, foreach_func: PadStickyEventsForeachFunction, user_data: object | None = None
-    ) -> None:
+    def sticky_events_foreach(self, foreach_func: PadStickyEventsForeachFunction, *user_data: object) -> None:
         """
             Iterates all sticky events on `pad` and calls `foreach_func` for every
         event. If `foreach_func` returns False the iteration is immediately stopped.
@@ -16640,7 +16631,7 @@ class Plugin(Object):
         source: str,
         package: str,
         origin: str,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool:
         """
             Registers a static plugin, ie. a plugin which is private to an application
@@ -17248,7 +17239,7 @@ class Promise(GObject.GBoxed):
     @classmethod
     def new(cls) -> Promise: ...
     @classmethod
-    def new_with_change_func(cls, func: PromiseChangeFunc, user_data: object | None = None) -> Promise:
+    def new_with_change_func(cls, func: PromiseChangeFunc, *user_data: object) -> Promise:
         """
             `func` will be called exactly once when transitioning out of
         Gst.PROMISE_RESULT_PENDING into any of the other Gst.PromiseResult
@@ -18068,7 +18059,7 @@ class Registry(Object):
         `registry` and whether its version is at least the
         version required.
         """
-    def feature_filter(self, filter: PluginFeatureFilter, first: bool, user_data: object | None = None) -> list:
+    def feature_filter(self, filter: PluginFeatureFilter, first: bool, *user_data: object) -> list:
         """
             Runs a filter against all features of the plugins in the registry
         and returns a GList with the results.
@@ -18135,7 +18126,7 @@ class Registry(Object):
         """
         Find a Gst.PluginFeature with `name` in `registry`.
         """
-    def plugin_filter(self, filter: PluginFilter, first: bool, user_data: object | None = None) -> list:
+    def plugin_filter(self, filter: PluginFilter, first: bool, *user_data: object) -> list:
         """
             Runs a filter against all plugins in the registry and returns a GList with
         the results. If the first flag is set, only the first match is
@@ -19245,7 +19236,7 @@ class Structure(GObject.GBoxed):
         Free-function: gst_structure_free
         """
     @deprecated("deprecated")
-    def filter_and_map_in_place(self, func: StructureFilterMapFunc, user_data: object | None = None) -> None:
+    def filter_and_map_in_place(self, func: StructureFilterMapFunc, *user_data: object) -> None:
         """
             Calls the provided function once for each field in the Gst.Structure. In
         contrast to `Gst.structure_foreach`, the function may modify the fields.
@@ -19253,9 +19244,7 @@ class Structure(GObject.GBoxed):
         the structure if False is returned from the function.
         The structure must be mutable.
         """
-    def filter_and_map_in_place_id_str(
-        self, func: StructureFilterMapIdStrFunc, user_data: object | None = None
-    ) -> None:
+    def filter_and_map_in_place_id_str(self, func: StructureFilterMapIdStrFunc, *user_data: object) -> None:
         """
             Calls the provided function once for each field in the Gst.Structure. In
         contrast to `Gst.structure_foreach_id_str`, the function may modify the fields.
@@ -19299,13 +19288,13 @@ class Structure(GObject.GBoxed):
         `target` string if that field is not fixed yet.
         """
     @deprecated("deprecated")
-    def foreach(self, func: StructureForeachFunc, user_data: object | None = None) -> bool:
+    def foreach(self, func: StructureForeachFunc, *user_data: object) -> bool:
         """
             Calls the provided function once for each field in the Gst.Structure. The
         function must not modify the fields. Also see `Gst.structure_map_in_place`
         and `Gst.structure_filter_and_map_in_place`.
         """
-    def foreach_id_str(self, func: StructureForeachIdStrFunc, user_data: object | None = None) -> bool:
+    def foreach_id_str(self, func: StructureForeachIdStrFunc, *user_data: object) -> bool:
         """
             Calls the provided function once for each field in the Gst.Structure. The
         function must not modify the fields. Also see `Gst.structure_map_in_place_id_str`
@@ -19553,13 +19542,13 @@ class Structure(GObject.GBoxed):
         `subset` has a value that is a subset of the value in `superset`.
         """
     @deprecated("deprecated")
-    def map_in_place(self, func: StructureMapFunc, user_data: object | None = None) -> bool:
+    def map_in_place(self, func: StructureMapFunc, *user_data: object) -> bool:
         """
             Calls the provided function once for each field in the Gst.Structure. In
         contrast to `Gst.structure_foreach`, the function may modify but not delete the
         fields. The structure must be mutable.
         """
-    def map_in_place_id_str(self, func: StructureMapIdStrFunc, user_data: object | None = None) -> bool:
+    def map_in_place_id_str(self, func: StructureMapIdStrFunc, *user_data: object) -> bool:
         """
             Calls the provided function once for each field in the Gst.Structure. In
         contrast to `Gst.structure_foreach_id_str`, the function may modify but not delete the
@@ -19882,7 +19871,7 @@ class TagList(GObject.GBoxed):
         with the tag.
         You must `g_value_unset` the value after use.
         """
-    def foreach(self, func: TagForeachFunc, user_data: object | None = None) -> None:
+    def foreach(self, func: TagForeachFunc, *user_data: object) -> None:
         """
             Calls the given function for each tag inside the tag list. Note that if there
         is no tag, the function won't be called at all.
@@ -20342,7 +20331,7 @@ class Task(Object):
         g_warning.
         """
     @classmethod
-    def new(cls, func: TaskFunction, user_data: object | None = None) -> Task:
+    def new(cls, func: TaskFunction, *user_data: object) -> Task:
         """
             Create a new Task that will repeatedly call the provided `func`
         with `user_data` as a parameter. Typically the task will run in
@@ -20370,13 +20359,13 @@ class Task(Object):
             Resume `task` in case it was paused. If the task was stopped, it will
         remain in that state and this function will return False.
         """
-    def set_enter_callback(self, enter_func: TaskThreadFunc, user_data: object | None = None) -> None:
+    def set_enter_callback(self, enter_func: TaskThreadFunc, *user_data: object) -> None:
         """
             Call `enter_func` when the task function of `task` is entered. `user_data` will
         be passed to `enter_func` and `notify` will be called when `user_data` is no
         longer referenced.
         """
-    def set_leave_callback(self, leave_func: TaskThreadFunc, user_data: object | None = None) -> None:
+    def set_leave_callback(self, leave_func: TaskThreadFunc, *user_data: object) -> None:
         """
             Call `leave_func` when the task function of `task` is left. `user_data` will
         be passed to `leave_func` and `notify` will be called when `user_data` is no
@@ -20497,7 +20486,7 @@ class TaskPool(Object):
 
         MT safe.
         """
-    def push(self, func: TaskPoolFunction, user_data: object | None = None) -> object | None:
+    def push(self, func: TaskPoolFunction, *user_data: object) -> object | None:
         """
         Start the execution of a new thread from `pool`.
         """
@@ -21019,7 +21008,7 @@ class TypeFind(GObject.GPointer):
         func: TypeFindFunction,
         extensions: str | None = None,
         possible_caps: Caps | None = None,
-        data: object | None = None,
+        *data: object,
     ) -> bool:
         """
             Registers a new typefind function to be used for typefinding. After
@@ -21925,7 +21914,7 @@ class BufferForeachMetaFunc(typing.Protocol):
     def __call__(
         self,
         buffer: Buffer,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> tuple[bool, Meta | None]: ...
 
 class BufferListFunc(typing.Protocol):
@@ -21937,7 +21926,7 @@ class BufferListFunc(typing.Protocol):
     def __call__(
         self,
         idx: int,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> tuple[bool, Buffer | None]: ...
 
 class get_optionsBufferPoolClassCB(typing.Protocol):
@@ -22077,7 +22066,7 @@ class BusFunc(typing.Protocol):
         self,
         bus: Bus,
         message: Message,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class BusSyncHandler(typing.Protocol):
@@ -22090,7 +22079,7 @@ class BusSyncHandler(typing.Protocol):
         self,
         bus: Bus,
         message: Message,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> BusSyncReply: ...
 
 class messageBusClassCB(typing.Protocol):
@@ -22138,7 +22127,7 @@ class CapsFilterMapFunc(typing.Protocol):
         self,
         features: CapsFeatures,
         structure: Structure,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class CapsForeachFunc(typing.Protocol):
@@ -22151,7 +22140,7 @@ class CapsForeachFunc(typing.Protocol):
         self,
         features: CapsFeatures,
         structure: Structure,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class CapsMapFunc(typing.Protocol):
@@ -22164,7 +22153,7 @@ class CapsMapFunc(typing.Protocol):
         self,
         features: CapsFeatures,
         structure: Structure,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class get_child_by_nameChildProxyInterfaceCB(typing.Protocol):
@@ -22239,7 +22228,7 @@ class ClockCallback(typing.Protocol):
         clock: Clock,
         time: int,
         id: object,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class change_resolutionClockClassCB(typing.Protocol):
@@ -22324,7 +22313,7 @@ class ClockCallbackClockEntryCB(typing.Protocol):
         clock: Clock,
         time: int,
         id: object,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 DestroyNotify = GLib.DestroyNotify  # type: ignore
@@ -22451,7 +22440,7 @@ class ElementCallAsyncFunc(typing.Protocol):
     def __call__(
         self,
         element: Element,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 class ElementForeachPadFunc(typing.Protocol):
@@ -22464,7 +22453,7 @@ class ElementForeachPadFunc(typing.Protocol):
         self,
         element: Element,
         pad: Pad,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class pad_addedElementClassCB(typing.Protocol):
@@ -22683,7 +22672,7 @@ class IteratorFoldFunction(typing.Protocol):
         self,
         item: GObject.Value,
         ret: GObject.Value,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class IteratorForeachFunction(typing.Protocol):
@@ -22695,7 +22684,7 @@ class IteratorForeachFunction(typing.Protocol):
     def __call__(
         self,
         item: GObject.Value,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 class AllocationMetaParamsAggregator(typing.Protocol):
@@ -22724,7 +22713,7 @@ class CustomMetaTransformFunction(typing.Protocol):
         buffer: Buffer,
         type: int,
         data: object | None = None,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class MetaInitFunctionMetaInfoCB(typing.Protocol):
@@ -22992,7 +22981,7 @@ class PadProbeCallback(typing.Protocol):
         self,
         pad: Pad,
         info: PadProbeInfo,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> PadProbeReturn: ...
 
 class PadForwardFunction(typing.Protocol):
@@ -23004,7 +22993,7 @@ class PadForwardFunction(typing.Protocol):
     def __call__(
         self,
         pad: Pad,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class PadActivateFunction(typing.Protocol):
@@ -23158,7 +23147,7 @@ class TaskFunction(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 class PadStickyEventsForeachFunction(typing.Protocol):
@@ -23171,7 +23160,7 @@ class PadStickyEventsForeachFunction(typing.Protocol):
         self,
         pad: Pad,
         event: Event | None = None,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class linkedPadClassCB(typing.Protocol):
@@ -23230,7 +23219,7 @@ class PluginInitFullFunc(typing.Protocol):
     def __call__(
         self,
         plugin: Plugin,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class PluginInitFuncPluginDescCB(typing.Protocol):
@@ -23351,7 +23340,7 @@ class PromiseChangeFunc(typing.Protocol):
     def __call__(
         self,
         promise: Promise,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 class PluginFeatureFilter(typing.Protocol):
@@ -23363,7 +23352,7 @@ class PluginFeatureFilter(typing.Protocol):
     def __call__(
         self,
         feature: PluginFeature,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class PluginFilter(typing.Protocol):
@@ -23375,7 +23364,7 @@ class PluginFilter(typing.Protocol):
     def __call__(
         self,
         plugin: Plugin,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class stream_notifyStreamCollectionClassCB(typing.Protocol):
@@ -23401,7 +23390,7 @@ class StructureFilterMapFunc(typing.Protocol):
         self,
         field_id: int,
         value: GObject.Value,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class StructureFilterMapIdStrFunc(typing.Protocol):
@@ -23414,7 +23403,7 @@ class StructureFilterMapIdStrFunc(typing.Protocol):
         self,
         fieldname: IdStr,
         value: GObject.Value,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class StructureForeachFunc(typing.Protocol):
@@ -23427,7 +23416,7 @@ class StructureForeachFunc(typing.Protocol):
         self,
         field_id: int,
         value: GObject.Value,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class StructureForeachIdStrFunc(typing.Protocol):
@@ -23440,7 +23429,7 @@ class StructureForeachIdStrFunc(typing.Protocol):
         self,
         fieldname: IdStr,
         value: GObject.Value,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class StructureMapFunc(typing.Protocol):
@@ -23453,7 +23442,7 @@ class StructureMapFunc(typing.Protocol):
         self,
         field_id: int,
         value: GObject.Value,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class StructureMapIdStrFunc(typing.Protocol):
@@ -23466,7 +23455,7 @@ class StructureMapIdStrFunc(typing.Protocol):
         self,
         fieldname: IdStr,
         value: GObject.Value,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> bool: ...
 
 class TagForeachFunc(typing.Protocol):
@@ -23479,7 +23468,7 @@ class TagForeachFunc(typing.Protocol):
         self,
         list: TagList,
         tag: str,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 class TaskFunctionTaskCB(typing.Protocol):
@@ -23490,7 +23479,7 @@ class TaskFunctionTaskCB(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 class TaskThreadFunc(typing.Protocol):
@@ -23503,7 +23492,7 @@ class TaskThreadFunc(typing.Protocol):
         self,
         task: Task,
         thread: GLib.Thread,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 class TaskPoolFunction(typing.Protocol):
@@ -23514,7 +23503,7 @@ class TaskPoolFunction(typing.Protocol):
     #  user_data
     def __call__(
         self,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 class prepareTaskPoolClassCB(typing.Protocol):
@@ -23549,7 +23538,7 @@ class pushTaskPoolClassCB(typing.Protocol):
         self,
         pool: TaskPool,
         func: TaskPoolFunction,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> object | None: ...
 
 class joinTaskPoolClassCB(typing.Protocol):
@@ -23585,7 +23574,7 @@ class TypeFindFunction(typing.Protocol):
     def __call__(
         self,
         find: TypeFind,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 class get_typeURIHandlerInterfaceCB(typing.Protocol):
@@ -23696,7 +23685,7 @@ class LogFunction(typing.Protocol):
         line: int,
         object: GObject.Object,
         message: DebugMessage,
-        user_data: object | None = None,
+        *user_data: object,
     ) -> None: ...
 
 ###############################################################
