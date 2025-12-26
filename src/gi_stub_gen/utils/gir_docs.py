@@ -3,11 +3,18 @@ from __future__ import annotations
 import re
 import logging
 
+from gi_stub_gen.manager.gi_repo import GIRepo
+from gi.repository import GIRepository
+
 
 logger = logging.getLogger(__name__)
 
 
-def translate_docstring(raw_text: str | None, namespace: str) -> str:
+def translate_docstring(
+    raw_text: str | None,
+    namespace: str,
+    repo: GIRepo | None = None,
+) -> str:
     """
     Complete pipeline for processing docstrings:
     1. Semantic translation from C/GObject conventions to Python (e.g., NULL -> None).
@@ -16,6 +23,7 @@ def translate_docstring(raw_text: str | None, namespace: str) -> str:
     Args:
         raw_text: The raw documentation string extracted from the GIR/XML.
         namespace: The current namespace (e.g., "Gst", "GLib") used to resolve references.
+        repo: Optional GIRepo instance for looking up class/function info. NOTE: requires the namespace to be loaded. (use GIRepo.require(namespace, version), beforehand)
 
     Returns:
         A cleaned, Python-friendly docstring ready to be written to the stub file.
@@ -71,24 +79,63 @@ def translate_docstring(raw_text: str | None, namespace: str) -> str:
 
     text = re.sub(r"%([A-Z0-9_]+)", replace_constant, text)
 
-    # 6. Functions: Convert gst_element_link() to `Gst.element_link`
-    # We explicitly keep the Namespace prefix to avoid ambiguity and ensure
-    # the link points to the valid procedural function in the module.
+    # 6. Functions: Convert gst_bus_post() -> `Gst.Bus.post`
+    # We attempt to detect if the function belongs to a specific Class/Struct
+    # by querying the GIRepository.
     c_prefix = namespace.lower() + "_"  # e.g., "gst_"
 
-    def replace_func_call(match):
-        func_name = match.group(1)  # e.g., "gst_debug_add_ring_buffer_logger"
+    def replace_func_call(match: re.Match) -> str:
+        func_name = match.group(1)  # e.g., "gst_bus_post" or "gst_init"
 
-        # Check if it starts with the standard C prefix
-        if func_name.startswith(c_prefix):
-            # Remove "gst_" -> "debug_add_ring_buffer_logger"
-            suffix = func_name[len(c_prefix) :]
+        # 1. Check strict prefix compliance
+        # If it doesn't start with "gst_", it might be a system function (e.g., printf),
+        # so we leave it alone.
+        if not func_name.startswith(c_prefix):
+            return f"`{func_name}`"
 
-            # Reconstruct as "Gst.debug_add_ring_buffer_logger"
-            return f"`{namespace}.{suffix}`"
+        # 2. Strip the prefix
+        # "gst_bus_post" -> "bus_post"
+        suffix = func_name[len(c_prefix) :]
+        parts = suffix.split("_")
 
-        # If it's a system function (e.g. printf) or unknown prefix, leave it as is
-        return f"`{func_name}`"
+        # 3. Heuristic: "Longest Class Match"
+        # Instead of stopping at the first match, we keep going to find the longest
+        # class name possible.
+        # e.g. "type_find_factory_get_list"
+        # - "TypeFind" exists? YES. (Candidate)
+        # - "TypeFindFactory" exists? YES. (Better Candidate)
+
+        best_class = None
+        best_method = None
+
+        if repo:
+            # Try all possible split points
+            for i in range(1, len(parts)):
+                class_candidate_name = "".join(p.title() for p in parts[:i])
+
+                info = repo.find_by_name(namespace, class_candidate_name)
+
+                if info and isinstance(
+                    info,
+                    (
+                        GIRepository.ObjectInfo,
+                        GIRepository.InterfaceInfo,
+                        GIRepository.StructInfo,
+                        GIRepository.UnionInfo,
+                    ),
+                ):
+                    # We found a valid class, but we DON'T stop.
+                    # We save it as the current "best" and keep looking for a longer one.
+                    best_class = class_candidate_name
+                    best_method = "_".join(parts[i:])
+
+        if best_class and best_method:
+            return f"`{namespace}.{best_class}.{best_method}`"
+
+        # 4. Fallback (Global Function)
+        # If no class match was found (e.g., "gst_init"), treat it as a module-level function.
+        # Result: `Gst.init`
+        return f"`{namespace}.{suffix}`"
 
     text = re.sub(r"\b(\w+)\(\)", replace_func_call, text)
 

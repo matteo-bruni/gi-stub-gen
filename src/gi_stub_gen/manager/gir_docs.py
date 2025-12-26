@@ -2,6 +2,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
+from gi_stub_gen.manager.gi_repo import GIRepo
 from gi_stub_gen.parser.gir import ModuleDocs, parse_gir_docs
 
 # from gi_stub_gen.parser.gir import ModuleDocs, parse_gir_docs
@@ -60,7 +61,7 @@ class GIRDocs(metaclass=SingletonMeta):
             # logger.warning("GIR docs not loaded, please load a GIR file first using GIRDocs.load()")
             return ""
 
-        return translate_docstring(raw_text, self._module_gir_docs.module_namespace)
+        return translate_docstring(raw_text, self._module_gir_docs.module_namespace, repo=GIRepo())
 
     def get_constant_docs(self, constant_name: str) -> str | None:
         """
