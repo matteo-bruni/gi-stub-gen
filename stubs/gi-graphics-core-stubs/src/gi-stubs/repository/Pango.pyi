@@ -870,7 +870,7 @@ def language_get_default() -> Language:
 
     Also note that this function will not do the right thing if you
     use per-thread locales with `uselocale`. In that case, you should
-    just call `Pango.language_from_string` yourself.
+    just call `Pango.Language.from_string` yourself.
     """
     ...
 
@@ -5140,7 +5140,7 @@ class FontMapClass(GObject.GPointer):
     @builtins.property
     def changed(self) -> changedFontMapClassCB:
         """
-        See `Pango.font_map_changed`
+        See `Pango.FontMap.changed`
         """
     @builtins.property
     def get_face(self) -> object | None: ...
@@ -5150,25 +5150,25 @@ class FontMapClass(GObject.GPointer):
     def get_serial(self) -> get_serialFontMapClassCB:
         """
             a function to get the serial number of the fontmap.
-        See `Pango.font_map_get_serial`.
+        See `Pango.FontMap.get_serial`.
         """
     @builtins.property
     def list_families(self) -> list_familiesFontMapClassCB:
         """
             A function to list available font families. See
-        `Pango.font_map_list_families`.
+        `Pango.FontMap.list_families`.
         """
     @builtins.property
     def load_font(self) -> load_fontFontMapClassCB | None:
         """
             a function to load a font with a given description. See
-        `Pango.font_map_load_font`.
+        `Pango.FontMap.load_font`.
         """
     @builtins.property
     def load_fontset(self) -> load_fontsetFontMapClassCB | None:
         """
             a function to load a fontset with a given given description
-        suitable for a particular language. See `Pango.font_map_load_fontset`.
+        suitable for a particular language. See `Pango.FontMap.load_fontset`.
         """
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None:
@@ -5249,7 +5249,7 @@ class FontMetrics(GObject.GBoxed):
         determining the initial size for a window. Actual digits in
         text can be wider or narrower than this, though this value
         is generally somewhat more accurate than the result of
-        `Pango.font_metrics_get_approximate_char_width` for digits.
+        `Pango.FontMetrics.get_approximate_char_width` for digits.
         """
     def get_ascent(self) -> int:
         """
@@ -5634,7 +5634,7 @@ class GlyphItem(GObject.GBoxed):
         to the length of `orig` (that is, there must be at least one byte
         assigned to each item, you can't create a zero-length item).
 
-        This function is similar in function to `Pango.item_split` (and uses
+        This function is similar in function to `Pango.Item.split` (and uses
         it internally.)
         """
 
@@ -5650,11 +5650,11 @@ class GlyphItemIter(GObject.GBoxed):
     in right-to-left cases, `start_glyph` is greater than `end_glyph`.
 
     An iterator should be initialized using either
-    `Pango.glyph_item_iter_init_start` or
-    `Pango.glyph_item_iter_init_end`, for forward and backward iteration
+    `Pango.GlyphItemIter.init_start` or
+    `Pango.GlyphItemIter.init_end`, for forward and backward iteration
     respectively, and walked over using any desired mixture of
-    `Pango.glyph_item_iter_next_cluster` and
-    `Pango.glyph_item_iter_prev_cluster`.
+    `Pango.GlyphItemIter.next_cluster` and
+    `Pango.GlyphItemIter.prev_cluster`.
 
     A common idiom for doing a forward iteration over the clusters is:
 
@@ -5970,7 +5970,7 @@ class Item(GObject.GBoxed):
         assigned to each item, you can't create a zero-length item).
         `split_offset` is the length of the first item in chars, and must be
         provided because the text used to generate the item isn't available,
-        so ``Pango.item_split`` can't count the char length of the split items
+        so ``Pango.Item.split`` can't count the char length of the split items
         itself.
         """
 
@@ -6044,7 +6044,7 @@ class Language(GObject.GBoxed):
 
         Also note that this function will not do the right thing if you
         use per-thread locales with `uselocale`. In that case, you should
-        just call `Pango.language_from_string` yourself.
+        just call `Pango.Language.from_string` yourself.
         """
     @staticmethod
     def get_preferred() -> list | None:
@@ -7536,8 +7536,8 @@ class Renderer(GObject.Object):
 
         Note that this method does not handle attributes in `glyph_item`.
         If you want colors, shapes and lines handled automatically according
-        to those attributes, you need to use `Pango.renderer_draw_layout_line`
-        or `Pango.renderer_draw_layout`.
+        to those attributes, you need to use `Pango.Renderer.draw_layout_line`
+        or `Pango.Renderer.draw_layout`.
 
         Note that `text` is the start of the text for layout, which is then
         indexed by `glyph_item->item->offset`.

@@ -187,7 +187,7 @@ def accessible_property_init_value(
     Initializes `value` with the appropriate type for the `property`.
 
     This function is mostly meant for language bindings, in conjunction
-    with `Gtk.accessible_update_property_value`.
+    with `Gtk.Accessible.update_property_value`.
     """
     ...
 
@@ -200,7 +200,7 @@ def accessible_relation_init_value(
     Initializes `value` with the appropriate type for the `relation`.
 
     This function is mostly meant for language bindings, in conjunction
-    with `Gtk.accessible_update_relation_value`.
+    with `Gtk.Accessible.update_relation_value`.
     """
     ...
 
@@ -213,7 +213,7 @@ def accessible_state_init_value(
     Initializes `value` with the appropriate type for the `state`.
 
     This function is mostly meant for language bindings, in conjunction
-    with `Gtk.accessible_update_relation_state`.
+    with `Gtk.Accessible.update_relation_state`.
     """
     ...
 
@@ -1129,7 +1129,7 @@ def tree_get_row_drag_data(
     Obtains a `tree_model` and `path` from value of target type
     Gtk.TYPE_TREE_ROW_DATA.
 
-    The returned path must be freed with `Gtk.tree_path_free`.
+    The returned path must be freed with `Gtk.TreePath.free`.
     """
     ...
 
@@ -1141,7 +1141,7 @@ def tree_row_reference_deleted(
 ) -> None:
     """
     Lets a set of row reference created by
-    `Gtk.tree_row_reference_new_proxy` know that the
+    `Gtk.TreeRowReference.new_proxy` know that the
     model emitted the ::row-deleted signal.
     """
     ...
@@ -1154,7 +1154,7 @@ def tree_row_reference_inserted(
 ) -> None:
     """
     Lets a set of row reference created by
-    `Gtk.tree_row_reference_new_proxy` know that the
+    `Gtk.TreeRowReference.new_proxy` know that the
     model emitted the ::row-inserted signal.
     """
     ...
@@ -2207,7 +2207,7 @@ class AssistantPageType(GObject.GEnum):
     Gtk.ASSISTANT_PAGE_PROGRESS to be correct.
 
     The Cancel button will only be shown if the page isn’t “committed”.
-    See `Gtk.assistant_commit` for details."""
+    See `Gtk.Assistant.commit` for details."""
 
     CONTENT = 0
     """
@@ -2240,7 +2240,7 @@ class AssistantPageType(GObject.GEnum):
     """
     Used for when other page types are not
      appropriate. No buttons will be shown, and the application must
-     add its own buttons through `Gtk.assistant_add_action_widget`.
+     add its own buttons through `Gtk.Assistant.add_action_widget`.
     """
 
 class BaselinePosition(GObject.GEnum):
@@ -2314,7 +2314,7 @@ class BorderStyle(GObject.GEnum):
 
 class BuilderClosureFlags(GObject.GFlags):
     """
-    The list of flags that can be passed to `Gtk.builder_create_closure`.
+    The list of flags that can be passed to `Gtk.Builder.create_closure`.
 
     New values may be added in the future for new features, so external
     implementations of [iface`Gtk`.BuilderScope] should test the flags
@@ -3253,7 +3253,7 @@ class GraphicsOffloadEnabled(GObject.GEnum):
 
 class IconLookupFlags(GObject.GFlags):
     """
-    Used to specify options for `Gtk.icon_theme_lookup_icon`."""
+    Used to specify options for `Gtk.IconTheme.lookup_icon`."""
 
     NONE = 0
     """
@@ -3347,8 +3347,8 @@ class ImageType(GObject.GEnum):
     Describes the image data representation used by a [class`Gtk`.Image].
 
     If you want to get the image from the widget, you can only get the
-    currently-stored representation; for instance, if the `Gtk.image_get_storage_type`
-    returns Gtk.IMAGE_PAINTABLE, then you can call `Gtk.image_get_paintable`.
+    currently-stored representation; for instance, if the `Gtk.Image.get_storage_type`
+    returns Gtk.IMAGE_PAINTABLE, then you can call `Gtk.Image.get_paintable`.
 
     For empty images, you can request any storage type (call any of the "get"
     functions), but they will all return None values."""
@@ -3932,7 +3932,7 @@ class PadActionType(GObject.GEnum):
 
 class PageOrientation(GObject.GEnum):
     """
-    See also `Gtk.print_settings_set_orientation`."""
+    See also `Gtk.PrintSettings.set_orientation`."""
 
     PORTRAIT = 0
     """
@@ -3953,7 +3953,7 @@ class PageOrientation(GObject.GEnum):
 
 class PageSet(GObject.GEnum):
     """
-    See also `Gtk.print_job_set_page_set`."""
+    See also `Gtk.PrintJob.set_page_set`."""
 
     ALL = 0
     """
@@ -4127,7 +4127,7 @@ class PrintCapabilities(GObject.GFlags):
 
 class PrintDuplex(GObject.GEnum):
     """
-    See also `Gtk.print_settings_set_duplex`."""
+    See also `Gtk.PrintSettings.set_duplex`."""
 
     SIMPLEX = 0
     """
@@ -4213,7 +4213,7 @@ class PrintOperationResult(GObject.GEnum):
 
 class PrintPages(GObject.GEnum):
     """
-    See also `Gtk.print_job_set_pages`"""
+    See also `Gtk.PrintJob.set_pages`"""
 
     ALL = 0
     """
@@ -4234,7 +4234,7 @@ class PrintPages(GObject.GEnum):
 
 class PrintQuality(GObject.GEnum):
     """
-    See also `Gtk.print_settings_set_quality`."""
+    See also `Gtk.PrintSettings.set_quality`."""
 
     LOW = 0
     """
@@ -4387,7 +4387,7 @@ class RecentManagerError(GObject.GEnum):
 
 class ResponseType(GObject.GEnum):
     """
-    Predefined values for use as response ids in `Gtk.dialog_add_button`.
+    Predefined values for use as response ids in `Gtk.Dialog.add_button`.
 
     All predefined values are negative; GTK leaves values of 0 or greater for
     application-defined response ids."""
@@ -4814,11 +4814,11 @@ class SorterOrder(GObject.GEnum):
     NONE = 1
     """
     No order, all elements are considered equal.
-      `Gtk.sorter_compare` will only return Gtk.ORDERING_EQUAL.
+      `Gtk.Sorter.compare` will only return Gtk.ORDERING_EQUAL.
     """
     TOTAL = 2
     """
-    A total order. `Gtk.sorter_compare` will only
+    A total order. `Gtk.Sorter.compare` will only
       return Gtk.ORDERING_EQUAL if an item is compared with itself. Two
       different items will never cause this value to be returned.
     """
@@ -4845,7 +4845,7 @@ class SpinButtonUpdatePolicy(GObject.GEnum):
 class SpinType(GObject.GEnum):
     """
     The values of the GtkSpinType enumeration are used to specify the
-    change to make in `Gtk.spin_button_spin`."""
+    change to make in `Gtk.SpinButton.spin`."""
 
     STEP_FORWARD = 0
     """
@@ -5070,7 +5070,7 @@ class StringFilterMatchMode(GObject.GEnum):
 
 class StyleContextPrintFlags(GObject.GFlags):
     """
-    Flags that modify the behavior of `Gtk.style_context_to_string`.
+    Flags that modify the behavior of `Gtk.StyleContext.to_string`.
 
     New values may be added to this enumeration."""
 
@@ -5367,7 +5367,7 @@ class TreeViewGridLines(GObject.GEnum):
 
 class Unit(GObject.GEnum):
     """
-    See also `Gtk.print_settings_set_paper_width`."""
+    See also `Gtk.PrintSettings.set_paper_width`."""
 
     NONE = 0
     """
@@ -6755,7 +6755,7 @@ class ActivateAction(ShortcutAction):
         """
             Gets the activate action.
 
-        This is an action that calls `Gtk.widget_activate`
+        This is an action that calls `Gtk.Widget.activate`
         on the given widget upon activation.
         """
 
@@ -8432,14 +8432,14 @@ class ApplicationClass(GObject.GPointer):
     def window_added(self) -> window_addedApplicationClassCB:
         """
          Signal emitted when a `GtkWindow` is added to
-        application through `Gtk.application_add_window`.
+        application through `Gtk.Application.add_window`.
         """
     @builtins.property
     def window_removed(self) -> window_removedApplicationClassCB:
         """
          Signal emitted when a `GtkWindow` is removed from
         application, either as a side-effect of being destroyed or
-        explicitly through `Gtk.application_remove_window`.
+        explicitly through `Gtk.Application.remove_window`.
         """
 
     # gi Methods
@@ -8956,7 +8956,7 @@ class Assistant(Window):
 
         Note that this will only be necessary in custom buttons,
         as the `assistant` flow can be set with
-        `Gtk.assistant_set_forward_page_func`.
+        `Gtk.Assistant.set_forward_page_func`.
         """
     @deprecated("deprecated")
     def set_forward_page_func(self, page_func: AssistantPageFunc | None = None, *data: object | None) -> None:
@@ -10023,12 +10023,12 @@ class BoxLayout(LayoutManager):
     @builtins.property
     def get_baseline_child(self) -> int:
         """
-        Gets the value set by `Gtk.box_layout_set_baseline_child`.
+        Gets the value set by `Gtk.BoxLayout.set_baseline_child`.
         """
     @builtins.property
     def get_baseline_position(self) -> BaselinePosition:
         """
-        Gets the value set by `Gtk.box_layout_set_baseline_position`.
+        Gets the value set by `Gtk.BoxLayout.set_baseline_position`.
         """
     @builtins.property
     def get_homogeneous(self) -> bool:
@@ -10261,7 +10261,7 @@ class BuildableParseContext(GObject.GPointer):
 
         If called from the start_element or end_element handlers this will
         give the element_name as passed to those functions. For the parent
-        elements, see `Gtk.buildable_parse_context_get_element_stack`.
+        elements, see `Gtk.BuildableParseContext.get_element_stack`.
         """
     def get_element_stack(self) -> list:
         """
@@ -10269,11 +10269,11 @@ class BuildableParseContext(GObject.GPointer):
 
         The returned `GPtrArray` is an array of strings where the last item is
         the currently open tag (as would be returned by
-        `Gtk.buildable_parse_context_get_element`) and the previous item is its
+        `Gtk.BuildableParseContext.get_element`) and the previous item is its
         immediate parent.
 
         This function is intended to be used in the start_element and
-        end_element handlers where `Gtk.buildable_parse_context_get_element`
+        end_element handlers where `Gtk.BuildableParseContext.get_element`
         would merely return the name of the element that is being
         processed.
         """
@@ -10289,9 +10289,9 @@ class BuildableParseContext(GObject.GPointer):
             Completes the process of a temporary sub-parser redirection.
 
         This function exists to collect the user_data allocated by a
-        matching call to `Gtk.buildable_parse_context_push`. It must be called
+        matching call to `Gtk.BuildableParseContext.push`. It must be called
         in the end_element handler corresponding to the start_element
-        handler during which `Gtk.buildable_parse_context_push` was called.
+        handler during which `Gtk.BuildableParseContext.push` was called.
         You must not call this function from the error callback -- the
         `user_data` is provided directly to the callback in that case.
 
@@ -10306,7 +10306,7 @@ class BuildableParseContext(GObject.GPointer):
 
         This function may only be called from the start_element handler of
         a `GtkBuildableParser`. It must be matched with a corresponding call to
-        `Gtk.buildable_parse_context_pop` in the matching end_element handler
+        `Gtk.BuildableParseContext.pop` in the matching end_element handler
         (except in the case that the parser aborts due to an error).
 
         All tags, text and other data between the matching tags is
@@ -10317,10 +10317,10 @@ class BuildableParseContext(GObject.GPointer):
 
         The end tag matching the start tag for which this call was made is
         handled by the previous parser (which is given its own user_data)
-        which is why `Gtk.buildable_parse_context_pop` is provided to allow "one
+        which is why `Gtk.BuildableParseContext.pop` is provided to allow "one
         last access" to the `user_data` provided to this function. In the
         case of error, the `user_data` provided here is passed directly to
-        the error callback of the subparser and `Gtk.buildable_parse_context_pop`
+        the error callback of the subparser and `Gtk.BuildableParseContext.pop`
         should not be called. In either case, if `user_data` was allocated
         then it ought to be freed from both of these locations.
 
@@ -10868,7 +10868,7 @@ class Builder(GObject.Object):
 
         Only a single object may be added using `name`. However,
         it is not an error to expose the same object under multiple
-        names. ``Gtk.builder_get_object`` may be used to determine
+        names. ``Gtk.Builder.get_object`` may be used to determine
         if an object has already been added with `name`.
         """
     def extend_with_template(
@@ -10884,7 +10884,7 @@ class Builder(GObject.Object):
     @builtins.property
     def get_current_object(self) -> GObject.Object | None:
         """
-        Gets the current object set via `Gtk.builder_set_current_object`.
+        Gets the current object set via `Gtk.Builder.set_current_object`.
         """
     def get_object(self, name: str) -> GObject.Object | None:
         """
@@ -10903,7 +10903,7 @@ class Builder(GObject.Object):
     @builtins.property
     def get_scope(self) -> BuilderScope:
         """
-        Gets the scope in use that was set via `Gtk.builder_set_scope`.
+        Gets the scope in use that was set via `Gtk.Builder.set_scope`.
         """
     @builtins.property
     def get_translation_domain(self) -> str | None:
@@ -11266,7 +11266,7 @@ class BuilderScopeInterface(GObject.GPointer):
     @builtins.property
     def create_closure(self) -> create_closureBuilderScopeInterfaceCB:
         """
-          Create a closure with the given arguments. See `Gtk.builder_create_closure`
+          Create a closure with the given arguments. See `Gtk.Builder.create_closure`
         for more details on those.
         The C implementation will try to use `dlsym` to locate the function name and then
         `g_cclosure_new` to create a closure for the symbol.
@@ -11287,7 +11287,7 @@ class BuilderScopeInterface(GObject.GPointer):
     def get_type_from_name(self) -> get_type_from_nameBuilderScopeInterfaceCB:
         """
           Try to lookup a `GType` via the its name. See
-        `Gtk.builder_get_type_from_name` for more details.
+        `Gtk.Builder.get_type_from_name` for more details.
         The C implementation will use `g_type_from_name` and if that fails try to guess the
         correct function name for registering the type and then use `dlsym` to load it.
         The default implementation just tries `g_type_from_name` and otherwise fails.
@@ -12306,14 +12306,14 @@ class CellArea(GObject.InitiallyUnowned):
         The widget currently editing the edited cell
 
         This property is read-only and only changes as
-        a result of a call `Gtk.cell_area_activate_cell`.
+        a result of a call `Gtk.CellArea.activate_cell`.
         """
         edited_cell: CellRenderer | None  # [edited-cell]: changed because contained invalid characters
         """
         The cell in the area that is currently edited
 
         This property is read-only and only changes as
-        a result of a call `Gtk.cell_area_activate_cell`.
+        a result of a call `Gtk.CellArea.activate_cell`.
         """
         focus_cell: CellRenderer | None  # [focus-cell]: changed because contained invalid characters
         """
@@ -12497,7 +12497,7 @@ class CellArea(GObject.InitiallyUnowned):
         """
             Gets the current `GtkTreePath` string for the currently
         applied `GtkTreeIter`, this is implicitly updated when
-        `Gtk.cell_area_apply_attributes` is called and can be
+        `Gtk.CellArea.apply_attributes` is called and can be
         used to interact with renderers from `GtkCellArea`
         subclasses.
         """
@@ -12545,7 +12545,7 @@ class CellArea(GObject.InitiallyUnowned):
         `area` will store some geometrical information in `context` along the way;
         when requesting sizes over an arbitrary number of rows, it’s not important
         to check the `minimum_height` and `natural_height` of this call but rather to
-        consult `Gtk.cell_area_context_get_preferred_height` after a series of
+        consult `Gtk.CellAreaContext.get_preferred_height` after a series of
         requests.
         """
     @deprecated("deprecated")
@@ -12555,16 +12555,16 @@ class CellArea(GObject.InitiallyUnowned):
         the specified `width`.
 
         `area` stores some geometrical information in `context` along the way
-        while calling `Gtk.cell_area_get_preferred_width`. It’s important to
-        perform a series of `Gtk.cell_area_get_preferred_width` requests with
-        `context` first and then call `Gtk.cell_area_get_preferred_height_for_width`
+        while calling `Gtk.CellArea.get_preferred_width`. It’s important to
+        perform a series of `Gtk.CellArea.get_preferred_width` requests with
+        `context` first and then call `Gtk.CellArea.get_preferred_height_for_width`
         on each cell area individually to get the height for width of each
         fully requested row.
 
         If at some point, the width of a single row changes, it should be
-        requested with `Gtk.cell_area_get_preferred_width` again and then
+        requested with `Gtk.CellArea.get_preferred_width` again and then
         the full width of the requested rows checked again with
-        `Gtk.cell_area_context_get_preferred_width`.
+        `Gtk.CellAreaContext.get_preferred_width`.
         """
     @deprecated("deprecated")
     def get_preferred_width(self, context: CellAreaContext, widget: Widget) -> tuple[int, int]:
@@ -12574,7 +12574,7 @@ class CellArea(GObject.InitiallyUnowned):
         `area` will store some geometrical information in `context` along the way;
         when requesting sizes over an arbitrary number of rows, it’s not important
         to check the `minimum_width` and `natural_width` of this call but rather to
-        consult `Gtk.cell_area_context_get_preferred_width` after a series of
+        consult `Gtk.CellAreaContext.get_preferred_width` after a series of
         requests.
         """
     @deprecated("deprecated")
@@ -12584,16 +12584,16 @@ class CellArea(GObject.InitiallyUnowned):
         the specified `height`.
 
         `area` stores some geometrical information in `context` along the way
-        while calling `Gtk.cell_area_get_preferred_height`. It’s important to
-        perform a series of `Gtk.cell_area_get_preferred_height` requests with
-        `context` first and then call `Gtk.cell_area_get_preferred_width_for_height`
+        while calling `Gtk.CellArea.get_preferred_height`. It’s important to
+        perform a series of `Gtk.CellArea.get_preferred_height` requests with
+        `context` first and then call `Gtk.CellArea.get_preferred_width_for_height`
         on each cell area individually to get the height for width of each
         fully requested row.
 
         If at some point, the height of a single row changes, it should be
-        requested with `Gtk.cell_area_get_preferred_height` again and then
+        requested with `Gtk.CellArea.get_preferred_height` again and then
         the full height of the requested rows checked again with
-        `Gtk.cell_area_context_get_preferred_height`.
+        `Gtk.CellAreaContext.get_preferred_height`.
         """
     def get_request_mode(self) -> SizeRequestMode:
         """
@@ -12610,7 +12610,7 @@ class CellArea(GObject.InitiallyUnowned):
         """
             This is a convenience function for `GtkCellArea` implementations
         to get the inner area where a given `GtkCellRenderer` will be
-        rendered. It removes any padding previously added by `Gtk.cell_area_request_renderer`.
+        rendered. It removes any padding previously added by `Gtk.CellArea.request_renderer`.
         """
     @deprecated("deprecated")
     def is_activatable(self) -> bool:
@@ -12622,7 +12622,7 @@ class CellArea(GObject.InitiallyUnowned):
     def is_focus_sibling(self, renderer: CellRenderer, sibling: CellRenderer) -> bool:
         """
             Returns whether `sibling` is one of `renderer`’s focus siblings
-        (see `Gtk.cell_area_add_focus_sibling`).
+        (see `Gtk.CellArea.add_focus_sibling`).
         """
     @deprecated("deprecated")
     def remove(self, renderer: CellRenderer) -> None:
@@ -12633,7 +12633,7 @@ class CellArea(GObject.InitiallyUnowned):
     def remove_focus_sibling(self, renderer: CellRenderer, sibling: CellRenderer) -> None:
         """
             Removes `sibling` from `renderer`’s focus sibling list
-        (see `Gtk.cell_area_add_focus_sibling`).
+        (see `Gtk.CellArea.add_focus_sibling`).
         """
     @deprecated("deprecated")
     def request_renderer(
@@ -12642,7 +12642,7 @@ class CellArea(GObject.InitiallyUnowned):
         """
             This is a convenience function for `GtkCellArea` implementations
         to request size for cell renderers. It’s important to use this
-        function to request size and then use `Gtk.cell_area_inner_cell_area`
+        function to request size and then use `Gtk.CellArea.inner_cell_area`
         at render and event time since this function will add padding
         around the cell for focus painting.
         """
@@ -12654,7 +12654,7 @@ class CellArea(GObject.InitiallyUnowned):
         This is generally called by implementations of
         `GtkCellAreaClass.`focus`` or `GtkCellAreaClass.`event``,
         however it can also be used to implement functions such
-        as `Gtk.tree_view_set_cursor_on_cell`.
+        as `Gtk.TreeView.set_cursor_on_cell`.
         """
     @deprecated("deprecated")
     def snapshot(
@@ -12681,7 +12681,7 @@ class CellArea(GObject.InitiallyUnowned):
         the ::editing-done signal will be emitted on the current
         edit widget.
 
-        See `Gtk.cell_area_get_edited_cell` and `Gtk.cell_area_get_edit_widget`.
+        See `Gtk.CellArea.get_edited_cell` and `Gtk.CellArea.get_edit_widget`.
         """
 
     # python methods (overrides?)
@@ -12970,8 +12970,8 @@ class CellAreaBox(CellArea):
 
     Alignments of `GtkCellRenderer`s rendered in adjacent rows can be
     configured by configuring the `GtkCellAreaBox` align child cell property
-    with `Gtk.cell_area_cell_set_property` or by specifying the "align"
-    argument to `Gtk.cell_area_box_pack_start` and `Gtk.cell_area_box_pack_end`.
+    with `Gtk.CellArea.cell_set_property` or by specifying the "align"
+    argument to `Gtk.CellAreaBox.pack_start` and `Gtk.CellAreaBox.pack_end`.
     """
 
     class Props(CellArea.Props):
@@ -13041,7 +13041,7 @@ class CellAreaClass(GObject.GPointer):
     def activate(self) -> activateCellAreaClassCB:
         """
           This is called when the layouting widget rendering the
-        `GtkCellArea` activates the focus cell (see `Gtk.cell_area_get_focus_cell`).
+        `GtkCellArea` activates the focus cell (see `Gtk.CellArea.get_focus_cell`).
         """
     @builtins.property
     def add(self) -> addCellAreaClassCB:
@@ -13084,8 +13084,8 @@ class CellAreaClass(GObject.GPointer):
         logically leaves the area with the following exceptions: When the
         area contains no activatable cells, the entire area receives focus.
         Focus should not be given to cells that are actually “focus siblings”
-        of other sibling cells (see `Gtk.cell_area_get_focus_from_sibling`).
-        Focus is set by calling `Gtk.cell_area_set_focus_cell`.
+        of other sibling cells (see `Gtk.CellArea.get_focus_from_sibling`).
+        Focus is set by calling `Gtk.CellArea.set_focus_cell`.
         """
     @builtins.property
     def foreach(self) -> foreachCellAreaClassCB:
@@ -13175,7 +13175,7 @@ class CellAreaClass(GObject.GPointer):
         """
           This should be implemented to handle changes in child
         cell properties for a given `GtkCellRenderer` that were previously
-        installed on the `GtkCellAreaClass` with `Gtk.cell_area_class_install_cell_property`.
+        installed on the `GtkCellAreaClass` with `Gtk.CellAreaClass.install_cell_property`.
         """
     @builtins.property
     def snapshot(self) -> snapshotCellAreaClassCB:
@@ -13219,7 +13219,7 @@ class CellAreaContext(GObject.Object):
     request and render groups of data rows. However, it’s important that the
     same context which was used to request sizes for a given `GtkTreeModel`
     row also be used for the same row when calling other `GtkCellArea` APIs
-    such as `Gtk.cell_area_render` and `Gtk.cell_area_event`.
+    such as `Gtk.CellArea.render` and `Gtk.CellArea.event`.
     """
 
     class Props(GObject.Object.Props):
@@ -13231,25 +13231,25 @@ class CellAreaContext(GObject.Object):
         """
         The minimum height for the `GtkCellArea` in this context
         for all `GtkTreeModel` rows that this context was requested
-        for using `Gtk.cell_area_get_preferred_height`.
+        for using `Gtk.CellArea.get_preferred_height`.
         """
         minimum_width: int  # [minimum-width]: changed because contained invalid characters
         """
         The minimum width for the `GtkCellArea` in this context
         for all `GtkTreeModel` rows that this context was requested
-        for using `Gtk.cell_area_get_preferred_width`.
+        for using `Gtk.CellArea.get_preferred_width`.
         """
         natural_height: int  # [natural-height]: changed because contained invalid characters
         """
         The natural height for the `GtkCellArea` in this context
         for all `GtkTreeModel` rows that this context was requested
-        for using `Gtk.cell_area_get_preferred_height`.
+        for using `Gtk.CellArea.get_preferred_height`.
         """
         natural_width: int  # [natural-width]: changed because contained invalid characters
         """
         The natural width for the `GtkCellArea` in this context
         for all `GtkTreeModel` rows that this context was requested
-        for using `Gtk.cell_area_get_preferred_width`.
+        for using `Gtk.CellArea.get_preferred_width`.
         """
 
     @builtins.property
@@ -13284,7 +13284,7 @@ class CellAreaContext(GObject.Object):
             Fetches the current allocation size for `context`.
 
         If the context was not allocated in width or height, or if the
-        context was recently reset with `Gtk.cell_area_context_reset`,
+        context was recently reset with `Gtk.CellAreaContext.reset`,
         the returned value will be -1.
         """
     @deprecated("deprecated")
@@ -13308,7 +13308,7 @@ class CellAreaContext(GObject.Object):
             Gets the accumulative preferred height for all rows which have been
         requested with this context.
 
-        After `Gtk.cell_area_context_reset` is called and/or before ever
+        After `Gtk.CellAreaContext.reset` is called and/or before ever
         requesting the size of a `GtkCellArea`, the returned values are 0.
         """
     @deprecated("deprecated")
@@ -13317,7 +13317,7 @@ class CellAreaContext(GObject.Object):
             Gets the accumulative preferred height for `width` for all rows
         which have been requested for the same said `width` with this context.
 
-        After `Gtk.cell_area_context_reset` is called and/or before ever
+        After `Gtk.CellAreaContext.reset` is called and/or before ever
         requesting the size of a `GtkCellArea`, the returned values are -1.
         """
     @deprecated("deprecated")
@@ -13326,7 +13326,7 @@ class CellAreaContext(GObject.Object):
             Gets the accumulative preferred width for all rows which have been
         requested with this context.
 
-        After `Gtk.cell_area_context_reset` is called and/or before ever
+        After `Gtk.CellAreaContext.reset` is called and/or before ever
         requesting the size of a `GtkCellArea`, the returned values are 0.
         """
     @deprecated("deprecated")
@@ -13335,7 +13335,7 @@ class CellAreaContext(GObject.Object):
             Gets the accumulative preferred width for `height` for all rows which
         have been requested for the same said `height` with this context.
 
-        After `Gtk.cell_area_context_reset` is called and/or before ever
+        After `Gtk.CellAreaContext.reset` is called and/or before ever
         requesting the size of a `GtkCellArea`, the returned values are -1.
         """
     @deprecated("deprecated")
@@ -13347,7 +13347,7 @@ class CellAreaContext(GObject.Object):
         This is used by `GtkCellAreaContext` implementations during
         the request process over a series of `GtkTreeModel` rows to
         progressively push the requested height over a series of
-        `Gtk.cell_area_get_preferred_height` requests.
+        `Gtk.CellArea.get_preferred_height` requests.
         """
     @deprecated("deprecated")
     def push_preferred_width(self, minimum_width: int, natural_width: int) -> None:
@@ -13358,7 +13358,7 @@ class CellAreaContext(GObject.Object):
         This is used by `GtkCellAreaContext` implementations during
         the request process over a series of `GtkTreeModel` rows to
         progressively push the requested width over a series of
-        `Gtk.cell_area_get_preferred_width` requests.
+        `Gtk.CellArea.get_preferred_width` requests.
         """
     @deprecated("deprecated")
     def reset(self) -> None:
@@ -13373,7 +13373,7 @@ class CellAreaContext(GObject.Object):
         for views rendering large data stores as a measure
         of optimization), then only the row that changed
         or was inserted needs to be (re)requested with
-        `Gtk.cell_area_get_preferred_width`.
+        `Gtk.CellArea.get_preferred_width`.
 
         When the new overall size of the context requires
         that the allocated size changes (or whenever this
@@ -13384,7 +13384,7 @@ class CellAreaContext(GObject.Object):
         the same width from top to bottom then a change
         in the allocated width necessitates a recalculation
         of all the displayed row heights using
-        `Gtk.cell_area_get_preferred_height_for_width`.
+        `Gtk.CellArea.get_preferred_height_for_width`.
         """
 
     # python methods (overrides?)
@@ -13466,7 +13466,7 @@ class CellAreaContextClass(GObject.GPointer):
           This tells the context that an allocation width or height
         (or both) have been decided for a group of rows. The context should
         store any allocations for internally aligned cells at this point so
-        that they dont need to be recalculated at `Gtk.cell_area_render` time.
+        that they dont need to be recalculated at `Gtk.CellArea.render` time.
         """
     @builtins.property
     def get_preferred_height_for_width(self) -> get_preferred_height_for_widthCellAreaContextClassCB:
@@ -13542,9 +13542,9 @@ class CellEditable(GObject.GInterface):
             Begins editing on a `cell_editable`.
 
         The `GtkCellRenderer` for the cell creates and returns a `GtkCellEditable` from
-        `Gtk.cell_renderer_start_editing`, configured for the `GtkCellRenderer` type.
+        `Gtk.CellRenderer.start_editing`, configured for the `GtkCellRenderer` type.
 
-        `Gtk.cell_editable_start_editing` can then set up `cell_editable` suitably for
+        `Gtk.CellEditable.start_editing` can then set up `cell_editable` suitably for
         editing a cell, e.g. making the Esc key emit `GtkCellEditable::editing-done`.
 
         Note that the `cell_editable` is created on-demand for the current edit; its
@@ -13566,7 +13566,7 @@ class CellEditable(GObject.GInterface):
         do in a handler for ::editing-done are to capture the edited value,
         disconnect the `cell_editable` from signals on the `GtkCellRenderer`, etc.
 
-        `Gtk.cell_editable_editing_done` is a convenience method
+        `Gtk.CellEditable.editing_done` is a convenience method
         for emitting `GtkCellEditable::editing-done`.
         """
     @typing.overload
@@ -13584,7 +13584,7 @@ class CellEditable(GObject.GInterface):
         to give the cell renderer a chance to update the cell's value
         before the widget is removed.
 
-        `Gtk.cell_editable_remove_widget` is a convenience method
+        `Gtk.CellEditable.remove_widget` is a convenience method
         for emitting `GtkCellEditable::remove-widget`.
         """
     @typing.overload
@@ -13639,10 +13639,10 @@ class CellLayout(GObject.GInterface):
     `GtkCellLayout` are attributes. Attributes let you set the properties
     in flexible ways. They can just be set to constant values like regular
     properties. But they can also be mapped to a column of the underlying
-    tree model with `Gtk.cell_layout_set_attributes`, which means that the value
+    tree model with `Gtk.CellLayout.set_attributes`, which means that the value
     of the attribute can change from cell to cell as they are rendered by
     the cell renderer. Finally, it is possible to specify a function with
-    `Gtk.cell_layout_set_cell_data_func` that is called to determine the
+    `Gtk.CellLayout.set_cell_data_func` that is called to determine the
     value of the attribute for each cell that is rendered.
 
     ## GtkCellLayouts as GtkBuildable
@@ -13765,7 +13765,7 @@ class CellLayout(GObject.GInterface):
     def clear_attributes(self, cell: CellRenderer) -> None:
         """
             Clears all existing attributes previously set with
-        `Gtk.cell_layout_set_attributes`.
+        `Gtk.CellLayout.set_attributes`.
         """
     @deprecated("deprecated")
     def get_area(self) -> CellArea | None:
@@ -13837,7 +13837,7 @@ class CellLayoutIface(GObject.GPointer):
     def clear_attributes(self) -> clear_attributesCellLayoutIfaceCB:
         """
          Clears all existing attributes previously set
-        with `Gtk.cell_layout_set_attributes`.
+        with `Gtk.CellLayout.set_attributes`.
         """
     @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
@@ -13897,8 +13897,8 @@ class CellRenderer(GObject.InitiallyUnowned):
     draw many cells on the screen.  To this extent, it isn’t expected that a
     CellRenderer keep any permanent state around.  Instead, any state is set
     just prior to use using `GObject`s property system.  Then, the
-    cell is measured using `Gtk.cell_renderer_get_preferred_size`. Finally, the cell
-    is rendered in the correct location using `Gtk.cell_renderer_snapshot`.
+    cell is measured using `Gtk.CellRenderer.get_preferred_size`. Finally, the cell
+    is rendered in the correct location using `Gtk.CellRenderer.snapshot`.
 
     There are a number of rules that must be followed when writing a new
     `GtkCellRenderer`.  First and foremost, it’s important that a certain set
@@ -14267,7 +14267,7 @@ class CellRenderer(GObject.InitiallyUnowned):
         cell.  For example, an editable cell renderer could be written to cancel
         editing when the user presses Escape.
 
-        See also: `Gtk.cell_renderer_stop_editing`.
+        See also: `Gtk.CellRenderer.stop_editing`.
         """
     @typing.overload
     def connect(
@@ -14282,7 +14282,7 @@ class CellRenderer(GObject.InitiallyUnowned):
         on `editable`, e.g. adding a `GtkEntryCompletion` or setting
         up additional columns in a `GtkComboBox`.
 
-        See `Gtk.cell_editable_start_editing` for information on the lifecycle of
+        See `Gtk.CellEditable.start_editing` for information on the lifecycle of
         the `editable` and a way to do setup that doesn’t depend on the `renderer`.
 
         Note that GTK doesn't guarantee that cell renderers will
@@ -15053,7 +15053,7 @@ class CellRendererSpinner(CellRenderer):
     property to True and increment the `GtkCellRendererSpinner:pulse` property
     at regular intervals. The usual way to set the cell renderer properties
     for each cell is to bind them to columns in your tree model using e.g.
-    `Gtk.tree_view_column_add_attribute`.
+    `Gtk.TreeViewColumn.add_attribute`.
     """
 
     class Props(CellRenderer.Props):
@@ -15706,14 +15706,14 @@ class CellRendererToggle(CellRenderer):
     def get_activatable(self) -> bool:
         """
             Returns whether the cell renderer is activatable. See
-        `Gtk.cell_renderer_toggle_set_activatable`.
+        `Gtk.CellRendererToggle.set_activatable`.
         """
     @deprecated("deprecated")
     @builtins.property
     def get_active(self) -> bool:
         """
             Returns whether the cell renderer is active. See
-        `Gtk.cell_renderer_toggle_set_active`.
+        `Gtk.CellRendererToggle.set_active`.
         """
     @deprecated("deprecated")
     @builtins.property
@@ -15831,7 +15831,7 @@ class CellView(Widget):
         """
         The `GtkCellArea` rendering cells
 
-        If no area is specified when creating the cell view with `Gtk.cell_view_new_with_context`
+        If no area is specified when creating the cell view with `Gtk.CellView.new_with_context`
         a horizontally oriented `GtkCellArea`Box will be used.
 
         since 3.0
@@ -17860,14 +17860,14 @@ class ColumnViewCell(ListItem):
     @builtins.property
     def get_child(self) -> Widget | None:
         """
-            Gets the child previously set via `Gtk.column_view_cell_set_child` or
+            Gets the child previously set via `Gtk.ColumnViewCell.set_child` or
         None if none was set.
         """
     @builtins.property
     def get_focusable(self) -> bool:
         """
             Checks if a list item has been set to be focusable via
-        `Gtk.column_view_cell_set_focusable`.
+        `Gtk.ColumnViewCell.set_focusable`.
         """
     @builtins.property
     def get_item(self) -> GObject.Object | None:
@@ -18341,13 +18341,13 @@ class ColumnViewRow(GObject.Object):
     def get_activatable(self) -> bool:
         """
             Checks if the row has been set to be activatable via
-        `Gtk.column_view_row_set_activatable`.
+        `Gtk.ColumnViewRow.set_activatable`.
         """
     @builtins.property
     def get_focusable(self) -> bool:
         """
             Checks if a row item has been set to be focusable via
-        `Gtk.column_view_row_set_focusable`.
+        `Gtk.ColumnViewRow.set_focusable`.
         """
     @builtins.property
     def get_item(self) -> GObject.Object | None:
@@ -18367,7 +18367,7 @@ class ColumnViewRow(GObject.Object):
     def get_selectable(self) -> bool:
         """
             Checks if the row has been set to be selectable via
-        `Gtk.column_view_row_set_selectable`.
+        `Gtk.ColumnViewRow.set_selectable`.
 
         Do not confuse this function with [method`Gtk`.ColumnViewRow.get_selected].
         """
@@ -18394,7 +18394,7 @@ class ColumnViewRow(GObject.Object):
             Sets `self` to be activatable.
 
         If a row is activatable, double-clicking on the row, using
-        the Return key or calling `Gtk.widget_activate` will activate
+        the Return key or calling `Gtk.Widget.activate` will activate
         the row. Activating instructs the containing columnview to
         emit the [signal`Gtk`.ColumnView::activate] signal.
 
@@ -19722,7 +19722,7 @@ class ConstraintGuide(GObject.Object):
     @builtins.property
     def get_name(self) -> str | None:
         """
-        Retrieves the name set using `Gtk.constraint_guide_set_name`.
+        Retrieves the name set using `Gtk.ConstraintGuide.set_name`.
         """
     def get_nat_size(self) -> tuple[int, int]:
         """
@@ -19731,7 +19731,7 @@ class ConstraintGuide(GObject.Object):
     @builtins.property
     def get_strength(self) -> ConstraintStrength:
         """
-        Retrieves the strength set using `Gtk.constraint_guide_set_strength`.
+        Retrieves the strength set using `Gtk.ConstraintGuide.set_strength`.
         """
     @classmethod
     def new(cls) -> ConstraintGuide:
@@ -20469,7 +20469,10 @@ class CustomLayout(LayoutManager):
         """
     @classmethod
     def new(
-        cls, request_mode: CustomRequestModeFunc | None, measure: CustomMeasureFunc, allocate: CustomAllocateFunc
+        cls,
+        request_mode: CustomRequestModeFunc | None | typing.Callable[..., SizeRequestMode],
+        measure: CustomMeasureFunc,
+        allocate: CustomAllocateFunc,
     ) -> CustomLayout:
         """
             Creates a new legacy layout manager.
@@ -20515,7 +20518,7 @@ class CustomSorter(Sorter):
         If `sort_func` is None, all items are considered equal.
 
         If the sort func changes its sorting behavior,
-        `Gtk.sorter_changed` needs to be called.
+        `Gtk.Sorter.changed` needs to be called.
 
         If a previous function was set, its `user_destroy` will be
         called now.
@@ -20955,7 +20958,7 @@ class DirectoryList(GObject.Object):
     @builtins.property
     def get_io_priority(self) -> int:
         """
-        Gets the IO priority set via `Gtk.directory_list_set_io_priority`.
+        Gets the IO priority set via `Gtk.DirectoryList.set_io_priority`.
         """
     @builtins.property
     def get_monitored(self) -> bool:
@@ -23824,11 +23827,11 @@ class Entry(Widget):
     @builtins.property
     def get_activates_default(self) -> bool:
         """
-        Retrieves the value set by `Gtk.entry_set_activates_default`.
+        Retrieves the value set by `Gtk.Entry.set_activates_default`.
         """
     def get_alignment(self) -> float:
         """
-            Gets the value set by `Gtk.entry_set_alignment`.
+            Gets the value set by `Gtk.Entry.set_alignment`.
 
         See also: [property`Gtk`.Editable:xalign]
         """
@@ -23860,12 +23863,12 @@ class Entry(Widget):
     @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None:
         """
-        Gets the menu model set with `Gtk.entry_set_extra_menu`.
+        Gets the menu model set with `Gtk.Entry.set_extra_menu`.
         """
     @builtins.property
     def get_has_frame(self) -> bool:
         """
-        Gets the value set by `Gtk.entry_set_has_frame`.
+        Gets the value set by `Gtk.Entry.set_has_frame`.
         """
     def get_icon_activatable(self, icon_pos: EntryIconPosition) -> bool:
         """
@@ -23979,7 +23982,7 @@ class Entry(Widget):
     def get_progress_pulse_step(self) -> float:
         """
             Retrieves the pulse step set with
-        `Gtk.entry_set_progress_pulse_step`.
+        `Gtk.Entry.set_progress_pulse_step`.
         """
     @builtins.property
     def get_tabs(self) -> Pango.TabArray | None:
@@ -24029,7 +24032,7 @@ class Entry(Widget):
 
         Causes the entry’s progress indicator to enter “activity
         mode”, where a block bounces back and forth. Each call to
-        `Gtk.entry_progress_pulse` causes the block to move by a
+        `Gtk.Entry.progress_pulse` causes the block to move by a
         little bit (the amount of movement per pulse is determined
         by [method`Gtk`.Entry.set_progress_pulse_step]).
         """
@@ -26153,7 +26156,7 @@ class Expander(Widget):
         This is including any embedded underlines indicating mnemonics and
         Pango markup, as set by [method`Gtk`.Expander.set_label]. If the label
         text has not been set the return value will be None. This will be the
-        case if you create an empty button with `Gtk.button_new` to use as a
+        case if you create an empty button with `Gtk.Button.new` to use as a
         container.
         """
     @builtins.property
@@ -26629,7 +26632,7 @@ class FileChooser(GObject.GInterface):
         filters: Gio.ListModel | None
         """
         A `GListModel` containing the filters that have been
-        added with `Gtk.file_chooser_add_filter`.
+        added with `Gtk.FileChooser.add_filter`.
 
         The returned object should not be modified. It may
         or may not be updated for later changes.
@@ -26641,7 +26644,7 @@ class FileChooser(GObject.GInterface):
         shortcut_folders: Gio.ListModel | None  # [shortcut-folders]: changed because contained invalid characters
         """
         A `GListModel` containing the shortcut folders that have been
-        added with `Gtk.file_chooser_add_shortcut_folder`.
+        added with `Gtk.FileChooser.add_shortcut_folder`.
 
         The returned object should not be modified. It may
         or may not be updated for later changes.
@@ -26775,7 +26778,7 @@ class FileChooser(GObject.GInterface):
     @deprecated("deprecated")
     def remove_choice(self, id: str) -> None:
         """
-        Removes a 'choice' that has been added with `Gtk.file_chooser_add_choice`.
+        Removes a 'choice' that has been added with `Gtk.FileChooser.add_choice`.
         """
     @deprecated("deprecated")
     def remove_filter(self, filter: FileFilter) -> None:
@@ -26802,7 +26805,7 @@ class FileChooser(GObject.GInterface):
     def set_choice(self, id: str, option: str) -> None:
         """
             Selects an option in a 'choice' that has been added with
-        `Gtk.file_chooser_add_choice`.
+        `Gtk.FileChooser.add_choice`.
 
         For a boolean choice, the possible options are "true" and "false".
         """
@@ -28845,7 +28848,7 @@ class Fixed(Widget):
     def get_child_transform(self, widget: Widget) -> Gsk.Transform | None:
         """
             Retrieves the transformation for `widget` set using
-        `Gtk.fixed_set_child_transform`.
+        `Gtk.Fixed.set_child_transform`.
         """
     def move(self, widget: Widget, x: float, y: float) -> None:
         """
@@ -29029,7 +29032,7 @@ class FlattenListModel(GObject.Object):
     @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
-        Gets the model set via `Gtk.flatten_list_model_set_model`.
+        Gets the model set via `Gtk.FlattenListModel.set_model`.
         """
     def get_model_for_item(self, position: int) -> Gio.ListModel | None:
         """
@@ -29217,7 +29220,10 @@ class FlowBox(Widget):
         See also: [method`Gtk`.FlowBox.insert].
         """
     def bind_model(
-        self, model: Gio.ListModel | None, create_widget_func: FlowBoxCreateWidgetFunc, *user_data: object | None
+        self,
+        model: Gio.ListModel | None,
+        create_widget_func: FlowBoxCreateWidgetFunc | typing.Callable[..., Widget],
+        *user_data: object | None,
     ) -> None:
         """
             Binds `model` to `box`.
@@ -29656,7 +29662,7 @@ class FlowBoxChild(Widget):
         used for the sorting and filtering functions. For instance, if
         the list is mirroring some external data set, and *two* children
         changed in the external data set when you call
-        `Gtk.flow_box_child_changed` on the first child, the sort function
+        `Gtk.FlowBoxChild.changed` on the first child, the sort function
         must only read the new data for the first of the two changed
         children, otherwise the resorting of the children will be wrong.
 
@@ -33260,7 +33266,7 @@ class GridLayout(LayoutManager):
     @builtins.property
     def get_baseline_row(self) -> int:
         """
-        Retrieves the row set with `Gtk.grid_layout_set_baseline_row`.
+        Retrieves the row set with `Gtk.GridLayout.set_baseline_row`.
         """
     @builtins.property
     def get_column_homogeneous(self) -> bool:
@@ -33270,7 +33276,7 @@ class GridLayout(LayoutManager):
     @builtins.property
     def get_column_spacing(self) -> int:
         """
-        Retrieves the spacing set with `Gtk.grid_layout_set_column_spacing`.
+        Retrieves the spacing set with `Gtk.GridLayout.set_column_spacing`.
         """
     def get_row_baseline_position(self, row: int) -> BaselinePosition:
         """
@@ -33289,7 +33295,7 @@ class GridLayout(LayoutManager):
     @builtins.property
     def get_row_spacing(self) -> int:
         """
-        Retrieves the spacing set with `Gtk.grid_layout_set_row_spacing`.
+        Retrieves the spacing set with `Gtk.GridLayout.set_row_spacing`.
         """
     @classmethod
     def new(cls) -> GridLayout:
@@ -34679,7 +34685,7 @@ class IconPaintable(GObject.Object):
 
         When an icon looked up in the icon theme was not available, the
         icon theme may use fallback icons - either those specified to
-        `Gtk.icon_theme_lookup_icon` or the always-available
+        `Gtk.IconTheme.lookup_icon` or the always-available
         "image-missing". The icon chosen is returned by this function.
 
         If the icon was created without an icon theme, this function
@@ -35077,7 +35083,7 @@ class IconView(Widget):
         """
         The `GtkCellArea` used to layout cell renderers for this view.
 
-        If no area is specified when creating the icon view with `Gtk.icon_view_new_with_area`
+        If no area is specified when creating the icon view with `Gtk.IconView.new_with_area`
         a `GtkCellAreaBox` will be used.
         """
         column_spacing: int  # [column-spacing]: changed because contained invalid characters
@@ -35216,7 +35222,7 @@ class IconView(Widget):
     @builtins.property
     def get_activate_on_single_click(self) -> bool:
         """
-        Gets the setting set by `Gtk.icon_view_set_activate_on_single_click`.
+        Gets the setting set by `Gtk.IconView.set_activate_on_single_click`.
         """
     @deprecated("deprecated")
     def get_cell_rect(self, path: TreePath, cell: CellRenderer | None = None) -> tuple[bool, Gdk.Rectangle]:
@@ -35245,7 +35251,7 @@ class IconView(Widget):
         If the cursor isn’t currently set, then *`path` will be None.
         If no cell currently has focus, then *`cell` will be None.
 
-        The returned `GtkTreePath` must be freed with `Gtk.tree_path_free`.
+        The returned `GtkTreePath` must be freed with `Gtk.TreePath.free`.
         """
     @deprecated("deprecated")
     def get_dest_item_at_pos(self, drag_x: int, drag_y: int) -> tuple[bool, TreePath, IconViewDropPosition]:
@@ -35328,7 +35334,7 @@ class IconView(Widget):
     def get_reorderable(self) -> bool:
         """
             Retrieves whether the user can reorder the list via drag-and-drop.
-        See `Gtk.icon_view_set_reorderable`.
+        See `Gtk.IconView.set_reorderable`.
         """
     @deprecated("deprecated")
     @builtins.property
@@ -35342,7 +35348,7 @@ class IconView(Widget):
             Creates a list of paths of all selected items. Additionally, if you are
         planning on modifying the model after calling this function, you may
         want to convert the returned list into a list of `GtkTreeRowReferences`.
-        To do this, you can use `Gtk.tree_row_reference_new`.
+        To do this, you can use `Gtk.TreeRowReference.new`.
 
         To free the return value, use `g_list_free_full`:
 
@@ -35402,7 +35408,7 @@ class IconView(Widget):
             Sets `start_path` and `end_path` to be the first and last visible path.
         Note that there may be invisible paths in between.
 
-        Both paths should be freed with `Gtk.tree_path_free` after use.
+        Both paths should be freed with `Gtk.TreePath.free` after use.
         """
     @deprecated("deprecated")
     def item_activated(self, path: TreePath) -> None:
@@ -35539,7 +35545,7 @@ class IconView(Widget):
             Sets the column with markup information for `icon_view` to be
         `column`. The markup column must be of type `G_TYPE_STRING`.
         If the markup column is set to something, it overrides
-        the text column set by `Gtk.icon_view_set_text_column`.
+        the text column set by `Gtk.IconView.set_text_column`.
         """
     @deprecated("deprecated")
     def set_model(self, model: TreeModel | None = None) -> None:
@@ -35599,9 +35605,9 @@ class IconView(Widget):
     def set_tooltip_cell(self, tooltip: Tooltip, path: TreePath, cell: CellRenderer | None = None) -> None:
         """
             Sets the tip area of `tooltip` to the area which `cell` occupies in
-        the item pointed to by `path`. See also `Gtk.tooltip_set_tip_area`.
+        the item pointed to by `path`. See also `Gtk.Tooltip.set_tip_area`.
 
-        See also `Gtk.icon_view_set_tooltip_column` for a simpler alternative.
+        See also `Gtk.IconView.set_tooltip_column` for a simpler alternative.
         """
     @deprecated("deprecated")
     def set_tooltip_column(self, column: int) -> None:
@@ -35614,15 +35620,15 @@ class IconView(Widget):
         When enabled, `GtkWidget:has-tooltip` will be set to True and
         `icon_view` will connect a `GtkWidget::query-tooltip` signal handler.
 
-        Note that the signal handler sets the text with `Gtk.tooltip_set_markup`,
+        Note that the signal handler sets the text with `Gtk.Tooltip.set_markup`,
         so &, <, etc have to be escaped in the text.
         """
     @deprecated("deprecated")
     def set_tooltip_item(self, tooltip: Tooltip, path: TreePath) -> None:
         """
             Sets the tip area of `tooltip` to be the area covered by the item at `path`.
-        See also `Gtk.icon_view_set_tooltip_column` for a simpler alternative.
-        See also `Gtk.tooltip_set_tip_area`.
+        See also `Gtk.IconView.set_tooltip_column` for a simpler alternative.
+        See also `Gtk.Tooltip.set_tip_area`.
         """
     @deprecated("deprecated")
     def unselect_all(self) -> None:
@@ -35637,13 +35643,13 @@ class IconView(Widget):
     @deprecated("deprecated")
     def unset_model_drag_dest(self) -> None:
         """
-            Undoes the effect of `Gtk.icon_view_enable_model_drag_dest`. Calling this
+            Undoes the effect of `Gtk.IconView.enable_model_drag_dest`. Calling this
         method sets `GtkIconView`:reorderable to False.
         """
     @deprecated("deprecated")
     def unset_model_drag_source(self) -> None:
         """
-            Undoes the effect of `Gtk.icon_view_enable_model_drag_source`. Calling this
+            Undoes the effect of `Gtk.IconView.enable_model_drag_source`. Calling this
         method sets `GtkIconView`:reorderable to False.
         """
 
@@ -35675,7 +35681,7 @@ class IconView(Widget):
     ) -> int:
         """
             The ::item-activated signal is emitted when the method
-        `Gtk.icon_view_item_activated` is called, when the user double
+        `Gtk.IconView.item_activated` is called, when the user double
         clicks an item with the "activate-on-single-click" property set
         to False, or when the user single clicks an item when the
         "activate-on-single-click" property set to True. It is also
@@ -38958,7 +38964,7 @@ class ListBox(Widget):
     def bind_model(
         self,
         model: Gio.ListModel | None = None,
-        create_widget_func: ListBoxCreateWidgetFunc | None = None,
+        create_widget_func: ListBoxCreateWidgetFunc | None | typing.Callable[..., Widget] = None,
         *user_data: object | None,
     ) -> None:
         """
@@ -38992,7 +38998,7 @@ class ListBox(Widget):
         """
     def drag_unhighlight_row(self) -> None:
         """
-            If a row has previously been highlighted via `Gtk.list_box_drag_highlight_row`,
+            If a row has previously been highlighted via `Gtk.ListBox.drag_highlight_row`,
         it will have the highlight removed.
         """
     @builtins.property
@@ -39408,7 +39414,7 @@ class ListBoxRow(Widget):
         Note that calls to this method must be in sync with the data
         used for the row functions. For instance, if the list is
         mirroring some external data set, and *two* rows changed in the
-        external data set then when you call `Gtk.list_box_row_changed`
+        external data set then when you call `Gtk.ListBoxRow.changed`
         on the first row the sort function must only read the new data
         for the first of the two changed rows, otherwise the resorting
         of the rows will be wrong.
@@ -39585,7 +39591,7 @@ class ListHeader(GObject.Object):
     @builtins.property
     def get_child(self) -> Widget | None:
         """
-            Gets the child previously set via `Gtk.list_header_set_child` or
+            Gets the child previously set via `Gtk.ListHeader.set_child` or
         None if none was set.
         """
     @builtins.property
@@ -40098,10 +40104,10 @@ class ListStore(GObject.Object):
     ## Atomic Operations
 
     It is important to note that only the methods
-    `Gtk.list_store_insert_with_values` and `Gtk.list_store_insert_with_valuesv`
+    `Gtk.ListStore.insert_with_values` and `Gtk.ListStore.insert_with_valuesv`
     are atomic, in the sense that the row is being appended to the store and the
     values filled in in a single operation with regard to `GtkTreeModel` signaling.
-    In contrast, using e.g. `Gtk.list_store_append` and then `Gtk.list_store_set`
+    In contrast, using e.g. `Gtk.ListStore.append` and then `Gtk.ListStore.set`
     will first create a row, which triggers the `GtkTreeModel::row-inserted` signal
     on `GtkListStore`. The row, however, is still empty, and any signal handler
     connecting to `GtkTreeModel::row-inserted` on this particular store should be prepared
@@ -40166,7 +40172,7 @@ class ListStore(GObject.Object):
         """
             Appends a new row to `list_store`.  `iter` will be changed to point to this new
         row.  The row will be empty after this function is called.  To fill in
-        values, you need to call `Gtk.list_store_set` or `Gtk.list_store_set_value`.
+        values, you need to call `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
         """
     @deprecated("deprecated")
     def clear(self) -> None:
@@ -40180,7 +40186,7 @@ class ListStore(GObject.Object):
         row.  If `position` is -1 or is larger than the number of rows on the list,
         then the new row will be appended to the list. The row will be empty after
         this function is called.  To fill in values, you need to call
-        `Gtk.list_store_set` or `Gtk.list_store_set_value`.
+        `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
         """
     @deprecated("deprecated")
     def insert_after(self, sibling: TreeIter | None = None) -> TreeIter:
@@ -40188,7 +40194,7 @@ class ListStore(GObject.Object):
             Inserts a new row after `sibling`. If `sibling` is None, then the row will be
         prepended to the beginning of the list. `iter` will be changed to point to
         this new row. The row will be empty after this function is called. To fill
-        in values, you need to call `Gtk.list_store_set` or `Gtk.list_store_set_value`.
+        in values, you need to call `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
         """
     @deprecated("deprecated")
     def insert_before(self, sibling: TreeIter | None = None) -> TreeIter:
@@ -40196,7 +40202,7 @@ class ListStore(GObject.Object):
             Inserts a new row before `sibling`. If `sibling` is None, then the row will
         be appended to the end of the list. `iter` will be changed to point to this
         new row. The row will be empty after this function is called. To fill in
-        values, you need to call `Gtk.list_store_set` or `Gtk.list_store_set_value`.
+        values, you need to call `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
         """
     @deprecated("deprecated")
     def insert_with_values(self, position: int, columns: list, values: list, n_values: int) -> TreeIter:
@@ -40230,7 +40236,7 @@ class ListStore(GObject.Object):
         `GtkTreeModel`::rows-reordered for every inserted value.
 
         Since emitting the `GtkTreeModel::rows-reordered` signal repeatedly can
-        affect the performance of the program, `Gtk.list_store_insert_with_values`
+        affect the performance of the program, `Gtk.ListStore.insert_with_values`
         should generally be preferred when inserting rows in a sorted list store.
         """
     @deprecated("deprecated")
@@ -40282,7 +40288,7 @@ class ListStore(GObject.Object):
         """
             Prepends a new row to `list_store`. `iter` will be changed to point to this new
         row. The row will be empty after this function is called. To fill in
-        values, you need to call `Gtk.list_store_set` or `Gtk.list_store_set_value`.
+        values, you need to call `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
         """
     @deprecated("deprecated")
     def remove(self, iter: TreeIter) -> bool:
@@ -40934,12 +40940,19 @@ class MapListModel(GObject.Object):
         """
     @classmethod
     def new(
-        cls, model: Gio.ListModel | None = None, map_func: MapListModelMapFunc | None = None, *user_data: object | None
+        cls,
+        model: Gio.ListModel | None = None,
+        map_func: MapListModelMapFunc | None | typing.Callable[..., GObject.Object] = None,
+        *user_data: object | None,
     ) -> MapListModel:
         """
         Creates a new `GtkMapListModel` for the given arguments.
         """
-    def set_map_func(self, map_func: MapListModelMapFunc | None = None, *user_data: object | None) -> None:
+    def set_map_func(
+        self,
+        map_func: MapListModelMapFunc | None | typing.Callable[..., GObject.Object] = None,
+        *user_data: object | None,
+    ) -> None:
         """
             Sets the function used to map items.
 
@@ -41490,7 +41503,7 @@ class MediaStream(GObject.Object):
         seek operation is in process, the [property`Gtk`.MediaStream:seeking]
         property will be set.
 
-        When calling `Gtk.media_stream_seek` during an
+        When calling `Gtk.MediaStream.seek` during an
         ongoing seek operation, the new seek will override
         any pending seek.
         """
@@ -41586,7 +41599,7 @@ class MediaStream(GObject.Object):
         """
     def unrealize(self, surface: Gdk.Surface) -> None:
         """
-            Undoes a previous call to `Gtk.media_stream_realize`.
+            Undoes a previous call to `Gtk.MediaStream.realize`.
 
         This causes the stream to release all resources it had
         allocated from `surface`.
@@ -42445,7 +42458,7 @@ class MnemonicAction(ShortcutAction):
         """
             Gets the mnemonic action.
 
-        This is an action that calls `Gtk.widget_mnemonic_activate`
+        This is an action that calls `Gtk.Widget.mnemonic_activate`
         on the given widget upon activation.
         """
 
@@ -44439,7 +44452,7 @@ class Overlay(Widget):
         """
     def remove_overlay(self, widget: Widget) -> None:
         """
-        Removes an overlay that was added with `Gtk.overlay_add_overlay`.
+        Removes an overlay that was added with `Gtk.Overlay.add_overlay`.
         """
     def set_child(self, child: Widget | None = None) -> None:
         """
@@ -45714,7 +45727,7 @@ class PasswordEntry(Widget):
     @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None:
         """
-        Gets the menu model set with `Gtk.password_entry_set_extra_menu`.
+        Gets the menu model set with `Gtk.PasswordEntry.set_extra_menu`.
         """
     @builtins.property
     def get_show_peek_icon(self) -> bool:
@@ -46861,7 +46874,7 @@ class PopoverMenuBar(Widget):
     def remove_child(self, child: Widget) -> bool:
         """
             Removes a widget that has previously been added with
-        `Gtk.popover_menu_bar_add_child`.
+        `Gtk.PopoverMenuBar.add_child`.
         """
     def set_menu_model(self, model: Gio.MenuModel | None = None) -> None:
         """
@@ -47835,7 +47848,7 @@ class PrintOperation(GObject.Object):
         (Gtk.PRINT_STATUS_PREPARING), so this function should never be
         called before the data generation phase (Gtk.PRINT_STATUS_GENERATING_DATA).
         You can connect to the [signal`Gtk`.PrintOperation::status-changed]
-        signal and call `Gtk.print_operation_get_n_pages_to_print` when
+        signal and call `Gtk.PrintOperation.get_n_pages_to_print` when
         print status is Gtk.PRINT_STATUS_GENERATING_DATA.
 
         This is typically used to track the progress of print operation.
@@ -47945,12 +47958,12 @@ class PrintOperation(GObject.Object):
          }
         ```
 
-        Note that `Gtk.print_operation_run` can only be called once on a
+        Note that `Gtk.PrintOperation.run` can only be called once on a
         given `GtkPrintOperation`.
         """
     def set_allow_async(self, allow_async: bool) -> None:
         """
-            Sets whether `Gtk.print_operation_run` may return
+            Sets whether `Gtk.PrintOperation.run` may return
         before the print operation is completed.
 
         Note that some platforms may not allow asynchronous
@@ -50440,7 +50453,7 @@ class RangeClass(GObject.GPointer):
 
 class RecentData(GObject.GPointer):
     """
-    Meta-data to be passed to `Gtk.recent_manager_add_full` when
+    Meta-data to be passed to `Gtk.RecentManager.add_full` when
     registering a recently used resource.
     """
 
@@ -53486,7 +53499,7 @@ class SelectionModelInterface(GObject.GPointer):
     def set_selection(self) -> set_selectionSelectionModelInterfaceCB:
         """
           Set selection state of all items in mask to selected.
-        See `Gtk.selection_model_set_selection` for a detailed explanation
+        See `Gtk.SelectionModel.set_selection` for a detailed explanation
         of this function.
         """
     @builtins.property
@@ -54559,15 +54572,15 @@ class ShortcutAction(GObject.Object):
     GTK provides various actions:
 
      - [class`Gtk`.MnemonicAction]: a shortcut action that calls
-       `Gtk.widget_mnemonic_activate`
+       `Gtk.Widget.mnemonic_activate`
      - [class`Gtk`.CallbackAction]: a shortcut action that invokes
        a given callback
      - [class`Gtk`.SignalAction]: a shortcut action that emits a
        given signal
      - [class`Gtk`.ActivateAction]: a shortcut action that calls
-       `Gtk.widget_activate`
+       `Gtk.Widget.activate`
      - [class`Gtk`.NamedAction]: a shortcut action that calls
-       `Gtk.widget_activate_action`
+       `Gtk.Widget.activate_action`
      - [class`Gtk`.NothingAction]: a shortcut action that does nothing
     """
 
@@ -55960,12 +55973,12 @@ class SingleSelection(GObject.Object):
     def get_autoselect(self) -> bool:
         """
             Checks if autoselect has been enabled or disabled via
-        `Gtk.single_selection_set_autoselect`.
+        `Gtk.SingleSelection.set_autoselect`.
         """
     @builtins.property
     def get_can_unselect(self) -> bool:
         """
-            If True, `Gtk.selection_model_unselect_item` is supported and allows
+            If True, `Gtk.SelectionModel.unselect_item` is supported and allows
         unselecting the selected item.
         """
     @builtins.property
@@ -56003,7 +56016,7 @@ class SingleSelection(GObject.Object):
     def set_can_unselect(self, can_unselect: bool) -> None:
         """
             If True, unselecting the current item via
-        `Gtk.selection_model_unselect_item` is supported.
+        `Gtk.SelectionModel.unselect_item` is supported.
 
         Note that setting [property`Gtk`.SingleSelection:autoselect] will
         cause unselecting to not work, so it practically makes no sense
@@ -56325,12 +56338,12 @@ class SliceListModel(GObject.Object):
     @builtins.property
     def get_offset(self) -> int:
         """
-        Gets the offset set via `Gtk.slice_list_model_set_offset`.
+        Gets the offset set via `Gtk.SliceListModel.set_offset`.
         """
     @builtins.property
     def get_size(self) -> int:
         """
-        Gets the size set via `Gtk.slice_list_model_set_size`.
+        Gets the size set via `Gtk.SliceListModel.set_size`.
         """
     @classmethod
     def new(cls, model: Gio.ListModel | None, offset: int, size: int) -> SliceListModel:
@@ -56699,7 +56712,7 @@ class Snapshot(GObject.Object):
         After that call, the source image will be recorded until
         the second call to [method`Gtk`.Snapshot.pop].
 
-        Calling this function requires 2 subsequent calls to `Gtk.snapshot_pop`.
+        Calling this function requires 2 subsequent calls to `Gtk.Snapshot.pop`.
         """
     def push_opacity(self, opacity: float) -> None:
         """
@@ -56803,11 +56816,11 @@ class Snapshot(GObject.Object):
         be restored to the saved state.
 
         Multiple calls to [method`Gtk`.Snapshot.save] and [method`Gtk`.Snapshot.restore]
-        can be nested; each call to ``Gtk.snapshot_restore`` restores the state from
-        the matching paired ``Gtk.snapshot_save``.
+        can be nested; each call to ``Gtk.Snapshot.restore`` restores the state from
+        the matching paired ``Gtk.Snapshot.save``.
 
         It is necessary to clear all saved states with corresponding
-        calls to ``Gtk.snapshot_restore``.
+        calls to ``Gtk.Snapshot.restore``.
         """
     def scale(self, factor_x: float, factor_y: float) -> None:
         """
@@ -57104,7 +57117,7 @@ class Sorter(GObject.Object):
     Sorters may change their sorting behavior through their lifetime.
     In that case, they will emit the [signal`Gtk`.Sorter::changed] signal
     to notify that the sort order is no longer valid and should be updated
-    by calling `Gtk.sorter_compare` again.
+    by calling `Gtk.Sorter.compare` again.
 
     GTK provides various pre-made sorter implementations for common sorting
     operations. [class`Gtk`.ColumnView] has built-in support for sorting lists
@@ -57192,7 +57205,7 @@ class Sorter(GObject.Object):
             Emitted whenever the sorter changed.
 
         Users of the sorter should then update the sort order
-        again via `Gtk.sorter_compare`.
+        again via `Gtk.Sorter.compare`.
 
         [class`Gtk`.SortListModel] handles this signal automatically.
 
@@ -57230,7 +57243,7 @@ class SorterClass(GObject.GPointer):
     @builtins.property
     def compare(self) -> compareSorterClassCB:
         """
-        Compare two items. See `Gtk.sorter_compare` for details.
+        Compare two items. See `Gtk.Sorter.compare` for details.
         """
     @builtins.property
     def get_order(self) -> get_orderSorterClassCB:
@@ -58458,7 +58471,7 @@ class StackSwitcher(Widget):
 
     Since GTK 4.4, `GtkStackSwitcher` implements `GtkOrientable` allowing
     the stack switcher to be made vertical with
-    ``Gtk.orientable_set_orientation``.
+    ``Gtk.Orientable.set_orientation``.
     """
 
     class Props(Widget.Props):
@@ -60524,20 +60537,20 @@ class TextBuffer(GObject.Object):
         [method`Gtk`.TextBuffer.end_irreversible_action] after the irreversible
         action has completed.
 
-        You may nest calls to `Gtk.text_buffer_begin_irreversible_action`
-        and `Gtk.text_buffer_end_irreversible_action` pairs.
+        You may nest calls to `Gtk.TextBuffer.begin_irreversible_action`
+        and `Gtk.TextBuffer.end_irreversible_action` pairs.
         """
     def begin_user_action(self) -> None:
         """
             Called to indicate that the buffer operations between here and a
-        call to `Gtk.text_buffer_end_user_action` are part of a single
+        call to `Gtk.TextBuffer.end_user_action` are part of a single
         user-visible operation.
 
-        The operations between `Gtk.text_buffer_begin_user_action` and
-        `Gtk.text_buffer_end_user_action` can then be grouped when creating
+        The operations between `Gtk.TextBuffer.begin_user_action` and
+        `Gtk.TextBuffer.end_user_action` can then be grouped when creating
         an undo stack. `GtkTextBuffer` maintains a count of calls to
-        `Gtk.text_buffer_begin_user_action` that have not been closed with
-        a call to `Gtk.text_buffer_end_user_action`, and emits the
+        `Gtk.TextBuffer.begin_user_action` that have not been closed with
+        a call to `Gtk.TextBuffer.end_user_action`, and emits the
         “begin-user-action” and “end-user-action” signals only for the
         outermost pair of calls. This allows you to build user actions
         from other user actions.
@@ -60595,7 +60608,7 @@ class TextBuffer(GObject.Object):
             Deletes text between `start` and `end`.
 
         The order of `start` and `end` is not actually relevant;
-        `Gtk.text_buffer_delete` will reorder them.
+        `Gtk.TextBuffer.delete` will reorder them.
 
         This function actually emits the “delete-range” signal, and
         the default handler of that signal deletes the text. Because the
@@ -60652,8 +60665,8 @@ class TextBuffer(GObject.Object):
         text buffer after [method`Gtk`.TextBuffer.begin_irreversible_action]
         was called.
 
-        You may nest calls to `Gtk.text_buffer_begin_irreversible_action`
-        and `Gtk.text_buffer_end_irreversible_action` pairs.
+        You may nest calls to `Gtk.TextBuffer.begin_irreversible_action`
+        and `Gtk.TextBuffer.end_irreversible_action` pairs.
         """
     def end_user_action(self) -> None:
         """
@@ -62464,8 +62477,8 @@ class TextIter(GObject.GBoxed):
             Gets whether a range with `tag` applied to it begins
         or ends at `iter`.
 
-        This is equivalent to (`Gtk.text_iter_starts_tag` ||
-        `Gtk.text_iter_ends_tag`)
+        This is equivalent to (`Gtk.TextIter.starts_tag` ||
+        `Gtk.TextIter.ends_tag`)
         """
 
 class TextMark(GObject.Object):
@@ -65305,7 +65318,7 @@ class TextViewClass(GObject.GPointer):
         """
           The create_buffer vfunc is called to create a `GtkTextBuffer`
         for the text view. The default implementation is to just call
-        `Gtk.text_buffer_new`.
+        `Gtk.TextBuffer.new`.
         """
     @builtins.property
     def cut_clipboard(self) -> cut_clipboardTextViewClassCB:
@@ -65641,8 +65654,8 @@ class Tooltip(GObject.Object):
         `custom_widget`. `custom_widget` does not get destroyed when the tooltip goes
         away.
         By default a box with a `GtkImage` and `GtkLabel` is embedded in
-        the tooltip, which can be configured using `Gtk.tooltip_set_markup`
-        and `Gtk.tooltip_set_icon`.
+        the tooltip, which can be configured using `Gtk.Tooltip.set_markup`
+        and `Gtk.Tooltip.set_icon`.
         """
     def set_icon(self, paintable: Gdk.Paintable | None = None) -> None:
         """
@@ -65683,8 +65696,8 @@ class Tooltip(GObject.Object):
         etc.
 
         For setting tooltips on `GtkTreeView`, please refer to the convenience
-        functions for this: `Gtk.tree_view_set_tooltip_row` and
-        `Gtk.tree_view_set_tooltip_cell`.
+        functions for this: `Gtk.TreeView.set_tooltip_row` and
+        `Gtk.TreeView.set_tooltip_cell`.
         """
 
 class TreeDragDest(GObject.GInterface):
@@ -66095,12 +66108,12 @@ class TreeIter(GObject.GBoxed):
         This function is not intended for use in applications,
         because you can just copy the structs by value
         (`GtkTreeIter new_iter = iter;`).
-        You must free this iter with `Gtk.tree_iter_free`.
+        You must free this iter with `Gtk.TreeIter.free`.
         """
     @deprecated("deprecated")
     def free(self) -> None:
         """
-            Frees an iterator that has been allocated by `Gtk.tree_iter_copy`.
+            Frees an iterator that has been allocated by `Gtk.TreeIter.copy`.
 
         This function is mainly used for language bindings.
         """
@@ -66208,7 +66221,7 @@ class TreeListModel(GObject.Object):
         root: Gio.ListModel,
         passthrough: bool,
         autoexpand: bool,
-        create_func: TreeListModelCreateModelFunc,
+        create_func: TreeListModelCreateModelFunc | typing.Callable[..., Gio.ListModel],
         *user_data: object | None,
     ) -> TreeListModel:
         """
@@ -66577,7 +66590,7 @@ class TreeModel(GObject.GInterface):
     a specific model. It is a generic struct with an integer and three
     generic pointers. These are filled in by the model in a model-specific
     way. One can convert a path to an iterator by calling
-    `Gtk.tree_model_get_iter`. These iterators are the primary way
+    `Gtk.TreeModel.get_iter`. These iterators are the primary way
     of accessing a model and are similar to the iterators used by
     `GtkTextBuffer`. They are generally statically allocated on the
     stack and only used for a short time. The model interface defines
@@ -66680,7 +66693,7 @@ class TreeModel(GObject.GInterface):
        char *str_data;
        int    int_data;
 
-       // Make sure you terminate calls to `Gtk.tree_model_get` with a “-1” value
+       // Make sure you terminate calls to `Gtk.TreeModel.get` with a “-1” value
        gtk_tree_model_get (list_store, &iter,
                            STRING_COLUMN, &str_data,
                            INT_COLUMN, &int_data,
@@ -66698,7 +66711,7 @@ class TreeModel(GObject.GInterface):
     ```
 
     The `GtkTreeModel` interface contains two methods for reference
-    counting: `Gtk.tree_model_ref_node` and `Gtk.tree_model_unref_node`.
+    counting: `Gtk.TreeModel.ref_node` and `Gtk.TreeModel.unref_node`.
     These two methods are optional to implement. The reference counting
     is meant as a way for views to let models know when nodes are being
     displayed. `GtkTreeView` will take a reference on a node when it is
@@ -66745,7 +66758,7 @@ class TreeModel(GObject.GInterface):
             Calls `func` on each node in model in a depth-first fashion.
 
         If `func` returns True, then the tree ceases to be walked,
-        and `Gtk.tree_model_foreach` returns.
+        and `Gtk.TreeModel.foreach` returns.
         """
     @deprecated("deprecated")
     def get_column_type(self, index_: int) -> GObject.GType:
@@ -66795,7 +66808,7 @@ class TreeModel(GObject.GInterface):
         """
             Returns a newly-created `GtkTreePath` referenced by `iter`.
 
-        This path should be freed with `Gtk.tree_path_free`.
+        This path should be freed with `Gtk.TreePath.free`.
         """
     @deprecated("deprecated")
     def get_string_from_iter(self, iter: TreeIter) -> str | None:
@@ -66956,7 +66969,7 @@ class TreeModel(GObject.GInterface):
         This is an optional method for models to implement.
         To be more specific, models may ignore this call as it exists
         primarily for performance reasons. For more information on what
-        this means, see `Gtk.tree_model_ref_node`.
+        this means, see `Gtk.TreeModel.ref_node`.
 
         Please note that nodes that are deleted are not unreffed.
         """
@@ -67135,7 +67148,7 @@ class TreeModelFilter(GObject.Object):
         """
             This function should almost never be called. It clears the `filter`
         of any cached iterators that haven’t been reffed with
-        `Gtk.tree_model_ref_node`. This might be useful if the child model
+        `Gtk.TreeModel.ref_node`. This might be useful if the child model
         being filtered is static (and doesn’t change often) and there has been
         a lot of unreffed access to nodes. As a side effect of this function,
         all unreffed iters will be invalid.
@@ -67193,7 +67206,7 @@ class TreeModelFilter(GObject.Object):
         should be displayed at the location specified using the parameters of the
         modify function.
 
-        Note that `Gtk.tree_model_filter_set_modify_func`
+        Note that `Gtk.TreeModelFilter.set_modify_func`
         can only be called once for a given filter model.
         """
     @deprecated("deprecated")
@@ -67204,8 +67217,8 @@ class TreeModelFilter(GObject.Object):
         G_TYPE_BOOLEAN, where True means that a row is visible, and False
         if not.
 
-        Note that `Gtk.tree_model_filter_set_visible_func` or
-        `Gtk.tree_model_filter_set_visible_column` can only be called
+        Note that `Gtk.TreeModelFilter.set_visible_func` or
+        `Gtk.TreeModelFilter.set_visible_column` can only be called
         once for a given filter model.
         """
     @deprecated("deprecated")
@@ -67217,7 +67230,7 @@ class TreeModelFilter(GObject.Object):
 
         If the condition calculated by the function changes over time (e.g.
         because it depends on some global parameters), you must call
-        `Gtk.tree_model_filter_refilter` to keep the visibility information
+        `Gtk.TreeModelFilter.refilter` to keep the visibility information
         of the model up-to-date.
 
         Note that `func` is called whenever a row is inserted, when it may still
@@ -67243,8 +67256,8 @@ class TreeModelFilter(GObject.Object):
         }
         ```
 
-        Note that `Gtk.tree_model_filter_set_visible_func` or
-        `Gtk.tree_model_filter_set_visible_column` can only be called
+        Note that `Gtk.TreeModelFilter.set_visible_func` or
+        `Gtk.TreeModelFilter.set_visible_column` can only be called
         once for a given filter model.
         """
 
@@ -67586,7 +67599,7 @@ class TreeModelSort(GObject.Object):
         """
             This function should almost never be called.  It clears the `tree_model_sort`
         of any cached iterators that haven’t been reffed with
-        `Gtk.tree_model_ref_node`.  This might be useful if the child model being
+        `Gtk.TreeModel.ref_node`.  This might be useful if the child model being
         sorted is static (and doesn’t change often) and there has been a lot of
         unreffed access to nodes.  As a side effect of this function, all unreffed
         iters will be invalid.
@@ -67730,7 +67743,7 @@ class TreePath(GObject.GBoxed):
         This is an array of integers, each representing a node in a tree.
         This value should not be freed.
 
-        The length of the array can be obtained with `Gtk.tree_path_get_depth`.
+        The length of the array can be obtained with `Gtk.TreePath.get_depth`.
         """
     @deprecated("deprecated")
     def is_ancestor(self, descendant: TreePath) -> bool:
@@ -67830,7 +67843,7 @@ class TreeRowReference(GObject.GBoxed):
     """
     A GtkTreeRowReference tracks model changes so that it always refers to the
     same row (a `GtkTreePath` refers to a position, not a fixed row). Create a
-    new GtkTreeRowReference with `Gtk.tree_row_reference_new`.
+    new GtkTreeRowReference with `Gtk.TreeRowReference.new`.
     """
 
     # gi Methods
@@ -67844,7 +67857,7 @@ class TreeRowReference(GObject.GBoxed):
     def deleted(proxy: GObject.Object, path: TreePath) -> None:
         """
             Lets a set of row reference created by
-        `Gtk.tree_row_reference_new_proxy` know that the
+        `Gtk.TreeRowReference.new_proxy` know that the
         model emitted the ::row-deleted signal.
         """
     @deprecated("deprecated")
@@ -67868,7 +67881,7 @@ class TreeRowReference(GObject.GBoxed):
     def inserted(proxy: GObject.Object, path: TreePath) -> None:
         """
             Lets a set of row reference created by
-        `Gtk.tree_row_reference_new_proxy` know that the
+        `Gtk.TreeRowReference.new_proxy` know that the
         model emitted the ::row-inserted signal.
         """
     @deprecated("deprecated")
@@ -67893,11 +67906,11 @@ class TreeRowReference(GObject.GBoxed):
         This reference will keep pointing to the node pointed to
         by `path`, so long as it exists. If `path` isn’t a valid
         path in `model`, then None is returned. However, unlike
-        references created with `Gtk.tree_row_reference_new`, it
+        references created with `Gtk.TreeRowReference.new`, it
         does not listen to the model for changes. The creator of
         the row reference must do this explicitly using
-        `Gtk.tree_row_reference_inserted`, `Gtk.tree_row_reference_deleted`,
-        `Gtk.tree_row_reference_reordered`.
+        `Gtk.TreeRowReference.inserted`, `Gtk.TreeRowReference.deleted`,
+        `Gtk.TreeRowReference.reordered`.
 
         These functions must be called exactly once per proxy when the
         corresponding signal on the model is emitted. This single call
@@ -67938,7 +67951,7 @@ class TreeSelection(GObject.Object):
     methods on the `GtkTreeView` widget instead of a separate function.
 
     The `GtkTreeSelection` object is gotten from a `GtkTreeView` by calling
-    `Gtk.tree_view_get_selection`.  It can be manipulated to check the
+    `Gtk.TreeView.get_selection`.  It can be manipulated to check the
     selection status of the tree, as well as select and deselect individual
     rows.  Selection is done completely view side.  As a result, multiple
     views of the same model can have completely different selections.
@@ -67958,7 +67971,7 @@ class TreeSelection(GObject.Object):
         mode: SelectionMode
         """
         Selection mode.
-        See `Gtk.tree_selection_set_mode` for more information on this property.
+        See `Gtk.TreeSelection.set_mode` for more information on this property.
         """
 
     @builtins.property
@@ -67979,7 +67992,7 @@ class TreeSelection(GObject.Object):
     def get_mode(self) -> SelectionMode:
         """
             Gets the selection mode for `selection`. See
-        `Gtk.tree_selection_set_mode`.
+        `Gtk.TreeSelection.set_mode`.
         """
     @deprecated("deprecated")
     def get_selected(self) -> tuple[bool, TreeModel, TreeIter]:
@@ -67996,7 +68009,7 @@ class TreeSelection(GObject.Object):
             Creates a list of path of all selected rows. Additionally, if you are
         planning on modifying the model after calling this function, you may
         want to convert the returned list into a list of `GtkTreeRowReference`s.
-        To do this, you can use `Gtk.tree_row_reference_new`.
+        To do this, you can use `Gtk.TreeRowReference.new`.
 
         To free the return value, use:
 
@@ -68047,7 +68060,7 @@ class TreeSelection(GObject.Object):
         """
             Calls a function for each selected node. Note that you cannot modify
         the tree or selection from within this function. As a result,
-        `Gtk.tree_selection_get_selected_rows` might be more useful.
+        `Gtk.TreeSelection.get_selected_rows` might be more useful.
         """
     @deprecated("deprecated")
     def set_mode(self, type: SelectionMode) -> None:
@@ -68296,7 +68309,7 @@ class TreeStore(GObject.Object):
 
         The `iter` parameter will be changed to point to this new row. The row will
         be empty after this function is called. To fill in values, you need to call
-        `Gtk.tree_store_set` or `Gtk.tree_store_set_value`.
+        `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
         """
     @deprecated("deprecated")
     def clear(self) -> None:
@@ -68316,7 +68329,7 @@ class TreeStore(GObject.Object):
 
         The `iter` parameter will be changed to point to this new row. The row
         will be empty after this function is called. To fill in values, you
-        need to call `Gtk.tree_store_set` or `Gtk.tree_store_set_value`.
+        need to call `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
         """
     @deprecated("deprecated")
     def insert_after(self, parent: TreeIter | None = None, sibling: TreeIter | None = None) -> TreeIter:
@@ -68333,7 +68346,7 @@ class TreeStore(GObject.Object):
 
         The `iter` parameter will be changed to point to this new row. The row will
         be empty after this function is called. To fill in values, you need to call
-        `Gtk.tree_store_set` or `Gtk.tree_store_set_value`.
+        `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
         """
     @deprecated("deprecated")
     def insert_before(self, parent: TreeIter | None = None, sibling: TreeIter | None = None) -> TreeIter:
@@ -68350,7 +68363,7 @@ class TreeStore(GObject.Object):
 
         The `iter` parameter will be changed to point to this new row. The row will
         be empty after this function is called. To fill in values, you need to call
-        `Gtk.tree_store_set` or `Gtk.tree_store_set_value`.
+        `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
         """
     @deprecated("deprecated")
     def insert_with_values(
@@ -68381,7 +68394,7 @@ class TreeStore(GObject.Object):
         is sorted, rows_reordered.
 
         Since emitting the rows_reordered signal repeatedly can affect the
-        performance of the program, `Gtk.tree_store_insert_with_values` should
+        performance of the program, `Gtk.TreeStore.insert_with_values` should
         generally be preferred when inserting rows in a sorted tree store.
         """
     @deprecated("deprecated")
@@ -68457,7 +68470,7 @@ class TreeStore(GObject.Object):
         child of `parent`, otherwise it will prepend a row to the top level. The
         `iter` parameter will be changed to point to this new row.  The row will
         be empty after this function is called. To fill in values, you need to
-        call `Gtk.tree_store_set` or `Gtk.tree_store_set_value`.
+        call `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
         """
     @deprecated("deprecated")
     def remove(self, iter: TreeIter) -> bool:
@@ -68655,7 +68668,7 @@ class TreeView(Widget):
         Setting the ::fixed-height-mode property to True speeds up
         `GtkTreeView` by assuming that all rows have the same height.
         Only enable this option if all rows are the same height.
-        Please see `Gtk.tree_view_set_fixed_height_mode` for more
+        Please see `Gtk.TreeView.set_fixed_height_mode` for more
         information on this option.
         """
         headers_clickable: bool  # [headers-clickable]: changed because contained invalid characters
@@ -68821,7 +68834,7 @@ class TreeView(Widget):
     @builtins.property
     def get_activate_on_single_click(self) -> bool:
         """
-        Gets the setting set by `Gtk.tree_view_set_activate_on_single_click`.
+        Gets the setting set by `Gtk.TreeView.set_activate_on_single_click`.
         """
     @deprecated("deprecated")
     def get_background_area(self, path: TreePath | None = None, column: TreeViewColumn | None = None) -> Gdk.Rectangle:
@@ -68831,9 +68844,9 @@ class TreeView(Widget):
         None, or points to a node not found in the tree, the `y` and `height` fields of
         the rectangle will be filled with 0. If `column` is None, the `x` and `width`
         fields will be filled with 0.  The returned rectangle is equivalent to the
-        `background_area` passed to `Gtk.cell_renderer_render`.  These background
+        `background_area` passed to `Gtk.CellRenderer.render`.  These background
         areas tile to cover the entire bin window.  Contrast with the `cell_area`,
-        returned by `Gtk.tree_view_get_cell_area`, which returns only the cell
+        returned by `Gtk.TreeView.get_cell_area`, which returns only the cell
         itself, excluding surrounding borders and the tree expander area.
         """
     @deprecated("deprecated")
@@ -68846,7 +68859,7 @@ class TreeView(Widget):
         fields will be filled with 0.  The sum of all cell rects does not cover the
         entire tree; there are extra pixels in between rows, for example. The
         returned rectangle is equivalent to the `cell_area` passed to
-        `Gtk.cell_renderer_render`.  This function is only valid if `tree_view` is
+        `Gtk.CellRenderer.render`.  This function is only valid if `tree_view` is
         realized.
         """
     @deprecated("deprecated")
@@ -68867,7 +68880,7 @@ class TreeView(Widget):
         the cursor isn’t currently set, then *`path` will be None.  If no column
         currently has focus, then *`focus_column` will be None.
 
-        The returned `GtkTreePath` must be freed with `Gtk.tree_path_free` when
+        The returned `GtkTreePath` must be freed with `Gtk.TreePath.free` when
         you are done with it.
         """
     @deprecated("deprecated")
@@ -68964,26 +68977,26 @@ class TreeView(Widget):
             Finds the path at the point (`x`, `y`), relative to bin_window coordinates.
         That is, `x` and `y` are relative to an events coordinates. Widget-relative
         coordinates must be converted using
-        `Gtk.tree_view_convert_widget_to_bin_window_coords`. It is primarily for
+        `Gtk.TreeView.convert_widget_to_bin_window_coords`. It is primarily for
         things like popup menus. If `path` is non-None, then it will be filled
         with the `GtkTreePath` at that point.  This path should be freed with
-        `Gtk.tree_path_free`.  If `column` is non-None, then it will be filled
+        `Gtk.TreePath.free`.  If `column` is non-None, then it will be filled
         with the column at that point.  `cell_x` and `cell_y` return the coordinates
         relative to the cell background (i.e. the `background_area` passed to
-        `Gtk.cell_renderer_render`).  This function is only meaningful if
+        `Gtk.CellRenderer.render`).  This function is only meaningful if
         `tree_view` is realized.  Therefore this function will always return False
         if `tree_view` is not realized or does not have a model.
 
         For converting widget coordinates (eg. the ones you get from
         GtkWidget::query-tooltip), please see
-        `Gtk.tree_view_convert_widget_to_bin_window_coords`.
+        `Gtk.TreeView.convert_widget_to_bin_window_coords`.
         """
     @deprecated("deprecated")
     @builtins.property
     def get_reorderable(self) -> bool:
         """
             Retrieves whether the user can reorder the tree via drag-and-drop. See
-        `Gtk.tree_view_set_reorderable`.
+        `Gtk.TreeView.set_reorderable`.
         """
     @deprecated("deprecated")
     @builtins.property
@@ -69047,14 +69060,14 @@ class TreeView(Widget):
             Sets `start_path` and `end_path` to be the first and last visible path.
         Note that there may be invisible paths in between.
 
-        The paths should be freed with `Gtk.tree_path_free` after use.
+        The paths should be freed with `Gtk.TreePath.free` after use.
         """
     @deprecated("deprecated")
     def get_visible_rect(self) -> Gdk.Rectangle:
         """
             Fills `visible_rect` with the currently-visible region of the
         buffer, in tree coordinates. Convert to bin_window coordinates with
-        `Gtk.tree_view_convert_tree_to_bin_window_coords`.
+        `Gtk.TreeView.convert_tree_to_bin_window_coords`.
         Tree coordinates start at 0,0 for row 0 of the tree, and cover the entire
         scrollable area of the tree.
         """
@@ -69074,7 +69087,7 @@ class TreeView(Widget):
             Convenience function that inserts a new column into the `GtkTreeView`
         with the given cell renderer and a `GtkTreeCellDataFunc` to set cell renderer
         attributes (normally using data from the model). See also
-        `Gtk.tree_view_column_set_cell_data_func`, `Gtk.tree_view_column_pack_start`.
+        `Gtk.TreeViewColumn.set_cell_data_func`, `Gtk.TreeViewColumn.pack_start`.
         If `tree_view` has “fixed_height” mode enabled, then the new column will have its
         “sizing” property set to be GTK_TREE_VIEW_COLUMN_FIXED.
         """
@@ -69089,15 +69102,15 @@ class TreeView(Widget):
 
         The `x` and `y` coordinate that are provided must be relative to bin_window
         coordinates.  Widget-relative coordinates must be converted using
-        `Gtk.tree_view_convert_widget_to_bin_window_coords`.
+        `Gtk.TreeView.convert_widget_to_bin_window_coords`.
 
         For converting widget coordinates (eg. the ones you get from
         GtkWidget::query-tooltip), please see
-        `Gtk.tree_view_convert_widget_to_bin_window_coords`.
+        `Gtk.TreeView.convert_widget_to_bin_window_coords`.
 
         The `path`, `column`, `cell_x` and `cell_y` arguments will be filled in
-        likewise as for `Gtk.tree_view_get_path_at_pos`.  Please see
-        `Gtk.tree_view_get_path_at_pos` for more information.
+        likewise as for `Gtk.TreeView.get_path_at_pos`.  Please see
+        `Gtk.TreeView.get_path_at_pos` for more information.
         """
     @deprecated("deprecated")
     def is_rubber_banding_active(self) -> bool:
@@ -69172,7 +69185,7 @@ class TreeView(Widget):
         area is `tree_x`, `tree_y`, where `tree_x` and `tree_y` are specified
         in tree coordinates.  The `tree_view` must be realized before
         this function is called.  If it isn't, you probably want to be
-        using `Gtk.tree_view_scroll_to_cell`.
+        using `Gtk.TreeView.scroll_to_cell`.
 
         If either `tree_x` or `tree_y` are -1, then that direction isn’t scrolled.
         """
@@ -69387,7 +69400,7 @@ class TreeView(Widget):
         and there will be no way to expand and collapse rows by default.  Also
         note that hiding the expanders will disable the default indentation.  You
         can set a custom indentation in this case using
-        `Gtk.tree_view_set_level_indentation`.
+        `Gtk.TreeView.set_level_indentation`.
         This does not have any visible effects for lists.
         """
     @deprecated("deprecated")
@@ -69402,14 +69415,14 @@ class TreeView(Widget):
             Sets the tip area of `tooltip` to the area `path`, `column` and `cell` have
         in common.  For example if `path` is None and `column` is set, the tip
         area will be set to the full area covered by `column`.  See also
-        `Gtk.tooltip_set_tip_area`.
+        `Gtk.Tooltip.set_tip_area`.
 
         Note that if `path` is not specified and `cell` is set and part of a column
         containing the expander, the tooltip might not show and hide at the correct
         position.  In such cases `path` must be set to the current node under the
         mouse cursor for this function to operate correctly.
 
-        See also `Gtk.tree_view_set_tooltip_column` for a simpler alternative.
+        See also `Gtk.TreeView.set_tooltip_column` for a simpler alternative.
         """
     @deprecated("deprecated")
     def set_tooltip_column(self, column: int) -> None:
@@ -69422,28 +69435,28 @@ class TreeView(Widget):
         When enabled, `GtkWidget:has-tooltip` will be set to True and
         `tree_view` will connect a `GtkWidget::query-tooltip` signal handler.
 
-        Note that the signal handler sets the text with `Gtk.tooltip_set_markup`,
+        Note that the signal handler sets the text with `Gtk.Tooltip.set_markup`,
         so &, <, etc have to be escaped in the text.
         """
     @deprecated("deprecated")
     def set_tooltip_row(self, tooltip: Tooltip, path: TreePath) -> None:
         """
             Sets the tip area of `tooltip` to be the area covered by the row at `path`.
-        See also `Gtk.tree_view_set_tooltip_column` for a simpler alternative.
-        See also `Gtk.tooltip_set_tip_area`.
+        See also `Gtk.TreeView.set_tooltip_column` for a simpler alternative.
+        See also `Gtk.Tooltip.set_tip_area`.
         """
     @deprecated("deprecated")
     def unset_rows_drag_dest(self) -> None:
         """
             Undoes the effect of
-        `Gtk.tree_view_enable_model_drag_dest`. Calling this method sets
+        `Gtk.TreeView.enable_model_drag_dest`. Calling this method sets
         `GtkTreeView`:reorderable to False.
         """
     @deprecated("deprecated")
     def unset_rows_drag_source(self) -> None:
         """
             Undoes the effect of
-        `Gtk.tree_view_enable_model_drag_source`. Calling this method sets
+        `Gtk.TreeView.enable_model_drag_source`. Calling this method sets
         `GtkTreeView`:reorderable to False.
         """
 
@@ -69492,8 +69505,8 @@ class TreeView(Widget):
 
         Applications should not connect to it, but may emit it with
         `g_signal_emit_by_name` if they need to control the cursor
-        programmatically. In contrast to `Gtk.tree_view_set_cursor` and
-        `Gtk.tree_view_set_cursor_on_cell` when moving horizontally
+        programmatically. In contrast to `Gtk.TreeView.set_cursor` and
+        `Gtk.TreeView.set_cursor_on_cell` when moving horizontally
         `GtkTreeView`::move-cursor does not reset the current selection.
         """
     @typing.overload
@@ -69784,7 +69797,7 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         """
         The `GtkCellArea` used to layout cell renderers for this column.
 
-        If no area is specified when creating the tree view column with `Gtk.tree_view_column_new_with_area`
+        If no area is specified when creating the tree view column with `Gtk.TreeViewColumn.new_with_area`
         a horizontally oriented `GtkCellAreaBox` will be used.
         """
         clickable: bool
@@ -69844,7 +69857,7 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         """
             Returns True if any of the cells packed into the `tree_column` are visible.
         For this to be meaningful, you must first initialize the cells with
-        `Gtk.tree_view_column_cell_set_cell_data`
+        `Gtk.TreeViewColumn.cell_set_cell_data`
         """
     @deprecated("deprecated")
     def cell_set_cell_data(self, tree_model: TreeModel, iter: TreeIter, is_expander: bool, is_expanded: bool) -> None:
@@ -69863,7 +69876,7 @@ class TreeViewColumn(GObject.InitiallyUnowned):
     def clear_attributes(self, cell_renderer: CellRenderer) -> None:
         """
             Clears all existing attributes previously set with
-        `Gtk.tree_view_column_set_attributes`.
+        `Gtk.TreeViewColumn.set_attributes`.
         """
     @deprecated("deprecated")
     def clicked(self) -> None:
@@ -69906,7 +69919,7 @@ class TreeViewColumn(GObject.InitiallyUnowned):
     def get_fixed_width(self) -> int:
         """
             Gets the fixed width of the column.  This may not be the actual displayed
-        width of the column; for that, use `Gtk.tree_view_column_get_width`.
+        width of the column; for that, use `Gtk.TreeViewColumn.get_width`.
         """
     @deprecated("deprecated")
     @builtins.property
@@ -69953,13 +69966,13 @@ class TreeViewColumn(GObject.InitiallyUnowned):
     @builtins.property
     def get_sort_indicator(self) -> bool:
         """
-        Gets the value set by `Gtk.tree_view_column_set_sort_indicator`.
+        Gets the value set by `Gtk.TreeViewColumn.set_sort_indicator`.
         """
     @deprecated("deprecated")
     @builtins.property
     def get_sort_order(self) -> SortType:
         """
-        Gets the value set by `Gtk.tree_view_column_set_sort_order`.
+        Gets the value set by `Gtk.TreeViewColumn.set_sort_order`.
         """
     @deprecated("deprecated")
     @builtins.property
@@ -70136,7 +70149,7 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         """
             Call this function with a `setting` of True to display an arrow in
         the header button indicating the column is sorted. Call
-        `Gtk.tree_view_column_set_sort_order` to change the direction of
+        `Gtk.TreeViewColumn.set_sort_order` to change the direction of
         the arrow.
         """
     @deprecated("deprecated")
@@ -70145,14 +70158,14 @@ class TreeViewColumn(GObject.InitiallyUnowned):
             Changes the appearance of the sort indicator.
 
         This does not actually sort the model.  Use
-        `Gtk.tree_view_column_set_sort_column_id` if you want automatic sorting
+        `Gtk.TreeViewColumn.set_sort_column_id` if you want automatic sorting
         support.  This function is primarily for custom sorting behavior, and should
-        be used in conjunction with `Gtk.tree_sortable_set_sort_column_id` to do
+        be used in conjunction with `Gtk.TreeSortable.set_sort_column_id` to do
         that. For custom models, the mechanism will vary.
 
         The sort indicator changes direction to indicate normal sort or reverse sort.
         Note that you must have the sort indicator enabled to see anything when
-        calling this function; see `Gtk.tree_view_column_set_sort_indicator`.
+        calling this function; see `Gtk.TreeViewColumn.set_sort_indicator`.
         """
     @deprecated("deprecated")
     def set_spacing(self, spacing: int) -> None:
@@ -70555,7 +70568,7 @@ class Video(Widget):
         """
             Makes `self` play the given `filename`.
 
-        This is a utility function that calls `Gtk.video_set_file`,
+        This is a utility function that calls `Gtk.Video.set_file`,
         """
     def set_graphics_offload(self, enabled: GraphicsOffloadEnabled) -> None:
         """
@@ -72619,9 +72632,9 @@ class Widget(GObject.InitiallyUnowned):
         [class`Gtk`.Label], the label queues a resize to ensure there’s
         enough space for the new text.
 
-        Note that you cannot call `Gtk.widget_queue_resize` on a widget
+        Note that you cannot call `Gtk.Widget.queue_resize` on a widget
         from inside its implementation of the [vfunc`Gtk`.Widget.size_allocate]
-        virtual method. Calls to `Gtk.widget_queue_resize` from inside
+        virtual method. Calls to `Gtk.Widget.queue_resize` from inside
         [vfunc`Gtk`.Widget.size_allocate] will be silently ignored.
 
         This function is only for use in widget implementations.
@@ -73114,7 +73127,7 @@ class Widget(GObject.InitiallyUnowned):
         to all children. This function provides a convenient way
         of doing this. A widget, when it receives a call to its
         [vfunc`Gtk`.Widget.snapshot] function, calls
-        `Gtk.widget_snapshot_child` once for each child, passing in
+        `Gtk.Widget.snapshot_child` once for each child, passing in
         the `snapshot` the widget received.
 
         This function takes care of translating the origin of `snapshot`,
@@ -73586,7 +73599,7 @@ class WidgetClass(GObject.GPointer):
     @builtins.property
     def contains(self) -> containsWidgetClassCB:
         """
-        Vfunc for `Gtk.widget_contains`.
+        Vfunc for `Gtk.Widget.contains`.
         """
     @builtins.property
     def css_changed(self) -> css_changedWidgetClassCB:
@@ -73605,7 +73618,7 @@ class WidgetClass(GObject.GPointer):
     @builtins.property
     def focus(self) -> focusWidgetClassCB:
         """
-        Vfunc for `Gtk.widget_child_focus`
+        Vfunc for `Gtk.Widget.child_focus`
         """
     @builtins.property
     def get_request_mode(self) -> get_request_modeWidgetClassCB:
@@ -73647,7 +73660,7 @@ class WidgetClass(GObject.GPointer):
         """
           Signal emitted when widget is going to be mapped, that is
         when the widget is visible (which is controlled with
-        `Gtk.widget_set_visible`) and all its parents up to the toplevel
+        `Gtk.Widget.set_visible`) and all its parents up to the toplevel
         widget are also visible.
         """
     @builtins.property
@@ -73693,7 +73706,7 @@ class WidgetClass(GObject.GPointer):
     def realize(self) -> realizeWidgetClassCB:
         """
           Signal emitted when widget is associated with a
-        `GdkSurface`, which means that `Gtk.widget_realize` has been called or
+        `GdkSurface`, which means that `Gtk.Widget.realize` has been called or
         the widget has been mapped (that is, it is going to be drawn).
         """
     @builtins.property
@@ -73727,7 +73740,7 @@ class WidgetClass(GObject.GPointer):
     def state_flags_changed(self) -> state_flags_changedWidgetClassCB:
         """
           Signal emitted when the widget state changes,
-        see `Gtk.widget_get_state_flags`.
+        see `Gtk.Widget.get_state_flags`.
         """
     @builtins.property
     def system_setting_changed(self) -> system_setting_changedWidgetClassCB:
@@ -73745,7 +73758,7 @@ class WidgetClass(GObject.GPointer):
     def unrealize(self) -> unrealizeWidgetClassCB:
         """
           Signal emitted when the GdkSurface associated with
-        widget is destroyed, which means that `Gtk.widget_unrealize` has
+        widget is destroyed, which means that `Gtk.Widget.unrealize` has
         been called or the widget has been unmapped (that is, it is going
         to be hidden).
         """
@@ -73985,7 +73998,7 @@ class WidgetPaintable(GObject.Object):
 
     You can use a `GtkWidgetPaintable` everywhere a `GdkPaintable` is allowed,
     including using it on a `GtkPicture` (or one of its parents) that it was
-    set on itself via `Gtk.picture_set_paintable`. The paintable will take care
+    set on itself via `Gtk.Picture.set_paintable`. The paintable will take care
     of recursion when this happens. If you do this however, ensure that the
     [property`Gtk`.Picture:can-shrink] property is set to True or you might
     end up with an infinitely growing widget.

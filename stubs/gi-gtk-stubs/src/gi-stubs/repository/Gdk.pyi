@@ -1561,7 +1561,7 @@ class ScrollDirection(GObject.GEnum):
     SMOOTH = 4
     """
     the scrolling is determined by the delta values
-      in scroll events. See `Gdk.scroll_event_get_deltas`
+      in scroll events. See `Gdk.ScrollEvent.get_deltas`
     """
 
 class ScrollUnit(GObject.GEnum):
@@ -3324,7 +3324,10 @@ class Cursor(GObject.Object):
         """
     @classmethod
     def new_from_callback(
-        cls, callback: CursorGetTextureCallback, *data: object | None, fallback: Cursor | None = None
+        cls,
+        callback: CursorGetTextureCallback | typing.Callable[..., Texture],
+        *data: object | None,
+        fallback: Cursor | None = None,
     ) -> Cursor | None:
         """
             Creates a new callback-based cursor object.
@@ -4804,7 +4807,7 @@ class DmabufTextureBuilder(GObject.Object):
     @builtins.property
     def get_color_state(self) -> ColorState | None:
         """
-        Gets the color state previously set via `Gdk.dmabuf_texture_builder_set_color_state`.
+        Gets the color state previously set via `Gdk.DmabufTextureBuilder.set_color_state`.
         """
     @builtins.property
     def get_display(self) -> Display:
@@ -4819,7 +4822,7 @@ class DmabufTextureBuilder(GObject.Object):
     @builtins.property
     def get_fourcc(self) -> int:
         """
-            Gets the format previously set via `Gdk.dmabuf_texture_builder_set_fourcc`
+            Gets the format previously set via `Gdk.DmabufTextureBuilder.set_fourcc`
         or 0 if the format wasn't set.
 
         The format is specified as a fourcc code.
@@ -4827,7 +4830,7 @@ class DmabufTextureBuilder(GObject.Object):
     @builtins.property
     def get_height(self) -> int:
         """
-            Gets the height previously set via `Gdk.dmabuf_texture_builder_set_height` or
+            Gets the height previously set via `Gdk.DmabufTextureBuilder.set_height` or
         0 if the height wasn't set.
         """
     @builtins.property
@@ -4856,19 +4859,19 @@ class DmabufTextureBuilder(GObject.Object):
     @builtins.property
     def get_update_region(self) -> cairo.Region | None:
         """
-            Gets the region previously set via `Gdk.dmabuf_texture_builder_set_update_region` or
+            Gets the region previously set via `Gdk.DmabufTextureBuilder.set_update_region` or
         None if none was set.
         """
     @builtins.property
     def get_update_texture(self) -> Texture | None:
         """
-            Gets the texture previously set via `Gdk.dmabuf_texture_builder_set_update_texture` or
+            Gets the texture previously set via `Gdk.DmabufTextureBuilder.set_update_texture` or
         None if none was set.
         """
     @builtins.property
     def get_width(self) -> int:
         """
-            Gets the width previously set via `Gdk.dmabuf_texture_builder_set_width` or
+            Gets the width previously set via `Gdk.DmabufTextureBuilder.set_width` or
         0 if the width wasn't set.
         """
     @classmethod
@@ -5402,14 +5405,14 @@ class DrawContext(GObject.Object):
         query the region that must be drawn.
 
         When using GTK, the widget system automatically places calls to
-        `Gdk.draw_context_begin_frame` and `Gdk.draw_context_end_frame` via the
+        `Gdk.DrawContext.begin_frame` and `Gdk.DrawContext.end_frame` via the
         use of [GskRenderer](../gsk4/class.Renderer.html)s, so application code
         does not need to call these functions explicitly.
         """
     @deprecated("deprecated")
     def end_frame(self) -> None:
         """
-            Ends a drawing operation started with `Gdk.draw_context_begin_frame`.
+            Ends a drawing operation started with `Gdk.DrawContext.begin_frame`.
 
         This makes the drawing available on screen.
         See [method`Gdk`.DrawContext.begin_frame] for more details about drawing.
@@ -5961,7 +5964,7 @@ class FrameClock(GObject.Object):
         Until a matching call to [method`Gdk`.FrameClock.end_updating] is made,
         the frame clock will continually request a new frame with the
         Gdk.FRAME_CLOCK_PHASE_UPDATE phase. This function may be called multiple
-        times and frames will be requested until `Gdk.frame_clock_end_updating`
+        times and frames will be requested until `Gdk.FrameClock.end_updating`
         is called the same number of times.
         """
     def end_updating(self) -> None:
@@ -6030,7 +6033,7 @@ class FrameClock(GObject.Object):
 
         The signal corresponding the requested phase will be emitted the next
         time the frame clock processes. Multiple calls to
-        `Gdk.frame_clock_request_phase` will be combined together
+        `Gdk.FrameClock.request_phase` will be combined together
         and only one frame processed. If you are displaying animated
         content and want to continually request the
         Gdk.FRAME_CLOCK_PHASE_UPDATE phase for a period of time,
@@ -7083,46 +7086,46 @@ class MemoryTextureBuilder(GObject.Object):
     @builtins.property
     def get_bytes(self) -> GLib.Bytes | None:
         """
-            Gets the bytes previously set via `Gdk.memory_texture_builder_set_bytes`
+            Gets the bytes previously set via `Gdk.MemoryTextureBuilder.set_bytes`
         or None if none was set.
         """
     @builtins.property
     def get_color_state(self) -> ColorState:
         """
-        Gets the colorstate previously set via `Gdk.memory_texture_builder_set_color_state`.
+        Gets the colorstate previously set via `Gdk.MemoryTextureBuilder.set_color_state`.
         """
     @builtins.property
     def get_format(self) -> MemoryFormat:
         """
-        Gets the format previously set via `Gdk.memory_texture_builder_set_format`.
+        Gets the format previously set via `Gdk.MemoryTextureBuilder.set_format`.
         """
     @builtins.property
     def get_height(self) -> int:
         """
-            Gets the height previously set via `Gdk.memory_texture_builder_set_height`
+            Gets the height previously set via `Gdk.MemoryTextureBuilder.set_height`
         or 0 if the height wasn't set.
         """
     @builtins.property
     def get_stride(self) -> int:
         """
-        Gets the stride previously set via `Gdk.memory_texture_builder_set_stride`.
+        Gets the stride previously set via `Gdk.MemoryTextureBuilder.set_stride`.
         """
     @builtins.property
     def get_update_region(self) -> cairo.Region | None:
         """
-            Gets the region previously set via `Gdk.memory_texture_builder_set_update_region`
+            Gets the region previously set via `Gdk.MemoryTextureBuilder.set_update_region`
         or None if none was set.
         """
     @builtins.property
     def get_update_texture(self) -> Texture | None:
         """
-            Gets the texture previously set via `Gdk.memory_texture_builder_set_update_texture`
+            Gets the texture previously set via `Gdk.MemoryTextureBuilder.set_update_texture`
         or None if none was set.
         """
     @builtins.property
     def get_width(self) -> int:
         """
-            Gets the width previously set via `Gdk.memory_texture_builder_set_width`
+            Gets the width previously set via `Gdk.MemoryTextureBuilder.set_width`
         or 0 if the width wasn't set.
         """
     @classmethod
@@ -8837,7 +8840,7 @@ class Surface(GObject.Object):
         be performed.
 
         Surface size is reported in ”application pixels”, not
-        ”device pixels” (see `Gdk.surface_get_scale_factor`).
+        ”device pixels” (see `Gdk.Surface.get_scale_factor`).
         """
     @typing.overload
     def connect(
@@ -9694,11 +9697,11 @@ class ToplevelLayout(GObject.GBoxed):
         """
             Create a toplevel layout description.
 
-        Used together with `Gdk.toplevel_present` to describe
+        Used together with `Gdk.Toplevel.present` to describe
         how a toplevel surface should be placed and behave on-screen.
 
         The size is in ”application pixels”, not
-        ”device pixels” (see `Gdk.surface_get_scale_factor`).
+        ”device pixels” (see `Gdk.Surface.get_scale_factor`).
         """
     def ref(self) -> ToplevelLayout:
         """

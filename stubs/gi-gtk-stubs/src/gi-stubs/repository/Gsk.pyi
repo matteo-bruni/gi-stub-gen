@@ -434,7 +434,7 @@ class PathDirection(GObject.GEnum):
 
 class PathForeachFlags(GObject.GFlags):
     """
-    Flags that can be passed to `Gsk.path_foreach` to influence what
+    Flags that can be passed to `Gsk.Path.foreach` to influence what
     kinds of operations the path is decomposed into.
 
     By default, [method`Gsk`.Path.foreach] will only emit a path with all
@@ -824,7 +824,7 @@ class BroadwayRenderer(Renderer):
 
         The Broadway renderer is the default renderer for the broadway backend.
         It will only work with broadway surfaces, otherwise it will fail the
-        call to `Gsk.renderer_realize`.
+        call to `Gsk.Renderer.realize`.
 
         This function is only available when GTK was compiled with Broadway
         support.
@@ -1026,7 +1026,7 @@ class ConicGradientNode(RenderNode):
         The angle is starting at the top and going clockwise, as expressed
         in the css specification:
 
-            angle = 90 - `Gsk.conic_gradient_node_get_rotation`
+            angle = 90 - `Gsk.ConicGradientNode.get_rotation`
         """
     def get_center(self) -> Graphene.Point:
         """
@@ -2582,10 +2582,10 @@ class RenderNode(object):
     def serialize(self) -> GLib.Bytes:
         """
             Serializes the `node` for later deserialization via
-        `Gsk.render_node_deserialize`. No guarantees are made about the format
+        `Gsk.RenderNode.deserialize`. No guarantees are made about the format
         used other than that the same version of GTK will be able to deserialize
-        the result of a call to `Gsk.render_node_serialize` and
-        `Gsk.render_node_deserialize` will correctly reject files it cannot open
+        the result of a call to `Gsk.RenderNode.serialize` and
+        `Gsk.RenderNode.deserialize` will correctly reject files it cannot open
         that were created with previous versions of GTK.
 
         The intended use of this functions is testing, benchmarking and debugging.
@@ -3518,7 +3518,7 @@ class Transform(GObject.GBoxed):
         `self` must be a 2D transformation. If you are not
         sure, use
 
-            `Gsk.transform_get_category` >= GSK_TRANSFORM_CATEGORY_2D
+            `Gsk.Transform.get_category` >= GSK_TRANSFORM_CATEGORY_2D
 
         to check.
 
@@ -3553,7 +3553,7 @@ class Transform(GObject.GBoxed):
 
         `self` must be a 2D transformation. If you are not sure, use
 
-            `Gsk.transform_get_category` >= GSK_TRANSFORM_CATEGORY_2D
+            `Gsk.Transform.get_category` >= GSK_TRANSFORM_CATEGORY_2D
 
         to check.
         """
@@ -3573,7 +3573,7 @@ class Transform(GObject.GBoxed):
         `self` must be a 2D affine transformation. If you are not
         sure, use
 
-            `Gsk.transform_get_category` >= GSK_TRANSFORM_CATEGORY_2D_AFFINE
+            `Gsk.Transform.get_category` >= GSK_TRANSFORM_CATEGORY_2D_AFFINE
 
         to check.
         """
@@ -3598,7 +3598,7 @@ class Transform(GObject.GBoxed):
         `self` must be a 2D transformation. If you are not
         sure, use
 
-            `Gsk.transform_get_category` >= GSK_TRANSFORM_CATEGORY_2D_TRANSLATE
+            `Gsk.Transform.get_category` >= GSK_TRANSFORM_CATEGORY_2D_TRANSLATE
 
         to check.
         """

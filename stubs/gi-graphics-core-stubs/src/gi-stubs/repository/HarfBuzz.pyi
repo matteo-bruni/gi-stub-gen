@@ -1393,7 +1393,7 @@ def face_create(
 
 @staticmethod
 def face_create_for_tables(
-    reference_table_func: reference_table_func_t,
+    reference_table_func: reference_table_func_t | typing.Callable[..., blob_t],
     *user_data: object | None,
 ) -> face_t:
     """
@@ -5499,7 +5499,7 @@ def unicode_funcs_make_immutable(
 @staticmethod
 def unicode_funcs_set_combining_class_func(
     ufuncs: unicode_funcs_t,
-    func: unicode_combining_class_func_t,
+    func: unicode_combining_class_func_t | typing.Callable[..., unicode_combining_class_t],
     *user_data: object | None,
 ) -> None:
     """
@@ -5556,7 +5556,7 @@ def unicode_funcs_set_eastasian_width_func(
 @staticmethod
 def unicode_funcs_set_general_category_func(
     ufuncs: unicode_funcs_t,
-    func: unicode_general_category_func_t,
+    func: unicode_general_category_func_t | typing.Callable[..., unicode_general_category_t],
     *user_data: object | None,
 ) -> None:
     """
@@ -5578,7 +5578,7 @@ def unicode_funcs_set_mirroring_func(
 @staticmethod
 def unicode_funcs_set_script_func(
     ufuncs: unicode_funcs_t,
-    func: unicode_script_func_t,
+    func: unicode_script_func_t | typing.Callable[..., script_t],
     *user_data: object | None,
 ) -> None:
     """

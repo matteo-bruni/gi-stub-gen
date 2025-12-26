@@ -10383,7 +10383,9 @@ class DBusConnection(GObject.Object):
         """
         Generated __init__ stub method. order not guaranteed.
         """
-    def add_filter(self, filter_function: DBusMessageFilterFunction, *user_data: object | None) -> int:
+    def add_filter(
+        self, filter_function: DBusMessageFilterFunction | typing.Callable[..., DBusMessage], *user_data: object | None
+    ) -> int:
         """
             Adds a message filter. Filters are handlers that are run on all
         incoming and outgoing messages, prior to standard dispatch. Filters
@@ -12868,7 +12870,7 @@ class DBusObjectManagerClient(GObject.Object):
         flags: DBusObjectManagerClientFlags,
         name: str,
         object_path: str,
-        get_proxy_type_func: DBusProxyTypeFunc | None = None,
+        get_proxy_type_func: DBusProxyTypeFunc | None | typing.Callable[..., GObject.GType] = None,
         get_proxy_type_user_data: object | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
@@ -12895,7 +12897,7 @@ class DBusObjectManagerClient(GObject.Object):
         flags: DBusObjectManagerClientFlags,
         name: str,
         object_path: str,
-        get_proxy_type_func: DBusProxyTypeFunc | None = None,
+        get_proxy_type_func: DBusProxyTypeFunc | None | typing.Callable[..., GObject.GType] = None,
         get_proxy_type_user_data: object | None = None,
         cancellable: Cancellable | None = None,
         callback: AsyncReadyCallback | None = None,
@@ -12924,7 +12926,7 @@ class DBusObjectManagerClient(GObject.Object):
         flags: DBusObjectManagerClientFlags,
         name: str,
         object_path: str,
-        get_proxy_type_func: DBusProxyTypeFunc | None = None,
+        get_proxy_type_func: DBusProxyTypeFunc | None | typing.Callable[..., GObject.GType] = None,
         *get_proxy_type_user_data: object | None,
         cancellable: Cancellable | None = None,
     ) -> DBusObjectManagerClient:
@@ -12943,7 +12945,7 @@ class DBusObjectManagerClient(GObject.Object):
         flags: DBusObjectManagerClientFlags,
         name: str | None,
         object_path: str,
-        get_proxy_type_func: DBusProxyTypeFunc | None = None,
+        get_proxy_type_func: DBusProxyTypeFunc | None | typing.Callable[..., GObject.GType] = None,
         *get_proxy_type_user_data: object | None,
         cancellable: Cancellable | None = None,
     ) -> DBusObjectManagerClient:
@@ -41277,9 +41279,9 @@ class Vfs(GObject.Object):
     def register_uri_scheme(
         self,
         scheme: str,
-        uri_func: VfsFileLookupFunc | None = None,
+        uri_func: VfsFileLookupFunc | None | typing.Callable[..., File] = None,
         uri_data: object | None = None,
-        parse_name_func: VfsFileLookupFunc | None = None,
+        parse_name_func: VfsFileLookupFunc | None | typing.Callable[..., File] = None,
         *parse_name_data: object | None,
     ) -> bool:
         """
