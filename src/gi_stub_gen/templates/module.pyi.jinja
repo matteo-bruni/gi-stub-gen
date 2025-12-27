@@ -18,9 +18,9 @@ import typing_extensions # noqa: F401
 {# import gi # noqa: F401 #}
 
 {% if extra_imports|length > 0 -%}
-{% for i in extra_imports -%}
-import {{i}}
-{% endfor -%}
+{% for i in extra_imports %}
+import {{i}} {{ "# type: ignore" if i.startswith("_gi_") else "" }}
+{% endfor %}
 {% endif -%}
 
 {# Extra stub required in this module -#}

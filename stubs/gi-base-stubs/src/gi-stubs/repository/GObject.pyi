@@ -2833,12 +2833,10 @@ class CClosure(GPointer):
     callback: object | None = ...
     """
     the callback function
-
     """
     closure: Closure | None = ...
     """
     the GClosure
-
     """
 
     # gi Methods
@@ -3216,13 +3214,11 @@ class Closure(GBoxed):
     """
     Indicates whether the closure is currently being invoked with
       `g_closure_invoke`
-
     """
     is_invalid: int = ...
     """
     Indicates whether the closure has been invalidated by
       `g_closure_invalidate`
-
     """
     @builtins.property
     def marshal(self) -> marshalClosureCB: ...
@@ -3368,28 +3364,23 @@ class EnumClass(GPointer):
     g_type_class: TypeClass | None = ...
     """
     the parent class
-
     """
     maximum: int = ...
     """
     the largest possible value.
-
     """
     minimum: int = ...
     """
     the smallest possible value.
-
     """
     n_values: int = ...
     """
     the number of possible values.
-
     """
     values: EnumValue | None = ...
     """
     an array of GEnumValue structs describing the
      individual values.
-
     """
 
 class EnumValue(GPointer):
@@ -3402,17 +3393,14 @@ class EnumValue(GPointer):
     value: int = ...
     """
     the enum value
-
     """
     value_name: str = ...
     """
     the name of the value
-
     """
     value_nick: str = ...
     """
     the nickname of the value
-
     """
 
 class FlagsClass(GPointer):
@@ -3425,23 +3413,19 @@ class FlagsClass(GPointer):
     g_type_class: TypeClass | None = ...
     """
     the parent class
-
     """
     mask: int = ...
     """
     a mask covering all possible values.
-
     """
     n_values: int = ...
     """
     the number of possible values.
-
     """
     values: FlagsValue | None = ...
     """
     an array of GFlagsValue structs describing the
      individual values.
-
     """
 
 class FlagsValue(GPointer):
@@ -3454,17 +3438,14 @@ class FlagsValue(GPointer):
     value: int = ...
     """
     the flags value
-
     """
     value_name: str = ...
     """
     the name of the value
-
     """
     value_nick: str = ...
     """
     the nickname of the value
-
     """
 
 class Float(builtins.float): ...
@@ -3714,17 +3695,14 @@ class InterfaceInfo(GPointer):
     interface_data: object | None = ...
     """
     user-supplied data passed to the interface init/finalize functions
-
     """
     interface_finalize: InterfaceFinalizeFuncInterfaceInfoCB = ...
     """
     location of the interface finalization function
-
     """
     interface_init: InterfaceInitFuncInterfaceInfoCB = ...
     """
     location of the interface initialization function
-
     """
 
 class MappedFile(GBoxed): ...
@@ -4424,12 +4402,10 @@ class ObjectConstructParam(GPointer):
     pspec: ParamSpec | None = ...
     """
     the GParamSpec of the construct parameter
-
     """
     value: Value | None = ...
     """
     the value to set the parameter to
-
     """
 
 class OptionContext(builtins.object):
@@ -5103,12 +5079,10 @@ class ParamSpecTypeInfo(GPointer):
     instance_size: int = ...
     """
     Size of the instance (object) structure.
-
     """
     n_preallocs: int = ...
     """
     Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are allocated with the [slice allocator][glib-Memory-Slices] now.
-
     """
     @builtins.property
     def value_set_default(self) -> value_set_defaultParamSpecTypeInfoCB:
@@ -5120,7 +5094,6 @@ class ParamSpecTypeInfo(GPointer):
     value_type: GType = ...
     """
     The GType of values conforming to this GParamSpec
-
     """
     @builtins.property
     def value_validate(self) -> value_validateParamSpecTypeInfoCB:
@@ -5323,12 +5296,10 @@ class Parameter(GPointer):
     name: str = ...
     """
     the parameter name
-
     """
     value: Value | None = ...
     """
     the parameter value
-
     """
 
 class PatternSpec(GBoxed): ...
@@ -5505,7 +5476,6 @@ class SignalInvocationHint(GPointer):
     detail: int = ...
     """
     The detail passed on for this emission
-
     """
     run_type: SignalFlags = ...
     """
@@ -5514,12 +5484,10 @@ class SignalInvocationHint(GPointer):
      G_SIGNAL_RUN_LAST or G_SIGNAL_RUN_CLEANUP and G_SIGNAL_ACCUMULATOR_FIRST_RUN.
      G_SIGNAL_ACCUMULATOR_FIRST_RUN is only set for the first run of the accumulator
      function for a signal emission.
-
     """
     signal_id: int = ...
     """
     The signal id of the signal invoking the callback
-
     """
 
 class SignalQuery(GPointer):
@@ -5533,12 +5501,10 @@ class SignalQuery(GPointer):
     itype: GType = ...
     """
     The interface/instance type that this signal can be emitted for.
-
     """
     n_params: int = ...
     """
     The number of parameters that user callbacks take.
-
     """
     param_types: list | None = ...
     """
@@ -5549,28 +5515,23 @@ class SignalQuery(GPointer):
      [param_types param_names,]
      gpointer     data2);
      ]|
-
     """
     return_type: GType = ...
     """
     The return type for user callbacks.
-
     """
     signal_flags: SignalFlags = ...
     """
     The signal flags as passed in to `g_signal_new`.
-
     """
     signal_id: int = ...
     """
     The signal id of the signal being queried, or 0 if the
      signal to be queried was unknown.
-
     """
     signal_name: str = ...
     """
     The signal name.
-
     """
 
 class Strv(GBoxed): ...
@@ -5734,7 +5695,6 @@ class TypeFundamentalInfo(GPointer):
     type_flags: TypeFundamentalFlags = ...
     """
     GTypeFundamentalFlags describing the characteristics of the fundamental type
-
     """
 
 class TypeInfo(GPointer):
@@ -5754,24 +5714,20 @@ class TypeInfo(GPointer):
     base_finalize: BaseFinalizeFuncTypeInfoCB = ...
     """
     Location of the base finalization function (optional)
-
     """
     base_init: BaseInitFuncTypeInfoCB = ...
     """
     Location of the base initialization function (optional)
-
     """
     class_data: object | None = ...
     """
     User-supplied data passed to the class init/finalize functions
-
     """
     class_finalize: ClassFinalizeFuncTypeInfoCB = ...
     """
     Location of the class finalization function for
      classed and instantiatable types. Location of the default vtable
      finalization function for interface types. (optional)
-
     """
     class_init: ClassInitFuncTypeInfoCB = ...
     """
@@ -5781,33 +5737,27 @@ class TypeInfo(GPointer):
      is used both to fill in virtual functions in the class or default vtable,
      and to do type-specific setup such as registering signals and object
      properties.
-
     """
     class_size: int = ...
     """
     Size of the class structure (required for interface, classed and instantiatable types)
-
     """
     instance_init: InstanceInitFuncTypeInfoCB = ...
     """
     Location of the instance initialization function (optional, for instantiatable types only)
-
     """
     instance_size: int = ...
     """
     Size of the instance (object) structure (required for instantiatable types only)
-
     """
     n_preallocs: int = ...
     """
     Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
-
     """
     value_table: TypeValueTable | None = ...
     """
     A GTypeValueTable function table for generic handling of GValues
      of this type (usually only useful for fundamental types)
-
     """
 
 class TypeInstance(GPointer):
@@ -6158,24 +6108,20 @@ class TypePluginClass(GPointer):
     Fills in missing parts of the GInterfaceInfo
      for the interface. The structs is initialized with
      `memset(s, 0, sizeof (s))` before calling this function.
-
     """
     complete_type_info: TypePluginCompleteTypeInfoTypePluginClassCB = ...
     """
     Fills in the GTypeInfo and
      GTypeValueTable structs for the type. The structs are initialized
      with `memset(s, 0, sizeof (s))` before calling this function.
-
     """
     unuse_plugin: TypePluginUnuseTypePluginClassCB = ...
     """
     Decreases the use count of the plugin.
-
     """
     use_plugin: TypePluginUseTypePluginClassCB = ...
     """
     Increases the use count of the plugin.
-
     """
 
 class TypeQuery(GPointer):
@@ -6189,22 +6135,18 @@ class TypeQuery(GPointer):
     class_size: int = ...
     """
     the size of the class structure
-
     """
     instance_size: int = ...
     """
     the size of the instance structure
-
     """
     type: GType = ...
     """
     the GType value of the type
-
     """
     type_name: str = ...
     """
     the name of the type
-
     """
 
 class TypeValueTable(GPointer):
@@ -6229,47 +6171,39 @@ class TypeValueTable(GPointer):
       this value bit-by-bit. Each character in the format represents
       an argument to be collected, and the characters themselves indicate
       the type of the argument. Currently supported arguments are:
-
     """
     collect_value: TypeValueCollectFuncTypeValueTableCB | None = ...
     """
     Function to initialize a GValue from the values
       collected from variadic arguments
-
     """
     lcopy_format: str = ...
     """
     Format description of the arguments to collect for `lcopy_value`,
       analogous to `collect_format`. Usually, `lcopy_format` string consists
       only of `'p'`s to provide `lcopy_value` with pointers to storage locations.
-
     """
     lcopy_value: TypeValueLCopyFuncTypeValueTableCB | None = ...
     """
     Function to store the contents of a value into the
       locations collected from variadic arguments
-
     """
     value_copy: TypeValueCopyFuncTypeValueTableCB = ...
     """
     Function to copy a GValue
-
     """
     value_free: TypeValueFreeFuncTypeValueTableCB = ...
     """
     Function to free a GValue
-
     """
     value_init: TypeValueInitFuncTypeValueTableCB = ...
     """
     Function to initialize a GValue
-
     """
     value_peek_pointer: TypeValuePeekPointerFuncTypeValueTableCB | None = ...
     """
     Function to peek the contents of a GValue if they fit
       into a pointer
-
     """
 
 class Uri(GBoxed): ...
@@ -6692,12 +6626,10 @@ class ValueArray(GBoxed):
     n_values: int = ...
     """
     number of values contained in the array
-
     """
     values: Value | None = ...
     """
     array of values
-
     """
 
     # gi Methods

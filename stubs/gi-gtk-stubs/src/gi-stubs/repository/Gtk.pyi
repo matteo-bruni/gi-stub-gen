@@ -6525,12 +6525,10 @@ class AccessibleTextRange(GObject.GPointer):
     length: int = ...
     """
     the length of the range, in characters
-
     """
     start: int = ...
     """
     the start of the range, in characters
-
     """
 
 class ActionBar(Widget):
@@ -10085,22 +10083,18 @@ class Border(GObject.GBoxed):
     bottom: int = ...
     """
     The width of the bottom border
-
     """
     left: int = ...
     """
     The width of the left border
-
     """
     right: int = ...
     """
     The width of the right border
-
     """
     top: int = ...
     """
     The width of the top border
-
     """
 
     # gi Methods
@@ -47326,29 +47320,24 @@ class PadActionEntry(GObject.GPointer):
     action_name: str = ...
     """
     action name that will be activated in the `GActionGroup`.
-
     """
     index: int = ...
     """
     the 0-indexed button/ring/strip number that will trigger this action
       entry.
-
     """
     label: str = ...
     """
     Human readable description of this action entry, this string should
       be deemed user-visible.
-
     """
     mode: int = ...
     """
     the mode that will trigger this action entry, or -1 for all modes.
-
     """
     type: PadActionType = ...
     """
     the type of pad feature that will trigger this action entry.
-
     """
 
 class PadController(EventController):
@@ -47492,12 +47481,10 @@ class PageRange(GObject.GPointer):
     end: int = ...
     """
     end of page range.
-
     """
     start: int = ...
     """
     start of page range.
-
     """
 
 class PageSetup(GObject.Object):
@@ -53594,42 +53581,35 @@ class RecentData(GObject.GPointer):
       “%f” and “%u” escape characters which will be expanded
       to the resource file path and URI respectively when the command line
       is retrieved;
-
     """
     app_name: str = ...
     """
     the name of the application that is registering this recently
       used resource;
-
     """
     description: str = ...
     """
     a UTF-8 encoded string, containing a short description of
       the resource, or None;
-
     """
     display_name: str = ...
     """
     a UTF-8 encoded string, containing the name of the recently
       used resource to be displayed, or None;
-
     """
     groups: list | None = ...
     """
     a vector of strings containing
       groups names;
-
     """
     is_private: bool = ...
     """
     whether this resource should be displayed only by the
       applications that have registered it or not.
-
     """
     mime_type: str = ...
     """
     the MIME type of the resource;
-
     """
 
 class RecentInfo(GObject.GBoxed):
@@ -54014,17 +53994,14 @@ class RequestedSize(GObject.GPointer):
     data: object | None = ...
     """
     A client pointer
-
     """
     minimum_size: int = ...
     """
     The minimum size needed for allocation in a given orientation
-
     """
     natural_size: int = ...
     """
     The natural size for allocation in a given orientation
-
     """
 
 class Requisition(GObject.GBoxed):
@@ -54039,12 +54016,10 @@ class Requisition(GObject.GBoxed):
     height: int = ...
     """
     the widget’s desired height
-
     """
     width: int = ...
     """
     the widget’s desired width
-
     """
 
     # gi Methods
@@ -70059,22 +70034,18 @@ class TreeIter(GObject.GBoxed):
     stamp: int = ...
     """
     a unique stamp to catch invalid iterators
-
     """
     user_data: object | None = ...
     """
     model-specific data
-
     """
     user_data2: object | None = ...
     """
     model-specific data
-
     """
     user_data3: object | None = ...
     """
     model-specific data
-
     """
 
     # gi Methods

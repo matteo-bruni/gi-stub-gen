@@ -152,9 +152,9 @@ def main(
         # if later we want to use Repository we need to populate its
         # required modules, it is different from this scope
         gi_repo.require(module_name, gi_version)
-
         # special cases for modules that need init called
         if module_name.removeprefix("gi.repository.") == "Gst":
+            # breakpoint()
             m.init(None)
 
     from gi_stub_gen.package import create_stub_package

@@ -5360,7 +5360,6 @@ class ActionEntry(GObject.GPointer):
     name: str = ...
     """
     the name of the action
-
     """
     @builtins.property
     def padding(self) -> list | None: ...
@@ -5369,7 +5368,6 @@ class ActionEntry(GObject.GPointer):
     the type of the parameter that must be passed to the
       activate function for this action, given as a single GVariant type string
       (or `None` for no parameter)
-
     """
     state: str = ...
     """
@@ -5377,7 +5375,6 @@ class ActionEntry(GObject.GPointer):
       [GVariant text format](gvariant-text-format.html).  The state is parsed
       with no extra type information, so type tags must be added to the string
       if they are necessary.  Stateless actions should give `None` here.
-
     """
 
 class ActionGroup(builtins.object):
@@ -9923,22 +9920,18 @@ class DBusAnnotationInfo(GObject.GBoxed):
     annotations: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
-
     """
     key: str = ...
     """
     The name of the annotation, e.g. "org.freedesktop.DBus.Deprecated".
-
     """
     ref_count: int = ...
     """
     The reference count or -1 if statically allocated.
-
     """
     value: str = ...
     """
     The value of the annotation.
-
     """
 
     # gi Methods
@@ -9977,22 +9970,18 @@ class DBusArgInfo(GObject.GBoxed):
     annotations: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
-
     """
     name: str = ...
     """
     Name of the argument, e.g. `unix_user_id`.
-
     """
     ref_count: int = ...
     """
     The reference count or -1 if statically allocated.
-
     """
     signature: str = ...
     """
     D-Bus signature of the argument (a single complete type).
-
     """
 
     # gi Methods
@@ -11284,12 +11273,10 @@ class DBusErrorEntry(GObject.GPointer):
     dbus_error_name: str = ...
     """
     The D-Bus error name to associate with `error_code`.
-
     """
     error_code: int = ...
     """
     An error code.
-
     """
 
 class DBusInterface(builtins.object):
@@ -11372,32 +11359,26 @@ class DBusInterfaceInfo(GObject.GBoxed):
     annotations: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
-
     """
     methods: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusMethodInfo structures or None if there are no methods.
-
     """
     name: str = ...
     """
     The name of the D-Bus interface, e.g. "org.freedesktop.DBus.Properties".
-
     """
     properties: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusPropertyInfo structures or None if there are no properties.
-
     """
     ref_count: int = ...
     """
     The reference count or -1 if statically allocated.
-
     """
     signals: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusSignalInfo structures or None if there are no signals.
-
     """
 
     # gi Methods
@@ -11750,19 +11731,16 @@ class DBusInterfaceVTable(GObject.GPointer):
     get_property: DBusInterfaceGetPropertyFuncDBusInterfaceVTableCB = ...
     """
     Function for getting a property.
-
     """
     method_call: DBusInterfaceMethodCallFuncDBusInterfaceVTableCB = ...
     """
     Function for handling incoming method calls.
-
     """
     @builtins.property
     def padding(self) -> list | None: ...
     set_property: DBusInterfaceSetPropertyFuncDBusInterfaceVTableCB = ...
     """
     Function for setting a property.
-
     """
 
 class DBusMenuModel(MenuModel):
@@ -12104,27 +12082,22 @@ class DBusMethodInfo(GObject.GBoxed):
     annotations: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
-
     """
     in_args: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusArgInfo structures or None if there are no in arguments.
-
     """
     name: str = ...
     """
     The name of the D-Bus method, e.g. `RequestName`.
-
     """
     out_args: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusArgInfo structures or None if there are no out arguments.
-
     """
     ref_count: int = ...
     """
     The reference count or -1 if statically allocated.
-
     """
 
     # gi Methods
@@ -12319,27 +12292,22 @@ class DBusNodeInfo(GObject.GBoxed):
     annotations: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
-
     """
     interfaces: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusInterfaceInfo structures or None if there are no interfaces.
-
     """
     nodes: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusNodeInfo structures or None if there are no nodes.
-
     """
     path: str = ...
     """
     The path of the node or None if omitted. Note that this may be a relative path. See the D-Bus specification for more details.
-
     """
     ref_count: int = ...
     """
     The reference count or -1 if statically allocated.
-
     """
 
     # gi Methods
@@ -13423,27 +13391,22 @@ class DBusPropertyInfo(GObject.GBoxed):
     annotations: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
-
     """
     flags: DBusPropertyInfoFlags = ...
     """
     Access control flags for the property.
-
     """
     name: str = ...
     """
     The name of the D-Bus property, e.g. "SupportedFilesystems".
-
     """
     ref_count: int = ...
     """
     The reference count or -1 if statically allocated.
-
     """
     signature: str = ...
     """
     The D-Bus signature of the property (a single complete type).
-
     """
 
     # gi Methods
@@ -14303,22 +14266,18 @@ class DBusSignalInfo(GObject.GBoxed):
     annotations: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusAnnotationInfo structures or None if there are no annotations.
-
     """
     args: list | None = ...
     """
     A pointer to a None-terminated array of pointers to GDBusArgInfo structures or None if there are no arguments.
-
     """
     name: str = ...
     """
     The name of the D-Bus signal, e.g. "NameOwnerChanged".
-
     """
     ref_count: int = ...
     """
     The reference count or -1 if statically allocated.
-
     """
 
     # gi Methods
@@ -14350,17 +14309,14 @@ class DBusSubtreeVTable(GObject.GPointer):
     dispatch: DBusSubtreeDispatchFuncDBusSubtreeVTableCB | None = ...
     """
     Function for dispatching a remote call on a child node.
-
     """
     enumerate: DBusSubtreeEnumerateFuncDBusSubtreeVTableCB = ...
     """
     Function for enumerating child nodes.
-
     """
     introspect: DBusSubtreeIntrospectFuncDBusSubtreeVTableCB | None = ...
     """
     Function for introspecting a child node.
-
     """
     @builtins.property
     def padding(self) -> list | None: ...
@@ -19169,17 +19125,14 @@ class FileAttributeInfo(GObject.GPointer):
     flags: FileAttributeInfoFlags = ...
     """
     a set of GFileAttributeInfoFlags.
-
     """
     name: str = ...
     """
     the name of the attribute.
-
     """
     type: FileAttributeType = ...
     """
     the GFileAttributeType type of the attribute.
-
     """
 
 class FileAttributeInfoList(GObject.GBoxed):
@@ -19192,12 +19145,10 @@ class FileAttributeInfoList(GObject.GBoxed):
     infos: FileAttributeInfo | None = ...
     """
     an array of GFileAttributeInfos.
-
     """
     n_infos: int = ...
     """
     the number of values in the array.
-
     """
 
     # gi Methods
@@ -23017,42 +22968,35 @@ class InputMessage(GObject.GPointer):
     """
     return location
       for a GSocketAddress, or None
-
     """
     bytes_received: int = ...
     """
     will be set to the number of bytes that have been
       received
-
     """
     control_messages: list | None = ...
     """
     return location for a
       caller-allocated array of GSocketControlMessages, or None
-
     """
     flags: int = ...
     """
     collection of GSocketMsgFlags for the received message,
       outputted by the call
-
     """
     num_control_messages: int = ...
     """
     return location for the number of
       elements in `control_messages`
-
     """
     num_vectors: int = ...
     """
     the number of input vectors pointed to by `vectors`
-
     """
     vectors: list | None = ...
     """
     pointer to an
       array of input vectors
-
     """
 
 class InputStream(GObject.Object):
@@ -23505,12 +23449,10 @@ class InputVector(GObject.GPointer):
     buffer: object | None = ...
     """
     Pointer to a buffer where data will be written.
-
     """
     size: int = ...
     """
     the available size in `buffer`.
-
     """
 
 class ListModel(builtins.object):
@@ -26753,34 +26695,28 @@ class OutputMessage(GObject.GPointer):
     address: SocketAddress | None = ...
     """
     a GSocketAddress, or None
-
     """
     bytes_sent: int = ...
     """
     initialize to 0. Will be set to the number of bytes
         that have been sent
-
     """
     control_messages: list | None = ...
     """
     a pointer
       to an array of GSocketControlMessages, or None.
-
     """
     num_control_messages: int = ...
     """
     number of elements in `control_messages`.
-
     """
     num_vectors: int = ...
     """
     the number of output vectors pointed to by `vectors`.
-
     """
     vectors: OutputVector | None = ...
     """
     pointer to an array of output vectors
-
     """
 
 class OutputStream(GObject.Object):
@@ -27456,12 +27392,10 @@ class OutputVector(GObject.GPointer):
     buffer: object | None = ...
     """
     Pointer to a buffer of data to read.
-
     """
     size: int = ...
     """
     the size of `buffer`.
-
     """
 
 class Permission(GObject.Object):

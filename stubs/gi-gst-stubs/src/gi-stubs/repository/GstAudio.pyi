@@ -549,7 +549,7 @@ class AudioAggregator(GstBase.Aggregator):
         min_upstream_latency: int | None = None,
         name: str | None = None,
         output_buffer_duration: int | None = None,
-        output_buffer_duration_fraction: Gst.Fraction | None = None,
+        output_buffer_duration_fraction: Gst.Fraction | None = Gst.Fraction(num=1.0, denom=100.0),
         parent: Gst.Object | None = None,
         start_time: int | None = None,
         start_time_selection: GstBase.AggregatorStartTimeSelection | None = GstBase.AggregatorStartTimeSelection.ZERO,
@@ -1962,8 +1962,6 @@ class AudioInfo(GObject.GBoxed):
     def copy(self) -> AudioInfo: ...
     def free(self) -> None: ...
     @staticmethod
-    def from_caps(caps: Gst.Caps) -> tuple[bool, AudioInfo]: ...
-    @staticmethod
     def init() -> AudioInfo: ...
     def is_equal(self, other: AudioInfo) -> bool: ...
     def set_format(self, format: AudioFormat, rate: int, channels: int, position: list | None = None) -> None: ...
@@ -1975,6 +1973,13 @@ class AudioInfo(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @staticmethod
+    def from_caps(
+        *args: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
     @classmethod
     def new(
         cls,
@@ -3641,6 +3646,7 @@ class resetAudioSrcClassCB(typing.Protocol):
 ###############################################################
 
 _lock = _thread._lock  # type: ignore
+_overrides_module = ...  # this very module ...
 ###############################################################
 # Constants
 ###############################################################

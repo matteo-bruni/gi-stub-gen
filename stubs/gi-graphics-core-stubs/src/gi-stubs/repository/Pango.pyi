@@ -2948,47 +2948,38 @@ class Analysis(GObject.GPointer):
     extra_attrs: list | None = ...
     """
     extra attributes for this segment.
-
     """
     flags: int = ...
     """
     boolean flags for this segment (Since: 1.16).
-
     """
     font: Font | None = ...
     """
     the font for this segment.
-
     """
     gravity: int = ...
     """
     the glyph orientation for this segment (A `PangoGravity`).
-
     """
     lang_engine: object | None = ...
     """
     unused, reserved
-
     """
     language: Language | None = ...
     """
     the detected language for this segment.
-
     """
     level: int = ...
     """
     the bidirectional level for this segment.
-
     """
     script: int = ...
     """
     the detected script for this segment (A `PangoScript`) (Since: 1.18).
-
     """
     shape_engine: object | None = ...
     """
     unused, reserved
-
     """
 
 class AttrClass(GObject.GPointer):
@@ -3022,7 +3013,6 @@ class AttrClass(GObject.GPointer):
     type: AttrType = ...
     """
     the type ID for this attribute
-
     """
 
 class AttrColor(GObject.GPointer):
@@ -3035,12 +3025,10 @@ class AttrColor(GObject.GPointer):
     attr: Attribute | None = ...
     """
     the common portion of the attribute
-
     """
     color: Color | None = ...
     """
     the `PangoColor` which is the value of the attribute
-
     """
 
 class AttrFloat(GObject.GPointer):
@@ -3053,12 +3041,10 @@ class AttrFloat(GObject.GPointer):
     attr: Attribute | None = ...
     """
     the common portion of the attribute
-
     """
     value: float = ...
     """
     the value of the attribute
-
     """
 
 class AttrFontDesc(GObject.GPointer):
@@ -3071,12 +3057,10 @@ class AttrFontDesc(GObject.GPointer):
     attr: Attribute | None = ...
     """
     the common portion of the attribute
-
     """
     desc: FontDescription | None = ...
     """
     the font description which is the value of this attribute
-
     """
 
     # gi Methods
@@ -3099,12 +3083,10 @@ class AttrFontFeatures(GObject.GPointer):
     attr: Attribute | None = ...
     """
     the common portion of the attribute
-
     """
     features: str = ...
     """
     the features, as a string in CSS syntax
-
     """
 
     # gi Methods
@@ -3127,12 +3109,10 @@ class AttrInt(GObject.GPointer):
     attr: Attribute | None = ...
     """
     the common portion of the attribute
-
     """
     value: int = ...
     """
     the value of the attribute
-
     """
 
 class AttrIterator(GObject.GBoxed):
@@ -3198,12 +3178,10 @@ class AttrLanguage(GObject.GPointer):
     attr: Attribute | None = ...
     """
     the common portion of the attribute
-
     """
     value: Language | None = ...
     """
     the `PangoLanguage` which is the value of the attribute
-
     """
 
     # gi Methods
@@ -3410,32 +3388,26 @@ class AttrShape(GObject.GPointer):
     attr: Attribute | None = ...
     """
     the common portion of the attribute
-
     """
     copy_func: AttrDataCopyFuncAttrShapeCB | None = ...
     """
     copy function for the user data
-
     """
     data: object | None = ...
     """
     user data set (see [func`Pango`.AttrShape.new_with_data])
-
     """
     destroy_func: GLib.DestroyNotify = ...  # type: ignore
     """
     destroy function for the user data
-
     """
     ink_rect: Rectangle | None = ...
     """
     the ink rectangle to restrict to
-
     """
     logical_rect: Rectangle | None = ...
     """
     the logical rectangle to restrict to
-
     """
 
     # gi Methods
@@ -3477,18 +3449,15 @@ class AttrSize(GObject.GPointer):
       This field is only present for compatibility with Pango-1.8.0
       (Pango.ATTR_ABSOLUTE_SIZE was added in 1.8.1); and always will
       be False for Pango.ATTR_SIZE and True for Pango.ATTR_ABSOLUTE_SIZE.
-
     """
     attr: Attribute | None = ...
     """
     the common portion of the attribute
-
     """
     size: int = ...
     """
     size of font, in units of 1/Pango.SCALE of a point (for
       Pango.ATTR_SIZE) or of a device unit (for Pango.ATTR_ABSOLUTE_SIZE)
-
     """
 
     # gi Methods
@@ -3513,12 +3482,10 @@ class AttrString(GObject.GPointer):
     attr: Attribute | None = ...
     """
     the common portion of the attribute
-
     """
     value: str = ...
     """
     the string which is the value of the attribute
-
     """
 
 class Attribute(GObject.GBoxed):
@@ -3538,17 +3505,14 @@ class Attribute(GObject.GBoxed):
     """
     end index of the range (in bytes). The character at this index
       is not included in the range.
-
     """
     klass: AttrClass | None = ...
     """
     the class structure holding information about the type of the attribute
-
     """
     start_index: int = ...
     """
     the start index of the range (in bytes).
-
     """
 
     # gi Methods
@@ -3640,17 +3604,14 @@ class Color(GObject.GBoxed):
     blue: int = ...
     """
     value of blue component
-
     """
     green: int = ...
     """
     value of green component
-
     """
     red: int = ...
     """
     value of red component
-
     """
 
     # gi Methods
@@ -5387,17 +5348,14 @@ class GlyphGeometry(GObject.GPointer):
     width: int = ...
     """
     the logical width to use for the the character.
-
     """
     x_offset: int = ...
     """
     horizontal offset from nominal character position.
-
     """
     y_offset: int = ...
     """
     vertical offset from nominal character position.
-
     """
 
 class GlyphInfo(GObject.GPointer):
@@ -5410,17 +5368,14 @@ class GlyphInfo(GObject.GPointer):
     attr: GlyphVisAttr | None = ...
     """
     the visual attributes of the glyph.
-
     """
     geometry: GlyphGeometry | None = ...
     """
     the positional information about the glyph.
-
     """
     glyph: int = ...
     """
     the glyph itself.
-
     """
 
 class GlyphItem(GObject.GBoxed):
@@ -5438,29 +5393,24 @@ class GlyphItem(GObject.GBoxed):
     """
     horizontal displacement to apply after th
       glyph item. Positive values shift right
-
     """
     glyphs: GlyphString | None = ...
     """
     corresponding `PangoGlyphString`
-
     """
     item: Item | None = ...
     """
     corresponding `PangoItem`
-
     """
     start_x_offset: int = ...
     """
     horizontal displacement to apply before the
       glyph item. Positive values shift right
-
     """
     y_offset: int = ...
     """
     shift of the baseline, relative to the baseline
       of the containing line. Positive values shift upwards
-
     """
 
     # gi Methods
@@ -5624,18 +5574,15 @@ class GlyphString(GObject.GBoxed):
     glyphs: list | None = ...
     """
     array of glyph information
-
     """
     log_clusters: int = ...
     """
     logical cluster info, indexed by the byte index
       within the text corresponding to the glyph string
-
     """
     num_glyphs: int = ...
     """
     number of glyphs in this glyph string
-
     """
     @builtins.property
     def space(self) -> int: ...
@@ -5761,12 +5708,10 @@ class GlyphVisAttr(GObject.GPointer):
     is_cluster_start: int = ...
     """
     set for the first logical glyph in each cluster.
-
     """
     is_color: int = ...
     """
     set if the the font will render this glyph with color. Since 1.50
-
     """
 
 class Item(GObject.GBoxed):
@@ -5781,22 +5726,18 @@ class Item(GObject.GBoxed):
     analysis: Analysis | None = ...
     """
     analysis results for the item.
-
     """
     length: int = ...
     """
     length of this item in bytes.
-
     """
     num_chars: int = ...
     """
     number of Unicode characters in the item.
-
     """
     offset: int = ...
     """
     byte offset of the start of this item in text.
-
     """
 
     # gi Methods
@@ -6889,28 +6830,23 @@ class LayoutLine(GObject.GBoxed):
     layout: Layout | None = ...
     """
     the layout this line belongs to, might be None
-
     """
     length: int = ...
     """
     length of line in bytes
-
     """
     resolved_dir: int = ...
     """
     Resolved PangoDirection of line
-
     """
     runs: list | None = ...
     """
     list of runs in the
       line, from left to right
-
     """
     start_index: int = ...
     """
     start of line as byte index into layout->text
-
     """
 
     # gi Methods
@@ -7012,24 +6948,20 @@ class LogAttr(GObject.GPointer):
       others, each decomposed character in the grapheme is a unit. In the default
       implementation of [func`break`], this bit is set on all grapheme boundaries
       except those following Latin, Cyrillic or Greek base characters.
-
     """
     break_inserts_hyphen: int = ...
     """
     when breaking lines before this char, insert a hyphen.
       Since: 1.50
-
     """
     break_removes_preceding: int = ...
     """
     when breaking lines before this char, remove the
       preceding char. Since 1.50
-
     """
     is_char_break: int = ...
     """
     if set, can break here when doing character wrapping
-
     """
     is_cursor_position: int = ...
     """
@@ -7038,23 +6970,19 @@ class LogAttr(GObject.GPointer):
       This flag implements Unicode's
       [Grapheme Cluster Boundaries](http://www.unicode.org/reports/tr29/)
       semantics.
-
     """
     is_expandable_space: int = ...
     """
     is a whitespace character that can possibly be
       expanded for justification purposes. (Since: 1.18)
-
     """
     is_line_break: int = ...
     """
     if set, can break line in front of character
-
     """
     is_mandatory_break: int = ...
     """
     if set, must break line in front of character
-
     """
     is_sentence_boundary: int = ...
     """
@@ -7065,7 +6993,6 @@ class LogAttr(GObject.GPointer):
       the boundaries there. The second way doesn't assign
       between-sentence spaces, etc. to any sentence, so
       `is_sentence_start`/`is_sentence_end` mark the boundaries of those sentences.
-
     """
     is_sentence_end: int = ...
     """
@@ -7073,17 +7000,14 @@ class LogAttr(GObject.GPointer):
       Note that in degenerate cases, you could have both `is_sentence_start`
       and `is_sentence_end` set for some character. (e.g. no space after a
       period, so the next sentence starts right away)
-
     """
     is_sentence_start: int = ...
     """
     is first character in a sentence
-
     """
     is_white: int = ...
     """
     is whitespace character
-
     """
     is_word_boundary: int = ...
     """
@@ -7093,19 +7017,16 @@ class LogAttr(GObject.GPointer):
       This flag is particularly useful when selecting text word-by-word. This flag
       implements Unicode's [Word Boundaries](http://www.unicode.org/reports/tr29/)
       semantics. (Since: 1.22)
-
     """
     is_word_end: int = ...
     """
     is first non-word char after a word
       Note that in degenerate cases, you could have both `is_word_start`
       and `is_word_end` set for some character.
-
     """
     is_word_start: int = ...
     """
     is first character in a word
-
     """
     reserved: int = ...
 
@@ -7126,32 +7047,26 @@ class Matrix(GObject.GBoxed):
     x0: float = ...
     """
     x translation
-
     """
     xx: float = ...
     """
     1st component of the transformation matrix
-
     """
     xy: float = ...
     """
     2nd component of the transformation matrix
-
     """
     y0: float = ...
     """
     y translation
-
     """
     yx: float = ...
     """
     3rd component of the transformation matrix
-
     """
     yy: float = ...
     """
     4th component of the transformation matrix
-
     """
 
     # gi Methods
@@ -7287,22 +7202,18 @@ class Rectangle(GObject.GPointer):
     height: int = ...
     """
     height of the rectangle.
-
     """
     width: int = ...
     """
     width of the rectangle.
-
     """
     x: int = ...
     """
     X coordinate of the left side of the rectangle.
-
     """
     y: int = ...
     """
     Y coordinate of the the top side of the rectangle.
-
     """
 
 class Renderer(GObject.Object):

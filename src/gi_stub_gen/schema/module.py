@@ -90,6 +90,8 @@ class ModuleSchema(BaseSchema):
                 logger.debug(f"Skipping private gi module: {gi_import}")
                 # skip private gi modules
                 continue
+
+            # try to import the gi module
             try:
                 full_namespace = (
                     f"gi.repository.{gi_import}" if not gi_import.startswith("gi.repository.") else gi_import
@@ -99,6 +101,7 @@ class ModuleSchema(BaseSchema):
                 # if valid gi
                 valid_gi_imports.add(gi_import)
             except ImportError:
+                # assume not a gi.repository import
                 logger.warning(f"Invalid gi.repository import {gi_import} in module {self.name}")
                 if not gi_import.startswith("GI.") and not gi_import == "GI":
                     not_gi_imports.add(gi_import)

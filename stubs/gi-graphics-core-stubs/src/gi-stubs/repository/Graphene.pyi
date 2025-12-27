@@ -1357,12 +1357,10 @@ class Point(GObject.GBoxed):
     x: float = ...
     """
     the X coordinate of the point
-
     """
     y: float = ...
     """
     the Y coordinate of the point
-
     """
 
     # gi Methods
@@ -1438,17 +1436,14 @@ class Point3D(GObject.GBoxed):
     x: float = ...
     """
     the X coordinate
-
     """
     y: float = ...
     """
     the Y coordinate
-
     """
     z: float = ...
     """
     the Z coordinate
-
     """
 
     # gi Methods
@@ -1878,12 +1873,10 @@ class Rect(GObject.GBoxed):
     origin: Point | None = ...
     """
     the coordinates of the origin of the rectangle
-
     """
     size: Size | None = ...
     """
     the size of the rectangle
-
     """
 
     # gi Methods
@@ -2148,12 +2141,10 @@ class Size(GObject.GBoxed):
     height: float = ...
     """
     the height
-
     """
     width: float = ...
     """
     the width
-
     """
 
     # gi Methods

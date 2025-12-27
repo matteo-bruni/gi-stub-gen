@@ -9142,17 +9142,14 @@ class aat_layout_feature_selector_info_t(GObject.GPointer):
     disable: aat_layout_feature_selector_t = ...
     """
     The value to turn the selector off
-
     """
     enable: aat_layout_feature_selector_t = ...
     """
     The value to turn the selector on
-
     """
     name_id: int = ...
     """
     The selector's name identifier
-
     """
     @builtins.property
     def reserved(self) -> int: ...
@@ -9211,17 +9208,14 @@ class color_stop_t(GObject.GBoxed):
     color: int = ...
     """
     the color, unpremultiplied
-
     """
     is_foreground: int = ...
     """
     whether the color is the foreground
-
     """
     offset: float = ...
     """
     the offset of the color stop
-
     """
 
 class draw_funcs_t(GObject.GBoxed):
@@ -9245,27 +9239,22 @@ class draw_state_t(GObject.GBoxed):
     current_x: float = ...
     """
     X component of current point
-
     """
     current_y: float = ...
     """
     Y component of current point
-
     """
     path_open: int = ...
     """
     Whether there is an open path
-
     """
     path_start_x: float = ...
     """
     X component of the start of current path
-
     """
     path_start_y: float = ...
     """
     Y component of the start of current path
-
     """
     @builtins.property
     def reserved1(self) -> var_num_t | None: ...
@@ -9302,24 +9291,20 @@ class feature_t(GObject.GBoxed):
     end: int = ...
     """
     the cluster to end applying this feature setting (exclusive).
-
     """
     start: int = ...
     """
     the cluster to start applying this feature setting (inclusive).
-
     """
     tag: int = ...
     """
     The #hb_tag_t tag of the feature
-
     """
     value: int = ...
     """
     The value of the feature. 0 disables the feature, non-zero (usually
     1) enables the feature.  For features implemented as lookup type 3 (like
     'salt') the `value` is a one based index into the alternates.
-
     """
 
     # gi Methods
@@ -9342,17 +9327,14 @@ class font_extents_t(GObject.GPointer):
     ascender: int = ...
     """
     The height of typographic ascenders.
-
     """
     descender: int = ...
     """
     The depth of typographic descenders.
-
     """
     line_gap: int = ...
     """
     The suggested line-spacing gap.
-
     """
     @builtins.property
     def reserved1(self) -> int: ...
@@ -9405,22 +9387,18 @@ class glyph_extents_t(GObject.GPointer):
     height: int = ...
     """
     Distance from the top extremum of the glyph to the bottom extremum.
-
     """
     width: int = ...
     """
     Distance from the left extremum of the glyph to the right extremum.
-
     """
     x_bearing: int = ...
     """
     Distance from the x-origin to the left extremum of the glyph.
-
     """
     y_bearing: int = ...
     """
     Distance from the top extremum of the glyph to the y-origin.
-
     """
 
 class glyph_info_t(GObject.GBoxed):
@@ -9443,13 +9421,11 @@ class glyph_info_t(GObject.GBoxed):
               (e.g. combining marks have the same cluster as their bases)
               even if they are separate glyphs, `hb_buffer_set_cluster_level`
               allow selecting more fine-grained cluster handling.
-
     """
     codepoint: int = ...
     """
     either a Unicode code point (before shaping) or a glyph index
                 (after shaping).
-
     """
     @builtins.property
     def mask(self) -> int: ...
@@ -9472,25 +9448,21 @@ class glyph_position_t(GObject.GBoxed):
     """
     how much the line advances after drawing this glyph when setting
                 text in horizontal direction.
-
     """
     x_offset: int = ...
     """
     how much the glyph moves on the X-axis before drawing it, this
                should not affect how much the line advances.
-
     """
     y_advance: int = ...
     """
     how much the line advances after drawing this glyph when setting
                 text in vertical direction.
-
     """
     y_offset: int = ...
     """
     how much the glyph moves on the Y-axis before drawing it, this
                should not affect how much the line advances.
-
     """
 
 class language_t(GObject.GPointer):
@@ -9525,12 +9497,10 @@ class ot_color_layer_t(GObject.GPointer):
     color_index: int = ...
     """
     the palette color index of the layer
-
     """
     glyph: int = ...
     """
     the glyph ID of the layer
-
     """
 
 class ot_math_glyph_part_t(GObject.GBoxed):
@@ -9544,27 +9514,22 @@ class ot_math_glyph_part_t(GObject.GBoxed):
     end_connector_length: int = ...
     """
     The length of the connector on the ending side of the variant part
-
     """
     flags: ot_math_glyph_part_flags_t = ...
     """
     #hb_ot_math_glyph_part_flags_t flags for the part
-
     """
     full_advance: int = ...
     """
     The total advance of the part
-
     """
     glyph: int = ...
     """
     The glyph index of the variant part
-
     """
     start_connector_length: int = ...
     """
     The length of the connector on the starting side of the variant part
-
     """
 
 class ot_math_glyph_variant_t(GObject.GBoxed):
@@ -9576,12 +9541,10 @@ class ot_math_glyph_variant_t(GObject.GBoxed):
     advance: int = ...
     """
     The advance width of the variant
-
     """
     glyph: int = ...
     """
     The glyph index of the variant
-
     """
 
 class ot_math_kern_entry_t(GObject.GPointer):
@@ -9593,12 +9556,10 @@ class ot_math_kern_entry_t(GObject.GPointer):
     kern_value: int = ...
     """
     The kern value of the entry
-
     """
     max_correction_height: int = ...
     """
     The maximum height at which this entry should be used
-
     """
 
 class ot_name_entry_t(GObject.GPointer):
@@ -9610,12 +9571,10 @@ class ot_name_entry_t(GObject.GPointer):
     language: language_t | None = ...
     """
     language
-
     """
     name_id: int = ...
     """
     name ID
-
     """
     @builtins.property
     def var(self) -> var_int_t | None: ...
@@ -9634,39 +9593,32 @@ class ot_var_axis_info_t(GObject.GBoxed):
     axis_index: int = ...
     """
     Index of the axis in the variation-axis array
-
     """
     default_value: float = ...
     """
     The position on the variation axis corresponding to the font's defaults
-
     """
     flags: ot_var_axis_flags_t = ...
     """
     The #hb_ot_var_axis_flags_t flags for the axis
-
     """
     max_value: float = ...
     """
     The maximum value on the variation axis that the font covers
-
     """
     min_value: float = ...
     """
     The minimum value on the variation axis that the font covers
-
     """
     name_id: int = ...
     """
     The `name` table Name ID that provides display names for the axis
-
     """
     @builtins.property
     def reserved(self) -> int: ...
     tag: int = ...
     """
     The #hb_tag_t tag identifying the design variation of the axis
-
     """
 
 class ot_var_axis_t(GObject.GPointer):
@@ -9678,27 +9630,22 @@ class ot_var_axis_t(GObject.GPointer):
     default_value: float = ...
     """
     default value of the axis
-
     """
     max_value: float = ...
     """
     maximum value of the axis
-
     """
     min_value: float = ...
     """
     minimum value of the axis
-
     """
     name_id: int = ...
     """
     axis name identifier
-
     """
     tag: int = ...
     """
     axis tag
-
     """
 
 class paint_funcs_t(GObject.GBoxed):
@@ -9738,12 +9685,10 @@ class segment_properties_t(GObject.GBoxed):
     direction: direction_t = ...
     """
     the #hb_direction_t of the buffer, see `hb_buffer_set_direction`.
-
     """
     language: language_t | None = ...
     """
     the #hb_language_t of the buffer, see `hb_buffer_set_language`.
-
     """
     @builtins.property
     def reserved1(self) -> object | None: ...
@@ -9752,7 +9697,6 @@ class segment_properties_t(GObject.GBoxed):
     script: script_t = ...
     """
     the #hb_script_t of the buffer, see `hb_buffer_set_script`.
-
     """
 
 class set_t(GObject.GBoxed):
@@ -9833,12 +9777,10 @@ class variation_t(GObject.GPointer):
     tag: int = ...
     """
     The #hb_tag_t tag of the variation-axis name
-
     """
     value: float = ...
     """
     The value of the variation axis
-
     """
 
     # gi Methods

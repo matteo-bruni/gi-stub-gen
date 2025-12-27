@@ -14514,12 +14514,10 @@ class ByteArray(GObject.GBoxed):
     """
     a pointer to the element data. The data may be moved as
         elements are added to the GByteArray
-
     """
     len: int = ...
     """
     the number of elements in the GByteArray
-
     """
 
     # gi Methods
@@ -14917,30 +14915,25 @@ class Completion(GObject.GPointer):
     cache: list | None = ...
     """
     the list of items which begin with `prefix`.
-
     """
     func: CompletionFuncCompletionCB = ...
     """
     function which is called to get the string associated with a
            target item. It is None if the target items are strings.
-
     """
     items: list | None = ...
     """
     list of target items (strings or data structures).
-
     """
     prefix: str = ...
     """
     the last prefix passed to `g_completion_complete` or
              `g_completion_complete_utf8`.
-
     """
     strncmp_func: CompletionStrncmpFuncCompletionCB = ...
     """
     The function to use when comparing strings.  Use
                    `g_completion_set_compare` to modify this function.
-
     """
 
     # gi Methods
@@ -15762,12 +15755,10 @@ class DebugKey(GObject.GPointer):
     key: str = ...
     """
     the string
-
     """
     value: int = ...
     """
     the flag
-
     """
 
 class DoubleIEEE754(GObject.GPointer):
@@ -15784,17 +15775,14 @@ class Error(builtins.RuntimeError):
     code: int = ...
     """
     error code, e.g. G_FILE_ERROR_NOENT
-
     """
     domain: int = ...
     """
     error domain, e.g. G_FILE_ERROR
-
     """
     message: str = ...
     """
     human-readable informative error message
-
     """
 
     # python methods (overrides?)
@@ -15930,39 +15918,32 @@ class Hook(GObject.GPointer):
     data: object | None = ...
     """
     data which is passed to func when this hook is invoked
-
     """
     flags: int = ...
     """
     flags which are set for this hook. See GHookFlagMask for
         predefined flags
-
     """
     func: object | None = ...
     """
     the function to call when this hook is invoked. The possible
         signatures for this function are GHookFunc and GHookCheckFunc
-
     """
     hook_id: int = ...
     """
     the id of this hook, which is unique within its list
-
     """
     next: Hook | None = ...
     """
     pointer to the next hook in the list
-
     """
     prev: Hook | None = ...
     """
     pointer to the previous hook in the list
-
     """
     ref_count: int = ...
     """
     the reference count of this hook
-
     """
 
     # gi Methods
@@ -16020,38 +16001,31 @@ class HookList(GObject.GPointer):
     dummy: list | None = ...
     """
     unused
-
     """
     dummy3: object | None = ...
     """
     unused
-
     """
     finalize_hook: HookFinalizeFuncHookListCB = ...
     """
     the function to call to finalize a GHook element.
         The default behaviour is to call the hooks `destroy` function
-
     """
     hook_size: int = ...
     """
     the size of the GHookList elements, in bytes
-
     """
     hooks: Hook | None = ...
     """
     the first GHook element in the list
-
     """
     is_setup: int = ...
     """
     1 if the GHookList has been initialized
-
     """
     seq_id: int = ...
     """
     the next free GHook id
-
     """
 
     # gi Methods
@@ -17161,17 +17135,14 @@ class List(GObject.GPointer):
     holds the element's data, which can be a pointer to any kind
            of data, or any integer value using the
            [Type Conversion Macros](conversion-macros.html#conversion-macros)
-
     """
     next: list | None = ...
     """
     contains the link to the next element in the list
-
     """
     prev: list | None = ...
     """
     contains the link to the previous element in the list
-
     """
 
     # gi Methods
@@ -17195,17 +17166,14 @@ class LogField(GObject.GPointer):
     key: str = ...
     """
     field name (UTF-8 string)
-
     """
     length: int = ...
     """
     length of `value`, in bytes, or -1 if it is nul-terminated
-
     """
     value: object | None = ...
     """
     field value (arbitrary bytes)
-
     """
 
 class MainContext(GObject.GBoxed):
@@ -17726,29 +17694,24 @@ class Node(GObject.GPointer):
     points to the first child of the GNode.  The other
                children are accessed by using the `next` pointer of each
                child.
-
     """
     data: object | None = ...
     """
     contains the actual data of the node.
-
     """
     next: Node | None = ...
     """
     points to the node's next sibling (a sibling is another
            GNode with the same parent).
-
     """
     parent: Node | None = ...
     """
     points to the parent of the GNode, or is None if the
              GNode is the root of the tree.
-
     """
     prev: Node | None = ...
     """
     points to the node's previous sibling.
-
     """
 
     # gi Methods
@@ -17838,12 +17801,10 @@ class Once(GObject.GPointer):
     """
     the value returned by the call to the function, if `status`
              is G_ONCE_STATUS_READY
-
     """
     status: OnceStatus = ...
     """
     the status of the GOnce
-
     """
 
     # gi Methods
@@ -17962,7 +17923,6 @@ class OptionEntry(GObject.GPointer):
     arg: OptionArg = ...
     """
     The type of the option, as a GOptionArg
-
     """
     arg_data: object | None = ...
     """
@@ -17971,7 +17931,6 @@ class OptionEntry(GObject.GPointer):
         called to handle the extra argument. Otherwise, `arg_data` is a
         pointer to a location to store the value, the required type of
         the location depends on the `arg` type:
-
     """
     arg_description: str = ...
     """
@@ -17979,19 +17938,16 @@ class OptionEntry(GObject.GPointer):
         by the option in `--help` output. The `arg_description` is translated
         using the `translate_func` of the group, see
         `g_option_group_set_translation_domain`.
-
     """
     description: str = ...
     """
     the description for the option in `--help`
         output. The `description` is translated using the `translate_func`
         of the group, see `g_option_group_set_translation_domain`.
-
     """
     flags: int = ...
     """
     Flags from GOptionFlags
-
     """
     long_name: str = ...
     """
@@ -18000,7 +17956,6 @@ class OptionEntry(GObject.GPointer):
         long name. To resolve conflicts if multiple option groups contain
         the same long name, it is also possible to specify the option as
         `--groupname-long_name`.
-
     """
     short_name: int = ...
     """
@@ -18008,7 +17963,6 @@ class OptionEntry(GObject.GPointer):
         `-short_name` in a commandline. `short_name` must be  a printable
         ASCII character different from '-', or zero if the option has no
         short name.
-
     """
 
 class OptionGroup(builtins.object):
@@ -18248,18 +18202,15 @@ class PollFD(GObject.GBoxed):
         events should be polled for. Typically for reading from a file
         descriptor you would use G_IO_IN | G_IO_HUP | G_IO_ERR, and
         for writing you would use G_IO_OUT | G_IO_ERR.
-
     """
     fd: int = ...
     """
     the file descriptor to poll (or a HANDLE on Win32)
-
     """
     revents: int = ...
     """
     a bitwise combination of flags from GIOCondition, returned
         from the `poll` function to indicate which events occurred.
-
     """
 
     # python methods (overrides?)
@@ -18338,17 +18289,14 @@ class Queue(GObject.GPointer):
     head: list | None = ...
     """
     a pointer to the first element of the queue
-
     """
     length: int = ...
     """
     the number of elements in the queue
-
     """
     tail: list | None = ...
     """
     a pointer to the last element of the queue
-
     """
 
     # gi Methods
@@ -18795,12 +18743,10 @@ class SList(GObject.GPointer):
     holds the element's data, which can be a pointer to any kind
            of data, or any integer value using the
            [Type Conversion Macros](conversion-macros.html#conversion-macros)
-
     """
     next: list | None = ...
     """
     contains the link to the next element in the list.
-
     """
 
     # gi Methods
@@ -18833,64 +18779,52 @@ class Scanner(GObject.GPointer):
     config: ScannerConfig | None = ...
     """
     link into the scanner configuration
-
     """
     @builtins.property
     def input_fd(self) -> int: ...
     input_name: str = ...
     """
     name of input stream, featured by the default message handler
-
     """
     line: int = ...
     """
     line number of the last token from `g_scanner_get_next_token`
-
     """
     max_parse_errors: int = ...
     """
     unused
-
     """
     msg_handler: ScannerMsgFuncScannerCB = ...
     """
     handler function for _warn and _error
-
     """
     next_line: int = ...
     """
     line number of the last token from `g_scanner_peek_next_token`
-
     """
     next_position: int = ...
     """
     char number of the last token from `g_scanner_peek_next_token`
-
     """
     next_token: TokenType = ...
     """
     token parsed by the last `g_scanner_peek_next_token`
-
     """
     next_value: TokenValue | None = ...
     """
     value of the last token from `g_scanner_peek_next_token`
-
     """
     parse_errors: int = ...
     """
     `g_scanner_error` increments this field
-
     """
     position: int = ...
     """
     char number of the last token from `g_scanner_get_next_token`
-
     """
     qdata: Data | None = ...
     """
     quarked data
-
     """
     @builtins.property
     def scope_id(self) -> int: ...
@@ -18903,17 +18837,14 @@ class Scanner(GObject.GPointer):
     token: TokenType = ...
     """
     token parsed by the last `g_scanner_get_next_token`
-
     """
     user_data: object | None = ...
     """
     unused
-
     """
     value: TokenValue | None = ...
     """
     value of the last token from `g_scanner_get_next_token`
-
     """
 
     # gi Methods
@@ -19040,13 +18971,11 @@ class ScannerConfig(GObject.GPointer):
     """
     specifies if symbols are case sensitive (the
         default is False).
-
     """
     char_2_token: int = ...
     """
     specifies if characters are reported by setting
         `token = ch` or as G_TOKEN_CHAR (the default is True).
-
     """
     cpair_comment_single: str = ...
     """
@@ -19054,13 +18983,11 @@ class ScannerConfig(GObject.GPointer):
         end of single-line comments. The default is "#\\n" which means
         that single-line comments start with a '#' and continue until
         a '\\n' (end of line).
-
     """
     cset_identifier_first: str = ...
     """
     specifies the characters which can start
         identifiers (the default is G_CSET_a_2_z, "_", and G_CSET_A_2_Z).
-
     """
     cset_identifier_nth: str = ...
     """
@@ -19068,32 +18995,27 @@ class ScannerConfig(GObject.GPointer):
         in identifiers, after the first character (the default is
         G_CSET_a_2_z, "_0123456789", G_CSET_A_2_Z, G_CSET_LATINS,
         G_CSET_LATINC).
-
     """
     cset_skip_characters: str = ...
     """
     specifies which characters should be skipped
         by the scanner (the default is the whitespace characters: space,
         tab, carriage-return and line-feed).
-
     """
     identifier_2_string: int = ...
     """
     specifies if identifiers are reported as strings
         (the default is False).
-
     """
     int_2_float: int = ...
     """
     specifies if all numbers are reported as G_TOKEN_FLOAT
         (the default is False).
-
     """
     numbers_2_int: int = ...
     """
     specifies if binary, octal and hexadecimal numbers
         are reported as G_TOKEN_INT (the default is True).
-
     """
     @builtins.property
     def padding_dummy(self) -> int: ...
@@ -19101,102 +19023,85 @@ class ScannerConfig(GObject.GPointer):
     """
     specifies if binary numbers are recognized (the
         default is False).
-
     """
     scan_comment_multi: int = ...
     """
     specifies if multi-line comments are recognized
         (the default is True).
-
     """
     scan_float: int = ...
     """
     specifies if floating point numbers are recognized
         (the default is True).
-
     """
     scan_hex: int = ...
     """
     specifies if hexadecimal numbers are recognized (the
         default is True).
-
     """
     scan_hex_dollar: int = ...
     """
     specifies if '$' is recognized as a prefix for
         hexadecimal numbers (the default is False).
-
     """
     scan_identifier: int = ...
     """
     specifies if identifiers are recognized (the
         default is True).
-
     """
     scan_identifier_1char: int = ...
     """
     specifies if single-character
         identifiers are recognized (the default is False).
-
     """
     scan_identifier_NULL: int = ...
     """
     specifies if None is reported as
         G_TOKEN_IDENTIFIER_NULL (the default is False).
-
     """
     scan_octal: int = ...
     """
     specifies if octal numbers are recognized (the
         default is True).
-
     """
     scan_string_dq: int = ...
     """
     specifies if strings can be enclosed in double
         quotes (the default is True).
-
     """
     scan_string_sq: int = ...
     """
     specifies if strings can be enclosed in single
         quotes (the default is True).
-
     """
     scan_symbols: int = ...
     """
     specifies if symbols are recognized (the default
         is True).
-
     """
     scope_0_fallback: int = ...
     """
     specifies if a symbol is searched for in the
         default scope in addition to the current scope (the default is False).
-
     """
     skip_comment_multi: int = ...
     """
     specifies if multi-line comments are skipped
         and not returned as tokens (the default is True).
-
     """
     skip_comment_single: int = ...
     """
     specifies if single-line comments are skipped
         and not returned as tokens (the default is True).
-
     """
     store_int64: int = ...
     """
     use value.v_int64 rather than v_int
-
     """
     symbol_2_token: int = ...
     """
     specifies if symbols are reported by setting
         `token = v_symbol` or as G_TOKEN_SYMBOL (the default is False).
-
     """
 
 class Sequence(GObject.GPointer):
@@ -20083,7 +19988,6 @@ class SourceFuncs(GObject.GPointer):
         so the source should be checked again here.  Since 2.36 this may
         be None, in which case the effect is as if the function always returns
         False.
-
     """
     @builtins.property
     def closure_callback(self) -> SourceFuncSourceFuncsCB: ...
@@ -20101,7 +20005,6 @@ class SourceFuncs(GObject.GPointer):
         The return value of the `dispatch` function should be
         [const`GLib`.SOURCE_REMOVE] if the source should be removed or
         [const`GLib`.SOURCE_CONTINUE] to keep it.
-
     """
     finalize: SourceFuncsFinalizeFuncSourceFuncsCB = ...
     """
@@ -20110,7 +20013,6 @@ class SourceFuncs(GObject.GPointer):
         from its [struct`GLib`.MainContext], but it will still have its final
         reference count, so methods can be called on it from within this
         function.
-
     """
     prepare: SourceFuncsPrepareFuncSourceFuncsCB = ...
     """
@@ -20125,7 +20027,6 @@ class SourceFuncs(GObject.GPointer):
         False with a timeout of -1.  If `prepare` returns a
         timeout and the source also has a ready time set, then the
         lower of the two will be used.
-
     """
 
 class SourcePrivate(GObject.GPointer): ...
@@ -20159,20 +20060,17 @@ class String(GObject.GBoxed):
     """
     the number of bytes that can be stored in the
       string before it needs to be reallocated. May be larger than `len`.
-
     """
     len: int = ...
     """
     contains the length of the string, not including the
       terminating nul byte.
-
     """
     str: str = ...
     """
     points to the character data. It may move as text is added.
       The `str` field is null-terminated and so
       can be used as an ordinary C string.
-
     """
 
     # gi Methods
@@ -20593,17 +20491,14 @@ class ThreadPool(GObject.GPointer):
     exclusive: bool = ...
     """
     are all threads exclusive to this pool
-
     """
     func: FuncThreadPoolCB = ...
     """
     the function to execute in the threads of this pool
-
     """
     user_data: object | None = ...
     """
     the user data for the threads of this pool
-
     """
 
     # gi Methods
@@ -20749,12 +20644,10 @@ class TimeVal(GObject.GPointer):
     tv_sec: int = ...
     """
     seconds
-
     """
     tv_usec: int = ...
     """
     microseconds
-
     """
 
     # gi Methods
@@ -20962,7 +20855,6 @@ class TrashStack(GObject.GPointer):
     pointer to the previous element of the stack,
         gets stored in the first `sizeof (gpointer)`
         bytes of the element
-
     """
 
     # gi Methods
@@ -21254,7 +21146,6 @@ class Tuples(GObject.GPointer):
     len: int = ...
     """
     the number of records that matched.
-
     """
 
     # gi Methods
@@ -21287,7 +21178,6 @@ class UnixPipe(GObject.GPointer):
     A pair of file descriptors, each negative if closed or not yet opened.
      The file descriptor with index G_UNIX_PIPE_END_READ is readable.
      The file descriptor with index G_UNIX_PIPE_END_WRITE is writable.
-
     """
 
 class UriParamsIter(GObject.GPointer):

@@ -6860,13 +6860,11 @@ class KeymapKey(GObject.GPointer):
       for two different languages. In group 0, a key might have two English
       characters, and in group 1 it might have two Hebrew characters. The Hebrew
       characters will be printed on the key next to the English characters.
-
     """
     keycode: int = ...
     """
     the hardware keycode. This is an identifying number for a
       physical key.
-
     """
     level: int = ...
     """
@@ -6876,7 +6874,6 @@ class KeymapKey(GObject.GPointer):
       the “1” or the “!” symbol. The letter keys are considered to have a lowercase
       letter at level 0, and an uppercase letter at level 1, though only the
       uppercase letter is printed.
-
     """
 
 class MemoryTexture(Texture):
@@ -8012,22 +8009,18 @@ class RGBA(GObject.GBoxed):
     """
     The opacity of the color from 0.0 for completely translucent to
       1.0 for opaque
-
     """
     blue: float = ...
     """
     The intensity of the blue channel from 0.0 to 1.0 inclusive
-
     """
     green: float = ...
     """
     The intensity of the green channel from 0.0 to 1.0 inclusive
-
     """
     red: float = ...
     """
     The intensity of the red channel from 0.0 to 1.0 inclusive
-
     """
 
     # gi Methods
@@ -8138,22 +8131,18 @@ class Rectangle(GObject.GBoxed):
     height: int = ...
     """
     the height of the rectangle
-
     """
     width: int = ...
     """
     the width of the rectangle
-
     """
     x: int = ...
     """
     the x coordinate of the top left corner
-
     """
     y: int = ...
     """
     the y coordinate of the top left corner
-
     """
 
     # gi Methods
@@ -9130,17 +9119,14 @@ class TimeCoord(GObject.GPointer):
     axes: list | None = ...
     """
     axis values, indexed by [enum`Gdk`.AxisUse]
-
     """
     flags: AxisFlags = ...
     """
     Flags indicating what axes are present, see [flags`Gdk`.AxisFlags]
-
     """
     time: int = ...
     """
     The timestamp for this event
-
     """
 
 class Toplevel(builtins.object):

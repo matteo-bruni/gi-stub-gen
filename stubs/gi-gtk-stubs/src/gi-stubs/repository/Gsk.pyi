@@ -996,12 +996,10 @@ class ColorStop(GObject.GPointer):
     color: Gdk.RGBA | None = ...  # type: ignore
     """
     the color at the given offset
-
     """
     offset: float = ...
     """
     the offset of the color stop
-
     """
 
 class ConicGradientNode(RenderNode):
@@ -1779,27 +1777,22 @@ class ParseLocation(GObject.GPointer):
     bytes: int = ...
     """
     the offset of the location in the parse buffer, as bytes
-
     """
     chars: int = ...
     """
     the offset of the location in the parse buffer, as characters
-
     """
     line_bytes: int = ...
     """
     the position in the line, as bytes
-
     """
     line_chars: int = ...
     """
     the position in the line, as characters
-
     """
     lines: int = ...
     """
     the line of the location in the parse buffer
-
     """
 
 class Path(GObject.GBoxed):
@@ -2865,12 +2858,10 @@ class RoundedRect(GObject.GPointer):
     bounds: Graphene.Rect | None = ...  # type: ignore
     """
     the bounds of the rectangle
-
     """
     corner: list | None = ...
     """
     the size of the 4 rounded corners
-
     """
 
     # gi Methods
@@ -3056,22 +3047,18 @@ class Shadow(GObject.GPointer):
     color: Gdk.RGBA | None = ...  # type: ignore
     """
     the color of the shadow
-
     """
     dx: float = ...
     """
     the horizontal offset of the shadow
-
     """
     dy: float = ...
     """
     the vertical offset of the shadow
-
     """
     radius: float = ...
     """
     the radius of the shadow
-
     """
 
 class ShadowNode(RenderNode):

@@ -2079,25 +2079,21 @@ class BaseParseFrame(GObject.GBoxed):
     buffer: Gst.Buffer | None = ...  # type: ignore
     """
     input data to be parsed for frames.
-
     """
     flags: int = ...
     """
     a combination of input and output GstBase.ParseFrameFlags that
      convey additional context to subclass or allow subclass to tune
      subsequent GstBase.Parse actions.
-
     """
     offset: int = ...
     """
     media specific offset of input frame
       Note that a converter may have a different one on the frame's buffer.
-
     """
     out_buffer: Gst.Buffer | None = ...  # type: ignore
     """
     output data.
-
     """
     overhead: int = ...
     """
@@ -2105,7 +2101,6 @@ class BaseParseFrame(GObject.GBoxed):
       for the given frame, which is then used to enable more accurate bitrate
       computations. If this is -1, it is assumed that this frame should be
       skipped in bitrate calculation.
-
     """
     @builtins.property
     def size(self) -> int: ...
@@ -4328,23 +4323,19 @@ class BitReader(GObject.GPointer):
     bit: int = ...
     """
     Bit position in the current byte
-
     """
     byte: int = ...
     """
     Current byte position
-
     """
     data: list | None = ...
     """
     Data from which the bit reader will
       read
-
     """
     size: int = ...
     """
     Size of `data` in bytes
-
     """
 
     # gi Methods
@@ -4432,12 +4423,10 @@ class BitWriter(GObject.GPointer):
     bit_size: int = ...
     """
     Size of written `data` in bits
-
     """
     data: int = ...
     """
     Allocated `data` for bit writer to write
-
     """
     @builtins.property
     def owned(self) -> bool: ...
@@ -4529,18 +4518,15 @@ class ByteReader(GObject.GPointer):
     byte: int = ...
     """
     Current byte position
-
     """
     data: list | None = ...
     """
     Data from which the bit reader will
       read
-
     """
     size: int = ...
     """
     Size of `data` in bytes
-
     """
 
     # gi Methods
@@ -4949,22 +4935,18 @@ class ByteWriter(GObject.GPointer):
     alloc_size: int = ...
     """
     Allocation size of the data
-
     """
     fixed: bool = ...
     """
     If True no reallocations are allowed
-
     """
     owned: bool = ...
     """
     If False no reallocations are allowed and copies of data are returned
-
     """
     parent: ByteReader | None = ...
     """
     GstByteReader parent
-
     """
 
     # gi Methods
@@ -5149,29 +5131,24 @@ class CollectData(GObject.GPointer):
     buffer: Gst.Buffer | None = ...  # type: ignore
     """
     currently queued buffer.
-
     """
     collect: CollectPads | None = ...
     """
     owner GstCollectPads
-
     """
     pad: Gst.Pad | None = ...  # type: ignore
     """
     GstPad managed by this data
-
     """
     pos: int = ...
     """
     position in the buffer
-
     """
     @builtins.property
     def priv(self) -> CollectDataPrivate | None: ...
     segment: Gst.Segment | None = ...  # type: ignore
     """
     last segment received.
-
     """
     @builtins.property
     def state(self) -> CollectPadsStateFlags: ...

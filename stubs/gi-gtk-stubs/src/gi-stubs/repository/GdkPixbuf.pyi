@@ -1608,49 +1608,40 @@ class PixbufFormat(GObject.GBoxed):
     description: str = ...
     """
     a description of the image format
-
     """
     disabled: bool = ...
     """
     a boolean determining whether the loader is disabled`
-
     """
     domain: str = ...
     """
     the message domain for the `description`
-
     """
     extensions: list | None = ...
     """
     typical filename extensions for the
       image format
-
     """
     flags: int = ...
     """
     a combination of `GdkPixbufFormatFlags`
-
     """
     license: str = ...
     """
     a string containing license information, typically set to
       shorthands like "GPL", "LGPL", etc.
-
     """
     mime_types: list | None = ...
     """
     the MIME types for the image format
-
     """
     name: str = ...
     """
     the name of the image format
-
     """
     signature: PixbufModulePattern | None = ...
     """
     the signature of the module
-
     """
 
     # gi Methods
@@ -2052,68 +2043,55 @@ class PixbufModule(GObject.GPointer):
     begin_load: object | None = ...
     """
     begins an incremental load.
-
     """
     info: PixbufFormat | None = ...
     """
     a `GdkPixbufFormat` holding information about the module.
-
     """
     is_save_option_supported: PixbufModuleSaveOptionSupportedFuncPixbufModuleCB = ...
     """
     returns whether a save option key is supported by the module
-
     """
     load: PixbufModuleLoadFuncPixbufModuleCB = ...
     """
     loads an image from a file.
-
     """
     load_animation: PixbufModuleLoadAnimationFuncPixbufModuleCB = ...
     """
     loads an animation from a file.
-
     """
     load_increment: PixbufModuleIncrementLoadFuncPixbufModuleCB = ...
     """
     continues an incremental load.
-
     """
     load_xpm_data: PixbufModuleLoadXpmDataFuncPixbufModuleCB = ...
     """
     loads an image from data in memory.
-
     """
     module: GModule.Module | None = ...  # type: ignore
     """
     the loaded `GModule`.
-
     """
     module_name: str = ...
     """
     the name of the module, usually the same as the
      usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
-
     """
     module_path: str = ...
     """
     the path from which the module is loaded.
-
     """
     save: PixbufModuleSaveFuncPixbufModuleCB = ...
     """
     saves a `GdkPixbuf` to a file.
-
     """
     save_to_callback: object | None = ...
     """
     saves a `GdkPixbuf` by calling the given `GdkPixbufSaveFunc`.
-
     """
     stop_load: PixbufModuleStopLoadFuncPixbufModuleCB = ...
     """
     stops an incremental load.
-
     """
 
 class PixbufModulePattern(GObject.GPointer):
@@ -2155,17 +2133,14 @@ class PixbufModulePattern(GObject.GPointer):
     """
     mask containing bytes which modify how the prefix is matched against
      test data
-
     """
     prefix: str = ...
     """
     the prefix for this pattern
-
     """
     relevance: int = ...
     """
     relevance of this pattern
-
     """
 
 class PixbufNonAnim(PixbufAnimation):

@@ -2,6 +2,10 @@
 set positional-arguments := true
 set dotenv-load := true
 
+# python code to find gi overrides path
+
+sys_overrides := ` /usr/bin/python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
+venv_overrides := ` uv run python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
 
 # Default recipe that runs if you type "just".
 default: 
@@ -88,6 +92,18 @@ ty:
         --ignore possibly-missing-attribute \
         stubs
 
-copy-gst-overrides:
-    sudo apt install gstreamer1.0-python3-plugin-loader
-    cp /usr/lib/python3/dist-packages/gi/overrides/Gst* .venv/lib/python3.12/site-packages/gi/overrides/
+
+# Sync degli override
+sync-gst:
+    @echo "🔄 Synchronizing GStreamer Overrides from ubuntu system to venv"
+    @echo "  📂 Source: {{sys_overrides}}"
+    @echo "  📂 Destination: {{venv_overrides}}"
+    
+    # Create the directory if it doesn't exist
+    mkdir -p "{{venv_overrides}}"
+    
+    # Copy the files (handles error if none found)
+    cp -v "{{sys_overrides}}"/Gst* "{{venv_overrides}}/"
+    cp -v "{{sys_overrides}}"/_gi_gst* "{{venv_overrides}}/"
+    
+    @echo "✅ Completed."

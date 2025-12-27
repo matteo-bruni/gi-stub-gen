@@ -134,10 +134,7 @@ class Repository(builtins.object):
 
     # python methods (overrides?)
     @staticmethod
-    def get_default(
-        *args: typing.Any,
-        **kwargs: typing.Any,
-    ) -> typing.Any: ...
+    def get_default() -> typing.Any: ...
 
 class _DummyStaticModule(type): ...
 

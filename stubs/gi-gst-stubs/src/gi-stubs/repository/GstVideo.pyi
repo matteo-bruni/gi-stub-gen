@@ -2910,8 +2910,6 @@ class VideoInfo(GObject.GBoxed):
     def copy(self) -> VideoInfo: ...
     def free(self) -> None: ...
     @staticmethod
-    def from_caps(caps: Gst.Caps) -> tuple[bool, VideoInfo]: ...
-    @staticmethod
     def init() -> VideoInfo: ...
     def is_equal(self, other: VideoInfo) -> bool: ...
     def set_format(self, format: VideoFormat, width: int, height: int) -> bool: ...
@@ -2924,6 +2922,13 @@ class VideoInfo(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @staticmethod
+    def from_caps(
+        *args: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
     @classmethod
     def new(
         cls,
@@ -4569,6 +4574,7 @@ class VideoConvertSampleCallback(typing.Protocol):
 ###############################################################
 
 _lock = _thread._lock  # type: ignore
+_overrides_module = ...  # this very module ...
 ###############################################################
 # Constants
 ###############################################################

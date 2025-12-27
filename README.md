@@ -58,11 +58,12 @@ uv sync
 
 ### !! Warning on Gstreamer.
 Until gstreamer start publishing gst-python wheels on pypi we need to install gst-python from the system packages and copy the overrides in the venv.
+Since i'm using ubuntu 25.10 i'm forced to use python 3.13 for the venv since the _gi_gst compiled library is distribuited via python3-gst-1.0 package only.
 
 in Ubuntu:
 ```bash
-sudo apt install gstreamer1.0-python3-plugin-loader
-cp /usr/lib/python3/dist-packages/gi/overrides/Gst* .venv/lib/python3.12/site-packages/gi/overrides/
+sudo apt install python3-gst-1.0 gstreamer1.0-python3-plugin-loader
+just sync-gst
 ```
 
 

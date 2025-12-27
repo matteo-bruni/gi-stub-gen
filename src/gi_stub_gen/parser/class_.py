@@ -24,7 +24,7 @@ from gi_stub_gen.utils.gi_utils import (
     is_class_field_nullable,
 )
 from gi_stub_gen.manager.gir_docs import GIRDocs
-from gi_stub_gen.overrides import apply_method_overrides
+from gi_stub_gen.overrides import apply_field_overrides, apply_method_overrides
 
 from gi_stub_gen.parser.python_function import parse_python_function
 from gi_stub_gen.parser.constant import parse_constant
@@ -41,6 +41,7 @@ from gi_stub_gen.schema.signals import (
     SignalSchema,
     generate_notify_signal,
 )
+from gi_stub_gen.utils.gst import get_fraction_value
 from gi_stub_gen.utils.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
@@ -256,15 +257,12 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
                 gi_name = info.get_name()  # es. "Application"
                 assert gi_ns is not None and gi_name is not None
                 try:
-                    # 2. Importiamo dinamicamente il modulo
-                    # Questo equivale a: from gi.repository import Gtk
                     module = importlib.import_module(f"gi.repository.{gi_ns}")
-                    # 3. Accediamo alla classe
-                    # Questo basta a PyGObject per registrare il wrapper e settare gtype.pytype
-                    pytype = getattr(module, gi_name)
 
+                    # this works and let pygobject register the wrapper and set gtype.pytype
+                    pytype = getattr(module, gi_name)
                     # now gtype.pytype should be set
-                    pytype = gtype.pytype
+                    # pytype = gtype.pytype
 
                 except (ImportError, AttributeError):
                     pass
@@ -340,7 +338,10 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
                 py_type_hint_name = get_py_type_name_repr(pytype)
                 py_type_hint_namespace = get_py_type_namespace_repr(pytype)
                 try:
-                    default_value_repr = repr(prop_spec.get_default_value())
+                    # check if its a fraction
+                    default_value_repr = get_fraction_value(prop_spec.get_default_value())
+                    if not default_value_repr:
+                        default_value_repr = repr(prop_spec.get_default_value())
                 except TypeError:
                     default_value_repr = "None" if is_class_field_nullable(prop_spec) else "..."
                     # breakpoint()
@@ -365,7 +366,7 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
             )
         )
 
-    # 7. Creiamo lo schema della funzione
+    # create __init__ method schema
     class_init = FunctionSchema(
         name="__init__",
         namespace=namespace,
@@ -752,6 +753,11 @@ def parse_class(
     # since it has been injected by pygobject
     class_methods = apply_method_overrides(
         class_methods,
+        namespace=module_name,
+        class_name=class_to_parse.__name__,
+    )
+    class_fields = apply_field_overrides(
+        class_fields,
         namespace=module_name,
         class_name=class_to_parse.__name__,
     )
