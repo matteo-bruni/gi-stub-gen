@@ -183,68 +183,68 @@ class ClassSchema(BaseSchema):
             gi_imports.update(signal.required_gi_imports)
         return gi_imports
 
-    def add_init_method(self):
-        """
-        In parsed classes, add an __init__ method if not present.
+    # def add_init_method(self):
+    #     """
+    #     In parsed classes, add an __init__ method if not present.
 
-        In GI classes, the __init__ method is present but its the same as the new() method if existing
-        So we make a copy of the new() method and rename it to __init__
+    #     In GI classes, the __init__ method is present but its the same as the new() method if existing
+    #     So we make a copy of the new() method and rename it to __init__
 
-        if there is no new() method, we should pick the next new_<something>() method
-        but we skip this for now.
-        """
-        is_init_present_in_methods = any(method.name == "__init__" for method in self.methods)
-        is_init_present_in_python_methods = any(method.name == "__init__" for method in self.python_methods)
-        if is_init_present_in_methods or is_init_present_in_python_methods:
-            logger.debug(f"Class {self.namespace}.{self.name} already has __init__ method, skipping adding it.")
-            return
+    #     if there is no new() method, we should pick the next new_<something>() method
+    #     but we skip this for now.
+    #     """
+    #     is_init_present_in_methods = any(method.name == "__init__" for method in self.methods)
+    #     is_init_present_in_python_methods = any(method.name == "__init__" for method in self.python_methods)
+    #     if is_init_present_in_methods or is_init_present_in_python_methods:
+    #         logger.debug(f"Class {self.namespace}.{self.name} already has __init__ method, skipping adding it.")
+    #         return
 
-        args: list[FunctionArgumentSchema] = []
-        for prop in self.props:
-            if prop.writable:
-                args.append(
-                    FunctionArgumentSchema(
-                        direction="IN",
-                        name=prop.name,
-                        namespace=self.namespace,
-                        may_be_null=prop.may_be_null,
-                        is_optional=prop.may_be_null,
-                        is_callback=False,
-                        get_array_length=-1,
-                        is_deprecated=False,
-                        is_caller_allocates=False,
-                        tag_as_string="??",
-                        line_comment=None,
-                        py_type_name=prop.type_hint_name,
-                        py_type_namespace=prop.type_hint_namespace,
-                        default_value="...",
-                        is_pointer=False,
-                    )
-                )
-        class_init = FunctionSchema(
-            name="__init__",
-            namespace=self.namespace,
-            is_method=True,
-            is_deprecated=False,
-            deprecation_warnings=None,
-            docstring="Generated __init__ stub method. order not guaranteed. ",
-            args=args,
-            is_callback=False,
-            can_throw_gerror=False,
-            is_async=False,
-            is_constructor=False,
-            is_getter=False,
-            is_setter=False,
-            may_return_null=False,
-            return_hint="None",
-            return_hint_namespace=None,
-            skip_return=False,
-            wrap_vfunc=False,
-            line_comment=None,
-            function_type="FunctionInfo",
-            is_overload=False,
-        )
-        self.methods.insert(0, class_init)
+    #     args: list[FunctionArgumentSchema] = []
+    #     for prop in self.props:
+    #         if prop.writable:
+    #             args.append(
+    #                 FunctionArgumentSchema(
+    #                     direction="IN",
+    #                     name=prop.name,
+    #                     namespace=self.namespace,
+    #                     may_be_null=prop.may_be_null,
+    #                     is_optional=prop.may_be_null,
+    #                     is_callback=False,
+    #                     get_array_length=-1,
+    #                     is_deprecated=False,
+    #                     is_caller_allocates=False,
+    #                     tag_as_string="??",
+    #                     line_comment=None,
+    #                     py_type_name=prop.type_hint_name,
+    #                     py_type_namespace=prop.type_hint_namespace,
+    #                     default_value="...",
+    #                     is_pointer=False,
+    #                 )
+    #             )
+    #     class_init = FunctionSchema(
+    #         name="__init__",
+    #         namespace=self.namespace,
+    #         is_method=True,
+    #         is_deprecated=False,
+    #         deprecation_warnings=None,
+    #         docstring="Generated __init__ stub method. order not guaranteed. ",
+    #         args=args,
+    #         is_callback=False,
+    #         can_throw_gerror=False,
+    #         is_async=False,
+    #         is_constructor=False,
+    #         is_getter=False,
+    #         is_setter=False,
+    #         may_return_null=False,
+    #         return_hint="None",
+    #         return_hint_namespace=None,
+    #         skip_return=False,
+    #         wrap_vfunc=False,
+    #         line_comment=None,
+    #         function_type="FunctionInfo",
+    #         is_overload=False,
+    #     )
+    #     self.methods.insert(0, class_init)
 
     @classmethod
     def from_gi_object(
@@ -340,7 +340,7 @@ class ClassSchema(BaseSchema):
             required_gi_import=required_gi_import,
             python_methods=builtin_methods,
         )
-        instance.add_init_method()
+        # instance.add_init_method()
         return instance
 
     @property
@@ -372,6 +372,7 @@ class ClassSchema(BaseSchema):
             super_class=self.super_class,
         )
 
+    @property
     def has_any_data(self):
         """
         used in template check if class has any data to render

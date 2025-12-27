@@ -1,4 +1,7 @@
 # Copyright (c) 2025 Matteo Bruni
+import faulthandler
+
+faulthandler.enable()
 
 import typer
 import logging

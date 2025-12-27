@@ -24,4 +24,6 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% endif %}
 
     {{ cls_.render_signals() | indent(4, first=False) }}
-    {% if not (cls_.has_any_data or debug) %} ... {% endif %}
+    {% if not (cls_.has_any_data or debug) %}
+    ...
+    {% endif %}

@@ -129,8 +129,8 @@ uv add "git+https://github.com/matteo-bruni/gi-stub-gen.git#subdirectory=stubs/g
 note: until the packages are published as wheels (pypi or github releases), i will not bother to update the versions, so to update to latest generated stubs, you can use:
 
 ```bash
-uv sync --refresh -P gi-base-stubs
-uv sync --refresh -P gi-gst-stubs
+uv sync --refresh --no-cache -P gi-base-stubs
+uv sync --refresh --no-cache -P gi-gst-stubs
 ```
 to trigger and overwrite the existing packages with the latest generated stubs.
 
@@ -164,6 +164,18 @@ As an example:
 - [ ] typing.overload hides the parents implementations. We are using this for signals connect() methods. TODO: for each class traverse the MRO and collect all overloads for methods that are overloaded in parents too. or get_parent() and check if method exists there.
 - [ ] Handle VFunctionInfo (virtual functions) ??? no examples
 - [ ] Handle UnionInfo ??? no examples maybe GLib.TokenValue?
+- [ ] in generated __init__ class constructor add all the params from superclasses __init__ methods. (eg see Gtk.Box should also have Gtk.Widget __init__ params)
+
+## Bug GObject
+
+this snippet segfault python
+```python
+import gi
+gi.require_version("GObject", "2.0")
+from gi.repository import GObject
+GObject.list_properties(GObject.GInterface)
+```
+
 ---
 
 ### License

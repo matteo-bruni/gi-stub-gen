@@ -66,23 +66,24 @@ class GIRepo:
         """
         assert self._repo is not None, "GIRepo not initialized"
 
+        namespace = namespace.removeprefix("gi.repository.")
+
         # Simple cache key to avoid repeated C calls
         key = f"{namespace}-{version}" if version is not None else namespace
         if key in self._loaded_namespaces:
             return
 
-        gi_to_import = namespace.removeprefix("gi.repository.")
         if version is not None:
             try:
                 self._repo.require(
-                    gi_to_import,
+                    namespace,
                     version,
                     GIRepository.RepositoryLoadFlags.NONE,
                 )
                 self._loaded_namespaces.add(key)
             except Exception as e:
                 logger.error(
-                    f"Impossible to load {gi_to_import} {version=}: {e}",
+                    f"Impossible to load {namespace} {version=}: {e}",
                 )
 
     @overload

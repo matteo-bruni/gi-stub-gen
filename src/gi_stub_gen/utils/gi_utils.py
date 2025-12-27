@@ -48,6 +48,26 @@ map_gi_tag_to_type = {
     GI.TypeTag.ERROR: GLib.Error,  # 20
     GI.TypeTag.GTYPE: GObject.GType,  # 12 use string? the resolved type has lowercase gobject
 }
+# same map but for gtype
+MAP_GI_GTYPE_TO_TYPE = {
+    GObject.TYPE_BOOLEAN: bool,
+    GObject.TYPE_CHAR: str,
+    GObject.TYPE_DOUBLE: float,
+    GObject.TYPE_FLOAT: float,
+    GObject.TYPE_GTYPE: GObject.GType,
+    GObject.TYPE_INT: int,
+    GObject.TYPE_INT64: int,
+    GObject.TYPE_LONG: int,
+    GObject.TYPE_NONE: None,
+    GObject.TYPE_STRING: str,
+    GObject.TYPE_UCHAR: str,
+    GObject.TYPE_UINT: int,
+    GObject.TYPE_UINT64: int,
+    GObject.TYPE_ULONG: int,
+    GObject.TYPE_POINTER: object,
+    GObject.TYPE_BOXED: object,
+    GObject.TYPE_STRV: list[str],
+}
 
 
 # def get_gi_array_length(

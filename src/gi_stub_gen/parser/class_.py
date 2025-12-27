@@ -1,4 +1,5 @@
 from __future__ import annotations
+import importlib
 
 import gi
 import gi._gi as GI  # type: ignore
@@ -16,6 +17,7 @@ from types import (
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi_stub_gen.manager.gi_repo import GIRepo
 from gi_stub_gen.utils.gi_utils import (
+    MAP_GI_GTYPE_TO_TYPE,
     get_gi_type_info,
     gi_type_is_callback,
     gi_type_to_py_type,
@@ -33,6 +35,7 @@ from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
 from gi_stub_gen.schema.function import (
     CallbackSchema,
+    FunctionArgumentSchema,
 )
 from gi_stub_gen.schema.signals import (
     SignalSchema,
@@ -65,7 +68,7 @@ def gi_parse_field(
 ) -> tuple[ClassFieldSchema, CallbackSchema | None]:
     """
     Parse a struct/class field.
-    Currently not implemented.
+    A class field can be a callback, in that case a CallbackSchema is also returned.
 
     Args:
         field (GIRepository.FieldInfo | GI.FieldInfo): field info object
@@ -180,6 +183,218 @@ def should_expose_class_field(
     if tag == GIRepository.TypeTag.VOID:
         return False
     return True
+
+
+def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
+    """
+    Create an __init__ stub by inspecting the real Python class via PyGObject.
+    This captures all properties (parents + interfaces) exactly as Python sees them.
+
+    Args:
+        real_cls: The actual Python class object (e.g. Gtk.Box, not the GI info).
+    """
+
+    # BEWARE!: if looping through GObject.list_properties(real_cls)
+    # GObject.GInterface will segfault (pygobject version 3.54.0)
+    # when doing list_properties on it.
+    if real_cls is GObject.GInterface:
+        return None
+
+    # 2. Otteniamo TUTTE le proprietà appiattite
+    # GObject.list_properties(cls) restituisce una lista di GParamSpec
+    # per la classe, incluse quelle di TUTTI i genitori e TUTTE le interfacce.
+    try:
+        props = GObject.list_properties(real_cls)
+    except TypeError:
+        # Succede se real_cls non è un GObject (es. struct semplici o enum)
+        return None
+
+    args: list[FunctionArgumentSchema] = []
+
+    # Usiamo un set per evitare duplicati rari (anche se list_properties è solitamente pulito)
+    seen_props = set()
+    prop_spec: GObject.ParamSpec
+    # 3. Iteriamo e filtriamo
+    # Ordiniamo per nome per avere stub deterministici
+    for prop_spec in props:  # sorted(props, key=lambda x: x.name):
+        name = prop_spec.name  # Es: "secondary-icon-name"
+        logger.debug(f"# Property: {name}")
+
+        if name in seen_props:
+            logger.debug(f"  - {name} skipping duplicate property")
+            continue
+        seen_props.add(name)
+
+        # Controlliamo i Flags: ci interessano WRITABLE o CONSTRUCT
+        flags = prop_spec.flags
+        assert flags is not None, "ParamSpec flags is None"
+        # GObject.ParamFlags.WRITABLE = 2, CONSTRUCT = 4, CONSTRUCT_ONLY = 8
+        is_writable = (
+            (flags & GObject.ParamFlags.WRITABLE)
+            or (flags & GObject.ParamFlags.CONSTRUCT)
+            or (flags & GObject.ParamFlags.CONSTRUCT_ONLY)
+        )
+        is_deprecated = bool(flags & GObject.ParamFlags.DEPRECATED)
+        if not is_writable:
+            logger.debug(f"  - {name} skipping non-writable/non-construct property")
+            continue
+
+        sane_arg_name, line_comment = sanitize_variable_name(name)
+        blurb = prop_spec.get_blurb()
+        if blurb:
+            if line_comment:
+                line_comment += f" {blurb}"
+            else:
+                line_comment = blurb
+
+        # 5. Risoluzione Tipo Python
+        gtype = prop_spec.value_type
+        pytype = gtype.pytype
+
+        if pytype is None:
+            # TODO: find by name?
+            # Gtk.PrintBackend non viene trovato
+            # maybe it does not work beacuse it is not loaded yet?
+            info = GIRepo().raw.find_by_gtype(gtype)
+            if info:
+                gi_ns = info.get_namespace()  # es. "Gtk"
+                gi_name = info.get_name()  # es. "Application"
+                assert gi_ns is not None and gi_name is not None
+                try:
+                    # 2. Importiamo dinamicamente il modulo
+                    # Questo equivale a: from gi.repository import Gtk
+                    module = importlib.import_module(f"gi.repository.{gi_ns}")
+                    # 3. Accediamo alla classe
+                    # Questo basta a PyGObject per registrare il wrapper e settare gtype.pytype
+                    _ = getattr(module, gi_name)
+
+                    # now gtype.pytype should be set
+                    pytype = gtype.pytype
+
+                except (ImportError, AttributeError):
+                    pass
+            else:
+                # we try  via find_by_name guessing the name
+                # eg. Gtk.PrintBackend has no gtype registered but it exists in the GIR
+                c_name = gtype.name  # Es: "GtkPrintBackend"
+                if c_name and c_name.startswith(namespace):
+                    guessed_name = c_name[len(namespace) :]
+                    info_by_name = GIRepo().find_by_name(namespace, guessed_name)
+                    if info_by_name:
+                        gi_ns = info_by_name.get_namespace()  # es. "Gtk"
+                        gi_name = info_by_name.get_name()  # es. "Application"
+                        assert gi_ns is not None and gi_name is not None
+                        try:
+                            module = importlib.import_module(f"gi.repository.{gi_ns}")
+                            pytype = getattr(module, gi_name)
+                        except (ImportError, AttributeError):
+                            pass
+
+        if pytype is None:
+            # pass from here only if we fail to load the type
+            default_value_repr = "None"
+            if gtype not in MAP_GI_GTYPE_TO_TYPE:
+                breakpoint()
+                assert False, f"Unknown gtype with no pytype in ParamSpec: {gtype}: {gtype.name}"
+            pytype = MAP_GI_GTYPE_TO_TYPE.get(gtype, None)
+            py_type_hint_name = get_py_type_name_repr(pytype)
+            py_type_hint_namespace = get_py_type_namespace_repr(pytype)
+
+        else:
+            if pytype is GObject.ValueArray:
+                # it is deprecated move to list
+                pytype = list
+                default_value_repr = "None"
+                py_type_hint_name = pytype.__name__
+                py_type_hint_namespace = get_py_type_namespace_repr(pytype)
+
+            elif issubclass(pytype, (GObject.GEnum, GObject.GFlags)):
+                # Enum/Flag type
+                py_type_hint_name = pytype.__name__
+                py_type_hint_namespace = get_py_type_namespace_repr(pytype)
+
+                default_value = prop_spec.get_default_value()
+                default_value_repr = repr(prop_spec.get_default_value())
+                # Enums/Flags: usiamo il nome dell'enum/flag come default
+                # default_value = f"{py_type_hint_namespace}.{py_type_hint_name}({default_value})"
+                try:
+                    actual_default = pytype(default_value)
+                    if actual_default.name is None:
+                        # this can happen in flags when default is 0 and no flag has value 0
+                        default_value_repr = "None"
+                    elif "|" in actual_default.name:
+                        # multiple flags combined
+                        ns = (
+                            f"{py_type_hint_namespace}."
+                            if py_type_hint_namespace and py_type_hint_namespace != namespace
+                            else ""
+                        )
+                        default_value_repr = " | ".join(
+                            f"{ns}{py_type_hint_name}.{part.strip()}" for part in actual_default.name.split("|")
+                        )
+
+                    else:
+                        default_value_repr = f"{py_type_hint_name}.{actual_default.name}"
+                        if py_type_hint_namespace != namespace:
+                            default_value_repr = f"{py_type_hint_namespace}.{default_value_repr}"
+                except Exception:
+                    # fallback: usiamo il valore numerico
+                    default_value_repr = repr(prop_spec.get_default_value())
+            else:
+                # regular type
+                py_type_hint_name = get_py_type_name_repr(pytype)
+                py_type_hint_namespace = get_py_type_namespace_repr(pytype)
+                try:
+                    default_value_repr = repr(prop_spec.get_default_value())
+                except TypeError:
+                    default_value_repr = "None" if is_class_field_nullable(prop_spec) else "..."
+                    # breakpoint()
+
+        args.append(
+            FunctionArgumentSchema(
+                direction="IN",
+                name=sane_arg_name,
+                namespace=namespace,
+                may_be_null=is_class_field_nullable(prop_spec),
+                is_optional=True,
+                is_callback=False,
+                get_array_length=-1,
+                is_deprecated=is_deprecated,
+                is_caller_allocates=False,
+                tag_as_string="",
+                line_comment=line_comment,
+                py_type_name=py_type_hint_name,
+                py_type_namespace=py_type_hint_namespace,  # Gestito nella stringa sopra
+                default_value=default_value_repr,  # Default standard per kwarg opzionale
+                is_pointer=False,
+            )
+        )
+
+    # 7. Creiamo lo schema della funzione
+    class_init = FunctionSchema(
+        name="__init__",
+        namespace=namespace,
+        is_method=True,
+        is_deprecated=False,
+        deprecation_warnings=None,
+        docstring=f"Initialize {real_cls.__name__} object with properties.",
+        args=args,
+        is_callback=False,
+        can_throw_gerror=False,
+        is_async=False,
+        is_constructor=False,  # <- it is not a constructor in Python
+        is_getter=False,
+        is_setter=False,
+        may_return_null=False,
+        return_hint="None",
+        return_hint_namespace=None,
+        skip_return=False,
+        wrap_vfunc=False,
+        line_comment=None,
+        function_type="FunctionInfo",
+        is_overload=False,
+    )
+    return class_init
 
 
 def parse_class(
@@ -498,18 +713,6 @@ def parse_class(
                 namespace=module_name.removeprefix("gi.repository."),
                 name_override=attribute_name,
             ):
-                # if class_to_parse.__name__ == "DeviceProvider" and f.name == "add_metadata":
-                #     import inspect
-
-                #     sig = inspect.signature(attribute)
-                #     is_method = inspect.ismethod(sig)
-                #     breakpoint()
-                # if f.params:
-                #     # some overrides use instance as first param, rename to self
-                #     # dont know why they do that though
-                #     # if f.params[0].name == "instance":
-                #     if f.params[0].name != "self":
-                #         f.params[0].name = "self"
                 if f.name == "__init__":
                     # some zelous overrides define __init__ with return type Any..
                     # we fix that here
@@ -537,6 +740,16 @@ def parse_class(
         namespace=module_name,
         class_name=class_to_parse.__name__,
     )
+
+    # add __init__ method
+    is_init_present_in_methods = any(method.name == "__init__" for method in class_methods)
+    is_init_present_in_python_methods = any(method.name == "__init__" for method in class_python_methods)
+    if not (is_init_present_in_methods or is_init_present_in_python_methods):
+        if init_method := create_init_method(
+            namespace=module_name.removeprefix("gi.repository."),
+            real_cls=class_to_parse,
+        ):
+            class_methods.insert(0, init_method)
 
     # sort methods by name
     class_fields.sort(key=lambda x: x.name)
