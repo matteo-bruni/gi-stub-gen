@@ -2,28 +2,27 @@ import sys
 import gi
 
 gi.require_version("Gst", "1.0")
-from gi.repository import Gst, GLib  # noqa: E402
+from gi.repository import Gst  # noqa: E402
 
-# Inizializzazione
 Gst.init()
 
 
 class GstTester:
     def __init__(self):
-        # 1. Test Costruttore e Inheritance
-        # Se gli stub di Bin sono corretti, questo non deve dare errore
+        # 1. Test Constructor and Inheritance
+        # If the stubs for Bin are correct, this should not give an error
         self.pipeline = Gst.Pipeline.new("test-pipeline")
 
-        # 2. Test Factory (metodi statici/globali)
+        # 2. Test Factory (static/global methods)
         self.src = Gst.ElementFactory.make("fakesrc", "source")
         self.sink = Gst.ElementFactory.make("fakesink", "sink")
 
         if not self.src or not self.sink:
-            print("Elementi non creati")
+            print("Elements not created properly")
             sys.exit(1)
 
-        # 3. Test metodi di classe mappati (Gst.Bin.add)
-        # Se la docstring translation ha funzionato, l'IDE deve suggerire .add()
+        # 3. Test mapped class methods (Gst.Bin.add)
+        # If the docstring translation worked, the IDE should suggest .add()
         self.pipeline.add(self.src)
         self.pipeline.add(self.sink)
 
@@ -36,32 +35,32 @@ class GstTester:
         if pad is None:
             return
 
-        # --- TEST CRITICO: add_probe e user_data ---
+        # --- CRITICAL TEST: add_probe and user_data ---
 
-        # CASO A: Nessun user_data
-        # Stub atteso: callback(pad, info)
+        # CASE A: No user_data
+        # Expected stub: callback(pad, info)
         pad.add_probe(Gst.PadProbeType.BUFFER, self.probe_simple)
 
-        # CASO B: Un user_data (Stringa)
-        # Stub atteso: callback(pad, info, user_data)
+        # CASE B: One user_data (String)
+        # Expected stub: callback(pad, info, user_data)
         pad.add_probe(Gst.PadProbeType.BUFFER, self.probe_with_data, "MyStringData")
 
-        # CASO C: Molteplici user_data (Variadic)
-        # Stub atteso: callback(pad, info, *args)
-        # Questo funziona solo se hai messo *user_data nello stub!
+        # CASE C: Multiple user_data (Variadic)
+        # Expected stub: callback(pad, info, *args)
+        # This only works if you put *user_data in the stub!
         pad.add_probe(Gst.PadProbeType.BUFFER, self.probe_multi_data, "Part1", 123, {"key": "val"})
 
-        # CASO D: Explicit None (se hai usato object | None)
+        # CASE D: Explicit None (if you used object | None)
         pad.add_probe(Gst.PadProbeType.BUFFER, self.probe_with_none, None)
 
     # --- CALLBACKS ---
 
     def probe_simple(self, pad: Gst.Pad, info: Gst.PadProbeInfo) -> Gst.PadProbeReturn:
-        print("Probe Simple chiamata")
+        print("Probe Simple called")
         return Gst.PadProbeReturn.OK
 
     def probe_with_data(self, pad: Gst.Pad, info: Gst.PadProbeInfo, user_data: str) -> Gst.PadProbeReturn:
-        # Se lo stub è corretto, l'IDE sa che 'data' è str
+        # If the stub is correct, the IDE knows that 'user_data' is str
         print(f"Probe Data: {user_data.upper()}")
         return Gst.PadProbeReturn.OK
 
