@@ -5663,6 +5663,20 @@ class Allocator(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -6180,6 +6194,20 @@ class Bin(Element):
     def connect(
         self,
         detailed_signal: typing.Literal["notify::message_forward"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
@@ -7156,6 +7184,20 @@ class BufferPool(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -7595,6 +7637,20 @@ class Bus(Object):
     def connect(
         self,
         detailed_signal: typing.Literal["notify::enable_async"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
@@ -8811,6 +8867,20 @@ class Clock(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -9082,6 +9152,13 @@ class ControlBinding(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -9174,6 +9251,20 @@ class ControlSource(Object):
         self,
         detailed_signal: typing.Literal["notify"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -9675,6 +9766,20 @@ class Device(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -9878,6 +9983,20 @@ class DeviceMonitor(Object):
     def connect(
         self,
         detailed_signal: typing.Literal["notify::show_all"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
@@ -10121,6 +10240,20 @@ class DeviceProvider(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -10281,6 +10414,20 @@ class DeviceProviderFactory(PluginFeature):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -10358,6 +10505,20 @@ class DynamicTypeFactory(PluginFeature):
         self,
         detailed_signal: typing.Literal["notify"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -11260,6 +11421,20 @@ class Element(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -11623,6 +11798,20 @@ class ElementFactory(PluginFeature):
         self,
         detailed_signal: typing.Literal["notify"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -12417,6 +12606,48 @@ class GhostPad(ProxyPad):
         self,
         detailed_signal: typing.Literal["notify"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::caps"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::direction"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::offset"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::template"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -15656,6 +15887,20 @@ class Pad(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -15949,6 +16194,20 @@ class PadTemplate(Object):
     def connect(
         self,
         detailed_signal: typing.Literal["notify::presence"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
@@ -16411,6 +16670,34 @@ class Pipeline(Bin):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::async_handling"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::message_forward"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -16639,6 +16926,20 @@ class Plugin(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -16795,6 +17096,20 @@ class PluginFeature(Object):
         self,
         detailed_signal: typing.Literal["notify"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -17347,6 +17662,48 @@ class ProxyPad(Pad):
         self,
         detailed_signal: typing.Literal["notify"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::caps"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::direction"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::offset"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::template"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -18204,6 +18561,20 @@ class Registry(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -18708,6 +19079,20 @@ class SharedTaskPool(TaskPool):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -18961,6 +19346,20 @@ class Stream(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -19093,6 +19492,20 @@ class StreamCollection(Object):
     def connect(
         self,
         detailed_signal: typing.Literal["notify::upstream_id"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
@@ -19864,6 +20277,41 @@ class SystemClock(Clock):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::timeout"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::window_size"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::window_threshold"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -20480,6 +20928,20 @@ class Task(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -20611,6 +21073,20 @@ class TaskPool(Object):
         self,
         detailed_signal: typing.Literal["notify"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -20971,6 +21447,20 @@ class Tracer(Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -21043,6 +21533,20 @@ class TracerFactory(PluginFeature):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -21075,6 +21579,20 @@ class TracerRecord(Object):
         self,
         detailed_signal: typing.Literal["notify"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -21246,6 +21764,20 @@ class TypeFindFactory(PluginFeature):
         self,
         detailed_signal: typing.Literal["notify"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::name"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify::parent"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload

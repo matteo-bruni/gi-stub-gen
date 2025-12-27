@@ -16,6 +16,7 @@ repository = Repository.get_default()
 # https://amolenaar.pages.gitlab.gnome.org/pygobject-docs/Gst-1.0/functions.html#gi.repository.Gst.init
 # https://gstreamer.freedesktop.org/documentation/gstreamer/gst.html?gi-language=python#gst_init
 # https://valadoc.org/gstreamer-1.0/Gst.init.html
+# https://lazka.github.io/pgi-docs/
 
 map_gi_tag_to_type = {
     # bool
@@ -68,22 +69,6 @@ MAP_GI_GTYPE_TO_TYPE = {
     GObject.TYPE_BOXED: object,
     GObject.TYPE_STRV: list[str],
 }
-
-
-# def get_gi_array_length(
-#     gi_type_info: GI.TypeInfo,
-# ) -> int:
-# removed in pygobject 3.54.0?? was present in 3.50.0
-# logger.warning(
-#     f"Could not get array length for argument {obj.get_name()}: {e}"
-# )
-# https://valadoc.org/gobject-introspection-1.0/GI.TypeInfo.get_array_length.html
-# the array length, or -1 if the type is not an array
-# somehow in the newer pygobject this method is missing if not an array
-
-#     if hasattr(gi_type_info, "get_array_length"):
-#         return gi_type_info.get_array_length()
-#     return -1
 
 
 def get_safe_gi_array_length(
@@ -204,38 +189,6 @@ def gi_type_is_callback(gi_type_info: GI.TypeInfo) -> bool:
     return gi_type_info.get_tag() == GI.TypeTag.INTERFACE and isinstance(
         gi_type_info.get_interface(), (GI.CallbackInfo, GIRepository.CallbackInfo)
     )
-
-
-# def gi_callback_to_py_type(gi_type_info: GI.TypeInfo):
-#     """
-#     Map a gi callback type to a python type
-
-#     A callback is of type gi.CallbackInfo. If trying to access (i.e. Gst.LogFunction)
-#     it will raise a NotImplementedError since it is not implemented in pygobject
-#     (no direct python equivalent)
-
-#     We can work around this by querying the repository, i.e
-#     ```
-#     repository = Repository.get_default()
-#     repository.find_by_name("Gst", "LogFunction")
-#     ```
-#     TODO: It should be represented as a Callable Type using Callable from typing
-#     or a protocol from PEP 544
-#     https://peps.python.org/pep-0544/#callback-protocols
-
-#     Args:
-#         gi_type_info (GI.TypeInfo): type info object
-
-#     Returns:
-#         python type object
-
-#     """
-#     if not gi_type_is_callback(gi_type_info):
-#         raise ValueError("Not a callback")
-#     return repository.find_by_name(
-#         gi_type_info.get_interface().get_namespace(),
-#         gi_type_info.get_interface().get_name(),
-#     )
 
 
 # GObject.ClosureMarshal
