@@ -1,5 +1,5 @@
 {% if props %}
-class Props{{ super_class | if_true(super_class != "object", '({}.Props)')  }}:
+class Props{{ super_class | if_true(super_class != "builtins.object", '({}.Props)')  }}:
     {% for prop in props %}
     {{ prop.name }}: {{ prop.type_hint(module_name) }} {{ prop.line_comment | if_exists("# ") | trim }}
     {% if prop.docstring or prop.is_deprecated %}
@@ -12,7 +12,7 @@ class Props{{ super_class | if_true(super_class != "object", '({}.Props)')  }}:
 
 @builtins.property
 def props(self) -> Props: ...
-{% elif super_class == "object" %}
+{% elif super_class == "builtins.object" %}
 {# No props in this class but its super is object is a parent class for future inherited class, so we add a fake empty since someone might inherit from this class #}
 class Props: 
     ...

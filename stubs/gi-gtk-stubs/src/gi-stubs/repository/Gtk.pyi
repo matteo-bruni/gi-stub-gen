@@ -6109,7 +6109,7 @@ class AboutDialog(Window):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Accessible(GObject.GInterface):
+class Accessible(object):
     """
     An interface for describing UI elements for Assistive Technologies.
 
@@ -6143,7 +6143,7 @@ class Accessible(GObject.GInterface):
     updating the sibling by [method`Gtk`.Accessible.update_next_accessible_sibling].
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         accessible_role: AccessibleRole  # [accessible-role]: changed because contained invalid characters
         """
         The accessible role of the given `GtkAccessible` implementation.
@@ -6371,7 +6371,7 @@ class AccessibleList(GObject.GBoxed):
         of the passed list of accessible objects
         """
 
-class AccessibleRange(GObject.GInterface):
+class AccessibleRange(object):
     """
     An interface for accessible objects containing a numeric value.
 
@@ -6400,6 +6400,11 @@ class AccessibleRange(GObject.GInterface):
     - `GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT`
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -6413,7 +6418,7 @@ class AccessibleRangeInterface(GObject.GPointer):
     @builtins.property
     def set_current_value(self) -> set_current_valueAccessibleRangeInterfaceCB: ...
 
-class AccessibleText(GObject.GInterface):
+class AccessibleText(object):
     """
     An interface for accessible objects containing formatted text.
 
@@ -6424,6 +6429,11 @@ class AccessibleText(GObject.GInterface):
     [enum`Gtk`.AccessibleProperty.DESCRIPTION] properties for accessible
     objects containing simple, unformatted text.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -6648,7 +6658,7 @@ class ActionBar(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Actionable(GObject.GInterface):
+class Actionable(object):
     """
     Provides a way to associate widgets with actions.
 
@@ -6664,7 +6674,7 @@ class Actionable(GObject.GInterface):
     as well.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         action_name: str  # [action-name]: changed because contained invalid characters
         """
         The name of the action with which this widget should be associated.
@@ -7411,7 +7421,7 @@ class AnyFilter(MultiFilter):
 
 class AnyFilterClass(GObject.GPointer): ...
 
-class AppChooser(GObject.GInterface):
+class AppChooser(object):
     """
     `GtkAppChooser` is an interface for widgets which allow the user to
     choose an application.
@@ -7434,7 +7444,7 @@ class AppChooser(GObject.GInterface):
     use [method`Gtk`.AppChooser.get_app_info].
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         content_type: str  # [content-type]: changed because contained invalid characters
         """
         The content type of the `GtkAppChooser` object.
@@ -8172,7 +8182,7 @@ class AppChooserWidget(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Application(GObject.Object):
+class Application(Gio.Application):
     """
     A high-level API for writing applications.
 
@@ -8246,7 +8256,7 @@ class Application(GObject.Object):
     - [Getting Started with GTK: Basics](getting_started.html#basics)
     """
 
-    class Props(GObject.Object.Props):
+    class Props(Gio.Application.Props):
         active_window: Window | None  # [active-window]: changed because contained invalid characters
         """
         The currently focused window of the application.
@@ -10409,7 +10419,7 @@ class BoxLayoutClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
-class Buildable(GObject.GInterface):
+class Buildable(object):
     """
     Allows objects to extend and customize deserialization from ui files.
 
@@ -10424,6 +10434,11 @@ class Buildable(GObject.GInterface):
     An object only needs to implement this interface if it needs to extend the
     `GtkBuilder` XML format or run any extra routines at deserialization time.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -11492,7 +11507,7 @@ class BuilderListItemFactory(ListItemFactory):
 
 class BuilderListItemFactoryClass(GObject.GPointer): ...
 
-class BuilderScope(GObject.GInterface):
+class BuilderScope(object):
     """
     Provides language binding support to `GtkBuilder`.
 
@@ -11512,6 +11527,11 @@ class BuilderScope(GObject.GInterface):
     may want to (partially) derive from or fall back to a [class`Gtk`.BuilderCScope],
     as that class implements support for automatic lookups from C symbols.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -13796,7 +13816,7 @@ class CellAreaContextClass(GObject.GPointer):
 
 class CellAreaContextPrivate(GObject.GPointer): ...
 
-class CellEditable(GObject.GInterface):
+class CellEditable(object):
     """
     Interface for widgets that can be used for editing cells
 
@@ -13805,7 +13825,7 @@ class CellEditable(GObject.GInterface):
     temporary widgets should be configured for editing, get the new value, etc.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         editing_canceled: bool  # [editing-canceled]: changed because contained invalid characters
         """
         Indicates whether editing on the cell has been canceled.
@@ -13913,7 +13933,7 @@ class CellEditableIface(GObject.GPointer):
         Begins editing on a cell_editable.
         """
 
-class CellLayout(GObject.GInterface):
+class CellLayout(object):
     """
     An interface for packing cells
 
@@ -14024,6 +14044,11 @@ class CellLayout(GObject.GInterface):
     problematic calls out of ``init`` and into a ``constructor``
     for your class.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -17503,7 +17528,7 @@ class ColorButton(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ColorChooser(GObject.GInterface):
+class ColorChooser(object):
     """
     `GtkColorChooser` is an interface that is implemented by widgets
     for choosing colors.
@@ -17515,7 +17540,7 @@ class ColorChooser(GObject.GInterface):
     [class`Gtk`.ColorButton].
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         rgba: Gdk.RGBA | None
         """
         The currently selected color, as a `GdkRGBA` struct.
@@ -20942,13 +20967,18 @@ class ConstraintLayoutClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
-class ConstraintTarget(GObject.GInterface):
+class ConstraintTarget(object):
     """
     Makes it possible to use an object as source or target in a
     [class`Gtk`.Constraint].
 
     Besides `GtkWidget`, it is also implemented by `GtkConstraintGuide`.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -23596,7 +23626,7 @@ class DropTargetAsync(EventController):
 class DropTargetAsyncClass(GObject.GPointer): ...
 class DropTargetClass(GObject.GPointer): ...
 
-class Editable(GObject.GInterface):
+class Editable(object):
     """
     Interface for single-line text editing widgets.
 
@@ -23728,7 +23758,7 @@ class Editable(GObject.GInterface):
     to them on the delegate obtained via [method`Gtk`.Editable.get_delegate].
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         cursor_position: int  # [cursor-position]: changed because contained invalid characters
         """
         The current position of the insertion cursor in chars.
@@ -27586,7 +27616,7 @@ class ExpressionWatch(GObject.GBoxed):
         was established.
         """
 
-class FileChooser(GObject.GInterface):
+class FileChooser(object):
     """
     `GtkFileChooser` is an interface that can be implemented by file
     selection widgets.
@@ -27630,7 +27660,7 @@ class FileChooser(GObject.GInterface):
     be rendered as a combo box.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         action: FileChooserAction
         """
         The type of operation that the file chooser is performing.
@@ -31138,7 +31168,7 @@ class FontButton(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontChooser(GObject.GInterface):
+class FontChooser(object):
     """
     `GtkFontChooser` is an interface that can be implemented by widgets
     for choosing fonts.
@@ -31148,7 +31178,7 @@ class FontChooser(GObject.GInterface):
     [class`Gtk`.FontButton].
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         font: str
         """
         The font description as a string, e.g. "Sans Italic 12".
@@ -44501,7 +44531,7 @@ class MnemonicTrigger(ShortcutTrigger):
 
 class MnemonicTriggerClass(GObject.GPointer): ...
 
-class MountOperation(GObject.Object):
+class MountOperation(Gio.MountOperation):
     """
     Asks the user for passwords and other information required to
     mount a volume.
@@ -44518,7 +44548,7 @@ class MountOperation(GObject.Object):
     enter passwords, ask questions or show processes blocking unmount.
     """
 
-    class Props(GObject.Object.Props):
+    class Props(Gio.MountOperation.Props):
         display: Gdk.Display | None
         """
         The display where dialogs will be shown.
@@ -44904,7 +44934,7 @@ class NamedAction(ShortcutAction):
 
 class NamedActionClass(GObject.GPointer): ...
 
-class Native(GObject.GInterface):
+class Native(object):
     """
     An interface for widgets that have their own [class`Gdk`.Surface].
 
@@ -44921,6 +44951,11 @@ class Native(GObject.GInterface):
     a [class`Gsk`.Renderer] for rendering on that surface. To get the
     renderer, use [method`Gtk`.Native.get_renderer].
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -46259,7 +46294,7 @@ class ObjectExpression(Expression):
         If you want to keep a reference to `object`, use [ctor`Gtk`.ConstantExpression.new].
         """
 
-class Orientable(GObject.GInterface):
+class Orientable(object):
     """
     An interface for widgets that can be oriented horizontally or vertically.
 
@@ -46273,7 +46308,7 @@ class Orientable(GObject.GInterface):
     the value of the [property`Gtk`.Orientable:orientation] property.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         orientation: Orientation
         """
         The orientation of the orientable.
@@ -50797,7 +50832,7 @@ class PrintOperationClass(GObject.GPointer):
         Emitted after change of selected printer.
         """
 
-class PrintOperationPreview(GObject.GInterface):
+class PrintOperationPreview(object):
     """
     The interface that is used to implement print preview.
 
@@ -50805,6 +50840,11 @@ class PrintOperationPreview(GObject.GInterface):
     [signal`Gtk`.PrintOperation::preview] signal by
     [class`Gtk`.PrintOperation].
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -53417,7 +53457,7 @@ class Revealer(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Root(GObject.GInterface):
+class Root(object):
     """
     An interface for widgets that can act as the root of a widget hierarchy.
 
@@ -53433,6 +53473,11 @@ class Root(GObject.GInterface):
     `GtkRoot` also maintains the location of keyboard focus inside its widget
     hierarchy, with [method`Gtk`.Root.set_focus] and [method`Gtk`.Root.get_focus].
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -54130,7 +54175,7 @@ class ScrollInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-class Scrollable(GObject.GInterface):
+class Scrollable(object):
     """
     An interface for widgets with native scrolling ability.
 
@@ -54162,7 +54207,7 @@ class Scrollable(GObject.GInterface):
       signal, the scrollable widget should scroll its contents.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         hadjustment: Adjustment | None
         """
         Horizontal `GtkAdjustment` of the scrollable widget.
@@ -55574,7 +55619,7 @@ class SearchEntry(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SectionModel(GObject.GInterface):
+class SectionModel(object):
     """
     An interface that adds support for sections to list models.
 
@@ -55592,6 +55637,11 @@ class SectionModel(GObject.GInterface):
     The [signal`Gio`.ListModel::items-changed] signal has the same effect, all sections in
     that range are invalidated, too.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -55748,7 +55798,7 @@ class SelectionFilterModelClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class SelectionModel(GObject.GInterface):
+class SelectionModel(object):
     """
     An interface that adds support for selection to list models.
 
@@ -55788,6 +55838,11 @@ class SelectionModel(GObject.GInterface):
     Selections may happen asynchronously, so the only reliable way to find out
     when an item was selected is to listen to the signals that indicate selection.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -57427,7 +57482,7 @@ class ShortcutLabel(Widget):
 
 class ShortcutLabelClass(GObject.GPointer): ...
 
-class ShortcutManager(GObject.GInterface):
+class ShortcutManager(object):
     """
     An interface that is used to implement shortcut scopes.
 
@@ -57441,6 +57496,11 @@ class ShortcutManager(GObject.GInterface):
     Every widget that implements `GtkShortcutManager` will be used as a
     `GTK_SHORTCUT_SCOPE_MANAGED`.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -59057,7 +59117,7 @@ class SliceListModelClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class Snapshot(GObject.Object):
+class Snapshot(Gdk.Snapshot):
     """
     Assists in creating [class`Gsk`.RenderNode]s for widgets.
 
@@ -62171,7 +62231,7 @@ class StyleContextClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class StyleProvider(GObject.GInterface):
+class StyleProvider(object):
     """
     An interface for style information used by [class`Gtk`.StyleContext].
 
@@ -62182,6 +62242,11 @@ class StyleProvider(GObject.GInterface):
     GTK uses the `GtkStyleProvider` implementation for CSS in
     [class`Gtk`.CssProvider].
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -62389,7 +62454,7 @@ class Switch(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SymbolicPaintable(GObject.GInterface):
+class SymbolicPaintable(object):
     """
     An interface that supports symbolic colors in paintables.
 
@@ -62403,6 +62468,11 @@ class SymbolicPaintable(GObject.GInterface):
 
     More colors may be added in the future.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -68586,10 +68656,15 @@ class Tooltip(GObject.Object):
         `Gtk.TreeView.set_tooltip_cell`.
         """
 
-class TreeDragDest(GObject.GInterface):
+class TreeDragDest(object):
     """
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -68634,10 +68709,15 @@ class TreeDragDestIface(GObject.GPointer):
         the given dest_path, at the same depth as dest_path.
         """
 
-class TreeDragSource(GObject.GInterface):
+class TreeDragSource(object):
     """
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -69418,7 +69498,7 @@ class TreeListRowSorterClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> SorterClass | None: ...
 
-class TreeModel(GObject.GInterface):
+class TreeModel(object):
     """
     The tree interface used by GtkTreeView
 
@@ -69617,6 +69697,11 @@ class TreeModel(GObject.GInterface):
       however, signals must be emitted at all times (however the root level
       is always referenced when any view is attached).
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -70968,7 +71053,7 @@ class TreeSelection(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeSortable(GObject.GInterface):
+class TreeSortable(object):
     """
     The interface for sortable models used by GtkTreeView
 
@@ -70976,6 +71061,11 @@ class TreeSortable(GObject.GInterface):
     support sorting. The `GtkTreeView` uses the methods provided by this interface
     to sort the model.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:

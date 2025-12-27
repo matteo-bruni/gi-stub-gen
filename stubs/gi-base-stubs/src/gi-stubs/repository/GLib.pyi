@@ -15,6 +15,7 @@ import typing_extensions  # noqa: F401
 import builtins  # noqa: F401
 
 import _thread
+import builtins
 import enum
 import gi
 import typing
@@ -15853,7 +15854,7 @@ class DoubleIEEE754(GObject.GPointer):
     # gi Fields
     v_double: float = ...
 
-class Error(RuntimeError):
+class Error(builtins.RuntimeError):
     """
     The `GError` structure contains information about
     an error that has occurred.
@@ -17980,7 +17981,7 @@ class Once(GObject.GPointer):
         can be used to initialize pointers (or #guintptr) instead of #gsize.
         """
 
-class OptionContext(object):
+class OptionContext(builtins.object):
     """
     Alias to gi._gi.OptionContext. May Be incomplete since gi._gi is a private module.
 
@@ -18069,7 +18070,7 @@ class OptionEntry(GObject.GPointer):
 
     """
 
-class OptionGroup(object):
+class OptionGroup(builtins.object):
     """
     Alias to gi._gi.OptionGroup. May Be incomplete since gi._gi is a private module.
 
@@ -18286,7 +18287,7 @@ class PathBuf(GObject.GPointer):
         If the path buffer is empty, this function returns `None`.
         """
 
-class Pid(int):
+class Pid(builtins.int):
     """
     Alias to gi._gi.Pid. May Be incomplete since gi._gi is a private module.
     """

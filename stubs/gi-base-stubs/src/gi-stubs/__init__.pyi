@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 import builtins  # noqa: F401
 
+import builtins
 import pkgutil
 import typing
 ###############################################################
@@ -123,10 +124,10 @@ def require_versions(
 # classes
 ###############################################################
 
-class PyGIDeprecationWarning(DeprecationWarning): ...
-class PyGIWarning(Warning): ...
+class PyGIDeprecationWarning(builtins.DeprecationWarning): ...
+class PyGIWarning(builtins.Warning): ...
 
-class Repository(object):
+class Repository(builtins.object):
     class Props: ...
 
     @builtins.property

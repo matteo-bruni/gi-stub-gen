@@ -1363,7 +1363,12 @@ class AncillaryMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-class ColorBalance(GObject.GInterface):
+class ColorBalance(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1455,7 +1460,12 @@ class ColorBalanceInterface(GObject.GPointer):
     @builtins.property
     def value_changed(self) -> value_changedColorBalanceInterfaceCB: ...
 
-class Navigation(GObject.GInterface):
+class Navigation(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2443,8 +2453,8 @@ class VideoDecoderClass(GObject.GPointer):
 
 class VideoDecoderPrivate(GObject.GPointer): ...
 
-class VideoDirection(GObject.GInterface):
-    class Props(GObject.GInterface.Props):
+class VideoDirection(object):
+    class Props:
         video_direction: VideoOrientationMethod  # [video-direction]: changed because contained invalid characters
 
     @builtins.property
@@ -2997,7 +3007,12 @@ class VideoMetaTransform(GObject.GPointer):
 
 class VideoMultiviewFlagsSet(Gst.FlagSet): ...
 
-class VideoOrientation(GObject.GInterface):
+class VideoOrientation(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -3035,7 +3050,12 @@ class VideoOrientationInterface(GObject.GPointer):
     @builtins.property
     def set_vflip(self) -> set_vflipVideoOrientationInterfaceCB: ...
 
-class VideoOverlay(GObject.GInterface):
+class VideoOverlay(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """

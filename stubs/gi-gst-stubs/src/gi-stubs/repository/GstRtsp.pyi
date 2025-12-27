@@ -516,7 +516,12 @@ class RTSPConnection(GObject.GPointer):
     def write(self, data: list, size: int, timeout: GLib.TimeVal) -> RTSPResult: ...
     def write_usec(self, data: list, size: int, timeout: int) -> RTSPResult: ...
 
-class RTSPExtension(GObject.GInterface):
+class RTSPExtension(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """

@@ -513,7 +513,12 @@ class ValueType(GObject.GEnum):
 # classes
 ###############################################################
 
-class Action(GObject.GInterface):
+class Action(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -555,7 +560,12 @@ class Attribute(GObject.GPointer):
     @staticmethod
     def set_free(attrib_set: list) -> None: ...
 
-class Component(GObject.GInterface):
+class Component(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -632,7 +642,12 @@ class ComponentIface(GObject.GPointer):
     @builtins.property
     def set_size(self) -> set_sizeComponentIfaceCB: ...
 
-class Document(GObject.GInterface):
+class Document(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -709,7 +724,12 @@ class DocumentIface(GObject.GPointer):
     @builtins.property
     def set_text_selections(self) -> set_text_selectionsDocumentIfaceCB: ...
 
-class EditableText(GObject.GInterface):
+class EditableText(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -934,7 +954,12 @@ class HyperlinkClass(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
 
-class HyperlinkImpl(GObject.GInterface):
+class HyperlinkImpl(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -949,7 +974,12 @@ class HyperlinkImplIface(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class Hypertext(GObject.GInterface):
+class Hypertext(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -985,7 +1015,7 @@ class HypertextIface(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class Image(GObject.GInterface):
+class Image(object):
     """
     Displays an image.
 
@@ -1031,6 +1061,11 @@ class Image(GObject.GInterface):
     `GtkImage` uses the [enum`Gtk`.AccessibleRole.img] role.
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1061,7 +1096,12 @@ class Implementor(GObject.GPointer):
     # gi Methods
     def ref_accessible(self) -> Object: ...
 
-class ImplementorIface(GObject.GInterface):
+class ImplementorIface(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1173,8 +1213,8 @@ class NoOpObjectFactoryClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> ObjectFactoryClass | None: ...
 
-class Object(object):
-    class Props:
+class Object(GObject.Object):
+    class Props(GObject.Object.Props):
         accessible_component_layer: int  # [accessible-component-layer]: changed because contained invalid characters
         accessible_component_mdi_zorder: (
             int  # [accessible-component-mdi-zorder]: changed because contained invalid characters
@@ -1925,7 +1965,12 @@ class RelationSetClass(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
 
-class Selection(GObject.GInterface):
+class Selection(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2050,7 +2095,12 @@ class StateSetClass(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
 
-class StreamableContent(GObject.GInterface):
+class StreamableContent(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2080,7 +2130,12 @@ class StreamableContentIface(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class Table(GObject.GInterface):
+class Table(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2168,7 +2223,12 @@ class Table(GObject.GInterface):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TableCell(GObject.GInterface):
+class TableCell(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2278,7 +2338,7 @@ class TableIface(GObject.GPointer):
     @builtins.property
     def set_summary(self) -> set_summaryTableIfaceCB: ...
 
-class Text(GObject.GInterface):
+class Text(object):
     """
     A single-line text entry.
 
@@ -2389,6 +2449,11 @@ class Text(GObject.GInterface):
     as a delegate for a `GtkEditable` implementation that will be represented
     to accessibility.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -2584,7 +2649,12 @@ class UtilClass(GObject.GPointer):
     @builtins.property
     def remove_key_event_listener(self) -> remove_key_event_listenerUtilClassCB: ...
 
-class Value(GObject.GInterface):
+class Value(object):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2644,7 +2714,7 @@ class ValueIface(GObject.GPointer):
     @builtins.property
     def set_value(self) -> set_valueValueIfaceCB: ...
 
-class Window(GObject.GInterface):
+class Window(object):
     """
     A toplevel window which can contain other widgets.
 
@@ -2721,6 +2791,11 @@ class Window(GObject.GInterface):
 
     From GTK 4.12 to 4.18, it used the [enum`Gtk`.AccessibleRole.application] role.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:

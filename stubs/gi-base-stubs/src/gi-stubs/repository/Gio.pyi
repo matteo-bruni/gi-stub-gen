@@ -15,6 +15,7 @@ import typing_extensions  # noqa: F401
 import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -5056,7 +5057,7 @@ class ZlibCompressorFormat(GObject.GEnum):
 # classes
 ###############################################################
 
-class Action(GObject.GInterface):
+class Action(builtins.object):
     """
     `GAction` represents a single named action.
 
@@ -5089,7 +5090,7 @@ class Action(GObject.GInterface):
     inside of a [class`Gio`.SimpleActionGroup].
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         enabled: bool
         """
         If `action` is currently enabled.
@@ -5380,7 +5381,7 @@ class ActionEntry(GObject.GPointer):
 
     """
 
-class ActionGroup(GObject.GInterface):
+class ActionGroup(builtins.object):
     """
     `GActionGroup` represents a group of actions.
 
@@ -5427,6 +5428,11 @@ class ActionGroup(GObject.GInterface):
     not be implemented — their ‘wrappers’ are actually implemented with
     calls to [method`Gio`.ActionGroup.query_action].
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -5806,7 +5812,7 @@ class ActionInterface(GObject.GPointer):
         the virtual function pointer for [method`Gio`.Action.get_state_type]
         """
 
-class ActionMap(GObject.GInterface):
+class ActionMap(builtins.object):
     """
     `GActionMap` is an interface for action containers.
 
@@ -5820,6 +5826,11 @@ class ActionMap(GObject.GInterface):
     This is the motivation for the ‘Map’ part of the interface
     name.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -5940,7 +5951,7 @@ class ActionMapInterface(GObject.GPointer):
         [method`Gio`.ActionMap.remove_action]
         """
 
-class AppInfo(GObject.GInterface):
+class AppInfo(builtins.object):
     """
     Information about an installed application and methods to launch
     it (with file arguments).
@@ -5998,6 +6009,11 @@ class AppInfo(GObject.GInterface):
     Different launcher applications (e.g. file managers) may have
     different ideas of what a given URI means.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -8405,7 +8421,7 @@ class ApplicationCommandLineClass(GObject.GPointer):
 class ApplicationCommandLinePrivate(GObject.GPointer): ...
 class ApplicationPrivate(GObject.GPointer): ...
 
-class AsyncInitable(GObject.GInterface):
+class AsyncInitable(builtins.object):
     """
     `GAsyncInitable` is an interface for asynchronously initializable objects.
 
@@ -8510,6 +8526,11 @@ class AsyncInitable(GObject.GInterface):
     ```
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -8613,7 +8634,7 @@ class AsyncInitableIface(GObject.GPointer):
         Finishes initialization of the object.
         """
 
-class AsyncResult(GObject.GInterface):
+class AsyncResult(builtins.object):
     """
     `GAsyncResult` provides a base class for implementing asynchronous function results.
 
@@ -8701,6 +8722,11 @@ class AsyncResult(GObject.GInterface):
     `G_PRIORITY_LOW` and `G_PRIORITY_HIGH`, with `G_PRIORITY_DEFAULT`
     as a default.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -9467,7 +9493,7 @@ class CharsetConverterClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class Converter(GObject.GInterface):
+class Converter(builtins.object):
     """
     `GConverter` is an interface for streaming conversions.
 
@@ -9479,6 +9505,11 @@ class Converter(GObject.GInterface):
     compression, decompression and regular expression
     replace.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -11283,7 +11314,7 @@ class DBusErrorEntry(GObject.GPointer):
 
     """
 
-class DBusInterface(GObject.GInterface):
+class DBusInterface(builtins.object):
     """
     Base type for D-Bus interfaces.
 
@@ -11291,6 +11322,11 @@ class DBusInterface(GObject.GInterface):
     on the service side (see [class`Gio`.DBusInterfaceSkeleton]) and client side
     (see [class`Gio`.DBusProxy]).
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -12351,13 +12387,18 @@ class DBusNodeInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-class DBusObject(GObject.GInterface):
+class DBusObject(builtins.object):
     """
     The `GDBusObject` type is the base type for D-Bus objects on both
     the service side (see [class`Gio`.DBusObjectSkeleton]) and the client side
     (see [class`Gio`.DBusObjectProxy]). It is essentially just a container of
     interfaces.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -12441,7 +12482,7 @@ class DBusObjectIface(GObject.GPointer):
         The parent interface.
         """
 
-class DBusObjectManager(GObject.GInterface):
+class DBusObjectManager(builtins.object):
     """
     The `GDBusObjectManager` type is the base type for service- and
     client-side implementations of the standardized
@@ -12451,6 +12492,11 @@ class DBusObjectManager(GObject.GInterface):
     See [class`Gio`.DBusObjectManagerClient] for the client-side implementation
     and [class`Gio`.DBusObjectManagerServer] for the service-side implementation.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -14738,7 +14784,7 @@ class DataOutputStreamClass(GObject.GPointer):
 
 class DataOutputStreamPrivate(GObject.GPointer): ...
 
-class DatagramBased(GObject.GInterface):
+class DatagramBased(builtins.object):
     """
     Interface for socket-like objects with datagram semantics.
 
@@ -14790,6 +14836,11 @@ class DatagramBased(GObject.GInterface):
     To use a `GDatagramBased` concurrently from multiple threads, you must
     implement your own locking.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -15005,7 +15056,7 @@ class DatagramBasedInterface(GObject.GPointer):
         Virtual method for `g_datagram_based_send_messages`.
         """
 
-class DebugController(GObject.GInterface):
+class DebugController(builtins.object):
     """
     `GDebugController` is an interface to expose control of debugging features and
     debug output.
@@ -15025,7 +15076,7 @@ class DebugController(GObject.GInterface):
     all that’s needed to dynamically enable or disable debug output.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         debug_enabled: bool  # [debug-enabled]: changed because contained invalid characters
         """
         True if debug output should be exposed (for example by forwarding it to
@@ -15588,11 +15639,16 @@ class DesktopAppInfoClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class DesktopAppInfoLookup(GObject.GInterface):
+class DesktopAppInfoLookup(builtins.object):
     """
     GDesktopAppInfoLookup is an opaque data structure and can only be accessed
     using the following functions.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -15629,7 +15685,7 @@ class DesktopAppInfoLookupIface(GObject.GPointer):
         `g_desktop_app_info_lookup_get_default_for_uri_scheme`.
         """
 
-class Drive(GObject.GInterface):
+class Drive(builtins.object):
     """
     `GDrive` represents a piece of hardware connected to the machine.
     It’s generally only created for removable hardware or hardware with
@@ -15658,6 +15714,11 @@ class Drive(GObject.GInterface):
     For [porting from GnomeVFS](migrating-gnome-vfs.html) note that there is no
     equivalent of `GDrive` in that API.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -16053,13 +16114,13 @@ class DriveIface(GObject.GPointer):
         Finishes a stop operation. Since 2.22.
         """
 
-class DtlsClientConnection(GObject.GInterface):
+class DtlsClientConnection(builtins.object):
     """
     `GDtlsClientConnection` is the client-side subclass of
     [iface`Gio`.DtlsConnection], representing a client-side DTLS connection.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         accepted_cas: list | None  # [accepted-cas]: changed because contained invalid characters
         """
         A list of the distinguished names of the Certificate Authorities
@@ -16209,7 +16270,7 @@ class DtlsClientConnectionInterface(GObject.GPointer):
         The parent interface.
         """
 
-class DtlsConnection(GObject.GInterface):
+class DtlsConnection(builtins.object):
     """
     `GDtlsConnection` is the base DTLS connection class type, which wraps
     a [iface`Gio`.DatagramBased] and provides DTLS encryption on top of it. Its
@@ -16234,7 +16295,7 @@ class DtlsConnection(GObject.GInterface):
     further I/O.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         advertised_protocols: list | None  # [advertised-protocols]: changed because contained invalid characters
         """
         The list of application-layer protocols that the connection
@@ -16861,13 +16922,13 @@ class DtlsConnectionInterface(GObject.GPointer):
         Finish an asynchronous shutdown operation.
         """
 
-class DtlsServerConnection(GObject.GInterface):
+class DtlsServerConnection(builtins.object):
     """
     `GDtlsServerConnection` is the server-side subclass of
     [iface`Gio`.DtlsConnection], representing a server-side DTLS connection.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         authentication_mode: (
             TlsAuthenticationMode  # [authentication-mode]: changed because contained invalid characters
         )
@@ -17059,7 +17120,7 @@ class EmblemedIconClass(GObject.GPointer):
 
 class EmblemedIconPrivate(GObject.GPointer): ...
 
-class File(GObject.GInterface):
+class File(builtins.object):
     """
     `GFile` is a high level abstraction for manipulating files on a
     virtual file system. `GFile`s are lightweight, immutable objects
@@ -17153,6 +17214,11 @@ class File(GObject.GInterface):
     [specification](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)
     for HTTP `ETag` headers, which are a very similar concept.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -19220,7 +19286,7 @@ class FileAttributeMatcher(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-class FileDescriptorBased(GObject.GInterface):
+class FileDescriptorBased(builtins.object):
     """
     `GFileDescriptorBased` is an interface for file descriptor based IO.
 
@@ -19231,6 +19297,11 @@ class FileDescriptorBased(GObject.GInterface):
     GIO interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
     file or the `GioUnix-2.0` GIR namespace when using it.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -22053,7 +22124,7 @@ class IOStreamClass(GObject.GPointer):
 
 class IOStreamPrivate(GObject.GPointer): ...
 
-class Icon(GObject.GInterface):
+class Icon(builtins.object):
     """
     `GIcon` is a very minimal interface for icons. It provides functions
     for checking the equality of two icons, hashing of icons and
@@ -22086,6 +22157,11 @@ class Icon(GObject.GInterface):
     understood by [func`Gio`.Icon.deserialize], yielding one of the built-in
     icon types.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -22715,7 +22791,7 @@ class InetSocketAddressClass(GObject.GPointer):
 
 class InetSocketAddressPrivate(GObject.GPointer): ...
 
-class Initable(GObject.GInterface):
+class Initable(builtins.object):
     """
     `GInitable` is implemented by objects that can fail during
     initialization. If an object implements this interface then
@@ -22742,6 +22818,11 @@ class Initable(GObject.GInterface):
     during normal construction and automatically initialize them, throwing
     an exception on failure.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -23342,7 +23423,7 @@ class InputVector(GObject.GPointer):
 
     """
 
-class ListModel(GObject.GInterface):
+class ListModel(builtins.object):
     """
     `GListModel` is an interface that represents a mutable list of
     [class`GObject`.Object]. Its main intention is as a model for various widgets
@@ -23409,6 +23490,11 @@ class ListModel(GObject.GInterface):
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
     ```
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -23672,11 +23758,16 @@ class ListStoreClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class LoadableIcon(GObject.GInterface):
+class LoadableIcon(builtins.object):
     """
     `GLoadableIcon` extends the [iface`Gio`.Icon] interface and adds the ability
     to load icons from streams.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -23793,7 +23884,7 @@ class MemoryInputStreamClass(GObject.GPointer):
 
 class MemoryInputStreamPrivate(GObject.GPointer): ...
 
-class MemoryMonitor(GObject.GInterface):
+class MemoryMonitor(builtins.object):
     """
     `GMemoryMonitor` will monitor system memory and suggest to the application
     when to free memory so as to leave more room for other applications.
@@ -23844,6 +23935,11 @@ class MemoryMonitor(GObject.GInterface):
     Don’t forget to disconnect the [signal`Gio`.MemoryMonitor::low-memory-warning]
     signal, and unref the `GMemoryMonitor` itself when exiting.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -24898,7 +24994,7 @@ class MenuModelClass(GObject.GPointer):
 
 class MenuModelPrivate(GObject.GPointer): ...
 
-class Mount(GObject.GInterface):
+class Mount(builtins.object):
     """
     The `GMount` interface represents a user-visible mount, such as a mounted
     file system.
@@ -24926,6 +25022,11 @@ class Mount(GObject.GInterface):
     Note, when [porting from GnomeVFS](migrating-gnome-vfs.html), `GMount` is the
     moral equivalent of `GnomeVFSVolume`.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -25997,7 +26098,7 @@ class NetworkAddressClass(GObject.GPointer):
 
 class NetworkAddressPrivate(GObject.GPointer): ...
 
-class NetworkMonitor(GObject.GInterface):
+class NetworkMonitor(builtins.object):
     """
     `GNetworkMonitor` provides an easy-to-use cross-platform API
     for monitoring network connectivity. On Linux, the available
@@ -26007,7 +26108,7 @@ class NetworkMonitor(GObject.GInterface):
     There is also an implementation for use inside Flatpak sandboxes.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         connectivity: NetworkConnectivity
         """
         More detailed information about the host's network connectivity.
@@ -27475,7 +27576,7 @@ class PermissionClass(GObject.GPointer):
 
 class PermissionPrivate(GObject.GPointer): ...
 
-class PollableInputStream(GObject.GInterface):
+class PollableInputStream(builtins.object):
     """
     `GPollableInputStream` is implemented by [class`Gio`.InputStream]s that
     can be polled for readiness to read. This can be used when
@@ -27487,6 +27588,11 @@ class PollableInputStream(GObject.GInterface):
     returns false, then the behavior of other `GPollableInputStream` methods is
     undefined.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -27591,7 +27697,7 @@ class PollableInputStreamInterface(GObject.GPointer):
         G_IO_ERROR_WOULD_BLOCK
         """
 
-class PollableOutputStream(GObject.GInterface):
+class PollableOutputStream(builtins.object):
     """
     `GPollableOutputStream` is implemented by [class`Gio`.OutputStream]s that
     can be polled for readiness to write. This can be used when
@@ -27603,6 +27709,11 @@ class PollableOutputStream(GObject.GInterface):
     returns false, then the behavior of other `GPollableOutputStream` methods is
     undefined.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -27747,7 +27858,7 @@ class PollableOutputStreamInterface(GObject.GPointer):
         G_POLLABLE_RETURN_WOULD_BLOCK
         """
 
-class PowerProfileMonitor(GObject.GInterface):
+class PowerProfileMonitor(builtins.object):
     """
     `GPowerProfileMonitor` makes it possible for applications as well as OS
     components to monitor system power profiles and act upon them. It currently
@@ -27775,7 +27886,7 @@ class PowerProfileMonitor(GObject.GInterface):
     `GPowerProfileMonitor` itself when exiting.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         power_saver_enabled: bool  # [power-saver-enabled]: changed because contained invalid characters
         """
         Whether “Power Saver” mode is enabled on the system.
@@ -28020,7 +28131,7 @@ class PropertyAction(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Proxy(GObject.GInterface):
+class Proxy(builtins.object):
     """
     A `GProxy` handles connecting to a remote host via a given type of
     proxy server. It is implemented by the `gio-proxy` extension point.
@@ -28029,6 +28140,11 @@ class Proxy(GObject.GInterface):
     name `socks5` using the function
     [method`Gio`.IOExtensionPoint.get_extension_by_name].
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -28413,7 +28529,7 @@ class ProxyInterface(GObject.GPointer):
         Returns whether the proxy supports hostname lookups.
         """
 
-class ProxyResolver(GObject.GInterface):
+class ProxyResolver(builtins.object):
     """
     `GProxyResolver` provides synchronous and asynchronous network proxy
     resolution. `GProxyResolver` is used within [class`Gio`.SocketClient] through
@@ -28424,6 +28540,11 @@ class ProxyResolver(GObject.GInterface):
     found in [glib-networking](https://gitlab.gnome.org/GNOME/glib-networking).
     GIO comes with an implementation for use inside Flatpak portals.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -28511,7 +28632,7 @@ class ProxyResolverInterface(GObject.GPointer):
         `g_proxy_resolver_lookup_finish`
         """
 
-class RemoteActionGroup(GObject.GInterface):
+class RemoteActionGroup(builtins.object):
     """
     The `GRemoteActionGroup` interface is implemented by [iface`Gio`.ActionGroup]
     instances that either transmit action invocations to other processes
@@ -28535,6 +28656,11 @@ class RemoteActionGroup(GObject.GInterface):
     provides a mechanism by which to receive platform data for action
     invocations that arrive by way of D-Bus.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -29340,7 +29466,7 @@ class Resource(GObject.GBoxed):
         thread.
         """
 
-class Seekable(GObject.GInterface):
+class Seekable(builtins.object):
     """
     `GSeekable` is implemented by streams (implementations of
     [class`Gio`.InputStream] or [class`Gio`.OutputStream]) that support seeking.
@@ -29357,6 +29483,11 @@ class Seekable(GObject.GInterface):
     [``lseek``](man:lseek(2)) on a normal file.  Seeking past the end and writing
     data will usually cause the stream to resize by introducing zero bytes.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -33885,7 +34016,7 @@ class SocketClientClass(GObject.GPointer):
 
 class SocketClientPrivate(GObject.GPointer): ...
 
-class SocketConnectable(GObject.GInterface):
+class SocketConnectable(builtins.object):
     """
     Objects that describe one or more potential socket endpoints
     implement `GSocketConnectable`. Callers can then use
@@ -33945,6 +34076,11 @@ class SocketConnectable(GObject.GInterface):
     }
     ```
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -36945,12 +37081,17 @@ class ThreadedSocketServiceClass(GObject.GPointer):
 
 class ThreadedSocketServicePrivate(GObject.GPointer): ...
 
-class TlsBackend(GObject.GInterface):
+class TlsBackend(builtins.object):
     """
     TLS (Transport Layer Security, aka SSL) and DTLS backend. This is an
     internal type used to coordinate the different classes implemented
     by a TLS backend.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -37563,13 +37704,13 @@ class TlsCertificateClass(GObject.GPointer):
 
 class TlsCertificatePrivate(GObject.GPointer): ...
 
-class TlsClientConnection(GObject.GInterface):
+class TlsClientConnection(builtins.object):
     """
     `GTlsClientConnection` is the client-side subclass of
     [class`Gio`.TlsConnection], representing a client-side TLS connection.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         accepted_cas: list | None  # [accepted-cas]: changed because contained invalid characters
         """
         A list of the distinguished names of the Certificate Authorities
@@ -38922,14 +39063,14 @@ class TlsDatabaseClass(GObject.GPointer):
 
 class TlsDatabasePrivate(GObject.GPointer): ...
 
-class TlsFileDatabase(GObject.GInterface):
+class TlsFileDatabase(builtins.object):
     """
     `GTlsFileDatabase` is implemented by [class`Gio`.TlsDatabase] objects which
     load their certificate information from a file. It is an interface which
     TLS library specific subtypes implement.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         anchors: str
         """
         The path to a file containing PEM encoded certificate authority
@@ -39477,13 +39618,13 @@ class TlsPasswordClass(GObject.GPointer):
 
 class TlsPasswordPrivate(GObject.GPointer): ...
 
-class TlsServerConnection(GObject.GInterface):
+class TlsServerConnection(builtins.object):
     """
     `GTlsServerConnection` is the server-side subclass of
     [class`Gio`.TlsConnection], representing a server-side TLS connection.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         authentication_mode: (
             TlsAuthenticationMode  # [authentication-mode]: changed because contained invalid characters
         )
@@ -40338,7 +40479,7 @@ class VfsClass(GObject.GPointer):
     @builtins.property
     def parse_name(self) -> parse_nameVfsClassCB: ...
 
-class Volume(GObject.GInterface):
+class Volume(builtins.object):
     """
     The `GVolume` interface represents user-visible objects that can be
     mounted. For example, a file system partition on a USB flash drive, or an
@@ -40388,6 +40529,11 @@ class Volume(GObject.GInterface):
     identifier, which can be used to obtain a hal device by means of
     ``libhal_manager_find_device_string_match``.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:

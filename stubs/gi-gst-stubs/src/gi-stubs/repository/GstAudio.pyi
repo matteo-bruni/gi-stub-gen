@@ -2534,8 +2534,8 @@ class DsdPlaneOffsetMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-class StreamVolume(GObject.GInterface):
-    class Props(GObject.GInterface.Props):
+class StreamVolume(object):
+    class Props:
         mute: bool
         volume: float
 

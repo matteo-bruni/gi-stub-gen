@@ -15,6 +15,7 @@ import typing_extensions  # noqa: F401
 import builtins  # noqa: F401
 
 import _thread
+import builtins
 import enum
 import gi
 import typing
@@ -3486,9 +3487,9 @@ class FlagsValue(GPointer):
 
     """
 
-class Float(float): ...
+class Float(builtins.float): ...
 
-class GBoxed(object):
+class GBoxed(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -3554,7 +3555,7 @@ class GFlags(enum.IntFlag):
         The nicknames of the values.
         """
 
-class GInterface(object):
+class GInterface(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -3562,7 +3563,7 @@ class GInterface(object):
 
     ...
 
-class GObjectWeakRef(object):
+class GObjectWeakRef(builtins.object):
     """
     Alias to gi._gi.GObjectWeakRef. May Be incomplete since gi._gi is a private module.
     """
@@ -3574,7 +3575,7 @@ class GObjectWeakRef(object):
 
     ...
 
-class GPointer(object):
+class GPointer(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -3582,7 +3583,7 @@ class GPointer(object):
 
     ...
 
-class GType(object):
+class GType(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -3750,7 +3751,7 @@ class MappedFile(GBoxed): ...
 class MarkupParseContext(GBoxed): ...
 class MatchInfo(GBoxed): ...
 
-class Object(object):
+class Object(builtins.object):
     """
     The base object type.
 
@@ -4547,7 +4548,7 @@ class ObjectConstructParam(GPointer):
 
     """
 
-class OptionContext(object):
+class OptionContext(builtins.object):
     """
     Alias to gi._gi.OptionContext. May Be incomplete since gi._gi is a private module.
     """
@@ -4559,7 +4560,7 @@ class OptionContext(object):
 
     ...
 
-class OptionGroup(object):
+class OptionGroup(builtins.object):
     """
     Alias to gi._gi.OptionGroup. May Be incomplete since gi._gi is a private module.
     """
@@ -4586,11 +4587,6 @@ class ParamSpec(object):
     used, but they cannot be mixed. Using `-` is considerably more
     efficient, and is the ‘canonical form’. Using `_` is discouraged.
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Fields
     @builtins.property
@@ -5453,7 +5449,7 @@ class Parameter(GPointer):
 
 class PatternSpec(GBoxed): ...
 
-class Pid(int):
+class Pid(builtins.int):
     """
     Alias to gi._gi.Pid. May Be incomplete since gi._gi is a private module.
     """
@@ -6170,7 +6166,7 @@ class TypeModuleClass(GPointer):
         unloads the module
         """
 
-class TypePlugin(GInterface):
+class TypePlugin(builtins.object):
     """
     An interface that handles the lifecycle of dynamically loaded types.
 
@@ -6221,6 +6217,11 @@ class TypePlugin(GInterface):
     already implements most of this except for the actual module loading and
     unloading. It even handles multiple registered types per module.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -6852,7 +6853,7 @@ class ValueArray(GBoxed):
         C `qsort` function.
         """
 
-class Warning(Exception): ...
+class Warning(builtins.Warning): ...
 
 class WeakRef(GPointer):
     """

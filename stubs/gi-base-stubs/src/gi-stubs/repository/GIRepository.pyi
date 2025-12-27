@@ -567,11 +567,6 @@ class BaseInfo(object):
     ```
     """
 
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
     # gi Methods
     def clear(self) -> None:
         """

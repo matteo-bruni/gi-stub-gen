@@ -54,45 +54,75 @@ def get_super_class_name(
         obj (Any): object to get the super class name from
         current_namespace (str | None): current namespace of the object
     Returns:
-        tuple[str | None, str]: super class name and its module name
+        tuple:
+            - str | None: super class module
+            - str class name
     """
-    # usually the first class in the mro is the object class
-    # the second class is the super class
-    # but if there is an override, the first class is the override
-    # so the super class is the second class in the mro
-    # loop all mro until we find a class with __name__ different from obj.__name__
-    # TODO: should we skip gi._gi module?
-    super_class = next(
-        (
-            cls
-            for cls in obj.__mro__
-            # for cls in obj.mro()
-            if cls.__name__ != obj.__name__ and str(cls.__module__) != "gi._gi"
-        ),
-        object,
-    )
+
+    # If namespace is not provided, try to extract it from the object's module.
+    # e.g., "gi.repository.Gtk" -> "Gtk"
+    if current_namespace is None:
+        parts = obj.__module__.split(".")
+        current_namespace = parts[-1] if parts else ""
+    else:
+        current_namespace = sanitize_gi_module_name(current_namespace)
+
+    super_class = object
+
+    # Iterate over the MRO, skipping the first element (the class itself).
+    for cls in obj.__mro__[1:]:
+        mod_name = str(cls.__module__)
+        cls_name = cls.__name__
+
+        # 1. Skip internal C modules
+        # 'gi._gi' contains the raw C pointers/structs, not valid for inheritance stubs.
+        if mod_name == "gi._gi":
+            continue
+
+        # 2. Skip PyGObject Overrides
+        # We want to link to the static repository types (gi.repository.X),
+        # not the dynamic python overrides (gi.overrides.X).
+        if "gi.overrides" in mod_name:
+            continue
+
+        # 3. Handle classes with the SAME NAME as the object
+        if cls_name == obj.__name__:
+            # Extract the namespace of the candidate super class
+            # e.g., "gi.repository.Gio" -> "Gio"
+            candidate_ns = mod_name.split(".")[-1]
+
+            # CASE A: Shadowing (Same Name, Same Namespace)
+            # e.g., obj is Gtk.Builder (override), candidate is Gtk.Builder (repo).
+            # We must SKIP this because a class cannot inherit from itself in the stub.
+            if candidate_ns == current_namespace:
+                continue
+
+            # CASE B: Valid Inheritance (Same Name, Different Namespace)
+            # e.g., obj is Gtk.Application, candidate is Gio.Application.
+            # This is valid. We found the parent. Stop here.
+            # (Implicitly handled by falling through to the break below)
+
+        # 4. Skip GInterface
+        # GInterface often appears in the MRO but cannot be used as a direct
+        # base class in the generated stub definition if a concrete GObject base exists.
+        if cls_name == "GInterface" and cls.__module__ == "gobject":
+            continue
+
+        # If we passed all checks, this is the valid super class.
+        super_class = cls
+        break
 
     super_module = str(super_class.__module__)
-    # sanitized_super_module_name = sanitize_gi_module_name(super_module)
 
-    # if sanitized_super_module_name == "gi":
-    #     sanitized_super_module_name = "GI"
+    # --- Formatting Output ---
 
+    # Handle built-in types (e.g. object, int, etc.)
     if super_module == "builtins":
         if super_class.__name__ == "module":
-            # if the super class is a module, return types.ModuleType ??
             return None, "type"
-            # return "types", "ModuleType"
-        return None, super_class.__name__
+        return super_module, super_class.__name__
 
     return super_module, super_class.__name__
-    # if the super class is in the same namespace as the current class
-    # return only the class name
-    # if sanitized_super_module_name == sanitize_gi_module_name(current_namespace):
-    #     return super_module, super_class.__name__
-
-    # # in typing it is uppercase
-    # return f"{sanitized_super_module_name}.{super_class.__name__}", super_module
 
 
 def get_py_type_namespace_repr(py_type: Any) -> str | None:

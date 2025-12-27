@@ -941,7 +941,7 @@ class FileDescriptorBasedIface(GObject.GPointer):
         Gets the underlying file descriptor.
         """
 
-class InputStream(GObject.Object):
+class InputStream(Gio.InputStream):
     """
     `GUnixInputStream` implements [class`Gio`.InputStream] for reading from a UNIX
     file descriptor, including asynchronous operations. (If the file
@@ -954,7 +954,7 @@ class InputStream(GObject.Object):
     file or the `GioUnix-2.0` GIR namespace when using it.
     """
 
-    class Props(GObject.Object.Props):
+    class Props(Gio.InputStream.Props):
         close_fd: bool  # [close-fd]: changed because contained invalid characters
         """
         Whether to close the file descriptor when the stream is closed.
@@ -1328,7 +1328,7 @@ class MountPoint(GObject.GBoxed):
         Checks if a Unix mount point is mountable by the user.
         """
 
-class OutputStream(GObject.Object):
+class OutputStream(Gio.OutputStream):
     """
     `GUnixOutputStream` implements [class`Gio`.OutputStream] for writing to a UNIX
     file descriptor, including asynchronous operations. (If the file
@@ -1341,7 +1341,7 @@ class OutputStream(GObject.Object):
     file or the `GioUnix-2.0` GIR namespace when using it.
     """
 
-    class Props(GObject.Object.Props):
+    class Props(Gio.OutputStream.Props):
         close_fd: bool  # [close-fd]: changed because contained invalid characters
         """
         Whether to close the file descriptor when the stream is closed.

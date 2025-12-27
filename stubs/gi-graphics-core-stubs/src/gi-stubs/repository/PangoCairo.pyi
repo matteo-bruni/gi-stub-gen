@@ -18,7 +18,6 @@ import _thread
 import typing
 
 # gi.repository imports needed by this Stub
-from gi.repository import GObject
 from gi.repository import Pango
 from gi.repository import cairo
 ###############################################################
@@ -358,7 +357,7 @@ def update_layout(
 # classes
 ###############################################################
 
-class Font(GObject.GInterface):
+class Font(object):
     """
     `PangoCairoFont` is an interface exported by fonts for
     use with Cairo.
@@ -366,6 +365,11 @@ class Font(GObject.GInterface):
     The actual type of the font will depend on the particular
     font technology Cairo was compiled to use.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -379,7 +383,7 @@ class Font(GObject.GInterface):
         `cairo_scaled_font_reference`.
         """
 
-class FontMap(GObject.GInterface):
+class FontMap(object):
     """
     `PangoCairoFontMap` is an interface exported by font maps for
     use with Cairo.
@@ -387,6 +391,11 @@ class FontMap(GObject.GInterface):
     The actual type of the font map will depend on the particular
     font technology Cairo was compiled to use.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:

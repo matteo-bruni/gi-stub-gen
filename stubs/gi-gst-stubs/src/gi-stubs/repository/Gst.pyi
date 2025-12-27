@@ -8164,7 +8164,7 @@ class CapsFeatures(GObject.GBoxed):
         This prints the features in human readable form.
         """
 
-class ChildProxy(GObject.GInterface):
+class ChildProxy(object):
     """
     This interface abstracts handling of property sets for elements with
     children. Imagine elements such as mixers or polyphonic generators. They all
@@ -8180,6 +8180,11 @@ class ChildProxy(GObject.GInterface):
     scheme is recursive. Thus `child1::child2::property` is valid too, if
     `child1` and `child2` implement the Gst.ChildProxy interface.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -16729,7 +16734,7 @@ class PollFD(GObject.GPointer):
         GST_POLL_FD_INIT.
         """
 
-class Preset(GObject.GInterface):
+class Preset(object):
     """
     This interface offers methods to query and manipulate parameter preset sets.
     A preset is a bunch of property settings, together with meta data and a name.
@@ -16755,6 +16760,11 @@ class Preset(GObject.GInterface):
     where to find presets through the GST_PRESET_PATH environment variable.
     Presets found in those paths will be considered as "app presets".
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -19746,7 +19756,7 @@ class TagList(GObject.GBoxed):
         Serializes a tag list to a string.
         """
 
-class TagSetter(GObject.GInterface):
+class TagSetter(object):
     """
     Element interface that allows setting of media metadata.
 
@@ -19789,6 +19799,11 @@ class TagSetter(GObject.GInterface):
     GST_LOG_OBJECT (tagsetter, "final tags: %" GST_PTR_FORMAT, result);
     ]|
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -20367,7 +20382,7 @@ class TocEntry(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-class TocSetter(GObject.GInterface):
+class TocSetter(object):
     """
     Element interface that allows setting of the TOC.
 
@@ -20384,6 +20399,11 @@ class TocSetter(GObject.GInterface):
     by getting extend UID for that (you can use `Gst.Toc.find_entry` to retrieve it)
     with any TOC entries received from downstream.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -20703,7 +20723,7 @@ class TypeFindFactory(PluginFeature):
 
 class TypeFindFactoryClass(GObject.GPointer): ...
 
-class URIHandler(GObject.GInterface):
+class URIHandler(object):
     """
     The Gst.URIHandler is an interface that is implemented by Source and Sink
     Gst.Element to unify handling of URI.
@@ -20714,6 +20734,11 @@ class URIHandler(GObject.GInterface):
 
     Source and Sink plugins should implement this interface when possible.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:

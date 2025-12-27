@@ -1874,7 +1874,7 @@ class VulkanError(GObject.GEnum):
 # classes
 ###############################################################
 
-class AppLaunchContext(GObject.Object):
+class AppLaunchContext(Gio.AppLaunchContext):
     """
     Handles launching an application in a graphical context.
 
@@ -1897,7 +1897,7 @@ class AppLaunchContext(GObject.Object):
     ```
     """
 
-    class Props(GObject.Object.Props):
+    class Props(Gio.AppLaunchContext.Props):
         display: Display | None
         """
         The display that the `GdkAppLaunchContext` is on.
@@ -3866,7 +3866,7 @@ class Device(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DevicePad(GObject.GInterface):
+class DevicePad(object):
     """
     An interface for tablet pad devices.
 
@@ -3885,6 +3885,11 @@ class DevicePad(GObject.GInterface):
     out through [method`Gdk`.DevicePad.get_group_n_modes], and the current mode
     for a given group will be notified through events of type `GDK_PAD_GROUP_MODE`.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -5236,10 +5241,15 @@ class Drag(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DragSurface(GObject.GInterface):
+class DragSurface(object):
     """
     A surface that is used during DND.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -7467,7 +7477,7 @@ class PadEvent(Event):
         Extracts group and mode information from a pad event.
         """
 
-class Paintable(GObject.GInterface):
+class Paintable(object):
     """
     An interface for content that can be painted.
 
@@ -7514,6 +7524,11 @@ class Paintable(GObject.GInterface):
     [method`Gdk`.Paintable.invalidate_size],
     [func`Gdk`.Paintable.new_empty].
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -7739,7 +7754,7 @@ class PaintableInterface(GObject.GPointer):
         This is the only function that must be implemented for this interface.
         """
 
-class Popup(GObject.GInterface):
+class Popup(object):
     """
     A surface that is attached to another surface.
 
@@ -7750,7 +7765,7 @@ class Popup(GObject.GInterface):
     property.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         autohide: bool
         """
         Whether to hide on outside clicks.
@@ -9136,7 +9151,7 @@ class TimeCoord(GObject.GPointer):
 
     """
 
-class Toplevel(GObject.GInterface):
+class Toplevel(object):
     """
     A freestanding toplevel surface.
 
@@ -9145,7 +9160,7 @@ class Toplevel(GObject.GInterface):
     surface, setting icons and transient parents for dialogs.
     """
 
-    class Props(GObject.GInterface.Props):
+    class Props:
         decorated: bool
         """
         Whether the window manager should add decorations.
