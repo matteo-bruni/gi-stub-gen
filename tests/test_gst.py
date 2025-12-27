@@ -2,6 +2,7 @@ from gi.repository import Gst
 
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.parser.function import parse_function
+from gi_stub_gen.utils.gst import get_fraction_value
 
 
 def test_gst_environment():
@@ -54,3 +55,19 @@ def test_function_gst_version_string():
     assert parsed_function.complete_return_hint(namespace="Gst") == "str"
     # should have no parameters
     assert parsed_function.render_args(namespace="Gst", one_line=True) == ""
+
+
+def test_fraction():
+    frac = Gst.Fraction(num=3, denom=4)
+    assert frac.num == 3
+    assert frac.denom == 4
+
+
+def test_fraction_values():
+    frac = Gst.Fraction(num=1, denom=100)
+
+    assert frac.num == 1
+    assert frac.denom == 100
+
+    value = get_fraction_value(frac)
+    assert value == "Gst.Fraction(num=1.0, denom=100.0)"
