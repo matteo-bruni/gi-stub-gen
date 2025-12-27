@@ -1171,6 +1171,13 @@ class Pixbuf(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::bits_per_sample"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -1418,6 +1425,19 @@ class PixbufAnimation(GObject.Object):
         new_from_stream_finish(async_result:Gio.AsyncResult) -> GdkPixbuf.PixbufAnimation or None
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class PixbufAnimationClass(GObject.GPointer):
     """
     Modules supporting animations must derive a type from
@@ -1557,6 +1577,19 @@ class PixbufAnimationIter(GObject.Object):
         """
         on_currently_loading_frame(self) -> bool
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class PixbufAnimationIterClass(GObject.GPointer):
     """
@@ -1965,6 +1998,13 @@ class PixbufLoader(GObject.Object):
         should be scaled.
         """
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -2162,6 +2202,19 @@ class PixbufNonAnim(PixbufAnimation):
         new(pixbuf:GdkPixbuf.Pixbuf) -> GdkPixbuf.PixbufAnimation
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class PixbufSimpleAnim(PixbufAnimation):
     """
     An opaque struct representing a simple animation.
@@ -2215,6 +2268,13 @@ class PixbufSimpleAnim(PixbufAnimation):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::loop"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -2232,6 +2292,19 @@ class PixbufSimpleAnimIter(PixbufAnimationIter):
         """
         Initialize PixbufSimpleAnimIter object with properties.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 ###############################################################
 # Callbacks

@@ -16,6 +16,7 @@ from types import (
 
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi_stub_gen.manager.gi_repo import GIRepo
+from gi_stub_gen.parser.signals import get_all_signals_flattened
 from gi_stub_gen.utils.gi_utils import (
     MAP_GI_GTYPE_TO_TYPE,
     get_gi_type_info,
@@ -452,9 +453,7 @@ def parse_class(
 
     # retrieve GI info object and parse its properties/methods/signals
     class_info = class_to_parse.__info__ if hasattr(class_to_parse, "__info__") else None
-    class_signals_to_parse: list[GIRepository.SignalInfo] = (
-        class_info.get_signals() if class_info and hasattr(class_info, "get_signals") else []
-    )
+    class_signals_to_parse: list[GIRepository.SignalInfo] = get_all_signals_flattened(class_info) if class_info else []
     class_fields_to_parse: list[GIRepository.FieldInfo] = (
         class_info.get_fields() if class_info and hasattr(class_info, "get_fields") else []
     )
@@ -620,10 +619,11 @@ def parse_class(
         # end adding the signal ##############################################
 
     #######################################################################################
-    # SEARCH FOR ADDITIONAL FIELDS VIA GIRepo
+    # SEARCH FOR ADDITIONAL FIELDS VIA GIRepo (GIR)
     #######################################################################################
     # some classes like GLib.Error have no __info__ so we cant parse from gi info
     # we rely on GIRepository to get them
+    # this way we also parse fields that appear when instantiating the class
     type_info = GIRepo().find_by_name(
         module_name.removeprefix("gi.repository."),
         class_to_parse.__name__,
@@ -694,8 +694,9 @@ def parse_class(
 
         elif attribute_type is GetSetDescriptorType:
             if attribute_name in class_parsed_elements:
-                breakpoint()
-            # these are @property
+                assert False, f"was parsed twice? Please open an issue. {attribute_name} in {class_to_parse.__name__}"
+                # breakpoint()
+            # these are @property since it's impossibile to know if they are writable or not
             # in classfield will be considered a property
             # when is_readable but not is_writable
             class_fields.append(

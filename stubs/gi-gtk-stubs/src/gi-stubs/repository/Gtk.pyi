@@ -5490,6 +5490,13 @@ class ATContext(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::accessible"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -6003,6 +6010,109 @@ class AboutDialog(Window):
         Applications may connect to it to override the default behaviour,
         which is to call [method`Gtk`.FileLauncher.launch].
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -6674,6 +6784,83 @@ class ActionBar(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::revealed"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -6843,6 +7030,19 @@ class ActivateAction(ShortcutAction):
         This is an action that calls `Gtk.Widget.activate`
         on the given widget upon activation.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class ActivateActionClass(GObject.GPointer): ...
 
@@ -7060,6 +7260,13 @@ class Adjustment(GObject.InitiallyUnowned):
         """
         Emitted when the value has been changed.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -7295,6 +7502,13 @@ class AlertDialog(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::buttons"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -7407,6 +7621,13 @@ class AlternativeTrigger(ShortcutTrigger):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::first"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -7448,6 +7669,33 @@ class AnyFilter(MultiFilter):
 
         new() -> Gtk.AnyFilter
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, FilterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class AnyFilterClass(GObject.GPointer): ...
 
@@ -7749,6 +7997,83 @@ class AppChooserButton(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::heading"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -7933,6 +8258,120 @@ class AppChooserDialog(Dialog):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["response"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -8185,6 +8624,83 @@ class AppChooserWidget(Widget):
         """
         Emitted when an application item is selected from the widget's list.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -8598,6 +9114,78 @@ class Application(Gio.Application):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["action-added"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["action-enabled-changed"],
+        handler: typing.Callable[[typing_extensions.Self, str, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["action-removed"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["action-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, str, GLib.Variant], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["command-line"],
+        handler: typing.Callable[[typing_extensions.Self, Gio.ApplicationCommandLine], int],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["handle-local-options"],
+        handler: typing.Callable[[typing_extensions.Self, GLib.VariantDict], int],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["name-lost"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["open"],
+        handler: typing.Callable[[typing_extensions.Self, list, int, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["shutdown"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["startup"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::active_window"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -8856,6 +9444,137 @@ class ApplicationWindow(Window):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["action-added"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["action-enabled-changed"],
+        handler: typing.Callable[[typing_extensions.Self, str, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["action-removed"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["action-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, str, GLib.Variant], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::show_menubar"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -9033,6 +9752,83 @@ class AspectFrame(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -9428,6 +10224,109 @@ class Assistant(Window):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::pages"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -9495,6 +10394,13 @@ class AssistantPage(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::child"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -9551,6 +10457,19 @@ class BinLayout(LayoutManager):
 
         new() -> Gtk.LayoutManager
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class BinLayoutClass(GObject.GPointer):
     # gi Fields
@@ -9940,6 +10859,20 @@ class BookmarkList(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::attributes"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -10048,6 +10981,20 @@ class BoolFilter(Filter):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, FilterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -10331,6 +11278,83 @@ class Box(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::baseline_child"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -10490,6 +11514,13 @@ class BoxLayout(LayoutManager):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -11412,6 +12443,13 @@ class Builder(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::current_object"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -11486,6 +12524,19 @@ class BuilderCScope(GObject.Object):
 
         new() -> Gtk.BuilderCScope
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class BuilderCScopeClass(GObject.GPointer):
     # gi Fields
@@ -11590,6 +12641,13 @@ class BuilderListItemFactory(ListItemFactory):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -11979,6 +13037,83 @@ class Button(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::can_shrink"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -12364,6 +13499,83 @@ class Calendar(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::day"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -12432,6 +13644,19 @@ class CallbackAction(ShortcutAction):
 
         new(callback:Gtk.ShortcutFunc, data=None) -> Gtk.CallbackAction
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class CallbackActionClass(GObject.GPointer): ...
 
@@ -13380,6 +14605,13 @@ class CellArea(GObject.InitiallyUnowned):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::edit_widget"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -13485,6 +14717,41 @@ class CellAreaBox(CellArea):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["add-editable"],
+        handler: typing.Callable[[typing_extensions.Self, CellRenderer, CellEditable, Gdk.Rectangle, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["apply-attributes"],
+        handler: typing.Callable[[typing_extensions.Self, TreeModel, TreeIter, bool, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["focus-changed"],
+        handler: typing.Callable[[typing_extensions.Self, CellRenderer, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["remove-editable"],
+        handler: typing.Callable[[typing_extensions.Self, CellRenderer, CellEditable], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -13876,6 +15143,13 @@ class CellAreaContext(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -14751,6 +16025,13 @@ class CellRenderer(GObject.InitiallyUnowned):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::cell_background"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -15000,6 +16281,34 @@ class CellRendererAccel(CellRendererText):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["edited"],
+        handler: typing.Callable[[typing_extensions.Self, str, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-canceled"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-started"],
+        handler: typing.Callable[[typing_extensions.Self, CellEditable, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::accel_key"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -15244,6 +16553,34 @@ class CellRendererCombo(CellRendererText):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["edited"],
+        handler: typing.Callable[[typing_extensions.Self, str, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-canceled"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-started"],
+        handler: typing.Callable[[typing_extensions.Self, CellEditable, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::has_entry"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -15354,6 +16691,27 @@ class CellRendererPixbuf(CellRenderer):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-canceled"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-started"],
+        handler: typing.Callable[[typing_extensions.Self, CellEditable, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -15505,6 +16863,27 @@ class CellRendererProgress(CellRenderer):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-canceled"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-started"],
+        handler: typing.Callable[[typing_extensions.Self, CellEditable, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -15673,6 +17052,34 @@ class CellRendererSpin(CellRendererText):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["edited"],
+        handler: typing.Callable[[typing_extensions.Self, str, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-canceled"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-started"],
+        handler: typing.Callable[[typing_extensions.Self, CellEditable, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::adjustment"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -15770,6 +17177,27 @@ class CellRendererSpinner(CellRenderer):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-canceled"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-started"],
+        handler: typing.Callable[[typing_extensions.Self, CellEditable, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -16023,6 +17451,27 @@ class CellRendererText(CellRenderer):
         It is the responsibility of the application to update the model
         and store `new_text` at the position indicated by `path`.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-canceled"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-started"],
+        handler: typing.Callable[[typing_extensions.Self, CellEditable, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -16474,6 +17923,27 @@ class CellRendererToggle(CellRenderer):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["editing-canceled"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["editing-started"],
+        handler: typing.Callable[[typing_extensions.Self, CellEditable, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::activatable"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -16741,6 +18211,83 @@ class CellView(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::cell_area"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -16986,6 +18533,83 @@ class CenterBox(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::baseline_position"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -17133,6 +18757,13 @@ class CenterLayout(LayoutManager):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -17460,6 +19091,83 @@ class CheckButton(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::active"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -17696,6 +19404,90 @@ class ColorButton(Widget):
         If you need to react to programmatic color changes as well, use
         the notify::rgba signal.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["color-activated"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.RGBA], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -17961,6 +19753,127 @@ class ColorChooserDialog(Dialog):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["color-activated"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.RGBA], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["response"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::show_editor"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -18089,6 +20002,90 @@ class ColorChooserWidget(Widget):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["color-activated"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.RGBA], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::show_editor"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -18199,6 +20196,13 @@ class ColorDialog(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -18358,6 +20362,83 @@ class ColorDialogButton(Widget):
         The `::activate` signal on `GtkColorDialogButton` is an action signal
         and emitting it causes the button to pop up its dialog.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -18763,6 +20844,83 @@ class ColumnView(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::columns"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -18956,6 +21114,13 @@ class ColumnViewCell(ListItem):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -19221,6 +21386,13 @@ class ColumnViewColumn(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::column_view"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -19456,6 +21628,13 @@ class ColumnViewRow(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::accessible_description"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -19618,6 +21797,20 @@ class ColumnViewSorter(Sorter):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, SorterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -20155,6 +22348,91 @@ class ComboBox(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["editing-done"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["remove-widget"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::active"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -20466,6 +22744,127 @@ class ComboBoxText(ComboBox):
         new_with_entry() -> Gtk.Widget
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["editing-done"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["remove-widget"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["format-entry-text"],
+        handler: typing.Callable[[typing_extensions.Self, str], str],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-active"],
+        handler: typing.Callable[[typing_extensions.Self, ScrollType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["popdown"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["popup"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class ConstantExpression(Expression):
     """
     A constant value in a `GtkExpression`.
@@ -20676,6 +23075,13 @@ class Constraint(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::constant"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -20874,6 +23280,13 @@ class ConstraintGuide(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -21198,6 +23611,19 @@ class ConstraintLayout(LayoutManager):
         new() -> Gtk.LayoutManager
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class ConstraintLayoutChild(LayoutChild):
     """
     `GtkLayoutChild` subclass for children in a `GtkConstraintLayout`.
@@ -21208,6 +23634,19 @@ class ConstraintLayoutChild(LayoutChild):
         """
         Initialize ConstraintLayoutChild object with properties.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class ConstraintLayoutChildClass(GObject.GPointer):
     # gi Fields
@@ -21390,6 +23829,20 @@ class CssProvider(GObject.Object):
         than when a loading function was called.
         """
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["gtk-private-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -21527,6 +23980,26 @@ class CustomFilter(Filter):
         new(match_func:Gtk.CustomFilterFunc=None, user_data=None) -> Gtk.CustomFilter
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, FilterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class CustomFilterClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -21561,6 +24034,19 @@ class CustomLayout(LayoutManager):
 
         new(request_mode:Gtk.CustomRequestModeFunc=None, measure:Gtk.CustomMeasureFunc, allocate:Gtk.CustomAllocateFunc) -> Gtk.LayoutManager
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class CustomLayoutClass(GObject.GPointer):
     # gi Fields
@@ -21600,6 +24086,26 @@ class CustomSorter(Sorter):
 
         set_sort_func(self, sort_func:GLib.CompareDataFunc=None, user_data=None)
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, SorterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class CustomSorterClass(GObject.GPointer):
     # gi Fields
@@ -21956,6 +24462,109 @@ class Dialog(Window):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::use_header_bar"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -22159,6 +24768,20 @@ class DirectoryList(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::attributes"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -22331,6 +24954,83 @@ class DragIcon(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -22588,6 +25288,48 @@ class DragSource(GestureSingle):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::actions"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -22834,6 +25576,83 @@ class DrawingArea(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::content_height"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -22980,6 +25799,13 @@ class DropControllerMotion(EventController):
         """
         Emitted when the pointer moves inside the widget.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -23309,6 +26135,83 @@ class DropDown(Widget):
         The `::activate` signal on `GtkDropDown` is an action signal and
         emitting it causes the drop down to pop up its dropdown.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -23690,6 +26593,13 @@ class DropTarget(EventController):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::actions"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -23921,6 +26831,13 @@ class DropTargetAsync(EventController):
         [class`Gdk`.Drop] such as [method`Gdk`.Drop.read_async] or
         [method`Gdk`.Drop.read_value_async].
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -24645,6 +27562,101 @@ class EditableLabel(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["delete-text"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["insert-text"],
+        handler: typing.Callable[[typing_extensions.Self, str, int, int], int],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::editing"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -24776,6 +27788,94 @@ class EmojiChooser(Popover):
         """
         Emitted when the user selects an Emoji.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["closed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -25680,6 +28780,109 @@ class Entry(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["editing-done"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["remove-widget"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["delete-text"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["insert-text"],
+        handler: typing.Callable[[typing_extensions.Self, str, int, int], int],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::activates_default"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -26159,6 +29362,13 @@ class EntryBuffer(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::length"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -26604,6 +29814,13 @@ class EntryCompletion(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::cell_area"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -26795,6 +30012,13 @@ class EventController(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::name"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -26933,6 +30157,13 @@ class EventControllerFocus(EventController):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::contains_focus"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -27044,6 +30275,13 @@ class EventControllerKey(EventController):
         Emitted whenever the state of modifier keys and pointer buttons change.
         """
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -27091,6 +30329,13 @@ class EventControllerLegacy(EventController):
         """
         Emitted for each GDK event delivered to `controller`.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -27196,6 +30441,13 @@ class EventControllerMotion(EventController):
         """
         Emitted when the pointer moves inside the widget.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -27355,6 +30607,13 @@ class EventControllerScroll(EventController):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::flags"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -27389,6 +30648,33 @@ class EveryFilter(MultiFilter):
 
         new() -> Gtk.EveryFilter
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, FilterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class EveryFilterClass(GObject.GPointer): ...
 
@@ -27681,6 +30967,83 @@ class Expander(Widget):
         """
         Activates the `GtkExpander`.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -28624,6 +31987,126 @@ class FileChooserDialog(Dialog):
         Initialize FileChooserDialog object with properties.
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["response"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class FileChooserNative(NativeDialog):
     """
     `GtkFileChooserNative` is an abstraction of a dialog suitable
@@ -28860,6 +32343,20 @@ class FileChooserNative(NativeDialog):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["response"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -29184,6 +32681,83 @@ class FileChooserWidget(Widget):
 
         The default binding for this signal is <kbd>Alt</kbd>-<kbd>Up</kbd>.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -29594,6 +33168,13 @@ class FileDialog(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::accept_label"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -29829,6 +33410,20 @@ class FileFilter(Filter):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, FilterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::mime_types"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -29981,6 +33576,13 @@ class FileLauncher(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::always_ask"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -30106,6 +33708,13 @@ class Filter(GObject.Object):
         to be checked, but only some. Refer to the [enum`Gtk`.FilterChange]
         documentation for details.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -30270,6 +33879,27 @@ class FilterListModel(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sections-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -30450,6 +34080,89 @@ class Fixed(Widget):
         new() -> Gtk.Widget
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class FixedClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -30508,6 +34221,19 @@ class FixedLayout(LayoutManager):
         new() -> Gtk.LayoutManager
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class FixedLayoutChild(LayoutChild):
     """
     `GtkLayoutChild` subclass for children in a `GtkFixedLayout`.
@@ -30543,6 +34269,13 @@ class FixedLayoutChild(LayoutChild):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -30622,6 +34355,27 @@ class FlattenListModel(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sections-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -31171,6 +34925,83 @@ class FlowBox(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::accept_unpaired_release"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -31364,6 +35195,83 @@ class FlowBoxChild(Widget):
 
         The default bindings are <kbd>Space</kbd> and <kbd>Enter</kbd>.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -31571,6 +35479,90 @@ class FontButton(Widget):
         If you need to react to programmatic font changes as well, use
         the notify::font signal.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["font-activated"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -32000,6 +35992,133 @@ class FontChooserDialog(Dialog):
         new(title:str=None, parent:Gtk.Window=None) -> Gtk.Widget
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["font-activated"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["response"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class FontChooserIface(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -32113,6 +36232,90 @@ class FontChooserWidget(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["font-activated"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -32335,6 +36538,13 @@ class FontDialog(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -32603,6 +36813,83 @@ class FontDialogButton(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::dialog"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -32850,6 +37137,83 @@ class Frame(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -33343,6 +37707,83 @@ class GLArea(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::allowed_apis"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -33821,6 +38262,13 @@ class Gesture(EventController):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::n_points"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -33918,6 +38366,48 @@ class GestureClick(GestureSingle):
         widget voluntarily relinquishes its implicit grab.
         """
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -34010,6 +38500,48 @@ class GestureDrag(GestureSingle):
         """
         Emitted whenever the dragging point moves.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -34107,6 +38639,48 @@ class GestureLongPress(GestureSingle):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::delay_factor"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -34196,6 +38770,69 @@ class GesturePan(GestureDrag):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["drag-begin"],
+        handler: typing.Callable[[typing_extensions.Self, float, float], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["drag-end"],
+        handler: typing.Callable[[typing_extensions.Self, float, float], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["drag-update"],
+        handler: typing.Callable[[typing_extensions.Self, float, float], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::orientation"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -34257,6 +38894,48 @@ class GestureRotate(Gesture):
         """
         Emitted when the angle between both tracked points changes.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -34371,6 +39050,48 @@ class GestureSingle(Gesture):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -34545,6 +39266,48 @@ class GestureStylus(GestureSingle):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::stylus_only"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -34620,6 +39383,48 @@ class GestureSwipe(GestureSingle):
         Velocity and direction are a product of previously recorded events.
         """
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -34678,6 +39483,48 @@ class GestureZoom(Gesture):
         """
         Emitted whenever the distance between both tracked sequences changes.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["begin"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["cancel"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["end"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sequence-state-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None, EventSequenceState], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["update"],
+        handler: typing.Callable[[typing_extensions.Self, Gdk.EventSequence | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -34839,6 +39686,83 @@ class GraphicsOffload(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -35191,6 +40115,83 @@ class Grid(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::baseline_row"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -35373,6 +40374,13 @@ class GridLayout(LayoutManager):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::baseline_row"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -35487,6 +40495,13 @@ class GridLayoutChild(LayoutChild):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -35779,6 +40794,83 @@ class GridView(ListBase):
         See [property`Gtk`.ListItem:activatable] for details on how to use
         this signal.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -36093,6 +41185,83 @@ class HeaderBar(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -36413,6 +41582,13 @@ class IMContext(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::input_hints"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -36657,6 +41833,52 @@ class IMContextSimple(IMContext):
         new() -> Gtk.IMContext
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["commit"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["delete-surrounding"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["preedit-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["preedit-end"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["preedit-start"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["retrieve-surrounding"],
+        handler: typing.Callable[..., bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class IMContextSimpleClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -36714,6 +41936,52 @@ class IMMulticontext(IMContext):
 
         new() -> Gtk.IMContext
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["commit"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["delete-surrounding"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["preedit-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["preedit-end"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["preedit-start"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["retrieve-surrounding"],
+        handler: typing.Callable[..., bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class IMMulticontextClass(GObject.GPointer):
     # gi Fields
@@ -36808,6 +42076,24 @@ class IconPaintable(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["invalidate-contents"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["invalidate-size"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -37099,6 +42385,13 @@ class IconTheme(GObject.Object):
         because GTK detects that a change has occurred in the
         contents of the current icon theme.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -37934,6 +43227,83 @@ class IconView(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::activate_on_single_click"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -38382,6 +43752,83 @@ class Image(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::file"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -38735,6 +44182,83 @@ class InfoBar(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::message_type"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -39064,6 +44588,83 @@ class Inscription(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::attributes"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -39201,6 +44802,13 @@ class KeyvalTrigger(ShortcutTrigger):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -40163,6 +45771,83 @@ class Label(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::attributes"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -40356,6 +46041,13 @@ class LayoutChild(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::child_widget"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -40525,6 +46217,19 @@ class LayoutManager(GObject.Object):
         """
         unroot(self)
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class LayoutManagerClass(GObject.GPointer):
     """
@@ -40883,6 +46588,83 @@ class LevelBar(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::inverted"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -41098,6 +46880,91 @@ class LinkButton(Button):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["activate"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["clicked"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::uri"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -41218,6 +47085,83 @@ class ListBase(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -41755,6 +47699,83 @@ class ListBox(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::accept_unpaired_release"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -41973,6 +47994,83 @@ class ListBoxRow(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::activatable"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -42096,6 +48194,13 @@ class ListHeader(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -42332,6 +48437,13 @@ class ListItem(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::accessible_description"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -42455,6 +48567,19 @@ class ListItemFactory(GObject.Object):
         """
         Initialize ListItemFactory object with properties.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class ListItemFactoryClass(GObject.GPointer): ...
 
@@ -42806,6 +48931,54 @@ class ListStore(GObject.Object):
         set_value(self, iter:Gtk.TreeIter, column:int, value:GObject.Value)
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-deleted"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-has-child-toggled"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-inserted"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sort-column-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class ListStoreClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -43129,6 +49302,83 @@ class ListView(ListBase):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::enable_rubberband"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -43344,6 +49594,91 @@ class LockButton(Button):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["activate"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["clicked"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::permission"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -43503,6 +49838,27 @@ class MapListModel(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sections-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::has_map"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -43621,6 +49977,83 @@ class MediaControls(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -43796,6 +50229,24 @@ class MediaFile(MediaStream):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["invalidate-contents"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["invalidate-size"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -44235,6 +50686,24 @@ class MediaStream(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["invalidate-contents"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["invalidate-size"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -44756,6 +51225,83 @@ class MenuButton(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::active"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -45040,6 +51586,120 @@ class MessageDialog(Dialog):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["close"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["response"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::buttons"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -45115,6 +51775,19 @@ class MnemonicAction(ShortcutAction):
         on the given widget upon activation.
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class MnemonicActionClass(GObject.GPointer): ...
 
 class MnemonicTrigger(ShortcutTrigger):
@@ -45158,6 +51831,13 @@ class MnemonicTrigger(ShortcutTrigger):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -45272,6 +51952,52 @@ class MountOperation(Gio.MountOperation):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["aborted"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["ask-password"],
+        handler: typing.Callable[[typing_extensions.Self, str, str, str, Gio.AskPasswordFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["ask-question"],
+        handler: typing.Callable[[typing_extensions.Self, str, list], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["reply"],
+        handler: typing.Callable[[typing_extensions.Self, Gio.MountOperationResult], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["show-processes"],
+        handler: typing.Callable[[typing_extensions.Self, str, list, list], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["show-unmount-progress"],
+        handler: typing.Callable[[typing_extensions.Self, str, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::display"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -45357,6 +52083,27 @@ class MultiFilter(Filter):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, FilterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::item_type"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -45427,6 +52174,34 @@ class MultiSelection(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sections-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["selection-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -45514,6 +52289,27 @@ class MultiSorter(Sorter):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, SorterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::item_type"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -45577,6 +52373,13 @@ class NamedAction(ShortcutAction):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -45828,6 +52631,13 @@ class NativeDialog(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::modal"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -45906,6 +52716,19 @@ class NeverTrigger(ShortcutTrigger):
         all virtual functions.
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class NeverTriggerClass(GObject.GPointer): ...
 
 class NoSelection(GObject.Object):
@@ -45965,6 +52788,34 @@ class NoSelection(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sections-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["selection-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -46629,6 +53480,83 @@ class Notebook(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::enable_popup"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -46765,6 +53693,13 @@ class NotebookPage(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::child"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -46856,6 +53791,19 @@ class NothingAction(ShortcutAction):
         activating it always fails.
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class NothingActionClass(GObject.GPointer): ...
 
 class NumericSorter(Sorter):
@@ -46922,6 +53870,20 @@ class NumericSorter(Sorter):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, SorterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -47194,6 +54156,83 @@ class Overlay(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::child"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -47231,6 +54270,19 @@ class OverlayLayout(LayoutManager):
 
         new() -> Gtk.LayoutManager
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class OverlayLayoutChild(LayoutChild):
     """
@@ -47282,6 +54334,13 @@ class OverlayLayoutChild(LayoutChild):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -47449,6 +54508,13 @@ class PadController(EventController):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -47696,6 +54762,19 @@ class PageSetup(GObject.Object):
         new_from_key_file(key_file:GLib.KeyFile, group_name:str=None) -> Gtk.PageSetup
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class PageSetupUnixDialog(Dialog):
     """
     Presents a page setup dialog for platforms which don’t provide
@@ -47809,6 +54888,126 @@ class PageSetupUnixDialog(Dialog):
 
         new(title:str=None, parent:Gtk.Window=None) -> Gtk.Widget
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["response"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class Paned(Widget):
     """
@@ -48188,6 +55387,83 @@ class Paned(Widget):
 
         The default binding is <kbd>Tab</kbd>.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -48612,6 +55888,101 @@ class PasswordEntry(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["delete-text"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["insert-text"],
+        handler: typing.Callable[[typing_extensions.Self, str, int, int], int],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::activates_default"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -48667,6 +56038,33 @@ class PasswordEntryBuffer(EntryBuffer):
 
         new() -> Gtk.EntryBuffer
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deleted-text"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["inserted-text"],
+        handler: typing.Callable[[typing_extensions.Self, int, str, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class PasswordEntryBufferClass(GObject.GPointer):
     # gi Fields
@@ -48980,6 +56378,83 @@ class Picture(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -49397,6 +56872,83 @@ class Popover(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::autohide"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -49722,6 +57274,94 @@ class PopoverMenu(Popover):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["closed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::flags"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -49866,6 +57506,83 @@ class PopoverMenuBar(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -50020,6 +57737,19 @@ class PrintContext(GObject.Object):
         since GTK itself creates a suitable cairo context in that
         case.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class PrintDialog(GObject.Object):
     """
@@ -50212,6 +57942,13 @@ class PrintDialog(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -50488,6 +58225,13 @@ class PrintJob(GObject.Object):
         The signal handler can use [method`Gtk`.PrintJob.get_status]
         to obtain the new status.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -51400,6 +59144,27 @@ class PrintOperation(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["got-page-size"],
+        handler: typing.Callable[[typing_extensions.Self, PrintContext, PageSetup], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["ready"],
+        handler: typing.Callable[[typing_extensions.Self, PrintContext], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::allow_async"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -52103,6 +59868,19 @@ class PrintSettings(GObject.Object):
         new_from_key_file(key_file:GLib.KeyFile, group_name:str=None) -> Gtk.PrintSettings
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class PrintSetup(GObject.GBoxed):
     """
     An auxiliary object for printing that allows decoupling the setup from the printing.
@@ -52422,6 +60200,120 @@ class PrintUnixDialog(Dialog):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["close"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["response"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::current_page"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -52721,6 +60613,13 @@ class Printer(GObject.Object):
         The `success` parameter indicates if the information was
         actually obtained.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -53055,6 +60954,83 @@ class ProgressBar(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -53506,6 +61482,83 @@ class Range(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::adjustment"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -53945,6 +61998,13 @@ class RecentManager(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::filename"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -54210,6 +62270,83 @@ class Revealer(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -54609,6 +62746,108 @@ class Scale(Range):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["adjust-bounds"],
+        handler: typing.Callable[[typing_extensions.Self, float], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["change-value"],
+        handler: typing.Callable[[typing_extensions.Self, ScrollType, float], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-slider"],
+        handler: typing.Callable[[typing_extensions.Self, ScrollType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["value-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::digits"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -54871,6 +63110,83 @@ class ScaleButton(Widget):
         """
         Emitted when the value field has changed.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -55264,6 +63580,83 @@ class Scrollbar(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -55792,6 +64185,83 @@ class ScrolledWindow(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::child"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -56093,6 +64563,83 @@ class SearchBar(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -56410,6 +64957,101 @@ class SearchEntry(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["delete-text"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["insert-text"],
+        handler: typing.Callable[[typing_extensions.Self, str, int, int], int],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::activates_default"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -56602,6 +65244,20 @@ class SelectionFilterModel(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -56945,6 +65601,89 @@ class Separator(Widget):
 
         new(orientation:Gtk.Orientation) -> Gtk.Widget
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class Settings(GObject.Object):
     """
@@ -57465,6 +66204,20 @@ class Settings(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["gtk-private-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::gtk_alternative_button_order"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -57922,6 +66675,13 @@ class Shortcut(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::action"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -58010,6 +66770,19 @@ class ShortcutAction(GObject.Object):
 
         parse_string(string:str) -> Gtk.ShortcutAction or None
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class ShortcutActionClass(GObject.GPointer): ...
 
@@ -58180,6 +66953,20 @@ class ShortcutController(EventController):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::item_type"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -58318,6 +67105,83 @@ class ShortcutLabel(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -58489,6 +67353,19 @@ class ShortcutTrigger(GObject.Object):
         parse_string(string:str) -> Gtk.ShortcutTrigger or None
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class ShortcutTriggerClass(GObject.GPointer): ...
 
 class ShortcutsGroup(Box):
@@ -58605,6 +67482,83 @@ class ShortcutsGroup(Box):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -58794,6 +67748,83 @@ class ShortcutsSection(Box):
         <kbd>Ctrl</kbd>+<kbd>PgUp</kbd>, <kbd>PgUp</kbd>,
         <kbd>Ctrl</kbd>+<kbd>PgDn</kbd>, <kbd>PgDn</kbd>.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -58987,6 +68018,83 @@ class ShortcutsShortcut(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -59265,6 +68373,109 @@ class ShortcutsWindow(Window):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["activate-default"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate-focus"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["close-request"], handler: typing.Callable[..., bool], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["enable-debugging"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["keys-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::section_name"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -59322,6 +68533,13 @@ class SignalAction(ShortcutAction):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -59468,6 +68686,13 @@ class SignalListItemFactory(ListItemFactory):
         signal and should be used to undo everything done in that signal.
         """
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -59608,6 +68833,34 @@ class SingleSelection(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sections-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["selection-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -59847,6 +69100,13 @@ class SizeGroup(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::mode"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -59949,6 +69209,27 @@ class SliceListModel(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sections-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -60445,6 +69726,19 @@ class Snapshot(Gdk.Snapshot):
         new() -> Gtk.Snapshot
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class SnapshotClass(GObject.GPointer): ...
 
 class SortListModel(GObject.Object):
@@ -60618,6 +69912,27 @@ class SortListModel(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sections-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::incremental"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -60783,6 +70098,13 @@ class Sorter(GObject.Object):
         the sort order without a full resorting. Refer to the
         [enum`Gtk`.SorterChange] documentation for details.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -61313,6 +70635,109 @@ class SpinButton(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["editing-done"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["remove-widget"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["delete-text"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["insert-text"],
+        handler: typing.Callable[[typing_extensions.Self, str, int, int], int],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::activates_default"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -61479,6 +70904,83 @@ class Spinner(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -61810,6 +71312,83 @@ class Stack(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::hhomogeneous"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -62000,6 +71579,13 @@ class StackPage(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::child"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -62150,6 +71736,83 @@ class StackSidebar(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::stack"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -62270,6 +71933,83 @@ class StackSwitcher(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -62432,6 +72172,83 @@ class Statusbar(Widget):
         Emitted whenever a new message gets pushed onto a statusbar's stack.
         """
     @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -62539,6 +72356,20 @@ class StringFilter(Filter):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, FilterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -62703,6 +72534,20 @@ class StringList(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::item_type"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -62773,6 +72618,13 @@ class StringObject(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -62878,6 +72730,20 @@ class StringSorter(Sorter):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, SorterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -63152,6 +73018,13 @@ class StyleContext(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::display"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -63386,6 +73259,83 @@ class Switch(Widget):
         complete. The signal handler should return True to prevent the
         default handler from running.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -64160,6 +74110,101 @@ class Text(Widget):
 
         The default bindings for this signal is <kbd>Insert</kbd>.
         """
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["delete-text"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["insert-text"],
+        handler: typing.Callable[[typing_extensions.Self, str, int, int], int],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -65288,6 +75333,13 @@ class TextBuffer(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::can_redo"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -65492,6 +75544,19 @@ class TextChildAnchor(GObject.Object):
 
         new_with_replacement(character:str) -> Gtk.TextChildAnchor
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class TextChildAnchorClass(GObject.GPointer):
     # gi Fields
@@ -66473,6 +76538,13 @@ class TextMark(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::left_gravity"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -67073,6 +77145,13 @@ class TextTag(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -67819,6 +77898,13 @@ class TextTagTable(GObject.Object):
         The `tag` is still valid by the time the signal is emitted, but
         it is not associated with a tag table any more.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
@@ -69042,6 +79128,83 @@ class TextView(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::accepts_tab"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -69514,6 +79677,91 @@ class ToggleButton(Button):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["activate"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["clicked"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::active"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -69627,6 +79875,19 @@ class Tooltip(GObject.Object):
         functions for this: `Gtk.TreeView.set_tooltip_row` and
         `Gtk.TreeView.set_tooltip_cell`.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class TreeDragDest(builtins.object):
     """
@@ -69971,6 +80232,83 @@ class TreeExpander(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::child"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -70193,6 +80531,20 @@ class TreeListModel(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["items-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::autoexpand"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -70363,6 +80715,13 @@ class TreeListRow(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::children"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -70461,6 +80820,20 @@ class TreeListRowSorter(Sorter):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["changed"],
+        handler: typing.Callable[[typing_extensions.Self, SorterChange], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -71184,6 +81557,41 @@ class TreeModelFilter(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["row-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-deleted"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-has-child-toggled"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-inserted"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::child_model"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -71562,6 +81970,48 @@ class TreeModelSort(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-deleted"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-has-child-toggled"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-inserted"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sort-column-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -71982,6 +82432,13 @@ class TreeSelection(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::mode"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -72380,6 +82837,54 @@ class TreeStore(GObject.Object):
 
         set_value(self, iter:Gtk.TreeIter, column:int, value:GObject.Value)
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-deleted"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-has-child-toggled"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-inserted"],
+        handler: typing.Callable[[typing_extensions.Self, TreePath, TreeIter], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["sort-column-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class TreeStoreClass(GObject.GPointer):
     # gi Fields
@@ -73455,6 +83960,83 @@ class TreeView(Widget):
     ) -> int: ...
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::activate_on_single_click"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -74054,6 +84636,13 @@ class TreeViewColumn(GObject.InitiallyUnowned):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::alignment"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -74258,6 +84847,13 @@ class UriLauncher(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -74489,6 +85085,83 @@ class Video(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::autoplay"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -74659,6 +85332,83 @@ class Viewport(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::child"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -74760,6 +85510,98 @@ class VolumeButton(ScaleButton):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["popdown"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["popup"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["value-changed"],
+        handler: typing.Callable[[typing_extensions.Self, float], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -77311,6 +88153,13 @@ class Widget(GObject.InitiallyUnowned):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::can_focus"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -78002,6 +88851,24 @@ class WidgetPaintable(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["invalidate-contents"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["invalidate-size"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -78944,6 +89811,83 @@ class Window(Widget):
         """
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::application"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -79357,6 +90301,83 @@ class WindowControls(Widget):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::decoration_layout"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -79447,6 +90468,19 @@ class WindowGroup(GObject.Object):
 
         new() -> Gtk.WindowGroup
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class WindowGroupClass(GObject.GPointer):
     # gi Fields
@@ -79553,6 +90587,83 @@ class WindowHandle(Widget):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["direction-changed"],
+        handler: typing.Callable[[typing_extensions.Self, TextDirection], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["hide"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["keynav-failed"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["map"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["mnemonic-activate"],
+        handler: typing.Callable[[typing_extensions.Self, bool], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["move-focus"],
+        handler: typing.Callable[[typing_extensions.Self, DirectionType], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["query-tooltip"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, bool, Tooltip], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["realize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["show"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-flags-changed"],
+        handler: typing.Callable[[typing_extensions.Self, StateFlags], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unmap"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["unrealize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,

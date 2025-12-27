@@ -19,8 +19,6 @@ I started developing with GStreamer Python bindings and found the lack of IDE su
 Furthermore, `pygobject-stubs` rely on custom PEP 517 build backends to select stubs to install at **install time** based on a config. 
 My goal is to decouple generation from installation, enabling the creation of deterministic, version-specific packages (e.g., a standalone `gtk4-stubs` package) that are easy to install and manage in any virtual environment.
 
-
-
 GI Stub Gen takes a different approach:
 
 1.  **Separation of Concerns:** The parsing logic is completely decoupled from the template generation.
@@ -31,9 +29,10 @@ GI Stub Gen takes a different approach:
 ## Features
 
 -   **Explicit Versioning:** Generate stubs for specific library versions (e.g., GStreamer 1.18 vs 1.20) rather than relying on the system default at runtime.
--   **Hybrid Approach:** Uses runtime inspection for accurate types/overrides and parses `.gir` files to extract **Docstrings**.
+-   **Docstrings:** Uses runtime inspection for accurate types/overrides and parses `.gir` files to extract **Docstrings**. Docstrings are converted from c syntax to Python syntax where possible.
 -   **Deprecation Handling:** Detects `PyDeprecationWarning` for aliases/attributes and marks functions with the `@deprecated` decorator.
--   **Signal & GError Support:** Better typing for GObject signals and error handling.
+-   **Signal** Better typing for GObject signals and error handling. Added `def connect()` overloads for signals with specific signatures.
+-   **Protocols:** Uses `typing.Protocol` for better structural typing of interfaces.
 -   **Automated Logic:** Focuses on improving the generator logic rather than manually patching the output files.
 
 ---

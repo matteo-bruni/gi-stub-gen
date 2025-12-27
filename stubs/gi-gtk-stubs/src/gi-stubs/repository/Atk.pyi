@@ -792,6 +792,82 @@ class GObjectAccessible(Object):
     def for_object(obj: GObject.Object) -> Object: ...
     def get_object(self) -> GObject.Object: ...
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["active-descendant-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Object], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["announcement"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["attribute-changed"],
+        handler: typing.Callable[[typing_extensions.Self, str, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["children-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, Object], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["focus-event"],
+        handler: typing.Callable[[typing_extensions.Self, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notification"],
+        handler: typing.Callable[[typing_extensions.Self, str, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["property-change"],
+        handler: typing.Callable[[typing_extensions.Self, PropertyValues], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-change"],
+        handler: typing.Callable[[typing_extensions.Self, str, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["visible-data-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class GObjectAccessibleClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -895,6 +971,13 @@ class Hyperlink(GObject.Object):
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["link-activated"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
     ) -> int: ...
     @typing.overload
     def connect(
@@ -1150,6 +1233,19 @@ class Misc(GObject.Object):
         threads_leave(self)
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class MiscClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -1200,6 +1296,257 @@ class NoOpObject(Object):
         new(obj:GObject.Object) -> Atk.Object
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["bounds-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Rectangle], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["document-attribute-changed"],
+        handler: typing.Callable[[typing_extensions.Self, str, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["load-complete"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["load-stopped"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["page-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["reload"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["link-selected"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["selection-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["column-deleted"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["column-inserted"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["column-reordered"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["model-changed"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-deleted"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["row-inserted"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["row-reordered"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["text-attributes-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["text-caret-moved"],
+        handler: typing.Callable[[typing_extensions.Self, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["text-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["text-insert"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["text-remove"],
+        handler: typing.Callable[[typing_extensions.Self, int, int, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["text-selection-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["value-changed"],
+        handler: typing.Callable[[typing_extensions.Self, float, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["activate"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["create"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["deactivate"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["destroy"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["maximize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["minimize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["move"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["resize"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["restore"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["active-descendant-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Object], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["announcement"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["attribute-changed"],
+        handler: typing.Callable[[typing_extensions.Self, str, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["children-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, Object], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["focus-event"],
+        handler: typing.Callable[[typing_extensions.Self, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notification"],
+        handler: typing.Callable[[typing_extensions.Self, str, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["property-change"],
+        handler: typing.Callable[[typing_extensions.Self, PropertyValues], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-change"],
+        handler: typing.Callable[[typing_extensions.Self, str, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["visible-data-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class NoOpObjectClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -1226,6 +1573,19 @@ class NoOpObjectFactory(ObjectFactory):
 
         new() -> Atk.ObjectFactory
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class NoOpObjectFactoryClass(GObject.GPointer):
     # gi Fields
@@ -1564,6 +1924,13 @@ class Object(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::accessible_component_layer"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -1766,6 +2133,19 @@ class ObjectFactory(GObject.Object):
         invalidate(self)
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class ObjectFactoryClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -1826,6 +2206,89 @@ class Plug(Object):
 
         new() -> Atk.Object
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["bounds-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Rectangle], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["active-descendant-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Object], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["announcement"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["attribute-changed"],
+        handler: typing.Callable[[typing_extensions.Self, str, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["children-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, Object], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["focus-event"],
+        handler: typing.Callable[[typing_extensions.Self, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notification"],
+        handler: typing.Callable[[typing_extensions.Self, str, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["property-change"],
+        handler: typing.Callable[[typing_extensions.Self, PropertyValues], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-change"],
+        handler: typing.Callable[[typing_extensions.Self, str, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["visible-data-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class PlugClass(GObject.GPointer):
     # gi Fields
@@ -1909,6 +2372,19 @@ class Registry(GObject.Object):
     def get_factory_type(self, type: GObject.GType) -> GObject.GType: ...
     def set_factory_type(self, type: GObject.GType, factory_type: GObject.GType) -> None: ...
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class RegistryClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -1956,6 +2432,13 @@ class Relation(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -2011,6 +2494,19 @@ class RelationSet(GObject.Object):
 
         new() -> Atk.RelationSet
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class RelationSetClass(GObject.GPointer):
     # gi Fields
@@ -2123,6 +2619,89 @@ class Socket(Object):
         new() -> Atk.Object
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["bounds-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Rectangle], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["active-descendant-changed"],
+        handler: typing.Callable[[typing_extensions.Self, Object], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["announcement"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["attribute-changed"],
+        handler: typing.Callable[[typing_extensions.Self, str, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["children-changed"],
+        handler: typing.Callable[[typing_extensions.Self, int, Object], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["focus-event"],
+        handler: typing.Callable[[typing_extensions.Self, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notification"],
+        handler: typing.Callable[[typing_extensions.Self, str, int], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["property-change"],
+        handler: typing.Callable[[typing_extensions.Self, PropertyValues], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["state-change"],
+        handler: typing.Callable[[typing_extensions.Self, str, bool], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["visible-data-changed"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class SocketClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -2161,6 +2740,19 @@ class StateSet(GObject.Object):
 
         new() -> Atk.StateSet
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class StateSetClass(GObject.GPointer):
     # gi Fields
@@ -2701,6 +3293,19 @@ class Util(GObject.Object):
         """
         Initialize Util object with properties.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class UtilClass(GObject.GPointer):
     # gi Fields

@@ -517,6 +517,59 @@ class RTPBaseAudioPayload(RTPBasePayload):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["add-extension"],
+        handler: typing.Callable[[typing_extensions.Self, RTPHeaderExtension], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["clear-extensions"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["request-extension"],
+        handler: typing.Callable[[typing_extensions.Self, int, str], RTPHeaderExtension | None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::buffer_list"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -643,6 +696,38 @@ class RTPBaseDepayload(Gst.Element):
         self,
         detailed_signal: typing.Literal["request-extension"],
         handler: typing.Callable[[typing_extensions.Self, int, str | None], RTPHeaderExtension | None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -875,6 +960,38 @@ class RTPBasePayload(Gst.Element):
         self,
         detailed_signal: typing.Literal["request-extension"],
         handler: typing.Callable[[typing_extensions.Self, int, str], RTPHeaderExtension | None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
@@ -1198,6 +1315,44 @@ class RTPHeaderExtension(Gst.Element):
         """
         set_uri(self, uri:str)
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class RTPHeaderExtensionClass(GObject.GPointer):
     # gi Fields

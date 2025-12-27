@@ -1430,6 +1430,13 @@ class ColorBalanceChannel(GObject.Object):
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -1663,6 +1670,45 @@ class VideoAggregator(GstBase.Aggregator):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["samples-selected"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Segment, int, int, int, Gst.Structure | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::force_live"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -1732,6 +1778,41 @@ class VideoAggregatorConvertPad(VideoAggregatorPad):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["buffer-consumed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Buffer], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["linked"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["unlinked"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -1841,6 +1922,41 @@ class VideoAggregatorPad(GstBase.AggregatorPad):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["buffer-consumed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Buffer], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["linked"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["unlinked"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::max_last_buffer_repeat"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -1906,6 +2022,47 @@ class VideoAggregatorParallelConvertPad(VideoAggregatorConvertPad):
         Initialize VideoAggregatorParallelConvertPad object with properties.
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["buffer-consumed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Buffer], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["linked"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["unlinked"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class VideoAggregatorParallelConvertPadClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -1970,6 +2127,26 @@ class VideoBufferPool(Gst.BufferPool):
 
         new() -> Gst.BufferPool
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class VideoBufferPoolClass(GObject.GPointer):
     # gi Fields
@@ -2366,6 +2543,38 @@ class VideoDecoder(Gst.Element):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::automatic_request_sync_point_flags"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -2693,6 +2902,38 @@ class VideoEncoder(Gst.Element):
     # Signals
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::min_force_key_unit_interval"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -2802,6 +3043,44 @@ class VideoFilter(GstBase.BaseTransform):
         """
         transform_frame_ip(self, frame:GstVideo.VideoFrame) -> Gst.FlowReturn
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class VideoFilterClass(GObject.GPointer):
     # gi Fields
@@ -3351,6 +3630,38 @@ class VideoSink(GstBase.BaseSink):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,

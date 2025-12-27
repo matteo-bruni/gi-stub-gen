@@ -1971,6 +1971,34 @@ class AppLaunchContext(Gio.AppLaunchContext):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["launch-failed"],
+        handler: typing.Callable[[typing_extensions.Self, str], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["launch-started"],
+        handler: typing.Callable[[typing_extensions.Self, Gio.AppInfo, GLib.Variant | None], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["launched"],
+        handler: typing.Callable[[typing_extensions.Self, Gio.AppInfo, GLib.Variant], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::display"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -2017,6 +2045,19 @@ class CairoContext(DrawContext):
         The returned context is guaranteed to be valid until
         [method`Gdk`.DrawContext.end_frame] is called.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class CicpParams(GObject.Object):
     """
@@ -2159,6 +2200,13 @@ class CicpParams(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -2419,6 +2467,13 @@ class Clipboard(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::content"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -2630,6 +2685,19 @@ class ContentDeserializer(GObject.Object):
         """
         Associate data with the current deserialization operation.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class ContentFormats(GObject.GBoxed):
     """
@@ -3044,6 +3112,13 @@ class ContentProvider(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::formats"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -3164,6 +3239,19 @@ class ContentSerializer(GObject.Object):
         """
         Associate data with the current serialization operation.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class CrossingEvent(Event):
     """
@@ -3350,6 +3438,13 @@ class Cursor(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -3718,6 +3813,13 @@ class Device(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::active_layout_index"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -3973,6 +4075,13 @@ class DeviceTool(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -4380,6 +4489,13 @@ class Display(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::composited"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -4523,6 +4639,13 @@ class DisplayManager(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::default_display"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -4608,6 +4731,30 @@ class DmabufTexture(Texture):
         """
         Initialize DmabufTexture object with properties.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["invalidate-contents"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["invalidate-size"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class DmabufTextureBuilder(GObject.Object):
     """
@@ -4924,6 +5071,13 @@ class DmabufTextureBuilder(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::color_state"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -5176,6 +5330,13 @@ class Drag(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::actions"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -5400,6 +5561,13 @@ class DrawContext(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::display"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -5592,6 +5760,13 @@ class Drop(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -6041,6 +6216,13 @@ class FrameClock(GObject.Object):
         as a more convenient interface.
         """
     @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
@@ -6393,6 +6575,13 @@ class GLContext(DrawContext):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::allowed_apis"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -6453,6 +6642,30 @@ class GLTexture(Texture):
 
         new(context:Gdk.GLContext, id:int, width:int, height:int, destroy:GLib.DestroyNotify, data=None) -> Gdk.GLTexture
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["invalidate-contents"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["invalidate-size"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class GLTextureBuilder(GObject.Object):
     """
@@ -6709,6 +6922,13 @@ class GLTextureBuilder(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::color_state"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -6905,6 +7125,30 @@ class MemoryTexture(Texture):
         new(width:int, height:int, format:Gdk.MemoryFormat, bytes:GLib.Bytes, stride:int) -> Gdk.MemoryTexture
         """
 
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["invalidate-contents"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["invalidate-size"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
+
 class MemoryTextureBuilder(GObject.Object):
     """
     Constructs [class`Gdk`.Texture] objects from system memory provided
@@ -7100,6 +7344,13 @@ class MemoryTextureBuilder(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -7349,6 +7600,13 @@ class Monitor(GObject.Object):
         """
         Emitted when the output represented by `monitor` gets disconnected.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -8315,6 +8573,13 @@ class Seat(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::display"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -8336,6 +8601,19 @@ class Snapshot(GObject.Object):
         """
         Initialize Snapshot object with properties.
         """
+
+    # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
+        self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
+    ) -> int: ...
 
 class SnapshotClass(GObject.GPointer): ...
 
@@ -8724,6 +9002,13 @@ class Surface(GObject.Object):
     @typing.overload
     def connect(
         self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
         detailed_signal: typing.Literal["notify::cursor"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
         *args: typing.Any,
@@ -8992,6 +9277,24 @@ class Texture(GObject.Object):
         """
 
     # Signals
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["invalidate-contents"],
+        handler: typing.Callable[..., None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["invalidate-size"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -9676,6 +9979,13 @@ class VulkanContext(DrawContext):
         Usually this means that the swapchain had to be recreated,
         for example in response to a change of the surface size.
         """
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any

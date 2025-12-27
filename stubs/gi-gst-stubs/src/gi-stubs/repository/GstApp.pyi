@@ -236,6 +236,38 @@ class AppSink(GstBase.BaseSink):
     ) -> int: ...
     @typing.overload
     def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
         self,
         detailed_signal: typing.Literal["notify::buffer_list"],
         handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
@@ -524,6 +556,38 @@ class AppSrc(GstBase.BaseSrc):
         self,
         detailed_signal: typing.Literal["seek-data"],
         handler: typing.Callable[[typing_extensions.Self, int], bool],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-added"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["pad-removed"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["deep-notify"],
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
+        *args: typing.Any,
+    ) -> int: ...
+    @typing.overload
+    def connect(
+        self,
+        detailed_signal: typing.Literal["notify"],
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
         *args: typing.Any,
     ) -> int: ...
     @typing.overload
