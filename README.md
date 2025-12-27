@@ -9,7 +9,15 @@ This tool discovers types by importing the libraries at runtime via `gi.reposito
 
 ## Why another stub generator?
 
+> [!WARNING ⚠️ Disclaimer ]
+> I am not a GI/PyGObject expert. This project started as a learning exercise to understand the internals of GObject Introspection. Mistakes are possible, and feedback is highly appreciated!
+
 I started developing with GStreamer Python bindings and found the lack of IDE support (type hints, autocompletion) frustrating. While looking at existing solutions like `pygobject-stubs`, I found them difficult to extend due to their monolithic nature and tight coupling between parsing and generation.
+
+Furthermore, `pygobject-stubs` rely on custom PEP 517 build backends to select stubs to install at **install time** based on a config. 
+My goal is to decouple generation from installation, enabling the creation of deterministic, version-specific packages (e.g., a standalone `gtk4-stubs` package) that are easy to install and manage in any virtual environment.
+
+
 
 GI Stub Gen takes a different approach:
 
@@ -164,18 +172,13 @@ This can lead to discrepancies in available methods, properties, and behaviors b
 As an example:
 * `gi._gi.FunctionInfo` vs `GIRepository.FunctionInfo`: The Python wrapper adds pythonic methods (like `get_arguments()`) and hide the C-level methods like `get_n_args` and `get_arg`. These changes are missing when looking through `GIRepository` resulting in inconsistencies with respect to reality. 
 
-## ⚠️ Disclaimer
 
-> [!WARNING]  
-> I am not a GI/PyGObject expert. This project started as a learning exercise to understand the internals of GObject Introspection. Mistakes are possible, and feedback is highly appreciated!
 
 ## ✅ Todo
 - [ ] Add comprehensive test suite.
 - [ ] Create Docker-based build system for consistent environment reproduction.
 - [ ] typing.overload hides the parents implementations. We are using this for signals connect() methods. TODO: for each class traverse the MRO and collect all overloads for methods that are overloaded in parents too. or get_parent() and check if method exists there.
-- [ ] Handle VFunctionInfo (virtual functions) ??? no examples
-- [ ] Handle UnionInfo ??? no examples maybe GLib.TokenValue?
-- [ ] in generated __init__ class constructor add all the params from superclasses __init__ methods. (eg see Gtk.Box should also have Gtk.Widget __init__ params)
+
 
 ## Bug GObject
 
