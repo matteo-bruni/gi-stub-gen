@@ -9,7 +9,9 @@ This tool discovers types by importing the libraries at runtime via `gi.reposito
 
 ## Why another stub generator?
 
-> [!WARNING ⚠️ Disclaimer ]
+> [!WARNING]
+> ⚠️ __Disclaimer__
+> 
 > I am not a GI/PyGObject expert. This project started as a learning exercise to understand the internals of GObject Introspection. Mistakes are possible, and feedback is highly appreciated!
 
 I started developing with GStreamer Python bindings and found the lack of IDE support (type hints, autocompletion) frustrating. While looking at existing solutions like `pygobject-stubs`, I found them difficult to extend due to their monolithic nature and tight coupling between parsing and generation.
@@ -73,7 +75,7 @@ in Ubuntu:
 sudo apt install python3-gst-1.0 gstreamer1.0-python3-plugin-loader
 just sync-gst
 ```
-
+(make sure you created the uv venv with the same python version of the system gst-python package)
 
 ### Usage
 
