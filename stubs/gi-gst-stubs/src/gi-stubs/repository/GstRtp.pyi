@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -484,22 +484,22 @@ class RTPBaseAudioPayload(RTPBasePayload):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        mtu: int | None = None,
-        pt: int | None = None,
-        ssrc: int | None = None,
-        timestamp_offset: int | None = None,
-        seqnum_offset: int | None = None,
-        max_ptime: int | None = None,
-        min_ptime: int | None = None,
-        perfect_rtptime: bool | None = None,
-        ptime_multiple: int | None = None,
-        source_info: bool | None = None,
-        onvif_no_rate_control: bool | None = None,
-        scale_rtptime: bool | None = None,
         auto_header_extension: bool | None = None,
         buffer_list: bool | None = None,
+        max_ptime: int | None = None,
+        min_ptime: int | None = None,
+        mtu: int | None = None,
+        name: str | None = None,
+        onvif_no_rate_control: bool | None = None,
+        parent: Gst.Object | None = None,
+        perfect_rtptime: bool | None = None,
+        pt: int | None = None,
+        ptime_multiple: int | None = None,
+        scale_rtptime: bool | None = None,
+        seqnum_offset: int | None = None,
+        source_info: bool | None = None,
+        ssrc: int | None = None,
+        timestamp_offset: int | None = None,
     ) -> None:
         """
         Initialize RTPBaseAudioPayload object with properties.
@@ -567,11 +567,11 @@ class RTPBaseDepayload(Gst.Element):
     # gi Methods
     def __init__(
         self,
+        auto_header_extension: bool | None = None,
+        max_reorder: int | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
         source_info: bool | None = None,
-        max_reorder: int | None = None,
-        auto_header_extension: bool | None = None,
     ) -> None:
         """
         Initialize RTPBaseDepayload object with properties.
@@ -780,21 +780,21 @@ class RTPBasePayload(Gst.Element):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        mtu: int | None = None,
-        pt: int | None = None,
-        ssrc: int | None = None,
-        timestamp_offset: int | None = None,
-        seqnum_offset: int | None = None,
+        auto_header_extension: bool | None = None,
         max_ptime: int | None = None,
         min_ptime: int | None = None,
-        perfect_rtptime: bool | None = None,
-        ptime_multiple: int | None = None,
-        source_info: bool | None = None,
+        mtu: int | None = None,
+        name: str | None = None,
         onvif_no_rate_control: bool | None = None,
+        parent: Gst.Object | None = None,
+        perfect_rtptime: bool | None = None,
+        pt: int | None = None,
+        ptime_multiple: int | None = None,
         scale_rtptime: bool | None = None,
-        auto_header_extension: bool | None = None,
+        seqnum_offset: int | None = None,
+        source_info: bool | None = None,
+        ssrc: int | None = None,
+        timestamp_offset: int | None = None,
     ) -> None:
         """
         Initialize RTPBasePayload object with properties.

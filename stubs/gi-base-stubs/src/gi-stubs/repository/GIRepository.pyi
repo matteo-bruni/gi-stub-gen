@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import enum
 
 # gi.repository imports needed by this Stub
@@ -1613,11 +1613,6 @@ class Repository(GObject.Object):
         """
         Load the given `typelib` into the repository.
         """
-    @classmethod
-    def new(cls) -> Repository:
-        """
-        Create a new [class`GIRepository`.Repository].
-        """
     def prepend_library_path(self, directory: str) -> None:
         """
             Prepends `directory` to the search path that is used to
@@ -1660,6 +1655,17 @@ class Repository(GObject.Object):
         `.typelib` file within the private directory only. In addition, a
         version `version` of namespace should be specified.  If `version` is
         not specified, the latest will be used.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Repository:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GIRepository.Repository
         """
 
 class RepositoryClass(GObject.GPointer):
@@ -1906,14 +1912,6 @@ class Typelib(GObject.GBoxed):
         """
         Get the name of the namespace represented by `typelib`.
         """
-    @classmethod
-    def new_from_bytes(cls, bytes: GLib.Bytes) -> Typelib:
-        """
-            Creates a new [type`GIRepository`.Typelib] from a [type`GLib`.Bytes].
-
-        The [type`GLib`.Bytes] can point to a memory location or a mapped file, and
-        the typelib will hold a reference to it until the repository is destroyed.
-        """
     def ref(self) -> Typelib:
         """
         Increment the reference count of a [type`GIRepository`.Typelib].
@@ -1927,6 +1925,18 @@ class Typelib(GObject.GBoxed):
             Decrement the reference count of a [type`GIRepository`.Typelib].
 
         Once the reference count reaches zero, the typelib is freed.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_from_bytes(
+        cls,
+        bytes: GLib.Bytes,
+    ) -> Typelib:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_bytes(bytes:GLib.Bytes) -> GIRepository.Typelib
         """
 
 class UnionInfo(RegisteredTypeInfo):

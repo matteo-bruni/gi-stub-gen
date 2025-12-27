@@ -12,7 +12,6 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import builtins
 import pkgutil

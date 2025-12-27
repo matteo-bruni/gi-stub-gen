@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -2093,9 +2093,9 @@ class CicpParams(GObject.Object):
     def __init__(
         self,
         color_primaries: int | None = None,
-        transfer_function: int | None = None,
         matrix_coefficients: int | None = None,
         range: CicpRange | None = CicpRange.NARROW,
+        transfer_function: int | None = None,
     ) -> None:
         """
         Initialize CicpParams object with properties.
@@ -2129,14 +2129,6 @@ class CicpParams(GObject.Object):
         """
         Gets the transfer-function property of `self`.
         """
-    @classmethod
-    def new(cls) -> CicpParams:
-        """
-            Creates a new `GdkCicpParams` object.
-
-        The initial values of the properties are the values for "undefined"
-        and need to be set before a color state object can be built.
-        """
     def set_color_primaries(self, color_primaries: int) -> None:
         """
         Sets the color-primaries property of `self`.
@@ -2153,6 +2145,17 @@ class CicpParams(GObject.Object):
     def set_transfer_function(self, transfer_function: int) -> None:
         """
         Sets the transfer-function property of `self`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> CicpParams:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gdk.CicpParams
         """
 
     # Signals
@@ -2708,20 +2711,6 @@ class ContentFormats(GObject.GBoxed):
 
         If no matching mime type is found, None is returned.
         """
-    @classmethod
-    def new(cls, mime_types: list | None, n_mime_types: int) -> ContentFormats:
-        """
-            Creates a new `GdkContentFormats` from an array of mime types.
-
-        The mime types must be valid and different from each other or the
-        behavior of the return value is undefined. If you cannot guarantee
-        this, use [struct`Gdk`.ContentFormatsBuilder] instead.
-        """
-    @classmethod
-    def new_for_gtype(cls, type: GObject.GType) -> ContentFormats:
-        """
-        Creates a new `GdkContentFormats` for a given `GType`.
-        """
     @staticmethod
     def parse(string: str) -> ContentFormats | None:
         """
@@ -2786,6 +2775,26 @@ class ContentFormats(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        mime_types: list | None = None,
+    ) -> ContentFormats:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(mime_types:list=None) -> Gdk.ContentFormats
+        """
+    @classmethod
+    def new_for_gtype(
+        cls,
+        type: GObject.GType,
+    ) -> ContentFormats:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_gtype(type:GType) -> Gdk.ContentFormats
+        """
 
 class ContentFormatsBuilder(GObject.GBoxed):
     """
@@ -2805,14 +2814,6 @@ class ContentFormatsBuilder(GObject.GBoxed):
     def add_mime_type(self, mime_type: str) -> None:
         """
         Appends `mime_type` to `builder` if it has not already been added.
-        """
-    @classmethod
-    def new(cls) -> ContentFormatsBuilder:
-        """
-            Create a new `GdkContentFormatsBuilder` object.
-
-        The resulting builder would create an empty `GdkContentFormats`.
-        Use addition functions to add types to it.
         """
     def ref(self) -> ContentFormatsBuilder:
         """
@@ -2842,6 +2843,15 @@ class ContentFormatsBuilder(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> ContentFormatsBuilder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gdk.ContentFormatsBuilder
+        """
 
 class ContentProvider(GObject.Object):
     """
@@ -2891,36 +2901,6 @@ class ContentProvider(GObject.Object):
         returned by [method`Gdk`.ContentProvider.ref_formats]. However, if the
         given `GType` is not supported, this operation can fail and
         `G_IO_ERROR_NOT_SUPPORTED` will be reported.
-        """
-    @classmethod
-    def new_for_bytes(cls, mime_type: str, bytes: GLib.Bytes) -> ContentProvider:
-        """
-            Create a content provider that provides the given `bytes` as data for
-        the given `mime_type`.
-        """
-    @classmethod
-    def new_for_value(cls, value: GObject.Value) -> ContentProvider:
-        """
-        Create a content provider that provides the given `value`.
-        """
-    @classmethod
-    def new_union(cls, providers: list | None, n_providers: int) -> ContentProvider:
-        """
-            Creates a content provider that represents all the given `providers`.
-
-        Whenever data needs to be written, the union provider will try the given
-        `providers` in the given order and the first one supporting a format will
-        be chosen to provide it.
-
-        This allows an easy way to support providing data in different formats.
-        For example, an image may be provided by its file and by the image
-        contents with a call such as
-        ```c
-        gdk_content_provider_new_union ((GdkContentProvider *[2]) {
-                                          gdk_content_provider_new_typed (G_TYPE_FILE, file),
-                                          gdk_content_provider_new_typed (GDK_TYPE_TEXTURE, texture)
-                                        }, 2);
-        ```
         """
     @builtins.property
     def ref_formats(self) -> ContentFormats:
@@ -3020,6 +3000,37 @@ class ContentProvider(GObject.Object):
     ) -> bool:
         """
         write_mime_type_finish(self, result:Gio.AsyncResult) -> bool
+        """
+    @classmethod
+    def new_for_bytes(
+        cls,
+        mime_type: str,
+        bytes: GLib.Bytes,
+    ) -> ContentProvider:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_bytes(mime_type:str, bytes:GLib.Bytes) -> Gdk.ContentProvider
+        """
+    @classmethod
+    def new_for_value(
+        cls,
+        value: GObject.Value,
+    ) -> ContentProvider:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_value(value:GObject.Value) -> Gdk.ContentProvider
+        """
+    @classmethod
+    def new_union(
+        cls,
+        providers: list | None = None,
+    ) -> ContentProvider:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_union(providers:list=None) -> Gdk.ContentProvider
         """
 
     # Signals
@@ -3299,74 +3310,43 @@ class Cursor(GObject.Object):
 
         If the cursor is a named cursor, None will be returned.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new_from_callback(
         cls,
-        callback: CursorGetTextureCallback | typing.Callable[..., Texture],
-        *data: object | None,
+        callback: typing.Callable,
+        data: typing.Any = None,
         fallback: Cursor | None = None,
     ) -> Cursor | None:
         """
-            Creates a new callback-based cursor object.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        Cursors of this kind produce textures for the cursor
-        image on demand, when the `callback` is called.
+        new_from_callback(callback:Gdk.CursorGetTextureCallback, data=None, fallback:Gdk.Cursor=None) -> Gdk.Cursor or None
         """
     @classmethod
-    def new_from_name(cls, name: str, fallback: Cursor | None = None) -> Cursor | None:
+    def new_from_name(
+        cls,
+        name: str,
+        fallback: Cursor | None = None,
+    ) -> Cursor | None:
         """
-            Creates a new cursor by looking up `name` in the current cursor
-        theme.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        A recommended set of cursor names that will work across different
-        platforms can be found in the CSS specification:
-
-        | | | |
-        | --- | --- | --- |
-        |                               | "none"          | No cursor |
-        | ![](default_cursor.png)       | "default"       | The default cursor |
-        | ![](help_cursor.png)          | "help"          | Help is available |
-        | ![](pointer_cursor.png)       | "pointer"       | Indicates a link or interactive element |
-        | ![](context_menu_cursor.png)  |"context-menu"   | A context menu is available |
-        | ![](progress_cursor.png)      | "progress"      | Progress indicator |
-        | ![](wait_cursor.png)          | "wait"          | Busy cursor |
-        | ![](cell_cursor.png)          | "cell"          | Cell(s) may be selected |
-        | ![](crosshair_cursor.png)     | "crosshair"     | Simple crosshair |
-        | ![](text_cursor.png)          | "text"          | Text may be selected |
-        | ![](vertical_text_cursor.png) | "vertical-text" | Vertical text may be selected |
-        | ![](alias_cursor.png)         | "alias"         | DND: Something will be linked |
-        | ![](copy_cursor.png)          | "copy"          | DND: Something will be copied |
-        | ![](move_cursor.png)          | "move"          | DND: Something will be moved |
-        | ![](dnd_ask_cursor.png)       | "dnd-ask"       | DND: User can choose action to be carried out |
-        | ![](no_drop_cursor.png)       | "no-drop"       | DND: Can't drop here |
-        | ![](not_allowed_cursor.png)   | "not-allowed"   | DND: Action will not be carried out |
-        | ![](grab_cursor.png)          | "grab"          | DND: Something can be grabbed |
-        | ![](grabbing_cursor.png)      | "grabbing"      | DND: Something is being grabbed |
-        | ![](n_resize_cursor.png)      | "n-resize"      | Resizing: Move north border |
-        | ![](e_resize_cursor.png)      | "e-resize"      | Resizing: Move east border |
-        | ![](s_resize_cursor.png)      | "s-resize"      | Resizing: Move south border |
-        | ![](w_resize_cursor.png)      | "w-resize"      | Resizing: Move west border |
-        | ![](ne_resize_cursor.png)     | "ne-resize"     | Resizing: Move north-east corner |
-        | ![](nw_resize_cursor.png)     | "nw-resize"     | Resizing: Move north-west corner |
-        | ![](sw_resize_cursor.png)     | "sw-resize"     | Resizing: Move south-west corner |
-        | ![](se_resize_cursor.png)     | "se-resize"     | Resizing: Move south-east corner |
-        | ![](col_resize_cursor.png)    | "col-resize"    | Resizing: Move an item or border horizontally |
-        | ![](row_resize_cursor.png)    | "row-resize"    | Resizing: Move an item or border vertically |
-        | ![](ew_resize_cursor.png)     | "ew-resize"     | Moving: Something can be moved horizontally |
-        | ![](ns_resize_cursor.png)     | "ns-resize"     | Moving: Something can be moved vertically |
-        | ![](nesw_resize_cursor.png)   | "nesw-resize"   | Moving: Something can be moved diagonally, north-east to south-west |
-        | ![](nwse_resize_cursor.png)   | "nwse-resize"   | Moving: something can be moved diagonally, north-west to south-east |
-        | ![](all_resize_cursor.png)    | "all-resize"    | Moving: Something can be moved in any direction |
-        | ![](all_scroll_cursor.png)    | "all-scroll"    | Can scroll in any direction |
-        | ![](zoom_in_cursor.png)       | "zoom-in"       | Zoom in |
-        | ![](zoom_out_cursor.png)      | "zoom-out"      | Zoom out |
+        new_from_name(name:str, fallback:Gdk.Cursor=None) -> Gdk.Cursor or None
         """
     @classmethod
     def new_from_texture(
-        cls, texture: Texture, hotspot_x: int, hotspot_y: int, fallback: Cursor | None = None
+        cls,
+        texture: Texture,
+        hotspot_x: int,
+        hotspot_y: int,
+        fallback: Cursor | None = None,
     ) -> Cursor:
         """
-        Creates a new cursor from a `GdkTexture`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_texture(texture:Gdk.Texture, hotspot_x:int, hotspot_y:int, fallback:Gdk.Cursor=None) -> Gdk.Cursor
         """
 
     # Signals
@@ -3542,13 +3522,13 @@ class Device(GObject.Object):
     def __init__(
         self,
         display: Display | None = None,
-        name: str | None = None,
-        source: InputSource | None = InputSource.MOUSE,
         has_cursor: bool | None = None,
-        vendor_id: str | None = None,
+        name: str | None = None,
+        num_touches: int | None = None,
         product_id: str | None = None,
         seat: Seat | None = None,
-        num_touches: int | None = None,
+        source: InputSource | None = InputSource.MOUSE,
+        vendor_id: str | None = None,
     ) -> None:
         """
         Initialize Device object with properties.
@@ -3866,7 +3846,7 @@ class Device(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DevicePad(object):
+class DevicePad(builtins.object):
     """
     An interface for tablet pad devices.
 
@@ -3950,10 +3930,10 @@ class DeviceTool(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        serial: int | None = None,
-        tool_type: DeviceToolType | None = DeviceToolType.UNKNOWN,
         axes: AxisFlags | None = None,
         hardware_id: int | None = None,
+        serial: int | None = None,
+        tool_type: DeviceToolType | None = DeviceToolType.UNKNOWN,
     ) -> None:
         """
         Initialize DeviceTool object with properties.
@@ -4623,7 +4603,7 @@ class DmabufTexture(Texture):
 
     # gi Methods
     def __init__(
-        self, width: int | None = None, height: int | None = None, color_state: ColorState | None = None
+        self, color_state: ColorState | None = None, height: int | None = None, width: int | None = None
     ) -> None:
         """
         Initialize DmabufTexture object with properties.
@@ -4742,16 +4722,16 @@ class DmabufTextureBuilder(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        display: Display | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        fourcc: int | None = None,
-        modifier: int | None = None,
-        premultiplied: bool | None = None,
-        n_planes: int | None = None,
         color_state: ColorState | None = None,
+        display: Display | None = None,
+        fourcc: int | None = None,
+        height: int | None = None,
+        modifier: int | None = None,
+        n_planes: int | None = None,
+        premultiplied: bool | None = None,
         update_region: cairo.Region | None = None,
         update_texture: Texture | None = None,
+        width: int | None = None,
     ) -> None:
         """
         Initialize DmabufTextureBuilder object with properties.
@@ -4845,11 +4825,6 @@ class DmabufTextureBuilder(GObject.Object):
             Gets the width previously set via `Gdk.DmabufTextureBuilder.set_width` or
         0 if the width wasn't set.
         """
-    @classmethod
-    def new(cls) -> DmabufTextureBuilder:
-        """
-        Creates a new texture builder.
-        """
     def set_color_state(self, color_state: ColorState | None = None) -> None:
         """
             Sets the color state for the texture.
@@ -4932,6 +4907,17 @@ class DmabufTextureBuilder(GObject.Object):
             Sets the width of the texture.
 
         The width must be set before calling [method`Gdk`.DmabufTextureBuilder.build].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> DmabufTextureBuilder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gdk.DmabufTextureBuilder
         """
 
     # Signals
@@ -5063,11 +5049,11 @@ class Drag(GObject.Object):
     # gi Methods
     def __init__(
         self,
+        actions: DragAction | None = None,
         content: ContentProvider | None = None,
         device: Device | None = None,
         formats: ContentFormats | None = None,
         selected_action: DragAction | None = None,
-        actions: DragAction | None = None,
         surface: Surface | None = None,
     ) -> None:
         """
@@ -5241,7 +5227,7 @@ class Drag(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DragSurface(object):
+class DragSurface(builtins.object):
     """
     A surface that is used during DND.
     """
@@ -5663,11 +5649,6 @@ class Event(object):
 
     `GdkEvent` structs are immutable.
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     def _get_angle(self, event2: Event) -> tuple[bool, float]:
@@ -6222,10 +6203,10 @@ class GLContext(DrawContext):
     # gi Methods
     def __init__(
         self,
-        display: Display | None = None,
-        surface: Surface | None = None,
         allowed_apis: GLAPI | None = GLAPI.GL | GLAPI.GLES,
+        display: Display | None = None,
         shared_context: GLContext | None = None,
+        surface: Surface | None = None,
     ) -> None:
         """
         Initialize GLContext object with properties.
@@ -6442,28 +6423,10 @@ class GLTexture(Texture):
 
     # gi Methods
     def __init__(
-        self, width: int | None = None, height: int | None = None, color_state: ColorState | None = None
+        self, color_state: ColorState | None = None, height: int | None = None, width: int | None = None
     ) -> None:
         """
         Initialize GLTexture object with properties.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new(
-        cls,
-        context: GLContext,
-        id: int,
-        width: int,
-        height: int,
-        destroy: GLib.DestroyNotify,
-        data: object | None = None,
-    ) -> GLTexture:
-        """
-            Creates a new texture for an existing GL texture.
-
-        Note that the GL texture must not be modified until `destroy` is called,
-        which will happen when the GdkTexture object is finalized, or due to
-        an explicit call of [method`Gdk`.GLTexture.release].
         """
     def release(self) -> None:
         """
@@ -6472,6 +6435,23 @@ class GLTexture(Texture):
         The texture contents are still available via the
         [method`Gdk`.Texture.download] function, after this
         function has been called.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        context: GLContext,
+        id: int,
+        width: int,
+        height: int,
+        destroy: typing.Callable,
+        data: typing.Any = None,
+    ) -> GLTexture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(context:Gdk.GLContext, id:int, width:int, height:int, destroy:GLib.DestroyNotify, data=None) -> Gdk.GLTexture
         """
 
 class GLTextureBuilder(GObject.Object):
@@ -6538,13 +6518,13 @@ class GLTextureBuilder(GObject.Object):
     # gi Methods
     def __init__(
         self,
+        color_state: ColorState | None = None,
         context: GLContext | None = None,
         format: MemoryFormat | None = MemoryFormat.R8G8B8A8_PREMULTIPLIED,
         has_mipmap: bool | None = None,
         height: int | None = None,
         id: int | None = None,
         sync: object | None = None,
-        color_state: ColorState | None = None,
         update_region: cairo.Region | None = None,
         update_texture: Texture | None = None,
         width: int | None = None,
@@ -6623,11 +6603,6 @@ class GLTextureBuilder(GObject.Object):
         """
             Gets the width previously set via `Gdk.gl_texture_builder_set_width` or
         0 if the width wasn't set.
-        """
-    @classmethod
-    def new(cls) -> GLTextureBuilder:
-        """
-        Creates a new texture builder.
         """
     def set_color_state(self, color_state: ColorState) -> None:
         """
@@ -6717,6 +6692,17 @@ class GLTextureBuilder(GObject.Object):
             Sets the width of the texture.
 
         The width must be set before calling [method`Gdk`.GLTextureBuilder.build].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> GLTextureBuilder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gdk.GLTextureBuilder
         """
 
     # Signals
@@ -6900,18 +6886,26 @@ class MemoryTexture(Texture):
 
     # gi Methods
     def __init__(
-        self, width: int | None = None, height: int | None = None, color_state: ColorState | None = None
+        self, color_state: ColorState | None = None, height: int | None = None, width: int | None = None
     ) -> None:
         """
         Initialize MemoryTexture object with properties.
         """
-    @classmethod
-    def new(cls, width: int, height: int, format: MemoryFormat, bytes: GLib.Bytes, stride: int) -> MemoryTexture:
-        """
-            Creates a new texture for a blob of image data.
 
-        The `GBytes` must contain `stride` × `height` pixels
-        in the given format.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        width: int,
+        height: int,
+        format: MemoryFormat,
+        bytes: GLib.Bytes,
+        stride: int,
+    ) -> MemoryTexture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(width:int, height:int, format:Gdk.MemoryFormat, bytes:GLib.Bytes, stride:int) -> Gdk.MemoryTexture
         """
 
 class MemoryTextureBuilder(GObject.Object):
@@ -7039,11 +7033,6 @@ class MemoryTextureBuilder(GObject.Object):
             Gets the width previously set via `Gdk.MemoryTextureBuilder.set_width`
         or 0 if the width wasn't set.
         """
-    @classmethod
-    def new(cls) -> MemoryTextureBuilder:
-        """
-        Creates a new texture builder.
-        """
     def set_bytes(self, bytes: GLib.Bytes | None = None) -> None:
         """
             Sets the data to be shown but the texture.
@@ -7100,6 +7089,17 @@ class MemoryTextureBuilder(GObject.Object):
             Sets the width of the texture.
 
         The width must be set before calling [method`Gdk`.MemoryTextureBuilder.build].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> MemoryTextureBuilder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gdk.MemoryTextureBuilder
         """
 
     # Signals
@@ -7477,7 +7477,7 @@ class PadEvent(Event):
         Extracts group and mode information from a pad event.
         """
 
-class Paintable(object):
+class Paintable(builtins.object):
     """
     An interface for content that can be painted.
 
@@ -7754,7 +7754,7 @@ class PaintableInterface(GObject.GPointer):
         This is the only function that must be implemented for this interface.
         """
 
-class Popup(object):
+class Popup(builtins.object):
     """
     A surface that is attached to another surface.
 
@@ -7926,22 +7926,6 @@ class PopupLayout(GObject.GBoxed):
         """
         Returns the anchor position on the popup surface.
         """
-    @classmethod
-    def new(cls, anchor_rect: Rectangle, rect_anchor: Gravity, surface_anchor: Gravity) -> PopupLayout:
-        """
-            Create a popup layout description.
-
-        Used together with [method`Gdk`.Popup.present] to describe how a popup
-        surface should be placed and behave on-screen.
-
-        `anchor_rect` is relative to the top-left corner of the surface's parent.
-        `rect_anchor` and `surface_anchor` determine anchor points on `anchor_rect`
-        and surface to pin together.
-
-        The position of `anchor_rect`'s anchor point can optionally be offset using
-        [method`Gdk`.PopupLayout.set_offset], which is equivalent to offsetting the
-        position of surface.
-        """
     def ref(self) -> PopupLayout:
         """
         Increases the reference count of `value`.
@@ -7991,6 +7975,18 @@ class PopupLayout(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        anchor_rect: Rectangle,
+        rect_anchor: Gravity,
+        surface_anchor: Gravity,
+    ) -> PopupLayout:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(anchor_rect:Gdk.Rectangle, rect_anchor:Gdk.Gravity, surface_anchor:Gdk.Gravity) -> Gdk.PopupLayout
+        """
 
 class ProximityEvent(Event):
     """
@@ -8579,19 +8575,6 @@ class Surface(GObject.Object):
         """
         Check to see if a surface is destroyed.
         """
-    @classmethod
-    def new_popup(cls, parent: Surface, autohide: bool) -> Surface:
-        """
-            Create a new popup surface.
-
-        The surface will be attached to `parent` and can be positioned
-        relative to it using [method`Gdk`.Popup.present].
-        """
-    @classmethod
-    def new_toplevel(cls, display: Display) -> Surface:
-        """
-        Creates a new toplevel surface.
-        """
     def queue_render(self) -> None:
         """
             Forces a [signal`Gdk`.Surface::render] signal emission for `surface`
@@ -8669,6 +8652,29 @@ class Surface(GObject.Object):
 
         Note that this only works if `to` and `from` are popups or
         transient-for to the same toplevel (directly or indirectly).
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_popup(
+        cls,
+        parent: Surface,
+        autohide: bool,
+    ) -> Surface:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_popup(parent:Gdk.Surface, autohide:bool) -> Gdk.Surface
+        """
+    @classmethod
+    def new_toplevel(
+        cls,
+        display: Display,
+    ) -> Surface:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_toplevel(display:Gdk.Display) -> Gdk.Surface
         """
 
     # Signals
@@ -8838,7 +8844,7 @@ class Texture(GObject.Object):
 
     # gi Methods
     def __init__(
-        self, width: int | None = None, height: int | None = None, color_state: ColorState | None = None
+        self, color_state: ColorState | None = None, height: int | None = None, width: int | None = None
     ) -> None:
         """
         Initialize Texture object with properties.
@@ -8895,74 +8901,6 @@ class Texture(GObject.Object):
         """
         Returns the width of `texture`, in pixels.
         """
-    @classmethod
-    def new_for_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf) -> Texture:
-        """
-            Creates a new texture object representing the `GdkPixbuf`.
-
-        This function is threadsafe, so that you can e.g. use GTask
-        and [method`Gio`.Task.run_in_thread] to avoid blocking the main thread
-        while loading a big image.
-        """
-    @classmethod
-    def new_from_bytes(cls, bytes: GLib.Bytes) -> Texture:
-        """
-            Creates a new texture by loading an image from memory,
-
-        The file format is detected automatically. The supported formats
-        are PNG, JPEG and TIFF, though more formats might be available.
-
-        If None is returned, then `error` will be set.
-
-        This function is threadsafe, so that you can e.g. use GTask
-        and [method`Gio`.Task.run_in_thread] to avoid blocking the main thread
-        while loading a big image.
-        """
-    @classmethod
-    def new_from_file(cls, file: Gio.File) -> Texture:
-        """
-            Creates a new texture by loading an image from a file.
-
-        The file format is detected automatically. The supported formats
-        are PNG, JPEG and TIFF, though more formats might be available.
-
-        If None is returned, then `error` will be set.
-
-        This function is threadsafe, so that you can e.g. use GTask
-        and [method`Gio`.Task.run_in_thread] to avoid blocking the main thread
-        while loading a big image.
-        """
-    @classmethod
-    def new_from_filename(cls, path: str) -> Texture:
-        """
-            Creates a new texture by loading an image from a file.
-
-        The file format is detected automatically. The supported formats
-        are PNG, JPEG and TIFF, though more formats might be available.
-
-        If None is returned, then `error` will be set.
-
-        This function is threadsafe, so that you can e.g. use GTask
-        and [method`Gio`.Task.run_in_thread] to avoid blocking the main thread
-        while loading a big image.
-        """
-    @classmethod
-    def new_from_resource(cls, resource_path: str) -> Texture:
-        """
-            Creates a new texture by loading an image from a resource.
-
-        The file format is detected automatically. The supported formats
-        are PNG and JPEG, though more formats might be available.
-
-        It is a fatal error if `resource_path` does not specify a valid
-        image resource and the program will abort if that happens.
-        If you are unsure about the validity of a resource, use
-        [ctor`Gdk`.Texture.new_from_file] to load it.
-
-        This function is threadsafe, so that you can e.g. use GTask
-        and [method`Gio`.Task.run_in_thread] to avoid blocking the main thread
-        while loading a big image.
-        """
     def save_to_png(self, filename: str) -> bool:
         """
             Store the given `texture` to the `filename` as a PNG file.
@@ -9010,6 +8948,58 @@ class Texture(GObject.Object):
         If that is not your concern and you are interested in a
         smaller size and a more portable format, you might want to
         use [method`Gdk`.Texture.save_to_png_bytes].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_for_pixbuf(
+        cls,
+        pixbuf: GdkPixbuf.Pixbuf,
+    ) -> Texture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_pixbuf(pixbuf:GdkPixbuf.Pixbuf) -> Gdk.Texture
+        """
+    @classmethod
+    def new_from_bytes(
+        cls,
+        bytes: GLib.Bytes,
+    ) -> Texture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_bytes(bytes:GLib.Bytes) -> Gdk.Texture
+        """
+    @classmethod
+    def new_from_file(
+        cls,
+        file: Gio.File,
+    ) -> Texture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file(file:Gio.File) -> Gdk.Texture
+        """
+    @classmethod
+    def new_from_filename(
+        cls,
+        path: str,
+    ) -> Texture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_filename(path:str) -> Gdk.Texture
+        """
+    @classmethod
+    def new_from_resource(
+        cls,
+        resource_path: str,
+    ) -> Texture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_resource(resource_path:str) -> Gdk.Texture
         """
 
     # Signals
@@ -9091,14 +9081,6 @@ class TextureDownloader(GObject.GBoxed):
         """
         Gets the texture that the downloader will download.
         """
-    @classmethod
-    def new(cls, texture: Texture) -> TextureDownloader:
-        """
-            Creates a new texture downloader for `texture`.
-
-        By default, the downloader will convert the data to
-        the default memory format, and to the sRGB color state.
-        """
     def set_color_state(self, color_state: ColorState) -> None:
         """
             Sets the color state the downloader will convert the data to.
@@ -9123,6 +9105,16 @@ class TextureDownloader(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        texture: Texture,
+    ) -> TextureDownloader:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(texture:Gdk.Texture) -> Gdk.TextureDownloader
+        """
 
 class TimeCoord(GObject.GPointer):
     """
@@ -9151,7 +9143,7 @@ class TimeCoord(GObject.GPointer):
 
     """
 
-class Toplevel(object):
+class Toplevel(builtins.object):
     """
     A freestanding toplevel surface.
 
@@ -9537,17 +9529,6 @@ class ToplevelLayout(GObject.GBoxed):
             Returns whether the layout should allow the user
         to resize the surface.
         """
-    @classmethod
-    def new(cls) -> ToplevelLayout:
-        """
-            Create a toplevel layout description.
-
-        Used together with `Gdk.Toplevel.present` to describe
-        how a toplevel surface should be placed and behave on-screen.
-
-        The size is in ”application pixels”, not
-        ”device pixels” (see `Gdk.Surface.get_scale_factor`).
-        """
     def ref(self) -> ToplevelLayout:
         """
         Increases the reference count of `layout`.
@@ -9578,6 +9559,15 @@ class ToplevelLayout(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> ToplevelLayout:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gdk.ToplevelLayout
+        """
 
 class ToplevelSize(GObject.GPointer):
     """

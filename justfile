@@ -87,3 +87,7 @@ ty:
         --ignore unresolved-import \
         --ignore possibly-missing-attribute \
         stubs
+
+copy-gst-overrides:
+    sudo apt install gstreamer1.0-python3-plugin-loader
+    cp /usr/lib/python3/dist-packages/gi/overrides/Gst* .venv/lib/python3.12/site-packages/gi/overrides/

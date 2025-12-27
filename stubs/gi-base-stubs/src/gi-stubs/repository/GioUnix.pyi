@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -867,17 +867,6 @@ class FDMessage(Gio.SocketControlMessage):
         return a reference to the caller, but the returned list is valid for
         the lifetime of `message`.
         """
-    @classmethod
-    def new(cls) -> FDMessage:
-        """
-            Creates a new GUnixFDMessage containing an empty file descriptor
-        list.
-        """
-    @classmethod
-    def new_with_fd_list(cls, fd_list: Gio.UnixFDList) -> FDMessage:
-        """
-        Creates a new GUnixFDMessage containing `list`.
-        """
     @staticmethod
     def steal_fds(message: FDMessage) -> tuple[list, int]:
         """
@@ -898,6 +887,27 @@ class FDMessage(Gio.SocketControlMessage):
 
         This function never returns None. In case there are no file
         descriptors contained in `message`, an empty array is returned.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Gio.SocketControlMessage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.SocketControlMessage
+        """
+    @classmethod
+    def new_with_fd_list(
+        cls,
+        fd_list: Gio.UnixFDList,
+    ) -> Gio.SocketControlMessage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_fd_list(fd_list:Gio.UnixFDList) -> Gio.SocketControlMessage
         """
 
     # Signals
@@ -974,7 +984,7 @@ class InputStream(Gio.InputStream):
     def priv(self) -> Gio.UnixInputStreamPrivate | None: ...
 
     # gi Methods
-    def __init__(self, fd: int | None = None, close_fd: bool | None = None) -> None:
+    def __init__(self, close_fd: bool | None = None, fd: int | None = None) -> None:
         """
         Initialize InputStream object with properties.
         """
@@ -989,19 +999,24 @@ class InputStream(Gio.InputStream):
         """
         Return the UNIX file descriptor that the stream reads from.
         """
-    @classmethod
-    def new(cls, fd: int, close_fd: bool) -> InputStream:
-        """
-            Creates a new GUnixInputStream for the given `fd`.
-
-        If `close_fd` is True, the file descriptor will be closed
-        when the stream is closed.
-        """
     @staticmethod
     def set_close_fd(stream: InputStream, close_fd: bool) -> None:
         """
             Sets whether the file descriptor of `stream` shall be closed
         when the stream is closed.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        fd: int,
+        close_fd: bool,
+    ) -> Gio.InputStream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(fd:int, close_fd:bool) -> Gio.InputStream
         """
 
     # Signals
@@ -1190,15 +1205,6 @@ class MountMonitor(GObject.Object):
         under the same main context as you called this function.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> MountMonitor:
-        """
-            Deprecated alias for [func`GioUnix`.MountMonitor.get].
-
-        This function was never a true constructor, which is why it was
-        renamed.
-        """
-    @deprecated("deprecated")
     @staticmethod
     def set_rate_limit(mount_monitor: MountMonitor, limit_msec: int) -> None:
         """
@@ -1209,6 +1215,17 @@ class MountMonitor(GObject.Object):
         circumstances.  Since `mount_monitor` is a singleton, it also meant
         that calling this function would have side effects for other users of
         the monitor.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> MountMonitor:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.UnixMountMonitor
         """
 
     # Signals
@@ -1361,7 +1378,7 @@ class OutputStream(Gio.OutputStream):
     def priv(self) -> Gio.UnixOutputStreamPrivate | None: ...
 
     # gi Methods
-    def __init__(self, fd: int | None = None, close_fd: bool | None = None) -> None:
+    def __init__(self, close_fd: bool | None = None, fd: int | None = None) -> None:
         """
         Initialize OutputStream object with properties.
         """
@@ -1376,19 +1393,24 @@ class OutputStream(Gio.OutputStream):
         """
         Return the UNIX file descriptor that the stream writes to.
         """
-    @classmethod
-    def new(cls, fd: int, close_fd: bool) -> OutputStream:
-        """
-            Creates a new GUnixOutputStream for the given `fd`.
-
-        If `close_fd`, is True, the file descriptor will be closed when
-        the output stream is destroyed.
-        """
     @staticmethod
     def set_close_fd(stream: OutputStream, close_fd: bool) -> None:
         """
             Sets whether the file descriptor of `stream` shall be closed
         when the stream is closed.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        fd: int,
+        close_fd: bool,
+    ) -> Gio.OutputStream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(fd:int, close_fd:bool) -> Gio.OutputStream
         """
 
     # Signals

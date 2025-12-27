@@ -200,23 +200,18 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
     if real_cls is GObject.GInterface:
         return None
 
-    # 2. Otteniamo TUTTE le proprietà appiattite
-    # GObject.list_properties(cls) restituisce una lista di GParamSpec
-    # per la classe, incluse quelle di TUTTI i genitori e TUTTE le interfacce.
+    # retrieve all properties of the class including parents and interfaces.
     try:
         props = GObject.list_properties(real_cls)
     except TypeError:
-        # Succede se real_cls non è un GObject (es. struct semplici o enum)
+        # this happens if real_cls is not a GObject (eg. simple structs or enums)
         return None
 
     args: list[FunctionArgumentSchema] = []
 
-    # Usiamo un set per evitare duplicati rari (anche se list_properties è solitamente pulito)
     seen_props = set()
     prop_spec: GObject.ParamSpec
-    # 3. Iteriamo e filtriamo
-    # Ordiniamo per nome per avere stub deterministici
-    for prop_spec in props:  # sorted(props, key=lambda x: x.name):
+    for prop_spec in sorted(props, key=lambda x: x.name):
         name = prop_spec.name  # Es: "secondary-icon-name"
         logger.debug(f"# Property: {name}")
 
@@ -266,7 +261,7 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
                     module = importlib.import_module(f"gi.repository.{gi_ns}")
                     # 3. Accediamo alla classe
                     # Questo basta a PyGObject per registrare il wrapper e settare gtype.pytype
-                    _ = getattr(module, gi_name)
+                    pytype = getattr(module, gi_name)
 
                     # now gtype.pytype should be set
                     pytype = gtype.pytype
@@ -669,8 +664,16 @@ def parse_class(
 
         # do not parse already parsed elements
         # i.e. the gi ones
-        if attribute_name in class_parsed_elements:
-            continue
+        # if attribute_name in class_parsed_elements:
+        #     # set the previously parsed element as overridden
+        #     if attribute_name in [m.name for m in class_methods]:
+        #         for m in class_methods:
+        #             if m.name == attribute_name:
+        #                 m.is_overridden = True
+        #                 break
+        #     else:
+        #         breakpoint()
+        #     continue
 
         # we only parse local attributes, not inherited ones
         is_attribute_local = is_local(class_to_parse, attribute_name)
@@ -689,6 +692,8 @@ def parse_class(
             extra.append(f"constant: {attribute_name} local={is_attribute_local}")
 
         elif attribute_type is GetSetDescriptorType:
+            if attribute_name in class_parsed_elements:
+                breakpoint()
             # these are @property
             # in classfield will be considered a property
             # when is_readable but not is_writable
@@ -721,7 +726,17 @@ def parse_class(
                         f.return_hint_namespace = None
 
                 class_python_methods.append(f)
-                assert attribute_name not in class_parsed_elements, "was parsed twice?"
+                if attribute_name in class_parsed_elements:
+                    # set the previously parsed element as overridden
+                    for m in class_methods:
+                        if m.name == attribute_name:
+                            m.is_overridden = True
+                            if f.docstring:
+                                f.docstring = f"[is-override: Note this method is an override in Python of the original gi implementation.]\n\n{f.docstring}"
+                            else:
+                                f.docstring = "[is-override: Note this method is an override in Python of the original gi implementation.]"
+                            break
+                    # assert attribute_name not in class_parsed_elements, "was parsed twice?"
                 class_parsed_elements.append(attribute_name)
 
         elif attribute_type is MethodDescriptorType:

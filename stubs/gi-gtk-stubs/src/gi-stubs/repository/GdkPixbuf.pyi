@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import enum
 import typing
 
@@ -393,15 +393,15 @@ class Pixbuf(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        colorspace: Colorspace | None = Colorspace.RGB,
-        n_channels: int | None = None,
-        has_alpha: bool | None = None,
         bits_per_sample: int | None = None,
-        width: int | None = None,
+        colorspace: Colorspace | None = Colorspace.RGB,
+        has_alpha: bool | None = None,
         height: int | None = None,
-        rowstride: int | None = None,
-        pixels: object | None = None,
+        n_channels: int | None = None,
         pixel_bytes: GLib.Bytes | None = None,
+        pixels: object | None = None,
+        rowstride: int | None = None,
+        width: int | None = None,
     ) -> None:
         """
         Initialize Pixbuf object with properties.
@@ -721,32 +721,6 @@ class Pixbuf(GObject.Object):
 
         This is the `GBytes` variant of `gdk_pixbuf_new_from_data`, useful
         for language bindings.
-        """
-    @classmethod
-    def new_from_data(
-        cls,
-        data: list,
-        colorspace: Colorspace,
-        has_alpha: bool,
-        bits_per_sample: int,
-        width: int,
-        height: int,
-        rowstride: int,
-        destroy_fn: PixbufDestroyNotify | None = None,
-        *destroy_fn_data: object | None,
-    ) -> Pixbuf:
-        """
-            Creates a new GdkPixbuf. out of in-memory image data.
-
-        Currently only RGB images with 8 bits per sample are supported.
-
-        Since you are providing a pre-allocated pixel buffer, you must also
-        specify a way to free that data.  This is done with a function of
-        type `GdkPixbufDestroyNotify`.  When a pixbuf created with is
-        finalized, your destroy notification function will be called, and
-        it is its responsibility to free the pixel array.
-
-        See also: [ctor`GdkPixbuf`.Pixbuf.new_from_bytes]
         """
     @classmethod
     def new_from_file(cls, filename: str) -> Pixbuf | None:
@@ -1173,6 +1147,26 @@ class Pixbuf(GObject.Object):
         the new value is ignored and `False` is returned.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new_from_data(
+        cls,
+        data: typing.Any,
+        colorspace: typing.Any,
+        has_alpha: typing.Any,
+        bits_per_sample: typing.Any,
+        width: typing.Any,
+        height: typing.Any,
+        rowstride: typing.Any,
+        destroy_fn: typing.Any = None,
+        *destroy_fn_data: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_data(data:list, colorspace:GdkPixbuf.Colorspace, has_alpha:bool, bits_per_sample:int, width:int, height:int, rowstride:int, destroy_fn:GdkPixbuf.PixbufDestroyNotify=None, destroy_fn_data=None) -> GdkPixbuf.Pixbuf
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -1336,44 +1330,6 @@ class PixbufAnimation(GObject.Object):
         return `True`. Use `gdk_pixbuf_animation_get_static_image` to retrieve
         the image.
         """
-    @classmethod
-    def new_from_file(cls, filename: str) -> PixbufAnimation | None:
-        """
-            Creates a new animation by loading it from a file.
-
-        The file format is detected automatically.
-
-        If the file's format does not support multi-frame images, then an animation
-        with a single frame will be created.
-
-        Possible errors are in the `GDK_PIXBUF_ERROR` and `G_FILE_ERROR` domains.
-        """
-    @classmethod
-    def new_from_resource(cls, resource_path: str) -> PixbufAnimation | None:
-        """
-            Creates a new pixbuf animation by loading an image from an resource.
-
-        The file format is detected automatically. If `None` is returned, then
-        `error` will be set.
-        """
-    @classmethod
-    def new_from_stream(
-        cls, stream: Gio.InputStream, cancellable: Gio.Cancellable | None = None
-    ) -> PixbufAnimation | None:
-        """
-            Creates a new animation by loading it from an input stream.
-
-        The file format is detected automatically.
-
-        If `None` is returned, then `error` will be set.
-
-        The `cancellable` can be used to abort the operation from another thread.
-        If the operation was cancelled, the error `G_IO_ERROR_CANCELLED` will be
-        returned. Other possible errors are in the `GDK_PIXBUF_ERROR` and
-        `G_IO_ERROR` domains.
-
-        The stream is not closed.
-        """
     @staticmethod
     def new_from_stream_async(
         stream: Gio.InputStream,
@@ -1390,12 +1346,6 @@ class PixbufAnimation(GObject.Object):
         When the operation is finished, `callback` will be called in the main thread.
         You can then call `gdk_pixbuf_animation_new_from_stream_finish` to get the
         result of the operation.
-        """
-    @classmethod
-    def new_from_stream_finish(cls, async_result: Gio.AsyncResult) -> PixbufAnimation | None:
-        """
-            Finishes an asynchronous pixbuf animation creation operation started with
-        [func`GdkPixbuf`.PixbufAnimation.new_from_stream_async].
         """
 
     # python methods (overrides?)
@@ -1425,6 +1375,47 @@ class PixbufAnimation(GObject.Object):
     ) -> bool:
         """
         is_static_image(self) -> bool
+        """
+    @classmethod
+    def new_from_file(
+        cls,
+        filename: str,
+    ) -> PixbufAnimation | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file(filename:str) -> GdkPixbuf.PixbufAnimation or None
+        """
+    @classmethod
+    def new_from_resource(
+        cls,
+        resource_path: str,
+    ) -> PixbufAnimation | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_resource(resource_path:str) -> GdkPixbuf.PixbufAnimation or None
+        """
+    @classmethod
+    def new_from_stream(
+        cls,
+        stream: Gio.InputStream,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> PixbufAnimation | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_stream(stream:Gio.InputStream, cancellable:Gio.Cancellable=None) -> GdkPixbuf.PixbufAnimation or None
+        """
+    @classmethod
+    def new_from_stream_finish(
+        cls,
+        async_result: Gio.AsyncResult,
+    ) -> PixbufAnimation | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_stream_finish(async_result:Gio.AsyncResult) -> GdkPixbuf.PixbufAnimation or None
         """
 
 class PixbufAnimationClass(GObject.GPointer):
@@ -1844,48 +1835,6 @@ class PixbufLoader(GObject.Object):
         Additionally, if the loader is an animation, it will return the "static
         image" of the animation (see `gdk_pixbuf_animation_get_static_image`).
         """
-    @classmethod
-    def new(cls) -> PixbufLoader:
-        """
-        Creates a new pixbuf loader object.
-        """
-    @classmethod
-    def new_with_mime_type(cls, mime_type: str) -> PixbufLoader:
-        """
-            Creates a new pixbuf loader object that always attempts to parse
-        image data as if it were an image of MIME type `mime_type`, instead of
-        identifying the type automatically.
-
-        This function is useful if you want an error if the image isn't the
-        expected MIME type; for loading image formats that can't be reliably
-        identified by looking at the data; or if the user manually forces a
-        specific MIME type.
-
-        The list of supported mime types depends on what image loaders
-        are installed, but typically "image/png", "image/jpeg", "image/gif",
-        "image/tiff" and "image/x-xpixmap" are among the supported mime types.
-        To obtain the full list of supported mime types, call
-        `gdk_pixbuf_format_get_mime_types` on each of the GdkPixbuf.Format
-        structs returned by `gdk_pixbuf_get_formats`.
-        """
-    @classmethod
-    def new_with_type(cls, image_type: str) -> PixbufLoader:
-        """
-            Creates a new pixbuf loader object that always attempts to parse
-        image data as if it were an image of type `image_type`, instead of
-        identifying the type automatically.
-
-        This function is useful if you want an error if the image isn't the
-        expected type; for loading image formats that can't be reliably
-        identified by looking at the data; or if the user manually forces
-        a specific type.
-
-        The list of supported image formats depends on what image loaders
-        are installed, but typically "png", "jpeg", "gif", "tiff" and
-        "xpm" are among the supported formats. To obtain the full list of
-        supported image formats, call `gdk_pixbuf_format_get_name` on each
-        of the GdkPixbuf.Format structs returned by `gdk_pixbuf_get_formats`.
-        """
     def set_size(self, width: int, height: int) -> None:
         """
             Causes the image to be scaled while it is loaded.
@@ -1936,6 +1885,35 @@ class PixbufLoader(GObject.Object):
     ) -> None:
         """
         size_prepared(self, width:int, height:int)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> PixbufLoader:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GdkPixbuf.PixbufLoader
+        """
+    @classmethod
+    def new_with_mime_type(
+        cls,
+        mime_type: str,
+    ) -> PixbufLoader:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_mime_type(mime_type:str) -> GdkPixbuf.PixbufLoader
+        """
+    @classmethod
+    def new_with_type(
+        cls,
+        image_type: str,
+    ) -> PixbufLoader:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_type(image_type:str) -> GdkPixbuf.PixbufLoader
         """
 
     # Signals
@@ -2196,8 +2174,18 @@ class PixbufNonAnim(PixbufAnimation):
         """
         Initialize PixbufNonAnim object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, pixbuf: Pixbuf) -> PixbufNonAnim: ...
+    def new(
+        cls,
+        pixbuf: Pixbuf,
+    ) -> PixbufAnimation:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(pixbuf:GdkPixbuf.Pixbuf) -> GdkPixbuf.PixbufAnimation
+        """
 
 class PixbufSimpleAnim(PixbufAnimation):
     """
@@ -2229,14 +2217,23 @@ class PixbufSimpleAnim(PixbufAnimation):
         """
         Gets whether `animation` should loop indefinitely when it reaches the end.
         """
-    @classmethod
-    def new(cls, width: int, height: int, rate: float) -> PixbufSimpleAnim:
-        """
-        Creates a new, empty animation.
-        """
     def set_loop(self, loop: bool) -> None:
         """
         Sets whether `animation` should loop indefinitely when it reaches the end.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        width: int,
+        height: int,
+        rate: float,
+    ) -> PixbufSimpleAnim:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(width:int, height:int, rate:float) -> GdkPixbuf.PixbufSimpleAnim
         """
 
     # Signals

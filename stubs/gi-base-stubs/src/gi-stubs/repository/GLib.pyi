@@ -12,7 +12,6 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
 import builtins
@@ -14751,17 +14750,6 @@ class Bytes(GObject.GBoxed):
         `key_hash_func` parameter, when using non-`None` `GBytes` pointers as keys in
         a [struct`GLib`.HashTable].
         """
-    @classmethod
-    def new(cls, data: list | None, size: int) -> Bytes:
-        """
-            Creates a new [struct`GLib`.Bytes] from `data`.
-
-        `data` is copied. If `size` is 0, `data` may be `None`.
-
-        As an optimization, [ctor`GLib`.Bytes.new] may avoid an extra allocation by
-        copying the data within the resulting bytes structure if sufficiently small
-        (since GLib 2.84).
-        """
     def new_from_bytes(self, offset: int, length: int) -> Bytes:
         """
             Creates a [struct`GLib`.Bytes] which is a subsection of another `GBytes`.
@@ -14776,20 +14764,6 @@ class Bytes(GObject.GBoxed):
         is a slice of another `GBytes`, then the resulting `GBytes` will reference
         the same `GBytes` instead of `bytes`. This allows consumers to simplify the
         usage of `GBytes` when asynchronously writing to streams.
-        """
-    @classmethod
-    def new_take(cls, data: list | None, size: int) -> Bytes:
-        """
-            Creates a new [struct`GLib`.Bytes] from `data`.
-
-        After this call, `data` belongs to the `GBytes` and may no longer be
-        modified by the caller. The memory of `data` has to be dynamically
-        allocated and will eventually be freed with [func`GLib`.free].
-
-        For creating `GBytes` with memory from other allocators, see
-        [ctor`GLib`.Bytes.new_with_free_func].
-
-        `data` may be `None` if `size` is 0.
         """
     def ref(self) -> Bytes:
         """
@@ -14837,6 +14811,26 @@ class Bytes(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        data: list | None = None,
+    ) -> Bytes:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(data:list=None) -> GLib.Bytes
+        """
+    @classmethod
+    def new_take(
+        cls,
+        data: list | None = None,
+    ) -> Bytes:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_take(data:list=None) -> GLib.Bytes
+        """
 
 class Cache(GObject.GPointer):
     """
@@ -15537,225 +15531,6 @@ class DateTime(GObject.GBoxed):
             Determines if daylight savings time is in effect at the time and in
         the time zone of `datetime`.
         """
-    @classmethod
-    def new(
-        cls, tz: GObject.TimeZone, year: int, month: int, day: int, hour: int, minute: int, seconds: float
-    ) -> DateTime | None:
-        """
-            Creates a new GDateTime corresponding to the given date and time in
-        the time zone `tz`.
-
-        The `year` must be between 1 and 9999, `month` between 1 and 12 and `day`
-        between 1 and 28, 29, 30 or 31 depending on the month and the year.
-
-        `hour` must be between 0 and 23 and `minute` must be between 0 and 59.
-
-        `seconds` must be at least 0.0 and must be strictly less than 60.0.
-        It will be rounded down to the nearest microsecond.
-
-        If the given time is not representable in the given time zone (for
-        example, 02:30 on March 14th 2010 in Toronto, due to daylight savings
-        time) then the time will be rounded up to the nearest existing time
-        (in this case, 03:00).  If this matters to you then you should verify
-        the return value for containing the same as the numbers you gave.
-
-        In the case that the given time is ambiguous in the given time zone
-        (for example, 01:30 on November 7th 2010 in Toronto, due to daylight
-        savings time) then the time falling within standard (ie:
-        non-daylight) time is taken.
-
-        It not considered a programmer error for the values to this function
-        to be out of range, but in the case that they are, the function will
-        return None.
-
-        You should release the return value by calling `g_date_time_unref`
-        when you are done with it.
-        """
-    @classmethod
-    def new_from_iso8601(cls, text: str, default_tz: GObject.TimeZone | None = None) -> DateTime | None:
-        """
-            Creates a GDateTime corresponding to the given
-        [ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
-        `text`. ISO 8601 strings of the form `<date><sep><time><tz>` are supported, with
-        some extensions from [RFC 3339](https://tools.ietf.org/html/rfc3339) as
-        mentioned below.
-
-        Note that as GDateTime "is oblivious to leap seconds", leap seconds information
-        in an ISO-8601 string will be ignored, so a `23:59:60` time would be parsed as
-        `23:59:59`.
-
-        `<sep>` is the separator and can be either 'T', 't' or ' '. The latter two
-        separators are an extension from
-        [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6).
-
-        `<date>` is in the form:
-
-        - `YYYY-MM-DD` - Year/month/day, e.g. 2016-08-24.
-        - `YYYYMMDD` - Same as above without dividers.
-        - `YYYY-DDD` - Ordinal day where DDD is from 001 to 366, e.g. 2016-237.
-        - `YYYYDDD` - Same as above without dividers.
-        - `YYYY-Www-D` - Week day where ww is from 01 to 52 and D from 1-7,
-          e.g. 2016-W34-3.
-        - `YYYYWwwD` - Same as above without dividers.
-
-        `<time>` is in the form:
-
-        - `hh:mm:ss(.sss)` - Hours, minutes, seconds (subseconds), e.g. 22:10:42.123.
-        - `hhmmss(.sss)` - Same as above without dividers.
-
-        `<tz>` is an optional timezone suffix of the form:
-
-        - `Z` - UTC.
-        - `+hh:mm` or `-hh:mm` - Offset from UTC in hours and minutes, e.g. +12:00.
-        - `+hh` or `-hh` - Offset from UTC in hours, e.g. +12.
-
-        If the timezone is not provided in `text` it must be provided in `default_tz`
-        (this field is otherwise ignored).
-
-        This call can fail (returning None) if `text` is not a valid ISO 8601
-        formatted string.
-
-        You should release the return value by calling `g_date_time_unref`
-        when you are done with it.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_from_timeval_local(cls, tv: TimeVal) -> DateTime | None:
-        """
-            Creates a GDateTime corresponding to the given GTimeVal `tv` in the
-        local time zone.
-
-        The time contained in a GTimeVal is always stored in the form of
-        seconds elapsed since 1970-01-01 00:00:00 UTC, regardless of the
-        local time offset.
-
-        This call can fail (returning None) if `tv` represents a time outside
-        of the supported range of GDateTime.
-
-        You should release the return value by calling `g_date_time_unref`
-        when you are done with it.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_from_timeval_utc(cls, tv: TimeVal) -> DateTime | None:
-        """
-            Creates a GDateTime corresponding to the given GTimeVal `tv` in UTC.
-
-        The time contained in a GTimeVal is always stored in the form of
-        seconds elapsed since 1970-01-01 00:00:00 UTC.
-
-        This call can fail (returning None) if `tv` represents a time outside
-        of the supported range of GDateTime.
-
-        You should release the return value by calling `g_date_time_unref`
-        when you are done with it.
-        """
-    @classmethod
-    def new_from_unix_local(cls, t: int) -> DateTime | None:
-        """
-            Creates a GDateTime corresponding to the given Unix time `t` in the
-        local time zone.
-
-        Unix time is the number of seconds that have elapsed since 1970-01-01
-        00:00:00 UTC, regardless of the local time offset.
-
-        This call can fail (returning None) if `t` represents a time outside
-        of the supported range of GDateTime.
-
-        You should release the return value by calling `g_date_time_unref`
-        when you are done with it.
-        """
-    @classmethod
-    def new_from_unix_local_usec(cls, usecs: int) -> DateTime | None:
-        """
-            Creates a [struct`GLib`.DateTime] corresponding to the given Unix time `t` in the
-        local time zone.
-
-        Unix time is the number of microseconds that have elapsed since 1970-01-01
-        00:00:00 UTC, regardless of the local time offset.
-
-        This call can fail (returning `None`) if `t` represents a time outside
-        of the supported range of GDateTime.
-
-        You should release the return value by calling [method`GLib`.DateTime.unref]
-        when you are done with it.
-        """
-    @classmethod
-    def new_from_unix_utc(cls, t: int) -> DateTime | None:
-        """
-            Creates a GDateTime corresponding to the given Unix time `t` in UTC.
-
-        Unix time is the number of seconds that have elapsed since 1970-01-01
-        00:00:00 UTC.
-
-        This call can fail (returning None) if `t` represents a time outside
-        of the supported range of GDateTime.
-
-        You should release the return value by calling `g_date_time_unref`
-        when you are done with it.
-        """
-    @classmethod
-    def new_from_unix_utc_usec(cls, usecs: int) -> DateTime | None:
-        """
-            Creates a [struct`GLib`.DateTime] corresponding to the given Unix time `t` in UTC.
-
-        Unix time is the number of microseconds that have elapsed since 1970-01-01
-        00:00:00 UTC.
-
-        This call can fail (returning `None`) if `t` represents a time outside
-        of the supported range of GDateTime.
-
-        You should release the return value by calling [method`GLib`.DateTime.unref]
-        when you are done with it.
-        """
-    @classmethod
-    def new_local(cls, year: int, month: int, day: int, hour: int, minute: int, seconds: float) -> DateTime | None:
-        """
-            Creates a new GDateTime corresponding to the given date and time in
-        the local time zone.
-
-        This call is equivalent to calling `g_date_time_new` with the time
-        zone returned by `g_time_zone_new_local`.
-        """
-    @classmethod
-    def new_now(cls, tz: GObject.TimeZone) -> DateTime | None:
-        """
-            Creates a GDateTime corresponding to this exact instant in the given
-        time zone `tz`.  The time is as accurate as the system allows, to a
-        maximum accuracy of 1 microsecond.
-
-        This function will always succeed unless GLib is still being used after the
-        year 9999.
-
-        You should release the return value by calling `g_date_time_unref`
-        when you are done with it.
-        """
-    @classmethod
-    def new_now_local(cls) -> DateTime | None:
-        """
-            Creates a GDateTime corresponding to this exact instant in the local
-        time zone.
-
-        This is equivalent to calling `g_date_time_new_now` with the time
-        zone returned by `g_time_zone_new_local`.
-        """
-    @classmethod
-    def new_now_utc(cls) -> DateTime | None:
-        """
-            Creates a GDateTime corresponding to this exact instant in UTC.
-
-        This is equivalent to calling `g_date_time_new_now` with the time
-        zone returned by `g_time_zone_new_utc`.
-        """
-    @classmethod
-    def new_utc(cls, year: int, month: int, day: int, hour: int, minute: int, seconds: float) -> DateTime | None:
-        """
-            Creates a new GDateTime corresponding to the given date and time in
-        UTC.
-
-        This call is equivalent to calling `g_date_time_new` with the time
-        zone returned by `g_time_zone_new_utc`.
-        """
     def ref(self) -> DateTime:
         """
         Atomically increments the reference count of `datetime` by one.
@@ -15831,6 +15606,151 @@ class DateTime(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        tz: GObject.TimeZone,
+        year: int,
+        month: int,
+        day: int,
+        hour: int,
+        minute: int,
+        seconds: float,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(tz:GLib.TimeZone, year:int, month:int, day:int, hour:int, minute:int, seconds:float) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_from_iso8601(
+        cls,
+        text: str,
+        default_tz: GObject.TimeZone | None = None,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_iso8601(text:str, default_tz:GLib.TimeZone=None) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_from_timeval_local(
+        cls,
+        tv: TimeVal,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_timeval_local(tv:GLib.TimeVal) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_from_timeval_utc(
+        cls,
+        tv: TimeVal,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_timeval_utc(tv:GLib.TimeVal) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_from_unix_local(
+        cls,
+        t: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_unix_local(t:int) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_from_unix_local_usec(
+        cls,
+        usecs: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_unix_local_usec(usecs:int) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_from_unix_utc(
+        cls,
+        t: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_unix_utc(t:int) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_from_unix_utc_usec(
+        cls,
+        usecs: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_unix_utc_usec(usecs:int) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_local(
+        cls,
+        year: int,
+        month: int,
+        day: int,
+        hour: int,
+        minute: int,
+        seconds: float,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_local(year:int, month:int, day:int, hour:int, minute:int, seconds:float) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_now(
+        cls,
+        tz: GObject.TimeZone,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_now(tz:GLib.TimeZone) -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_now_local(
+        cls,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_now_local() -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_now_utc(
+        cls,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_now_utc() -> GLib.DateTime or None
+        """
+    @classmethod
+    def new_utc(
+        cls,
+        year: int,
+        month: int,
+        day: int,
+        hour: int,
+        minute: int,
+        seconds: float,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_utc(year:int, month:int, day:int, hour:int, minute:int, seconds:float) -> GLib.DateTime or None
+        """
 
 class DebugKey(GObject.GPointer):
     """
@@ -16327,15 +16247,6 @@ class IOChannel(GObject.GBoxed):
         so will not cause problems, as long as no attempt is made to
         access the channel after it is closed).
         """
-    @deprecated("deprecated")
-    def read(self, buf: str, count: int, bytes_read: int) -> IOError:
-        """
-        Reads data from a GIOChannel.
-        """
-    def read_chars(self, count: int) -> tuple[IOStatus, list, int]:
-        """
-        Replacement for `g_io_channel_read` with the new API.
-        """
     def read_line(self) -> tuple[IOStatus, str, int, int]:
         """
             Reads a line, including the terminating character(s),
@@ -16359,12 +16270,6 @@ class IOChannel(GObject.GBoxed):
     def ref(self) -> IOChannel:
         """
         Increments the reference count of a GIOChannel.
-        """
-    @deprecated("deprecated")
-    def seek(self, offset: int, type: SeekType) -> IOError:
-        """
-            Sets the current position in the GIOChannel, similar to the standard
-        library function `fseek`.
         """
     def seek_position(self, offset: int, type: SeekType) -> IOStatus:
         """
@@ -16494,11 +16399,6 @@ class IOChannel(GObject.GBoxed):
         """
         Decrements the reference count of a GIOChannel.
         """
-    @deprecated("deprecated")
-    def write(self, buf: str, count: int, bytes_written: int) -> IOError:
-        """
-        Writes data to a GIOChannel.
-        """
     def write_chars(self, buf: list, count: int) -> tuple[IOStatus, int]:
         """
             Replacement for `g_io_channel_write` with the new API.
@@ -16530,6 +16430,24 @@ class IOChannel(GObject.GBoxed):
         *user_data: typing.Any,
         priority: typing.Any = 0,
     ) -> typing.Any: ...
+    def read(
+        self,
+        max_count: typing.Any = -1,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        Reads data from a :obj:`~gi.repository.GLib.IOChannel`.
+        """
+    def read_chars(
+        self,
+        max_count: typing.Any = -1,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        Alias for GLib.IOChannel.read().
+        """
     def readline(
         self,
         size_hint: typing.Any = -1,
@@ -16538,6 +16456,26 @@ class IOChannel(GObject.GBoxed):
         self,
         size_hint: typing.Any = -1,
     ) -> typing.Any: ...
+    def seek(
+        self,
+        offset: typing.Any,
+        whence: typing.Any = 0,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        seek(self, offset:int, type:GLib.SeekType) -> GLib.IOError
+        """
+    def write(
+        self,
+        buf: typing.Any,
+        buflen: typing.Any = -1,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        write(self, buf:str, count:int, bytes_written:int) -> GLib.IOError
+        """
     def writelines(
         self,
         lines: typing.Any,
@@ -17044,16 +16982,6 @@ class KeyFile(GObject.GBoxed):
         This function will never return a [error`GLib`.KeyFileError.NOT_FOUND]
         error. If the `file` is not found, [error`GLib`.FileError.NOENT] is returned.
         """
-    @classmethod
-    def new(cls) -> KeyFile:
-        """
-            Creates a new empty [struct`GLib`.KeyFile] object.
-
-        Use [method`GLib`.KeyFile.load_from_file],
-        [method`GLib`.KeyFile.load_from_data], [method`GLib`.KeyFile.load_from_dirs] or
-        [method`GLib`.KeyFile.load_from_data_dirs] to
-        read an existing key file.
-        """
     def remove_comment(self, group_name: str | None = None, key: str | None = None) -> bool:
         """
             Removes a comment above `key` from `group_name`.
@@ -17212,6 +17140,15 @@ class KeyFile(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> KeyFile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GLib.KeyFile
+        """
 
 class List(GObject.GPointer):
     """
@@ -17393,21 +17330,6 @@ class MainContext(GObject.GBoxed):
         know before waiting on another thread that may be
         blocking to get ownership of `context`.
         """
-    def iteration(self, may_block: bool) -> bool:
-        """
-            Runs a single iteration for the given main loop. This involves
-        checking to see if any event sources are ready to be processed,
-        then if no events sources are ready and `may_block` is True, waiting
-        for a source to become ready, then dispatching the highest priority
-        events sources that are ready. Otherwise, if `may_block` is False
-        sources are not waited to become ready, only those highest priority
-        events sources will be dispatched (if any), that are ready at this
-        given moment without further waiting.
-
-        Note that even when `may_block` is True, it is still possible for
-        [method`GLib`.MainContext.iteration] to return False, since the wait may
-        be interrupted for other reasons than an event source becoming ready.
-        """
     @classmethod
     def new(cls) -> MainContext:
         """
@@ -17517,16 +17439,6 @@ class MainContext(GObject.GBoxed):
         }
         ]|
         """
-    def query(self, max_priority: int, n_fds: int) -> tuple[int, int, list]:
-        """
-            Determines information necessary to poll this main loop. You should
-        be careful to pass the resulting `fds` array and its length `n_fds`
-        as is when calling [method`GLib`.MainContext.check], as this function relies
-        on assumptions made when the array is filled.
-
-        You must have successfully acquired the context with
-        [method`GLib`.MainContext.acquire] before you may call this function.
-        """
     def ref(self) -> MainContext:
         """
         Increases the reference count on a [struct`GLib`.MainContext] object by one.
@@ -17604,6 +17516,34 @@ class MainContext(GObject.GBoxed):
         ]|
         """
 
+    # python methods (overrides?)
+    def iteration(
+        self,
+        may_block: typing.Any = True,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        iteration(self, may_block:bool) -> bool
+        """
+    def query(
+        self,
+        max_priority: int,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        Determines information necessary to poll this main loop.
+
+        :param max_priority: maximum priority source to check
+        :returns:
+          The timeout (msec) used for polling,
+          and the list of poll fd's.
+
+        Please also check the usage notes in the
+        `C documention <https://docs.gtk.org/glib/method.MainContext.query.html>`__.
+        """
+
 class MainLoop(GObject.GBoxed):
     """
     The `GMainLoop` struct is an opaque data type
@@ -17637,13 +17577,6 @@ class MainLoop(GObject.GBoxed):
         """
         Increases the reference count on a [struct`GLib`.MainLoop] object by one.
         """
-    def run(self) -> None:
-        """
-            Runs a main loop until [method`GLib`.MainLoop.quit] is called on the loop.
-        If this is called for the thread of the loop's GMainContext,
-        it will process events from the loop, otherwise it will
-        simply wait.
-        """
     def unref(self) -> None:
         """
             Decreases the reference count on a [struct`GLib`.MainLoop] object by one. If
@@ -17657,6 +17590,14 @@ class MainLoop(GObject.GBoxed):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    def run(
+        self,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        run(self)
         """
 
 class MarkupParser(GObject.GPointer):
@@ -19709,12 +19650,6 @@ class Source(GObject.GBoxed):
         [func`GLib`.main_current_source]. But calling this function on a source
         whose [struct`GLib`.MainContext] has been destroyed is an error.
         """
-    @deprecated("deprecated")
-    def get_current_time(self, timeval: TimeVal) -> None:
-        """
-            This function ignores `source` and is otherwise the same as
-        [func`GLib`.get_current_time].
-        """
     def get_id(self) -> int:
         """
             Returns the numeric ID for a particular source. The ID of a source
@@ -19945,30 +19880,6 @@ class Source(GObject.GBoxed):
 
         As the name suggests, this function is not available on Windows.
         """
-    def set_callback(self, func: SourceFunc, *data: object | None) -> None:
-        """
-            Sets the callback function for a source. The callback for a source is
-        called from the source's dispatch function.
-
-        The exact type of `func` depends on the type of source; ie. you
-        should not count on `func` being called with `data` as its first
-        parameter. Cast `func` with [func`GLib`.SOURCE_FUNC] to avoid warnings about
-        incompatible function types.
-
-        See [mainloop memory management](main-loop.html#memory-management-of-sources) for details
-        on how to handle memory management of `data`.
-
-        Typically, you won't use this function. Instead use functions specific
-        to the type of source you are using, such as [func`GLib`.idle_add] or
-        [func`GLib`.timeout_add].
-
-        It is safe to call this function multiple times on a source which has already
-        been attached to a context. The changes will take effect for the next time
-        the source is dispatched after this call returns.
-
-        Note that [method`GLib`.Source.destroy] for a currently attached source has the effect
-        of also unsetting the callback.
-        """
     def set_callback_indirect(self, callback_data: object | None, callback_funcs: SourceCallbackFuncs) -> None:
         """
             Sets the callback function storing the data as a refcounted callback
@@ -20096,6 +20007,24 @@ class Source(GObject.GBoxed):
     def finalize(
         self,
     ) -> typing.Any: ...
+    def get_current_time(
+        self,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_current_time(self, timeval:GLib.TimeVal)
+        """
+    def set_callback(
+        self,
+        fn: typing.Any,
+        user_data: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_callback(self, func:GLib.SourceFunc, data=None)
+        """
 
 class SourceCallbackFuncs(GObject.GPointer):
     """
@@ -20368,31 +20297,6 @@ class String(GObject.GBoxed):
             Converts a Unicode character into UTF-8, and insert it
         into the string at the given position.
         """
-    @classmethod
-    def new(cls, init: str | None = None) -> String:
-        """
-        Creates a new GString, initialized with the given string.
-        """
-    @classmethod
-    def new_len(cls, init: str, len: int) -> String:
-        """
-            Creates a new GString with `len` bytes of the `init` buffer.
-        Because a length is provided, `init` need not be nul-terminated,
-        and can contain embedded nul bytes.
-
-        Since this function does not stop at nul bytes, it is the caller's
-        responsibility to ensure that `init` has at least `len` addressable
-        bytes.
-        """
-    @classmethod
-    def new_take(cls, init: str | None = None) -> String:
-        """
-            Creates a new GString, initialized with the given string.
-
-        After this call, `init` belongs to the GString and may no longer be
-        modified by the caller. The memory of `data` has to be dynamically
-        allocated and will eventually be freed with `g_free`.
-        """
     def overwrite(self, pos: int, val: str) -> String:
         """
         Overwrites part of a string, lengthening it if necessary.
@@ -20449,14 +20353,6 @@ class String(GObject.GBoxed):
         of the newly added area are undefined. (However, as
         always, string->str[string->len] will be a nul byte.)
         """
-    @classmethod
-    def sized_new(cls, dfl_size: int) -> String:
-        """
-            Creates a new GString, with enough space for `dfl_size`
-        bytes. This is useful if you are going to add a lot of
-        text to the string and don't want it to be reallocated
-        too often.
-        """
     def truncate(self, len: int) -> String:
         """
         Cuts off the end of the GString, leaving the first `len` bytes.
@@ -20465,6 +20361,49 @@ class String(GObject.GBoxed):
     def up(self) -> String:
         """
         Converts a GString to uppercase.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        init: str | None = None,
+    ) -> String:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(init:str=None) -> GLib.String
+        """
+    @classmethod
+    def new_len(
+        cls,
+        init: str,
+        len: int,
+    ) -> String:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_len(init:str, len:int) -> GLib.String
+        """
+    @classmethod
+    def new_take(
+        cls,
+        init: str | None = None,
+    ) -> String:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_take(init:str=None) -> GLib.String
+        """
+    @classmethod
+    def sized_new(
+        cls,
+        dfl_size: int,
+    ) -> String:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        sized_new(dfl_size:int) -> GLib.String
         """
 
 class StringChunk(GObject.GPointer):
@@ -21154,15 +21093,6 @@ class Tree(GObject.GBoxed):
         The lower bound is the first node that has its key greater
         than or equal to the searched key.
         """
-    @classmethod
-    def new_full(
-        cls, key_compare_func: CompareDataFunc, *key_compare_data: object | None, key_destroy_func: DestroyNotify
-    ) -> Tree:
-        """
-            Creates a new GTree like `g_tree_new` and allows to specify functions
-        to free the memory allocated for the key and value that get called when
-        removing the entry from the GTree.
-        """
     def nnodes(self) -> int:
         """
         Gets the number of nodes in a GTree.
@@ -21271,6 +21201,20 @@ class Tree(GObject.GBoxed):
 
         The upper bound is the first node that has its key strictly greater
         than the searched key.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_full(
+        cls,
+        key_compare_func: typing.Callable,
+        key_compare_data: typing.Any,
+        key_destroy_func: typing.Callable,
+    ) -> Tree:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_full(key_compare_func:GLib.CompareDataFunc, key_compare_data=None, key_destroy_func:GLib.DestroyNotify) -> GLib.Tree
         """
 
 class TreeNode(GObject.GPointer):
@@ -22001,27 +21945,6 @@ class Variant(GObject.GPointer):
         operation which is approximately O(n) in the number of values
         involved.
         """
-    def get_string(self) -> tuple[str, int]:
-        """
-            Returns the string value of a GVariant instance with a string
-        type.  This includes the types G_VARIANT_TYPE_STRING,
-        G_VARIANT_TYPE_OBJECT_PATH and G_VARIANT_TYPE_SIGNATURE.
-
-        The string will always be UTF-8 encoded, will never be None, and will never
-        contain nul bytes.
-
-        If `length` is non-None then the length of the string (in bytes) is
-        returned there.  For trusted values, this information is already
-        known.  Untrusted values will be validated and, if valid, a `strlen` will be
-        performed. If invalid, a default value will be returned — for
-        G_VARIANT_TYPE_OBJECT_PATH, this is `"/"`, and for other types it is the
-        empty string.
-
-        It is an error to call this function with a `value` of any type
-        other than those three.
-
-        The return value remains valid as long as `value` exists.
-        """
     def get_strv(self) -> tuple[list, int]:
         """
             Gets the contents of an array of strings GVariant.  This call
@@ -22397,18 +22320,6 @@ class Variant(GObject.GPointer):
         If `length` is -1 then `strv` is None-terminated.
         """
     @classmethod
-    def new_tuple(cls, children: list, n_children: int) -> Variant:
-        """
-            Creates a new tuple GVariant out of the items in `children`.  The
-        type is determined from the types of `children`.  No entry in the
-        `children` array may be None.
-
-        If `n_children` is 0 then the unit tuple is constructed.
-
-        If the `children` are floating references (see `g_variant_ref_sink`), the
-        new instance takes ownership of them as if via `g_variant_ref_sink`.
-        """
-    @classmethod
     def new_uint16(cls, value: int) -> Variant:
         """
         Creates a new uint16 GVariant instance.
@@ -22600,9 +22511,24 @@ class Variant(GObject.GPointer):
         """
 
     # python methods (overrides?)
+    def get_string(
+        self,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
     def keys(
         self,
     ) -> typing.Any: ...
+    @staticmethod
+    def new_tuple(
+        *elements: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_tuple(children:list) -> GLib.Variant
+        """
     @classmethod
     def split_signature(
         cls,
@@ -22678,19 +22604,6 @@ class VariantBuilder(GObject.GBoxed):
         have been added; in this case it is impossible to infer the type of
         the empty array.
         """
-    @classmethod
-    def new(cls, type: VariantType) -> VariantBuilder:
-        """
-            Allocates and initialises a new GVariantBuilder.
-
-        You should call `g_variant_builder_unref` on the return value when it
-        is no longer needed.  The memory will not be automatically freed by
-        any other call.
-
-        In most cases it is easier to place a GVariantBuilder directly on
-        the stack of the calling function and initialise it with
-        `g_variant_builder_init_static`.
-        """
     def open(self, type: VariantType) -> None:
         """
             Opens a subcontainer inside the given `builder`.  When done adding
@@ -22754,6 +22667,16 @@ class VariantBuilder(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        type: VariantType,
+    ) -> VariantBuilder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(type:GLib.VariantType) -> GLib.VariantBuilder
+        """
 
 class VariantDict(GObject.GBoxed):
     """
@@ -22900,20 +22823,6 @@ class VariantDict(GObject.GBoxed):
         returned.  If `expected_type` was specified then any non-None return
         value will have this type.
         """
-    @classmethod
-    def new(cls, from_asv: Variant | None = None) -> VariantDict:
-        """
-            Allocates and initialises a new GVariantDict.
-
-        You should call `g_variant_dict_unref` on the return value when it
-        is no longer needed.  The memory will not be automatically freed by
-        any other call.
-
-        In some cases it may be easier to place a GVariantDict directly on
-        the stack of the calling function and initialise it with
-        `g_variant_dict_init`.  This is particularly useful when you are
-        using GVariantDict to construct a GVariant.
-        """
     def ref(self) -> VariantDict:
         """
             Increases the reference count on `dict`.
@@ -22942,6 +22851,16 @@ class VariantDict(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        from_asv: Variant | None = None,
+    ) -> VariantDict:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(from_asv:GLib.Variant=None) -> GLib.VariantDict
+        """
 
 class VariantType(GObject.GBoxed):
     """
@@ -23298,51 +23217,6 @@ class VariantType(GObject.GBoxed):
         In the case of a dictionary entry type, this function will always
         return `2`.
         """
-    @classmethod
-    def new(cls, type_string: str) -> VariantType:
-        """
-            Creates a new [type`GLib`.VariantType] corresponding to the type string given
-        by `type_string`.
-
-        It is appropriate to call [method`GLib`.VariantType.free] on the return value.
-
-        It is a programmer error to call this function with an invalid type
-        string.  Use [func`GLib`.VariantType.string_is_valid] if you are unsure.
-        """
-    @classmethod
-    def new_array(cls, element: VariantType) -> VariantType:
-        """
-            Constructs the type corresponding to an array of elements of the
-        type `type`.
-
-        It is appropriate to call [method`GLib`.VariantType.first] on the return value.
-        """
-    @classmethod
-    def new_dict_entry(cls, key: VariantType, value: VariantType) -> VariantType:
-        """
-            Constructs the type corresponding to a dictionary entry with a key
-        of type `key` and a value of type `value`.
-
-        It is appropriate to call [method`GLib`.VariantType.free] on the return value.
-        """
-    @classmethod
-    def new_maybe(cls, element: VariantType) -> VariantType:
-        """
-            Constructs the type corresponding to a ‘maybe’ instance containing
-        type `type` or `Nothing`.
-
-        It is appropriate to call [method`GLib`.VariantType.free] on the return value.
-        """
-    @classmethod
-    def new_tuple(cls, items: list, length: int) -> VariantType:
-        """
-            Constructs a new tuple type, from `items`.
-
-        `length` is the number of items in `items`, or `-1` to indicate that
-        `items` is `None`-terminated.
-
-        It is appropriate to call [method`GLib`.VariantType.free] on the return value.
-        """
     def next(self) -> VariantType | None:
         """
             Determines the next item type of a tuple or dictionary entry
@@ -23399,6 +23273,57 @@ class VariantType(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        type_string: str,
+    ) -> VariantType:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(type_string:str) -> GLib.VariantType
+        """
+    @classmethod
+    def new_array(
+        cls,
+        element: VariantType,
+    ) -> VariantType:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_array(element:GLib.VariantType) -> GLib.VariantType
+        """
+    @classmethod
+    def new_dict_entry(
+        cls,
+        key: VariantType,
+        value: VariantType,
+    ) -> VariantType:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_dict_entry(key:GLib.VariantType, value:GLib.VariantType) -> GLib.VariantType
+        """
+    @classmethod
+    def new_maybe(
+        cls,
+        element: VariantType,
+    ) -> VariantType:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_maybe(element:GLib.VariantType) -> GLib.VariantType
+        """
+    @classmethod
+    def new_tuple(
+        cls,
+        items: list,
+    ) -> VariantType:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_tuple(items:list) -> GLib.VariantType
+        """
 
 ###############################################################
 # Callbacks

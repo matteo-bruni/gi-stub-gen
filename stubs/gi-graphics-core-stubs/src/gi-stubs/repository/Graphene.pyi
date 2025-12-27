@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import enum
 
 # gi.repository imports needed by this Stub
@@ -414,13 +414,6 @@ class Box(GObject.GBoxed):
     def min(self) -> Vec3 | None: ...
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Box:
-        """
-            Allocates a new #graphene_box_t.
-
-        The contents of the returned structure are undefined.
-        """
     def contains_box(self, b: Box) -> bool:
         """
             Checks whether the #graphene_box_t `a` contains the given
@@ -581,6 +574,17 @@ class Box(GObject.GBoxed):
         The returned value is owned by Graphene and should not be modified or freed.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Box:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Box
+        """
+
 class Euler(GObject.GBoxed):
     """
     Describe a rotation using Euler angles.
@@ -596,13 +600,6 @@ class Euler(GObject.GBoxed):
     def order(self) -> EulerOrder: ...
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Euler:
-        """
-            Allocates a new #graphene_euler_t.
-
-        The contents of the returned structure are undefined.
-        """
     def equal(self, b: Euler) -> bool:
         """
         Checks if two #graphene_euler_t are equal.
@@ -736,6 +733,17 @@ class Euler(GObject.GBoxed):
         #graphene_vec3_t with them.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Euler:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Euler
+        """
+
 class Frustum(GObject.GBoxed):
     """
     A 3D volume delimited by 2D clip planes.
@@ -749,13 +757,6 @@ class Frustum(GObject.GBoxed):
     def planes(self) -> list | None: ...
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Frustum:
-        """
-            Allocates a new #graphene_frustum_t structure.
-
-        The contents of the returned structure are undefined.
-        """
     def contains_point(self, point: Point3D) -> bool:
         """
             Checks whether a point is inside the volume defined by the given
@@ -798,6 +799,17 @@ class Frustum(GObject.GBoxed):
         a #graphene_frustum_t.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Frustum:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Frustum
+        """
+
 class Matrix(GObject.GBoxed):
     """
     A structure capable of holding a 4x4 matrix.
@@ -811,11 +823,6 @@ class Matrix(GObject.GBoxed):
     def value(self) -> Simd4X4F | None: ...
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Matrix:
-        """
-        Allocates a new #graphene_matrix_t.
-        """
     def decompose(self) -> tuple[bool, Vec3, Vec3, Quaternion, Vec3, Vec4]:
         """
             Decomposes a transformation matrix into its component transformations.
@@ -1232,6 +1239,17 @@ class Matrix(GObject.GBoxed):
         given matrix, within the given axis aligned rectangular `bounds`.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Matrix:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Matrix
+        """
+
 class Plane(GObject.GBoxed):
     """
     A 2D plane that extends infinitely in a 3D volume.
@@ -1247,13 +1265,6 @@ class Plane(GObject.GBoxed):
     def normal(self) -> Vec3 | None: ...
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Plane:
-        """
-            Allocates a new #graphene_plane_t structure.
-
-        The contents of the returned structure are undefined.
-        """
     def distance(self, point: Point3D) -> float:
         """
         Computes the distance of `point` from a #graphene_plane_t.
@@ -1326,6 +1337,17 @@ class Plane(GObject.GBoxed):
         recomputing it every time.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Plane:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Plane
+        """
+
 class Point(GObject.GBoxed):
     """
     A point with two coordinates.
@@ -1344,30 +1366,6 @@ class Point(GObject.GBoxed):
     """
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Point:
-        """
-            Allocates a new #graphene_point_t structure.
-
-        The coordinates of the returned point are (0, 0).
-
-        It's possible to chain this function with `Graphene.Point.init`
-        or `Graphene.Point.init_from_point`, e.g.:
-
-        |[<!-- language="C" -->
-          graphene_point_t *
-          point_new (float x, float y)
-          {
-            return graphene_point_init (graphene_point_alloc (), x, y);
-          }
-
-          graphene_point_t *
-          point_copy (const graphene_point_t *p)
-          {
-            return graphene_point_init_from_point (graphene_point_alloc (), p);
-          }
-        ]|
-        """
     def distance(self, b: Point) -> tuple[float, float, float]:
         """
         Computes the distance between `a` and `b`.
@@ -1420,6 +1418,17 @@ class Point(GObject.GBoxed):
         Returns a point fixed at (0, 0).
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Point:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Point
+        """
+
 class Point3D(GObject.GBoxed):
     """
     A point with three components: X, Y, and Z.
@@ -1443,11 +1452,6 @@ class Point3D(GObject.GBoxed):
     """
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Point3D:
-        """
-        Allocates a #graphene_point3d_t structure.
-        """
     def cross(self, b: Point3D) -> Point3D:
         """
         Computes the cross product of the two given #graphene_point3d_t.
@@ -1526,6 +1530,17 @@ class Point3D(GObject.GBoxed):
         Retrieves a constant point with all three coordinates set to 0.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Point3D:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Point3D
+        """
+
 class Quad(GObject.GBoxed):
     """
     A 4 vertex quadrilateral, as represented by four #graphene_point_t.
@@ -1539,13 +1554,6 @@ class Quad(GObject.GBoxed):
     def points(self) -> list | None: ...
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Quad:
-        """
-            Allocates a new #graphene_quad_t instance.
-
-        The contents of the returned instance are undefined.
-        """
     def bounds(self) -> Rect:
         """
         Computes the bounding rectangle of `q` and places it into `r`.
@@ -1576,6 +1584,17 @@ class Quad(GObject.GBoxed):
         given #graphene_rect_t.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Quad:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Quad
+        """
+
 class Quaternion(GObject.GBoxed):
     """
     A quaternion.
@@ -1598,13 +1617,6 @@ class Quaternion(GObject.GBoxed):
     def add(self, b: Quaternion) -> Quaternion:
         """
         Adds two #graphene_quaternion_t `a` and `b`.
-        """
-    @classmethod
-    def alloc(cls) -> Quaternion:
-        """
-            Allocates a new #graphene_quaternion_t.
-
-        The contents of the returned value are undefined.
         """
     def dot(self, b: Quaternion) -> float:
         """
@@ -1716,6 +1728,17 @@ class Quaternion(GObject.GBoxed):
         #graphene_vec4_t.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Quaternion:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Quaternion
+        """
+
 class Ray(GObject.GBoxed):
     """
     A ray emitted from an origin in a given direction.
@@ -1731,13 +1754,6 @@ class Ray(GObject.GBoxed):
     def origin(self) -> Vec3 | None: ...
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Ray:
-        """
-            Allocates a new #graphene_ray_t structure.
-
-        The contents of the returned structure are undefined.
-        """
     def equal(self, b: Ray) -> bool:
         """
         Checks whether the two given #graphene_ray_t are equal.
@@ -1829,6 +1845,17 @@ class Ray(GObject.GBoxed):
         given #graphene_triangle_t `b`.
 
         See also: `Graphene.Ray.intersect_triangle`
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Ray:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Ray
         """
 
 class Rect(GObject.GBoxed):
@@ -2130,13 +2157,6 @@ class Size(GObject.GBoxed):
     """
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Size:
-        """
-            Allocates a new #graphene_size_t.
-
-        The contents of the returned value are undefined.
-        """
     def equal(self, b: Size) -> bool:
         """
         Checks whether the two give #graphene_size_t are equal.
@@ -2170,6 +2190,17 @@ class Size(GObject.GBoxed):
         equality checks and interpolations.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Size:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Size
+        """
+
 class Sphere(GObject.GBoxed):
     """
     A sphere, represented by its center and radius.
@@ -2182,13 +2213,6 @@ class Sphere(GObject.GBoxed):
     def radius(self) -> float: ...
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Sphere:
-        """
-            Allocates a new #graphene_sphere_t.
-
-        The contents of the newly allocated structure are undefined.
-        """
     def contains_point(self, point: Point3D) -> bool:
         """
             Checks whether the given `point` is contained in the volume
@@ -2250,6 +2274,17 @@ class Sphere(GObject.GBoxed):
         coordinates as the delta of the translation.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Sphere:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Sphere
+        """
+
 class Triangle(GObject.GBoxed):
     """
     A triangle.
@@ -2264,13 +2299,6 @@ class Triangle(GObject.GBoxed):
     def c(self) -> Vec3 | None: ...
 
     # gi Methods
-    @classmethod
-    def alloc(cls) -> Triangle:
-        """
-            Allocates a new #graphene_triangle_t.
-
-        The contents of the returned structure are undefined.
-        """
     def contains_point(self, p: Point3D) -> bool:
         """
         Checks whether the given triangle `t` contains the point `p`.
@@ -2366,6 +2394,17 @@ class Triangle(GObject.GBoxed):
         Initializes a #graphene_triangle_t using the three given vectors.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Triangle:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Triangle
+        """
+
 class Vec2(GObject.GBoxed):
     """
     A structure capable of holding a vector with two dimensions, x and y.
@@ -2383,15 +2422,6 @@ class Vec2(GObject.GBoxed):
         """
             Adds each component of the two passed vectors and places
         each result into the components of `res`.
-        """
-    @classmethod
-    def alloc(cls) -> Vec2:
-        """
-            Allocates a new #graphene_vec2_t structure.
-
-        The contents of the returned structure are undefined.
-
-        Use `Graphene.Vec2.init` to initialize the vector.
         """
     def divide(self, b: Vec2) -> Vec2:
         """
@@ -2504,6 +2534,17 @@ class Vec2(GObject.GBoxed):
         Retrieves a constant vector with (0, 0) components.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Vec2:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Vec2
+        """
+
 class Vec3(GObject.GBoxed):
     """
     A structure capable of holding a vector with three dimensions: x, y, and z.
@@ -2520,15 +2561,6 @@ class Vec3(GObject.GBoxed):
     def add(self, b: Vec3) -> Vec3:
         """
         Adds each component of the two given vectors.
-        """
-    @classmethod
-    def alloc(cls) -> Vec3:
-        """
-            Allocates a new #graphene_vec3_t structure.
-
-        The contents of the returned structure are undefined.
-
-        Use `Graphene.Vec3.init` to initialize the vector.
         """
     def cross(self, b: Vec3) -> Vec3:
         """
@@ -2684,6 +2716,17 @@ class Vec3(GObject.GBoxed):
         all sets to 0.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Vec3:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Vec3
+        """
+
 class Vec4(GObject.GBoxed):
     """
     A structure capable of holding a vector with four dimensions: x, y, z, and w.
@@ -2700,15 +2743,6 @@ class Vec4(GObject.GBoxed):
     def add(self, b: Vec4) -> Vec4:
         """
         Adds each component of the two given vectors.
-        """
-    @classmethod
-    def alloc(cls) -> Vec4:
-        """
-            Allocates a new #graphene_vec4_t structure.
-
-        The contents of the returned structure are undefined.
-
-        Use `Graphene.Vec4.init` to initialize the vector.
         """
     def divide(self, b: Vec4) -> Vec4:
         """
@@ -2864,6 +2898,17 @@ class Vec4(GObject.GBoxed):
         """
             Retrieves a pointer to a #graphene_vec4_t with all its
         components set to 0.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def alloc(
+        cls,
+    ) -> Vec4:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        alloc() -> Graphene.Vec4
         """
 
 ###############################################################

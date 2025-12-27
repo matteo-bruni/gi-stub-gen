@@ -49,8 +49,7 @@ class ModuleSchema(BaseSchema):
         extra_imports: list[str] | None = None,
     ) -> tuple[set[str], set[str]]:
         gi_imports: set[str] = set()
-        # if self.name == "gi.repository.Pango":
-        #     breakpoint()
+
         for c in self.classes:
             gi_imports.update(c.required_imports)
         for e in self.enum:
@@ -108,6 +107,9 @@ class ModuleSchema(BaseSchema):
             # GLib has many enum.IntFlag / enum.IntEnum that are not in gi.repository
             # but in enum module
             not_gi_imports.add("enum")
+
+        # add builtins if needed
+        not_gi_imports.add("builtins")
 
         logger.info(f"Module: {self.name}")
         logger.info(f"Importing gi.repository imports: {valid_gi_imports}")

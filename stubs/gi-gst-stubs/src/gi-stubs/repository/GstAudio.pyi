@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import enum
 import typing
 
@@ -540,19 +540,19 @@ class AudioAggregator(GstBase.Aggregator):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        latency: int | None = None,
-        min_upstream_latency: int | None = None,
-        start_time_selection: GstBase.AggregatorStartTimeSelection | None = GstBase.AggregatorStartTimeSelection.ZERO,
-        start_time: int | None = None,
-        emit_signals: bool | None = None,
-        output_buffer_duration: int | None = None,
         alignment_threshold: int | None = None,
         discont_wait: int | None = None,
-        output_buffer_duration_fraction: Gst.Fraction | None = None,
-        ignore_inactive_pads: bool | None = None,
+        emit_signals: bool | None = None,
         force_live: bool | None = None,
+        ignore_inactive_pads: bool | None = None,
+        latency: int | None = None,
+        min_upstream_latency: int | None = None,
+        name: str | None = None,
+        output_buffer_duration: int | None = None,
+        output_buffer_duration_fraction: Gst.Fraction | None = None,
+        parent: Gst.Object | None = None,
+        start_time: int | None = None,
+        start_time_selection: GstBase.AggregatorStartTimeSelection | None = GstBase.AggregatorStartTimeSelection.ZERO,
     ) -> None:
         """
         Initialize AudioAggregator object with properties.
@@ -657,14 +657,14 @@ class AudioAggregatorConvertPad(AudioAggregatorPad):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        direction: Gst.PadDirection | None = Gst.PadDirection.UNKNOWN,
-        template: Gst.PadTemplate | None = None,
-        offset: int | None = None,
-        emit_signals: bool | None = None,
-        qos_messages: bool | None = None,
         converter_config: Gst.Structure | None = None,
+        direction: Gst.PadDirection | None = Gst.PadDirection.UNKNOWN,
+        emit_signals: bool | None = None,
+        name: str | None = None,
+        offset: int | None = None,
+        parent: Gst.Object | None = None,
+        qos_messages: bool | None = None,
+        template: Gst.PadTemplate | None = None,
     ) -> None:
         """
         Initialize AudioAggregatorConvertPad object with properties.
@@ -712,13 +712,13 @@ class AudioAggregatorPad(GstBase.AggregatorPad):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
         direction: Gst.PadDirection | None = Gst.PadDirection.UNKNOWN,
-        template: Gst.PadTemplate | None = None,
-        offset: int | None = None,
         emit_signals: bool | None = None,
+        name: str | None = None,
+        offset: int | None = None,
+        parent: Gst.Object | None = None,
         qos_messages: bool | None = None,
+        template: Gst.PadTemplate | None = None,
     ) -> None:
         """
         Initialize AudioAggregatorPad object with properties.
@@ -805,27 +805,27 @@ class AudioBaseSink(GstBase.BaseSink):
     # gi Methods
     def __init__(
         self,
+        alignment_threshold: int | None = None,
+        async_: bool | None = None,
+        blocksize: int | None = None,
+        buffer_time: int | None = None,
+        can_activate_pull: bool | None = None,
+        discont_wait: int | None = None,
+        drift_tolerance: int | None = None,
+        enable_last_sample: bool | None = None,
+        latency_time: int | None = None,
+        max_bitrate: int | None = None,
+        max_lateness: int | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
-        sync: bool | None = None,
-        max_lateness: int | None = None,
-        qos: bool | None = None,
-        async_: bool | None = None,
-        ts_offset: int | None = None,
-        enable_last_sample: bool | None = None,
-        blocksize: int | None = None,
-        render_delay: int | None = None,
-        throttle_time: int | None = None,
-        max_bitrate: int | None = None,
         processing_deadline: int | None = None,
-        buffer_time: int | None = None,
-        latency_time: int | None = None,
         provide_clock: bool | None = None,
+        qos: bool | None = None,
+        render_delay: int | None = None,
         slave_method: AudioBaseSinkSlaveMethod | None = AudioBaseSinkSlaveMethod.SKEW,
-        can_activate_pull: bool | None = None,
-        alignment_threshold: int | None = None,
-        drift_tolerance: int | None = None,
-        discont_wait: int | None = None,
+        sync: bool | None = None,
+        throttle_time: int | None = None,
+        ts_offset: int | None = None,
     ) -> None:
         """
         Initialize AudioBaseSink object with properties.
@@ -974,17 +974,17 @@ class AudioBaseSrc(GstBase.PushSrc):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        blocksize: int | None = None,
-        num_buffers: int | None = None,
-        typefind: bool | None = None,
-        do_timestamp: bool | None = None,
         automatic_eos: bool | None = None,
+        blocksize: int | None = None,
         buffer_time: int | None = None,
+        do_timestamp: bool | None = None,
         latency_time: int | None = None,
+        name: str | None = None,
+        num_buffers: int | None = None,
+        parent: Gst.Object | None = None,
         provide_clock: bool | None = None,
         slave_method: AudioBaseSrcSlaveMethod | None = AudioBaseSrcSlaveMethod.SKEW,
+        typefind: bool | None = None,
     ) -> None:
         """
         Initialize AudioBaseSrc object with properties.
@@ -1115,16 +1115,16 @@ class AudioCdSrc(GstBase.PushSrc):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        blocksize: int | None = None,
-        num_buffers: int | None = None,
-        typefind: bool | None = None,
-        do_timestamp: bool | None = None,
         automatic_eos: bool | None = None,
-        mode: AudioCdSrcMode | None = AudioCdSrcMode.NORMAL,
+        blocksize: int | None = None,
         device: str | None = None,
+        do_timestamp: bool | None = None,
+        mode: AudioCdSrcMode | None = AudioCdSrcMode.NORMAL,
+        name: str | None = None,
+        num_buffers: int | None = None,
+        parent: Gst.Object | None = None,
         track: int | None = None,
+        typefind: bool | None = None,
     ) -> None:
         """
         Initialize AudioCdSrc object with properties.
@@ -1244,12 +1244,12 @@ class AudioClock(Gst.SystemClock):
     # gi Methods
     def __init__(
         self,
+        clock_type: Gst.ClockType | None = Gst.ClockType.MONOTONIC,
         name: str | None = None,
         parent: Gst.Object | None = None,
+        timeout: int | None = None,
         window_size: int | None = None,
         window_threshold: int | None = None,
-        timeout: int | None = None,
-        clock_type: Gst.ClockType | None = Gst.ClockType.MONOTONIC,
     ) -> None:
         """
         Initialize AudioClock object with properties.
@@ -1257,9 +1257,21 @@ class AudioClock(Gst.SystemClock):
     def adjust(self, time: int) -> int: ...
     def get_time(self) -> int: ...
     def invalidate(self) -> None: ...
-    @classmethod
-    def new(cls, name: str, func: AudioClockGetTimeFunc, *user_data: object | None) -> AudioClock: ...
     def reset(self, time: int) -> None: ...
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        name: str,
+        func: typing.Callable,
+        user_data: typing.Any = None,
+    ) -> Gst.Clock:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str, func:GstAudio.AudioClockGetTimeFunc, user_data=None) -> Gst.Clock
+        """
 
 class AudioClockClass(GObject.GPointer):
     # gi Fields
@@ -1277,10 +1289,6 @@ class AudioConverter(GObject.GBoxed):
     def get_max_latency(self) -> int: ...
     def get_out_frames(self, in_frames: int) -> int: ...
     def is_passthrough(self) -> bool: ...
-    @classmethod
-    def new(
-        cls, flags: AudioConverterFlags, in_info: AudioInfo, out_info: AudioInfo, config: Gst.Structure | None = None
-    ) -> AudioConverter | None: ...
     def reset(self) -> None: ...
     def samples(
         self, flags: AudioConverterFlags, in_: object | None, in_frames: int, out: object | None, out_frames: int
@@ -1294,6 +1302,19 @@ class AudioConverter(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        flags: AudioConverterFlags,
+        in_info: AudioInfo,
+        out_info: AudioInfo,
+        config: Gst.Structure | None = None,
+    ) -> AudioConverter | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(flags:GstAudio.AudioConverterFlags, in_info:GstAudio.AudioInfo, out_info:GstAudio.AudioInfo, config:Gst.Structure=None) -> GstAudio.AudioConverter or None
+        """
 
 class AudioDecoder(Gst.Element):
     class Props(Gst.Element.Props):
@@ -1326,12 +1347,12 @@ class AudioDecoder(Gst.Element):
     # gi Methods
     def __init__(
         self,
+        max_errors: int | None = None,
+        min_latency: int | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
-        min_latency: int | None = None,
-        tolerance: int | None = None,
         plc: bool | None = None,
-        max_errors: int | None = None,
+        tolerance: int | None = None,
     ) -> None:
         """
         Initialize AudioDecoder object with properties.
@@ -1621,10 +1642,10 @@ class AudioEncoder(Gst.Element):
     # gi Methods
     def __init__(
         self,
+        hard_resync: bool | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
         perfect_timestamp: bool | None = None,
-        hard_resync: bool | None = None,
         tolerance: int | None = None,
     ) -> None:
         """
@@ -1945,10 +1966,6 @@ class AudioInfo(GObject.GBoxed):
     @staticmethod
     def init() -> AudioInfo: ...
     def is_equal(self, other: AudioInfo) -> bool: ...
-    @classmethod
-    def new(cls) -> AudioInfo: ...
-    @classmethod
-    def new_from_caps(cls, caps: Gst.Caps) -> AudioInfo | None: ...
     def set_format(self, format: AudioFormat, rate: int, channels: int, position: list | None = None) -> None: ...
     def to_caps(self) -> Gst.Caps: ...
 
@@ -1958,6 +1975,25 @@ class AudioInfo(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> AudioInfo:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GstAudio.AudioInfo
+        """
+    @classmethod
+    def new_from_caps(
+        cls,
+        caps: Gst.Caps,
+    ) -> AudioInfo | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_caps(caps:Gst.Caps) -> GstAudio.AudioInfo or None
+        """
 
 class AudioLevelMeta(GObject.GPointer):
     # gi Fields
@@ -2244,27 +2280,27 @@ class AudioSink(AudioBaseSink):
     # gi Methods
     def __init__(
         self,
+        alignment_threshold: int | None = None,
+        async_: bool | None = None,
+        blocksize: int | None = None,
+        buffer_time: int | None = None,
+        can_activate_pull: bool | None = None,
+        discont_wait: int | None = None,
+        drift_tolerance: int | None = None,
+        enable_last_sample: bool | None = None,
+        latency_time: int | None = None,
+        max_bitrate: int | None = None,
+        max_lateness: int | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
-        sync: bool | None = None,
-        max_lateness: int | None = None,
-        qos: bool | None = None,
-        async_: bool | None = None,
-        ts_offset: int | None = None,
-        enable_last_sample: bool | None = None,
-        blocksize: int | None = None,
-        render_delay: int | None = None,
-        throttle_time: int | None = None,
-        max_bitrate: int | None = None,
         processing_deadline: int | None = None,
-        buffer_time: int | None = None,
-        latency_time: int | None = None,
         provide_clock: bool | None = None,
+        qos: bool | None = None,
+        render_delay: int | None = None,
         slave_method: AudioBaseSinkSlaveMethod | None = AudioBaseSinkSlaveMethod.SKEW,
-        can_activate_pull: bool | None = None,
-        alignment_threshold: int | None = None,
-        drift_tolerance: int | None = None,
-        discont_wait: int | None = None,
+        sync: bool | None = None,
+        throttle_time: int | None = None,
+        ts_offset: int | None = None,
     ) -> None:
         """
         Initialize AudioSink object with properties.
@@ -2378,17 +2414,17 @@ class AudioSrc(AudioBaseSrc):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        blocksize: int | None = None,
-        num_buffers: int | None = None,
-        typefind: bool | None = None,
-        do_timestamp: bool | None = None,
         automatic_eos: bool | None = None,
+        blocksize: int | None = None,
         buffer_time: int | None = None,
+        do_timestamp: bool | None = None,
         latency_time: int | None = None,
+        name: str | None = None,
+        num_buffers: int | None = None,
+        parent: Gst.Object | None = None,
         provide_clock: bool | None = None,
         slave_method: AudioBaseSrcSlaveMethod | None = AudioBaseSrcSlaveMethod.SKEW,
+        typefind: bool | None = None,
     ) -> None:
         """
         Initialize AudioSrc object with properties.
@@ -2471,8 +2507,6 @@ class AudioStreamAlign(GObject.GBoxed):
     def get_samples_since_discont(self) -> int: ...
     def get_timestamp_at_discont(self) -> int: ...
     def mark_discont(self) -> None: ...
-    @classmethod
-    def new(cls, rate: int, alignment_threshold: int, discont_wait: int) -> AudioStreamAlign: ...
     def process(self, discont: bool, timestamp: int, n_samples: int) -> tuple[bool, int, int, int]: ...
     def set_alignment_threshold(self, alignment_threshold: int) -> None: ...
     def set_discont_wait(self, discont_wait: int) -> None: ...
@@ -2484,6 +2518,18 @@ class AudioStreamAlign(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        rate: int,
+        alignment_threshold: int,
+        discont_wait: int,
+    ) -> AudioStreamAlign:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(rate:int, alignment_threshold:int, discont_wait:int) -> GstAudio.AudioStreamAlign
+        """
 
 class DsdInfo(GObject.GBoxed):
     # gi Fields
@@ -2505,10 +2551,6 @@ class DsdInfo(GObject.GBoxed):
     @staticmethod
     def init() -> DsdInfo: ...
     def is_equal(self, other: DsdInfo) -> bool: ...
-    @classmethod
-    def new(cls) -> DsdInfo: ...
-    @classmethod
-    def new_from_caps(cls, caps: Gst.Caps) -> DsdInfo: ...
     def set_format(self, format: DsdFormat, rate: int, channels: int, positions: list | None = None) -> None: ...
     def to_caps(self) -> Gst.Caps: ...
 
@@ -2518,6 +2560,25 @@ class DsdInfo(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> DsdInfo:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GstAudio.DsdInfo
+        """
+    @classmethod
+    def new_from_caps(
+        cls,
+        caps: Gst.Caps,
+    ) -> DsdInfo:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_caps(caps:Gst.Caps) -> GstAudio.DsdInfo
+        """
 
 class DsdPlaneOffsetMeta(GObject.GPointer):
     # gi Fields
@@ -2534,7 +2595,7 @@ class DsdPlaneOffsetMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-class StreamVolume(object):
+class StreamVolume(builtins.object):
     class Props:
         mute: bool
         volume: float

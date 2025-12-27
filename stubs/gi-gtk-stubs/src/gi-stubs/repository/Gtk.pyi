@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import enum
 import gi
 import typing
@@ -5446,21 +5446,12 @@ class ATContext(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         accessible: Accessible | None = None,
+        accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         display: Gdk.Display | None = None,
     ) -> None:
         """
         Initialize ATContext object with properties.
-        """
-    @classmethod
-    def create(cls, accessible_role: AccessibleRole, accessible: Accessible, display: Gdk.Display) -> ATContext | None:
-        """
-            Creates a new `GtkATContext` instance for the given accessible role,
-        accessible instance, and display connection.
-
-        The `GtkATContext` implementation being instantiated will depend on the
-        platform.
         """
     @builtins.property
     def get_accessible(self) -> Accessible:
@@ -5471,6 +5462,20 @@ class ATContext(GObject.Object):
     def get_accessible_role(self) -> AccessibleRole:
         """
         Retrieves the accessible role of this context.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def create(
+        cls,
+        accessible_role: AccessibleRole,
+        accessible: Accessible,
+        display: Gdk.Display,
+    ) -> ATContext | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        create(accessible_role:Gtk.AccessibleRole, accessible:Gtk.Accessible, display:Gdk.Display) -> Gtk.ATContext or None
         """
 
     # Signals
@@ -5705,75 +5710,75 @@ class AboutDialog(Window):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
+        artists: list | None = None,
+        authors: list | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
+        comments: str | None = None,
+        copyright: str | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        documenters: list | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
-        maximized: bool | None = None,
-        fullscreened: bool | None = None,
-        program_name: str | None = None,
-        version: str | None = None,
-        copyright: str | None = None,
-        comments: str | None = None,
-        website: str | None = None,
-        website_label: str | None = None,
+        layout_manager: LayoutManager | None = None,
         license: str | None = None,
-        system_information: str | None = None,
-        authors: list | None = None,
-        documenters: list | None = None,
-        translator_credits: str | None = None,
-        artists: list | None = None,
+        license_type: License | None = License.UNKNOWN,
+        limit_events: bool | None = None,
         logo: Gdk.Paintable | None = None,
         logo_icon_name: str | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        maximized: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        program_name: str | None = None,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        sensitive: bool | None = None,
+        startup_id: str | None = None,
+        system_information: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
+        translator_credits: str | None = None,
+        valign: Align | None = Align.FILL,
+        version: str | None = None,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        website: str | None = None,
+        website_label: str | None = None,
+        width_request: int | None = None,
         wrap_license: bool | None = None,
-        license_type: License | None = License.UNKNOWN,
     ) -> None:
         """
         Initialize AboutDialog object with properties.
@@ -5866,11 +5871,6 @@ class AboutDialog(Window):
         """
             Returns whether the license text in the about dialog is
         automatically wrapped.
-        """
-    @classmethod
-    def new(cls) -> AboutDialog:
-        """
-        Creates a new `GtkAboutDialog`.
         """
     def set_artists(self, artists: list) -> None:
         """
@@ -5976,6 +5976,17 @@ class AboutDialog(Window):
         """
             Sets whether the license text in the about dialog should be
         automatically wrapped.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -6109,7 +6120,7 @@ class AboutDialog(Window):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Accessible(object):
+class Accessible(builtins.object):
     """
     An interface for describing UI elements for Assistive Technologies.
 
@@ -6359,19 +6370,30 @@ class AccessibleList(GObject.GBoxed):
         """
         Gets the list of objects this boxed type holds.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new_from_array(cls, accessibles: list, n_accessibles: int) -> AccessibleList:
+    def new_from_array(
+        cls,
+        accessibles: list,
+    ) -> AccessibleList:
         """
-        Allocates a new list of accessible objects.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_array(accessibles:list) -> Gtk.AccessibleList
         """
     @classmethod
-    def new_from_list(cls, list: list) -> AccessibleList:
+    def new_from_list(
+        cls,
+        list: list,
+    ) -> AccessibleList:
         """
-            Allocates a new `GtkAccessibleList`, doing a shallow copy
-        of the passed list of accessible objects
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_list(list:list) -> Gtk.AccessibleList
         """
 
-class AccessibleRange(object):
+class AccessibleRange(builtins.object):
     """
     An interface for accessible objects containing a numeric value.
 
@@ -6418,7 +6440,7 @@ class AccessibleRangeInterface(GObject.GPointer):
     @builtins.property
     def set_current_value(self) -> set_current_valueAccessibleRangeInterfaceCB: ...
 
-class AccessibleText(object):
+class AccessibleText(builtins.object):
     """
     An interface for accessible objects containing formatted text.
 
@@ -6569,37 +6591,37 @@ class ActionBar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         revealed: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ActionBar object with properties.
@@ -6612,11 +6634,6 @@ class ActionBar(Widget):
     def get_revealed(self) -> bool:
         """
         Gets whether the contents of the action bar are revealed.
-        """
-    @classmethod
-    def new(cls) -> ActionBar:
-        """
-        Creates a new action bar widget.
         """
     def pack_end(self, child: Widget) -> None:
         """
@@ -6645,6 +6662,17 @@ class ActionBar(Widget):
         no effect if the action bar is hidden.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -6658,7 +6686,7 @@ class ActionBar(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Actionable(object):
+class Actionable(builtins.object):
     """
     Provides a way to associate widgets with actions.
 
@@ -7163,12 +7191,12 @@ class AlertDialog(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        modal: bool | None = None,
-        message: str | None = None,
-        detail: str | None = None,
         buttons: list | None = None,
         cancel_button: int | None = None,
         default_button: int | None = None,
+        detail: str | None = None,
+        message: str | None = None,
+        modal: bool | None = None,
     ) -> None:
         """
         Initialize AlertDialog object with properties.
@@ -7363,14 +7391,18 @@ class AlternativeTrigger(ShortcutTrigger):
         [method`Gtk`.AlternativeTrigger.get_first] will return
         the other one.
         """
-    @classmethod
-    def new(cls, first: ShortcutTrigger, second: ShortcutTrigger) -> AlternativeTrigger:
-        """
-            Creates a `GtkShortcutTrigger` that will trigger whenever
-        either of the two given triggers gets triggered.
 
-        Note that nesting is allowed, so if you want more than two
-        alternative, create a new alternative trigger for each option.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        first: ShortcutTrigger,
+        second: ShortcutTrigger,
+    ) -> ShortcutTrigger:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(first:Gtk.ShortcutTrigger, second:Gtk.ShortcutTrigger) -> Gtk.ShortcutTrigger
         """
 
     # Signals
@@ -7407,21 +7439,21 @@ class AnyFilter(MultiFilter):
         """
         Initialize AnyFilter object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> AnyFilter:
+    def new(
+        cls,
+    ) -> AnyFilter:
         """
-            Creates a new empty "any" filter.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        Use [method`Gtk`.MultiFilter.append] to add filters to it.
-
-        This filter matches an item if any of the filters added to it
-        matches the item. In particular, this means that if no filter
-        has been added to it, the filter matches no item.
+        new() -> Gtk.AnyFilter
         """
 
 class AnyFilterClass(GObject.GPointer): ...
 
-class AppChooser(object):
+class AppChooser(builtins.object):
     """
     `GtkAppChooser` is an interface for widgets which allow the user to
     choose an application.
@@ -7555,41 +7587,41 @@ class AppChooserButton(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        content_type: str | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        content_type: str | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        heading: str | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        show_dialog_item: bool | None = None,
-        show_default_item: bool | None = None,
-        heading: str | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        show_default_item: bool | None = None,
+        show_dialog_item: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize AppChooserButton object with properties.
@@ -7640,13 +7672,6 @@ class AppChooserButton(Widget):
         for a `GtkAppChooserDialog`.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, content_type: str) -> AppChooserButton:
-        """
-            Creates a new `GtkAppChooserButton` for applications
-        that can handle content of the given type.
-        """
-    @deprecated("deprecated")
     def set_active_custom_item(self, name: str) -> None:
         """
             Selects a custom item.
@@ -7679,6 +7704,18 @@ class AppChooserButton(Widget):
         """
             Sets whether the dropdown menu of this button should show an
         entry to trigger a `GtkAppChooserDialog`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        content_type: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(content_type:str) -> Gtk.Widget
         """
 
     # Signals
@@ -7791,63 +7828,63 @@ class AppChooserDialog(Dialog):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        content_type: str | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
+        content_type: str | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        gfile: Gio.File | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        heading: str | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        sensitive: bool | None = None,
+        startup_id: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
         use_header_bar: int | None = None,
-        gfile: Gio.File | None = None,
-        heading: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize AppChooserDialog object with properties.
@@ -7864,27 +7901,37 @@ class AppChooserDialog(Dialog):
         Returns the `GtkAppChooserWidget` of this dialog.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, parent: Window | None, flags: DialogFlags, file: Gio.File) -> AppChooserDialog:
-        """
-            Creates a new `GtkAppChooserDialog` for the provided `GFile`.
-
-        The dialog will show applications that can open the file.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_for_content_type(cls, parent: Window | None, flags: DialogFlags, content_type: str) -> AppChooserDialog:
-        """
-            Creates a new `GtkAppChooserDialog` for the provided content type.
-
-        The dialog will show applications that can open the content type.
-        """
-    @deprecated("deprecated")
     def set_heading(self, heading: str) -> None:
         """
             Sets the text to display at the top of the dialog.
 
         If the heading is not set, the dialog displays a default text.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        parent: Window | None,
+        flags: DialogFlags,
+        file: Gio.File,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(parent:Gtk.Window=None, flags:Gtk.DialogFlags, file:Gio.File) -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_content_type(
+        cls,
+        parent: Window | None,
+        flags: DialogFlags,
+        content_type: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_content_type(parent:Gtk.Window=None, flags:Gtk.DialogFlags, content_type:str) -> Gtk.Widget
         """
 
     # Signals
@@ -7983,43 +8030,43 @@ class AppChooserWidget(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        content_type: str | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        content_type: str | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        default_text: str | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        show_all: bool | None = None,
         show_default: bool | None = None,
-        show_recommended: bool | None = None,
         show_fallback: bool | None = None,
         show_other: bool | None = None,
-        show_all: bool | None = None,
-        default_text: str | None = None,
+        show_recommended: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize AppChooserWidget object with properties.
@@ -8067,13 +8114,6 @@ class AppChooserWidget(Widget):
         for the content type in a separate section.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, content_type: str) -> AppChooserWidget:
-        """
-            Creates a new `GtkAppChooserWidget` for applications
-        that can handle content of the given type.
-        """
-    @deprecated("deprecated")
     def set_default_text(self, text: str) -> None:
         """
             Sets the text that is shown if there are not applications
@@ -8108,6 +8148,18 @@ class AppChooserWidget(Widget):
         """
             Sets whether the app chooser should show recommended applications
         for the content type in a separate section.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        content_type: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(content_type:str) -> Gtk.Widget
         """
 
     # Signals
@@ -8294,14 +8346,14 @@ class Application(Gio.Application):
     # gi Methods
     def __init__(
         self,
-        application_id: str | None = None,
-        version: str | None = None,
-        flags: Gio.ApplicationFlags | None = Gio.ApplicationFlags.FLAGS_NONE,
-        resource_base_path: str | None = None,
-        inactivity_timeout: int | None = None,
         action_group: Gio.ActionGroup | None = None,
-        register_session: bool | None = None,
+        application_id: str | None = None,
+        flags: Gio.ApplicationFlags | None = Gio.ApplicationFlags.FLAGS_NONE,
+        inactivity_timeout: int | None = None,
         menubar: Gio.MenuModel | None = None,
+        register_session: bool | None = None,
+        resource_base_path: str | None = None,
+        version: str | None = None,
     ) -> None:
         """
         Initialize Application object with properties.
@@ -8425,28 +8477,6 @@ class Application(Gio.Application):
 
         See [method`Gtk`.Application.set_accels_for_action].
         """
-    @classmethod
-    def new(cls, application_id: str | None, flags: Gio.ApplicationFlags) -> Application:
-        """
-            Creates a new application instance.
-
-        When using `GtkApplication`, it is not necessary to call [func`Gtk`.init]
-        manually. It is called as soon as the application gets registered as
-        the primary instance.
-
-        Concretely, [func`Gtk`.init] is called in the default handler for the
-        `GApplication::startup` signal. Therefore, `GtkApplication` subclasses
-        should always chain up in their [vfunc`GIO`.Application.startup] handler
-        before using any GTK API.
-
-        Note that commandline arguments are not passed to [func`Gtk`.init].
-
-        If `application_id` is not `None`, then it must be valid. See
-        [func`Gio`.Application.id_is_valid].
-
-        If no application ID is given then some features (most notably application
-        uniqueness) will be disabled.
-        """
     def remove_window(self, window: Window) -> None:
         """
             Remove a window from the application.
@@ -8516,6 +8546,17 @@ class Application(Gio.Application):
     ) -> None:
         """
         window_removed(self, window:Gtk.Window)
+        """
+    @classmethod
+    def new(
+        cls,
+        application_id: str | None,
+        flags: Gio.ApplicationFlags,
+    ) -> Application:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(application_id:str=None, flags:Gio.ApplicationFlags) -> Gtk.Application
         """
 
     # Signals
@@ -8708,60 +8749,60 @@ class ApplicationWindow(Window):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        sensitive: bool | None = None,
         show_menubar: bool | None = None,
+        startup_id: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ApplicationWindow object with properties.
@@ -8785,11 +8826,6 @@ class ApplicationWindow(Window):
             Returns whether the window will display a menubar for the app menu
         and menubar as needed.
         """
-    @classmethod
-    def new(cls, application: Application) -> ApplicationWindow:
-        """
-        Creates a new `GtkApplicationWindow`.
-        """
     @deprecated("deprecated")
     def set_help_overlay(self, help_overlay: ShortcutsWindow | None = None) -> None:
         """
@@ -8804,6 +8840,18 @@ class ApplicationWindow(Window):
         """
             Sets whether the window will display a menubar for the app menu
         and menubar as needed.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        application: Application,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(application:Gtk.Application) -> Gtk.Widget
         """
 
     # Signals
@@ -8879,41 +8927,41 @@ class AspectFrame(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        obey_child: bool | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        ratio: float | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
         xalign: float | None = None,
         yalign: float | None = None,
-        ratio: float | None = None,
-        obey_child: bool | None = None,
-        child: Widget | None = None,
     ) -> None:
         """
         Initialize AspectFrame object with properties.
@@ -8946,11 +8994,6 @@ class AspectFrame(Widget):
             Returns the vertical alignment of the child within the
         allocation of the `GtkAspectFrame`.
         """
-    @classmethod
-    def new(cls, xalign: float, yalign: float, ratio: float, obey_child: bool) -> AspectFrame:
-        """
-        Create a new `GtkAspectFrame`.
-        """
     def set_child(self, child: Widget | None = None) -> None:
         """
         Sets the child widget of `self`.
@@ -8974,6 +9017,21 @@ class AspectFrame(Widget):
         """
             Sets the vertical alignment of the child within the allocation
         of the `GtkAspectFrame`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        xalign: float,
+        yalign: float,
+        ratio: float,
+        obey_child: bool,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(xalign:float, yalign:float, ratio:float, obey_child:bool) -> Gtk.Widget
         """
 
     # Signals
@@ -9081,60 +9139,60 @@ class Assistant(Window):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        sensitive: bool | None = None,
+        startup_id: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
         use_header_bar: int | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Assistant object with properties.
@@ -9208,12 +9266,6 @@ class Assistant(Window):
     def insert_page(self, page: Widget, position: int) -> int:
         """
         Inserts a page in the `assistant` at a given position.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> Assistant:
-        """
-        Creates a new `GtkAssistant`.
         """
     @deprecated("deprecated")
     def next_page(self) -> None:
@@ -9307,6 +9359,17 @@ class Assistant(Window):
         One situation where it can be necessary to call this
         function is when changing a value on the current page
         affects the future page flow of the assistant.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -9416,9 +9479,9 @@ class AssistantPage(GObject.Object):
     def __init__(
         self,
         child: Widget | None = None,
+        complete: bool | None = None,
         page_type: AssistantPageType | None = AssistantPageType.CONTENT,
         title: str | None = None,
-        complete: bool | None = None,
     ) -> None:
         """
         Initialize AssistantPage object with properties.
@@ -9479,10 +9542,16 @@ class BinLayout(LayoutManager):
         """
         Initialize BinLayout object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> BinLayout:
+    def new(
+        cls,
+    ) -> LayoutManager:
         """
-        Creates a new `GtkBinLayout` instance.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.LayoutManager
         """
 
 class BinLayoutClass(GObject.GPointer):
@@ -9603,16 +9672,6 @@ class Bitset(GObject.GBoxed):
         """
         Check if no value is contained in bitset.
         """
-    @classmethod
-    def new_empty(cls) -> Bitset:
-        """
-        Creates a new empty bitset.
-        """
-    @classmethod
-    def new_range(cls, start: int, n_items: int) -> Bitset:
-        """
-        Creates a bitset with the given range set.
-        """
     def ref(self) -> Bitset:
         """
         Acquires a reference on the given `GtkBitset`.
@@ -9689,6 +9748,28 @@ class Bitset(GObject.GBoxed):
 
         If the reference was the last, the resources associated to the `self` are
         freed.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_empty(
+        cls,
+    ) -> Bitset:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty() -> Gtk.Bitset
+        """
+    @classmethod
+    def new_range(
+        cls,
+        start: int,
+        n_items: int,
+    ) -> Bitset:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_range(start:int, n_items:int) -> Gtk.Bitset
         """
 
 class BitsetIter(GObject.GBoxed):
@@ -9800,7 +9881,7 @@ class BookmarkList(GObject.Object):
 
     # gi Methods
     def __init__(
-        self, filename: str | None = None, attributes: str | None = None, io_priority: int | None = None
+        self, attributes: str | None = None, filename: str | None = None, io_priority: int | None = None
     ) -> None:
         """
         Initialize BookmarkList object with properties.
@@ -9830,11 +9911,6 @@ class BookmarkList(GObject.Object):
         going on. The order in which are added is undefined and may change
         in between runs.
         """
-    @classmethod
-    def new(cls, filename: str | None = None, attributes: str | None = None) -> BookmarkList:
-        """
-        Creates a new `GtkBookmarkList` with the given `attributes`.
-        """
     def set_attributes(self, attributes: str | None = None) -> None:
         """
             Sets the `attributes` to be enumerated and starts the enumeration.
@@ -9847,6 +9923,19 @@ class BookmarkList(GObject.Object):
             Sets the IO priority to use while loading files.
 
         The default IO priority is G_PRIORITY_DEFAULT.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        filename: str | None = None,
+        attributes: str | None = None,
+    ) -> BookmarkList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(filename:str=None, attributes:str=None) -> Gtk.BookmarkList
         """
 
     # Signals
@@ -9936,11 +10025,6 @@ class BoolFilter(Filter):
         """
         Returns whether the filter inverts the expression.
         """
-    @classmethod
-    def new(cls, expression: Expression | None = None) -> BoolFilter:
-        """
-        Creates a new bool filter.
-        """
     def set_expression(self, expression: Expression | None = None) -> None:
         """
             Sets the expression that the filter uses to check if items
@@ -9951,6 +10035,18 @@ class BoolFilter(Filter):
     def set_invert(self, invert: bool) -> None:
         """
         Sets whether the filter should invert the expression.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        expression: Expression | None = None,
+    ) -> BoolFilter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(expression:Gtk.Expression=None) -> Gtk.BoolFilter
         """
 
     # Signals
@@ -10016,11 +10112,6 @@ class Border(GObject.GBoxed):
         """
         Frees a `GtkBorder`.
         """
-    @classmethod
-    def new(cls) -> Border:
-        """
-        Allocates a new `GtkBorder` struct and initializes its elements to zero.
-        """
 
     # python methods (overrides?)
     @staticmethod
@@ -10028,6 +10119,15 @@ class Border(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> Border:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Border
+        """
 
 class Box(Widget):
     """
@@ -10101,41 +10201,41 @@ class Box(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        can_focus: bool | None = None,
-        can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        spacing: int | None = None,
-        homogeneous: bool | None = None,
         baseline_child: int | None = None,
         baseline_position: BaselinePosition | None = BaselinePosition.CENTER,
+        can_focus: bool | None = None,
+        can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        focus_on_click: bool | None = None,
+        focusable: bool | None = None,
+        halign: Align | None = Align.FILL,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        homogeneous: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        spacing: int | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Box object with properties.
@@ -10173,11 +10273,6 @@ class Box(Widget):
         The child is added after `sibling` in the list of `box` children.
 
         If `sibling` is `None`, the `child` is placed at the beginning.
-        """
-    @classmethod
-    def new(cls, orientation: Orientation, spacing: int) -> Box:
-        """
-        Creates a new box.
         """
     def prepend(self, child: Widget) -> None:
         """
@@ -10224,6 +10319,19 @@ class Box(Widget):
     def set_spacing(self, spacing: int) -> None:
         """
         Sets the number of pixels to place between children.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        orientation: Orientation,
+        spacing: int,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(orientation:Gtk.Orientation, spacing:int) -> Gtk.Widget
         """
 
     # Signals
@@ -10321,11 +10429,11 @@ class BoxLayout(LayoutManager):
     # gi Methods
     def __init__(
         self,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        homogeneous: bool | None = None,
-        spacing: int | None = None,
         baseline_child: int | None = None,
         baseline_position: BaselinePosition | None = BaselinePosition.CENTER,
+        homogeneous: bool | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        spacing: int | None = None,
     ) -> None:
         """
         Initialize BoxLayout object with properties.
@@ -10350,11 +10458,6 @@ class BoxLayout(LayoutManager):
         """
         Returns the space that `box_layout` puts between children.
         """
-    @classmethod
-    def new(cls, orientation: Orientation) -> BoxLayout:
-        """
-        Creates a new `GtkBoxLayout`.
-        """
     def set_baseline_child(self, child: int) -> None:
         """
             Sets the index of the child that determines the baseline
@@ -10378,6 +10481,18 @@ class BoxLayout(LayoutManager):
     def set_spacing(self, spacing: int) -> None:
         """
         Sets how much spacing to put between children.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        orientation: Orientation,
+    ) -> LayoutManager:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(orientation:Gtk.Orientation) -> Gtk.LayoutManager
         """
 
     # Signals
@@ -10419,7 +10534,7 @@ class BoxLayoutClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
-class Buildable(object):
+class Buildable(builtins.object):
     """
     Allows objects to extend and customize deserialization from ui files.
 
@@ -11083,24 +11198,6 @@ class Builder(GObject.Object):
         call.  The only reasonable thing to do when an error is detected is
         to call `g_error`.
         """
-    def add_from_string(self, buffer: str, length: int) -> bool:
-        """
-            Parses a string containing a UI definition and merges it
-        with the current contents of `builder`.
-
-        This function is useful if you need to call
-        [method`Gtk`.Builder.set_current_object] to add user data to
-        callbacks before loading `GtkBuilder` UI. Otherwise, you probably
-        want [ctor`Gtk`.Builder.new_from_string] instead.
-
-        Upon errors False will be returned and `error` will be assigned a
-        `GError` from the Gtk.BUILDER_ERROR, G_MARKUP_ERROR or
-        G_VARIANT_PARSE_ERROR domain.
-
-        It’s not really reasonable to attempt to handle failures of this
-        call.  The only reasonable thing to do when an error is detected is
-        to call `g_error`.
-        """
     def add_objects_from_file(self, filename: str, object_ids: list) -> bool:
         """
             Parses a file containing a UI definition building only the
@@ -11124,19 +11221,6 @@ class Builder(GObject.Object):
         Upon errors, 0 will be returned and `error` will be assigned a
         `GError` from the Gtk.BUILDER_ERROR, G_MARKUP_ERROR or G_RESOURCE_ERROR
         domain.
-
-        If you are adding an object that depends on an object that is not
-        its child (for instance a `GtkTreeView` that depends on its
-        `GtkTreeModel`), you have to explicitly list all of them in `object_ids`.
-        """
-    def add_objects_from_string(self, buffer: str, length: int, object_ids: list) -> bool:
-        """
-            Parses a string containing a UI definition, building only the
-        requested objects and merges them with the current contents of
-        `builder`.
-
-        Upon errors False will be returned and `error` will be assigned a
-        `GError` from the Gtk.BUILDER_ERROR or G_MARKUP_ERROR domain.
 
         If you are adding an object that depends on an object that is not
         its child (for instance a `GtkTreeView` that depends on its
@@ -11308,6 +11392,25 @@ class Builder(GObject.Object):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def add_from_string(
+        self,
+        buffer: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        add_from_string(self, buffer:str, length:int) -> bool
+        """
+    def add_objects_from_string(
+        self,
+        buffer: typing.Any,
+        object_ids: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        add_objects_from_string(self, buffer:str, length:int, object_ids:list) -> bool
+        """
     @staticmethod
     def define_builder_scope() -> typing.Any: ...
 
@@ -11378,14 +11481,16 @@ class BuilderCScope(GObject.Object):
         does not require that callback symbols be declared in the global
         namespace.
         """
-    @classmethod
-    def new(cls) -> BuilderCScope:
-        """
-            Creates a new `GtkBuilderCScope` object to use with future
-        `GtkBuilder` instances.
 
-        Calling this function is only necessary if you want to add
-        custom callbacks via [method`Gtk`.BuilderCScope.add_callback_symbol].
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> BuilderCScope:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.BuilderCScope
         """
 
 class BuilderCScopeClass(GObject.GPointer):
@@ -11465,17 +11570,29 @@ class BuilderListItemFactory(ListItemFactory):
         """
         Gets the scope used when constructing listitems.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new_from_bytes(cls, scope: BuilderScope | None, bytes: GLib.Bytes) -> BuilderListItemFactory:
+    def new_from_bytes(
+        cls,
+        scope: BuilderScope | None,
+        bytes: GLib.Bytes,
+    ) -> ListItemFactory:
         """
-            Creates a new `GtkBuilderListItemFactory` that instantiates widgets
-        using `bytes` as the data to pass to `GtkBuilder`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_bytes(scope:Gtk.BuilderScope=None, bytes:GLib.Bytes) -> Gtk.ListItemFactory
         """
     @classmethod
-    def new_from_resource(cls, scope: BuilderScope | None, resource_path: str) -> BuilderListItemFactory:
+    def new_from_resource(
+        cls,
+        scope: BuilderScope | None,
+        resource_path: str,
+    ) -> ListItemFactory:
         """
-            Creates a new `GtkBuilderListItemFactory` that instantiates widgets
-        using data read from the given `resource_path` to pass to `GtkBuilder`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_resource(scope:Gtk.BuilderScope=None, resource_path:str) -> Gtk.ListItemFactory
         """
 
     # Signals
@@ -11507,7 +11624,7 @@ class BuilderListItemFactory(ListItemFactory):
 
 class BuilderListItemFactoryClass(GObject.GPointer): ...
 
-class BuilderScope(object):
+class BuilderScope(builtins.object):
     """
     Provides language binding support to `GtkBuilder`.
 
@@ -11665,42 +11782,42 @@ class Button(Widget):
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         action_name: str | None = None,
         action_target: GLib.Variant | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
+        can_shrink: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        icon_name: str | None = None,
+        label: str | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        label: str | None = None,
-        has_frame: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_underline: bool | None = None,
-        icon_name: str | None = None,
-        child: Widget | None = None,
-        can_shrink: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Button object with properties.
@@ -11745,38 +11862,6 @@ class Button(Widget):
             gets whether underlines are interpreted as mnemonics.
 
         See [method`Gtk`.Button.set_use_underline].
-        """
-    @classmethod
-    def new(cls) -> Button:
-        """
-            Creates a new `GtkButton` widget.
-
-        To add a child widget to the button, use [method`Gtk`.Button.set_child].
-        """
-    @classmethod
-    def new_from_icon_name(cls, icon_name: str) -> Button:
-        """
-            Creates a new button containing an icon from the current icon theme.
-
-        If the icon name isn’t known, a “broken image” icon will be
-        displayed instead. If the current icon theme is changed, the icon
-        will be updated appropriately.
-        """
-    @classmethod
-    def new_with_label(cls, label: str) -> Button:
-        """
-        Creates a `GtkButton` widget with a `GtkLabel` child.
-        """
-    @classmethod
-    def new_with_mnemonic(cls, label: str) -> Button:
-        """
-            Creates a new `GtkButton` containing a label.
-
-        If characters in `label` are preceded by an underscore, they are underlined.
-        If you need a literal underscore character in a label, use “__” (two
-        underscores). The first underlined character represents a keyboard
-        accelerator called a mnemonic. Pressing <kbd>Alt</kbd> and that key
-        activates the button.
         """
     def set_can_shrink(self, can_shrink: bool) -> None:
         """
@@ -11836,6 +11921,45 @@ class Button(Widget):
     ) -> None:
         """
         clicked(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_from_icon_name(
+        cls,
+        icon_name: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_icon_name(icon_name:str) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_label(
+        cls,
+        label: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_label(label:str) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_mnemonic(
+        cls,
+        label: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_mnemonic(label:str) -> Gtk.Widget
         """
 
     # Signals
@@ -11936,22 +12060,21 @@ class CClosureExpression(Expression):
     """
 
     # gi Methods
+
+    # python methods (overrides?)
     @classmethod
     def new(
         cls,
         value_type: GObject.GType,
-        marshal: GObject.ClosureMarshal | None,
-        n_params: int,
+        marshal: typing.Callable | None,
         params: list,
-        callback_func: GObject.Callback,
-        *user_data: object | None,
+        callback_func: typing.Callable,
+        user_data: typing.Any = None,
     ) -> CClosureExpression:
         """
-            Creates a `GtkExpression` that calls `callback_func` when it is evaluated.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        This function is a variant of [ctor`Gtk`.ClosureExpression.new] that
-        creates a `GClosure` by calling `g_cclosure_new` with the given
-        `callback_func`, `user_data` and `user_destroy`.
+        new(value_type:GType, marshal:GObject.ClosureMarshal=None, params:list, callback_func:GObject.Callback, user_data=None) -> Gtk.CClosureExpression
         """
 
 class Calendar(Widget):
@@ -12053,42 +12176,42 @@ class Calendar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        day: int | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        year: int | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         month: int | None = None,
-        day: int | None = None,
-        show_heading: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         show_day_names: bool | None = None,
+        show_heading: bool | None = None,
         show_week_numbers: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
+        year: int | None = None,
     ) -> None:
         """
         Initialize Calendar object with properties.
@@ -12153,11 +12276,6 @@ class Calendar(Widget):
         """
         Places a visual marker on a particular day of the current month.
         """
-    @classmethod
-    def new(cls) -> Calendar:
-        """
-        Creates a new calendar, with the current date being selected.
-        """
     def select_day(self, date: GLib.DateTime) -> None:
         """
         Switches to `date`'s year and month and select its day.
@@ -12201,6 +12319,17 @@ class Calendar(Widget):
     def unmark_day(self, day: int) -> None:
         """
         Removes the visual marker from a particular day.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -12296,11 +12425,18 @@ class CallbackAction(ShortcutAction):
         """
         Initialize CallbackAction object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, callback: ShortcutFunc, *data: object | None) -> CallbackAction:
+    def new(
+        cls,
+        callback: typing.Callable,
+        data: typing.Any = None,
+    ) -> CallbackAction:
         """
-            Create a custom action that calls the given `callback` when
-        activated.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(callback:Gtk.ShortcutFunc, data=None) -> Gtk.CallbackAction
         """
 
 class CallbackActionClass(GObject.GPointer): ...
@@ -13308,8 +13444,8 @@ class CellAreaBox(CellArea):
     # gi Methods
     def __init__(
         self,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
         focus_cell: CellRenderer | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
         spacing: int | None = None,
     ) -> None:
         """
@@ -13320,12 +13456,6 @@ class CellAreaBox(CellArea):
     def get_spacing(self) -> int:
         """
         Gets the spacing added between cell renderers.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> CellAreaBox:
-        """
-        Creates a new `GtkCellAreaBox`.
         """
     @deprecated("deprecated")
     def pack_end(self, renderer: CellRenderer, expand: bool, align: bool, fixed: bool) -> None:
@@ -13347,6 +13477,17 @@ class CellAreaBox(CellArea):
     def set_spacing(self, spacing: int) -> None:
         """
         Sets the spacing to add between cell renderers in `box`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> CellArea:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CellArea
         """
 
     # Signals
@@ -13816,7 +13957,7 @@ class CellAreaContextClass(GObject.GPointer):
 
 class CellAreaContextPrivate(GObject.GPointer): ...
 
-class CellEditable(object):
+class CellEditable(builtins.object):
     """
     Interface for widgets that can be used for editing cells
 
@@ -13933,7 +14074,7 @@ class CellEditableIface(GObject.GPointer):
         Begins editing on a cell_editable.
         """
 
-class CellLayout(object):
+class CellLayout(builtins.object):
     """
     An interface for packing cells
 
@@ -14260,20 +14401,20 @@ class CellRenderer(GObject.InitiallyUnowned):
     # gi Methods
     def __init__(
         self,
-        mode: CellRendererMode | None = CellRendererMode.INERT,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        xalign: float | None = None,
-        yalign: float | None = None,
-        xpad: int | None = None,
-        ypad: int | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        is_expander: bool | None = None,
-        is_expanded: bool | None = None,
         cell_background: str | None = None,
         cell_background_rgba: Gdk.RGBA | None = None,
         cell_background_set: bool | None = None,
+        height: int | None = None,
+        is_expanded: bool | None = None,
+        is_expander: bool | None = None,
+        mode: CellRendererMode | None = CellRendererMode.INERT,
+        sensitive: bool | None = None,
+        visible: bool | None = None,
+        width: int | None = None,
+        xalign: float | None = None,
+        xpad: int | None = None,
+        yalign: float | None = None,
+        ypad: int | None = None,
     ) -> None:
         """
         Initialize CellRenderer object with properties.
@@ -14761,79 +14902,84 @@ class CellRendererAccel(CellRendererText):
     # gi Methods
     def __init__(
         self,
-        mode: CellRendererMode | None = CellRendererMode.INERT,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        xalign: float | None = None,
-        yalign: float | None = None,
-        xpad: int | None = None,
-        ypad: int | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        is_expander: bool | None = None,
-        is_expanded: bool | None = None,
+        accel_key: int | None = None,
+        accel_mode: CellRendererAccelMode | None = CellRendererAccelMode.GTK,
+        accel_mods: Gdk.ModifierType | None = Gdk.ModifierType.NO_MODIFIER_MASK,
+        align_set: bool | None = None,
+        alignment: Pango.Alignment | None = Pango.Alignment.LEFT,
+        attributes: Pango.AttrList | None = None,
+        background: str | None = None,
+        background_rgba: Gdk.RGBA | None = None,
+        background_set: bool | None = None,
         cell_background: str | None = None,
         cell_background_rgba: Gdk.RGBA | None = None,
         cell_background_set: bool | None = None,
-        text: str | None = None,
-        markup: str | None = None,
-        attributes: Pango.AttrList | None = None,
-        single_paragraph_mode: bool | None = None,
-        width_chars: int | None = None,
-        max_width_chars: int | None = None,
-        wrap_width: int | None = None,
-        alignment: Pango.Alignment | None = Pango.Alignment.LEFT,
-        placeholder_text: str | None = None,
-        background: str | None = None,
-        foreground: str | None = None,
-        background_rgba: Gdk.RGBA | None = None,
-        foreground_rgba: Gdk.RGBA | None = None,
+        editable: bool | None = None,
+        editable_set: bool | None = None,
+        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
+        ellipsize_set: bool | None = None,
+        family: str | None = None,
+        family_set: bool | None = None,
         font: str | None = None,
         font_desc: Pango.FontDescription | None = None,
-        family: str | None = None,
-        style: Pango.Style | None = Pango.Style.NORMAL,
-        variant: Pango.Variant | None = Pango.Variant.NORMAL,
-        weight: int | None = None,
-        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
+        foreground: str | None = None,
+        foreground_rgba: Gdk.RGBA | None = None,
+        foreground_set: bool | None = None,
+        height: int | None = None,
+        is_expanded: bool | None = None,
+        is_expander: bool | None = None,
+        keycode: int | None = None,
+        language: str | None = None,
+        language_set: bool | None = None,
+        markup: str | None = None,
+        max_width_chars: int | None = None,
+        mode: CellRendererMode | None = CellRendererMode.INERT,
+        placeholder_text: str | None = None,
+        rise: int | None = None,
+        rise_set: bool | None = None,
+        scale: float | None = None,
+        scale_set: bool | None = None,
+        sensitive: bool | None = None,
+        single_paragraph_mode: bool | None = None,
         size: int | None = None,
         size_points: float | None = None,
-        scale: float | None = None,
-        editable: bool | None = None,
-        strikethrough: bool | None = None,
-        underline: Pango.Underline | None = Pango.Underline.NONE,
-        rise: int | None = None,
-        language: str | None = None,
-        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
-        wrap_mode: Pango.WrapMode | None = Pango.WrapMode.CHAR,
-        background_set: bool | None = None,
-        foreground_set: bool | None = None,
-        family_set: bool | None = None,
-        style_set: bool | None = None,
-        variant_set: bool | None = None,
-        weight_set: bool | None = None,
-        stretch_set: bool | None = None,
         size_set: bool | None = None,
-        scale_set: bool | None = None,
-        editable_set: bool | None = None,
+        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
+        stretch_set: bool | None = None,
+        strikethrough: bool | None = None,
         strikethrough_set: bool | None = None,
+        style: Pango.Style | None = Pango.Style.NORMAL,
+        style_set: bool | None = None,
+        text: str | None = None,
+        underline: Pango.Underline | None = Pango.Underline.NONE,
         underline_set: bool | None = None,
-        rise_set: bool | None = None,
-        language_set: bool | None = None,
-        ellipsize_set: bool | None = None,
-        align_set: bool | None = None,
-        accel_key: int | None = None,
-        accel_mods: Gdk.ModifierType | None = Gdk.ModifierType.NO_MODIFIER_MASK,
-        keycode: int | None = None,
-        accel_mode: CellRendererAccelMode | None = CellRendererAccelMode.GTK,
+        variant: Pango.Variant | None = Pango.Variant.NORMAL,
+        variant_set: bool | None = None,
+        visible: bool | None = None,
+        weight: int | None = None,
+        weight_set: bool | None = None,
+        width: int | None = None,
+        width_chars: int | None = None,
+        wrap_mode: Pango.WrapMode | None = Pango.WrapMode.CHAR,
+        wrap_width: int | None = None,
+        xalign: float | None = None,
+        xpad: int | None = None,
+        yalign: float | None = None,
+        ypad: int | None = None,
     ) -> None:
         """
         Initialize CellRendererAccel object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> CellRendererAccel:
+    def new(
+        cls,
+    ) -> CellRenderer:
         """
-        Creates a new `GtkCellRendererAccel`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CellRenderer
         """
 
     # Signals
@@ -15001,84 +15147,83 @@ class CellRendererCombo(CellRendererText):
     # gi Methods
     def __init__(
         self,
-        mode: CellRendererMode | None = CellRendererMode.INERT,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        xalign: float | None = None,
-        yalign: float | None = None,
-        xpad: int | None = None,
-        ypad: int | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        is_expander: bool | None = None,
-        is_expanded: bool | None = None,
+        align_set: bool | None = None,
+        alignment: Pango.Alignment | None = Pango.Alignment.LEFT,
+        attributes: Pango.AttrList | None = None,
+        background: str | None = None,
+        background_rgba: Gdk.RGBA | None = None,
+        background_set: bool | None = None,
         cell_background: str | None = None,
         cell_background_rgba: Gdk.RGBA | None = None,
         cell_background_set: bool | None = None,
-        text: str | None = None,
-        markup: str | None = None,
-        attributes: Pango.AttrList | None = None,
-        single_paragraph_mode: bool | None = None,
-        width_chars: int | None = None,
-        max_width_chars: int | None = None,
-        wrap_width: int | None = None,
-        alignment: Pango.Alignment | None = Pango.Alignment.LEFT,
-        placeholder_text: str | None = None,
-        background: str | None = None,
-        foreground: str | None = None,
-        background_rgba: Gdk.RGBA | None = None,
-        foreground_rgba: Gdk.RGBA | None = None,
+        editable: bool | None = None,
+        editable_set: bool | None = None,
+        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
+        ellipsize_set: bool | None = None,
+        family: str | None = None,
+        family_set: bool | None = None,
         font: str | None = None,
         font_desc: Pango.FontDescription | None = None,
-        family: str | None = None,
-        style: Pango.Style | None = Pango.Style.NORMAL,
-        variant: Pango.Variant | None = Pango.Variant.NORMAL,
-        weight: int | None = None,
-        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
+        foreground: str | None = None,
+        foreground_rgba: Gdk.RGBA | None = None,
+        foreground_set: bool | None = None,
+        has_entry: bool | None = None,
+        height: int | None = None,
+        is_expanded: bool | None = None,
+        is_expander: bool | None = None,
+        language: str | None = None,
+        language_set: bool | None = None,
+        markup: str | None = None,
+        max_width_chars: int | None = None,
+        mode: CellRendererMode | None = CellRendererMode.INERT,
+        model: TreeModel | None = None,
+        placeholder_text: str | None = None,
+        rise: int | None = None,
+        rise_set: bool | None = None,
+        scale: float | None = None,
+        scale_set: bool | None = None,
+        sensitive: bool | None = None,
+        single_paragraph_mode: bool | None = None,
         size: int | None = None,
         size_points: float | None = None,
-        scale: float | None = None,
-        editable: bool | None = None,
-        strikethrough: bool | None = None,
-        underline: Pango.Underline | None = Pango.Underline.NONE,
-        rise: int | None = None,
-        language: str | None = None,
-        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
-        wrap_mode: Pango.WrapMode | None = Pango.WrapMode.CHAR,
-        background_set: bool | None = None,
-        foreground_set: bool | None = None,
-        family_set: bool | None = None,
-        style_set: bool | None = None,
-        variant_set: bool | None = None,
-        weight_set: bool | None = None,
-        stretch_set: bool | None = None,
         size_set: bool | None = None,
-        scale_set: bool | None = None,
-        editable_set: bool | None = None,
+        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
+        stretch_set: bool | None = None,
+        strikethrough: bool | None = None,
         strikethrough_set: bool | None = None,
-        underline_set: bool | None = None,
-        rise_set: bool | None = None,
-        language_set: bool | None = None,
-        ellipsize_set: bool | None = None,
-        align_set: bool | None = None,
-        model: TreeModel | None = None,
+        style: Pango.Style | None = Pango.Style.NORMAL,
+        style_set: bool | None = None,
+        text: str | None = None,
         text_column: int | None = None,
-        has_entry: bool | None = None,
+        underline: Pango.Underline | None = Pango.Underline.NONE,
+        underline_set: bool | None = None,
+        variant: Pango.Variant | None = Pango.Variant.NORMAL,
+        variant_set: bool | None = None,
+        visible: bool | None = None,
+        weight: int | None = None,
+        weight_set: bool | None = None,
+        width: int | None = None,
+        width_chars: int | None = None,
+        wrap_mode: Pango.WrapMode | None = Pango.WrapMode.CHAR,
+        wrap_width: int | None = None,
+        xalign: float | None = None,
+        xpad: int | None = None,
+        yalign: float | None = None,
+        ypad: int | None = None,
     ) -> None:
         """
         Initialize CellRendererCombo object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> CellRendererCombo:
+    def new(
+        cls,
+    ) -> CellRenderer:
         """
-            Creates a new `GtkCellRendererCombo`.
-        Adjust how text is drawn using object properties.
-        Object properties can be set globally (with `g_object_set`).
-        Also, with `GtkTreeViewColumn`, you can bind a property to a value
-        in a `GtkTreeModel`. For example, you can bind the “text” property
-        on the cell renderer to a string value in the model, thus rendering
-        a different string in each row of the `GtkTreeView`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CellRenderer
         """
 
     # Signals
@@ -15177,42 +15322,41 @@ class CellRendererPixbuf(CellRenderer):
     # gi Methods
     def __init__(
         self,
-        mode: CellRendererMode | None = CellRendererMode.INERT,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        xalign: float | None = None,
-        yalign: float | None = None,
-        xpad: int | None = None,
-        ypad: int | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        is_expander: bool | None = None,
-        is_expanded: bool | None = None,
         cell_background: str | None = None,
         cell_background_rgba: Gdk.RGBA | None = None,
         cell_background_set: bool | None = None,
-        pixbuf: GdkPixbuf.Pixbuf | None = None,
-        pixbuf_expander_open: GdkPixbuf.Pixbuf | None = None,
-        pixbuf_expander_closed: GdkPixbuf.Pixbuf | None = None,
-        texture: Gdk.Texture | None = None,
-        icon_size: IconSize | None = IconSize.INHERIT,
-        icon_name: str | None = None,
         gicon: Gio.Icon | None = None,
+        height: int | None = None,
+        icon_name: str | None = None,
+        icon_size: IconSize | None = IconSize.INHERIT,
+        is_expanded: bool | None = None,
+        is_expander: bool | None = None,
+        mode: CellRendererMode | None = CellRendererMode.INERT,
+        pixbuf: GdkPixbuf.Pixbuf | None = None,
+        pixbuf_expander_closed: GdkPixbuf.Pixbuf | None = None,
+        pixbuf_expander_open: GdkPixbuf.Pixbuf | None = None,
+        sensitive: bool | None = None,
+        texture: Gdk.Texture | None = None,
+        visible: bool | None = None,
+        width: int | None = None,
+        xalign: float | None = None,
+        xpad: int | None = None,
+        yalign: float | None = None,
+        ypad: int | None = None,
     ) -> None:
         """
         Initialize CellRendererPixbuf object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> CellRendererPixbuf:
+    def new(
+        cls,
+    ) -> CellRenderer:
         """
-            Creates a new `GtkCellRendererPixbuf`. Adjust rendering
-        parameters using object properties. Object properties can be set
-        globally (with `g_object_set`). Also, with `GtkTreeViewColumn`, you
-        can bind a property to a value in a `GtkTreeModel`. For example, you
-        can bind the “pixbuf” property on the cell renderer to a pixbuf value
-        in the model, thus rendering a different image in each row of the
-        `GtkTreeView`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CellRenderer
         """
 
     # Signals
@@ -15329,36 +15473,41 @@ class CellRendererProgress(CellRenderer):
     # gi Methods
     def __init__(
         self,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        mode: CellRendererMode | None = CellRendererMode.INERT,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        xalign: float | None = None,
-        yalign: float | None = None,
-        xpad: int | None = None,
-        ypad: int | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        is_expander: bool | None = None,
-        is_expanded: bool | None = None,
         cell_background: str | None = None,
         cell_background_rgba: Gdk.RGBA | None = None,
         cell_background_set: bool | None = None,
-        value: int | None = None,
-        text: str | None = None,
+        height: int | None = None,
+        inverted: bool | None = None,
+        is_expanded: bool | None = None,
+        is_expander: bool | None = None,
+        mode: CellRendererMode | None = CellRendererMode.INERT,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
         pulse: int | None = None,
+        sensitive: bool | None = None,
+        text: str | None = None,
         text_xalign: float | None = None,
         text_yalign: float | None = None,
-        inverted: bool | None = None,
+        value: int | None = None,
+        visible: bool | None = None,
+        width: int | None = None,
+        xalign: float | None = None,
+        xpad: int | None = None,
+        yalign: float | None = None,
+        ypad: int | None = None,
     ) -> None:
         """
         Initialize CellRendererProgress object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> CellRendererProgress:
+    def new(
+        cls,
+    ) -> CellRenderer:
         """
-        Creates a new `GtkCellRendererProgress`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CellRenderer
         """
 
     # Signals
@@ -15447,78 +15596,83 @@ class CellRendererSpin(CellRendererText):
     # gi Methods
     def __init__(
         self,
-        mode: CellRendererMode | None = CellRendererMode.INERT,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        xalign: float | None = None,
-        yalign: float | None = None,
-        xpad: int | None = None,
-        ypad: int | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        is_expander: bool | None = None,
-        is_expanded: bool | None = None,
+        adjustment: Adjustment | None = None,
+        align_set: bool | None = None,
+        alignment: Pango.Alignment | None = Pango.Alignment.LEFT,
+        attributes: Pango.AttrList | None = None,
+        background: str | None = None,
+        background_rgba: Gdk.RGBA | None = None,
+        background_set: bool | None = None,
         cell_background: str | None = None,
         cell_background_rgba: Gdk.RGBA | None = None,
         cell_background_set: bool | None = None,
-        text: str | None = None,
-        markup: str | None = None,
-        attributes: Pango.AttrList | None = None,
-        single_paragraph_mode: bool | None = None,
-        width_chars: int | None = None,
-        max_width_chars: int | None = None,
-        wrap_width: int | None = None,
-        alignment: Pango.Alignment | None = Pango.Alignment.LEFT,
-        placeholder_text: str | None = None,
-        background: str | None = None,
-        foreground: str | None = None,
-        background_rgba: Gdk.RGBA | None = None,
-        foreground_rgba: Gdk.RGBA | None = None,
-        font: str | None = None,
-        font_desc: Pango.FontDescription | None = None,
-        family: str | None = None,
-        style: Pango.Style | None = Pango.Style.NORMAL,
-        variant: Pango.Variant | None = Pango.Variant.NORMAL,
-        weight: int | None = None,
-        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
-        size: int | None = None,
-        size_points: float | None = None,
-        scale: float | None = None,
-        editable: bool | None = None,
-        strikethrough: bool | None = None,
-        underline: Pango.Underline | None = Pango.Underline.NONE,
-        rise: int | None = None,
-        language: str | None = None,
-        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
-        wrap_mode: Pango.WrapMode | None = Pango.WrapMode.CHAR,
-        background_set: bool | None = None,
-        foreground_set: bool | None = None,
-        family_set: bool | None = None,
-        style_set: bool | None = None,
-        variant_set: bool | None = None,
-        weight_set: bool | None = None,
-        stretch_set: bool | None = None,
-        size_set: bool | None = None,
-        scale_set: bool | None = None,
-        editable_set: bool | None = None,
-        strikethrough_set: bool | None = None,
-        underline_set: bool | None = None,
-        rise_set: bool | None = None,
-        language_set: bool | None = None,
-        ellipsize_set: bool | None = None,
-        align_set: bool | None = None,
-        adjustment: Adjustment | None = None,
         climb_rate: float | None = None,
         digits: int | None = None,
+        editable: bool | None = None,
+        editable_set: bool | None = None,
+        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
+        ellipsize_set: bool | None = None,
+        family: str | None = None,
+        family_set: bool | None = None,
+        font: str | None = None,
+        font_desc: Pango.FontDescription | None = None,
+        foreground: str | None = None,
+        foreground_rgba: Gdk.RGBA | None = None,
+        foreground_set: bool | None = None,
+        height: int | None = None,
+        is_expanded: bool | None = None,
+        is_expander: bool | None = None,
+        language: str | None = None,
+        language_set: bool | None = None,
+        markup: str | None = None,
+        max_width_chars: int | None = None,
+        mode: CellRendererMode | None = CellRendererMode.INERT,
+        placeholder_text: str | None = None,
+        rise: int | None = None,
+        rise_set: bool | None = None,
+        scale: float | None = None,
+        scale_set: bool | None = None,
+        sensitive: bool | None = None,
+        single_paragraph_mode: bool | None = None,
+        size: int | None = None,
+        size_points: float | None = None,
+        size_set: bool | None = None,
+        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
+        stretch_set: bool | None = None,
+        strikethrough: bool | None = None,
+        strikethrough_set: bool | None = None,
+        style: Pango.Style | None = Pango.Style.NORMAL,
+        style_set: bool | None = None,
+        text: str | None = None,
+        underline: Pango.Underline | None = Pango.Underline.NONE,
+        underline_set: bool | None = None,
+        variant: Pango.Variant | None = Pango.Variant.NORMAL,
+        variant_set: bool | None = None,
+        visible: bool | None = None,
+        weight: int | None = None,
+        weight_set: bool | None = None,
+        width: int | None = None,
+        width_chars: int | None = None,
+        wrap_mode: Pango.WrapMode | None = Pango.WrapMode.CHAR,
+        wrap_width: int | None = None,
+        xalign: float | None = None,
+        xpad: int | None = None,
+        yalign: float | None = None,
+        ypad: int | None = None,
     ) -> None:
         """
         Initialize CellRendererSpin object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> CellRendererSpin:
+    def new(
+        cls,
+    ) -> CellRenderer:
         """
-        Creates a new `GtkCellRendererSpin`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CellRenderer
         """
 
     # Signals
@@ -15588,33 +15742,37 @@ class CellRendererSpinner(CellRenderer):
     # gi Methods
     def __init__(
         self,
-        mode: CellRendererMode | None = CellRendererMode.INERT,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        xalign: float | None = None,
-        yalign: float | None = None,
-        xpad: int | None = None,
-        ypad: int | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        is_expander: bool | None = None,
-        is_expanded: bool | None = None,
+        active: bool | None = None,
         cell_background: str | None = None,
         cell_background_rgba: Gdk.RGBA | None = None,
         cell_background_set: bool | None = None,
-        active: bool | None = None,
+        height: int | None = None,
+        is_expanded: bool | None = None,
+        is_expander: bool | None = None,
+        mode: CellRendererMode | None = CellRendererMode.INERT,
         pulse: int | None = None,
+        sensitive: bool | None = None,
         size: IconSize | None = IconSize.INHERIT,
+        visible: bool | None = None,
+        width: int | None = None,
+        xalign: float | None = None,
+        xpad: int | None = None,
+        yalign: float | None = None,
+        ypad: int | None = None,
     ) -> None:
         """
         Initialize CellRendererSpinner object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> CellRendererSpinner:
+    def new(
+        cls,
+    ) -> CellRenderer:
         """
-            Returns a new cell renderer which will show a spinner to indicate
-        activity.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CellRenderer
         """
 
     # Signals
@@ -15762,81 +15920,69 @@ class CellRendererText(CellRenderer):
     # gi Methods
     def __init__(
         self,
-        mode: CellRendererMode | None = CellRendererMode.INERT,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        xalign: float | None = None,
-        yalign: float | None = None,
-        xpad: int | None = None,
-        ypad: int | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        is_expander: bool | None = None,
-        is_expanded: bool | None = None,
+        align_set: bool | None = None,
+        alignment: Pango.Alignment | None = Pango.Alignment.LEFT,
+        attributes: Pango.AttrList | None = None,
+        background: str | None = None,
+        background_rgba: Gdk.RGBA | None = None,
+        background_set: bool | None = None,
         cell_background: str | None = None,
         cell_background_rgba: Gdk.RGBA | None = None,
         cell_background_set: bool | None = None,
-        text: str | None = None,
-        markup: str | None = None,
-        attributes: Pango.AttrList | None = None,
-        single_paragraph_mode: bool | None = None,
-        width_chars: int | None = None,
-        max_width_chars: int | None = None,
-        wrap_width: int | None = None,
-        alignment: Pango.Alignment | None = Pango.Alignment.LEFT,
-        placeholder_text: str | None = None,
-        background: str | None = None,
-        foreground: str | None = None,
-        background_rgba: Gdk.RGBA | None = None,
-        foreground_rgba: Gdk.RGBA | None = None,
+        editable: bool | None = None,
+        editable_set: bool | None = None,
+        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
+        ellipsize_set: bool | None = None,
+        family: str | None = None,
+        family_set: bool | None = None,
         font: str | None = None,
         font_desc: Pango.FontDescription | None = None,
-        family: str | None = None,
-        style: Pango.Style | None = Pango.Style.NORMAL,
-        variant: Pango.Variant | None = Pango.Variant.NORMAL,
-        weight: int | None = None,
-        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
+        foreground: str | None = None,
+        foreground_rgba: Gdk.RGBA | None = None,
+        foreground_set: bool | None = None,
+        height: int | None = None,
+        is_expanded: bool | None = None,
+        is_expander: bool | None = None,
+        language: str | None = None,
+        language_set: bool | None = None,
+        markup: str | None = None,
+        max_width_chars: int | None = None,
+        mode: CellRendererMode | None = CellRendererMode.INERT,
+        placeholder_text: str | None = None,
+        rise: int | None = None,
+        rise_set: bool | None = None,
+        scale: float | None = None,
+        scale_set: bool | None = None,
+        sensitive: bool | None = None,
+        single_paragraph_mode: bool | None = None,
         size: int | None = None,
         size_points: float | None = None,
-        scale: float | None = None,
-        editable: bool | None = None,
-        strikethrough: bool | None = None,
-        underline: Pango.Underline | None = Pango.Underline.NONE,
-        rise: int | None = None,
-        language: str | None = None,
-        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
-        wrap_mode: Pango.WrapMode | None = Pango.WrapMode.CHAR,
-        background_set: bool | None = None,
-        foreground_set: bool | None = None,
-        family_set: bool | None = None,
-        style_set: bool | None = None,
-        variant_set: bool | None = None,
-        weight_set: bool | None = None,
-        stretch_set: bool | None = None,
         size_set: bool | None = None,
-        scale_set: bool | None = None,
-        editable_set: bool | None = None,
+        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
+        stretch_set: bool | None = None,
+        strikethrough: bool | None = None,
         strikethrough_set: bool | None = None,
+        style: Pango.Style | None = Pango.Style.NORMAL,
+        style_set: bool | None = None,
+        text: str | None = None,
+        underline: Pango.Underline | None = Pango.Underline.NONE,
         underline_set: bool | None = None,
-        rise_set: bool | None = None,
-        language_set: bool | None = None,
-        ellipsize_set: bool | None = None,
-        align_set: bool | None = None,
+        variant: Pango.Variant | None = Pango.Variant.NORMAL,
+        variant_set: bool | None = None,
+        visible: bool | None = None,
+        weight: int | None = None,
+        weight_set: bool | None = None,
+        width: int | None = None,
+        width_chars: int | None = None,
+        wrap_mode: Pango.WrapMode | None = Pango.WrapMode.CHAR,
+        wrap_width: int | None = None,
+        xalign: float | None = None,
+        xpad: int | None = None,
+        yalign: float | None = None,
+        ypad: int | None = None,
     ) -> None:
         """
         Initialize CellRendererText object with properties.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> CellRendererText:
-        """
-            Creates a new `GtkCellRendererText`. Adjust how text is drawn using
-        object properties. Object properties can be
-        set globally (with `g_object_set`). Also, with `GtkTreeViewColumn`,
-        you can bind a property to a value in a `GtkTreeModel`. For example,
-        you can bind the “text” property on the cell renderer to a string
-        value in the model, thus rendering a different string in each row
-        of the `GtkTreeView`.
         """
     @deprecated("deprecated")
     def set_fixed_height_from_font(self, number_of_rows: int) -> None:
@@ -15858,6 +16004,15 @@ class CellRendererText(CellRenderer):
     ) -> None:
         """
         edited(self, path:str, new_text:str)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> CellRenderer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CellRenderer
         """
 
     # Signals
@@ -16232,24 +16387,24 @@ class CellRendererToggle(CellRenderer):
     # gi Methods
     def __init__(
         self,
-        mode: CellRendererMode | None = CellRendererMode.INERT,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        xalign: float | None = None,
-        yalign: float | None = None,
-        xpad: int | None = None,
-        ypad: int | None = None,
-        width: int | None = None,
-        height: int | None = None,
-        is_expander: bool | None = None,
-        is_expanded: bool | None = None,
+        activatable: bool | None = None,
+        active: bool | None = None,
         cell_background: str | None = None,
         cell_background_rgba: Gdk.RGBA | None = None,
         cell_background_set: bool | None = None,
-        activatable: bool | None = None,
-        active: bool | None = None,
-        radio: bool | None = None,
+        height: int | None = None,
         inconsistent: bool | None = None,
+        is_expanded: bool | None = None,
+        is_expander: bool | None = None,
+        mode: CellRendererMode | None = CellRendererMode.INERT,
+        radio: bool | None = None,
+        sensitive: bool | None = None,
+        visible: bool | None = None,
+        width: int | None = None,
+        xalign: float | None = None,
+        xpad: int | None = None,
+        yalign: float | None = None,
+        ypad: int | None = None,
     ) -> None:
         """
         Initialize CellRendererToggle object with properties.
@@ -16275,18 +16430,6 @@ class CellRendererToggle(CellRenderer):
         Returns whether we’re rendering radio toggles rather than checkboxes.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> CellRendererToggle:
-        """
-            Creates a new `GtkCellRendererToggle`. Adjust rendering
-        parameters using object properties. Object properties can be set
-        globally (with `g_object_set`). Also, with `GtkTreeViewColumn`, you
-        can bind a property to a value in a `GtkTreeModel`. For example, you
-        can bind the “active” property on the cell renderer to a boolean value
-        in the model, thus causing the check button to reflect the state of
-        the model.
-        """
-    @deprecated("deprecated")
     def set_activatable(self, setting: bool) -> None:
         """
         Makes the cell renderer activatable.
@@ -16306,6 +16449,17 @@ class CellRendererToggle(CellRenderer):
         before rendering each cell in the model (for `GtkTreeView`, you set
         up a per-row setting using `GtkTreeViewColumn` to associate model
         columns with cell renderer properties).
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> CellRenderer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CellRenderer
         """
 
     # Signals
@@ -16435,42 +16589,42 @@ class CellView(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        model: TreeModel | None = None,
         cell_area: CellArea | None = None,
         cell_area_context: CellAreaContext | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         draw_sensitive: bool | None = None,
         fit_model: bool | None = None,
+        focus_on_click: bool | None = None,
+        focusable: bool | None = None,
+        halign: Align | None = Align.FILL,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        model: TreeModel | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize CellView object with properties.
@@ -16502,46 +16656,6 @@ class CellView(Widget):
         """
             Returns the model for `cell_view`. If no model is used None is
         returned.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> CellView:
-        """
-        Creates a new `GtkCellView` widget.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_context(cls, area: CellArea, context: CellAreaContext) -> CellView:
-        """
-            Creates a new `GtkCellView` widget with a specific `GtkCellArea`
-        to layout cells and a specific `GtkCellAreaContext`.
-
-        Specifying the same context for a handful of cells lets
-        the underlying area synchronize the geometry for those cells,
-        in this way alignments with cellviews for other rows are
-        possible.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_markup(cls, markup: str) -> CellView:
-        """
-            Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
-        to it, and makes it show `markup`. The text can be marked up with
-        the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_text(cls, text: str) -> CellView:
-        """
-            Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
-        to it, and makes it show `text`.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_texture(cls, texture: Gdk.Texture) -> CellView:
-        """
-            Creates a new `GtkCellView` widget, adds a `GtkCellRendererPixbuf`
-        to it, and makes it show `texture`.
         """
     @deprecated("deprecated")
     def set_displayed_row(self, path: TreePath | None = None) -> None:
@@ -16576,6 +16690,58 @@ class CellView(Widget):
             Sets the model for `cell_view`.  If `cell_view` already has a model
         set, it will remove it before setting the new model.  If `model` is
         None, then it will unset the old model.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_context(
+        cls,
+        area: CellArea,
+        context: CellAreaContext,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_context(area:Gtk.CellArea, context:Gtk.CellAreaContext) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_markup(
+        cls,
+        markup: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_markup(markup:str) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_text(
+        cls,
+        text: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_text(text:str) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_texture(
+        cls,
+        texture: Gdk.Texture,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_texture(texture:Gdk.Texture) -> Gtk.Widget
         """
 
     # Signals
@@ -16705,42 +16871,42 @@ class CenterBox(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        baseline_position: BaselinePosition | None = BaselinePosition.CENTER,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        center_widget: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        end_widget: Widget | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        start_widget: Widget | None = None,
-        center_widget: Widget | None = None,
-        end_widget: Widget | None = None,
-        baseline_position: BaselinePosition | None = BaselinePosition.CENTER,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         shrink_center_last: bool | None = None,
+        start_widget: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize CenterBox object with properties.
@@ -16771,11 +16937,6 @@ class CenterBox(Widget):
     def get_start_widget(self) -> Widget | None:
         """
         Gets the start widget.
-        """
-    @classmethod
-    def new(cls) -> CenterBox:
-        """
-        Creates a new `GtkCenterBox`.
         """
     def set_baseline_position(self, position: BaselinePosition) -> None:
         """
@@ -16815,6 +16976,17 @@ class CenterBox(Widget):
             Sets the start widget.
 
         To remove the existing start widget, pass `None`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -16917,11 +17089,6 @@ class CenterLayout(LayoutManager):
         """
         Returns the start widget of the layout.
         """
-    @classmethod
-    def new(cls) -> CenterLayout:
-        """
-        Creates a new `GtkCenterLayout`.
-        """
     def set_baseline_position(self, baseline_position: BaselinePosition) -> None:
         """
         Sets the new baseline position of `self`
@@ -16958,6 +17125,17 @@ class CenterLayout(LayoutManager):
             Sets the new start widget of `self`.
 
         To remove the existing start widget, pass None.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> LayoutManager:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.LayoutManager
         """
 
     # Signals
@@ -17097,42 +17275,42 @@ class CheckButton(Widget):
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         action_name: str | None = None,
         action_target: GLib.Variant | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        active: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        group: CheckButton | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        inconsistent: bool | None = None,
+        label: str | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        active: bool | None = None,
-        group: CheckButton | None = None,
-        label: str | None = None,
-        inconsistent: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_underline: bool | None = None,
-        child: Widget | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize CheckButton object with properties.
@@ -17161,21 +17339,6 @@ class CheckButton(Widget):
     def get_use_underline(self) -> bool:
         """
         Returns whether underlines in the label indicate mnemonics.
-        """
-    @classmethod
-    def new(cls) -> CheckButton:
-        """
-        Creates a new `GtkCheckButton`.
-        """
-    @classmethod
-    def new_with_label(cls, label: str | None = None) -> CheckButton:
-        """
-        Creates a new `GtkCheckButton` with the given text.
-        """
-    @classmethod
-    def new_with_mnemonic(cls, label: str | None = None) -> CheckButton:
-        """
-        Creates a new `GtkCheckButton` with the given text and a mnemonic.
         """
     def set_active(self, setting: bool) -> None:
         """
@@ -17245,6 +17408,35 @@ class CheckButton(Widget):
     ) -> None:
         """
         toggled(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_label(
+        cls,
+        label: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_label(label:str=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_mnemonic(
+        cls,
+        label: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_mnemonic(label:str=None) -> Gtk.Widget
         """
 
     # Signals
@@ -17337,15 +17529,19 @@ class ClosureExpression(Expression):
     """
 
     # gi Methods
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, value_type: GObject.GType, closure: GObject.Closure, n_params: int, params: list | None = None
+        cls,
+        value_type: GObject.GType,
+        closure: GObject.Closure,
+        params: list | None = None,
     ) -> ClosureExpression:
         """
-            Creates a `GtkExpression` that calls `closure` when it is evaluated.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        `closure` is called with the `this` object and the results of evaluating
-        the `params` expressions.
+        new(value_type:GType, closure:GObject.Closure, params:list=None) -> Gtk.ClosureExpression
         """
 
 class ColorButton(Widget):
@@ -17398,41 +17594,41 @@ class ColorButton(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        rgba: Gdk.RGBA | None = None,
-        use_alpha: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        title: str | None = None,
-        show_editor: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        rgba: Gdk.RGBA | None = None,
+        sensitive: bool | None = None,
+        show_editor: bool | None = None,
+        title: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        use_alpha: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ColorButton object with properties.
@@ -17450,23 +17646,6 @@ class ColorButton(Widget):
         Gets the title of the color chooser dialog.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> ColorButton:
-        """
-            Creates a new color button.
-
-        This returns a widget in the form of a small button containing
-        a swatch representing the current selected color. When the button
-        is clicked, a color chooser dialog will open, allowing the user
-        to select a color. The swatch will be updated to reflect the new
-        color when the user finishes.
-        """
-    @classmethod
-    def new_with_rgba(cls, rgba: Gdk.RGBA) -> ColorButton:
-        """
-        Creates a new color button showing the given color.
-        """
-    @deprecated("deprecated")
     def set_modal(self, modal: bool) -> None:
         """
         Sets whether the dialog should be modal.
@@ -17475,6 +17654,27 @@ class ColorButton(Widget):
     def set_title(self, title: str) -> None:
         """
         Sets the title for the color chooser dialog.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_rgba(
+        cls,
+        rgba: Gdk.RGBA,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_rgba(rgba:Gdk.RGBA) -> Gtk.Widget
         """
 
     # Signals
@@ -17528,7 +17728,7 @@ class ColorButton(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ColorChooser(object):
+class ColorChooser(builtins.object):
     """
     `GtkColorChooser` is an interface that is implemented by widgets
     for choosing colors.
@@ -17688,72 +17888,79 @@ class ColorChooserDialog(Dialog):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        rgba: Gdk.RGBA | None = None,
-        use_alpha: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
-        use_header_bar: int | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        rgba: Gdk.RGBA | None = None,
+        sensitive: bool | None = None,
         show_editor: bool | None = None,
+        startup_id: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
+        use_alpha: bool | None = None,
+        use_header_bar: int | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ColorChooserDialog object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, title: str | None = None, parent: Window | None = None) -> ColorChooserDialog:
+    def new(
+        cls,
+        title: str | None = None,
+        parent: Window | None = None,
+    ) -> Widget:
         """
-        Creates a new `GtkColorChooserDialog`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(title:str=None, parent:Gtk.Window=None) -> Gtk.Widget
         """
 
     # Signals
@@ -17835,47 +18042,53 @@ class ColorChooserWidget(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        rgba: Gdk.RGBA | None = None,
-        use_alpha: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        rgba: Gdk.RGBA | None = None,
+        sensitive: bool | None = None,
         show_editor: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        use_alpha: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ColorChooserWidget object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> ColorChooserWidget:
+    def new(
+        cls,
+    ) -> Widget:
         """
-        Creates a new `GtkColorChooserWidget`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -17927,7 +18140,7 @@ class ColorDialog(GObject.Object):
     def props(self) -> Props: ...
 
     # gi Methods
-    def __init__(self, title: str | None = None, modal: bool | None = None, with_alpha: bool | None = None) -> None:
+    def __init__(self, modal: bool | None = None, title: str | None = None, with_alpha: bool | None = None) -> None:
         """
         Initialize ColorDialog object with properties.
         """
@@ -17964,11 +18177,6 @@ class ColorDialog(GObject.Object):
         """
         Returns whether colors may have alpha.
         """
-    @classmethod
-    def new(cls) -> ColorDialog:
-        """
-        Creates a new `GtkColorDialog` object.
-        """
     def set_modal(self, modal: bool) -> None:
         """
             Sets whether the color chooser dialog
@@ -17983,6 +18191,17 @@ class ColorDialog(GObject.Object):
     def set_with_alpha(self, with_alpha: bool) -> None:
         """
         Sets whether colors may have alpha.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> ColorDialog:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.ColorDialog
         """
 
     # Signals
@@ -18061,38 +18280,38 @@ class ColorDialogButton(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        dialog: ColorDialog | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        dialog: ColorDialog | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         rgba: Gdk.RGBA | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ColorDialogButton object with properties.
@@ -18111,15 +18330,6 @@ class ColorDialogButton(Widget):
         the color that was chosen by the user. To get
         informed about changes, listen to "notify::rgba".
         """
-    @classmethod
-    def new(cls, dialog: ColorDialog | None = None) -> ColorDialogButton:
-        """
-            Creates a new `GtkColorDialogButton` with the
-        given `GtkColorDialog`.
-
-        You can pass `None` to this function and set a `GtkColorDialog`
-        later. The button will be insensitive until that happens.
-        """
     def set_dialog(self, dialog: ColorDialog) -> None:
         """
             Sets a `GtkColorDialog` object to use for
@@ -18129,6 +18339,18 @@ class ColorDialogButton(Widget):
     def set_rgba(self, color: Gdk.RGBA) -> None:
         """
         Sets the color of the button.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        dialog: ColorDialog | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(dialog:Gtk.ColorDialog=None) -> Gtk.Widget
         """
 
     # Signals
@@ -18296,49 +18518,49 @@ class ColumnView(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        hadjustment: Adjustment | None = None,
-        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        vadjustment: Adjustment | None = None,
-        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        enable_rubberband: bool | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        hadjustment: Adjustment | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        header_factory: ListItemFactory | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        enable_rubberband: bool | None = None,
-        header_factory: ListItemFactory | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         model: SelectionModel | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         reorderable: bool | None = None,
         row_factory: ListItemFactory | None = None,
-        show_row_separators: bool | None = None,
+        sensitive: bool | None = None,
         show_column_separators: bool | None = None,
+        show_row_separators: bool | None = None,
         single_click_activate: bool | None = None,
         tab_behavior: ListTabBehavior | None = ListTabBehavior.ALL,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        vadjustment: Adjustment | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ColumnView object with properties.
@@ -18431,14 +18653,6 @@ class ColumnView(Widget):
 
         If `column` is already a column of `self`, it will be repositioned.
         """
-    @classmethod
-    def new(cls, model: SelectionModel | None = None) -> ColumnView:
-        """
-            Creates a new `GtkColumnView`.
-
-        You most likely want to call [method`Gtk`.ColumnView.append_column]
-        to add columns next.
-        """
     def remove_column(self, column: ColumnViewColumn) -> None:
         """
         Removes the `column` from the list of columns of `self`.
@@ -18523,6 +18737,18 @@ class ColumnView(Widget):
         on `column` to associate a sorter with the column.
 
         If `column` is unset, the view will be unsorted.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: SelectionModel | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gtk.SelectionModel=None) -> Gtk.Widget
         """
 
     # Signals
@@ -18673,9 +18899,9 @@ class ColumnViewCell(ListItem):
         accessible_description: str | None = None,
         accessible_label: str | None = None,
         activatable: bool | None = None,
-        selectable: bool | None = None,
         child: Widget | None = None,
         focusable: bool | None = None,
+        selectable: bool | None = None,
     ) -> None:
         """
         Initialize ColumnViewCell object with properties.
@@ -18852,15 +19078,15 @@ class ColumnViewColumn(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        factory: ListItemFactory | None = None,
-        title: str | None = None,
-        sorter: Sorter | None = None,
-        visible: bool | None = None,
-        header_menu: Gio.MenuModel | None = None,
-        resizable: bool | None = None,
         expand: bool | None = None,
+        factory: ListItemFactory | None = None,
         fixed_width: int | None = None,
+        header_menu: Gio.MenuModel | None = None,
         id: str | None = None,
+        resizable: bool | None = None,
+        sorter: Sorter | None = None,
+        title: str | None = None,
+        visible: bool | None = None,
     ) -> None:
         """
         Initialize ColumnViewColumn object with properties.
@@ -18918,21 +19144,6 @@ class ColumnViewColumn(GObject.Object):
     def get_visible(self) -> bool:
         """
         Returns whether this column is visible.
-        """
-    @classmethod
-    def new(cls, title: str | None = None, factory: ListItemFactory | None = None) -> ColumnViewColumn:
-        """
-            Creates a new `GtkColumnViewColumn` that uses the given `factory` for
-        mapping items to widgets.
-
-        You most likely want to call [method`Gtk`.ColumnView.append_column] next.
-
-        The function takes ownership of the argument, so you can write code like:
-
-        ```c
-        column = gtk_column_view_column_new (_("Name"),
-          gtk_builder_list_item_factory_new_from_resource ("/name.ui"));
-        ```
         """
     def set_expand(self, expand: bool) -> None:
         """
@@ -18997,6 +19208,19 @@ class ColumnViewColumn(GObject.Object):
     def set_visible(self, visible: bool) -> None:
         """
         Sets whether this column should be visible in views.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        title: str | None = None,
+        factory: ListItemFactory | None = None,
+    ) -> ColumnViewColumn:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(title:str=None, factory:Gtk.ListItemFactory=None) -> Gtk.ColumnViewColumn
         """
 
     # Signals
@@ -19562,47 +19786,47 @@ class ComboBox(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        editing_canceled: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        active: int | None = None,
+        active_id: str | None = None,
+        button_sensitivity: SensitivityType | None = SensitivityType.AUTO,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        editing_canceled: bool | None = None,
+        entry_text_column: int | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_entry: bool | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        id_column: int | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         model: TreeModel | None = None,
-        active: int | None = None,
-        has_frame: bool | None = None,
-        button_sensitivity: SensitivityType | None = SensitivityType.AUTO,
-        has_entry: bool | None = None,
-        entry_text_column: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         popup_fixed_width: bool | None = None,
-        id_column: int | None = None,
-        active_id: str | None = None,
-        child: Widget | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ComboBox object with properties.
@@ -19635,13 +19859,6 @@ class ComboBox(Widget):
         If the [property`Gtk`.ComboBox:id-column] property of `combo_box` is
         not set, or if no row is active, or if the active row has a None
         ID value, then None is returned.
-        """
-    @deprecated("deprecated")
-    def get_active_iter(self) -> tuple[bool, TreeIter]:
-        """
-            Sets `iter` to point to the currently active item.
-
-        If no item is active, `iter` is left unchanged.
         """
     @deprecated("deprecated")
     @builtins.property
@@ -19834,6 +20051,16 @@ class ComboBox(Widget):
 
         If the row separator function is None, no separators are drawn.
         This is the default value.
+        """
+
+    # python methods (overrides?)
+    def get_active_iter(
+        self,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_active_iter(self) -> bool, iter:Gtk.TreeIter
         """
 
     # Signals
@@ -20103,47 +20330,47 @@ class ComboBoxText(ComboBox):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        editing_canceled: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        active: int | None = None,
+        active_id: str | None = None,
+        button_sensitivity: SensitivityType | None = SensitivityType.AUTO,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        editing_canceled: bool | None = None,
+        entry_text_column: int | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_entry: bool | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        id_column: int | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         model: TreeModel | None = None,
-        active: int | None = None,
-        has_frame: bool | None = None,
-        button_sensitivity: SensitivityType | None = SensitivityType.AUTO,
-        has_entry: bool | None = None,
-        entry_text_column: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         popup_fixed_width: bool | None = None,
-        id_column: int | None = None,
-        active_id: str | None = None,
-        child: Widget | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ComboBoxText object with properties.
@@ -20197,18 +20424,6 @@ class ComboBoxText(ComboBox):
         with a None ID string.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> ComboBoxText:
-        """
-        Creates a new `GtkComboBoxText`.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_entry(cls) -> ComboBoxText:
-        """
-        Creates a new `GtkComboBoxText` with an entry.
-        """
-    @deprecated("deprecated")
     def prepend(self, id: str | None, text: str) -> None:
         """
             Prepends `text` to the list of strings stored in `combo_box`.
@@ -20237,6 +20452,26 @@ class ComboBoxText(ComboBox):
         Removes all the text entries from the combo box.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_entry(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_entry() -> Gtk.Widget
+        """
+
 class ConstantExpression(Expression):
     """
     A constant value in a `GtkExpression`.
@@ -20247,10 +20482,17 @@ class ConstantExpression(Expression):
         """
         Gets the value that a constant expression evaluates to.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new_for_value(cls, value: GObject.Value) -> ConstantExpression:
+    def new_for_value(
+        cls,
+        value: GObject.Value,
+    ) -> ConstantExpression:
         """
-        Creates an expression that always evaluates to the given `value`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_value(value:GObject.Value) -> Gtk.ConstantExpression
         """
 
 class Constraint(GObject.Object):
@@ -20326,14 +20568,14 @@ class Constraint(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        target: ConstraintTarget | None = None,
-        target_attribute: ConstraintAttribute | None = ConstraintAttribute.NONE,
+        constant: float | None = None,
+        multiplier: float | None = None,
         relation: ConstraintRelation | None = ConstraintRelation.EQ,
         source: ConstraintTarget | None = None,
         source_attribute: ConstraintAttribute | None = ConstraintAttribute.NONE,
-        multiplier: float | None = None,
-        constant: float | None = None,
         strength: int | None = None,
+        target: ConstraintTarget | None = None,
+        target_attribute: ConstraintAttribute | None = ConstraintAttribute.NONE,
     ) -> None:
         """
         Initialize Constraint object with properties.
@@ -20402,6 +20644,8 @@ class Constraint(GObject.Object):
             Checks whether the constraint is a required relation for solving the
         constraint layout.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
         cls,
@@ -20415,8 +20659,9 @@ class Constraint(GObject.Object):
         strength: int,
     ) -> Constraint:
         """
-            Creates a new constraint representing a relation between a layout
-        attribute on a source and a layout attribute on a target.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(target:Gtk.ConstraintTarget=None, target_attribute:Gtk.ConstraintAttribute, relation:Gtk.ConstraintRelation, source:Gtk.ConstraintTarget=None, source_attribute:Gtk.ConstraintAttribute, multiplier:float, constant:float, strength:int) -> Gtk.Constraint
         """
     @classmethod
     def new_constant(
@@ -20428,8 +20673,9 @@ class Constraint(GObject.Object):
         strength: int,
     ) -> Constraint:
         """
-            Creates a new constraint representing a relation between a layout
-        attribute on a target and a constant value.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_constant(target:Gtk.ConstraintTarget=None, target_attribute:Gtk.ConstraintAttribute, relation:Gtk.ConstraintRelation, constant:float, strength:int) -> Gtk.Constraint
         """
 
     # Signals
@@ -20555,14 +20801,14 @@ class ConstraintGuide(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        min_width: int | None = None,
-        min_height: int | None = None,
-        nat_width: int | None = None,
-        nat_height: int | None = None,
-        max_width: int | None = None,
         max_height: int | None = None,
-        strength: ConstraintStrength | None = ConstraintStrength.MEDIUM,
+        max_width: int | None = None,
+        min_height: int | None = None,
+        min_width: int | None = None,
         name: str | None = None,
+        nat_height: int | None = None,
+        nat_width: int | None = None,
+        strength: ConstraintStrength | None = ConstraintStrength.MEDIUM,
     ) -> None:
         """
         Initialize ConstraintGuide object with properties.
@@ -20588,11 +20834,6 @@ class ConstraintGuide(GObject.Object):
     def get_strength(self) -> ConstraintStrength:
         """
         Retrieves the strength set using `Gtk.ConstraintGuide.set_strength`.
-        """
-    @classmethod
-    def new(cls) -> ConstraintGuide:
-        """
-        Creates a new `GtkConstraintGuide` object.
         """
     def set_max_size(self, width: int, height: int) -> None:
         """
@@ -20625,6 +20866,17 @@ class ConstraintGuide(GObject.Object):
         """
             Sets the strength of the constraint on the natural size of the
         given `GtkConstraintGuide`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> ConstraintGuide:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.ConstraintGuide
         """
 
     # Signals
@@ -20902,11 +21154,6 @@ class ConstraintLayout(LayoutManager):
         The `layout` acquires the ownership of `guide` after calling
         this function.
         """
-    @classmethod
-    def new(cls) -> ConstraintLayout:
-        """
-        Creates a new `GtkConstraintLayout` layout manager.
-        """
     def observe_constraints(self) -> Gio.ListModel:
         """
             Returns a `GListModel` to track the constraints that are
@@ -20946,13 +21193,24 @@ class ConstraintLayout(LayoutManager):
         so that it no longer influences the layout.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> LayoutManager:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.LayoutManager
+        """
+
 class ConstraintLayoutChild(LayoutChild):
     """
     `GtkLayoutChild` subclass for children in a `GtkConstraintLayout`.
     """
 
     # gi Methods
-    def __init__(self, layout_manager: LayoutManager | None = None, child_widget: Widget | None = None) -> None:
+    def __init__(self, child_widget: Widget | None = None, layout_manager: LayoutManager | None = None) -> None:
         """
         Initialize ConstraintLayoutChild object with properties.
         """
@@ -20967,7 +21225,7 @@ class ConstraintLayoutClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
-class ConstraintTarget(object):
+class ConstraintTarget(builtins.object):
     """
     Makes it possible to use an object as source or target in a
     [class`Gtk`.Constraint].
@@ -21047,13 +21305,6 @@ class CssProvider(GObject.Object):
 
         This clears any previously loaded information.
         """
-    @deprecated("deprecated")
-    def load_from_data(self, data: str, length: int) -> None:
-        """
-            Loads `data` into `css_provider`.
-
-        This clears any previously loaded information.
-        """
     def load_from_file(self, file: Gio.File) -> None:
         """
             Loads the data contained in `file` into `css_provider`.
@@ -21101,6 +21352,18 @@ class CssProvider(GObject.Object):
         value from this function on a new provider created with
         [ctor`Gtk`.CssProvider.new] will basically create a duplicate
         of this `provider`.
+        """
+
+    # python methods (overrides?)
+    def load_from_data(
+        self,
+        text: typing.Any,
+        length: typing.Any = -1,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        load_from_data(self, data:str, length:int)
         """
 
     # Signals
@@ -21179,22 +21442,6 @@ class CssSection(GObject.GBoxed):
         """
         Returns the location in the CSS document where this section starts.
         """
-    @classmethod
-    def new(cls, file: Gio.File | None, start: CssLocation, end: CssLocation) -> CssSection:
-        """
-            Creates a new `GtkCssSection` referring to the section
-        in the given `file` from the `start` location to the
-        `end` location.
-        """
-    @classmethod
-    def new_with_bytes(
-        cls, file: Gio.File | None, bytes: GLib.Bytes | None, start: CssLocation, end: CssLocation
-    ) -> CssSection:
-        """
-            Creates a new `GtkCssSection` referring to the section
-        in the given `file` or the given `bytes` from the `start` location to the
-        `end` location.
-        """
     def print_(self, string: GLib.String) -> None: ...
     def ref(self) -> CssSection:
         """
@@ -21217,6 +21464,31 @@ class CssSection(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        file: Gio.File | None,
+        start: CssLocation,
+        end: CssLocation,
+    ) -> CssSection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(file:Gio.File=None, start:Gtk.CssLocation, end:Gtk.CssLocation) -> Gtk.CssSection
+        """
+    @classmethod
+    def new_with_bytes(
+        cls,
+        file: Gio.File | None,
+        bytes: GLib.Bytes | None,
+        start: CssLocation,
+        end: CssLocation,
+    ) -> CssSection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_bytes(file:Gio.File=None, bytes:GLib.Bytes=None, start:Gtk.CssLocation, end:Gtk.CssLocation) -> Gtk.CssSection
+        """
 
 class CssStyleChange(GObject.GPointer):
     """
@@ -21235,16 +21507,6 @@ class CustomFilter(Filter):
         """
         Initialize CustomFilter object with properties.
         """
-    @classmethod
-    def new(cls, match_func: CustomFilterFunc | None = None, *user_data: object | None) -> CustomFilter:
-        """
-            Creates a new filter using the given function to filter items.
-
-        If `match_func` is `None`, the filter matches all items.
-
-        If the filter func changes its filtering behavior,
-        [method`Gtk`.Filter.changed] needs to be called.
-        """
     def set_filter_func(self, match_func: CustomFilterFunc | None = None, *user_data: object | None) -> None:
         """
             Sets the function used for filtering items.
@@ -21256,6 +21518,19 @@ class CustomFilter(Filter):
 
         If a previous function was set, its `user_destroy`
         will be called.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        match_func: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> CustomFilter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(match_func:Gtk.CustomFilterFunc=None, user_data=None) -> Gtk.CustomFilter
         """
 
 class CustomFilterClass(GObject.GPointer):
@@ -21278,19 +21553,19 @@ class CustomLayout(LayoutManager):
         """
         Initialize CustomLayout object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
         cls,
-        request_mode: CustomRequestModeFunc | None | typing.Callable[..., SizeRequestMode],
-        measure: CustomMeasureFunc,
-        allocate: CustomAllocateFunc,
-    ) -> CustomLayout:
+        request_mode: typing.Callable | None,
+        measure: typing.Callable,
+        allocate: typing.Callable,
+    ) -> LayoutManager:
         """
-            Creates a new legacy layout manager.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        Legacy layout managers map to the old `GtkWidget` size negotiation
-        virtual functions, and are meant to be used during the transition
-        from layout containers to layout manager delegates.
+        new(request_mode:Gtk.CustomRequestModeFunc=None, measure:Gtk.CustomMeasureFunc, allocate:Gtk.CustomAllocateFunc) -> Gtk.LayoutManager
         """
 
 class CustomLayoutClass(GObject.GPointer):
@@ -21308,25 +21583,28 @@ class CustomSorter(Sorter):
         """
         Initialize CustomSorter object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, sort_func: GLib.CompareDataFunc | None = None, *user_data: object | None) -> CustomSorter:
+    def new(
+        cls,
+        sort_func: typing.Any,
+        user_data: typing.Any = None,
+    ) -> typing.Any:
         """
-            Creates a new `GtkSorter` that works by calling
-        `sort_func` to compare items.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        If `sort_func` is None, all items are considered equal.
+        new(sort_func:GLib.CompareDataFunc=None, user_data=None) -> Gtk.CustomSorter
         """
-    def set_sort_func(self, sort_func: GLib.CompareDataFunc | None = None, *user_data: object | None) -> None:
+    def set_sort_func(
+        self,
+        sort_func: typing.Any,
+        user_data: typing.Any = None,
+    ) -> typing.Any:
         """
-            Sets (or unsets) the function used for sorting items.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        If `sort_func` is None, all items are considered equal.
-
-        If the sort func changes its sorting behavior,
-        `Gtk.Sorter.changed` needs to be called.
-
-        If a previous function was set, its `user_destroy` will be
-        called now.
+        set_sort_func(self, sort_func:GLib.CompareDataFunc=None, user_data=None)
         """
 
 class CustomSorterClass(GObject.GPointer):
@@ -21496,60 +21774,60 @@ class Dialog(Window):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        sensitive: bool | None = None,
+        startup_id: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
         use_header_bar: int | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Dialog object with properties.
@@ -21830,14 +22108,6 @@ class DirectoryList(GObject.Object):
         going on. The order in which are added is undefined and may change
         in between runs.
         """
-    @classmethod
-    def new(cls, attributes: str | None = None, file: Gio.File | None = None) -> DirectoryList:
-        """
-            Creates a new `GtkDirectoryList`.
-
-        The `GtkDirectoryList` is querying the given `file`
-        with the given `attributes`.
-        """
     def set_attributes(self, attributes: str | None = None) -> None:
         """
             Sets the `attributes` to be enumerated and starts the enumeration.
@@ -21876,6 +22146,19 @@ class DirectoryList(GObject.Object):
         of the directory list, the directory is reloaded to avoid
         missing files that appeared between the initial loading
         and when monitoring was turned on.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        attributes: str | None = None,
+        file: Gio.File | None = None,
+    ) -> DirectoryList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(attributes:str=None, file:Gio.File=None) -> Gtk.DirectoryList
         """
 
     # Signals
@@ -21973,37 +22256,37 @@ class DragIcon(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        child: Widget | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize DragIcon object with properties.
@@ -22027,14 +22310,6 @@ class DragIcon(Widget):
         """
         Gets the widget currently used as drag icon.
         """
-    @classmethod
-    def get_for_drag(cls, drag: Gdk.Drag) -> DragIcon:
-        """
-            Gets the `GtkDragIcon` in use with `drag`.
-
-        If no drag icon exists yet, a new one will be created
-        and shown.
-        """
     def set_child(self, child: Widget | None = None) -> None:
         """
         Sets the widget to display as the drag icon.
@@ -22047,6 +22322,18 @@ class DragIcon(Widget):
 
         The hotspot position on the paintable is aligned with the
         hotspot of the cursor.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def get_for_drag(
+        cls,
+        drag: Gdk.Drag,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_for_drag(drag:Gdk.Drag) -> Gtk.Widget
         """
 
     # Signals
@@ -22166,15 +22453,15 @@ class DragSource(GestureSingle):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
-        n_points: int | None = None,
-        touch_only: bool | None = None,
-        exclusive: bool | None = None,
+        actions: Gdk.DragAction | None = Gdk.DragAction.COPY,
         button: int | None = None,
         content: Gdk.ContentProvider | None = None,
-        actions: Gdk.DragAction | None = Gdk.DragAction.COPY,
+        exclusive: bool | None = None,
+        n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
+        touch_only: bool | None = None,
     ) -> None:
         """
         Initialize DragSource object with properties.
@@ -22196,11 +22483,6 @@ class DragSource(GestureSingle):
     def get_drag(self) -> Gdk.Drag | None:
         """
         Returns the underlying `GdkDrag` object for an ongoing drag.
-        """
-    @classmethod
-    def new(cls) -> DragSource:
-        """
-        Creates a new `GtkDragSource` object.
         """
     def set_actions(self, actions: Gdk.DragAction) -> None:
         """
@@ -22239,6 +22521,17 @@ class DragSource(GestureSingle):
         This function can be called before a drag is started, or in
         a [signal`Gtk`.DragSource::prepare] or
         [signal`Gtk`.DragSource::drag-begin] signal handler.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> DragSource:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.DragSource
         """
 
     # Signals
@@ -22425,38 +22718,38 @@ class DrawingArea(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        content_height: int | None = None,
+        content_width: int | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        content_width: int | None = None,
-        content_height: int | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize DrawingArea object with properties.
@@ -22470,11 +22763,6 @@ class DrawingArea(Widget):
     def get_content_width(self) -> int:
         """
         Retrieves the content width of the `GtkDrawingArea`.
-        """
-    @classmethod
-    def new(cls) -> DrawingArea:
-        """
-        Creates a new drawing area.
         """
     def set_content_height(self, height: int) -> None:
         """
@@ -22524,6 +22812,15 @@ class DrawingArea(Widget):
     ) -> None:
         """
         resize(self, width:int, height:int)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -22624,9 +22921,9 @@ class DropControllerMotion(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
         name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize DropControllerMotion object with properties.
@@ -22649,11 +22946,16 @@ class DropControllerMotion(EventController):
             Returns if a Drag-and-Drop operation is within the widget
         `self`, not one of its children.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> DropControllerMotion:
+    def new(
+        cls,
+    ) -> EventController:
         """
-            Creates a new event controller that will handle pointer motion
-        events during drag and drop.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.EventController
         """
 
     # Signals
@@ -22836,45 +23138,45 @@ class DropDown(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        factory: ListItemFactory | None = None,
-        header_factory: ListItemFactory | None = None,
-        list_factory: ListItemFactory | None = None,
-        model: Gio.ListModel | None = None,
-        selected: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         enable_search: bool | None = None,
         expression: Expression | None = None,
-        show_arrow: bool | None = None,
+        factory: ListItemFactory | None = None,
+        focus_on_click: bool | None = None,
+        focusable: bool | None = None,
+        halign: Align | None = Align.FILL,
+        has_tooltip: bool | None = None,
+        header_factory: ListItemFactory | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        list_factory: ListItemFactory | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        model: Gio.ListModel | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         search_match_mode: StringFilterMatchMode | None = StringFilterMatchMode.PREFIX,
+        selected: int | None = None,
+        sensitive: bool | None = None,
+        show_arrow: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize DropDown object with properties.
@@ -22935,20 +23237,6 @@ class DropDown(Widget):
         """
         Returns whether to show an arrow within the widget.
         """
-    @classmethod
-    def new(cls, model: Gio.ListModel | None = None, expression: Expression | None = None) -> DropDown:
-        """
-            Creates a new `GtkDropDown`.
-
-        You may want to call [method`Gtk`.DropDown.set_factory]
-        to set up a way to map its items to widgets.
-        """
-    @classmethod
-    def new_from_strings(cls, strings: list) -> DropDown:
-        """
-            Creates a new `GtkDropDown` that is populated with
-        the strings.
-        """
     def set_enable_search(self, enable_search: bool) -> None:
         """
             Sets whether a search entry will be shown in the popup that
@@ -22991,6 +23279,29 @@ class DropDown(Widget):
     def set_show_arrow(self, show_arrow: bool) -> None:
         """
         Sets whether an arrow will be displayed within the widget.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: Gio.ListModel | None = None,
+        expression: Expression | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gio.ListModel=None, expression:Gtk.Expression=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_from_strings(
+        cls,
+        strings: list,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_strings(strings:list) -> Gtk.Widget
         """
 
     # Signals
@@ -23216,12 +23527,12 @@ class DropTarget(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
         actions: Gdk.DragAction | None = None,
         formats: Gdk.ContentFormats | None = None,
+        name: str | None = None,
         preload: bool | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize DropTarget object with properties.
@@ -23269,15 +23580,6 @@ class DropTarget(EventController):
         """
         Gets the current drop data, as a `GValue`.
         """
-    @classmethod
-    def new(cls, type: GObject.GType, actions: Gdk.DragAction) -> DropTarget:
-        """
-            Creates a new `GtkDropTarget` object.
-
-        If the drop target should support more than 1 type, pass
-        G_TYPE_INVALID for `type` and then call
-        [method`Gtk`.DropTarget.set_gtypes].
-        """
     def reject(self) -> None:
         """
             Rejects the ongoing drop operation.
@@ -23300,6 +23602,19 @@ class DropTarget(EventController):
     def set_preload(self, preload: bool) -> None:
         """
         Sets whether data should be preloaded on hover.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        type: GObject.GType,
+        actions: Gdk.DragAction,
+    ) -> DropTarget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(type:GType, actions:Gdk.DragAction) -> Gtk.DropTarget
         """
 
     # Signals
@@ -23478,11 +23793,11 @@ class DropTargetAsync(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
         actions: Gdk.DragAction | None = None,
         formats: Gdk.ContentFormats | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize DropTargetAsync object with properties.
@@ -23499,11 +23814,6 @@ class DropTargetAsync(EventController):
 
         If the result is None, all formats are expected to be supported.
         """
-    @classmethod
-    def new(cls, formats: Gdk.ContentFormats | None, actions: Gdk.DragAction) -> DropTargetAsync:
-        """
-        Creates a new `GtkDropTargetAsync` object.
-        """
     def reject_drop(self, drop: Gdk.Drop) -> None:
         """
             Sets the `drop` as not accepted on this drag site.
@@ -23519,6 +23829,19 @@ class DropTargetAsync(EventController):
     def set_formats(self, formats: Gdk.ContentFormats | None = None) -> None:
         """
         Sets the data formats that this drop target will accept.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        formats: Gdk.ContentFormats | None,
+        actions: Gdk.DragAction,
+    ) -> DropTargetAsync:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(formats:Gdk.ContentFormats=None, actions:Gdk.DragAction) -> Gtk.DropTargetAsync
         """
 
     # Signals
@@ -23626,7 +23949,7 @@ class DropTargetAsync(EventController):
 class DropTargetAsyncClass(GObject.GPointer): ...
 class DropTargetClass(GObject.GPointer): ...
 
-class Editable(object):
+class Editable(builtins.object):
     """
     Interface for single-line text editing widgets.
 
@@ -23937,16 +24260,6 @@ class Editable(object):
 
         Note that this position is in characters, not in bytes.
         """
-    def get_selection_bounds(self) -> tuple[bool, int, int]:
-        """
-            Retrieves the selection bound of the editable.
-
-        `start_pos` will be filled with the start of the selection and
-        `end_pos` with end. If no text was selected both will be identical
-        and False will be returned.
-
-        Note that positions are specified in characters, not bytes.
-        """
     @builtins.property
     def get_text(self) -> str:
         """
@@ -23969,15 +24282,6 @@ class Editable(object):
 
         This is a helper function that should be called in instance init,
         after creating the delegate object.
-        """
-    def insert_text(self, text: str, length: int, position: int) -> int:
-        """
-            Inserts `length` bytes of `text` into the contents of the
-        widget, at position `position`.
-
-        Note that the position is in characters, not in bytes.
-        The function updates `position` to point after the newly
-        inserted text.
         """
     @staticmethod
     def install_properties(object_class: GObject.ObjectClass, first_prop: int) -> int:
@@ -24057,6 +24361,26 @@ class Editable(object):
         Note that it changes the size request, the size can still
         be affected by how you pack the widget into containers.
         If `n_chars` is -1, the size reverts to the default size.
+        """
+
+    # python methods (overrides?)
+    def get_selection_bounds(
+        self,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_selection_bounds(self) -> bool, start_pos:int, end_pos:int
+        """
+    def insert_text(
+        self,
+        text: typing.Any,
+        position: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert_text(self, text:str, length:int, position:int) -> position:int
         """
 
     # Signals
@@ -24252,43 +24576,43 @@ class EditableLabel(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        editable: bool | None = None,
-        enable_undo: bool | None = None,
-        max_width_chars: int | None = None,
-        text: str | None = None,
-        width_chars: int | None = None,
-        xalign: float | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        editable: bool | None = None,
+        editing: bool | None = None,
+        enable_undo: bool | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        editing: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        max_width_chars: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        text: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_chars: int | None = None,
+        width_request: int | None = None,
+        xalign: float | None = None,
     ) -> None:
         """
         Initialize EditableLabel object with properties.
@@ -24297,11 +24621,6 @@ class EditableLabel(Widget):
     def get_editing(self) -> bool:
         """
         Returns whether the label is currently in “editing mode”.
-        """
-    @classmethod
-    def new(cls, str: str) -> EditableLabel:
-        """
-        Creates a new `GtkEditableLabel` widget.
         """
     def start_editing(self) -> None:
         """
@@ -24315,6 +24634,18 @@ class EditableLabel(Widget):
         [property`Gtk`.Editable:text] property value, otherwise the
         resulting text is discarded and the label will keep its
         previous [property`Gtk`.Editable:text] property value.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        str: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(str:str) -> Gtk.Widget
         """
 
     # Signals
@@ -24386,52 +24717,58 @@ class EmojiChooser(Popover):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        autohide: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        cascade_popdown: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        default_widget: Widget | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_arrow: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        mnemonics_visible: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         pointing_to: Gdk.Rectangle | None = None,
         position: PositionType | None = PositionType.BOTTOM,
-        autohide: bool | None = None,
-        default_widget: Widget | None = None,
-        has_arrow: bool | None = None,
-        mnemonics_visible: bool | None = None,
-        child: Widget | None = None,
-        cascade_popdown: bool | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize EmojiChooser object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> EmojiChooser:
+    def new(
+        cls,
+    ) -> Widget:
         """
-        Creates a new `GtkEmojiChooser`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -24788,78 +25125,78 @@ class Entry(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        editable: bool | None = None,
-        editing_canceled: bool | None = None,
-        enable_undo: bool | None = None,
-        max_width_chars: int | None = None,
-        text: str | None = None,
-        width_chars: int | None = None,
-        xalign: float | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        activates_default: bool | None = None,
+        attributes: Pango.AttrList | None = None,
+        buffer: EntryBuffer | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        completion: EntryCompletion | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        editable: bool | None = None,
+        editing_canceled: bool | None = None,
+        enable_emoji_completion: bool | None = None,
+        enable_undo: bool | None = None,
+        extra_menu: Gio.MenuModel | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        im_module: str | None = None,
+        input_hints: InputHints | None = InputHints.NONE,
+        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
+        invisible_char: int | None = None,
+        invisible_char_set: bool | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        buffer: EntryBuffer | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         max_length: int | None = None,
-        visibility: bool | None = None,
-        has_frame: bool | None = None,
-        invisible_char: int | None = None,
-        activates_default: bool | None = None,
-        truncate_multiline: bool | None = None,
+        max_width_chars: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         overwrite_mode: bool | None = None,
-        invisible_char_set: bool | None = None,
+        placeholder_text: str | None = None,
+        primary_icon_activatable: bool | None = None,
+        primary_icon_gicon: Gio.Icon | None = None,
+        primary_icon_name: str | None = None,
+        primary_icon_paintable: Gdk.Paintable | None = None,
+        primary_icon_sensitive: bool | None = None,
+        primary_icon_tooltip_markup: str | None = None,
+        primary_icon_tooltip_text: str | None = None,
         progress_fraction: float | None = None,
         progress_pulse_step: float | None = None,
-        primary_icon_paintable: Gdk.Paintable | None = None,
-        secondary_icon_paintable: Gdk.Paintable | None = None,
-        primary_icon_name: str | None = None,
-        secondary_icon_name: str | None = None,
-        primary_icon_gicon: Gio.Icon | None = None,
-        secondary_icon_gicon: Gio.Icon | None = None,
-        primary_icon_activatable: bool | None = None,
+        receives_default: bool | None = None,
         secondary_icon_activatable: bool | None = None,
-        primary_icon_sensitive: bool | None = None,
+        secondary_icon_gicon: Gio.Icon | None = None,
+        secondary_icon_name: str | None = None,
+        secondary_icon_paintable: Gdk.Paintable | None = None,
         secondary_icon_sensitive: bool | None = None,
-        primary_icon_tooltip_text: str | None = None,
-        secondary_icon_tooltip_text: str | None = None,
-        primary_icon_tooltip_markup: str | None = None,
         secondary_icon_tooltip_markup: str | None = None,
-        im_module: str | None = None,
-        placeholder_text: str | None = None,
-        completion: EntryCompletion | None = None,
-        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
-        input_hints: InputHints | None = InputHints.NONE,
-        attributes: Pango.AttrList | None = None,
-        tabs: Pango.TabArray | None = None,
-        extra_menu: Gio.MenuModel | None = None,
+        secondary_icon_tooltip_text: str | None = None,
+        sensitive: bool | None = None,
         show_emoji_icon: bool | None = None,
-        enable_emoji_completion: bool | None = None,
+        tabs: Pango.TabArray | None = None,
+        text: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        truncate_multiline: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visibility: bool | None = None,
+        visible: bool | None = None,
+        width_chars: int | None = None,
+        width_request: int | None = None,
+        xalign: float | None = None,
     ) -> None:
         """
         Initialize Entry object with properties.
@@ -25054,16 +25391,6 @@ class Entry(Widget):
         select the contents of the entry. You only want to call this on some
         special entries which the user usually doesn't want to replace all text
         in, such as search-as-you-type entries.
-        """
-    @classmethod
-    def new(cls) -> Entry:
-        """
-        Creates a new entry.
-        """
-    @classmethod
-    def new_with_buffer(cls, buffer: EntryBuffer) -> Entry:
-        """
-        Creates a new entry with the specified text buffer.
         """
     def progress_pulse(self) -> None:
         """
@@ -25305,6 +25632,25 @@ class Entry(Widget):
     ) -> None:
         """
         activate(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_buffer(
+        cls,
+        buffer: EntryBuffer,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_buffer(buffer:Gtk.EntryBuffer) -> Gtk.Widget
         """
 
     # Signals
@@ -25652,7 +25998,7 @@ class EntryBuffer(GObject.Object):
     def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
-    def __init__(self, text: str | None = None, max_length: int | None = None) -> None:
+    def __init__(self, max_length: int | None = None, text: str | None = None) -> None:
         """
         Initialize EntryBuffer object with properties.
         """
@@ -25713,13 +26059,6 @@ class EntryBuffer(GObject.Object):
         coerced to sane values.
 
         Note that the position and length are in characters, not in bytes.
-        """
-    @classmethod
-    def new(cls, initial_chars: str | None, n_initial_chars: int) -> EntryBuffer:
-        """
-            Create a new `GtkEntryBuffer` object.
-
-        Optionally, specify initial text to set in the buffer.
         """
     def set_max_length(self, max_length: int) -> None:
         """
@@ -25786,6 +26125,17 @@ class EntryBuffer(GObject.Object):
     ) -> None:
         """
         inserted_text(self, position:int, chars:str, n_chars:int)
+        """
+    @classmethod
+    def new(
+        cls,
+        initial_chars: str | None,
+        n_initial_chars: int,
+    ) -> EntryBuffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(initial_chars:str=None, n_initial_chars:int) -> Gtk.EntryBuffer
         """
 
     # Signals
@@ -25998,15 +26348,15 @@ class EntryCompletion(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        model: TreeModel | None = None,
-        minimum_key_length: int | None = None,
-        text_column: int | None = None,
+        cell_area: CellArea | None = None,
         inline_completion: bool | None = None,
+        inline_selection: bool | None = None,
+        minimum_key_length: int | None = None,
+        model: TreeModel | None = None,
         popup_completion: bool | None = None,
         popup_set_width: bool | None = None,
         popup_single_match: bool | None = None,
-        inline_selection: bool | None = None,
-        cell_area: CellArea | None = None,
+        text_column: int | None = None,
     ) -> None:
         """
         Initialize EntryCompletion object with properties.
@@ -26099,22 +26449,6 @@ class EntryCompletion(GObject.Object):
         Requests a prefix insertion.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> EntryCompletion:
-        """
-        Creates a new `GtkEntryCompletion` object.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_area(cls, area: CellArea) -> EntryCompletion:
-        """
-            Creates a new `GtkEntryCompletion` object using the
-        specified `area`.
-
-        The `GtkCellArea` is used to layout cells in the underlying
-        `GtkTreeViewColumn` for the drop-down menu.
-        """
-    @deprecated("deprecated")
     def set_inline_completion(self, inline_completion: bool) -> None:
         """
             Sets whether the common prefix of the possible completions should
@@ -26187,6 +26521,27 @@ class EntryCompletion(GObject.Object):
         column. If you need to set the text column, but don't want the cell
         renderer, use `g_object_set` to set the
         [property`Gtk`.EntryCompletion:text-column] property directly.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> EntryCompletion:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.EntryCompletion
+        """
+    @classmethod
+    def new_with_area(
+        cls,
+        area: CellArea,
+    ) -> EntryCompletion:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_area(area:Gtk.CellArea) -> Gtk.EntryCompletion
         """
 
     # Signals
@@ -26360,9 +26715,9 @@ class EventController(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
         name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize EventController object with properties.
@@ -26520,9 +26875,9 @@ class EventControllerFocus(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
         name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize EventControllerFocus object with properties.
@@ -26537,10 +26892,16 @@ class EventControllerFocus(EventController):
         """
         Returns True if focus is within `self`, but not one of its children.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> EventControllerFocus:
+    def new(
+        cls,
+    ) -> EventController:
         """
-        Creates a new event controller that will handle focus events.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.EventController
         """
 
     # Signals
@@ -26604,9 +26965,9 @@ class EventControllerKey(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
         name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize EventControllerKey object with properties.
@@ -26630,14 +26991,20 @@ class EventControllerKey(EventController):
         """
         Gets the input method context of the key `controller`.
         """
-    @classmethod
-    def new(cls) -> EventControllerKey:
-        """
-        Creates a new event controller that will handle key events.
-        """
     def set_im_context(self, im_context: IMContext | None = None) -> None:
         """
         Sets the input method context of the key `controller`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> EventController:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.EventController
         """
 
     # Signals
@@ -26700,17 +27067,23 @@ class EventControllerLegacy(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
         name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize EventControllerLegacy object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> EventControllerLegacy:
+    def new(
+        cls,
+    ) -> EventController:
         """
-        Creates a new legacy event controller.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.EventController
         """
 
     # Signals
@@ -26772,9 +27145,9 @@ class EventControllerMotion(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
         name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize EventControllerMotion object with properties.
@@ -26789,10 +27162,16 @@ class EventControllerMotion(EventController):
         """
         Returns if a pointer is within `self`, but not one of its children.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> EventControllerMotion:
+    def new(
+        cls,
+    ) -> EventController:
         """
-        Creates a new event controller that will handle motion events.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.EventController
         """
 
     # Signals
@@ -26893,10 +27272,10 @@ class EventControllerScroll(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
         flags: EventControllerScrollFlags | None = EventControllerScrollFlags.NONE,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize EventControllerScroll object with properties.
@@ -26914,14 +27293,21 @@ class EventControllerScroll(EventController):
         Always returns GDK_SCROLL_UNIT_WHEEL if the
         Gtk.EVENT_CONTROLLER_SCROLL_DISCRETE flag is set.
         """
-    @classmethod
-    def new(cls, flags: EventControllerScrollFlags) -> EventControllerScroll:
-        """
-        Creates a new event controller that will handle scroll events.
-        """
     def set_flags(self, flags: EventControllerScrollFlags) -> None:
         """
         Sets the flags conditioning scroll controller behavior.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        flags: EventControllerScrollFlags,
+    ) -> EventController:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(flags:Gtk.EventControllerScrollFlags) -> Gtk.EventController
         """
 
     # Signals
@@ -26998,16 +27384,16 @@ class EveryFilter(MultiFilter):
         """
         Initialize EveryFilter object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> EveryFilter:
+    def new(
+        cls,
+    ) -> EveryFilter:
         """
-            Creates a new empty "every" filter.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        Use [method`Gtk`.MultiFilter.append] to add filters to it.
-
-        This filter matches an item if each of the filters added to it
-        matches the item. In particular, this means that if no filter
-        has been added to it, the filter matches every item.
+        new() -> Gtk.EveryFilter
         """
 
 class EveryFilterClass(GObject.GPointer): ...
@@ -27148,43 +27534,43 @@ class Expander(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        expanded: bool | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        label: str | None = None,
+        label_widget: Widget | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        expanded: bool | None = None,
-        label: str | None = None,
-        use_underline: bool | None = None,
-        use_markup: bool | None = None,
-        label_widget: Widget | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         resize_toplevel: bool | None = None,
-        child: Widget | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        use_markup: bool | None = None,
+        use_underline: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Expander object with properties.
@@ -27233,23 +27619,6 @@ class Expander(Widget):
         """
         Returns whether an underline in the text indicates a mnemonic.
         """
-    @classmethod
-    def new(cls, label: str | None = None) -> Expander:
-        """
-        Creates a new expander using `label` as the text of the label.
-        """
-    @classmethod
-    def new_with_mnemonic(cls, label: str | None = None) -> Expander:
-        """
-            Creates a new expander using `label` as the text of the label.
-
-        If characters in `label` are preceded by an underscore, they are
-        underlined. If you need a literal underscore character in a label,
-        use “__” (two underscores). The first underlined character represents
-        a keyboard accelerator called a mnemonic.
-
-        Pressing Alt and that key activates the button.
-        """
     def set_child(self, child: Widget | None = None) -> None:
         """
         Sets the child widget of `expander`.
@@ -27286,6 +27655,28 @@ class Expander(Widget):
     def set_use_underline(self, use_underline: bool) -> None:
         """
         If true, an underline in the text indicates a mnemonic.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        label: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(label:str=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_mnemonic(
+        cls,
+        label: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_mnemonic(label:str=None) -> Gtk.Widget
         """
 
     # Signals
@@ -27504,11 +27895,6 @@ class Expression(object):
     ```
     """
 
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
     # gi Methods
     def bind(self, target: GObject.Object, property: str, this_: GObject.Object | None = None) -> ExpressionWatch:
         """
@@ -27616,7 +28002,7 @@ class ExpressionWatch(GObject.GBoxed):
         was established.
         """
 
-class FileChooser(object):
+class FileChooser(builtins.object):
     """
     `GtkFileChooser` is an interface that can be implemented by file
     selection widgets.
@@ -28182,63 +28568,63 @@ class FileChooserDialog(Dialog):
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         action: FileChooserAction | None = FileChooserAction.OPEN,
-        create_folders: bool | None = None,
-        filter: FileFilter | None = None,
-        select_multiple: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
+        create_folders: bool | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        filter: FileFilter | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        select_multiple: bool | None = None,
+        sensitive: bool | None = None,
+        startup_id: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
         use_header_bar: int | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize FileChooserDialog object with properties.
@@ -28412,16 +28798,16 @@ class FileChooserNative(NativeDialog):
     # gi Methods
     def __init__(
         self,
+        accept_label: str | None = None,
         action: FileChooserAction | None = FileChooserAction.OPEN,
+        cancel_label: str | None = None,
         create_folders: bool | None = None,
         filter: FileFilter | None = None,
+        modal: bool | None = None,
         select_multiple: bool | None = None,
         title: str | None = None,
-        visible: bool | None = None,
-        modal: bool | None = None,
         transient_for: Window | None = None,
-        accept_label: str | None = None,
-        cancel_label: str | None = None,
+        visible: bool | None = None,
     ) -> None:
         """
         Initialize FileChooserNative object with properties.
@@ -28437,19 +28823,6 @@ class FileChooserNative(NativeDialog):
     def get_cancel_label(self) -> str | None:
         """
         Retrieves the custom label text for the cancel button.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new(
-        cls,
-        title: str | None,
-        parent: Window | None,
-        action: FileChooserAction,
-        accept_label: str | None = None,
-        cancel_label: str | None = None,
-    ) -> FileChooserNative:
-        """
-        Creates a new `GtkFileChooserNative`.
         """
     @deprecated("deprecated")
     def set_accept_label(self, accept_label: str | None = None) -> None:
@@ -28474,6 +28847,22 @@ class FileChooserNative(NativeDialog):
         a keyboard accelerator called a mnemonic.
 
         Pressing Alt and that key should activate the button.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        title: str | None,
+        parent: Window | None,
+        action: FileChooserAction,
+        accept_label: str | None = None,
+        cancel_label: str | None = None,
+    ) -> FileChooserNative:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(title:str=None, parent:Gtk.Window=None, action:Gtk.FileChooserAction, accept_label:str=None, cancel_label:str=None) -> Gtk.FileChooserNative
         """
 
     # Signals
@@ -28557,53 +28946,55 @@ class FileChooserWidget(Widget):
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         action: FileChooserAction | None = FileChooserAction.OPEN,
-        create_folders: bool | None = None,
-        filter: FileFilter | None = None,
-        select_multiple: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        create_folders: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        filter: FileFilter | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         search_mode: bool | None = None,
+        select_multiple: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize FileChooserWidget object with properties.
         """
-    @deprecated("deprecated")
-    @classmethod
-    def new(cls, action: FileChooserAction) -> FileChooserWidget:
-        """
-            Creates a new `GtkFileChooserWidget`.
 
-        This is a file chooser widget that can be embedded in custom
-        windows, and it is the same widget that is used by
-        `GtkFileChooserDialog`.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        action: FileChooserAction,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(action:Gtk.FileChooserAction) -> Gtk.Widget
         """
 
     # Signals
@@ -28955,11 +29346,6 @@ class FileDialog(GObject.Object):
         """
         Returns the title that will be shown on the file chooser dialog.
         """
-    @classmethod
-    def new(cls) -> FileDialog:
-        """
-        Creates a new `GtkFileDialog` object.
-        """
     def open(
         self,
         parent: Window | None = None,
@@ -29199,6 +29585,17 @@ class FileDialog(GObject.Object):
         Sets the title that will be shown on the file chooser dialog.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> FileDialog:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.FileDialog
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -29343,9 +29740,9 @@ class FileFilter(Filter):
     # gi Methods
     def __init__(
         self,
+        mime_types: list | None = None,
         name: str | None = None,
         patterns: list | None = None,
-        mime_types: list | None = None,
         suffixes: list | None = None,
     ) -> None:
         """
@@ -29401,32 +29798,6 @@ class FileFilter(Filter):
 
         See [method`Gtk`.FileFilter.set_name].
         """
-    @classmethod
-    def new(cls) -> FileFilter:
-        """
-            Creates a new `GtkFileFilter` with no rules added to it.
-
-        Such a filter doesn’t accept any files, so is not
-        particularly useful until you add rules with
-        [method`Gtk`.FileFilter.add_mime_type],
-        [method`Gtk`.FileFilter.add_pattern],
-        [method`Gtk`.FileFilter.add_suffix] or
-        [method`Gtk`.FileFilter.add_pixbuf_formats].
-
-        To create a filter that accepts any file, use:
-        ```c
-        GtkFileFilter *filter = gtk_file_filter_new ();
-        gtk_file_filter_add_pattern (filter, "*");
-        ```
-        """
-    @classmethod
-    def new_from_gvariant(cls, variant: GLib.Variant) -> FileFilter:
-        """
-            Deserialize a file filter from a `GVariant`.
-
-        The variant must be in the format produced by
-        [method`Gtk`.FileFilter.to_gvariant].
-        """
     def set_name(self, name: str | None = None) -> None:
         """
             Sets a human-readable name of the filter.
@@ -29437,6 +29808,27 @@ class FileFilter(Filter):
     def to_gvariant(self) -> GLib.Variant:
         """
         Serialize a file filter to an `a{sv}` variant.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> FileFilter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.FileFilter
+        """
+    @classmethod
+    def new_from_gvariant(
+        cls,
+        variant: GLib.Variant,
+    ) -> FileFilter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_gvariant(variant:GLib.Variant) -> Gtk.FileFilter
         """
 
     # Signals
@@ -29508,7 +29900,7 @@ class FileLauncher(GObject.Object):
 
     # gi Methods
     def __init__(
-        self, file: Gio.File | None = None, always_ask: bool | None = None, writable: bool | None = None
+        self, always_ask: bool | None = None, file: Gio.File | None = None, writable: bool | None = None
     ) -> None:
         """
         Initialize FileLauncher object with properties.
@@ -29545,11 +29937,6 @@ class FileLauncher(GObject.Object):
             Finishes the [method`Gtk`.FileLauncher.launch] call and
         returns the result.
         """
-    @classmethod
-    def new(cls, file: Gio.File | None = None) -> FileLauncher:
-        """
-        Creates a new `GtkFileLauncher` object.
-        """
     def open_containing_folder(
         self,
         parent: Window | None = None,
@@ -29582,6 +29969,18 @@ class FileLauncher(GObject.Object):
     def set_writable(self, writable: bool) -> None:
         """
         Sets whether to make the file writable for the handler.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        file: Gio.File | None = None,
+    ) -> FileLauncher:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(file:Gio.File=None) -> Gtk.FileLauncher
         """
 
     # Signals
@@ -29830,12 +30229,6 @@ class FilterListModel(GObject.Object):
         [property`Gtk`.FilterListModel:incremental] is False - this
         function returns 0.
         """
-    @classmethod
-    def new(cls, model: Gio.ListModel | None = None, filter: Filter | None = None) -> FilterListModel:
-        """
-            Creates a new `GtkFilterListModel` that will filter `model` using the given
-        `filter`.
-        """
     def set_filter(self, filter: Filter | None = None) -> None:
         """
         Sets the filter used to filter items.
@@ -29867,6 +30260,19 @@ class FilterListModel(GObject.Object):
         the item type of `self`. It assumes that the caller knows what they
         are doing and have set up an appropriate filter to ensure that item
         types match.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: Gio.ListModel | None = None,
+        filter: Filter | None = None,
+    ) -> FilterListModel:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gio.ListModel=None, filter:Gtk.Filter=None) -> Gtk.FilterListModel
         """
 
     # Signals
@@ -29971,36 +30377,36 @@ class Fixed(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Fixed object with properties.
@@ -30022,11 +30428,6 @@ class Fixed(Widget):
             Sets a translation transformation to the given `x` and `y`
         coordinates to the child `widget` of the `GtkFixed`.
         """
-    @classmethod
-    def new(cls) -> Fixed:
-        """
-        Creates a new `GtkFixed`.
-        """
     def put(self, widget: Widget, x: float, y: float) -> None:
         """
         Adds a widget to a `GtkFixed` at the given position.
@@ -30042,6 +30443,17 @@ class Fixed(Widget):
         This is a convenience function that retrieves the
         [class`Gtk`.FixedLayoutChild] instance associated to
         `widget` and calls [method`Gtk`.FixedLayoutChild.set_transform].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
 class FixedClass(GObject.GPointer):
@@ -30090,10 +30502,16 @@ class FixedLayout(LayoutManager):
         """
         Initialize FixedLayout object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> FixedLayout:
+    def new(
+        cls,
+    ) -> LayoutManager:
         """
-        Creates a new `GtkFixedLayout`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.LayoutManager
         """
 
 class FixedLayoutChild(LayoutChild):
@@ -30113,8 +30531,8 @@ class FixedLayoutChild(LayoutChild):
     # gi Methods
     def __init__(
         self,
-        layout_manager: LayoutManager | None = None,
         child_widget: Widget | None = None,
+        layout_manager: LayoutManager | None = None,
         transform: Gsk.Transform | None = None,
     ) -> None:
         """
@@ -30192,14 +30610,21 @@ class FlattenListModel(GObject.Object):
         """
         Returns the model containing the item at the given position.
         """
-    @classmethod
-    def new(cls, model: Gio.ListModel | None = None) -> FlattenListModel:
-        """
-        Creates a new `GtkFlattenListModel` that flattens `list`.
-        """
     def set_model(self, model: Gio.ListModel | None = None) -> None:
         """
         Sets a new model to be flattened.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: Gio.ListModel | None = None,
+    ) -> FlattenListModel:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gio.ListModel=None) -> Gtk.FlattenListModel
         """
 
     # Signals
@@ -30346,46 +30771,46 @@ class FlowBox(Widget):
     # gi Methods
     def __init__(
         self,
+        accept_unpaired_release: bool | None = None,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        activate_on_single_click: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        column_spacing: int | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        homogeneous: bool | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        homogeneous: bool | None = None,
-        column_spacing: int | None = None,
-        row_spacing: int | None = None,
-        min_children_per_line: int | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         max_children_per_line: int | None = None,
+        min_children_per_line: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        row_spacing: int | None = None,
         selection_mode: SelectionMode | None = SelectionMode.SINGLE,
-        activate_on_single_click: bool | None = None,
-        accept_unpaired_release: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize FlowBox object with properties.
@@ -30497,11 +30922,6 @@ class FlowBox(Widget):
 
         Call this when the result of the sort function on
         `box` is changed due to an external factor.
-        """
-    @classmethod
-    def new(cls) -> FlowBox:
-        """
-        Creates a `GtkFlowBox`.
         """
     def prepend(self, child: Widget) -> None:
         """
@@ -30642,6 +31062,17 @@ class FlowBox(Widget):
         """
             Unselects a single child of `box`, if the selection
         mode allows it.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -30830,37 +31261,37 @@ class FlowBoxChild(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        child: Widget | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize FlowBoxChild object with properties.
@@ -30901,13 +31332,6 @@ class FlowBoxChild(Widget):
             Returns whether the `child` is currently selected in its
         `GtkFlowBox` container.
         """
-    @classmethod
-    def new(cls) -> FlowBoxChild:
-        """
-            Creates a new `GtkFlowBoxChild`.
-
-        This should only be used as a child of a `GtkFlowBox`.
-        """
     def set_child(self, child: Widget | None = None) -> None:
         """
         Sets the child widget of `self`.
@@ -30919,6 +31343,15 @@ class FlowBoxChild(Widget):
     ) -> None:
         """
         activate(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -31007,46 +31440,46 @@ class FontButton(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        font: str | None = None,
-        font_desc: Pango.FontDescription | None = None,
-        language: str | None = None,
-        level: FontChooserLevel | None = FontChooserLevel.STYLE | FontChooserLevel.SIZE,
-        preview_text: str | None = None,
-        show_preview_entry: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
+        font: str | None = None,
+        font_desc: Pango.FontDescription | None = None,
+        halign: Align | None = Align.FILL,
         has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        language: str | None = None,
+        layout_manager: LayoutManager | None = None,
+        level: FontChooserLevel | None = FontChooserLevel.STYLE | FontChooserLevel.SIZE,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
         opacity: float | None = None,
         overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
+        preview_text: str | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        show_preview_entry: bool | None = None,
         title: str | None = None,
-        modal: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_font: bool | None = None,
         use_size: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize FontButton object with properties.
@@ -31076,18 +31509,6 @@ class FontButton(Widget):
         Returns whether the selected size is used in the label.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> FontButton:
-        """
-        Creates a new font picker widget.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_font(cls, fontname: str) -> FontButton:
-        """
-        Creates a new font picker widget showing the given font.
-        """
-    @deprecated("deprecated")
     def set_modal(self, modal: bool) -> None:
         """
         Sets whether the dialog should be modal.
@@ -31108,6 +31529,27 @@ class FontButton(Widget):
         """
             If `use_size` is True, the font name will be written using
         the selected size.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_font(
+        cls,
+        fontname: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_font(fontname:str) -> Gtk.Widget
         """
 
     # Signals
@@ -31168,7 +31610,7 @@ class FontButton(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontChooser(object):
+class FontChooser(builtins.object):
     """
     `GtkFontChooser` is an interface that can be implemented by widgets
     for choosing fonts.
@@ -31486,75 +31928,82 @@ class FontChooserDialog(Dialog):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        font: str | None = None,
-        font_desc: Pango.FontDescription | None = None,
-        language: str | None = None,
-        level: FontChooserLevel | None = FontChooserLevel.STYLE | FontChooserLevel.SIZE,
-        preview_text: str | None = None,
-        show_preview_entry: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        font: str | None = None,
+        font_desc: Pango.FontDescription | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        language: str | None = None,
+        layout_manager: LayoutManager | None = None,
+        level: FontChooserLevel | None = FontChooserLevel.STYLE | FontChooserLevel.SIZE,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        preview_text: str | None = None,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        sensitive: bool | None = None,
+        show_preview_entry: bool | None = None,
+        startup_id: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
         use_header_bar: int | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize FontChooserDialog object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, title: str | None = None, parent: Window | None = None) -> FontChooserDialog:
+    def new(
+        cls,
+        title: str | None = None,
+        parent: Window | None = None,
+    ) -> Widget:
         """
-        Creates a new `GtkFontChooserDialog`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(title:str=None, parent:Gtk.Window=None) -> Gtk.Widget
         """
 
 class FontChooserIface(GObject.GPointer):
@@ -31617,51 +32066,56 @@ class FontChooserWidget(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        font: str | None = None,
-        font_desc: Pango.FontDescription | None = None,
-        language: str | None = None,
-        level: FontChooserLevel | None = FontChooserLevel.STYLE | FontChooserLevel.SIZE,
-        preview_text: str | None = None,
-        show_preview_entry: bool | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
+        font: str | None = None,
+        font_desc: Pango.FontDescription | None = None,
+        halign: Align | None = Align.FILL,
         has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        language: str | None = None,
+        layout_manager: LayoutManager | None = None,
+        level: FontChooserLevel | None = FontChooserLevel.STYLE | FontChooserLevel.SIZE,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
         opacity: float | None = None,
         overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
+        preview_text: str | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        show_preview_entry: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
         vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
         vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize FontChooserWidget object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> FontChooserWidget:
+    def new(
+        cls,
+    ) -> Widget:
         """
-        Creates a new `GtkFontChooserWidget`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -31724,11 +32178,11 @@ class FontDialog(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        title: str | None = None,
-        modal: bool | None = None,
-        language: Pango.Language | None = None,
-        font_map: Pango.FontMap | None = None,
         filter: Filter | None = None,
+        font_map: Pango.FontMap | None = None,
+        language: Pango.Language | None = None,
+        modal: bool | None = None,
+        title: str | None = None,
     ) -> None:
         """
         Initialize FontDialog object with properties.
@@ -31847,11 +32301,6 @@ class FontDialog(GObject.Object):
         """
         Returns the title that will be shown on the font chooser dialog.
         """
-    @classmethod
-    def new(cls) -> FontDialog:
-        """
-        Creates a new `GtkFontDialog` object.
-        """
     def set_filter(self, filter: Filter | None = None) -> None:
         """
             Adds a filter that decides which fonts to display
@@ -31878,6 +32327,17 @@ class FontDialog(GObject.Object):
     def set_title(self, title: str) -> None:
         """
         Sets the title that will be shown on the font chooser dialog.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> FontDialog:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.FontDialog
         """
 
     # Signals
@@ -32001,43 +32461,43 @@ class FontDialogButton(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        dialog: FontDialog | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        dialog: FontDialog | None = None,
-        level: FontLevel | None = FontLevel.FONT,
         font_desc: Pango.FontDescription | None = None,
         font_features: str | None = None,
+        halign: Align | None = Align.FILL,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         language: Pango.Language | None = None,
+        layout_manager: LayoutManager | None = None,
+        level: FontLevel | None = FontLevel.FONT,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_font: bool | None = None,
         use_size: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize FontDialogButton object with properties.
@@ -32090,15 +32550,6 @@ class FontDialogButton(Widget):
         """
         Returns whether the selected font size is used in the label.
         """
-    @classmethod
-    def new(cls, dialog: FontDialog | None = None) -> FontDialogButton:
-        """
-            Creates a new `GtkFontDialogButton` with the
-        given `GtkFontDialog`.
-
-        You can pass `None` to this function and set a `GtkFontDialog`
-        later. The button will be insensitive until that happens.
-        """
     def set_dialog(self, dialog: FontDialog) -> None:
         """
             Sets a `GtkFontDialog` object to use for
@@ -32131,6 +32582,18 @@ class FontDialogButton(Widget):
         """
             If `use_size` is `True`, the font name will be written
         using the selected font size.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        dialog: FontDialog | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(dialog:Gtk.FontDialog=None) -> Gtk.Widget
         """
 
     # Signals
@@ -32289,40 +32752,40 @@ class Frame(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        label: str | None = None,
+        label_widget: Widget | None = None,
+        label_xalign: float | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        label: str | None = None,
-        label_xalign: float | None = None,
-        label_widget: Widget | None = None,
-        child: Widget | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Frame object with properties.
@@ -32349,13 +32812,6 @@ class Frame(Widget):
     def get_label_widget(self) -> Widget | None:
         """
         Retrieves the label widget for the frame.
-        """
-    @classmethod
-    def new(cls, label: str | None = None) -> Frame:
-        """
-            Creates a new `GtkFrame`, with optional label `label`.
-
-        If `label` is None, the label is omitted.
         """
     def set_child(self, child: Widget | None = None) -> None:
         """
@@ -32387,6 +32843,16 @@ class Frame(Widget):
     ) -> None:
         """
         compute_child_allocation(self, allocation:Gdk.Rectangle)
+        """
+    @classmethod
+    def new(
+        cls,
+        label: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(label:str=None) -> Gtk.Widget
         """
 
     # Signals
@@ -32616,41 +33082,41 @@ class GLArea(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        can_focus: bool | None = None,
-        can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        has_depth_buffer: bool | None = None,
-        has_stencil_buffer: bool | None = None,
-        use_es: bool | None = None,
         allowed_apis: Gdk.GLAPI | None = Gdk.GLAPI.GL | Gdk.GLAPI.GLES,
         auto_render: bool | None = None,
+        can_focus: bool | None = None,
+        can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        focus_on_click: bool | None = None,
+        focusable: bool | None = None,
+        halign: Align | None = Align.FILL,
+        has_depth_buffer: bool | None = None,
+        has_stencil_buffer: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        use_es: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize GLArea object with properties.
@@ -32727,11 +33193,6 @@ class GLArea(Widget):
         This function is automatically called before emitting the
         [signal`Gtk`.GLArea::render] signal, and doesn't normally need
         to be called by application code.
-        """
-    @classmethod
-    def new(cls) -> GLArea:
-        """
-        Creates a new `GtkGLArea` widget.
         """
     def queue_render(self) -> None:
         """
@@ -32823,6 +33284,15 @@ class GLArea(Widget):
     ) -> None:
         """
         resize(self, width:int, height:int)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -33063,10 +33533,10 @@ class Gesture(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
         n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize Gesture object with properties.
@@ -33382,22 +33852,27 @@ class GestureClick(GestureSingle):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
-        n_points: int | None = None,
-        touch_only: bool | None = None,
-        exclusive: bool | None = None,
         button: int | None = None,
+        exclusive: bool | None = None,
+        n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
+        touch_only: bool | None = None,
     ) -> None:
         """
         Initialize GestureClick object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> GestureClick:
+    def new(
+        cls,
+    ) -> Gesture:
         """
-            Returns a newly created `GtkGesture` that recognizes
-        single and multiple presses.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Gesture
         """
 
     # Signals
@@ -33471,13 +33946,13 @@ class GestureDrag(GestureSingle):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
-        n_points: int | None = None,
-        touch_only: bool | None = None,
-        exclusive: bool | None = None,
         button: int | None = None,
+        exclusive: bool | None = None,
+        n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
+        touch_only: bool | None = None,
     ) -> None:
         """
         Initialize GestureDrag object with properties.
@@ -33498,10 +33973,16 @@ class GestureDrag(GestureSingle):
         and fills in `x` and `y` with the drag start coordinates,
         in widget-relative coordinates.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> GestureDrag:
+    def new(
+        cls,
+    ) -> Gesture:
         """
-        Returns a newly created `GtkGesture` that recognizes drags.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Gesture
         """
 
     # Signals
@@ -33573,14 +34054,14 @@ class GestureLongPress(GestureSingle):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
-        n_points: int | None = None,
-        touch_only: bool | None = None,
-        exclusive: bool | None = None,
         button: int | None = None,
         delay_factor: float | None = None,
+        exclusive: bool | None = None,
+        n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
+        touch_only: bool | None = None,
     ) -> None:
         """
         Initialize GestureLongPress object with properties.
@@ -33590,17 +34071,23 @@ class GestureLongPress(GestureSingle):
         """
         Returns the delay factor.
         """
-    @classmethod
-    def new(cls) -> GestureLongPress:
-        """
-        Returns a newly created `GtkGesture` that recognizes long presses.
-        """
     def set_delay_factor(self, delay_factor: float) -> None:
         """
             Applies the given delay factor.
 
         The default long press time will be multiplied by this value.
         Valid values are in the range [0.5..2.0].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Gesture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Gesture
         """
 
     # Signals
@@ -33667,14 +34154,14 @@ class GesturePan(GestureDrag):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
-        n_points: int | None = None,
-        touch_only: bool | None = None,
-        exclusive: bool | None = None,
         button: int | None = None,
+        exclusive: bool | None = None,
+        n_points: int | None = None,
+        name: str | None = None,
         orientation: Orientation | None = Orientation.HORIZONTAL,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
+        touch_only: bool | None = None,
     ) -> None:
         """
         Initialize GesturePan object with properties.
@@ -33684,14 +34171,21 @@ class GesturePan(GestureDrag):
         """
         Returns the orientation of the pan gestures that this `gesture` expects.
         """
-    @classmethod
-    def new(cls, orientation: Orientation) -> GesturePan:
-        """
-        Returns a newly created `GtkGesture` that recognizes pan gestures.
-        """
     def set_orientation(self, orientation: Orientation) -> None:
         """
         Sets the orientation to be expected on pan gestures.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        orientation: Orientation,
+    ) -> Gesture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(orientation:Gtk.Orientation) -> Gtk.Gesture
         """
 
     # Signals
@@ -33730,10 +34224,10 @@ class GestureRotate(Gesture):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
         n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize GestureRotate object with properties.
@@ -33746,11 +34240,16 @@ class GestureRotate(Gesture):
         in radians since the gesture was first recognized. If `gesture` is
         not active, 0 is returned.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> GestureRotate:
+    def new(
+        cls,
+    ) -> Gesture:
         """
-            Returns a newly created `GtkGesture` that recognizes 2-touch
-        rotation gestures.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Gesture
         """
 
     # Signals
@@ -33810,13 +34309,13 @@ class GestureSingle(Gesture):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
-        n_points: int | None = None,
-        touch_only: bool | None = None,
-        exclusive: bool | None = None,
         button: int | None = None,
+        exclusive: bool | None = None,
+        n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
+        touch_only: bool | None = None,
     ) -> None:
         """
         Initialize GestureSingle object with properties.
@@ -33926,14 +34425,14 @@ class GestureStylus(GestureSingle):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
-        n_points: int | None = None,
-        touch_only: bool | None = None,
-        exclusive: bool | None = None,
         button: int | None = None,
+        exclusive: bool | None = None,
+        n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
         stylus_only: bool | None = None,
+        touch_only: bool | None = None,
     ) -> None:
         """
         Initialize GestureStylus object with properties.
@@ -33989,17 +34488,23 @@ class GestureStylus(GestureSingle):
         Stylus-only gestures will signal events exclusively from stylus
         input devices.
         """
-    @classmethod
-    def new(cls) -> GestureStylus:
-        """
-        Creates a new `GtkGestureStylus`.
-        """
     def set_stylus_only(self, stylus_only: bool) -> None:
         """
             Sets the state of stylus-only
 
         If true, the gesture will exclusively handle events from stylus input devices,
         otherwise it'll handle events from any pointing device.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Gesture:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Gesture
         """
 
     # Signals
@@ -34076,13 +34581,13 @@ class GestureSwipe(GestureSingle):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
-        n_points: int | None = None,
-        touch_only: bool | None = None,
-        exclusive: bool | None = None,
         button: int | None = None,
+        exclusive: bool | None = None,
+        n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
+        touch_only: bool | None = None,
     ) -> None:
         """
         Initialize GestureSwipe object with properties.
@@ -34095,10 +34600,16 @@ class GestureSwipe(GestureSingle):
         in `velocity_x` and `velocity_y` with the recorded velocity, as per the
         last events processed.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> GestureSwipe:
+    def new(
+        cls,
+    ) -> Gesture:
         """
-        Returns a newly created `GtkGesture` that recognizes swipes.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Gesture
         """
 
     # Signals
@@ -34133,10 +34644,10 @@ class GestureZoom(Gesture):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
         n_points: int | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize GestureZoom object with properties.
@@ -34150,11 +34661,16 @@ class GestureZoom(Gesture):
         starting point is considered 1:1). If `gesture` is not
         active, 1 is returned.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> GestureZoom:
+    def new(
+        cls,
+    ) -> Gesture:
         """
-            Returns a newly created `GtkGesture` that recognizes
-        pinch/zoom gestures.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Gesture
         """
 
     # Signals
@@ -34235,39 +34751,39 @@ class GraphicsOffload(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        black_background: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        enabled: GraphicsOffloadEnabled | None = GraphicsOffloadEnabled.ENABLED,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        child: Widget | None = None,
-        enabled: GraphicsOffloadEnabled | None = GraphicsOffloadEnabled.ENABLED,
-        black_background: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize GraphicsOffload object with properties.
@@ -34288,11 +34804,6 @@ class GraphicsOffload(Widget):
     def get_enabled(self) -> GraphicsOffloadEnabled:
         """
         Returns whether offload is enabled for `self`.
-        """
-    @classmethod
-    def new(cls, child: Widget | None = None) -> GraphicsOffload:
-        """
-        Creates a new GtkGraphicsOffload widget.
         """
     def set_black_background(self, value: bool) -> None:
         """
@@ -34319,6 +34830,18 @@ class GraphicsOffload(Widget):
         """
             Sets whether this GtkGraphicsOffload widget will attempt
         to offload the content of its child widget.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        child: Widget | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gtk.Widget=None) -> Gtk.Widget
         """
 
     # Signals
@@ -34476,42 +34999,42 @@ class Grid(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        baseline_row: int | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        column_homogeneous: bool | None = None,
+        column_spacing: int | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        row_spacing: int | None = None,
-        column_spacing: int | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         row_homogeneous: bool | None = None,
-        column_homogeneous: bool | None = None,
-        baseline_row: int | None = None,
+        row_spacing: int | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Grid object with properties.
@@ -34599,11 +35122,6 @@ class Grid(Widget):
         are moved one row down. Children which span across this
         position are grown to span the new row.
         """
-    @classmethod
-    def new(cls) -> Grid:
-        """
-        Creates a new grid widget.
-        """
     def query_child(self, child: Widget) -> tuple[int, int, int, int]:
         """
         Queries the attach points and spans of `child` inside the given `GtkGrid`.
@@ -34663,6 +35181,17 @@ class Grid(Widget):
     def set_row_spacing(self, spacing: int) -> None:
         """
         Sets the amount of space between rows of `grid`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -34762,11 +35291,11 @@ class GridLayout(LayoutManager):
     # gi Methods
     def __init__(
         self,
-        row_spacing: int | None = None,
+        baseline_row: int | None = None,
+        column_homogeneous: bool | None = None,
         column_spacing: int | None = None,
         row_homogeneous: bool | None = None,
-        column_homogeneous: bool | None = None,
-        baseline_row: int | None = None,
+        row_spacing: int | None = None,
     ) -> None:
         """
         Initialize GridLayout object with properties.
@@ -34805,11 +35334,6 @@ class GridLayout(LayoutManager):
         """
         Retrieves the spacing set with `Gtk.GridLayout.set_row_spacing`.
         """
-    @classmethod
-    def new(cls) -> GridLayout:
-        """
-        Creates a new `GtkGridLayout`.
-        """
     def set_baseline_row(self, row: int) -> None:
         """
             Sets which row defines the global baseline for the entire grid.
@@ -34838,6 +35362,17 @@ class GridLayout(LayoutManager):
     def set_row_spacing(self, spacing: int) -> None:
         """
         Sets the amount of space to insert between consecutive rows.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> LayoutManager:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.LayoutManager
         """
 
     # Signals
@@ -34910,11 +35445,11 @@ class GridLayoutChild(LayoutChild):
     # gi Methods
     def __init__(
         self,
-        layout_manager: LayoutManager | None = None,
         child_widget: Widget | None = None,
         column: int | None = None,
-        row: int | None = None,
         column_span: int | None = None,
+        layout_manager: LayoutManager | None = None,
+        row: int | None = None,
         row_span: int | None = None,
     ) -> None:
         """
@@ -35089,48 +35624,48 @@ class GridView(ListBase):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        hadjustment: Adjustment | None = None,
-        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        vadjustment: Adjustment | None = None,
-        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        orientation: Orientation | None = Orientation.VERTICAL,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         enable_rubberband: bool | None = None,
         factory: ListItemFactory | None = None,
+        focus_on_click: bool | None = None,
+        focusable: bool | None = None,
+        hadjustment: Adjustment | None = None,
+        halign: Align | None = Align.FILL,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         max_columns: int | None = None,
         min_columns: int | None = None,
         model: SelectionModel | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.VERTICAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         single_click_activate: bool | None = None,
         tab_behavior: ListTabBehavior | None = ListTabBehavior.ALL,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        vadjustment: Adjustment | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize GridView object with properties.
@@ -35170,19 +35705,6 @@ class GridView(ListBase):
     def get_tab_behavior(self) -> ListTabBehavior:
         """
         Gets the behavior set for the <kbd>Tab</kbd> key.
-        """
-    @classmethod
-    def new(cls, model: SelectionModel | None = None, factory: ListItemFactory | None = None) -> GridView:
-        """
-            Creates a new `GtkGridView` that uses the given `factory` for
-        mapping items to widgets.
-
-        The function takes ownership of the
-        arguments, so you can write code like
-        ```c
-        grid_view = gtk_grid_view_new (create_model (),
-          gtk_builder_list_item_factory_new_from_resource ("/resource.ui"));
-        ```
         """
     def scroll_to(self, pos: int, flags: ListScrollFlags, scroll: ScrollInfo | None = None) -> None:
         """
@@ -35232,6 +35754,19 @@ class GridView(ListBase):
     def set_tab_behavior(self, tab_behavior: ListTabBehavior) -> None:
         """
         Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: SelectionModel | None = None,
+        factory: ListItemFactory | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gtk.SelectionModel=None, factory:Gtk.ListItemFactory=None) -> Gtk.Widget
         """
 
     # Signals
@@ -35424,40 +35959,40 @@ class HeaderBar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decoration_layout: str | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        title_widget: Widget | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         show_title_buttons: bool | None = None,
-        decoration_layout: str | None = None,
+        title_widget: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_native_controls: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize HeaderBar object with properties.
@@ -35485,11 +36020,6 @@ class HeaderBar(Widget):
         """
             Returns whether this header bar shows platform
         native window controls.
-        """
-    @classmethod
-    def new(cls) -> HeaderBar:
-        """
-        Creates a new `GtkHeaderBar` widget.
         """
     def pack_end(self, child: Widget) -> None:
         """
@@ -35555,6 +36085,17 @@ class HeaderBar(Widget):
         For Linux, this option has no effect.
 
         See also [Using GTK on Apple macOS](osx.html?native-window-controls).
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -35648,8 +36189,8 @@ class IMContext(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
         input_hints: InputHints | None = InputHints.NONE,
+        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
     ) -> None:
         """
         Initialize IMContext object with properties.
@@ -35728,25 +36269,6 @@ class IMContext(GObject.Object):
 
         This string should be displayed inserted at the insertion point.
         """
-    @deprecated("deprecated")
-    def get_surrounding(self) -> tuple[bool, str, int]:
-        """
-            Retrieves context around the insertion point.
-
-        Input methods typically want context in order to constrain input text
-        based on existing text; this is important for languages such as Thai
-        where only some sequences of characters are allowed.
-
-        This function is implemented by emitting the
-        [signal`Gtk`.IMContext::retrieve-surrounding] signal on the input method;
-        in response to this signal, a widget should provide as much context as
-        is available, up to an entire paragraph, by calling
-        [method`Gtk`.IMContext.set_surrounding].
-
-        Note that there is no obligation for a widget to respond to the
-        `::retrieve-surrounding` signal, so input methods must be prepared to
-        function without context.
-        """
     def get_surrounding_with_selection(self) -> tuple[bool, str, int, int]:
         """
             Retrieves context around the insertion point.
@@ -35812,6 +36334,16 @@ class IMContext(GObject.Object):
         If `use_preedit` is False (default is True), then the IM context
         may use some other method to display feedback, such as displaying
         it in a child of the root window.
+        """
+
+    # python methods (overrides?)
+    def get_surrounding(
+        self,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_surrounding(self) -> bool, text:str, cursor_index:int
         """
 
     # Signals
@@ -36109,8 +36641,8 @@ class IMContextSimple(IMContext):
     # gi Methods
     def __init__(
         self,
-        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
         input_hints: InputHints | None = InputHints.NONE,
+        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
     ) -> None:
         """
         Initialize IMContextSimple object with properties.
@@ -36119,10 +36651,16 @@ class IMContextSimple(IMContext):
         """
         Adds an additional table from the X11 compose file.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> IMContextSimple:
+    def new(
+        cls,
+    ) -> IMContext:
         """
-        Creates a new `GtkIMContextSimple`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.IMContext
         """
 
 class IMContextSimpleClass(GObject.GPointer):
@@ -36150,8 +36688,8 @@ class IMMulticontext(IMContext):
     # gi Methods
     def __init__(
         self,
-        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
         input_hints: InputHints | None = InputHints.NONE,
+        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
     ) -> None:
         """
         Initialize IMMulticontext object with properties.
@@ -36159,11 +36697,6 @@ class IMMulticontext(IMContext):
     def get_context_id(self) -> str:
         """
         Gets the id of the currently active delegate of the `context`.
-        """
-    @classmethod
-    def new(cls) -> IMMulticontext:
-        """
-        Creates a new `GtkIMMulticontext`.
         """
     def set_context_id(self, context_id: str | None = None) -> None:
         """
@@ -36175,6 +36708,17 @@ class IMMulticontext(IMContext):
         Setting this to a non-None value overrides the system-wide
         IM module setting. See the [property`Gtk`.Settings:gtk-im-module]
         property.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> IMContext:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.IMContext
         """
 
 class IMMulticontextClass(GObject.GPointer):
@@ -36254,12 +36798,19 @@ class IconPaintable(GObject.Object):
         Note that to render a symbolic `GtkIconPaintable` properly (with
         recoloring), you have to set its icon name on a `GtkImage`.
         """
-    @classmethod
-    def new_for_file(cls, file: Gio.File, size: int, scale: int) -> IconPaintable:
-        """
-            Creates a `GtkIconPaintable` for a file with a given size and scale.
 
-        The icon can then be rendered by using it as a `GdkPaintable`.
+    # python methods (overrides?)
+    @classmethod
+    def new_for_file(
+        cls,
+        file: Gio.File,
+        size: int,
+        scale: int,
+    ) -> IconPaintable:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_file(file:Gio.File, size:int, scale:int) -> Gtk.IconPaintable
         """
 
     # Signals
@@ -36371,8 +36922,8 @@ class IconTheme(GObject.Object):
     def __init__(
         self,
         display: Gdk.Display | None = None,
-        search_path: list | None = None,
         resource_path: list | None = None,
+        search_path: list | None = None,
         theme_name: str | None = None,
     ) -> None:
         """
@@ -36490,16 +37041,6 @@ class IconTheme(GObject.Object):
         update the icon. This is usually done by overriding the
         GtkWidgetClass.css-`changed` function.
         """
-    @classmethod
-    def new(cls) -> IconTheme:
-        """
-            Creates a new icon theme object.
-
-        Icon theme objects are used to lookup up an icon by name
-        in a particular icon theme. Usually, you’ll want to use
-        [func`Gtk`.IconTheme.get_for_display] rather than creating
-        a new icon theme object for scratch.
-        """
     def set_resource_path(self, path: list | None = None) -> None:
         """
             Sets the resource paths that will be looked at when
@@ -36539,6 +37080,17 @@ class IconTheme(GObject.Object):
 
         This function cannot be called on the icon theme objects returned
         from [func`Gtk`.IconTheme.get_for_display].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> IconTheme:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.IconTheme
         """
 
     # Signals
@@ -36730,57 +37282,57 @@ class IconView(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        hadjustment: Adjustment | None = None,
-        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        vadjustment: Adjustment | None = None,
-        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        activate_on_single_click: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        cell_area: CellArea | None = None,
+        column_spacing: int | None = None,
+        columns: int | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        hadjustment: Adjustment | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        item_orientation: Orientation | None = Orientation.VERTICAL,
+        item_padding: int | None = None,
+        item_width: int | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        pixbuf_column: int | None = None,
-        text_column: int | None = None,
-        markup_column: int | None = None,
-        selection_mode: SelectionMode | None = SelectionMode.SINGLE,
-        item_orientation: Orientation | None = Orientation.VERTICAL,
-        model: TreeModel | None = None,
-        columns: int | None = None,
-        item_width: int | None = None,
-        spacing: int | None = None,
-        row_spacing: int | None = None,
-        column_spacing: int | None = None,
         margin: int | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        markup_column: int | None = None,
+        model: TreeModel | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        pixbuf_column: int | None = None,
+        receives_default: bool | None = None,
         reorderable: bool | None = None,
+        row_spacing: int | None = None,
+        selection_mode: SelectionMode | None = SelectionMode.SINGLE,
+        sensitive: bool | None = None,
+        spacing: int | None = None,
+        text_column: int | None = None,
         tooltip_column: int | None = None,
-        item_padding: int | None = None,
-        cell_area: CellArea | None = None,
-        activate_on_single_click: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        vadjustment: Adjustment | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize IconView object with properties.
@@ -36841,19 +37393,9 @@ class IconView(Widget):
         The returned `GtkTreePath` must be freed with `Gtk.TreePath.free`.
         """
     @deprecated("deprecated")
-    def get_dest_item_at_pos(self, drag_x: int, drag_y: int) -> tuple[bool, TreePath, IconViewDropPosition]:
-        """
-        Determines the destination item for a given position.
-        """
-    @deprecated("deprecated")
     def get_drag_dest_item(self) -> tuple[TreePath | None, IconViewDropPosition]:
         """
         Gets information about the item that is highlighted for feedback.
-        """
-    @deprecated("deprecated")
-    def get_item_at_pos(self, x: int, y: int) -> tuple[bool, TreePath, CellRenderer]:
-        """
-        Gets the path and cell for the icon at the given position.
         """
     @deprecated("deprecated")
     def get_item_column(self, path: TreePath) -> int:
@@ -36988,14 +37530,6 @@ class IconView(Widget):
         tooltips the item returned will be the cursor item. When True, then any of
         `model`, `path` and `iter` which have been provided will be set to point to
         that row and the corresponding model.
-        """
-    @deprecated("deprecated")
-    def get_visible_range(self) -> tuple[bool, TreePath, TreePath]:
-        """
-            Sets `start_path` and `end_path` to be the first and last visible path.
-        Note that there may be invisible paths in between.
-
-        Both paths should be freed with `Gtk.TreePath.free` after use.
         """
     @deprecated("deprecated")
     def item_activated(self, path: TreePath) -> None:
@@ -37238,6 +37772,36 @@ class IconView(Widget):
         """
             Undoes the effect of `Gtk.IconView.enable_model_drag_source`. Calling this
         method sets `GtkIconView`:reorderable to False.
+        """
+
+    # python methods (overrides?)
+    def get_dest_item_at_pos(
+        self,
+        drag_x: int,
+        drag_y: int,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_dest_item_at_pos(self, drag_x:int, drag_y:int) -> bool, path:Gtk.TreePath, pos:Gtk.IconViewDropPosition
+        """
+    def get_item_at_pos(
+        self,
+        x: int,
+        y: int,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_item_at_pos(self, x:int, y:int) -> bool, path:Gtk.TreePath, cell:Gtk.CellRenderer
+        """
+    def get_visible_range(
+        self,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_visible_range(self) -> bool, start_path:Gtk.TreePath, end_path:Gtk.TreePath
         """
 
     # Signals
@@ -37602,44 +38166,44 @@ class Image(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        file: str | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        gicon: Gio.Icon | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        icon_name: str | None = None,
+        icon_size: IconSize | None = IconSize.INHERIT,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         paintable: Gdk.Paintable | None = None,
-        file: str | None = None,
-        icon_size: IconSize | None = IconSize.INHERIT,
         pixel_size: int | None = None,
-        icon_name: str | None = None,
-        gicon: Gio.Icon | None = None,
+        receives_default: bool | None = None,
         resource: str | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_fallback: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Image object with properties.
@@ -37697,92 +38261,6 @@ class Image(Widget):
         If the `GtkImage` has no image data, the return value will
         be Gtk.IMAGE_EMPTY.
         """
-    @classmethod
-    def new(cls) -> Image:
-        """
-        Creates a new empty `GtkImage` widget.
-        """
-    @classmethod
-    def new_from_file(cls, filename: str) -> Image:
-        """
-            Creates a new `GtkImage` displaying the file `filename`.
-
-        If the file isn’t found or can’t be loaded, the resulting `GtkImage`
-        will display a “broken image” icon. This function never returns None,
-        it always returns a valid `GtkImage` widget.
-
-        If you need to detect failures to load the file, use
-        [ctor`Gdk`.Texture.new_from_file] to load the file yourself,
-        then create the `GtkImage` from the texture.
-
-        The storage type (see [method`Gtk`.Image.get_storage_type])
-        of the returned image is not defined, it will be whatever
-        is appropriate for displaying the file.
-        """
-    @classmethod
-    def new_from_gicon(cls, icon: Gio.Icon) -> Image:
-        """
-            Creates a `GtkImage` displaying an icon from the current icon theme.
-
-        If the icon name isn’t known, a “broken image” icon will be
-        displayed instead. If the current icon theme is changed, the icon
-        will be updated appropriately.
-        """
-    @classmethod
-    def new_from_icon_name(cls, icon_name: str | None = None) -> Image:
-        """
-            Creates a `GtkImage` displaying an icon from the current icon theme.
-
-        If the icon name isn’t known, a “broken image” icon will be
-        displayed instead. If the current icon theme is changed, the icon
-        will be updated appropriately.
-        """
-    @classmethod
-    def new_from_paintable(cls, paintable: Gdk.Paintable | None = None) -> Image:
-        """
-            Creates a new `GtkImage` displaying `paintable`.
-
-        The `GtkImage` does not assume a reference to the paintable; you still
-        need to unref it if you own references. `GtkImage` will add its own
-        reference rather than adopting yours.
-
-        The `GtkImage` will track changes to the `paintable` and update
-        its size and contents in response to it.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_from_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf | None = None) -> Image:
-        """
-            Creates a new `GtkImage` displaying `pixbuf`.
-
-        The `GtkImage` does not assume a reference to the pixbuf; you still
-        need to unref it if you own references. `GtkImage` will add its own
-        reference rather than adopting yours.
-
-        This is a helper for [ctor`Gtk`.Image.new_from_paintable], and you can't
-        get back the exact pixbuf once this is called, only a texture.
-
-        Note that this function just creates an `GtkImage` from the pixbuf.
-        The `GtkImage` created will not react to state changes. Should you
-        want that, you should use [ctor`Gtk`.Image.new_from_icon_name].
-        """
-    @classmethod
-    def new_from_resource(cls, resource_path: str) -> Image:
-        """
-            Creates a new `GtkImage` displaying the resource file `resource_path`.
-
-        If the file isn’t found or can’t be loaded, the resulting `GtkImage` will
-        display a “broken image” icon. This function never returns None,
-        it always returns a valid `GtkImage` widget.
-
-        If you need to detect failures to load the file, use
-        [ctor`GdkPixbuf`.Pixbuf.new_from_file] to load the file yourself,
-        then create the `GtkImage` from the pixbuf.
-
-        The storage type (see [method`Gtk`.Image.get_storage_type]) of
-        the returned image is not defined, it will be whatever is
-        appropriate for displaying the file.
-        """
     def set_from_file(self, filename: str | None = None) -> None:
         """
             Sets a `GtkImage` to show a file.
@@ -37834,6 +38312,77 @@ class Image(Widget):
 
         If the pixel size is set to a value != -1, it is used instead
         of the icon size set by [method`Gtk`.Image.set_from_icon_name].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_from_file(
+        cls,
+        filename: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file(filename:str) -> Gtk.Widget
+        """
+    @classmethod
+    def new_from_gicon(
+        cls,
+        icon: Gio.Icon,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_gicon(icon:Gio.Icon) -> Gtk.Widget
+        """
+    @classmethod
+    def new_from_icon_name(
+        cls,
+        icon_name: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_icon_name(icon_name:str=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_from_paintable(
+        cls,
+        paintable: Gdk.Paintable | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_paintable(paintable:Gdk.Paintable=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_from_pixbuf(
+        cls,
+        pixbuf: GdkPixbuf.Pixbuf | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_pixbuf(pixbuf:GdkPixbuf.Pixbuf=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_from_resource(
+        cls,
+        resource_path: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_resource(resource_path:str) -> Gtk.Widget
         """
 
     # Signals
@@ -38008,39 +38557,39 @@ class InfoBar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         message_type: MessageType | None = MessageType.INFO,
-        show_close_button: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         revealed: bool | None = None,
+        sensitive: bool | None = None,
+        show_close_button: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize InfoBar object with properties.
@@ -38087,12 +38636,6 @@ class InfoBar(Widget):
     def get_show_close_button(self) -> bool:
         """
         Returns whether the widget will display a standard close button.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> InfoBar:
-        """
-        Creates a new `GtkInfoBar` object.
         """
     @deprecated("deprecated")
     def remove_action_widget(self, widget: Widget) -> None:
@@ -38157,6 +38700,17 @@ class InfoBar(Widget):
             If true, a standard close button is shown.
 
         When clicked it emits the response Gtk.RESPONSE_CLOSE.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -38331,44 +38885,44 @@ class Inscription(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        attributes: Pango.AttrList | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        attributes: Pango.AttrList | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         markup: str | None = None,
         min_chars: int | None = None,
         min_lines: int | None = None,
+        name: str | None = None,
         nat_chars: int | None = None,
         nat_lines: int | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         text: str | None = None,
         text_overflow: InscriptionOverflow | None = InscriptionOverflow.CLIP,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
         wrap_mode: Pango.WrapMode | None = Pango.WrapMode.WORD_CHAR,
         xalign: float | None = None,
         yalign: float | None = None,
@@ -38440,11 +38994,6 @@ class Inscription(Widget):
 
         See the [property`Gtk`.Inscription:yalign] property.
         """
-    @classmethod
-    def new(cls, text: str | None = None) -> Inscription:
-        """
-        Creates a new `GtkInscription` with the given text.
-        """
     def set_attributes(self, attrs: Pango.AttrList | None = None) -> None:
         """
             Apply attributes to the inscription text.
@@ -38504,6 +39053,18 @@ class Inscription(Widget):
             Sets the `yalign` of the inscription.
 
         See the [property`Gtk`.Inscription:yalign] property.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        text: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(text:str=None) -> Gtk.Widget
         """
 
     # Signals
@@ -38631,11 +39192,18 @@ class KeyvalTrigger(ShortcutTrigger):
             Gets the modifiers that must be present to succeed
         triggering `self`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, keyval: int, modifiers: Gdk.ModifierType) -> KeyvalTrigger:
+    def new(
+        cls,
+        keyval: int,
+        modifiers: Gdk.ModifierType,
+    ) -> ShortcutTrigger:
         """
-            Creates a `GtkShortcutTrigger` that will trigger whenever
-        the key with the given `keyval` and `modifiers` is pressed.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(keyval:int, modifiers:Gdk.ModifierType) -> Gtk.ShortcutTrigger
         """
 
     # Signals
@@ -39046,55 +39614,55 @@ class Label(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        attributes: Pango.AttrList | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
+        extra_menu: Gio.MenuModel | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        justify: Justification | None = Justification.LEFT,
+        label: str | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        label: str | None = None,
-        attributes: Pango.AttrList | None = None,
+        lines: int | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        max_width_chars: int | None = None,
+        mnemonic_widget: Widget | None = None,
+        name: str | None = None,
+        natural_wrap_mode: NaturalWrapMode | None = NaturalWrapMode.INHERIT,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        selectable: bool | None = None,
+        sensitive: bool | None = None,
+        single_line_mode: bool | None = None,
+        tabs: Pango.TabArray | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_markup: bool | None = None,
         use_underline: bool | None = None,
-        justify: Justification | None = Justification.LEFT,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_chars: int | None = None,
+        width_request: int | None = None,
         wrap: bool | None = None,
         wrap_mode: Pango.WrapMode | None = Pango.WrapMode.WORD,
-        natural_wrap_mode: NaturalWrapMode | None = NaturalWrapMode.INHERIT,
-        selectable: bool | None = None,
-        mnemonic_widget: Widget | None = None,
-        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
-        width_chars: int | None = None,
-        single_line_mode: bool | None = None,
-        max_width_chars: int | None = None,
-        lines: int | None = None,
         xalign: float | None = None,
         yalign: float | None = None,
-        extra_menu: Gio.MenuModel | None = None,
-        tabs: Pango.TabArray | None = None,
     ) -> None:
         """
         Initialize Label object with properties.
@@ -39288,31 +39856,6 @@ class Label(Widget):
             Gets the `yalign` of the label.
 
         See the [property`Gtk`.Label:yalign] property.
-        """
-    @classmethod
-    def new(cls, str: str | None = None) -> Label:
-        """
-            Creates a new label with the given text inside it.
-
-        You can pass `None` to get an empty label widget.
-        """
-    @classmethod
-    def new_with_mnemonic(cls, str: str | None = None) -> Label:
-        """
-            Creates a new label with the given text inside it, and a mnemonic.
-
-        If characters in `str` are preceded by an underscore, they are
-        underlined. If you need a literal underscore character in a label, use
-        '__' (two underscores). The first underlined character represents a
-        keyboard accelerator called a mnemonic. The mnemonic key can be used
-        to activate another widget, chosen automatically, or explicitly using
-        [method`Gtk`.Label.set_mnemonic_widget].
-
-        If [method`Gtk`.Label.set_mnemonic_widget] is not called, then the first
-        activatable ancestor of the label will be chosen as the mnemonic
-        widget. For instance, if the label is inside a button or menu item,
-        the button or menu item will automatically become the mnemonic widget
-        and be activated by the mnemonic.
         """
     def select_region(self, start_offset: int, end_offset: int) -> None:
         """
@@ -39530,6 +40073,28 @@ class Label(Widget):
             Sets the `yalign` of the label.
 
         See the [property`Gtk`.Label:yalign] property.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        str: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(str:str=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_mnemonic(
+        cls,
+        str: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_mnemonic(str:str=None) -> Gtk.Widget
         """
 
     # Signals
@@ -39777,7 +40342,7 @@ class LayoutChild(GObject.Object):
     def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
-    def __init__(self, layout_manager: LayoutManager | None = None, child_widget: Widget | None = None) -> None:
+    def __init__(self, child_widget: Widget | None = None, layout_manager: LayoutManager | None = None) -> None:
         """
         Initialize LayoutChild object with properties.
         """
@@ -40167,42 +40732,42 @@ class LevelBar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        inverted: bool | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        value: float | None = None,
-        min_value: float | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         max_value: float | None = None,
+        min_value: float | None = None,
         mode: LevelBarMode | None = LevelBarMode.CONTINUOUS,
-        inverted: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        value: float | None = None,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize LevelBar object with properties.
@@ -40248,16 +40813,6 @@ class LevelBar(Widget):
         """
         Returns the `value` of the `GtkLevelBar`.
         """
-    @classmethod
-    def new(cls) -> LevelBar:
-        """
-        Creates a new `GtkLevelBar`.
-        """
-    @classmethod
-    def new_for_interval(cls, min_value: float, max_value: float) -> LevelBar:
-        """
-        Creates a new `GtkLevelBar` for the specified interval.
-        """
     def remove_offset_value(self, name: str | None = None) -> None:
         """
             Removes an offset marker from a `GtkLevelBar`.
@@ -40290,6 +40845,28 @@ class LevelBar(Widget):
     def set_value(self, value: float) -> None:
         """
         Sets the value of the `GtkLevelBar`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_interval(
+        cls,
+        min_value: float,
+        max_value: float,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_interval(min_value:float, max_value:float) -> Gtk.Widget
         """
 
     # Signals
@@ -40417,44 +40994,44 @@ class LinkButton(Button):
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         action_name: str | None = None,
         action_target: GLib.Variant | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
+        can_shrink: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        icon_name: str | None = None,
+        label: str | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        label: str | None = None,
-        has_frame: bool | None = None,
-        use_underline: bool | None = None,
-        icon_name: str | None = None,
-        child: Widget | None = None,
-        can_shrink: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         uri: str | None = None,
+        use_underline: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
         visited: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize LinkButton object with properties.
@@ -40474,16 +41051,6 @@ class LinkButton(Button):
 
         The state may also be changed using [method`Gtk`.LinkButton.set_visited].
         """
-    @classmethod
-    def new(cls, uri: str) -> LinkButton:
-        """
-        Creates a new `GtkLinkButton` with the URI as its text.
-        """
-    @classmethod
-    def new_with_label(cls, uri: str, label: str | None = None) -> LinkButton:
-        """
-        Creates a new `GtkLinkButton` containing a label.
-        """
     def set_uri(self, uri: str) -> None:
         """
             Sets `uri` as the URI where the `GtkLinkButton` points.
@@ -40495,6 +41062,29 @@ class LinkButton(Button):
             Sets the “visited” state of the `GtkLinkButton`.
 
         See [method`Gtk`.LinkButton.get_visited] for more details.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        uri: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(uri:str) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_label(
+        cls,
+        uri: str,
+        label: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_label(uri:str, label:str=None) -> Gtk.Widget
         """
 
     # Signals
@@ -40593,41 +41183,41 @@ class ListBase(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        hadjustment: Adjustment | None = None,
-        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        vadjustment: Adjustment | None = None,
-        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        hadjustment: Adjustment | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
         orientation: Orientation | None = Orientation.VERTICAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        vadjustment: Adjustment | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ListBase object with properties.
@@ -40748,42 +41338,42 @@ class ListBox(Widget):
     # gi Methods
     def __init__(
         self,
+        accept_unpaired_release: bool | None = None,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        activate_on_single_click: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         selection_mode: SelectionMode | None = SelectionMode.SINGLE,
-        activate_on_single_click: bool | None = None,
-        accept_unpaired_release: bool | None = None,
+        sensitive: bool | None = None,
         show_separators: bool | None = None,
         tab_behavior: ListTabBehavior | None = ListTabBehavior.ALL,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ListBox object with properties.
@@ -40920,11 +41510,6 @@ class ListBox(Widget):
         of the sort function on the `box` is changed due
         to an external factor.
         """
-    @classmethod
-    def new(cls) -> ListBox:
-        """
-        Creates a new `GtkListBox` container.
-        """
     def prepend(self, child: Widget) -> None:
         """
             Prepend a widget to the list.
@@ -41058,6 +41643,17 @@ class ListBox(Widget):
     def unselect_row(self, row: ListBoxRow) -> None:
         """
         Unselects a single row of `box`, if the selection mode allows it.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -41239,39 +41835,39 @@ class ListBoxRow(Widget):
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         action_name: str | None = None,
         action_target: GLib.Variant | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        activatable: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        activatable: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         selectable: bool | None = None,
-        child: Widget | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ListBoxRow object with properties.
@@ -41330,11 +41926,6 @@ class ListBoxRow(Widget):
             Returns whether the child is currently selected in its
         `GtkListBox` container.
         """
-    @classmethod
-    def new(cls) -> ListBoxRow:
-        """
-        Creates a new `GtkListBoxRow`.
-        """
     def set_activatable(self, activatable: bool) -> None:
         """
         Set whether the row is activatable.
@@ -41363,6 +41954,15 @@ class ListBoxRow(Widget):
     ) -> None:
         """
         activate(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -42019,41 +42619,9 @@ class ListStore(GObject.Object):
 
     # gi Methods
     @deprecated("deprecated")
-    def append(self) -> TreeIter:
-        """
-            Appends a new row to `list_store`.  `iter` will be changed to point to this new
-        row.  The row will be empty after this function is called.  To fill in
-        values, you need to call `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
-        """
-    @deprecated("deprecated")
     def clear(self) -> None:
         """
         Removes all rows from the list store.
-        """
-    @deprecated("deprecated")
-    def insert(self, position: int) -> TreeIter:
-        """
-            Creates a new row at `position`.  `iter` will be changed to point to this new
-        row.  If `position` is -1 or is larger than the number of rows on the list,
-        then the new row will be appended to the list. The row will be empty after
-        this function is called.  To fill in values, you need to call
-        `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
-        """
-    @deprecated("deprecated")
-    def insert_after(self, sibling: TreeIter | None = None) -> TreeIter:
-        """
-            Inserts a new row after `sibling`. If `sibling` is None, then the row will be
-        prepended to the beginning of the list. `iter` will be changed to point to
-        this new row. The row will be empty after this function is called. To fill
-        in values, you need to call `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
-        """
-    @deprecated("deprecated")
-    def insert_before(self, sibling: TreeIter | None = None) -> TreeIter:
-        """
-            Inserts a new row before `sibling`. If `sibling` is None, then the row will
-        be appended to the end of the list. `iter` will be changed to point to this
-        new row. The row will be empty after this function is called. To fill in
-        values, you need to call `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
         """
     @deprecated("deprecated")
     def insert_with_values(self, position: int, columns: list, values: list, n_values: int) -> TreeIter:
@@ -42135,13 +42703,6 @@ class ListStore(GObject.Object):
         `gchararray` and `GdkTexture`, respectively.
         """
     @deprecated("deprecated")
-    def prepend(self) -> TreeIter:
-        """
-            Prepends a new row to `list_store`. `iter` will be changed to point to this new
-        row. The row will be empty after this function is called. To fill in
-        values, you need to call `Gtk.ListStore.set` or `Gtk.ListStore.set_value`.
-        """
-    @deprecated("deprecated")
     def remove(self, iter: TreeIter) -> bool:
         """
             Removes the given row from the list store.  After being removed,
@@ -42155,19 +42716,6 @@ class ListStore(GObject.Object):
         this function only works with unsorted stores.
         """
     @deprecated("deprecated")
-    def set(self, iter: TreeIter, columns: list, values: list, n_values: int) -> None:
-        """
-            Sets the value of one or more cells in the row referenced by `iter`.
-        The variable argument list should contain integer column numbers,
-        each column number followed by the value to be set.
-        The list is terminated by a -1. For example, to set column 0 with type
-        G_TYPE_STRING to “Foo”, you would write `gtk_list_store_set (store, iter,
-        0, "Foo", -1)`.
-
-        The value will be referenced by the store if it is a G_TYPE_OBJECT, and it
-        will be copied if it is a G_TYPE_STRING or G_TYPE_BOXED.
-        """
-    @deprecated("deprecated")
     def set_column_types(self, n_columns: int, types: list) -> None:
         """
             Sets the types of the columns of a list store.
@@ -42178,13 +42726,6 @@ class ListStore(GObject.Object):
 
         This function cannot be called after a row has been added, or
         a method on the `GtkTreeModel` interface is called.
-        """
-    @deprecated("deprecated")
-    def set_value(self, iter: TreeIter, column: int, value: GObject.Value) -> None:
-        """
-            Sets the data in the cell specified by `iter` and `column`.
-        The type of `value` must be convertible to the type of the
-        column.
         """
     @deprecated("deprecated")
     def swap(self, a: TreeIter, b: TreeIter) -> None:
@@ -42200,6 +42741,75 @@ class ListStore(GObject.Object):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    def append(
+        self,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        append(self) -> iter:Gtk.TreeIter
+        """
+    def insert(
+        self,
+        position: typing.Any,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert(self, position:int) -> iter:Gtk.TreeIter
+        """
+    def insert_after(
+        self,
+        sibling: typing.Any,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert_after(self, sibling:Gtk.TreeIter=None) -> iter:Gtk.TreeIter
+        """
+    def insert_before(
+        self,
+        sibling: typing.Any,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert_before(self, sibling:Gtk.TreeIter=None) -> iter:Gtk.TreeIter
+        """
+    def prepend(
+        self,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        prepend(self) -> iter:Gtk.TreeIter
+        """
+    def set(
+        self,
+        treeiter: typing.Any,
+        *args: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set(self, iter:Gtk.TreeIter, columns:list, values:list)
+        """
+    def set_value(
+        self,
+        treeiter: typing.Any,
+        column: typing.Any,
+        value: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_value(self, iter:Gtk.TreeIter, column:int, value:GObject.Value)
         """
 
 class ListStoreClass(GObject.GPointer):
@@ -42360,48 +42970,48 @@ class ListView(ListBase):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        hadjustment: Adjustment | None = None,
-        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        vadjustment: Adjustment | None = None,
-        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        orientation: Orientation | None = Orientation.VERTICAL,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         enable_rubberband: bool | None = None,
         factory: ListItemFactory | None = None,
+        focus_on_click: bool | None = None,
+        focusable: bool | None = None,
+        hadjustment: Adjustment | None = None,
+        halign: Align | None = Align.FILL,
+        has_tooltip: bool | None = None,
         header_factory: ListItemFactory | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         model: SelectionModel | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.VERTICAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         show_separators: bool | None = None,
         single_click_activate: bool | None = None,
         tab_behavior: ListTabBehavior | None = ListTabBehavior.ALL,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        vadjustment: Adjustment | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ListView object with properties.
@@ -42442,19 +43052,6 @@ class ListView(ListBase):
     def get_tab_behavior(self) -> ListTabBehavior:
         """
         Gets the behavior set for the <kbd>Tab</kbd> key.
-        """
-    @classmethod
-    def new(cls, model: SelectionModel | None = None, factory: ListItemFactory | None = None) -> ListView:
-        """
-            Creates a new `GtkListView` that uses the given `factory` for
-        mapping items to widgets.
-
-        The function takes ownership of the
-        arguments, so you can write code like
-        ```c
-        list_view = gtk_list_view_new (create_model (),
-          gtk_builder_list_item_factory_new_from_resource ("/resource.ui"));
-        ```
         """
     def scroll_to(self, pos: int, flags: ListScrollFlags, scroll: ScrollInfo | None = None) -> None:
         """
@@ -42503,6 +43100,19 @@ class ListView(ListBase):
         This influences how the <kbd>Tab</kbd> and
         <kbd>Shift</kbd>+<kbd>Tab</kbd> keys move the
         focus in the listview.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: SelectionModel | None = None,
+        factory: ListItemFactory | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gtk.SelectionModel=None, factory:Gtk.ListItemFactory=None) -> Gtk.Widget
         """
 
     # Signals
@@ -42667,48 +43277,48 @@ class LockButton(Button):
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         action_name: str | None = None,
         action_target: GLib.Variant | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
+        can_shrink: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        icon_name: str | None = None,
+        label: str | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        label: str | None = None,
-        has_frame: bool | None = None,
-        use_underline: bool | None = None,
-        icon_name: str | None = None,
-        child: Widget | None = None,
-        can_shrink: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         permission: Gio.Permission | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         text_lock: str | None = None,
         text_unlock: str | None = None,
         tooltip_lock: str | None = None,
-        tooltip_unlock: str | None = None,
+        tooltip_markup: str | None = None,
         tooltip_not_authorized: str | None = None,
+        tooltip_text: str | None = None,
+        tooltip_unlock: str | None = None,
+        use_underline: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize LockButton object with properties.
@@ -42720,15 +43330,21 @@ class LockButton(Button):
         Obtains the `GPermission` object that controls `button`.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, permission: Gio.Permission | None = None) -> LockButton:
-        """
-        Creates a new lock button which reflects the `permission`.
-        """
-    @deprecated("deprecated")
     def set_permission(self, permission: Gio.Permission | None = None) -> None:
         """
         Sets the `GPermission` object that controls `button`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        permission: Gio.Permission | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(permission:Gio.Permission=None) -> Gtk.Widget
         """
 
     # Signals
@@ -42848,16 +43464,6 @@ class MapListModel(GObject.Object):
         """
         Checks if a map function is currently set on `self`.
         """
-    @classmethod
-    def new(
-        cls,
-        model: Gio.ListModel | None = None,
-        map_func: MapListModelMapFunc | None | typing.Callable[..., GObject.Object] = None,
-        *user_data: object | None,
-    ) -> MapListModel:
-        """
-        Creates a new `GtkMapListModel` for the given arguments.
-        """
     def set_map_func(
         self,
         map_func: MapListModelMapFunc | None | typing.Callable[..., GObject.Object] = None,
@@ -42883,6 +43489,20 @@ class MapListModel(GObject.Object):
         GTK makes no effort to ensure that `model` conforms to the item type
         expected by the map function. It assumes that the caller knows what
         they are doing and have set up an appropriate map function.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: Gio.ListModel | None = None,
+        map_func: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> MapListModel:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gio.ListModel=None, map_func:Gtk.MapListModelMapFunc=None, user_data=None) -> Gtk.MapListModel
         """
 
     # Signals
@@ -42949,37 +43569,37 @@ class MediaControls(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         media_stream: MediaStream | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize MediaControls object with properties.
@@ -42989,14 +43609,21 @@ class MediaControls(Widget):
         """
         Gets the media stream managed by `controls` or None if none.
         """
-    @classmethod
-    def new(cls, stream: MediaStream | None = None) -> MediaControls:
-        """
-        Creates a new `GtkMediaControls` managing the `stream` passed to it.
-        """
     def set_media_stream(self, stream: MediaStream | None = None) -> None:
         """
         Sets the stream that is controlled by `controls`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        stream: MediaStream | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(stream:Gtk.MediaStream=None) -> Gtk.Widget
         """
 
     # Signals
@@ -43051,12 +43678,12 @@ class MediaFile(MediaStream):
     # gi Methods
     def __init__(
         self,
-        playing: bool | None = None,
-        loop: bool | None = None,
-        muted: bool | None = None,
-        volume: float | None = None,
         file: Gio.File | None = None,
         input_stream: Gio.InputStream | None = None,
+        loop: bool | None = None,
+        muted: bool | None = None,
+        playing: bool | None = None,
+        volume: float | None = None,
     ) -> None:
         """
         Initialize MediaFile object with properties.
@@ -43080,40 +43707,6 @@ class MediaFile(MediaStream):
 
         When `self` is not playing or not playing from a stream,
         None is returned.
-        """
-    @classmethod
-    def new(cls) -> MediaFile:
-        """
-        Creates a new empty media file.
-        """
-    @classmethod
-    def new_for_file(cls, file: Gio.File) -> MediaFile:
-        """
-        Creates a new media file to play `file`.
-        """
-    @classmethod
-    def new_for_filename(cls, filename: str) -> MediaFile:
-        """
-            Creates a new media file for the given filename.
-
-        This is a utility function that converts the given `filename`
-        to a `GFile` and calls [ctor`Gtk`.MediaFile.new_for_file].
-        """
-    @classmethod
-    def new_for_input_stream(cls, stream: Gio.InputStream) -> MediaFile:
-        """
-            Creates a new media file to play `stream`.
-
-        If you want the resulting media to be seekable,
-        the stream should implement the `GSeekable` interface.
-        """
-    @classmethod
-    def new_for_resource(cls, resource_path: str) -> MediaFile:
-        """
-            Creates a new new media file for the given resource.
-
-        This is a utility function that converts the given `resource`
-        to a `GFile` and calls [ctor`Gtk`.MediaFile.new_for_file].
         """
     def set_file(self, file: Gio.File | None = None) -> None:
         """
@@ -43157,6 +43750,55 @@ class MediaFile(MediaStream):
     ) -> None:
         """
         open(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> MediaFile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.MediaFile
+        """
+    @classmethod
+    def new_for_file(
+        cls,
+        file: Gio.File,
+    ) -> MediaFile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_file(file:Gio.File) -> Gtk.MediaFile
+        """
+    @classmethod
+    def new_for_filename(
+        cls,
+        filename: str,
+    ) -> MediaFile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_filename(filename:str) -> Gtk.MediaFile
+        """
+    @classmethod
+    def new_for_input_stream(
+        cls,
+        stream: Gio.InputStream,
+    ) -> MediaFile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_input_stream(stream:Gio.InputStream) -> Gtk.MediaFile
+        """
+    @classmethod
+    def new_for_resource(
+        cls,
+        resource_path: str,
+    ) -> MediaFile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_resource(resource_path:str) -> Gtk.MediaFile
         """
 
     # Signals
@@ -43283,9 +43925,9 @@ class MediaStream(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        playing: bool | None = None,
         loop: bool | None = None,
         muted: bool | None = None,
+        playing: bool | None = None,
         volume: float | None = None,
     ) -> None:
         """
@@ -43861,48 +44503,48 @@ class MenuButton(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        active: bool | None = None,
+        always_show_arrow: bool | None = None,
         can_focus: bool | None = None,
+        can_shrink: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        direction: ArrowType | None = ArrowType.DOWN,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        icon_name: str | None = None,
+        label: str | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         menu_model: Gio.MenuModel | None = None,
-        direction: ArrowType | None = ArrowType.DOWN,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         popover: Popover | None = None,
-        icon_name: str | None = None,
-        always_show_arrow: bool | None = None,
-        label: str | None = None,
-        use_underline: bool | None = None,
-        has_frame: bool | None = None,
         primary: bool | None = None,
-        child: Widget | None = None,
-        active: bool | None = None,
-        can_shrink: bool | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        use_underline: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize MenuButton object with properties.
@@ -43972,15 +44614,6 @@ class MenuButton(Widget):
         """
             Returns whether an embedded underline in the text indicates a
         mnemonic.
-        """
-    @classmethod
-    def new(cls) -> MenuButton:
-        """
-            Creates a new `GtkMenuButton` widget with downwards-pointing
-        arrow as the only child.
-
-        You can replace the child widget with another `GtkWidget`
-        should you wish to.
         """
     def popdown(self) -> None:
         """
@@ -44103,6 +44736,17 @@ class MenuButton(Widget):
     def set_use_underline(self, use_underline: bool) -> None:
         """
         If true, an underline in the text indicates a mnemonic.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -44318,66 +44962,66 @@ class MessageDialog(Dialog):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
+        buttons: ButtonsType | None = ButtonsType.NONE,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
-        use_header_bar: int | None = None,
         message_type: MessageType | None = MessageType.INFO,
-        buttons: ButtonsType | None = ButtonsType.NONE,
-        text: str | None = None,
-        use_markup: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
         secondary_text: str | None = None,
         secondary_use_markup: bool | None = None,
+        sensitive: bool | None = None,
+        startup_id: str | None = None,
+        text: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
+        use_header_bar: int | None = None,
+        use_markup: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize MessageDialog object with properties.
@@ -44506,14 +45150,17 @@ class MnemonicTrigger(ShortcutTrigger):
         """
         Gets the keyval that must be pressed to succeed triggering `self`.
         """
-    @classmethod
-    def new(cls, keyval: int) -> MnemonicTrigger:
-        """
-            Creates a `GtkShortcutTrigger` that will trigger whenever the key with
-        the given `keyval` is pressed and mnemonics have been activated.
 
-        Mnemonics are activated by calling code when a key event with the right
-        modifiers is detected.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        keyval: int,
+    ) -> MnemonicTrigger:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(keyval:int) -> Gtk.MnemonicTrigger
         """
 
     # Signals
@@ -44574,17 +45221,17 @@ class MountOperation(Gio.MountOperation):
     # gi Methods
     def __init__(
         self,
-        username: str | None = None,
-        password: str | None = None,
         anonymous: bool | None = None,
-        domain: str | None = None,
-        password_save: Gio.PasswordSave | None = Gio.PasswordSave.NEVER,
         choice: int | None = None,
+        display: Gdk.Display | None = None,
+        domain: str | None = None,
         is_tcrypt_hidden_volume: bool | None = None,
         is_tcrypt_system_volume: bool | None = None,
-        pim: int | None = None,
         parent: Window | None = None,
-        display: Gdk.Display | None = None,
+        password: str | None = None,
+        password_save: Gio.PasswordSave | None = Gio.PasswordSave.NEVER,
+        pim: int | None = None,
+        username: str | None = None,
     ) -> None:
         """
         Initialize MountOperation object with properties.
@@ -44606,11 +45253,6 @@ class MountOperation(Gio.MountOperation):
             Returns whether the `GtkMountOperation` is currently displaying
         a window.
         """
-    @classmethod
-    def new(cls, parent: Window | None = None) -> MountOperation:
-        """
-        Creates a new `GtkMountOperation`.
-        """
     def set_display(self, display: Gdk.Display) -> None:
         """
         Sets the display to show windows of the `GtkMountOperation` on.
@@ -44619,6 +45261,18 @@ class MountOperation(Gio.MountOperation):
         """
             Sets the transient parent for windows shown by the
         `GtkMountOperation`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        parent: Window | None = None,
+    ) -> Gio.MountOperation:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(parent:Gtk.Window=None) -> Gio.MountOperation
         """
 
     # Signals
@@ -44759,16 +45413,23 @@ class MultiSelection(GObject.Object):
         """
         Returns the underlying model of `self`.
         """
-    @classmethod
-    def new(cls, model: Gio.ListModel | None = None) -> MultiSelection:
-        """
-        Creates a new selection to handle `model`.
-        """
     def set_model(self, model: Gio.ListModel | None = None) -> None:
         """
             Sets the model that `self` should wrap.
 
         If `model` is None, `self` will be empty.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: Gio.ListModel | None = None,
+    ) -> MultiSelection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gio.ListModel=None) -> Gtk.MultiSelection
         """
 
     # Signals
@@ -44836,22 +45497,23 @@ class MultiSorter(Sorter):
         `self` will consult all existing sorters before it will
         sort with the given `sorter`.
         """
-    @classmethod
-    def new(cls) -> MultiSorter:
-        """
-            Creates a new multi sorter.
-
-        This sorter compares items by trying each of the sorters
-        in turn, until one returns non-zero. In particular, if
-        no sorter has been added to it, it will always compare
-        items as equal.
-        """
     def remove(self, position: int) -> None:
         """
             Removes the sorter at the given `position` from the list of sorter
         used by `self`.
 
         If `position` is larger than the number of sorters, nothing happens.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> MultiSorter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.MultiSorter
         """
 
     # Signals
@@ -44907,16 +45569,17 @@ class NamedAction(ShortcutAction):
         """
         Returns the name of the action that will be activated.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, name: str) -> NamedAction:
+    def new(
+        cls,
+        name: str,
+    ) -> NamedAction:
         """
-            Creates an action that when activated, activates
-        the named action on the widget.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        It also passes the given arguments to it.
-
-        See [method`Gtk`.Widget.insert_action_group] for
-        how to add actions to widgets.
+        new(name:str) -> Gtk.NamedAction
         """
 
     # Signals
@@ -44934,7 +45597,7 @@ class NamedAction(ShortcutAction):
 
 class NamedActionClass(GObject.GPointer): ...
 
-class Native(object):
+class Native(builtins.object):
     """
     An interface for widgets that have their own [class`Gdk`.Surface].
 
@@ -45044,10 +45707,10 @@ class NativeDialog(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        title: str | None = None,
-        visible: bool | None = None,
         modal: bool | None = None,
+        title: str | None = None,
         transient_for: Window | None = None,
+        visible: bool | None = None,
     ) -> None:
         """
         Initialize NativeDialog object with properties.
@@ -45288,16 +45951,23 @@ class NoSelection(GObject.Object):
         """
         Gets the model that `self` is wrapping.
         """
-    @classmethod
-    def new(cls, model: Gio.ListModel | None = None) -> NoSelection:
-        """
-        Creates a new selection to handle `model`.
-        """
     def set_model(self, model: Gio.ListModel | None = None) -> None:
         """
             Sets the model that `self` should wrap.
 
         If `model` is None, this model will be empty.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: Gio.ListModel | None = None,
+    ) -> NoSelection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gio.ListModel=None) -> Gtk.NoSelection
         """
 
     # Signals
@@ -45496,43 +46166,43 @@ class Notebook(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        enable_popup: bool | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        group_name: str | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        tab_pos: PositionType | None = PositionType.TOP,
-        show_tabs: bool | None = None,
-        show_border: bool | None = None,
-        scrollable: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         page: int | None = None,
-        enable_popup: bool | None = None,
-        group_name: str | None = None,
+        receives_default: bool | None = None,
+        scrollable: bool | None = None,
+        sensitive: bool | None = None,
+        show_border: bool | None = None,
+        show_tabs: bool | None = None,
+        tab_pos: PositionType | None = PositionType.TOP,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Notebook object with properties.
@@ -45651,11 +46321,6 @@ class Notebook(Widget):
         """
             Insert a page into `notebook` at the given position, specifying
         the widget to use as the label in the popup menu.
-        """
-    @classmethod
-    def new(cls) -> Notebook:
-        """
-        Creates a new `GtkNotebook` widget with no pages.
         """
     def next_page(self) -> None:
         """
@@ -45825,6 +46490,17 @@ class Notebook(Widget):
         """
             Sets whether the notebook tab can be reordered
         via drag and drop or not.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -46071,16 +46747,16 @@ class NotebookPage(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        tab_label: str | None = None,
+        child: Widget | None = None,
+        detachable: bool | None = None,
+        menu: Widget | None = None,
         menu_label: str | None = None,
         position: int | None = None,
+        reorderable: bool | None = None,
+        tab: Widget | None = None,
         tab_expand: bool | None = None,
         tab_fill: bool | None = None,
-        reorderable: bool | None = None,
-        detachable: bool | None = None,
-        child: Widget | None = None,
-        tab: Widget | None = None,
-        menu: Widget | None = None,
+        tab_label: str | None = None,
     ) -> None:
         """
         Initialize NotebookPage object with properties.
@@ -46224,14 +46900,6 @@ class NumericSorter(Sorter):
         """
         Gets whether this sorter will sort smaller numbers first.
         """
-    @classmethod
-    def new(cls, expression: Expression | None = None) -> NumericSorter:
-        """
-            Creates a new numeric sorter using the given `expression`.
-
-        Smaller numbers will be sorted first. You can call
-        [method`Gtk`.NumericSorter.set_sort_order] to change this.
-        """
     def set_expression(self, expression: Expression | None = None) -> None:
         """
             Sets the expression that is evaluated to obtain numbers from items.
@@ -46245,6 +46913,18 @@ class NumericSorter(Sorter):
     def set_sort_order(self, sort_order: SortType) -> None:
         """
         Sets whether to sort smaller numbers before larger ones.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        expression: Expression | None = None,
+    ) -> NumericSorter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(expression:Gtk.Expression=None) -> Gtk.NumericSorter
         """
 
     # Signals
@@ -46282,19 +46962,20 @@ class ObjectExpression(Expression):
         """
         Gets the object that the expression evaluates to.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, object: GObject.Object) -> ObjectExpression:
+    def new(
+        cls,
+        object: GObject.Object,
+    ) -> ObjectExpression:
         """
-            Creates an expression evaluating to the given `object` with a weak reference.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        Once the `object` is disposed, it will fail to evaluate.
-
-        This expression is meant to break reference cycles.
-
-        If you want to keep a reference to `object`, use [ctor`Gtk`.ConstantExpression.new].
+        new(object:GObject.Object) -> Gtk.ObjectExpression
         """
 
-class Orientable(object):
+class Orientable(builtins.object):
     """
     An interface for widgets that can be oriented horizontally or vertically.
 
@@ -46401,37 +47082,37 @@ class Overlay(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        child: Widget | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Overlay object with properties.
@@ -46461,11 +47142,6 @@ class Overlay(Widget):
             Gets whether `widget`'s size is included in the measurement of
         `overlay`.
         """
-    @classmethod
-    def new(cls) -> Overlay:
-        """
-        Creates a new `GtkOverlay`.
-        """
     def remove_overlay(self, widget: Widget) -> None:
         """
         Removes an overlay that was added with `Gtk.Overlay.add_overlay`.
@@ -46485,6 +47161,17 @@ class Overlay(Widget):
         The overlay will request the size of the largest child that has
         this property set to True. Children who are not included may
         be drawn outside of `overlay`'s allocation if they are too large.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -46539,10 +47226,16 @@ class OverlayLayout(LayoutManager):
         """
         Initialize OverlayLayout object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> OverlayLayout:
+    def new(
+        cls,
+    ) -> LayoutManager:
         """
-        Creates a new `GtkOverlayLayout` instance.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.LayoutManager
         """
 
 class OverlayLayoutChild(LayoutChild):
@@ -46567,10 +47260,10 @@ class OverlayLayoutChild(LayoutChild):
     # gi Methods
     def __init__(
         self,
-        layout_manager: LayoutManager | None = None,
         child_widget: Widget | None = None,
-        measure: bool | None = None,
         clip_overlay: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        measure: bool | None = None,
     ) -> None:
         """
         Initialize OverlayLayoutChild object with properties.
@@ -46724,32 +47417,14 @@ class PadController(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
         action_group: Gio.ActionGroup | None = None,
+        name: str | None = None,
         pad: Gdk.Device | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
     ) -> None:
         """
         Initialize PadController object with properties.
-        """
-    @classmethod
-    def new(cls, group: Gio.ActionGroup, pad: Gdk.Device | None = None) -> PadController:
-        """
-            Creates a new `GtkPadController` that will associate events from `pad` to
-        actions.
-
-        A None pad may be provided so the controller manages all pad devices
-        generically, it is discouraged to mix `GtkPadController` objects with
-        None and non-None `pad` argument on the same toplevel window, as execution
-        order is not guaranteed.
-
-        The `GtkPadController` is created with no mapped actions. In order to
-        map pad events to actions, use [method`Gtk`.PadController.set_action_entries]
-        or [method`Gtk`.PadController.set_action].
-
-        Be aware that pad events will only be delivered to `GtkWindow`s, so adding
-        a pad controller to any other type of widget will not have an effect.
         """
     def set_action(self, type: PadActionType, index: int, mode: int, label: str, action_name: str) -> None:
         """
@@ -46769,6 +47444,19 @@ class PadController(EventController):
         `controller`.
 
         See [struct`Gtk`.PadActionEntry] and [method`Gtk`.PadController.set_action].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        group: Gio.ActionGroup,
+        pad: Gdk.Device | None = None,
+    ) -> PadController:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(group:Gio.ActionGroup, pad:Gdk.Device=None) -> Gtk.PadController
         """
 
     # Signals
@@ -46934,37 +47622,6 @@ class PageSetup(GObject.Object):
             Reads the page setup from the group `group_name` in the key file
         `key_file`.
         """
-    @classmethod
-    def new(cls) -> PageSetup:
-        """
-        Creates a new `GtkPageSetup`.
-        """
-    @classmethod
-    def new_from_file(cls, file_name: str) -> PageSetup:
-        """
-            Reads the page setup from the file `file_name`.
-
-        Returns a new `GtkPageSetup` object with the restored
-        page setup, or None if an error occurred.
-        See [method`Gtk`.PageSetup.to_file].
-        """
-    @classmethod
-    def new_from_gvariant(cls, variant: GLib.Variant) -> PageSetup:
-        """
-            Desrialize a page setup from an a{sv} variant.
-
-        The variant must be in the format produced by
-        [method`Gtk`.PageSetup.to_gvariant].
-        """
-    @classmethod
-    def new_from_key_file(cls, key_file: GLib.KeyFile, group_name: str | None = None) -> PageSetup:
-        """
-            Reads the page setup from the group `group_name` in the key file
-        `key_file`.
-
-        Returns a new `GtkPageSetup` object with the restored
-        page setup, or None if an error occurred.
-        """
     def set_bottom_margin(self, margin: float, unit: Unit) -> None:
         """
         Sets the bottom margin of the `GtkPageSetup`.
@@ -47010,6 +47667,48 @@ class PageSetup(GObject.Object):
         This function adds the page setup from `setup` to `key_file`.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> PageSetup:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.PageSetup
+        """
+    @classmethod
+    def new_from_file(
+        cls,
+        file_name: str,
+    ) -> PageSetup:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file(file_name:str) -> Gtk.PageSetup
+        """
+    @classmethod
+    def new_from_gvariant(
+        cls,
+        variant: GLib.Variant,
+    ) -> PageSetup:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_gvariant(variant:GLib.Variant) -> Gtk.PageSetup
+        """
+    @classmethod
+    def new_from_key_file(
+        cls,
+        key_file: GLib.KeyFile,
+        group_name: str | None = None,
+    ) -> PageSetup:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_key_file(key_file:GLib.KeyFile, group_name:str=None) -> Gtk.PageSetup
+        """
+
 class PageSetupUnixDialog(Dialog):
     """
     Presents a page setup dialog for platforms which don’t provide
@@ -47034,60 +47733,60 @@ class PageSetupUnixDialog(Dialog):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        sensitive: bool | None = None,
+        startup_id: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
         use_header_bar: int | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize PageSetupUnixDialog object with properties.
@@ -47100,11 +47799,6 @@ class PageSetupUnixDialog(Dialog):
         """
         Gets the current print settings from the dialog.
         """
-    @classmethod
-    def new(cls, title: str | None = None, parent: Window | None = None) -> PageSetupUnixDialog:
-        """
-        Creates a new page setup dialog.
-        """
     def set_page_setup(self, page_setup: PageSetup) -> None:
         """
             Sets the `GtkPageSetup` from which the page setup
@@ -47114,6 +47808,19 @@ class PageSetupUnixDialog(Dialog):
         """
             Sets the `GtkPrintSettings` from which the page setup dialog
         takes its values.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        title: str | None = None,
+        parent: Window | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(title:str=None, parent:Gtk.Window=None) -> Gtk.Widget
         """
 
 class Paned(Widget):
@@ -47269,46 +47976,46 @@ class Paned(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        end_child: Widget | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
         position: int | None = None,
         position_set: bool | None = None,
-        wide_handle: bool | None = None,
-        resize_start_child: bool | None = None,
+        receives_default: bool | None = None,
         resize_end_child: bool | None = None,
-        shrink_start_child: bool | None = None,
+        resize_start_child: bool | None = None,
+        sensitive: bool | None = None,
         shrink_end_child: bool | None = None,
+        shrink_start_child: bool | None = None,
         start_child: Widget | None = None,
-        end_child: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        wide_handle: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Paned object with properties.
@@ -47353,11 +48060,6 @@ class Paned(Widget):
         """
         Gets whether the separator should be wide.
         """
-    @classmethod
-    def new(cls, orientation: Orientation) -> Paned:
-        """
-        Creates a new `GtkPaned` widget.
-        """
     def set_end_child(self, child: Widget | None = None) -> None:
         """
             Sets the end child of `paned` to `child`.
@@ -47393,6 +48095,18 @@ class Paned(Widget):
     def set_wide_handle(self, wide: bool) -> None:
         """
         Sets whether the separator should be wide.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        orientation: Orientation,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(orientation:Gtk.Orientation) -> Gtk.Widget
         """
 
     # Signals
@@ -47655,56 +48369,6 @@ class PaperSize(GObject.GBoxed):
         """
         Returns True if `size` is an IPP standard paper size.
         """
-    @classmethod
-    def new(cls, name: str | None = None) -> PaperSize:
-        """
-            Creates a new `GtkPaperSize` object by parsing a
-        [PWG 5101.1-2002](ftp://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn10-20020226-5101.1.pdf)
-        paper name.
-
-        If `name` is None, the default paper size is returned,
-        see [func`Gtk`.PaperSize.get_default].
-        """
-    @classmethod
-    def new_custom(cls, name: str, display_name: str, width: float, height: float, unit: Unit) -> PaperSize:
-        """
-            Creates a new `GtkPaperSize` object with the
-        given parameters.
-        """
-    @classmethod
-    def new_from_gvariant(cls, variant: GLib.Variant) -> PaperSize:
-        """
-            Deserialize a paper size from a `GVariant`.
-
-        The `GVariant must be in the format produced by
-        [method`Gtk`.PaperSize.to_gvariant].
-        """
-    @classmethod
-    def new_from_ipp(cls, ipp_name: str, width: float, height: float) -> PaperSize:
-        """
-            Creates a new `GtkPaperSize` object by using
-        IPP information.
-
-        If `ipp_name` is not a recognized paper name,
-        `width` and `height` are used to
-        construct a custom `GtkPaperSize` object.
-        """
-    @classmethod
-    def new_from_key_file(cls, key_file: GLib.KeyFile, group_name: str | None = None) -> PaperSize:
-        """
-            Reads a paper size from the group `group_name` in the key file
-        `key_file`.
-        """
-    @classmethod
-    def new_from_ppd(cls, ppd_name: str, ppd_display_name: str, width: float, height: float) -> PaperSize:
-        """
-            Creates a new `GtkPaperSize` object by using
-        PPD information.
-
-        If `ppd_name` is not a recognized PPD paper name,
-        `ppd_display_name`, `width` and `height` are used to
-        construct a custom `GtkPaperSize` object.
-        """
     def set_size(self, width: float, height: float, unit: Unit) -> None:
         """
         Changes the dimensions of a `size` to `width` x `height`.
@@ -47724,6 +48388,76 @@ class PaperSize(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        name: str | None = None,
+    ) -> PaperSize:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None) -> Gtk.PaperSize
+        """
+    @classmethod
+    def new_custom(
+        cls,
+        name: str,
+        display_name: str,
+        width: float,
+        height: float,
+        unit: Unit,
+    ) -> PaperSize:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_custom(name:str, display_name:str, width:float, height:float, unit:Gtk.Unit) -> Gtk.PaperSize
+        """
+    @classmethod
+    def new_from_gvariant(
+        cls,
+        variant: GLib.Variant,
+    ) -> PaperSize:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_gvariant(variant:GLib.Variant) -> Gtk.PaperSize
+        """
+    @classmethod
+    def new_from_ipp(
+        cls,
+        ipp_name: str,
+        width: float,
+        height: float,
+    ) -> PaperSize:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_ipp(ipp_name:str, width:float, height:float) -> Gtk.PaperSize
+        """
+    @classmethod
+    def new_from_key_file(
+        cls,
+        key_file: GLib.KeyFile,
+        group_name: str | None = None,
+    ) -> PaperSize:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_key_file(key_file:GLib.KeyFile, group_name:str=None) -> Gtk.PaperSize
+        """
+    @classmethod
+    def new_from_ppd(
+        cls,
+        ppd_name: str,
+        ppd_display_name: str,
+        width: float,
+        height: float,
+    ) -> PaperSize:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_ppd(ppd_name:str, ppd_display_name:str, width:float, height:float) -> Gtk.PaperSize
+        """
 
 class ParamSpecExpression(GObject.ParamSpec):
     """
@@ -47800,46 +48534,46 @@ class PasswordEntry(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        editable: bool | None = None,
-        enable_undo: bool | None = None,
-        max_width_chars: int | None = None,
-        text: str | None = None,
-        width_chars: int | None = None,
-        xalign: float | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        activates_default: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        editable: bool | None = None,
+        enable_undo: bool | None = None,
+        extra_menu: Gio.MenuModel | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        max_width_chars: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         placeholder_text: str | None = None,
-        activates_default: bool | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         show_peek_icon: bool | None = None,
-        extra_menu: Gio.MenuModel | None = None,
+        text: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_chars: int | None = None,
+        width_request: int | None = None,
+        xalign: float | None = None,
     ) -> None:
         """
         Initialize PasswordEntry object with properties.
@@ -47855,11 +48589,6 @@ class PasswordEntry(Widget):
             Returns whether the entry is showing an icon to
         reveal the contents.
         """
-    @classmethod
-    def new(cls) -> PasswordEntry:
-        """
-        Creates a `GtkPasswordEntry`.
-        """
     def set_extra_menu(self, model: Gio.MenuModel | None = None) -> None:
         """
             Sets a menu model to add when constructing
@@ -47871,6 +48600,17 @@ class PasswordEntry(Widget):
         to reveal the contents.
 
         Setting this to False also hides the text again.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -47925,14 +48665,20 @@ class PasswordEntryBuffer(EntryBuffer):
     """
 
     # gi Methods
-    def __init__(self, text: str | None = None, max_length: int | None = None) -> None:
+    def __init__(self, max_length: int | None = None, text: str | None = None) -> None:
         """
         Initialize PasswordEntryBuffer object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> PasswordEntryBuffer:
+    def new(
+        cls,
+    ) -> EntryBuffer:
         """
-        Creates a new `GtkEntryBuffer` using secure memory allocations.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.EntryBuffer
         """
 
 class PasswordEntryBufferClass(GObject.GPointer):
@@ -48029,42 +48775,42 @@ class Picture(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        alternative_text: str | None = None,
         can_focus: bool | None = None,
+        can_shrink: bool | None = None,
         can_target: bool | None = None,
+        content_fit: ContentFit | None = ContentFit.CONTAIN,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        file: Gio.File | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        keep_aspect_ratio: bool | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         paintable: Gdk.Paintable | None = None,
-        file: Gio.File | None = None,
-        alternative_text: str | None = None,
-        keep_aspect_ratio: bool | None = None,
-        can_shrink: bool | None = None,
-        content_fit: ContentFit | None = ContentFit.CONTAIN,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Picture object with properties.
@@ -48106,58 +48852,6 @@ class Picture(Widget):
     def get_paintable(self) -> Gdk.Paintable | None:
         """
         Gets the `GdkPaintable` being displayed by the `GtkPicture`.
-        """
-    @classmethod
-    def new(cls) -> Picture:
-        """
-        Creates a new empty `GtkPicture` widget.
-        """
-    @classmethod
-    def new_for_file(cls, file: Gio.File | None = None) -> Picture:
-        """
-            Creates a new `GtkPicture` displaying the given `file`.
-
-        If the file isn’t found or can’t be loaded, the resulting
-        `GtkPicture` is empty.
-
-        If you need to detect failures to load the file, use
-        [ctor`Gdk`.Texture.new_from_file] to load the file yourself,
-        then create the `GtkPicture` from the texture.
-        """
-    @classmethod
-    def new_for_filename(cls, filename: str | None = None) -> Picture:
-        """
-            Creates a new `GtkPicture` displaying the file `filename`.
-
-        This is a utility function that calls [ctor`Gtk`.Picture.new_for_file].
-        See that function for details.
-        """
-    @classmethod
-    def new_for_paintable(cls, paintable: Gdk.Paintable | None = None) -> Picture:
-        """
-            Creates a new `GtkPicture` displaying `paintable`.
-
-        The `GtkPicture` will track changes to the `paintable` and update
-        its size and contents in response to it.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_for_pixbuf(cls, pixbuf: GdkPixbuf.Pixbuf | None = None) -> Picture:
-        """
-            Creates a new `GtkPicture` displaying `pixbuf`.
-
-        This is a utility function that calls [ctor`Gtk`.Picture.new_for_paintable],
-        See that function for details.
-
-        The pixbuf must not be modified after passing it to this function.
-        """
-    @classmethod
-    def new_for_resource(cls, resource_path: str | None = None) -> Picture:
-        """
-            Creates a new `GtkPicture` displaying the resource at `resource_path`.
-
-        This is a utility function that calls [ctor`Gtk`.Picture.new_for_file].
-        See that function for details.
         """
     def set_alternative_text(self, alternative_text: str | None = None) -> None:
         """
@@ -48235,6 +48929,67 @@ class Picture(Widget):
         `resource_path`.
 
         This is a utility function that calls [method`Gtk`.Picture.set_file].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_file(
+        cls,
+        file: Gio.File | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_file(file:Gio.File=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_filename(
+        cls,
+        filename: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_filename(filename:str=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_paintable(
+        cls,
+        paintable: Gdk.Paintable | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_paintable(paintable:Gdk.Paintable=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_pixbuf(
+        cls,
+        pixbuf: GdkPixbuf.Pixbuf | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_pixbuf(pixbuf:GdkPixbuf.Pixbuf=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_resource(
+        cls,
+        resource_path: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_resource(resource_path:str=None) -> Gtk.Widget
         """
 
     # Signals
@@ -48432,44 +49187,44 @@ class Popover(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        autohide: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        cascade_popdown: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        default_widget: Widget | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_arrow: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        mnemonics_visible: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         pointing_to: Gdk.Rectangle | None = None,
         position: PositionType | None = PositionType.BOTTOM,
-        autohide: bool | None = None,
-        default_widget: Widget | None = None,
-        has_arrow: bool | None = None,
-        mnemonics_visible: bool | None = None,
-        child: Widget | None = None,
-        cascade_popdown: bool | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Popover object with properties.
@@ -48520,11 +49275,6 @@ class Popover(Widget):
     def get_position(self) -> PositionType:
         """
         Returns the preferred position of `popover`.
-        """
-    @classmethod
-    def new(cls) -> Popover:
-        """
-        Creates a new `GtkPopover`.
         """
     def popdown(self) -> None:
         """
@@ -48625,6 +49375,15 @@ class Popover(Widget):
     ) -> None:
         """
         closed(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -48866,47 +49625,47 @@ class PopoverMenu(Popover):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        autohide: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        cascade_popdown: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        default_widget: Widget | None = None,
+        flags: PopoverMenuFlags | None = PopoverMenuFlags.SLIDING,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_arrow: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        menu_model: Gio.MenuModel | None = None,
+        mnemonics_visible: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         pointing_to: Gdk.Rectangle | None = None,
         position: PositionType | None = PositionType.BOTTOM,
-        autohide: bool | None = None,
-        default_widget: Widget | None = None,
-        has_arrow: bool | None = None,
-        mnemonics_visible: bool | None = None,
-        child: Widget | None = None,
-        cascade_popdown: bool | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
         visible_submenu: str | None = None,
-        menu_model: Gio.MenuModel | None = None,
-        flags: PopoverMenuFlags | None = PopoverMenuFlags.SLIDING,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize PopoverMenu object with properties.
@@ -48928,34 +49687,6 @@ class PopoverMenu(Popover):
         """
         Returns the menu model used to populate the popover.
         """
-    @classmethod
-    def new_from_model(cls, model: Gio.MenuModel | None = None) -> PopoverMenu:
-        """
-            Creates a `GtkPopoverMenu` and populates it according to `model`.
-
-        The created buttons are connected to actions found in the
-        `GtkApplicationWindow` to which the popover belongs - typically
-        by means of being attached to a widget that is contained within
-        the `GtkApplicationWindow`s widget hierarchy.
-
-        Actions can also be added using [method`Gtk`.Widget.insert_action_group]
-        on the menus attach widget or on any of its parent widgets.
-
-        This function creates menus with sliding submenus.
-        See [ctor`Gtk`.PopoverMenu.new_from_model_full] for a way
-        to control this.
-        """
-    @classmethod
-    def new_from_model_full(cls, model: Gio.MenuModel, flags: PopoverMenuFlags) -> PopoverMenu:
-        """
-            Creates a `GtkPopoverMenu` and populates it according to `model`.
-
-        The created buttons are connected to actions found in the
-        action groups that are accessible from the parent widget.
-        This includes the `GtkApplicationWindow` to which the popover
-        belongs. Actions can also be added using [method`Gtk`.Widget.insert_action_group]
-        on the parent widget or on any of its parent widgets.
-        """
     def remove_child(self, child: Widget) -> bool:
         """
             Removes a widget that has previously been added with
@@ -48975,6 +49706,29 @@ class PopoverMenu(Popover):
         The existing contents of `popover` are removed, and
         the `popover` is populated with new contents according
         to `model`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_from_model(
+        cls,
+        model: Gio.MenuModel | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_model(model:Gio.MenuModel=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_from_model_full(
+        cls,
+        model: Gio.MenuModel,
+        flags: PopoverMenuFlags,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_model_full(model:Gio.MenuModel, flags:Gtk.PopoverMenuFlags) -> Gtk.Widget
         """
 
     # Signals
@@ -49054,37 +49808,37 @@ class PopoverMenuBar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         menu_model: Gio.MenuModel | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize PopoverMenuBar object with properties.
@@ -49101,11 +49855,6 @@ class PopoverMenuBar(Widget):
         """
         Returns the model from which the contents of `bar` are taken.
         """
-    @classmethod
-    def new_from_model(cls, model: Gio.MenuModel | None = None) -> PopoverMenuBar:
-        """
-        Creates a `GtkPopoverMenuBar` from a `GMenuModel`.
-        """
     def remove_child(self, child: Widget) -> bool:
         """
             Removes a widget that has previously been added with
@@ -49115,6 +49864,18 @@ class PopoverMenuBar(Widget):
         """
             Sets a menu model from which `bar` should take
         its contents.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_from_model(
+        cls,
+        model: Gio.MenuModel | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_model(model:Gio.MenuModel=None) -> Gtk.Widget
         """
 
     # Signals
@@ -49319,8 +50080,8 @@ class PrintDialog(GObject.Object):
     def __init__(
         self,
         accept_label: str | None = None,
-        page_setup: PageSetup | None = None,
         modal: bool | None = None,
+        page_setup: PageSetup | None = None,
         print_settings: PrintSettings | None = None,
         title: str | None = None,
     ) -> None:
@@ -49355,11 +50116,6 @@ class PrintDialog(GObject.Object):
         """
             Returns the title that will be shown on the
         print dialog.
-        """
-    @classmethod
-    def new(cls) -> PrintDialog:
-        """
-        Creates a new `GtkPrintDialog` object.
         """
     def print_(
         self,
@@ -49457,6 +50213,17 @@ class PrintDialog(GObject.Object):
         will be used to print.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> PrintDialog:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.PrintDialog
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -49546,10 +50313,10 @@ class PrintJob(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        title: str | None = None,
-        printer: Printer | None = None,
         page_setup: PageSetup | None = None,
+        printer: Printer | None = None,
         settings: PrintSettings | None = None,
+        title: str | None = None,
         track_print_status: bool | None = None,
     ) -> None:
         """
@@ -49625,11 +50392,6 @@ class PrintJob(GObject.Object):
             Returns whether jobs will be tracked after printing.
 
         For details, see [method`Gtk`.PrintJob.set_track_print_status].
-        """
-    @classmethod
-    def new(cls, title: str, printer: Printer, settings: PrintSettings, page_setup: PageSetup) -> PrintJob:
-        """
-        Creates a new `GtkPrintJob`.
         """
     def send(self, callback: PrintJobCompleteFunc, *user_data: object | None) -> None:
         """
@@ -49711,6 +50473,21 @@ class PrintJob(GObject.Object):
 
         This function is often implemented using some form of polling,
         so it should not be enabled unless needed.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        title: str,
+        printer: Printer,
+        settings: PrintSettings,
+        page_setup: PageSetup,
+    ) -> PrintJob:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(title:str, printer:Gtk.Printer, settings:Gtk.PrintSettings, page_setup:Gtk.PageSetup) -> Gtk.PrintJob
         """
 
     # Signals
@@ -50002,21 +50779,21 @@ class PrintOperation(GObject.Object):
     # gi Methods
     def __init__(
         self,
+        allow_async: bool | None = None,
+        current_page: int | None = None,
+        custom_tab_label: str | None = None,
         default_page_setup: PageSetup | None = None,
-        print_settings: PrintSettings | None = None,
+        embed_page_setup: bool | None = None,
+        export_filename: str | None = None,
+        has_selection: bool | None = None,
         job_name: str | None = None,
         n_pages: int | None = None,
-        current_page: int | None = None,
-        use_full_page: bool | None = None,
+        print_settings: PrintSettings | None = None,
+        show_progress: bool | None = None,
+        support_selection: bool | None = None,
         track_print_status: bool | None = None,
         unit: Unit | None = Unit.NONE,
-        show_progress: bool | None = None,
-        allow_async: bool | None = None,
-        export_filename: str | None = None,
-        custom_tab_label: str | None = None,
-        embed_page_setup: bool | None = None,
-        has_selection: bool | None = None,
-        support_selection: bool | None = None,
+        use_full_page: bool | None = None,
     ) -> None:
         """
         Initialize PrintOperation object with properties.
@@ -50122,11 +50899,6 @@ class PrintOperation(GObject.Object):
         Note: when you enable print status tracking the print operation
         can be in a non-finished state even after done has been called, as
         the operation status then tracks the print job status on the printer.
-        """
-    @classmethod
-    def new(cls) -> PrintOperation:
-        """
-        Creates a new `GtkPrintOperation`.
         """
     def run(self, action: PrintOperationAction, parent: Window | None = None) -> PrintOperationResult:
         """
@@ -50396,6 +51168,15 @@ class PrintOperation(GObject.Object):
     ) -> None:
         """
         update_custom_widget(self, widget:Gtk.Widget, setup:Gtk.PageSetup, settings:Gtk.PrintSettings)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> PrintOperation:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.PrintOperation
         """
 
     # Signals
@@ -50832,7 +51613,7 @@ class PrintOperationClass(GObject.GPointer):
         Emitted after change of selected printer.
         """
 
-class PrintOperationPreview(object):
+class PrintOperationPreview(builtins.object):
     """
     The interface that is used to implement print preview.
 
@@ -51142,39 +51923,6 @@ class PrintSettings(GObject.Object):
         If the file could not be loaded then error is set to either a
         `GFileError` or `GKeyFileError`.
         """
-    @classmethod
-    def new(cls) -> PrintSettings:
-        """
-        Creates a new `GtkPrintSettings` object.
-        """
-    @classmethod
-    def new_from_file(cls, file_name: str) -> PrintSettings:
-        """
-            Reads the print settings from `file_name`.
-
-        Returns a new `GtkPrintSettings` object with the restored settings,
-        or None if an error occurred. If the file could not be loaded then
-        error is set to either a `GFileError` or `GKeyFileError`.
-
-        See [method`Gtk`.PrintSettings.to_file].
-        """
-    @classmethod
-    def new_from_gvariant(cls, variant: GLib.Variant) -> PrintSettings:
-        """
-            Deserialize print settings from an a{sv} variant.
-
-        The variant must be in the format produced by
-        [method`Gtk`.PrintSettings.to_gvariant].
-        """
-    @classmethod
-    def new_from_key_file(cls, key_file: GLib.KeyFile, group_name: str | None = None) -> PrintSettings:
-        """
-            Reads the print settings from the group `group_name` in `key_file`.
-
-        Returns a new `GtkPrintSettings` object with the restored settings,
-        or None if an error occurred. If the file could not be loaded then
-        error is set to either `GFileError` or `GKeyFileError`.
-        """
     def set(self, key: str, value: str | None = None) -> None:
         """
         Associates `value` with `key`.
@@ -51326,6 +52074,48 @@ class PrintSettings(GObject.Object):
         This has the same effect as setting the value to None.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> PrintSettings:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.PrintSettings
+        """
+    @classmethod
+    def new_from_file(
+        cls,
+        file_name: str,
+    ) -> PrintSettings:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file(file_name:str) -> Gtk.PrintSettings
+        """
+    @classmethod
+    def new_from_gvariant(
+        cls,
+        variant: GLib.Variant,
+    ) -> PrintSettings:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_gvariant(variant:GLib.Variant) -> Gtk.PrintSettings
+        """
+    @classmethod
+    def new_from_key_file(
+        cls,
+        key_file: GLib.KeyFile,
+        group_name: str | None = None,
+    ) -> PrintSettings:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_key_file(key_file:GLib.KeyFile, group_name:str=None) -> Gtk.PrintSettings
+        """
+
 class PrintSetup(GObject.GBoxed):
     """
     An auxiliary object for printing that allows decoupling the setup from the printing.
@@ -51470,67 +52260,67 @@ class PrintUnixDialog(Dialog):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        current_page: int | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        embed_page_setup: bool | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_selection: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
-        maximized: bool | None = None,
-        fullscreened: bool | None = None,
-        use_header_bar: int | None = None,
-        page_setup: PageSetup | None = None,
-        current_page: int | None = None,
-        print_settings: PrintSettings | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
         manual_capabilities: PrintCapabilities | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        maximized: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        page_setup: PageSetup | None = None,
+        print_settings: PrintSettings | None = None,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
+        sensitive: bool | None = None,
+        startup_id: str | None = None,
         support_selection: bool | None = None,
-        has_selection: bool | None = None,
-        embed_page_setup: bool | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
+        use_header_bar: int | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize PrintUnixDialog object with properties.
@@ -51587,11 +52377,6 @@ class PrintUnixDialog(Dialog):
         """
         Gets whether the print dialog allows user to print a selection.
         """
-    @classmethod
-    def new(cls, title: str | None = None, parent: Window | None = None) -> PrintUnixDialog:
-        """
-        Creates a new `GtkPrintUnixDialog`.
-        """
     def set_current_page(self, current_page: int) -> None:
         """
             Sets the current page number.
@@ -51632,6 +52417,19 @@ class PrintUnixDialog(Dialog):
     def set_support_selection(self, support_selection: bool) -> None:
         """
         Sets whether the print dialog allows user to print a selection.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        title: str | None = None,
+        parent: Window | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(title:str=None, parent:Gtk.Window=None) -> Gtk.Widget
         """
 
     # Signals
@@ -51760,11 +52558,11 @@ class Printer(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        backend: PrintBackend | None = None,
-        is_virtual: bool | None = None,
         accepts_pdf: bool | None = None,
         accepts_ps: bool | None = None,
+        backend: PrintBackend | None = None,
+        is_virtual: bool | None = None,
+        name: str | None = None,
     ) -> None:
         """
         Initialize Printer object with properties.
@@ -51898,11 +52696,6 @@ class Printer(GObject.Object):
         are available, see [method`Gtk`.Printer.has_details] and
         [method`Gtk`.Printer.request_details].
         """
-    @classmethod
-    def new(cls, name: str, backend: PrintBackend, virtual_: bool) -> Printer:
-        """
-        Creates a new `GtkPrinter`.
-        """
     def request_details(self) -> None:
         """
             Requests the printer details.
@@ -51910,6 +52703,20 @@ class Printer(GObject.Object):
         When the details are available, the
         [signal`Gtk`.Printer::details-acquired] signal
         will be emitted on `printer`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        name: str,
+        backend: PrintBackend,
+        virtual_: bool,
+    ) -> Printer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str, backend:Gtk.PrintBackend, virtual_:bool) -> Gtk.Printer
         """
 
     # Signals
@@ -52104,43 +52911,43 @@ class ProgressBar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        fraction: float | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        inverted: bool | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        fraction: float | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
         pulse_step: float | None = None,
-        inverted: bool | None = None,
-        text: str | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         show_text: bool | None = None,
-        ellipsize: Pango.EllipsizeMode | None = Pango.EllipsizeMode.NONE,
+        text: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ProgressBar object with properties.
@@ -52183,11 +52990,6 @@ class ProgressBar(Widget):
 
         The return value is a reference to the text, not a copy of it,
         so will become invalid if you change the text in the progress bar.
-        """
-    @classmethod
-    def new(cls) -> ProgressBar:
-        """
-        Creates a new `GtkProgressBar`.
         """
     def pulse(self) -> None:
         """
@@ -52254,6 +53056,17 @@ class ProgressBar(Widget):
         [property`Gtk`.ProgressBar:show-text] is True.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -52318,31 +53131,30 @@ class PropertyExpression(Expression):
             Gets the `GParamSpec` specifying the property of
         a property expression.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, this_type: GObject.GType, expression: Expression | None, property_name: str) -> PropertyExpression:
+    def new(
+        cls,
+        this_type: GObject.GType,
+        expression: Expression | None,
+        property_name: str,
+    ) -> PropertyExpression:
         """
-            Creates an expression that looks up a property.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The object to use is found by evaluating the `expression`,
-        or using the `this` argument when `expression` is `None`.
-
-        If the resulting object conforms to `this_type`, its property named
-        `property_name` will be queried. Otherwise, this expression's
-        evaluation will fail.
-
-        The given `this_type` must have a property with `property_name`.
+        new(this_type:GType, expression:Gtk.Expression=None, property_name:str) -> Gtk.PropertyExpression
         """
     @classmethod
-    def new_for_pspec(cls, expression: Expression | None, pspec: GObject.ParamSpec) -> PropertyExpression:
+    def new_for_pspec(
+        cls,
+        expression: Expression | None,
+        pspec: GObject.ParamSpec,
+    ) -> PropertyExpression:
         """
-            Creates an expression that looks up a property.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The object to use is found by evaluating the `expression`,
-        or using the `this` argument when `expression` is `None`.
-
-        If the resulting object conforms to `this_type`, its
-        property specified by `pspec` will be queried.
-        Otherwise, this expression's evaluation will fail.
+        new_for_pspec(expression:Gtk.Expression=None, pspec:GObject.ParamSpec) -> Gtk.PropertyExpression
         """
 
 class PyGTKDeprecationWarning(gi.PyGIDeprecationWarning): ...
@@ -52407,43 +53219,43 @@ class Range(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        adjustment: Adjustment | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        fill_level: float | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        inverted: bool | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        adjustment: Adjustment | None = None,
-        inverted: bool | None = None,
-        show_fill_level: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         restrict_to_fill_level: bool | None = None,
-        fill_level: float | None = None,
         round_digits: int | None = None,
+        sensitive: bool | None = None,
+        show_fill_level: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Range object with properties.
@@ -52850,14 +53662,6 @@ class RecentInfo(GObject.GBoxed):
             Gets the number of days elapsed since the last update
         of the resource pointed by `info`.
         """
-    def get_application_info(self, app_name: str) -> tuple[bool, str, int, GLib.DateTime]:
-        """
-            Gets the data regarding the application that has registered the resource
-        pointed by `info`.
-
-        If the command line contains any escape characters defined inside the
-        storage specification, they will be expanded.
-        """
     def get_applications(self) -> tuple[list, int]:
         """
         Retrieves the list of applications that have registered this resource.
@@ -52959,6 +53763,17 @@ class RecentInfo(GObject.GBoxed):
 
         If the reference count reaches zero, `info` is
         deallocated, and the memory freed.
+        """
+
+    # python methods (overrides?)
+    def get_application_info(
+        self,
+        app_name: str,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_application_info(self, app_name:str) -> bool, app_exec:str, count:int, stamp:GLib.DateTime
         """
 
 class RecentManager(GObject.Object):
@@ -53108,20 +53923,6 @@ class RecentManager(GObject.Object):
         Please note that this function will not affect the resource pointed
         by the URIs, but only the URI used in the recently used resources list.
         """
-    @classmethod
-    def new(cls) -> RecentManager:
-        """
-            Creates a new recent manager object.
-
-        Recent manager objects are used to handle the list of recently used
-        resources. A `GtkRecentManager` object monitors the recently used
-        resources list, and emits the [signal`Gtk`.RecentManager::changed]
-        signal each time something inside the list changes.
-
-        `GtkRecentManager` objects are expensive: be sure to create them
-        only when needed. You should use [func`Gtk`.RecentManager.get_default]
-        instead.
-        """
     def purge_items(self) -> int:
         """
         Purges every item from the recently used resources list.
@@ -53138,6 +53939,15 @@ class RecentManager(GObject.Object):
     ) -> None:
         """
         changed(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> RecentManager:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.RecentManager
         """
 
     # Signals
@@ -53246,13 +54056,6 @@ class Requisition(GObject.GBoxed):
         """
         Frees a `GtkRequisition`.
         """
-    @classmethod
-    def new(cls) -> Requisition:
-        """
-            Allocates a new `GtkRequisition`.
-
-        The struct is initialized to zero.
-        """
 
     # python methods (overrides?)
     @staticmethod
@@ -53260,6 +54063,15 @@ class Requisition(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> Requisition:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Requisition
+        """
 
 class Revealer(Widget):
     """
@@ -53315,40 +54127,40 @@ class Revealer(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        transition_type: RevealerTransitionType | None = RevealerTransitionType.SLIDE_DOWN,
-        transition_duration: int | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         reveal_child: bool | None = None,
-        child: Widget | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transition_duration: int | None = None,
+        transition_type: RevealerTransitionType | None = RevealerTransitionType.SLIDE_DOWN,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Revealer object with properties.
@@ -53388,11 +54200,6 @@ class Revealer(Widget):
             Gets the type of animation that will be used
         for transitions in `revealer`.
         """
-    @classmethod
-    def new(cls) -> Revealer:
-        """
-        Creates a new `GtkRevealer`.
-        """
     def set_child(self, child: Widget | None = None) -> None:
         """
         Sets the child widget of `revealer`.
@@ -53414,6 +54221,17 @@ class Revealer(Widget):
         transitions in `revealer`.
 
         Available types include various kinds of fades and slides.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -53457,7 +54275,7 @@ class Revealer(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Root(object):
+class Root(builtins.object):
     """
     An interface for widgets that can act as the root of a widget hierarchy.
 
@@ -53636,47 +54454,47 @@ class Scale(Range):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        adjustment: Adjustment | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        adjustment: Adjustment | None = None,
-        inverted: bool | None = None,
-        show_fill_level: bool | None = None,
-        restrict_to_fill_level: bool | None = None,
-        fill_level: float | None = None,
-        round_digits: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         digits: int | None = None,
         draw_value: bool | None = None,
+        fill_level: float | None = None,
+        focus_on_click: bool | None = None,
+        focusable: bool | None = None,
+        halign: Align | None = Align.FILL,
         has_origin: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        inverted: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        restrict_to_fill_level: bool | None = None,
+        round_digits: int | None = None,
+        sensitive: bool | None = None,
+        show_fill_level: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
         value_pos: PositionType | None = PositionType.TOP,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Scale object with properties.
@@ -53736,26 +54554,6 @@ class Scale(Range):
         """
         Gets the position in which the current value is displayed.
         """
-    @classmethod
-    def new(cls, orientation: Orientation, adjustment: Adjustment | None = None) -> Scale:
-        """
-        Creates a new `GtkScale`.
-        """
-    @classmethod
-    def new_with_range(cls, orientation: Orientation, min: float, max: float, step: float) -> Scale:
-        """
-            Creates a new scale widget with a range from `min` to `max`.
-
-        The returns scale will have the given orientation and will let the
-        user input a number between `min` and `max` (including `min` and `max`)
-        with the increment `step`. `step` must be nonzero; it’s the distance
-        the slider moves when using the arrow keys to adjust the scale
-        value.
-
-        Note that the way in which the precision is derived works best if
-        `step` is a power of ten. If the resulting precision is not suitable
-        for your needs, use [method`Gtk`.Scale.set_digits] to correct it.
-        """
     def set_digits(self, digits: int) -> None:
         """
             Sets the number of decimal places that are displayed in the value.
@@ -53806,6 +54604,30 @@ class Scale(Range):
     ) -> tuple:
         """
         get_layout_offsets(self) -> x:int, y:int
+        """
+    @classmethod
+    def new(
+        cls,
+        orientation: Orientation,
+        adjustment: Adjustment | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(orientation:Gtk.Orientation, adjustment:Gtk.Adjustment=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_range(
+        cls,
+        orientation: Orientation,
+        min: float,
+        max: float,
+        step: float,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_range(orientation:Gtk.Orientation, min:float, max:float, step:float) -> Gtk.Widget
         """
 
     # Signals
@@ -53916,41 +54738,41 @@ class ScaleButton(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        adjustment: Adjustment | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        icons: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
         value: float | None = None,
-        adjustment: Adjustment | None = None,
-        icons: list | None = None,
-        has_frame: bool | None = None,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ScaleButton object with properties.
@@ -53992,14 +54814,6 @@ class ScaleButton(Widget):
         """
         Gets the current value of the scale button.
         """
-    @classmethod
-    def new(cls, min: float, max: float, step: float, icons: list | None = None) -> ScaleButton:
-        """
-            Creates a `GtkScaleButton`.
-
-        The new scale button has a range between `min` and `max`,
-        with a stepping of `step`.
-        """
     def set_adjustment(self, adjustment: Adjustment) -> None:
         """
             Sets the `GtkAdjustment` to be used as a model
@@ -54033,6 +54847,19 @@ class ScaleButton(Widget):
     ) -> None:
         """
         value_changed(self, value:float)
+        """
+    @classmethod
+    def new(
+        cls,
+        min: float,
+        max: float,
+        step: float,
+        icons: list | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(min:float, max:float, step:float, icons:list=None) -> Gtk.Widget
         """
 
     # Signals
@@ -54144,11 +54971,6 @@ class ScrollInfo(GObject.GBoxed):
         """
         Checks if vertical scrolling is enabled.
         """
-    @classmethod
-    def new(cls) -> ScrollInfo:
-        """
-        Creates a new scroll info for scrolling an element into view.
-        """
     def ref(self) -> ScrollInfo:
         """
         Increases the reference count of a `GtkScrollInfo` by one.
@@ -54174,8 +54996,17 @@ class ScrollInfo(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> ScrollInfo:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-class Scrollable(object):
+        new() -> Gtk.ScrollInfo
+        """
+
+class Scrollable(builtins.object):
     """
     An interface for widgets with native scrolling ability.
 
@@ -54398,38 +55229,38 @@ class Scrollbar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        adjustment: Adjustment | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        adjustment: Adjustment | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Scrollbar object with properties.
@@ -54439,14 +55270,22 @@ class Scrollbar(Widget):
         """
         Returns the scrollbar's adjustment.
         """
-    @classmethod
-    def new(cls, orientation: Orientation, adjustment: Adjustment | None = None) -> Scrollbar:
-        """
-        Creates a new scrollbar with the given orientation.
-        """
     def set_adjustment(self, adjustment: Adjustment | None = None) -> None:
         """
         Makes the scrollbar use the given adjustment.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        orientation: Orientation,
+        adjustment: Adjustment | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(orientation:Gtk.Orientation, adjustment:Gtk.Adjustment=None) -> Gtk.Widget
         """
 
     # Signals
@@ -54642,51 +55481,51 @@ class ScrolledWindow(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        hadjustment: Adjustment | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        hscrollbar_policy: PolicyType | None = PolicyType.AUTOMATIC,
+        kinetic_scrolling: bool | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        hadjustment: Adjustment | None = None,
-        vadjustment: Adjustment | None = None,
-        hscrollbar_policy: PolicyType | None = PolicyType.AUTOMATIC,
-        vscrollbar_policy: PolicyType | None = PolicyType.AUTOMATIC,
-        window_placement: CornerType | None = CornerType.TOP_LEFT,
-        has_frame: bool | None = None,
-        min_content_width: int | None = None,
-        min_content_height: int | None = None,
-        kinetic_scrolling: bool | None = None,
-        overlay_scrolling: bool | None = None,
-        max_content_width: int | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         max_content_height: int | None = None,
-        propagate_natural_width: bool | None = None,
+        max_content_width: int | None = None,
+        min_content_height: int | None = None,
+        min_content_width: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        overlay_scrolling: bool | None = None,
         propagate_natural_height: bool | None = None,
-        child: Widget | None = None,
+        propagate_natural_width: bool | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        vadjustment: Adjustment | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        vscrollbar_policy: PolicyType | None = PolicyType.AUTOMATIC,
+        width_request: int | None = None,
+        window_placement: CornerType | None = CornerType.TOP_LEFT,
     ) -> None:
         """
         Initialize ScrolledWindow object with properties.
@@ -54782,11 +55621,6 @@ class ScrolledWindow(Widget):
     def get_vscrollbar(self) -> Widget:
         """
         Returns the vertical scrollbar of `scrolled_window`.
-        """
-    @classmethod
-    def new(cls) -> ScrolledWindow:
-        """
-        Creates a new scrolled window.
         """
     def set_child(self, child: Widget | None = None) -> None:
         """
@@ -54899,6 +55733,17 @@ class ScrolledWindow(Widget):
 
         If no window placement is set for a scrolled window,
         it defaults to Gtk.CORNER_TOP_LEFT.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -55162,40 +56007,40 @@ class SearchBar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        key_capture_widget: Widget | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         search_mode_enabled: bool | None = None,
+        sensitive: bool | None = None,
         show_close_button: bool | None = None,
-        child: Widget | None = None,
-        key_capture_widget: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize SearchBar object with properties.
@@ -55229,14 +56074,6 @@ class SearchBar(Widget):
         """
         Returns whether the close button is shown.
         """
-    @classmethod
-    def new(cls) -> SearchBar:
-        """
-            Creates a `GtkSearchBar`.
-
-        You will need to tell it about which widget is going to be your text
-        entry using [method`Gtk`.SearchBar.connect_entry].
-        """
     def set_child(self, child: Widget | None = None) -> None:
         """
         Sets the child widget of `bar`.
@@ -55267,6 +56104,17 @@ class SearchBar(Widget):
         Applications that already have a “search” toggle button should not
         show a close button in their search bar, as it duplicates the role
         of the toggle button.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -55395,47 +56243,47 @@ class SearchEntry(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        editable: bool | None = None,
-        enable_undo: bool | None = None,
-        max_width_chars: int | None = None,
-        text: str | None = None,
-        width_chars: int | None = None,
-        xalign: float | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        activates_default: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        editable: bool | None = None,
+        enable_undo: bool | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        input_hints: InputHints | None = InputHints.NONE,
+        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        max_width_chars: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         placeholder_text: str | None = None,
-        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
-        input_hints: InputHints | None = InputHints.NONE,
-        activates_default: bool | None = None,
+        receives_default: bool | None = None,
         search_delay: int | None = None,
+        sensitive: bool | None = None,
+        text: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_chars: int | None = None,
+        width_request: int | None = None,
+        xalign: float | None = None,
     ) -> None:
         """
         Initialize SearchEntry object with properties.
@@ -55464,11 +56312,6 @@ class SearchEntry(Widget):
         """
             Get the delay to be used between the last keypress and the
         [signal`Gtk`.SearchEntry::search-changed] signal being emitted.
-        """
-    @classmethod
-    def new(cls) -> SearchEntry:
-        """
-        Creates a `GtkSearchEntry`.
         """
     def set_input_hints(self, hints: InputHints) -> None:
         """
@@ -55506,6 +56349,17 @@ class SearchEntry(Widget):
         """
             Set the delay to be used between the last keypress and the
         [signal`Gtk`.SearchEntry::search-changed] signal being emitted.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -55619,7 +56473,7 @@ class SearchEntry(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SectionModel(object):
+class SectionModel(builtins.object):
     """
     An interface that adds support for sections to list models.
 
@@ -55750,12 +56604,6 @@ class SelectionFilterModel(GObject.Object):
         """
         Gets the model currently filtered or None if none.
         """
-    @classmethod
-    def new(cls, model: SelectionModel | None = None) -> SelectionFilterModel:
-        """
-            Creates a new `GtkSelectionFilterModel` that will include the
-        selected items from the underlying selection model.
-        """
     def set_model(self, model: SelectionModel | None = None) -> None:
         """
             Sets the model to be filtered.
@@ -55764,6 +56612,18 @@ class SelectionFilterModel(GObject.Object):
         the item type of `self`. It assumes that the caller knows what they
         are doing and have set up an appropriate filter to ensure that item
         types match.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: SelectionModel | None = None,
+    ) -> SelectionFilterModel:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gtk.SelectionModel=None) -> Gtk.SelectionFilterModel
         """
 
     # Signals
@@ -55798,7 +56658,7 @@ class SelectionFilterModelClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class SelectionModel(object):
+class SelectionModel(builtins.object):
     """
     An interface that adds support for selection to list models.
 
@@ -56063,45 +56923,52 @@ class Separator(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Separator object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, orientation: Orientation) -> Separator:
+    def new(
+        cls,
+        orientation: Orientation,
+    ) -> Widget:
         """
-        Creates a new `GtkSeparator` with the given orientation.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(orientation:Gtk.Orientation) -> Gtk.Widget
         """
 
 class Settings(GObject.Object):
@@ -56541,58 +57408,58 @@ class Settings(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        gtk_double_click_time: int | None = None,
-        gtk_double_click_distance: int | None = None,
+        gtk_alternative_button_order: bool | None = None,
+        gtk_alternative_sort_arrows: bool | None = None,
+        gtk_application_prefer_dark_theme: bool | None = None,
+        gtk_cursor_aspect_ratio: float | None = None,
         gtk_cursor_blink: bool | None = None,
         gtk_cursor_blink_time: int | None = None,
         gtk_cursor_blink_timeout: int | None = None,
-        gtk_split_cursor: bool | None = None,
-        gtk_cursor_aspect_ratio: float | None = None,
-        gtk_theme_name: str | None = None,
-        gtk_icon_theme_name: str | None = None,
-        gtk_dnd_drag_threshold: int | None = None,
-        gtk_font_name: str | None = None,
-        gtk_xft_antialias: int | None = None,
-        gtk_xft_hinting: int | None = None,
-        gtk_xft_hintstyle: str | None = None,
-        gtk_xft_rgba: str | None = None,
-        gtk_xft_dpi: int | None = None,
-        gtk_hint_font_metrics: bool | None = None,
         gtk_cursor_theme_name: str | None = None,
         gtk_cursor_theme_size: int | None = None,
-        gtk_alternative_button_order: bool | None = None,
-        gtk_alternative_sort_arrows: bool | None = None,
+        gtk_decoration_layout: str | None = None,
+        gtk_dialogs_use_header: bool | None = None,
+        gtk_dnd_drag_threshold: int | None = None,
+        gtk_double_click_distance: int | None = None,
+        gtk_double_click_time: int | None = None,
+        gtk_enable_accels: bool | None = None,
         gtk_enable_animations: bool | None = None,
+        gtk_enable_event_sounds: bool | None = None,
+        gtk_enable_input_feedback_sounds: bool | None = None,
+        gtk_enable_primary_paste: bool | None = None,
+        gtk_entry_password_hint_timeout: int | None = None,
+        gtk_entry_select_on_focus: bool | None = None,
         gtk_error_bell: bool | None = None,
-        gtk_show_status_shapes: bool | None = None,
+        gtk_font_name: str | None = None,
+        gtk_font_rendering: FontRendering | None = FontRendering.AUTOMATIC,
+        gtk_fontconfig_timestamp: int | None = None,
+        gtk_hint_font_metrics: bool | None = None,
+        gtk_icon_theme_name: str | None = None,
+        gtk_im_module: str | None = None,
+        gtk_keynav_use_caret: bool | None = None,
+        gtk_label_select_on_focus: bool | None = None,
+        gtk_long_press_time: int | None = None,
+        gtk_overlay_scrolling: bool | None = None,
+        gtk_primary_button_warps_slider: bool | None = None,
         gtk_print_backends: str | None = None,
         gtk_print_preview_command: str | None = None,
-        gtk_enable_accels: bool | None = None,
-        gtk_im_module: str | None = None,
+        gtk_recent_files_enabled: bool | None = None,
         gtk_recent_files_max_age: int | None = None,
-        gtk_fontconfig_timestamp: int | None = None,
-        gtk_sound_theme_name: str | None = None,
-        gtk_enable_input_feedback_sounds: bool | None = None,
-        gtk_enable_event_sounds: bool | None = None,
-        gtk_primary_button_warps_slider: bool | None = None,
-        gtk_application_prefer_dark_theme: bool | None = None,
-        gtk_entry_select_on_focus: bool | None = None,
-        gtk_entry_password_hint_timeout: int | None = None,
-        gtk_label_select_on_focus: bool | None = None,
         gtk_shell_shows_app_menu: bool | None = None,
-        gtk_shell_shows_menubar: bool | None = None,
         gtk_shell_shows_desktop: bool | None = None,
-        gtk_decoration_layout: str | None = None,
+        gtk_shell_shows_menubar: bool | None = None,
+        gtk_show_status_shapes: bool | None = None,
+        gtk_sound_theme_name: str | None = None,
+        gtk_split_cursor: bool | None = None,
+        gtk_theme_name: str | None = None,
         gtk_titlebar_double_click: str | None = None,
         gtk_titlebar_middle_click: str | None = None,
         gtk_titlebar_right_click: str | None = None,
-        gtk_dialogs_use_header: bool | None = None,
-        gtk_enable_primary_paste: bool | None = None,
-        gtk_recent_files_enabled: bool | None = None,
-        gtk_long_press_time: int | None = None,
-        gtk_keynav_use_caret: bool | None = None,
-        gtk_overlay_scrolling: bool | None = None,
-        gtk_font_rendering: FontRendering | None = FontRendering.AUTOMATIC,
+        gtk_xft_antialias: int | None = None,
+        gtk_xft_dpi: int | None = None,
+        gtk_xft_hinting: int | None = None,
+        gtk_xft_hintstyle: str | None = None,
+        gtk_xft_rgba: str | None = None,
     ) -> None:
         """
         Initialize Settings object with properties.
@@ -57050,12 +57917,6 @@ class Shortcut(GObject.Object):
         """
         Gets the trigger used to trigger `self`.
         """
-    @classmethod
-    def new(cls, trigger: ShortcutTrigger | None = None, action: ShortcutAction | None = None) -> Shortcut:
-        """
-            Creates a new `GtkShortcut` that is triggered by
-        `trigger` and then activates `action`.
-        """
     def set_action(self, action: ShortcutAction | None = None) -> None:
         """
         Sets the new action for `self` to be `action`.
@@ -57067,6 +57928,19 @@ class Shortcut(GObject.Object):
     def set_trigger(self, trigger: ShortcutTrigger | None = None) -> None:
         """
         Sets the new trigger for `self` to be `trigger`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        trigger: ShortcutTrigger | None = None,
+        action: ShortcutAction | None = None,
+    ) -> Shortcut:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(trigger:Gtk.ShortcutTrigger=None, action:Gtk.ShortcutAction=None) -> Gtk.Shortcut
         """
 
     # Signals
@@ -57141,22 +58015,6 @@ class ShortcutAction(GObject.Object):
         is not supported by the `widget`, if the `args` don't match the action
         or if the activation otherwise had no effect, False will be returned.
         """
-    @classmethod
-    def parse_string(cls, string: str) -> ShortcutAction | None:
-        """
-            Tries to parse the given string into an action.
-
-        On success, the parsed action is returned. When parsing
-        failed, None is returned.
-
-        The accepted strings are:
-
-        - `nothing`, for `GtkNothingAction`
-        - `activate`, for `GtkActivateAction`
-        - `mnemonic-activate`, for `GtkMnemonicAction`
-        - `action(NAME)`, for a `GtkNamedAction` for the action named `NAME`
-        - `signal(NAME)`, for a `GtkSignalAction` for the signal `NAME`
-        """
     def print_(self, string: GLib.String) -> None: ...
     def to_string(self) -> str:
         """
@@ -57164,6 +58022,18 @@ class ShortcutAction(GObject.Object):
 
         This is a small wrapper around [method`Gtk`.ShortcutAction.print]
         to help when debugging.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def parse_string(
+        cls,
+        string: str,
+    ) -> ShortcutAction | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        parse_string(string:str) -> Gtk.ShortcutAction or None
         """
 
 class ShortcutActionClass(GObject.GPointer): ...
@@ -57245,11 +58115,11 @@ class ShortcutController(EventController):
     # gi Methods
     def __init__(
         self,
-        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
-        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
-        name: str | None = None,
         mnemonic_modifiers: Gdk.ModifierType | None = Gdk.ModifierType.ALT_MASK,
         model: Gio.ListModel | None = None,
+        name: str | None = None,
+        propagation_limit: PropagationLimit | None = PropagationLimit.SAME_NATIVE,
+        propagation_phase: PropagationPhase | None = PropagationPhase.BUBBLE,
         scope: ShortcutScope | None = ShortcutScope.LOCAL,
     ) -> None:
         """
@@ -57273,21 +58143,6 @@ class ShortcutController(EventController):
             Gets the scope for when this controller activates its shortcuts.
 
         See [method`Gtk`.ShortcutController.set_scope] for details.
-        """
-    @classmethod
-    def new(cls) -> ShortcutController:
-        """
-        Creates a new shortcut controller.
-        """
-    @classmethod
-    def new_for_model(cls, model: Gio.ListModel) -> ShortcutController:
-        """
-            Creates a new shortcut controller that takes its shortcuts from
-        the given list model.
-
-        A controller created by this function does not let you add or
-        remove individual shortcuts using the shortcut controller api,
-        but you can change the contents of the model.
         """
     def remove_shortcut(self, shortcut: Shortcut) -> None:
         """
@@ -57323,6 +58178,27 @@ class ShortcutController(EventController):
 
         With Gtk.SHORTCUT_SCOPE_LOCAL, shortcuts will only be activated
         when the widget has focus.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> EventController:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.EventController
+        """
+    @classmethod
+    def new_for_model(
+        cls,
+        model: Gio.ListModel,
+    ) -> EventController:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_model(model:Gio.ListModel) -> Gtk.EventController
         """
 
     # Signals
@@ -57394,39 +58270,39 @@ class ShortcutLabel(Widget):
     # gi Methods
     def __init__(
         self,
+        accelerator: str | None = None,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        disabled_text: str | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        accelerator: str | None = None,
-        disabled_text: str | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ShortcutLabel object with properties.
@@ -57444,12 +58320,6 @@ class ShortcutLabel(Widget):
         Retrieves the text that is displayed when no accelerator is set.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, accelerator: str) -> ShortcutLabel:
-        """
-        Creates a new `GtkShortcutLabel` with `accelerator` set.
-        """
-    @deprecated("deprecated")
     def set_accelerator(self, accelerator: str) -> None:
         """
         Sets the accelerator to be displayed by `self`.
@@ -57458,6 +58328,18 @@ class ShortcutLabel(Widget):
     def set_disabled_text(self, disabled_text: str) -> None:
         """
         Sets the text to be displayed by `self` when no accelerator is set.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        accelerator: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(accelerator:str) -> Gtk.Widget
         """
 
     # Signals
@@ -57482,7 +58364,7 @@ class ShortcutLabel(Widget):
 
 class ShortcutLabelClass(GObject.GPointer): ...
 
-class ShortcutManager(object):
+class ShortcutManager(builtins.object):
     """
     An interface that is used to implement shortcut scopes.
 
@@ -57578,26 +58460,6 @@ class ShortcutTrigger(GObject.Object):
         The types of `trigger` is `gconstpointer` only to allow use of this
         function with `GHashTable`. They must each be a `GtkShortcutTrigger`.
         """
-    @classmethod
-    def parse_string(cls, string: str) -> ShortcutTrigger | None:
-        """
-            Tries to parse the given string into a trigger.
-
-        On success, the parsed trigger is returned.
-        When parsing failed, None is returned.
-
-        The accepted strings are:
-
-          - `never`, for `GtkNeverTrigger`
-          - a string parsed by `Gtk.accelerator_parse`, for a `GtkKeyvalTrigger`, e.g. `<Control>C`
-          - underscore, followed by a single character, for `GtkMnemonicTrigger`, e.g. `_l`
-          - two valid trigger strings, separated by a `|` character, for a
-            `GtkAlternativeTrigger`: `<Control>q|<Control>w`
-
-        Note that you will have to escape the `<` and `>` characters when specifying
-        triggers in XML files, such as GtkBuilder ui files. Use `<` instead of
-        `<` and `>` instead of `>`.
-        """
     def print_(self, string: GLib.String) -> None: ...
     def print_label(self, display: Gdk.Display, string: GLib.String) -> bool:
         """
@@ -57638,6 +58500,18 @@ class ShortcutTrigger(GObject.Object):
     def trigger(self, event: Gdk.Event, enable_mnemonics: bool) -> Gdk.KeyMatch:
         """
         Checks if the given `event` triggers `self`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def parse_string(
+        cls,
+        string: str,
+    ) -> ShortcutTrigger | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        parse_string(string:str) -> Gtk.ShortcutTrigger or None
         """
 
 class ShortcutTriggerClass(GObject.GPointer): ...
@@ -57701,46 +58575,46 @@ class ShortcutsGroup(Box):
     # gi Methods
     def __init__(
         self,
+        accel_size_group: SizeGroup | None = None,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        can_focus: bool | None = None,
-        can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        spacing: int | None = None,
-        homogeneous: bool | None = None,
         baseline_child: int | None = None,
         baseline_position: BaselinePosition | None = BaselinePosition.CENTER,
+        can_focus: bool | None = None,
+        can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        focus_on_click: bool | None = None,
+        focusable: bool | None = None,
+        halign: Align | None = Align.FILL,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        homogeneous: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        spacing: int | None = None,
         title: str | None = None,
-        view: str | None = None,
-        accel_size_group: SizeGroup | None = None,
         title_size_group: SizeGroup | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        view: str | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ShortcutsGroup object with properties.
@@ -57875,45 +58749,45 @@ class ShortcutsSection(Box):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        can_focus: bool | None = None,
-        can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        spacing: int | None = None,
-        homogeneous: bool | None = None,
         baseline_child: int | None = None,
         baseline_position: BaselinePosition | None = BaselinePosition.CENTER,
-        title: str | None = None,
-        section_name: str | None = None,
-        view_name: str | None = None,
+        can_focus: bool | None = None,
+        can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        focus_on_click: bool | None = None,
+        focusable: bool | None = None,
+        halign: Align | None = Align.FILL,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        homogeneous: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         max_height: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        section_name: str | None = None,
+        sensitive: bool | None = None,
+        spacing: int | None = None,
+        title: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        view_name: str | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ShortcutsSection object with properties.
@@ -58090,48 +58964,48 @@ class ShortcutsShortcut(Widget):
     # gi Methods
     def __init__(
         self,
+        accel_size_group: SizeGroup | None = None,
+        accelerator: str | None = None,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        action_name: str | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        direction: TextDirection | None = TextDirection.NONE,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        accelerator: str | None = None,
         icon: Gio.Icon | None = None,
         icon_set: bool | None = None,
-        title: str | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        shortcut_type: ShortcutType | None = ShortcutType.ACCELERATOR,
         subtitle: str | None = None,
         subtitle_set: bool | None = None,
-        accel_size_group: SizeGroup | None = None,
+        title: str | None = None,
         title_size_group: SizeGroup | None = None,
-        direction: TextDirection | None = TextDirection.NONE,
-        shortcut_type: ShortcutType | None = ShortcutType.ACCELERATOR,
-        action_name: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ShortcutsShortcut object with properties.
@@ -58319,61 +59193,61 @@ class ShortcutsWindow(Window):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        application: Application | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
-        focus_on_click: bool | None = None,
-        focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
+        child: Widget | None = None,
         css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        title: str | None = None,
-        resizable: bool | None = None,
-        modal: bool | None = None,
-        default_width: int | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decorated: bool | None = None,
         default_height: int | None = None,
+        default_widget: Widget | None = None,
+        default_width: int | None = None,
+        deletable: bool | None = None,
         destroy_with_parent: bool | None = None,
+        display: Gdk.Display | None = None,
+        focus_on_click: bool | None = None,
+        focus_visible: bool | None = None,
+        focus_widget: Widget | None = None,
+        focusable: bool | None = None,
+        fullscreened: bool | None = None,
+        halign: Align | None = Align.FILL,
+        handle_menubar_accel: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
         hide_on_close: bool | None = None,
         icon_name: str | None = None,
-        display: Gdk.Display | None = None,
-        decorated: bool | None = None,
-        deletable: bool | None = None,
-        transient_for: Window | None = None,
-        application: Application | None = None,
-        default_widget: Widget | None = None,
-        focus_widget: Widget | None = None,
-        child: Widget | None = None,
-        titlebar: Widget | None = None,
-        handle_menubar_accel: bool | None = None,
-        startup_id: str | None = None,
-        mnemonics_visible: bool | None = None,
-        focus_visible: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         maximized: bool | None = None,
-        fullscreened: bool | None = None,
+        mnemonics_visible: bool | None = None,
+        modal: bool | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        resizable: bool | None = None,
         section_name: str | None = None,
+        sensitive: bool | None = None,
+        startup_id: str | None = None,
+        title: str | None = None,
+        titlebar: Widget | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        transient_for: Window | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
         view_name: str | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ShortcutsWindow object with properties.
@@ -58459,13 +59333,17 @@ class SignalAction(ShortcutAction):
         """
         Returns the name of the signal that will be emitted.
         """
-    @classmethod
-    def new(cls, signal_name: str) -> SignalAction:
-        """
-            Creates an action that when activated, emits the given action signal
-        on the provided widget.
 
-        It will also unpack the args into arguments passed to the signal.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        signal_name: str,
+    ) -> SignalAction:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(signal_name:str) -> Gtk.SignalAction
         """
 
     # Signals
@@ -58531,12 +59409,16 @@ class SignalListItemFactory(ListItemFactory):
         """
         Initialize SignalListItemFactory object with properties.
         """
-    @classmethod
-    def new(cls) -> SignalListItemFactory:
-        """
-            Creates a new `GtkSignalListItemFactory`.
 
-        You need to connect signal handlers before you use it.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> ListItemFactory:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.ListItemFactory
         """
 
     # Signals
@@ -58702,11 +59584,6 @@ class SingleSelection(GObject.Object):
 
         If no item is selected, None is returned.
         """
-    @classmethod
-    def new(cls, model: Gio.ListModel | None = None) -> SingleSelection:
-        """
-        Creates a new selection to handle `model`.
-        """
     def set_autoselect(self, autoselect: bool) -> None:
         """
             Enables or disables autoselect.
@@ -58741,6 +59618,18 @@ class SingleSelection(GObject.Object):
         selected. If it is unset, the selection will be unset and no item
         will be selected. This also applies if [property`Gtk`.SingleSelection:can-unselect]
         is set to False.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: Gio.ListModel | None = None,
+    ) -> SingleSelection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gio.ListModel=None) -> Gtk.SingleSelection
         """
 
     # Signals
@@ -58952,11 +59841,6 @@ class SizeGroup(GObject.Object):
         """
         Returns the list of widgets associated with `size_group`.
         """
-    @classmethod
-    def new(cls, mode: SizeGroupMode) -> SizeGroup:
-        """
-        Create a new `GtkSizeGroup`.
-        """
     def remove_widget(self, widget: Widget) -> None:
         """
         Removes a widget from a `GtkSizeGroup`.
@@ -58970,6 +59854,18 @@ class SizeGroup(GObject.Object):
         (Gtk.SIZE_GROUP_HORIZONTAL) all have the same vertical requisition
         (Gtk.SIZE_GROUP_VERTICAL), or should all have the same requisition
         in both directions (Gtk.SIZE_GROUP_BOTH).
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        mode: SizeGroupMode,
+    ) -> SizeGroup:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(mode:Gtk.SizeGroupMode) -> Gtk.SizeGroup
         """
 
     # Signals
@@ -59041,14 +59937,6 @@ class SliceListModel(GObject.Object):
         """
         Gets the size set via `Gtk.SliceListModel.set_size`.
         """
-    @classmethod
-    def new(cls, model: Gio.ListModel | None, offset: int, size: int) -> SliceListModel:
-        """
-            Creates a new slice model.
-
-        It presents the slice from `offset` to offset + `size`
-        of the given `model`.
-        """
     def set_model(self, model: Gio.ListModel | None = None) -> None:
         """
             Sets the model to show a slice of.
@@ -59069,6 +59957,20 @@ class SliceListModel(GObject.Object):
 
         It can however have fewer items if the offset is too large
         or the model sliced from doesn't have enough items.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: Gio.ListModel | None,
+        offset: int,
+        size: int,
+    ) -> SliceListModel:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gio.ListModel=None, offset:int, size:int) -> Gtk.SliceListModel
         """
 
     # Signals
@@ -59279,11 +60181,6 @@ class Snapshot(Gdk.Snapshot):
         This must be called the same number of times as the number
         of textures is needed for the shader in
         [method`Gtk`.Snapshot.push_gl_shader].
-        """
-    @classmethod
-    def new(cls) -> Snapshot:
-        """
-        Creates a new `GtkSnapshot`.
         """
     def perspective(self, depth: float) -> None:
         """
@@ -59562,6 +60459,17 @@ class Snapshot(Gdk.Snapshot):
         Translates `snapshot`'s coordinate system by `point`.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Snapshot:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Snapshot
+        """
+
 class SnapshotClass(GObject.GPointer): ...
 
 class SortListModel(GObject.Object):
@@ -59684,11 +60592,6 @@ class SortListModel(GObject.Object):
         """
         Gets the sorter that is used to sort `self`.
         """
-    @classmethod
-    def new(cls, model: Gio.ListModel | None = None, sorter: Sorter | None = None) -> SortListModel:
-        """
-        Creates a new sort list model that uses the `sorter` to sort `model`.
-        """
     def set_incremental(self, incremental: bool) -> None:
         """
             Sets the sort model to do an incremental sort.
@@ -59721,6 +60624,19 @@ class SortListModel(GObject.Object):
     def set_sorter(self, sorter: Sorter | None = None) -> None:
         """
         Sets a new sorter on `self`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        model: Gio.ListModel | None = None,
+        sorter: Sorter | None = None,
+    ) -> SortListModel:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gio.ListModel=None, sorter:Gtk.Sorter=None) -> Gtk.SortListModel
         """
 
     # Signals
@@ -60106,53 +61022,53 @@ class SpinButton(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
+        activates_default: bool | None = None,
+        adjustment: Adjustment | None = None,
+        can_focus: bool | None = None,
+        can_target: bool | None = None,
+        climb_rate: float | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        digits: int | None = None,
         editable: bool | None = None,
         editing_canceled: bool | None = None,
         enable_undo: bool | None = None,
-        max_width_chars: int | None = None,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        text: str | None = None,
-        width_chars: int | None = None,
-        xalign: float | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
-        can_focus: bool | None = None,
-        can_target: bool | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        activates_default: bool | None = None,
-        adjustment: Adjustment | None = None,
-        climb_rate: float | None = None,
-        digits: int | None = None,
-        snap_to_ticks: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        max_width_chars: int | None = None,
+        name: str | None = None,
         numeric: bool | None = None,
-        wrap: bool | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        snap_to_ticks: bool | None = None,
+        text: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         update_policy: SpinButtonUpdatePolicy | None = SpinButtonUpdatePolicy.ALWAYS,
+        valign: Align | None = Align.FILL,
         value: float | None = None,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_chars: int | None = None,
+        width_request: int | None = None,
+        wrap: bool | None = None,
+        xalign: float | None = None,
     ) -> None:
         """
         Initialize SpinButton object with properties.
@@ -60230,28 +61146,6 @@ class SpinButton(Widget):
         opposite limit when the upper or lower limit of the range is
         exceeded.
         """
-    @classmethod
-    def new(cls, adjustment: Adjustment | None, climb_rate: float, digits: int) -> SpinButton:
-        """
-        Creates a new `GtkSpinButton`.
-        """
-    @classmethod
-    def new_with_range(cls, min: float, max: float, step: float) -> SpinButton:
-        """
-            Creates a new `GtkSpinButton` with the given properties.
-
-        This is a convenience constructor that allows creation
-        of a numeric `GtkSpinButton` without manually creating
-        an adjustment. The value is initially set to the minimum
-        value and a page increment of 10 * `step` is the default.
-        The precision of the spin button is equivalent to the
-        precision of `step`.
-
-        Note that the way in which the precision is derived works
-        best if `step` is a power of ten. If the resulting precision
-        is not suitable for your needs, use
-        [method`Gtk`.SpinButton.set_digits] to correct it.
-        """
     def set_activates_default(self, activates_default: bool) -> None:
         """
             Sets whether activating the spin button will activate the default
@@ -60324,6 +61218,32 @@ class SpinButton(Widget):
     def update(self) -> None:
         """
         Manually force an update of the spin button.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        adjustment: Adjustment | None,
+        climb_rate: float,
+        digits: int,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(adjustment:Gtk.Adjustment=None, climb_rate:float, digits:int) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_range(
+        cls,
+        min: float,
+        max: float,
+        step: float,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_range(min:float, max:float, step:float) -> Gtk.Widget
         """
 
     # Signals
@@ -60519,37 +61439,37 @@ class Spinner(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         spinning: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Spinner object with properties.
@@ -60558,11 +61478,6 @@ class Spinner(Widget):
     def get_spinning(self) -> bool:
         """
         Returns whether the spinner is spinning.
-        """
-    @classmethod
-    def new(cls) -> Spinner:
-        """
-        Returns a new spinner widget. Not yet started.
         """
     def set_spinning(self, spinning: bool) -> None:
         """
@@ -60575,6 +61490,17 @@ class Spinner(Widget):
     def stop(self) -> None:
         """
         Stops the animation of the spinner.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -60690,43 +61616,43 @@ class Stack(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        hhomogeneous: bool | None = None,
+        interpolate_size: bool | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        hhomogeneous: bool | None = None,
-        vhomogeneous: bool | None = None,
-        visible_child: Widget | None = None,
-        visible_child_name: str | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         transition_duration: int | None = None,
         transition_type: StackTransitionType | None = StackTransitionType.NONE,
-        interpolate_size: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        vhomogeneous: bool | None = None,
+        visible: bool | None = None,
+        visible_child: Widget | None = None,
+        visible_child_name: str | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Stack object with properties.
@@ -60816,11 +61742,6 @@ class Stack(Widget):
 
         Returns None if there is no visible child.
         """
-    @classmethod
-    def new(cls) -> Stack:
-        """
-        Creates a new `GtkStack`.
-        """
     def remove(self, child: Widget) -> None:
         """
         Removes a child widget from `stack`.
@@ -60898,6 +61819,17 @@ class Stack(Widget):
         Note that the child widget has to be visible itself
         (see [method`Gtk`.Widget.show]) in order to become the visible
         child of `stack`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -61016,12 +61948,12 @@ class StackPage(GObject.Object):
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         child: Widget | None = None,
-        name: str | None = None,
-        title: str | None = None,
         icon_name: str | None = None,
+        name: str | None = None,
         needs_attention: bool | None = None,
-        visible: bool | None = None,
+        title: str | None = None,
         use_underline: bool | None = None,
+        visible: bool | None = None,
     ) -> None:
         """
         Initialize StackPage object with properties.
@@ -61181,37 +62113,37 @@ class StackSidebar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         stack: Stack | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize StackSidebar object with properties.
@@ -61221,17 +62153,23 @@ class StackSidebar(Widget):
         """
         Retrieves the stack.
         """
-    @classmethod
-    def new(cls) -> StackSidebar:
-        """
-        Creates a new `GtkStackSidebar`.
-        """
     def set_stack(self, stack: Stack) -> None:
         """
             Set the `GtkStack` associated with this `GtkStackSidebar`.
 
         The sidebar widget will automatically update according to
         the order and items within the given `GtkStack`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -61299,38 +62237,38 @@ class StackSwitcher(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         stack: Stack | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize StackSwitcher object with properties.
@@ -61340,14 +62278,20 @@ class StackSwitcher(Widget):
         """
         Retrieves the stack.
         """
-    @classmethod
-    def new(cls) -> StackSwitcher:
-        """
-        Create a new `GtkStackSwitcher`.
-        """
     def set_stack(self, stack: Stack | None = None) -> None:
         """
         Sets the stack to control.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -61410,36 +62354,36 @@ class Statusbar(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Statusbar object with properties.
@@ -61451,12 +62395,6 @@ class Statusbar(Widget):
         of the actual context.
 
         Note that the description is not shown in the UI.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> Statusbar:
-        """
-        Creates a new `GtkStatusbar` ready for messages.
         """
     @deprecated("deprecated")
     def pop(self, context_id: int) -> None:
@@ -61484,6 +62422,17 @@ class Statusbar(Widget):
         """
             Forces the removal of all messages from a statusbar's
         stack with the exact `context_id`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -61582,14 +62531,6 @@ class StringFilter(Filter):
         """
         Gets the search term.
         """
-    @classmethod
-    def new(cls, expression: Expression | None = None) -> StringFilter:
-        """
-            Creates a new string filter.
-
-        You will want to set up the filter by providing a string to search for
-        and by providing a property to look up on the item.
-        """
     def set_expression(self, expression: Expression | None = None) -> None:
         """
             Sets the expression that the string filter uses to
@@ -61608,6 +62549,18 @@ class StringFilter(Filter):
     def set_search(self, search: str | None = None) -> None:
         """
         Sets the string to search for.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        expression: Expression | None = None,
+    ) -> StringFilter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(expression:Gtk.Expression=None) -> Gtk.StringFilter
         """
 
     # Signals
@@ -61724,11 +62677,6 @@ class StringList(GObject.Object):
         This function returns the const char *. To get the
         object wrapping it, use `g_list_model_get_item`.
         """
-    @classmethod
-    def new(cls, strings: list | None = None) -> StringList:
-        """
-        Creates a new `GtkStringList` with the given `strings`.
-        """
     def remove(self, position: int) -> None:
         """
             Removes the string at `position` from `self`.
@@ -61762,6 +62710,18 @@ class StringList(GObject.Object):
         ```c
         gtk_string_list_take (self, g_strdup_print ("%d dollars", lots));
         ```
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        strings: list | None = None,
+    ) -> StringList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(strings:list=None) -> Gtk.StringList
         """
 
     # Signals
@@ -61824,10 +62784,17 @@ class StringObject(GObject.Object):
         """
         Returns the string contained in a `GtkStringObject`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, string: str) -> StringObject:
+    def new(
+        cls,
+        string: str,
+    ) -> StringObject:
         """
-        Wraps a string in an object for use with `GListModel`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(string:str) -> Gtk.StringObject
         """
 
     # Signals
@@ -61886,9 +62853,9 @@ class StringSorter(Sorter):
     # gi Methods
     def __init__(
         self,
+        collation: Collation | None = Collation.UNICODE,
         expression: Expression | None = None,
         ignore_case: bool | None = None,
-        collation: Collation | None = Collation.UNICODE,
     ) -> None:
         """
         Initialize StringSorter object with properties.
@@ -61908,15 +62875,6 @@ class StringSorter(Sorter):
         """
         Gets whether the sorter ignores case differences.
         """
-    @classmethod
-    def new(cls, expression: Expression | None = None) -> StringSorter:
-        """
-            Creates a new string sorter that compares items using the given
-        `expression`.
-
-        Unless an expression is set on it, this sorter will always
-        compare items as invalid.
-        """
     def set_collation(self, collation: Collation) -> None:
         """
         Sets the collation method to use for sorting.
@@ -61930,6 +62888,18 @@ class StringSorter(Sorter):
     def set_ignore_case(self, ignore_case: bool) -> None:
         """
         Sets whether the sorter will ignore case differences.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        expression: Expression | None = None,
+    ) -> StringSorter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(expression:Gtk.Expression=None) -> Gtk.StringSorter
         """
 
     # Signals
@@ -62231,7 +63201,7 @@ class StyleContextClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class StyleProvider(object):
+class StyleProvider(builtins.object):
     """
     An interface for style information used by [class`Gtk`.StyleContext].
 
@@ -62339,38 +63309,38 @@ class Switch(Widget):
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         action_name: str | None = None,
         action_target: GLib.Variant | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        active: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        active: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         state: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Switch object with properties.
@@ -62385,11 +63355,6 @@ class Switch(Widget):
         """
         Gets the underlying state of the `GtkSwitch`.
         """
-    @classmethod
-    def new(cls) -> Switch:
-        """
-        Creates a new `GtkSwitch` widget.
-        """
     def set_active(self, is_active: bool) -> None:
         """
         Changes the state of `self` to the desired one.
@@ -62402,6 +63367,17 @@ class Switch(Widget):
         signal handler in order to set up delayed state changes.
 
         See [signal`Gtk`.Switch::state-set] for details.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -62454,7 +63430,7 @@ class Switch(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SymbolicPaintable(object):
+class SymbolicPaintable(builtins.object):
     """
     An interface that supports symbolic colors in paintables.
 
@@ -62726,59 +63702,59 @@ class Text(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        editable: bool | None = None,
-        enable_undo: bool | None = None,
-        max_width_chars: int | None = None,
-        text: str | None = None,
-        width_chars: int | None = None,
-        xalign: float | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        activates_default: bool | None = None,
+        attributes: Pango.AttrList | None = None,
+        buffer: EntryBuffer | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        editable: bool | None = None,
+        enable_emoji_completion: bool | None = None,
+        enable_undo: bool | None = None,
+        extra_menu: Gio.MenuModel | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        buffer: EntryBuffer | None = None,
-        max_length: int | None = None,
-        visibility: bool | None = None,
+        im_module: str | None = None,
+        input_hints: InputHints | None = InputHints.NONE,
+        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
         invisible_char: int | None = None,
         invisible_char_set: bool | None = None,
-        activates_default: bool | None = None,
-        truncate_multiline: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        max_length: int | None = None,
+        max_width_chars: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
         overwrite_mode: bool | None = None,
-        im_module: str | None = None,
         placeholder_text: str | None = None,
-        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
-        input_hints: InputHints | None = InputHints.NONE,
-        attributes: Pango.AttrList | None = None,
-        tabs: Pango.TabArray | None = None,
-        enable_emoji_completion: bool | None = None,
         propagate_text_width: bool | None = None,
-        extra_menu: Gio.MenuModel | None = None,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tabs: Pango.TabArray | None = None,
+        text: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        truncate_multiline: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visibility: bool | None = None,
+        visible: bool | None = None,
+        width_chars: int | None = None,
+        width_request: int | None = None,
+        xalign: float | None = None,
     ) -> None:
         """
         Initialize Text object with properties.
@@ -62914,16 +63890,6 @@ class Text(Widget):
         which the user usually doesn't want to replace all
         text in, such as search-as-you-type entries.
         """
-    @classmethod
-    def new(cls) -> Text:
-        """
-        Creates a new `GtkText`.
-        """
-    @classmethod
-    def new_with_buffer(cls, buffer: EntryBuffer) -> Text:
-        """
-        Creates a new `GtkText` with the specified buffer.
-        """
     def set_activates_default(self, activates: bool) -> None:
         """
             Sets whether pressing <kbd>Enter</kbd> will activate
@@ -63030,6 +63996,27 @@ class Text(Widget):
             Unsets the invisible char.
 
         After calling this, the default invisible char is used again.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_buffer(
+        cls,
+        buffer: EntryBuffer,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_buffer(buffer:Gtk.EntryBuffer) -> Gtk.Widget
         """
 
     # Signals
@@ -63389,7 +64376,7 @@ class TextBuffer(GObject.Object):
 
     # gi Methods
     def __init__(
-        self, tag_table: TextTagTable | None = None, text: str | None = None, enable_undo: bool | None = None
+        self, enable_undo: bool | None = None, tag_table: TextTagTable | None = None, text: str | None = None
     ) -> None:
         """
         Initialize TextBuffer object with properties.
@@ -63508,28 +64495,6 @@ class TextBuffer(GObject.Object):
 
         The new anchor is owned by the buffer; no reference count is
         returned to the caller of this function.
-        """
-    def create_mark(self, mark_name: str | None, where: TextIter, left_gravity: bool) -> TextMark:
-        """
-            Creates a mark at position `where`.
-
-        If `mark_name` is None, the mark is anonymous; otherwise, the mark
-        can be retrieved by name using [method`Gtk`.TextBuffer.get_mark].
-        If a mark has left gravity, and text is inserted at the mark’s
-        current location, the mark will be moved to the left of the
-        newly-inserted text. If the mark has right gravity
-        (`left_gravity` = False), the mark will end up on the right of
-        newly-inserted text. The standard left-to-right cursor is a mark
-        with right gravity (when you type, the cursor stays on the right
-        side of the text you’re typing).
-
-        The caller of this function does not own a
-        reference to the returned `GtkTextMark`, so you can ignore the
-        return value if you like. Marks are owned by the buffer and go
-        away when the buffer does.
-
-        Emits the [signal`Gtk`.TextBuffer::mark-set] signal as notification
-        of the mark's initial placement.
         """
     def cut_clipboard(self, clipboard: Gdk.Clipboard, default_editable: bool) -> None:
         """
@@ -63756,16 +64721,6 @@ class TextBuffer(GObject.Object):
         function for handling the selection, if you just want to know whether
         there’s a selection and what its bounds are.
         """
-    def get_selection_bounds(self) -> tuple[bool, TextIter, TextIter]:
-        """
-            Returns True if some text is selected; places the bounds
-        of the selection in `start` and `end`.
-
-        If the selection has length 0, then `start` and `end` are filled
-        in with the same value. `start` and `end` will be in ascending order.
-        If `start` and `end` are None, then they are not filled in, but the
-        return value still indicates whether text is selected.
-        """
     def get_selection_content(self) -> Gdk.ContentProvider:
         """
             Get a content provider for this buffer.
@@ -63808,24 +64763,6 @@ class TextBuffer(GObject.Object):
         byte and character indexes into the returned string do not
         correspond to byte and character indexes into the buffer.
         Contrast with [method`Gtk`.TextBuffer.get_slice].
-        """
-    def insert(self, iter: TextIter, text: str, len: int) -> None:
-        """
-            Inserts `len` bytes of `text` at position `iter`.
-
-        If `len` is -1, `text` must be nul-terminated and will be inserted in its
-        entirety. Emits the “insert-text” signal; insertion actually occurs
-        in the default handler for the signal. `iter` is invalidated when
-        insertion occurs (because the buffer contents change), but the
-        default signal handler revalidates it to point to the end of the
-        inserted text.
-        """
-    def insert_at_cursor(self, text: str, len: int) -> None:
-        """
-            Inserts `text` in `buffer`.
-
-        Simply calls [method`Gtk`.TextBuffer.insert],
-        using the current cursor position as the insertion point.
         """
     def insert_child_anchor(self, iter: TextIter, anchor: TextChildAnchor) -> None:
         """
@@ -64045,22 +64982,23 @@ class TextBuffer(GObject.Object):
         bit flips, the buffer emits the
         [signal`Gtk`.TextBuffer::modified-changed] signal.
         """
-    def set_text(self, text: str, len: int) -> None:
-        """
-            Deletes current contents of `buffer`, and inserts `text` instead. This is
-        automatically marked as an irreversible action in the undo stack. If you
-        wish to mark this action as part of a larger undo operation, call
-        [method`TextBuffer`.delete] and [method`TextBuffer`.insert] directly instead.
-
-        If `len` is -1, `text` must be nul-terminated.
-        `text` must be valid UTF-8.
-        """
     def undo(self) -> None:
         """
         Undoes the last undoable action on the buffer, if there is one.
         """
 
     # python methods (overrides?)
+    def create_mark(
+        self,
+        mark_name: typing.Any,
+        where: typing.Any,
+        left_gravity: typing.Any = False,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        create_mark(self, mark_name:str=None, where:Gtk.TextIter, left_gravity:bool) -> Gtk.TextMark
+        """
     def create_tag(
         self,
         tag_name: typing.Any = None,
@@ -64089,6 +65027,35 @@ class TextBuffer(GObject.Object):
         :returns:
             A new tag.
         """
+    def get_selection_bounds(
+        self,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_selection_bounds(self) -> bool, start:Gtk.TextIter, end:Gtk.TextIter
+        """
+    def insert(
+        self,
+        iter: typing.Any,
+        text: typing.Any,
+        length: typing.Any = -1,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert(self, iter:Gtk.TextIter, text:str, len:int)
+        """
+    def insert_at_cursor(
+        self,
+        text: typing.Any,
+        length: typing.Any = -1,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert_at_cursor(self, text:str, len:int)
+        """
     def insert_with_tags(
         self,
         iter: typing.Any,
@@ -64101,6 +65068,16 @@ class TextBuffer(GObject.Object):
         text: typing.Any,
         *tags: typing.Any,
     ) -> typing.Any: ...
+    def set_text(
+        self,
+        text: typing.Any,
+        length: typing.Any = -1,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_text(self, text:str, len:int)
+        """
 
     # Signals
     @typing.overload
@@ -64519,23 +65496,26 @@ class TextChildAnchor(GObject.Object):
 
         The order in which the widgets are returned is not defined.
         """
-    @classmethod
-    def new(cls) -> TextChildAnchor:
-        """
-            Creates a new `GtkTextChildAnchor`.
 
-        Usually you would then insert it into a `GtkTextBuffer` with
-        [method`Gtk`.TextBuffer.insert_child_anchor]. To perform the
-        creation and insertion in one step, use the convenience
-        function [method`Gtk`.TextBuffer.create_child_anchor].
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> TextChildAnchor:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.TextChildAnchor
         """
     @classmethod
-    def new_with_replacement(cls, character: str) -> TextChildAnchor:
+    def new_with_replacement(
+        cls,
+        character: str,
+    ) -> TextChildAnchor:
         """
-            Creates a new `GtkTextChildAnchor` with the given replacement character.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        Usually you would then insert it into a `GtkTextBuffer` with
-        [method`Gtk`.TextBuffer.insert_child_anchor].
+        new_with_replacement(character:str) -> Gtk.TextChildAnchor
         """
 
 class TextChildAnchorClass(GObject.GPointer):
@@ -64662,15 +65642,6 @@ class TextIter(GObject.GBoxed):
         moved onto the end iterator, then False is returned. If `count` is 0,
         the function does nothing and returns False. If `count` is negative,
         moves forward by 0 - `count` lines.
-        """
-    def backward_search(
-        self, str: str, flags: TextSearchFlags, limit: TextIter | None = None
-    ) -> tuple[bool, TextIter, TextIter]:
-        """
-            Same as [method`Gtk`.TextIter.forward_search], but moves backward.
-
-        `match_end` will never be set to a `GtkTextIter` located after `iter`,
-        even if there is a possible `match_start` before or at `iter`.
         """
     def backward_sentence_start(self) -> bool:
         """
@@ -64938,21 +65909,6 @@ class TextIter(GObject.GBoxed):
         moved onto the end iterator, then False is returned. If `count` is 0,
         the function does nothing and returns False. If `count` is negative,
         moves backward by 0 - `count` lines.
-        """
-    def forward_search(
-        self, str: str, flags: TextSearchFlags, limit: TextIter | None = None
-    ) -> tuple[bool, TextIter, TextIter]:
-        """
-            Searches forward for `str`.
-
-        Any match is returned by setting `match_start` to the first character
-        of the match and `match_end` to the first character after the match.
-        The search will not continue past `limit`. Note that a search is a
-        linear or O(n) operation, so you may wish to use `limit` to avoid
-        locking up your UI on large buffers.
-
-        `match_start` will never be set to a `GtkTextIter` located before `iter`,
-        even if there is a possible `match_end` after or at `iter`.
         """
     def forward_sentence_end(self) -> bool:
         """
@@ -65393,6 +66349,30 @@ class TextIter(GObject.GBoxed):
         `Gtk.TextIter.ends_tag`)
         """
 
+    # python methods (overrides?)
+    def backward_search(
+        self,
+        str: str,
+        flags: TextSearchFlags,
+        limit: TextIter | None = None,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        backward_search(self, str:str, flags:Gtk.TextSearchFlags, limit:Gtk.TextIter=None) -> bool, match_start:Gtk.TextIter, match_end:Gtk.TextIter
+        """
+    def forward_search(
+        self,
+        str: str,
+        flags: TextSearchFlags,
+        limit: TextIter | None = None,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        forward_search(self, str:str, flags:Gtk.TextSearchFlags, limit:Gtk.TextIter=None) -> bool, match_start:Gtk.TextIter, match_end:Gtk.TextIter
+        """
+
 class TextMark(GObject.Object):
     """
     Marks a position in a `GtkTextbuffer` that is preserved
@@ -65454,7 +66434,7 @@ class TextMark(GObject.Object):
     def segment(self) -> object | None: ...
 
     # gi Methods
-    def __init__(self, name: str | None = None, left_gravity: bool | None = None) -> None:
+    def __init__(self, left_gravity: bool | None = None, name: str | None = None) -> None:
         """
         Initialize TextMark object with properties.
         """
@@ -65489,21 +66469,6 @@ class TextMark(GObject.Object):
 
         A cursor is displayed for visible marks.
         """
-    @classmethod
-    def new(cls, name: str | None, left_gravity: bool) -> TextMark:
-        """
-            Creates a text mark.
-
-        Add it to a buffer using [method`Gtk`.TextBuffer.add_mark].
-        If `name` is None, the mark is anonymous; otherwise, the mark can be
-        retrieved by name using [method`Gtk`.TextBuffer.get_mark]. If a mark
-        has left gravity, and text is inserted at the mark’s current location,
-        the mark will be moved to the left of the newly-inserted text. If the
-        mark has right gravity (`left_gravity` = False), the mark will end up
-        on the right of newly-inserted text. The standard left-to-right cursor
-        is a mark with right gravity (when you type, the cursor stays on the
-        right side of the text you’re typing).
-        """
     def set_visible(self, setting: bool) -> None:
         """
             Sets the visibility of `mark`.
@@ -65514,6 +66479,19 @@ class TextMark(GObject.Object):
         Most other marks are not visible.
 
         Marks are not visible by default.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        name: str | None,
+        left_gravity: bool,
+    ) -> TextMark:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None, left_gravity:bool) -> Gtk.TextMark
         """
 
     # Signals
@@ -65984,95 +66962,95 @@ class TextTag(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
+        accumulative_margin: bool | None = None,
+        allow_breaks: bool | None = None,
+        allow_breaks_set: bool | None = None,
         background: str | None = None,
-        foreground: str | None = None,
+        background_full_height: bool | None = None,
+        background_full_height_set: bool | None = None,
         background_rgba: Gdk.RGBA | None = None,
-        foreground_rgba: Gdk.RGBA | None = None,
+        background_set: bool | None = None,
+        direction: TextDirection | None = TextDirection.NONE,
+        editable: bool | None = None,
+        editable_set: bool | None = None,
+        fallback: bool | None = None,
+        fallback_set: bool | None = None,
+        family: str | None = None,
+        family_set: bool | None = None,
         font: str | None = None,
         font_desc: Pango.FontDescription | None = None,
-        family: str | None = None,
-        style: Pango.Style | None = Pango.Style.NORMAL,
-        variant: Pango.Variant | None = Pango.Variant.NORMAL,
-        weight: int | None = None,
-        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
-        size: int | None = None,
-        size_points: float | None = None,
-        scale: float | None = None,
-        pixels_above_lines: int | None = None,
-        pixels_below_lines: int | None = None,
-        pixels_inside_wrap: int | None = None,
-        line_height: float | None = None,
-        editable: bool | None = None,
-        wrap_mode: WrapMode | None = WrapMode.NONE,
-        justification: Justification | None = Justification.LEFT,
-        direction: TextDirection | None = TextDirection.NONE,
-        left_margin: int | None = None,
+        font_features: str | None = None,
+        font_features_set: bool | None = None,
+        foreground: str | None = None,
+        foreground_rgba: Gdk.RGBA | None = None,
+        foreground_set: bool | None = None,
         indent: int | None = None,
-        strikethrough: bool | None = None,
-        strikethrough_rgba: Gdk.RGBA | None = None,
-        right_margin: int | None = None,
-        underline: Pango.Underline | None = Pango.Underline.NONE,
-        underline_rgba: Gdk.RGBA | None = None,
+        indent_set: bool | None = None,
+        insert_hyphens: bool | None = None,
+        insert_hyphens_set: bool | None = None,
+        invisible: bool | None = None,
+        invisible_set: bool | None = None,
+        justification: Justification | None = Justification.LEFT,
+        justification_set: bool | None = None,
+        language: str | None = None,
+        language_set: bool | None = None,
+        left_margin: int | None = None,
+        left_margin_set: bool | None = None,
+        letter_spacing: int | None = None,
+        letter_spacing_set: bool | None = None,
+        line_height: float | None = None,
+        line_height_set: bool | None = None,
+        name: str | None = None,
         overline: Pango.Overline | None = Pango.Overline.NONE,
         overline_rgba: Gdk.RGBA | None = None,
-        rise: int | None = None,
-        background_full_height: bool | None = None,
-        language: str | None = None,
-        tabs: Pango.TabArray | None = None,
-        invisible: bool | None = None,
+        overline_rgba_set: bool | None = None,
+        overline_set: bool | None = None,
         paragraph_background: str | None = None,
         paragraph_background_rgba: Gdk.RGBA | None = None,
-        fallback: bool | None = None,
-        letter_spacing: int | None = None,
-        font_features: str | None = None,
-        allow_breaks: bool | None = None,
-        show_spaces: Pango.ShowFlags | None = Pango.ShowFlags.NONE,
-        insert_hyphens: bool | None = None,
-        text_transform: Pango.TextTransform | None = Pango.TextTransform.NONE,
-        word: bool | None = None,
-        sentence: bool | None = None,
-        accumulative_margin: bool | None = None,
-        background_set: bool | None = None,
-        foreground_set: bool | None = None,
-        family_set: bool | None = None,
-        style_set: bool | None = None,
-        variant_set: bool | None = None,
-        weight_set: bool | None = None,
-        stretch_set: bool | None = None,
-        size_set: bool | None = None,
-        scale_set: bool | None = None,
-        pixels_above_lines_set: bool | None = None,
-        pixels_below_lines_set: bool | None = None,
-        pixels_inside_wrap_set: bool | None = None,
-        line_height_set: bool | None = None,
-        editable_set: bool | None = None,
-        wrap_mode_set: bool | None = None,
-        justification_set: bool | None = None,
-        left_margin_set: bool | None = None,
-        indent_set: bool | None = None,
-        strikethrough_set: bool | None = None,
-        strikethrough_rgba_set: bool | None = None,
-        right_margin_set: bool | None = None,
-        underline_set: bool | None = None,
-        underline_rgba_set: bool | None = None,
-        overline_set: bool | None = None,
-        overline_rgba_set: bool | None = None,
-        rise_set: bool | None = None,
-        background_full_height_set: bool | None = None,
-        language_set: bool | None = None,
-        tabs_set: bool | None = None,
-        invisible_set: bool | None = None,
         paragraph_background_set: bool | None = None,
-        fallback_set: bool | None = None,
-        letter_spacing_set: bool | None = None,
-        font_features_set: bool | None = None,
-        allow_breaks_set: bool | None = None,
-        show_spaces_set: bool | None = None,
-        insert_hyphens_set: bool | None = None,
-        text_transform_set: bool | None = None,
+        pixels_above_lines: int | None = None,
+        pixels_above_lines_set: bool | None = None,
+        pixels_below_lines: int | None = None,
+        pixels_below_lines_set: bool | None = None,
+        pixels_inside_wrap: int | None = None,
+        pixels_inside_wrap_set: bool | None = None,
+        right_margin: int | None = None,
+        right_margin_set: bool | None = None,
+        rise: int | None = None,
+        rise_set: bool | None = None,
+        scale: float | None = None,
+        scale_set: bool | None = None,
+        sentence: bool | None = None,
         sentence_set: bool | None = None,
+        show_spaces: Pango.ShowFlags | None = Pango.ShowFlags.NONE,
+        show_spaces_set: bool | None = None,
+        size: int | None = None,
+        size_points: float | None = None,
+        size_set: bool | None = None,
+        stretch: Pango.Stretch | None = Pango.Stretch.NORMAL,
+        stretch_set: bool | None = None,
+        strikethrough: bool | None = None,
+        strikethrough_rgba: Gdk.RGBA | None = None,
+        strikethrough_rgba_set: bool | None = None,
+        strikethrough_set: bool | None = None,
+        style: Pango.Style | None = Pango.Style.NORMAL,
+        style_set: bool | None = None,
+        tabs: Pango.TabArray | None = None,
+        tabs_set: bool | None = None,
+        text_transform: Pango.TextTransform | None = Pango.TextTransform.NONE,
+        text_transform_set: bool | None = None,
+        underline: Pango.Underline | None = Pango.Underline.NONE,
+        underline_rgba: Gdk.RGBA | None = None,
+        underline_rgba_set: bool | None = None,
+        underline_set: bool | None = None,
+        variant: Pango.Variant | None = Pango.Variant.NORMAL,
+        variant_set: bool | None = None,
+        weight: int | None = None,
+        weight_set: bool | None = None,
+        word: bool | None = None,
         word_set: bool | None = None,
+        wrap_mode: WrapMode | None = WrapMode.NONE,
+        wrap_mode_set: bool | None = None,
     ) -> None:
         """
         Initialize TextTag object with properties.
@@ -66088,11 +67066,6 @@ class TextTag(GObject.Object):
     def get_priority(self) -> int:
         """
         Get the tag priority.
-        """
-    @classmethod
-    def new(cls, name: str | None = None) -> TextTag:
-        """
-        Creates a `GtkTextTag`.
         """
     def set_priority(self, priority: int) -> None:
         """
@@ -66110,6 +67083,18 @@ class TextTag(GObject.Object):
         precedence of a set of tags is the order in which they were added
         to the table, or created with [method`Gtk`.TextBuffer.create_tag],
         which adds the tag to the buffer’s table automatically.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        name: str | None = None,
+    ) -> TextTag:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None) -> Gtk.TextTag
         """
 
     # Signals
@@ -66804,13 +67789,6 @@ class TextTagTable(GObject.Object):
         """
         Look up a named tag.
         """
-    @classmethod
-    def new(cls) -> TextTagTable:
-        """
-            Creates a new `GtkTextTagTable`.
-
-        The table contains no tags by default.
-        """
     def remove(self, tag: TextTag) -> None:
         """
             Remove a tag from the table.
@@ -66819,6 +67797,17 @@ class TextTagTable(GObject.Object):
         removed from the buffer. The table’s reference to the tag is
         removed, so the tag will end up destroyed if you don’t have
         a reference to it.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> TextTagTable:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.TextTagTable
         """
 
     # Signals
@@ -67076,62 +68065,62 @@ class TextView(Widget):
     # gi Methods
     def __init__(
         self,
+        accepts_tab: bool | None = None,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        hadjustment: Adjustment | None = None,
-        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        vadjustment: Adjustment | None = None,
-        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        bottom_margin: int | None = None,
+        buffer: TextBuffer | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        cursor_visible: bool | None = None,
+        editable: bool | None = None,
+        extra_menu: Gio.MenuModel | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
+        hadjustment: Adjustment | None = None,
+        halign: Align | None = Align.FILL,
         has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        im_module: str | None = None,
+        indent: int | None = None,
+        input_hints: InputHints | None = InputHints.NONE,
+        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
+        justification: Justification | None = Justification.LEFT,
+        layout_manager: LayoutManager | None = None,
+        left_margin: int | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        monospace: bool | None = None,
+        name: str | None = None,
         opacity: float | None = None,
         overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
+        overwrite: bool | None = None,
         pixels_above_lines: int | None = None,
         pixels_below_lines: int | None = None,
         pixels_inside_wrap: int | None = None,
-        editable: bool | None = None,
-        wrap_mode: WrapMode | None = WrapMode.NONE,
-        justification: Justification | None = Justification.LEFT,
-        left_margin: int | None = None,
+        receives_default: bool | None = None,
         right_margin: int | None = None,
-        top_margin: int | None = None,
-        bottom_margin: int | None = None,
-        indent: int | None = None,
+        sensitive: bool | None = None,
         tabs: Pango.TabArray | None = None,
-        cursor_visible: bool | None = None,
-        buffer: TextBuffer | None = None,
-        overwrite: bool | None = None,
-        accepts_tab: bool | None = None,
-        im_module: str | None = None,
-        input_purpose: InputPurpose | None = InputPurpose.FREE_FORM,
-        input_hints: InputHints | None = InputHints.NONE,
-        monospace: bool | None = None,
-        extra_menu: Gio.MenuModel | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        top_margin: int | None = None,
+        vadjustment: Adjustment | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        width_request: int | None = None,
+        wrap_mode: WrapMode | None = WrapMode.NONE,
     ) -> None:
         """
         Initialize TextView object with properties.
@@ -67507,26 +68496,6 @@ class TextView(Widget):
         of the current run, and there may be jumps when the cursor
         is moved off of the end of a run.
         """
-    @classmethod
-    def new(cls) -> TextView:
-        """
-            Creates a new `GtkTextView`.
-
-        If you don’t call [method`Gtk`.TextView.set_buffer] before using the
-        text view, an empty default buffer will be created for you. Get the
-        buffer with [method`Gtk`.TextView.get_buffer]. If you want to specify
-        your own buffer, consider [ctor`Gtk`.TextView.new_with_buffer].
-        """
-    @classmethod
-    def new_with_buffer(cls, buffer: TextBuffer) -> TextView:
-        """
-            Creates a new `GtkTextView` widget displaying the buffer `buffer`.
-
-        One buffer can be shared among many widgets. `buffer` may be None
-        to create a default buffer, in which case this function is equivalent
-        to [ctor`Gtk`.TextView.new]. The text view adds its own reference count
-        to the buffer; it does not take over an existing reference.
-        """
     def place_cursor_onscreen(self) -> bool:
         """
             Moves the cursor to the currently visible region of the
@@ -67836,6 +68805,25 @@ class TextView(Widget):
     ) -> None:
         """
         toggle_overwrite(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_buffer(
+        cls,
+        buffer: TextBuffer,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_buffer(buffer:Gtk.TextBuffer) -> Gtk.Widget
         """
 
     # Signals
@@ -68424,44 +69412,44 @@ class ToggleButton(Button):
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
         action_name: str | None = None,
         action_target: GLib.Variant | None = None,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        active: bool | None = None,
         can_focus: bool | None = None,
+        can_shrink: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        group: ToggleButton | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        icon_name: str | None = None,
+        label: str | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        label: str | None = None,
-        has_frame: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_underline: bool | None = None,
-        icon_name: str | None = None,
-        child: Widget | None = None,
-        can_shrink: bool | None = None,
-        active: bool | None = None,
-        group: ToggleButton | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize ToggleButton object with properties.
@@ -68473,26 +69461,6 @@ class ToggleButton(Button):
 
         Returns True if the toggle button is pressed in and False
         if it is raised.
-        """
-    @classmethod
-    def new(cls) -> ToggleButton:
-        """
-            Creates a new toggle button.
-
-        A widget should be packed into the button, as in [ctor`Gtk`.Button.new].
-        """
-    @classmethod
-    def new_with_label(cls, label: str) -> ToggleButton:
-        """
-        Creates a new toggle button with a text label.
-        """
-    @classmethod
-    def new_with_mnemonic(cls, label: str) -> ToggleButton:
-        """
-            Creates a new `GtkToggleButton` containing a label.
-
-        The label will be created using [ctor`Gtk`.Label.new_with_mnemonic],
-        so underscores in `label` indicate the mnemonic for the button.
         """
     def set_active(self, is_active: bool) -> None:
         """
@@ -68530,6 +69498,35 @@ class ToggleButton(Button):
     ) -> None:
         """
         toggled(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_label(
+        cls,
+        label: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_label(label:str) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_mnemonic(
+        cls,
+        label: str,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_mnemonic(label:str) -> Gtk.Widget
         """
 
     # Signals
@@ -68656,7 +69653,7 @@ class Tooltip(GObject.Object):
         `Gtk.TreeView.set_tooltip_cell`.
         """
 
-class TreeDragDest(object):
+class TreeDragDest(builtins.object):
     """
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
@@ -68709,7 +69706,7 @@ class TreeDragDestIface(GObject.GPointer):
         the given dest_path, at the same depth as dest_path.
         """
 
-class TreeDragSource(object):
+class TreeDragSource(builtins.object):
     """
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
@@ -68889,41 +69886,41 @@ class TreeExpander(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        child: Widget | None = None,
         hide_expander: bool | None = None,
         indent_for_depth: bool | None = None,
         indent_for_icon: bool | None = None,
+        layout_manager: LayoutManager | None = None,
+        limit_events: bool | None = None,
         list_row: TreeListRow | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize TreeExpander object with properties.
@@ -68964,11 +69961,6 @@ class TreeExpander(Widget):
         """
         Gets the list row managed by `self`.
         """
-    @classmethod
-    def new(cls) -> TreeExpander:
-        """
-        Creates a new `GtkTreeExpander`
-        """
     def set_child(self, child: Widget | None = None) -> None:
         """
         Sets the content widget to display.
@@ -68988,6 +69980,17 @@ class TreeExpander(Widget):
     def set_list_row(self, list_row: TreeListRow | None = None) -> None:
         """
         Sets the tree list row that this expander should manage.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -69190,19 +70193,6 @@ class TreeListModel(GObject.Object):
 
         Do not confuse this function with [method`Gtk`.TreeListModel.get_child_row].
         """
-    @classmethod
-    def new(
-        cls,
-        root: Gio.ListModel,
-        passthrough: bool,
-        autoexpand: bool,
-        create_func: TreeListModelCreateModelFunc | typing.Callable[..., Gio.ListModel],
-        *user_data: object | None,
-    ) -> TreeListModel:
-        """
-            Creates a new empty `GtkTreeListModel` displaying `root`
-        with all rows collapsed.
-        """
     def set_autoexpand(self, autoexpand: bool) -> None:
         """
             Sets whether the model should autoexpand.
@@ -69210,6 +70200,22 @@ class TreeListModel(GObject.Object):
         If set to True, the model will recursively expand all rows that
         get added to the model. This can be either rows added by changes
         to the underlying models or via [method`Gtk`.TreeListRow.set_expanded].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        root: Gio.ListModel,
+        passthrough: bool,
+        autoexpand: bool,
+        create_func: typing.Callable,
+        user_data: typing.Any = None,
+    ) -> TreeListModel:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(root:Gio.ListModel, passthrough:bool, autoexpand:bool, create_func:Gtk.TreeListModelCreateModelFunc, user_data=None) -> Gtk.TreeListModel
         """
 
     # Signals
@@ -69463,21 +70469,24 @@ class TreeListRowSorter(Sorter):
         """
         Returns the sorter used by `self`.
         """
-    @classmethod
-    def new(cls, sorter: Sorter | None = None) -> TreeListRowSorter:
-        """
-            Create a special-purpose sorter that applies the sorting
-        of `sorter` to the levels of a `GtkTreeListModel`.
-
-        Note that this sorter relies on [property`Gtk`.TreeListModel:passthrough]
-        being False as it can only sort [class`Gtk`.TreeListRow]s.
-        """
     def set_sorter(self, sorter: Sorter | None = None) -> None:
         """
             Sets the sorter to use for items with the same parent.
 
         This sorter will be passed the [property`Gtk`.TreeListRow:item] of
         the tree list rows passed to `self`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        sorter: Sorter | None = None,
+    ) -> TreeListRowSorter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(sorter:Gtk.Sorter=None) -> Gtk.TreeListRowSorter
         """
 
     # Signals
@@ -69498,7 +70507,7 @@ class TreeListRowSorterClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> SorterClass | None: ...
 
-class TreeModel(object):
+class TreeModel(builtins.object):
     """
     The tree interface used by GtkTreeView
 
@@ -69737,30 +70746,6 @@ class TreeModel(object):
         of the `tree_model`.
         """
     @deprecated("deprecated")
-    def get_iter(self, path: TreePath) -> tuple[bool, TreeIter]:
-        """
-            Sets `iter` to a valid iterator pointing to `path`.
-
-        If `path` does not exist, `iter` is set to an invalid
-        iterator and False is returned.
-        """
-    @deprecated("deprecated")
-    def get_iter_first(self) -> tuple[bool, TreeIter]:
-        """
-            Initializes `iter` with the first iterator in the tree
-        (the one at the path "0").
-
-        Returns False if the tree is empty, True otherwise.
-        """
-    @deprecated("deprecated")
-    def get_iter_from_string(self, path_string: str) -> tuple[bool, TreeIter]:
-        """
-            Sets `iter` to a valid iterator pointing to `path_string`, if it
-        exists.
-
-        Otherwise, `iter` is left invalid and False is returned.
-        """
-    @deprecated("deprecated")
     def get_n_columns(self) -> int:
         """
         Returns the number of columns supported by `tree_model`.
@@ -69790,18 +70775,6 @@ class TreeModel(object):
         to free any allocated memory.
         """
     @deprecated("deprecated")
-    def iter_children(self, parent: TreeIter | None = None) -> tuple[bool, TreeIter]:
-        """
-            Sets `iter` to point to the first child of `parent`.
-
-        If `parent` has no children, False is returned and `iter` is
-        set to be invalid. `parent` will remain a valid node after this
-        function has been called.
-
-        If `parent` is None returns the first node, equivalent to
-        `gtk_tree_model_get_iter_first (tree_model, iter);`
-        """
-    @deprecated("deprecated")
     def iter_has_child(self, iter: TreeIter) -> bool:
         """
         Returns True if `iter` has children, False otherwise.
@@ -69813,46 +70786,6 @@ class TreeModel(object):
 
         As a special case, if `iter` is None, then the number
         of toplevel nodes is returned.
-        """
-    @deprecated("deprecated")
-    def iter_next(self, iter: TreeIter) -> bool:
-        """
-            Sets `iter` to point to the node following it at the current level.
-
-        If there is no next `iter`, False is returned and `iter` is set
-        to be invalid.
-        """
-    @deprecated("deprecated")
-    def iter_nth_child(self, parent: TreeIter | None, n: int) -> tuple[bool, TreeIter]:
-        """
-            Sets `iter` to be the child of `parent`, using the given index.
-
-        The first index is 0. If `n` is too big, or `parent` has no children,
-        `iter` is set to an invalid iterator and False is returned. `parent`
-        will remain a valid node after this function has been called. As a
-        special case, if `parent` is None, then the `n`-th root node
-        is set.
-        """
-    @deprecated("deprecated")
-    def iter_parent(self, child: TreeIter) -> tuple[bool, TreeIter]:
-        """
-            Sets `iter` to be the parent of `child`.
-
-        If `child` is at the toplevel, and doesn’t have a parent, then
-        `iter` is set to an invalid iterator and False is returned.
-        `child` will remain a valid node after this function has been
-        called.
-
-        `iter` will be initialized before the lookup is performed, so `child`
-        and `iter` cannot point to the same memory location.
-        """
-    @deprecated("deprecated")
-    def iter_previous(self, iter: TreeIter) -> bool:
-        """
-            Sets `iter` to point to the previous node at the current level.
-
-        If there is no previous `iter`, False is returned and `iter` is
-        set to be invalid.
         """
     @deprecated("deprecated")
     def ref_node(self, iter: TreeIter) -> None:
@@ -69876,54 +70809,6 @@ class TreeModel(object):
         of its reffed state.
         """
     @deprecated("deprecated")
-    def row_changed(self, path: TreePath, iter: TreeIter) -> None:
-        """
-            Emits the ::row-changed signal on `tree_model`.
-
-        See [signal`Gtk`.TreeModel::row-changed].
-        """
-    @deprecated("deprecated")
-    def row_deleted(self, path: TreePath) -> None:
-        """
-            Emits the ::row-deleted signal on `tree_model`.
-
-        See [signal`Gtk`.TreeModel::row-deleted].
-
-        This should be called by models after a row has been removed.
-        The location pointed to by `path` should be the location that
-        the row previously was at. It may not be a valid location anymore.
-
-        Nodes that are deleted are not unreffed, this means that any
-        outstanding references on the deleted node should not be released.
-        """
-    @deprecated("deprecated")
-    def row_has_child_toggled(self, path: TreePath, iter: TreeIter) -> None:
-        """
-            Emits the ::row-has-child-toggled signal on `tree_model`.
-
-        See [signal`Gtk`.TreeModel::row-has-child-toggled].
-
-        This should be called by models after the child
-        state of a node changes.
-        """
-    @deprecated("deprecated")
-    def row_inserted(self, path: TreePath, iter: TreeIter) -> None:
-        """
-            Emits the ::row-inserted signal on `tree_model`.
-
-        See [signal`Gtk`.TreeModel::row-inserted].
-        """
-    @deprecated("deprecated")
-    def rows_reordered(self, path: TreePath, iter: TreeIter | None, new_order: list, length: int) -> None:
-        """
-            Emits the ::rows-reordered signal on `tree_model`.
-
-        See [signal`Gtk`.TreeModel::rows-reordered].
-
-        This should be called by models when their rows have been
-        reordered.
-        """
-    @deprecated("deprecated")
     def unref_node(self, iter: TreeIter) -> None:
         """
             Lets the tree unref the node.
@@ -69942,6 +70827,128 @@ class TreeModel(object):
         treeiter: typing.Any,
         *columns: typing.Any,
     ) -> typing.Any: ...
+    def get_iter(
+        self,
+        path: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_iter(self, path:Gtk.TreePath) -> bool, iter:Gtk.TreeIter
+        """
+    def get_iter_first(
+        self,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_iter_first(self) -> bool, iter:Gtk.TreeIter
+        """
+    def get_iter_from_string(
+        self,
+        path_string: str,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_iter_from_string(self, path_string:str) -> bool, iter:Gtk.TreeIter
+        """
+    def iter_children(
+        self,
+        parent: TreeIter | None = None,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        iter_children(self, parent:Gtk.TreeIter=None) -> bool, iter:Gtk.TreeIter
+        """
+    def iter_next(
+        self,
+        aiter: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        iter_next(self, iter:Gtk.TreeIter) -> bool
+        """
+    def iter_nth_child(
+        self,
+        parent: TreeIter | None,
+        n: int,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        iter_nth_child(self, parent:Gtk.TreeIter=None, n:int) -> bool, iter:Gtk.TreeIter
+        """
+    def iter_parent(
+        self,
+        child: TreeIter,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        iter_parent(self, child:Gtk.TreeIter) -> bool, iter:Gtk.TreeIter
+        """
+    def iter_previous(
+        self,
+        aiter: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        iter_previous(self, iter:Gtk.TreeIter) -> bool
+        """
+    def row_changed(
+        self,
+        path: typing.Any,
+        iter: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        row_changed(self, path:Gtk.TreePath, iter:Gtk.TreeIter)
+        """
+    def row_deleted(
+        self,
+        path: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        row_deleted(self, path:Gtk.TreePath)
+        """
+    def row_has_child_toggled(
+        self,
+        path: typing.Any,
+        iter: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        row_has_child_toggled(self, path:Gtk.TreePath, iter:Gtk.TreeIter)
+        """
+    def row_inserted(
+        self,
+        path: typing.Any,
+        iter: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        row_inserted(self, path:Gtk.TreePath, iter:Gtk.TreeIter)
+        """
+    def rows_reordered(
+        self,
+        path: typing.Any,
+        iter: typing.Any,
+        new_order: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        rows_reordered(self, path:Gtk.TreePath, iter:Gtk.TreeIter=None, new_order:list)
+        """
     def set_row(
         self,
         treeiter: typing.Any,
@@ -70183,45 +71190,6 @@ class TreeModelFilter(GObject.Object):
         `Gtk.TreeModelFilter.set_visible_column` can only be called
         once for a given filter model.
         """
-    @deprecated("deprecated")
-    def set_visible_func(self, func: TreeModelFilterVisibleFunc, *data: object | None) -> None:
-        """
-            Sets the visible function used when filtering the `filter` to be `func`.
-        The function should return True if the given row should be visible and
-        False otherwise.
-
-        If the condition calculated by the function changes over time (e.g.
-        because it depends on some global parameters), you must call
-        `Gtk.TreeModelFilter.refilter` to keep the visibility information
-        of the model up-to-date.
-
-        Note that `func` is called whenever a row is inserted, when it may still
-        be empty. The visible function should therefore take special care of empty
-        rows, like in the example below.
-
-        ```c
-        static gboolean
-        visible_func (GtkTreeModel *model,
-                      GtkTreeIter  *iter,
-                      gpointer      data)
-        {
-          // Visible if row is non-empty and first column is “HI”
-          char *str;
-          gboolean visible = False;
-
-          gtk_tree_model_get (model, iter, 0, &str, -1);
-          if (str && strcmp (str, "HI") == 0)
-            visible = True;
-          g_free (str);
-
-          return visible;
-        }
-        ```
-
-        Note that `Gtk.TreeModelFilter.set_visible_func` or
-        `Gtk.TreeModelFilter.set_visible_column` can only be called
-        once for a given filter model.
-        """
 
     # python methods (overrides?)
     def set_value(
@@ -70230,6 +71198,16 @@ class TreeModelFilter(GObject.Object):
         column: typing.Any,
         value: typing.Any,
     ) -> typing.Any: ...
+    def set_visible_func(
+        self,
+        func: typing.Any,
+        data: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_visible_func(self, func:Gtk.TreeModelFilterVisibleFunc, data=None)
+        """
 
     # Signals
     @typing.overload
@@ -70375,7 +71353,7 @@ class TreeModelIface(GObject.GPointer):
         Lets the tree unref the node.
         """
 
-class TreeModelRow(object):
+class TreeModelRow(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -70403,7 +71381,7 @@ class TreeModelRow(object):
         self,
     ) -> typing.Any: ...
 
-class TreeModelRowIter(object):
+class TreeModelRowIter(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -70591,11 +71569,6 @@ class TreeModelSort(GObject.Object):
 
         Checks if the given iter is a valid iter for this `GtkTreeModelSort`.
         """
-    @classmethod
-    def new_with_model(cls, child_model: TreeModel) -> TreeModelSort:
-        """
-        Creates a new `GtkTreeModelSort`, with `child_model` as the child model.
-        """
     @deprecated("deprecated")
     def reset_default_sort_func(self) -> None:
         """
@@ -70603,6 +71576,18 @@ class TreeModelSort(GObject.Object):
         is, it is in the same order as the child model. It will re-sort the model
         to be in the same order as the child model only if the `GtkTreeModelSort`
         is in “unsorted” state.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_with_model(
+        cls,
+        child_model: TreeModel,
+    ) -> TreeModelSort:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_model(child_model:Gtk.TreeModel) -> Gtk.TreeModelSort
         """
 
     # Signals
@@ -70814,46 +71799,6 @@ class TreeRowReference(GObject.GBoxed):
         model emitted the ::row-inserted signal.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, model: TreeModel, path: TreePath) -> TreeRowReference | None:
-        """
-            Creates a row reference based on `path`.
-
-        This reference will keep pointing to the node pointed to
-        by `path`, so long as it exists. Any changes that occur on `model` are
-        propagated, and the path is updated appropriately. If
-        `path` isn’t a valid path in `model`, then None is returned.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_proxy(cls, proxy: GObject.Object, model: TreeModel, path: TreePath) -> TreeRowReference | None:
-        """
-            You do not need to use this function.
-
-        Creates a row reference based on `path`.
-
-        This reference will keep pointing to the node pointed to
-        by `path`, so long as it exists. If `path` isn’t a valid
-        path in `model`, then None is returned. However, unlike
-        references created with `Gtk.TreeRowReference.new`, it
-        does not listen to the model for changes. The creator of
-        the row reference must do this explicitly using
-        `Gtk.TreeRowReference.inserted`, `Gtk.TreeRowReference.deleted`,
-        `Gtk.TreeRowReference.reordered`.
-
-        These functions must be called exactly once per proxy when the
-        corresponding signal on the model is emitted. This single call
-        updates all row references for that proxy. Since built-in GTK
-        objects like `GtkTreeView` already use this mechanism internally,
-        using them as the proxy object will produce unpredictable results.
-        Further more, passing the same object as `model` and `proxy`
-        doesn’t work for reasons of internal implementation.
-
-        This type of row reference is primarily meant by structures that
-        need to carefully monitor exactly when a row reference updates
-        itself, and is not generally needed by most applications.
-        """
-    @deprecated("deprecated")
     def valid(self) -> bool:
         """
             Returns True if the `reference` is non-None and refers to
@@ -70866,6 +71811,29 @@ class TreeRowReference(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        model: TreeModel,
+        path: TreePath,
+    ) -> TreeRowReference | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(model:Gtk.TreeModel, path:Gtk.TreePath) -> Gtk.TreeRowReference or None
+        """
+    @classmethod
+    def new_proxy(
+        cls,
+        proxy: GObject.Object,
+        model: TreeModel,
+        path: TreePath,
+    ) -> TreeRowReference | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_proxy(proxy:GObject.Object, model:Gtk.TreeModel, path:Gtk.TreePath) -> Gtk.TreeRowReference or None
+        """
 
 class TreeSelection(GObject.Object):
     """
@@ -70924,29 +71892,6 @@ class TreeSelection(GObject.Object):
         `Gtk.TreeSelection.set_mode`.
         """
     @deprecated("deprecated")
-    def get_selected(self) -> tuple[bool, TreeModel, TreeIter]:
-        """
-            Sets `iter` to the currently selected node if `selection` is set to
-        Gtk.SELECTION_SINGLE or Gtk.SELECTION_BROWSE.  `iter` may be None if you
-        just want to test if `selection` has any selected nodes.  `model` is filled
-        with the current model as a convenience.  This function will not work if you
-        use `selection` is Gtk.SELECTION_MULTIPLE.
-        """
-    @deprecated("deprecated")
-    def get_selected_rows(self) -> tuple[list, TreeModel]:
-        """
-            Creates a list of path of all selected rows. Additionally, if you are
-        planning on modifying the model after calling this function, you may
-        want to convert the returned list into a list of `GtkTreeRowReference`s.
-        To do this, you can use `Gtk.TreeRowReference.new`.
-
-        To free the return value, use:
-
-        ```c
-        g_list_free_full (list, (GDestroyNotify) gtk_tree_path_free);
-        ```
-        """
-    @deprecated("deprecated")
     def get_tree_view(self) -> TreeView:
         """
         Returns the tree view associated with `selection`.
@@ -70972,11 +71917,6 @@ class TreeSelection(GObject.Object):
     def select_iter(self, iter: TreeIter) -> None:
         """
         Selects the specified iterator.
-        """
-    @deprecated("deprecated")
-    def select_path(self, path: TreePath) -> None:
-        """
-        Select the row at `path`.
         """
     @deprecated("deprecated")
     def select_range(self, start_path: TreePath, end_path: TreePath) -> None:
@@ -71030,6 +71970,33 @@ class TreeSelection(GObject.Object):
         inclusive.
         """
 
+    # python methods (overrides?)
+    def get_selected(
+        self,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_selected(self) -> bool, model:Gtk.TreeModel, iter:Gtk.TreeIter
+        """
+    def get_selected_rows(
+        self,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_selected_rows(self) -> list, model:Gtk.TreeModel
+        """
+    def select_path(
+        self,
+        path: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        select_path(self, path:Gtk.TreePath)
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -71053,7 +72020,7 @@ class TreeSelection(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeSortable(object):
+class TreeSortable(builtins.object):
     """
     The interface for sortable models used by GtkTreeView
 
@@ -71073,32 +72040,11 @@ class TreeSortable(object):
         Initialize TreeSortable object with properties.
         """
     @deprecated("deprecated")
-    def get_sort_column_id(self) -> tuple[bool, int, SortType]:
-        """
-            Fills in `sort_column_id` and `order` with the current sort column and the
-        order. It returns True unless the `sort_column_id` is
-        Gtk.TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID or
-        Gtk.TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID.
-        """
-    @deprecated("deprecated")
     def has_default_sort_func(self) -> bool:
         """
             Returns True if the model has a default sort function. This is used
         primarily by GtkTreeViewColumns in order to determine if a model can
         go back to the default state, or not.
-        """
-    @deprecated("deprecated")
-    def set_default_sort_func(self, sort_func: TreeIterCompareFunc, *user_data: object | None) -> None:
-        """
-            Sets the default comparison function used when sorting to be `sort_func`.
-        If the current sort column id of `sortable` is
-        Gtk.TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, then the model will sort using
-        this function.
-
-        If `sort_func` is None, then there will be no default comparison function.
-        This means that once the model  has been sorted, it can’t go back to the
-        default state. In this case, when the current sort column id of `sortable`
-        is Gtk.TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, the model will be unsorted.
         """
     @deprecated("deprecated")
     def set_sort_column_id(self, sort_column_id: int, order: SortType) -> None:
@@ -71114,16 +72060,40 @@ class TreeSortable(object):
         - Gtk.TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: no sorting will occur
         """
     @deprecated("deprecated")
-    def set_sort_func(self, sort_column_id: int, sort_func: TreeIterCompareFunc, *user_data: object | None) -> None:
-        """
-            Sets the comparison function used when sorting to be `sort_func`. If the
-        current sort column id of `sortable` is the same as `sort_column_id`, then
-        the model will sort using this function.
-        """
-    @deprecated("deprecated")
     def sort_column_changed(self) -> None:
         """
         Emits a `GtkTreeSortable::sort-column-changed` signal on `sortable`.
+        """
+
+    # python methods (overrides?)
+    def get_sort_column_id(
+        self,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_sort_column_id(self) -> bool, sort_column_id:int, order:Gtk.SortType
+        """
+    def set_default_sort_func(
+        self,
+        sort_func: typing.Any,
+        user_data: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_default_sort_func(self, sort_func:Gtk.TreeIterCompareFunc, user_data=None)
+        """
+    def set_sort_func(
+        self,
+        sort_column_id: typing.Any,
+        sort_func: typing.Any,
+        user_data: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_sort_func(self, sort_column_id:int, sort_func:Gtk.TreeIterCompareFunc, user_data=None)
         """
 
     # Signals
@@ -71228,70 +72198,9 @@ class TreeStore(GObject.Object):
 
     # gi Methods
     @deprecated("deprecated")
-    def append(self, parent: TreeIter | None = None) -> TreeIter:
-        """
-            Appends a new row to `tree_store`.
-
-        If `parent` is non-None, then it will append the new row after the last
-        child of `parent`, otherwise it will append a row to the top level.
-
-        The `iter` parameter will be changed to point to this new row. The row will
-        be empty after this function is called. To fill in values, you need to call
-        `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
-        """
-    @deprecated("deprecated")
     def clear(self) -> None:
         """
         Removes all rows from `tree_store`
-        """
-    @deprecated("deprecated")
-    def insert(self, parent: TreeIter | None, position: int) -> TreeIter:
-        """
-            Creates a new row at `position`.
-
-        If parent is non-None, then the row will be made a child of `parent`.
-        Otherwise, the row will be created at the toplevel.
-
-        If `position` is `-1` or is larger than the number of rows at that level,
-        then the new row will be inserted to the end of the list.
-
-        The `iter` parameter will be changed to point to this new row. The row
-        will be empty after this function is called. To fill in values, you
-        need to call `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
-        """
-    @deprecated("deprecated")
-    def insert_after(self, parent: TreeIter | None = None, sibling: TreeIter | None = None) -> TreeIter:
-        """
-            Inserts a new row after `sibling`.
-
-        If `sibling` is None, then the row will be prepended to `parent`’s children.
-
-        If `parent` and `sibling` are None, then the row will be prepended to the
-        toplevel.
-
-        If both `sibling` and `parent` are set, then `parent` must be the parent
-        of `sibling`. When `sibling` is set, `parent` is optional.
-
-        The `iter` parameter will be changed to point to this new row. The row will
-        be empty after this function is called. To fill in values, you need to call
-        `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
-        """
-    @deprecated("deprecated")
-    def insert_before(self, parent: TreeIter | None = None, sibling: TreeIter | None = None) -> TreeIter:
-        """
-            Inserts a new row before `sibling`.
-
-        If `sibling` is None, then the row will be appended to `parent`’s children.
-
-        If `parent` and `sibling` are None, then the row will be appended to the
-        toplevel.
-
-        If both `sibling` and `parent` are set, then `parent` must be the parent
-        of `sibling`. When `sibling` is set, `parent` is optional.
-
-        The `iter` parameter will be changed to point to this new row. The row will
-        be empty after this function is called. To fill in values, you need to call
-        `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
         """
     @deprecated("deprecated")
     def insert_with_values(
@@ -71390,43 +72299,12 @@ class TreeStore(GObject.Object):
         `int`, `gchararray`, and `GdkTexture` respectively.
         """
     @deprecated("deprecated")
-    def prepend(self, parent: TreeIter | None = None) -> TreeIter:
-        """
-            Prepends a new row to `tree_store`.
-
-        If `parent` is non-None, then it will prepend the new row before the first
-        child of `parent`, otherwise it will prepend a row to the top level. The
-        `iter` parameter will be changed to point to this new row.  The row will
-        be empty after this function is called. To fill in values, you need to
-        call `Gtk.TreeStore.set` or `Gtk.TreeStore.set_value`.
-        """
-    @deprecated("deprecated")
     def remove(self, iter: TreeIter) -> bool:
         """
             Removes `iter` from `tree_store`.
 
         After being removed, `iter` is set to the next valid row at that level, or
         invalidated if it previously pointed to the last one.
-        """
-    @deprecated("deprecated")
-    def set(self, iter: TreeIter, columns: list, values: list, n_values: int) -> None:
-        """
-            Sets the value of one or more cells in the row referenced by `iter`.
-
-        The variable argument list should contain integer column numbers,
-        each column number followed by the value to be set.
-
-        The list is terminated by a value of `-1`.
-
-        For example, to set column 0 with type `G_TYPE_STRING` to “Foo”, you would
-        write
-
-        ```c
-        gtk_tree_store_set (store, iter, 0, "Foo", -1);
-        ```
-
-        The value will be referenced by the store if it is a `G_TYPE_OBJECT`, and it
-        will be copied if it is a `G_TYPE_STRING` or `G_TYPE_BOXED`.
         """
     @deprecated("deprecated")
     def set_column_types(self, n_columns: int, types: list) -> None:
@@ -71440,14 +72318,6 @@ class TreeStore(GObject.Object):
         This functions cannot be called after a row has been added,
         or a method on the `GtkTreeModel` interface is called on the
         tree store.
-        """
-    @deprecated("deprecated")
-    def set_value(self, iter: TreeIter, column: int, value: GObject.Value) -> None:
-        """
-            Sets the data in the cell specified by `iter` and `column`.
-
-        The type of `value` must be convertible to the type of the
-        column.
         """
     @deprecated("deprecated")
     def swap(self, a: TreeIter, b: TreeIter) -> None:
@@ -71464,6 +72334,80 @@ class TreeStore(GObject.Object):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    def append(
+        self,
+        parent: typing.Any,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        append(self, parent:Gtk.TreeIter=None) -> iter:Gtk.TreeIter
+        """
+    def insert(
+        self,
+        parent: typing.Any,
+        position: typing.Any,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert(self, parent:Gtk.TreeIter=None, position:int) -> iter:Gtk.TreeIter
+        """
+    def insert_after(
+        self,
+        parent: typing.Any,
+        sibling: typing.Any,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert_after(self, parent:Gtk.TreeIter=None, sibling:Gtk.TreeIter=None) -> iter:Gtk.TreeIter
+        """
+    def insert_before(
+        self,
+        parent: typing.Any,
+        sibling: typing.Any,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert_before(self, parent:Gtk.TreeIter=None, sibling:Gtk.TreeIter=None) -> iter:Gtk.TreeIter
+        """
+    def prepend(
+        self,
+        parent: typing.Any,
+        row: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        prepend(self, parent:Gtk.TreeIter=None) -> iter:Gtk.TreeIter
+        """
+    def set(
+        self,
+        treeiter: typing.Any,
+        *args: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set(self, iter:Gtk.TreeIter, columns:list, values:list)
+        """
+    def set_value(
+        self,
+        treeiter: typing.Any,
+        column: typing.Any,
+        value: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_value(self, iter:Gtk.TreeIter, column:int, value:GObject.Value)
         """
 
 class TreeStoreClass(GObject.GPointer):
@@ -71634,57 +72578,57 @@ class TreeView(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        hadjustment: Adjustment | None = None,
-        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        vadjustment: Adjustment | None = None,
-        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        activate_on_single_click: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        enable_grid_lines: TreeViewGridLines | None = TreeViewGridLines.NONE,
+        enable_search: bool | None = None,
+        enable_tree_lines: bool | None = None,
+        expander_column: TreeViewColumn | None = None,
+        fixed_height_mode: bool | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
+        hadjustment: Adjustment | None = None,
+        halign: Align | None = Align.FILL,
         has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
+        headers_clickable: bool | None = None,
+        headers_visible: bool | None = None,
+        height_request: int | None = None,
+        hexpand: bool | None = None,
+        hexpand_set: bool | None = None,
+        hover_expand: bool | None = None,
+        hover_selection: bool | None = None,
+        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        layout_manager: LayoutManager | None = None,
+        level_indentation: int | None = None,
+        limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        model: TreeModel | None = None,
+        name: str | None = None,
         opacity: float | None = None,
         overflow: Overflow | None = Overflow.VISIBLE,
-        halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
-        hexpand: bool | None = None,
-        vexpand: bool | None = None,
-        hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
-        layout_manager: LayoutManager | None = None,
-        limit_events: bool | None = None,
-        model: TreeModel | None = None,
-        headers_visible: bool | None = None,
-        headers_clickable: bool | None = None,
-        expander_column: TreeViewColumn | None = None,
+        receives_default: bool | None = None,
         reorderable: bool | None = None,
-        enable_search: bool | None = None,
-        search_column: int | None = None,
-        fixed_height_mode: bool | None = None,
-        hover_selection: bool | None = None,
-        hover_expand: bool | None = None,
-        show_expanders: bool | None = None,
-        level_indentation: int | None = None,
         rubber_banding: bool | None = None,
-        enable_grid_lines: TreeViewGridLines | None = TreeViewGridLines.NONE,
-        enable_tree_lines: bool | None = None,
+        search_column: int | None = None,
+        sensitive: bool | None = None,
+        show_expanders: bool | None = None,
         tooltip_column: int | None = None,
-        activate_on_single_click: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        vadjustment: Adjustment | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize TreeView object with properties.
@@ -71802,19 +72746,6 @@ class TreeView(Widget):
         itself, excluding surrounding borders and the tree expander area.
         """
     @deprecated("deprecated")
-    def get_cell_area(self, path: TreePath | None = None, column: TreeViewColumn | None = None) -> Gdk.Rectangle:
-        """
-            Fills the bounding rectangle in bin_window coordinates for the cell at the
-        row specified by `path` and the column specified by `column`.  If `path` is
-        None, or points to a path not currently displayed, the `y` and `height` fields
-        of the rectangle will be filled with 0. If `column` is None, the `x` and `width`
-        fields will be filled with 0.  The sum of all cell rects does not cover the
-        entire tree; there are extra pixels in between rows, for example. The
-        returned rectangle is equivalent to the `cell_area` passed to
-        `Gtk.CellRenderer.render`.  This function is only valid if `tree_view` is
-        realized.
-        """
-    @deprecated("deprecated")
     def get_column(self, n: int) -> TreeViewColumn | None:
         """
         Gets the `GtkTreeViewColumn` at the given position in the #tree_view.
@@ -71834,14 +72765,6 @@ class TreeView(Widget):
 
         The returned `GtkTreePath` must be freed with `Gtk.TreePath.free` when
         you are done with it.
-        """
-    @deprecated("deprecated")
-    def get_dest_row_at_pos(self, drag_x: int, drag_y: int) -> tuple[bool, TreePath | None, TreeViewDropPosition]:
-        """
-            Determines the destination row for a given position.  `drag_x` and
-        `drag_y` are expected to be in widget coordinates.  This function is only
-        meaningful if `tree_view` is realized.  Therefore this function will always
-        return False if `tree_view` is not realized or does not have a model.
         """
     @deprecated("deprecated")
     def get_drag_dest_row(self) -> tuple[TreePath | None, TreeViewDropPosition]:
@@ -71924,26 +72847,6 @@ class TreeView(Widget):
         Queries the number of columns in the given `tree_view`.
         """
     @deprecated("deprecated")
-    def get_path_at_pos(self, x: int, y: int) -> tuple[bool, TreePath | None, TreeViewColumn | None, int, int]:
-        """
-            Finds the path at the point (`x`, `y`), relative to bin_window coordinates.
-        That is, `x` and `y` are relative to an events coordinates. Widget-relative
-        coordinates must be converted using
-        `Gtk.TreeView.convert_widget_to_bin_window_coords`. It is primarily for
-        things like popup menus. If `path` is non-None, then it will be filled
-        with the `GtkTreePath` at that point.  This path should be freed with
-        `Gtk.TreePath.free`.  If `column` is non-None, then it will be filled
-        with the column at that point.  `cell_x` and `cell_y` return the coordinates
-        relative to the cell background (i.e. the `background_area` passed to
-        `Gtk.CellRenderer.render`).  This function is only meaningful if
-        `tree_view` is realized.  Therefore this function will always return False
-        if `tree_view` is not realized or does not have a model.
-
-        For converting widget coordinates (eg. the ones you get from
-        GtkWidget::query-tooltip), please see
-        `Gtk.TreeView.convert_widget_to_bin_window_coords`.
-        """
-    @deprecated("deprecated")
     @builtins.property
     def get_reorderable(self) -> bool:
         """
@@ -72005,14 +72908,6 @@ class TreeView(Widget):
         `model`, `path` and `iter` which have been provided will be set to point to
         that row and the corresponding model. `x` and `y` will always be converted
         to be relative to `tree_view`’s bin_window if `keyboard_tooltip` is False.
-        """
-    @deprecated("deprecated")
-    def get_visible_range(self) -> tuple[bool, TreePath, TreePath]:
-        """
-            Sets `start_path` and `end_path` to be the first and last visible path.
-        Note that there may be invisible paths in between.
-
-        The paths should be freed with `Gtk.TreePath.free` after use.
         """
     @deprecated("deprecated")
     def get_visible_rect(self) -> Gdk.Rectangle:
@@ -72109,28 +73004,6 @@ class TreeView(Widget):
         Returns True if the node pointed to by `path` is expanded in `tree_view`.
         """
     @deprecated("deprecated")
-    def scroll_to_cell(
-        self, path: TreePath | None, column: TreeViewColumn | None, use_align: bool, row_align: float, col_align: float
-    ) -> None:
-        """
-            Moves the alignments of `tree_view` to the position specified by `column` and
-        `path`.  If `column` is None, then no horizontal scrolling occurs.  Likewise,
-        if `path` is None no vertical scrolling occurs.  At a minimum, one of `column`
-        or `path` need to be non-None.  `row_align` determines where the row is
-        placed, and `col_align` determines where `column` is placed.  Both are expected
-        to be between 0.0 and 1.0. 0.0 means left/top alignment, 1.0 means
-        right/bottom alignment, 0.5 means center.
-
-        If `use_align` is False, then the alignment arguments are ignored, and the
-        tree does the minimum amount of work to scroll the cell onto the screen.
-        This means that the cell will be scrolled to the edge closest to its current
-        position.  If the cell is currently visible on the screen, nothing is done.
-
-        This function only works if the model is set, and `path` is a valid row on the
-        model.  If the model changes before the `tree_view` is realized, the centered
-        path will be modified to reflect this change.
-        """
-    @deprecated("deprecated")
     def scroll_to_point(self, tree_x: int, tree_y: int) -> None:
         """
             Scrolls the tree view such that the top-left corner of the visible
@@ -72159,21 +73032,6 @@ class TreeView(Widget):
         are None, then they indicate an edge.  If `func` is set to be None, then
         `tree_view` reverts to the default behavior of allowing all columns to be
         dropped everywhere.
-        """
-    @deprecated("deprecated")
-    def set_cursor(self, path: TreePath, focus_column: TreeViewColumn | None, start_editing: bool) -> None:
-        """
-            Sets the current keyboard focus to be at `path`, and selects it.  This is
-        useful when you want to focus the user’s attention on a particular row.  If
-        `focus_column` is not None, then focus is given to the column specified by
-        it. Additionally, if `focus_column` is specified, and `start_editing` is
-        True, then editing should be started in the specified cell.
-        This function is often followed by `gtk_widget_grab_focus` (`tree_view`)
-        in order to give keyboard focus to the widget.  Please note that editing
-        can only happen when the widget is realized.
-
-        If `path` is invalid for `model`, the current cursor (if any) will be unset
-        and the function will return without failing.
         """
     @deprecated("deprecated")
     def set_cursor_on_cell(
@@ -72413,6 +73271,44 @@ class TreeView(Widget):
         """
 
     # python methods (overrides?)
+    def get_cell_area(
+        self,
+        path: typing.Any,
+        column: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_cell_area(self, path:Gtk.TreePath=None, column:Gtk.TreeViewColumn=None) -> rect:Gdk.Rectangle
+        """
+    def get_dest_row_at_pos(
+        self,
+        drag_x: int,
+        drag_y: int,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_dest_row_at_pos(self, drag_x:int, drag_y:int) -> bool, path:Gtk.TreePath, pos:Gtk.TreeViewDropPosition
+        """
+    def get_path_at_pos(
+        self,
+        x: int,
+        y: int,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_path_at_pos(self, x:int, y:int) -> bool, path:Gtk.TreePath, column:Gtk.TreeViewColumn, cell_x:int, cell_y:int
+        """
+    def get_visible_range(
+        self,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_visible_range(self) -> bool, start_path:Gtk.TreePath, end_path:Gtk.TreePath
+        """
     def insert_column_with_attributes(
         self,
         position: typing.Any,
@@ -72420,6 +73316,30 @@ class TreeView(Widget):
         cell: typing.Any,
         **kwargs: typing.Any,
     ) -> typing.Any: ...
+    def scroll_to_cell(
+        self,
+        path: typing.Any,
+        column: typing.Any = None,
+        use_align: typing.Any = False,
+        row_align: typing.Any = 0.0,
+        col_align: typing.Any = 0.0,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        scroll_to_cell(self, path:Gtk.TreePath=None, column:Gtk.TreeViewColumn=None, use_align:bool, row_align:float, col_align:float)
+        """
+    def set_cursor(
+        self,
+        path: typing.Any,
+        column: typing.Any = None,
+        start_editing: typing.Any = False,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_cursor(self, path:Gtk.TreePath, focus_column:Gtk.TreeViewColumn=None, start_editing:bool)
+        """
 
     # Signals
     @typing.overload
@@ -72785,14 +73705,6 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         column 2.
         """
     @deprecated("deprecated")
-    def cell_get_position(self, cell_renderer: CellRenderer) -> tuple[bool, int, int]:
-        """
-            Obtains the horizontal position and size of a cell in a column.
-
-        If the  cell is not found in the column, `start_pos` and `width`
-        are not changed and False is returned.
-        """
-    @deprecated("deprecated")
     def cell_get_size(self) -> tuple[int, int, int, int]:
         """
             Obtains the width and height needed to render the column.  This is used
@@ -73005,19 +73917,6 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         for center, 1.0 for right.
         """
     @deprecated("deprecated")
-    def set_cell_data_func(
-        self, cell_renderer: CellRenderer, func: TreeCellDataFunc | None = None, *func_data: object | None
-    ) -> None:
-        """
-            Sets the `GtkTreeCellDataFunc` to use for the column.
-
-        This
-        function is used instead of the standard attributes mapping for
-        setting the column value, and should set the value of `tree_column`'s
-        cell renderer as appropriate.  `func` may be None to remove an
-        older one.
-        """
-    @deprecated("deprecated")
     def set_clickable(self, clickable: bool) -> None:
         """
             Sets the header to be active if `clickable` is True.  When the header is
@@ -73147,11 +74046,31 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def cell_get_position(
+        self,
+        cell_renderer: CellRenderer,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        cell_get_position(self, cell_renderer:Gtk.CellRenderer) -> bool, x_offset:int, width:int
+        """
     def set_attributes(
         self,
         cell_renderer: typing.Any,
         **attributes: typing.Any,
     ) -> typing.Any: ...
+    def set_cell_data_func(
+        self,
+        cell_renderer: typing.Any,
+        func: typing.Any,
+        func_data: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_cell_data_func(self, cell_renderer:Gtk.CellRenderer, func:Gtk.TreeCellDataFunc=None, func_data=None)
+        """
 
     # Signals
     @typing.overload
@@ -73350,14 +74269,21 @@ class UriLauncher(GObject.Object):
             Finishes the [method`Gtk`.UriLauncher.launch] call and
         returns the result.
         """
-    @classmethod
-    def new(cls, uri: str | None = None) -> UriLauncher:
-        """
-        Creates a new `GtkUriLauncher` object.
-        """
     def set_uri(self, uri: str | None = None) -> None:
         """
         Sets the uri that will be opened.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        uri: str | None = None,
+    ) -> UriLauncher:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(uri:str=None) -> Gtk.UriLauncher
         """
 
     # Signals
@@ -73428,41 +74354,41 @@ class Video(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        autoplay: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        file: Gio.File | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        graphics_offload: GraphicsOffloadEnabled | None = GraphicsOffloadEnabled.DISABLED,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        autoplay: bool | None = None,
-        file: Gio.File | None = None,
         loop: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
         media_stream: MediaStream | None = None,
-        graphics_offload: GraphicsOffloadEnabled | None = GraphicsOffloadEnabled.DISABLED,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Video object with properties.
@@ -73494,37 +74420,6 @@ class Video(Widget):
     def get_media_stream(self) -> MediaStream | None:
         """
         Gets the media stream managed by `self` or None if none.
-        """
-    @classmethod
-    def new(cls) -> Video:
-        """
-        Creates a new empty `GtkVideo`.
-        """
-    @classmethod
-    def new_for_file(cls, file: Gio.File | None = None) -> Video:
-        """
-        Creates a `GtkVideo` to play back the given `file`.
-        """
-    @classmethod
-    def new_for_filename(cls, filename: str | None = None) -> Video:
-        """
-            Creates a `GtkVideo` to play back the given `filename`.
-
-        This is a utility function that calls [ctor`Gtk`.Video.new_for_file],
-        See that function for details.
-        """
-    @classmethod
-    def new_for_media_stream(cls, stream: MediaStream | None = None) -> Video:
-        """
-        Creates a `GtkVideo` to play back the given `stream`.
-        """
-    @classmethod
-    def new_for_resource(cls, resource_path: str | None = None) -> Video:
-        """
-            Creates a `GtkVideo` to play back the resource at the
-        given `resource_path`.
-
-        This is a utility function that calls [ctor`Gtk`.Video.new_for_file].
         """
     def set_autoplay(self, autoplay: bool) -> None:
         """
@@ -73567,6 +74462,57 @@ class Video(Widget):
             Makes `self` play the resource at the given `resource_path`.
 
         This is a utility function that calls [method`Gtk`.Video.set_file].
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_file(
+        cls,
+        file: Gio.File | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_file(file:Gio.File=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_filename(
+        cls,
+        filename: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_filename(filename:str=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_media_stream(
+        cls,
+        stream: MediaStream | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_media_stream(stream:Gtk.MediaStream=None) -> Gtk.Widget
+        """
+    @classmethod
+    def new_for_resource(
+        cls,
+        resource_path: str | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_resource(resource_path:str=None) -> Gtk.Widget
         """
 
     # Signals
@@ -73658,42 +74604,42 @@ class Viewport(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        hadjustment: Adjustment | None = None,
-        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        vadjustment: Adjustment | None = None,
-        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
+        hadjustment: Adjustment | None = None,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        hscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
         scroll_to_focus: bool | None = None,
-        child: Widget | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        vadjustment: Adjustment | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        vscroll_policy: ScrollablePolicy | None = ScrollablePolicy.MINIMUM,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Viewport object with properties.
@@ -73708,14 +74654,6 @@ class Viewport(Widget):
         """
             Gets whether the viewport is scrolling to keep the focused
         child in view.
-        """
-    @classmethod
-    def new(cls, hadjustment: Adjustment | None = None, vadjustment: Adjustment | None = None) -> Viewport:
-        """
-            Creates a new `GtkViewport`.
-
-        The new viewport uses the given adjustments, or default
-        adjustments if none are given.
         """
     def scroll_to(self, descendant: Widget, scroll: ScrollInfo | None = None) -> None:
         """
@@ -73732,6 +74670,19 @@ class Viewport(Widget):
         """
             Sets whether the viewport should automatically scroll
         to keep the focused child in view.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        hadjustment: Adjustment | None = None,
+        vadjustment: Adjustment | None = None,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(hadjustment:Gtk.Adjustment=None, vadjustment:Gtk.Adjustment=None) -> Gtk.Widget
         """
 
     # Signals
@@ -73785,55 +74736,56 @@ class VolumeButton(ScaleButton):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        orientation: Orientation | None = Orientation.HORIZONTAL,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
+        adjustment: Adjustment | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_frame: bool | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
+        icons: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        value: float | None = None,
-        adjustment: Adjustment | None = None,
-        icons: list | None = None,
-        has_frame: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        orientation: Orientation | None = Orientation.HORIZONTAL,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_symbolic: bool | None = None,
+        valign: Align | None = Align.FILL,
+        value: float | None = None,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize VolumeButton object with properties.
         """
-    @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> VolumeButton:
-        """
-            Creates a `GtkVolumeButton`.
 
-        The button has a range between 0.0 and 1.0, with a stepping of 0.02.
-        Volume values can be obtained and modified using the functions from
-        [class`Gtk`.ScaleButton].
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -74477,36 +75429,36 @@ class Widget(GObject.InitiallyUnowned):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize Widget object with properties.
@@ -76179,16 +77131,6 @@ class Widget(GObject.InitiallyUnowned):
 
         It does nothing for children that implement `GtkNative`.
         """
-    @deprecated("deprecated")
-    def translate_coordinates(self, dest_widget: Widget, src_x: float, src_y: float) -> tuple[bool, float, float]:
-        """
-            Translates coordinates relative to `src_widget`’s allocation
-        to coordinates relative to `dest_widget`’s allocations.
-
-        In order to perform this operation, both widget must share
-        a common ancestor. If that is not the case, `dest_x` and `dest_y`
-        are set to 0 and false is returned.
-        """
     def trigger_tooltip_query(self) -> None:
         """
         Triggers a tooltip query on the display of the widget.
@@ -76221,6 +77163,19 @@ class Widget(GObject.InitiallyUnowned):
         See [method`Gtk`.Widget.set_state_flags].
 
         This function is for use in widget implementations.
+        """
+
+    # python methods (overrides?)
+    def translate_coordinates(
+        self,
+        dest_widget: Widget,
+        src_x: float,
+        src_y: float,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        translate_coordinates(self, dest_widget:Gtk.Widget, src_x:float, src_y:float) -> bool, dest_x:float, dest_y:float
         """
 
     # Signals
@@ -77058,14 +78013,21 @@ class WidgetPaintable(GObject.Object):
         """
         Returns the widget that is observed or None if none.
         """
-    @classmethod
-    def new(cls, widget: Widget | None = None) -> WidgetPaintable:
-        """
-        Creates a new widget paintable observing the given widget.
-        """
     def set_widget(self, widget: Widget | None = None) -> None:
         """
         Sets the widget that should be observed.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        widget: Widget | None = None,
+    ) -> WidgetPaintable:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(widget:Gtk.Widget=None) -> Gtk.WidgetPaintable
         """
 
     # Signals
@@ -78317,39 +79279,39 @@ class WindowControls(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
+        decoration_layout: str | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
         side: PackType | None = PackType.START,
-        decoration_layout: str | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
         use_native_controls: bool | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize WindowControls object with properties.
@@ -78373,11 +79335,6 @@ class WindowControls(Widget):
     def get_use_native_controls(self) -> bool:
         """
         Returns whether platform native window controls are shown.
-        """
-    @classmethod
-    def new(cls, side: PackType) -> WindowControls:
-        """
-        Creates a new `GtkWindowControls`.
         """
     def set_decoration_layout(self, layout: str | None = None) -> None:
         """
@@ -78412,6 +79369,18 @@ class WindowControls(Widget):
         For Linux, this option has no effect.
 
         See also [Using GTK on Apple macOS](osx.html?native-window-controls).
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        side: PackType,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(side:Gtk.PackType) -> Gtk.Widget
         """
 
     # Signals
@@ -78492,17 +79461,20 @@ class WindowGroup(GObject.Object):
         """
         Returns a list of the `GtkWindows` that belong to `window_group`.
         """
-    @classmethod
-    def new(cls) -> WindowGroup:
-        """
-            Creates a new `GtkWindowGroup` object.
-
-        Modality of windows only affects windows
-        within the same `GtkWindowGroup`.
-        """
     def remove_window(self, window: Window) -> None:
         """
         Removes a window from a `GtkWindowGroup`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> WindowGroup:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.WindowGroup
         """
 
 class WindowGroupClass(GObject.GPointer):
@@ -78553,37 +79525,37 @@ class WindowHandle(Widget):
     def __init__(
         self,
         accessible_role: AccessibleRole | None = AccessibleRole.NONE,
-        name: str | None = None,
-        width_request: int | None = None,
-        height_request: int | None = None,
-        visible: bool | None = None,
-        sensitive: bool | None = None,
         can_focus: bool | None = None,
         can_target: bool | None = None,
+        child: Widget | None = None,
+        css_classes: list | None = None,
+        css_name: str | None = None,
+        cursor: Gdk.Cursor | None = None,
         focus_on_click: bool | None = None,
         focusable: bool | None = None,
-        receives_default: bool | None = None,
-        cursor: Gdk.Cursor | None = None,
-        has_tooltip: bool | None = None,
-        tooltip_markup: str | None = None,
-        tooltip_text: str | None = None,
-        opacity: float | None = None,
-        overflow: Overflow | None = Overflow.VISIBLE,
         halign: Align | None = Align.FILL,
-        valign: Align | None = Align.FILL,
-        margin_start: int | None = None,
-        margin_end: int | None = None,
-        margin_top: int | None = None,
-        margin_bottom: int | None = None,
+        has_tooltip: bool | None = None,
+        height_request: int | None = None,
         hexpand: bool | None = None,
-        vexpand: bool | None = None,
         hexpand_set: bool | None = None,
-        vexpand_set: bool | None = None,
-        css_name: str | None = None,
-        css_classes: list | None = None,
         layout_manager: LayoutManager | None = None,
         limit_events: bool | None = None,
-        child: Widget | None = None,
+        margin_bottom: int | None = None,
+        margin_end: int | None = None,
+        margin_start: int | None = None,
+        margin_top: int | None = None,
+        name: str | None = None,
+        opacity: float | None = None,
+        overflow: Overflow | None = Overflow.VISIBLE,
+        receives_default: bool | None = None,
+        sensitive: bool | None = None,
+        tooltip_markup: str | None = None,
+        tooltip_text: str | None = None,
+        valign: Align | None = Align.FILL,
+        vexpand: bool | None = None,
+        vexpand_set: bool | None = None,
+        visible: bool | None = None,
+        width_request: int | None = None,
     ) -> None:
         """
         Initialize WindowHandle object with properties.
@@ -78593,14 +79565,20 @@ class WindowHandle(Widget):
         """
         Gets the child widget of `self`.
         """
-    @classmethod
-    def new(cls) -> WindowHandle:
-        """
-        Creates a new `GtkWindowHandle`.
-        """
     def set_child(self, child: Widget | None = None) -> None:
         """
         Sets the child widget of `self`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals

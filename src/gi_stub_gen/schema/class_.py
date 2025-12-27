@@ -8,10 +8,7 @@ from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.schema.function import (
-    FunctionArgumentSchema,
-    FunctionSchema,
-)
+from gi_stub_gen.schema.function import FunctionSchema
 from gi_stub_gen.schema.signals import SignalSchema
 from gi_stub_gen.utils.utils import get_super_class_name, sanitize_gi_module_name
 
@@ -183,69 +180,6 @@ class ClassSchema(BaseSchema):
             gi_imports.update(signal.required_gi_imports)
         return gi_imports
 
-    # def add_init_method(self):
-    #     """
-    #     In parsed classes, add an __init__ method if not present.
-
-    #     In GI classes, the __init__ method is present but its the same as the new() method if existing
-    #     So we make a copy of the new() method and rename it to __init__
-
-    #     if there is no new() method, we should pick the next new_<something>() method
-    #     but we skip this for now.
-    #     """
-    #     is_init_present_in_methods = any(method.name == "__init__" for method in self.methods)
-    #     is_init_present_in_python_methods = any(method.name == "__init__" for method in self.python_methods)
-    #     if is_init_present_in_methods or is_init_present_in_python_methods:
-    #         logger.debug(f"Class {self.namespace}.{self.name} already has __init__ method, skipping adding it.")
-    #         return
-
-    #     args: list[FunctionArgumentSchema] = []
-    #     for prop in self.props:
-    #         if prop.writable:
-    #             args.append(
-    #                 FunctionArgumentSchema(
-    #                     direction="IN",
-    #                     name=prop.name,
-    #                     namespace=self.namespace,
-    #                     may_be_null=prop.may_be_null,
-    #                     is_optional=prop.may_be_null,
-    #                     is_callback=False,
-    #                     get_array_length=-1,
-    #                     is_deprecated=False,
-    #                     is_caller_allocates=False,
-    #                     tag_as_string="??",
-    #                     line_comment=None,
-    #                     py_type_name=prop.type_hint_name,
-    #                     py_type_namespace=prop.type_hint_namespace,
-    #                     default_value="...",
-    #                     is_pointer=False,
-    #                 )
-    #             )
-    #     class_init = FunctionSchema(
-    #         name="__init__",
-    #         namespace=self.namespace,
-    #         is_method=True,
-    #         is_deprecated=False,
-    #         deprecation_warnings=None,
-    #         docstring="Generated __init__ stub method. order not guaranteed. ",
-    #         args=args,
-    #         is_callback=False,
-    #         can_throw_gerror=False,
-    #         is_async=False,
-    #         is_constructor=False,
-    #         is_getter=False,
-    #         is_setter=False,
-    #         may_return_null=False,
-    #         return_hint="None",
-    #         return_hint_namespace=None,
-    #         skip_return=False,
-    #         wrap_vfunc=False,
-    #         line_comment=None,
-    #         function_type="FunctionInfo",
-    #         is_overload=False,
-    #     )
-    #     self.methods.insert(0, class_init)
-
     @classmethod
     def from_gi_object(
         cls,
@@ -305,15 +239,6 @@ class ClassSchema(BaseSchema):
                 sane_super_namespace = None
                 base_class_name = "object"
 
-            # elif base_class_name == "PyGIDeprecationWarning":
-            #     # this is actually importable from gi so we can keep it
-            #     # keep it as is
-            #     pass
-            # else:
-            #     # other classes in gi are actually in gi._gi
-            #     # so this should only happen for gi._gi itself
-            #     sane_super_namespace = None
-
         # build the super class name in the template
         # TODO: move to runtime function
         required_gi_import = None
@@ -322,8 +247,7 @@ class ClassSchema(BaseSchema):
             # they are in different namespaces
             # so we add it to the repr
             base_class = f"{sane_super_namespace}.{base_class_name}"
-            if sane_super_namespace != "GI":
-                # we exclude GI which is from "import gi._gi as GI" which is always imported
+            if sane_super_namespace != sanitize_gi_module_name(namespace):
                 required_gi_import = sane_super_namespace
 
         instance = cls(

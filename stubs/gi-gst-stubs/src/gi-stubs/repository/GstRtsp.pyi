@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -516,7 +516,7 @@ class RTSPConnection(GObject.GPointer):
     def write(self, data: list, size: int, timeout: GLib.TimeVal) -> RTSPResult: ...
     def write_usec(self, data: list, size: int, timeout: int) -> RTSPResult: ...
 
-class RTSPExtension(object):
+class RTSPExtension(builtins.object):
     class Props: ...
 
     @builtins.property

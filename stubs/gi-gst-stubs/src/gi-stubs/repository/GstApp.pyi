@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -65,27 +65,27 @@ class AppSink(GstBase.BaseSink):
     # gi Methods
     def __init__(
         self,
+        async_: bool | None = None,
+        blocksize: int | None = None,
+        buffer_list: bool | None = None,
+        caps: Gst.Caps | None = None,
+        drop: bool | None = None,
+        emit_signals: bool | None = None,
+        enable_last_sample: bool | None = None,
+        max_bitrate: int | None = None,
+        max_buffers: int | None = None,
+        max_bytes: int | None = None,
+        max_lateness: int | None = None,
+        max_time: int | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
-        sync: bool | None = None,
-        max_lateness: int | None = None,
-        qos: bool | None = None,
-        async_: bool | None = None,
-        ts_offset: int | None = None,
-        enable_last_sample: bool | None = None,
-        blocksize: int | None = None,
-        render_delay: int | None = None,
-        throttle_time: int | None = None,
-        max_bitrate: int | None = None,
         processing_deadline: int | None = None,
-        caps: Gst.Caps | None = None,
-        emit_signals: bool | None = None,
-        max_buffers: int | None = None,
-        drop: bool | None = None,
+        qos: bool | None = None,
+        render_delay: int | None = None,
+        sync: bool | None = None,
+        throttle_time: int | None = None,
+        ts_offset: int | None = None,
         wait_on_eos: bool | None = None,
-        buffer_list: bool | None = None,
-        max_time: int | None = None,
-        max_bytes: int | None = None,
     ) -> None:
         """
         Initialize AppSink object with properties.
@@ -363,29 +363,29 @@ class AppSrc(GstBase.BaseSrc):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        blocksize: int | None = None,
-        num_buffers: int | None = None,
-        typefind: bool | None = None,
-        do_timestamp: bool | None = None,
         automatic_eos: bool | None = None,
+        block: bool | None = None,
+        blocksize: int | None = None,
         caps: Gst.Caps | None = None,
+        do_timestamp: bool | None = None,
+        duration: int | None = None,
+        emit_signals: bool | None = None,
+        format: Gst.Format | None = Gst.Format.BYTES,
+        handle_segment_change: bool | None = None,
+        is_live: bool | None = None,
+        leaky_type: AppLeakyType | None = AppLeakyType.NONE,
+        max_buffers: int | None = None,
+        max_bytes: int | None = None,
+        max_latency: int | None = None,
+        max_time: int | None = None,
+        min_latency: int | None = None,
+        min_percent: int | None = None,
+        name: str | None = None,
+        num_buffers: int | None = None,
+        parent: Gst.Object | None = None,
         size: int | None = None,
         stream_type: AppStreamType | None = AppStreamType.STREAM,
-        max_bytes: int | None = None,
-        max_buffers: int | None = None,
-        max_time: int | None = None,
-        format: Gst.Format | None = Gst.Format.BYTES,
-        block: bool | None = None,
-        is_live: bool | None = None,
-        min_latency: int | None = None,
-        max_latency: int | None = None,
-        emit_signals: bool | None = None,
-        min_percent: int | None = None,
-        duration: int | None = None,
-        handle_segment_change: bool | None = None,
-        leaky_type: AppLeakyType | None = AppLeakyType.NONE,
+        typefind: bool | None = None,
     ) -> None:
         """
         Initialize AppSrc object with properties.

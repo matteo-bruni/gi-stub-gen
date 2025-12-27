@@ -293,6 +293,10 @@ class FunctionSchema(BaseSchema):
     is_overload: bool
     """Whether this function is an overload of another function."""
 
+    is_overridden: bool = False
+    """Whether this function was overridden by a python override. This info will be added
+    when parsing the overrides not at parsing time."""
+
     @property
     def decorators(self) -> list[str]:
         """
@@ -348,6 +352,11 @@ class FunctionSchema(BaseSchema):
         for arg in self.args:
             if arg.py_type_namespace:
                 gi_imports.add(arg.py_type_namespace)
+        # check decorators
+        if self.is_overload:  # we add typing.overload
+            gi_imports.add("typing")
+        if self.is_getter and len(self.args) == 0:  # we add builtins.property
+            gi_imports.add("builtins")
         return gi_imports
 
     def complete_return_hint(self, namespace: str) -> str:

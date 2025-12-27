@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -1363,7 +1363,7 @@ class AncillaryMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-class ColorBalance(object):
+class ColorBalance(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -1460,7 +1460,7 @@ class ColorBalanceInterface(GObject.GPointer):
     @builtins.property
     def value_changed(self) -> value_changedColorBalanceInterfaceCB: ...
 
-class Navigation(object):
+class Navigation(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -1614,14 +1614,14 @@ class VideoAggregator(GstBase.Aggregator):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        latency: int | None = None,
-        min_upstream_latency: int | None = None,
-        start_time_selection: GstBase.AggregatorStartTimeSelection | None = GstBase.AggregatorStartTimeSelection.ZERO,
-        start_time: int | None = None,
         emit_signals: bool | None = None,
         force_live: bool | None = None,
+        latency: int | None = None,
+        min_upstream_latency: int | None = None,
+        name: str | None = None,
+        parent: Gst.Object | None = None,
+        start_time: int | None = None,
+        start_time_selection: GstBase.AggregatorStartTimeSelection | None = GstBase.AggregatorStartTimeSelection.ZERO,
     ) -> None:
         """
         Initialize VideoAggregator object with properties.
@@ -1705,16 +1705,16 @@ class VideoAggregatorConvertPad(VideoAggregatorPad):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        direction: Gst.PadDirection | None = Gst.PadDirection.UNKNOWN,
-        template: Gst.PadTemplate | None = None,
-        offset: int | None = None,
-        emit_signals: bool | None = None,
-        zorder: int | None = None,
-        repeat_after_eos: bool | None = None,
-        max_last_buffer_repeat: int | None = None,
         converter_config: Gst.Structure | None = None,
+        direction: Gst.PadDirection | None = Gst.PadDirection.UNKNOWN,
+        emit_signals: bool | None = None,
+        max_last_buffer_repeat: int | None = None,
+        name: str | None = None,
+        offset: int | None = None,
+        parent: Gst.Object | None = None,
+        repeat_after_eos: bool | None = None,
+        template: Gst.PadTemplate | None = None,
+        zorder: int | None = None,
     ) -> None:
         """
         Initialize VideoAggregatorConvertPad object with properties.
@@ -1777,15 +1777,15 @@ class VideoAggregatorPad(GstBase.AggregatorPad):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
         direction: Gst.PadDirection | None = Gst.PadDirection.UNKNOWN,
-        template: Gst.PadTemplate | None = None,
-        offset: int | None = None,
         emit_signals: bool | None = None,
-        zorder: int | None = None,
-        repeat_after_eos: bool | None = None,
         max_last_buffer_repeat: int | None = None,
+        name: str | None = None,
+        offset: int | None = None,
+        parent: Gst.Object | None = None,
+        repeat_after_eos: bool | None = None,
+        template: Gst.PadTemplate | None = None,
+        zorder: int | None = None,
     ) -> None:
         """
         Initialize VideoAggregatorPad object with properties.
@@ -1891,16 +1891,16 @@ class VideoAggregatorParallelConvertPad(VideoAggregatorConvertPad):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        direction: Gst.PadDirection | None = Gst.PadDirection.UNKNOWN,
-        template: Gst.PadTemplate | None = None,
-        offset: int | None = None,
-        emit_signals: bool | None = None,
-        zorder: int | None = None,
-        repeat_after_eos: bool | None = None,
-        max_last_buffer_repeat: int | None = None,
         converter_config: Gst.Structure | None = None,
+        direction: Gst.PadDirection | None = Gst.PadDirection.UNKNOWN,
+        emit_signals: bool | None = None,
+        max_last_buffer_repeat: int | None = None,
+        name: str | None = None,
+        offset: int | None = None,
+        parent: Gst.Object | None = None,
+        repeat_after_eos: bool | None = None,
+        template: Gst.PadTemplate | None = None,
+        zorder: int | None = None,
     ) -> None:
         """
         Initialize VideoAggregatorParallelConvertPad object with properties.
@@ -1959,8 +1959,17 @@ class VideoBufferPool(Gst.BufferPool):
         """
         Initialize VideoBufferPool object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> VideoBufferPool: ...
+    def new(
+        cls,
+    ) -> Gst.BufferPool:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.BufferPool
+        """
 
 class VideoBufferPoolClass(GObject.GPointer):
     # gi Fields
@@ -2140,15 +2149,15 @@ class VideoDecoder(Gst.Element):
     # gi Methods
     def __init__(
         self,
+        automatic_request_sync_point_flags: VideoDecoderRequestSyncPointFlags
+        | None = VideoDecoderRequestSyncPointFlags.DISCARD_INPUT | VideoDecoderRequestSyncPointFlags.CORRUPT_OUTPUT,
+        automatic_request_sync_points: bool | None = None,
+        discard_corrupted_frames: bool | None = None,
+        max_errors: int | None = None,
+        min_force_key_unit_interval: int | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
         qos: bool | None = None,
-        max_errors: int | None = None,
-        min_force_key_unit_interval: int | None = None,
-        discard_corrupted_frames: bool | None = None,
-        automatic_request_sync_points: bool | None = None,
-        automatic_request_sync_point_flags: VideoDecoderRequestSyncPointFlags
-        | None = VideoDecoderRequestSyncPointFlags.DISCARD_INPUT | VideoDecoderRequestSyncPointFlags.CORRUPT_OUTPUT,
     ) -> None:
         """
         Initialize VideoDecoder object with properties.
@@ -2453,7 +2462,7 @@ class VideoDecoderClass(GObject.GPointer):
 
 class VideoDecoderPrivate(GObject.GPointer): ...
 
-class VideoDirection(object):
+class VideoDirection(builtins.object):
     class Props:
         video_direction: VideoOrientationMethod  # [video-direction]: changed because contained invalid characters
 
@@ -2518,10 +2527,10 @@ class VideoEncoder(Gst.Element):
     # gi Methods
     def __init__(
         self,
+        min_force_key_unit_interval: int | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
         qos: bool | None = None,
-        min_force_key_unit_interval: int | None = None,
     ) -> None:
         """
         Initialize VideoEncoder object with properties.
@@ -2905,10 +2914,6 @@ class VideoInfo(GObject.GBoxed):
     @staticmethod
     def init() -> VideoInfo: ...
     def is_equal(self, other: VideoInfo) -> bool: ...
-    @classmethod
-    def new(cls) -> VideoInfo: ...
-    @classmethod
-    def new_from_caps(cls, caps: Gst.Caps) -> VideoInfo | None: ...
     def set_format(self, format: VideoFormat, width: int, height: int) -> bool: ...
     def set_interlaced_format(self, format: VideoFormat, mode: VideoInterlaceMode, width: int, height: int) -> bool: ...
     def to_caps(self) -> Gst.Caps: ...
@@ -2919,6 +2924,25 @@ class VideoInfo(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> VideoInfo:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GstVideo.VideoInfo
+        """
+    @classmethod
+    def new_from_caps(
+        cls,
+        caps: Gst.Caps,
+    ) -> VideoInfo | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_caps(caps:Gst.Caps) -> GstVideo.VideoInfo or None
+        """
 
 class VideoInfoDmaDrm(GObject.GBoxed):
     # gi Fields
@@ -2936,10 +2960,6 @@ class VideoInfoDmaDrm(GObject.GBoxed):
     def from_video_info(info: VideoInfo, modifier: int) -> tuple[bool, VideoInfoDmaDrm]: ...
     @staticmethod
     def init() -> VideoInfoDmaDrm: ...
-    @classmethod
-    def new(cls) -> VideoInfoDmaDrm: ...
-    @classmethod
-    def new_from_caps(cls, caps: Gst.Caps) -> VideoInfoDmaDrm | None: ...
     def to_caps(self) -> Gst.Caps | None: ...
     def to_video_info(self) -> tuple[bool, VideoInfo]: ...
 
@@ -2949,6 +2969,25 @@ class VideoInfoDmaDrm(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> VideoInfoDmaDrm:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GstVideo.VideoInfoDmaDrm
+        """
+    @classmethod
+    def new_from_caps(
+        cls,
+        caps: Gst.Caps,
+    ) -> VideoInfoDmaDrm | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_caps(caps:Gst.Caps) -> GstVideo.VideoInfoDmaDrm or None
+        """
 
 class VideoMasteringDisplayInfo(GObject.GPointer):
     # gi Fields
@@ -3007,7 +3046,7 @@ class VideoMetaTransform(GObject.GPointer):
 
 class VideoMultiviewFlagsSet(Gst.FlagSet): ...
 
-class VideoOrientation(object):
+class VideoOrientation(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -3050,7 +3089,7 @@ class VideoOrientationInterface(GObject.GPointer):
     @builtins.property
     def set_vflip(self) -> set_vflipVideoOrientationInterfaceCB: ...
 
-class VideoOverlay(object):
+class VideoOverlay(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -3081,8 +3120,6 @@ class VideoOverlayComposition(GObject.GBoxed):
     def get_seqnum(self) -> int: ...
     def make_writable(self) -> VideoOverlayComposition: ...
     def n_rectangles(self) -> int: ...
-    @classmethod
-    def new(cls, rectangle: VideoOverlayRectangle | None = None) -> VideoOverlayComposition: ...
 
     # python methods (overrides?)
     @staticmethod
@@ -3090,6 +3127,16 @@ class VideoOverlayComposition(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        rectangle: VideoOverlayRectangle | None = None,
+    ) -> VideoOverlayComposition:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(rectangle:GstVideo.VideoOverlayRectangle=None) -> GstVideo.VideoOverlayComposition
+        """
 
 class VideoOverlayCompositionMeta(GObject.GPointer):
     # gi Fields
@@ -3126,6 +3173,10 @@ class VideoOverlayRectangle(GObject.GBoxed):
     def get_pixels_unscaled_raw(self, flags: VideoOverlayFormatFlags) -> Gst.Buffer: ...
     def get_render_rectangle(self) -> tuple[bool, int, int, int, int]: ...
     def get_seqnum(self) -> int: ...
+    def set_global_alpha(self, global_alpha: float) -> None: ...
+    def set_render_rectangle(self, render_x: int, render_y: int, render_width: int, render_height: int) -> None: ...
+
+    # python methods (overrides?)
     @classmethod
     def new_raw(
         cls,
@@ -3135,9 +3186,12 @@ class VideoOverlayRectangle(GObject.GBoxed):
         render_width: int,
         render_height: int,
         flags: VideoOverlayFormatFlags,
-    ) -> VideoOverlayRectangle: ...
-    def set_global_alpha(self, global_alpha: float) -> None: ...
-    def set_render_rectangle(self, render_x: int, render_y: int, render_width: int, render_height: int) -> None: ...
+    ) -> VideoOverlayRectangle:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_raw(pixels:Gst.Buffer, render_x:int, render_y:int, render_width:int, render_height:int, flags:GstVideo.VideoOverlayFormatFlags) -> GstVideo.VideoOverlayRectangle
+        """
 
 class VideoRectangle(GObject.GPointer):
     # gi Fields
@@ -3252,20 +3306,20 @@ class VideoSink(GstBase.BaseSink):
     # gi Methods
     def __init__(
         self,
+        async_: bool | None = None,
+        blocksize: int | None = None,
+        enable_last_sample: bool | None = None,
+        max_bitrate: int | None = None,
+        max_lateness: int | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
-        sync: bool | None = None,
-        max_lateness: int | None = None,
-        qos: bool | None = None,
-        async_: bool | None = None,
-        ts_offset: int | None = None,
-        enable_last_sample: bool | None = None,
-        blocksize: int | None = None,
-        render_delay: int | None = None,
-        throttle_time: int | None = None,
-        max_bitrate: int | None = None,
         processing_deadline: int | None = None,
+        qos: bool | None = None,
+        render_delay: int | None = None,
         show_preroll_frame: bool | None = None,
+        sync: bool | None = None,
+        throttle_time: int | None = None,
+        ts_offset: int | None = None,
     ) -> None:
         """
         Initialize VideoSink object with properties.
@@ -3363,6 +3417,11 @@ class VideoTimeCode(GObject.GBoxed):
         self, fps_n: int, fps_d: int, dt: GLib.DateTime, flags: VideoTimeCodeFlags, field_count: int
     ) -> bool: ...
     def is_valid(self) -> bool: ...
+    def nsec_since_daily_jam(self) -> int: ...
+    def to_date_time(self) -> GLib.DateTime | None: ...
+    def to_string(self) -> str: ...
+
+    # python methods (overrides?)
     @classmethod
     def new(
         cls,
@@ -3375,22 +3434,59 @@ class VideoTimeCode(GObject.GBoxed):
         seconds: int,
         frames: int,
         field_count: int,
-    ) -> VideoTimeCode: ...
+    ) -> VideoTimeCode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(fps_n:int, fps_d:int, latest_daily_jam:GLib.DateTime, flags:GstVideo.VideoTimeCodeFlags, hours:int, minutes:int, seconds:int, frames:int, field_count:int) -> GstVideo.VideoTimeCode
+        """
     @classmethod
-    def new_empty(cls) -> VideoTimeCode: ...
+    def new_empty(
+        cls,
+    ) -> VideoTimeCode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty() -> GstVideo.VideoTimeCode
+        """
     @classmethod
     def new_from_date_time(
-        cls, fps_n: int, fps_d: int, dt: GLib.DateTime, flags: VideoTimeCodeFlags, field_count: int
-    ) -> VideoTimeCode: ...
+        cls,
+        fps_n: int,
+        fps_d: int,
+        dt: GLib.DateTime,
+        flags: VideoTimeCodeFlags,
+        field_count: int,
+    ) -> VideoTimeCode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_date_time(fps_n:int, fps_d:int, dt:GLib.DateTime, flags:GstVideo.VideoTimeCodeFlags, field_count:int) -> GstVideo.VideoTimeCode
+        """
     @classmethod
     def new_from_date_time_full(
-        cls, fps_n: int, fps_d: int, dt: GLib.DateTime, flags: VideoTimeCodeFlags, field_count: int
-    ) -> VideoTimeCode | None: ...
+        cls,
+        fps_n: int,
+        fps_d: int,
+        dt: GLib.DateTime,
+        flags: VideoTimeCodeFlags,
+        field_count: int,
+    ) -> VideoTimeCode | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_date_time_full(fps_n:int, fps_d:int, dt:GLib.DateTime, flags:GstVideo.VideoTimeCodeFlags, field_count:int) -> GstVideo.VideoTimeCode or None
+        """
     @classmethod
-    def new_from_string(cls, tc_str: str) -> VideoTimeCode | None: ...
-    def nsec_since_daily_jam(self) -> int: ...
-    def to_date_time(self) -> GLib.DateTime | None: ...
-    def to_string(self) -> str: ...
+    def new_from_string(
+        cls,
+        tc_str: str,
+    ) -> VideoTimeCode | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(tc_str:str) -> GstVideo.VideoTimeCode or None
+        """
 
 class VideoTimeCodeConfig(GObject.GPointer):
     # gi Fields
@@ -3411,10 +3507,31 @@ class VideoTimeCodeInterval(GObject.GBoxed):
     def copy(self) -> VideoTimeCodeInterval: ...
     def free(self) -> None: ...
     def init(self, hours: int, minutes: int, seconds: int, frames: int) -> None: ...
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, hours: int, minutes: int, seconds: int, frames: int) -> VideoTimeCodeInterval: ...
+    def new(
+        cls,
+        hours: int,
+        minutes: int,
+        seconds: int,
+        frames: int,
+    ) -> VideoTimeCodeInterval:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(hours:int, minutes:int, seconds:int, frames:int) -> GstVideo.VideoTimeCodeInterval
+        """
     @classmethod
-    def new_from_string(cls, tc_inter_str: str) -> VideoTimeCodeInterval | None: ...
+    def new_from_string(
+        cls,
+        tc_inter_str: str,
+    ) -> VideoTimeCodeInterval | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(tc_inter_str:str) -> GstVideo.VideoTimeCodeInterval or None
+        """
 
 class VideoTimeCodeMeta(GObject.GPointer):
     # gi Fields
@@ -3430,8 +3547,6 @@ class VideoVBIEncoder(GObject.GBoxed):
     def add_ancillary(self, composite: bool, DID: int, SDID_block_number: int, data: list, data_count: int) -> bool: ...
     def copy(self) -> VideoVBIEncoder: ...
     def free(self) -> None: ...
-    @classmethod
-    def new(cls, format: VideoFormat, pixel_width: int) -> VideoVBIEncoder | None: ...
     def write_line(self, data: int) -> None: ...
 
     # python methods (overrides?)
@@ -3440,6 +3555,17 @@ class VideoVBIEncoder(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        format: VideoFormat,
+        pixel_width: int,
+    ) -> VideoVBIEncoder | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(format:GstVideo.VideoFormat, pixel_width:int) -> GstVideo.VideoVBIEncoder or None
+        """
 
 class VideoVBIParser(GObject.GBoxed):
     # gi Methods
@@ -3447,8 +3573,6 @@ class VideoVBIParser(GObject.GBoxed):
     def copy(self) -> VideoVBIParser: ...
     def free(self) -> None: ...
     def get_ancillary(self) -> tuple[VideoVBIParserResult, VideoAncillary]: ...
-    @classmethod
-    def new(cls, format: VideoFormat, pixel_width: int) -> VideoVBIParser | None: ...
 
     # python methods (overrides?)
     @staticmethod
@@ -3456,6 +3580,17 @@ class VideoVBIParser(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        format: VideoFormat,
+        pixel_width: int,
+    ) -> VideoVBIParser | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(format:GstVideo.VideoFormat, pixel_width:int) -> GstVideo.VideoVBIParser or None
+        """
 
 ###############################################################
 # Callbacks

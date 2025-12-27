@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -357,7 +357,7 @@ def update_layout(
 # classes
 ###############################################################
 
-class Font(object):
+class Font(builtins.object):
     """
     `PangoCairoFont` is an interface exported by fonts for
     use with Cairo.
@@ -383,7 +383,7 @@ class Font(object):
         `cairo_scaled_font_reference`.
         """
 
-class FontMap(object):
+class FontMap(builtins.object):
     """
     `PangoCairoFontMap` is an interface exported by font maps for
     use with Cairo.

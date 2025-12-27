@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import enum
 import typing
 
@@ -201,14 +201,6 @@ class MIKEYMessage(GObject.GBoxed):
     def get_payload(self, idx: int) -> MIKEYPayload | None: ...
     def insert_cs_srtp(self, idx: int, map: MIKEYMapSRTP) -> bool: ...
     def insert_payload(self, idx: int, payload: MIKEYPayload) -> bool: ...
-    @classmethod
-    def new(cls) -> MIKEYMessage: ...
-    @classmethod
-    def new_from_bytes(cls, bytes: GLib.Bytes, info: MIKEYDecryptInfo) -> MIKEYMessage: ...
-    @classmethod
-    def new_from_caps(cls, caps: Gst.Caps) -> MIKEYMessage | None: ...
-    @classmethod
-    def new_from_data(cls, data: list, size: int, info: MIKEYDecryptInfo) -> MIKEYMessage: ...
     def remove_cs_srtp(self, idx: int) -> bool: ...
     def remove_payload(self, idx: int) -> bool: ...
     def replace_cs_srtp(self, idx: int, map: MIKEYMapSRTP) -> bool: ...
@@ -225,6 +217,47 @@ class MIKEYMessage(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> MIKEYMessage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GstSdp.MIKEYMessage
+        """
+    @classmethod
+    def new_from_bytes(
+        cls,
+        bytes: GLib.Bytes,
+        info: MIKEYDecryptInfo,
+    ) -> MIKEYMessage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_bytes(bytes:GLib.Bytes, info:GstSdp.MIKEYDecryptInfo) -> GstSdp.MIKEYMessage
+        """
+    @classmethod
+    def new_from_caps(
+        cls,
+        caps: Gst.Caps,
+    ) -> MIKEYMessage | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_caps(caps:Gst.Caps) -> GstSdp.MIKEYMessage or None
+        """
+    @classmethod
+    def new_from_data(
+        cls,
+        data: list,
+        info: MIKEYDecryptInfo,
+    ) -> MIKEYMessage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_data(data:list, info:GstSdp.MIKEYDecryptInfo) -> GstSdp.MIKEYMessage
+        """
 
 class MIKEYPayload(GObject.GBoxed):
     # gi Fields
@@ -243,8 +276,6 @@ class MIKEYPayload(GObject.GBoxed):
     def key_data_set_key(self, key_type: MIKEYKeyDataType, key_len: int, key_data: list) -> bool: ...
     def key_data_set_salt(self, salt_len: int, salt_data: list | None = None) -> bool: ...
     def key_data_set_spi(self, spi_len: int, spi_data: list) -> bool: ...
-    @classmethod
-    def new(cls, type: MIKEYPayloadType) -> MIKEYPayload | None: ...
     def pke_set(self, C: MIKEYCacheType, data_len: int, data: list) -> bool: ...
     def rand_set(self, len: int, rand: list) -> bool: ...
     def sp_add_param(self, type: int, len: int, val: list) -> bool: ...
@@ -253,6 +284,18 @@ class MIKEYPayload(GObject.GBoxed):
     def sp_remove_param(self, idx: int) -> bool: ...
     def sp_set(self, policy: int, proto: MIKEYSecProto) -> bool: ...
     def t_set(self, type: MIKEYTSType, ts_value: list) -> bool: ...
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        type: MIKEYPayloadType,
+    ) -> MIKEYPayload | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(type:GstSdp.MIKEYPayloadType) -> GstSdp.MIKEYPayload or None
+        """
 
 class MIKEYPayloadKEMAC(GObject.GPointer):
     # gi Fields

@@ -12,7 +12,9 @@ class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
     {% if cls_.methods %}
     # gi Methods
     {% for method in cls_.methods %}
+    {% if not method.is_overridden %}
     {{ method.render_compact() | indent(4, first=False) }}
+    {% endif %}
     {% endfor %}
     {% endif %}
 

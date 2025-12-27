@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -3295,12 +3295,6 @@ class AttrList(GObject.GBoxed):
         It will be inserted before all other attributes with a
         matching `start_index`.
         """
-    @classmethod
-    def new(cls) -> AttrList:
-        """
-            Create a new empty attribute list with a reference
-        count of one.
-        """
     def ref(self) -> AttrList:
         """
             Increase the reference count of the given attribute
@@ -3396,6 +3390,15 @@ class AttrList(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> AttrList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Pango.AttrList
+        """
 
 class AttrShape(GObject.GPointer):
     """
@@ -3824,21 +3827,6 @@ class Context(GObject.Object):
             Load a set of fonts in the context that can be used to render
         a font matching `desc`.
         """
-    @classmethod
-    def new(cls) -> Context:
-        """
-            Creates a new `PangoContext` initialized to default values.
-
-        This function is not particularly useful as it should always
-        be followed by a [method`Pango`.Context.set_font_map] call, and the
-        function [method`Pango`.FontMap.create_context] does these two steps
-        together and hence users are recommended to use that.
-
-        If you are using Pango as part of a higher-level system,
-        that system may have it's own way of create a `PangoContext`.
-        For instance, the GTK toolkit has, among others,
-        ``gtk_widget_get_pango_context``. Use those instead.
-        """
     def set_base_dir(self, direction: Direction) -> None:
         """
             Sets the base direction for the context.
@@ -3909,6 +3897,17 @@ class Context(GObject.Object):
         compatible with previous Pango behavior.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Context:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Pango.Context
+        """
+
 class ContextClass(GObject.GPointer): ...
 
 class Coverage(GObject.Object):
@@ -3950,11 +3949,6 @@ class Coverage(GObject.Object):
         value of the current coverage for the index and the coverage for
         the corresponding index in `other`.
         """
-    @classmethod
-    def new(cls) -> Coverage:
-        """
-        Create a new `PangoCoverage`
-        """
     @deprecated("deprecated")
     def ref(self) -> Coverage:
         """
@@ -3975,6 +3969,17 @@ class Coverage(GObject.Object):
             Decrease the reference count on the `PangoCoverage` by one.
 
         If the result is zero, free the coverage and all associated memory.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Coverage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Pango.Coverage
         """
 
 class Font(GObject.Object):
@@ -5340,14 +5345,21 @@ class FontsetSimple(Fontset):
 
         The fontset takes ownership of `font`.
         """
-    @classmethod
-    def new(cls, language: Language) -> FontsetSimple:
-        """
-        Creates a new `PangoFontsetSimple` for the given language.
-        """
     def size(self) -> int:
         """
         Returns the number of fonts in the fontset.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        language: Language,
+    ) -> FontsetSimple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(language:Pango.Language) -> Pango.FontsetSimple
         """
 
 class FontsetSimpleClass(GObject.GPointer): ...
@@ -5700,11 +5712,6 @@ class GlyphString(GObject.GBoxed):
         in it can be used to disambiguate positioning inside some complex
         clusters.
         """
-    @classmethod
-    def new(cls) -> GlyphString:
-        """
-        Create a new `PangoGlyphString`.
-        """
     def set_size(self, new_len: int) -> None:
         """
         Resize a glyph string to the given length.
@@ -5726,6 +5733,15 @@ class GlyphString(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> GlyphString:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Pango.GlyphString
+        """
 
 class GlyphVisAttr(GObject.GPointer):
     """
@@ -5815,11 +5831,6 @@ class Item(GObject.GBoxed):
         machinery, then the character offset is not available. In
         that case, this function returns -1.
         """
-    @classmethod
-    def new(cls) -> Item:
-        """
-        Creates a new `PangoItem` structure initialized to default values.
-        """
     def split(self, split_index: int, split_offset: int) -> Item:
         """
             Modifies `orig` to cover only the text after `split_index`, and
@@ -5842,6 +5853,15 @@ class Item(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> Item:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Pango.Item
+        """
 
 class Language(GObject.GBoxed):
     """
@@ -6560,17 +6580,6 @@ class Layout(GObject.Object):
         Note: for semantics that are closer to the CSS line-height
         property, see [func`Pango`.attr_line_height_new].
         """
-    def set_markup(self, markup: str, length: int) -> None:
-        """
-            Sets the layout text and attribute list from marked-up text.
-
-        See [Pango Markup](pango_markup.html)).
-
-        Replaces the current text and attribute list.
-
-        This is the same as [method`Pango`.Layout.set_markup_with_accel],
-        but the markup text isn't scanned for accelerators.
-        """
     def set_markup_with_accel(self, markup: str, length: int, accel_marker: str) -> str:
         """
             Sets the layout text and attribute list from marked-up text.
@@ -6633,19 +6642,6 @@ class Layout(GObject.Object):
         positions. The same is true for alignments other than
         Pango.ALIGN_LEFT.
         """
-    def set_text(self, text: str, length: int) -> None:
-        """
-            Sets the text of the layout.
-
-        This function validates `text` and renders invalid UTF-8
-        with a placeholder glyph.
-
-        Note that if you have used [method`Pango`.Layout.set_markup] or
-        [method`Pango`.Layout.set_markup_with_accel] on `layout` before, you
-        may want to call [method`Pango`.Layout.set_attributes] to clear the
-        attributes set on the layout from the markup as this function does
-        not clear attributes.
-        """
     def set_width(self, width: int) -> None:
         """
             Sets the width to which the lines of the `PangoLayout` should wrap or
@@ -6686,6 +6682,28 @@ class Layout(GObject.Object):
         chosen as described for [method`Pango`.LayoutLine.x_to_index]. If either
         the X or Y positions were not inside the layout, then the function returns
         False; on an exact hit, it returns True.
+        """
+
+    # python methods (overrides?)
+    def set_markup(
+        self,
+        text: typing.Any,
+        length: typing.Any = -1,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_markup(self, markup:str, length:int)
+        """
+    def set_text(
+        self,
+        text: typing.Any,
+        length: typing.Any = -1,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_text(self, text:str, length:int)
         """
 
 class LayoutClass(GObject.GPointer): ...
@@ -7697,16 +7715,6 @@ class ScriptIter(GObject.GBoxed):
         `GUnicodeScript` values. Callers must be prepared to handle unknown
         values.
         """
-    @classmethod
-    def new(cls, text: str, length: int) -> ScriptIter:
-        """
-            Create a new `PangoScriptIter`, used to break a string of
-        Unicode text into runs by Unicode script.
-
-        No copy is made of `text`, so the caller needs to make
-        sure it remains valid until the iterator is freed with
-        [method`Pango`.ScriptIter.free].
-        """
     def next(self) -> bool:
         """
             Advances a `PangoScriptIter` to the next range.
@@ -7721,6 +7729,17 @@ class ScriptIter(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        text: str,
+        length: int,
+    ) -> ScriptIter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(text:str, length:int) -> Pango.ScriptIter
+        """
 
 class TabArray(GObject.GBoxed):
     """
@@ -7779,14 +7798,6 @@ class TabArray(GObject.GBoxed):
 
         The arrays are of length [method`Pango`.TabArray.get_size].
         You must free the returned array.
-        """
-    @classmethod
-    def new(cls, initial_size: int, positions_in_pixels: bool) -> TabArray:
-        """
-            Creates an array of `initial_size` tab stops.
-
-        Tab stops are specified in pixel units if `positions_in_pixels` is True,
-        otherwise in Pango units. All stops are initially at position 0.
         """
     def resize(self, new_size: int) -> None:
         """
@@ -7847,6 +7858,17 @@ class TabArray(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        initial_size: int,
+        positions_in_pixels: bool,
+    ) -> TabArray:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(initial_size:int, positions_in_pixels:bool) -> Pango.TabArray
+        """
 
 ###############################################################
 # Callbacks

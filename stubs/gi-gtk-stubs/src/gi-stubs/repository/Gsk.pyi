@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -739,11 +739,19 @@ class BlendNode(RenderNode):
         """
         Retrieves the top `GskRenderNode` child of the `node`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, bottom: RenderNode, top: RenderNode, blend_mode: BlendMode) -> BlendNode:
+    def new(
+        cls,
+        bottom: RenderNode,
+        top: RenderNode,
+        blend_mode: BlendMode,
+    ) -> BlendNode:
         """
-            Creates a `GskRenderNode` that will use `blend_mode` to blend the `top`
-        node onto the `bottom` node.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(bottom:Gsk.RenderNode, top:Gsk.RenderNode, blend_mode:Gsk.BlendMode) -> Gsk.BlendNode
         """
 
 class BlurNode(RenderNode):
@@ -760,10 +768,18 @@ class BlurNode(RenderNode):
         """
         Retrieves the blur radius of the `node`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, child: RenderNode, radius: float) -> BlurNode:
+    def new(
+        cls,
+        child: RenderNode,
+        radius: float,
+    ) -> BlurNode:
         """
-        Creates a render node that blurs the child.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gsk.RenderNode, radius:float) -> Gsk.BlurNode
         """
 
 class BorderNode(RenderNode):
@@ -784,13 +800,19 @@ class BorderNode(RenderNode):
         """
         Retrieves the stroke widths of the border.
         """
-    @classmethod
-    def new(cls, outline: RoundedRect, border_width: list, border_color: list) -> BorderNode:
-        """
-            Creates a `GskRenderNode` that will stroke a border rectangle inside the
-        given `outline`.
 
-        The 4 sides of the border can have different widths and colors.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        outline: RoundedRect,
+        border_width: list,
+        border_color: list,
+    ) -> BorderNode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(outline:Gsk.RoundedRect, border_width:list, border_color:list) -> Gsk.BorderNode
         """
 
 class BroadwayRenderer(Renderer):
@@ -805,17 +827,16 @@ class BroadwayRenderer(Renderer):
         """
         Initialize BroadwayRenderer object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> BroadwayRenderer:
+    def new(
+        cls,
+    ) -> Renderer:
         """
-            Creates a new Broadway renderer.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The Broadway renderer is the default renderer for the broadway backend.
-        It will only work with broadway surfaces, otherwise it will fail the
-        call to `Gsk.Renderer.realize`.
-
-        This function is only available when GTK was compiled with Broadway
-        support.
+        new() -> Gsk.Renderer
         """
 
 class BroadwayRendererClass(GObject.GPointer): ...
@@ -838,13 +859,17 @@ class CairoNode(RenderNode):
         """
         Retrieves the Cairo surface used by the render node.
         """
-    @classmethod
-    def new(cls, bounds: Graphene.Rect) -> CairoNode:
-        """
-            Creates a `GskRenderNode` that will render a cairo surface
-        into the area given by `bounds`.
 
-        You can draw to the cairo surface using [method`Gsk`.CairoNode.get_draw_context].
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        bounds: Graphene.Rect,
+    ) -> CairoNode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(bounds:Graphene.Rect) -> Gsk.CairoNode
         """
 
 class CairoRenderer(Renderer):
@@ -860,17 +885,16 @@ class CairoRenderer(Renderer):
         """
         Initialize CairoRenderer object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> CairoRenderer:
+    def new(
+        cls,
+    ) -> Renderer:
         """
-            Creates a new Cairo renderer.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The Cairo renderer is the fallback renderer drawing in ways similar
-        to how GTK 3 drew its content. Its primary use is as comparison tool.
-
-        The Cairo renderer is incomplete. It cannot render 3D transformed
-        content and will instead render an error marker. Its usage should be
-        avoided.
+        new() -> Gsk.Renderer
         """
 
 class CairoRendererClass(GObject.GPointer): ...
@@ -889,11 +913,18 @@ class ClipNode(RenderNode):
         """
         Retrieves the clip rectangle for `node`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, child: RenderNode, clip: Graphene.Rect) -> ClipNode:
+    def new(
+        cls,
+        child: RenderNode,
+        clip: Graphene.Rect,
+    ) -> ClipNode:
         """
-            Creates a `GskRenderNode` that will clip the `child` to the area
-        given by `clip`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gsk.RenderNode, clip:Graphene.Rect) -> Gsk.ClipNode
         """
 
 class ColorMatrixNode(RenderNode):
@@ -914,18 +945,19 @@ class ColorMatrixNode(RenderNode):
         """
         Retrieves the color offset used by the `node`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, child: RenderNode, color_matrix: Graphene.Matrix, color_offset: Graphene.Vec4) -> ColorMatrixNode:
+    def new(
+        cls,
+        child: RenderNode,
+        color_matrix: Graphene.Matrix,
+        color_offset: Graphene.Vec4,
+    ) -> ColorMatrixNode:
         """
-            Creates a `GskRenderNode` that will drawn the `child` with
-        `color_matrix`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        In particular, the node will transform colors by applying
-
-            pixel = transpose(color_matrix) * pixel + color_offset
-
-        for every pixel. The transformation operates on unpremultiplied
-        colors, with color components ordered R, G, B, A.
+        new(child:Gsk.RenderNode, color_matrix:Graphene.Matrix, color_offset:Graphene.Vec4) -> Gsk.ColorMatrixNode
         """
 
 class ColorNode(RenderNode):
@@ -941,11 +973,18 @@ class ColorNode(RenderNode):
         The value returned by this function will not be correct
         if the render node was created for a non-sRGB color.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, rgba: Gdk.RGBA, bounds: Graphene.Rect) -> ColorNode:
+    def new(
+        cls,
+        rgba: Gdk.RGBA,
+        bounds: Graphene.Rect,
+    ) -> ColorNode:
         """
-            Creates a `GskRenderNode` that will render the color specified by `rgba` into
-        the area given by `bounds`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(rgba:Gdk.RGBA, bounds:Graphene.Rect) -> Gsk.ColorNode
         """
 
 class ColorStop(GObject.GPointer):
@@ -996,16 +1035,20 @@ class ConicGradientNode(RenderNode):
         """
         Retrieves the rotation for the gradient in degrees.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, bounds: Graphene.Rect, center: Graphene.Point, rotation: float, color_stops: list, n_color_stops: int
+        cls,
+        bounds: Graphene.Rect,
+        center: Graphene.Point,
+        rotation: float,
+        color_stops: list,
     ) -> ConicGradientNode:
         """
-            Creates a `GskRenderNode` that draws a conic gradient.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The conic gradient
-        starts around `center` in the direction of `rotation`. A rotation of 0 means
-        that the gradient points up. Color stops are then added clockwise.
+        new(bounds:Graphene.Rect, center:Graphene.Point, rotation:float, color_stops:list) -> Gsk.ConicGradientNode
         """
 
 class ContainerNode(RenderNode):
@@ -1022,12 +1065,17 @@ class ContainerNode(RenderNode):
         """
         Retrieves the number of direct children of `node`.
         """
-    @classmethod
-    def new(cls, children: list, n_children: int) -> ContainerNode:
-        """
-            Creates a new `GskRenderNode` instance for holding the given `children`.
 
-        The new node will acquire a reference to each of the children.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        children: list,
+    ) -> ContainerNode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(children:list) -> Gsk.ContainerNode
         """
 
 class CrossFadeNode(RenderNode):
@@ -1048,10 +1096,19 @@ class CrossFadeNode(RenderNode):
         """
         Retrieves the child `GskRenderNode` at the beginning of the cross-fade.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, start: RenderNode, end: RenderNode, progress: float) -> CrossFadeNode:
+    def new(
+        cls,
+        start: RenderNode,
+        end: RenderNode,
+        progress: float,
+    ) -> CrossFadeNode:
         """
-        Creates a `GskRenderNode` that will do a cross-fade between `start` and `end`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(start:Gsk.RenderNode, end:Gsk.RenderNode, progress:float) -> Gsk.CrossFadeNode
         """
 
 class DebugNode(RenderNode):
@@ -1069,13 +1126,18 @@ class DebugNode(RenderNode):
         """
         Gets the debug message that was set on this node
         """
-    @classmethod
-    def new(cls, child: RenderNode, message: str) -> DebugNode:
-        """
-            Creates a `GskRenderNode` that will add debug information about
-        the given `child`.
 
-        Adding this node has no visual effect.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        child: RenderNode,
+        message: str,
+    ) -> DebugNode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gsk.RenderNode, message:str) -> Gsk.DebugNode
         """
 
 class FillNode(RenderNode):
@@ -1098,11 +1160,19 @@ class FillNode(RenderNode):
             Retrieves the path used to describe the area filled with the contents of
         the `node`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, child: RenderNode, path: Path, fill_rule: FillRule) -> FillNode:
+    def new(
+        cls,
+        child: RenderNode,
+        path: Path,
+        fill_rule: FillRule,
+    ) -> FillNode:
         """
-            Creates a `GskRenderNode` that will fill the `child` in the area
-        given by `path` and `fill_rule`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gsk.RenderNode, path:Gsk.Path, fill_rule:Gsk.FillRule) -> Gsk.FillNode
         """
 
 class GLRenderer(Renderer):
@@ -1117,10 +1187,16 @@ class GLRenderer(Renderer):
         """
         Initialize GLRenderer object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> GLRenderer:
+    def new(
+        cls,
+    ) -> Renderer:
         """
-        Creates an instance of the GL renderer.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gsk.Renderer
         """
 
 class GLRendererClass(GObject.GPointer): ...
@@ -1258,7 +1334,7 @@ class GLShader(GObject.Object):
     def props(self) -> Props: ...
 
     # gi Methods
-    def __init__(self, source: GLib.Bytes | None = None, resource: str | None = None) -> None:
+    def __init__(self, resource: str | None = None, source: GLib.Bytes | None = None) -> None:
         """
         Initialize GLShader object with properties.
         """
@@ -1380,17 +1456,27 @@ class GLShader(GObject.Object):
         """
         Get the type of the declared uniform for this shader at index `idx`.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new_from_bytes(cls, sourcecode: GLib.Bytes) -> GLShader:
+    def new_from_bytes(
+        cls,
+        sourcecode: GLib.Bytes,
+    ) -> GLShader:
         """
-        Creates a `GskGLShader` that will render pixels using the specified code.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_bytes(sourcecode:GLib.Bytes) -> Gsk.GLShader
         """
-    @deprecated("deprecated")
     @classmethod
-    def new_from_resource(cls, resource_path: str) -> GLShader:
+    def new_from_resource(
+        cls,
+        resource_path: str,
+    ) -> GLShader:
         """
-        Creates a `GskGLShader` that will render pixels using the specified code.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_resource(resource_path:str) -> Gsk.GLShader
         """
 
     # Signals
@@ -1443,29 +1529,20 @@ class GLShaderNode(RenderNode):
         """
         Gets shader code for the node.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, shader: GLShader, bounds: Graphene.Rect, args: GLib.Bytes, children: list | None, n_children: int
+        cls,
+        shader: GLShader,
+        bounds: Graphene.Rect,
+        args: GLib.Bytes,
+        children: list | None = None,
     ) -> GLShaderNode:
         """
-            Creates a `GskRenderNode` that will render the given `shader` into the
-        area given by `bounds`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The `args` is a block of data to use for uniform input, as per types and
-        offsets defined by the `shader`. Normally this is generated by
-        [method`Gsk`.GLShader.format_args] or [struct`Gsk`.ShaderArgsBuilder].
-
-        See [class`Gsk`.GLShader] for details about how the shader should be written.
-
-        All the children will be rendered into textures (if they aren't already
-        `GskTextureNodes`, which will be used directly). These textures will be
-        sent as input to the shader.
-
-        If the renderer doesn't support GL shaders, or if there is any problem
-        when compiling the shader, then the node will draw pink. You should use
-        [method`Gsk`.GLShader.compile] to ensure the `shader` will work for the
-        renderer before using it.
+        new(shader:Gsk.GLShader, bounds:Graphene.Rect, args:GLib.Bytes, children:list=None) -> Gsk.GLShaderNode
         """
 
 class InsetShadowNode(RenderNode):
@@ -1501,13 +1578,22 @@ class InsetShadowNode(RenderNode):
         """
         Retrieves how much the shadow spreads inwards.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, outline: RoundedRect, color: Gdk.RGBA, dx: float, dy: float, spread: float, blur_radius: float
+        cls,
+        outline: RoundedRect,
+        color: Gdk.RGBA,
+        dx: float,
+        dy: float,
+        spread: float,
+        blur_radius: float,
     ) -> InsetShadowNode:
         """
-            Creates a `GskRenderNode` that will render an inset shadow
-        into the box given by `outline`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(outline:Gsk.RoundedRect, color:Gdk.RGBA, dx:float, dy:float, spread:float, blur_radius:float) -> Gsk.InsetShadowNode
         """
 
 class LinearGradientNode(RenderNode):
@@ -1532,13 +1618,20 @@ class LinearGradientNode(RenderNode):
         """
         Retrieves the initial point of the linear gradient.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, bounds: Graphene.Rect, start: Graphene.Point, end: Graphene.Point, color_stops: list, n_color_stops: int
+        cls,
+        bounds: Graphene.Rect,
+        start: Graphene.Point,
+        end: Graphene.Point,
+        color_stops: list,
     ) -> LinearGradientNode:
         """
-            Creates a `GskRenderNode` that will create a linear gradient from the given
-        points and color stops, and render that into the area given by `bounds`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(bounds:Graphene.Rect, start:Graphene.Point, end:Graphene.Point, color_stops:list) -> Gsk.LinearGradientNode
         """
 
 class MaskNode(RenderNode):
@@ -1559,14 +1652,19 @@ class MaskNode(RenderNode):
         """
         Retrieves the source `GskRenderNode` child of the `node`.
         """
-    @classmethod
-    def new(cls, source: RenderNode, mask: RenderNode, mask_mode: MaskMode) -> MaskNode:
-        """
-            Creates a `GskRenderNode` that will mask a given node by another.
 
-        The `mask_mode` determines how the 'mask values' are derived from
-        the colors of the `mask`. Applying the mask consists of multiplying
-        the 'mask value' with the alpha of the source.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        source: RenderNode,
+        mask: RenderNode,
+        mask_mode: MaskMode,
+    ) -> MaskNode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(source:Gsk.RenderNode, mask:Gsk.RenderNode, mask_mode:Gsk.MaskMode) -> Gsk.MaskNode
         """
 
 class NglRenderer(Renderer):
@@ -1581,11 +1679,16 @@ class NglRenderer(Renderer):
         """
         Initialize NglRenderer object with properties.
         """
-    @deprecated("deprecated")
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> NglRenderer:
+    def new(
+        cls,
+    ) -> Renderer:
         """
-        Same as `Gsk.gl_renderer_new`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gsk.Renderer
         """
 
 class OpacityNode(RenderNode):
@@ -1602,11 +1705,18 @@ class OpacityNode(RenderNode):
         """
         Gets the transparency factor for an opacity node.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, child: RenderNode, opacity: float) -> OpacityNode:
+    def new(
+        cls,
+        child: RenderNode,
+        opacity: float,
+    ) -> OpacityNode:
         """
-            Creates a `GskRenderNode` that will drawn the `child` with reduced
-        `opacity`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gsk.RenderNode, opacity:float) -> Gsk.OpacityNode
         """
 
 class OutsetShadowNode(RenderNode):
@@ -1642,13 +1752,22 @@ class OutsetShadowNode(RenderNode):
         """
         Retrieves how much the shadow spreads outwards.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, outline: RoundedRect, color: Gdk.RGBA, dx: float, dy: float, spread: float, blur_radius: float
+        cls,
+        outline: RoundedRect,
+        color: Gdk.RGBA,
+        dx: float,
+        dy: float,
+        spread: float,
+        blur_radius: float,
     ) -> OutsetShadowNode:
         """
-            Creates a `GskRenderNode` that will render an outset shadow
-        around the box given by `outline`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(outline:Gsk.RoundedRect, color:Gdk.RGBA, dx:float, dy:float, spread:float, blur_radius:float) -> Gsk.OutsetShadowNode
         """
 
 class ParseLocation(GObject.GPointer):
@@ -2042,14 +2161,6 @@ class PathBuilder(GObject.GBoxed):
         call will result in a contour made up of a single point.
         The second call will start a new contour.
         """
-    @classmethod
-    def new(cls) -> PathBuilder:
-        """
-            Create a new `GskPathBuilder` object.
-
-        The resulting builder would create an empty `GskPath`.
-        Use addition functions to add types to it.
-        """
     def quad_to(self, x1: float, y1: float, x2: float, y2: float) -> None:
         """
             Adds a [quadratic Bézier curve](https://en.wikipedia.org/wiki/BC3A9zier_curve)
@@ -2173,6 +2284,15 @@ class PathBuilder(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> PathBuilder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gsk.PathBuilder
+        """
 
 class PathMeasure(GObject.GBoxed):
     """
@@ -2208,17 +2328,6 @@ class PathMeasure(GObject.GBoxed):
         """
         Returns the tolerance that the measure was created with.
         """
-    @classmethod
-    def new(cls, path: Path) -> PathMeasure:
-        """
-            Creates a measure object for the given `path` with the
-        default tolerance.
-        """
-    @classmethod
-    def new_with_tolerance(cls, path: Path, tolerance: float) -> PathMeasure:
-        """
-        Creates a measure object for the given `path` and `tolerance`.
-        """
     def ref(self) -> PathMeasure:
         """
         Increases the reference count of a `GskPathMeasure` by one.
@@ -2236,6 +2345,27 @@ class PathMeasure(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        path: Path,
+    ) -> PathMeasure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(path:Gsk.Path) -> Gsk.PathMeasure
+        """
+    @classmethod
+    def new_with_tolerance(
+        cls,
+        path: Path,
+        tolerance: float,
+    ) -> PathMeasure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_tolerance(path:Gsk.Path, tolerance:float) -> Gsk.PathMeasure
+        """
 
 class PathPoint(GObject.GBoxed):
     """
@@ -2371,6 +2501,8 @@ class RadialGradientNode(RenderNode):
         """
         Retrieves the vertical radius for the gradient.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
         cls,
@@ -2381,14 +2513,11 @@ class RadialGradientNode(RenderNode):
         start: float,
         end: float,
         color_stops: list,
-        n_color_stops: int,
     ) -> RadialGradientNode:
         """
-            Creates a `GskRenderNode` that draws a radial gradient.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The radial gradient
-        starts around `center`. The size of the gradient is dictated by `hradius`
-        in horizontal orientation and by `vradius` in vertical orientation.
+        new(bounds:Graphene.Rect, center:Graphene.Point, hradius:float, vradius:float, start:float, end:float, color_stops:list) -> Gsk.RadialGradientNode
         """
 
 class RenderNode(object):
@@ -2406,11 +2535,6 @@ class RenderNode(object):
     them. All [class`Gsk`.RenderNode]s are immutable, you can only specify their
     properties during construction.
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     @staticmethod
@@ -2532,17 +2656,6 @@ class Renderer(GObject.Object):
         """
         Checks whether the renderer is realized or not.
         """
-    @classmethod
-    def new_for_surface(cls, surface: Gdk.Surface) -> Renderer | None:
-        """
-            Creates an appropriate `GskRenderer` instance for the given surface.
-
-        If the `GSK_RENDERER` environment variable is set, GSK will
-        try that renderer first, before trying the backend-specific
-        default. The ultimate fallback is the cairo renderer.
-
-        The renderer will be realized before it is returned.
-        """
     def realize(self, surface: Gdk.Surface | None = None) -> bool:
         """
             Creates the resources needed by the renderer.
@@ -2593,6 +2706,18 @@ class Renderer(GObject.Object):
         Releases all the resources created by [method`Gsk`.Renderer.realize].
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new_for_surface(
+        cls,
+        surface: Gdk.Surface,
+    ) -> Renderer | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_surface(surface:Gdk.Surface) -> Gsk.Renderer or None
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -2629,11 +2754,19 @@ class RepeatNode(RenderNode):
         """
         Retrieves the bounding rectangle of the child of `node`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, bounds: Graphene.Rect, child: RenderNode, child_bounds: Graphene.Rect | None = None) -> RepeatNode:
+    def new(
+        cls,
+        bounds: Graphene.Rect,
+        child: RenderNode,
+        child_bounds: Graphene.Rect | None = None,
+    ) -> RepeatNode:
         """
-            Creates a `GskRenderNode` that will repeat the drawing of `child` across
-        the given `bounds`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(bounds:Graphene.Rect, child:Gsk.RenderNode, child_bounds:Graphene.Rect=None) -> Gsk.RepeatNode
         """
 
 class RepeatingLinearGradientNode(RenderNode):
@@ -2642,14 +2775,20 @@ class RepeatingLinearGradientNode(RenderNode):
     """
 
     # gi Methods
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, bounds: Graphene.Rect, start: Graphene.Point, end: Graphene.Point, color_stops: list, n_color_stops: int
+        cls,
+        bounds: Graphene.Rect,
+        start: Graphene.Point,
+        end: Graphene.Point,
+        color_stops: list,
     ) -> RepeatingLinearGradientNode:
         """
-            Creates a `GskRenderNode` that will create a repeating linear gradient
-        from the given points and color stops, and render that into the area
-        given by `bounds`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(bounds:Graphene.Rect, start:Graphene.Point, end:Graphene.Point, color_stops:list) -> Gsk.RepeatingLinearGradientNode
         """
 
 class RepeatingRadialGradientNode(RenderNode):
@@ -2658,6 +2797,8 @@ class RepeatingRadialGradientNode(RenderNode):
     """
 
     # gi Methods
+
+    # python methods (overrides?)
     @classmethod
     def new(
         cls,
@@ -2668,14 +2809,11 @@ class RepeatingRadialGradientNode(RenderNode):
         start: float,
         end: float,
         color_stops: list,
-        n_color_stops: int,
     ) -> RepeatingRadialGradientNode:
         """
-            Creates a `GskRenderNode` that draws a repeating radial gradient.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The radial gradient starts around `center`. The size of the gradient
-        is dictated by `hradius` in horizontal orientation and by `vradius`
-        in vertical orientation.
+        new(bounds:Graphene.Rect, center:Graphene.Point, hradius:float, vradius:float, start:float, end:float, color_stops:list) -> Gsk.RepeatingRadialGradientNode
         """
 
 class RoundedClipNode(RenderNode):
@@ -2692,11 +2830,18 @@ class RoundedClipNode(RenderNode):
         """
         Retrieves the rounded rectangle used to clip the contents of the `node`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, child: RenderNode, clip: RoundedRect) -> RoundedClipNode:
+    def new(
+        cls,
+        child: RenderNode,
+        clip: RoundedRect,
+    ) -> RoundedClipNode:
         """
-            Creates a `GskRenderNode` that will clip the `child` to the area
-        given by `clip`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gsk.RenderNode, clip:Gsk.RoundedRect) -> Gsk.RoundedClipNode
         """
 
 class RoundedRect(GObject.GPointer):
@@ -2809,13 +2954,6 @@ class ShaderArgsBuilder(GObject.GBoxed):
 
     # gi Methods
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, shader: GLShader, initial_values: GLib.Bytes | None = None) -> ShaderArgsBuilder:
-        """
-            Allocates a builder that can be used to construct a new uniform data
-        chunk.
-        """
-    @deprecated("deprecated")
     def ref(self) -> ShaderArgsBuilder:
         """
         Increases the reference count of a `GskShaderArgsBuilder` by one.
@@ -2897,6 +3035,17 @@ class ShaderArgsBuilder(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        shader: GLShader,
+        initial_values: GLib.Bytes | None = None,
+    ) -> ShaderArgsBuilder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(shader:Gsk.GLShader, initial_values:GLib.Bytes=None) -> Gsk.ShaderArgsBuilder
+        """
 
 class Shadow(GObject.GPointer):
     """
@@ -2943,11 +3092,18 @@ class ShadowNode(RenderNode):
         """
         Retrieves the shadow data at the given index `i`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, child: RenderNode, shadows: list, n_shadows: int) -> ShadowNode:
+    def new(
+        cls,
+        child: RenderNode,
+        shadows: list,
+    ) -> ShadowNode:
         """
-            Creates a `GskRenderNode` that will draw a `child` with the given
-        `shadows` below it.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gsk.RenderNode, shadows:list) -> Gsk.ShadowNode
         """
 
 class Stroke(GObject.GBoxed):
@@ -2996,11 +3152,6 @@ class Stroke(GObject.GBoxed):
     def get_miter_limit(self) -> float:
         """
         Gets the miter limit.
-        """
-    @classmethod
-    def new(cls, line_width: float) -> Stroke:
-        """
-        Creates a new `GskStroke` with the given `line_width`.
         """
     def set_dash(self, dash: list | None, n_dash: int) -> None:
         """
@@ -3079,6 +3230,16 @@ class Stroke(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        line_width: float,
+    ) -> Stroke:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(line_width:float) -> Gsk.Stroke
+        """
 
 class StrokeNode(RenderNode):
     """
@@ -3100,13 +3261,19 @@ class StrokeNode(RenderNode):
         """
         Retrieves the stroke attributes used in this `node`.
         """
-    @classmethod
-    def new(cls, child: RenderNode, path: Path, stroke: Stroke) -> StrokeNode:
-        """
-            Creates a Gsk.RenderNode that will fill the outline generated by stroking
-        the given `path` using the attributes defined in `stroke`.
 
-        The area is filled with `child`.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        child: RenderNode,
+        path: Path,
+        stroke: Stroke,
+    ) -> StrokeNode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gsk.RenderNode, path:Gsk.Path, stroke:Gsk.Stroke) -> Gsk.StrokeNode
         """
 
 class SubsurfaceNode(RenderNode):
@@ -3153,15 +3320,20 @@ class TextNode(RenderNode):
         """
         Checks whether the text `node` has color glyphs.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, font: Pango.Font, glyphs: Pango.GlyphString, color: Gdk.RGBA, offset: Graphene.Point
+        cls,
+        font: Pango.Font,
+        glyphs: Pango.GlyphString,
+        color: Gdk.RGBA,
+        offset: Graphene.Point,
     ) -> TextNode | None:
         """
-            Creates a render node that renders the given glyphs.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        Note that `color` may not be used if the font contains
-        color glyphs.
+        new(font:Pango.Font, glyphs:Pango.GlyphString, color:Gdk.RGBA, offset:Graphene.Point) -> Gsk.TextNode or None
         """
 
 class TextureNode(RenderNode):
@@ -3174,15 +3346,18 @@ class TextureNode(RenderNode):
         """
         Retrieves the `GdkTexture` used when creating this `GskRenderNode`.
         """
-    @classmethod
-    def new(cls, texture: Gdk.Texture, bounds: Graphene.Rect) -> TextureNode:
-        """
-            Creates a `GskRenderNode` that will render the given
-        `texture` into the area given by `bounds`.
 
-        Note that GSK applies linear filtering when textures are
-        scaled and transformed. See [class`Gsk`.TextureScaleNode]
-        for a way to influence filtering.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        texture: Gdk.Texture,
+        bounds: Graphene.Rect,
+    ) -> TextureNode:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(texture:Gdk.Texture, bounds:Graphene.Rect) -> Gsk.TextureNode
         """
 
 class TextureScaleNode(RenderNode):
@@ -3199,21 +3374,19 @@ class TextureScaleNode(RenderNode):
         """
         Retrieves the `GdkTexture` used when creating this `GskRenderNode`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, texture: Gdk.Texture, bounds: Graphene.Rect, filter: ScalingFilter) -> TextureScaleNode:
+    def new(
+        cls,
+        texture: Gdk.Texture,
+        bounds: Graphene.Rect,
+        filter: ScalingFilter,
+    ) -> TextureScaleNode:
         """
-            Creates a node that scales the texture to the size given by the
-        bounds using the filter and then places it at the bounds' position.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        Note that further scaling and other transformations which are
-        applied to the node will apply linear filtering to the resulting
-        texture, as usual.
-
-        This node is intended for tight control over scaling applied
-        to a texture, such as in image editors and requires the
-        application to be aware of the whole render tree as further
-        transforms may be applied that conflict with the desired effect
-        of this node.
+        new(texture:Gdk.Texture, bounds:Graphene.Rect, filter:Gsk.ScalingFilter) -> Gsk.TextureScaleNode
         """
 
 class Transform(GObject.GBoxed):
@@ -3257,14 +3430,6 @@ class Transform(GObject.GBoxed):
 
         This function consumes `next`. Use [method`Gsk`.Transform.ref] first
         if you want to keep it around.
-        """
-    @classmethod
-    def new(cls) -> Transform:
-        """
-            Creates a new identity transform.
-
-        This function is meant to be used by language
-        bindings. For C code, this is equivalent to using `None`.
         """
     @staticmethod
     def parse(string: str) -> tuple[bool, Transform]:
@@ -3471,6 +3636,15 @@ class Transform(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> Transform:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gsk.Transform
+        """
 
 class TransformNode(RenderNode):
     """
@@ -3486,11 +3660,18 @@ class TransformNode(RenderNode):
         """
         Retrieves the `GskTransform` used by the `node`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, child: RenderNode, transform: Transform) -> TransformNode:
+    def new(
+        cls,
+        child: RenderNode,
+        transform: Transform,
+    ) -> TransformNode:
         """
-            Creates a `GskRenderNode` that will transform the given `child`
-        with the given `transform`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(child:Gsk.RenderNode, transform:Gsk.Transform) -> Gsk.TransformNode
         """
 
 class VulkanRenderer(Renderer):
@@ -3505,16 +3686,16 @@ class VulkanRenderer(Renderer):
         """
         Initialize VulkanRenderer object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> VulkanRenderer:
+    def new(
+        cls,
+    ) -> Renderer:
         """
-            Creates a new Vulkan renderer.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The Vulkan renderer is a renderer that uses the Vulkan library for
-        rendering.
-
-        This renderer will fail to realize when GTK was not compiled with
-        Vulkan support.
+        new() -> Gsk.Renderer
         """
 
 class VulkanRendererClass(GObject.GPointer): ...

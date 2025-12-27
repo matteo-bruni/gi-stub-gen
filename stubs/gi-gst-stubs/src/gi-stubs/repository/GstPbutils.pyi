@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -429,8 +429,8 @@ class AudioVisualizer(Gst.Element):
         self,
         name: str | None = None,
         parent: Gst.Object | None = None,
-        shader: AudioVisualizerShader | None = AudioVisualizerShader.FADE,
         shade_amount: int | None = None,
+        shader: AudioVisualizerShader | None = AudioVisualizerShader.FADE,
     ) -> None:
         """
         Initialize AudioVisualizer object with properties.
@@ -515,8 +515,6 @@ class Discoverer(GObject.Object):
         """
     def discover_uri(self, uri: str) -> DiscovererInfo: ...
     def discover_uri_async(self, uri: str) -> bool: ...
-    @classmethod
-    def new(cls, timeout: int) -> Discoverer: ...
     def start(self) -> None: ...
     def stop(self) -> None: ...
 
@@ -554,6 +552,16 @@ class Discoverer(GObject.Object):
     ) -> None:
         """
         starting(self)
+        """
+    @classmethod
+    def new(
+        cls,
+        timeout: int,
+    ) -> Discoverer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(timeout:int) -> GstPbutils.Discoverer
         """
 
     # Signals
@@ -724,22 +732,33 @@ class DiscovererVideoInfo(DiscovererStreamInfo):
 class EncodingAudioProfile(EncodingProfile):
     # gi Methods
     def __init__(
-        self, restriction_caps: Gst.Caps | None = None, element_properties: Gst.Structure | None = None
+        self, element_properties: Gst.Structure | None = None, restriction_caps: Gst.Caps | None = None
     ) -> None:
         """
         Initialize EncodingAudioProfile object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, format: Gst.Caps, preset: str | None, restriction: Gst.Caps | None, presence: int
-    ) -> EncodingAudioProfile: ...
+        cls,
+        format: Gst.Caps,
+        preset: str | None,
+        restriction: Gst.Caps | None,
+        presence: int,
+    ) -> EncodingAudioProfile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(format:Gst.Caps, preset:str=None, restriction:Gst.Caps=None, presence:int) -> GstPbutils.EncodingAudioProfile
+        """
 
 class EncodingAudioProfileClass(GObject.GPointer): ...
 
 class EncodingContainerProfile(EncodingProfile):
     # gi Methods
     def __init__(
-        self, restriction_caps: Gst.Caps | None = None, element_properties: Gst.Structure | None = None
+        self, element_properties: Gst.Structure | None = None, restriction_caps: Gst.Caps | None = None
     ) -> None:
         """
         Initialize EncodingContainerProfile object with properties.
@@ -747,10 +766,21 @@ class EncodingContainerProfile(EncodingProfile):
     def add_profile(self, profile: EncodingProfile) -> bool: ...
     def contains_profile(self, profile: EncodingProfile) -> bool: ...
     def get_profiles(self) -> list: ...
+
+    # python methods (overrides?)
     @classmethod
     def new(
-        cls, name: str | None, description: str | None, format: Gst.Caps, preset: str | None = None
-    ) -> EncodingContainerProfile: ...
+        cls,
+        name: str | None,
+        description: str | None,
+        format: Gst.Caps,
+        preset: str | None = None,
+    ) -> EncodingContainerProfile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None, description:str=None, format:Gst.Caps, preset:str=None) -> GstPbutils.EncodingContainerProfile
+        """
 
 class EncodingContainerProfileClass(GObject.GPointer): ...
 
@@ -764,7 +794,7 @@ class EncodingProfile(GObject.Object):
 
     # gi Methods
     def __init__(
-        self, restriction_caps: Gst.Caps | None = None, element_properties: Gst.Structure | None = None
+        self, element_properties: Gst.Structure | None = None, restriction_caps: Gst.Caps | None = None
     ) -> None:
         """
         Initialize EncodingProfile object with properties.
@@ -846,27 +876,51 @@ class EncodingTarget(GObject.Object):
     def load(name: str, category: str | None = None) -> EncodingTarget: ...
     @staticmethod
     def load_from_file(filepath: str) -> EncodingTarget: ...
-    @classmethod
-    def new(cls, name: str, category: str, description: str, profiles: list) -> EncodingTarget | None: ...
     def save(self) -> bool: ...
     def save_to_file(self, filepath: str) -> bool: ...
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        name: str,
+        category: str,
+        description: str,
+        profiles: list,
+    ) -> EncodingTarget | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str, category:str, description:str, profiles:list) -> GstPbutils.EncodingTarget or None
+        """
 
 class EncodingVideoProfile(EncodingProfile):
     # gi Methods
     def __init__(
-        self, restriction_caps: Gst.Caps | None = None, element_properties: Gst.Structure | None = None
+        self, element_properties: Gst.Structure | None = None, restriction_caps: Gst.Caps | None = None
     ) -> None:
         """
         Initialize EncodingVideoProfile object with properties.
         """
     def get_pass(self) -> int: ...
     def get_variableframerate(self) -> bool: ...
-    @classmethod
-    def new(
-        cls, format: Gst.Caps, preset: str | None, restriction: Gst.Caps | None, presence: int
-    ) -> EncodingVideoProfile: ...
     def set_pass(self, pass_: int) -> None: ...
     def set_variableframerate(self, variableframerate: bool) -> None: ...
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        format: Gst.Caps,
+        preset: str | None,
+        restriction: Gst.Caps | None,
+        presence: int,
+    ) -> EncodingVideoProfile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(format:Gst.Caps, preset:str=None, restriction:Gst.Caps=None, presence:int) -> GstPbutils.EncodingVideoProfile
+        """
 
 class EncodingVideoProfileClass(GObject.GPointer): ...
 
@@ -874,8 +928,6 @@ class InstallPluginsContext(GObject.GBoxed):
     # gi Methods
     def copy(self) -> InstallPluginsContext: ...
     def free(self) -> None: ...
-    @classmethod
-    def new(cls) -> InstallPluginsContext: ...
     def set_confirm_search(self, confirm_search: bool) -> None: ...
     def set_desktop_id(self, desktop_id: str) -> None: ...
     def set_startup_notification_id(self, startup_id: str) -> None: ...
@@ -887,6 +939,15 @@ class InstallPluginsContext(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> InstallPluginsContext:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GstPbutils.InstallPluginsContext
+        """
 
 ###############################################################
 # Callbacks

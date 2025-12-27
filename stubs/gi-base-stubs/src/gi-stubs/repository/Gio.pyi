@@ -12,7 +12,6 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
 import builtins
@@ -5846,46 +5845,6 @@ class ActionMap(builtins.object):
 
         The action map takes its own reference on `action`.
         """
-    def add_action_entries(self, entries: list, n_entries: int, user_data: object | None = None) -> None:
-        """
-            A convenience function for creating multiple [class`Gio`.SimpleAction]
-        instances and adding them to a [iface`Gio`.ActionMap].
-
-        Each action is constructed as per one [struct`Gio`.ActionEntry].
-
-        ```c
-        static void
-        activate_quit (GSimpleAction *simple,
-                       GVariant      *parameter,
-                       gpointer       user_data)
-        {
-          exit (0);
-        }
-
-        static void
-        activate_print_string (GSimpleAction *simple,
-                               GVariant      *parameter,
-                               gpointer       user_data)
-        {
-          g_print ("%s\\n", g_variant_get_string (parameter, None));
-        }
-
-        static GActionGroup *
-        create_action_group (void)
-        {
-          const GActionEntry entries[] = {
-            { "quit",         activate_quit              },
-            { "print-string", activate_print_string, "s" }
-          };
-          GSimpleActionGroup *group;
-
-          group = g_simple_action_group_new ();
-          g_action_map_add_action_entries (G_ACTION_MAP (group), entries, G_N_ELEMENTS (entries), None);
-
-          return G_ACTION_GROUP (group);
-        }
-        ```
-        """
     def lookup_action(self, action_name: str) -> Action | None:
         """
             Looks up the action with the name `action_name` in `action_map`.
@@ -5922,6 +5881,47 @@ class ActionMap(builtins.object):
           g_action_map_remove_action_entries (map, entries, G_N_ELEMENTS (entries));
         }
         ```
+        """
+
+    # python methods (overrides?)
+    def add_action_entries(
+        self,
+        entries: typing.Any,
+        user_data: typing.Any = None,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        The ``add_action_entries()`` method is a convenience function for creating
+        multiple :class:`~gi.repository.Gio.SimpleAction` instances and adding them
+        to a :class:`~gi.repository.Gio.ActionMap`.
+        Each action is constructed as per one entry.
+
+        :param list entries:
+            List of entry tuples for :meth:`add_action` method. The entry tuple can
+            vary in size with the following information:
+
+            * The name of the action. Must be specified.
+            * The callback to connect to the "activate" signal of the
+              action. Since GLib 2.40, this can be ``None`` for stateful
+              actions, in which case the default handler is used. For
+              boolean-stated actions with no parameter, this is a toggle.
+              For other state types (and parameter type equal to the state
+              type) this will be a function that just calls change_state
+              (which you should provide).
+            * The type of the parameter that must be passed to the activate
+              function for this action, given as a single :class:`~gi.repository.GLib.Variant` type
+              string (or ``None`` for no parameter)
+            * The initial state for this action, given in GLib.Variant text
+              format. The state is parsed with no extra type information, so
+              type tags must be added to the string if they are necessary.
+              Stateless actions should give ``None`` here.
+            * The callback to connect to the "change-state" signal of the
+              action. All stateful actions should provide a handler here;
+              stateless actions should not.
+
+        :param user_data:
+            The user data for signal connections, or ``None``
         """
 
 class ActionMapInterface(GObject.GPointer):
@@ -6645,13 +6645,6 @@ class AppLaunchContext(GObject.Object):
         the application startup notification started in
         [method`Gio`.AppLaunchContext.get_startup_notify_id].
         """
-    @classmethod
-    def new(cls) -> AppLaunchContext:
-        """
-            Creates a new application launch context. This is not normally used,
-        instead you instantiate a subclass of this, such as
-        [`GdkAppLaunchContext`](https://docs.gtk.org/gdk4/class.AppLaunchContext.html).
-        """
     def setenv(self, variable: str, value: str) -> None:
         """
             Arranges for `variable` to be set to `value` in the child’s environment when
@@ -6702,6 +6695,15 @@ class AppLaunchContext(GObject.Object):
     ) -> None:
         """
         launched(self, info:Gio.AppInfo, platform_data:GLib.Variant)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> AppLaunchContext:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.AppLaunchContext
         """
 
     # Signals
@@ -7376,84 +7378,6 @@ class Application(GObject.Object):
         Never call this function except to cancel the effect of a previous
         call to `g_application_hold`.
         """
-    def run(self, argc: int, argv: list | None = None) -> int:
-        """
-            Runs the application.
-
-        This function is intended to be run from `main` and its return value
-        is intended to be returned by `main`. Although you are expected to pass
-        the `argc`, `argv` parameters from `main` to this function, it is possible
-        to pass None if `argv` is not available or commandline handling is not
-        required.  Note that on Windows, `argc` and `argv` are ignored, and
-        `g_win32_get_command_line` is called internally (for proper support
-        of Unicode commandline arguments).
-
-        GApplication will attempt to parse the commandline arguments.  You
-        can add commandline flags to the list of recognised options by way of
-        `g_application_add_main_option_entries`.  After this, the
-        GApplication::handle-local-options signal is emitted, from which the
-        application can inspect the values of its GOptionEntrys.
-
-        GApplication::handle-local-options is a good place to handle options
-        such as `--version`, where an immediate reply from the local process is
-        desired (instead of communicating with an already-running instance).
-        A GApplication::handle-local-options handler can stop further processing
-        by returning a non-negative value, which then becomes the exit status of
-        the process.
-
-        What happens next depends on the flags: if
-        G_APPLICATION_HANDLES_COMMAND_LINE was specified then the remaining
-        commandline arguments are sent to the primary instance, where a
-        GApplication::command-line signal is emitted.  Otherwise, the
-        remaining commandline arguments are assumed to be a list of files.
-        If there are no files listed, the application is activated via the
-        GApplication::activate signal.  If there are one or more files, and
-        G_APPLICATION_HANDLES_OPEN was specified then the files are opened
-        via the GApplication::open signal.
-
-        If you are interested in doing more complicated local handling of the
-        commandline then you should implement your own GApplication subclass
-        and override `local_command_line`. In this case, you most likely want
-        to return True from your `local_command_line` implementation to
-        suppress the default handling. See
-        [gapplication-example-cmdline2.c][https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-cmdline2.c]
-        for an example.
-
-        If, after the above is done, the use count of the application is zero
-        then the exit status is returned immediately.  If the use count is
-        non-zero then the default main context is iterated until the use count
-        falls to zero, at which point 0 is returned.
-
-        If the G_APPLICATION_IS_SERVICE flag is set, then the service will
-        run for as much as 10 seconds with a use count of zero while waiting
-        for the message that caused the activation to arrive.  After that,
-        if the use count falls to zero the application will exit immediately,
-        except in the case that `g_application_set_inactivity_timeout` is in
-        use.
-
-        This function sets the prgname (`g_set_prgname`), if not already set,
-        to the basename of argv[0].
-
-        Much like `g_main_loop_run`, this function will acquire the main context
-        for the duration that the application is running.
-
-        Since 2.40, applications that are not explicitly flagged as services
-        or launchers (ie: neither G_APPLICATION_IS_SERVICE or
-        G_APPLICATION_IS_LAUNCHER are given as flags) will check (from the
-        default handler for local_command_line) if "--gapplication-service"
-        was given in the command line.  If this flag is present then normal
-        commandline processing is interrupted and the
-        G_APPLICATION_IS_SERVICE flag is set.  This provides a "compromise"
-        solution whereby running an application directly from the commandline
-        will invoke it in the normal way (which can be useful for debugging)
-        while still allowing applications to be D-Bus activated in service
-        mode.  The D-Bus service file should invoke the executable with
-        "--gapplication-service" as the sole commandline argument.  This
-        approach is suitable for use by most graphical applications but
-        should not be used from applications like editors that need precise
-        control over when processes invoked via the commandline will exit and
-        what their exit status will be.
-        """
     def send_notification(self, id: str | None, notification: Notification) -> None:
         """
             Sends a notification on behalf of `application` to the desktop shell.
@@ -7656,6 +7580,16 @@ class Application(GObject.Object):
         You can deal with this by either only storing a weak reference to the
         Task, by explicitly collecting the result, or by only cancelling it if
         it is not done already.
+        """
+    def run(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        run(self, argv:list=None) -> int
         """
 
     # Signals
@@ -8823,8 +8757,8 @@ class BufferedInputStream(FilterInputStream):
     def __init__(
         self,
         base_stream: InputStream | None = None,
-        close_base_stream: bool | None = None,
         buffer_size: int | None = None,
+        close_base_stream: bool | None = None,
     ) -> None:
         """
         Initialize BufferedInputStream object with properties.
@@ -8886,18 +8820,6 @@ class BufferedInputStream(FilterInputStream):
         """
         Gets the size of the input buffer.
         """
-    @classmethod
-    def new(cls, base_stream: InputStream) -> BufferedInputStream:
-        """
-            Creates a new [class`Gio`.InputStream] from the given `base_stream`, with
-        a buffer set to the default size (4 kilobytes).
-        """
-    @classmethod
-    def new_sized(cls, base_stream: InputStream, size: int) -> BufferedInputStream:
-        """
-            Creates a new [class`Gio`.BufferedInputStream] from the given `base_stream`,
-        with a buffer set to `size`.
-        """
     def peek(self, buffer: list, offset: int, count: int) -> int:
         """
             Peeks in the buffer, copying data of size `count` into `buffer`,
@@ -8958,6 +8880,27 @@ class BufferedInputStream(FilterInputStream):
     ) -> int:
         """
         fill_finish(self, result:Gio.AsyncResult) -> int
+        """
+    @classmethod
+    def new(
+        cls,
+        base_stream: InputStream,
+    ) -> InputStream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(base_stream:Gio.InputStream) -> Gio.InputStream
+        """
+    @classmethod
+    def new_sized(
+        cls,
+        base_stream: InputStream,
+        size: int,
+    ) -> InputStream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_sized(base_stream:Gio.InputStream, size:int) -> Gio.InputStream
         """
 
     # Signals
@@ -9035,10 +8978,10 @@ class BufferedOutputStream(FilterOutputStream):
     # gi Methods
     def __init__(
         self,
-        base_stream: OutputStream | None = None,
-        close_base_stream: bool | None = None,
-        buffer_size: int | None = None,
         auto_grow: bool | None = None,
+        base_stream: OutputStream | None = None,
+        buffer_size: int | None = None,
+        close_base_stream: bool | None = None,
     ) -> None:
         """
         Initialize BufferedOutputStream object with properties.
@@ -9053,16 +8996,6 @@ class BufferedOutputStream(FilterOutputStream):
         """
         Gets the size of the buffer in the `stream`.
         """
-    @classmethod
-    def new(cls, base_stream: OutputStream) -> BufferedOutputStream:
-        """
-        Creates a new buffered output stream for a base stream.
-        """
-    @classmethod
-    def new_sized(cls, base_stream: OutputStream, size: int) -> BufferedOutputStream:
-        """
-        Creates a new buffered output stream with a given buffer size.
-        """
     def set_auto_grow(self, auto_grow: bool) -> None:
         """
             Sets whether or not the `stream`'s buffer should automatically grow.
@@ -9073,6 +9006,29 @@ class BufferedOutputStream(FilterOutputStream):
     def set_buffer_size(self, size: int) -> None:
         """
         Sets the size of the internal buffer to `size`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        base_stream: OutputStream,
+    ) -> OutputStream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(base_stream:Gio.OutputStream) -> Gio.OutputStream
+        """
+    @classmethod
+    def new_sized(
+        cls,
+        base_stream: OutputStream,
+        size: int,
+    ) -> OutputStream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_sized(base_stream:Gio.OutputStream, size:int) -> Gio.OutputStream
         """
 
     # Signals
@@ -9131,13 +9087,17 @@ class BytesIcon(GObject.Object):
         """
         Gets the GBytes associated with the given `icon`.
         """
-    @classmethod
-    def new(cls, bytes: GLib.Bytes) -> BytesIcon:
-        """
-            Creates a new icon for a bytes.
 
-        This cannot fail, but loading and interpreting the bytes may fail later on
-        (for example, if `g_loadable_icon_load` is called) if the image is invalid.
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        bytes: GLib.Bytes,
+    ) -> BytesIcon:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(bytes:GLib.Bytes) -> Gio.BytesIcon
         """
 
     # Signals
@@ -9303,18 +9263,6 @@ class Cancellable(GObject.Object):
         Calling this function from a signal handler will therefore result in a
         deadlock.
         """
-    @classmethod
-    def new(cls) -> Cancellable:
-        """
-            Creates a new GCancellable object.
-
-        Applications that want to start one or more operations
-        that should be cancellable should create a GCancellable
-        and pass it to the operations.
-
-        One GCancellable can be used in multiple consecutive
-        operations or in multiple concurrent operations.
-        """
     def pop_current(self) -> None:
         """
             Pops `cancellable` off the cancellable stack (verifying that `cancellable`
@@ -9392,6 +9340,15 @@ class Cancellable(GObject.Object):
         """
         cancelled(self)
         """
+    @classmethod
+    def new(
+        cls,
+    ) -> Cancellable:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.Cancellable
+        """
 
 class CancellableClass(GObject.GPointer):
     # gi Fields
@@ -9451,14 +9408,22 @@ class CharsetConverter(GObject.Object):
         """
         Gets the GCharsetConverter:use-fallback property.
         """
-    @classmethod
-    def new(cls, to_charset: str, from_charset: str) -> CharsetConverter:
-        """
-        Creates a new GCharsetConverter.
-        """
     def set_use_fallback(self, use_fallback: bool) -> None:
         """
         Sets the GCharsetConverter:use-fallback property.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        to_charset: str,
+        from_charset: str,
+    ) -> CharsetConverter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(to_charset:str, from_charset:str) -> Gio.CharsetConverter
         """
 
     # Signals
@@ -9677,10 +9642,18 @@ class ConverterInputStream(FilterInputStream):
         """
         Gets the GConverter that is used by `converter_stream`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, base_stream: InputStream, converter: Converter) -> ConverterInputStream:
+    def new(
+        cls,
+        base_stream: InputStream,
+        converter: Converter,
+    ) -> InputStream:
         """
-        Creates a new converter input stream for the `base_stream`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(base_stream:Gio.InputStream, converter:Gio.Converter) -> Gio.InputStream
         """
 
     # Signals
@@ -9752,10 +9725,18 @@ class ConverterOutputStream(FilterOutputStream):
         """
         Gets the GConverter that is used by `converter_stream`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, base_stream: OutputStream, converter: Converter) -> ConverterOutputStream:
+    def new(
+        cls,
+        base_stream: OutputStream,
+        converter: Converter,
+    ) -> OutputStream:
         """
-        Creates a new converter output stream for the `base_stream`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(base_stream:Gio.OutputStream, converter:Gio.Converter) -> Gio.OutputStream
         """
 
     # Signals
@@ -9857,12 +9838,6 @@ class Credentials(GObject.Object):
         This operation can fail if GCredentials is not supported on the
         the OS.
         """
-    @classmethod
-    def new(cls) -> Credentials:
-        """
-            Creates a new GCredentials object with credentials matching the
-        the current process.
-        """
     def set_native(self, native_type: CredentialsType, native: object) -> None:
         """
             Copies the native credentials of type `native_type` from `native`
@@ -9887,6 +9862,17 @@ class Credentials(GObject.Object):
             Creates a human-readable textual representation of `credentials`
         that can be used in logging and debug messages. The format of the
         returned string may change in future GLib release.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Credentials:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.Credentials
         """
 
 class CredentialsClass(GObject.GPointer):
@@ -10109,10 +10095,16 @@ class DBusAuthObserver(GObject.Object):
         """
         Emits the GDBusAuthObserver::authorize-authenticated-peer signal on `observer`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> DBusAuthObserver:
+    def new(
+        cls,
+    ) -> DBusAuthObserver:
         """
-        Creates a new GDBusAuthObserver object.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.DBusAuthObserver
         """
 
     # Signals
@@ -10280,12 +10272,12 @@ class DBusConnection(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        stream: IOStream | None = None,
         address: str | None = None,
+        authentication_observer: DBusAuthObserver | None = None,
+        exit_on_close: bool | None = None,
         flags: DBusConnectionFlags | None = DBusConnectionFlags.NONE,
         guid: str | None = None,
-        exit_on_close: bool | None = None,
-        authentication_observer: DBusAuthObserver | None = None,
+        stream: IOStream | None = None,
     ) -> None:
         """
         Initialize DBusConnection object with properties.
@@ -10736,11 +10728,6 @@ class DBusConnection(GObject.Object):
         `g_dbus_connection_new_sync` for the synchronous
         version.
         """
-    @classmethod
-    def new_finish(cls, res: AsyncResult) -> DBusConnection:
-        """
-        Finishes an operation started with `g_dbus_connection_new`.
-        """
     @staticmethod
     async def new_for_address(
         address: str,
@@ -10773,64 +10760,6 @@ class DBusConnection(GObject.Object):
         This is an asynchronous failable constructor. See
         `g_dbus_connection_new_for_address_sync` for the synchronous
         version.
-        """
-    @classmethod
-    def new_for_address_finish(cls, res: AsyncResult) -> DBusConnection:
-        """
-        Finishes an operation started with `g_dbus_connection_new_for_address`.
-        """
-    @classmethod
-    def new_for_address_sync(
-        cls,
-        address: str,
-        flags: DBusConnectionFlags,
-        observer: DBusAuthObserver | None = None,
-        cancellable: Cancellable | None = None,
-    ) -> DBusConnection:
-        """
-            Synchronously connects and sets up a D-Bus client connection for
-        exchanging D-Bus messages with an endpoint specified by `address`
-        which must be in the
-        [D-Bus address format](https://dbus.freedesktop.org/doc/dbus-specification.html#addresses).
-
-        This constructor can only be used to initiate client-side
-        connections - use `g_dbus_connection_new_sync` if you need to act
-        as the server. In particular, `flags` cannot contain the
-        G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_SERVER,
-        G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS or
-        G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER flags.
-
-        This is a synchronous failable constructor. See
-        `g_dbus_connection_new_for_address` for the asynchronous version.
-
-        If `observer` is not None it may be used to control the
-        authentication process.
-        """
-    @classmethod
-    def new_sync(
-        cls,
-        stream: IOStream,
-        guid: str | None,
-        flags: DBusConnectionFlags,
-        observer: DBusAuthObserver | None = None,
-        cancellable: Cancellable | None = None,
-    ) -> DBusConnection:
-        """
-            Synchronously sets up a D-Bus connection for exchanging D-Bus messages
-        with the end represented by `stream`.
-
-        If `stream` is a GSocketConnection, then the corresponding GSocket
-        will be put into non-blocking mode.
-
-        The D-Bus connection will interact with `stream` from a worker thread.
-        As a result, the caller should not interact with `stream` after this
-        method has been called, except by calling `g_object_unref` on it.
-
-        If `observer` is not None it may be used to control the
-        authentication process.
-
-        This is a synchronous failable constructor. See
-        `g_dbus_connection_new` for the asynchronous version.
         """
     @deprecated("deprecated")
     def register_object(
@@ -11201,6 +11130,55 @@ class DBusConnection(GObject.Object):
     def unregister_subtree(self, registration_id: int) -> bool:
         """
         Unregisters a subtree.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_finish(
+        cls,
+        res: AsyncResult,
+    ) -> DBusConnection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_finish(res:Gio.AsyncResult) -> Gio.DBusConnection
+        """
+    @classmethod
+    def new_for_address_finish(
+        cls,
+        res: AsyncResult,
+    ) -> DBusConnection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_address_finish(res:Gio.AsyncResult) -> Gio.DBusConnection
+        """
+    @classmethod
+    def new_for_address_sync(
+        cls,
+        address: str,
+        flags: DBusConnectionFlags,
+        observer: DBusAuthObserver | None = None,
+        cancellable: Cancellable | None = None,
+    ) -> DBusConnection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_address_sync(address:str, flags:Gio.DBusConnectionFlags, observer:Gio.DBusAuthObserver=None, cancellable:Gio.Cancellable=None) -> Gio.DBusConnection
+        """
+    @classmethod
+    def new_sync(
+        cls,
+        stream: IOStream,
+        guid: str | None,
+        flags: DBusConnectionFlags,
+        observer: DBusAuthObserver | None = None,
+        cancellable: Cancellable | None = None,
+    ) -> DBusConnection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_sync(stream:Gio.IOStream, guid:str=None, flags:Gio.DBusConnectionFlags, observer:Gio.DBusAuthObserver=None, cancellable:Gio.Cancellable=None) -> Gio.DBusConnection
         """
 
     # Signals
@@ -11949,26 +11927,6 @@ class DBusMessage(GObject.Object):
         """
         If `message` is locked, does nothing. Otherwise locks the message.
         """
-    @classmethod
-    def new(cls) -> DBusMessage:
-        """
-        Creates a new empty GDBusMessage.
-        """
-    @classmethod
-    def new_from_blob(cls, blob: list, blob_len: int, capabilities: DBusCapabilityFlags) -> DBusMessage:
-        """
-            Creates a new GDBusMessage from the data stored at `blob`. The byte
-        order that the message was in can be retrieved using
-        `g_dbus_message_get_byte_order`.
-
-        If the `blob` cannot be parsed, contains invalid fields, or contains invalid
-        headers, G_IO_ERROR_INVALID_ARGUMENT will be returned.
-        """
-    @classmethod
-    def new_method_call(cls, name: str | None, path: str, interface_: str | None, method: str) -> DBusMessage:
-        """
-        Creates a new GDBusMessage for a method call.
-        """
     def new_method_error_literal(self, error_name: str, error_message: str) -> DBusMessage:
         """
         Creates a new GDBusMessage that is an error reply to `method_call_message`.
@@ -11976,11 +11934,6 @@ class DBusMessage(GObject.Object):
     def new_method_reply(self) -> DBusMessage:
         """
         Creates a new GDBusMessage that is a reply to `method_call_message`.
-        """
-    @classmethod
-    def new_signal(cls, path: str, interface_: str, signal: str) -> DBusMessage:
-        """
-        Creates a new GDBusMessage for a signal emission.
         """
     def print_(self, indent: int) -> str: ...
     def set_body(self, body: GLib.Variant) -> None:
@@ -12080,6 +12033,53 @@ class DBusMessage(GObject.Object):
         using `g_dbus_error_set_dbus_error` using the information in the
         G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME header field of `message` as
         well as the first string item in `message`'s body.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> DBusMessage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.DBusMessage
+        """
+    @classmethod
+    def new_from_blob(
+        cls,
+        blob: list,
+        capabilities: DBusCapabilityFlags,
+    ) -> DBusMessage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_blob(blob:list, capabilities:Gio.DBusCapabilityFlags) -> Gio.DBusMessage
+        """
+    @classmethod
+    def new_method_call(
+        cls,
+        name: str | None,
+        path: str,
+        interface_: str | None,
+        method: str,
+    ) -> DBusMessage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_method_call(name:str=None, path:str, interface_:str=None, method:str) -> Gio.DBusMessage
+        """
+    @classmethod
+    def new_signal(
+        cls,
+        path: str,
+        interface_: str,
+        signal: str,
+    ) -> DBusMessage:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_signal(path:str, interface_:str, signal:str) -> Gio.DBusMessage
         """
 
     # Signals
@@ -12718,11 +12718,11 @@ class DBusObjectManagerClient(GObject.Object):
         bus_type: BusType | None = BusType.NONE,
         connection: DBusConnection | None = None,
         flags: DBusObjectManagerClientFlags | None = DBusObjectManagerClientFlags.NONE,
-        object_path: str | None = None,
-        name: str | None = None,
+        get_proxy_type_destroy_notify: object | None = None,
         get_proxy_type_func: object | None = None,
         get_proxy_type_user_data: object | None = None,
-        get_proxy_type_destroy_notify: object | None = None,
+        name: str | None = None,
+        object_path: str | None = None,
     ) -> None:
         """
         Initialize DBusObjectManagerClient object with properties.
@@ -12773,11 +12773,6 @@ class DBusObjectManagerClient(GObject.Object):
         `g_dbus_object_manager_client_new_finish` to get the result. See
         `g_dbus_object_manager_client_new_sync` for the synchronous version.
         """
-    @classmethod
-    def new_finish(cls, res: AsyncResult) -> DBusObjectManagerClient:
-        """
-        Finishes an operation started with `g_dbus_object_manager_client_new`.
-        """
     @staticmethod
     async def new_for_bus(
         bus_type: BusType,
@@ -12801,48 +12796,6 @@ class DBusObjectManagerClient(GObject.Object):
         then call `g_dbus_object_manager_client_new_for_bus_finish` to get the result. See
         `g_dbus_object_manager_client_new_for_bus_sync` for the synchronous version.
         """
-    @classmethod
-    def new_for_bus_finish(cls, res: AsyncResult) -> DBusObjectManagerClient:
-        """
-        Finishes an operation started with `g_dbus_object_manager_client_new_for_bus`.
-        """
-    @classmethod
-    def new_for_bus_sync(
-        cls,
-        bus_type: BusType,
-        flags: DBusObjectManagerClientFlags,
-        name: str,
-        object_path: str,
-        get_proxy_type_func: DBusProxyTypeFunc | None | typing.Callable[..., GObject.GType] = None,
-        *get_proxy_type_user_data: object | None,
-        cancellable: Cancellable | None = None,
-    ) -> DBusObjectManagerClient:
-        """
-            Like `g_dbus_object_manager_client_new_sync` but takes a GBusType instead
-        of a GDBusConnection.
-
-        This is a synchronous failable constructor - the calling thread is
-        blocked until a reply is received. See `g_dbus_object_manager_client_new_for_bus`
-        for the asynchronous version.
-        """
-    @classmethod
-    def new_sync(
-        cls,
-        connection: DBusConnection,
-        flags: DBusObjectManagerClientFlags,
-        name: str | None,
-        object_path: str,
-        get_proxy_type_func: DBusProxyTypeFunc | None | typing.Callable[..., GObject.GType] = None,
-        *get_proxy_type_user_data: object | None,
-        cancellable: Cancellable | None = None,
-    ) -> DBusObjectManagerClient:
-        """
-            Creates a new GDBusObjectManagerClient object.
-
-        This is a synchronous failable constructor - the calling thread is
-        blocked until a reply is received. See `g_dbus_object_manager_client_new`
-        for the asynchronous version.
-        """
 
     # python methods (overrides?)
     def do_interface_proxy_properties_changed(
@@ -12865,6 +12818,58 @@ class DBusObjectManagerClient(GObject.Object):
     ) -> None:
         """
         interface_proxy_signal(self, object_proxy:Gio.DBusObjectProxy, interface_proxy:Gio.DBusProxy, sender_name:str, signal_name:str, parameters:GLib.Variant)
+        """
+    @classmethod
+    def new_finish(
+        cls,
+        res: AsyncResult,
+    ) -> DBusObjectManagerClient:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_finish(res:Gio.AsyncResult) -> Gio.DBusObjectManagerClient
+        """
+    @classmethod
+    def new_for_bus_finish(
+        cls,
+        res: AsyncResult,
+    ) -> DBusObjectManagerClient:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_bus_finish(res:Gio.AsyncResult) -> Gio.DBusObjectManagerClient
+        """
+    @classmethod
+    def new_for_bus_sync(
+        cls,
+        bus_type: BusType,
+        flags: DBusObjectManagerClientFlags,
+        name: str,
+        object_path: str,
+        get_proxy_type_func: typing.Callable | None = None,
+        get_proxy_type_user_data: typing.Any = None,
+        cancellable: Cancellable | None = None,
+    ) -> DBusObjectManagerClient:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_bus_sync(bus_type:Gio.BusType, flags:Gio.DBusObjectManagerClientFlags, name:str, object_path:str, get_proxy_type_func:Gio.DBusProxyTypeFunc=None, get_proxy_type_user_data=None, cancellable:Gio.Cancellable=None) -> Gio.DBusObjectManagerClient
+        """
+    @classmethod
+    def new_sync(
+        cls,
+        connection: DBusConnection,
+        flags: DBusObjectManagerClientFlags,
+        name: str | None,
+        object_path: str,
+        get_proxy_type_func: typing.Callable | None = None,
+        get_proxy_type_user_data: typing.Any = None,
+        cancellable: Cancellable | None = None,
+    ) -> DBusObjectManagerClient:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_sync(connection:Gio.DBusConnection, flags:Gio.DBusObjectManagerClientFlags, name:str=None, object_path:str, get_proxy_type_func:Gio.DBusProxyTypeFunc=None, get_proxy_type_user_data=None, cancellable:Gio.Cancellable=None) -> Gio.DBusObjectManagerClient
         """
 
     # Signals
@@ -13129,17 +13134,6 @@ class DBusObjectManagerServer(GObject.Object):
         """
         Returns whether `object` is currently exported on `manager`.
         """
-    @classmethod
-    def new(cls, object_path: str) -> DBusObjectManagerServer:
-        """
-            Creates a new GDBusObjectManagerServer object.
-
-        The returned server isn't yet exported on any connection. To do so,
-        use `g_dbus_object_manager_server_set_connection`. Normally you
-        want to export all of your objects before doing so to avoid
-        [InterfacesAdded](http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-objectmanager)
-        signals being emitted.
-        """
     def set_connection(self, connection: DBusConnection | None = None) -> None:
         """
             Exports all objects managed by `manager` on `connection`. If
@@ -13152,6 +13146,18 @@ class DBusObjectManagerServer(GObject.Object):
 
         Note that `object_path` must be in the hierarchy rooted by the
         object path for `manager`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        object_path: str,
+    ) -> DBusObjectManagerServer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(object_path:str) -> Gio.DBusObjectManagerServer
         """
 
     # Signals
@@ -13218,7 +13224,7 @@ class DBusObjectProxy(GObject.Object):
     def priv(self) -> DBusObjectProxyPrivate | None: ...
 
     # gi Methods
-    def __init__(self, g_object_path: str | None = None, g_connection: DBusConnection | None = None) -> None:
+    def __init__(self, g_connection: DBusConnection | None = None, g_object_path: str | None = None) -> None:
         """
         Initialize DBusObjectProxy object with properties.
         """
@@ -13226,11 +13232,18 @@ class DBusObjectProxy(GObject.Object):
         """
         Gets the connection that `proxy` is for.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, connection: DBusConnection, object_path: str) -> DBusObjectProxy:
+    def new(
+        cls,
+        connection: DBusConnection,
+        object_path: str,
+    ) -> DBusObjectProxy:
         """
-            Creates a new GDBusObjectProxy for the given connection and
-        object path.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(connection:Gio.DBusConnection, object_path:str) -> Gio.DBusObjectProxy
         """
 
     # Signals
@@ -13314,11 +13327,6 @@ class DBusObjectSkeleton(GObject.Object):
         interfaces belonging to `object`. See that method for when flushing
         is useful.
         """
-    @classmethod
-    def new(cls, object_path: str) -> DBusObjectSkeleton:
-        """
-        Creates a new GDBusObjectSkeleton.
-        """
     def remove_interface(self, interface_: DBusInterfaceSkeleton) -> None:
         """
         Removes `interface_` from `object`.
@@ -13343,6 +13351,16 @@ class DBusObjectSkeleton(GObject.Object):
     ) -> bool:
         """
         authorize_method(self, interface_:Gio.DBusInterfaceSkeleton, invocation:Gio.DBusMethodInvocation) -> bool
+        """
+    @classmethod
+    def new(
+        cls,
+        object_path: str,
+    ) -> DBusObjectSkeleton:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(object_path:str) -> Gio.DBusObjectSkeleton
         """
 
     # Signals
@@ -13578,14 +13596,14 @@ class DBusProxy(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        g_connection: DBusConnection | None = None,
         g_bus_type: BusType | None = BusType.NONE,
-        g_name: str | None = None,
-        g_flags: DBusProxyFlags | None = DBusProxyFlags.NONE,
-        g_object_path: str | None = None,
-        g_interface_name: str | None = None,
+        g_connection: DBusConnection | None = None,
         g_default_timeout: int | None = None,
+        g_flags: DBusProxyFlags | None = DBusProxyFlags.NONE,
         g_interface_info: DBusInterfaceInfo | None = None,
+        g_interface_name: str | None = None,
+        g_name: str | None = None,
+        g_object_path: str | None = None,
     ) -> None:
         """
         Initialize DBusProxy object with properties.
@@ -14142,9 +14160,9 @@ class DBusServer(GObject.Object):
     def __init__(
         self,
         address: str | None = None,
+        authentication_observer: DBusAuthObserver | None = None,
         flags: DBusServerFlags | None = DBusServerFlags.NONE,
         guid: str | None = None,
-        authentication_observer: DBusAuthObserver | None = None,
     ) -> None:
         """
         Initialize DBusServer object with properties.
@@ -14173,6 +14191,16 @@ class DBusServer(GObject.Object):
         """
         Gets whether `server` is active.
         """
+    def start(self) -> None:
+        """
+        Starts `server`.
+        """
+    def stop(self) -> None:
+        """
+        Stops `server`.
+        """
+
+    # python methods (overrides?)
     @classmethod
     def new_sync(
         cls,
@@ -14183,34 +14211,9 @@ class DBusServer(GObject.Object):
         cancellable: Cancellable | None = None,
     ) -> DBusServer:
         """
-            Creates a new D-Bus server that listens on the first address in
-        `address` that works.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        Once constructed, you can use `g_dbus_server_get_client_address` to
-        get a D-Bus address string that clients can use to connect.
-
-        To have control over the available authentication mechanisms and
-        the users that are authorized to connect, it is strongly recommended
-        to provide a non-None GDBusAuthObserver.
-
-        Connect to the GDBusServer::new-connection signal to handle
-        incoming connections.
-
-        The returned GDBusServer isn't active - you have to start it with
-        `g_dbus_server_start`.
-
-        GDBusServer is used in this [example](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gdbus-example-peer.c).
-
-        This is a synchronous failable constructor. There is currently no
-        asynchronous version.
-        """
-    def start(self) -> None:
-        """
-        Starts `server`.
-        """
-    def stop(self) -> None:
-        """
-        Stops `server`.
+        new_sync(address:str, flags:Gio.DBusServerFlags, guid:str, observer:Gio.DBusAuthObserver=None, cancellable:Gio.Cancellable=None) -> Gio.DBusServer
         """
 
     # Signals
@@ -14394,9 +14397,9 @@ class DataInputStream(BufferedInputStream):
     def __init__(
         self,
         base_stream: InputStream | None = None,
-        close_base_stream: bool | None = None,
         buffer_size: int | None = None,
         byte_order: DataStreamByteOrder | None = DataStreamByteOrder.BIG_ENDIAN,
+        close_base_stream: bool | None = None,
         newline_type: DataStreamNewlineType | None = DataStreamNewlineType.LF,
     ) -> None:
         """
@@ -14701,8 +14704,8 @@ class DataOutputStream(FilterOutputStream):
     def __init__(
         self,
         base_stream: OutputStream | None = None,
-        close_base_stream: bool | None = None,
         byte_order: DataStreamByteOrder | None = DataStreamByteOrder.BIG_ENDIAN,
+        close_base_stream: bool | None = None,
     ) -> None:
         """
         Initialize DataOutputStream object with properties.
@@ -14711,11 +14714,6 @@ class DataOutputStream(FilterOutputStream):
     def get_byte_order(self) -> DataStreamByteOrder:
         """
         Gets the byte order for the stream.
-        """
-    @classmethod
-    def new(cls, base_stream: OutputStream) -> DataOutputStream:
-        """
-        Creates a new data output stream for `base_stream`.
         """
     def put_byte(self, data: int, cancellable: Cancellable | None = None) -> bool:
         """
@@ -14752,6 +14750,18 @@ class DataOutputStream(FilterOutputStream):
     def set_byte_order(self, order: DataStreamByteOrder) -> None:
         """
         Sets the byte order of the data output stream to `order`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        base_stream: OutputStream,
+    ) -> DataOutputStream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(base_stream:Gio.OutputStream) -> Gio.DataOutputStream
         """
 
     # Signals
@@ -15246,20 +15256,9 @@ class DebugControllerDBus(GObject.Object):
     def parent_instance(self) -> GObject.Object | None: ...
 
     # gi Methods
-    def __init__(self, debug_enabled: bool | None = None, connection: DBusConnection | None = None) -> None:
+    def __init__(self, connection: DBusConnection | None = None, debug_enabled: bool | None = None) -> None:
         """
         Initialize DebugControllerDBus object with properties.
-        """
-    @classmethod
-    def new(cls, connection: DBusConnection, cancellable: Cancellable | None = None) -> DebugControllerDBus | None:
-        """
-            Create a new GDebugControllerDBus and synchronously initialize it.
-
-        Initializing the object will export the debug object on `connection`. The
-        object will remain registered until the last reference to the
-        GDebugControllerDBus is dropped.
-
-        Initialization may fail if registering the object on `connection` fails.
         """
     def stop(self) -> None:
         """
@@ -15288,6 +15287,17 @@ class DebugControllerDBus(GObject.Object):
     ) -> bool:
         """
         authorize(self, invocation:Gio.DBusMethodInvocation) -> bool
+        """
+    @classmethod
+    def new(
+        cls,
+        connection: DBusConnection,
+        cancellable: Cancellable | None = None,
+    ) -> DebugControllerDBus | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(connection:Gio.DBusConnection, cancellable:Gio.Cancellable=None) -> Gio.DebugControllerDBus or None
         """
 
     # Signals
@@ -15562,31 +15572,6 @@ class DesktopAppInfo(GObject.Object):
         As per the specification, this is the list of actions that are
         explicitly listed in the `Actions` key of the `Desktop Entry` group.
         """
-    @classmethod
-    def new(cls, desktop_id: str) -> DesktopAppInfo | None:
-        """
-            Creates a new [class`Gio`.DesktopAppInfo] based on a desktop file ID.
-
-        A desktop file ID is the basename of the desktop file, including the
-        `.desktop` extension. GIO is looking for a desktop file with this name
-        in the `applications` subdirectories of the XDG
-        data directories (i.e. the directories specified in the `XDG_DATA_HOME`
-        and `XDG_DATA_DIRS` environment variables). GIO also supports the
-        prefix-to-subdirectory mapping that is described in the
-        [Menu Spec](http://standards.freedesktop.org/menu-spec/latest/)
-        (i.e. a desktop ID of `kde-foo.desktop` will match
-        `/usr/share/applications/kde/foo.desktop`).
-        """
-    @classmethod
-    def new_from_filename(cls, filename: str) -> DesktopAppInfo | None:
-        """
-        Creates a new [class`Gio`.DesktopAppInfo].
-        """
-    @classmethod
-    def new_from_keyfile(cls, key_file: GLib.KeyFile) -> DesktopAppInfo | None:
-        """
-        Creates a new [class`Gio`.DesktopAppInfo].
-        """
     @staticmethod
     def search(search_string: str) -> list:
         """
@@ -15619,6 +15604,38 @@ class DesktopAppInfo(GObject.Object):
         keys.
 
         Should be called only once; subsequent calls are ignored.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        desktop_id: str,
+    ) -> DesktopAppInfo | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(desktop_id:str) -> Gio.DesktopAppInfo or None
+        """
+    @classmethod
+    def new_from_filename(
+        cls,
+        filename: str,
+    ) -> DesktopAppInfo | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_filename(filename:str) -> Gio.DesktopAppInfo or None
+        """
+    @classmethod
+    def new_from_keyfile(
+        cls,
+        key_file: GLib.KeyFile,
+    ) -> DesktopAppInfo | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_keyfile(key_file:GLib.KeyFile) -> Gio.DesktopAppInfo or None
         """
 
     # Signals
@@ -17015,15 +17032,28 @@ class Emblem(GObject.Object):
         """
         Gets the origin of the emblem.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, icon: Icon) -> Emblem:
+    def new(
+        cls,
+        icon: Icon,
+    ) -> Emblem:
         """
-        Creates a new emblem for `icon`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(icon:Gio.Icon) -> Gio.Emblem
         """
     @classmethod
-    def new_with_origin(cls, icon: Icon, origin: EmblemOrigin) -> Emblem:
+    def new_with_origin(
+        cls,
+        icon: Icon,
+        origin: EmblemOrigin,
+    ) -> Emblem:
         """
-        Creates a new emblem for `icon`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_origin(icon:Gio.Icon, origin:Gio.EmblemOrigin) -> Gio.Emblem
         """
 
     # Signals
@@ -17094,10 +17124,18 @@ class EmblemedIcon(GObject.Object):
         """
         Gets the main icon for `emblemed`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, icon: Icon, emblem: Emblem | None = None) -> EmblemedIcon:
+    def new(
+        cls,
+        icon: Icon,
+        emblem: Emblem | None = None,
+    ) -> EmblemedIcon:
         """
-        Creates a new emblemed icon for `icon` with the emblem `emblem`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(icon:Gio.Icon, emblem:Gio.Emblem=None) -> Gio.EmblemedIcon
         """
 
     # Signals
@@ -19176,11 +19214,6 @@ class FileAttributeInfoList(GObject.GBoxed):
         """
         Gets the file attribute with the name `name` from `list`.
         """
-    @classmethod
-    def new(cls) -> FileAttributeInfoList:
-        """
-        Creates a new file attribute info list.
-        """
     def ref(self) -> FileAttributeInfoList:
         """
         References a file attribute info list.
@@ -19197,6 +19230,15 @@ class FileAttributeInfoList(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> FileAttributeInfoList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.FileAttributeInfoList
+        """
 
 class FileAttributeMatcher(GObject.GBoxed):
     """
@@ -19227,29 +19269,6 @@ class FileAttributeMatcher(GObject.GBoxed):
         """
             Checks if an attribute matcher only matches a given attribute. Always
         returns False if "*" was used when creating the matcher.
-        """
-    @classmethod
-    def new(cls, attributes: str) -> FileAttributeMatcher:
-        """
-            Creates a new file attribute matcher, which matches attributes
-        against a given string. GFileAttributeMatchers are reference
-        counted structures, and are created with a reference count of 1. If
-        the number of references falls to 0, the GFileAttributeMatcher is
-        automatically destroyed.
-
-        The `attributes` string should be formatted with specific keys separated
-        from namespaces with a double colon. Several "namespace::key" strings may be
-        concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
-        The wildcard "*" may be used to match all keys and namespaces, or
-        "namespace::*" will match all keys in a given namespace.
-
-        ## Examples of file attribute matcher strings and results
-
-        - `"*"`: matches all attributes.
-        - `"standard::is-hidden"`: matches only the key is-hidden in the
-          standard namespace.
-        - `"standard::type,unix::*"`: matches the type key in the standard
-          namespace and all keys in the unix namespace.
         """
     def ref(self) -> FileAttributeMatcher:
         """
@@ -19285,6 +19304,16 @@ class FileAttributeMatcher(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        attributes: str,
+    ) -> FileAttributeMatcher:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(attributes:str) -> Gio.FileAttributeMatcher
+        """
 
 class FileDescriptorBased(builtins.object):
     """
@@ -19842,10 +19871,17 @@ class FileIcon(GObject.Object):
         """
         Gets the GFile associated with the given `icon`.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, file: File) -> FileIcon:
+    def new(
+        cls,
+        file: File,
+    ) -> FileIcon:
         """
-        Creates a new icon for a file.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(file:Gio.File) -> Gio.FileIcon
         """
 
     # Signals
@@ -20718,11 +20754,6 @@ class FileInfo(GObject.Object):
         """
         Lists the file info structure's attributes.
         """
-    @classmethod
-    def new(cls) -> FileInfo:
-        """
-        Creates a new file info structure.
-        """
     def remove_attribute(self, attribute: str) -> None:
         """
         Removes all cases of `attribute` from `info` if it exists.
@@ -20897,6 +20928,17 @@ class FileInfo(GObject.Object):
         """
             Unsets a mask set by `g_file_info_set_attribute_mask`, if one
         is set.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> FileInfo:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.FileInfo
         """
 
 class FileInfoClass(GObject.GPointer): ...
@@ -21399,11 +21441,6 @@ class FilenameCompleter(GObject.Object):
         """
         Gets an array of completion strings for a given initial text.
         """
-    @classmethod
-    def new(cls) -> FilenameCompleter:
-        """
-        Creates a new filename completer.
-        """
     def set_dirs_only(self, dirs_only: bool) -> None:
         """
             If `dirs_only` is True, `completer` will only
@@ -21416,6 +21453,15 @@ class FilenameCompleter(GObject.Object):
     ) -> None:
         """
         got_completion_data(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> FilenameCompleter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.FilenameCompleter
         """
 
     # Signals
@@ -21734,12 +21780,6 @@ class IOModule(GObject.TypeModule):
         """
         Initialize IOModule object with properties.
         """
-    @classmethod
-    def new(cls, filename: str) -> IOModule:
-        """
-            Creates a new GIOModule that will load the specific
-        shared library when in use.
-        """
     @staticmethod
     def query() -> list:
         """
@@ -21774,6 +21814,18 @@ class IOModule(GObject.TypeModule):
         Using the new symbol names avoids name clashes when building modules
         statically. The old symbol names continue to be supported, but cannot be used
         for static builds.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        filename: str,
+    ) -> IOModule:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(filename:str) -> Gio.IOModule
         """
 
 class IOModuleClass(GObject.GPointer): ...
@@ -22346,7 +22398,7 @@ class InetAddress(GObject.Object):
     def priv(self) -> InetAddressPrivate | None: ...
 
     # gi Methods
-    def __init__(self, family: SocketFamily | None = SocketFamily.INVALID, bytes: object | None = None) -> None:
+    def __init__(self, bytes: object | None = None, family: SocketFamily | None = SocketFamily.INVALID) -> None:
         """
         Initialize InetAddress object with properties.
         """
@@ -22419,29 +22471,6 @@ class InetAddress(GObject.Object):
             Gets the size of the native raw binary address for `address`. This
         is the size of the data that you get from `g_inet_address_to_bytes`.
         """
-    @classmethod
-    def new_any(cls, family: SocketFamily) -> InetAddress:
-        """
-            Creates a GInetAddress for the "any" address (unassigned/"don't
-        care") for `family`.
-        """
-    @classmethod
-    def new_from_bytes(cls, bytes: list, family: SocketFamily) -> InetAddress:
-        """
-            Creates a new GInetAddress from the given `family` and `bytes`.
-        `bytes` should be 4 bytes for G_SOCKET_FAMILY_IPV4 and 16 bytes for
-        G_SOCKET_FAMILY_IPV6.
-        """
-    @classmethod
-    def new_from_string(cls, string: str) -> InetAddress | None:
-        """
-        Parses `string` as an IP address and creates a new GInetAddress.
-        """
-    @classmethod
-    def new_loopback(cls, family: SocketFamily) -> InetAddress:
-        """
-        Creates a GInetAddress for the loopback address for `family`.
-        """
     def to_string(self) -> str:
         """
         Converts `address` to string form.
@@ -22453,6 +22482,47 @@ class InetAddress(GObject.Object):
     ) -> str:
         """
         to_string(self) -> str
+        """
+    @classmethod
+    def new_any(
+        cls,
+        family: SocketFamily,
+    ) -> InetAddress:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_any(family:Gio.SocketFamily) -> Gio.InetAddress
+        """
+    @classmethod
+    def new_from_bytes(
+        cls,
+        bytes: list,
+        family: SocketFamily,
+    ) -> InetAddress:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_bytes(bytes:list, family:Gio.SocketFamily) -> Gio.InetAddress
+        """
+    @classmethod
+    def new_from_string(
+        cls,
+        string: str,
+    ) -> InetAddress | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(string:str) -> Gio.InetAddress or None
+        """
+    @classmethod
+    def new_loopback(
+        cls,
+        family: SocketFamily,
+    ) -> InetAddress:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_loopback(family:Gio.SocketFamily) -> Gio.InetAddress
         """
 
     # Signals
@@ -22613,23 +22683,32 @@ class InetAddressMask(GObject.Object):
         """
         Tests if `address` falls within the range described by `mask`.
         """
-    @classmethod
-    def new(cls, addr: InetAddress, length: int) -> InetAddressMask:
-        """
-            Creates a new GInetAddressMask representing all addresses whose
-        first `length` bits match `addr`.
-        """
-    @classmethod
-    def new_from_string(cls, mask_string: str) -> InetAddressMask:
-        """
-            Parses `mask_string` as an IP address and (optional) length, and
-        creates a new GInetAddressMask. The length, if present, is
-        delimited by a "/". If it is not present, then the length is
-        assumed to be the full length of the address.
-        """
     def to_string(self) -> str:
         """
         Converts `mask` back to its corresponding string form.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        addr: InetAddress,
+        length: int,
+    ) -> InetAddressMask:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(addr:Gio.InetAddress, length:int) -> Gio.InetAddressMask
+        """
+    @classmethod
+    def new_from_string(
+        cls,
+        mask_string: str,
+    ) -> InetAddressMask:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(mask_string:str) -> Gio.InetAddressMask
         """
 
     # Signals
@@ -22707,8 +22786,8 @@ class InetSocketAddress(SocketAddress):
     def __init__(
         self,
         address: InetAddress | None = None,
-        port: int | None = None,
         flowinfo: int | None = None,
+        port: int | None = None,
         scope_id: int | None = None,
     ) -> None:
         """
@@ -22736,18 +22815,29 @@ class InetSocketAddress(SocketAddress):
             Gets the `sin6_scope_id` field from `address`,
         which must be an IPv6 address.
         """
-    @classmethod
-    def new(cls, address: InetAddress, port: int) -> InetSocketAddress:
-        """
-        Creates a new GInetSocketAddress for `address` and `port`.
-        """
-    @classmethod
-    def new_from_string(cls, address: str, port: int) -> InetSocketAddress | None:
-        """
-            Creates a new GInetSocketAddress for `address` and `port`.
 
-        If `address` is an IPv6 address, it can also contain a scope ID
-        (separated from the address by a `%`).
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        address: InetAddress,
+        port: int,
+    ) -> SocketAddress:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(address:Gio.InetAddress, port:int) -> Gio.SocketAddress
+        """
+    @classmethod
+    def new_from_string(
+        cls,
+        address: str,
+        port: int,
+    ) -> SocketAddress | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(address:str, port:int) -> Gio.SocketAddress or None
         """
 
     # Signals
@@ -23650,17 +23740,6 @@ class ListStore(GObject.Object):
         If you need to compare the two items with a custom comparison function, use
         `g_list_store_find_with_equal_func` with a custom GEqualFunc instead.
         """
-    def find_with_equal_func(self, item: GObject.Object | None, equal_func: GLib.EqualFunc) -> tuple[bool, int]:
-        """
-            Looks up the given `item` in the list store by looping over the items and
-        comparing them with `equal_func` until the first occurrence of `item` which
-        matches. If `item` was not found, then `position` will not be set, and this
-        method will return False.
-
-        `item` is always passed as second parameter to `equal_func`.
-
-        Since GLib 2.76 it is possible to pass `None` for `item`.
-        """
     def find_with_equal_func_full(
         self, item: GObject.Object | None, equal_func: GLib.EqualFuncFull, *user_data: object | None
     ) -> tuple[bool, int]:
@@ -23683,17 +23762,6 @@ class ListStore(GObject.Object):
         Use `g_list_store_splice` to insert multiple items at the same time
         efficiently.
         """
-    def insert_sorted(self, item: GObject.Object, compare_func: GLib.CompareDataFunc, *user_data: object | None) -> int:
-        """
-            Inserts `item` into `store` at a position to be determined by the
-        `compare_func`.
-
-        The list must already be sorted before calling this function or the
-        result is undefined.  Usually you would approach this by only ever
-        inserting items by way of this function.
-
-        This function takes a ref on `item`.
-        """
     @classmethod
     def new(cls, item_type: GObject.GType) -> ListStore:
         """
@@ -23712,10 +23780,6 @@ class ListStore(GObject.Object):
         """
         Removes all items from `store`.
         """
-    def sort(self, compare_func: GLib.CompareDataFunc, *user_data: object | None) -> None:
-        """
-        Sort the items in `store` according to `compare_func`.
-        """
     def splice(self, position: int, n_removals: int, additions: list, n_additions: int) -> None:
         """
             Changes `store` by removing `n_removals` items and adding `n_additions`
@@ -23731,6 +23795,40 @@ class ListStore(GObject.Object):
         The parameters `position` and `n_removals` must be correct (ie:
         `position` + `n_removals` must be less than or equal to the length of
         the list at the time this function is called).
+        """
+
+    # python methods (overrides?)
+    def find_with_equal_func(
+        self,
+        item: typing.Any,
+        equal_func: typing.Any,
+        *user_data: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        find_with_equal_func(self, item:GObject.Object=None, equal_func:GLib.EqualFunc) -> bool, position:int
+        """
+    def insert_sorted(
+        self,
+        item: typing.Any,
+        compare_func: typing.Any,
+        *user_data: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        insert_sorted(self, item:GObject.Object, compare_func:GLib.CompareDataFunc, user_data=None) -> int
+        """
+    def sort(
+        self,
+        compare_func: typing.Any,
+        *user_data: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        sort(self, compare_func:GLib.CompareDataFunc, user_data=None)
         """
 
     # Signals
@@ -23851,20 +23949,37 @@ class MemoryInputStream(InputStream):
         """
         Appends `data` to data that can be read from the input stream
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> MemoryInputStream:
+    def new(
+        cls,
+    ) -> InputStream:
         """
-        Creates a new empty GMemoryInputStream.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.InputStream
         """
     @classmethod
-    def new_from_bytes(cls, bytes: GLib.Bytes) -> MemoryInputStream:
+    def new_from_bytes(
+        cls,
+        bytes: GLib.Bytes,
+    ) -> InputStream:
         """
-        Creates a new GMemoryInputStream with data from the given `bytes`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_bytes(bytes:GLib.Bytes) -> Gio.InputStream
         """
     @classmethod
-    def new_from_data(cls, data: list, len: int, destroy: GLib.DestroyNotify | None = None) -> MemoryInputStream:
+    def new_from_data(
+        cls,
+        data: list,
+        destroy: typing.Callable | None = None,
+    ) -> InputStream:
         """
-        Creates a new GMemoryInputStream with data in memory of a given size.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_data(data:list, destroy:GLib.DestroyNotify=None) -> Gio.InputStream
         """
 
 class MemoryInputStreamClass(GObject.GPointer):
@@ -24025,9 +24140,9 @@ class MemoryOutputStream(OutputStream):
     def __init__(
         self,
         data: object | None = None,
-        size: int | None = None,
-        realloc_function: object | None = None,
         destroy_function: object | None = None,
+        realloc_function: object | None = None,
+        size: int | None = None,
     ) -> None:
         """
         Initialize MemoryOutputStream object with properties.
@@ -24065,12 +24180,6 @@ class MemoryOutputStream(OutputStream):
         In any case, if you want the number of bytes currently written to the
         stream, use `g_memory_output_stream_get_data_size`.
         """
-    @classmethod
-    def new_resizable(cls) -> MemoryOutputStream:
-        """
-            Creates a new GMemoryOutputStream, using `g_realloc` and `g_free`
-        for memory allocation.
-        """
     def steal_as_bytes(self) -> GLib.Bytes:
         """
             Returns data from the `ostream` as a GBytes. `ostream` must be
@@ -24084,6 +24193,17 @@ class MemoryOutputStream(OutputStream):
         GMemoryOutputStream:destroy-function property.
 
         `ostream` must be closed before calling this function.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_resizable(
+        cls,
+    ) -> OutputStream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_resizable() -> Gio.OutputStream
         """
 
     # Signals
@@ -24220,13 +24340,6 @@ class Menu(MenuModel):
         Combine `g_menu_item_new_submenu` and `g_menu_insert_item` for a more
         flexible alternative.
         """
-    @classmethod
-    def new(cls) -> Menu:
-        """
-            Creates a new GMenu.
-
-        The new menu has no items.
-        """
     def prepend(self, label: str | None = None, detailed_action: str | None = None) -> None:
         """
             Convenience function for prepending a normal menu item to the start
@@ -24267,6 +24380,17 @@ class Menu(MenuModel):
     def remove_all(self) -> None:
         """
         Removes all items in the menu.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Menu:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.Menu
         """
 
 class MenuAttributeIter(GObject.Object):
@@ -25532,15 +25656,15 @@ class MountOperation(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        username: str | None = None,
-        password: str | None = None,
         anonymous: bool | None = None,
-        domain: str | None = None,
-        password_save: PasswordSave | None = PasswordSave.NEVER,
         choice: int | None = None,
+        domain: str | None = None,
         is_tcrypt_hidden_volume: bool | None = None,
         is_tcrypt_system_volume: bool | None = None,
+        password: str | None = None,
+        password_save: PasswordSave | None = PasswordSave.NEVER,
         pim: int | None = None,
+        username: str | None = None,
     ) -> None:
         """
         Initialize MountOperation object with properties.
@@ -25592,11 +25716,6 @@ class MountOperation(GObject.Object):
     def get_username(self) -> str | None:
         """
         Get the user name from the mount operation.
-        """
-    @classmethod
-    def new(cls) -> MountOperation:
-        """
-        Creates a new mount operation.
         """
     def reply(self, result: MountOperationResult) -> None:
         """
@@ -25688,6 +25807,15 @@ class MountOperation(GObject.Object):
     ) -> None:
         """
         show_unmount_progress(self, message:str, time_left:int, bytes_left:int)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> MountOperation:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.MountOperation
         """
 
     # Signals
@@ -25911,10 +26039,18 @@ class NativeSocketAddress(SocketAddress):
         """
         Initialize NativeSocketAddress object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, native: object | None, len: int) -> NativeSocketAddress:
+    def new(
+        cls,
+        native: typing.Any,
+        len: int,
+    ) -> SocketAddress:
         """
-        Creates a new GNativeSocketAddress for `native` and `len`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(native=None, len:int) -> Gio.SocketAddress
         """
 
 class NativeSocketAddressClass(GObject.GPointer):
@@ -26000,34 +26136,6 @@ class NetworkAddress(GObject.Object):
         """
         Gets `addr`'s scheme
         """
-    @classmethod
-    def new(cls, hostname: str, port: int) -> NetworkAddress:
-        """
-            Creates a new GSocketConnectable for connecting to the given
-        `hostname` and `port`.
-
-        Note that depending on the configuration of the machine, a
-        `hostname` of `localhost` may refer to the IPv4 loopback address
-        only, or to both IPv4 and IPv6; use
-        `g_network_address_new_loopback` to create a GNetworkAddress that
-        is guaranteed to resolve to both addresses.
-        """
-    @classmethod
-    def new_loopback(cls, port: int) -> NetworkAddress:
-        """
-            Creates a new GSocketConnectable for connecting to the local host
-        over a loopback connection to the given `port`. This is intended for
-        use in connecting to local services which may be running on IPv4 or
-        IPv6.
-
-        The connectable will return IPv4 and IPv6 loopback addresses,
-        regardless of how the host resolves `localhost`. By contrast,
-        `g_network_address_new` will often only return an IPv4 address when
-        resolving `localhost`, and an IPv6 address for `localhost6`.
-
-        `g_network_address_get_hostname` will always return `localhost` for
-        a GNetworkAddress created with this constructor.
-        """
     @staticmethod
     def parse(host_and_port: str, default_port: int) -> NetworkAddress:
         """
@@ -26062,6 +26170,29 @@ class NetworkAddress(GObject.Object):
         Using this rather than `g_network_address_new` or
         `g_network_address_parse` allows GSocketClient to determine
         when to use application-specific proxy protocols.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        hostname: str,
+        port: int,
+    ) -> NetworkAddress:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(hostname:str, port:int) -> Gio.NetworkAddress
+        """
+    @classmethod
+    def new_loopback(
+        cls,
+        port: int,
+    ) -> NetworkAddress:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_loopback(port:int) -> Gio.NetworkAddress
         """
 
     # Signals
@@ -26369,10 +26500,10 @@ class NetworkService(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        service: str | None = None,
-        protocol: str | None = None,
         domain: str | None = None,
+        protocol: str | None = None,
         scheme: str | None = None,
+        service: str | None = None,
     ) -> None:
         """
         Initialize NetworkService object with properties.
@@ -26399,17 +26530,24 @@ class NetworkService(GObject.Object):
         """
         Gets `srv`'s service name (eg, "ldap").
         """
-    @classmethod
-    def new(cls, service: str, protocol: str, domain: str) -> NetworkService:
-        """
-            Creates a new GNetworkService representing the given `service`,
-        `protocol`, and `domain`. This will initially be unresolved; use the
-        GSocketConnectable interface to resolve it.
-        """
     def set_scheme(self, scheme: str) -> None:
         """
             Set's the URI scheme used to resolve proxies. By default, the service name
         is used as scheme.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        service: str,
+        protocol: str,
+        domain: str,
+    ) -> NetworkService:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(service:str, protocol:str, domain:str) -> Gio.NetworkService
         """
 
     # Signals
@@ -26528,16 +26666,6 @@ class Notification(GObject.Object):
         `g_variant_new`. `action` will be activated with that GVariant as its
         parameter.
         """
-    @classmethod
-    def new(cls, title: str) -> Notification:
-        """
-            Creates a new GNotification with `title` as its title.
-
-        After populating `notification` with more details, it can be sent to
-        the desktop shell with `g_application_send_notification`. Changing
-        any properties after this call will not have any effect until
-        resending `notification`.
-        """
     def set_body(self, body: str | None = None) -> None:
         """
         Sets the body of `notification` to `body`.
@@ -26596,6 +26724,18 @@ class Notification(GObject.Object):
     def set_urgent(self, urgent: bool) -> None:
         """
         Deprecated in favor of `g_notification_set_priority`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        title: str,
+    ) -> Notification:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(title:str) -> Gio.Notification
         """
 
 class OutputMessage(GObject.GPointer):
@@ -28048,25 +28188,27 @@ class PropertyAction(GObject.Object):
     # gi Methods
     def __init__(
         self,
+        invert_boolean: bool | None = None,
         name: str | None = None,
         object: GObject.Object | None = None,
         property_name: str | None = None,
-        invert_boolean: bool | None = None,
     ) -> None:
         """
         Initialize PropertyAction object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, name: str, object: GObject.Object, property_name: str) -> PropertyAction:
+    def new(
+        cls,
+        name: str,
+        object: GObject.Object,
+        property_name: str,
+    ) -> PropertyAction:
         """
-            Creates a GAction corresponding to the value of property
-        `property_name` on `object`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        The property must be existent and readable and writable (and not
-        construct-only).
-
-        This function takes a reference on `object` and doesn't release it
-        until the action is destroyed.
+        new(name:str, object:GObject.Object, property_name:str) -> Gio.PropertyAction
         """
 
     # Signals
@@ -28244,16 +28386,16 @@ class ProxyAddress(InetSocketAddress):
     def __init__(
         self,
         address: InetAddress | None = None,
-        port: int | None = None,
-        flowinfo: int | None = None,
-        scope_id: int | None = None,
-        protocol: str | None = None,
-        destination_protocol: str | None = None,
         destination_hostname: str | None = None,
         destination_port: int | None = None,
-        username: str | None = None,
+        destination_protocol: str | None = None,
+        flowinfo: int | None = None,
         password: str | None = None,
+        port: int | None = None,
+        protocol: str | None = None,
+        scope_id: int | None = None,
         uri: str | None = None,
+        username: str | None = None,
     ) -> None:
         """
         Initialize ProxyAddress object with properties.
@@ -28298,6 +28440,8 @@ class ProxyAddress(InetSocketAddress):
         """
         Gets `proxy`'s username.
         """
+
+    # python methods (overrides?)
     @classmethod
     def new(
         cls,
@@ -28308,14 +28452,11 @@ class ProxyAddress(InetSocketAddress):
         dest_port: int,
         username: str | None = None,
         password: str | None = None,
-    ) -> ProxyAddress:
+    ) -> SocketAddress:
         """
-            Creates a new GProxyAddress for `inetaddr` with `protocol` that should
-        tunnel through `dest_hostname` and `dest_port`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        (Note that this method doesn't set the GProxyAddress:uri or
-        GProxyAddress:destination-protocol fields; use `g_object_new`
-        directly if you want to set those.)
+        new(inetaddr:Gio.InetAddress, port:int, protocol:str, dest_hostname:str, dest_port:int, username:str=None, password:str=None) -> Gio.SocketAddress
         """
 
     # Signals
@@ -28427,10 +28568,10 @@ class ProxyAddressEnumerator(SocketAddressEnumerator):
     # gi Methods
     def __init__(
         self,
-        uri: str | None = None,
-        default_port: int | None = None,
         connectable: SocketConnectable | None = None,
+        default_port: int | None = None,
         proxy_resolver: ProxyResolver | None = None,
+        uri: str | None = None,
     ) -> None:
         """
         Initialize ProxyAddressEnumerator object with properties.
@@ -29424,23 +29565,6 @@ class Resource(GObject.GBoxed):
         `resource`, or G_RESOURCE_ERROR_INTERNAL if decompression of a compressed
         resource failed.
         """
-    @classmethod
-    def new_from_data(cls, data: GLib.Bytes) -> Resource:
-        """
-            Creates a [struct`Gio`.Resource] from a reference to the binary resource bundle.
-
-        This will keep a reference to `data` while the resource lives, so
-        the data should not be modified or freed.
-
-        If you want to use this resource in the global resource namespace you need
-        to register it with [func`Gio`.resources_register].
-
-        Note: `data` must be backed by memory that is at least pointer aligned.
-        Otherwise this function will internally create a copy of the memory since
-        GLib 2.56, or in older versions fail and exit the process.
-
-        If `data` is empty or corrupt, G_RESOURCE_ERROR_INTERNAL will be returned.
-        """
     def open_stream(self, path: str, lookup_flags: ResourceLookupFlags) -> InputStream:
         """
             Looks for a file at the specified `path` in the resource and
@@ -29464,6 +29588,18 @@ class Resource(GObject.GBoxed):
         If the reference count drops to 0, all memory allocated by the resource is
         released. This function is threadsafe and may be called from any
         thread.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_from_data(
+        cls,
+        data: GLib.Bytes,
+    ) -> Resource:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_data(data:GLib.Bytes) -> Gio.Resource
         """
 
 class Seekable(builtins.object):
@@ -31384,43 +31520,6 @@ class SettingsSchemaSource(GObject.GBoxed):
 
         If the schema isn't found, None is returned.
         """
-    @classmethod
-    def new_from_directory(
-        cls, directory: str, parent: SettingsSchemaSource | None, trusted: bool
-    ) -> SettingsSchemaSource:
-        """
-            Attempts to create a new schema source corresponding to the contents
-        of the given directory.
-
-        This function is not required for normal uses of GSettings but it
-        may be useful to authors of plugin management systems.
-
-        The directory should contain a file called `gschemas.compiled` as
-        produced by the [glib-compile-schemas][glib-compile-schemas] tool.
-
-        If `trusted` is True then `gschemas.compiled` is trusted not to be
-        corrupted. This assumption has a performance advantage, but can result
-        in crashes or inconsistent behaviour in the case of a corrupted file.
-        Generally, you should set `trusted` to True for files installed by the
-        system and to False for files in the home directory.
-
-        In either case, an empty file or some types of corruption in the file will
-        result in G_FILE_ERROR_INVAL being returned.
-
-        If `parent` is non-None then there are two effects.
-
-        First, if `g_settings_schema_source_lookup` is called with the
-        `recursive` flag set to True and the schema can not be found in the
-        source, the lookup will recurse to the parent.
-
-        Second, any references to other schemas specified within this
-        source (ie: `child` or `extends`) references may be resolved
-        from the `parent`.
-
-        For this second reason, except in very unusual situations, the
-        `parent` should probably be given as the default schema source, as
-        returned by `g_settings_schema_source_get_default`.
-        """
     def ref(self) -> SettingsSchemaSource:
         """
         Increase the reference count of `source`, returning a new reference.
@@ -31428,6 +31527,20 @@ class SettingsSchemaSource(GObject.GBoxed):
     def unref(self) -> None:
         """
         Decrease the reference count of `source`, possibly freeing it.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_from_directory(
+        cls,
+        directory: str,
+        parent: SettingsSchemaSource | None,
+        trusted: bool,
+    ) -> SettingsSchemaSource:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_directory(directory:str, parent:Gio.SettingsSchemaSource=None, trusted:bool) -> Gio.SettingsSchemaSource
         """
 
 class SimpleAction(GObject.Object):
@@ -31471,31 +31584,13 @@ class SimpleAction(GObject.Object):
     # gi Methods
     def __init__(
         self,
+        enabled: bool | None = None,
         name: str | None = None,
         parameter_type: GLib.VariantType | None = None,
-        enabled: bool | None = None,
         state: GLib.Variant | None = None,
     ) -> None:
         """
         Initialize SimpleAction object with properties.
-        """
-    @classmethod
-    def new(cls, name: str, parameter_type: GLib.VariantType | None = None) -> SimpleAction:
-        """
-            Creates a new action.
-
-        The created action is stateless. See `g_simple_action_new_stateful` to create
-        an action that has state.
-        """
-    @classmethod
-    def new_stateful(cls, name: str, parameter_type: GLib.VariantType | None, state: GLib.Variant) -> SimpleAction:
-        """
-            Creates a new stateful action.
-
-        All future state values must have the same GVariantType as the initial
-        `state`.
-
-        If the `state` GVariant is floating, it is consumed.
         """
     def set_enabled(self, enabled: bool) -> None:
         """
@@ -31526,6 +31621,31 @@ class SimpleAction(GObject.Object):
 
         See `g_action_get_state_hint` for more information about
         action state hints.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        name: str,
+        parameter_type: GLib.VariantType | None = None,
+    ) -> SimpleAction:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str, parameter_type:GLib.VariantType=None) -> Gio.SimpleAction
+        """
+    @classmethod
+    def new_stateful(
+        cls,
+        name: str,
+        parameter_type: GLib.VariantType | None,
+        state: GLib.Variant,
+    ) -> SimpleAction:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_stateful(name:str, parameter_type:GLib.VariantType=None, state:GLib.Variant) -> Gio.SimpleAction
         """
 
     # Signals
@@ -31674,17 +31794,23 @@ class SimpleActionGroup(GObject.Object):
 
         If no such action exists, returns None.
         """
-    @classmethod
-    def new(cls) -> SimpleActionGroup:
-        """
-        Creates a new, empty, GSimpleActionGroup.
-        """
     @deprecated("deprecated")
     def remove(self, action_name: str) -> None:
         """
             Removes the named action from the action group.
 
         If no action of this name is in the group then nothing happens.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> SimpleActionGroup:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.SimpleActionGroup
         """
 
 class SimpleActionGroupClass(GObject.GPointer):
@@ -31921,39 +32047,6 @@ class SimpleAsyncResult(GObject.Object):
         check is skipped.)
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(
-        cls,
-        source_object: GObject.Object | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-        source_tag: object | None = None,
-    ) -> SimpleAsyncResult:
-        """
-            Creates a GSimpleAsyncResult.
-
-        The common convention is to create the GSimpleAsyncResult in the
-        function that starts the asynchronous operation and use that same
-        function as the `source_tag`.
-
-        If your operation supports cancellation with GCancellable (which it
-        probably should) then you should provide the user's cancellable to
-        `g_simple_async_result_set_check_cancellable` immediately after
-        this function returns.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_from_error(
-        cls,
-        source_object: GObject.Object | None,
-        callback: AsyncReadyCallback | None,
-        *user_data: object | None,
-        error: GLib.Error,
-    ) -> SimpleAsyncResult:
-        """
-        Creates a GSimpleAsyncResult from an error condition.
-        """
-    @deprecated("deprecated")
     def propagate_error(self) -> bool:
         """
             Propagates an error from within the simple asynchronous result to
@@ -32008,6 +32101,34 @@ class SimpleAsyncResult(GObject.Object):
         the given `op_res`.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        source_object: GObject.Object | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+        source_tag: typing.Any = None,
+    ) -> SimpleAsyncResult:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(source_object:GObject.Object=None, callback:Gio.AsyncReadyCallback=None, user_data=None, source_tag=None) -> Gio.SimpleAsyncResult
+        """
+    @classmethod
+    def new_from_error(
+        cls,
+        source_object: GObject.Object | None,
+        callback: typing.Callable | None,
+        user_data: typing.Any,
+        error: GLib.Error,
+    ) -> SimpleAsyncResult:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_error(source_object:GObject.Object=None, callback:Gio.AsyncReadyCallback=None, user_data=None, error:error) -> Gio.SimpleAsyncResult
+        """
+
 class SimpleAsyncResultClass(GObject.GPointer): ...
 
 class SimpleIOStream(IOStream):
@@ -32042,11 +32163,18 @@ class SimpleIOStream(IOStream):
         """
         Initialize SimpleIOStream object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, input_stream: InputStream, output_stream: OutputStream) -> SimpleIOStream:
+    def new(
+        cls,
+        input_stream: InputStream,
+        output_stream: OutputStream,
+    ) -> IOStream:
         """
-            Creates a new GSimpleIOStream wrapping `input_stream` and `output_stream`.
-        See also GIOStream.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(input_stream:Gio.InputStream, output_stream:Gio.OutputStream) -> Gio.IOStream
         """
 
     # Signals
@@ -32084,11 +32212,17 @@ class SimplePermission(Permission):
         """
         Initialize SimplePermission object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, allowed: bool) -> SimplePermission:
+    def new(
+        cls,
+        allowed: bool,
+    ) -> Permission:
         """
-            Creates a new GPermission instance that represents an action that is
-        either always or never allowed.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(allowed:bool) -> Gio.Permission
         """
 
 class SimpleProxyResolver(GObject.Object):
@@ -32384,18 +32518,18 @@ class Socket(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        family: SocketFamily | None = SocketFamily.INVALID,
-        type: SocketType | None = SocketType.STREAM,
-        protocol: SocketProtocol | None = SocketProtocol.UNKNOWN,
-        fd: int | None = None,
         blocking: bool | None = None,
-        listen_backlog: int | None = None,
-        keepalive: bool | None = None,
-        timeout: int | None = None,
-        ttl: int | None = None,
         broadcast: bool | None = None,
+        family: SocketFamily | None = SocketFamily.INVALID,
+        fd: int | None = None,
+        keepalive: bool | None = None,
+        listen_backlog: int | None = None,
         multicast_loopback: bool | None = None,
         multicast_ttl: int | None = None,
+        protocol: SocketProtocol | None = SocketProtocol.UNKNOWN,
+        timeout: int | None = None,
+        ttl: int | None = None,
+        type: SocketType | None = SocketType.STREAM,
     ) -> None:
         """
         Initialize Socket object with properties.
@@ -32782,40 +32916,6 @@ class Socket(GObject.Object):
 
         To set the maximum amount of outstanding clients, use
         `g_socket_set_listen_backlog`.
-        """
-    @classmethod
-    def new(cls, family: SocketFamily, type: SocketType, protocol: SocketProtocol) -> Socket:
-        """
-            Creates a new GSocket with the defined family, type and protocol.
-        If `protocol` is 0 (G_SOCKET_PROTOCOL_DEFAULT) the default protocol type
-        for the family and type is used.
-
-        The `protocol` is a family and type specific int that specifies what
-        kind of protocol to use. GSocketProtocol lists several common ones.
-        Many families only support one protocol, and use 0 for this, others
-        support several and using 0 means to use the default protocol for
-        the family and type.
-
-        The protocol id is passed directly to the operating
-        system, so you can use protocols not listed in GSocketProtocol if you
-        know the protocol number used for it.
-        """
-    @classmethod
-    def new_from_fd(cls, fd: int) -> Socket:
-        """
-            Creates a new GSocket from a native file descriptor
-        or winsock SOCKET handle.
-
-        This reads all the settings from the file descriptor so that
-        all properties should work. Note that the file descriptor
-        will be set to non-blocking mode, independent on the blocking
-        mode of the GSocket.
-
-        On success, the returned GSocket takes ownership of `fd`. On failure, the
-        caller must close `fd` themselves.
-
-        Since GLib 2.46, it is no longer a fatal error to call this on a non-socket
-        descriptor.  Instead, a GError will be set with code G_IO_ERROR_FAILED
         """
     def receive(self, size: int, cancellable: Cancellable | None = None) -> tuple[int, list]:
         """
@@ -33284,6 +33384,30 @@ class Socket(GObject.Object):
         of speaking IPv4.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        family: SocketFamily,
+        type: SocketType,
+        protocol: SocketProtocol,
+    ) -> Socket:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(family:Gio.SocketFamily, type:Gio.SocketType, protocol:Gio.SocketProtocol) -> Gio.Socket
+        """
+    @classmethod
+    def new_from_fd(
+        cls,
+        fd: int,
+    ) -> Socket:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_fd(fd:int) -> Gio.Socket
+        """
+
 class SocketAddress(GObject.Object):
     """
     `GSocketAddress` is the equivalent of
@@ -33321,12 +33445,6 @@ class SocketAddress(GObject.Object):
         You can use this to allocate memory to pass to
         `g_socket_address_to_native`.
         """
-    @classmethod
-    def new_from_native(cls, native: object, len: int) -> SocketAddress:
-        """
-            Creates a GSocketAddress subclass corresponding to the native
-        struct sockaddr `native`.
-        """
     def to_native(self, dest: object | None, destlen: int) -> bool:
         """
             Converts a GSocketAddress to a native struct sockaddr, which can
@@ -33357,6 +33475,17 @@ class SocketAddress(GObject.Object):
     ) -> bool:
         """
         to_native(self, dest=None, destlen:int) -> bool
+        """
+    @classmethod
+    def new_from_native(
+        cls,
+        native: typing.Any,
+        len: int,
+    ) -> SocketAddress:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_native(native, len:int) -> Gio.SocketAddress
         """
 
     # Signals
@@ -33606,15 +33735,15 @@ class SocketClient(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        family: SocketFamily | None = SocketFamily.INVALID,
-        type: SocketType | None = SocketType.STREAM,
-        protocol: SocketProtocol | None = SocketProtocol.DEFAULT,
-        local_address: SocketAddress | None = None,
-        timeout: int | None = None,
         enable_proxy: bool | None = None,
+        family: SocketFamily | None = SocketFamily.INVALID,
+        local_address: SocketAddress | None = None,
+        protocol: SocketProtocol | None = SocketProtocol.DEFAULT,
+        proxy_resolver: ProxyResolver | None = None,
+        timeout: int | None = None,
         tls: bool | None = None,
         tls_validation_flags: TlsCertificateFlags | None = TlsCertificateFlags.VALIDATE_ALL,
-        proxy_resolver: ProxyResolver | None = None,
+        type: SocketType | None = SocketType.STREAM,
     ) -> None:
         """
         Initialize SocketClient object with properties.
@@ -33884,11 +34013,6 @@ class SocketClient(GObject.Object):
         to use correctly. See GSocketClient:tls-validation-flags for more
         information.
         """
-    @classmethod
-    def new(cls) -> SocketClient:
-        """
-        Creates a new GSocketClient with the default options.
-        """
     def set_enable_proxy(self, enable: bool) -> None:
         """
             Sets whether or not `client` attempts to make connections via a
@@ -33997,6 +34121,15 @@ class SocketClient(GObject.Object):
     ) -> None:
         """
         event(self, event:Gio.SocketClientEvent, connectable:Gio.SocketConnectable, connection:Gio.IOStream)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> SocketClient:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.SocketClient
         """
 
 class SocketClientClass(GObject.GPointer):
@@ -34601,13 +34734,6 @@ class SocketListener(GObject.Object):
         """
         Closes all the sockets in the listener.
         """
-    @classmethod
-    def new(cls) -> SocketListener:
-        """
-            Creates a new GSocketListener with no sockets to listen for.
-        New listeners can be added with e.g. `g_socket_listener_add_address`
-        or `g_socket_listener_add_inet_port`.
-        """
     def set_backlog(self, listen_backlog: int) -> None:
         """
             Sets the listen backlog on the sockets in the listener. This must be called
@@ -34631,6 +34757,15 @@ class SocketListener(GObject.Object):
     ) -> None:
         """
         event(self, event:Gio.SocketListenerEvent, socket:Gio.Socket)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> SocketListener:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.SocketListener
         """
 
     # Signals
@@ -34734,7 +34869,7 @@ class SocketService(SocketListener):
     def priv(self) -> SocketServicePrivate | None: ...
 
     # gi Methods
-    def __init__(self, listen_backlog: int | None = None, active: bool | None = None) -> None:
+    def __init__(self, active: bool | None = None, listen_backlog: int | None = None) -> None:
         """
         Initialize SocketService object with properties.
         """
@@ -34745,17 +34880,6 @@ class SocketService(SocketListener):
         service will accept new clients that connect, while
         a non-active service will let connecting clients queue
         up until the service is started.
-        """
-    @classmethod
-    def new(cls) -> SocketService:
-        """
-            Creates a new GSocketService with no sockets to listen for.
-        New listeners can be added with e.g. `g_socket_listener_add_address`
-        or `g_socket_listener_add_inet_port`.
-
-        New services are created active, there is no need to call
-        `g_socket_service_start`, unless `g_socket_service_stop` has been
-        called before.
         """
     def start(self) -> None:
         """
@@ -34794,6 +34918,15 @@ class SocketService(SocketListener):
     ) -> bool:
         """
         incoming(self, connection:Gio.SocketConnection, source_object:GObject.Object) -> bool
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> SocketService:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.SocketService
         """
 
     # Signals
@@ -34905,14 +35038,6 @@ class SrvTarget(GObject.GBoxed):
         GResolver already sorts the targets according to the algorithm in
         RFC 2782.
         """
-    @classmethod
-    def new(cls, hostname: str, port: int, priority: int, weight: int) -> SrvTarget:
-        """
-            Creates a new GSrvTarget with the given parameters.
-
-        You should not need to use this; normally GSrvTargets are
-        created by GResolver.
-        """
 
     # python methods (overrides?)
     @staticmethod
@@ -34920,6 +35045,19 @@ class SrvTarget(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        hostname: str,
+        port: int,
+        priority: int,
+        weight: int,
+    ) -> SrvTarget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(hostname:str, port:int, priority:int, weight:int) -> Gio.SrvTarget
+        """
 
 class StaticResource(GObject.GPointer):
     """
@@ -35049,7 +35187,7 @@ class Subprocess(GObject.Object):
     def props(self) -> Props: ...
 
     # gi Methods
-    def __init__(self, flags: SubprocessFlags | None = SubprocessFlags.NONE, argv: list | None = None) -> None:
+    def __init__(self, argv: list | None = None, flags: SubprocessFlags | None = SubprocessFlags.NONE) -> None:
         """
         Initialize Subprocess object with properties.
         """
@@ -35242,17 +35380,6 @@ class Subprocess(GObject.Object):
         It is an error to call this function before `g_subprocess_wait` and
         unless `g_subprocess_get_if_signaled` returned True.
         """
-    @classmethod
-    def new(cls, argv: list, flags: SubprocessFlags) -> Subprocess:
-        """
-            Create a new process with the given flags and varargs argument
-        list.  By default, matching the `g_spawn_async` defaults, the
-        child's stdin will be set to the system null device, and
-        stdout/stderr will be inherited from the parent.  You can use
-        `flags` to control this behavior.
-
-        The argument list must be terminated with None.
-        """
     def send_signal(self, signal_num: int) -> None:
         """
             Sends the UNIX signal `signal_num` to the subprocess, if it is still
@@ -35312,6 +35439,19 @@ class Subprocess(GObject.Object):
         """
             Collects the result of a previous call to
         `g_subprocess_wait_async`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        argv: list,
+        flags: SubprocessFlags,
+    ) -> Subprocess:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(argv:list, flags:Gio.SubprocessFlags) -> Gio.Subprocess
         """
 
     # Signals
@@ -35380,15 +35520,6 @@ class SubprocessLauncher(GObject.Object):
 
         On UNIX, the returned string can be an arbitrary byte string.
         On Windows, it will be UTF-8.
-        """
-    @classmethod
-    def new(cls, flags: SubprocessFlags) -> SubprocessLauncher:
-        """
-            Creates a new GSubprocessLauncher.
-
-        The launcher is created with the default options.  A copy of the
-        environment of the calling process is made at the time of this call
-        and will be used as the environment that the process is launched in.
         """
     def set_cwd(self, cwd: str) -> None:
         """
@@ -35574,6 +35705,18 @@ class SubprocessLauncher(GObject.Object):
 
         On UNIX, the variable's name can be an arbitrary byte string not
         containing '='. On Windows, it should be in UTF-8.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        flags: SubprocessFlags,
+    ) -> SubprocessLauncher:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(flags:Gio.SubprocessFlags) -> Gio.SubprocessLauncher
         """
 
     # Signals
@@ -36209,32 +36352,6 @@ class Task(GObject.Object):
         source object (or that `source_object` is None and `result` has no
         source object). This can be used in `g_return_if_fail` checks.
         """
-    @classmethod
-    def new(
-        cls,
-        source_object: GObject.Object | None = None,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *callback_data: object | None,
-    ) -> Task:
-        """
-            Creates a GTask acting on `source_object`, which will eventually be
-        used to invoke `callback` in the current thread-default main context
-        (see [method`GLib`.MainContext.push_thread_default]).
-
-        Call this in the "start" method of your asynchronous method, and
-        pass the GTask around throughout the asynchronous operation. You
-        can use `g_task_set_task_data` to attach task-specific data to the
-        object, which you can retrieve later via `g_task_get_task_data`.
-
-        By default, if `cancellable` is cancelled, then the return value of
-        the task will always be G_IO_ERROR_CANCELLED, even if the task had
-        already completed before the cancellation. This allows for
-        simplified handling in cases where cancellation may imply that
-        other objects that the task depends on have been destroyed. If you
-        do not want this behavior, you can use
-        `g_task_set_check_cancellable` to change it.
-        """
     def propagate_boolean(self) -> bool:
         """
             Gets the result of `task` as a #gboolean.
@@ -36515,6 +36632,21 @@ class Task(GObject.Object):
         Sets `task`'s task data (freeing the existing task data, if any).
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        source_object: GObject.Object | None = None,
+        cancellable: Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        callback_data: typing.Any = None,
+    ) -> Task:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(source_object:GObject.Object=None, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, callback_data=None) -> Gio.Task
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -36552,7 +36684,7 @@ class TcpConnection(SocketConnection):
     def priv(self) -> TcpConnectionPrivate | None: ...
 
     # gi Methods
-    def __init__(self, socket: Socket | None = None, graceful_disconnect: bool | None = None) -> None:
+    def __init__(self, graceful_disconnect: bool | None = None, socket: Socket | None = None) -> None:
         """
         Initialize TcpConnection object with properties.
         """
@@ -36623,9 +36755,9 @@ class TcpWrapperConnection(TcpConnection):
     # gi Methods
     def __init__(
         self,
-        socket: Socket | None = None,
-        graceful_disconnect: bool | None = None,
         base_io_stream: IOStream | None = None,
+        graceful_disconnect: bool | None = None,
+        socket: Socket | None = None,
     ) -> None:
         """
         Initialize TcpWrapperConnection object with properties.
@@ -36635,10 +36767,18 @@ class TcpWrapperConnection(TcpConnection):
         """
         Gets `conn`'s base GIOStream
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, base_io_stream: IOStream, socket: Socket) -> TcpWrapperConnection:
+    def new(
+        cls,
+        base_io_stream: IOStream,
+        socket: Socket,
+    ) -> SocketConnection:
         """
-        Wraps `base_io_stream` and `socket` together as a GSocketConnection.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(base_io_stream:Gio.IOStream, socket:Gio.Socket) -> Gio.SocketConnection
         """
 
     # Signals
@@ -36782,11 +36922,6 @@ class TestDBus(GObject.Object):
         """
         Get the flags of the GTestDBus object.
         """
-    @classmethod
-    def new(cls, flags: TestDBusFlags) -> TestDBus:
-        """
-        Create a new GTestDBus object.
-        """
     def stop(self) -> None:
         """
             Stop the session bus started by `g_test_dbus_up`.
@@ -36816,6 +36951,18 @@ class TestDBus(GObject.Object):
 
         If this function is called from unit test's `main`, then `g_test_dbus_down`
         must be called after `g_test_run`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        flags: TestDBusFlags,
+    ) -> TestDBus:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(flags:Gio.TestDBusFlags) -> Gio.TestDBus
         """
 
     # Signals
@@ -36894,41 +37041,44 @@ class ThemedIcon(GObject.Object):
         """
         Gets the names of icons from within `icon`.
         """
-    @classmethod
-    def new(cls, iconname: str) -> ThemedIcon:
-        """
-        Creates a new themed icon for `iconname`.
-        """
-    @classmethod
-    def new_from_names(cls, iconnames: list, len: int) -> ThemedIcon:
-        """
-        Creates a new themed icon for `iconnames`.
-        """
-    @classmethod
-    def new_with_default_fallbacks(cls, iconname: str) -> ThemedIcon:
-        """
-            Creates a new themed icon for `iconname`, and all the names
-        that can be created by shortening `iconname` at '-' characters.
-
-        In the following example, `icon1` and `icon2` are equivalent:
-        |[<!-- language="C" -->
-        const char *names[] = {
-          "gnome-dev-cdrom-audio",
-          "gnome-dev-cdrom",
-          "gnome-dev",
-          "gnome"
-        };
-
-        icon1 = g_themed_icon_new_from_names (names, 4);
-        icon2 = g_themed_icon_new_with_default_fallbacks ("gnome-dev-cdrom-audio");
-        ]|
-        """
     def prepend_name(self, iconname: str) -> None:
         """
             Prepend a name to the list of icons from within `icon`.
 
         Note that doing so invalidates the hash computed by prior calls
         to `g_icon_hash`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        iconname: str,
+    ) -> ThemedIcon:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(iconname:str) -> Gio.ThemedIcon
+        """
+    @classmethod
+    def new_from_names(
+        cls,
+        iconnames: list,
+    ) -> ThemedIcon:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_names(iconnames:list) -> Gio.ThemedIcon
+        """
+    @classmethod
+    def new_with_default_fallbacks(
+        cls,
+        iconname: str,
+    ) -> ThemedIcon:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_default_fallbacks(iconname:str) -> Gio.ThemedIcon
         """
 
     # Signals
@@ -37014,16 +37164,10 @@ class ThreadedSocketService(SocketService):
 
     # gi Methods
     def __init__(
-        self, listen_backlog: int | None = None, active: bool | None = None, max_threads: int | None = None
+        self, active: bool | None = None, listen_backlog: int | None = None, max_threads: int | None = None
     ) -> None:
         """
         Initialize ThreadedSocketService object with properties.
-        """
-    @classmethod
-    def new(cls, max_threads: int) -> ThreadedSocketService:
-        """
-            Creates a new GThreadedSocketService with no listeners. Listeners
-        must be added with one of the GSocketListener "add" methods.
         """
 
     # python methods (overrides?)
@@ -37034,6 +37178,16 @@ class ThreadedSocketService(SocketService):
     ) -> bool:
         """
         run(self, connection:Gio.SocketConnection, source_object:GObject.Object) -> bool
+        """
+    @classmethod
+    def new(
+        cls,
+        max_threads: int,
+    ) -> SocketService:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(max_threads:int) -> Gio.SocketService
         """
 
     # Signals
@@ -37360,13 +37514,13 @@ class TlsCertificate(GObject.Object):
         self,
         certificate: GLib.ByteArray | None = None,
         certificate_pem: str | None = None,
+        issuer: TlsCertificate | None = None,
+        password: str | None = None,
+        pkcs11_uri: str | None = None,
+        pkcs12_data: GLib.ByteArray | None = None,
         private_key: GLib.ByteArray | None = None,
         private_key_pem: str | None = None,
-        issuer: TlsCertificate | None = None,
-        pkcs11_uri: str | None = None,
         private_key_pkcs11_uri: str | None = None,
-        pkcs12_data: GLib.ByteArray | None = None,
-        password: str | None = None,
     ) -> None:
         """
         Initialize TlsCertificate object with properties.
@@ -37423,116 +37577,6 @@ class TlsCertificate(GObject.Object):
         PEM-encoded certificates, this will return an empty list and not
         set `error`.
         """
-    @classmethod
-    def new_from_file(cls, file: str) -> TlsCertificate:
-        """
-            Creates a GTlsCertificate from the data in `file`.
-
-        As of 2.72, if the filename ends in `.p12` or `.pfx` the data is loaded by
-        `g_tls_certificate_new_from_pkcs12` otherwise it is loaded by
-        `g_tls_certificate_new_from_pem`. See those functions for
-        exact details.
-
-        If `file` cannot be read or parsed, the function will return None and
-        set `error`.
-        """
-    @classmethod
-    def new_from_file_with_password(cls, file: str, password: str) -> TlsCertificate:
-        """
-            Creates a GTlsCertificate from the data in `file`.
-
-        If `file` cannot be read or parsed, the function will return None and
-        set `error`.
-
-        Any unknown file types will error with G_IO_ERROR_NOT_SUPPORTED.
-        Currently only `.p12` and `.pfx` files are supported.
-        See `g_tls_certificate_new_from_pkcs12` for more details.
-        """
-    @classmethod
-    def new_from_files(cls, cert_file: str, key_file: str) -> TlsCertificate:
-        """
-            Creates a GTlsCertificate from the PEM-encoded data in `cert_file`
-        and `key_file`. The returned certificate will be the first certificate
-        found in `cert_file`. As of GLib 2.44, if `cert_file` contains more
-        certificates it will try to load a certificate chain. All
-        certificates will be verified in the order found (top-level
-        certificate should be the last one in the file) and the
-        GTlsCertificate:issuer property of each certificate will be set
-        accordingly if the verification succeeds. If any certificate in the
-        chain cannot be verified, the first certificate in the file will
-        still be returned.
-
-        If either file cannot be read or parsed, the function will return
-        None and set `error`. Otherwise, this behaves like
-        `g_tls_certificate_new_from_pem`.
-        """
-    @classmethod
-    def new_from_pem(cls, data: str, length: int) -> TlsCertificate:
-        """
-            Creates a GTlsCertificate from the PEM-encoded data in `data`. If
-        `data` includes both a certificate and a private key, then the
-        returned certificate will include the private key data as well. (See
-        the GTlsCertificate:private-key-pem property for information about
-        supported formats.)
-
-        The returned certificate will be the first certificate found in
-        `data`. As of GLib 2.44, if `data` contains more certificates it will
-        try to load a certificate chain. All certificates will be verified in
-        the order found (top-level certificate should be the last one in the
-        file) and the GTlsCertificate:issuer property of each certificate
-        will be set accordingly if the verification succeeds. If any
-        certificate in the chain cannot be verified, the first certificate in
-        the file will still be returned.
-        """
-    @classmethod
-    def new_from_pkcs11_uris(cls, pkcs11_uri: str, private_key_pkcs11_uri: str | None = None) -> TlsCertificate:
-        """
-            Creates a GTlsCertificate from a
-        [PKCS #11](https://docs.oasis-open.org/pkcs11/pkcs11-base/v3.0/os/pkcs11-base-v3.0-os.html) URI.
-
-        An example `pkcs11_uri` would be `pkcs11:model=Model;manufacturer=Manufacture;serial=1;token=My20Client20Certificate;id=01`
-
-        Where the token’s layout is:
-
-        |[
-        Object 0:
-          URL: pkcs11:model=Model;manufacturer=Manufacture;serial=1;token=My20Client20Certificate;id=01;object=private20key;type=private
-          Type: Private key (RSA-2048)
-          ID: 01
-
-        Object 1:
-          URL: pkcs11:model=Model;manufacturer=Manufacture;serial=1;token=My20Client20Certificate;id=01;object=Certificate20for20Authentication;type=cert
-          Type: X.509 Certificate (RSA-2048)
-          ID: 01
-        ]|
-
-        In this case the certificate and private key would both be detected and used as expected.
-        `pkcs_uri` may also just reference an X.509 certificate object and then optionally
-        `private_key_pkcs11_uri` allows using a private key exposed under a different URI.
-
-        Note that the private key is not accessed until usage and may fail or require a PIN later.
-        """
-    @classmethod
-    def new_from_pkcs12(cls, data: list, length: int, password: str | None = None) -> TlsCertificate:
-        """
-            Creates a GTlsCertificate from the data in `data`. It must contain
-        a certificate and matching private key.
-
-        If extra certificates are included they will be verified as a chain
-        and the GTlsCertificate:issuer property will be set.
-        All other data will be ignored.
-
-        You can pass as single password for all of the data which will be
-        used both for the PKCS #12 container as well as encrypted
-        private keys. If decryption fails it will error with
-        G_TLS_ERROR_BAD_CERTIFICATE_PASSWORD.
-
-        This constructor requires support in the current GTlsBackend.
-        If support is missing it will error with
-        G_IO_ERROR_NOT_SUPPORTED.
-
-        Other parsing failures will error with G_TLS_ERROR_BAD_CERTIFICATE.
-        """
     def verify(
         self, identity: SocketConnectable | None = None, trusted_ca: TlsCertificate | None = None
     ) -> TlsCertificateFlags:
@@ -37580,6 +37624,71 @@ class TlsCertificate(GObject.Object):
     ) -> TlsCertificateFlags:
         """
         verify(self, identity:Gio.SocketConnectable=None, trusted_ca:Gio.TlsCertificate=None) -> Gio.TlsCertificateFlags
+        """
+    @classmethod
+    def new_from_file(
+        cls,
+        file: str,
+    ) -> TlsCertificate:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file(file:str) -> Gio.TlsCertificate
+        """
+    @classmethod
+    def new_from_file_with_password(
+        cls,
+        file: str,
+        password: str,
+    ) -> TlsCertificate:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file_with_password(file:str, password:str) -> Gio.TlsCertificate
+        """
+    @classmethod
+    def new_from_files(
+        cls,
+        cert_file: str,
+        key_file: str,
+    ) -> TlsCertificate:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_files(cert_file:str, key_file:str) -> Gio.TlsCertificate
+        """
+    @classmethod
+    def new_from_pem(
+        cls,
+        data: str,
+        length: int,
+    ) -> TlsCertificate:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_pem(data:str, length:int) -> Gio.TlsCertificate
+        """
+    @classmethod
+    def new_from_pkcs11_uris(
+        cls,
+        pkcs11_uri: str,
+        private_key_pkcs11_uri: str | None = None,
+    ) -> TlsCertificate:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_pkcs11_uris(pkcs11_uri:str, private_key_pkcs11_uri:str=None) -> Gio.TlsCertificate
+        """
+    @classmethod
+    def new_from_pkcs12(
+        cls,
+        data: list,
+        password: str | None = None,
+    ) -> TlsCertificate:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_pkcs12(data:list, password:str=None) -> Gio.TlsCertificate
         """
 
     # Signals
@@ -38061,14 +38170,14 @@ class TlsConnection(IOStream):
     # gi Methods
     def __init__(
         self,
+        advertised_protocols: list | None = None,
         base_io_stream: IOStream | None = None,
-        require_close_notify: bool | None = None,
-        rehandshake_mode: TlsRehandshakeMode | None = TlsRehandshakeMode.SAFELY,
-        use_system_certdb: bool | None = None,
+        certificate: TlsCertificate | None = None,
         database: TlsDatabase | None = None,
         interaction: TlsInteraction | None = None,
-        certificate: TlsCertificate | None = None,
-        advertised_protocols: list | None = None,
+        rehandshake_mode: TlsRehandshakeMode | None = TlsRehandshakeMode.SAFELY,
+        require_close_notify: bool | None = None,
+        use_system_certdb: bool | None = None,
     ) -> None:
         """
         Initialize TlsConnection object with properties.
@@ -39466,8 +39575,8 @@ class TlsPassword(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        flags: TlsPasswordFlags | None = TlsPasswordFlags.NONE,
         description: str | None = None,
+        flags: TlsPasswordFlags | None = TlsPasswordFlags.NONE,
         warning: str | None = None,
     ) -> None:
         """
@@ -39497,11 +39606,6 @@ class TlsPassword(GObject.Object):
             Get a user readable translated warning. Usually this warning is a
         representation of the password flags returned from
         `g_tls_password_get_flags`.
-        """
-    @classmethod
-    def new(cls, flags: TlsPasswordFlags, description: str) -> TlsPassword:
-        """
-        Create a new GTlsPassword object.
         """
     def set_description(self, description: str) -> None:
         """
@@ -39560,6 +39664,17 @@ class TlsPassword(GObject.Object):
     ) -> None:
         """
         set_value(self, value:list, destroy:GLib.DestroyNotify=None)
+        """
+    @classmethod
+    def new(
+        cls,
+        flags: TlsPasswordFlags,
+        description: str,
+    ) -> TlsPassword:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(flags:Gio.TlsPasswordFlags, description:str) -> Gio.TlsPassword
         """
 
     # Signals
@@ -39869,15 +39984,26 @@ class UnixCredentialsMessage(SocketControlMessage):
         """
         Checks if passing GCredentials on a GSocket is supported on this platform.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> UnixCredentialsMessage:
+    def new(
+        cls,
+    ) -> SocketControlMessage:
         """
-        Creates a new GUnixCredentialsMessage with credentials matching the current processes.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.SocketControlMessage
         """
     @classmethod
-    def new_with_credentials(cls, credentials: Credentials) -> UnixCredentialsMessage:
+    def new_with_credentials(
+        cls,
+        credentials: Credentials,
+    ) -> SocketControlMessage:
         """
-        Creates a new GUnixCredentialsMessage holding `credentials`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_credentials(credentials:Gio.Credentials) -> Gio.SocketControlMessage
         """
 
     # Signals
@@ -39972,23 +40098,6 @@ class UnixFDList(GObject.Object):
             Gets the length of `list` (ie: the number of file descriptors
         contained within).
         """
-    @classmethod
-    def new(cls) -> UnixFDList:
-        """
-        Creates a new GUnixFDList containing no file descriptors.
-        """
-    @classmethod
-    def new_from_array(cls, fds: list, n_fds: int) -> UnixFDList:
-        """
-            Creates a new GUnixFDList containing the file descriptors given in
-        `fds`.  The file descriptors become the property of the new list and
-        may no longer be used by the caller.  The array itself is owned by
-        the caller.
-
-        Each file descriptor in the array should be set to close-on-exec.
-
-        If `n_fds` is -1 then `fds` must be terminated with -1.
-        """
     def peek_fds(self) -> tuple[list, int]:
         """
             Returns the array of file descriptors that is contained in this
@@ -40025,6 +40134,27 @@ class UnixFDList(GObject.Object):
 
         This function never returns None. In case there are no file
         descriptors contained in `list`, an empty array is returned.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> UnixFDList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gio.UnixFDList
+        """
+    @classmethod
+    def new_from_array(
+        cls,
+        fds: list,
+    ) -> UnixFDList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_array(fds:list) -> Gio.UnixFDList
         """
 
 class UnixFDListClass(GObject.GPointer):
@@ -40143,10 +40273,10 @@ class UnixSocketAddress(SocketAddress):
     # gi Methods
     def __init__(
         self,
-        path: str | None = None,
-        path_as_array: GLib.ByteArray | None = None,
         abstract: bool | None = None,
         address_type: UnixSocketAddressType | None = UnixSocketAddressType.PATH,
+        path: str | None = None,
+        path_as_array: GLib.ByteArray | None = None,
     ) -> None:
         """
         Initialize UnixSocketAddress object with properties.
@@ -40182,55 +40312,38 @@ class UnixSocketAddress(SocketAddress):
 
         For details, see `g_unix_socket_address_get_path`.
         """
-    @classmethod
-    def new(cls, path: str) -> UnixSocketAddress:
-        """
-            Creates a new GUnixSocketAddress for `path`.
 
-        To create abstract socket addresses, on systems that support that,
-        use `g_unix_socket_address_new_abstract`.
-        """
-    @deprecated("deprecated")
+    # python methods (overrides?)
     @classmethod
-    def new_abstract(cls, path: list, path_len: int) -> UnixSocketAddress:
+    def new(
+        cls,
+        path: str,
+    ) -> SocketAddress:
         """
-            Creates a new G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED
-        GUnixSocketAddress for `path`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(path:str) -> Gio.SocketAddress
         """
     @classmethod
-    def new_with_type(cls, path: list, path_len: int, type: UnixSocketAddressType) -> UnixSocketAddress:
+    def new_abstract(
+        cls,
+        path: list,
+    ) -> SocketAddress:
         """
-            Creates a new GUnixSocketAddress of type `type` with name `path`.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        If `type` is G_UNIX_SOCKET_ADDRESS_PATH, this is equivalent to
-        calling `g_unix_socket_address_new`.
+        new_abstract(path:list) -> Gio.SocketAddress
+        """
+    @classmethod
+    def new_with_type(
+        cls,
+        path: list,
+        type: UnixSocketAddressType,
+    ) -> SocketAddress:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        If `type` is G_UNIX_SOCKET_ADDRESS_ANONYMOUS, `path` and `path_len` will be
-        ignored.
-
-        If `path_type` is G_UNIX_SOCKET_ADDRESS_ABSTRACT, then `path_len`
-        bytes of `path` will be copied to the socket's path, and only those
-        bytes will be considered part of the name. (If `path_len` is -1,
-        then `path` is assumed to be NUL-terminated.) For example, if `path`
-        was "test", then calling `g_socket_address_get_native_size` on the
-        returned socket would return 7 (2 bytes of overhead, 1 byte for the
-        abstract-socket indicator byte, and 4 bytes for the name "test").
-
-        If `path_type` is G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED, then
-        `path_len` bytes of `path` will be copied to the socket's path, the
-        rest of the path will be padded with 0 bytes, and the entire
-        zero-padded buffer will be considered the name. (As above, if
-        `path_len` is -1, then `path` is assumed to be NUL-terminated.) In
-        this case, `g_socket_address_get_native_size` will always return
-        the full size of a `struct sockaddr_un`, although
-        `g_unix_socket_address_get_path_len` will still return just the
-        length of `path`.
-
-        G_UNIX_SOCKET_ADDRESS_ABSTRACT is preferred over
-        G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED for new programs. Of course,
-        when connecting to a server created by another process, you must
-        use the appropriate type corresponding to how that process created
-        its listening socket.
+        new_with_type(path:list, type:Gio.UnixSocketAddressType) -> Gio.SocketAddress
         """
 
     # Signals
@@ -41139,9 +41252,9 @@ class ZlibCompressor(GObject.Object):
     # gi Methods
     def __init__(
         self,
+        file_info: FileInfo | None = None,
         format: ZlibCompressorFormat | None = ZlibCompressorFormat.ZLIB,
         level: int | None = None,
-        file_info: FileInfo | None = None,
     ) -> None:
         """
         Initialize ZlibCompressor object with properties.
@@ -41150,11 +41263,6 @@ class ZlibCompressor(GObject.Object):
     def get_file_info(self) -> FileInfo | None:
         """
         Returns the GZlibCompressor:file-info property.
-        """
-    @classmethod
-    def new(cls, format: ZlibCompressorFormat, level: int) -> ZlibCompressor:
-        """
-        Creates a new GZlibCompressor.
         """
     def set_file_info(self, file_info: FileInfo | None = None) -> None:
         """
@@ -41166,6 +41274,19 @@ class ZlibCompressor(GObject.Object):
         Note: it is an error to call this function while a compression is in
         progress; it may only be called immediately after creation of `compressor`,
         or after resetting it with `g_converter_reset`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        format: ZlibCompressorFormat,
+        level: int,
+    ) -> ZlibCompressor:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(format:Gio.ZlibCompressorFormat, level:int) -> Gio.ZlibCompressor
         """
 
     # Signals
@@ -41236,10 +41357,17 @@ class ZlibDecompressor(GObject.Object):
         or the header data was not fully processed yet, or it not present in the
         data stream at all.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, format: ZlibCompressorFormat) -> ZlibDecompressor:
+    def new(
+        cls,
+        format: ZlibCompressorFormat,
+    ) -> ZlibDecompressor:
         """
-        Creates a new GZlibDecompressor.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(format:Gio.ZlibCompressorFormat) -> Gio.ZlibDecompressor
         """
 
     # Signals

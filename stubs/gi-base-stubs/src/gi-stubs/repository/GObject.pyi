@@ -12,7 +12,6 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
 import builtins
@@ -2609,11 +2608,11 @@ class Binding(Object):
     # gi Methods
     def __init__(
         self,
-        source: Object | None = None,
-        target: Object | None = None,
-        source_property: str | None = None,
-        target_property: str | None = None,
         flags: BindingFlags | None = BindingFlags.DEFAULT,
+        source: Object | None = None,
+        source_property: str | None = None,
+        target: Object | None = None,
+        target_property: str | None = None,
     ) -> None:
         """
         Initialize Binding object with properties.
@@ -2790,11 +2789,6 @@ class BindingGroup(Object):
         """
         Gets the source object used for binding properties.
         """
-    @classmethod
-    def new(cls) -> BindingGroup:
-        """
-        Creates a new GBindingGroup.
-        """
     def set_source(self, source: Object | None = None) -> None:
         """
             Sets `source` as the source object used for creating property
@@ -2802,6 +2796,17 @@ class BindingGroup(Object):
         will be removed.
 
         Note that all properties that have been bound must exist on `source`.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> BindingGroup:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GObject.BindingGroup
         """
 
     # Signals
@@ -3257,55 +3262,6 @@ class Closure(GBoxed):
         """
         Invokes the closure, i.e. executes the callback represented by the `closure`.
         """
-    @classmethod
-    def new_object(cls, sizeof_closure: int, object: Object) -> Closure:
-        """
-            A variant of `g_closure_new_simple` which stores `object` in the
-        `data` field of the closure and calls `g_object_watch_closure` on
-        `object` and the created closure. This function is mainly useful
-        when implementing new types of closures.
-        """
-    @classmethod
-    def new_simple(cls, sizeof_closure: int, data: object | None = None) -> Closure:
-        """
-            Allocates a struct of the given size and initializes the initial
-        part as a GClosure.
-
-        This function is mainly useful when implementing new types of closures:
-
-        |[<!-- language="C" -->
-        typedef struct _MyClosure MyClosure;
-        struct _MyClosure
-        {
-          GClosure closure;
-          // extra data goes here
-        };
-
-        static void
-        my_closure_finalize (gpointer  notify_data,
-                             GClosure *closure)
-        {
-          MyClosure *my_closure = (MyClosure *)closure;
-
-          // free extra data here
-        }
-
-        MyClosure *my_closure_new (gpointer data)
-        {
-          GClosure *closure;
-          MyClosure *my_closure;
-
-          closure = g_closure_new_simple (sizeof (MyClosure), data);
-          my_closure = (MyClosure *) closure;
-
-          // initialize extra data here
-
-          g_closure_add_finalize_notifier (closure, notify_data,
-                                           my_closure_finalize);
-          return my_closure;
-        }
-        ]|
-        """
     def ref(self) -> Closure:
         """
             Increments the reference count on a closure to force it staying
@@ -3368,6 +3324,30 @@ class Closure(GBoxed):
 
         If no other callers are using the closure, then the closure will be
         destroyed and freed.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_object(
+        cls,
+        sizeof_closure: int,
+        object: Object,
+    ) -> Closure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_object(sizeof_closure:int, object:GObject.Object) -> GObject.Closure
+        """
+    @classmethod
+    def new_simple(
+        cls,
+        sizeof_closure: int,
+        data: typing.Any = None,
+    ) -> Closure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_simple(sizeof_closure:int, data=None) -> GObject.Closure
         """
 
 class ClosureNotifyData(GPointer):
@@ -3829,70 +3809,9 @@ class Object(builtins.object):
 
         A GObject. can have multiple bindings.
         """
-    def bind_property_full(
-        self,
-        source_property: str,
-        target: Object,
-        target_property: str,
-        flags: BindingFlags,
-        transform_to: Closure,
-        transform_from: Closure,
-    ) -> Binding:
-        """
-            Complete version of `g_object_bind_property`.
-
-        Creates a binding between `source_property` on `source` and `target_property`
-        on `target`, allowing you to set the transformation functions to be used by
-        the binding.
-
-        If `flags` contains G_BINDING_BIDIRECTIONAL then the binding will be mutual:
-        if `target_property` on `target` changes then the `source_property` on `source`
-        will be updated as well. The `transform_from` function is only used in case
-        of bidirectional bindings, otherwise it will be ignored
-
-        The binding will automatically be removed when either the `source` or the
-        `target` instances are finalized. This will release the reference that is
-        being held on the GBinding instance; if you want to hold on to the
-        GBinding instance, you will need to hold a reference to it.
-
-        To remove the binding, call `g_binding_unbind`.
-
-        A GObject. can have multiple bindings.
-
-        The same `user_data` parameter will be used for both `transform_to`
-        and `transform_from` transformation functions; the `notify` function will
-        be called once, when the binding is removed. If you need different data
-        for each transformation function, please use
-        `g_object_bind_property_with_closures` instead.
-        """
-    @staticmethod
-    def compat_control(what: int, data: object | None = None) -> int: ...
     def emit(self, detailed_signal: str, *args: typing.Any) -> typing.Any:
         """
         Emit a signal.
-        """
-    def force_floating(self) -> None:
-        """
-            This function is intended for GObject. implementations to re-enforce
-        a [floating][floating-ref] object reference. Doing this is seldom
-        required: all GInitiallyUnowneds are created with a floating reference
-        which usually just needs to be sunken by calling `g_object_ref_sink`.
-        """
-    def freeze_notify(self) -> None:
-        """
-            Increases the freeze count on `object`. If the freeze count is
-        non-zero, the emission of "notify" signals on `object` is
-        stopped. The signals are queued until the freeze count is decreased
-        to zero. Duplicate notifications are squashed so that at most one
-        GObject.::notify signal is emitted for each property modified while the
-        object is frozen.
-
-        This is necessary for accessors that modify multiple properties to prevent
-        premature notification while the object is still being modified.
-        """
-    def get_data(self, key: str) -> object | None:
-        """
-        Gets a named field from the objects table of associations (see `g_object_set_data`).
         """
     def get_property(self, property_name: str, value: Value) -> None:
         """
@@ -3913,11 +3832,6 @@ class Object(builtins.object):
         Note that `g_object_get_property` is really intended for language
         bindings, `g_object_get` is much more convenient for C programming.
         """
-    def get_qdata(self, quark: int) -> object | None:
-        """
-            This function gets back user data pointers stored via
-        `g_object_set_qdata`.
-        """
     def getv(self, n_properties: int, names: list, values: list) -> None:
         """
             Gets `n_properties` properties for an `object`.
@@ -3928,43 +3842,6 @@ class Object(builtins.object):
     def handler_default(self, callback: typing.Callable[[typing.Any], None] | None = None) -> None:
         """
         Set the default handler for a signal.
-        """
-    @staticmethod
-    def interface_find_property(g_iface: TypeInterface, property_name: str) -> ParamSpec:
-        """
-            Find the GParamSpec with the given name for an
-        interface. Generally, the interface vtable passed in as `g_iface`
-        will be the default vtable from `g_type_default_interface_ref`, or,
-        if you know the interface has already been loaded,
-        `g_type_default_interface_peek`.
-        """
-    @staticmethod
-    def interface_install_property(g_iface: TypeInterface, pspec: ParamSpec) -> None:
-        """
-            Add a property to an interface; this is only useful for interfaces
-        that are added to GObject-derived types. Adding a property to an
-        interface forces all objects classes with that interface to have a
-        compatible property. The compatible property could be a newly
-        created GParamSpec, but normally
-        `g_object_class_override_property` will be used so that the object
-        class only needs to provide an implementation and inherits the
-        property description, default value, bounds, and so forth from the
-        interface property.
-
-        This function is meant to be called from the interface's default
-        vtable initialization function (the `class_init` member of
-        GTypeInfo.) It must not be called after after `class_init` has
-        been called for any object types implementing this interface.
-
-        If `pspec` is a floating reference, it will be consumed.
-        """
-    @staticmethod
-    def interface_list_properties(g_iface: TypeInterface) -> tuple[list, int]:
-        """
-            Lists the properties of an interface.Generally, the interface
-        vtable passed in as `g_iface` will be the default vtable from
-        `g_type_default_interface_ref`, or, if you know the interface has
-        already been loaded, `g_type_default_interface_peek`.
         """
     def is_floating(self) -> bool:
         """
@@ -3992,69 +3869,6 @@ class Object(builtins.object):
         and will be emitted (in reverse order) when `g_object_thaw_notify` is
         called.
         """
-    def notify_by_pspec(self, pspec: ParamSpec) -> None:
-        """
-            Emits a "notify" signal for the property specified by `pspec` on `object`.
-
-        This function omits the property name lookup, hence it is faster than
-        `g_object_notify`.
-
-        One way to avoid using `g_object_notify` from within the
-        class that registered the properties, and using `g_object_notify_by_pspec`
-        instead, is to store the GParamSpec used with
-        `g_object_class_install_property` inside a static array, e.g.:
-
-        |[<!-- language="C" -->
-          typedef enum
-          {
-            PROP_FOO = 1,
-            PROP_LAST
-          } MyObjectProperty;
-
-          static GParamSpec *properties[PROP_LAST];
-
-          static void
-          my_object_class_init (MyObjectClass *klass)
-          {
-            properties[PROP_FOO] = g_param_spec_int ("foo", None, None,
-                                                     0, 100,
-                                                     50,
-                                                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-            g_object_class_install_property (gobject_class,
-                                             PROP_FOO,
-                                             properties[PROP_FOO]);
-          }
-        ]|
-
-        and then notify a change on the "foo" property with:
-
-        |[<!-- language="C" -->
-          g_object_notify_by_pspec (self, properties[PROP_FOO]);
-        ]|
-        """
-    def ref(self) -> Object:
-        """
-            Increases the reference count of `object`.
-
-        Since GLib 2.56, if `GLIB_VERSION_MAX_ALLOWED` is 2.56 or greater, the type
-        of `object` will be propagated to the return type (using the GCC `typeof`
-        extension), so any casting the caller needs to do on the return type must be
-        explicit.
-        """
-    def ref_sink(self) -> Object:
-        """
-            Increase the reference count of `object`, and possibly remove the
-        [floating][floating-ref] reference, if `object` has a floating reference.
-
-        In other words, if the object is floating, then this call "assumes
-        ownership" of the floating reference, converting it to a normal
-        reference by clearing the floating flag while leaving the reference
-        count unchanged.  If the object is not floating, then this call
-        adds a new normal reference increasing the reference count by one.
-
-        Since GLib 2.56, the type of `object` will be propagated to the return type
-        under the same conditions as for `g_object_ref`.
-        """
     def run_dispose(self) -> None:
         """
             Releases all references to other objects. This can be used to break
@@ -4062,65 +3876,9 @@ class Object(builtins.object):
 
         This function should only be called from object system implementations.
         """
-    def set_data(self, key: str, data: object | None = None) -> None:
-        """
-            Each object carries around a table of associations from
-        strings to pointers.  This function lets you set an association.
-
-        If the object already had an association with that name,
-        the old association will be destroyed.
-
-        Internally, the `key` is converted to a GQuark using `g_quark_from_string`.
-        This means a copy of `key` is kept permanently (even after `object` has been
-        finalized) — so it is recommended to only use a small, bounded set of values
-        for `key` in your program, to avoid the GQuark storage growing unbounded.
-        """
     def set_property(self, property_name: str, value: Value) -> None:
         """
         Sets a property on an object.
-        """
-    def steal_data(self, key: str) -> object | None:
-        """
-            Remove a specified datum from the object's data associations,
-        without invoking the association's destroy handler.
-        """
-    def steal_qdata(self, quark: int) -> object | None:
-        """
-            This function gets back user data pointers stored via
-        `g_object_set_qdata` and removes the `data` from object
-        without invoking its `destroy` function (if any was
-        set).
-        Usually, calling this function is only required to update
-        user data pointers with a destroy notifier, for example:
-        |[<!-- language="C" -->
-        void
-        object_add_to_user_list (GObject     *object,
-                                 const gchar *new_string)
-        {
-          // the quark, naming the object data
-          GQuark quark_string_list = g_quark_from_static_string ("my-string-list");
-          // retrieve the old string list
-          GList *list = g_object_steal_qdata (object, quark_string_list);
-
-          // prepend new string
-          list = g_list_prepend (list, g_strdup (new_string));
-          // this changed 'list', so we need to set it again
-          g_object_set_qdata_full (object, quark_string_list, list, free_string_list);
-        }
-        static void
-        free_string_list (gpointer data)
-        {
-          GList *node, *list = data;
-
-          for (node = list; node; node = node->next)
-            g_free (node->data);
-          g_list_free (list);
-        }
-        ]|
-        Using `g_object_get_qdata` in the above example, instead of
-        `g_object_steal_qdata` would have left the destroy function set,
-        and thus the partial string list would have been freed upon
-        `g_object_set_qdata_full`.
         """
     def thaw_notify(self) -> None:
         """
@@ -4134,34 +3892,28 @@ class Object(builtins.object):
 
         It is an error to call this function when the freeze count is zero.
         """
-    def unref(self) -> None:
-        """
-            Decreases the reference count of `object`. When its reference count
-        drops to 0, the object is finalized (i.e. its memory is freed).
-
-        If the pointer to the GObject. may be reused in future (for example, if it is
-        an instance variable of another object), it is recommended to clear the
-        pointer to None rather than retain a dangling pointer to a potentially
-        invalid GObject. instance. Use `g_clear_object` for this.
-        """
-    def watch_closure(self, closure: Closure) -> None:
-        """
-            This function essentially limits the life time of the `closure` to
-        the life time of the object. That is, when the object is finalized,
-        the `closure` is invalidated by calling `g_closure_invalidate` on
-        it, in order to prevent invocations of the closure with a finalized
-        (nonexisting) object. Also, `g_object_ref` and `g_object_unref` are
-        added as marshal guards to the `closure`, to ensure that an extra
-        reference count is held on `object` during invocation of the
-        `closure`.  Usually, this function will be called on closures that
-        use this `object` as closure data.
-        """
     def weak_ref(self, callback: typing.Callable[[typing.Any], None] | None = None) -> typing.Any:
         """
         Creates a weak reference to the object.
         """
 
     # python methods (overrides?)
+    def bind_property_full(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def compat_control(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
     def connect_data(
         self,
         detailed_signal: typing.Any,
@@ -4197,6 +3949,50 @@ class Object(builtins.object):
     ) -> typing.Any:
         """
         Deprecated, please use stop_emission_by_name.
+        """
+    def force_floating(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def freeze_notify(
+        self,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        Freezes the object's property-changed notification queue.
+
+        :returns:
+            A context manager which optionally can be used to
+            automatically thaw notifications.
+
+        This will freeze the object so that "notify" signals are blocked until
+        the thaw_notify() method is called.
+
+        .. code-block:: python
+
+            with obj.freeze_notify():
+                pass
+        """
+    def get_data(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def get_qdata(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
         """
     @staticmethod
     def handler_block(
@@ -4244,6 +4040,54 @@ class Object(builtins.object):
         """
         signal_handler_unblock(instance:GObject.Object, handler_id:int)
         """
+    def interface_find_property(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def interface_install_property(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def interface_list_properties(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def notify_by_pspec(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def ref(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def ref_sink(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
     def replace_data(
         self,
         *args: typing.Any,
@@ -4254,6 +4098,30 @@ class Object(builtins.object):
         *args: typing.Any,
         **kargs: typing.Any,
     ) -> typing.Any: ...
+    def set_data(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def steal_data(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def steal_qdata(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
     def stop_emission(
         self,
         detailed_signal: typing.Any,
@@ -4268,6 +4136,22 @@ class Object(builtins.object):
     ) -> None:
         """
         signal_stop_emission_by_name(instance:GObject.Object, detailed_signal:str)
+        """
+    def unref(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def watch_closure(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
         """
 
     # Signals
@@ -5538,11 +5422,6 @@ class SignalGroup(Object):
         """
         Gets the target instance used when connecting signals.
         """
-    @classmethod
-    def new(cls, target_type: GType) -> SignalGroup:
-        """
-        Creates a new GSignalGroup for target instances of `target_type`.
-        """
     def set_target(self, target: Object | None = None) -> None:
         """
             Sets the target instance used when connecting signals. Any signal
@@ -5558,6 +5437,18 @@ class SignalGroup(Object):
         called again during any signal emissions unless it is blocked
         again. Must be unblocked exactly the same number of times it
         has been blocked to become active again.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        target_type: GType,
+    ) -> SignalGroup:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(target_type:GType) -> GObject.SignalGroup
         """
 
     # Signals
@@ -6431,10 +6322,6 @@ class Value(GBoxed):
         """
         Get the contents of a G_TYPE_BOOLEAN GValue.
         """
-    def get_boxed(self) -> object | None:
-        """
-        Get the contents of a G_TYPE_BOXED derived GValue.
-        """
     @deprecated("deprecated")
     def get_char(self) -> int:
         """
@@ -6543,10 +6430,6 @@ class Value(GBoxed):
     def set_boolean(self, v_boolean: bool) -> None:
         """
         Set the contents of a G_TYPE_BOOLEAN GValue to `v_boolean`.
-        """
-    def set_boxed(self, v_boxed: object | None = None) -> None:
-        """
-        Set the contents of a G_TYPE_BOXED derived GValue to `v_boxed`.
         """
     @deprecated("deprecated")
     def set_boxed_take_ownership(self, v_boxed: object | None = None) -> None:
@@ -6751,9 +6634,26 @@ class Value(GBoxed):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def get_boxed(
+        self,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        get_boxed(self)
+        """
     def get_value(
         self,
     ) -> typing.Any: ...
+    def set_boxed(
+        self,
+        boxed: typing.Any,
+    ) -> typing.Any:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        set_boxed(self, v_boxed=None)
+        """
     def set_value(
         self,
         py_value: typing.Any,
@@ -6825,14 +6725,6 @@ class ValueArray(GBoxed):
         is None, an uninitialized value is inserted.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, n_prealloced: int) -> ValueArray:
-        """
-            Allocate and initialize a new GValueArray, optionally preserve space
-        for `n_prealloced` elements. New arrays always contain 0 elements,
-        regardless of the value of `n_prealloced`.
-        """
-    @deprecated("deprecated")
     def prepend(self, value: Value | None = None) -> ValueArray:
         """
             Insert a copy of `value` as first element of `value_array`. If `value` is
@@ -6851,6 +6743,18 @@ class ValueArray(GBoxed):
 
         The current implementation uses the same sorting algorithm as standard
         C `qsort` function.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        n_prealloced: int,
+    ) -> ValueArray:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(n_prealloced:int) -> GObject.ValueArray
         """
 
 class Warning(builtins.Warning): ...

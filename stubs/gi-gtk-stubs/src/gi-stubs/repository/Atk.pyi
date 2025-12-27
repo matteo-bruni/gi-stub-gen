@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -513,7 +513,7 @@ class ValueType(GObject.GEnum):
 # classes
 ###############################################################
 
-class Action(object):
+class Action(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -560,7 +560,7 @@ class Attribute(GObject.GPointer):
     @staticmethod
     def set_free(attrib_set: list) -> None: ...
 
-class Component(object):
+class Component(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -642,7 +642,7 @@ class ComponentIface(GObject.GPointer):
     @builtins.property
     def set_size(self) -> set_sizeComponentIfaceCB: ...
 
-class Document(object):
+class Document(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -724,7 +724,7 @@ class DocumentIface(GObject.GPointer):
     @builtins.property
     def set_text_selections(self) -> set_text_selectionsDocumentIfaceCB: ...
 
-class EditableText(object):
+class EditableText(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -770,20 +770,20 @@ class GObjectAccessible(Object):
     # gi Methods
     def __init__(
         self,
-        accessible_name: str | None = None,
         accessible_description: str | None = None,
+        accessible_help_text: str | None = None,
+        accessible_id: str | None = None,
+        accessible_name: str | None = None,
         accessible_parent: Object | None = None,
-        accessible_value: float | None = None,
         accessible_role: Role | None = Role.UNKNOWN,
         accessible_table_caption: str | None = None,
+        accessible_table_caption_object: Object | None = None,
         accessible_table_column_description: str | None = None,
         accessible_table_column_header: Object | None = None,
         accessible_table_row_description: str | None = None,
         accessible_table_row_header: Object | None = None,
         accessible_table_summary: Object | None = None,
-        accessible_table_caption_object: Object | None = None,
-        accessible_id: str | None = None,
-        accessible_help_text: str | None = None,
+        accessible_value: float | None = None,
     ) -> None:
         """
         Initialize GObjectAccessible object with properties.
@@ -954,7 +954,7 @@ class HyperlinkClass(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
 
-class HyperlinkImpl(object):
+class HyperlinkImpl(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -974,7 +974,7 @@ class HyperlinkImplIface(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class Hypertext(object):
+class Hypertext(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -1015,7 +1015,7 @@ class HypertextIface(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class Image(object):
+class Image(builtins.object):
     """
     Displays an image.
 
@@ -1096,7 +1096,7 @@ class Implementor(GObject.GPointer):
     # gi Methods
     def ref_accessible(self) -> Object: ...
 
-class ImplementorIface(object):
+class ImplementorIface(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -1169,26 +1169,36 @@ class NoOpObject(Object):
     # gi Methods
     def __init__(
         self,
-        accessible_name: str | None = None,
         accessible_description: str | None = None,
+        accessible_help_text: str | None = None,
+        accessible_id: str | None = None,
+        accessible_name: str | None = None,
         accessible_parent: Object | None = None,
-        accessible_value: float | None = None,
         accessible_role: Role | None = Role.UNKNOWN,
         accessible_table_caption: str | None = None,
+        accessible_table_caption_object: Object | None = None,
         accessible_table_column_description: str | None = None,
         accessible_table_column_header: Object | None = None,
         accessible_table_row_description: str | None = None,
         accessible_table_row_header: Object | None = None,
         accessible_table_summary: Object | None = None,
-        accessible_table_caption_object: Object | None = None,
-        accessible_id: str | None = None,
-        accessible_help_text: str | None = None,
+        accessible_value: float | None = None,
     ) -> None:
         """
         Initialize NoOpObject object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, obj: GObject.Object) -> NoOpObject: ...
+    def new(
+        cls,
+        obj: GObject.Object,
+    ) -> Object:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(obj:GObject.Object) -> Atk.Object
+        """
 
 class NoOpObjectClass(GObject.GPointer):
     # gi Fields
@@ -1205,8 +1215,17 @@ class NoOpObjectFactory(ObjectFactory):
         """
         Initialize NoOpObjectFactory object with properties.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls) -> NoOpObjectFactory: ...
+    def new(
+        cls,
+    ) -> ObjectFactory:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Atk.ObjectFactory
+        """
 
 class NoOpObjectFactoryClass(GObject.GPointer):
     # gi Fields
@@ -1269,20 +1288,20 @@ class Object(GObject.Object):
     # gi Methods
     def __init__(
         self,
-        accessible_name: str | None = None,
         accessible_description: str | None = None,
+        accessible_help_text: str | None = None,
+        accessible_id: str | None = None,
+        accessible_name: str | None = None,
         accessible_parent: Object | None = None,
-        accessible_value: float | None = None,
         accessible_role: Role | None = Role.UNKNOWN,
         accessible_table_caption: str | None = None,
+        accessible_table_caption_object: Object | None = None,
         accessible_table_column_description: str | None = None,
         accessible_table_column_header: Object | None = None,
         accessible_table_row_description: str | None = None,
         accessible_table_row_header: Object | None = None,
         accessible_table_summary: Object | None = None,
-        accessible_table_caption_object: Object | None = None,
-        accessible_id: str | None = None,
-        accessible_help_text: str | None = None,
+        accessible_value: float | None = None,
     ) -> None:
         """
         Initialize Object object with properties.
@@ -1770,27 +1789,25 @@ class Plug(Object):
     # gi Methods
     def __init__(
         self,
-        accessible_name: str | None = None,
         accessible_description: str | None = None,
+        accessible_help_text: str | None = None,
+        accessible_id: str | None = None,
+        accessible_name: str | None = None,
         accessible_parent: Object | None = None,
-        accessible_value: float | None = None,
         accessible_role: Role | None = Role.UNKNOWN,
         accessible_table_caption: str | None = None,
+        accessible_table_caption_object: Object | None = None,
         accessible_table_column_description: str | None = None,
         accessible_table_column_header: Object | None = None,
         accessible_table_row_description: str | None = None,
         accessible_table_row_header: Object | None = None,
         accessible_table_summary: Object | None = None,
-        accessible_table_caption_object: Object | None = None,
-        accessible_id: str | None = None,
-        accessible_help_text: str | None = None,
+        accessible_value: float | None = None,
     ) -> None:
         """
         Initialize Plug object with properties.
         """
     def get_id(self) -> str: ...
-    @classmethod
-    def new(cls) -> Plug: ...
     def set_child(self, child: Object) -> None: ...
 
     # python methods (overrides?)
@@ -1799,6 +1816,15 @@ class Plug(Object):
     ) -> str:
         """
         get_object_id(self) -> str
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Object:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Atk.Object
         """
 
 class PlugClass(GObject.GPointer):
@@ -1838,8 +1864,6 @@ class Range(GObject.GBoxed):
     def get_description(self) -> str: ...
     def get_lower_limit(self) -> float: ...
     def get_upper_limit(self) -> float: ...
-    @classmethod
-    def new(cls, lower_limit: float, upper_limit: float, description: str) -> Range: ...
 
     # python methods (overrides?)
     @staticmethod
@@ -1847,6 +1871,18 @@ class Range(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        lower_limit: float,
+        upper_limit: float,
+        description: str,
+    ) -> Range:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(lower_limit:float, upper_limit:float, description:str) -> Atk.Range
+        """
 
 class Rectangle(GObject.GBoxed):
     # gi Fields
@@ -1904,9 +1940,20 @@ class Relation(GObject.Object):
     def get_relation_type(self) -> RelationType: ...
     @builtins.property
     def get_target(self) -> list: ...
-    @classmethod
-    def new(cls, targets: list, n_targets: int, relationship: RelationType) -> Relation: ...
     def remove_target(self, target: Object) -> bool: ...
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        targets: list,
+        relationship: RelationType,
+    ) -> Relation:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(targets:list, relationship:Atk.RelationType) -> Atk.Relation
+        """
 
     # Signals
     @typing.overload
@@ -1952,9 +1999,18 @@ class RelationSet(GObject.Object):
     def get_n_relations(self) -> int: ...
     def get_relation(self, i: int) -> Relation: ...
     def get_relation_by_type(self, relationship: RelationType) -> Relation: ...
-    @classmethod
-    def new(cls) -> RelationSet: ...
     def remove(self, relation: Relation) -> None: ...
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> RelationSet:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Atk.RelationSet
+        """
 
 class RelationSetClass(GObject.GPointer):
     # gi Fields
@@ -1965,7 +2021,7 @@ class RelationSetClass(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
 
-class Selection(object):
+class Selection(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -2028,28 +2084,26 @@ class Socket(Object):
     # gi Methods
     def __init__(
         self,
-        accessible_name: str | None = None,
         accessible_description: str | None = None,
+        accessible_help_text: str | None = None,
+        accessible_id: str | None = None,
+        accessible_name: str | None = None,
         accessible_parent: Object | None = None,
-        accessible_value: float | None = None,
         accessible_role: Role | None = Role.UNKNOWN,
         accessible_table_caption: str | None = None,
+        accessible_table_caption_object: Object | None = None,
         accessible_table_column_description: str | None = None,
         accessible_table_column_header: Object | None = None,
         accessible_table_row_description: str | None = None,
         accessible_table_row_header: Object | None = None,
         accessible_table_summary: Object | None = None,
-        accessible_table_caption_object: Object | None = None,
-        accessible_id: str | None = None,
-        accessible_help_text: str | None = None,
+        accessible_value: float | None = None,
     ) -> None:
         """
         Initialize Socket object with properties.
         """
     def embed(self, plug_id: str) -> None: ...
     def is_occupied(self) -> bool: ...
-    @classmethod
-    def new(cls) -> Socket: ...
 
     # python methods (overrides?)
     def do_embed(
@@ -2058,6 +2112,15 @@ class Socket(Object):
     ) -> None:
         """
         embed(self, plug_id:str)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Object:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Atk.Object
         """
 
 class SocketClass(GObject.GPointer):
@@ -2084,18 +2147,27 @@ class StateSet(GObject.Object):
     def contains_state(self, type: StateType) -> bool: ...
     def contains_states(self, types: list, n_types: int) -> bool: ...
     def is_empty(self) -> bool: ...
-    @classmethod
-    def new(cls) -> StateSet: ...
     def or_sets(self, compare_set: StateSet) -> StateSet | None: ...
     def remove_state(self, type: StateType) -> bool: ...
     def xor_sets(self, compare_set: StateSet) -> StateSet: ...
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> StateSet:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Atk.StateSet
+        """
 
 class StateSetClass(GObject.GPointer):
     # gi Fields
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
 
-class StreamableContent(object):
+class StreamableContent(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -2130,7 +2202,7 @@ class StreamableContentIface(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class Table(object):
+class Table(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -2223,7 +2295,7 @@ class Table(object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TableCell(object):
+class TableCell(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -2338,7 +2410,7 @@ class TableIface(GObject.GPointer):
     @builtins.property
     def set_summary(self) -> set_summaryTableIfaceCB: ...
 
-class Text(object):
+class Text(builtins.object):
     """
     A single-line text entry.
 
@@ -2649,7 +2721,7 @@ class UtilClass(GObject.GPointer):
     @builtins.property
     def remove_key_event_listener(self) -> remove_key_event_listenerUtilClassCB: ...
 
-class Value(object):
+class Value(builtins.object):
     class Props: ...
 
     @builtins.property
@@ -2714,7 +2786,7 @@ class ValueIface(GObject.GPointer):
     @builtins.property
     def set_value(self) -> set_valueValueIfaceCB: ...
 
-class Window(object):
+class Window(builtins.object):
     """
     A toplevel window which can contain other widgets.
 

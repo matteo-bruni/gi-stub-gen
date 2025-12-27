@@ -131,11 +131,12 @@ def test_gobject_inheritance():
     """
     Case: GObject.Object inherits from builtins.object.
     """
+
     cls = GObject.Object
 
     module, name = get_super_class_name(cls, current_namespace="GObject")
 
-    assert module is None
+    assert module == "builtins"
     assert name == "object"
 
 

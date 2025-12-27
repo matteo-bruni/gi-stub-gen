@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import typing
 
 # gi.repository imports needed by this Stub
@@ -5539,17 +5539,6 @@ class AllocationParams(GObject.GBoxed):
         """
         Initialize `params` to its default values
         """
-    @classmethod
-    def new(cls) -> AllocationParams:
-        """
-            Create a new Gst.AllocationParams on the heap.  This function is for
-        use in GStreamer language bindings.  In your own code, you can just
-        declare a Gst.AllocationParams on the stack or in a struct, and
-        call `Gst.AllocationParams.init` to initialize it.
-
-        You do not need to call `Gst.AllocationParams.init` on the instance
-        returned by this function.
-        """
 
     # python methods (overrides?)
     @staticmethod
@@ -5557,6 +5546,15 @@ class AllocationParams(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> AllocationParams:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.AllocationParams
+        """
 
 class Allocator(Object):
     """
@@ -5717,12 +5715,6 @@ class AtomicQueue(GObject.GBoxed):
         """
         Get the amount of items in the queue.
         """
-    @classmethod
-    def new(cls, initial_size: int) -> AtomicQueue:
-        """
-            Create a new atomic queue instance. `initial_size` will be rounded up to the
-        nearest power of 2 and used as the initial size of the queue.
-        """
     def peek(self) -> object | None:
         """
         Peek the head element of the queue without removing it from the queue.
@@ -5750,6 +5742,16 @@ class AtomicQueue(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        initial_size: int,
+    ) -> AtomicQueue:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(initial_size:int) -> Gst.AtomicQueue
+        """
 
 class Bin(Element):
     """
@@ -5941,10 +5943,10 @@ class Bin(Element):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Object | None = None,
         async_handling: bool | None = None,
         message_forward: bool | None = None,
+        name: str | None = None,
+        parent: Object | None = None,
     ) -> None:
         """
         Initialize Bin object with properties.
@@ -6030,11 +6032,6 @@ class Bin(Element):
         """
             Gets an iterator for all elements in the bin that have the
         GST_ELEMENT_FLAG_SOURCE flag set.
-        """
-    @classmethod
-    def new(cls, name: str | None = None) -> Bin:
-        """
-        Creates a new bin with the given name.
         """
     def recalculate_latency(self) -> bool:
         """
@@ -6129,6 +6126,16 @@ class Bin(Element):
     ) -> bool:
         """
         remove_element(self, element:Gst.Element) -> bool
+        """
+    @classmethod
+    def new(
+        cls,
+        name: str | None = None,
+    ) -> Element:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None) -> Gst.Element
         """
 
     # Signals
@@ -6252,7 +6259,7 @@ class BinClass(GObject.GPointer):
 
 class BinPrivate(GObject.GPointer): ...
 
-class Bitmask(object):
+class Bitmask(builtins.object):
     """
     A fundamental type that describes a 64-bit bitmask
     """
@@ -6657,62 +6664,6 @@ class Buffer(GObject.GBoxed):
             Gets the amount of memory blocks that this buffer has. This amount is never
         larger than what `Gst.Buffer.get_max_memory` returns.
         """
-    @classmethod
-    def new(cls) -> Buffer:
-        """
-        Creates a newly allocated buffer without any data.
-        """
-    @classmethod
-    def new_allocate(
-        cls, allocator: Allocator | None, size: int, params: AllocationParams | None = None
-    ) -> Buffer | None:
-        """
-            Tries to create a newly allocated buffer with data of the given size and
-        extra parameters from `allocator`. If the requested amount of memory can't be
-        allocated, None will be returned. The allocated buffer memory is not cleared.
-
-        When `allocator` is None, the default memory allocator will be used.
-
-        Note that when `size` == 0, the buffer will not have memory associated with it.
-        """
-    @classmethod
-    def new_memdup(cls, data: list, size: int) -> Buffer:
-        """
-        Creates a new buffer of size `size` and fills it with a copy of `data`.
-        """
-    @classmethod
-    def new_wrapped(cls, data: list, size: int) -> Buffer:
-        """
-            Creates a new buffer that wraps the given `data`. The memory will be freed
-        with `g_free` and will be marked writable.
-        """
-    @classmethod
-    def new_wrapped_bytes(cls, bytes: GLib.Bytes) -> Buffer:
-        """
-            Creates a new Gst.Buffer that wraps the given `bytes`. The data inside
-        `bytes` cannot be None and the resulting buffer will be marked as read only.
-        """
-    @classmethod
-    def new_wrapped_full(
-        cls,
-        flags: MemoryFlags,
-        data: list,
-        maxsize: int,
-        offset: int,
-        size: int,
-        *user_data: object | None,
-        notify: GLib.DestroyNotify | None = None,
-    ) -> Buffer:
-        """
-            Allocates a new buffer that wraps the given memory. `data` must point to
-        `maxsize` of memory, the wrapped buffer will have the region from `offset` and
-        `size` visible.
-
-        When the buffer is destroyed, `notify` will be called with `user_data`.
-
-        The prefix/padding must be filled with 0 if `flags` contains
-        GST_MEMORY_FLAG_ZERO_PREFIXED and GST_MEMORY_FLAG_ZERO_PADDED respectively.
-        """
     def peek_memory(self, idx: int) -> Memory | None:
         """
             Gets the memory block at `idx` in `buffer`. The memory block stays valid until
@@ -6794,6 +6745,72 @@ class Buffer(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.Buffer
+        """
+    @classmethod
+    def new_allocate(
+        cls,
+        allocator: Allocator | None,
+        size: int,
+        params: AllocationParams | None = None,
+    ) -> Buffer | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_allocate(allocator:Gst.Allocator=None, size:int, params:Gst.AllocationParams=None) -> Gst.Buffer or None
+        """
+    @classmethod
+    def new_memdup(
+        cls,
+        data: list,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_memdup(data:list) -> Gst.Buffer
+        """
+    @classmethod
+    def new_wrapped(
+        cls,
+        data: list,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_wrapped(data:list) -> Gst.Buffer
+        """
+    @classmethod
+    def new_wrapped_bytes(
+        cls,
+        bytes: GLib.Bytes,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_wrapped_bytes(bytes:GLib.Bytes) -> Gst.Buffer
+        """
+    @classmethod
+    def new_wrapped_full(
+        cls,
+        flags: MemoryFlags,
+        data: list,
+        maxsize: int,
+        offset: int,
+        user_data: typing.Any = None,
+        notify: typing.Callable | None = None,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_wrapped_full(flags:Gst.MemoryFlags, data:list, maxsize:int, offset:int, user_data=None, notify:GLib.DestroyNotify=None) -> Gst.Buffer
+        """
 
 class BufferList(GObject.GBoxed):
     """
@@ -6851,17 +6868,6 @@ class BufferList(GObject.GBoxed):
         """
         Returns the number of buffers in `list`.
         """
-    @classmethod
-    def new(cls) -> BufferList:
-        """
-        Creates a new, empty Gst.BufferList.
-        """
-    @classmethod
-    def new_sized(cls, size: int) -> BufferList:
-        """
-            Creates a new, empty Gst.BufferList. The list will have `size` space
-        preallocated so that memory reallocations can be avoided.
-        """
     def remove(self, idx: int, length: int) -> None:
         """
             Removes `length` buffers starting from `idx` in `list`. The following buffers
@@ -6874,6 +6880,25 @@ class BufferList(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> BufferList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.BufferList
+        """
+    @classmethod
+    def new_sized(
+        cls,
+        size: int,
+    ) -> BufferList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_sized(size:int) -> Gst.BufferList
+        """
 
 class BufferPool(Object):
     """
@@ -7035,11 +7060,6 @@ class BufferPool(Object):
             Checks if `pool` is active. A pool can be activated with the
         `Gst.BufferPool.set_active` call.
         """
-    @classmethod
-    def new(cls) -> BufferPool:
-        """
-        Creates a new Gst.BufferPool instance.
-        """
     def release_buffer(self, buffer: Buffer) -> None:
         """
             Releases `buffer` to `pool`. `buffer` should have previously been allocated from
@@ -7157,6 +7177,15 @@ class BufferPool(Object):
     ) -> bool:
         """
         stop(self) -> bool
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> BufferPool:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.BufferPool
         """
 
 class BufferPoolAcquireParams(GObject.GPointer):
@@ -7300,7 +7329,7 @@ class Bus(Object):
     def priv(self) -> BusPrivate | None: ...
 
     # gi Methods
-    def __init__(self, name: str | None = None, parent: Object | None = None, enable_async: bool | None = None) -> None:
+    def __init__(self, enable_async: bool | None = None, name: str | None = None, parent: Object | None = None) -> None:
         """
         Initialize Bus object with properties.
         """
@@ -7417,11 +7446,6 @@ class Bus(Object):
         """
             Checks if there are pending messages on the bus that
         should be handled.
-        """
-    @classmethod
-    def new(cls) -> Bus:
-        """
-        Creates a new Gst.Bus instance.
         """
     def peek(self) -> Message | None:
         """
@@ -7547,6 +7571,15 @@ class Bus(Object):
     ) -> None:
         """
         sync_message(self, message:Gst.Message)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Bus:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.Bus
         """
 
     # Signals
@@ -7873,40 +7906,6 @@ class Caps(GObject.GBoxed):
         """
         Appends `structure` with `features` to `caps` if its not already expressed by `caps`.
         """
-    @classmethod
-    def new_any(cls) -> Caps:
-        """
-            Creates a new Gst.Caps that indicates that it is compatible with
-        any media format.
-        """
-    @classmethod
-    def new_empty(cls) -> Caps:
-        """
-            Creates a new Gst.Caps that is empty.  That is, the returned
-        Gst.Caps contains no media formats.
-        The Gst.Caps is guaranteed to be writable.
-        """
-    @classmethod
-    def new_empty_simple(cls, media_type: str) -> Caps:
-        """
-            Creates a new Gst.Caps that contains one Gst.Structure with name
-        `media_type`.
-        """
-    @classmethod
-    def new_id_str_empty_simple(cls, media_type: IdStr) -> Caps:
-        """
-            Creates a new Gst.Caps that contains one Gst.Structure with name
-        `media_type`.
-        """
-    @classmethod
-    def new_static_str_empty_simple(cls, media_type: str) -> Caps:
-        """
-            Creates a new Gst.Caps that contains one Gst.Structure with name
-        `media_type`.
-
-        `media_type` needs to be valid for the remaining lifetime of the process, e.g.
-        has to be a static string.
-        """
     def normalize(self) -> Caps:
         """
             Returns a Gst.Caps that represents the same set of formats as
@@ -8011,6 +8010,56 @@ class Caps(GObject.GBoxed):
         the same and contain no structure at all.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new_any(
+        cls,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_any() -> Gst.Caps
+        """
+    @classmethod
+    def new_empty(
+        cls,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty() -> Gst.Caps
+        """
+    @classmethod
+    def new_empty_simple(
+        cls,
+        media_type: str,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty_simple(media_type:str) -> Gst.Caps
+        """
+    @classmethod
+    def new_id_str_empty_simple(
+        cls,
+        media_type: IdStr,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_id_str_empty_simple(media_type:Gst.IdStr) -> Gst.Caps
+        """
+    @classmethod
+    def new_static_str_empty_simple(
+        cls,
+        media_type: str,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_static_str_empty_simple(media_type:str) -> Gst.Caps
+        """
+
 class CapsFeatures(GObject.GBoxed):
     """
     Gst.CapsFeatures can optionally be set on a Gst.Caps to add requirements
@@ -8106,31 +8155,6 @@ class CapsFeatures(GObject.GBoxed):
         """
         Checks if `features1` and `features2` are equal.
         """
-    @classmethod
-    def new_any(cls) -> CapsFeatures:
-        """
-            Creates a new, ANY Gst.CapsFeatures. This will be equal
-        to any other Gst.CapsFeatures but caps with these are
-        unfixed.
-        """
-    @classmethod
-    def new_empty(cls) -> CapsFeatures:
-        """
-        Creates a new, empty Gst.CapsFeatures.
-        """
-    @classmethod
-    def new_single(cls, feature: str) -> CapsFeatures:
-        """
-        Creates a new Gst.CapsFeatures with a single feature.
-        """
-    @classmethod
-    def new_single_static_str(cls, feature: str) -> CapsFeatures:
-        """
-            Creates a new Gst.CapsFeatures with a single feature.
-
-        `feature` needs to be valid for the remaining lifetime of the process, e.g. has
-        to be a static string.
-        """
     def remove(self, feature: str) -> None:
         """
         Removes `feature` from `features`.
@@ -8164,7 +8188,47 @@ class CapsFeatures(GObject.GBoxed):
         This prints the features in human readable form.
         """
 
-class ChildProxy(object):
+    # python methods (overrides?)
+    @classmethod
+    def new_any(
+        cls,
+    ) -> CapsFeatures:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_any() -> Gst.CapsFeatures
+        """
+    @classmethod
+    def new_empty(
+        cls,
+    ) -> CapsFeatures:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty() -> Gst.CapsFeatures
+        """
+    @classmethod
+    def new_single(
+        cls,
+        feature: str,
+    ) -> CapsFeatures:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_single(feature:str) -> Gst.CapsFeatures
+        """
+    @classmethod
+    def new_single_static_str(
+        cls,
+        feature: str,
+    ) -> CapsFeatures:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_single_static_str(feature:str) -> Gst.CapsFeatures
+        """
+
+class ChildProxy(builtins.object):
     """
     This interface abstracts handling of property sets for elements with
     children. Imagine elements such as mixers or polyphonic generators. They all
@@ -8405,9 +8469,9 @@ class Clock(Object):
         self,
         name: str | None = None,
         parent: Object | None = None,
+        timeout: int | None = None,
         window_size: int | None = None,
         window_threshold: int | None = None,
-        timeout: int | None = None,
     ) -> None:
         """
         Initialize Clock object with properties.
@@ -8880,11 +8944,6 @@ class Context(GObject.GBoxed):
         """
         Checks if `context` is persistent.
         """
-    @classmethod
-    def new(cls, context_type: str, persistent: bool) -> Context:
-        """
-        Creates a new context.
-        """
     def writable_structure(self) -> Structure:
         """
         Gets a writable version of the structure.
@@ -8896,6 +8955,17 @@ class Context(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        context_type: str,
+        persistent: bool,
+    ) -> Context:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(context_type:str, persistent:bool) -> Gst.Context
+        """
 
 class ControlBinding(Object):
     """
@@ -8934,7 +9004,7 @@ class ControlBinding(Object):
         """
 
     # gi Methods
-    def __init__(self, parent: Object | None = None, object: Object | None = None, name: str | None = None) -> None:
+    def __init__(self, name: str | None = None, object: Object | None = None, parent: Object | None = None) -> None:
         """
         Initialize ControlBinding object with properties.
         """
@@ -9196,130 +9266,6 @@ class DateTime(GObject.GBoxed):
     def has_second(self) -> bool: ...
     def has_time(self) -> bool: ...
     def has_year(self) -> bool: ...
-    @classmethod
-    def new(
-        cls, tzoffset: float, year: int, month: int, day: int, hour: int, minute: int, seconds: float
-    ) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime using the date and times in the gregorian calendar
-        in the supplied timezone.
-
-        `year` should be from 1 to 9999, `month` should be from 1 to 12, `day` from
-        1 to 31, `hour` from 0 to 23, `minutes` and `seconds` from 0 to 59.
-
-        Note that `tzoffset` is a float and was chosen so for being able to handle
-        some fractional timezones, while it still keeps the readability of
-        representing it in hours for most timezones.
-
-        If value is -1 then all over value will be ignored. For example
-        if `month` == -1, then Gst.DateTime will be created only for `year`. If
-        `day` == -1, then Gst.DateTime will be created for `year` and `month` and
-        so on.
-        """
-    @classmethod
-    def new_from_g_date_time(cls, dt: GLib.DateTime | None = None) -> DateTime | None:
-        """
-        Creates a new Gst.DateTime from a GDateTime object.
-        """
-    @classmethod
-    def new_from_iso8601_string(cls, string: str) -> DateTime | None:
-        """
-            Tries to parse common variants of ISO-8601 datetime strings into a
-        Gst.DateTime. Possible input formats are (for example):
-        `2012-06-30T22:46:43Z`, `2012`, `2012-06`, `2012-06-30`, `2012-06-30T22:46:43-0430`,
-        `2012-06-30T22:46Z`, `2012-06-30T22:46-0430`, `2012-06-30 22:46`,
-        `2012-06-30 22:46:43`, `2012-06-00`, `2012-00-00`, `2012-00-30`, `22:46:43Z`, `22:46Z`,
-        `22:46:43-0430`, `22:46-0430`, `22:46:30`, `22:46`
-        If no date is provided, it is assumed to be "today" in the timezone
-        provided (if any), otherwise UTC.
-        """
-    @classmethod
-    def new_from_unix_epoch_local_time(cls, secs: int) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime using the time since Jan 1, 1970 specified by
-        `secs`. The Gst.DateTime is in the local timezone.
-        """
-    @classmethod
-    def new_from_unix_epoch_local_time_usecs(cls, usecs: int) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime using the time since Jan 1, 1970 specified by
-        `usecs`. The Gst.DateTime is in the local timezone.
-        """
-    @classmethod
-    def new_from_unix_epoch_utc(cls, secs: int) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime using the time since Jan 1, 1970 specified by
-        `secs`. The Gst.DateTime is in the UTC timezone.
-        """
-    @classmethod
-    def new_from_unix_epoch_utc_usecs(cls, usecs: int) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime using the time since Jan 1, 1970 specified by
-        `usecs`. The Gst.DateTime is in UTC.
-        """
-    @classmethod
-    def new_local_time(cls, year: int, month: int, day: int, hour: int, minute: int, seconds: float) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime using the date and times in the gregorian calendar
-        in the local timezone.
-
-        `year` should be from 1 to 9999, `month` should be from 1 to 12, `day` from
-        1 to 31, `hour` from 0 to 23, `minutes` and `seconds` from 0 to 59.
-
-        If `month` is -1, then the Gst.DateTime created will only contain `year`,
-        and all other fields will be considered not set.
-
-        If `day` is -1, then the Gst.DateTime created will only contain `year` and
-        `month` and all other fields will be considered not set.
-
-        If `hour` is -1, then the Gst.DateTime created will only contain `year` and
-        `month` and `day`, and the time fields will be considered not set. In this
-        case `minute` and `seconds` should also be -1.
-        """
-    @classmethod
-    def new_now_local_time(cls) -> DateTime | None:
-        """
-        Creates a new Gst.DateTime representing the current date and time.
-        """
-    @classmethod
-    def new_now_utc(cls) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime that represents the current instant at Universal
-        coordinated time.
-        """
-    @classmethod
-    def new_y(cls, year: int) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime using the date and times in the gregorian calendar
-        in the local timezone.
-
-        `year` should be from 1 to 9999.
-        """
-    @classmethod
-    def new_ym(cls, year: int, month: int) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime using the date and times in the gregorian calendar
-        in the local timezone.
-
-        `year` should be from 1 to 9999, `month` should be from 1 to 12.
-
-        If value is -1 then all over value will be ignored. For example
-        if `month` == -1, then Gst.DateTime will created only for `year`.
-        """
-    @classmethod
-    def new_ymd(cls, year: int, month: int, day: int) -> DateTime | None:
-        """
-            Creates a new Gst.DateTime using the date and times in the gregorian calendar
-        in the local timezone.
-
-        `year` should be from 1 to 9999, `month` should be from 1 to 12, `day` from
-        1 to 31.
-
-        If value is -1 then all over value will be ignored. For example
-        if `month` == -1, then Gst.DateTime will created only for `year`. If
-        `day` == -1, then Gst.DateTime will created for `year` and `month` and
-        so on.
-        """
     def ref(self) -> DateTime:
         """
         Atomically increments the reference count of `datetime` by one.
@@ -9346,6 +9292,148 @@ class DateTime(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        tzoffset: float,
+        year: int,
+        month: int,
+        day: int,
+        hour: int,
+        minute: int,
+        seconds: float,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(tzoffset:float, year:int, month:int, day:int, hour:int, minute:int, seconds:float) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_from_g_date_time(
+        cls,
+        dt: GLib.DateTime | None = None,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_g_date_time(dt:GLib.DateTime=None) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_from_iso8601_string(
+        cls,
+        string: str,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_iso8601_string(string:str) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_from_unix_epoch_local_time(
+        cls,
+        secs: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_unix_epoch_local_time(secs:int) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_from_unix_epoch_local_time_usecs(
+        cls,
+        usecs: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_unix_epoch_local_time_usecs(usecs:int) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_from_unix_epoch_utc(
+        cls,
+        secs: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_unix_epoch_utc(secs:int) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_from_unix_epoch_utc_usecs(
+        cls,
+        usecs: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_unix_epoch_utc_usecs(usecs:int) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_local_time(
+        cls,
+        year: int,
+        month: int,
+        day: int,
+        hour: int,
+        minute: int,
+        seconds: float,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_local_time(year:int, month:int, day:int, hour:int, minute:int, seconds:float) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_now_local_time(
+        cls,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_now_local_time() -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_now_utc(
+        cls,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_now_utc() -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_y(
+        cls,
+        year: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_y(year:int) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_ym(
+        cls,
+        year: int,
+        month: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_ym(year:int, month:int) -> Gst.DateTime or None
+        """
+    @classmethod
+    def new_ymd(
+        cls,
+        year: int,
+        month: int,
+        day: int,
+    ) -> DateTime | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_ymd(year:int, month:int, day:int) -> Gst.DateTime or None
+        """
 
 class DebugCategory(GObject.GPointer):
     """
@@ -9450,11 +9538,11 @@ class Device(Object):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Object | None = None,
-        display_name: str | None = None,
         caps: Caps | None = None,
         device_class: str | None = None,
+        display_name: str | None = None,
+        name: str | None = None,
+        parent: Object | None = None,
         properties: Structure | None = None,
     ) -> None:
         """
@@ -9707,11 +9795,6 @@ class DeviceMonitor(Object):
             Get if `monitor` is currently showing all devices, even those from hidden
         providers.
         """
-    @classmethod
-    def new(cls) -> DeviceMonitor:
-        """
-        Create a new Gst.DeviceMonitor
-        """
     def remove_filter(self, filter_id: int) -> bool:
         """
             Removes a filter from the Gst.DeviceMonitor using the id that was returned
@@ -9731,6 +9814,17 @@ class DeviceMonitor(Object):
     def stop(self) -> None:
         """
         Stops monitoring the devices.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> DeviceMonitor:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.DeviceMonitor
         """
 
     # Signals
@@ -10120,7 +10214,7 @@ class DeviceProviderFactoryClass(GObject.GPointer):
 
 class DeviceProviderPrivate(GObject.GPointer): ...
 
-class DoubleRange(object):
+class DoubleRange(builtins.object):
     """
     A fundamental type that describes a #gdouble range
     """
@@ -11669,423 +11763,6 @@ class Event(GObject.GBoxed):
             Checks if `event` has the given `name`. This function is usually used to
         check the name of a custom event.
         """
-    @classmethod
-    def new_buffer_size(cls, format: Format, minsize: int, maxsize: int, async_: bool) -> Event:
-        """
-            Create a new buffersize event. The event is sent downstream and notifies
-        elements that they should provide a buffer of the specified dimensions.
-
-        When the `async` flag is set, a thread boundary is preferred.
-        """
-    @classmethod
-    def new_caps(cls, caps: Caps) -> Event:
-        """
-            Create a new CAPS event for `caps`. The caps event can only travel downstream
-        synchronized with the buffer flow and contains the format of the buffers
-        that will follow after the event.
-        """
-    @classmethod
-    def new_custom(cls, type: EventType, structure: Structure) -> Event:
-        """
-            Create a new custom-typed event. This can be used for anything not
-        handled by other event-specific functions to pass an event to another
-        element.
-
-        Make sure to allocate an event type with the GST_EVENT_MAKE_TYPE macro,
-        assigning a free number and filling in the correct direction and
-        serialization flags.
-
-        New custom events can also be created by subclassing the event type if
-        needed.
-        """
-    @classmethod
-    def new_eos(cls) -> Event:
-        """
-            Create a new EOS event. The eos event can only travel downstream
-        synchronized with the buffer flow. Elements that receive the EOS
-        event on a pad can return GST_FLOW_EOS as a Gst.FlowReturn
-        when data after the EOS event arrives.
-
-        The EOS event will travel down to the sink elements in the pipeline
-        which will then post the GST_MESSAGE_EOS on the bus after they have
-        finished playing any buffered data.
-
-        When all sinks have posted an EOS message, an EOS message is
-        forwarded to the application.
-
-        The EOS event itself will not cause any state transitions of the pipeline.
-        """
-    @classmethod
-    def new_flush_start(cls) -> Event:
-        """
-            Allocate a new flush start event. The flush start event can be sent
-        upstream and downstream and travels out-of-bounds with the dataflow.
-
-        It marks pads as being flushing and will make them return
-        GST_FLOW_FLUSHING when used for data flow with `Gst.Pad.push`,
-        `Gst.Pad.chain`, `Gst.Pad.get_range` and `Gst.Pad.pull_range`.
-        Any event (except a GST_EVENT_FLUSH_STOP) received
-        on a flushing pad will return False immediately.
-
-        Elements should unlock any blocking functions and exit their streaming
-        functions as fast as possible when this event is received.
-
-        This event is typically generated after a seek to flush out all queued data
-        in the pipeline so that the new media is played as soon as possible.
-        """
-    @classmethod
-    def new_flush_stop(cls, reset_time: bool) -> Event:
-        """
-            Allocate a new flush stop event. The flush stop event can be sent
-        upstream and downstream and travels serialized with the dataflow.
-        It is typically sent after sending a FLUSH_START event to make the
-        pads accept data again.
-
-        Elements can process this event synchronized with the dataflow since
-        the preceding FLUSH_START event stopped the dataflow.
-
-        This event is typically generated to complete a seek and to resume
-        dataflow.
-        """
-    @classmethod
-    def new_gap(cls, timestamp: int, duration: int) -> Event:
-        """
-            Create a new GAP event. A gap event can be thought of as conceptually
-        equivalent to a buffer to signal that there is no data for a certain
-        amount of time. This is useful to signal a gap to downstream elements
-        which may wait for data, such as muxers or mixers or overlays, especially
-        for sparse streams such as subtitle streams.
-        """
-    @classmethod
-    def new_instant_rate_change(cls, rate_multiplier: float, new_flags: SegmentFlags) -> Event:
-        """
-            Create a new instant-rate-change event. This event is sent by seek
-        handlers (e.g. demuxers) when receiving a seek with the
-        Gst.SEEK_FLAG_INSTANT_RATE_CHANGE and signals to downstream elements that
-        the playback rate in the existing segment should be immediately multiplied
-        by the `rate_multiplier` factor.
-
-        The flags provided replace any flags in the existing segment, for the
-        flags within the Gst.SEGMENT_INSTANT_FLAGS set. Other GstSegmentFlags
-        are ignored and not transferred in the event.
-        """
-    @classmethod
-    def new_instant_rate_sync_time(cls, rate_multiplier: float, running_time: int, upstream_running_time: int) -> Event:
-        """
-            Create a new instant-rate-sync-time event. This event is sent by the
-        pipeline to notify elements handling the instant-rate-change event about
-        the running-time when the new rate should be applied. The running time
-        may be in the past when elements handle this event, which can lead to
-        switching artifacts. The magnitude of those depends on the exact timing
-        of event delivery to each element and the magnitude of the change in
-        playback rate being applied.
-
-        The `running_time` and `upstream_running_time` are the same if this
-        is the first instant-rate adjustment, but will differ for later ones
-        to compensate for the accumulated offset due to playing at a rate
-        different to the one indicated in the playback segments.
-        """
-    @classmethod
-    def new_latency(cls, latency: int) -> Event:
-        """
-            Create a new latency event. The event is sent upstream from the sinks and
-        notifies elements that they should add an additional `latency` to the
-        running time before synchronising against the clock.
-
-        The latency is mostly used in live sinks and is always expressed in
-        the time format.
-        """
-    @classmethod
-    def new_navigation(cls, structure: Structure) -> Event:
-        """
-        Create a new navigation event from the given description.
-        """
-    @classmethod
-    def new_protection(cls, system_id: str, data: Buffer, origin: str) -> Event:
-        """
-            Creates a new event containing information specific to a particular
-        protection system (uniquely identified by `system_id`), by which that
-        protection system can acquire key(s) to decrypt a protected stream.
-
-        In order for a decryption element to decrypt media
-        protected using a specific system, it first needs all the
-        protection system specific information necessary to acquire the decryption
-        key(s) for that stream. The functions defined here enable this information
-        to be passed in events from elements that extract it
-        (e.g., ISOBMFF demuxers, MPEG DASH demuxers) to protection decrypter
-        elements that use it.
-
-        Events containing protection system specific information are created using
-        #gst_event_new_protection, and they can be parsed by downstream elements
-        using #gst_event_parse_protection.
-
-        In Common Encryption, protection system specific information may be located
-        within ISOBMFF files, both in movie (moov) boxes and movie fragment (moof)
-        boxes; it may also be contained in ContentProtection elements within MPEG
-        DASH MPDs. The events created by #gst_event_new_protection contain data
-        identifying from which of these locations the encapsulated protection system
-        specific information originated. This origin information is required as
-        some protection systems use different encodings depending upon where the
-        information originates.
-
-        The events returned by `Gst.Event.new_protection` are implemented
-        in such a way as to ensure that the most recently-pushed protection info
-        event of a particular `origin` and `system_id` will
-        be stuck to the output pad of the sending element.
-        """
-    @classmethod
-    def new_qos(cls, type: QOSType, proportion: float, diff: int, timestamp: int) -> Event:
-        """
-            Allocate a new qos event with the given values.
-        The QOS event is generated in an element that wants an upstream
-        element to either reduce or increase its rate because of
-        high/low CPU load or other resource usage such as network performance or
-        throttling. Typically sinks generate these events for each buffer
-        they receive.
-
-        `type` indicates the reason for the QoS event. GST_QOS_TYPE_OVERFLOW is
-        used when a buffer arrived in time or when the sink cannot keep up with
-        the upstream datarate. GST_QOS_TYPE_UNDERFLOW is when the sink is not
-        receiving buffers fast enough and thus has to drop late buffers.
-        GST_QOS_TYPE_THROTTLE is used when the datarate is artificially limited
-        by the application, for example to reduce power consumption.
-
-        `proportion` indicates the real-time performance of the streaming in the
-        element that generated the QoS event (usually the sink). The value is
-        generally computed based on more long term statistics about the streams
-        timestamps compared to the clock.
-        A value < 1.0 indicates that the upstream element is producing data faster
-        than real-time. A value > 1.0 indicates that the upstream element is not
-        producing data fast enough. 1.0 is the ideal `proportion` value. The
-        proportion value can safely be used to lower or increase the quality of
-        the element.
-
-        `diff` is the difference against the clock in running time of the last
-        buffer that caused the element to generate the QOS event. A negative value
-        means that the buffer with `timestamp` arrived in time. A positive value
-        indicates how late the buffer with `timestamp` was. When throttling is
-        enabled, `diff` will be set to the requested throttling interval.
-
-        `timestamp` is the timestamp of the last buffer that cause the element
-        to generate the QOS event. It is expressed in running time and thus an ever
-        increasing value.
-
-        The upstream element can use the `diff` and `timestamp` values to decide
-        whether to process more buffers. For positive `diff`, all buffers with
-        timestamp <= `timestamp` + `diff` will certainly arrive late in the sink
-        as well. A (negative) `diff` value so that `timestamp` + `diff` would yield a
-        result smaller than 0 is not allowed.
-
-        The application can use general event probes to intercept the QoS
-        event and implement custom application specific QoS handling.
-        """
-    @classmethod
-    def new_reconfigure(cls) -> Event:
-        """
-            Create a new reconfigure event. The purpose of the reconfigure event is
-        to travel upstream and make elements renegotiate their caps or reconfigure
-        their buffer pools. This is useful when changing properties on elements
-        or changing the topology of the pipeline.
-        """
-    @classmethod
-    def new_seek(
-        cls,
-        rate: float,
-        format: Format,
-        flags: SeekFlags,
-        start_type: SeekType,
-        start: int,
-        stop_type: SeekType,
-        stop: int,
-    ) -> Event:
-        """
-            Allocate a new seek event with the given parameters.
-
-        The seek event configures playback of the pipeline between `start` to `stop`
-        at the speed given in `rate`, also called a playback segment.
-        The `start` and `stop` values are expressed in `format`.
-
-        A `rate` of 1.0 means normal playback rate, 2.0 means double speed.
-        Negatives values means backwards playback. A value of 0.0 for the
-        rate is not allowed and should be accomplished instead by PAUSING the
-        pipeline.
-
-        A pipeline has a default playback segment configured with a start
-        position of 0, a stop position of -1 and a rate of 1.0. The currently
-        configured playback segment can be queried with GST_QUERY_SEGMENT.
-
-        `start_type` and `stop_type` specify how to adjust the currently configured
-        start and stop fields in playback segment. Adjustments can be made relative
-        or absolute to the last configured values. A type of GST_SEEK_TYPE_NONE
-        means that the position should not be updated.
-
-        When the rate is positive and `start` has been updated, playback will start
-        from the newly configured start position.
-
-        For negative rates, playback will start from the newly configured stop
-        position (if any). If the stop position is updated, it must be different from
-        -1 (GST_CLOCK_TIME_NONE) for negative rates.
-
-        It is not possible to seek relative to the current playback position, to do
-        this, PAUSE the pipeline, query the current playback position with
-        GST_QUERY_POSITION and update the playback segment current position with a
-        GST_SEEK_TYPE_SET to the desired position.
-        """
-    @classmethod
-    def new_segment(cls, segment: Segment) -> Event:
-        """
-            Create a new SEGMENT event for `segment`. The segment event can only travel
-        downstream synchronized with the buffer flow and contains timing information
-        and playback properties for the buffers that will follow.
-
-        The segment event marks the range of buffers to be processed. All
-        data not within the segment range is not to be processed. This can be
-        used intelligently by plugins to apply more efficient methods of skipping
-        unneeded data. The valid range is expressed with the `start` and `stop`
-        values.
-
-        The time value of the segment is used in conjunction with the start
-        value to convert the buffer timestamps into the stream time. This is
-        usually done in sinks to report the current stream_time.
-        `time` represents the stream_time of a buffer carrying a timestamp of
-        `start`. `time` cannot be -1.
-
-        `start` cannot be -1, `stop` can be -1. If there
-        is a valid `stop` given, it must be greater or equal the `start`, including
-        when the indicated playback `rate` is < 0.
-
-        The `applied_rate` value provides information about any rate adjustment that
-        has already been made to the timestamps and content on the buffers of the
-        stream. (`rate` * `applied_rate`) should always equal the rate that has been
-        requested for playback. For example, if an element has an input segment
-        with intended playback `rate` of 2.0 and applied_rate of 1.0, it can adjust
-        incoming timestamps and buffer content by half and output a segment event
-        with `rate` of 1.0 and `applied_rate` of 2.0
-
-        After a segment event, the buffer stream time is calculated with:
-
-          time + (TIMESTAMP(buf) - start) * ABS (rate * applied_rate)
-        """
-    @classmethod
-    def new_segment_done(cls, format: Format, position: int) -> Event:
-        """
-            Create a new segment-done event. This event is sent by elements that
-        finish playback of a segment as a result of a segment seek.
-        """
-    @classmethod
-    def new_select_streams(cls, streams: list) -> Event:
-        """
-            Allocate a new select-streams event.
-
-        The select-streams event requests the specified `streams` to be activated.
-
-        The list of `streams` corresponds to the "Stream ID" of each stream to be
-        activated. Those ID can be obtained via the Gst.Stream objects present
-        in GST_EVENT_STREAM_START, GST_EVENT_STREAM_COLLECTION or
-        GST_MESSAGE_STREAM_COLLECTION.
-
-        Note: The list of `streams` can not be empty.
-        """
-    @classmethod
-    def new_sink_message(cls, name: str, msg: Message) -> Event:
-        """
-            Create a new sink-message event. The purpose of the sink-message event is
-        to instruct a sink to post the message contained in the event synchronized
-        with the stream.
-
-        `name` is used to store multiple sticky events on one pad.
-        """
-    @classmethod
-    def new_step(cls, format: Format, amount: int, rate: float, flush: bool, intermediate: bool) -> Event:
-        """
-            Create a new step event. The purpose of the step event is to instruct a sink
-        to skip `amount` (expressed in `format`) of media. It can be used to implement
-        stepping through the video frame by frame or for doing fast trick modes.
-
-        A rate of <= 0.0 is not allowed. Pause the pipeline, for the effect of rate
-        = 0.0 or first reverse the direction of playback using a seek event to get
-        the same effect as rate < 0.0.
-
-        The `flush` flag will clear any pending data in the pipeline before starting
-        the step operation.
-
-        The `intermediate` flag instructs the pipeline that this step operation is
-        part of a larger step operation.
-        """
-    @classmethod
-    def new_stream_collection(cls, collection: StreamCollection) -> Event:
-        """
-            Create a new STREAM_COLLECTION event. The stream collection event can only
-        travel downstream synchronized with the buffer flow.
-
-        Source elements, demuxers and other elements that manage collections
-        of streams and post Gst.StreamCollection messages on the bus also send
-        this event downstream on each pad involved in the collection, so that
-        activation of a new collection can be tracked through the downstream
-        data flow.
-        """
-    @classmethod
-    def new_stream_group_done(cls, group_id: int) -> Event:
-        """
-            Create a new Stream Group Done event. The stream-group-done event can
-        only travel downstream synchronized with the buffer flow. Elements
-        that receive the event on a pad should handle it mostly like EOS,
-        and emit any data or pending buffers that would depend on more data
-        arriving and unblock, since there won't be any more data.
-
-        This event is followed by EOS at some point in the future, and is
-        generally used when switching pads - to unblock downstream so that
-        new pads can be exposed before sending EOS on the existing pads.
-        """
-    @classmethod
-    def new_stream_start(cls, stream_id: str) -> Event:
-        """
-            Create a new STREAM_START event. The stream start event can only
-        travel downstream synchronized with the buffer flow. It is expected
-        to be the first event that is sent for a new stream.
-
-        Source elements, demuxers and other elements that create new streams
-        are supposed to send this event as the first event of a new stream. It
-        should not be sent after a flushing seek or in similar situations
-        and is used to mark the beginning of a new logical stream. Elements
-        combining multiple streams must ensure that this event is only forwarded
-        downstream once and not for every single input stream.
-
-        The `stream_id` should be a unique string that consists of the upstream
-        stream-id, / as separator and a unique stream-id for this specific
-        stream. A new stream-id should only be created for a stream if the upstream
-        stream is split into (potentially) multiple new streams, e.g. in a demuxer,
-        but not for every single element in the pipeline.
-        `Gst.Pad.create_stream_id` or `Gst.Pad.create_stream_id_printf` can be
-        used to create a stream-id.  There are no particular semantics for the
-        stream-id, though it should be deterministic (to support stream matching)
-        and it might be used to order streams (besides any information conveyed by
-        stream flags).
-        """
-    @classmethod
-    def new_tag(cls, taglist: TagList) -> Event:
-        """
-            Generates a metadata tag event from the given `taglist`.
-
-        The scope of the taglist specifies if the taglist applies to the
-        complete medium or only to this specific stream. As the tag event
-        is a sticky event, elements should merge tags received from
-        upstream with a given scope with their own tags with the same
-        scope and create a new tag event from it.
-        """
-    @classmethod
-    def new_toc(cls, toc: Toc, updated: bool) -> Event:
-        """
-            Generate a TOC event from the given `toc`. The purpose of the TOC event is to
-        inform elements that some kind of the TOC was found.
-        """
-    @classmethod
-    def new_toc_select(cls, uid: str) -> Event:
-        """
-            Generate a TOC select event with the given `uid`. The purpose of the
-        TOC select event is to start playback based on the TOC's entry with the
-        given `uid`.
-        """
     def parse_buffer_size(self) -> tuple[Format, int, int, bool]:
         """
         Get the format, minsize, maxsize and async-flag in the buffersize event.
@@ -12249,7 +11926,292 @@ class Event(GObject.GBoxed):
         Get a writable version of the structure.
         """
 
-class FlagSet(object):
+    # python methods (overrides?)
+    @classmethod
+    def new_buffer_size(
+        cls,
+        format: Format,
+        minsize: int,
+        maxsize: int,
+        async_: bool,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_buffer_size(format:Gst.Format, minsize:int, maxsize:int, async_:bool) -> Gst.Event
+        """
+    @classmethod
+    def new_caps(
+        cls,
+        caps: Caps,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_caps(caps:Gst.Caps) -> Gst.Event
+        """
+    @classmethod
+    def new_custom(
+        cls,
+        type: EventType,
+        structure: Structure,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_custom(type:Gst.EventType, structure:Gst.Structure) -> Gst.Event
+        """
+    @classmethod
+    def new_eos(
+        cls,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_eos() -> Gst.Event
+        """
+    @classmethod
+    def new_flush_start(
+        cls,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_flush_start() -> Gst.Event
+        """
+    @classmethod
+    def new_flush_stop(
+        cls,
+        reset_time: bool,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_flush_stop(reset_time:bool) -> Gst.Event
+        """
+    @classmethod
+    def new_gap(
+        cls,
+        timestamp: int,
+        duration: int,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_gap(timestamp:int, duration:int) -> Gst.Event
+        """
+    @classmethod
+    def new_instant_rate_change(
+        cls,
+        rate_multiplier: float,
+        new_flags: SegmentFlags,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_instant_rate_change(rate_multiplier:float, new_flags:Gst.SegmentFlags) -> Gst.Event
+        """
+    @classmethod
+    def new_instant_rate_sync_time(
+        cls,
+        rate_multiplier: float,
+        running_time: int,
+        upstream_running_time: int,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_instant_rate_sync_time(rate_multiplier:float, running_time:int, upstream_running_time:int) -> Gst.Event
+        """
+    @classmethod
+    def new_latency(
+        cls,
+        latency: int,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_latency(latency:int) -> Gst.Event
+        """
+    @classmethod
+    def new_navigation(
+        cls,
+        structure: Structure,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_navigation(structure:Gst.Structure) -> Gst.Event
+        """
+    @classmethod
+    def new_protection(
+        cls,
+        system_id: str,
+        data: Buffer,
+        origin: str,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_protection(system_id:str, data:Gst.Buffer, origin:str) -> Gst.Event
+        """
+    @classmethod
+    def new_qos(
+        cls,
+        type: QOSType,
+        proportion: float,
+        diff: int,
+        timestamp: int,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_qos(type:Gst.QOSType, proportion:float, diff:int, timestamp:int) -> Gst.Event
+        """
+    @classmethod
+    def new_reconfigure(
+        cls,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_reconfigure() -> Gst.Event
+        """
+    @classmethod
+    def new_seek(
+        cls,
+        rate: float,
+        format: Format,
+        flags: SeekFlags,
+        start_type: SeekType,
+        start: int,
+        stop_type: SeekType,
+        stop: int,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_seek(rate:float, format:Gst.Format, flags:Gst.SeekFlags, start_type:Gst.SeekType, start:int, stop_type:Gst.SeekType, stop:int) -> Gst.Event
+        """
+    @classmethod
+    def new_segment(
+        cls,
+        segment: Segment,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_segment(segment:Gst.Segment) -> Gst.Event
+        """
+    @classmethod
+    def new_segment_done(
+        cls,
+        format: Format,
+        position: int,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_segment_done(format:Gst.Format, position:int) -> Gst.Event
+        """
+    @classmethod
+    def new_select_streams(
+        cls,
+        streams: list,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_select_streams(streams:list) -> Gst.Event
+        """
+    @classmethod
+    def new_sink_message(
+        cls,
+        name: str,
+        msg: Message,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_sink_message(name:str, msg:Gst.Message) -> Gst.Event
+        """
+    @classmethod
+    def new_step(
+        cls,
+        format: Format,
+        amount: int,
+        rate: float,
+        flush: bool,
+        intermediate: bool,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_step(format:Gst.Format, amount:int, rate:float, flush:bool, intermediate:bool) -> Gst.Event
+        """
+    @classmethod
+    def new_stream_collection(
+        cls,
+        collection: StreamCollection,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_stream_collection(collection:Gst.StreamCollection) -> Gst.Event
+        """
+    @classmethod
+    def new_stream_group_done(
+        cls,
+        group_id: int,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_stream_group_done(group_id:int) -> Gst.Event
+        """
+    @classmethod
+    def new_stream_start(
+        cls,
+        stream_id: str,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_stream_start(stream_id:str) -> Gst.Event
+        """
+    @classmethod
+    def new_tag(
+        cls,
+        taglist: TagList,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_tag(taglist:Gst.TagList) -> Gst.Event
+        """
+    @classmethod
+    def new_toc(
+        cls,
+        toc: Toc,
+        updated: bool,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_toc(toc:Gst.Toc, updated:bool) -> Gst.Event
+        """
+    @classmethod
+    def new_toc_select(
+        cls,
+        uid: str,
+    ) -> Event:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_toc_select(uid:str) -> Gst.Event
+        """
+
+class FlagSet(builtins.object):
     """
     A fundamental type that describes a 32-bit flag bitfield, with 32-bit
     mask indicating which of the bits in the field are explicitly set.
@@ -12296,7 +12258,7 @@ class FormatDefinition(GObject.GPointer):
 
     """
 
-class Fraction(object):
+class Fraction(builtins.object):
     """
     A fundamental type that describes a fraction of an integer numerator
     over an integer denominator
@@ -12309,7 +12271,7 @@ class Fraction(object):
 
     ...
 
-class FractionRange(object):
+class FractionRange(builtins.object):
     """
     A fundamental type that describes a Gst.FractionRange range
     """
@@ -12347,11 +12309,11 @@ class GhostPad(ProxyPad):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Object | None = None,
         direction: PadDirection | None = PadDirection.UNKNOWN,
-        template: PadTemplate | None = None,
+        name: str | None = None,
         offset: int | None = None,
+        parent: Object | None = None,
+        template: PadTemplate | None = None,
     ) -> None:
         """
         Initialize GhostPad object with properties.
@@ -12381,42 +12343,58 @@ class GhostPad(ProxyPad):
             Invoke the default activate mode function of a proxy pad that is
         owned by a ghost pad.
         """
-    @classmethod
-    def new(cls, name: str | None, target: Pad) -> GhostPad | None:
-        """
-            Create a new ghostpad with `target` as the target. The direction will be taken
-        from the target pad. `target` must be unlinked.
-
-        Will ref the target.
-        """
-    @classmethod
-    def new_from_template(cls, name: str | None, target: Pad, templ: PadTemplate) -> GhostPad | None:
-        """
-            Create a new ghostpad with `target` as the target. The direction will be taken
-        from the target pad. The template used on the ghostpad will be `template`.
-
-        Will ref the target.
-        """
-    @classmethod
-    def new_no_target(cls, name: str | None, dir: PadDirection) -> GhostPad | None:
-        """
-            Create a new ghostpad without a target with the given direction.
-        A target can be set on the ghostpad later with the
-        `Gst.GhostPad.set_target` function.
-
-        The created ghostpad will not have a padtemplate.
-        """
-    @classmethod
-    def new_no_target_from_template(cls, name: str | None, templ: PadTemplate) -> GhostPad | None:
-        """
-            Create a new ghostpad based on `templ`, without setting a target. The
-        direction will be taken from the `templ`.
-        """
     def set_target(self, newtarget: Pad | None = None) -> bool:
         """
             Set the new target of the ghostpad `gpad`. Any existing target
         is unlinked and links to the new target are established. if `newtarget` is
         None the target will be cleared.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        name: str | None,
+        target: Pad,
+    ) -> Pad | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None, target:Gst.Pad) -> Gst.Pad or None
+        """
+    @classmethod
+    def new_from_template(
+        cls,
+        name: str | None,
+        target: Pad,
+        templ: PadTemplate,
+    ) -> Pad | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_template(name:str=None, target:Gst.Pad, templ:Gst.PadTemplate) -> Gst.Pad or None
+        """
+    @classmethod
+    def new_no_target(
+        cls,
+        name: str | None,
+        dir: PadDirection,
+    ) -> Pad | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_no_target(name:str=None, dir:Gst.PadDirection) -> Gst.Pad or None
+        """
+    @classmethod
+    def new_no_target_from_template(
+        cls,
+        name: str | None,
+        templ: PadTemplate,
+    ) -> Pad | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_no_target_from_template(name:str=None, templ:Gst.PadTemplate) -> Gst.Pad or None
         """
 
 class GhostPadClass(GObject.GPointer):
@@ -12500,11 +12478,6 @@ class IdStr(GObject.GBoxed):
         """
         Moves `s` into `d` and resets `s`.
         """
-    @classmethod
-    def new(cls) -> IdStr:
-        """
-        Returns a newly heap allocated empty string.
-        """
     def set(self, value: str) -> None:
         """
         Sets `s` to the string `value`.
@@ -12534,8 +12507,17 @@ class IdStr(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> IdStr:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-class Int64Range(object):
+        new() -> Gst.IdStr
+        """
+
+class Int64Range(builtins.object):
     """
     A fundamental type that describes a #gint64 range
     """
@@ -12547,7 +12529,7 @@ class Int64Range(object):
 
     ...
 
-class IntRange(object):
+class IntRange(builtins.object):
     """
     A fundamental type that describes a #gint range
     """
@@ -12698,14 +12680,6 @@ class Iterator(GObject.GBoxed):
 
         MT safe.
         """
-    @classmethod
-    def new_single(cls, type: GObject.GType, object: GObject.Value) -> Iterator:
-        """
-            This Gst.Iterator is a convenient iterator for the common
-        case where a Gst.Iterator needs to be returned but only
-        a single object has to be considered. This happens often
-        for the Gst.PadIterIntLinkFunction.
-        """
     def next(self) -> tuple[IteratorResult, GObject.Value]:
         """
             Get the next item from the iterator in `elem`.
@@ -12748,6 +12722,19 @@ class Iterator(GObject.GBoxed):
         with this function.
 
         MT safe.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_single(
+        cls,
+        type: GObject.GType,
+        object: GObject.Value,
+    ) -> Iterator:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_single(type:GType, object:GObject.Value) -> Gst.Iterator
         """
 
 class MapInfo(GObject.GPointer):
@@ -12920,23 +12907,6 @@ class Memory(GObject.GBoxed):
         For each `Gst.Memory.map` call, a corresponding `Gst.Memory.unmap` call
         should be done.
         """
-    @classmethod
-    def new_wrapped(
-        cls,
-        flags: MemoryFlags,
-        data: list,
-        maxsize: int,
-        offset: int,
-        size: int,
-        *user_data: object | None,
-        notify: GLib.DestroyNotify | None = None,
-    ) -> Memory | None:
-        """
-            Allocate a new memory block that wraps the given `data`.
-
-        The prefix/padding must be filled with 0 if `flags` contains
-        GST_MEMORY_FLAG_ZERO_PREFIXED and GST_MEMORY_FLAG_ZERO_PADDED respectively.
-        """
     def resize(self, offset: int, size: int) -> None:
         """
             Resize the memory region. `mem` should be writable and offset + size should be
@@ -12955,6 +12925,23 @@ class Memory(GObject.GBoxed):
     def unmap(self, info: MapInfo) -> None:
         """
         Release the memory obtained with `Gst.Memory.map`
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_wrapped(
+        cls,
+        flags: MemoryFlags,
+        data: list,
+        maxsize: int,
+        offset: int,
+        user_data: typing.Any = None,
+        notify: typing.Callable | None = None,
+    ) -> Memory | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_wrapped(flags:Gst.MemoryFlags, data:list, maxsize:int, offset:int, user_data=None, notify:GLib.DestroyNotify=None) -> Gst.Memory or None
         """
 
 class Message(GObject.GBoxed):
@@ -13051,383 +13038,6 @@ class Message(GObject.GBoxed):
         """
             Checks if `message` has the given `name`. This function is usually used to
         check the name of a custom message.
-        """
-    @classmethod
-    def new_application(cls, src: Object | None, structure: Structure) -> Message:
-        """
-            Create a new application-typed message. GStreamer will never create these
-        messages; they are a gift from us to you. Enjoy.
-        """
-    @classmethod
-    def new_async_done(cls, src: Object | None, running_time: int) -> Message:
-        """
-            The message is posted when elements completed an ASYNC state change.
-        `running_time` contains the time of the desired running_time when this
-        elements goes to PLAYING. A value of GST_CLOCK_TIME_NONE for `running_time`
-        means that the element has no clock interaction and thus doesn't care about
-        the running_time of the pipeline.
-        """
-    @classmethod
-    def new_async_start(cls, src: Object | None = None) -> Message:
-        """
-        This message is posted by elements when they start an ASYNC state change.
-        """
-    @classmethod
-    def new_buffering(cls, src: Object | None, percent: int) -> Message:
-        """
-            Create a new buffering message. This message can be posted by an element that
-        needs to buffer data before it can continue processing. `percent` should be a
-        value between 0 and 100. A value of 100 means that the buffering completed.
-
-        When `percent` is < 100 the application should PAUSE a PLAYING pipeline. When
-        `percent` is 100, the application can set the pipeline (back) to PLAYING.
-        The application must be prepared to receive BUFFERING messages in the
-        PREROLLING state and may only set the pipeline to PLAYING after receiving a
-        message with `percent` set to 100, which can happen after the pipeline
-        completed prerolling.
-
-        MT safe.
-        """
-    @classmethod
-    def new_clock_lost(cls, src: Object | None, clock: Clock) -> Message:
-        """
-            Create a clock lost message. This message is posted whenever the
-        clock is not valid anymore.
-
-        If this message is posted by the pipeline, the pipeline will
-        select a new clock again when it goes to PLAYING. It might therefore
-        be needed to set the pipeline to PAUSED and PLAYING again.
-        """
-    @classmethod
-    def new_clock_provide(cls, src: Object | None, clock: Clock, ready: bool) -> Message:
-        """
-            Create a clock provide message. This message is posted whenever an
-        element is ready to provide a clock or lost its ability to provide
-        a clock (maybe because it paused or became EOS).
-
-        This message is mainly used internally to manage the clock
-        selection.
-        """
-    @classmethod
-    def new_custom(cls, type: MessageType, src: Object | None = None, structure: Structure | None = None) -> Message:
-        """
-            Create a new custom-typed message. This can be used for anything not
-        handled by other message-specific functions to pass a message to the
-        app. The structure field can be None.
-        """
-    @classmethod
-    def new_device_added(cls, src: Object | None, device: Device) -> Message:
-        """
-            Creates a new device-added message. The device-added message is produced by
-        Gst.DeviceProvider or a Gst.DeviceMonitor. They announce the appearance
-        of monitored devices.
-        """
-    @classmethod
-    def new_device_changed(cls, src: Object | None, device: Device, changed_device: Device) -> Message:
-        """
-            Creates a new device-changed message. The device-changed message is produced
-        by Gst.DeviceProvider or a Gst.DeviceMonitor. They announce that a device
-        properties has changed and `device` represent the new modified version of `changed_device`.
-        """
-    @classmethod
-    def new_device_removed(cls, src: Object | None, device: Device) -> Message:
-        """
-            Creates a new device-removed message. The device-removed message is produced
-        by Gst.DeviceProvider or a Gst.DeviceMonitor. They announce the
-        disappearance of monitored devices.
-        """
-    @classmethod
-    def new_duration_changed(cls, src: Object | None = None) -> Message:
-        """
-            Create a new duration changed message. This message is posted by elements
-        that know the duration of a stream when the duration changes. This message
-        is received by bins and is used to calculate the total duration of a
-        pipeline.
-        """
-    @classmethod
-    def new_element(cls, src: Object | None, structure: Structure) -> Message:
-        """
-            Create a new element-specific message. This is meant as a generic way of
-        allowing one-way communication from an element to an application, for example
-        "the firewire cable was unplugged". The format of the message should be
-        documented in the element's documentation. The structure field can be None.
-        """
-    @classmethod
-    def new_eos(cls, src: Object | None = None) -> Message:
-        """
-            Create a new eos message. This message is generated and posted in
-        the sink elements of a GstBin. The bin will only forward the EOS
-        message to the application if all sinks have posted an EOS message.
-        """
-    @classmethod
-    def new_error(cls, src: Object | None, error: GLib.Error, debug: str) -> Message:
-        """
-            Create a new error message. The message will copy `error` and
-        `debug`. This message is posted by element when a fatal event
-        occurred. The pipeline will probably (partially) stop. The application
-        receiving this message should stop the pipeline.
-        """
-    @classmethod
-    def new_error_with_details(
-        cls, src: Object | None, error: GLib.Error, debug: str, details: Structure | None = None
-    ) -> Message:
-        """
-            Create a new error message. The message will copy `error` and
-        `debug`. This message is posted by element when a fatal event
-        occurred. The pipeline will probably (partially) stop. The application
-        receiving this message should stop the pipeline.
-        """
-    @classmethod
-    def new_have_context(cls, src: Object | None, context: Context) -> Message:
-        """
-        This message is posted when an element has a new local Gst.Context.
-        """
-    @classmethod
-    def new_info(cls, src: Object | None, error: GLib.Error, debug: str) -> Message:
-        """
-            Create a new info message. The message will make copies of `error` and
-        `debug`.
-        """
-    @classmethod
-    def new_info_with_details(
-        cls, src: Object | None, error: GLib.Error, debug: str, details: Structure | None = None
-    ) -> Message:
-        """
-            Create a new info message. The message will make copies of `error` and
-        `debug`.
-        """
-    @classmethod
-    def new_instant_rate_request(cls, src: Object | None, rate_multiplier: float) -> Message:
-        """
-            Creates a new instant-rate-request message. Elements handling the
-        instant-rate-change event must post this message. The message is
-        handled at the pipeline, and allows the pipeline to select the
-        running time when the rate change should happen and to send an
-        `GST_EVENT_INSTANT_RATE_SYNC_TIME` event to notify the elements
-        in the pipeline.
-        """
-    @classmethod
-    def new_latency(cls, src: Object | None = None) -> Message:
-        """
-            This message can be posted by elements when their latency requirements have
-        changed.
-        """
-    @classmethod
-    def new_need_context(cls, src: Object | None, context_type: str) -> Message:
-        """
-        This message is posted when an element needs a specific Gst.Context.
-        """
-    @classmethod
-    def new_new_clock(cls, src: Object | None, clock: Clock) -> Message:
-        """
-            Create a new clock message. This message is posted whenever the
-        pipeline selects a new clock for the pipeline.
-        """
-    @classmethod
-    def new_progress(cls, src: Object | None, type: ProgressType, code: str, text: str) -> Message:
-        """
-            Progress messages are posted by elements when they use an asynchronous task
-        to perform actions triggered by a state change.
-
-        `code` contains a well defined string describing the action.
-        `text` should contain a user visible string detailing the current action.
-        """
-    @classmethod
-    def new_property_notify(cls, src: Object, property_name: str, val: GObject.Value | None = None) -> Message: ...
-    @classmethod
-    def new_qos(
-        cls, src: Object | None, live: bool, running_time: int, stream_time: int, timestamp: int, duration: int
-    ) -> Message:
-        """
-            A QOS message is posted on the bus whenever an element decides to drop a
-        buffer because of QoS reasons or whenever it changes its processing strategy
-        because of QoS reasons (quality adjustments such as processing at lower
-        accuracy).
-
-        This message can be posted by an element that performs synchronisation against the
-        clock (live) or it could be dropped by an element that performs QoS because of QOS
-        events received from a downstream element (!live).
-
-        `running_time`, `stream_time`, `timestamp`, `duration` should be set to the
-        respective running-time, stream-time, timestamp and duration of the (dropped)
-        buffer that generated the QoS event. Values can be left to
-        GST_CLOCK_TIME_NONE when unknown.
-        """
-    @classmethod
-    def new_redirect(
-        cls, src: Object | None, location: str, tag_list: TagList | None = None, entry_struct: Structure | None = None
-    ) -> Message:
-        """
-            Creates a new redirect message and adds a new entry to it. Redirect messages
-        are posted when an element detects that the actual data has to be retrieved
-        from a different location. This is useful if such a redirection cannot be
-        handled inside a source element, for example when HTTP 302/303 redirects
-        return a non-HTTP URL.
-
-        The redirect message can hold multiple entries. The first one is added
-        when the redirect message is created, with the given location, tag_list,
-        entry_struct arguments. Use `Gst.Message.add_redirect_entry` to add more
-        entries.
-
-        Each entry has a location, a tag list, and a structure. All of these are
-        optional. The tag list and structure are useful for additional metadata,
-        such as bitrate statistics for the given location.
-
-        By default, message recipients should treat entries in the order they are
-        stored. The recipient should therefore try entry #0 first, and if this
-        entry is not acceptable or working, try entry #1 etc. Senders must make
-        sure that they add entries in this order. However, recipients are free to
-        ignore the order and pick an entry that is "best" for them. One example
-        would be a recipient that scans the entries for the one with the highest
-        bitrate tag.
-
-        The specified location string is copied. However, ownership over the tag
-        list and structure are transferred to the message.
-        """
-    @classmethod
-    def new_request_state(cls, src: Object | None, state: State) -> Message:
-        """
-            This message can be posted by elements when they want to have their state
-        changed. A typical use case would be an audio server that wants to pause the
-        pipeline because a higher priority stream is being played.
-        """
-    @classmethod
-    def new_reset_time(cls, src: Object | None, running_time: int) -> Message:
-        """
-            This message is posted when the pipeline running-time should be reset to
-        `running_time`, like after a flushing seek.
-        """
-    @classmethod
-    def new_segment_done(cls, src: Object | None, format: Format, position: int) -> Message:
-        """
-            Create a new segment done message. This message is posted by elements that
-        finish playback of a segment as a result of a segment seek. This message
-        is received by the application after all elements that posted a segment_start
-        have posted the segment_done.
-        """
-    @classmethod
-    def new_segment_start(cls, src: Object | None, format: Format, position: int) -> Message:
-        """
-            Create a new segment message. This message is posted by elements that
-        start playback of a segment as a result of a segment seek. This message
-        is not received by the application but is used for maintenance reasons in
-        container elements.
-        """
-    @classmethod
-    def new_state_changed(cls, src: Object | None, oldstate: State, newstate: State, pending: State) -> Message:
-        """
-            Create a state change message. This message is posted whenever an element
-        changed its state.
-        """
-    @classmethod
-    def new_state_dirty(cls, src: Object | None = None) -> Message:
-        """
-            Create a state dirty message. This message is posted whenever an element
-        changed its state asynchronously and is used internally to update the
-        states of container objects.
-        """
-    @classmethod
-    def new_step_done(
-        cls,
-        src: Object | None,
-        format: Format,
-        amount: int,
-        rate: float,
-        flush: bool,
-        intermediate: bool,
-        duration: int,
-        eos: bool,
-    ) -> Message:
-        """
-            This message is posted by elements when they complete a part, when `intermediate` set
-        to True, or a complete step operation.
-
-        `duration` will contain the amount of time (in GST_FORMAT_TIME) of the stepped
-        `amount` of media in format `format`.
-        """
-    @classmethod
-    def new_step_start(
-        cls, src: Object | None, active: bool, format: Format, amount: int, rate: float, flush: bool, intermediate: bool
-    ) -> Message:
-        """
-            This message is posted by elements when they accept or activate a new step
-        event for `amount` in `format`.
-
-        `active` is set to False when the element accepted the new step event and has
-        queued it for execution in the streaming threads.
-
-        `active` is set to True when the element has activated the step operation and
-        is now ready to start executing the step in the streaming thread. After this
-        message is emitted, the application can queue a new step operation in the
-        element.
-        """
-    @classmethod
-    def new_stream_collection(cls, src: Object | None, collection: StreamCollection) -> Message:
-        """
-            Creates a new stream-collection message. The message is used to announce new
-        Gst.StreamCollection
-        """
-    @classmethod
-    def new_stream_start(cls, src: Object | None = None) -> Message:
-        """
-            Create a new stream_start message. This message is generated and posted in
-        the sink elements of a GstBin. The bin will only forward the STREAM_START
-        message to the application if all sinks have posted an STREAM_START message.
-        """
-    @classmethod
-    def new_stream_status(cls, src: Object | None, type: StreamStatusType, owner: Element) -> Message:
-        """
-            Create a new stream status message. This message is posted when a streaming
-        thread is created/destroyed or when the state changed.
-        """
-    @classmethod
-    def new_streams_selected(cls, src: Object | None, collection: StreamCollection) -> Message:
-        """
-            Creates a new steams-selected message. The message is used to announce
-        that an array of streams has been selected. This is generally in response
-        to a GST_EVENT_SELECT_STREAMS event, or when an element (such as decodebin3)
-        makes an initial selection of streams.
-
-        The message also contains the Gst.StreamCollection to which the various streams
-        belong to.
-
-        Users of `Gst.Message.new_streams_selected` can add the selected streams with
-        `Gst.Message.streams_selected_add`.
-        """
-    @classmethod
-    def new_structure_change(cls, src: Object | None, type: StructureChangeType, owner: Element, busy: bool) -> Message:
-        """
-            Create a new structure change message. This message is posted when the
-        structure of a pipeline is in the process of being changed, for example
-        when pads are linked or unlinked.
-
-        `src` should be the sinkpad that unlinked or linked.
-        """
-    @classmethod
-    def new_tag(cls, src: Object | None, tag_list: TagList) -> Message:
-        """
-            Create a new tag message. The message will take ownership of the tag list.
-        The message is posted by elements that discovered a new taglist.
-        """
-    @classmethod
-    def new_toc(cls, src: Object | None, toc: Toc, updated: bool) -> Message:
-        """
-            Create a new TOC message. The message is posted by elements
-        that discovered or updated a TOC.
-        """
-    @classmethod
-    def new_warning(cls, src: Object | None, error: GLib.Error, debug: str) -> Message:
-        """
-            Create a new warning message. The message will make copies of `error` and
-        `debug`.
-        """
-    @classmethod
-    def new_warning_with_details(
-        cls, src: Object | None, error: GLib.Error, debug: str, details: Structure | None = None
-    ) -> Message:
-        """
-            Create a new warning message. The message will make copies of `error` and
-        `debug`.
         """
     def parse_async_done(self) -> int:
         """
@@ -13809,6 +13419,515 @@ class Message(GObject.GBoxed):
     def writable_structure(self) -> Structure:
         """
         Get a writable version of the structure.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_application(
+        cls,
+        src: Object | None,
+        structure: Structure,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_application(src:Gst.Object=None, structure:Gst.Structure) -> Gst.Message
+        """
+    @classmethod
+    def new_async_done(
+        cls,
+        src: Object | None,
+        running_time: int,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_async_done(src:Gst.Object=None, running_time:int) -> Gst.Message
+        """
+    @classmethod
+    def new_async_start(
+        cls,
+        src: Object | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_async_start(src:Gst.Object=None) -> Gst.Message
+        """
+    @classmethod
+    def new_buffering(
+        cls,
+        src: Object | None,
+        percent: int,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_buffering(src:Gst.Object=None, percent:int) -> Gst.Message
+        """
+    @classmethod
+    def new_clock_lost(
+        cls,
+        src: Object | None,
+        clock: Clock,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_clock_lost(src:Gst.Object=None, clock:Gst.Clock) -> Gst.Message
+        """
+    @classmethod
+    def new_clock_provide(
+        cls,
+        src: Object | None,
+        clock: Clock,
+        ready: bool,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_clock_provide(src:Gst.Object=None, clock:Gst.Clock, ready:bool) -> Gst.Message
+        """
+    @classmethod
+    def new_custom(
+        cls,
+        type: MessageType,
+        src: Object | None = None,
+        structure: Structure | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_custom(type:Gst.MessageType, src:Gst.Object=None, structure:Gst.Structure=None) -> Gst.Message
+        """
+    @classmethod
+    def new_device_added(
+        cls,
+        src: Object | None,
+        device: Device,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_device_added(src:Gst.Object=None, device:Gst.Device) -> Gst.Message
+        """
+    @classmethod
+    def new_device_changed(
+        cls,
+        src: Object | None,
+        device: Device,
+        changed_device: Device,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_device_changed(src:Gst.Object=None, device:Gst.Device, changed_device:Gst.Device) -> Gst.Message
+        """
+    @classmethod
+    def new_device_removed(
+        cls,
+        src: Object | None,
+        device: Device,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_device_removed(src:Gst.Object=None, device:Gst.Device) -> Gst.Message
+        """
+    @classmethod
+    def new_duration_changed(
+        cls,
+        src: Object | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_duration_changed(src:Gst.Object=None) -> Gst.Message
+        """
+    @classmethod
+    def new_element(
+        cls,
+        src: Object | None,
+        structure: Structure,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_element(src:Gst.Object=None, structure:Gst.Structure) -> Gst.Message
+        """
+    @classmethod
+    def new_eos(
+        cls,
+        src: Object | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_eos(src:Gst.Object=None) -> Gst.Message
+        """
+    @classmethod
+    def new_error(
+        cls,
+        src: Object | None,
+        error: GLib.Error,
+        debug: str,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_error(src:Gst.Object=None, error:error, debug:str) -> Gst.Message
+        """
+    @classmethod
+    def new_error_with_details(
+        cls,
+        src: Object | None,
+        error: GLib.Error,
+        debug: str,
+        details: Structure | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_error_with_details(src:Gst.Object=None, error:error, debug:str, details:Gst.Structure=None) -> Gst.Message
+        """
+    @classmethod
+    def new_have_context(
+        cls,
+        src: Object | None,
+        context: Context,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_have_context(src:Gst.Object=None, context:Gst.Context) -> Gst.Message
+        """
+    @classmethod
+    def new_info(
+        cls,
+        src: Object | None,
+        error: GLib.Error,
+        debug: str,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_info(src:Gst.Object=None, error:error, debug:str) -> Gst.Message
+        """
+    @classmethod
+    def new_info_with_details(
+        cls,
+        src: Object | None,
+        error: GLib.Error,
+        debug: str,
+        details: Structure | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_info_with_details(src:Gst.Object=None, error:error, debug:str, details:Gst.Structure=None) -> Gst.Message
+        """
+    @classmethod
+    def new_instant_rate_request(
+        cls,
+        src: Object | None,
+        rate_multiplier: float,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_instant_rate_request(src:Gst.Object=None, rate_multiplier:float) -> Gst.Message
+        """
+    @classmethod
+    def new_latency(
+        cls,
+        src: Object | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_latency(src:Gst.Object=None) -> Gst.Message
+        """
+    @classmethod
+    def new_need_context(
+        cls,
+        src: Object | None,
+        context_type: str,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_need_context(src:Gst.Object=None, context_type:str) -> Gst.Message
+        """
+    @classmethod
+    def new_new_clock(
+        cls,
+        src: Object | None,
+        clock: Clock,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_new_clock(src:Gst.Object=None, clock:Gst.Clock) -> Gst.Message
+        """
+    @classmethod
+    def new_progress(
+        cls,
+        src: Object | None,
+        type: ProgressType,
+        code: str,
+        text: str,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_progress(src:Gst.Object=None, type:Gst.ProgressType, code:str, text:str) -> Gst.Message
+        """
+    @classmethod
+    def new_property_notify(
+        cls,
+        src: Object,
+        property_name: str,
+        val: GObject.Value | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_property_notify(src:Gst.Object, property_name:str, val:GObject.Value=None) -> Gst.Message
+        """
+    @classmethod
+    def new_qos(
+        cls,
+        src: Object | None,
+        live: bool,
+        running_time: int,
+        stream_time: int,
+        timestamp: int,
+        duration: int,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_qos(src:Gst.Object=None, live:bool, running_time:int, stream_time:int, timestamp:int, duration:int) -> Gst.Message
+        """
+    @classmethod
+    def new_redirect(
+        cls,
+        src: Object | None,
+        location: str,
+        tag_list: TagList | None = None,
+        entry_struct: Structure | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_redirect(src:Gst.Object=None, location:str, tag_list:Gst.TagList=None, entry_struct:Gst.Structure=None) -> Gst.Message
+        """
+    @classmethod
+    def new_request_state(
+        cls,
+        src: Object | None,
+        state: State,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_request_state(src:Gst.Object=None, state:Gst.State) -> Gst.Message
+        """
+    @classmethod
+    def new_reset_time(
+        cls,
+        src: Object | None,
+        running_time: int,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_reset_time(src:Gst.Object=None, running_time:int) -> Gst.Message
+        """
+    @classmethod
+    def new_segment_done(
+        cls,
+        src: Object | None,
+        format: Format,
+        position: int,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_segment_done(src:Gst.Object=None, format:Gst.Format, position:int) -> Gst.Message
+        """
+    @classmethod
+    def new_segment_start(
+        cls,
+        src: Object | None,
+        format: Format,
+        position: int,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_segment_start(src:Gst.Object=None, format:Gst.Format, position:int) -> Gst.Message
+        """
+    @classmethod
+    def new_state_changed(
+        cls,
+        src: Object | None,
+        oldstate: State,
+        newstate: State,
+        pending: State,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_state_changed(src:Gst.Object=None, oldstate:Gst.State, newstate:Gst.State, pending:Gst.State) -> Gst.Message
+        """
+    @classmethod
+    def new_state_dirty(
+        cls,
+        src: Object | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_state_dirty(src:Gst.Object=None) -> Gst.Message
+        """
+    @classmethod
+    def new_step_done(
+        cls,
+        src: Object | None,
+        format: Format,
+        amount: int,
+        rate: float,
+        flush: bool,
+        intermediate: bool,
+        duration: int,
+        eos: bool,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_step_done(src:Gst.Object=None, format:Gst.Format, amount:int, rate:float, flush:bool, intermediate:bool, duration:int, eos:bool) -> Gst.Message
+        """
+    @classmethod
+    def new_step_start(
+        cls,
+        src: Object | None,
+        active: bool,
+        format: Format,
+        amount: int,
+        rate: float,
+        flush: bool,
+        intermediate: bool,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_step_start(src:Gst.Object=None, active:bool, format:Gst.Format, amount:int, rate:float, flush:bool, intermediate:bool) -> Gst.Message
+        """
+    @classmethod
+    def new_stream_collection(
+        cls,
+        src: Object | None,
+        collection: StreamCollection,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_stream_collection(src:Gst.Object=None, collection:Gst.StreamCollection) -> Gst.Message
+        """
+    @classmethod
+    def new_stream_start(
+        cls,
+        src: Object | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_stream_start(src:Gst.Object=None) -> Gst.Message
+        """
+    @classmethod
+    def new_stream_status(
+        cls,
+        src: Object | None,
+        type: StreamStatusType,
+        owner: Element,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_stream_status(src:Gst.Object=None, type:Gst.StreamStatusType, owner:Gst.Element) -> Gst.Message
+        """
+    @classmethod
+    def new_streams_selected(
+        cls,
+        src: Object | None,
+        collection: StreamCollection,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_streams_selected(src:Gst.Object=None, collection:Gst.StreamCollection) -> Gst.Message
+        """
+    @classmethod
+    def new_structure_change(
+        cls,
+        src: Object | None,
+        type: StructureChangeType,
+        owner: Element,
+        busy: bool,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_structure_change(src:Gst.Object=None, type:Gst.StructureChangeType, owner:Gst.Element, busy:bool) -> Gst.Message
+        """
+    @classmethod
+    def new_tag(
+        cls,
+        src: Object | None,
+        tag_list: TagList,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_tag(src:Gst.Object=None, tag_list:Gst.TagList) -> Gst.Message
+        """
+    @classmethod
+    def new_toc(
+        cls,
+        src: Object | None,
+        toc: Toc,
+        updated: bool,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_toc(src:Gst.Object=None, toc:Gst.Toc, updated:bool) -> Gst.Message
+        """
+    @classmethod
+    def new_warning(
+        cls,
+        src: Object | None,
+        error: GLib.Error,
+        debug: str,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_warning(src:Gst.Object=None, error:error, debug:str) -> Gst.Message
+        """
+    @classmethod
+    def new_warning_with_details(
+        cls,
+        src: Object | None,
+        error: GLib.Error,
+        debug: str,
+        details: Structure | None = None,
+    ) -> Message:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_warning_with_details(src:Gst.Object=None, error:error, debug:str, details:Gst.Structure=None) -> Gst.Message
         """
 
 class Meta(GObject.GPointer):
@@ -14736,11 +14855,11 @@ class Pad(Object):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Object | None = None,
         direction: PadDirection | None = PadDirection.UNKNOWN,
-        template: PadTemplate | None = None,
+        name: str | None = None,
         offset: int | None = None,
+        parent: Object | None = None,
+        template: PadTemplate | None = None,
     ) -> None:
         """
         Initialize Pad object with properties.
@@ -15067,30 +15186,6 @@ class Pad(Object):
         """
             Check the GST_PAD_FLAG_NEED_RECONFIGURE flag on `pad` and return True
         if the flag was set.
-        """
-    @classmethod
-    def new(cls, name: str | None, direction: PadDirection) -> Pad:
-        """
-            Creates a new pad with the given name in the given direction.
-        If name is None, a guaranteed unique name (across all pads)
-        will be assigned.
-        This function makes a copy of the name so you can safely free the name.
-        """
-    @classmethod
-    def new_from_static_template(cls, templ: StaticPadTemplate, name: str) -> Pad:
-        """
-            Creates a new pad with the given name from the given static template.
-        If name is None, a guaranteed unique name (across all pads)
-        will be assigned.
-        This function makes a copy of the name so you can safely free the name.
-        """
-    @classmethod
-    def new_from_template(cls, templ: PadTemplate, name: str | None = None) -> Pad:
-        """
-            Creates a new pad with the given name from the given template.
-        If name is None, a guaranteed unique name (across all pads)
-        will be assigned.
-        This function makes a copy of the name so you can safely free the name.
         """
     def pause_task(self) -> bool:
         """
@@ -15468,6 +15563,39 @@ class Pad(Object):
         """
         unlinked(self, peer:Gst.Pad)
         """
+    @classmethod
+    def new(
+        cls,
+        name: str | None,
+        direction: PadDirection,
+    ) -> Pad:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None, direction:Gst.PadDirection) -> Gst.Pad
+        """
+    @classmethod
+    def new_from_static_template(
+        cls,
+        templ: StaticPadTemplate,
+        name: str,
+    ) -> Pad:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_static_template(templ:Gst.StaticPadTemplate, name:str) -> Gst.Pad
+        """
+    @classmethod
+    def new_from_template(
+        cls,
+        templ: PadTemplate,
+        name: str | None = None,
+    ) -> Pad:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_template(templ:Gst.PadTemplate, name:str=None) -> Gst.Pad
+        """
 
     # Signals
     @typing.overload
@@ -15681,13 +15809,13 @@ class PadTemplate(Object):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Object | None = None,
-        name_template: str | None = None,
-        direction: PadDirection | None = PadDirection.UNKNOWN,
-        presence: PadPresence | None = PadPresence.ALWAYS,
         caps: Caps | None = None,
+        direction: PadDirection | None = PadDirection.UNKNOWN,
         gtype: GObject.GType | None = None,
+        name: str | None = None,
+        name_template: str | None = None,
+        parent: Object | None = None,
+        presence: PadPresence | None = PadPresence.ALWAYS,
     ) -> None:
         """
         Initialize PadTemplate object with properties.
@@ -15700,27 +15828,6 @@ class PadTemplate(Object):
     def get_documentation_caps(self) -> Caps:
         """
         See `Gst.PadTemplate.set_documentation_caps`.
-        """
-    @classmethod
-    def new(cls, name_template: str, direction: PadDirection, presence: PadPresence, caps: Caps) -> PadTemplate | None:
-        """
-            Creates a new pad template with a name according to the given template
-        and with the given arguments.
-        """
-    @classmethod
-    def new_from_static_pad_template_with_gtype(
-        cls, pad_template: StaticPadTemplate, pad_type: GObject.GType
-    ) -> PadTemplate | None:
-        """
-        Converts a Gst.StaticPadTemplate into a Gst.PadTemplate with a type.
-        """
-    @classmethod
-    def new_with_gtype(
-        cls, name_template: str, direction: PadDirection, presence: PadPresence, caps: Caps, pad_type: GObject.GType
-    ) -> PadTemplate | None:
-        """
-            Creates a new pad template with a name according to the given template
-        and with the given arguments.
         """
     def pad_created(self, pad: Pad) -> None:
         """
@@ -15741,6 +15848,44 @@ class PadTemplate(Object):
     ) -> None:
         """
         pad_created(self, pad:Gst.Pad)
+        """
+    @classmethod
+    def new(
+        cls,
+        name_template: str,
+        direction: PadDirection,
+        presence: PadPresence,
+        caps: Caps,
+    ) -> PadTemplate | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name_template:str, direction:Gst.PadDirection, presence:Gst.PadPresence, caps:Gst.Caps) -> Gst.PadTemplate or None
+        """
+    @classmethod
+    def new_from_static_pad_template_with_gtype(
+        cls,
+        pad_template: StaticPadTemplate,
+        pad_type: GObject.GType,
+    ) -> PadTemplate | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_static_pad_template_with_gtype(pad_template:Gst.StaticPadTemplate, pad_type:GType) -> Gst.PadTemplate or None
+        """
+    @classmethod
+    def new_with_gtype(
+        cls,
+        name_template: str,
+        direction: PadDirection,
+        presence: PadPresence,
+        caps: Caps,
+        pad_type: GObject.GType,
+    ) -> PadTemplate | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_gtype(name_template:str, direction:Gst.PadDirection, presence:Gst.PadPresence, caps:Gst.Caps, pad_type:GType) -> Gst.PadTemplate or None
         """
 
     # Signals
@@ -15930,14 +16075,6 @@ class ParseContext(GObject.GBoxed):
         or `Gst.parse_launchv_full`. Will only return results if an error code
         of Gst.PARSE_ERROR_NO_SUCH_ELEMENT was returned.
         """
-    @classmethod
-    def new(cls) -> ParseContext | None:
-        """
-            Allocates a parse context for use with `Gst.parse_launch_full` or
-        `Gst.parse_launchv_full`.
-
-        Free-function: gst_parse_context_free
-        """
 
     # python methods (overrides?)
     @staticmethod
@@ -15945,6 +16082,15 @@ class ParseContext(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> ParseContext | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.ParseContext or None
+        """
 
 class Pipeline(Bin):
     """
@@ -16051,13 +16197,13 @@ class Pipeline(Bin):
     # gi Methods
     def __init__(
         self,
+        async_handling: bool | None = None,
+        auto_flush_bus: bool | None = None,
+        delay: int | None = None,
+        latency: int | None = None,
+        message_forward: bool | None = None,
         name: str | None = None,
         parent: Object | None = None,
-        async_handling: bool | None = None,
-        message_forward: bool | None = None,
-        delay: int | None = None,
-        auto_flush_bus: bool | None = None,
-        latency: int | None = None,
     ) -> None:
         """
         Initialize Pipeline object with properties.
@@ -16110,11 +16256,6 @@ class Pipeline(Bin):
         """
         Check if `pipeline` is live.
         """
-    @classmethod
-    def new(cls, name: str | None = None) -> Pipeline:
-        """
-        Create a new pipeline with the given name.
-        """
     def set_auto_flush_bus(self, auto_flush: bool) -> None:
         """
             Usually, when a pipeline goes from READY to None state, it automatically
@@ -16165,6 +16306,18 @@ class Pipeline(Bin):
         the pipeline run as fast as possible.
 
         MT safe.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        name: str | None = None,
+    ) -> Element:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None) -> Gst.Element
         """
 
     # Signals
@@ -16734,7 +16887,7 @@ class PollFD(GObject.GPointer):
         GST_POLL_FD_INIT.
         """
 
-class Preset(object):
+class Preset(builtins.object):
     """
     This interface offers methods to query and manipulate parameter preset sets.
     A preset is a bunch of property settings, together with meta data and a name.
@@ -16962,15 +17115,6 @@ class Promise(GObject.GBoxed):
         Gst.PROMISE_RESULT_INTERRUPTED.  Called when the consumer does not want
         the value produced anymore.
         """
-    @classmethod
-    def new(cls) -> Promise: ...
-    @classmethod
-    def new_with_change_func(cls, func: PromiseChangeFunc, *user_data: object | None) -> Promise:
-        """
-            `func` will be called exactly once when transitioning out of
-        Gst.PROMISE_RESULT_PENDING into any of the other Gst.PromiseResult
-        states.
-        """
     def reply(self, s: Structure | None = None) -> None:
         """
             Set a reply on `promise`.  This will wake up any waiters with
@@ -16993,6 +17137,26 @@ class Promise(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> Promise:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.Promise
+        """
+    @classmethod
+    def new_with_change_func(
+        cls,
+        func: typing.Callable,
+        user_data: typing.Any = None,
+    ) -> Promise:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_change_func(func:Gst.PromiseChangeFunc, user_data=None) -> Gst.Promise
+        """
 
 class ProtectionMeta(GObject.GPointer):
     """
@@ -17026,11 +17190,11 @@ class ProxyPad(Pad):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Object | None = None,
         direction: PadDirection | None = PadDirection.UNKNOWN,
-        template: PadTemplate | None = None,
+        name: str | None = None,
         offset: int | None = None,
+        parent: Object | None = None,
+        template: PadTemplate | None = None,
     ) -> None:
         """
         Initialize ProxyPad object with properties.
@@ -17187,166 +17351,6 @@ class Query(GObject.GBoxed):
         """
             Check if `query` has scheduling mode set and `flags` is set in
         query scheduling flags.
-        """
-    @classmethod
-    def new_accept_caps(cls, caps: Caps) -> Query:
-        """
-            Constructs a new query object for querying if `caps` are accepted.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_allocation(cls, caps: Caps | None, need_pool: bool) -> Query:
-        """
-            Constructs a new query object for querying the allocation properties.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_bitrate(cls) -> Query:
-        """
-            Constructs a new query object for querying the bitrate.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_buffering(cls, format: Format) -> Query:
-        """
-            Constructs a new query object for querying the buffering status of
-        a stream.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_caps(cls, filter: Caps) -> Query:
-        """
-            Constructs a new query object for querying the caps.
-
-        The CAPS query should return the allowable caps for a pad in the context
-        of the element's state, its link to other elements, and the devices or files
-        it has opened. These caps must be a subset of the pad template caps. In the
-        None state with no links, the CAPS query should ideally return the same caps
-        as the pad template. In rare circumstances, an object property can affect
-        the caps returned by the CAPS query, but this is discouraged.
-
-        For most filters, the caps returned by CAPS query is directly affected by the
-        allowed caps on other pads. For demuxers and decoders, the caps returned by
-        the srcpad's getcaps function is directly related to the stream data. Again,
-        the CAPS query should return the most specific caps it reasonably can, since this
-        helps with autoplugging.
-
-        The `filter` is used to restrict the result caps, only the caps matching
-        `filter` should be returned from the CAPS query. Specifying a filter might
-        greatly reduce the amount of processing an element needs to do.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_context(cls, context_type: str) -> Query:
-        """
-            Constructs a new query object for querying the pipeline-local context.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_convert(cls, src_format: Format, value: int, dest_format: Format) -> Query:
-        """
-            Constructs a new convert query object. Use `Gst.Query.unref`
-        when done with it. A convert query is used to ask for a conversion between
-        one format and another.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_custom(cls, type: QueryType, structure: Structure | None = None) -> Query:
-        """
-            Constructs a new custom query object. Use `Gst.Query.unref`
-        when done with it.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_drain(cls) -> Query:
-        """
-            Constructs a new query object for querying the drain state.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_duration(cls, format: Format) -> Query:
-        """
-            Constructs a new stream duration query object to query in the given format.
-        Use `Gst.Query.unref` when done with it. A duration query will give the
-        total length of the stream.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_formats(cls) -> Query:
-        """
-            Constructs a new query object for querying formats of
-        the stream.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_latency(cls) -> Query:
-        """
-            Constructs a new latency query object.
-        Use `Gst.Query.unref` when done with it. A latency query is usually performed
-        by sinks to compensate for additional latency introduced by elements in the
-        pipeline.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_position(cls, format: Format) -> Query:
-        """
-            Constructs a new query stream position query object. Use `Gst.Query.unref`
-        when done with it. A position query is used to query the current position
-        of playback in the streams, in some format.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_scheduling(cls) -> Query:
-        """
-            Constructs a new query object for querying the scheduling properties.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_seeking(cls, format: Format) -> Query:
-        """
-            Constructs a new query object for querying seeking properties of
-        the stream.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_segment(cls, format: Format) -> Query:
-        """
-            Constructs a new segment query object. Use `Gst.Query.unref`
-        when done with it. A segment query is used to discover information about the
-        currently configured segment for playback.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_selectable(cls) -> Query:
-        """
-            Constructs a new query object for querying the stream selection capability.
-
-        Free-function: `Gst.Query.unref`
-        """
-    @classmethod
-    def new_uri(cls) -> Query:
-        """
-            Constructs a new query URI query object. Use `Gst.Query.unref`
-        when done with it. An URI query is used to query the current URI
-        that is used by the source or sink.
-
-        Free-function: `Gst.Query.unref`
         """
     def parse_accept_caps(self) -> Caps:
         """
@@ -17620,6 +17624,185 @@ class Query(GObject.GBoxed):
         """
             Get the structure of a query. This method should be called with a writable
         `query` so that the returned structure is guaranteed to be writable.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_accept_caps(
+        cls,
+        caps: Caps,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_accept_caps(caps:Gst.Caps) -> Gst.Query
+        """
+    @classmethod
+    def new_allocation(
+        cls,
+        caps: Caps | None,
+        need_pool: bool,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_allocation(caps:Gst.Caps=None, need_pool:bool) -> Gst.Query
+        """
+    @classmethod
+    def new_bitrate(
+        cls,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_bitrate() -> Gst.Query
+        """
+    @classmethod
+    def new_buffering(
+        cls,
+        format: Format,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_buffering(format:Gst.Format) -> Gst.Query
+        """
+    @classmethod
+    def new_caps(
+        cls,
+        filter: Caps,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_caps(filter:Gst.Caps) -> Gst.Query
+        """
+    @classmethod
+    def new_context(
+        cls,
+        context_type: str,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_context(context_type:str) -> Gst.Query
+        """
+    @classmethod
+    def new_convert(
+        cls,
+        src_format: Format,
+        value: int,
+        dest_format: Format,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_convert(src_format:Gst.Format, value:int, dest_format:Gst.Format) -> Gst.Query
+        """
+    @classmethod
+    def new_custom(
+        cls,
+        type: QueryType,
+        structure: Structure | None = None,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_custom(type:Gst.QueryType, structure:Gst.Structure=None) -> Gst.Query
+        """
+    @classmethod
+    def new_drain(
+        cls,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_drain() -> Gst.Query
+        """
+    @classmethod
+    def new_duration(
+        cls,
+        format: Format,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_duration(format:Gst.Format) -> Gst.Query
+        """
+    @classmethod
+    def new_formats(
+        cls,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_formats() -> Gst.Query
+        """
+    @classmethod
+    def new_latency(
+        cls,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_latency() -> Gst.Query
+        """
+    @classmethod
+    def new_position(
+        cls,
+        format: Format,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_position(format:Gst.Format) -> Gst.Query
+        """
+    @classmethod
+    def new_scheduling(
+        cls,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_scheduling() -> Gst.Query
+        """
+    @classmethod
+    def new_seeking(
+        cls,
+        format: Format,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_seeking(format:Gst.Format) -> Gst.Query
+        """
+    @classmethod
+    def new_segment(
+        cls,
+        format: Format,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_segment(format:Gst.Format) -> Gst.Query
+        """
+    @classmethod
+    def new_selectable(
+        cls,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_selectable() -> Gst.Query
+        """
+    @classmethod
+    def new_uri(
+        cls,
+    ) -> Query:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_uri() -> Gst.Query
         """
 
 class ReferenceTimestampMeta(GObject.GPointer):
@@ -17924,19 +18107,6 @@ class Sample(GObject.GBoxed):
         """
         Get the segment associated with `sample`
         """
-    @classmethod
-    def new(
-        cls,
-        buffer: Buffer | None = None,
-        caps: Caps | None = None,
-        segment: Segment | None = None,
-        info: Structure | None = None,
-    ) -> Sample:
-        """
-            Create a new Gst.Sample with the provided details.
-
-        Free-function: gst_sample_unref
-        """
     def set_buffer(self, buffer: Buffer) -> None:
         """
         Set the buffer associated with `sample`. `sample` must be writable.
@@ -17965,6 +18135,19 @@ class Sample(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        buffer: Buffer | None = None,
+        caps: Caps | None = None,
+        segment: Segment | None = None,
+        info: Structure | None = None,
+    ) -> Sample:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(buffer:Gst.Buffer=None, caps:Gst.Caps=None, segment:Gst.Segment=None, info:Gst.Structure=None) -> Gst.Sample
+        """
 
 class Segment(GObject.GBoxed):
     """
@@ -18205,14 +18388,6 @@ class Segment(GObject.GBoxed):
             Checks for two segments being equal. Equality here is defined
         as perfect equality, including floating point values.
         """
-    @classmethod
-    def new(cls) -> Segment:
-        """
-            Allocate a new Gst.Segment structure and initialize it using
-        `Gst.Segment.init`.
-
-        Free-function: gst_segment_free
-        """
     def offset_running_time(self, format: Format, offset: int) -> bool:
         """
             Adjust the values in `segment` so that `offset` is applied to all
@@ -18344,6 +18519,15 @@ class Segment(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> Segment:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.Segment
+        """
 
 class SharedTaskPool(TaskPool):
     """
@@ -18364,16 +18548,6 @@ class SharedTaskPool(TaskPool):
         Initialize SharedTaskPool object with properties.
         """
     def get_max_threads(self) -> int: ...
-    @classmethod
-    def new(cls) -> SharedTaskPool:
-        """
-            Create a new shared task pool. The shared task pool will queue tasks on
-        a maximum number of threads, 1 by default.
-
-        Do not use a Gst.SharedTaskPool to manage potentially inter-dependent tasks such
-        as pad tasks, as having one task waiting on another to return before returning
-        would cause obvious deadlocks if they happen to share the same thread.
-        """
     def set_max_threads(self, max_threads: int) -> None:
         """
             Update the maximal number of threads the `pool` may spawn. When
@@ -18381,6 +18555,17 @@ class SharedTaskPool(TaskPool):
         immediately shut down, see `g_thread_pool_set_max_threads`.
 
         Setting `max_threads` to 0 effectively freezes the pool.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> TaskPool:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.TaskPool
         """
 
 class SharedTaskPoolClass(GObject.GPointer):
@@ -18519,13 +18704,13 @@ class Stream(Object):
     # gi Methods
     def __init__(
         self,
+        caps: Caps | None = None,
         name: str | None = None,
         parent: Object | None = None,
-        stream_id: str | None = None,
         stream_flags: StreamFlags | None = StreamFlags.NONE,
+        stream_id: str | None = None,
         stream_type: StreamType | None = StreamType.UNKNOWN,
         tags: TagList | None = None,
-        caps: Caps | None = None,
     ) -> None:
         """
         Initialize Stream object with properties.
@@ -18555,12 +18740,6 @@ class Stream(Object):
         """
         Retrieve the tags for `stream`, if any
         """
-    @classmethod
-    def new(cls, stream_id: str | None, caps: Caps | None, type: StreamType, flags: StreamFlags) -> Stream:
-        """
-            Create a new Gst.Stream for the given `stream_id`, `caps`, `type`
-        and `flags`
-        """
     def set_caps(self, caps: Caps | None = None) -> None:
         """
         Set the caps for the Gst.Stream
@@ -18576,6 +18755,21 @@ class Stream(Object):
     def set_tags(self, tags: TagList | None = None) -> None:
         """
         Set the tags for the Gst.Stream
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        stream_id: str | None,
+        caps: Caps | None,
+        type: StreamType,
+        flags: StreamFlags,
+    ) -> Stream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(stream_id:str=None, caps:Gst.Caps=None, type:Gst.StreamType, flags:Gst.StreamFlags) -> Gst.Stream
         """
 
     # Signals
@@ -18696,11 +18890,6 @@ class StreamCollection(Object):
         """
         Returns the upstream id of the `collection`.
         """
-    @classmethod
-    def new(cls, upstream_id: str | None = None) -> StreamCollection:
-        """
-        Create a new Gst.StreamCollection.
-        """
 
     # python methods (overrides?)
     def do_stream_notify(
@@ -18710,6 +18899,16 @@ class StreamCollection(Object):
     ) -> None:
         """
         stream_notify(self, stream:Gst.Stream, pspec:GObject.ParamSpec)
+        """
+    @classmethod
+    def new(
+        cls,
+        upstream_id: str | None = None,
+    ) -> StreamCollection:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(upstream_id:str=None) -> Gst.StreamCollection
         """
 
     # Signals
@@ -18960,15 +19159,6 @@ class Structure(GObject.GBoxed):
             Frees a Gst.Structure and all its fields and values. The structure must not
         have a parent when this function is called.
         """
-    @classmethod
-    def from_string(cls, string: str) -> tuple[Structure | None, str]:
-        """
-            Creates a Gst.Structure from a string representation.
-        If end is not None, a pointer to the place inside the given string
-        where parsing ended will be returned.
-
-        Free-function: gst_structure_free
-        """
     def get_array(self, fieldname: str) -> tuple[bool, GObject.ValueArray]:
         """
             This is useful in language bindings where unknown GValue types are not
@@ -19213,56 +19403,6 @@ class Structure(GObject.GBoxed):
         """
         Get the number of fields in the structure.
         """
-    @classmethod
-    def new_empty(cls, name: str) -> Structure:
-        """
-            Creates a new, empty Gst.Structure with the given `name`.
-
-        See `Gst.Structure.set_name` for constraints on the `name` parameter.
-
-        Free-function: gst_structure_free
-        """
-    @classmethod
-    def new_from_string(cls, string: str) -> Structure | None:
-        """
-            Creates a Gst.Structure from a string representation.
-        If end is not None, a pointer to the place inside the given string
-        where parsing ended will be returned.
-
-        The current implementation of serialization will lead to unexpected results
-        when there are nested Gst.Caps / Gst.Structure deeper than one level unless
-        the `Gst.Structure.serialize` function is used (without
-        GST_SERIALIZE_FLAG_BACKWARD_COMPAT)
-
-        Free-function: gst_structure_free
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_id_empty(cls, quark: int) -> Structure:
-        """
-            Creates a new, empty Gst.Structure with the given name as a GQuark.
-
-        Free-function: gst_structure_free
-        """
-    @classmethod
-    def new_id_str_empty(cls, name: IdStr) -> Structure:
-        """
-            Creates a new, empty Gst.Structure with the given name.
-
-        Free-function: gst_structure_free
-        """
-    @classmethod
-    def new_static_str_empty(cls, name: str) -> Structure:
-        """
-            Creates a new, empty Gst.Structure with the given `name`.
-
-        See `Gst.Structure.set_name` for constraints on the `name` parameter.
-
-        `name` needs to be valid for the remaining lifetime of the process, e.g. has
-        to be a static string.
-
-        Free-function: gst_structure_free
-        """
     def nth_field_name(self, index: int) -> str:
         """
         Get the name of the given field number, counting from 0 onwards.
@@ -19397,6 +19537,68 @@ class Structure(GObject.GBoxed):
         Free-function: g_free
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def from_string(
+        cls,
+        string: str,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        from_string(string:str) -> Gst.Structure or None, end:str
+        """
+    @classmethod
+    def new_empty(
+        cls,
+        name: str,
+    ) -> Structure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty(name:str) -> Gst.Structure
+        """
+    @classmethod
+    def new_from_string(
+        cls,
+        string: str,
+    ) -> Structure | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(string:str) -> Gst.Structure or None
+        """
+    @classmethod
+    def new_id_empty(
+        cls,
+        quark: int,
+    ) -> Structure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_id_empty(quark:int) -> Gst.Structure
+        """
+    @classmethod
+    def new_id_str_empty(
+        cls,
+        name: IdStr,
+    ) -> Structure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_id_str_empty(name:Gst.IdStr) -> Gst.Structure
+        """
+    @classmethod
+    def new_static_str_empty(
+        cls,
+        name: str,
+    ) -> Structure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_static_str_empty(name:str) -> Gst.Structure
+        """
+
 class SystemClock(Clock):
     """
     The GStreamer core provides a GstSystemClock based on the system time.
@@ -19427,12 +19629,12 @@ class SystemClock(Clock):
     # gi Methods
     def __init__(
         self,
+        clock_type: ClockType | None = ClockType.MONOTONIC,
         name: str | None = None,
         parent: Object | None = None,
+        timeout: int | None = None,
         window_size: int | None = None,
         window_threshold: int | None = None,
-        timeout: int | None = None,
-        clock_type: ClockType | None = ClockType.MONOTONIC,
     ) -> None:
         """
         Initialize SystemClock object with properties.
@@ -19717,18 +19919,6 @@ class TagList(GObject.GBoxed):
         """
         Get the number of tags in `list`.
         """
-    @classmethod
-    def new_empty(cls) -> TagList:
-        """
-            Creates a new empty GstTagList.
-
-        Free-function: gst_tag_list_unref
-        """
-    @classmethod
-    def new_from_string(cls, str: str) -> TagList | None:
-        """
-        Deserializes a tag list.
-        """
     def nth_tag_name(self, index: int) -> str:
         """
         Get the name of the tag in `list` at `index`.
@@ -19756,7 +19946,28 @@ class TagList(GObject.GBoxed):
         Serializes a tag list to a string.
         """
 
-class TagSetter(object):
+    # python methods (overrides?)
+    @classmethod
+    def new_empty(
+        cls,
+    ) -> TagList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty() -> Gst.TagList
+        """
+    @classmethod
+    def new_from_string(
+        cls,
+        str: str,
+    ) -> TagList | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(str:str) -> Gst.TagList or None
+        """
+
+class TagSetter(builtins.object):
     """
     Element interface that allows setting of media metadata.
 
@@ -19977,23 +20188,6 @@ class Task(Object):
         would cause a deadlock. The function will detect this and print a
         g_warning.
         """
-    @classmethod
-    def new(cls, func: TaskFunction, *user_data: object | None) -> Task:
-        """
-            Create a new Task that will repeatedly call the provided `func`
-        with `user_data` as a parameter. Typically the task will run in
-        a new thread.
-
-        The function cannot be changed after the task has been created. You
-        must create a new Gst.Task to change the function.
-
-        This function will not yet create and start a thread. Use `Gst.Task.start` or
-        `Gst.Task.pause` to create and start the GThread.
-
-        Before the task can be used, a GRecMutex must be configured using the
-        `Gst.Task.set_lock` function. This lock will always be acquired while
-        `func` is called.
-        """
     def pause(self) -> bool:
         """
             Pauses `task`. This method can also be called on a task in the
@@ -20057,6 +20251,19 @@ class Task(Object):
         `Gst.Task.join` to stop and wait for completion.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        func: typing.Callable,
+        user_data: typing.Any = None,
+    ) -> Task:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(func:Gst.TaskFunction, user_data=None) -> Gst.Task
+        """
+
 class TaskClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -20115,12 +20322,6 @@ class TaskPool(Object):
         This method should only be called with the same `pool` instance that provided
         `id`.
         """
-    @classmethod
-    def new(cls) -> TaskPool:
-        """
-            Create a new default task pool. The default task pool will use a regular
-        GThreadPool for threads.
-        """
     def prepare(self) -> None:
         """
             Prepare the taskpool for accepting `Gst.TaskPool.push` operations.
@@ -20166,6 +20367,15 @@ class TaskPool(Object):
     ) -> typing.Any:
         """
         push(self, func:Gst.TaskPoolFunction, user_data=None)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> TaskPool:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.TaskPool
         """
 
 class TaskPoolClass(GObject.GPointer):
@@ -20295,11 +20505,6 @@ class Toc(GObject.GBoxed):
         """
         Merge `tags` into the existing tags of `toc` using `mode`.
         """
-    @classmethod
-    def new(cls, scope: TocScope) -> Toc:
-        """
-        Create a new Gst.Toc structure.
-        """
     def set_tags(self, tags: TagList | None = None) -> None:
         """
         Set a Gst.TagList with tags for the complete `toc`.
@@ -20311,6 +20516,16 @@ class Toc(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        scope: TocScope,
+    ) -> Toc:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(scope:Gst.TocScope) -> Gst.Toc
+        """
 
 class TocEntry(GObject.GBoxed):
     # gi Methods
@@ -20357,11 +20572,6 @@ class TocEntry(GObject.GBoxed):
         """
         Merge `tags` into the existing tags of `entry` using `mode`.
         """
-    @classmethod
-    def new(cls, type: TocEntryType, uid: str) -> TocEntry:
-        """
-        Create new Gst.TocEntry structure.
-        """
     def set_loop(self, loop_type: TocLoopType, repeat_count: int) -> None:
         """
         Set `loop_type` and `repeat_count` values for the `entry`.
@@ -20381,8 +20591,19 @@ class TocEntry(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        type: TocEntryType,
+        uid: str,
+    ) -> TocEntry:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-class TocSetter(object):
+        new(type:Gst.TocEntryType, uid:str) -> Gst.TocEntry
+        """
+
+class TocSetter(builtins.object):
     """
     Element interface that allows setting of the TOC.
 
@@ -20461,7 +20682,7 @@ class Tracer(Object):
     def priv(self) -> TracerPrivate | None: ...
 
     # gi Methods
-    def __init__(self, name: str | None = None, parent: Object | None = None, params: str | None = None) -> None:
+    def __init__(self, name: str | None = None, params: str | None = None, parent: Object | None = None) -> None:
         """
         Initialize Tracer object with properties.
         """
@@ -20723,7 +20944,7 @@ class TypeFindFactory(PluginFeature):
 
 class TypeFindFactoryClass(GObject.GPointer): ...
 
-class URIHandler(object):
+class URIHandler(builtins.object):
     """
     The Gst.URIHandler is an interface that is implemented by Source and Sink
     Gst.Element to unify handling of URI.
@@ -20999,22 +21220,6 @@ class Uri(GObject.GBoxed):
         reference to `uri` and returns a reference to the new Gst.Uri.
         If `uri` is None then None is returned.
         """
-    @classmethod
-    def new(
-        cls,
-        scheme: str | None,
-        userinfo: str | None,
-        host: str | None,
-        port: int,
-        path: str | None = None,
-        query: str | None = None,
-        fragment: str | None = None,
-    ) -> Uri:
-        """
-            Creates a new Gst.Uri object with the given URI parts. The path and query
-        strings will be broken down into their elements. All strings should not be
-        escaped except where indicated.
-        """
     def new_with_base(
         self,
         scheme: str | None,
@@ -21132,8 +21337,24 @@ class Uri(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        scheme: str | None,
+        userinfo: str | None,
+        host: str | None,
+        port: int,
+        path: str | None = None,
+        query: str | None = None,
+        fragment: str | None = None,
+    ) -> Uri:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-class ValueArray(object):
+        new(scheme:str=None, userinfo:str=None, host:str=None, port:int, path:str=None, query:str=None, fragment:str=None) -> Gst.Uri
+        """
+
+class ValueArray(builtins.object):
     """
     A fundamental type that describes an ordered list of GValue
     """
@@ -21176,7 +21397,7 @@ class ValueArray(object):
         Prepends `prepend_value` to the GstValueArray in `value`.
         """
 
-class ValueList(object):
+class ValueList(builtins.object):
     """
     A fundamental type that describes an unordered list of GValue
     """

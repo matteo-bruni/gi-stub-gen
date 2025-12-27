@@ -12,9 +12,9 @@ Date: 2025-12-27
 from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
-import builtins  # noqa: F401
 
 import _thread
+import builtins
 import enum
 import typing
 
@@ -608,11 +608,6 @@ class Adapter(GObject.Object):
         It is an error to call this function without making sure that there is
         enough data (offset+size bytes) in the adapter.
         """
-    @classmethod
-    def new(cls) -> Adapter:
-        """
-        Creates a new GstAdapter. Free with `g_object_unref`.
-        """
     def offset_at_discont(self) -> int:
         """
             Get the offset that was on the last buffer with the GST_BUFFER_FLAG_DISCONT
@@ -765,6 +760,17 @@ class Adapter(GObject.Object):
         Releases the memory obtained with the last `gst_adapter_map`.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> Adapter:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GstBase.Adapter
+        """
+
 class AdapterClass(GObject.GPointer): ...
 
 class Aggregator(Gst.Element):
@@ -870,13 +876,13 @@ class Aggregator(Gst.Element):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
+        emit_signals: bool | None = None,
         latency: int | None = None,
         min_upstream_latency: int | None = None,
-        start_time_selection: AggregatorStartTimeSelection | None = AggregatorStartTimeSelection.ZERO,
+        name: str | None = None,
+        parent: Gst.Object | None = None,
         start_time: int | None = None,
-        emit_signals: bool | None = None,
+        start_time_selection: AggregatorStartTimeSelection | None = AggregatorStartTimeSelection.ZERO,
     ) -> None:
         """
         Initialize Aggregator object with properties.
@@ -1431,12 +1437,12 @@ class AggregatorPad(Gst.Pad):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
         direction: Gst.PadDirection | None = Gst.PadDirection.UNKNOWN,
-        template: Gst.PadTemplate | None = None,
-        offset: int | None = None,
         emit_signals: bool | None = None,
+        name: str | None = None,
+        offset: int | None = None,
+        parent: Gst.Object | None = None,
+        template: Gst.PadTemplate | None = None,
     ) -> None:
         """
         Initialize AggregatorPad object with properties.
@@ -1698,7 +1704,7 @@ class BaseParse(Gst.Element):
 
     # gi Methods
     def __init__(
-        self, name: str | None = None, parent: Gst.Object | None = None, disable_passthrough: bool | None = None
+        self, disable_passthrough: bool | None = None, name: str | None = None, parent: Gst.Object | None = None
     ) -> None:
         """
         Initialize BaseParse object with properties.
@@ -2121,12 +2127,19 @@ class BaseParseFrame(GObject.GBoxed):
         the actual frame. Use this function to initialise a GstBase.ParseFrame
         allocated on the stack.
         """
+
+    # python methods (overrides?)
     @classmethod
-    def new(cls, buffer: Gst.Buffer, flags: BaseParseFrameFlags, overhead: int) -> BaseParseFrame:
+    def new(
+        cls,
+        buffer: Gst.Buffer,
+        flags: BaseParseFrameFlags,
+        overhead: int,
+    ) -> BaseParseFrame:
         """
-            Allocates a new GstBase.ParseFrame. This function is mainly for bindings,
-        elements written in C should usually allocate the frame on the stack and
-        then use `gst_base_parse_frame_init` to initialise it.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(buffer:Gst.Buffer, flags:GstBase.BaseParseFrameFlags, overhead:int) -> GstBase.BaseParseFrame
         """
 
 class BaseParsePrivate(GObject.GPointer): ...
@@ -2360,31 +2373,22 @@ class BaseSink(Gst.Element):
     # gi Methods
     def __init__(
         self,
+        async_: bool | None = None,
+        blocksize: int | None = None,
+        enable_last_sample: bool | None = None,
+        max_bitrate: int | None = None,
+        max_lateness: int | None = None,
         name: str | None = None,
         parent: Gst.Object | None = None,
-        sync: bool | None = None,
-        max_lateness: int | None = None,
-        qos: bool | None = None,
-        async_: bool | None = None,
-        ts_offset: int | None = None,
-        enable_last_sample: bool | None = None,
-        blocksize: int | None = None,
-        render_delay: int | None = None,
-        throttle_time: int | None = None,
-        max_bitrate: int | None = None,
         processing_deadline: int | None = None,
+        qos: bool | None = None,
+        render_delay: int | None = None,
+        sync: bool | None = None,
+        throttle_time: int | None = None,
+        ts_offset: int | None = None,
     ) -> None:
         """
         Initialize BaseSink object with properties.
-        """
-    def do_preroll(self, obj: Gst.MiniObject) -> Gst.FlowReturn:
-        """
-            If the `sink` spawns its own thread for pulling buffers from upstream it
-        should call this method after it has pulled a buffer. If the element needed
-        to preroll, this function will perform the preroll and will then block
-        until the element state is changed.
-
-        This function should be called with the PREROLL_LOCK held.
         """
     @builtins.property
     def get_blocksize(self) -> int:
@@ -2670,6 +2674,15 @@ class BaseSink(Gst.Element):
     ) -> Gst.FlowReturn:
         """
         prepare_list(self, buffer_list:Gst.BufferList) -> Gst.FlowReturn
+        """
+    def do_preroll(
+        self,
+        buffer: Gst.Buffer,
+    ) -> Gst.FlowReturn:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        preroll(self, buffer:Gst.Buffer) -> Gst.FlowReturn
         """
     def do_propose_allocation(
         self,
@@ -3130,13 +3143,13 @@ class BaseSrc(Gst.Element):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        blocksize: int | None = None,
-        num_buffers: int | None = None,
-        typefind: bool | None = None,
-        do_timestamp: bool | None = None,
         automatic_eos: bool | None = None,
+        blocksize: int | None = None,
+        do_timestamp: bool | None = None,
+        name: str | None = None,
+        num_buffers: int | None = None,
+        parent: Gst.Object | None = None,
+        typefind: bool | None = None,
     ) -> None:
         """
         Initialize BaseSrc object with properties.
@@ -5293,13 +5306,6 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    @classmethod
-    def new(cls) -> CollectPads:
-        """
-            Create a new instance of GstCollectPads.
-
-        MT safe.
-        """
     def peek(self, data: CollectData) -> Gst.Buffer | None:
         """
             Peek at the buffer currently queued in `data`. This function
@@ -5460,6 +5466,17 @@ class CollectPads(Gst.Object):
         MT safe.
         """
 
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+    ) -> CollectPads:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GstBase.CollectPads
+        """
+
 class CollectPadsClass(GObject.GPointer):
     # gi Fields
     @builtins.property
@@ -5603,11 +5620,6 @@ class FlowCombiner(GObject.GBoxed):
         """
         Frees a GstFlowCombiner struct and all its internal data.
         """
-    @classmethod
-    def new(cls) -> FlowCombiner:
-        """
-        Creates a new GstFlowCombiner, use `gst_flow_combiner_free` to free it.
-        """
     def ref(self) -> FlowCombiner:
         """
         Increments the reference count on the GstFlowCombiner.
@@ -5650,6 +5662,15 @@ class FlowCombiner(GObject.GBoxed):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> FlowCombiner:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GstBase.FlowCombiner
+        """
 
 class PushSrc(BaseSrc):
     """
@@ -5683,13 +5704,13 @@ class PushSrc(BaseSrc):
     # gi Methods
     def __init__(
         self,
-        name: str | None = None,
-        parent: Gst.Object | None = None,
-        blocksize: int | None = None,
-        num_buffers: int | None = None,
-        typefind: bool | None = None,
-        do_timestamp: bool | None = None,
         automatic_eos: bool | None = None,
+        blocksize: int | None = None,
+        do_timestamp: bool | None = None,
+        name: str | None = None,
+        num_buffers: int | None = None,
+        parent: Gst.Object | None = None,
+        typefind: bool | None = None,
     ) -> None:
         """
         Initialize PushSrc object with properties.
