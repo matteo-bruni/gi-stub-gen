@@ -316,6 +316,7 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
 def parse_class(
     module_name: str,
     class_to_parse: Any,
+    parse_even_if_alias: bool = False,
 ) -> tuple[ClassSchema | None, list[GI.TypeInfo]]:
     """
     Parse a class and return a ClassSchema and a list of GI.TypeInfo callbacks found during parsing.
@@ -349,7 +350,7 @@ def parse_class(
         final_module_name_part = "gi"
 
     # filter out classes not in the same namespace as the module
-    if final_module_name_part != class_module_name_part:
+    if final_module_name_part != class_module_name_part and not parse_even_if_alias:
         # if the class is not in the same namespace as the module, skip it
         # this can happen with classes from gi.repository that are not in the same namespace
         logger.warning(

@@ -92,6 +92,26 @@ ty:
         --ignore possibly-missing-attribute \
         stubs
 
+diff:
+    just diff-gobject
+    just diff-gst
+
+diff-gobject:
+    uv run gi-stub-diff \
+        "stubs/gi-base-stubs/src/gi-stubs/repository/GObject.pyi" \
+        "https://github.com/pygobject/pygobject-stubs/blob/master/src/gi-stubs/repository/GObject.pyi" \
+        --name1 "gi-stub-gen" \
+        --name2 "pygobject-stubs" \
+        -o docs/GObject_diff.md
+
+diff-gst:
+    uv run gi-stub-diff \
+        "stubs/gi-gst-stubs/src/gi-stubs/repository/Gst.pyi" \
+        "https://github.com/pygobject/pygobject-stubs/blob/master/src/gi-stubs/repository/Gst.pyi" \
+        --name1 "gi-stub-gen" \
+        --name2 "pygobject-stubs" \
+        -o docs/Gst_diff.md
+
 
 # Sync degli override
 sync-gst:

@@ -2,14 +2,13 @@ from __future__ import annotations
 
 
 from gi_stub_gen.manager.gir_docs import GIRDocs
+from gi_stub_gen.overrides.class_.GObject import CLASS_GTYPE_META
 from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.python_function import parse_python_function
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.enum import parse_enum
 from gi_stub_gen.parser.function import parse_function
-from gi_stub_gen.parser.class_ import (
-    parse_class,
-)
+from gi_stub_gen.parser.class_ import parse_class
 
 import logging
 from rich.progress import (
@@ -228,7 +227,29 @@ def parse_module(
     # end for attribute in module_attributes
     #########################################################################
 
-    # add override callbacks
+    #########################################################################
+    # Add Manual Overrides
+    #########################################################################
+
+    if module_name == "gi.repository.GObject":
+        #  add a custom metaclass just for stubs needed to add `GType` to boxed types
+        # that do not inherit from GObject.Object
+        module_classes.append(CLASS_GTYPE_META)
+
+        # add GObject.Property (this is an alias to gi._propertyhelper.Property)
+        from gi.repository import GObject
+
+        property_class, _ = parse_class(
+            module_name="gi.repository.GObject",
+            class_to_parse=GObject.Property,
+            parse_even_if_alias=True,
+        )
+        assert property_class is not None, "Expected GObject.Property class to be parsed"
+        # change the super to be `property` instead of object
+        property_class.bases = ["builtins.property"]
+        module_classes.append(property_class)
+
+    # add override callbacks, if defined for current module
     from gi_stub_gen.overrides import CALLBACK_OVERRIDES
 
     for override in CALLBACK_OVERRIDES.get(module_name, {}).values():

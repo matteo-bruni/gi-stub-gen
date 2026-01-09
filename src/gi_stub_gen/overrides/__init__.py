@@ -11,6 +11,8 @@ from gi_stub_gen.schema.function import FunctionSchema
 # Import OBJECT_* schemas from class_/GObject.py
 from gi_stub_gen.overrides.class_.GObject import (
     OBJECT_EMIT,
+    OBJECT_GET_PROPERTY,
+    OBJECT_SET_PROPERTY,
     OBJECT_WEAK_REF,
     OBJECT_HANDLER_DEFAULT,
 )
@@ -41,8 +43,11 @@ CLASS_OVERRIDES = {
                 # "handler_unblock": OBJECT_HANDLER_UNBLOCK,
                 "weak_ref": OBJECT_WEAK_REF,
                 "handler_default": OBJECT_HANDLER_DEFAULT,
+                "get_property": OBJECT_GET_PROPERTY,
+                "set_property": OBJECT_SET_PROPERTY,  
             },
         },
+        # "GTypeMeta": 
     },
     "gi.repository.Gst": {
         "Fraction": {

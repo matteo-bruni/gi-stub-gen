@@ -459,3 +459,35 @@ def is_class_field_nullable(field_info) -> bool:
 
     # if not a pointer, and not primitive, assume non-nullable
     return False
+
+
+def do_class_need_gtype_metaclass(
+    cls_obj: Any,
+) -> bool:
+    """
+    In PyGObject, classes that inherit from GObject.Object automatically expose GType information.
+    However, fundamental types (like structs and boxed types) that do not inherit from GObject.Object
+    still have an associated GType in the underlying C library.
+    To ensure that these types are correctly recognized as GTypes during static analysis,
+    we need to use a metaclass (GTypeMeta) in the stub definitions.
+    This function determines if a given class requires the GTypeMeta metaclass in its stub definition
+    """
+
+    info = getattr(cls_obj, "__info__", None)
+
+    if info is None:
+        gtype = getattr(cls_obj, "__gtype__", GObject.TYPE_INVALID)
+    else:
+        gtype = cls_obj.__gtype__
+
+    is_gobject = GObject.type_is_a(gtype, GObject.TYPE_OBJECT)
+    # is_boxed = GObject.type_is_a(gtype, GObject.TYPE_BOXED)
+
+    # 3. Controllo se è Fondamentale/Boxed (che richiede la patch)
+    # Se NON è un GObject, ma ha un GType valido, allora è un candidato per la metaclasse.
+    needs_metaclass = False
+
+    if not is_gobject and gtype != GObject.TYPE_INVALID:
+        needs_metaclass = True
+
+    return needs_metaclass

@@ -65,6 +65,7 @@ dev = [
 
 [project.scripts]
 gi-stub-gen = "gi_stub_gen.cli.gi_stub_gen:app"
+gi-stub-diff = "gi_stub_gen.cli.diff:app"
 
 [tool.pyright]
 typeCheckingMode = "standard"
