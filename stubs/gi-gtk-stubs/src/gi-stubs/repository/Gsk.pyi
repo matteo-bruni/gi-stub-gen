@@ -713,7 +713,7 @@ class TransformCategory(GObject.GEnum):
 # classes
 ###############################################################
 
-class BlendNode(RenderNode):
+class BlendNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node applying a blending function between its two child nodes.
     """
@@ -746,7 +746,7 @@ class BlendNode(RenderNode):
         new(bottom:Gsk.RenderNode, top:Gsk.RenderNode, blend_mode:Gsk.BlendMode) -> Gsk.BlendNode
         """
 
-class BlurNode(RenderNode):
+class BlurNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node applying a blur effect to its single child.
     """
@@ -774,7 +774,7 @@ class BlurNode(RenderNode):
         new(child:Gsk.RenderNode, radius:float) -> Gsk.BlurNode
         """
 
-class BorderNode(RenderNode):
+class BorderNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a border.
     """
@@ -858,9 +858,9 @@ class BroadwayRenderer(Renderer):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BroadwayRendererClass(GObject.GPointer): ...
+class BroadwayRendererClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class CairoNode(RenderNode):
+class CairoNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a Cairo surface.
     """
@@ -943,9 +943,9 @@ class CairoRenderer(Renderer):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CairoRendererClass(GObject.GPointer): ...
+class CairoRendererClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class ClipNode(RenderNode):
+class ClipNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node applying a rectangular clip to its single child node.
     """
@@ -973,7 +973,7 @@ class ClipNode(RenderNode):
         new(child:Gsk.RenderNode, clip:Graphene.Rect) -> Gsk.ClipNode
         """
 
-class ColorMatrixNode(RenderNode):
+class ColorMatrixNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node controlling the color matrix of its single child node.
     """
@@ -1006,7 +1006,7 @@ class ColorMatrixNode(RenderNode):
         new(child:Gsk.RenderNode, color_matrix:Graphene.Matrix, color_offset:Graphene.Vec4) -> Gsk.ColorMatrixNode
         """
 
-class ColorNode(RenderNode):
+class ColorNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a solid color.
     """
@@ -1033,7 +1033,7 @@ class ColorNode(RenderNode):
         new(rgba:Gdk.RGBA, bounds:Graphene.Rect) -> Gsk.ColorNode
         """
 
-class ColorStop(GObject.GPointer):
+class ColorStop(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A color stop in a gradient node.
     """
@@ -1048,7 +1048,7 @@ class ColorStop(GObject.GPointer):
     the offset of the color stop
     """
 
-class ConicGradientNode(RenderNode):
+class ConicGradientNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a conic gradient.
     """
@@ -1095,7 +1095,7 @@ class ConicGradientNode(RenderNode):
         new(bounds:Graphene.Rect, center:Graphene.Point, rotation:float, color_stops:list) -> Gsk.ConicGradientNode
         """
 
-class ContainerNode(RenderNode):
+class ContainerNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node that can contain other render nodes.
     """
@@ -1122,7 +1122,7 @@ class ContainerNode(RenderNode):
         new(children:list) -> Gsk.ContainerNode
         """
 
-class CrossFadeNode(RenderNode):
+class CrossFadeNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node cross fading between two child nodes.
     """
@@ -1155,7 +1155,7 @@ class CrossFadeNode(RenderNode):
         new(start:Gsk.RenderNode, end:Gsk.RenderNode, progress:float) -> Gsk.CrossFadeNode
         """
 
-class DebugNode(RenderNode):
+class DebugNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node that emits a debugging message when drawing its
     child node.
@@ -1184,7 +1184,7 @@ class DebugNode(RenderNode):
         new(child:Gsk.RenderNode, message:str) -> Gsk.DebugNode
         """
 
-class FillNode(RenderNode):
+class FillNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node filling the area given by [struct`Gsk`.Path]
     and [enum`Gsk`.FillRule] with the child node.
@@ -1270,7 +1270,7 @@ class GLRenderer(Renderer):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GLRendererClass(GObject.GPointer): ...
+class GLRendererClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GLShader(GObject.Object):
     """
@@ -1575,12 +1575,12 @@ class GLShader(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GLShaderClass(GObject.GPointer):
+class GLShaderClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class GLShaderNode(RenderNode):
+class GLShaderNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node using a GL shader when drawing its children nodes.
     """
@@ -1621,7 +1621,7 @@ class GLShaderNode(RenderNode):
         new(shader:Gsk.GLShader, bounds:Graphene.Rect, args:GLib.Bytes, children:list=None) -> Gsk.GLShaderNode
         """
 
-class InsetShadowNode(RenderNode):
+class InsetShadowNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for an inset shadow.
     """
@@ -1672,7 +1672,7 @@ class InsetShadowNode(RenderNode):
         new(outline:Gsk.RoundedRect, color:Gdk.RGBA, dx:float, dy:float, spread:float, blur_radius:float) -> Gsk.InsetShadowNode
         """
 
-class LinearGradientNode(RenderNode):
+class LinearGradientNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a linear gradient.
     """
@@ -1710,7 +1710,7 @@ class LinearGradientNode(RenderNode):
         new(bounds:Graphene.Rect, start:Graphene.Point, end:Graphene.Point, color_stops:list) -> Gsk.LinearGradientNode
         """
 
-class MaskNode(RenderNode):
+class MaskNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node masking one child node with another.
     """
@@ -1794,7 +1794,7 @@ class NglRenderer(Renderer):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class OpacityNode(RenderNode):
+class OpacityNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node controlling the opacity of its single child node.
     """
@@ -1822,7 +1822,7 @@ class OpacityNode(RenderNode):
         new(child:Gsk.RenderNode, opacity:float) -> Gsk.OpacityNode
         """
 
-class OutsetShadowNode(RenderNode):
+class OutsetShadowNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for an outset shadow.
     """
@@ -1873,7 +1873,7 @@ class OutsetShadowNode(RenderNode):
         new(outline:Gsk.RoundedRect, color:Gdk.RGBA, dx:float, dy:float, spread:float, blur_radius:float) -> Gsk.OutsetShadowNode
         """
 
-class ParseLocation(GObject.GPointer):
+class ParseLocation(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A location in a parse buffer.
     """
@@ -1900,7 +1900,7 @@ class ParseLocation(GObject.GPointer):
     the line of the location in the parse buffer
     """
 
-class Path(GObject.GBoxed):
+class Path(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Describes lines and curves that are more complex than simple rectangles.
 
@@ -2062,7 +2062,7 @@ class Path(GObject.GBoxed):
         If the resulting reference count is zero, frees the path.
         """
 
-class PathBuilder(GObject.GBoxed):
+class PathBuilder(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Constructs `GskPath` objects.
 
@@ -2392,7 +2392,7 @@ class PathBuilder(GObject.GBoxed):
         new() -> Gsk.PathBuilder
         """
 
-class PathMeasure(GObject.GBoxed):
+class PathMeasure(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Performs measurements on paths such as determining the length of the path.
 
@@ -2465,7 +2465,7 @@ class PathMeasure(GObject.GBoxed):
         new_with_tolerance(path:Gsk.Path, tolerance:float) -> Gsk.PathMeasure
         """
 
-class PathPoint(GObject.GBoxed):
+class PathPoint(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Represents a point on a path.
 
@@ -2565,7 +2565,7 @@ class PathPoint(GObject.GBoxed):
         convenient to use.
         """
 
-class RadialGradientNode(RenderNode):
+class RadialGradientNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a radial gradient.
     """
@@ -2618,7 +2618,7 @@ class RadialGradientNode(RenderNode):
         new(bounds:Graphene.Rect, center:Graphene.Point, hradius:float, vradius:float, start:float, end:float, color_stops:list) -> Gsk.RadialGradientNode
         """
 
-class RenderNode(object):
+class RenderNode(object, metaclass=GObject.GTypeMeta):
     """
     The basic block in a scene graph to be rendered using [class`Gsk`.Renderer].
 
@@ -2841,9 +2841,9 @@ class Renderer(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class RendererClass(GObject.GPointer): ...
+class RendererClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class RepeatNode(RenderNode):
+class RepeatNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node repeating its single child node.
     """
@@ -2872,7 +2872,7 @@ class RepeatNode(RenderNode):
         new(bounds:Graphene.Rect, child:Gsk.RenderNode, child_bounds:Graphene.Rect=None) -> Gsk.RepeatNode
         """
 
-class RepeatingLinearGradientNode(RenderNode):
+class RepeatingLinearGradientNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a repeating linear gradient.
     """
@@ -2894,7 +2894,7 @@ class RepeatingLinearGradientNode(RenderNode):
         new(bounds:Graphene.Rect, start:Graphene.Point, end:Graphene.Point, color_stops:list) -> Gsk.RepeatingLinearGradientNode
         """
 
-class RepeatingRadialGradientNode(RenderNode):
+class RepeatingRadialGradientNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a repeating radial gradient.
     """
@@ -2919,7 +2919,7 @@ class RepeatingRadialGradientNode(RenderNode):
         new(bounds:Graphene.Rect, center:Graphene.Point, hradius:float, vradius:float, start:float, end:float, color_stops:list) -> Gsk.RepeatingRadialGradientNode
         """
 
-class RoundedClipNode(RenderNode):
+class RoundedClipNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node applying a rounded rectangle clip to its single child.
     """
@@ -2947,7 +2947,7 @@ class RoundedClipNode(RenderNode):
         new(child:Gsk.RenderNode, clip:Gsk.RoundedRect) -> Gsk.RoundedClipNode
         """
 
-class RoundedRect(GObject.GPointer):
+class RoundedRect(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A rectangular region with rounded corners.
 
@@ -3048,7 +3048,7 @@ class RoundedRect(GObject.GPointer):
         if you pass negative values for the `top`, `right`, `bottom` or `left`.
         """
 
-class ShaderArgsBuilder(GObject.GBoxed):
+class ShaderArgsBuilder(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Builds the uniforms data for a `GskGLShader`.
     """
@@ -3148,7 +3148,7 @@ class ShaderArgsBuilder(GObject.GBoxed):
         new(shader:Gsk.GLShader, initial_values:GLib.Bytes=None) -> Gsk.ShaderArgsBuilder
         """
 
-class Shadow(GObject.GPointer):
+class Shadow(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The shadow parameters in a shadow node.
     """
@@ -3171,7 +3171,7 @@ class Shadow(GObject.GPointer):
     the radius of the shadow
     """
 
-class ShadowNode(RenderNode):
+class ShadowNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node drawing one or more shadows behind its single child node.
     """
@@ -3203,7 +3203,7 @@ class ShadowNode(RenderNode):
         new(child:Gsk.RenderNode, shadows:list) -> Gsk.ShadowNode
         """
 
-class Stroke(GObject.GBoxed):
+class Stroke(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Collects the parameters that are needed when stroking a path.
     """
@@ -3338,7 +3338,7 @@ class Stroke(GObject.GBoxed):
         new(line_width:float) -> Gsk.Stroke
         """
 
-class StrokeNode(RenderNode):
+class StrokeNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node that will fill the area determined by stroking the the given
     [struct`Gsk`.Path] using the [struct`Gsk`.Stroke] attributes.
@@ -3373,7 +3373,7 @@ class StrokeNode(RenderNode):
         new(child:Gsk.RenderNode, path:Gsk.Path, stroke:Gsk.Stroke) -> Gsk.StrokeNode
         """
 
-class SubsurfaceNode(RenderNode):
+class SubsurfaceNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node that potentially diverts a part of the scene graph to a subsurface.
     """
@@ -3384,7 +3384,7 @@ class SubsurfaceNode(RenderNode):
         Gets the child node that is getting drawn by the given `node`.
         """
 
-class TextNode(RenderNode):
+class TextNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node drawing a set of glyphs.
     """
@@ -3433,7 +3433,7 @@ class TextNode(RenderNode):
         new(font:Pango.Font, glyphs:Pango.GlyphString, color:Gdk.RGBA, offset:Graphene.Point) -> Gsk.TextNode or None
         """
 
-class TextureNode(RenderNode):
+class TextureNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a `GdkTexture`.
     """
@@ -3457,7 +3457,7 @@ class TextureNode(RenderNode):
         new(texture:Gdk.Texture, bounds:Graphene.Rect) -> Gsk.TextureNode
         """
 
-class TextureScaleNode(RenderNode):
+class TextureScaleNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node for a `GdkTexture`, with control over scaling.
     """
@@ -3486,7 +3486,7 @@ class TextureScaleNode(RenderNode):
         new(texture:Gdk.Texture, bounds:Graphene.Rect, filter:Gsk.ScalingFilter) -> Gsk.TextureScaleNode
         """
 
-class Transform(GObject.GBoxed):
+class Transform(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Describes a 3D transform.
 
@@ -3743,7 +3743,7 @@ class Transform(GObject.GBoxed):
         new() -> Gsk.Transform
         """
 
-class TransformNode(RenderNode):
+class TransformNode(RenderNode, metaclass=GObject.GTypeMeta):
     """
     A render node applying a `GskTransform` to its single child node.
     """
@@ -3822,7 +3822,7 @@ class VulkanRenderer(Renderer):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class VulkanRendererClass(GObject.GPointer): ...
+class VulkanRendererClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 ###############################################################
 # Callbacks

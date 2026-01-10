@@ -13609,11 +13609,11 @@ class VariantParseError(enum.IntEnum):
 # classes
 ###############################################################
 
-class Allocator(GObject.GPointer):
+class Allocator(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Methods
     def free(self) -> None: ...
 
-class AsyncQueue(GObject.GPointer):
+class AsyncQueue(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     An opaque data structure which represents an asynchronous queue.
 
@@ -13877,7 +13877,7 @@ class AsyncQueue(GObject.GPointer):
         will be destroyed and the memory allocated will be freed.
         """
 
-class ByteArray(GObject.GBoxed):
+class ByteArray(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Contains the public fields of a GByteArray.
     """
@@ -14018,7 +14018,7 @@ class ByteArray(GObject.GBoxed):
         thread.
         """
 
-class Bytes(GObject.GBoxed):
+class Bytes(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A simple reference counted data type representing an immutable sequence of
     zero or more bytes from an unspecified origin.
@@ -14203,7 +14203,7 @@ class Bytes(GObject.GBoxed):
         new_take(data:list=None) -> GLib.Bytes
         """
 
-class Cache(GObject.GPointer):
+class Cache(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A `GCache` allows sharing of complex data structures, in order to
     save system resources.
@@ -14259,7 +14259,7 @@ class Cache(GObject.GPointer):
         Calls the given function for each of the values in the GCache.
         """
 
-class Completion(GObject.GPointer):
+class Completion(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     `GCompletion` provides support for automatic completion of a string
     using any group of target strings. It is typically used for file
@@ -14336,7 +14336,7 @@ class Completion(GObject.GPointer):
         function.
         """
 
-class Cond(GObject.GPointer):
+class Cond(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GCond struct is an opaque data structure that represents a
     condition. Threads can block on a GCond if they find a certain
@@ -14519,7 +14519,7 @@ class Cond(GObject.GPointer):
         time of more than 5 seconds).
         """
 
-class Data(GObject.GPointer):
+class Data(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     An opaque data structure that represents a keyed data list.
 
@@ -14528,7 +14528,7 @@ class Data(GObject.GPointer):
 
     ...
 
-class DateTime(GObject.GBoxed):
+class DateTime(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     `GDateTime` is a structure that combines a Gregorian date and time
     into a single structure.
@@ -15118,7 +15118,7 @@ class DateTime(GObject.GBoxed):
         new_utc(year:int, month:int, day:int, hour:int, minute:int, seconds:float) -> GLib.DateTime or None
         """
 
-class DebugKey(GObject.GPointer):
+class DebugKey(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Associates a string with a bit flag.
     Used in `g_parse_debug_string`.
@@ -15134,11 +15134,11 @@ class DebugKey(GObject.GPointer):
     the flag
     """
 
-class DoubleIEEE754(GObject.GPointer):
+class DoubleIEEE754(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     v_double: float = ...
 
-class Error(builtins.RuntimeError):
+class Error(builtins.RuntimeError, metaclass=GObject.GTypeMeta):
     """
     The `GError` structure contains information about
     an error that has occurred.
@@ -15183,11 +15183,11 @@ class Error(builtins.RuntimeError):
         code: typing.Any,
     ) -> typing.Any: ...
 
-class FloatIEEE754(GObject.GPointer):
+class FloatIEEE754(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     v_float: float = ...
 
-class HashTableIter(GObject.GPointer):
+class HashTableIter(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A GHashTableIter structure represents an iterator that can be used
     to iterate over the elements of a GHashTable. GHashTableIter
@@ -15282,7 +15282,7 @@ class HashTableIter(GObject.GPointer):
         be called more than once for the same key/value pair.
         """
 
-class Hook(GObject.GPointer):
+class Hook(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GHook struct represents a single hook function in a GHookList.
     """
@@ -15365,7 +15365,7 @@ class Hook(GObject.GPointer):
         from the GHookList and `g_hook_free` is called to free it.
         """
 
-class HookList(GObject.GPointer):
+class HookList(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GHookList struct represents a list of hook functions.
     """
@@ -15430,7 +15430,7 @@ class HookList(GObject.GPointer):
         function returns False.
         """
 
-class IOChannel(GObject.GBoxed):
+class IOChannel(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The `GIOChannel` data type aims to provide a portable method for
     using file descriptors, pipes, and sockets, and integrating them
@@ -15828,7 +15828,7 @@ class IOChannel(GObject.GBoxed):
         lines: typing.Any,
     ) -> typing.Any: ...
 
-class IOFuncs(GObject.GPointer):
+class IOFuncs(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A table of functions used to handle different types of GIOChannel
     in a generic way.
@@ -15896,7 +15896,7 @@ class IOFuncs(GObject.GPointer):
                issues are dealt with at a higher level.
         """
 
-class Idle(Source):
+class Idle(Source, metaclass=GObject.GTypeMeta):
     # gi Methods
     def add_child_source(self, child_source: Source) -> None: ...
     def add_poll(self, fd: PollFD) -> None: ...
@@ -15948,7 +15948,7 @@ class Idle(Source):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class KeyFile(GObject.GBoxed):
+class KeyFile(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     `GKeyFile` parses .ini-like config files.
 
@@ -16497,7 +16497,7 @@ class KeyFile(GObject.GBoxed):
         new() -> GLib.KeyFile
         """
 
-class List(GObject.GPointer):
+class List(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GList struct is used for each element in a doubly-linked list.
     """
@@ -16524,7 +16524,7 @@ class List(GObject.GPointer):
     @staticmethod
     def push_allocator(allocator: Allocator) -> None: ...
 
-class LogField(GObject.GPointer):
+class LogField(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure representing a single field in a structured log entry. See
     `g_log_structured` for details.
@@ -16549,7 +16549,7 @@ class LogField(GObject.GPointer):
     field value (arbitrary bytes)
     """
 
-class MainContext(GObject.GBoxed):
+class MainContext(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The `GMainContext` struct is an opaque data
     type representing a set of sources to be handled in a main loop.
@@ -16885,7 +16885,7 @@ class MainContext(GObject.GBoxed):
         `C documention <https://docs.gtk.org/glib/method.MainContext.query.html>`__.
         """
 
-class MainLoop(GObject.GBoxed):
+class MainLoop(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The `GMainLoop` struct is an opaque data type
     representing the main event loop of a GLib or GTK application.
@@ -16941,7 +16941,7 @@ class MainLoop(GObject.GBoxed):
         run(self)
         """
 
-class MarkupParser(GObject.GPointer):
+class MarkupParser(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Any of the fields in GMarkupParser can be None, in which case they
     will be ignored. Except for the `error` function, any of these callbacks
@@ -16991,7 +16991,7 @@ class MarkupParser(GObject.GPointer):
         called for the content of CDATA marked sections.
         """
 
-class MemChunk(GObject.GPointer):
+class MemChunk(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Methods
     def alloc(self) -> object | None: ...
     def alloc0(self) -> object | None: ...
@@ -17003,7 +17003,7 @@ class MemChunk(GObject.GPointer):
     def print_(self) -> None: ...
     def reset(self) -> None: ...
 
-class MemVTable(GObject.GPointer):
+class MemVTable(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A set of functions used to perform memory allocation. The same GMemVTable must
     be used for all allocations in the same program; a call to `g_mem_set_vtable`,
@@ -17044,7 +17044,7 @@ class MemVTable(GObject.GPointer):
         function to use for reallocating memory without a default error handler.
         """
 
-class Mutex(GObject.GPointer):
+class Mutex(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def i(self) -> list | None: ...
@@ -17056,7 +17056,7 @@ class Mutex(GObject.GPointer):
     def trylock(self) -> bool: ...
     def unlock(self) -> None: ...
 
-class Node(GObject.GPointer):
+class Node(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GNode struct represents one node in a [n-ary tree](data-structures.html#n-ary-trees).
     """
@@ -17162,7 +17162,7 @@ class Node(GObject.GPointer):
         Unlinks a GNode from a tree, resulting in two separate trees.
         """
 
-class Once(GObject.GPointer):
+class Once(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A GOnce struct controls a one-time initialization function. Any
     one-time initialization function must have its own unique GOnce
@@ -17272,7 +17272,7 @@ class OptionContext(builtins.object):
 
     ...
 
-class OptionEntry(GObject.GPointer):
+class OptionEntry(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     - G_OPTION_ARG_NONE: %gboolean
         - G_OPTION_ARG_STRING: %gchar*
@@ -17358,7 +17358,7 @@ class OptionGroup(builtins.object):
 
     ...
 
-class PathBuf(GObject.GPointer):
+class PathBuf(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     `GPathBuf` is a helper type that allows you to easily build paths from
     individual elements, using the platform specific conventions for path
@@ -17562,7 +17562,7 @@ class Pid(builtins.int):
 
     ...
 
-class PollFD(GObject.GBoxed):
+class PollFD(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Represents a file descriptor, which events to poll for, and which events
     occurred.
@@ -17596,7 +17596,7 @@ class PollFD(GObject.GBoxed):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class Private(GObject.GPointer):
+class Private(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GPrivate struct is an opaque data structure to represent a
     thread-local data key. It is approximately equivalent to the
@@ -17652,7 +17652,7 @@ class Private(GObject.GPointer):
         the GDestroyNotify for `key` is not called on the old value.
         """
 
-class Queue(GObject.GPointer):
+class Queue(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Contains the public fields of a
     [Queue](data-structures.html#double-ended-queues).
@@ -17784,7 +17784,7 @@ class Queue(GObject.GPointer):
         Sorts `queue` using `compare_func`.
         """
 
-class RWLock(GObject.GPointer):
+class RWLock(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GRWLock struct is an opaque data structure to represent a
     reader-writer lock. It is similar to a GMutex in that it allows
@@ -17950,7 +17950,7 @@ class RWLock(GObject.GPointer):
         by the current thread leads to undefined behaviour.
         """
 
-class RecMutex(GObject.GPointer):
+class RecMutex(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GRecMutex struct is an opaque data structure to represent a
     recursive mutex. It is similar to a GMutex with the difference
@@ -18038,7 +18038,7 @@ class RecMutex(GObject.GPointer):
         locked by the current thread leads to undefined behaviour.
         """
 
-class Relation(GObject.GPointer):
+class Relation(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A `GRelation` is a table of data which can be indexed on any number
     of fields, rather like simple database tables. A `GRelation` contains
@@ -18104,7 +18104,7 @@ class Relation(GObject.GPointer):
     @deprecated("deprecated")
     def print_(self) -> None: ...
 
-class SList(GObject.GPointer):
+class SList(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GSList struct is used for each element in the singly-linked
     list.
@@ -18128,7 +18128,7 @@ class SList(GObject.GPointer):
     @staticmethod
     def push_allocator(allocator: Allocator) -> None: ...
 
-class Scanner(GObject.GPointer):
+class Scanner(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     `GScanner` provides a general-purpose lexical scanner.
 
@@ -18332,7 +18332,7 @@ class Scanner(GObject.GPointer):
         to construct part of the message.
         """
 
-class ScannerConfig(GObject.GPointer):
+class ScannerConfig(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Specifies the GScanner parser configuration. Most settings can
     be changed during the parsing phase and will affect the lexical
@@ -18477,7 +18477,7 @@ class ScannerConfig(GObject.GPointer):
         `token = v_symbol` or as G_TOKEN_SYMBOL (the default is False).
     """
 
-class Sequence(GObject.GPointer):
+class Sequence(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GSequence struct is an opaque data type representing a
     [sequence](data-structures.html#scalable-lists) data type.
@@ -18751,7 +18751,7 @@ class Sequence(GObject.GPointer):
         to point into difference sequences.
         """
 
-class SequenceIter(GObject.GPointer):
+class SequenceIter(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GSequenceIter struct is an opaque data type representing an
     iterator pointing into a GSequence.
@@ -18799,7 +18799,7 @@ class SequenceIter(GObject.GPointer):
         If `iter` is the begin iterator, the begin iterator is returned.
         """
 
-class Source(GObject.GBoxed):
+class Source(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The `GSource` struct is an opaque data type
     representing an event source.
@@ -19304,7 +19304,7 @@ class Source(GObject.GBoxed):
         set_callback(self, func:GLib.SourceFunc, data=None)
         """
 
-class SourceCallbackFuncs(GObject.GPointer):
+class SourceCallbackFuncs(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `GSourceCallbackFuncs` struct contains
     functions for managing callback objects.
@@ -19328,7 +19328,7 @@ class SourceCallbackFuncs(GObject.GPointer):
         Called when a reference to the callback object is dropped
         """
 
-class SourceFuncs(GObject.GPointer):
+class SourceFuncs(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `GSourceFuncs` struct contains a table of
     functions used to handle event sources in a generic manner.
@@ -19402,9 +19402,9 @@ class SourceFuncs(GObject.GPointer):
         lower of the two will be used.
     """
 
-class SourcePrivate(GObject.GPointer): ...
+class SourcePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class StatBuf(GObject.GPointer):
+class StatBuf(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A type corresponding to the appropriate struct type for the `stat`
     system call, depending on the platform and/or compiler being used.
@@ -19414,7 +19414,7 @@ class StatBuf(GObject.GPointer):
 
     ...
 
-class String(GObject.GBoxed):
+class String(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `GString` is an object that handles the memory management of a C string.
 
@@ -19677,7 +19677,7 @@ class String(GObject.GBoxed):
         sized_new(dfl_size:int) -> GLib.String
         """
 
-class StringChunk(GObject.GPointer):
+class StringChunk(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     `GStringChunk` provides efficient storage of groups of strings
 
@@ -19760,7 +19760,7 @@ class StringChunk(GObject.GPointer):
         though you should not change anything after the end of the string.
         """
 
-class TestCase(GObject.GPointer):
+class TestCase(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     An opaque structure representing a test case.
     """
@@ -19771,7 +19771,7 @@ class TestCase(GObject.GPointer):
         Free the `test_case`.
         """
 
-class TestConfig(GObject.GPointer):
+class TestConfig(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     test_initialized: bool = ...
     test_perf: bool = ...
@@ -19780,7 +19780,7 @@ class TestConfig(GObject.GPointer):
     test_undefined: bool = ...
     test_verbose: bool = ...
 
-class TestLogBuffer(GObject.GPointer):
+class TestLogBuffer(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def data(self) -> String | None: ...
@@ -19797,7 +19797,7 @@ class TestLogBuffer(GObject.GPointer):
         Internal function for gtester to decode test log messages, no ABI guarantees provided.
         """
 
-class TestLogMsg(GObject.GPointer):
+class TestLogMsg(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     log_type: TestLogType = ...
     n_nums: int = ...
@@ -19811,7 +19811,7 @@ class TestLogMsg(GObject.GPointer):
         Internal function for gtester to free test log messages, no ABI guarantees provided.
         """
 
-class TestSuite(GObject.GPointer):
+class TestSuite(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     An opaque structure representing a test suite.
     """
@@ -19830,7 +19830,7 @@ class TestSuite(GObject.GPointer):
         Frees the `suite` and all nested suites.
         """
 
-class ThreadPool(GObject.GPointer):
+class ThreadPool(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `GThreadPool` struct represents a thread pool.
 
@@ -19999,7 +19999,7 @@ class ThreadPool(GObject.GPointer):
         Returns the number of tasks still unprocessed in `pool`.
         """
 
-class TimeVal(GObject.GPointer):
+class TimeVal(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Represents a precise time, with seconds and microseconds.
 
@@ -20091,7 +20091,7 @@ class TimeVal(GObject.GPointer):
         2.54; before then, GLib would crash under the same conditions.
         """
 
-class Timeout(Source):
+class Timeout(Source, metaclass=GObject.GTypeMeta):
     # gi Methods
     def add_child_source(self, child_source: Source) -> None: ...
     def add_poll(self, fd: PollFD) -> None: ...
@@ -20144,7 +20144,7 @@ class Timeout(Source):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class Timer(GObject.GPointer):
+class Timer(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     `GTimer` records a start time, and counts microseconds elapsed since
     that time.
@@ -20191,7 +20191,7 @@ class Timer(GObject.GPointer):
         difference between this end time and the start time.
         """
 
-class TokenValue(GObject.GPointer):
+class TokenValue(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     v_binary: int = ...
     v_char: int = ...
@@ -20205,7 +20205,7 @@ class TokenValue(GObject.GPointer):
     v_octal: int = ...
     v_string: str = ...
 
-class TrashStack(GObject.GPointer):
+class TrashStack(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A `GTrashStack` is an efficient way to keep a stack of unused allocated
     memory chunks. Each memory chunk is required to be large enough to hold
@@ -20260,7 +20260,7 @@ class TrashStack(GObject.GPointer):
         Pushes a piece of memory onto a GTrashStack.
         """
 
-class Tree(GObject.GBoxed):
+class Tree(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The GTree struct is an opaque data structure representing a
     [balanced binary tree](data-structures.html#binary-trees). It should be
@@ -20482,7 +20482,7 @@ class Tree(GObject.GBoxed):
         new_full(key_compare_func:GLib.CompareDataFunc, key_compare_data=None, key_destroy_func:GLib.DestroyNotify) -> GLib.Tree
         """
 
-class TreeNode(GObject.GPointer):
+class TreeNode(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     An opaque type which identifies a specific node in a GTree.
     """
@@ -20507,7 +20507,7 @@ class TreeNode(GObject.GPointer):
         Gets the value stored at a particular tree node.
         """
 
-class Tuples(GObject.GPointer):
+class Tuples(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GTuples struct is used to return records (or tuples) from the
     GRelation by `g_relation_select`. It only contains one public
@@ -20538,7 +20538,7 @@ class Tuples(GObject.GPointer):
         returned value should not be changed.
         """
 
-class UnixPipe(GObject.GPointer):
+class UnixPipe(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A Unix pipe. The advantage of this type over `int[2]` is that it can
     be closed automatically when it goes out of scope, using `g_auto(GUnixPipe)`,
@@ -20553,7 +20553,7 @@ class UnixPipe(GObject.GPointer):
      The file descriptor with index G_UNIX_PIPE_END_WRITE is writable.
     """
 
-class UriParamsIter(GObject.GPointer):
+class UriParamsIter(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Many URI schemes include one or more attribute/value pairs as part of the URI
     value. For example `scheme://server/path?query=string&is=there` has two
@@ -20626,7 +20626,7 @@ class UriParamsIter(GObject.GPointer):
         allow repeated attributes.
         """
 
-class Variant(GObject.GPointer):
+class Variant(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     `GVariant` is a variant datatype; it can contain one or more values
     along with information about the type of the values.
@@ -21813,7 +21813,7 @@ class Variant(GObject.GPointer):
         Decompose a GVariant into a native Python object.
         """
 
-class VariantBuilder(GObject.GBoxed):
+class VariantBuilder(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A utility type for constructing container-type GVariant instances.
 
@@ -21941,7 +21941,7 @@ class VariantBuilder(GObject.GBoxed):
         new(type:GLib.VariantType) -> GLib.VariantBuilder
         """
 
-class VariantDict(GObject.GBoxed):
+class VariantDict(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     GVariantDict is a mutable interface to GVariant dictionaries.
 
@@ -22125,7 +22125,7 @@ class VariantDict(GObject.GBoxed):
         new(from_asv:GLib.Variant=None) -> GLib.VariantDict
         """
 
-class VariantType(GObject.GBoxed):
+class VariantType(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A type in the [type`GLib`.Variant] type system.
 

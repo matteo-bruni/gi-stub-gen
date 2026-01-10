@@ -773,7 +773,7 @@ class Adapter(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AdapterClass(GObject.GPointer): ...
+class AdapterClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Aggregator(Gst.Element):
     """
@@ -1260,7 +1260,7 @@ class Aggregator(Gst.Element):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AggregatorClass(GObject.GPointer):
+class AggregatorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The aggregator base class will handle in a thread-safe way all manners of
     concurrent flushes, seeks, pad additions and removals, leaving to the
@@ -1622,7 +1622,7 @@ class AggregatorPad(Gst.Pad):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AggregatorPadClass(GObject.GPointer):
+class AggregatorPadClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -1644,8 +1644,8 @@ class AggregatorPadClass(GObject.GPointer):
                   if the buffer should be skipped.
         """
 
-class AggregatorPadPrivate(GObject.GPointer): ...
-class AggregatorPrivate(GObject.GPointer): ...
+class AggregatorPadPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class AggregatorPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class BaseParse(Gst.Element):
     """
@@ -2112,7 +2112,7 @@ class BaseParse(Gst.Element):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BaseParseClass(GObject.GPointer):
+class BaseParseClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Subclasses can override any of the available virtual methods or not, as
     needed. At minimum `handle_frame` needs to be overridden.
@@ -2221,7 +2221,7 @@ class BaseParseClass(GObject.GPointer):
                      Allows closing external resources.
         """
 
-class BaseParseFrame(GObject.GBoxed):
+class BaseParseFrame(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Frame (context) data passed to each frame parsing virtual methods.  In
     addition to providing the data to be checked for a valid frame or an already
@@ -2300,7 +2300,7 @@ class BaseParseFrame(GObject.GBoxed):
         new(buffer:Gst.Buffer, flags:GstBase.BaseParseFrameFlags, overhead:int) -> GstBase.BaseParseFrame
         """
 
-class BaseParsePrivate(GObject.GPointer): ...
+class BaseParsePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class BaseSink(Gst.Element):
     """
@@ -3042,7 +3042,7 @@ class BaseSink(Gst.Element):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BaseSinkClass(GObject.GPointer):
+class BaseSinkClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Subclasses can override any of the available virtual methods or not, as
     needed. At the minimum, the `render` method should be overridden to
@@ -3165,7 +3165,7 @@ class BaseSinkClass(GObject.GPointer):
         chain up to the default implementation.
         """
 
-class BaseSinkPrivate(GObject.GPointer): ...
+class BaseSinkPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class BaseSrc(Gst.Element):
     """
@@ -3755,7 +3755,7 @@ class BaseSrc(Gst.Element):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BaseSrcClass(GObject.GPointer):
+class BaseSrcClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Subclasses can override any of the available virtual methods or not, as
     needed. At the minimum, the `create` method should be overridden to produce
@@ -3893,7 +3893,7 @@ class BaseSrcClass(GObject.GPointer):
         queues.
         """
 
-class BaseSrcPrivate(GObject.GPointer): ...
+class BaseSrcPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class BaseTransform(Gst.Element):
     """
@@ -4379,7 +4379,7 @@ class BaseTransform(Gst.Element):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BaseTransformClass(GObject.GPointer):
+class BaseTransformClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Subclasses can override any of the available virtual methods or not, as
     needed. At minimum either `transform` or `transform_ip` need to be overridden.
@@ -4597,9 +4597,9 @@ class BaseTransformClass(GObject.GPointer):
                      the number of units the same.
         """
 
-class BaseTransformPrivate(GObject.GPointer): ...
+class BaseTransformPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class BitReader(GObject.GPointer):
+class BitReader(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GstBitReader provides a bit reader that can read any number of bits
     from a memory buffer. It provides functions for reading any number of bits
@@ -4695,7 +4695,7 @@ class BitReader(GObject.GPointer):
         Skips until the next byte.
         """
 
-class BitWriter(GObject.GPointer):
+class BitWriter(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GstBitWriter provides a bit writer that can write any number of
     bits into a memory buffer. It provides functions for writing any
@@ -4791,7 +4791,7 @@ class BitWriter(GObject.GPointer):
         """
     def set_pos(self, pos: int) -> bool: ...
 
-class ByteReader(GObject.GPointer):
+class ByteReader(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GstByteReader provides a byte reader that can read different integer and
     floating point types from a memory buffer. It provides functions for reading
@@ -5208,7 +5208,7 @@ class ByteReader(GObject.GPointer):
         This function will fail if no NUL-terminator was found in in the data.
         """
 
-class ByteWriter(GObject.GPointer):
+class ByteWriter(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GstByteWriter provides a byte writer and reader that can write/read different
     integer and floating point types to/from a memory buffer. It provides functions
@@ -5411,7 +5411,7 @@ class ByteWriter(GObject.GPointer):
         Free-function: g_free
         """
 
-class CollectData(GObject.GPointer):
+class CollectData(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure used by the collect_pads.
     """
@@ -5442,7 +5442,7 @@ class CollectData(GObject.GPointer):
     @builtins.property
     def state(self) -> CollectPadsStateFlags: ...
 
-class CollectDataPrivate(GObject.GPointer): ...
+class CollectDataPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class CollectPads(Gst.Object):
     """
@@ -5777,14 +5777,14 @@ class CollectPads(Gst.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CollectPadsClass(GObject.GPointer):
+class CollectPadsClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> Gst.ObjectClass | None: ...
 
-class CollectPadsPrivate(GObject.GPointer): ...
+class CollectPadsPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DataQueue(GObject.Object):
     """
@@ -5866,7 +5866,7 @@ class DataQueue(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DataQueueClass(GObject.GPointer):
+class DataQueueClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -5877,9 +5877,9 @@ class DataQueueClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class DataQueuePrivate(GObject.GPointer): ...
+class DataQueuePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class FlowCombiner(GObject.GBoxed):
+class FlowCombiner(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Utility struct to help handling GstFlowReturn combination. Useful for
     GstElement<!-- -->s that have multiple source pads and need to combine
@@ -6132,7 +6132,7 @@ class PushSrc(BaseSrc):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PushSrcClass(GObject.GPointer):
+class PushSrcClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Subclasses can override any of the available virtual methods or not, as
     needed. At the minimum, the `fill` method should be overridden to produce
@@ -6168,7 +6168,7 @@ class PushSrcClass(GObject.GPointer):
         Element parent class
         """
 
-class TypeFindData(GObject.GPointer):
+class TypeFindData(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The opaque GstTypeFindData structure.
     """

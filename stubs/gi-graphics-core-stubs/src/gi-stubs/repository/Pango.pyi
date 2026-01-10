@@ -2844,7 +2844,7 @@ class WrapMode(GObject.GEnum):
 # classes
 ###############################################################
 
-class Analysis(GObject.GPointer):
+class Analysis(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAnalysis` structure stores information about
     the properties of a segment of text.
@@ -2888,7 +2888,7 @@ class Analysis(GObject.GPointer):
     unused, reserved
     """
 
-class AttrClass(GObject.GPointer):
+class AttrClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrClass` structure stores the type and operations for
     a particular type of attribute.
@@ -2921,7 +2921,7 @@ class AttrClass(GObject.GPointer):
     the type ID for this attribute
     """
 
-class AttrColor(GObject.GPointer):
+class AttrColor(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrColor` structure is used to represent attributes that
     are colors.
@@ -2937,7 +2937,7 @@ class AttrColor(GObject.GPointer):
     the `PangoColor` which is the value of the attribute
     """
 
-class AttrFloat(GObject.GPointer):
+class AttrFloat(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrFloat` structure is used to represent attributes with
     a float or double value.
@@ -2953,7 +2953,7 @@ class AttrFloat(GObject.GPointer):
     the value of the attribute
     """
 
-class AttrFontDesc(GObject.GPointer):
+class AttrFontDesc(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrFontDesc` structure is used to store an attribute that
     sets all aspects of the font description at once.
@@ -2979,7 +2979,7 @@ class AttrFontDesc(GObject.GPointer):
         stretch, and size simultaneously.
         """
 
-class AttrFontFeatures(GObject.GPointer):
+class AttrFontFeatures(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrFontFeatures` structure is used to represent OpenType
     font features as an attribute.
@@ -3005,7 +3005,7 @@ class AttrFontFeatures(GObject.GPointer):
         alternative glyphs, ligatures, etc. for fonts that support them.
         """
 
-class AttrInt(GObject.GPointer):
+class AttrInt(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrInt` structure is used to represent attributes with
     an integer or enumeration value.
@@ -3021,7 +3021,7 @@ class AttrInt(GObject.GPointer):
     the value of the attribute
     """
 
-class AttrIterator(GObject.GBoxed):
+class AttrIterator(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoAttrIterator` is used to iterate through a `PangoAttrList`.
 
@@ -3074,7 +3074,7 @@ class AttrIterator(GObject.GBoxed):
         a signed integer are clamped to G_MAXINT.
         """
 
-class AttrLanguage(GObject.GPointer):
+class AttrLanguage(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrLanguage` structure is used to represent attributes that
     are languages.
@@ -3097,7 +3097,7 @@ class AttrLanguage(GObject.GPointer):
         Create a new language tag attribute.
         """
 
-class AttrList(GObject.GBoxed):
+class AttrList(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoAttrList` represents a list of attributes that apply to a section
     of text.
@@ -3284,7 +3284,7 @@ class AttrList(GObject.GBoxed):
         new() -> Pango.AttrList
         """
 
-class AttrShape(GObject.GPointer):
+class AttrShape(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrShape` structure is used to represent attributes which
     impose shape restrictions.
@@ -3342,7 +3342,7 @@ class AttrShape(GObject.GPointer):
         rendering the glyph.
         """
 
-class AttrSize(GObject.GPointer):
+class AttrSize(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrSize` structure is used to represent attributes which
     set font size.
@@ -3378,7 +3378,7 @@ class AttrSize(GObject.GPointer):
         Create a new font-size attribute in device units.
         """
 
-class AttrString(GObject.GPointer):
+class AttrString(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttrString` structure is used to represent attributes with
     a string value.
@@ -3394,7 +3394,7 @@ class AttrString(GObject.GPointer):
     the string which is the value of the attribute
     """
 
-class Attribute(GObject.GBoxed):
+class Attribute(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The `PangoAttribute` structure represents the common portions of all
     attributes.
@@ -3500,7 +3500,7 @@ class Attribute(GObject.GBoxed):
         to the entire text by default.
         """
 
-class Color(GObject.GBoxed):
+class Color(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The `PangoColor` structure is used to
     represent a color in an uncalibrated RGB color-space.
@@ -3788,7 +3788,7 @@ class Context(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ContextClass(GObject.GPointer): ...
+class ContextClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Coverage(GObject.Object):
     """
@@ -4073,7 +4073,7 @@ class Font(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontClass(GObject.GPointer):
+class FontClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def create_hb_font(self) -> create_hb_fontFontClassCB: ...
@@ -4094,7 +4094,7 @@ class FontClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class FontDescription(GObject.GBoxed):
+class FontDescription(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoFontDescription` describes a font in an implementation-independent
     manner.
@@ -4581,7 +4581,7 @@ class FontFace(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontFaceClass(GObject.GPointer):
+class FontFaceClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _pango_reserved3(self) -> object | None: ...
@@ -4782,7 +4782,7 @@ class FontFamily(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontFamilyClass(GObject.GPointer):
+class FontFamilyClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _pango_reserved2(self) -> object | None: ...
@@ -4988,7 +4988,7 @@ class FontMap(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontMapClass(GObject.GPointer):
+class FontMapClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoFontMapClass` structure holds the virtual functions for
     a particular `PangoFontMap` implementation.
@@ -5040,7 +5040,7 @@ class FontMapClass(GObject.GPointer):
         can handle fonts of this fonts loaded with this fontmap.
         """
 
-class FontMetrics(GObject.GBoxed):
+class FontMetrics(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoFontMetrics` structure holds the overall metric information
     for a font.
@@ -5238,7 +5238,7 @@ class Fontset(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontsetClass(GObject.GPointer):
+class FontsetClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoFontsetClass` structure holds the virtual functions for
     a particular `PangoFontset` implementation.
@@ -5332,9 +5332,9 @@ class FontsetSimple(Fontset):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontsetSimpleClass(GObject.GPointer): ...
+class FontsetSimpleClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class GlyphGeometry(GObject.GPointer):
+class GlyphGeometry(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoGlyphGeometry` structure contains width and positioning
     information for a single glyph.
@@ -5367,7 +5367,7 @@ class GlyphGeometry(GObject.GPointer):
     vertical offset from nominal character position.
     """
 
-class GlyphInfo(GObject.GPointer):
+class GlyphInfo(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A `PangoGlyphInfo` structure represents a single glyph with
     positioning information and visual attributes.
@@ -5387,7 +5387,7 @@ class GlyphInfo(GObject.GPointer):
     the glyph itself.
     """
 
-class GlyphItem(GObject.GBoxed):
+class GlyphItem(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoGlyphItem` is a pair of a `PangoItem` and the glyphs
     resulting from shaping the items text.
@@ -5481,7 +5481,7 @@ class GlyphItem(GObject.GBoxed):
         it internally.)
         """
 
-class GlyphItemIter(GObject.GBoxed):
+class GlyphItemIter(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoGlyphItemIter` is an iterator over the clusters in a
     `PangoGlyphItem`.
@@ -5570,7 +5570,7 @@ class GlyphItemIter(GObject.GBoxed):
         See `PangoGlyphItemIter` for details of cluster orders.
         """
 
-class GlyphString(GObject.GBoxed):
+class GlyphString(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoGlyphString` is used to store strings of glyphs with geometry
     and visual attribute information.
@@ -5699,7 +5699,7 @@ class GlyphString(GObject.GBoxed):
         new() -> Pango.GlyphString
         """
 
-class GlyphVisAttr(GObject.GPointer):
+class GlyphVisAttr(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A `PangoGlyphVisAttr` structure communicates information between
     the shaping and rendering phases.
@@ -5723,7 +5723,7 @@ class GlyphVisAttr(GObject.GPointer):
     set if the the font will render this glyph with color. Since 1.50
     """
 
-class Item(GObject.GBoxed):
+class Item(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The `PangoItem` structure stores information about a segment of text.
 
@@ -5813,7 +5813,7 @@ class Item(GObject.GBoxed):
         new() -> Pango.Item
         """
 
-class Language(GObject.GBoxed):
+class Language(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The `PangoLanguage` structure is used to
     represent a language.
@@ -6669,9 +6669,9 @@ class Layout(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class LayoutClass(GObject.GPointer): ...
+class LayoutClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class LayoutIter(GObject.GBoxed):
+class LayoutIter(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoLayoutIter` can be used to iterate over the visual
     extents of a `PangoLayout`.
@@ -6838,7 +6838,7 @@ class LayoutIter(GObject.GBoxed):
         If `iter` was already at the end of the layout, returns False.
         """
 
-class LayoutLine(GObject.GBoxed):
+class LayoutLine(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoLayoutLine` represents one of the lines resulting from laying
     out a paragraph via `PangoLayout`.
@@ -6954,7 +6954,7 @@ class LayoutLine(GObject.GBoxed):
         grapheme. The reverse is true for a left-to-right line.
         """
 
-class LogAttr(GObject.GPointer):
+class LogAttr(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoLogAttr` structure stores information about the attributes of a
     single character.
@@ -7052,7 +7052,7 @@ class LogAttr(GObject.GPointer):
     """
     reserved: int = ...
 
-class Matrix(GObject.GBoxed):
+class Matrix(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoMatrix` specifies a transformation between user-space
     and device coordinates.
@@ -7211,7 +7211,7 @@ class Matrix(GObject.GBoxed):
         then applying the original transformation.
         """
 
-class Rectangle(GObject.GPointer):
+class Rectangle(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `PangoRectangle` structure represents a rectangle.
 
@@ -7546,7 +7546,7 @@ class Renderer(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class RendererClass(GObject.GPointer):
+class RendererClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for `PangoRenderer`.
 
@@ -7636,9 +7636,9 @@ class RendererClass(GObject.GPointer):
         updates the renderer for a new run
         """
 
-class RendererPrivate(GObject.GPointer): ...
+class RendererPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class ScriptIter(GObject.GBoxed):
+class ScriptIter(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoScriptIter` is used to iterate through a string
     and identify ranges in different scripts.
@@ -7687,7 +7687,7 @@ class ScriptIter(GObject.GBoxed):
         new(text:str, length:int) -> Pango.ScriptIter
         """
 
-class TabArray(GObject.GBoxed):
+class TabArray(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `PangoTabArray` contains an array of tab stops.
 

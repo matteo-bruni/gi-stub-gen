@@ -431,7 +431,7 @@ class AppSink(GstBase.BaseSink):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AppSinkClass(GObject.GPointer):
+class AppSinkClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -454,7 +454,7 @@ class AppSinkClass(GObject.GPointer):
     @builtins.property
     def try_pull_sample(self) -> try_pull_sampleAppSinkClassCB | None: ...
 
-class AppSinkPrivate(GObject.GPointer): ...
+class AppSinkPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class AppSrc(GstBase.BaseSrc):
     class Props(GstBase.BaseSrc.Props):
@@ -862,7 +862,7 @@ class AppSrc(GstBase.BaseSrc):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AppSrcClass(GObject.GPointer):
+class AppSrcClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -883,7 +883,7 @@ class AppSrcClass(GObject.GPointer):
     @builtins.property
     def seek_data(self) -> seek_dataAppSrcClassCB: ...
 
-class AppSrcPrivate(GObject.GPointer): ...
+class AppSrcPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 ###############################################################
 # Callbacks

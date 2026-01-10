@@ -480,12 +480,7 @@ class ValueType(GObject.GEnum):
 # classes
 ###############################################################
 
-class Action(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class Action(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -499,7 +494,7 @@ class Action(builtins.object):
     def get_name(self, i: int) -> str | None: ...
     def set_description(self, i: int, desc: str) -> bool: ...
 
-class ActionIface(GObject.GPointer):
+class ActionIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def do_action(self) -> do_actionActionIfaceCB: ...
@@ -518,7 +513,7 @@ class ActionIface(GObject.GPointer):
     @builtins.property
     def set_description(self) -> set_descriptionActionIfaceCB: ...
 
-class Attribute(GObject.GPointer):
+class Attribute(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     name: str = ...
     value: str = ...
@@ -527,12 +522,7 @@ class Attribute(GObject.GPointer):
     @staticmethod
     def set_free(attrib_set: list) -> None: ...
 
-class Component(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class Component(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -570,7 +560,7 @@ class Component(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ComponentIface(GObject.GPointer):
+class ComponentIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def add_focus_handler(self) -> object | None: ...
@@ -609,12 +599,7 @@ class ComponentIface(GObject.GPointer):
     @builtins.property
     def set_size(self) -> set_sizeComponentIfaceCB: ...
 
-class Document(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class Document(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -666,7 +651,7 @@ class Document(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DocumentIface(GObject.GPointer):
+class DocumentIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_current_page_number(self) -> get_current_page_numberDocumentIfaceCB: ...
@@ -691,12 +676,7 @@ class DocumentIface(GObject.GPointer):
     @builtins.property
     def set_text_selections(self) -> set_text_selectionsDocumentIfaceCB: ...
 
-class EditableText(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class EditableText(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -710,7 +690,7 @@ class EditableText(builtins.object):
     def set_run_attributes(self, attrib_set: list, start_offset: int, end_offset: int) -> bool: ...
     def set_text_contents(self, string: str) -> None: ...
 
-class EditableTextIface(GObject.GPointer):
+class EditableTextIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def copy_text(self) -> copy_textEditableTextIfaceCB: ...
@@ -954,7 +934,7 @@ class GObjectAccessible(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GObjectAccessibleClass(GObject.GPointer):
+class GObjectAccessibleClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def pad1(self) -> FunctionGObjectAccessibleClassCB: ...
@@ -1095,7 +1075,7 @@ class Hyperlink(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class HyperlinkClass(GObject.GPointer):
+class HyperlinkClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_end_index(self) -> get_end_indexHyperlinkClassCB: ...
@@ -1120,12 +1100,7 @@ class HyperlinkClass(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
 
-class HyperlinkImpl(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class HyperlinkImpl(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1133,19 +1108,14 @@ class HyperlinkImpl(builtins.object):
         """
     def get_hyperlink(self) -> Hyperlink: ...
 
-class HyperlinkImplIface(GObject.GPointer):
+class HyperlinkImplIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_hyperlink(self) -> get_hyperlinkHyperlinkImplIfaceCB: ...
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class Hypertext(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class Hypertext(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1168,7 +1138,7 @@ class Hypertext(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class HypertextIface(GObject.GPointer):
+class HypertextIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_link(self) -> get_linkHypertextIfaceCB: ...
@@ -1181,7 +1151,7 @@ class HypertextIface(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class Image(builtins.object):
+class Image(builtins.object, metaclass=GObject.GTypeMeta):
     """
     Displays an image.
 
@@ -1227,11 +1197,6 @@ class Image(builtins.object):
     `GtkImage` uses the [enum`Gtk`.AccessibleRole.img] role.
     """
 
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
     # gi Methods
     def __init__(self) -> None:
         """
@@ -1243,7 +1208,7 @@ class Image(builtins.object):
     def get_image_size(self) -> tuple[int, int]: ...
     def set_image_description(self, description: str) -> bool: ...
 
-class ImageIface(GObject.GPointer):
+class ImageIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_image_description(self) -> get_image_descriptionImageIfaceCB: ...
@@ -1258,23 +1223,18 @@ class ImageIface(GObject.GPointer):
     @builtins.property
     def set_image_description(self) -> set_image_descriptionImageIfaceCB: ...
 
-class Implementor(GObject.GPointer):
+class Implementor(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Methods
     def ref_accessible(self) -> Object: ...
 
-class ImplementorIface(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class ImplementorIface(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
         Initialize ImplementorIface object with properties.
         """
 
-class KeyEventStruct(GObject.GPointer):
+class KeyEventStruct(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     keycode: int = ...
     keyval: int = ...
@@ -1329,7 +1289,7 @@ class Misc(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MiscClass(GObject.GPointer):
+class MiscClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
@@ -1749,7 +1709,7 @@ class NoOpObject(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NoOpObjectClass(GObject.GPointer):
+class NoOpObjectClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
@@ -1789,7 +1749,7 @@ class NoOpObjectFactory(ObjectFactory):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NoOpObjectFactoryClass(GObject.GPointer):
+class NoOpObjectFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> ObjectFactoryClass | None: ...
@@ -2253,7 +2213,7 @@ class Object(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ObjectClass(GObject.GPointer):
+class ObjectClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def active_descendant_changed(self) -> active_descendant_changedObjectClassCB: ...
@@ -2347,7 +2307,7 @@ class ObjectFactory(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ObjectFactoryClass(GObject.GPointer):
+class ObjectFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def create_accessible(self) -> object | None: ...
@@ -2610,20 +2570,20 @@ class Plug(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PlugClass(GObject.GPointer):
+class PlugClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_object_id(self) -> get_object_idPlugClassCB: ...
     @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
 
-class PropertyValues(GObject.GPointer):
+class PropertyValues(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     new_value: GObject.Value | None = ...  # type: ignore
     old_value: GObject.Value | None = ...  # type: ignore
     property_name: str = ...
 
-class Range(GObject.GBoxed):
+class Range(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Base class for widgets which visualize an adjustment.
 
@@ -2667,7 +2627,7 @@ class Range(GObject.GBoxed):
         new(lower_limit:float, upper_limit:float, description:str) -> Atk.Range
         """
 
-class Rectangle(GObject.GBoxed):
+class Rectangle(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     # gi Fields
     height: int = ...
     width: int = ...
@@ -2705,7 +2665,7 @@ class Registry(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class RegistryClass(GObject.GPointer):
+class RegistryClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -2776,7 +2736,7 @@ class Relation(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class RelationClass(GObject.GPointer):
+class RelationClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
@@ -2826,7 +2786,7 @@ class RelationSet(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class RelationSetClass(GObject.GPointer):
+class RelationSetClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def pad1(self) -> FunctionRelationSetClassCB: ...
@@ -2835,12 +2795,7 @@ class RelationSetClass(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
 
-class Selection(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class Selection(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -2867,7 +2822,7 @@ class Selection(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SelectionIface(GObject.GPointer):
+class SelectionIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def add_selection(self) -> add_selectionSelectionIfaceCB: ...
@@ -3139,7 +3094,7 @@ class Socket(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SocketClass(GObject.GPointer):
+class SocketClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def embed(self) -> embedSocketClassCB: ...
@@ -3191,17 +3146,12 @@ class StateSet(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class StateSetClass(GObject.GPointer):
+class StateSetClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent(self) -> GObject.ObjectClass | None: ...
 
-class StreamableContent(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class StreamableContent(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -3212,7 +3162,7 @@ class StreamableContent(builtins.object):
     def get_stream(self, mime_type: str) -> GLib.IOChannel: ...
     def get_uri(self, mime_type: str) -> str | None: ...
 
-class StreamableContentIface(GObject.GPointer):
+class StreamableContentIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_mime_type(self) -> get_mime_typeStreamableContentIfaceCB: ...
@@ -3231,12 +3181,7 @@ class StreamableContentIface(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class Table(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class Table(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -3343,7 +3288,7 @@ class TableCell(builtins.object):
     def get_row_span(self) -> int: ...
     def get_table(self) -> Object: ...
 
-class TableCellIface(GObject.GPointer):
+class TableCellIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_column_header_cells(self) -> get_column_header_cellsTableCellIfaceCB: ...
@@ -3362,7 +3307,7 @@ class TableCellIface(GObject.GPointer):
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...
 
-class TableIface(GObject.GPointer):
+class TableIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def add_column_selection(self) -> add_column_selectionTableIfaceCB: ...
@@ -3439,7 +3384,7 @@ class TableIface(GObject.GPointer):
     @builtins.property
     def set_summary(self) -> set_summaryTableIfaceCB: ...
 
-class Text(builtins.object):
+class Text(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A single-line text entry.
 
@@ -3551,11 +3496,6 @@ class Text(builtins.object):
     to accessibility.
     """
 
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
     # gi Methods
     def __init__(self) -> None:
         """
@@ -3641,7 +3581,7 @@ class Text(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TextIface(GObject.GPointer):
+class TextIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def add_selection(self) -> add_selectionTextIfaceCB: ...
@@ -3698,21 +3638,21 @@ class TextIface(GObject.GPointer):
     @builtins.property
     def text_selection_changed(self) -> text_selection_changedTextIfaceCB: ...
 
-class TextRange(GObject.GBoxed):
+class TextRange(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     # gi Fields
     bounds: TextRectangle | None = ...
     content: str = ...
     end_offset: int = ...
     start_offset: int = ...
 
-class TextRectangle(GObject.GPointer):
+class TextRectangle(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     height: int = ...
     width: int = ...
     x: int = ...
     y: int = ...
 
-class TextSelection(GObject.GPointer):
+class TextSelection(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     end_object: Object | None = ...
     end_offset: int = ...
@@ -3744,7 +3684,7 @@ class Util(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class UtilClass(GObject.GPointer):
+class UtilClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def add_global_event_listener(self) -> object | None: ...
@@ -3763,12 +3703,7 @@ class UtilClass(GObject.GPointer):
     @builtins.property
     def remove_key_event_listener(self) -> remove_key_event_listenerUtilClassCB: ...
 
-class Value(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class Value(builtins.object, metaclass=GObject.GTypeMeta):
     # gi Methods
     def __init__(self) -> None:
         """
@@ -3803,7 +3738,7 @@ class Value(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ValueIface(GObject.GPointer):
+class ValueIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_current_value(self) -> get_current_valueValueIfaceCB: ...
@@ -3959,7 +3894,7 @@ class Window(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class WindowIface(GObject.GPointer):
+class WindowIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent(self) -> GObject.TypeInterface | None: ...

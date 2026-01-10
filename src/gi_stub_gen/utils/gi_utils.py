@@ -477,10 +477,11 @@ def do_class_need_gtype_metaclass(
 
     if info is None:
         gtype = getattr(cls_obj, "__gtype__", GObject.TYPE_INVALID)
+        is_gobject = False
     else:
         gtype = cls_obj.__gtype__
+        is_gobject = GObject.type_is_a(gtype, GObject.TYPE_OBJECT)
 
-    is_gobject = GObject.type_is_a(gtype, GObject.TYPE_OBJECT)
     # is_boxed = GObject.type_is_a(gtype, GObject.TYPE_BOXED)
 
     # 3. Controllo se è Fondamentale/Boxed (che richiede la patch)

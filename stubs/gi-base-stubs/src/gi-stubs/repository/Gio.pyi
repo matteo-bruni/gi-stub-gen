@@ -5155,7 +5155,7 @@ class Action(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ActionEntry(GObject.GPointer):
+class ActionEntry(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     This struct defines a single action.  It is for use with
     [method`Gio`.ActionMap.add_action_entries].
@@ -5509,7 +5509,7 @@ class ActionGroup(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ActionGroupInterface(GObject.GPointer):
+class ActionGroupInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for [type`Gio`.ActionGroup].
     """
@@ -5588,7 +5588,7 @@ class ActionGroupInterface(GObject.GPointer):
         the virtual function pointer for [method`Gio`.ActionGroup.query_action]
         """
 
-class ActionInterface(GObject.GPointer):
+class ActionInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for [type`Gio`.Action].
     """
@@ -5751,7 +5751,7 @@ class ActionMap(builtins.object):
             The user data for signal connections, or ``None``
         """
 
-class ActionMapInterface(GObject.GPointer):
+class ActionMapInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for [iface`Gio`.ActionMap].
     """
@@ -6184,7 +6184,7 @@ class AppInfo(builtins.object):
         Checks if the application supports reading files and directories from URIs.
         """
 
-class AppInfoIface(GObject.GPointer):
+class AppInfoIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Application Information interface, for operating system portability.
     """
@@ -6627,7 +6627,7 @@ class AppLaunchContext(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AppLaunchContextClass(GObject.GPointer):
+class AppLaunchContextClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -6648,7 +6648,7 @@ class AppLaunchContextClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class AppLaunchContextPrivate(GObject.GPointer): ...
+class AppLaunchContextPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Application(GObject.Object):
     """
@@ -7637,7 +7637,7 @@ class Application(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ApplicationClass(GObject.GPointer):
+class ApplicationClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Virtual function table for GApplication.
     """
@@ -8206,7 +8206,7 @@ class ApplicationCommandLine(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ApplicationCommandLineClass(GObject.GPointer):
+class ApplicationCommandLineClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GApplicationCommandLineClass-struct
     contains private data only.
@@ -8226,8 +8226,8 @@ class ApplicationCommandLineClass(GObject.GPointer):
     @builtins.property
     def printerr_literal(self) -> printerr_literalApplicationCommandLineClassCB: ...
 
-class ApplicationCommandLinePrivate(GObject.GPointer): ...
-class ApplicationPrivate(GObject.GPointer): ...
+class ApplicationCommandLinePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class ApplicationPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class AsyncInitable(builtins.object):
     """
@@ -8419,7 +8419,7 @@ class AsyncInitable(builtins.object):
         for any errors.
         """
 
-class AsyncInitableIface(GObject.GPointer):
+class AsyncInitableIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides an interface for asynchronous initializing object such that
     initialization may fail.
@@ -8568,7 +8568,7 @@ class AsyncResult(builtins.object):
         to enable subclasses to chain up correctly.
         """
 
-class AsyncResultIface(GObject.GPointer):
+class AsyncResultIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Interface definition for [iface`Gio`.AsyncResult].
     """
@@ -8810,7 +8810,7 @@ class BufferedInputStream(FilterInputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BufferedInputStreamClass(GObject.GPointer):
+class BufferedInputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -8831,7 +8831,7 @@ class BufferedInputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> FilterInputStreamClass | None: ...
 
-class BufferedInputStreamPrivate(GObject.GPointer): ...
+class BufferedInputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class BufferedOutputStream(FilterOutputStream):
     """
@@ -8964,7 +8964,7 @@ class BufferedOutputStream(FilterOutputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BufferedOutputStreamClass(GObject.GPointer):
+class BufferedOutputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -8973,7 +8973,7 @@ class BufferedOutputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> FilterOutputStreamClass | None: ...
 
-class BufferedOutputStreamPrivate(GObject.GPointer): ...
+class BufferedOutputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class BytesIcon(GObject.Object):
     """
@@ -9269,7 +9269,7 @@ class Cancellable(GObject.Object):
         new() -> Gio.Cancellable
         """
 
-class CancellableClass(GObject.GPointer):
+class CancellableClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -9286,7 +9286,7 @@ class CancellableClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class CancellablePrivate(GObject.GPointer): ...
+class CancellablePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class CharsetConverter(GObject.Object):
     """
@@ -9378,7 +9378,7 @@ class CharsetConverter(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CharsetConverterClass(GObject.GPointer):
+class CharsetConverterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -9504,7 +9504,7 @@ class Converter(builtins.object):
         state that would produce output then that output is lost.
         """
 
-class ConverterIface(GObject.GPointer):
+class ConverterIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides an interface for converting data from one type
     to another type. The conversion can be stateful
@@ -9614,7 +9614,7 @@ class ConverterInputStream(FilterInputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ConverterInputStreamClass(GObject.GPointer):
+class ConverterInputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -9629,7 +9629,7 @@ class ConverterInputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> FilterInputStreamClass | None: ...
 
-class ConverterInputStreamPrivate(GObject.GPointer): ...
+class ConverterInputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ConverterOutputStream(FilterOutputStream):
     """
@@ -9717,7 +9717,7 @@ class ConverterOutputStream(FilterOutputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ConverterOutputStreamClass(GObject.GPointer):
+class ConverterOutputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -9732,7 +9732,7 @@ class ConverterOutputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> FilterOutputStreamClass | None: ...
 
-class ConverterOutputStreamPrivate(GObject.GPointer): ...
+class ConverterOutputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Credentials(GObject.Object):
     """
@@ -9853,7 +9853,7 @@ class Credentials(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CredentialsClass(GObject.GPointer):
+class CredentialsClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GCredentials.
     """
@@ -9933,7 +9933,7 @@ class DBusActionGroup(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusAnnotationInfo(GObject.GBoxed):
+class DBusAnnotationInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Information about an annotation.
     """
@@ -9983,7 +9983,7 @@ class DBusAnnotationInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-class DBusArgInfo(GObject.GBoxed):
+class DBusArgInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Information about an argument for a method or a signal.
     """
@@ -11293,7 +11293,7 @@ class DBusConnection(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusErrorEntry(GObject.GPointer):
+class DBusErrorEntry(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Struct used in `g_dbus_error_register_error_domain`.
     """
@@ -11347,7 +11347,7 @@ class DBusInterface(builtins.object):
         Note that `interface_` will hold a weak reference to `object`.
         """
 
-class DBusInterfaceIface(GObject.GPointer):
+class DBusInterfaceIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Base type for D-Bus interfaces.
     """
@@ -11379,7 +11379,7 @@ class DBusInterfaceIface(GObject.GPointer):
         Sets the enclosing GDBusObject. See `g_dbus_interface_set_object`.
         """
 
-class DBusInterfaceInfo(GObject.GBoxed):
+class DBusInterfaceInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Information about a D-Bus interface.
     """
@@ -11675,7 +11675,7 @@ class DBusInterfaceSkeleton(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusInterfaceSkeletonClass(GObject.GPointer):
+class DBusInterfaceSkeletonClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GDBusInterfaceSkeleton.
     """
@@ -11716,9 +11716,9 @@ class DBusInterfaceSkeletonClass(GObject.GPointer):
     @builtins.property
     def vfunc_padding(self) -> list | None: ...
 
-class DBusInterfaceSkeletonPrivate(GObject.GPointer): ...
+class DBusInterfaceSkeletonPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class DBusInterfaceVTable(GObject.GPointer):
+class DBusInterfaceVTable(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Virtual table for handling properties and method calls for a D-Bus
     interface.
@@ -12135,7 +12135,7 @@ class DBusMessage(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusMethodInfo(GObject.GBoxed):
+class DBusMethodInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Information about a method on a D-Bus interface.
     """
@@ -12358,7 +12358,7 @@ class DBusMethodInvocation(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusNodeInfo(GObject.GBoxed):
+class DBusNodeInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Information about nodes in a remote object hierarchy.
     """
@@ -12488,7 +12488,7 @@ class DBusObject(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusObjectIface(GObject.GPointer):
+class DBusObjectIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Base object type for D-Bus objects.
     """
@@ -13052,7 +13052,7 @@ class DBusObjectManagerClient(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusObjectManagerClientClass(GObject.GPointer):
+class DBusObjectManagerClientClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GDBusObjectManagerClient.
     """
@@ -13076,9 +13076,9 @@ class DBusObjectManagerClientClass(GObject.GPointer):
         The parent class.
         """
 
-class DBusObjectManagerClientPrivate(GObject.GPointer): ...
+class DBusObjectManagerClientPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class DBusObjectManagerIface(GObject.GPointer):
+class DBusObjectManagerIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Base type for D-Bus object managers.
     """
@@ -13288,7 +13288,7 @@ class DBusObjectManagerServer(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusObjectManagerServerClass(GObject.GPointer):
+class DBusObjectManagerServerClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GDBusObjectManagerServer.
     """
@@ -13302,7 +13302,7 @@ class DBusObjectManagerServerClass(GObject.GPointer):
         The parent class.
         """
 
-class DBusObjectManagerServerPrivate(GObject.GPointer): ...
+class DBusObjectManagerServerPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DBusObjectProxy(GObject.Object):
     """
@@ -13395,7 +13395,7 @@ class DBusObjectProxy(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusObjectProxyClass(GObject.GPointer):
+class DBusObjectProxyClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GDBusObjectProxy.
     """
@@ -13409,7 +13409,7 @@ class DBusObjectProxyClass(GObject.GPointer):
         The parent class.
         """
 
-class DBusObjectProxyPrivate(GObject.GPointer): ...
+class DBusObjectProxyPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DBusObjectSkeleton(GObject.Object):
     """
@@ -13543,7 +13543,7 @@ class DBusObjectSkeleton(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusObjectSkeletonClass(GObject.GPointer):
+class DBusObjectSkeletonClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GDBusObjectSkeleton.
     """
@@ -13562,9 +13562,9 @@ class DBusObjectSkeletonClass(GObject.GPointer):
         The parent class.
         """
 
-class DBusObjectSkeletonPrivate(GObject.GPointer): ...
+class DBusObjectSkeletonPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class DBusPropertyInfo(GObject.GBoxed):
+class DBusPropertyInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Information about a D-Bus property on a D-Bus interface.
     """
@@ -14228,7 +14228,7 @@ class DBusProxy(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusProxyClass(GObject.GPointer):
+class DBusProxyClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GDBusProxy.
     """
@@ -14249,7 +14249,7 @@ class DBusProxyClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class DBusProxyPrivate(GObject.GPointer): ...
+class DBusProxyPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DBusServer(GObject.Object):
     """
@@ -14449,7 +14449,7 @@ class DBusServer(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DBusSignalInfo(GObject.GBoxed):
+class DBusSignalInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Information about a signal on a D-Bus interface.
     """
@@ -14492,7 +14492,7 @@ class DBusSignalInfo(GObject.GBoxed):
         **kwargs: typing.Any,
     ) -> None: ...
 
-class DBusSubtreeVTable(GObject.GPointer):
+class DBusSubtreeVTable(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Virtual table for handling subtrees registered with `g_dbus_connection_register_subtree`.
     """
@@ -14835,7 +14835,7 @@ class DataInputStream(BufferedInputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DataInputStreamClass(GObject.GPointer):
+class DataInputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -14850,7 +14850,7 @@ class DataInputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> BufferedInputStreamClass | None: ...
 
-class DataInputStreamPrivate(GObject.GPointer): ...
+class DataInputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DataOutputStream(FilterOutputStream):
     """
@@ -14971,7 +14971,7 @@ class DataOutputStream(FilterOutputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DataOutputStreamClass(GObject.GPointer):
+class DataOutputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -14986,7 +14986,7 @@ class DataOutputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> FilterOutputStreamClass | None: ...
 
-class DataOutputStreamPrivate(GObject.GPointer): ...
+class DataOutputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DatagramBased(builtins.object):
     """
@@ -15218,7 +15218,7 @@ class DatagramBased(builtins.object):
         cancelled, G_IO_ERROR_CANCELLED is returned as with any other error.
         """
 
-class DatagramBasedInterface(GObject.GPointer):
+class DatagramBasedInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides an interface for socket-like objects which have datagram semantics,
     following the Berkeley sockets API. The interface methods are thin wrappers
@@ -15546,7 +15546,7 @@ class DebugControllerDBus(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DebugControllerDBusClass(GObject.GPointer):
+class DebugControllerDBusClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for GDebugControllerDBus.
     """
@@ -15565,7 +15565,7 @@ class DebugControllerDBusClass(GObject.GPointer):
         The parent class.
         """
 
-class DebugControllerInterface(GObject.GPointer):
+class DebugControllerInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for GDebugController.
     """
@@ -15864,7 +15864,7 @@ class DesktopAppInfo(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DesktopAppInfoClass(GObject.GPointer):
+class DesktopAppInfoClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -15899,7 +15899,7 @@ class DesktopAppInfoLookup(builtins.object):
         [func`Gio`.AppInfo.get_default_for_uri_scheme].
         """
 
-class DesktopAppInfoLookupIface(GObject.GPointer):
+class DesktopAppInfoLookupIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Interface that is used by backends to associate default
     handlers with URI schemes.
@@ -16170,7 +16170,7 @@ class Drive(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DriveIface(GObject.GPointer):
+class DriveIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Interface for creating GDrive implementations.
     """
@@ -16485,7 +16485,7 @@ class DtlsClientConnection(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DtlsClientConnectionInterface(GObject.GPointer):
+class DtlsClientConnectionInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     vtable for a GDtlsClientConnection implementation.
     """
@@ -17077,7 +17077,7 @@ class DtlsConnection(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DtlsConnectionInterface(GObject.GPointer):
+class DtlsConnectionInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Virtual method table for a GDtlsConnection implementation.
     """
@@ -17182,7 +17182,7 @@ class DtlsServerConnection(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DtlsServerConnectionInterface(GObject.GPointer):
+class DtlsServerConnectionInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     vtable for a GDtlsServerConnection implementation.
     """
@@ -17281,7 +17281,7 @@ class Emblem(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EmblemClass(GObject.GPointer): ...
+class EmblemClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class EmblemedIcon(GObject.Object):
     """
@@ -17363,12 +17363,12 @@ class EmblemedIcon(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EmblemedIconClass(GObject.GPointer):
+class EmblemedIconClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class EmblemedIconPrivate(GObject.GPointer): ...
+class EmblemedIconPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class File(builtins.object):
     """
@@ -19372,7 +19372,7 @@ class File(builtins.object):
         with `g_file_unmount_mountable_with_operation`.
         """
 
-class FileAttributeInfo(GObject.GPointer):
+class FileAttributeInfo(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Information about a specific attribute.
     """
@@ -19391,7 +19391,7 @@ class FileAttributeInfo(GObject.GPointer):
     the GFileAttributeType type of the attribute.
     """
 
-class FileAttributeInfoList(GObject.GBoxed):
+class FileAttributeInfoList(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Acts as a lightweight registry for possible valid file attributes.
     The registry stores Key-Value pair formats as GFileAttributeInfos.
@@ -19447,7 +19447,7 @@ class FileAttributeInfoList(GObject.GBoxed):
         new() -> Gio.FileAttributeInfoList
         """
 
-class FileAttributeMatcher(GObject.GBoxed):
+class FileAttributeMatcher(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Determines if a string matches a file attribute.
     """
@@ -19549,7 +19549,7 @@ class FileDescriptorBased(builtins.object):
         Gets the underlying file descriptor.
         """
 
-class FileDescriptorBasedIface(GObject.GPointer):
+class FileDescriptorBasedIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     An interface for file descriptor based io objects.
     """
@@ -19839,7 +19839,7 @@ class FileEnumerator(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileEnumeratorClass(GObject.GPointer):
+class FileEnumeratorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -19870,7 +19870,7 @@ class FileEnumeratorClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class FileEnumeratorPrivate(GObject.GPointer): ...
+class FileEnumeratorPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class FileIOStream(IOStream):
     """
@@ -20057,7 +20057,7 @@ class FileIOStream(IOStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileIOStreamClass(GObject.GPointer):
+class FileIOStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -20090,7 +20090,7 @@ class FileIOStreamClass(GObject.GPointer):
     @builtins.property
     def truncate_fn(self) -> truncate_fnFileIOStreamClassCB: ...
 
-class FileIOStreamPrivate(GObject.GPointer): ...
+class FileIOStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class FileIcon(GObject.Object):
     """
@@ -20151,9 +20151,9 @@ class FileIcon(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileIconClass(GObject.GPointer): ...
+class FileIconClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class FileIface(GObject.GPointer):
+class FileIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     An interface for writing VFS file handles.
     """
@@ -21208,7 +21208,7 @@ class FileInfo(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileInfoClass(GObject.GPointer): ...
+class FileInfoClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class FileInputStream(InputStream):
     """
@@ -21330,7 +21330,7 @@ class FileInputStream(InputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileInputStreamClass(GObject.GPointer):
+class FileInputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -21357,7 +21357,7 @@ class FileInputStreamClass(GObject.GPointer):
     @builtins.property
     def tell(self) -> tellFileInputStreamClassCB: ...
 
-class FileInputStreamPrivate(GObject.GPointer): ...
+class FileInputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class FileMonitor(GObject.Object):
     """
@@ -21505,7 +21505,7 @@ class FileMonitor(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileMonitorClass(GObject.GPointer):
+class FileMonitorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -21524,7 +21524,7 @@ class FileMonitorClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class FileMonitorPrivate(GObject.GPointer): ...
+class FileMonitorPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class FileOutputStream(OutputStream):
     """
@@ -21685,7 +21685,7 @@ class FileOutputStream(OutputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileOutputStreamClass(GObject.GPointer):
+class FileOutputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -21718,7 +21718,7 @@ class FileOutputStreamClass(GObject.GPointer):
     @builtins.property
     def truncate_fn(self) -> truncate_fnFileOutputStreamClassCB: ...
 
-class FileOutputStreamPrivate(GObject.GPointer): ...
+class FileOutputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class FilenameCompleter(GObject.Object):
     """
@@ -21786,7 +21786,7 @@ class FilenameCompleter(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FilenameCompleterClass(GObject.GPointer):
+class FilenameCompleterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -21872,7 +21872,7 @@ class FilterInputStream(InputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FilterInputStreamClass(GObject.GPointer):
+class FilterInputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -21956,7 +21956,7 @@ class FilterOutputStream(OutputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FilterOutputStreamClass(GObject.GPointer):
+class FilterOutputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -21967,7 +21967,7 @@ class FilterOutputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
 
-class IOExtension(GObject.GPointer):
+class IOExtension(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GIOExtension is an opaque data structure and can only be accessed
     using the following functions.
@@ -21990,7 +21990,7 @@ class IOExtension(GObject.GPointer):
         Gets the type associated with `extension`.
         """
 
-class IOExtensionPoint(GObject.GPointer):
+class IOExtensionPoint(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     `GIOExtensionPoint` provides a mechanism for modules to extend the
     functionality of the library or application that loaded it in an
@@ -22157,9 +22157,9 @@ class IOModule(GObject.TypeModule):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class IOModuleClass(GObject.GPointer): ...
+class IOModuleClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class IOModuleScope(GObject.GPointer):
+class IOModuleScope(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Represents a scope for loading IO modules. A scope can be used for blocking
     duplicate modules, or blocking a module you don't want to load.
@@ -22180,7 +22180,7 @@ class IOModuleScope(GObject.GPointer):
         Free a module scope.
         """
 
-class IOSchedulerJob(GObject.GPointer):
+class IOSchedulerJob(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Opaque class for defining and scheduling IO jobs.
     """
@@ -22470,9 +22470,9 @@ class IOStream(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class IOStreamAdapter(GObject.GPointer): ...
+class IOStreamAdapter(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class IOStreamClass(GObject.GPointer):
+class IOStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -22507,7 +22507,7 @@ class IOStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class IOStreamPrivate(GObject.GPointer): ...
+class IOStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Icon(builtins.object):
     """
@@ -22604,7 +22604,7 @@ class Icon(builtins.object):
           the encoding is simply the name (such as `network-server`).
         """
 
-class IconIface(GObject.GPointer):
+class IconIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GIconIface is used to implement GIcon types for various
     different systems. See GThemedIcon and GLoadableIcon for
@@ -22944,7 +22944,7 @@ class InetAddress(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class InetAddressClass(GObject.GPointer):
+class InetAddressClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -23071,13 +23071,13 @@ class InetAddressMask(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class InetAddressMaskClass(GObject.GPointer):
+class InetAddressMaskClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class InetAddressMaskPrivate(GObject.GPointer): ...
-class InetAddressPrivate(GObject.GPointer): ...
+class InetAddressMaskPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class InetAddressPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class InetSocketAddress(SocketAddress):
     """
@@ -23217,12 +23217,12 @@ class InetSocketAddress(SocketAddress):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class InetSocketAddressClass(GObject.GPointer):
+class InetSocketAddressClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SocketAddressClass | None: ...
 
-class InetSocketAddressPrivate(GObject.GPointer): ...
+class InetSocketAddressPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Initable(builtins.object):
     """
@@ -23314,7 +23314,7 @@ class Initable(builtins.object):
         and returns None, setting an error on failure.
         """
 
-class InitableIface(GObject.GPointer):
+class InitableIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides an interface for initializing object such that initialization
     may fail.
@@ -23332,7 +23332,7 @@ class InitableIface(GObject.GPointer):
         Initializes the object.
         """
 
-class InputMessage(GObject.GPointer):
+class InputMessage(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure used for scatter/gather data input when receiving multiple
     messages or packets in one go. You generally pass in an array of empty
@@ -23807,7 +23807,7 @@ class InputStream(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class InputStreamClass(GObject.GPointer):
+class InputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -23840,9 +23840,9 @@ class InputStreamClass(GObject.GPointer):
     @builtins.property
     def skip_finish(self) -> skip_finishInputStreamClassCB: ...
 
-class InputStreamPrivate(GObject.GPointer): ...
+class InputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class InputVector(GObject.GPointer):
+class InputVector(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure used for scatter/gather data input.
     You generally pass in an array of GInputVectors
@@ -24014,7 +24014,7 @@ class ListModel(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ListModelInterface(GObject.GPointer):
+class ListModelInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for GListModel.
     """
@@ -24212,7 +24212,7 @@ class ListStore(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ListStoreClass(GObject.GPointer):
+class ListStoreClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -24255,7 +24255,7 @@ class LoadableIcon(builtins.object):
         Finishes an asynchronous icon load started in `g_loadable_icon_load_async`.
         """
 
-class LoadableIconIface(GObject.GPointer):
+class LoadableIconIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Interface for icons that can be loaded as a stream.
     """
@@ -24356,7 +24356,7 @@ class MemoryInputStream(InputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MemoryInputStreamClass(GObject.GPointer):
+class MemoryInputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -24371,7 +24371,7 @@ class MemoryInputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
 
-class MemoryInputStreamPrivate(GObject.GPointer): ...
+class MemoryInputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class MemoryMonitor(builtins.object):
     """
@@ -24460,7 +24460,7 @@ class MemoryMonitor(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MemoryMonitorInterface(GObject.GPointer):
+class MemoryMonitorInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for GMemoryMonitor.
     """
@@ -24611,7 +24611,7 @@ class MemoryOutputStream(OutputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MemoryOutputStreamClass(GObject.GPointer):
+class MemoryOutputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -24626,7 +24626,7 @@ class MemoryOutputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
 
-class MemoryOutputStreamPrivate(GObject.GPointer): ...
+class MemoryOutputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Menu(MenuModel):
     """
@@ -24873,14 +24873,14 @@ class MenuAttributeIter(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MenuAttributeIterClass(GObject.GPointer):
+class MenuAttributeIterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_next(self) -> get_nextMenuAttributeIterClassCB: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class MenuAttributeIterPrivate(GObject.GPointer): ...
+class MenuAttributeIterPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class MenuItem(GObject.Object):
     """
@@ -25227,14 +25227,14 @@ class MenuLinkIter(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MenuLinkIterClass(GObject.GPointer):
+class MenuLinkIterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_next(self) -> get_nextMenuLinkIterClassCB: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class MenuLinkIterPrivate(GObject.GPointer): ...
+class MenuLinkIterPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class MenuModel(GObject.Object):
     """
@@ -25539,7 +25539,7 @@ class MenuModel(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MenuModelClass(GObject.GPointer):
+class MenuModelClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_item_attribute_value(self) -> get_item_attribute_valueMenuModelClassCB | None: ...
@@ -25560,7 +25560,7 @@ class MenuModelClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class MenuModelPrivate(GObject.GPointer): ...
+class MenuModelPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Mount(builtins.object):
     """
@@ -25866,7 +25866,7 @@ class Mount(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MountIface(GObject.GPointer):
+class MountIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Interface for implementing operations for mounts.
     """
@@ -26425,7 +26425,7 @@ class MountOperation(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MountOperationClass(GObject.GPointer):
+class MountOperationClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -26460,7 +26460,7 @@ class MountOperationClass(GObject.GPointer):
     @builtins.property
     def show_unmount_progress(self) -> show_unmount_progressMountOperationClassCB: ...
 
-class MountOperationPrivate(GObject.GPointer): ...
+class MountOperationPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class NativeSocketAddress(SocketAddress):
     """
@@ -26515,12 +26515,12 @@ class NativeSocketAddress(SocketAddress):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NativeSocketAddressClass(GObject.GPointer):
+class NativeSocketAddressClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SocketAddressClass | None: ...
 
-class NativeSocketAddressPrivate(GObject.GPointer): ...
+class NativeSocketAddressPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class NativeVolumeMonitor(VolumeMonitor):
     # gi Fields
@@ -26630,7 +26630,7 @@ class NativeVolumeMonitor(VolumeMonitor):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NativeVolumeMonitorClass(GObject.GPointer):
+class NativeVolumeMonitorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_mount_for_mount_path(self) -> object | None: ...
@@ -26785,12 +26785,12 @@ class NetworkAddress(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NetworkAddressClass(GObject.GPointer):
+class NetworkAddressClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class NetworkAddressPrivate(GObject.GPointer): ...
+class NetworkAddressPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class NetworkMonitor(builtins.object):
     """
@@ -26982,7 +26982,7 @@ class NetworkMonitor(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NetworkMonitorInterface(GObject.GPointer):
+class NetworkMonitorInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for GNetworkMonitor.
     """
@@ -27147,12 +27147,12 @@ class NetworkService(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NetworkServiceClass(GObject.GPointer):
+class NetworkServiceClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class NetworkServicePrivate(GObject.GPointer): ...
+class NetworkServicePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Notification(GObject.Object):
     """
@@ -27314,7 +27314,7 @@ class Notification(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class OutputMessage(GObject.GPointer):
+class OutputMessage(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure used for scatter/gather data output when sending multiple
     messages or packets in one go. You generally pass in an array of
@@ -27980,7 +27980,7 @@ class OutputStream(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class OutputStreamClass(GObject.GPointer):
+class OutputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved4(self) -> object | None: ...
@@ -28025,9 +28025,9 @@ class OutputStreamClass(GObject.GPointer):
     @builtins.property
     def writev_fn(self) -> writev_fnOutputStreamClassCB: ...
 
-class OutputStreamPrivate(GObject.GPointer): ...
+class OutputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class OutputVector(GObject.GPointer):
+class OutputVector(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure used for scatter/gather data output.
     You generally pass in an array of GOutputVectors
@@ -28280,7 +28280,7 @@ class Permission(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PermissionClass(GObject.GPointer):
+class PermissionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def acquire(self) -> acquirePermissionClassCB: ...
@@ -28299,7 +28299,7 @@ class PermissionClass(GObject.GPointer):
     @builtins.property
     def reserved(self) -> list | None: ...
 
-class PermissionPrivate(GObject.GPointer): ...
+class PermissionPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class PollableInputStream(builtins.object):
     """
@@ -28380,7 +28380,7 @@ class PollableInputStream(builtins.object):
         `g_pollable_input_stream_can_poll` returns False for `stream`.
         """
 
-class PollableInputStreamInterface(GObject.GPointer):
+class PollableInputStreamInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The interface for pollable input streams.
 
@@ -28529,7 +28529,7 @@ class PollableOutputStream(builtins.object):
         `g_pollable_output_stream_can_poll` returns False for `stream`.
         """
 
-class PollableOutputStreamInterface(GObject.GPointer):
+class PollableOutputStreamInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The interface for pollable output streams.
 
@@ -28652,7 +28652,7 @@ class PowerProfileMonitor(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PowerProfileMonitorInterface(GObject.GPointer):
+class PowerProfileMonitorInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for GPowerProfileMonitor.
     """
@@ -29140,7 +29140,7 @@ class ProxyAddress(InetSocketAddress):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ProxyAddressClass(GObject.GPointer):
+class ProxyAddressClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GProxyAddress.
     """
@@ -29244,7 +29244,7 @@ class ProxyAddressEnumerator(SocketAddressEnumerator):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ProxyAddressEnumeratorClass(GObject.GPointer):
+class ProxyAddressEnumeratorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GProxyAddressEnumerator.
     """
@@ -29267,10 +29267,10 @@ class ProxyAddressEnumeratorClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> SocketAddressEnumeratorClass | None: ...
 
-class ProxyAddressEnumeratorPrivate(GObject.GPointer): ...
-class ProxyAddressPrivate(GObject.GPointer): ...
+class ProxyAddressEnumeratorPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class ProxyAddressPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class ProxyInterface(GObject.GPointer):
+class ProxyInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides an interface for handling proxy connection and payload.
     """
@@ -29372,7 +29372,7 @@ class ProxyResolver(builtins.object):
         `g_proxy_resolver_lookup` for more details.
         """
 
-class ProxyResolverInterface(GObject.GPointer):
+class ProxyResolverInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for GProxyResolver.
     """
@@ -29468,7 +29468,7 @@ class RemoteActionGroup(builtins.object):
         G_VARIANT_TYPE_VARDICT.  If it is floating, it will be consumed.
         """
 
-class RemoteActionGroupInterface(GObject.GPointer):
+class RemoteActionGroupInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table for GRemoteActionGroup.
     """
@@ -29925,7 +29925,7 @@ class Resolver(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ResolverClass(GObject.GPointer):
+class ResolverClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def lookup_by_address(self) -> lookup_by_addressResolverClassCB: ...
@@ -29962,9 +29962,9 @@ class ResolverClass(GObject.GPointer):
     @builtins.property
     def reload(self) -> reloadResolverClassCB: ...
 
-class ResolverPrivate(GObject.GPointer): ...
+class ResolverPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class Resource(GObject.GBoxed):
+class Resource(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Applications and libraries often contain binary or textual data that is
     really part of the application, rather than user data. For instance
@@ -30312,7 +30312,7 @@ class Seekable(builtins.object):
         partial result will be returned, without an error.
         """
 
-class SeekableIface(GObject.GPointer):
+class SeekableIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides an interface for implementing seekable functionality on I/O Streams.
     """
@@ -31790,7 +31790,7 @@ class SettingsBackend(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SettingsBackendClass(GObject.GPointer):
+class SettingsBackendClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GSettingsBackend.
     """
@@ -31851,9 +31851,9 @@ class SettingsBackendClass(GObject.GPointer):
         virtual method to change a tree of keys
         """
 
-class SettingsBackendPrivate(GObject.GPointer): ...
+class SettingsBackendPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class SettingsClass(GObject.GPointer):
+class SettingsClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def change_event(self) -> change_eventSettingsClassCB: ...
@@ -31868,9 +31868,9 @@ class SettingsClass(GObject.GPointer):
     @builtins.property
     def writable_changed(self) -> writable_changedSettingsClassCB: ...
 
-class SettingsPrivate(GObject.GPointer): ...
+class SettingsPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class SettingsSchema(GObject.GBoxed):
+class SettingsSchema(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The [struct`Gio`.SettingsSchemaSource] and `GSettingsSchema` APIs provide a
     mechanism for advanced control over the loading of schemas and a
@@ -32016,7 +32016,7 @@ class SettingsSchema(GObject.GBoxed):
         Decrease the reference count of `schema`, possibly freeing it.
         """
 
-class SettingsSchemaKey(GObject.GBoxed):
+class SettingsSchemaKey(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     GSettingsSchemaKey is an opaque data structure and can only be accessed
     using the following functions.
@@ -32127,7 +32127,7 @@ class SettingsSchemaKey(GObject.GBoxed):
         Decrease the reference count of `key`, possibly freeing it.
         """
 
-class SettingsSchemaSource(GObject.GBoxed):
+class SettingsSchemaSource(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     This is an opaque structure type.  You may not access it directly.
     """
@@ -32519,14 +32519,14 @@ class SimpleActionGroup(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SimpleActionGroupClass(GObject.GPointer):
+class SimpleActionGroupClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class SimpleActionGroupPrivate(GObject.GPointer): ...
+class SimpleActionGroupPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class SimpleAsyncResult(GObject.Object):
     """
@@ -32848,7 +32848,7 @@ class SimpleAsyncResult(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SimpleAsyncResultClass(GObject.GPointer): ...
+class SimpleAsyncResultClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class SimpleIOStream(IOStream):
     """
@@ -33131,7 +33131,7 @@ class SimpleProxyResolver(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SimpleProxyResolverClass(GObject.GPointer):
+class SimpleProxyResolverClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -33146,7 +33146,7 @@ class SimpleProxyResolverClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class SimpleProxyResolverPrivate(GObject.GPointer): ...
+class SimpleProxyResolverPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Socket(GObject.Object):
     """
@@ -34268,7 +34268,7 @@ class SocketAddress(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SocketAddressClass(GObject.GPointer):
+class SocketAddressClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_family(self) -> get_familySocketAddressClassCB: ...
@@ -34382,7 +34382,7 @@ class SocketAddressEnumerator(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SocketAddressEnumeratorClass(GObject.GPointer):
+class SocketAddressEnumeratorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GSocketAddressEnumerator.
     """
@@ -34406,7 +34406,7 @@ class SocketAddressEnumeratorClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class SocketClass(GObject.GPointer):
+class SocketClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -34904,7 +34904,7 @@ class SocketClient(GObject.Object):
         new() -> Gio.SocketClient
         """
 
-class SocketClientClass(GObject.GPointer):
+class SocketClientClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -34919,7 +34919,7 @@ class SocketClientClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class SocketClientPrivate(GObject.GPointer): ...
+class SocketClientPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class SocketConnectable(builtins.object):
     """
@@ -35017,7 +35017,7 @@ class SocketConnectable(builtins.object):
         the implementation’s type name will be returned as a fallback.
         """
 
-class SocketConnectableIface(GObject.GPointer):
+class SocketConnectableIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides an interface for returning a GSocketAddressEnumerator
     and GProxyAddressEnumerator
@@ -35158,7 +35158,7 @@ class SocketConnection(IOStream):
         `g_socket_is_connected` on `connection`'s underlying GSocket.
         """
 
-class SocketConnectionClass(GObject.GPointer):
+class SocketConnectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -35175,7 +35175,7 @@ class SocketConnectionClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> IOStreamClass | None: ...
 
-class SocketConnectionPrivate(GObject.GPointer): ...
+class SocketConnectionPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class SocketControlMessage(GObject.Object):
     """
@@ -35288,7 +35288,7 @@ class SocketControlMessage(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SocketControlMessageClass(GObject.GPointer):
+class SocketControlMessageClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GSocketControlMessage.
     """
@@ -35332,7 +35332,7 @@ class SocketControlMessageClass(GObject.GPointer):
         Writes out the message data.
         """
 
-class SocketControlMessagePrivate(GObject.GPointer): ...
+class SocketControlMessagePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class SocketListener(GObject.Object):
     """
@@ -35585,7 +35585,7 @@ class SocketListener(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SocketListenerClass(GObject.GPointer):
+class SocketListenerClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GSocketListener.
     """
@@ -35611,8 +35611,8 @@ class SocketListenerClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class SocketListenerPrivate(GObject.GPointer): ...
-class SocketPrivate(GObject.GPointer): ...
+class SocketListenerPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class SocketPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class SocketService(SocketListener):
     """
@@ -35769,7 +35769,7 @@ class SocketService(SocketListener):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SocketServiceClass(GObject.GPointer):
+class SocketServiceClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GSocketService.
     """
@@ -35795,9 +35795,9 @@ class SocketServiceClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> SocketListenerClass | None: ...
 
-class SocketServicePrivate(GObject.GPointer): ...
+class SocketServicePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class SrvTarget(GObject.GBoxed):
+class SrvTarget(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A single target host/port that a network service is running on.
 
@@ -35870,7 +35870,7 @@ class SrvTarget(GObject.GBoxed):
         new(hostname:str, port:int, priority:int, weight:int) -> Gio.SrvTarget
         """
 
-class StaticResource(GObject.GPointer):
+class StaticResource(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     `GStaticResource` is an opaque data structure and can only be accessed
     using the following functions.
@@ -37491,7 +37491,7 @@ class Task(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TaskClass(GObject.GPointer): ...
+class TaskClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TcpConnection(SocketConnection):
     """
@@ -37585,12 +37585,12 @@ class TcpConnection(SocketConnection):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TcpConnectionClass(GObject.GPointer):
+class TcpConnectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SocketConnectionClass | None: ...
 
-class TcpConnectionPrivate(GObject.GPointer): ...
+class TcpConnectionPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TcpWrapperConnection(TcpConnection):
     """
@@ -37700,12 +37700,12 @@ class TcpWrapperConnection(TcpConnection):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TcpWrapperConnectionClass(GObject.GPointer):
+class TcpWrapperConnectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> TcpConnectionClass | None: ...
 
-class TcpWrapperConnectionPrivate(GObject.GPointer): ...
+class TcpWrapperConnectionPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TestDBus(GObject.Object):
     """
@@ -38026,7 +38026,7 @@ class ThemedIcon(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ThemedIconClass(GObject.GPointer): ...
+class ThemedIconClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ThreadedResolver(Resolver):
     """
@@ -38064,7 +38064,7 @@ class ThreadedResolver(Resolver):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ThreadedResolverClass(GObject.GPointer):
+class ThreadedResolverClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> ResolverClass | None: ...
@@ -38193,7 +38193,7 @@ class ThreadedSocketService(SocketService):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ThreadedSocketServiceClass(GObject.GPointer):
+class ThreadedSocketServiceClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -38210,7 +38210,7 @@ class ThreadedSocketServiceClass(GObject.GPointer):
     @builtins.property
     def run(self) -> runThreadedSocketServiceClassCB: ...
 
-class ThreadedSocketServicePrivate(GObject.GPointer): ...
+class ThreadedSocketServicePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TlsBackend(builtins.object):
     """
@@ -38284,7 +38284,7 @@ class TlsBackend(builtins.object):
         GTlsBackend, it means no "real" TLS backend is available.
         """
 
-class TlsBackendInterface(GObject.GPointer):
+class TlsBackendInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides an interface for describing TLS-related types.
     """
@@ -38779,7 +38779,7 @@ class TlsCertificate(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TlsCertificateClass(GObject.GPointer):
+class TlsCertificateClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -38788,7 +38788,7 @@ class TlsCertificateClass(GObject.GPointer):
     @builtins.property
     def verify(self) -> verifyTlsCertificateClassCB: ...
 
-class TlsCertificatePrivate(GObject.GPointer): ...
+class TlsCertificatePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TlsClientConnection(builtins.object):
     """
@@ -39000,7 +39000,7 @@ class TlsClientConnection(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TlsClientConnectionInterface(GObject.GPointer):
+class TlsClientConnectionInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     vtable for a GTlsClientConnection implementation.
     """
@@ -39633,7 +39633,7 @@ class TlsConnection(IOStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TlsConnectionClass(GObject.GPointer):
+class TlsConnectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The class structure for the GTlsConnection type.
     """
@@ -39677,7 +39677,7 @@ class TlsConnectionClass(GObject.GPointer):
         The parent class.
         """
 
-class TlsConnectionPrivate(GObject.GPointer): ...
+class TlsConnectionPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TlsDatabase(GObject.Object):
     """
@@ -40082,7 +40082,7 @@ class TlsDatabase(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TlsDatabaseClass(GObject.GPointer):
+class TlsDatabaseClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The class for GTlsDatabase. Derived classes should implement the various
     virtual methods. _async and _finish methods have a default
@@ -40173,7 +40173,7 @@ class TlsDatabaseClass(GObject.GPointer):
         `g_tls_database_verify_chain_finish`.
         """
 
-class TlsDatabasePrivate(GObject.GPointer): ...
+class TlsDatabasePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TlsFileDatabase(builtins.object):
     """
@@ -40221,7 +40221,7 @@ class TlsFileDatabase(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TlsFileDatabaseInterface(GObject.GPointer):
+class TlsFileDatabaseInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides an interface for GTlsFileDatabase implementations.
     """
@@ -40491,7 +40491,7 @@ class TlsInteraction(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TlsInteractionClass(GObject.GPointer):
+class TlsInteractionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The class for GTlsInteraction. Derived classes implement the various
     virtual interaction methods to handle TLS interactions.
@@ -40557,7 +40557,7 @@ class TlsInteractionClass(GObject.GPointer):
         filled in by using `g_tls_connection_set_certificate`.
         """
 
-class TlsInteractionPrivate(GObject.GPointer): ...
+class TlsInteractionPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TlsPassword(GObject.Object):
     """
@@ -40724,7 +40724,7 @@ class TlsPassword(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TlsPasswordClass(GObject.GPointer):
+class TlsPasswordClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GTlsPassword.
     """
@@ -40751,7 +40751,7 @@ class TlsPasswordClass(GObject.GPointer):
         virtual method for `g_tls_password_set_value`
         """
 
-class TlsPasswordPrivate(GObject.GPointer): ...
+class TlsPasswordPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TlsServerConnection(builtins.object):
     """
@@ -40801,7 +40801,7 @@ class TlsServerConnection(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TlsServerConnectionInterface(GObject.GPointer):
+class TlsServerConnectionInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     vtable for a GTlsServerConnection implementation.
     """
@@ -40985,12 +40985,12 @@ class UnixConnection(SocketConnection):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class UnixConnectionClass(GObject.GPointer):
+class UnixConnectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SocketConnectionClass | None: ...
 
-class UnixConnectionPrivate(GObject.GPointer): ...
+class UnixConnectionPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class UnixCredentialsMessage(SocketControlMessage):
     """
@@ -41086,7 +41086,7 @@ class UnixCredentialsMessage(SocketControlMessage):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class UnixCredentialsMessageClass(GObject.GPointer):
+class UnixCredentialsMessageClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for GUnixCredentialsMessage.
     """
@@ -41099,7 +41099,7 @@ class UnixCredentialsMessageClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> SocketControlMessageClass | None: ...
 
-class UnixCredentialsMessagePrivate(GObject.GPointer): ...
+class UnixCredentialsMessagePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class UnixFDList(GObject.Object):
     """
@@ -41237,7 +41237,7 @@ class UnixFDList(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class UnixFDListClass(GObject.GPointer):
+class UnixFDListClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -41252,9 +41252,9 @@ class UnixFDListClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class UnixFDListPrivate(GObject.GPointer): ...
+class UnixFDListPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class UnixFDMessageClass(GObject.GPointer):
+class UnixFDMessageClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -41263,9 +41263,9 @@ class UnixFDMessageClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> SocketControlMessageClass | None: ...
 
-class UnixFDMessagePrivate(GObject.GPointer): ...
+class UnixFDMessagePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class UnixInputStreamClass(GObject.GPointer):
+class UnixInputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -41280,10 +41280,10 @@ class UnixInputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> InputStreamClass | None: ...
 
-class UnixInputStreamPrivate(GObject.GPointer): ...
-class UnixMountMonitorClass(GObject.GPointer): ...
+class UnixInputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class UnixMountMonitorClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class UnixOutputStreamClass(GObject.GPointer):
+class UnixOutputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -41298,7 +41298,7 @@ class UnixOutputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> OutputStreamClass | None: ...
 
-class UnixOutputStreamPrivate(GObject.GPointer): ...
+class UnixOutputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class UnixSocketAddress(SocketAddress):
     """
@@ -41472,12 +41472,12 @@ class UnixSocketAddress(SocketAddress):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class UnixSocketAddressClass(GObject.GPointer):
+class UnixSocketAddressClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SocketAddressClass | None: ...
 
-class UnixSocketAddressPrivate(GObject.GPointer): ...
+class UnixSocketAddressPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Vfs(GObject.Object):
     """
@@ -41658,7 +41658,7 @@ class Vfs(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class VfsClass(GObject.GPointer):
+class VfsClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -41924,7 +41924,7 @@ class Volume(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class VolumeIface(GObject.GPointer):
+class VolumeIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Interface for implementing operations for mountable volumes.
     """
@@ -42280,7 +42280,7 @@ class VolumeMonitor(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class VolumeMonitorClass(GObject.GPointer):
+class VolumeMonitorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -42434,7 +42434,7 @@ class ZlibCompressor(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ZlibCompressorClass(GObject.GPointer):
+class ZlibCompressorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -42514,7 +42514,7 @@ class ZlibDecompressor(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ZlibDecompressorClass(GObject.GPointer):
+class ZlibDecompressorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...

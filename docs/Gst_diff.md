@@ -216,7 +216,6 @@ The comparison is organized into three sections:
 | method | `Bin.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `BinClass._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `Bitmask.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;v: typing.Any,<br>) -> None</code> |
-| method | `Bitmask.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `BufferList.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs: typing.Any,<br>) -> None</code> |
 | method | `BufferPool._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `BufferPool.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
@@ -253,27 +252,21 @@ The comparison is organized into three sections:
 | method | `DeviceProviderClass._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `DeviceProviderFactory.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `DoubleRange.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;start: typing.Any,<br>&nbsp;&nbsp;&nbsp;&nbsp;stop: typing.Any,<br>) -> None</code> |
-| method | `DoubleRange.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `DynamicTypeFactory.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `Element._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `Element.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `ElementClass._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `ElementFactory.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
-| method | `FlagSet.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `Fraction.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;num: typing.Any,<br>&nbsp;&nbsp;&nbsp;&nbsp;denom: typing.Any = 1,<br>) -> None</code> |
 | attribute | `Fraction.denom` | <code>denom: int = ...</code> |
 | attribute | `Fraction.num` | <code>num: int = ...</code> |
-| method | `Fraction.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `FractionRange.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;start: typing.Any,<br>&nbsp;&nbsp;&nbsp;&nbsp;stop: typing.Any,<br>) -> None</code> |
-| method | `FractionRange.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `GhostPad.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `GhostPad.query_caps` | <code>def query\_caps(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;filter: typing.Any = None,<br>) -> typing.Any</code> |
 | method | `GhostPadClass._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `IdStr.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs: typing.Any,<br>) -> None</code> |
 | method | `Int64Range.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;r: typing.Any,<br>) -> None</code> |
-| method | `Int64Range.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `IntRange.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;r: typing.Any,<br>) -> None</code> |
-| method | `IntRange.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `Iterator._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `MapInfo.__init__` | <code>def \_\_init\_\_(self) -> None</code> |
 | method | `MapInfo._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
@@ -299,7 +292,6 @@ The comparison is organized into three sections:
 | method | `PluginDesc._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `PluginFeature.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `Preset.__init__` | <code>def \_\_init\_\_(self) -> None</code> |
-| method | `Preset.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `PresetInterface._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `Promise.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs: typing.Any,<br>) -> None</code> |
 | method | `ProxyPad.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
@@ -343,12 +335,9 @@ The comparison is organized into three sections:
 | method | `TypeFind._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 | method | `TypeFindFactory.connect` | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `URIHandler.__init__` | <code>def \_\_init\_\_(self) -> None</code> |
-| method | `URIHandler.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `Uri.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs: typing.Any,<br>) -> None</code> |
 | method | `ValueArray.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;array: typing.Any,<br>) -> None</code> |
-| method | `ValueArray.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `ValueList.__init__` | <code>def \_\_init\_\_(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;array: typing.Any,<br>) -> None</code> |
-| method | `ValueList.props` | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `ValueTable._gst_reserved` | <code>@builtins.property<br>def \_gst\_reserved(self) -> list \| None</code> |
 
 ---
@@ -504,22 +493,55 @@ The comparison is organized into three sections:
 |------|------|------|--------|--------|
 | constant | constant | `ALLOCATOR_SYSMEM` | <code>ALLOCATOR\_SYSMEM: str = ...</code> | <code>ALLOCATOR\_SYSMEM: str = 'SystemMemory'</code> |
 | class | class | `AddError` | <code>class AddError(builtins.Exception)</code> | <code>class AddError(Exception)</code> |
+| class | class | `AllocationParams` | <code>class AllocationParams(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class AllocationParams(GObject.GBoxed)</code> |
+| class | class | `AllocatorClass` | <code>class AllocatorClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class AllocatorClass(GObject.GPointer)</code> |
+| class | class | `AllocatorPrivate` | <code>class AllocatorPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class AllocatorPrivate(GObject.GPointer)</code> |
+| class | class | `AtomicQueue` | <code>class AtomicQueue(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class AtomicQueue(GObject.GBoxed)</code> |
 | constant | constant | `BUFFER_COPY_ALL` | <code>BUFFER\_COPY\_ALL = BufferCopyFlags.NONE</code> | <code>BUFFER\_COPY\_ALL: int = 0</code> |
 | constant | constant | `BUFFER_COPY_METADATA` | <code>BUFFER\_COPY\_METADATA = BufferCopyFlags.NONE</code> | <code>BUFFER\_COPY\_METADATA: int = 0</code> |
 | constant | constant | `BUFFER_OFFSET_NONE` | <code>BUFFER\_OFFSET\_NONE: int = ...</code> | <code>BUFFER\_OFFSET\_NONE: int = 18446744073709551615</code> |
 | class | class | `Bin` | <code>class Bin(Element)</code> | <code>class Bin(Element, ChildProxy)</code> |
-| class | class | `Bitmask` | <code>class Bitmask(builtins.object)</code> | <code>class Bitmask</code> |
-| class | class | `Buffer` | <code>class Buffer(GObject.GBoxed)</code> | <code>class Buffer(GObject.GBoxed, MiniObjectMixin)</code> |
+| class | class | `BinClass` | <code>class BinClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class BinClass(GObject.GPointer)</code> |
+| class | class | `BinPrivate` | <code>class BinPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class BinPrivate(GObject.GPointer)</code> |
+| class | class | `Bitmask` | <code>class Bitmask(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class Bitmask</code> |
+| class | class | `Buffer` | <code>class Buffer(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Buffer(GObject.GBoxed, MiniObjectMixin)</code> |
+| class | class | `BufferList` | <code>class BufferList(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class BufferList(GObject.GBoxed)</code> |
+| class | class | `BufferPoolAcquireParams` | <code>class BufferPoolAcquireParams(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class BufferPoolAcquireParams(GObject.GPointer)</code> |
+| class | class | `BufferPoolClass` | <code>class BufferPoolClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class BufferPoolClass(GObject.GPointer)</code> |
+| class | class | `BufferPoolPrivate` | <code>class BufferPoolPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class BufferPoolPrivate(GObject.GPointer)</code> |
+| class | class | `BusClass` | <code>class BusClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class BusClass(GObject.GPointer)</code> |
+| class | class | `BusPrivate` | <code>class BusPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class BusPrivate(GObject.GPointer)</code> |
+| class | class | `ByteArrayInterface` | <code>class ByteArrayInterface(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ByteArrayInterface(GObject.GPointer)</code> |
 | constant | constant | `CAN_INLINE` | <code>CAN\_INLINE: int = ...</code> | <code>CAN\_INLINE: int = 1</code> |
 | constant | constant | `CAPS_FEATURE_MEMORY_SYSTEM_MEMORY` | <code>CAPS\_FEATURE\_MEMORY\_SYSTEM\_MEMORY: str = ...</code> | <code>CAPS\_FEATURE\_MEMORY\_SYSTEM\_MEMORY: str = 'memory:SystemMemory'</code> |
 | constant | constant | `CLOCK_TIME_NONE` | <code>CLOCK\_TIME\_NONE: int = ...</code> | <code>CLOCK\_TIME\_NONE: int = 18446744073709551615</code> |
-| class | class | `Caps` | <code>class Caps(GObject.GBoxed)</code> | <code>class Caps(GObject.GBoxed, MiniObjectMixin)</code> |
+| class | class | `Caps` | <code>class Caps(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Caps(GObject.GBoxed, MiniObjectMixin)</code> |
+| class | class | `CapsFeatures` | <code>class CapsFeatures(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class CapsFeatures(GObject.GBoxed)</code> |
 | class | class | `ChildProxy` | <code>class ChildProxy(builtins.object)</code> | <code>class ChildProxy(GObject.GInterface)</code> |
-| class | class | `Context` | <code>class Context(GObject.GBoxed)</code> | <code>class Context(GObject.GBoxed, MiniObjectMixin)</code> |
+| class | class | `ChildProxyInterface` | <code>class ChildProxyInterface(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ChildProxyInterface(GObject.GPointer)</code> |
+| class | class | `ClockClass` | <code>class ClockClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ClockClass(GObject.GPointer)</code> |
+| class | class | `ClockEntry` | <code>class ClockEntry(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ClockEntry(GObject.GPointer)</code> |
+| class | class | `ClockPrivate` | <code>class ClockPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ClockPrivate(GObject.GPointer)</code> |
+| class | class | `Context` | <code>class Context(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Context(GObject.GBoxed, MiniObjectMixin)</code> |
+| class | class | `ControlBindingClass` | <code>class ControlBindingClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ControlBindingClass(GObject.GPointer)</code> |
+| class | class | `ControlBindingPrivate` | <code>class ControlBindingPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ControlBindingPrivate(GObject.GPointer)</code> |
+| class | class | `ControlSourceClass` | <code>class ControlSourceClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ControlSourceClass(GObject.GPointer)</code> |
+| class | class | `CustomMeta` | <code>class CustomMeta(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class CustomMeta(GObject.GPointer)</code> |
 | constant | constant | `DEBUG_BG_MASK` | <code>DEBUG\_BG\_MASK: int = ...</code> | <code>DEBUG\_BG\_MASK: int = 240</code> |
 | constant | constant | `DEBUG_FG_MASK` | <code>DEBUG\_FG\_MASK: int = ...</code> | <code>DEBUG\_FG\_MASK: int = 15</code> |
 | constant | constant | `DEBUG_FORMAT_MASK` | <code>DEBUG\_FORMAT\_MASK: int = ...</code> | <code>DEBUG\_FORMAT\_MASK: int = 65280</code> |
-| class | class | `DoubleRange` | <code>class DoubleRange(builtins.object)</code> | <code>class DoubleRange</code> |
+| class | class | `DateTime` | <code>class DateTime(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class DateTime(GObject.GBoxed)</code> |
+| class | class | `DebugCategory` | <code>class DebugCategory(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DebugCategory(GObject.GPointer)</code> |
+| class | class | `DebugMessage` | <code>class DebugMessage(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DebugMessage(GObject.GPointer)</code> |
+| class | class | `DeviceClass` | <code>class DeviceClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DeviceClass(GObject.GPointer)</code> |
+| class | class | `DeviceMonitorClass` | <code>class DeviceMonitorClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DeviceMonitorClass(GObject.GPointer)</code> |
+| class | class | `DeviceMonitorPrivate` | <code>class DeviceMonitorPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DeviceMonitorPrivate(GObject.GPointer)</code> |
+| class | class | `DevicePrivate` | <code>class DevicePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DevicePrivate(GObject.GPointer)</code> |
+| class | class | `DeviceProviderClass` | <code>class DeviceProviderClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DeviceProviderClass(GObject.GPointer)</code> |
+| class | class | `DeviceProviderFactoryClass` | <code>class DeviceProviderFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DeviceProviderFactoryClass(GObject.GPointer)</code> |
+| class | class | `DeviceProviderPrivate` | <code>class DeviceProviderPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DeviceProviderPrivate(GObject.GPointer)</code> |
+| class | class | `DoubleRange` | <code>class DoubleRange(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class DoubleRange</code> |
+| class | class | `DynamicTypeFactoryClass` | <code>class DynamicTypeFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class DynamicTypeFactoryClass(GObject.GPointer)</code> |
 | constant | constant | `ELEMENT_FACTORY_KLASS_DECODER` | <code>ELEMENT\_FACTORY\_KLASS\_DECODER: str = ...</code> | <code>ELEMENT\_FACTORY\_KLASS\_DECODER: str = 'Decoder'</code> |
 | constant | constant | `ELEMENT_FACTORY_KLASS_DECRYPTOR` | <code>ELEMENT\_FACTORY\_KLASS\_DECRYPTOR: str = ...</code> | <code>ELEMENT\_FACTORY\_KLASS\_DECRYPTOR: str = 'Decryptor'</code> |
 | constant | constant | `ELEMENT_FACTORY_KLASS_DEMUXER` | <code>ELEMENT\_FACTORY\_KLASS\_DEMUXER: str = ...</code> | <code>ELEMENT\_FACTORY\_KLASS\_DEMUXER: str = 'Demuxer'</code> |
@@ -572,16 +594,23 @@ The comparison is organized into three sections:
 | constant | constant | `ELEMENT_METADATA_LONGNAME` | <code>ELEMENT\_METADATA\_LONGNAME: str = ...</code> | <code>ELEMENT\_METADATA\_LONGNAME: str = 'long-name'</code> |
 | constant | constant | `EVENT_NUM_SHIFT` | <code>EVENT\_NUM\_SHIFT: int = ...</code> | <code>EVENT\_NUM\_SHIFT: int = 8</code> |
 | constant | constant | `EVENT_TYPE_BOTH` | <code>EVENT\_TYPE\_BOTH = EventTypeFlags(0)</code> | <code>EVENT\_TYPE\_BOTH: int = 0</code> |
-| class | class | `Event` | <code>class Event(GObject.GBoxed)</code> | <code>class Event(GObject.GBoxed, MiniObjectMixin)</code> |
+| class | class | `ElementClass` | <code>class ElementClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ElementClass(GObject.GPointer)</code> |
+| class | class | `ElementFactoryClass` | <code>class ElementFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ElementFactoryClass(GObject.GPointer)</code> |
+| class | class | `Event` | <code>class Event(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Event(GObject.GBoxed, MiniObjectMixin)</code> |
 | constant | constant | `FLAG_SET_MASK_EXACT` | <code>FLAG\_SET\_MASK\_EXACT: int = ...</code> | <code>FLAG\_SET\_MASK\_EXACT: int = 4294967295</code> |
 | constant | constant | `FORMAT_PERCENT_MAX` | <code>FORMAT\_PERCENT\_MAX: int = ...</code> | <code>FORMAT\_PERCENT\_MAX: int = 1000000</code> |
 | constant | constant | `FORMAT_PERCENT_SCALE` | <code>FORMAT\_PERCENT\_SCALE: int = ...</code> | <code>FORMAT\_PERCENT\_SCALE: int = 10000</code> |
-| class | class | `FlagSet` | <code>class FlagSet(builtins.object)</code> | <code>class FlagSet</code> |
-| class | class | `Fraction` | <code>class Fraction(builtins.object)</code> | <code>class Fraction</code> |
-| class | class | `FractionRange` | <code>class FractionRange(builtins.object)</code> | <code>class FractionRange</code> |
+| class | class | `FlagSet` | <code>class FlagSet(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class FlagSet</code> |
+| class | class | `FormatDefinition` | <code>class FormatDefinition(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class FormatDefinition(GObject.GPointer)</code> |
+| class | class | `Fraction` | <code>class Fraction(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class Fraction</code> |
+| class | class | `FractionRange` | <code>class FractionRange(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class FractionRange</code> |
 | constant | constant | `GROUP_ID_INVALID` | <code>GROUP\_ID\_INVALID: int = ...</code> | <code>GROUP\_ID\_INVALID: int = 0</code> |
-| class | class | `Int64Range` | <code>class Int64Range(builtins.object)</code> | <code>class Int64Range</code> |
-| class | class | `IntRange` | <code>class IntRange(builtins.object)</code> | <code>class IntRange</code> |
+| class | class | `GhostPadClass` | <code>class GhostPadClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class GhostPadClass(GObject.GPointer)</code> |
+| class | class | `GhostPadPrivate` | <code>class GhostPadPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class GhostPadPrivate(GObject.GPointer)</code> |
+| class | class | `IdStr` | <code>class IdStr(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class IdStr(GObject.GBoxed)</code> |
+| class | class | `Int64Range` | <code>class Int64Range(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class Int64Range</code> |
+| class | class | `IntRange` | <code>class IntRange(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class IntRange</code> |
+| class | class | `Iterator` | <code>class Iterator(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Iterator(GObject.GBoxed)</code> |
 | class | class | `IteratorError` | <code>class IteratorError(builtins.Exception)</code> | <code>class IteratorError(Exception)</code> |
 | constant | constant | `LICENSE_UNKNOWN` | <code>LICENSE\_UNKNOWN: str = ...</code> | <code>LICENSE\_UNKNOWN: str = 'unknown'</code> |
 | constant | constant | `LOCK_FLAG_READWRITE` | <code>LOCK\_FLAG\_READWRITE = LockFlags(0)</code> | <code>LOCK\_FLAG\_READWRITE: int = 0</code> |
@@ -592,8 +621,15 @@ The comparison is organized into three sections:
 | constant | constant | `MSECOND` | <code>MSECOND: int = ...</code> | <code>MSECOND: int = 1000000</code> |
 | class | class | `MapError` | <code>class MapError(builtins.Exception)</code> | <code>class MapError(Exception)</code> |
 | class | class | `MapInfo` | <code>class MapInfo(builtins.object)</code> | <code>class MapInfo</code> |
+| class | class | `Memory` | <code>class Memory(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Memory(GObject.GBoxed)</code> |
+| class | class | `Message` | <code>class Message(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Message(GObject.GBoxed)</code> |
+| class | class | `Meta` | <code>class Meta(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class Meta(GObject.GPointer)</code> |
+| class | class | `MetaInfo` | <code>class MetaInfo(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class MetaInfo(GObject.GPointer)</code> |
+| class | class | `MetaTransformCopy` | <code>class MetaTransformCopy(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class MetaTransformCopy(GObject.GPointer)</code> |
+| class | class | `MiniObject` | <code>class MiniObject(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class MiniObject(GObject.GBoxed)</code> |
 | constant | constant | `NSECOND` | <code>NSECOND: int = ...</code> | <code>NSECOND: int = 1</code> |
 | class | class | `NotInitialized` | <code>class NotInitialized(builtins.Exception)</code> | <code>class NotInitialized(Exception)</code> |
+| class | class | `ObjectClass` | <code>class ObjectClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ObjectClass(GObject.GPointer)</code> |
 | constant | constant | `PARAM_CONDITIONALLY_AVAILABLE` | <code>PARAM\_CONDITIONALLY\_AVAILABLE: int = ...</code> | <code>PARAM\_CONDITIONALLY\_AVAILABLE: int = 16384</code> |
 | constant | constant | `PARAM_CONTROLLABLE` | <code>PARAM\_CONTROLLABLE: int = ...</code> | <code>PARAM\_CONTROLLABLE: int = 512</code> |
 | constant | constant | `PARAM_DOC_SHOW_DEFAULT` | <code>PARAM\_DOC\_SHOW\_DEFAULT: int = ...</code> | <code>PARAM\_DOC\_SHOW\_DEFAULT: int = 8192</code> |
@@ -603,14 +639,52 @@ The comparison is organized into three sections:
 | constant | constant | `PARAM_USER_SHIFT` | <code>PARAM\_USER\_SHIFT: int = ...</code> | <code>PARAM\_USER\_SHIFT: int = 65536</code> |
 | constant | constant | `PROTECTION_SYSTEM_ID_CAPS_FIELD` | <code>PROTECTION\_SYSTEM\_ID\_CAPS\_FIELD: str = ...</code> | <code>PROTECTION\_SYSTEM\_ID\_CAPS\_FIELD: str = 'protection-system'</code> |
 | constant | constant | `PROTECTION_UNSPECIFIED_SYSTEM_ID` | <code>PROTECTION\_UNSPECIFIED\_SYSTEM\_ID: str = ...</code> | <code>PROTECTION\_UNSPECIFIED\_SYSTEM\_ID: str = 'unspecified-system-id'</code> |
+| class | class | `PadClass` | <code>class PadClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PadClass(GObject.GPointer)</code> |
+| class | class | `PadPrivate` | <code>class PadPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PadPrivate(GObject.GPointer)</code> |
+| class | class | `PadProbeInfo` | <code>class PadProbeInfo(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PadProbeInfo(GObject.GPointer)</code> |
+| class | class | `PadTemplateClass` | <code>class PadTemplateClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PadTemplateClass(GObject.GPointer)</code> |
+| class | class | `ParamArray` | <code>class ParamArray(GObject.ParamSpec, metaclass=GObject.GTypeMeta)</code> | <code>class ParamArray(GObject.ParamSpec)</code> |
+| class | class | `ParamFraction` | <code>class ParamFraction(GObject.ParamSpec, metaclass=GObject.GTypeMeta)</code> | <code>class ParamFraction(GObject.ParamSpec)</code> |
+| class | class | `ParamSpecArray` | <code>class ParamSpecArray(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ParamSpecArray(GObject.GPointer)</code> |
+| class | class | `ParamSpecFraction` | <code>class ParamSpecFraction(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ParamSpecFraction(GObject.GPointer)</code> |
+| class | class | `ParentBufferMeta` | <code>class ParentBufferMeta(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ParentBufferMeta(GObject.GPointer)</code> |
+| class | class | `ParseContext` | <code>class ParseContext(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class ParseContext(GObject.GBoxed)</code> |
 | class | class | `Pipeline` | <code>class Pipeline(Bin)</code> | <code>class Pipeline(Bin, ChildProxy)</code> |
-| class | class | `Preset` | <code>class Preset(builtins.object)</code> | <code>class Preset(GObject.GInterface)</code> |
+| class | class | `PipelineClass` | <code>class PipelineClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PipelineClass(GObject.GPointer)</code> |
+| class | class | `PipelinePrivate` | <code>class PipelinePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PipelinePrivate(GObject.GPointer)</code> |
+| class | class | `PluginClass` | <code>class PluginClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PluginClass(GObject.GPointer)</code> |
+| class | class | `PluginDesc` | <code>class PluginDesc(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PluginDesc(GObject.GPointer)</code> |
+| class | class | `PluginFeatureClass` | <code>class PluginFeatureClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PluginFeatureClass(GObject.GPointer)</code> |
+| class | class | `Poll` | <code>class Poll(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class Poll(GObject.GPointer)</code> |
+| class | class | `PollFD` | <code>class PollFD(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PollFD(GObject.GPointer)</code> |
+| class | class | `Preset` | <code>class Preset(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class Preset(GObject.GInterface)</code> |
+| class | class | `PresetInterface` | <code>class PresetInterface(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class PresetInterface(GObject.GPointer)</code> |
+| class | class | `Promise` | <code>class Promise(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Promise(GObject.GBoxed)</code> |
+| class | class | `ProtectionMeta` | <code>class ProtectionMeta(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ProtectionMeta(GObject.GPointer)</code> |
+| class | class | `ProxyPadClass` | <code>class ProxyPadClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ProxyPadClass(GObject.GPointer)</code> |
+| class | class | `ProxyPadPrivate` | <code>class ProxyPadPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ProxyPadPrivate(GObject.GPointer)</code> |
 | constant | constant | `QUERY_NUM_SHIFT` | <code>QUERY\_NUM\_SHIFT: int = ...</code> | <code>QUERY\_NUM\_SHIFT: int = 8</code> |
 | constant | constant | `QUERY_TYPE_BOTH` | <code>QUERY\_TYPE\_BOTH = QueryTypeFlags(0)</code> | <code>QUERY\_TYPE\_BOTH: int = 0</code> |
-| class | class | `Query` | <code>class Query(GObject.GBoxed)</code> | <code>class Query(GObject.GBoxed, MiniObjectMixin)</code> |
+| class | class | `Query` | <code>class Query(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Query(GObject.GBoxed, MiniObjectMixin)</code> |
+| class | class | `ReferenceTimestampMeta` | <code>class ReferenceTimestampMeta(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ReferenceTimestampMeta(GObject.GPointer)</code> |
+| class | class | `RegistryClass` | <code>class RegistryClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class RegistryClass(GObject.GPointer)</code> |
+| class | class | `RegistryPrivate` | <code>class RegistryPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class RegistryPrivate(GObject.GPointer)</code> |
 | constant | constant | `SECOND` | <code>SECOND: int = ...</code> | <code>SECOND: int = 1000000000</code> |
 | constant | constant | `SEGMENT_INSTANT_FLAGS` | <code>SEGMENT\_INSTANT\_FLAGS: int = ...</code> | <code>SEGMENT\_INSTANT\_FLAGS: int = 912</code> |
 | constant | constant | `SEQNUM_INVALID` | <code>SEQNUM\_INVALID: int = ...</code> | <code>SEQNUM\_INVALID: int = 0</code> |
+| class | class | `Sample` | <code>class Sample(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Sample(GObject.GBoxed)</code> |
+| class | class | `Segment` | <code>class Segment(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Segment(GObject.GBoxed)</code> |
+| class | class | `SharedTaskPoolClass` | <code>class SharedTaskPoolClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class SharedTaskPoolClass(GObject.GPointer)</code> |
+| class | class | `SharedTaskPoolPrivate` | <code>class SharedTaskPoolPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class SharedTaskPoolPrivate(GObject.GPointer)</code> |
+| class | class | `StaticCaps` | <code>class StaticCaps(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class StaticCaps(GObject.GPointer)</code> |
+| class | class | `StaticPadTemplate` | <code>class StaticPadTemplate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class StaticPadTemplate(GObject.GPointer)</code> |
+| class | class | `StreamClass` | <code>class StreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class StreamClass(GObject.GPointer)</code> |
+| class | class | `StreamCollectionClass` | <code>class StreamCollectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class StreamCollectionClass(GObject.GPointer)</code> |
+| class | class | `StreamCollectionPrivate` | <code>class StreamCollectionPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class StreamCollectionPrivate(GObject.GPointer)</code> |
+| class | class | `StreamPrivate` | <code>class StreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class StreamPrivate(GObject.GPointer)</code> |
+| class | class | `Structure` | <code>class Structure(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Structure(GObject.GBoxed)</code> |
+| class | class | `SystemClockClass` | <code>class SystemClockClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class SystemClockClass(GObject.GPointer)</code> |
+| class | class | `SystemClockPrivate` | <code>class SystemClockPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class SystemClockPrivate(GObject.GPointer)</code> |
 | constant | constant | `TAG_ALBUM` | <code>TAG\_ALBUM: str = ...</code> | <code>TAG\_ALBUM: str = 'album'</code> |
 | constant | constant | `TAG_ALBUM_ARTIST` | <code>TAG\_ALBUM\_ARTIST: str = ...</code> | <code>TAG\_ALBUM\_ARTIST: str = 'album-artist'</code> |
 | constant | constant | `TAG_ALBUM_ARTIST_SORTNAME` | <code>TAG\_ALBUM\_ARTIST\_SORTNAME: str = ...</code> | <code>TAG\_ALBUM\_ARTIST\_SORTNAME: str = 'album-artist-sortname'</code> |
@@ -699,11 +773,28 @@ The comparison is organized into three sections:
 | constant | constant | `TAG_VIDEO_CODEC` | <code>TAG\_VIDEO\_CODEC: str = ...</code> | <code>TAG\_VIDEO\_CODEC: str = 'video-codec'</code> |
 | function | function | `TIME_ARGS` | <code>def TIME\_ARGS(time: typing.Any) -> typing.Any</code> | <code>def TIME\_ARGS(time: int) -> str</code> |
 | constant | constant | `TOC_REPEAT_COUNT_INFINITE` | <code>TOC\_REPEAT\_COUNT\_INFINITE: int = ...</code> | <code>TOC\_REPEAT\_COUNT\_INFINITE: int = -1</code> |
+| class | class | `TagList` | <code>class TagList(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class TagList(GObject.GBoxed)</code> |
 | class | class | `TagSetter` | <code>class TagSetter(builtins.object)</code> | <code>class TagSetter(GObject.GInterface)</code> |
+| class | class | `TagSetterInterface` | <code>class TagSetterInterface(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TagSetterInterface(GObject.GPointer)</code> |
+| class | class | `TaskClass` | <code>class TaskClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TaskClass(GObject.GPointer)</code> |
+| class | class | `TaskPoolClass` | <code>class TaskPoolClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TaskPoolClass(GObject.GPointer)</code> |
+| class | class | `TaskPrivate` | <code>class TaskPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TaskPrivate(GObject.GPointer)</code> |
+| class | class | `TimedValue` | <code>class TimedValue(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TimedValue(GObject.GPointer)</code> |
+| class | class | `Toc` | <code>class Toc(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Toc(GObject.GBoxed)</code> |
+| class | class | `TocEntry` | <code>class TocEntry(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class TocEntry(GObject.GBoxed)</code> |
 | class | class | `TocSetter` | <code>class TocSetter(builtins.object)</code> | <code>class TocSetter(GObject.GInterface)</code> |
-| class | class | `URIHandler` | <code>class URIHandler(builtins.object)</code> | <code>class URIHandler(GObject.GInterface)</code> |
+| class | class | `TocSetterInterface` | <code>class TocSetterInterface(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TocSetterInterface(GObject.GPointer)</code> |
+| class | class | `TracerClass` | <code>class TracerClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TracerClass(GObject.GPointer)</code> |
+| class | class | `TracerFactoryClass` | <code>class TracerFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TracerFactoryClass(GObject.GPointer)</code> |
+| class | class | `TracerPrivate` | <code>class TracerPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TracerPrivate(GObject.GPointer)</code> |
+| class | class | `TracerRecordClass` | <code>class TracerRecordClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TracerRecordClass(GObject.GPointer)</code> |
+| class | class | `TypeFind` | <code>class TypeFind(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TypeFind(GObject.GPointer)</code> |
+| class | class | `TypeFindFactoryClass` | <code>class TypeFindFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class TypeFindFactoryClass(GObject.GPointer)</code> |
+| class | class | `URIHandler` | <code>class URIHandler(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class URIHandler(GObject.GInterface)</code> |
+| class | class | `URIHandlerInterface` | <code>class URIHandlerInterface(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class URIHandlerInterface(GObject.GPointer)</code> |
 | constant | constant | `URI_NO_PORT` | <code>URI\_NO\_PORT: int = ...</code> | <code>URI\_NO\_PORT: int = 0</code> |
 | constant | constant | `USECOND` | <code>USECOND: int = ...</code> | <code>USECOND: int = 1000</code> |
+| class | class | `Uri` | <code>class Uri(GObject.GBoxed, metaclass=GObject.GTypeMeta)</code> | <code>class Uri(GObject.GBoxed)</code> |
 | constant | constant | `VALUE_EQUAL` | <code>VALUE\_EQUAL: int = ...</code> | <code>VALUE\_EQUAL: int = 0</code> |
 | constant | constant | `VALUE_GREATER_THAN` | <code>VALUE\_GREATER\_THAN: int = ...</code> | <code>VALUE\_GREATER\_THAN: int = 1</code> |
 | constant | constant | `VALUE_LESS_THAN` | <code>VALUE\_LESS\_THAN: int = ...</code> | <code>VALUE\_LESS\_THAN: int = -1</code> |
@@ -712,8 +803,9 @@ The comparison is organized into three sections:
 | constant | constant | `VERSION_MICRO` | <code>VERSION\_MICRO: int = ...</code> | <code>VERSION\_MICRO: int = 9</code> |
 | constant | constant | `VERSION_MINOR` | <code>VERSION\_MINOR: int = ...</code> | <code>VERSION\_MINOR: int = 26</code> |
 | constant | constant | `VERSION_NANO` | <code>VERSION\_NANO: int = ...</code> | <code>VERSION\_NANO: int = 1</code> |
-| class | class | `ValueArray` | <code>class ValueArray(builtins.object)</code> | <code>class ValueArray</code> |
-| class | class | `ValueList` | <code>class ValueList(builtins.object)</code> | <code>class ValueList</code> |
+| class | class | `ValueArray` | <code>class ValueArray(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class ValueArray</code> |
+| class | class | `ValueList` | <code>class ValueList(builtins.object, metaclass=GObject.GTypeMeta)</code> | <code>class ValueList</code> |
+| class | class | `ValueTable` | <code>class ValueTable(GObject.GPointer, metaclass=GObject.GTypeMeta)</code> | <code>class ValueTable(GObject.GPointer)</code> |
 | constant | function | `debug` | <code>debug = \_gi\_gst.debug</code> | <code>def debug(<br>&nbsp;&nbsp;&nbsp;&nbsp;*args,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs,<br>)</code> |
 | function | function | `debug_add_log_function` | <code>def debug\_add\_log\_function(<br>&nbsp;&nbsp;&nbsp;&nbsp;func: LogFunction,<br>&nbsp;&nbsp;&nbsp;&nbsp;*user\_data: object \| None,<br>) -> None</code> | <code>def debug\_add\_log\_function(<br>&nbsp;&nbsp;&nbsp;&nbsp;func: typing.Callable[..., None],<br>&nbsp;&nbsp;&nbsp;&nbsp;*user\_data: typing.Any,<br>) -> None</code> |
 | function | function | `debug_get_all_categories` | <code>def debug\_get\_all\_categories() -> list</code> | <code>def debug\_get\_all\_categories() -> list[DebugCategory]</code> |
@@ -1630,6 +1722,6 @@ The comparison is organized into three sections:
 
 # Summary
 
-- Elements only in gi-stub-gen: **310**
+- Elements only in gi-stub-gen: **299**
 - Elements only in pygobject-stubs: **138**
-- Elements with differences: **1123**
+- Elements with differences: **1226**

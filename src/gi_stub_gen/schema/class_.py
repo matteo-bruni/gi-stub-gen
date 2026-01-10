@@ -10,6 +10,7 @@ from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import FunctionSchema
 from gi_stub_gen.schema.signals import SignalSchema
+from gi_stub_gen.utils.gi_utils import do_class_need_gtype_metaclass
 from gi_stub_gen.utils.utils import get_super_class_name, sanitize_gi_module_name
 
 
@@ -123,7 +124,7 @@ class ClassFieldSchema(BaseSchema):
 
 
 class ClassSchema(BaseSchema):
-    bases: list[str]
+    super: list[str]
     namespace: str
     name: str
     docstring: str | None
@@ -250,10 +251,20 @@ class ClassSchema(BaseSchema):
             if sane_super_namespace != sanitize_gi_module_name(namespace):
                 required_gi_import = sane_super_namespace
 
+        # check if we need to add GTypeMeta as metaclass
+        is_gtype = do_class_need_gtype_metaclass(obj)
+
+        super_list = [base_class]
+        if is_gtype:
+            if sane_namespace == "GObject":
+                super_list.append("metaclass=GTypeMeta")
+            else:
+                super_list.append("metaclass=GObject.GTypeMeta")
+
         instance = cls(
             namespace=namespace,
             name=obj.__name__,
-            bases=[base_class],
+            super=super_list,
             docstring=class_docstring,
             props=props,
             fields=fields,
@@ -272,7 +283,7 @@ class ClassSchema(BaseSchema):
         """
         Get the super class name, if any.
         """
-        return ", ".join(self.bases)
+        return ", ".join(self.super)
 
     def render(self) -> str:
         return TemplateManager.render_master("class.jinja", cls_=self)

@@ -8681,7 +8681,7 @@ class unicode_general_category_t(GObject.GEnum):
 # classes
 ###############################################################
 
-class aat_layout_feature_selector_info_t(GObject.GPointer):
+class aat_layout_feature_selector_info_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure representing a setting for an #hb_aat_layout_feature_type_t.
     """
@@ -8702,7 +8702,7 @@ class aat_layout_feature_selector_info_t(GObject.GPointer):
     @builtins.property
     def reserved(self) -> int: ...
 
-class blob_t(GObject.GBoxed):
+class blob_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type for blobs. A blob wraps a chunk of binary
     data and facilitates its lifecycle management between
@@ -8711,7 +8711,7 @@ class blob_t(GObject.GBoxed):
 
     ...
 
-class buffer_t(GObject.GBoxed):
+class buffer_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The main structure holding the input text and its properties before shaping,
     and output glyphs and their information after shaping.
@@ -8719,7 +8719,7 @@ class buffer_t(GObject.GBoxed):
 
     ...
 
-class color_line_t(GObject.GBoxed):
+class color_line_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A struct containing color information for a gradient.
     """
@@ -8739,7 +8739,7 @@ class color_line_t(GObject.GBoxed):
     reserved7: object | None = ...
     reserved8: object | None = ...
 
-class color_stop_t(GObject.GBoxed):
+class color_stop_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Information about a color stop on a color line.
 
@@ -8766,7 +8766,7 @@ class color_stop_t(GObject.GBoxed):
     the offset of the color stop
     """
 
-class draw_funcs_t(GObject.GBoxed):
+class draw_funcs_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Glyph draw callbacks.
 
@@ -8778,7 +8778,7 @@ class draw_funcs_t(GObject.GBoxed):
 
     ...
 
-class draw_state_t(GObject.GBoxed):
+class draw_state_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Current drawing state.
     """
@@ -8819,14 +8819,14 @@ class draw_state_t(GObject.GBoxed):
     @builtins.property
     def reserved7(self) -> var_num_t | None: ...
 
-class face_t(GObject.GBoxed):
+class face_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type for holding font faces.
     """
 
     ...
 
-class feature_t(GObject.GBoxed):
+class feature_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The #hb_feature_t is the structure that holds information about requested
     feature application. The feature will be applied with the given value to all
@@ -8863,7 +8863,7 @@ class feature_t(GObject.GBoxed):
         allocating big enough size for `buf`, 128 bytes is more than enough.
         """
 
-class font_extents_t(GObject.GPointer):
+class font_extents_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Font-wide extent values, measured in font units.
 
@@ -8903,7 +8903,7 @@ class font_extents_t(GObject.GPointer):
     @builtins.property
     def reserved9(self) -> int: ...
 
-class font_funcs_t(GObject.GBoxed):
+class font_funcs_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type containing a set of virtual methods used for
     working on #hb_font_t font objects.
@@ -8917,14 +8917,14 @@ class font_funcs_t(GObject.GBoxed):
 
     ...
 
-class font_t(GObject.GBoxed):
+class font_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type for holding fonts.
     """
 
     ...
 
-class glyph_extents_t(GObject.GPointer):
+class glyph_extents_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Glyph extent values, measured in font units.
 
@@ -8949,7 +8949,7 @@ class glyph_extents_t(GObject.GPointer):
     Distance from the top extremum of the glyph to the y-origin.
     """
 
-class glyph_info_t(GObject.GBoxed):
+class glyph_info_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The #hb_glyph_info_t is the structure that holds information about the
     glyphs and their relation to input text.
@@ -8982,7 +8982,7 @@ class glyph_info_t(GObject.GBoxed):
     @builtins.property
     def var2(self) -> var_int_t | None: ...
 
-class glyph_position_t(GObject.GBoxed):
+class glyph_position_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The #hb_glyph_position_t is the structure that holds the positions of the
     glyph in both horizontal and vertical directions. All positions in
@@ -9013,7 +9013,7 @@ class glyph_position_t(GObject.GBoxed):
                should not affect how much the line advances.
     """
 
-class language_t(GObject.GPointer):
+class language_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Data type for languages. Each #hb_language_t corresponds to a BCP 47
     language tag.
@@ -9025,14 +9025,14 @@ class language_t(GObject.GPointer):
         Converts an #hb_language_t to a string.
         """
 
-class map_t(GObject.GBoxed):
+class map_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type for holding integer-to-integer hash maps.
     """
 
     ...
 
-class ot_color_layer_t(GObject.GPointer):
+class ot_color_layer_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Pairs of glyph and color index.
 
@@ -9051,7 +9051,7 @@ class ot_color_layer_t(GObject.GPointer):
     the glyph ID of the layer
     """
 
-class ot_math_glyph_part_t(GObject.GBoxed):
+class ot_math_glyph_part_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type to hold information for a "part" component of a math-variant glyph.
     Large variants for stretchable math glyphs (such as parentheses) can be constructed
@@ -9080,7 +9080,7 @@ class ot_math_glyph_part_t(GObject.GBoxed):
     The length of the connector on the starting side of the variant part
     """
 
-class ot_math_glyph_variant_t(GObject.GBoxed):
+class ot_math_glyph_variant_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type to hold math-variant information for a glyph.
     """
@@ -9095,7 +9095,7 @@ class ot_math_glyph_variant_t(GObject.GBoxed):
     The glyph index of the variant
     """
 
-class ot_math_kern_entry_t(GObject.GPointer):
+class ot_math_kern_entry_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Data type to hold math kerning (cut-in) information for a glyph.
     """
@@ -9110,7 +9110,7 @@ class ot_math_kern_entry_t(GObject.GPointer):
     The maximum height at which this entry should be used
     """
 
-class ot_name_entry_t(GObject.GPointer):
+class ot_name_entry_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure representing a name ID in a particular language.
     """
@@ -9127,7 +9127,7 @@ class ot_name_entry_t(GObject.GPointer):
     @builtins.property
     def var(self) -> var_int_t | None: ...
 
-class ot_var_axis_info_t(GObject.GBoxed):
+class ot_var_axis_info_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type for holding variation-axis values.
 
@@ -9169,7 +9169,7 @@ class ot_var_axis_info_t(GObject.GBoxed):
     The #hb_tag_t tag identifying the design variation of the axis
     """
 
-class ot_var_axis_t(GObject.GPointer):
+class ot_var_axis_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Use #hb_ot_var_axis_info_t instead.
     """
@@ -9196,7 +9196,7 @@ class ot_var_axis_t(GObject.GPointer):
     axis tag
     """
 
-class paint_funcs_t(GObject.GBoxed):
+class paint_funcs_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Glyph paint callbacks.
 
@@ -9222,7 +9222,7 @@ class paint_funcs_t(GObject.GBoxed):
 
     ...
 
-class segment_properties_t(GObject.GBoxed):
+class segment_properties_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The structure that holds various text properties of an #hb_buffer_t. Can be
     set and retrieved using `hb_buffer_set_segment_properties` and
@@ -9247,7 +9247,7 @@ class segment_properties_t(GObject.GBoxed):
     the #hb_script_t of the buffer, see `hb_buffer_set_script`.
     """
 
-class set_t(GObject.GBoxed):
+class set_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type for holding a set of integers. #hb_set_t's are
     used to gather and contain glyph IDs, Unicode code
@@ -9257,7 +9257,7 @@ class set_t(GObject.GBoxed):
 
     ...
 
-class shape_plan_t(GObject.GBoxed):
+class shape_plan_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type for holding a shaping plan.
 
@@ -9272,7 +9272,7 @@ class shape_plan_t(GObject.GBoxed):
 
     ...
 
-class unicode_funcs_t(GObject.GBoxed):
+class unicode_funcs_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data type containing a set of virtual methods used for
     accessing various Unicode character properties.
@@ -9286,7 +9286,7 @@ class unicode_funcs_t(GObject.GBoxed):
 
     ...
 
-class user_data_key_t(GObject.GBoxed):
+class user_data_key_t(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Data structure for holding user-data keys.
     """
@@ -9295,7 +9295,7 @@ class user_data_key_t(GObject.GBoxed):
     @builtins.property
     def unused(self) -> int: ...
 
-class var_int_t(GObject.GPointer):
+class var_int_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     i16: list | None = ...
     i32: int = ...
@@ -9304,7 +9304,7 @@ class var_int_t(GObject.GPointer):
     u32: int = ...
     u8: list | None = ...
 
-class var_num_t(GObject.GPointer):
+class var_num_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     f: float = ...
     i16: list | None = ...
@@ -9314,7 +9314,7 @@ class var_num_t(GObject.GPointer):
     u32: int = ...
     u8: list | None = ...
 
-class variation_t(GObject.GPointer):
+class variation_t(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Data type for holding variation data. Registered OpenType
     variation-axis tags are listed in

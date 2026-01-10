@@ -666,7 +666,7 @@ class AudioAggregator(GstBase.Aggregator):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioAggregatorClass(GObject.GPointer):
+class AudioAggregatorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -812,14 +812,14 @@ class AudioAggregatorConvertPad(AudioAggregatorPad):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioAggregatorConvertPadClass(GObject.GPointer):
+class AudioAggregatorConvertPadClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> AudioAggregatorPadClass | None: ...
 
-class AudioAggregatorConvertPadPrivate(GObject.GPointer): ...
+class AudioAggregatorConvertPadPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class AudioAggregatorPad(GstBase.AggregatorPad):
     class Props(GstBase.AggregatorPad.Props):
@@ -967,7 +967,7 @@ class AudioAggregatorPad(GstBase.AggregatorPad):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioAggregatorPadClass(GObject.GPointer):
+class AudioAggregatorPadClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -978,8 +978,8 @@ class AudioAggregatorPadClass(GObject.GPointer):
     @builtins.property
     def update_conversion_info(self) -> update_conversion_infoAudioAggregatorPadClassCB: ...
 
-class AudioAggregatorPadPrivate(GObject.GPointer): ...
-class AudioAggregatorPrivate(GObject.GPointer): ...
+class AudioAggregatorPadPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class AudioAggregatorPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class AudioBaseSink(GstBase.BaseSink):
     class Props(GstBase.BaseSink.Props):
@@ -1273,7 +1273,7 @@ class AudioBaseSink(GstBase.BaseSink):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioBaseSinkClass(GObject.GPointer):
+class AudioBaseSinkClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -1284,7 +1284,7 @@ class AudioBaseSinkClass(GObject.GPointer):
     @builtins.property
     def payload(self) -> payloadAudioBaseSinkClassCB: ...
 
-class AudioBaseSinkPrivate(GObject.GPointer): ...
+class AudioBaseSinkPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class AudioBaseSrc(GstBase.PushSrc):
     class Props(GstBase.PushSrc.Props):
@@ -1477,7 +1477,7 @@ class AudioBaseSrc(GstBase.PushSrc):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioBaseSrcClass(GObject.GPointer):
+class AudioBaseSrcClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -1486,9 +1486,9 @@ class AudioBaseSrcClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GstBase.PushSrcClass | None: ...
 
-class AudioBaseSrcPrivate(GObject.GPointer): ...
+class AudioBaseSrcPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class AudioBuffer(GObject.GPointer):
+class AudioBuffer(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -1685,7 +1685,7 @@ class AudioCdSrc(GstBase.PushSrc):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioCdSrcClass(GObject.GPointer):
+class AudioCdSrcClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -1698,9 +1698,9 @@ class AudioCdSrcClass(GObject.GPointer):
     @builtins.property
     def read_sector(self) -> read_sectorAudioCdSrcClassCB: ...
 
-class AudioCdSrcPrivate(GObject.GPointer): ...
+class AudioCdSrcPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class AudioCdSrcTrack(GObject.GPointer):
+class AudioCdSrcTrack(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved1(self) -> list | None: ...
@@ -1712,13 +1712,13 @@ class AudioCdSrcTrack(GObject.GPointer):
     start: int = ...
     tags: Gst.TagList | None = ...  # type: ignore
 
-class AudioChannelMixer(GObject.GPointer):
+class AudioChannelMixer(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Methods
     def free(self) -> None: ...
     def is_passthrough(self) -> bool: ...
     def samples(self, in_: object | None, out: object | None, samples: int) -> None: ...
 
-class AudioClippingMeta(GObject.GPointer):
+class AudioClippingMeta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     end: int = ...
     format: Gst.Format = ...  # type: ignore
@@ -1847,14 +1847,14 @@ class AudioClock(Gst.SystemClock):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioClockClass(GObject.GPointer):
+class AudioClockClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> Gst.SystemClockClass | None: ...
 
-class AudioConverter(GObject.GBoxed):
+class AudioConverter(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     # gi Methods
     def convert(self, flags: AudioConverterFlags, in_: list, in_size: int) -> tuple[bool, list, int]: ...
     def free(self) -> None: ...
@@ -2169,7 +2169,7 @@ class AudioDecoder(Gst.Element):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioDecoderClass(GObject.GPointer):
+class AudioDecoderClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -2212,9 +2212,9 @@ class AudioDecoderClass(GObject.GPointer):
     @builtins.property
     def transform_meta(self) -> transform_metaAudioDecoderClassCB: ...
 
-class AudioDecoderPrivate(GObject.GPointer): ...
+class AudioDecoderPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class AudioDownmixMeta(GObject.GPointer):
+class AudioDownmixMeta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     from_channels: int = ...
     from_position: AudioChannelPosition = ...
@@ -2497,7 +2497,7 @@ class AudioEncoder(Gst.Element):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioEncoderClass(GObject.GPointer):
+class AudioEncoderClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -2538,7 +2538,7 @@ class AudioEncoderClass(GObject.GPointer):
     @builtins.property
     def transform_meta(self) -> transform_metaAudioEncoderClassCB: ...
 
-class AudioEncoderPrivate(GObject.GPointer): ...
+class AudioEncoderPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class AudioFilter(GstBase.BaseTransform):
     # gi Fields
@@ -2631,7 +2631,7 @@ class AudioFilter(GstBase.BaseTransform):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioFilterClass(GObject.GPointer):
+class AudioFilterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -2643,7 +2643,7 @@ class AudioFilterClass(GObject.GPointer):
     # gi Methods
     def add_pad_templates(self, allowed_caps: Gst.Caps) -> None: ...
 
-class AudioFormatInfo(GObject.GPointer):
+class AudioFormatInfo(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -2662,7 +2662,7 @@ class AudioFormatInfo(GObject.GPointer):
     # gi Methods
     def fill_silence(self, dest: list, length: int) -> None: ...
 
-class AudioInfo(GObject.GBoxed):
+class AudioInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -2717,7 +2717,7 @@ class AudioInfo(GObject.GBoxed):
         new_from_caps(caps:Gst.Caps) -> GstAudio.AudioInfo or None
         """
 
-class AudioLevelMeta(GObject.GPointer):
+class AudioLevelMeta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     level: int = ...
     meta: Gst.Meta | None = ...  # type: ignore
@@ -2727,7 +2727,7 @@ class AudioLevelMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-class AudioMeta(GObject.GPointer):
+class AudioMeta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -2742,13 +2742,13 @@ class AudioMeta(GObject.GPointer):
     @staticmethod
     def get_info() -> Gst.MetaInfo: ...
 
-class AudioQuantize(GObject.GPointer):
+class AudioQuantize(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Methods
     def free(self) -> None: ...
     def reset(self) -> None: ...
     def samples(self, in_: object | None, out: object | None, samples: int) -> None: ...
 
-class AudioResampler(GObject.GPointer):
+class AudioResampler(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Methods
     def free(self) -> None: ...
     def get_in_frames(self, out_frames: int) -> int: ...
@@ -2980,7 +2980,7 @@ class AudioRingBuffer(Gst.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioRingBufferClass(GObject.GPointer):
+class AudioRingBufferClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -3011,9 +3011,9 @@ class AudioRingBufferClass(GObject.GPointer):
     @builtins.property
     def stop(self) -> stopAudioRingBufferClassCB: ...
 
-class AudioRingBufferPrivate(GObject.GPointer): ...
+class AudioRingBufferPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class AudioRingBufferSpec(GObject.GPointer):
+class AudioRingBufferSpec(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     buffer_time: int = ...
     caps: Gst.Caps | None = ...  # type: ignore
@@ -3325,7 +3325,7 @@ class AudioSink(AudioBaseSink):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioSinkClass(GObject.GPointer):
+class AudioSinkClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def close(self) -> closeAudioSinkClassCB: ...
@@ -3352,7 +3352,7 @@ class AudioSinkClass(GObject.GPointer):
     @builtins.property
     def write(self) -> writeAudioSinkClassCB: ...
 
-class AudioSinkClassExtension(GObject.GPointer):
+class AudioSinkClassExtension(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def clear_all(self) -> clear_allAudioSinkClassExtensionCB: ...
@@ -3560,7 +3560,7 @@ class AudioSrc(AudioBaseSrc):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AudioSrcClass(GObject.GPointer):
+class AudioSrcClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -3581,7 +3581,7 @@ class AudioSrcClass(GObject.GPointer):
     @builtins.property
     def unprepare(self) -> unprepareAudioSrcClassCB: ...
 
-class AudioStreamAlign(GObject.GBoxed):
+class AudioStreamAlign(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     # gi Methods
     def copy(self) -> AudioStreamAlign: ...
     def free(self) -> None: ...
@@ -3615,7 +3615,7 @@ class AudioStreamAlign(GObject.GBoxed):
         new(rate:int, alignment_threshold:int, discont_wait:int) -> GstAudio.AudioStreamAlign
         """
 
-class DsdInfo(GObject.GBoxed):
+class DsdInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -3664,7 +3664,7 @@ class DsdInfo(GObject.GBoxed):
         new_from_caps(caps:Gst.Caps) -> GstAudio.DsdInfo
         """
 
-class DsdPlaneOffsetMeta(GObject.GPointer):
+class DsdPlaneOffsetMeta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -3719,7 +3719,7 @@ class StreamVolume(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class StreamVolumeInterface(GObject.GPointer):
+class StreamVolumeInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def iface(self) -> GObject.TypeInterface | None: ...

@@ -404,7 +404,7 @@ class VFuncInfoFlags(enum.IntFlag):
 # classes
 ###############################################################
 
-class ArgInfo(BaseInfo):
+class ArgInfo(BaseInfo, metaclass=GObject.GTypeMeta):
     """
     `GIArgInfo` represents an argument of a callable.
 
@@ -497,7 +497,7 @@ class ArgInfo(BaseInfo):
         See also [method`GIRepository`.ArgInfo.is_optional].
         """
 
-class Argument(GObject.GPointer):
+class Argument(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     v_boolean: bool = ...
     v_double: float = ...
@@ -520,7 +520,7 @@ class Argument(GObject.GPointer):
     v_ulong: int = ...
     v_ushort: int = ...
 
-class AttributeIter(GObject.GPointer):
+class AttributeIter(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     An opaque structure used to iterate over attributes
     in a [class`GIRepository`.BaseInfo] struct.
@@ -532,7 +532,7 @@ class AttributeIter(GObject.GPointer):
     @builtins.property
     def data(self) -> object | None: ...
 
-class BaseInfo(object):
+class BaseInfo(object, metaclass=GObject.GTypeMeta):
     """
     `GIBaseInfo` is the common base struct of all other Info structs
     accessible through the [class`GIRepository`.Repository] API.
@@ -658,9 +658,9 @@ class BaseInfo(object):
         use [method`GIRepository`.BaseInfo.clear] for that.
         """
 
-class BaseInfoClass(GObject.GPointer): ...
+class BaseInfoClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class BaseInfoStack(GObject.GPointer):
+class BaseInfoStack(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def dummy0(self) -> int: ...
@@ -673,7 +673,7 @@ class BaseInfoStack(GObject.GPointer):
     @builtins.property
     def parent_instance(self) -> GObject.TypeInstance | None: ...
 
-class CallableInfo(BaseInfo):
+class CallableInfo(BaseInfo, metaclass=GObject.GTypeMeta):
     """
     `GICallableInfo` represents an entity which is callable.
 
@@ -806,14 +806,14 @@ class CallableInfo(BaseInfo):
         See if a callable’s return value is only useful in C.
         """
 
-class CallbackInfo(CallableInfo):
+class CallbackInfo(CallableInfo, metaclass=GObject.GTypeMeta):
     """
     `GICallbackInfo` represents a callback.
     """
 
     ...
 
-class ConstantInfo(BaseInfo):
+class ConstantInfo(BaseInfo, metaclass=GObject.GTypeMeta):
     """
     `GIConstantInfo` represents a constant.
 
@@ -828,7 +828,7 @@ class ConstantInfo(BaseInfo):
         Obtain the type of the constant as a [class`GIRepository`.TypeInfo].
         """
 
-class EnumInfo(RegisteredTypeInfo):
+class EnumInfo(RegisteredTypeInfo, metaclass=GObject.GTypeMeta):
     """
     A `GIEnumInfo` represents an enumeration.
 
@@ -871,7 +871,7 @@ class EnumInfo(RegisteredTypeInfo):
         Obtain a value for this enumeration.
         """
 
-class FieldInfo(BaseInfo):
+class FieldInfo(BaseInfo, metaclass=GObject.GTypeMeta):
     """
     A `GIFieldInfo` struct represents a field of a struct, union, or object.
 
@@ -908,7 +908,7 @@ class FieldInfo(BaseInfo):
         Obtain the type of a field as a [type`GIRepository`.TypeInfo].
         """
 
-class FlagsInfo(EnumInfo):
+class FlagsInfo(EnumInfo, metaclass=GObject.GTypeMeta):
     """
     A `GIFlagsInfo` represents an enumeration which defines flag values
     (independently set bits).
@@ -922,7 +922,7 @@ class FlagsInfo(EnumInfo):
 
     ...
 
-class FunctionInfo(CallableInfo):
+class FunctionInfo(CallableInfo, metaclass=GObject.GTypeMeta):
     """
     `GIFunctionInfo` represents a function, method or constructor.
 
@@ -961,7 +961,7 @@ class FunctionInfo(CallableInfo):
         a virtual function set. For other cases, `None` will be returned.
         """
 
-class InterfaceInfo(RegisteredTypeInfo):
+class InterfaceInfo(RegisteredTypeInfo, metaclass=GObject.GTypeMeta):
     """
     `GIInterfaceInfo` represents a `GInterface` type.
 
@@ -1045,7 +1045,7 @@ class InterfaceInfo(RegisteredTypeInfo):
         Obtain an interface type virtual function at index `n`.
         """
 
-class ObjectInfo(RegisteredTypeInfo):
+class ObjectInfo(RegisteredTypeInfo, metaclass=GObject.GTypeMeta):
     """
     `GIObjectInfo` represents a classed type.
 
@@ -1238,7 +1238,7 @@ class ObjectInfo(RegisteredTypeInfo):
         Obtain an object type virtual function at index `n`.
         """
 
-class PropertyInfo(BaseInfo):
+class PropertyInfo(BaseInfo, metaclass=GObject.GTypeMeta):
     """
     `GIPropertyInfo` represents a property in a [class`GObject`.Object].
 
@@ -1278,7 +1278,7 @@ class PropertyInfo(BaseInfo):
         Obtain the type information for the property `info`.
         """
 
-class RegisteredTypeInfo(BaseInfo):
+class RegisteredTypeInfo(BaseInfo, metaclass=GObject.GTypeMeta):
     """
     `GIRegisteredTypeInfo` represents an entity with a [type`GObject`.Type]
     associated.
@@ -1678,12 +1678,12 @@ class Repository(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class RepositoryClass(GObject.GPointer):
+class RepositoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class SignalInfo(CallableInfo):
+class SignalInfo(CallableInfo, metaclass=GObject.GTypeMeta):
     """
     `GISignalInfo` represents a signal.
 
@@ -1715,7 +1715,7 @@ class SignalInfo(CallableInfo):
         of the signal.
         """
 
-class StructInfo(RegisteredTypeInfo):
+class StructInfo(RegisteredTypeInfo, metaclass=GObject.GTypeMeta):
     """
     `GIStructInfo` represents a generic C structure type.
 
@@ -1777,7 +1777,7 @@ class StructInfo(RegisteredTypeInfo):
         public APIs.
         """
 
-class TypeInfo(BaseInfo):
+class TypeInfo(BaseInfo, metaclass=GObject.GTypeMeta):
     """
     `GITypeInfo` represents a type, including information about direction and
     transfer.
@@ -1911,7 +1911,7 @@ class TypeInfo(BaseInfo):
         The type tag must be a `GI_TYPE_TAG_ARRAY` or `False` will be returned.
         """
 
-class Typelib(GObject.GBoxed):
+class Typelib(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     `GITypelib` represents a loaded `.typelib` file, which contains a description
     of a single module’s API.
@@ -1949,7 +1949,7 @@ class Typelib(GObject.GBoxed):
         new_from_bytes(bytes:GLib.Bytes) -> GIRepository.Typelib
         """
 
-class UnionInfo(RegisteredTypeInfo):
+class UnionInfo(RegisteredTypeInfo, metaclass=GObject.GTypeMeta):
     """
     `GIUnionInfo` represents a union type.
 
@@ -2018,14 +2018,14 @@ class UnionInfo(RegisteredTypeInfo):
         Return `True` if this union contains a discriminator field.
         """
 
-class UnresolvedInfo(BaseInfo):
+class UnresolvedInfo(BaseInfo, metaclass=GObject.GTypeMeta):
     """
     `GIUnresolvedInfo` represents an unresolved symbol.
     """
 
     ...
 
-class VFuncInfo(CallableInfo):
+class VFuncInfo(CallableInfo, metaclass=GObject.GTypeMeta):
     """
     `GIVFuncInfo` represents a virtual function.
 
@@ -2067,7 +2067,7 @@ class VFuncInfo(CallableInfo):
         this virtual function belongs.
         """
 
-class ValueInfo(BaseInfo):
+class ValueInfo(BaseInfo, metaclass=GObject.GTypeMeta):
     """
     A `GIValueInfo` represents a value in an enumeration.
 

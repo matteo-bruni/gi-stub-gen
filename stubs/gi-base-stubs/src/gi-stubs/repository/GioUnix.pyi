@@ -727,12 +727,12 @@ def mounts_get_from_file(
 # classes
 ###############################################################
 
-class DesktopAppInfoClass(GObject.GPointer):
+class DesktopAppInfoClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class DesktopAppInfoLookupIface(GObject.GPointer):
+class DesktopAppInfoLookupIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Interface that is used by backends to associate default
     handlers with URI schemes.
@@ -867,7 +867,7 @@ class FDMessage(Gio.SocketControlMessage):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FDMessageClass(GObject.GPointer):
+class FDMessageClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -876,9 +876,9 @@ class FDMessageClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> Gio.SocketControlMessageClass | None: ...
 
-class FDMessagePrivate(GObject.GPointer): ...
+class FDMessagePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class FileDescriptorBasedIface(GObject.GPointer):
+class FileDescriptorBasedIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     An interface for file descriptor based io objects.
     """
@@ -990,7 +990,7 @@ class InputStream(Gio.InputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class InputStreamClass(GObject.GPointer):
+class InputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -1005,9 +1005,9 @@ class InputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> Gio.InputStreamClass | None: ...
 
-class InputStreamPrivate(GObject.GPointer): ...
+class InputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class MountEntry(GObject.GBoxed):
+class MountEntry(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Defines a Unix mount entry (e.g. `/media/cdrom`).
     This corresponds roughly to a mtab entry.
@@ -1209,9 +1209,9 @@ class MountMonitor(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MountMonitorClass(GObject.GPointer): ...
+class MountMonitorClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class MountPoint(GObject.GBoxed):
+class MountPoint(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Defines a Unix mount point (e.g. `/dev`).
     This corresponds roughly to a fstab entry.
@@ -1398,7 +1398,7 @@ class OutputStream(Gio.OutputStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class OutputStreamClass(GObject.GPointer):
+class OutputStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -1413,7 +1413,7 @@ class OutputStreamClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> Gio.OutputStreamClass | None: ...
 
-class OutputStreamPrivate(GObject.GPointer): ...
+class OutputStreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 ###############################################################
 # Callbacks

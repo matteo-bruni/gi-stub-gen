@@ -5255,7 +5255,7 @@ class URIType(GObject.GEnum):
 
 class AddError(builtins.Exception): ...
 
-class AllocationParams(GObject.GBoxed):
+class AllocationParams(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Parameters to control the allocation of memory
     """
@@ -5466,7 +5466,7 @@ class Allocator(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AllocatorClass(GObject.GPointer):
+class AllocatorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The Gst.Allocator is used to create new memory.
     """
@@ -5490,9 +5490,9 @@ class AllocatorClass(GObject.GPointer):
         Object parent class
         """
 
-class AllocatorPrivate(GObject.GPointer): ...
+class AllocatorPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class AtomicQueue(GObject.GBoxed):
+class AtomicQueue(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The Gst.AtomicQueue object implements a queue that can be used from multiple
     threads without performing any blocking operations.
@@ -6001,7 +6001,7 @@ class Bin(Element):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BinClass(GObject.GPointer):
+class BinClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Subclasses can override Gst.BinClass::add_element and Gst.BinClass::remove_element
     to update the list of children in the bin.
@@ -6043,17 +6043,12 @@ class BinClass(GObject.GPointer):
     @builtins.property
     def remove_element(self) -> remove_elementBinClassCB: ...
 
-class BinPrivate(GObject.GPointer): ...
+class BinPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class Bitmask(builtins.object):
+class Bitmask(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes a 64-bit bitmask
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # python methods (overrides?)
     def __init__(
@@ -6064,7 +6059,7 @@ class Bitmask(builtins.object):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class Buffer(GObject.GBoxed):
+class Buffer(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Buffers are the basic unit of data transfer in GStreamer. They contain the
     timing and offset along with other arbitrary metadata that is associated
@@ -6577,7 +6572,7 @@ class Buffer(GObject.GBoxed):
         unmap(self, info:Gst.MapInfo)
         """
 
-class BufferList(GObject.GBoxed):
+class BufferList(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Buffer lists are an object containing a list of buffers.
 
@@ -6987,7 +6982,7 @@ class BufferPool(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BufferPoolAcquireParams(GObject.GPointer):
+class BufferPoolAcquireParams(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Parameters passed to the `Gst.BufferPool.acquire_buffer` function to control the
     allocation of the buffer.
@@ -7017,7 +7012,7 @@ class BufferPoolAcquireParams(GObject.GPointer):
     the stop position
     """
 
-class BufferPoolClass(GObject.GPointer):
+class BufferPoolClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The Gst.BufferPool class.
     """
@@ -7053,7 +7048,7 @@ class BufferPoolClass(GObject.GPointer):
     @builtins.property
     def stop(self) -> stopBufferPoolClassCB: ...
 
-class BufferPoolPrivate(GObject.GPointer): ...
+class BufferPoolPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Bus(Object):
     """
@@ -7444,7 +7439,7 @@ class Bus(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BusClass(GObject.GPointer):
+class BusClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GStreamer bus class.
     """
@@ -7462,9 +7457,9 @@ class BusClass(GObject.GPointer):
     @builtins.property
     def sync_message(self) -> sync_messageBusClassCB: ...
 
-class BusPrivate(GObject.GPointer): ...
+class BusPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class ByteArrayInterface(GObject.GPointer):
+class ByteArrayInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Interface for an array of bytes. It is expected to be subclassed to implement
     `resize` virtual method using language native array implementation, such as
@@ -7492,7 +7487,7 @@ class ByteArrayInterface(GObject.GPointer):
         Reallocate `data`.
         """
 
-class Caps(GObject.GBoxed):
+class Caps(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Caps (capabilities) are lightweight refcounted objects describing media types.
     They are composed of an array of Gst.Structure.
@@ -7874,7 +7869,7 @@ class Caps(GObject.GBoxed):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class CapsFeatures(GObject.GBoxed):
+class CapsFeatures(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Gst.CapsFeatures can optionally be set on a Gst.Caps to add requirements
     for additional features for a specific Gst.Structure. Caps structures with
@@ -8144,7 +8139,7 @@ class ChildProxy(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ChildProxyInterface(GObject.GPointer):
+class ChildProxyInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Gst.ChildProxy interface.
     """
@@ -8669,7 +8664,7 @@ class Clock(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ClockClass(GObject.GPointer):
+class ClockClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GStreamer clock class. Override the vmethods to implement the clock
     functionality.
@@ -8696,7 +8691,7 @@ class ClockClass(GObject.GPointer):
     @builtins.property
     def wait_async(self) -> wait_asyncClockClassCB: ...
 
-class ClockEntry(GObject.GPointer):
+class ClockEntry(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     All pending timeouts or periodic notifies are converted into
     an entry.
@@ -8732,9 +8727,9 @@ class ClockEntry(GObject.GPointer):
     @builtins.property
     def woken_up(self) -> bool: ...
 
-class ClockPrivate(GObject.GPointer): ...
+class ClockPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class Context(GObject.GBoxed):
+class Context(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Gst.Context is a container object used to store contexts like a device
     context, a display server connection and similar concepts that should
@@ -8947,7 +8942,7 @@ class ControlBinding(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ControlBindingClass(GObject.GPointer):
+class ControlBindingClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The class structure of Gst.ControlBinding.
     """
@@ -8969,7 +8964,7 @@ class ControlBindingClass(GObject.GPointer):
     @builtins.property
     def sync_values(self) -> sync_valuesControlBindingClassCB: ...
 
-class ControlBindingPrivate(GObject.GPointer): ...
+class ControlBindingPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ControlSource(Object):
     """
@@ -9056,7 +9051,7 @@ class ControlSource(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ControlSourceClass(GObject.GPointer):
+class ControlSourceClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The class structure of Gst.ControlSource.
     """
@@ -9070,7 +9065,7 @@ class ControlSourceClass(GObject.GPointer):
         Parent class
         """
 
-class CustomMeta(GObject.GPointer):
+class CustomMeta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Extra custom metadata. The `structure` field is the same as returned by
     `Gst.CustomMeta.get_structure`.
@@ -9101,7 +9096,7 @@ class CustomMeta(GObject.GPointer):
         Checks whether the name of the custom meta is `name`
         """
 
-class DateTime(GObject.GBoxed):
+class DateTime(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Struct to store date, time and timezone information altogether.
     Gst.DateTime is refcounted and immutable.
@@ -9328,7 +9323,7 @@ class DateTime(GObject.GBoxed):
         new_ymd(year:int, month:int, day:int) -> Gst.DateTime or None
         """
 
-class DebugCategory(GObject.GPointer):
+class DebugCategory(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     This is the struct that describes the categories. Once initialized with
     GST_DEBUG_CATEGORY_INIT, its values can't be changed anymore.
@@ -9385,7 +9380,7 @@ class DebugCategory(GObject.GPointer):
         > function to use when debugging (even from gdb).
         """
 
-class DebugMessage(GObject.GPointer):
+class DebugMessage(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Methods
     def get(self) -> str | None:
         """
@@ -9564,7 +9559,7 @@ class Device(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DeviceClass(GObject.GPointer):
+class DeviceClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The class structure for a Gst.Device object.
     """
@@ -9785,7 +9780,7 @@ class DeviceMonitor(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DeviceMonitorClass(GObject.GPointer):
+class DeviceMonitorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Opaque device monitor class structure.
     """
@@ -9799,8 +9794,8 @@ class DeviceMonitorClass(GObject.GPointer):
         the parent Gst.ObjectClass structure
         """
 
-class DeviceMonitorPrivate(GObject.GPointer): ...
-class DevicePrivate(GObject.GPointer): ...
+class DeviceMonitorPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class DevicePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DeviceProvider(Object):
     """
@@ -10038,7 +10033,7 @@ class DeviceProvider(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DeviceProviderClass(GObject.GPointer):
+class DeviceProviderClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The structure of the base Gst.DeviceProviderClass
     """
@@ -10212,24 +10207,19 @@ class DeviceProviderFactory(PluginFeature):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DeviceProviderFactoryClass(GObject.GPointer):
+class DeviceProviderFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The opaque Gst.DeviceProviderFactoryClass data structure.
     """
 
     ...
 
-class DeviceProviderPrivate(GObject.GPointer): ...
+class DeviceProviderPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class DoubleRange(builtins.object):
+class DoubleRange(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes a #gdouble range
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # python methods (overrides?)
     def __init__(
@@ -10306,7 +10296,7 @@ class DynamicTypeFactory(PluginFeature):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DynamicTypeFactoryClass(GObject.GPointer): ...
+class DynamicTypeFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Element(Object):
     """
@@ -11219,7 +11209,7 @@ class Element(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ElementClass(GObject.GPointer):
+class ElementClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GStreamer element class. Override the vmethods to implement the element
     functionality.
@@ -11599,9 +11589,9 @@ class ElementFactory(PluginFeature):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ElementFactoryClass(GObject.GPointer): ...
+class ElementFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class Event(GObject.GBoxed):
+class Event(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The event class provides factory methods to construct events for sending
     and functions to query (parse) received events.
@@ -12160,16 +12150,11 @@ class Event(GObject.GBoxed):
         new_toc_select(uid:str) -> Gst.Event
         """
 
-class FlagSet(builtins.object):
+class FlagSet(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes a 32-bit flag bitfield, with 32-bit
     mask indicating which of the bits in the field are explicitly set.
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     @staticmethod
@@ -12180,7 +12165,7 @@ class FlagSet(builtins.object):
         when serializing, for easier debugging.
         """
 
-class FormatDefinition(GObject.GPointer):
+class FormatDefinition(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A format definition
     """
@@ -12203,16 +12188,11 @@ class FormatDefinition(GObject.GPointer):
     The unique id of this format
     """
 
-class Fraction(builtins.object):
+class Fraction(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes a fraction of an integer numerator
     over an integer denominator
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Fields
     denom: int = ...
@@ -12234,15 +12214,10 @@ class Fraction(builtins.object):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class FractionRange(builtins.object):
+class FractionRange(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes a Gst.FractionRange range
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # python methods (overrides?)
     def __init__(
@@ -12435,16 +12410,16 @@ class GhostPad(ProxyPad):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GhostPadClass(GObject.GPointer):
+class GhostPadClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> ProxyPadClass | None: ...
 
-class GhostPadPrivate(GObject.GPointer): ...
+class GhostPadPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class IdStr(GObject.GBoxed):
+class IdStr(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A Gst.IdStr is string type optimized for short strings and used for structure
     names, structure field names and in other places.
@@ -12555,16 +12530,11 @@ class IdStr(GObject.GBoxed):
         new() -> Gst.IdStr
         """
 
-class Int64Range(builtins.object):
+class Int64Range(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes a #gint64 range
     """
 
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
     # python methods (overrides?)
     def __init__(
         self,
@@ -12574,16 +12544,11 @@ class Int64Range(builtins.object):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class IntRange(builtins.object):
+class IntRange(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes a #gint range
     """
 
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
     # python methods (overrides?)
     def __init__(
         self,
@@ -12593,7 +12558,7 @@ class IntRange(builtins.object):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class Iterator(GObject.GBoxed):
+class Iterator(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A GstIterator is used to retrieve multiple objects from another object in
     a threadsafe way.
@@ -12833,7 +12798,7 @@ class MapInfo(builtins.object):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class Memory(GObject.GBoxed):
+class Memory(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     GstMemory is a lightweight refcounted object that wraps a region of memory.
     They are typically used to manage the data of a Gst.Buffer.
@@ -12989,7 +12954,7 @@ class Memory(GObject.GBoxed):
         unmap(self, info:Gst.MapInfo)
         """
 
-class Message(GObject.GBoxed):
+class Message(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Messages are implemented as a subclass of Gst.MiniObject with a generic
     Gst.Structure as the content. This allows for writing custom messages without
@@ -13970,7 +13935,7 @@ class Message(GObject.GBoxed):
         new_warning_with_details(src:Gst.Object=None, error:error, debug:str, details:Gst.Structure=None) -> Gst.Message
         """
 
-class Meta(GObject.GPointer):
+class Meta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The Gst.Meta structure should be included as the first member of a Gst.Buffer
     metadata structure. The structure defines the API of the metadata and should
@@ -14107,7 +14072,7 @@ class Meta(GObject.GPointer):
         Gst.ByteArrayInterface.
         """
 
-class MetaInfo(GObject.GPointer):
+class MetaInfo(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The Gst.MetaInfo provides information about a specific metadata
     structure.
@@ -14166,7 +14131,7 @@ class MetaInfo(GObject.GPointer):
         kept.
         """
 
-class MetaTransformCopy(GObject.GPointer):
+class MetaTransformCopy(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Extra data passed to a "gst-copy" transform Gst.MetaTransformFunction.
     """
@@ -14185,7 +14150,7 @@ class MetaTransformCopy(GObject.GPointer):
     the size to copy, -1 or the buffer size when `region` is False
     """
 
-class MiniObject(GObject.GBoxed):
+class MiniObject(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Gst.MiniObject is a simple structure that can be used to implement refcounted
     types.
@@ -14679,7 +14644,7 @@ class Object(GObject.InitiallyUnowned):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ObjectClass(GObject.GPointer):
+class ObjectClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GStreamer base object class.
     """
@@ -15681,7 +15646,7 @@ class Pad(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PadClass(GObject.GPointer):
+class PadClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -15692,9 +15657,9 @@ class PadClass(GObject.GPointer):
     @builtins.property
     def unlinked(self) -> unlinkedPadClassCB: ...
 
-class PadPrivate(GObject.GPointer): ...
+class PadPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class PadProbeInfo(GObject.GPointer):
+class PadProbeInfo(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Info passed in the Gst.PadProbeCallback.
     """
@@ -15991,7 +15956,7 @@ class PadTemplate(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PadTemplateClass(GObject.GPointer):
+class PadTemplateClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -16000,7 +15965,7 @@ class PadTemplateClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
 
-class ParamArray(GObject.ParamSpec):
+class ParamArray(GObject.ParamSpec, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes a GParamSpec for arrays of
     values
@@ -16008,7 +15973,7 @@ class ParamArray(GObject.ParamSpec):
 
     ...
 
-class ParamFraction(GObject.ParamSpec):
+class ParamFraction(GObject.ParamSpec, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes a GParamSpec for fractional
     properties
@@ -16016,7 +15981,7 @@ class ParamFraction(GObject.ParamSpec):
 
     ...
 
-class ParamSpecArray(GObject.GPointer):
+class ParamSpecArray(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A GParamSpec derived structure for arrays of values.
     """
@@ -16031,7 +15996,7 @@ class ParamSpecArray(GObject.GPointer):
     super class
     """
 
-class ParamSpecFraction(GObject.GPointer):
+class ParamSpecFraction(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A GParamSpec derived structure that contains the meta data for fractional
     properties.
@@ -16067,7 +16032,7 @@ class ParamSpecFraction(GObject.GPointer):
     super class
     """
 
-class ParentBufferMeta(GObject.GPointer):
+class ParentBufferMeta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The Gst.ParentBufferMeta is a Gst.Meta which can be attached to a Gst.Buffer
     to hold a reference to another buffer that is only released when the child
@@ -16096,7 +16061,7 @@ class ParentBufferMeta(GObject.GPointer):
         Gets the global Gst.MetaInfo describing  the Gst.ParentBufferMeta meta.
         """
 
-class ParseContext(GObject.GBoxed):
+class ParseContext(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Opaque structure.
     """
@@ -16474,14 +16439,14 @@ class Pipeline(Bin):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PipelineClass(GObject.GPointer):
+class PipelineClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> BinClass | None: ...
 
-class PipelinePrivate(GObject.GPointer): ...
+class PipelinePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Plugin(Object):
     """
@@ -16716,9 +16681,9 @@ class Plugin(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PluginClass(GObject.GPointer): ...
+class PluginClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class PluginDesc(GObject.GPointer):
+class PluginDesc(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A plugin should export a variable of this type called plugin_desc. The plugin
     loader will use the data provided there to initialize the plugin.
@@ -16889,9 +16854,9 @@ class PluginFeature(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PluginFeatureClass(GObject.GPointer): ...
+class PluginFeatureClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class Poll(GObject.GPointer):
+class Poll(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A Gst.Poll keeps track of file descriptors much like fd_set (used with
     select ()) or a struct pollfd array (used with poll ()). Once created with
@@ -17050,7 +17015,7 @@ class Poll(GObject.GPointer):
         `Gst.Poll.new_timer`.
         """
 
-class PollFD(GObject.GPointer):
+class PollFD(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A file descriptor object.
     """
@@ -17070,7 +17035,7 @@ class PollFD(GObject.GPointer):
         GST_POLL_FD_INIT.
         """
 
-class Preset(builtins.object):
+class Preset(builtins.object, metaclass=GObject.GTypeMeta):
     """
     This interface offers methods to query and manipulate parameter preset sets.
     A preset is a bunch of property settings, together with meta data and a name.
@@ -17096,11 +17061,6 @@ class Preset(builtins.object):
     where to find presets through the GST_PRESET_PATH environment variable.
     Presets found in those paths will be considered as "app presets".
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -17162,7 +17122,7 @@ class Preset(builtins.object):
         `value` will unset an existing value.
         """
 
-class PresetInterface(GObject.GPointer):
+class PresetInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Gst.Preset interface.
     """
@@ -17216,7 +17176,7 @@ class PresetInterface(GObject.GPointer):
         virtual methods to set textual meta data to a preset
         """
 
-class Promise(GObject.GBoxed):
+class Promise(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The Gst.Promise object implements the container for values that may
     be available later. i.e. a Future or a Promise in
@@ -17340,7 +17300,7 @@ class Promise(GObject.GBoxed):
         new_with_change_func(func:Gst.PromiseChangeFunc, user_data=None) -> Gst.Promise
         """
 
-class ProtectionMeta(GObject.GPointer):
+class ProtectionMeta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Metadata type that holds information about a sample from a protection-protected
     track, including the information needed to decrypt it (if it is encrypted).
@@ -17483,16 +17443,16 @@ class ProxyPad(Pad):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ProxyPadClass(GObject.GPointer):
+class ProxyPadClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> PadClass | None: ...
 
-class ProxyPadPrivate(GObject.GPointer): ...
+class ProxyPadPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class Query(GObject.GBoxed):
+class Query(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Queries can be performed on pads (`Gst.Pad.query`) and elements
     (`Gst.Element.query`). Please note that some queries might need a running
@@ -18059,7 +18019,7 @@ class Query(GObject.GBoxed):
         new_uri() -> Gst.Query
         """
 
-class ReferenceTimestampMeta(GObject.GPointer):
+class ReferenceTimestampMeta(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Gst.ReferenceTimestampMeta can be used to attach alternative timestamps and
     possibly durations to a Gst.Buffer. These are generally not according to
@@ -18351,14 +18311,14 @@ class Registry(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class RegistryClass(GObject.GPointer):
+class RegistryClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> ObjectClass | None: ...
 
-class RegistryPrivate(GObject.GPointer): ...
+class RegistryPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class Sample(GObject.GBoxed):
+class Sample(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A Gst.Sample is a small object containing data, a type, timing and
     extra arbitrary information.
@@ -18427,7 +18387,7 @@ class Sample(GObject.GBoxed):
         new(buffer:Gst.Buffer=None, caps:Gst.Caps=None, segment:Gst.Segment=None, info:Gst.Structure=None) -> Gst.Sample
         """
 
-class Segment(GObject.GBoxed):
+class Segment(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     This helper structure holds the relevant values for tracking the region of
     interest in a media file, called a segment.
@@ -18869,7 +18829,7 @@ class SharedTaskPool(TaskPool):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SharedTaskPoolClass(GObject.GPointer):
+class SharedTaskPoolClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The Gst.SharedTaskPoolClass object.
     """
@@ -18880,9 +18840,9 @@ class SharedTaskPoolClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> TaskPoolClass | None: ...
 
-class SharedTaskPoolPrivate(GObject.GPointer): ...
+class SharedTaskPoolPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class StaticCaps(GObject.GPointer):
+class StaticCaps(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Data structure to initialize Gst.Caps from a string description usually
     used in conjunction with `GST_STATIC_CAPS` and `Gst.StaticCaps.get` to
@@ -18911,7 +18871,7 @@ class StaticCaps(GObject.GPointer):
         Converts a Gst.StaticCaps to a Gst.Caps.
         """
 
-class StaticPadTemplate(GObject.GPointer):
+class StaticPadTemplate(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure describing the Gst.StaticPadTemplate.
     """
@@ -19131,7 +19091,7 @@ class Stream(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class StreamClass(GObject.GPointer):
+class StreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GstStream class structure
     """
@@ -19280,7 +19240,7 @@ class StreamCollection(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class StreamCollectionClass(GObject.GPointer):
+class StreamCollectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     GstStreamCollection class structure
     """
@@ -19299,10 +19259,10 @@ class StreamCollectionClass(GObject.GPointer):
         default signal handler for the stream-notify signal
         """
 
-class StreamCollectionPrivate(GObject.GPointer): ...
-class StreamPrivate(GObject.GPointer): ...
+class StreamCollectionPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class StreamPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class Structure(GObject.GBoxed):
+class Structure(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A Gst.Structure is a collection of key/value pairs. The keys are expressed as
     GQuarks and the values can be of any GType.
@@ -20082,16 +20042,16 @@ class SystemClock(Clock):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SystemClockClass(GObject.GPointer):
+class SystemClockClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> ClockClass | None: ...
 
-class SystemClockPrivate(GObject.GPointer): ...
+class SystemClockPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class TagList(GObject.GBoxed):
+class TagList(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     List of tags and values used to describe media metadata.
 
@@ -20467,7 +20427,7 @@ class TagSetter(builtins.object):
         the tags set with this interface and discards tags from events.
         """
 
-class TagSetterInterface(GObject.GPointer):
+class TagSetterInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Gst.TagSetterInterface interface.
     """
@@ -20712,7 +20672,7 @@ class Task(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TaskClass(GObject.GPointer):
+class TaskClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -20860,7 +20820,7 @@ class TaskPool(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TaskPoolClass(GObject.GPointer):
+class TaskPoolClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The Gst.TaskPoolClass object.
     """
@@ -20896,9 +20856,9 @@ class TaskPoolClass(GObject.GPointer):
         start a new thread
         """
 
-class TaskPrivate(GObject.GPointer): ...
+class TaskPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class TimedValue(GObject.GPointer):
+class TimedValue(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Structure for storing a timestamp and a value.
     """
@@ -20913,7 +20873,7 @@ class TimedValue(GObject.GPointer):
     the corresponding value
     """
 
-class Toc(GObject.GBoxed):
+class Toc(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Gst.Toc functions are used to create/free Gst.Toc and Gst.TocEntry structures.
     Also they are used to convert Gst.Toc into Gst.Structure and vice versa.
@@ -21007,7 +20967,7 @@ class Toc(GObject.GBoxed):
         new(scope:Gst.TocScope) -> Gst.Toc
         """
 
-class TocEntry(GObject.GBoxed):
+class TocEntry(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     # gi Methods
     def append_sub_entry(self, subentry: TocEntry) -> None:
         """
@@ -21127,7 +21087,7 @@ class TocSetter(builtins.object):
         unreffed before setting a new one.
         """
 
-class TocSetterInterface(GObject.GPointer):
+class TocSetterInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Gst.TocSetterInterface interface.
     """
@@ -21231,7 +21191,7 @@ class Tracer(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TracerClass(GObject.GPointer):
+class TracerClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list | None: ...
@@ -21317,8 +21277,8 @@ class TracerFactory(PluginFeature):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TracerFactoryClass(GObject.GPointer): ...
-class TracerPrivate(GObject.GPointer): ...
+class TracerFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class TracerPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TracerRecord(Object):
     """
@@ -21366,9 +21326,9 @@ class TracerRecord(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TracerRecordClass(GObject.GPointer): ...
+class TracerRecordClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class TypeFind(GObject.GPointer):
+class TypeFind(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The following functions allow you to detect the media type of an unknown
     stream.
@@ -21551,9 +21511,9 @@ class TypeFindFactory(PluginFeature):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TypeFindFactoryClass(GObject.GPointer): ...
+class TypeFindFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class URIHandler(builtins.object):
+class URIHandler(builtins.object, metaclass=GObject.GTypeMeta):
     """
     The Gst.URIHandler is an interface that is implemented by Source and Sink
     Gst.Element to unify handling of URI.
@@ -21564,11 +21524,6 @@ class URIHandler(builtins.object):
 
     Source and Sink plugins should implement this interface when possible.
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -21593,7 +21548,7 @@ class URIHandler(builtins.object):
         Tries to set the URI of the given handler.
         """
 
-class URIHandlerInterface(GObject.GPointer):
+class URIHandlerInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Any Gst.Element using this interface should implement these methods.
     """
@@ -21625,7 +21580,7 @@ class URIHandlerInterface(GObject.GPointer):
         Method to set a new URI.
         """
 
-class Uri(GObject.GBoxed):
+class Uri(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A Gst.Uri object can be used to parse and split a URI string into its
     constituent parts. Two Gst.Uri objects can be joined to make a new Gst.Uri
@@ -21963,15 +21918,10 @@ class Uri(GObject.GBoxed):
         new(scheme:str=None, userinfo:str=None, host:str=None, port:int, path:str=None, query:str=None, fragment:str=None) -> Gst.Uri
         """
 
-class ValueArray(builtins.object):
+class ValueArray(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes an ordered list of GValue
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     @staticmethod
@@ -22015,15 +21965,10 @@ class ValueArray(builtins.object):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class ValueList(builtins.object):
+class ValueList(builtins.object, metaclass=GObject.GTypeMeta):
     """
     A fundamental type that describes an unordered list of GValue
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     @staticmethod
@@ -22084,7 +22029,7 @@ class ValueList(builtins.object):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class ValueTable(GObject.GPointer):
+class ValueTable(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     VTable for the GValue `type`.
     """

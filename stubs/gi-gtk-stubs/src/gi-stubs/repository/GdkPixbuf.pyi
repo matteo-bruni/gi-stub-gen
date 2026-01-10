@@ -1430,7 +1430,7 @@ class PixbufAnimation(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PixbufAnimationClass(GObject.GPointer):
+class PixbufAnimationClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Modules supporting animations must derive a type from
     GdkPixbuf.Animation, providing suitable implementations of the
@@ -1583,7 +1583,7 @@ class PixbufAnimationIter(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PixbufAnimationIterClass(GObject.GPointer):
+class PixbufAnimationIterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Modules supporting animations must derive a type from
     GdkPixbuf.AnimationIter, providing suitable implementations of the
@@ -1620,7 +1620,7 @@ class PixbufAnimationIterClass(GObject.GPointer):
         the parent class
         """
 
-class PixbufFormat(GObject.GBoxed):
+class PixbufFormat(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A `GdkPixbufFormat` contains information about the image format accepted
     by a module.
@@ -2001,7 +2001,7 @@ class PixbufLoader(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PixbufLoaderClass(GObject.GPointer):
+class PixbufLoaderClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def area_prepared(self) -> area_preparedPixbufLoaderClassCB: ...
@@ -2014,7 +2014,7 @@ class PixbufLoaderClass(GObject.GPointer):
     @builtins.property
     def size_prepared(self) -> size_preparedPixbufLoaderClassCB: ...
 
-class PixbufModule(GObject.GPointer):
+class PixbufModule(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A `GdkPixbufModule` contains the necessary functions to load and save
     images in a certain file format.
@@ -2126,7 +2126,7 @@ class PixbufModule(GObject.GPointer):
     stops an incremental load.
     """
 
-class PixbufModulePattern(GObject.GPointer):
+class PixbufModulePattern(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The signature prefix for a module.
 
@@ -2275,7 +2275,7 @@ class PixbufSimpleAnim(PixbufAnimation):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PixbufSimpleAnimClass(GObject.GPointer): ...
+class PixbufSimpleAnimClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class PixbufSimpleAnimIter(PixbufAnimationIter):
     # gi Methods

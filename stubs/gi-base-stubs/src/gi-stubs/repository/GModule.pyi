@@ -102,7 +102,7 @@ class ModuleFlags(enum.IntFlag):
 # classes
 ###############################################################
 
-class Module(GObject.GPointer):
+class Module(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The GModule. struct is an opaque data structure to represent a
     [dynamically-loaded module](modules.html#dynamic-loading-of-modules).

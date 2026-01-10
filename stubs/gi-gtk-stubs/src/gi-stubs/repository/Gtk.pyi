@@ -5436,7 +5436,7 @@ class ATContext(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ATContextClass(GObject.GPointer): ...
+class ATContextClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class AboutDialog(Window):
     """
@@ -6768,7 +6768,7 @@ class Accessible(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AccessibleInterface(GObject.GPointer):
+class AccessibleInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The common interface for accessible objects.
     """
@@ -6796,7 +6796,7 @@ class AccessibleInterface(GObject.GPointer):
         retrieve the accessible state
         """
 
-class AccessibleList(GObject.GBoxed):
+class AccessibleList(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Wraps a list of references to [iface`Gtk`.Accessible] objects.
     """
@@ -6869,7 +6869,7 @@ class AccessibleRange(builtins.object):
         Initialize AccessibleRange object with properties.
         """
 
-class AccessibleRangeInterface(GObject.GPointer):
+class AccessibleRangeInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
@@ -6927,7 +6927,7 @@ class AccessibleText(builtins.object):
         technologies.
         """
 
-class AccessibleTextInterface(GObject.GPointer):
+class AccessibleTextInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The interface vtable for accessible objects containing text.
     """
@@ -6952,7 +6952,7 @@ class AccessibleTextInterface(GObject.GPointer):
     @builtins.property
     def get_selection(self) -> get_selectionAccessibleTextInterfaceCB: ...
 
-class AccessibleTextRange(GObject.GPointer):
+class AccessibleTextRange(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A range inside the text of an accessible object.
     """
@@ -7556,7 +7556,7 @@ class Actionable(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ActionableInterface(GObject.GPointer):
+class ActionableInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The interface vtable for `GtkActionable`.
     """
@@ -7619,7 +7619,7 @@ class ActivateAction(ShortcutAction):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ActivateActionClass(GObject.GPointer): ...
+class ActivateActionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Adjustment(GObject.InitiallyUnowned):
     """
@@ -7883,7 +7883,7 @@ class Adjustment(GObject.InitiallyUnowned):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AdjustmentClass(GObject.GPointer):
+class AdjustmentClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -8116,7 +8116,7 @@ class AlertDialog(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AlertDialogClass(GObject.GPointer):
+class AlertDialogClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -8205,7 +8205,7 @@ class AlternativeTrigger(ShortcutTrigger):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AlternativeTriggerClass(GObject.GPointer): ...
+class AlternativeTriggerClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class AnyFilter(MultiFilter):
     """
@@ -8272,7 +8272,7 @@ class AnyFilter(MultiFilter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class AnyFilterClass(GObject.GPointer): ...
+class AnyFilterClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class AppChooser(builtins.object):
     """
@@ -10799,7 +10799,7 @@ class Application(Gio.Application):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ApplicationClass(GObject.GPointer):
+class ApplicationClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -11593,7 +11593,7 @@ class ApplicationWindow(Window):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ApplicationWindowClass(GObject.GPointer):
+class ApplicationWindowClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -13152,12 +13152,12 @@ class BinLayout(LayoutManager):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BinLayoutClass(GObject.GPointer):
+class BinLayoutClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
-class Bitset(GObject.GBoxed):
+class Bitset(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A set of unsigned integers.
 
@@ -13370,7 +13370,7 @@ class Bitset(GObject.GBoxed):
         new_range(start:int, n_items:int) -> Gtk.Bitset
         """
 
-class BitsetIter(GObject.GBoxed):
+class BitsetIter(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Iterates over the elements of a [struct`Gtk`.Bitset].
 
@@ -13594,7 +13594,7 @@ class BookmarkList(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BookmarkListClass(GObject.GPointer):
+class BookmarkListClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -13689,12 +13689,12 @@ class BoolFilter(Filter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BoolFilterClass(GObject.GPointer):
+class BoolFilterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> FilterClass | None: ...
 
-class Border(GObject.GBoxed):
+class Border(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Specifies a border around a rectangular area.
 
@@ -14316,7 +14316,7 @@ class Box(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BoxClass(GObject.GPointer):
+class BoxClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -14487,7 +14487,7 @@ class BoxLayout(LayoutManager):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BoxLayoutClass(GObject.GPointer):
+class BoxLayoutClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
@@ -14526,7 +14526,7 @@ class Buildable(builtins.object):
         of the `<object>` tag used to construct the `buildable`.
         """
 
-class BuildableIface(GObject.GPointer):
+class BuildableIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Contains methods to let `GtkBuilder` construct an object from
     a `GtkBuilder` UI definition.
@@ -14619,7 +14619,7 @@ class BuildableIface(GObject.GPointer):
         attribute to it.
         """
 
-class BuildableParseContext(GObject.GPointer):
+class BuildableParseContext(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Provides context for parsing GtkBuilder UI files.
 
@@ -14705,7 +14705,7 @@ class BuildableParseContext(GObject.GPointer):
         has the same kind of API.
         """
 
-class BuildableParser(GObject.GPointer):
+class BuildableParser(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A sub-parser for `GtkBuildable` implementations.
     """
@@ -15469,12 +15469,12 @@ class BuilderCScope(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BuilderCScopeClass(GObject.GPointer):
+class BuilderCScopeClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class BuilderClass(GObject.GPointer): ...
+class BuilderClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class BuilderListItemFactory(ListItemFactory):
     """
@@ -15602,7 +15602,7 @@ class BuilderListItemFactory(ListItemFactory):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BuilderListItemFactoryClass(GObject.GPointer): ...
+class BuilderListItemFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class BuilderScope(builtins.object):
     """
@@ -15636,7 +15636,7 @@ class BuilderScope(builtins.object):
         Initialize BuilderScope object with properties.
         """
 
-class BuilderScopeInterface(GObject.GPointer):
+class BuilderScopeInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual function table to implement for `GtkBuilderScope` implementations.
     Default implementations for each function do exist, but they usually just fail,
@@ -16347,7 +16347,7 @@ class Button(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ButtonClass(GObject.GPointer):
+class ButtonClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def activate(self) -> activateButtonClassCB:
@@ -16369,9 +16369,9 @@ class ButtonClass(GObject.GPointer):
         The parent class.
         """
 
-class ButtonPrivate(GObject.GPointer): ...
+class ButtonPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class CClosureExpression(Expression):
+class CClosureExpression(Expression, metaclass=GObject.GTypeMeta):
     """
     A variant of `GtkClosureExpression` using a C closure.
     """
@@ -17092,7 +17092,7 @@ class CallbackAction(ShortcutAction):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CallbackActionClass(GObject.GPointer): ...
+class CallbackActionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class CellArea(GObject.InitiallyUnowned):
     """
@@ -18222,7 +18222,7 @@ class CellAreaBox(CellArea):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CellAreaClass(GObject.GPointer):
+class CellAreaClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def activate(self) -> activateCellAreaClassCB:
@@ -18647,7 +18647,7 @@ class CellAreaContext(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CellAreaContextClass(GObject.GPointer):
+class CellAreaContextClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def allocate(self) -> allocateCellAreaContextClassCB:
@@ -18680,7 +18680,7 @@ class CellAreaContextClass(GObject.GPointer):
         allocated sizes for the context.
         """
 
-class CellAreaContextPrivate(GObject.GPointer): ...
+class CellAreaContextPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class CellEditable(builtins.object):
     """
@@ -18777,7 +18777,7 @@ class CellEditable(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CellEditableIface(GObject.GPointer):
+class CellEditableIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def editing_done(self) -> editing_doneCellEditableIfaceCB:
@@ -18996,7 +18996,7 @@ class CellLayout(builtins.object):
         `func` may be None to remove a previously set function.
         """
 
-class CellLayoutIface(GObject.GPointer):
+class CellLayoutIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def add_attribute(self) -> add_attributeCellLayoutIfaceCB:
@@ -20219,7 +20219,7 @@ class CellRendererAccel(CellRendererText):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CellRendererClass(GObject.GPointer):
+class CellRendererClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def activate(self) -> activateCellRendererClassCB:
@@ -20282,7 +20282,7 @@ class CellRendererClass(GObject.GPointer):
         Called to initiate editing the content of the `GtkCellRenderer`.
         """
 
-class CellRendererClassPrivate(GObject.GPointer): ...
+class CellRendererClassPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class CellRendererCombo(CellRendererText):
     """
@@ -21178,7 +21178,7 @@ class CellRendererPixbuf(CellRenderer):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CellRendererPrivate(GObject.GPointer): ...
+class CellRendererPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class CellRendererProgress(CellRenderer):
     """
@@ -22960,7 +22960,7 @@ class CellRendererText(CellRenderer):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CellRendererTextClass(GObject.GPointer):
+class CellRendererTextClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def edited(self) -> editedCellRendererTextClassCB: ...
@@ -24421,7 +24421,7 @@ class CenterBox(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CenterBoxClass(GObject.GPointer): ...
+class CenterBoxClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class CenterLayout(LayoutManager):
     """
@@ -24548,7 +24548,7 @@ class CenterLayout(LayoutManager):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CenterLayoutClass(GObject.GPointer):
+class CenterLayoutClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
@@ -25246,7 +25246,7 @@ class CheckButton(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CheckButtonClass(GObject.GPointer):
+class CheckButtonClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def activate(self) -> activateCheckButtonClassCB: ...
@@ -25257,7 +25257,7 @@ class CheckButtonClass(GObject.GPointer):
     @builtins.property
     def toggled(self) -> toggledCheckButtonClassCB: ...
 
-class ClosureExpression(Expression):
+class ClosureExpression(Expression, metaclass=GObject.GTypeMeta):
     """
     An expression using a custom `GClosure` to compute the value from
     its parameters.
@@ -26627,7 +26627,7 @@ class ColorChooserDialog(Dialog):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ColorChooserInterface(GObject.GPointer):
+class ColorChooserInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def add_palette(self) -> add_paletteColorChooserInterfaceCB: ...
@@ -27715,12 +27715,12 @@ class ColorDialogButton(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ColorDialogButtonClass(GObject.GPointer):
+class ColorDialogButtonClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
-class ColorDialogClass(GObject.GPointer):
+class ColorDialogClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -28710,8 +28710,8 @@ class ColumnViewCell(ListItem):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ColumnViewCellClass(GObject.GPointer): ...
-class ColumnViewClass(GObject.GPointer): ...
+class ColumnViewCellClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class ColumnViewClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ColumnViewColumn(GObject.Object):
     """
@@ -29004,7 +29004,7 @@ class ColumnViewColumn(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ColumnViewColumnClass(GObject.GPointer): ...
+class ColumnViewColumnClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ColumnViewRow(GObject.Object):
     """
@@ -29224,7 +29224,7 @@ class ColumnViewRow(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ColumnViewRowClass(GObject.GPointer): ...
+class ColumnViewRowClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ColumnViewSorter(Sorter):
     """
@@ -29359,7 +29359,7 @@ class ColumnViewSorter(Sorter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ColumnViewSorterClass(GObject.GPointer):
+class ColumnViewSorterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SorterClass | None: ...
@@ -30292,7 +30292,7 @@ class ComboBox(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ComboBoxClass(GObject.GPointer):
+class ComboBoxClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def activate(self) -> activateComboBoxClassCB: ...
@@ -30980,7 +30980,7 @@ class ComboBoxText(ComboBox):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ConstantExpression(Expression):
+class ConstantExpression(Expression, metaclass=GObject.GTypeMeta):
     """
     A constant value in a `GtkExpression`.
     """
@@ -31247,7 +31247,7 @@ class Constraint(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ConstraintClass(GObject.GPointer):
+class ConstraintClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -31453,7 +31453,7 @@ class ConstraintGuide(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ConstraintGuideClass(GObject.GPointer):
+class ConstraintGuideClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -31767,12 +31767,12 @@ class ConstraintLayoutChild(LayoutChild):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ConstraintLayoutChildClass(GObject.GPointer):
+class ConstraintLayoutChildClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutChildClass | None: ...
 
-class ConstraintLayoutClass(GObject.GPointer):
+class ConstraintLayoutClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
@@ -31796,9 +31796,9 @@ class ConstraintTarget(builtins.object):
         Initialize ConstraintTarget object with properties.
         """
 
-class ConstraintTargetInterface(GObject.GPointer): ...
+class ConstraintTargetInterface(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class CssLocation(GObject.GPointer):
+class CssLocation(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Points at a location inside a CSS stream.
     """
@@ -31966,10 +31966,10 @@ class CssProvider(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CssProviderClass(GObject.GPointer): ...
-class CssProviderPrivate(GObject.GPointer): ...
+class CssProviderClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class CssProviderPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class CssSection(GObject.GBoxed):
+class CssSection(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Defines a part of a CSS document.
 
@@ -32056,7 +32056,7 @@ class CssSection(GObject.GBoxed):
         new_with_bytes(file:Gio.File=None, bytes:GLib.Bytes=None, start:Gtk.CssLocation, end:Gtk.CssLocation) -> Gtk.CssSection
         """
 
-class CssStyleChange(GObject.GPointer):
+class CssStyleChange(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A CSS style change.
     """
@@ -32119,7 +32119,7 @@ class CustomFilter(Filter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CustomFilterClass(GObject.GPointer):
+class CustomFilterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> FilterClass | None: ...
@@ -32167,7 +32167,7 @@ class CustomLayout(LayoutManager):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CustomLayoutClass(GObject.GPointer):
+class CustomLayoutClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
@@ -32226,7 +32226,7 @@ class CustomSorter(Sorter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CustomSorterClass(GObject.GPointer):
+class CustomSorterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SorterClass | None: ...
@@ -33120,7 +33120,7 @@ class Dialog(Window):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DialogClass(GObject.GPointer):
+class DialogClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def close(self) -> closeDialogClassCB:
@@ -33380,7 +33380,7 @@ class DirectoryList(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DirectoryListClass(GObject.GPointer):
+class DirectoryListClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -33834,7 +33834,7 @@ class DragIcon(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DragIconClass(GObject.GPointer):
+class DragIconClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
@@ -34191,7 +34191,7 @@ class DragSource(GestureSingle):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DragSourceClass(GObject.GPointer): ...
+class DragSourceClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DrawingArea(Widget):
     """
@@ -34765,7 +34765,7 @@ class DrawingArea(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DrawingAreaClass(GObject.GPointer):
+class DrawingAreaClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -34952,7 +34952,7 @@ class DropControllerMotion(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DropControllerMotionClass(GObject.GPointer): ...
+class DropControllerMotionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DropDown(Widget):
     """
@@ -35649,7 +35649,7 @@ class DropDown(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DropDownClass(GObject.GPointer):
+class DropDownClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
@@ -36267,8 +36267,8 @@ class DropTargetAsync(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DropTargetAsyncClass(GObject.GPointer): ...
-class DropTargetClass(GObject.GPointer): ...
+class DropTargetAsyncClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class DropTargetClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Editable(builtins.object):
     """
@@ -36806,7 +36806,7 @@ class Editable(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EditableInterface(GObject.GPointer):
+class EditableInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def base_iface(self) -> GObject.TypeInterface | None: ...
@@ -37377,7 +37377,7 @@ class EditableLabel(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EditableLabelClass(GObject.GPointer):
+class EditableLabelClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
@@ -37899,7 +37899,7 @@ class EmojiChooser(Popover):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EmojiChooserClass(GObject.GPointer): ...
+class EmojiChooserClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Entry(Widget):
     """
@@ -39705,7 +39705,7 @@ class EntryBuffer(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EntryBufferClass(GObject.GPointer):
+class EntryBufferClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -39738,7 +39738,7 @@ class EntryBufferClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class EntryClass(GObject.GPointer):
+class EntryClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for `GtkEntry`. All virtual functions have a default
     implementation. Derived classes may set the virtual function pointers for the
@@ -40350,7 +40350,7 @@ class EventController(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EventControllerClass(GObject.GPointer): ...
+class EventControllerClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class EventControllerFocus(EventController):
     """
@@ -40507,7 +40507,7 @@ class EventControllerFocus(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EventControllerFocusClass(GObject.GPointer): ...
+class EventControllerFocusClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class EventControllerKey(EventController):
     """
@@ -40641,7 +40641,7 @@ class EventControllerKey(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EventControllerKeyClass(GObject.GPointer): ...
+class EventControllerKeyClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class EventControllerLegacy(EventController):
     """
@@ -40724,7 +40724,7 @@ class EventControllerLegacy(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EventControllerLegacyClass(GObject.GPointer): ...
+class EventControllerLegacyClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class EventControllerMotion(EventController):
     """
@@ -40876,7 +40876,7 @@ class EventControllerMotion(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EventControllerMotionClass(GObject.GPointer): ...
+class EventControllerMotionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class EventControllerScroll(EventController):
     """
@@ -41059,7 +41059,7 @@ class EventControllerScroll(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EventControllerScrollClass(GObject.GPointer): ...
+class EventControllerScrollClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class EveryFilter(MultiFilter):
     """
@@ -41126,7 +41126,7 @@ class EveryFilter(MultiFilter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class EveryFilterClass(GObject.GPointer): ...
+class EveryFilterClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Expander(Widget):
     """
@@ -41793,7 +41793,7 @@ class Expander(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Expression(object):
+class Expression(object, metaclass=GObject.GTypeMeta):
     """
     Provides a way to describe references to values.
 
@@ -42018,7 +42018,7 @@ class Expression(object):
         the `notify` will be invoked.
         """
 
-class ExpressionWatch(GObject.GBoxed):
+class ExpressionWatch(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     An opaque structure representing a watched `GtkExpression`.
 
@@ -43609,7 +43609,7 @@ class FileChooserNative(NativeDialog):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileChooserNativeClass(GObject.GPointer):
+class FileChooserNativeClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> NativeDialogClass | None: ...
@@ -44752,7 +44752,7 @@ class FileDialog(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileDialogClass(GObject.GPointer):
+class FileDialogClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -45121,7 +45121,7 @@ class FileLauncher(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FileLauncherClass(GObject.GPointer):
+class FileLauncherClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -45235,7 +45235,7 @@ class Filter(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FilterClass(GObject.GPointer):
+class FilterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -45458,7 +45458,7 @@ class FilterListModel(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FilterListModelClass(GObject.GPointer):
+class FilterListModelClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -45926,7 +45926,7 @@ class Fixed(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FixedClass(GObject.GPointer):
+class FixedClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -46064,12 +46064,12 @@ class FixedLayoutChild(LayoutChild):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FixedLayoutChildClass(GObject.GPointer):
+class FixedLayoutChildClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutChildClass | None: ...
 
-class FixedLayoutClass(GObject.GPointer):
+class FixedLayoutClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
@@ -46177,7 +46177,7 @@ class FlattenListModel(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FlattenListModelClass(GObject.GPointer):
+class FlattenListModelClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -47562,7 +47562,7 @@ class FlowBoxChild(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FlowBoxChildClass(GObject.GPointer):
+class FlowBoxChildClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def activate(self) -> activateFlowBoxChildClassCB: ...
@@ -49170,7 +49170,7 @@ class FontChooserDialog(Dialog):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontChooserIface(GObject.GPointer):
+class FontChooserIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def base_iface(self) -> GObject.TypeInterface | None: ...
@@ -50534,12 +50534,12 @@ class FontDialogButton(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FontDialogButtonClass(GObject.GPointer):
+class FontDialogButtonClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
-class FontDialogClass(GObject.GPointer):
+class FontDialogClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -51087,7 +51087,7 @@ class Frame(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FrameClass(GObject.GPointer):
+class FrameClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def compute_child_allocation(self) -> compute_child_allocationFrameClassCB: ...
@@ -51921,7 +51921,7 @@ class GLArea(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GLAreaClass(GObject.GPointer):
+class GLAreaClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `GtkGLAreaClass` structure contains only private data.
     """
@@ -52391,7 +52391,7 @@ class Gesture(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GestureClass(GObject.GPointer): ...
+class GestureClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GestureClick(GestureSingle):
     """
@@ -52581,7 +52581,7 @@ class GestureClick(GestureSingle):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GestureClickClass(GObject.GPointer): ...
+class GestureClickClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GestureDrag(GestureSingle):
     """
@@ -52772,7 +52772,7 @@ class GestureDrag(GestureSingle):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GestureDragClass(GObject.GPointer): ...
+class GestureDragClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GestureLongPress(GestureSingle):
     """
@@ -52970,7 +52970,7 @@ class GestureLongPress(GestureSingle):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GestureLongPressClass(GObject.GPointer): ...
+class GestureLongPressClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GesturePan(GestureDrag):
     """
@@ -53177,7 +53177,7 @@ class GesturePan(GestureDrag):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GesturePanClass(GObject.GPointer): ...
+class GesturePanClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GestureRotate(Gesture):
     """
@@ -53311,7 +53311,7 @@ class GestureRotate(Gesture):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GestureRotateClass(GObject.GPointer): ...
+class GestureRotateClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GestureSingle(Gesture):
     """
@@ -53520,7 +53520,7 @@ class GestureSingle(Gesture):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GestureSingleClass(GObject.GPointer): ...
+class GestureSingleClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GestureStylus(GestureSingle):
     """
@@ -53774,7 +53774,7 @@ class GestureStylus(GestureSingle):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GestureStylusClass(GObject.GPointer): ...
+class GestureStylusClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GestureSwipe(GestureSingle):
     """
@@ -53942,7 +53942,7 @@ class GestureSwipe(GestureSingle):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GestureSwipeClass(GObject.GPointer): ...
+class GestureSwipeClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GestureZoom(Gesture):
     """
@@ -54078,7 +54078,7 @@ class GestureZoom(Gesture):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GestureZoomClass(GObject.GPointer): ...
+class GestureZoomClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class GraphicsOffload(Widget):
     """
@@ -54586,7 +54586,7 @@ class GraphicsOffload(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GraphicsOffloadClass(GObject.GPointer):
+class GraphicsOffloadClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
@@ -55281,7 +55281,7 @@ class Grid(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GridClass(GObject.GPointer):
+class GridClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -55591,12 +55591,12 @@ class GridLayoutChild(LayoutChild):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GridLayoutChildClass(GObject.GPointer):
+class GridLayoutChildClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutChildClass | None: ...
 
-class GridLayoutClass(GObject.GPointer):
+class GridLayoutClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
@@ -56261,7 +56261,7 @@ class GridView(ListBase):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GridViewClass(GObject.GPointer): ...
+class GridViewClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class HeaderBar(Widget):
     """
@@ -57189,7 +57189,7 @@ class IMContext(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class IMContextClass(GObject.GPointer):
+class IMContextClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved2(self) -> object | None: ...
@@ -57477,12 +57477,12 @@ class IMContextSimple(IMContext):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class IMContextSimpleClass(GObject.GPointer):
+class IMContextSimpleClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> IMContextClass | None: ...
 
-class IMContextSimplePrivate(GObject.GPointer): ...
+class IMContextSimplePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class IMMulticontext(IMContext):
     """
@@ -57595,7 +57595,7 @@ class IMMulticontext(IMContext):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class IMMulticontextClass(GObject.GPointer):
+class IMMulticontextClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -57608,7 +57608,7 @@ class IMMulticontextClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> IMContextClass | None: ...
 
-class IMMulticontextPrivate(GObject.GPointer): ...
+class IMMulticontextPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class IconPaintable(GObject.Object):
     """
@@ -61350,7 +61350,7 @@ class Inscription(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class InscriptionClass(GObject.GPointer):
+class InscriptionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
@@ -61431,7 +61431,7 @@ class KeyvalTrigger(ShortcutTrigger):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class KeyvalTriggerClass(GObject.GPointer): ...
+class KeyvalTriggerClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Label(Widget):
     """
@@ -62897,7 +62897,7 @@ class LayoutChild(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class LayoutChildClass(GObject.GPointer):
+class LayoutChildClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -63064,7 +63064,7 @@ class LayoutManager(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class LayoutManagerClass(GObject.GPointer):
+class LayoutManagerClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `GtkLayoutManagerClass` structure contains only private data, and
     should only be accessed through the provided API, or when subclassing
@@ -64847,7 +64847,7 @@ class ListBase(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ListBaseClass(GObject.GPointer): ...
+class ListBaseClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ListBox(Widget):
     """
@@ -66279,7 +66279,7 @@ class ListBoxRow(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ListBoxRowClass(GObject.GPointer):
+class ListBoxRowClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def activate(self) -> activateListBoxRowClassCB: ...
@@ -66420,7 +66420,7 @@ class ListHeader(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ListHeaderClass(GObject.GPointer): ...
+class ListHeaderClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ListItem(GObject.Object):
     """
@@ -66679,7 +66679,7 @@ class ListItem(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ListItemClass(GObject.GPointer): ...
+class ListItemClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ListItemFactory(GObject.Object):
     """
@@ -66751,7 +66751,7 @@ class ListItemFactory(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ListItemFactoryClass(GObject.GPointer): ...
+class ListItemFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ListStore(GObject.Object):
     """
@@ -67149,14 +67149,14 @@ class ListStore(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ListStoreClass(GObject.GPointer):
+class ListStoreClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class ListStorePrivate(GObject.GPointer): ...
+class ListStorePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ListView(ListBase):
     """
@@ -67881,7 +67881,7 @@ class ListView(ListBase):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ListViewClass(GObject.GPointer): ...
+class ListViewClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class LockButton(Button):
     """
@@ -68644,7 +68644,7 @@ class MapListModel(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MapListModelClass(GObject.GPointer):
+class MapListModelClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -69072,7 +69072,7 @@ class MediaControls(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MediaControlsClass(GObject.GPointer):
+class MediaControlsClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
@@ -69361,7 +69361,7 @@ class MediaFile(MediaStream):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MediaFileClass(GObject.GPointer):
+class MediaFileClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -69882,7 +69882,7 @@ class MediaStream(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MediaStreamClass(GObject.GPointer):
+class MediaStreamClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -71507,7 +71507,7 @@ class MessageDialog(Dialog):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MessageDialogClass(GObject.GPointer): ...
+class MessageDialogClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class MnemonicAction(ShortcutAction):
     """
@@ -71543,7 +71543,7 @@ class MnemonicAction(ShortcutAction):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MnemonicActionClass(GObject.GPointer): ...
+class MnemonicActionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class MnemonicTrigger(ShortcutTrigger):
     """
@@ -71604,7 +71604,7 @@ class MnemonicTrigger(ShortcutTrigger):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MnemonicTriggerClass(GObject.GPointer): ...
+class MnemonicTriggerClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class MountOperation(Gio.MountOperation):
     """
@@ -71836,7 +71836,7 @@ class MountOperation(Gio.MountOperation):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MountOperationClass(GObject.GPointer):
+class MountOperationClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -71852,7 +71852,7 @@ class MountOperationClass(GObject.GPointer):
         The parent class.
         """
 
-class MountOperationPrivate(GObject.GPointer): ...
+class MountOperationPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class MultiFilter(Filter):
     """
@@ -71934,7 +71934,7 @@ class MultiFilter(Filter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MultiFilterClass(GObject.GPointer): ...
+class MultiFilterClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class MultiSelection(GObject.Object):
     """
@@ -72041,7 +72041,7 @@ class MultiSelection(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MultiSelectionClass(GObject.GPointer):
+class MultiSelectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -72139,7 +72139,7 @@ class MultiSorter(Sorter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MultiSorterClass(GObject.GPointer):
+class MultiSorterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SorterClass | None: ...
@@ -72204,7 +72204,7 @@ class NamedAction(ShortcutAction):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NamedActionClass(GObject.GPointer): ...
+class NamedActionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Native(builtins.object):
     """
@@ -72476,7 +72476,7 @@ class NativeDialog(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NativeDialogClass(GObject.GPointer):
+class NativeDialogClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for `GtkNativeDialog`.
     """
@@ -72502,7 +72502,7 @@ class NativeDialogClass(GObject.GPointer):
     @builtins.property
     def show(self) -> showNativeDialogClassCB: ...
 
-class NativeInterface(GObject.GPointer): ...
+class NativeInterface(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class NeverTrigger(ShortcutTrigger):
     """
@@ -72537,7 +72537,7 @@ class NeverTrigger(ShortcutTrigger):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NeverTriggerClass(GObject.GPointer): ...
+class NeverTriggerClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class NoSelection(GObject.Object):
     """
@@ -72649,7 +72649,7 @@ class NoSelection(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NoSelectionClass(GObject.GPointer):
+class NoSelectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -73855,7 +73855,7 @@ class NothingAction(ShortcutAction):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NothingActionClass(GObject.GPointer): ...
+class NothingActionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class NumericSorter(Sorter):
     """
@@ -73952,12 +73952,12 @@ class NumericSorter(Sorter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class NumericSorterClass(GObject.GPointer):
+class NumericSorterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SorterClass | None: ...
 
-class ObjectExpression(Expression):
+class ObjectExpression(Expression, metaclass=GObject.GTypeMeta):
     """
     A `GObject` value in a `GtkExpression`.
     """
@@ -74030,7 +74030,7 @@ class Orientable(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class OrientableIface(GObject.GPointer):
+class OrientableIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def base_iface(self) -> GObject.TypeInterface | None: ...
@@ -74671,17 +74671,17 @@ class OverlayLayoutChild(LayoutChild):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class OverlayLayoutChildClass(GObject.GPointer):
+class OverlayLayoutChildClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutChildClass | None: ...
 
-class OverlayLayoutClass(GObject.GPointer):
+class OverlayLayoutClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> LayoutManagerClass | None: ...
 
-class PadActionEntry(GObject.GPointer):
+class PadActionEntry(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Struct defining a pad action entry.
     """
@@ -74873,9 +74873,9 @@ class PadController(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PadControllerClass(GObject.GPointer): ...
+class PadControllerClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class PageRange(GObject.GPointer):
+class PageRange(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A range of pages to print.
 
@@ -76570,7 +76570,7 @@ class Paned(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PaperSize(GObject.GBoxed):
+class PaperSize(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     `GtkPaperSize` handles paper sizes.
 
@@ -76746,7 +76746,7 @@ class PaperSize(GObject.GBoxed):
         new_from_ppd(ppd_name:str, ppd_display_name:str, width:float, height:float) -> Gtk.PaperSize
         """
 
-class ParamSpecExpression(GObject.ParamSpec):
+class ParamSpecExpression(GObject.ParamSpec, metaclass=GObject.GTypeMeta):
     """
     A `GParamSpec` for properties holding a `GtkExpression`.
     """
@@ -77417,12 +77417,12 @@ class PasswordEntryBuffer(EntryBuffer):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PasswordEntryBufferClass(GObject.GPointer):
+class PasswordEntryBufferClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> EntryBufferClass | None: ...
 
-class PasswordEntryClass(GObject.GPointer): ...
+class PasswordEntryClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Picture(Widget):
     """
@@ -78099,7 +78099,7 @@ class Picture(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PictureClass(GObject.GPointer):
+class PictureClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
@@ -78851,7 +78851,7 @@ class Popover(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PopoverClass(GObject.GPointer):
+class PopoverClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def activate_default(self) -> activate_defaultPopoverClassCB: ...
@@ -79995,7 +79995,7 @@ class PopoverMenuBar(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PrintBackend(GObject.GPointer):
+class PrintBackend(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     A print backend.
     """
@@ -80384,7 +80384,7 @@ class PrintDialog(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PrintDialogClass(GObject.GPointer):
+class PrintDialogClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -81676,7 +81676,7 @@ class PrintOperation(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PrintOperationClass(GObject.GPointer):
+class PrintOperationClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def begin_print(self) -> begin_printPrintOperationClassCB:
@@ -81826,7 +81826,7 @@ class PrintOperationPreview(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PrintOperationPreviewIface(GObject.GPointer):
+class PrintOperationPreviewIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -81857,7 +81857,7 @@ class PrintOperationPreviewIface(GObject.GPointer):
     @builtins.property
     def render_page(self) -> render_pagePrintOperationPreviewIfaceCB: ...
 
-class PrintOperationPrivate(GObject.GPointer): ...
+class PrintOperationPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class PrintSettings(GObject.Object):
     """
@@ -82264,7 +82264,7 @@ class PrintSettings(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PrintSetup(GObject.GBoxed):
+class PrintSetup(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     An auxiliary object for printing that allows decoupling the setup from the printing.
 
@@ -84130,7 +84130,7 @@ class ProgressBar(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PropertyExpression(Expression):
+class PropertyExpression(Expression, metaclass=GObject.GTypeMeta):
     """
     A `GObject` property value in a `GtkExpression`.
     """
@@ -84909,7 +84909,7 @@ class Range(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class RangeClass(GObject.GPointer):
+class RangeClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def adjust_bounds(self) -> adjust_boundsRangeClassCB: ...
@@ -84926,7 +84926,7 @@ class RangeClass(GObject.GPointer):
     @builtins.property
     def value_changed(self) -> value_changedRangeClassCB: ...
 
-class RecentData(GObject.GPointer):
+class RecentData(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Meta-data to be passed to `Gtk.RecentManager.add_full` when
     registering a recently used resource.
@@ -84970,7 +84970,7 @@ class RecentData(GObject.GPointer):
     the MIME type of the resource;
     """
 
-class RecentInfo(GObject.GBoxed):
+class RecentInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Contains the metadata associated with an item in the
     recently used files list.
@@ -85326,7 +85326,7 @@ class RecentManager(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class RecentManagerClass(GObject.GPointer):
+class RecentManagerClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     `GtkRecentManagerClass` contains only private data.
     """
@@ -85345,9 +85345,9 @@ class RecentManagerClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class RecentManagerPrivate(GObject.GPointer): ...
+class RecentManagerPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class RequestedSize(GObject.GPointer):
+class RequestedSize(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Represents a request of a screen object in a given orientation.
 
@@ -85369,7 +85369,7 @@ class RequestedSize(GObject.GPointer):
     The natural size for allocation in a given orientation
     """
 
-class Requisition(GObject.GBoxed):
+class Requisition(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Represents the desired size of a widget.
 
@@ -85991,7 +85991,7 @@ class Root(builtins.object):
         this function.
         """
 
-class RootInterface(GObject.GPointer): ...
+class RootInterface(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Scale(Range):
     """
@@ -87331,7 +87331,7 @@ class ScaleButton(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ScaleButtonClass(GObject.GPointer):
+class ScaleButtonClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -87340,7 +87340,7 @@ class ScaleButtonClass(GObject.GPointer):
     @builtins.property
     def value_changed(self) -> value_changedScaleButtonClassCB: ...
 
-class ScaleClass(GObject.GPointer):
+class ScaleClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def get_layout_offsets(self) -> get_layout_offsetsScaleClassCB: ...
@@ -87349,7 +87349,7 @@ class ScaleClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> RangeClass | None: ...
 
-class ScrollInfo(GObject.GBoxed):
+class ScrollInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Provides detailed information on how a scroll operation should be performed.
 
@@ -87551,7 +87551,7 @@ class Scrollable(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ScrollableInterface(GObject.GPointer):
+class ScrollableInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def base_iface(self) -> GObject.TypeInterface | None: ...
@@ -90320,7 +90320,7 @@ class SectionModel(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SectionModelInterface(GObject.GPointer):
+class SectionModelInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The list of virtual functions for the `GtkSectionModel` interface.
     No function must be implemented, but unless `GtkSectionModel::`get_section``
@@ -90432,7 +90432,7 @@ class SelectionFilterModel(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SelectionFilterModelClass(GObject.GPointer):
+class SelectionFilterModelClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -90599,7 +90599,7 @@ class SelectionModel(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SelectionModelInterface(GObject.GPointer):
+class SelectionModelInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The list of virtual functions for the `GtkSelectionModel` interface.
     No function must be implemented, but unless `GtkSelectionModel::`is_selected``
@@ -92188,9 +92188,9 @@ class ShortcutAction(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ShortcutActionClass(GObject.GPointer): ...
+class ShortcutActionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class ShortcutClass(GObject.GPointer):
+class ShortcutClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -92434,7 +92434,7 @@ class ShortcutController(EventController):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ShortcutControllerClass(GObject.GPointer): ...
+class ShortcutControllerClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ShortcutLabel(Widget):
     """
@@ -92881,7 +92881,7 @@ class ShortcutLabel(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ShortcutLabelClass(GObject.GPointer): ...
+class ShortcutLabelClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ShortcutManager(builtins.object):
     """
@@ -92909,7 +92909,7 @@ class ShortcutManager(builtins.object):
         Initialize ShortcutManager object with properties.
         """
 
-class ShortcutManagerInterface(GObject.GPointer):
+class ShortcutManagerInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The list of functions that can be implemented for the `GtkShortcutManager`
     interface.
@@ -93046,7 +93046,7 @@ class ShortcutTrigger(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ShortcutTriggerClass(GObject.GPointer): ...
+class ShortcutTriggerClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ShortcutsGroup(Box):
     """
@@ -93566,7 +93566,7 @@ class ShortcutsGroup(Box):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ShortcutsGroupClass(GObject.GPointer): ...
+class ShortcutsGroupClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ShortcutsSection(Box):
     """
@@ -94112,7 +94112,7 @@ class ShortcutsSection(Box):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ShortcutsSectionClass(GObject.GPointer): ...
+class ShortcutsSectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ShortcutsShortcut(Widget):
     """
@@ -94683,7 +94683,7 @@ class ShortcutsShortcut(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ShortcutsShortcutClass(GObject.GPointer): ...
+class ShortcutsShortcutClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ShortcutsWindow(Window):
     """
@@ -95484,7 +95484,7 @@ class SignalAction(ShortcutAction):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SignalActionClass(GObject.GPointer): ...
+class SignalActionClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class SignalListItemFactory(ListItemFactory):
     """
@@ -95629,7 +95629,7 @@ class SignalListItemFactory(ListItemFactory):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SignalListItemFactoryClass(GObject.GPointer): ...
+class SignalListItemFactoryClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class SingleSelection(GObject.Object):
     """
@@ -95842,7 +95842,7 @@ class SingleSelection(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SingleSelectionClass(GObject.GPointer):
+class SingleSelectionClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -96193,7 +96193,7 @@ class SliceListModel(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SliceListModelClass(GObject.GPointer):
+class SliceListModelClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -96662,7 +96662,7 @@ class Snapshot(Gdk.Snapshot):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SnapshotClass(GObject.GPointer): ...
+class SnapshotClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class SortListModel(GObject.Object):
     """
@@ -96902,7 +96902,7 @@ class SortListModel(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SortListModelClass(GObject.GPointer):
+class SortListModelClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -97028,7 +97028,7 @@ class Sorter(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SorterClass(GObject.GPointer):
+class SorterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The virtual table for `GtkSorter`.
     """
@@ -100885,7 +100885,7 @@ class StringFilter(Filter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class StringFilterClass(GObject.GPointer):
+class StringFilterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> FilterClass | None: ...
@@ -101053,7 +101053,7 @@ class StringList(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class StringListClass(GObject.GPointer):
+class StringListClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -101118,7 +101118,7 @@ class StringObject(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class StringObjectClass(GObject.GPointer):
+class StringObjectClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -101248,7 +101248,7 @@ class StringSorter(Sorter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class StringSorterClass(GObject.GPointer):
+class StringSorterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SorterClass | None: ...
@@ -101511,7 +101511,7 @@ class StyleContext(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class StyleContextClass(GObject.GPointer):
+class StyleContextClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -102131,7 +102131,7 @@ class SymbolicPaintable(builtins.object):
         colors.
         """
 
-class SymbolicPaintableInterface(GObject.GPointer):
+class SymbolicPaintableInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The list of virtual functions for the `GtkSymbolicPaintable` interface.
     No function must be implemented, default implementations exist for each one.
@@ -104420,7 +104420,7 @@ class TextBuffer(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TextBufferClass(GObject.GPointer):
+class TextBufferClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The class structure for `GtkTextBuffer`.
     """
@@ -104515,7 +104515,7 @@ class TextBufferClass(GObject.GPointer):
         The class handler for the `GtkTextBuffer::undo` signal
         """
 
-class TextBufferPrivate(GObject.GPointer): ...
+class TextBufferPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TextChildAnchor(GObject.Object):
     """
@@ -104587,7 +104587,7 @@ class TextChildAnchor(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TextChildAnchorClass(GObject.GPointer):
+class TextChildAnchorClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -104600,7 +104600,7 @@ class TextChildAnchorClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class TextIter(GObject.GBoxed):
+class TextIter(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Iterates over the contents of a `GtkTextBuffer`.
 
@@ -105588,7 +105588,7 @@ class TextMark(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TextMarkClass(GObject.GPointer):
+class TextMarkClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -106807,14 +106807,14 @@ class TextTag(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TextTagClass(GObject.GPointer):
+class TextTagClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class TextTagPrivate(GObject.GPointer): ...
+class TextTagPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TextTagTable(GObject.Object):
     """
@@ -108642,7 +108642,7 @@ class TextView(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TextViewClass(GObject.GPointer):
+class TextViewClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def backspace(self) -> backspaceTextViewClassCB:
@@ -108732,7 +108732,7 @@ class TextViewClass(GObject.GPointer):
         keybinding signal.
         """
 
-class TextViewPrivate(GObject.GPointer): ...
+class TextViewPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class ToggleButton(Button):
     """
@@ -109373,7 +109373,7 @@ class ToggleButton(Button):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ToggleButtonClass(GObject.GPointer):
+class ToggleButtonClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
@@ -109483,15 +109483,10 @@ class Tooltip(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeDragDest(builtins.object):
+class TreeDragDest(builtins.object, metaclass=GObject.GTypeMeta):
     """
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -109518,7 +109513,7 @@ class TreeDragDest(builtins.object):
         parent of `dest_path` doesn’t exist, though.
         """
 
-class TreeDragDestIface(GObject.GPointer):
+class TreeDragDestIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def drag_data_received(self) -> drag_data_receivedTreeDragDestIfaceCB:
@@ -109536,15 +109531,10 @@ class TreeDragDestIface(GObject.GPointer):
         the given dest_path, at the same depth as dest_path.
         """
 
-class TreeDragSource(builtins.object):
+class TreeDragSource(builtins.object, metaclass=GObject.GTypeMeta):
     """
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
-
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -109575,7 +109565,7 @@ class TreeDragSource(builtins.object):
         this interface, the row is assumed draggable.
         """
 
-class TreeDragSourceIface(GObject.GPointer):
+class TreeDragSourceIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def drag_data_delete(self) -> drag_data_deleteTreeDragSourceIfaceCB:
@@ -110194,12 +110184,12 @@ class TreeExpander(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeExpanderClass(GObject.GPointer):
+class TreeExpanderClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
 
-class TreeIter(GObject.GBoxed):
+class TreeIter(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The `GtkTreeIter` is the primary structure
     for accessing a `GtkTreeModel`. Models are expected to put a unique
@@ -110419,7 +110409,7 @@ class TreeListModel(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeListModelClass(GObject.GPointer):
+class TreeListModelClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -110591,7 +110581,7 @@ class TreeListRow(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeListRowClass(GObject.GPointer):
+class TreeListRowClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -110677,7 +110667,7 @@ class TreeListRowSorter(Sorter):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeListRowSorterClass(GObject.GPointer):
+class TreeListRowSorterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> SorterClass | None: ...
@@ -111439,7 +111429,7 @@ class TreeModelFilter(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeModelFilterClass(GObject.GPointer):
+class TreeModelFilterClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def modify(self) -> modifyTreeModelFilterClassCB: ...
@@ -111450,9 +111440,9 @@ class TreeModelFilterClass(GObject.GPointer):
     @builtins.property
     def visible(self) -> visibleTreeModelFilterClassCB: ...
 
-class TreeModelFilterPrivate(GObject.GPointer): ...
+class TreeModelFilterPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class TreeModelIface(GObject.GPointer):
+class TreeModelIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
@@ -111854,16 +111844,16 @@ class TreeModelSort(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeModelSortClass(GObject.GPointer):
+class TreeModelSortClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class TreeModelSortPrivate(GObject.GPointer): ...
+class TreeModelSortPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class TreePath(GObject.GBoxed):
+class TreePath(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     An opaque structure representing a path to a row in a model.
     """
@@ -112002,9 +111992,9 @@ class TreePath(GObject.GBoxed):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class TreeRowData(GObject.GBoxed): ...
+class TreeRowData(GObject.GBoxed, metaclass=GObject.GTypeMeta): ...
 
-class TreeRowReference(GObject.GBoxed):
+class TreeRowReference(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A GtkTreeRowReference tracks model changes so that it always refers to the
     same row (a `GtkTreePath` refers to a position, not a fixed row). Create a
@@ -112371,7 +112361,7 @@ class TreeSortable(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeSortableIface(GObject.GPointer):
+class TreeSortableIface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
@@ -112715,14 +112705,14 @@ class TreeStore(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeStoreClass(GObject.GPointer):
+class TreeStoreClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def padding(self) -> list | None: ...
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class TreeStorePrivate(GObject.GPointer): ...
+class TreeStorePrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class TreeView(Widget):
     """
@@ -114252,7 +114242,7 @@ class TreeView(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TreeViewClass(GObject.GPointer):
+class TreeViewClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _reserved(self) -> list | None: ...
@@ -114940,7 +114930,7 @@ class UriLauncher(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class UriLauncherClass(GObject.GPointer):
+class UriLauncherClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
@@ -115521,7 +115511,7 @@ class Video(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class VideoClass(GObject.GPointer):
+class VideoClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
@@ -119274,7 +119264,7 @@ class Widget(GObject.InitiallyUnowned):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class WidgetClass(GObject.GPointer):
+class WidgetClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def compute_expand(self) -> compute_expandWidgetClassCB:
@@ -119656,7 +119646,7 @@ class WidgetClass(GObject.GPointer):
         initializer after calling [method`Gtk`.WidgetClass.set_template].
         """
 
-class WidgetClassPrivate(GObject.GPointer): ...
+class WidgetClassPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class WidgetPaintable(GObject.Object):
     """
@@ -119747,12 +119737,12 @@ class WidgetPaintable(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class WidgetPaintableClass(GObject.GPointer):
+class WidgetPaintableClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class WidgetPrivate(GObject.GPointer): ...
+class WidgetPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Window(Widget):
     """
@@ -121163,7 +121153,7 @@ class Window(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class WindowClass(GObject.GPointer):
+class WindowClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def activate_default(self) -> activate_defaultWindowClassCB:
@@ -121754,7 +121744,7 @@ class WindowControls(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class WindowControlsClass(GObject.GPointer):
+class WindowControlsClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...
@@ -121827,7 +121817,7 @@ class WindowGroup(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class WindowGroupClass(GObject.GPointer):
+class WindowGroupClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def _gtk_reserved1(self) -> object | None: ...
@@ -121840,7 +121830,7 @@ class WindowGroupClass(GObject.GPointer):
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
-class WindowGroupPrivate(GObject.GPointer): ...
+class WindowGroupPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class WindowHandle(Widget):
     """
@@ -122272,7 +122262,7 @@ class WindowHandle(Widget):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class WindowHandleClass(GObject.GPointer):
+class WindowHandleClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def parent_class(self) -> WidgetClass | None: ...

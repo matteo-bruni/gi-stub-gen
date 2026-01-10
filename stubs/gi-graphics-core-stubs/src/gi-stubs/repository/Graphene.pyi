@@ -375,7 +375,7 @@ class RayIntersectionKind(enum.IntEnum):
 # classes
 ###############################################################
 
-class Box(GObject.GBoxed):
+class Box(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A 3D box, described as the volume between a minimum and
     a maximum vertices.
@@ -559,7 +559,7 @@ class Box(GObject.GBoxed):
         alloc() -> Graphene.Box
         """
 
-class Euler(GObject.GBoxed):
+class Euler(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Describe a rotation using Euler angles.
 
@@ -718,7 +718,7 @@ class Euler(GObject.GBoxed):
         alloc() -> Graphene.Euler
         """
 
-class Frustum(GObject.GBoxed):
+class Frustum(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A 3D volume delimited by 2D clip planes.
 
@@ -784,7 +784,7 @@ class Frustum(GObject.GBoxed):
         alloc() -> Graphene.Frustum
         """
 
-class Matrix(GObject.GBoxed):
+class Matrix(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A structure capable of holding a 4x4 matrix.
 
@@ -1224,7 +1224,7 @@ class Matrix(GObject.GBoxed):
         alloc() -> Graphene.Matrix
         """
 
-class Plane(GObject.GBoxed):
+class Plane(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A 2D plane that extends infinitely in a 3D volume.
 
@@ -1322,7 +1322,7 @@ class Plane(GObject.GBoxed):
         alloc() -> Graphene.Plane
         """
 
-class Point(GObject.GBoxed):
+class Point(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A point with two coordinates.
     """
@@ -1401,7 +1401,7 @@ class Point(GObject.GBoxed):
         alloc() -> Graphene.Point
         """
 
-class Point3D(GObject.GBoxed):
+class Point3D(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A point with three components: X, Y, and Z.
     """
@@ -1510,7 +1510,7 @@ class Point3D(GObject.GBoxed):
         alloc() -> Graphene.Point3D
         """
 
-class Quad(GObject.GBoxed):
+class Quad(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A 4 vertex quadrilateral, as represented by four #graphene_point_t.
 
@@ -1564,7 +1564,7 @@ class Quad(GObject.GBoxed):
         alloc() -> Graphene.Quad
         """
 
-class Quaternion(GObject.GBoxed):
+class Quaternion(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A quaternion.
 
@@ -1708,7 +1708,7 @@ class Quaternion(GObject.GBoxed):
         alloc() -> Graphene.Quaternion
         """
 
-class Ray(GObject.GBoxed):
+class Ray(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A ray emitted from an origin in a given direction.
 
@@ -1827,7 +1827,7 @@ class Ray(GObject.GBoxed):
         alloc() -> Graphene.Ray
         """
 
-class Rect(GObject.GBoxed):
+class Rect(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     The location and size of a rectangle region.
 
@@ -2084,7 +2084,7 @@ class Rect(GObject.GBoxed):
         a size of 0, 0.
         """
 
-class Simd4F(GObject.GPointer):
+class Simd4F(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def w(self) -> float: ...
@@ -2095,7 +2095,7 @@ class Simd4F(GObject.GPointer):
     @builtins.property
     def z(self) -> float: ...
 
-class Simd4X4F(GObject.GPointer):
+class Simd4X4F(GObject.GPointer, metaclass=GObject.GTypeMeta):
     # gi Fields
     @builtins.property
     def w(self) -> Simd4F | None: ...
@@ -2106,7 +2106,7 @@ class Simd4X4F(GObject.GPointer):
     @builtins.property
     def z(self) -> Simd4F | None: ...
 
-class Size(GObject.GBoxed):
+class Size(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A size.
     """
@@ -2166,7 +2166,7 @@ class Size(GObject.GBoxed):
         alloc() -> Graphene.Size
         """
 
-class Sphere(GObject.GBoxed):
+class Sphere(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A sphere, represented by its center and radius.
     """
@@ -2250,7 +2250,7 @@ class Sphere(GObject.GBoxed):
         alloc() -> Graphene.Sphere
         """
 
-class Triangle(GObject.GBoxed):
+class Triangle(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A triangle.
     """
@@ -2370,7 +2370,7 @@ class Triangle(GObject.GBoxed):
         alloc() -> Graphene.Triangle
         """
 
-class Vec2(GObject.GBoxed):
+class Vec2(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A structure capable of holding a vector with two dimensions, x and y.
 
@@ -2510,7 +2510,7 @@ class Vec2(GObject.GBoxed):
         alloc() -> Graphene.Vec2
         """
 
-class Vec3(GObject.GBoxed):
+class Vec3(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A structure capable of holding a vector with three dimensions: x, y, and z.
 
@@ -2692,7 +2692,7 @@ class Vec3(GObject.GBoxed):
         alloc() -> Graphene.Vec3
         """
 
-class Vec4(GObject.GBoxed):
+class Vec4(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     A structure capable of holding a vector with four dimensions: x, y, z, and w.
 

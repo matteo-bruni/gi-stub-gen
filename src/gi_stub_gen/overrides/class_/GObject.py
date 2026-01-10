@@ -14,7 +14,7 @@ from gi_stub_gen.schema.function import FunctionSchema, FunctionArgumentSchema
 GENUM_SCHEMA = ClassSchema(
     namespace="GObject",
     name="GEnum",
-    bases=["enum.IntEnum"],
+    super=["enum.IntEnum"],
     docstring="From pygobject 3.52 GEnum are integrated with enum.IntEnum"
     " see https://pygobject.gnome.org/changelog.html [manual-override]",
     props=[],
@@ -109,7 +109,7 @@ class GEnum(IntEnum):
 GFLAG_SCHEMA = ClassSchema(
     namespace="GObject",
     name="GFlags",
-    bases=["enum.IntFlag"],
+    super=["enum.IntFlag"],
     docstring="From pygobject 3.52 GFlags "
     "are integrated with enum.Flag"
     " see https://pygobject.gnome.org/changelog.html [manual-override]",
@@ -634,7 +634,7 @@ OBJECT_SET_PROPERTY = FunctionSchema(
 CLASS_GTYPE_META = ClassSchema(
     namespace="GObject",
     name="GTypeMeta",
-    bases=["type", "GType"],
+    super=["type", "GType"],
     docstring="Metaclass to make a Python class compatible with GObject.GType arguments during static analysis.\n\n"
     "In PyGObject runtime, a Python wrapper class (e.g., Gst.FractionRange) can be directly passed "
     "to functions expecting a GObject.GType (like `Gst.Structure.has_field_typed`), because the "
@@ -673,7 +673,7 @@ CLASS_GTYPE_META = ClassSchema(
 CLASS_PROPERTY = ClassSchema(
     namespace="GObject",
     name="Property",
-    bases=["builtins.property"],
+    super=["builtins.property"],
     docstring="Stub for GObject.Property.\n\n"
     "CRITICAL: This class inherits from the built-in 'property' class.\n"
     "This tells static analysis tools (Pylance/MyPy) that this object acts as a \n"

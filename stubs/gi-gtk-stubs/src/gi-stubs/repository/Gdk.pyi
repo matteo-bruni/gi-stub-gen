@@ -1966,7 +1966,7 @@ class AppLaunchContext(Gio.AppLaunchContext):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ButtonEvent(Event):
+class ButtonEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to a button on a pointer device.
     """
@@ -2208,7 +2208,7 @@ class CicpParams(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CicpParamsClass(GObject.GPointer): ...
+class CicpParamsClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Clipboard(GObject.Object):
     """
@@ -2468,7 +2468,7 @@ class Clipboard(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ColorState(GObject.GBoxed):
+class ColorState(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Provides information to interpret colors and pixels in a variety of ways.
 
@@ -2663,7 +2663,7 @@ class ContentDeserializer(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ContentFormats(GObject.GBoxed):
+class ContentFormats(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Used to advertise and negotiate the format of content.
 
@@ -2828,7 +2828,7 @@ class ContentFormats(GObject.GBoxed):
         new_for_gtype(type:GType) -> Gdk.ContentFormats
         """
 
-class ContentFormatsBuilder(GObject.GBoxed):
+class ContentFormatsBuilder(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Creates `GdkContentFormats` objects.
     """
@@ -3097,7 +3097,7 @@ class ContentProvider(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ContentProviderClass(GObject.GPointer):
+class ContentProviderClass(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Class structure for `GdkContentProvider`.
     """
@@ -3215,7 +3215,7 @@ class ContentSerializer(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class CrossingEvent(Event):
+class CrossingEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event caused by a pointing device moving between surfaces.
     """
@@ -3442,7 +3442,7 @@ class Cursor(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DNDEvent(Event):
+class DNDEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to drag and drop operations.
     """
@@ -3453,7 +3453,7 @@ class DNDEvent(Event):
         Gets the `GdkDrop` object from a DND event.
         """
 
-class DeleteEvent(Event):
+class DeleteEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to closing a top-level surface.
     """
@@ -3941,7 +3941,7 @@ class DevicePad(builtins.object):
         current mode.
         """
 
-class DevicePadInterface(GObject.GPointer): ...
+class DevicePadInterface(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class DeviceTool(GObject.Object):
     """
@@ -4585,7 +4585,7 @@ class DisplayManager(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DmabufFormats(GObject.GBoxed):
+class DmabufFormats(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Provides information about supported DMA buffer formats.
 
@@ -5091,8 +5091,8 @@ class DmabufTextureBuilder(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DmabufTextureBuilderClass(GObject.GPointer): ...
-class DmabufTextureClass(GObject.GPointer): ...
+class DmabufTextureBuilderClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class DmabufTextureClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Drag(GObject.Object):
     """
@@ -5370,14 +5370,14 @@ class DragSurface(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class DragSurfaceInterface(GObject.GPointer):
+class DragSurfaceInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The `GdkDragSurfaceInterface` implementation is private to GDK.
     """
 
     ...
 
-class DragSurfaceSize(GObject.GPointer):
+class DragSurfaceSize(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Contains information that is useful to compute the size of a drag surface.
     """
@@ -5740,7 +5740,7 @@ class Drop(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class Event(object):
+class Event(object, metaclass=GObject.GTypeMeta):
     """
     Represents windowing system events.
 
@@ -5892,14 +5892,14 @@ class Event(object):
         If the last reference is dropped, the structure is freed.
         """
 
-class EventSequence(GObject.GBoxed):
+class EventSequence(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     An opaque type representing a sequence of related events.
     """
 
     ...
 
-class FileList(GObject.GBoxed):
+class FileList(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     An opaque type representing a list of files.
     """
@@ -5927,7 +5927,7 @@ class FileList(GObject.GBoxed):
         This function is meant to be used by language bindings
         """
 
-class FocusEvent(Event):
+class FocusEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to a keyboard focus change.
     """
@@ -6153,10 +6153,10 @@ class FrameClock(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class FrameClockClass(GObject.GPointer): ...
-class FrameClockPrivate(GObject.GPointer): ...
+class FrameClockClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class FrameClockPrivate(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class FrameTimings(GObject.GBoxed):
+class FrameTimings(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Holds timing information for a single frame of the application’s displays.
 
@@ -6949,10 +6949,10 @@ class GLTextureBuilder(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class GLTextureBuilderClass(GObject.GPointer): ...
-class GLTextureClass(GObject.GPointer): ...
+class GLTextureBuilderClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class GLTextureClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class GrabBrokenEvent(Event):
+class GrabBrokenEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to a broken windowing system grab.
     """
@@ -6967,7 +6967,7 @@ class GrabBrokenEvent(Event):
         Checks whether the grab broken event is for an implicit grab.
         """
 
-class KeyEvent(Event):
+class KeyEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to a key-based device.
     """
@@ -7016,7 +7016,7 @@ class KeyEvent(Event):
         Note that we ignore Caps Lock for matching.
         """
 
-class KeymapKey(GObject.GPointer):
+class KeymapKey(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Represents a hardware key that can be mapped to a keyval.
     """
@@ -7373,8 +7373,8 @@ class MemoryTextureBuilder(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MemoryTextureBuilderClass(GObject.GPointer): ...
-class MemoryTextureClass(GObject.GPointer): ...
+class MemoryTextureBuilderClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
+class MemoryTextureClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Monitor(GObject.Object):
     """
@@ -7652,16 +7652,16 @@ class Monitor(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MonitorClass(GObject.GPointer): ...
+class MonitorClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class MotionEvent(Event):
+class MotionEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to a pointer or touch device motion.
     """
 
     ...
 
-class PadEvent(Event):
+class PadEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to a pad-based device.
     """
@@ -7898,7 +7898,7 @@ class Paintable(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PaintableInterface(GObject.GPointer):
+class PaintableInterface(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     The list of functions that can be implemented for the `GdkPaintable`
     interface.
@@ -8056,9 +8056,9 @@ class Popup(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class PopupInterface(GObject.GPointer): ...
+class PopupInterface(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class PopupLayout(GObject.GBoxed):
+class PopupLayout(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Contains information that is necessary position a [iface`Gdk`.Popup]
     relative to its parent.
@@ -8190,14 +8190,14 @@ class PopupLayout(GObject.GBoxed):
         new(anchor_rect:Gdk.Rectangle, rect_anchor:Gdk.Gravity, surface_anchor:Gdk.Gravity) -> Gdk.PopupLayout
         """
 
-class ProximityEvent(Event):
+class ProximityEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to the proximity of a tool to a device.
     """
 
     ...
 
-class RGBA(GObject.GBoxed):
+class RGBA(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Represents a color, in a way that is compatible with cairo’s notion of color.
 
@@ -8313,7 +8313,7 @@ class RGBA(GObject.GBoxed):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class Rectangle(GObject.GBoxed):
+class Rectangle(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Represents a rectangle.
 
@@ -8381,7 +8381,7 @@ class Rectangle(GObject.GBoxed):
         zero width or height).
         """
 
-class ScrollEvent(Event):
+class ScrollEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to a scrolling motion.
     """
@@ -8561,7 +8561,7 @@ class Snapshot(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SnapshotClass(GObject.GPointer): ...
+class SnapshotClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Surface(GObject.Object):
     """
@@ -9005,7 +9005,7 @@ class Surface(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SurfaceClass(GObject.GPointer): ...
+class SurfaceClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
 class Texture(GObject.Object):
     """
@@ -9256,9 +9256,9 @@ class Texture(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TextureClass(GObject.GPointer): ...
+class TextureClass(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class TextureDownloader(GObject.GBoxed):
+class TextureDownloader(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Used to download the contents of a [class`Gdk`.Texture].
 
@@ -9343,7 +9343,7 @@ class TextureDownloader(GObject.GBoxed):
         new(texture:Gdk.Texture) -> Gdk.TextureDownloader
         """
 
-class TimeCoord(GObject.GPointer):
+class TimeCoord(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Stores a single event in a motion history.
 
@@ -9706,9 +9706,9 @@ class Toplevel(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ToplevelInterface(GObject.GPointer): ...
+class ToplevelInterface(GObject.GPointer, metaclass=GObject.GTypeMeta): ...
 
-class ToplevelLayout(GObject.GBoxed):
+class ToplevelLayout(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     """
     Contains information that is necessary to present a sovereign
     window on screen.
@@ -9792,7 +9792,7 @@ class ToplevelLayout(GObject.GBoxed):
         new() -> Gdk.ToplevelLayout
         """
 
-class ToplevelSize(GObject.GPointer):
+class ToplevelSize(GObject.GPointer, metaclass=GObject.GTypeMeta):
     """
     Contains information that is useful to compute the size of a toplevel.
     """
@@ -9841,7 +9841,7 @@ class ToplevelSize(GObject.GPointer):
         respected by the windowing system, or backend.
         """
 
-class TouchEvent(Event):
+class TouchEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to a touch-based device.
     """
@@ -9852,7 +9852,7 @@ class TouchEvent(Event):
         Extracts whether a touch event is emulating a pointer event.
         """
 
-class TouchpadEvent(Event):
+class TouchpadEvent(Event, metaclass=GObject.GTypeMeta):
     """
     An event related to a gesture on a touchpad device.
 
