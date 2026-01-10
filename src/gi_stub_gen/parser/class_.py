@@ -291,6 +291,7 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
         name="__init__",
         namespace=namespace,
         is_method=True,
+        is_class_member=True,
         is_deprecated=False,
         deprecation_warnings=None,
         docstring=f"Initialize {real_cls.__name__} object with properties.",
@@ -431,6 +432,8 @@ def parse_class(
             ),
         )
         if parsed_method:
+            # Mark as class member so @staticmethod is added when appropriate
+            parsed_method.is_class_member = True
             # save callbacks to be parsed later
             callbacks_found.extend(parsed_method._gi_callbacks)
             class_methods.append(parsed_method)

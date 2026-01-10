@@ -2,8 +2,7 @@
 set positional-arguments := true
 set dotenv-load := true
 
-# python code to find gi overrides path
-
+# python code to find gi overrides paths
 sys_overrides := ` /usr/bin/python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
 venv_overrides := ` uv run python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
 
@@ -29,6 +28,7 @@ build-and-install *args:
 # build base stub package. accepts --debug flag
 build-base *args:
     bash ./build-base-stubs.sh {{args}}
+    just diff-gobject
 
 # build graphics-core stub package. accepts --debug flag
 build-graphics-core *args:
@@ -37,6 +37,7 @@ build-graphics-core *args:
 # build gst stub package. accepts --debug flag
 build-gst *args:
     bash ./build-gst-stubs.sh {{args}}
+    just diff-gst
 
 # build gtk stub package. accepts --debug flag
 build-gtk *args:

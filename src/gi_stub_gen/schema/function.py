@@ -297,6 +297,10 @@ class FunctionSchema(BaseSchema):
     """Whether this function was overridden by a python override. This info will be added
     when parsing the overrides not at parsing time."""
 
+    is_class_member: bool = False
+    """Whether this function belongs to a class (as opposed to being a module-level function).
+    Used to determine if @staticmethod decorator should be added."""
+
     @property
     def decorators(self) -> list[str]:
         """
@@ -310,7 +314,7 @@ class FunctionSchema(BaseSchema):
         if self.is_constructor:
             decs.append("@classmethod")
 
-        if not self.is_constructor and not self.is_method:
+        if self.is_class_member and not self.is_constructor and not self.is_method:
             decs.append("@staticmethod")
 
         if self.is_getter and len(self.args) == 0:
