@@ -915,7 +915,6 @@ class Aggregator(Gst.Element):
         GST_FLOW_EOS from their aggregate implementation.
         """
     def get_ignore_inactive_pads(self) -> bool: ...
-    @builtins.property
     def get_latency(self) -> int:
         """
             Retrieves the latency values reported by `self` in response to the latency
@@ -2549,7 +2548,6 @@ class BaseSink(Gst.Element):
         """
         Initialize BaseSink object with properties.
         """
-    @builtins.property
     def get_blocksize(self) -> int:
         """
             Get the number of bytes that the sink will pull when it is operating in pull
@@ -2560,7 +2558,6 @@ class BaseSink(Gst.Element):
             Checks if `sink` is currently configured to drop buffers which are outside
         the current segment
         """
-    @builtins.property
     def get_last_sample(self) -> Gst.Sample | None:
         """
             Get the last sample that arrived in the sink and was used for preroll or for
@@ -2574,31 +2571,26 @@ class BaseSink(Gst.Element):
         """
         Get the currently configured latency.
         """
-    @builtins.property
     def get_max_bitrate(self) -> int:
         """
         Get the maximum amount of bits per second that the sink will render.
         """
-    @builtins.property
     def get_max_lateness(self) -> int:
         """
             Gets the max lateness value. See `gst_base_sink_set_max_lateness` for
         more details.
         """
-    @builtins.property
     def get_processing_deadline(self) -> int:
         """
             Get the processing deadline of `sink`. see
         `gst_base_sink_set_processing_deadline` for more information about
         the processing deadline.
         """
-    @builtins.property
     def get_render_delay(self) -> int:
         """
             Get the render delay of `sink`. see `gst_base_sink_set_render_delay` for more
         information about the render delay.
         """
-    @builtins.property
     def get_stats(self) -> Gst.Structure:
         """
             Return various GstBase.Sink statistics. This function returns a GstStructure
@@ -2608,19 +2600,16 @@ class BaseSink(Gst.Element):
         - "dropped" G_TYPE_UINT64   Number of dropped frames
         - "rendered" G_TYPE_UINT64   Number of rendered frames
         """
-    @builtins.property
     def get_sync(self) -> bool:
         """
             Checks if `sink` is currently configured to synchronize against the
         clock.
         """
-    @builtins.property
     def get_throttle_time(self) -> int:
         """
             Get the time that will be inserted between frames to control the
         maximum buffers per second.
         """
-    @builtins.property
     def get_ts_offset(self) -> int:
         """
         Get the synchronisation offset of `sink`.
@@ -3366,13 +3355,11 @@ class BaseSrc(Gst.Element):
 
         Unref the `allocator` after usage.
         """
-    @builtins.property
     def get_blocksize(self) -> int:
         """
         Get the number of bytes that `src` will push out with each buffer.
         """
     def get_buffer_pool(self) -> Gst.BufferPool | None: ...
-    @builtins.property
     def get_do_timestamp(self) -> bool:
         """
         Query if `src` timestamps outgoing buffers based on the current running_time.

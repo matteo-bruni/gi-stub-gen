@@ -5371,12 +5371,10 @@ class ATContext(GObject.Object):
         """
         Initialize ATContext object with properties.
         """
-    @builtins.property
     def get_accessible(self) -> Accessible:
         """
         Retrieves the `GtkAccessible` using this context.
         """
-    @builtins.property
     def get_accessible_role(self) -> AccessibleRole:
         """
         Retrieves the accessible role of this context.
@@ -5712,86 +5710,70 @@ class AboutDialog(Window):
         """
         Creates a new section in the "Credits" page.
         """
-    @builtins.property
     def get_artists(self) -> list:
         """
             Returns the names of the artists which are displayed
         in the credits page.
         """
-    @builtins.property
     def get_authors(self) -> list:
         """
             Returns the names of the authors which are displayed
         in the credits page.
         """
-    @builtins.property
     def get_comments(self) -> str | None:
         """
         Returns the comments string.
         """
-    @builtins.property
     def get_copyright(self) -> str | None:
         """
         Returns the copyright string.
         """
-    @builtins.property
     def get_documenters(self) -> list:
         """
             Returns the name of the documenters which are displayed
         in the credits page.
         """
-    @builtins.property
     def get_license(self) -> str | None:
         """
         Returns the license information.
         """
-    @builtins.property
     def get_license_type(self) -> License:
         """
         Retrieves the license type.
         """
-    @builtins.property
     def get_logo(self) -> Gdk.Paintable | None:
         """
         Returns the paintable displayed as logo in the about dialog.
         """
-    @builtins.property
     def get_logo_icon_name(self) -> str | None:
         """
         Returns the icon name displayed as logo in the about dialog.
         """
-    @builtins.property
     def get_program_name(self) -> str | None:
         """
         Returns the program name displayed in the about dialog.
         """
-    @builtins.property
     def get_system_information(self) -> str | None:
         """
         Returns the system information that is shown in the about dialog.
         """
-    @builtins.property
     def get_translator_credits(self) -> str | None:
         """
             Returns the translator credits string which is displayed
         in the credits page.
         """
-    @builtins.property
     def get_version(self) -> str | None:
         """
         Returns the version string.
         """
-    @builtins.property
     def get_website(self) -> str | None:
         """
         Returns the website URL.
         """
-    @builtins.property
     def get_website_label(self) -> str | None:
         """
         Returns the label used for the website link.
         """
-    @builtins.property
     def get_wrap_license(self) -> bool:
         """
             Returns whether the license text in the about dialog is
@@ -6643,7 +6625,6 @@ class Accessible(builtins.object):
 
         This function returns `None` for top level widgets.
         """
-    @builtins.property
     def get_accessible_role(self) -> AccessibleRole:
         """
         Retrieves the accessible role of an accessible object.
@@ -7083,7 +7064,6 @@ class ActionBar(Widget):
         """
         Retrieves the center bar widget of the bar.
         """
-    @builtins.property
     def get_revealed(self) -> bool:
         """
         Gets whether the contents of the action bar are revealed.
@@ -7502,12 +7482,10 @@ class Actionable(builtins.object):
         """
         Initialize Actionable object with properties.
         """
-    @builtins.property
     def get_action_name(self) -> str | None:
         """
         Gets the action name for `actionable`.
         """
-    @builtins.property
     def get_action_target_value(self) -> GLib.Variant | None:
         """
         Gets the current target value of `actionable`.
@@ -7723,7 +7701,6 @@ class Adjustment(GObject.InitiallyUnowned):
         way of compressing multiple emissions of
         [signal`Gtk`.Adjustment::changed] into one.
         """
-    @builtins.property
     def get_lower(self) -> float:
         """
         Retrieves the minimum value of the adjustment.
@@ -7732,27 +7709,22 @@ class Adjustment(GObject.InitiallyUnowned):
         """
         Gets the smaller of step increment and page increment.
         """
-    @builtins.property
     def get_page_increment(self) -> float:
         """
         Retrieves the page increment of the adjustment.
         """
-    @builtins.property
     def get_page_size(self) -> float:
         """
         Retrieves the page size of the adjustment.
         """
-    @builtins.property
     def get_step_increment(self) -> float:
         """
         Retrieves the step increment of the adjustment.
         """
-    @builtins.property
     def get_upper(self) -> float:
         """
         Retrieves the maximum value of the adjustment.
         """
-    @builtins.property
     def get_value(self) -> float:
         """
         Gets the current value of the adjustment.
@@ -8021,32 +7993,26 @@ class AlertDialog(GObject.Object):
         """
         Finishes the [method`Gtk`.AlertDialog.choose] call.
         """
-    @builtins.property
     def get_buttons(self) -> list | None:
         """
         Returns the button labels for the alert.
         """
-    @builtins.property
     def get_cancel_button(self) -> int:
         """
         Returns the index of the cancel button.
         """
-    @builtins.property
     def get_default_button(self) -> int:
         """
         Returns the index of the default button.
         """
-    @builtins.property
     def get_detail(self) -> str:
         """
         Returns the detail text that will be shown in the alert.
         """
-    @builtins.property
     def get_message(self) -> str:
         """
         Returns the message that will be shown in the alert.
         """
-    @builtins.property
     def get_modal(self) -> bool:
         """
             Returns whether the alert blocks interaction
@@ -8182,7 +8148,6 @@ class AlternativeTrigger(ShortcutTrigger):
         """
         Initialize AlternativeTrigger object with properties.
         """
-    @builtins.property
     def get_first(self) -> ShortcutTrigger:
         """
             Gets the first of the two alternative triggers that may
@@ -8191,7 +8156,6 @@ class AlternativeTrigger(ShortcutTrigger):
         [method`Gtk`.AlternativeTrigger.get_second] will return
         the other one.
         """
-    @builtins.property
     def get_second(self) -> ShortcutTrigger:
         """
             Gets the second of the two alternative triggers that may
@@ -8355,7 +8319,6 @@ class AppChooser(builtins.object):
         Returns the currently selected application.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_content_type(self) -> str:
         """
             Returns the content type for which the `GtkAppChooser`
@@ -8503,26 +8466,22 @@ class AppChooserButton(Widget):
         in the popup.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_heading(self) -> str | None:
         """
         Returns the text to display at the top of the dialog.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_modal(self) -> bool:
         """
         Gets whether the dialog is modal.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_default_item(self) -> bool:
         """
             Returns whether the dropdown menu should show the default
         application at the top.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_dialog_item(self) -> bool:
         """
             Returns whether the dropdown menu shows an item
@@ -9083,7 +9042,6 @@ class AppChooserDialog(Dialog):
         Initialize AppChooserDialog object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_heading(self) -> str | None:
         """
         Returns the text to display at the top of the dialog.
@@ -9820,42 +9778,36 @@ class AppChooserWidget(Widget):
         Initialize AppChooserWidget object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_default_text(self) -> str | None:
         """
             Returns the text that is shown if there are not applications
         that can handle the content type.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_all(self) -> bool:
         """
             Gets whether the app chooser should show all applications
         in a flat list.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_default(self) -> bool:
         """
             Gets whether the app chooser should show the default handler
         for the content type in a separate section.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_fallback(self) -> bool:
         """
             Gets whether the app chooser should show related applications
         for the content type in a separate section.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_other(self) -> bool:
         """
             Gets whether the app chooser should show applications
         which are unrelated to the content type.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_recommended(self) -> bool:
         """
             Gets whether the app chooser should show recommended applications
@@ -10484,7 +10436,6 @@ class Application(Gio.Application):
 
         If you are unsure, check it with [func`Gtk`.accelerator_parse] first.
         """
-    @builtins.property
     def get_active_window(self) -> Window | None:
         """
             Gets the “active” window for the application.
@@ -10501,7 +10452,6 @@ class Application(Gio.Application):
         See [the section on Automatic resources](class.Application.html#automatic-resources)
         for more information.
         """
-    @builtins.property
     def get_menubar(self) -> Gio.MenuModel | None:
         """
         Returns the menu model for the menu bar of the application.
@@ -11039,7 +10989,6 @@ class ApplicationWindow(Window):
 
         If the window has not yet been added to a `GtkApplication`, returns `0`.
         """
-    @builtins.property
     def get_show_menubar(self) -> bool:
         """
             Returns whether the window will display a menubar for the app menu
@@ -11743,29 +11692,24 @@ class AspectFrame(Widget):
         """
         Initialize AspectFrame object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `self`.
         """
-    @builtins.property
     def get_obey_child(self) -> bool:
         """
             Returns whether the child's size request should override
         the set aspect ratio of the `GtkAspectFrame`.
         """
-    @builtins.property
     def get_ratio(self) -> float:
         """
         Returns the desired aspect ratio of the child.
         """
-    @builtins.property
     def get_xalign(self) -> float:
         """
             Returns the horizontal alignment of the child within the
         allocation of the `GtkAspectFrame`.
         """
-    @builtins.property
     def get_yalign(self) -> float:
         """
             Returns the vertical alignment of the child within the
@@ -12363,7 +12307,6 @@ class Assistant(Window):
         Gets the page type of `page`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_pages(self) -> Gio.ListModel:
         """
         Gets a list model of the assistant pages.
@@ -13123,7 +13066,6 @@ class AssistantPage(GObject.Object):
         Initialize AssistantPage object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_child(self) -> Widget:
         """
         Returns the child to which `page` belongs.
@@ -13542,23 +13484,19 @@ class BookmarkList(GObject.Object):
         """
         Initialize BookmarkList object with properties.
         """
-    @builtins.property
     def get_attributes(self) -> str | None:
         """
         Gets the attributes queried on the children.
         """
-    @builtins.property
     def get_filename(self) -> str:
         """
             Returns the filename of the bookmark file that
         this list is loading.
         """
-    @builtins.property
     def get_io_priority(self) -> int:
         """
         Gets the IO priority to use while loading file.
         """
-    @builtins.property
     def is_loading(self) -> bool:
         """
             Returns True if the files are currently being loaded.
@@ -13684,13 +13622,11 @@ class BoolFilter(Filter):
         """
         Initialize BoolFilter object with properties.
         """
-    @builtins.property
     def get_expression(self) -> Expression | None:
         """
             Gets the expression that the filter evaluates for
         each item.
         """
-    @builtins.property
     def get_invert(self) -> bool:
         """
         Returns whether the filter inverts the expression.
@@ -13924,24 +13860,20 @@ class Box(Widget):
         """
         Adds a child at the end.
         """
-    @builtins.property
     def get_baseline_child(self) -> int:
         """
         Gets the value set by [method`Gtk`.Box.set_baseline_child].
         """
-    @builtins.property
     def get_baseline_position(self) -> BaselinePosition:
         """
         Gets the value set by [method`Gtk`.Box.set_baseline_position].
         """
-    @builtins.property
     def get_homogeneous(self) -> bool:
         """
             Returns whether the box is homogeneous.
 
         In a homogeneous box all children are the same size.
         """
-    @builtins.property
     def get_spacing(self) -> int:
         """
         Gets the value set by [method`Gtk`.Box.set_spacing].
@@ -14454,22 +14386,18 @@ class BoxLayout(LayoutManager):
         """
         Initialize BoxLayout object with properties.
         """
-    @builtins.property
     def get_baseline_child(self) -> int:
         """
         Gets the value set by `Gtk.BoxLayout.set_baseline_child`.
         """
-    @builtins.property
     def get_baseline_position(self) -> BaselinePosition:
         """
         Gets the value set by `Gtk.BoxLayout.set_baseline_position`.
         """
-    @builtins.property
     def get_homogeneous(self) -> bool:
         """
         Returns whether the layout is set to be homogeneous.
         """
-    @builtins.property
     def get_spacing(self) -> int:
         """
         Returns the space that `box_layout` puts between children.
@@ -15288,7 +15216,6 @@ class Builder(GObject.Object):
         Most likely you do not need to call this function in applications as
         templates are handled by `GtkWidget`.
         """
-    @builtins.property
     def get_current_object(self) -> GObject.Object | None:
         """
         Gets the current object set via `Gtk.Builder.set_current_object`.
@@ -15307,12 +15234,10 @@ class Builder(GObject.Object):
         Note that this function does not increment the reference
         counts of the returned objects.
         """
-    @builtins.property
     def get_scope(self) -> BuilderScope:
         """
         Gets the scope in use that was set via `Gtk.Builder.set_scope`.
         """
-    @builtins.property
     def get_translation_domain(self) -> str | None:
         """
         Gets the translation domain of `builder`.
@@ -15605,18 +15530,15 @@ class BuilderListItemFactory(ListItemFactory):
         """
         Initialize BuilderListItemFactory object with properties.
         """
-    @builtins.property
     def get_bytes(self) -> GLib.Bytes:
         """
             Gets the data used as the `GtkBuilder` UI template for constructing
         listitems.
         """
-    @builtins.property
     def get_resource(self) -> str | None:
         """
         If the data references a resource, gets the path of that resource.
         """
-    @builtins.property
     def get_scope(self) -> BuilderScope | None:
         """
         Gets the scope used when constructing listitems.
@@ -15880,23 +15802,19 @@ class Button(Widget):
         """
         Initialize Button object with properties.
         """
-    @builtins.property
     def get_can_shrink(self) -> bool:
         """
             Retrieves whether the button can be smaller than the natural
         size of its contents.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `button`.
         """
-    @builtins.property
     def get_has_frame(self) -> bool:
         """
         Returns whether the button has a frame.
         """
-    @builtins.property
     def get_icon_name(self) -> str | None:
         """
             Returns the icon name of the button.
@@ -15905,7 +15823,6 @@ class Button(Widget):
         the return value will be None. This will be the case if you create
         an empty button with [ctor`Gtk`.Button.new] to use as a container.
         """
-    @builtins.property
     def get_label(self) -> str | None:
         """
             Fetches the text from the label of the button.
@@ -15914,7 +15831,6 @@ class Button(Widget):
         the return value will be None. This will be the case if you create
         an empty button with [ctor`Gtk`.Button.new] to use as a container.
         """
-    @builtins.property
     def get_use_underline(self) -> bool:
         """
             gets whether underlines are interpreted as mnemonics.
@@ -16628,7 +16544,6 @@ class Calendar(Widget):
 
         The returned date is in the local time zone.
         """
-    @builtins.property
     def get_day(self) -> int:
         """
         Gets the day of the selected date.
@@ -16637,12 +16552,10 @@ class Calendar(Widget):
         """
         Returns if the `day` of the `calendar` is already marked.
         """
-    @builtins.property
     def get_month(self) -> int:
         """
         Gets the month of the selected date.
         """
-    @builtins.property
     def get_show_day_names(self) -> bool:
         """
             Returns whether `self` is currently showing the names
@@ -16651,7 +16564,6 @@ class Calendar(Widget):
         This is the value of the [property`Gtk`.Calendar:show-day-names]
         property.
         """
-    @builtins.property
     def get_show_heading(self) -> bool:
         """
             Returns whether `self` is currently showing the heading.
@@ -16659,7 +16571,6 @@ class Calendar(Widget):
         This is the value of the [property`Gtk`.Calendar:show-heading]
         property.
         """
-    @builtins.property
     def get_show_week_numbers(self) -> bool:
         """
             Returns whether `self` is showing week numbers right
@@ -16668,7 +16579,6 @@ class Calendar(Widget):
         This is the value of the [property`Gtk`.Calendar:show-week-numbers]
         property.
         """
-    @builtins.property
     def get_year(self) -> int:
         """
         Gets the year of the selected date.
@@ -17703,21 +17613,18 @@ class CellArea(GObject.InitiallyUnowned):
         subclasses.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_edit_widget(self) -> CellEditable | None:
         """
             Gets the `GtkCellEditable` widget currently used
         to edit the currently edited cell.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_edited_cell(self) -> CellRenderer | None:
         """
             Gets the `GtkCellRenderer` in `area` that is currently
         being edited.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_focus_cell(self) -> CellRenderer | None:
         """
         Retrieves the currently focused cell for `area`
@@ -18202,7 +18109,6 @@ class CellAreaBox(CellArea):
         Initialize CellAreaBox object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_spacing(self) -> int:
         """
         Gets the spacing added between cell renderers.
@@ -18565,7 +18471,6 @@ class CellAreaContext(GObject.Object):
         the returned value will be -1.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_area(self) -> CellArea:
         """
             Fetches the `GtkCellArea` this `context` was created by.
@@ -19271,13 +19176,11 @@ class CellRenderer(GObject.InitiallyUnowned):
         Fills in `width` and `height` with the appropriate size of `cell`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_is_expanded(self) -> bool:
         """
         Checks whether the given `GtkCellRenderer` is expanded.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_is_expander(self) -> bool:
         """
         Checks whether the given `GtkCellRenderer` is an expander.
@@ -19322,7 +19225,6 @@ class CellRenderer(GObject.InitiallyUnowned):
         or a width-for-height layout.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_sensitive(self) -> bool:
         """
         Returns the cell renderer’s sensitivity.
@@ -19335,7 +19237,6 @@ class CellRenderer(GObject.InitiallyUnowned):
         the given `GtkCellRenderer`State.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_visible(self) -> bool:
         """
         Returns the cell renderer’s visibility.
@@ -23113,21 +23014,18 @@ class CellRendererToggle(CellRenderer):
         Initialize CellRendererToggle object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_activatable(self) -> bool:
         """
             Returns whether the cell renderer is activatable. See
         `Gtk.CellRendererToggle.set_activatable`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_active(self) -> bool:
         """
             Returns whether the cell renderer is active. See
         `Gtk.CellRendererToggle.set_active`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_radio(self) -> bool:
         """
         Returns whether we’re rendering radio toggles rather than checkboxes.
@@ -23466,21 +23364,18 @@ class CellView(Widget):
         None is returned.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_draw_sensitive(self) -> bool:
         """
             Gets whether `cell_view` is configured to draw all of its
         cells in a sensitive state.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_fit_model(self) -> bool:
         """
             Gets whether `cell_view` is configured to request space
         to fit the entire `GtkTreeModel`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_model(self) -> TreeModel | None:
         """
             Returns the model for `cell_view`. If no model is used None is
@@ -24076,29 +23971,24 @@ class CenterBox(Widget):
         """
         Initialize CenterBox object with properties.
         """
-    @builtins.property
     def get_baseline_position(self) -> BaselinePosition:
         """
             Gets the baseline position of the center box.
 
         See [method`Gtk`.CenterBox.set_baseline_position].
         """
-    @builtins.property
     def get_center_widget(self) -> Widget | None:
         """
         Gets the center widget.
         """
-    @builtins.property
     def get_end_widget(self) -> Widget | None:
         """
         Gets the end widget.
         """
-    @builtins.property
     def get_shrink_center_last(self) -> bool:
         """
         Gets whether the center widget shrinks after other children.
         """
-    @builtins.property
     def get_start_widget(self) -> Widget | None:
         """
         Gets the start widget.
@@ -24581,7 +24471,6 @@ class CenterLayout(LayoutManager):
         """
         Gets the current orienration of the layout manager.
         """
-    @builtins.property
     def get_shrink_center_last(self) -> bool:
         """
         Gets whether `self` shrinks the center widget after other children.
@@ -24823,27 +24712,22 @@ class CheckButton(Widget):
         """
         Initialize CheckButton object with properties.
         """
-    @builtins.property
     def get_active(self) -> bool:
         """
         Returns whether the check button is active.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `button` or `None` if [property`CheckButton`:label] is set.
         """
-    @builtins.property
     def get_inconsistent(self) -> bool:
         """
         Returns whether the check button is in an inconsistent state.
         """
-    @builtins.property
     def get_label(self) -> str | None:
         """
         Returns the label of the check button or `None` if [property`CheckButton`:child] is set.
         """
-    @builtins.property
     def get_use_underline(self) -> bool:
         """
         Returns whether underlines in the label indicate mnemonics.
@@ -25485,13 +25369,11 @@ class ColorButton(Widget):
         Initialize ColorButton object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_modal(self) -> bool:
         """
         Gets whether the dialog is modal.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_title(self) -> str:
         """
         Gets the title of the color chooser dialog.
@@ -25998,7 +25880,6 @@ class ColorChooser(builtins.object):
         Gets the currently-selected color.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_use_alpha(self) -> bool:
         """
         Returns whether the color chooser shows the alpha channel.
@@ -27279,20 +27160,17 @@ class ColorDialog(GObject.Object):
         """
         Finishes the [method`Gtk`.ColorDialog.choose_rgba] call
         """
-    @builtins.property
     def get_modal(self) -> bool:
         """
             Returns whether the color chooser dialog
         blocks interaction with the parent window
         while it is presented.
         """
-    @builtins.property
     def get_title(self) -> str:
         """
             Returns the title that will be shown on the
         color chooser dialog.
         """
-    @builtins.property
     def get_with_alpha(self) -> bool:
         """
         Returns whether colors may have alpha.
@@ -27443,12 +27321,10 @@ class ColorDialogButton(Widget):
         """
         Initialize ColorDialogButton object with properties.
         """
-    @builtins.property
     def get_dialog(self) -> ColorDialog | None:
         """
         Returns the `GtkColorDialog` of `self`.
         """
-    @builtins.property
     def get_rgba(self) -> Gdk.RGBA:
         """
             Returns the color of the button.
@@ -28025,7 +27901,6 @@ class ColumnView(Widget):
         """
         Appends the `column` to the end of the columns in `self`.
         """
-    @builtins.property
     def get_columns(self) -> Gio.ListModel:
         """
             Gets the list of columns in this column view.
@@ -28034,48 +27909,39 @@ class ColumnView(Widget):
         monitor changes to the columns of `self` by connecting to the
         [signal`Gio`.ListModel::items-changed] signal.
         """
-    @builtins.property
     def get_enable_rubberband(self) -> bool:
         """
         Returns whether rows can be selected by dragging with the mouse.
         """
-    @builtins.property
     def get_header_factory(self) -> ListItemFactory | None:
         """
         Gets the factory that's currently used to populate section headers.
         """
-    @builtins.property
     def get_model(self) -> SelectionModel | None:
         """
         Gets the model that's currently used to read the items displayed.
         """
-    @builtins.property
     def get_reorderable(self) -> bool:
         """
         Returns whether columns are reorderable.
         """
-    @builtins.property
     def get_row_factory(self) -> ListItemFactory | None:
         """
         Gets the factory set via [method`Gtk`.ColumnView.set_row_factory].
         """
-    @builtins.property
     def get_show_column_separators(self) -> bool:
         """
         Returns whether the list should show separators between columns.
         """
-    @builtins.property
     def get_show_row_separators(self) -> bool:
         """
         Returns whether the list should show separators between rows.
         """
-    @builtins.property
     def get_single_click_activate(self) -> bool:
         """
             Returns whether rows will be activated on single click and
         selected on hover.
         """
-    @builtins.property
     def get_sorter(self) -> Sorter | None:
         """
             Returns a special sorter that reflects the users sorting
@@ -28098,7 +27964,6 @@ class ColumnView(Widget):
         gtk_column_view_set_model (view, selection);
         ```
         """
-    @builtins.property
     def get_tab_behavior(self) -> ListTabBehavior:
         """
         Gets the behavior set for the <kbd>Tab</kbd> key.
@@ -28719,33 +28584,28 @@ class ColumnViewCell(ListItem):
         """
         Initialize ColumnViewCell object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
             Gets the child previously set via `Gtk.ColumnViewCell.set_child` or
         None if none was set.
         """
-    @builtins.property
     def get_focusable(self) -> bool:
         """
             Checks if a list item has been set to be focusable via
         `Gtk.ColumnViewCell.set_focusable`.
         """
-    @builtins.property
     def get_item(self) -> GObject.Object | None:
         """
             Gets the model item that associated with `self`.
 
         If `self` is unbound, this function returns None.
         """
-    @builtins.property
     def get_position(self) -> int:
         """
             Gets the position in the model that `self` currently displays.
 
         If `self` is unbound, Gtk.INVALID_LIST_POSITION is returned.
         """
-    @builtins.property
     def get_selected(self) -> bool:
         """
             Checks if the item is displayed as selected.
@@ -28939,56 +28799,46 @@ class ColumnViewColumn(GObject.Object):
         """
         Initialize ColumnViewColumn object with properties.
         """
-    @builtins.property
     def get_column_view(self) -> ColumnView | None:
         """
             Gets the column view that's currently displaying this column.
 
         If `self` has not been added to a column view yet, `None` is returned.
         """
-    @builtins.property
     def get_expand(self) -> bool:
         """
         Returns whether this column should expand.
         """
-    @builtins.property
     def get_factory(self) -> ListItemFactory | None:
         """
             Gets the factory that's currently used to populate list items
         for this column.
         """
-    @builtins.property
     def get_fixed_width(self) -> int:
         """
         Gets the fixed width of the column.
         """
-    @builtins.property
     def get_header_menu(self) -> Gio.MenuModel | None:
         """
             Gets the menu model that is used to create the context menu
         for the column header.
         """
-    @builtins.property
     def get_id(self) -> str | None:
         """
         Returns the ID set with [method`Gtk`.ColumnViewColumn.set_id].
         """
-    @builtins.property
     def get_resizable(self) -> bool:
         """
         Returns whether this column is resizable.
         """
-    @builtins.property
     def get_sorter(self) -> Sorter | None:
         """
         Returns the sorter that is associated with the column.
         """
-    @builtins.property
     def get_title(self) -> str | None:
         """
         Returns the title set with [method`Gtk`.ColumnViewColumn.set_title].
         """
-    @builtins.property
     def get_visible(self) -> bool:
         """
         Returns whether this column is visible.
@@ -29213,43 +29063,36 @@ class ColumnViewRow(GObject.Object):
         """
         Initialize ColumnViewRow object with properties.
         """
-    @builtins.property
     def get_accessible_description(self) -> str:
         """
         Gets the accessible description of `self`.
         """
-    @builtins.property
     def get_accessible_label(self) -> str:
         """
         Gets the accessible label of `self`.
         """
-    @builtins.property
     def get_activatable(self) -> bool:
         """
             Checks if the row has been set to be activatable via
         `Gtk.ColumnViewRow.set_activatable`.
         """
-    @builtins.property
     def get_focusable(self) -> bool:
         """
             Checks if a row item has been set to be focusable via
         `Gtk.ColumnViewRow.set_focusable`.
         """
-    @builtins.property
     def get_item(self) -> GObject.Object | None:
         """
             Gets the model item that associated with `self`.
 
         If `self` is unbound, this function returns None.
         """
-    @builtins.property
     def get_position(self) -> int:
         """
             Gets the position in the model that `self` currently displays.
 
         If `self` is unbound, Gtk.INVALID_LIST_POSITION is returned.
         """
-    @builtins.property
     def get_selectable(self) -> bool:
         """
             Checks if the row has been set to be selectable via
@@ -29257,7 +29100,6 @@ class ColumnViewRow(GObject.Object):
 
         Do not confuse this function with [method`Gtk`.ColumnViewRow.get_selected].
         """
-    @builtins.property
     def get_selected(self) -> bool:
         """
             Checks if the item is selected that this row corresponds to.
@@ -29464,7 +29306,6 @@ class ColumnViewSorter(Sorter):
         Use the [signal`Gtk`.Sorter::changed] signal to get notified
         when sort columns change.
         """
-    @builtins.property
     def get_primary_sort_column(self) -> ColumnViewColumn | None:
         """
             Returns the primary sort column.
@@ -29472,7 +29313,6 @@ class ColumnViewSorter(Sorter):
         The primary sort column is the one that displays the triangle
         in a column view header.
         """
-    @builtins.property
     def get_primary_sort_order(self) -> SortType:
         """
             Returns the primary sort order.
@@ -29708,7 +29548,6 @@ class ComboBox(Widget):
         Initialize ComboBox object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_active(self) -> int:
         """
             Returns the index of the currently active item.
@@ -29719,7 +29558,6 @@ class ComboBox(Widget):
         [struct`Gtk`.TreePath] of the active item.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_active_id(self) -> str | None:
         """
             Returns the ID of the active row of `combo_box`.
@@ -29737,46 +29575,39 @@ class ComboBox(Widget):
         ID value, then None is returned.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_button_sensitivity(self) -> SensitivityType:
         """
             Returns whether the combo box sets the dropdown button
         sensitive or not when there are no items in the model.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `combo_box`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_entry_text_column(self) -> int:
         """
             Returns the column which `combo_box` is using to get the strings
         from to display in the internal entry.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_has_entry(self) -> bool:
         """
         Returns whether the combo box has an entry.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_id_column(self) -> int:
         """
             Returns the column which `combo_box` is using to get string IDs
         for values from.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_model(self) -> TreeModel | None:
         """
         Returns the `GtkTreeModel` of `combo_box`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_popup_fixed_width(self) -> bool:
         """
         Gets whether the popup uses a fixed width.
@@ -31257,23 +31088,19 @@ class Constraint(GObject.Object):
         """
         Initialize Constraint object with properties.
         """
-    @builtins.property
     def get_constant(self) -> float:
         """
         Retrieves the constant factor added to the source attributes' value.
         """
-    @builtins.property
     def get_multiplier(self) -> float:
         """
             Retrieves the multiplication factor applied to the source
         attribute's value.
         """
-    @builtins.property
     def get_relation(self) -> ConstraintRelation:
         """
         The order relation between the terms of the constraint.
         """
-    @builtins.property
     def get_source(self) -> ConstraintTarget | None:
         """
             Retrieves the [iface`Gtk`.ConstraintTarget] used as the source for the
@@ -31282,17 +31109,14 @@ class Constraint(GObject.Object):
         If the source is set to `None` at creation, the constraint will use
         the widget using the [class`Gtk`.ConstraintLayout] as the source.
         """
-    @builtins.property
     def get_source_attribute(self) -> ConstraintAttribute:
         """
         Retrieves the attribute of the source to be read by the constraint.
         """
-    @builtins.property
     def get_strength(self) -> int:
         """
         Retrieves the strength of the constraint.
         """
-    @builtins.property
     def get_target(self) -> ConstraintTarget | None:
         """
             Retrieves the [iface`Gtk`.ConstraintTarget] used as the target for
@@ -31301,7 +31125,6 @@ class Constraint(GObject.Object):
         If the targe is set to `None` at creation, the constraint will use
         the widget using the [class`Gtk`.ConstraintLayout] as the target.
         """
-    @builtins.property
     def get_target_attribute(self) -> ConstraintAttribute:
         """
         Retrieves the attribute of the target to be set by the constraint.
@@ -31505,7 +31328,6 @@ class ConstraintGuide(GObject.Object):
         """
         Gets the minimum size of `guide`.
         """
-    @builtins.property
     def get_name(self) -> str | None:
         """
         Retrieves the name set using `Gtk.ConstraintGuide.set_name`.
@@ -31514,7 +31336,6 @@ class ConstraintGuide(GObject.Object):
         """
         Gets the natural size of `guide`.
         """
-    @builtins.property
     def get_strength(self) -> ConstraintStrength:
         """
         Retrieves the strength set using `Gtk.ConstraintGuide.set_strength`.
@@ -33393,12 +33214,10 @@ class DirectoryList(GObject.Object):
         """
         Initialize DirectoryList object with properties.
         """
-    @builtins.property
     def get_attributes(self) -> str | None:
         """
         Gets the attributes queried on the children.
         """
-    @builtins.property
     def get_error(self) -> GLib.Error | None:
         """
             Gets the loading error, if any.
@@ -33410,23 +33229,19 @@ class DirectoryList(GObject.Object):
         An error being set does not mean that no files were loaded, and all
         successfully queried files will remain in the list.
         """
-    @builtins.property
     def get_file(self) -> Gio.File | None:
         """
         Gets the file whose children are currently enumerated.
         """
-    @builtins.property
     def get_io_priority(self) -> int:
         """
         Gets the IO priority set via `Gtk.DirectoryList.set_io_priority`.
         """
-    @builtins.property
     def get_monitored(self) -> bool:
         """
             Returns whether the directory list is monitoring
         the directory for changes.
         """
-    @builtins.property
     def is_loading(self) -> bool:
         """
             Returns True if the children enumeration is currently in
@@ -33647,7 +33462,6 @@ class DragIcon(Widget):
         operations started by `GtkDragSource`, so you don't need to set
         a drag icon using this function there.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the widget currently used as drag icon.
@@ -34141,12 +33955,10 @@ class DragSource(GestureSingle):
         """
         Cancels a currently ongoing drag operation.
         """
-    @builtins.property
     def get_actions(self) -> Gdk.DragAction:
         """
         Gets the actions that are currently set on the `GtkDragSource`.
         """
-    @builtins.property
     def get_content(self) -> Gdk.ContentProvider | None:
         """
         Gets the current content provider of a `GtkDragSource`.
@@ -34523,12 +34335,10 @@ class DrawingArea(Widget):
         """
         Initialize DrawingArea object with properties.
         """
-    @builtins.property
     def get_content_height(self) -> int:
         """
         Retrieves the content height of the `GtkDrawingArea`.
         """
-    @builtins.property
     def get_content_width(self) -> int:
         """
         Retrieves the content width of the `GtkDrawingArea`.
@@ -35026,19 +34836,16 @@ class DropControllerMotion(EventController):
         """
         Initialize DropControllerMotion object with properties.
         """
-    @builtins.property
     def contains_pointer(self) -> bool:
         """
             Returns if a Drag-and-Drop operation is within the widget
         `self` or one of its children.
         """
-    @builtins.property
     def get_drop(self) -> Gdk.Drop | None:
         """
             Returns the `GdkDrop` of a current Drag-and-Drop operation
         over the widget of `self`.
         """
-    @builtins.property
     def is_pointer(self) -> bool:
         """
             Returns if a Drag-and-Drop operation is within the widget
@@ -35314,19 +35121,16 @@ class DropDown(Widget):
         """
         Initialize DropDown object with properties.
         """
-    @builtins.property
     def get_enable_search(self) -> bool:
         """
         Returns whether search is enabled.
         """
-    @builtins.property
     def get_expression(self) -> Expression | None:
         """
             Gets the expression set that is used to obtain strings from items.
 
         See [method`Gtk`.DropDown.set_expression].
         """
-    @builtins.property
     def get_factory(self) -> ListItemFactory | None:
         """
             Gets the factory that's currently used to populate list items.
@@ -35335,37 +35139,30 @@ class DropDown(Widget):
         item in the button. It is also used for items in the popup
         if [property`Gtk`.DropDown:list-factory] is not set.
         """
-    @builtins.property
     def get_header_factory(self) -> ListItemFactory | None:
         """
         Gets the factory that's currently used to create header widgets for the popup.
         """
-    @builtins.property
     def get_list_factory(self) -> ListItemFactory | None:
         """
         Gets the factory that's currently used to populate list items in the popup.
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
         Gets the model that provides the displayed items.
         """
-    @builtins.property
     def get_search_match_mode(self) -> StringFilterMatchMode:
         """
         Returns the match mode that the search filter is using.
         """
-    @builtins.property
     def get_selected(self) -> int:
         """
         Gets the position of the selected item.
         """
-    @builtins.property
     def get_selected_item(self) -> GObject.Object | None:
         """
         Gets the selected item. If no item is selected, None is returned.
         """
-    @builtins.property
     def get_show_arrow(self) -> bool:
         """
         Returns whether to show an arrow within the widget.
@@ -35999,12 +35796,10 @@ class DropTarget(EventController):
         """
         Initialize DropTarget object with properties.
         """
-    @builtins.property
     def get_actions(self) -> Gdk.DragAction:
         """
         Gets the actions that this drop target supports.
         """
-    @builtins.property
     def get_current_drop(self) -> Gdk.Drop | None:
         """
             Gets the currently handled drop operation.
@@ -36012,14 +35807,12 @@ class DropTarget(EventController):
         If no drop operation is going on, None is returned.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_drop(self) -> Gdk.Drop | None:
         """
             Gets the currently handled drop operation.
 
         If no drop operation is going on, None is returned.
         """
-    @builtins.property
     def get_formats(self) -> Gdk.ContentFormats | None:
         """
             Gets the data formats that this drop target accepts.
@@ -36032,12 +35825,10 @@ class DropTarget(EventController):
 
         If no types have been set, `None` will be returned.
         """
-    @builtins.property
     def get_preload(self) -> bool:
         """
         Gets whether data should be preloaded on hover.
         """
-    @builtins.property
     def get_value(self) -> GObject.Value | None:
         """
         Gets the current drop data, as a `GValue`.
@@ -36299,12 +36090,10 @@ class DropTargetAsync(EventController):
         """
         Initialize DropTargetAsync object with properties.
         """
-    @builtins.property
     def get_actions(self) -> Gdk.DragAction:
         """
         Gets the actions that this drop target supports.
         """
-    @builtins.property
     def get_formats(self) -> Gdk.ContentFormats | None:
         """
             Gets the data formats that this drop target accepts.
@@ -36746,7 +36535,6 @@ class Editable(builtins.object):
         This is a helper function that should be called from dispose,
         before removing the delegate object.
         """
-    @builtins.property
     def get_alignment(self) -> float:
         """
         Gets the alignment of the editable.
@@ -36769,22 +36557,18 @@ class Editable(builtins.object):
 
         Typically, the delegate is a [class`Gtk`.Text] widget.
         """
-    @builtins.property
     def get_editable(self) -> bool:
         """
         Retrieves whether `editable` is editable.
         """
-    @builtins.property
     def get_enable_undo(self) -> bool:
         """
         Gets if undo/redo actions are enabled for `editable`
         """
-    @builtins.property
     def get_max_width_chars(self) -> int:
         """
         Retrieves the desired maximum width of `editable`, in characters.
         """
-    @builtins.property
     def get_position(self) -> int:
         """
             Retrieves the current position of the cursor relative
@@ -36792,14 +36576,12 @@ class Editable(builtins.object):
 
         Note that this position is in characters, not in bytes.
         """
-    @builtins.property
     def get_text(self) -> str:
         """
             Retrieves the contents of `editable`.
 
         The returned string is owned by GTK and must not be modified or freed.
         """
-    @builtins.property
     def get_width_chars(self) -> int:
         """
             Gets the number of characters of space reserved
@@ -37149,7 +36931,6 @@ class EditableLabel(Widget):
         """
         Initialize EditableLabel object with properties.
         """
-    @builtins.property
     def get_editing(self) -> bool:
         """
         Returns whether the label is currently in “editing mode”.
@@ -38532,7 +38313,6 @@ class Entry(Widget):
         """
         Initialize Entry object with properties.
         """
-    @builtins.property
     def get_activates_default(self) -> bool:
         """
         Retrieves the value set by `Gtk.Entry.set_activates_default`.
@@ -38543,21 +38323,18 @@ class Entry(Widget):
 
         See also: [property`Gtk`.Editable:xalign]
         """
-    @builtins.property
     def get_attributes(self) -> Pango.AttrList | None:
         """
             Gets the attribute list of the `GtkEntry`.
 
         See [method`Gtk`.Entry.set_attributes].
         """
-    @builtins.property
     def get_buffer(self) -> EntryBuffer:
         """
             Get the `GtkEntryBuffer` object which holds the text for
         this widget.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_completion(self) -> EntryCompletion | None:
         """
             Returns the auxiliary completion object currently
@@ -38568,12 +38345,10 @@ class Entry(Widget):
             Returns the index of the icon which is the source of the
         current  DND operation, or -1.
         """
-    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None:
         """
         Gets the menu model set with `Gtk.Entry.set_extra_menu`.
         """
-    @builtins.property
     def get_has_frame(self) -> bool:
         """
         Gets the value set by `Gtk.Entry.set_has_frame`.
@@ -38645,61 +38420,51 @@ class Entry(Widget):
             Gets the contents of the tooltip on the icon at the specified
         position in `entry`.
         """
-    @builtins.property
     def get_input_hints(self) -> InputHints:
         """
         Gets the input hints of this `GtkEntry`.
         """
-    @builtins.property
     def get_input_purpose(self) -> InputPurpose:
         """
         Gets the input purpose of the `GtkEntry`.
         """
-    @builtins.property
     def get_invisible_char(self) -> str:
         """
             Retrieves the character displayed in place of the actual text
         in “password mode”.
         """
-    @builtins.property
     def get_max_length(self) -> int:
         """
             Retrieves the maximum allowed length of the text in `entry`.
 
         See [method`Gtk`.Entry.set_max_length].
         """
-    @builtins.property
     def get_overwrite_mode(self) -> bool:
         """
         Gets whether the `GtkEntry` is in overwrite mode.
         """
-    @builtins.property
     def get_placeholder_text(self) -> str | None:
         """
             Retrieves the text that will be displayed when `entry`
         is empty and unfocused
         """
-    @builtins.property
     def get_progress_fraction(self) -> float:
         """
             Returns the current fraction of the task that’s been completed.
 
         See [method`Gtk`.Entry.set_progress_fraction].
         """
-    @builtins.property
     def get_progress_pulse_step(self) -> float:
         """
             Retrieves the pulse step set with
         `Gtk.Entry.set_progress_pulse_step`.
         """
-    @builtins.property
     def get_tabs(self) -> Pango.TabArray | None:
         """
             Gets the tabstops of the `GtkEntry`.
 
         See [method`Gtk`.Entry.set_tabs].
         """
-    @builtins.property
     def get_text_length(self) -> int:
         """
             Retrieves the current length of the text in `entry`.
@@ -38707,7 +38472,6 @@ class Entry(Widget):
         This is equivalent to getting `entry`'s `GtkEntryBuffer`
         and calling [method`Gtk`.EntryBuffer.get_length] on it.
         """
-    @builtins.property
     def get_visibility(self) -> bool:
         """
             Retrieves whether the text in `entry` is visible.
@@ -39779,17 +39543,14 @@ class EntryBuffer(GObject.Object):
 
         See [method`Gtk`.EntryBuffer.get_length].
         """
-    @builtins.property
     def get_length(self) -> int:
         """
         Retrieves the length in characters of the buffer.
         """
-    @builtins.property
     def get_max_length(self) -> int:
         """
         Retrieves the maximum allowed length of the text in `buffer`.
         """
-    @builtins.property
     def get_text(self) -> str:
         """
             Retrieves the contents of the buffer.
@@ -40147,26 +39908,22 @@ class EntryCompletion(GObject.Object):
         Gets the entry `completion` has been attached to.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_inline_completion(self) -> bool:
         """
             Returns whether the common prefix of the possible completions should
         be automatically inserted in the entry.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_inline_selection(self) -> bool:
         """
         Returns True if inline-selection mode is turned on.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_minimum_key_length(self) -> int:
         """
         Returns the minimum key length as set for `completion`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_model(self) -> TreeModel | None:
         """
             Returns the model the `GtkEntryCompletion` is using as data source.
@@ -40174,27 +39931,23 @@ class EntryCompletion(GObject.Object):
         Returns None if the model is unset.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_popup_completion(self) -> bool:
         """
         Returns whether the completions should be presented in a popup window.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_popup_set_width(self) -> bool:
         """
             Returns whether the completion popup window will be resized to the
         width of the entry.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_popup_single_match(self) -> bool:
         """
             Returns whether the completion popup window will appear even if there is
         only a single match.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_text_column(self) -> int:
         """
         Returns the column in the model of `completion` to get strings from.
@@ -40512,22 +40265,18 @@ class EventController(GObject.Object):
 
         At other times, 0 is returned.
         """
-    @builtins.property
     def get_name(self) -> str | None:
         """
         Gets the name of `controller`.
         """
-    @builtins.property
     def get_propagation_limit(self) -> PropagationLimit:
         """
         Gets the propagation limit of the event controller.
         """
-    @builtins.property
     def get_propagation_phase(self) -> PropagationPhase:
         """
         Gets the propagation phase at which `controller` handles events.
         """
-    @builtins.property
     def get_widget(self) -> Widget | None:
         """
         Returns the `GtkWidget` this controller relates to.
@@ -40652,12 +40401,10 @@ class EventControllerFocus(EventController):
         """
         Initialize EventControllerFocus object with properties.
         """
-    @builtins.property
     def contains_focus(self) -> bool:
         """
         Returns True if focus is within `self` or one of its children.
         """
-    @builtins.property
     def is_focus(self) -> bool:
         """
         Returns True if focus is within `self`, but not one of its children.
@@ -41027,12 +40774,10 @@ class EventControllerMotion(EventController):
         """
         Initialize EventControllerMotion object with properties.
         """
-    @builtins.property
     def contains_pointer(self) -> bool:
         """
         Returns if a pointer is within `self` or one of its children.
         """
-    @builtins.property
     def is_pointer(self) -> bool:
         """
         Returns if a pointer is within `self`, but not one of its children.
@@ -41190,7 +40935,6 @@ class EventControllerScroll(EventController):
         """
         Initialize EventControllerScroll object with properties.
         """
-    @builtins.property
     def get_flags(self) -> EventControllerScrollFlags:
         """
         Gets the flags conditioning the scroll controller behavior.
@@ -41561,19 +41305,16 @@ class Expander(Widget):
         """
         Initialize Expander object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `expander`.
         """
-    @builtins.property
     def get_expanded(self) -> bool:
         """
             Queries a `GtkExpander` and returns its current state.
 
         Returns True if the child widget is revealed.
         """
-    @builtins.property
     def get_label(self) -> str | None:
         """
             Fetches the text from a label widget.
@@ -41584,23 +41325,19 @@ class Expander(Widget):
         case if you create an empty button with `Gtk.Button.new` to use as a
         container.
         """
-    @builtins.property
     def get_label_widget(self) -> Widget | None:
         """
         Retrieves the label widget for the frame.
         """
-    @builtins.property
     def get_resize_toplevel(self) -> bool:
         """
             Returns whether the expander will resize the toplevel widget
         containing the expander upon resizing and collapsing.
         """
-    @builtins.property
     def get_use_markup(self) -> bool:
         """
         Returns whether the label’s text is interpreted as Pango markup.
         """
-    @builtins.property
     def get_use_underline(self) -> bool:
         """
         Returns whether an underline in the text indicates a mnemonic.
@@ -42440,7 +42177,6 @@ class FileChooser(builtins.object):
         in a file chooser.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_action(self) -> FileChooserAction:
         """
         Gets the type of operation that the file chooser is performing.
@@ -42451,7 +42187,6 @@ class FileChooser(builtins.object):
         Gets the currently selected option in the 'choice' with the given ID.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_create_folders(self) -> bool:
         """
         Gets whether file chooser will offer to create new folders.
@@ -42488,13 +42223,11 @@ class FileChooser(builtins.object):
         of `chooser` as `GFile`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_filter(self) -> FileFilter | None:
         """
         Gets the current filter.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_filters(self) -> Gio.ListModel:
         """
             Gets the current set of user-selectable filters, as a list model.
@@ -42506,14 +42239,12 @@ class FileChooser(builtins.object):
         `chooser` may or may not affect the returned model.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_select_multiple(self) -> bool:
         """
             Gets whether multiple files can be selected in the file
         chooser.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_shortcut_folders(self) -> Gio.ListModel:
         """
             Queries the list of shortcut folders in the file chooser.
@@ -43724,13 +43455,11 @@ class FileChooserNative(NativeDialog):
         Initialize FileChooserNative object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_accept_label(self) -> str | None:
         """
         Retrieves the custom label text for the accept button.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_cancel_label(self) -> str | None:
         """
         Retrieves the custom label text for the cancel button.
@@ -44667,47 +44396,39 @@ class FileDialog(GObject.Object):
         """
         Initialize FileDialog object with properties.
         """
-    @builtins.property
     def get_accept_label(self) -> str | None:
         """
         Retrieves the text used by the dialog on its accept button.
         """
-    @builtins.property
     def get_default_filter(self) -> FileFilter | None:
         """
             Gets the filter that will be selected by default
         in the file chooser dialog.
         """
-    @builtins.property
     def get_filters(self) -> Gio.ListModel | None:
         """
             Gets the filters that will be offered to the user
         in the file chooser dialog.
         """
-    @builtins.property
     def get_initial_file(self) -> Gio.File | None:
         """
             Gets the file that will be initially selected in
         the file chooser dialog.
         """
-    @builtins.property
     def get_initial_folder(self) -> Gio.File | None:
         """
             Gets the folder that will be set as the
         initial folder in the file chooser dialog.
         """
-    @builtins.property
     def get_initial_name(self) -> str | None:
         """
         Gets the filename that will be initially selected.
         """
-    @builtins.property
     def get_modal(self) -> bool:
         """
             Returns whether the file chooser dialog blocks interaction
         with the parent window while it is presented.
         """
-    @builtins.property
     def get_title(self) -> str:
         """
         Returns the title that will be shown on the file chooser dialog.
@@ -45164,7 +44885,6 @@ class FileFilter(Filter):
         This function will not typically be used by applications;
         it is intended for use in file chooser implementation.
         """
-    @builtins.property
     def get_name(self) -> str | None:
         """
             Gets the human-readable name for the filter.
@@ -45292,17 +45012,14 @@ class FileLauncher(GObject.Object):
         """
         Initialize FileLauncher object with properties.
         """
-    @builtins.property
     def get_always_ask(self) -> bool:
         """
         Returns whether to ask the user which app to use.
         """
-    @builtins.property
     def get_file(self) -> Gio.File | None:
         """
         Gets the file that will be opened.
         """
-    @builtins.property
     def get_writable(self) -> bool:
         """
         Returns whether to make the file writable for the handler.
@@ -45593,24 +45310,20 @@ class FilterListModel(GObject.Object):
         """
         Initialize FilterListModel object with properties.
         """
-    @builtins.property
     def get_filter(self) -> Filter | None:
         """
         Gets the `GtkFilter` currently set on `self`.
         """
-    @builtins.property
     def get_incremental(self) -> bool:
         """
             Returns whether incremental filtering is enabled.
 
         See [method`Gtk`.FilterListModel.set_incremental].
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
         Gets the model currently filtered or None if none.
         """
-    @builtins.property
     def get_pending(self) -> int:
         """
             Returns the number of items that have not been filtered yet.
@@ -46308,7 +46021,6 @@ class FixedLayoutChild(LayoutChild):
         """
         Initialize FixedLayoutChild object with properties.
         """
-    @builtins.property
     def get_transform(self) -> Gsk.Transform | None:
         """
         Retrieves the transformation of the child.
@@ -46392,7 +46104,6 @@ class FlattenListModel(GObject.Object):
         """
         Initialize FlattenListModel object with properties.
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
         Gets the model set via `Gtk.FlattenListModel.set_model`.
@@ -46659,7 +46370,6 @@ class FlowBox(Widget):
         functionality in `GtkFlowBox`. When using a model, filtering and sorting
         should be implemented by the model.
         """
-    @builtins.property
     def get_activate_on_single_click(self) -> bool:
         """
         Returns whether children activate on single clicks.
@@ -46674,27 +46384,22 @@ class FlowBox(Widget):
 
         Both `x` and `y` are assumed to be relative to the origin of `box`.
         """
-    @builtins.property
     def get_column_spacing(self) -> int:
         """
         Gets the horizontal spacing.
         """
-    @builtins.property
     def get_homogeneous(self) -> bool:
         """
         Returns whether the box is homogeneous.
         """
-    @builtins.property
     def get_max_children_per_line(self) -> int:
         """
         Gets the maximum number of children per line.
         """
-    @builtins.property
     def get_min_children_per_line(self) -> int:
         """
         Gets the minimum number of children per line.
         """
-    @builtins.property
     def get_row_spacing(self) -> int:
         """
         Gets the vertical spacing.
@@ -46703,7 +46408,6 @@ class FlowBox(Widget):
         """
         Creates a list of all selected children.
         """
-    @builtins.property
     def get_selection_mode(self) -> SelectionMode:
         """
         Gets the selection mode of `box`.
@@ -47466,7 +47170,6 @@ class FlowBoxChild(Widget):
         Another alternative is to call [method`Gtk`.FlowBox.invalidate_sort]
         on any model change, but that is more expensive.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `self`.
@@ -47962,25 +47665,21 @@ class FontButton(Widget):
         Initialize FontButton object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_modal(self) -> bool:
         """
         Gets whether the dialog is modal.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_title(self) -> str:
         """
         Retrieves the title of the font chooser dialog.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_use_font(self) -> bool:
         """
         Returns whether the selected font is used in the label.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_use_size(self) -> bool:
         """
         Returns whether the selected size is used in the label.
@@ -48532,7 +48231,6 @@ class FontChooser(builtins.object):
         Initialize FontChooser object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_font(self) -> str | None:
         """
             Gets the currently-selected font name.
@@ -48547,7 +48245,6 @@ class FontChooser(builtins.object):
         font descriptions.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_font_desc(self) -> Pango.FontDescription | None:
         """
             Gets the currently-selected font.
@@ -48579,7 +48276,6 @@ class FontChooser(builtins.object):
         If the selected font is not installed, returns None.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_font_features(self) -> str:
         """
             Gets the currently-selected font features.
@@ -48600,25 +48296,21 @@ class FontChooser(builtins.object):
         The selected font size.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_language(self) -> str:
         """
         Gets the language that is used for font features.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_level(self) -> FontChooserLevel:
         """
         Returns the current level of granularity for selecting fonts.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_preview_text(self) -> str:
         """
         Gets the text displayed in the preview area.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_preview_entry(self) -> bool:
         """
         Returns whether the preview entry is shown or not.
@@ -50130,30 +49822,25 @@ class FontDialog(GObject.Object):
         """
         Finishes the [method`Gtk`.FontDialog.choose_font] call.
         """
-    @builtins.property
     def get_filter(self) -> Filter | None:
         """
             Returns the filter that decides which fonts to display
         in the font chooser dialog.
         """
-    @builtins.property
     def get_font_map(self) -> Pango.FontMap | None:
         """
             Returns the fontmap from which fonts are selected,
         or `None` for the default fontmap.
         """
-    @builtins.property
     def get_language(self) -> Pango.Language | None:
         """
         Returns the language for which font features are applied.
         """
-    @builtins.property
     def get_modal(self) -> bool:
         """
             Returns whether the font chooser dialog blocks interaction
         with the parent window while it is presented.
         """
-    @builtins.property
     def get_title(self) -> str:
         """
         Returns the title that will be shown on the font chooser dialog.
@@ -50366,12 +50053,10 @@ class FontDialogButton(Widget):
         """
         Initialize FontDialogButton object with properties.
         """
-    @builtins.property
     def get_dialog(self) -> FontDialog | None:
         """
         Returns the `GtkFontDialog` of `self`.
         """
-    @builtins.property
     def get_font_desc(self) -> Pango.FontDescription | None:
         """
             Returns the font of the button.
@@ -50380,7 +50065,6 @@ class FontDialogButton(Widget):
         the font that was chosen by the user. To get
         informed about changes, listen to "notify::font-desc".
         """
-    @builtins.property
     def get_font_features(self) -> str | None:
         """
             Returns the font features of the button.
@@ -50393,23 +50077,19 @@ class FontDialogButton(Widget):
         if [property`Gtk`.FontDialogButton:level] is set to
         `GTK_FONT_LEVEL_FEATURES`.
         """
-    @builtins.property
     def get_language(self) -> Pango.Language | None:
         """
         Returns the language that is used for font features.
         """
-    @builtins.property
     def get_level(self) -> FontLevel:
         """
             Returns the level of detail at which this dialog
         lets the user select fonts.
         """
-    @builtins.property
     def get_use_font(self) -> bool:
         """
         Returns whether the selected font is used in the label.
         """
-    @builtins.property
     def get_use_size(self) -> bool:
         """
         Returns whether the selected font size is used in the label.
@@ -50983,12 +50663,10 @@ class Frame(Widget):
         """
         Initialize Frame object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `frame`.
         """
-    @builtins.property
     def get_label(self) -> str | None:
         """
             Returns the frame labels text.
@@ -50996,12 +50674,10 @@ class Frame(Widget):
         If the frame's label widget is not a `GtkLabel`, None
         is returned.
         """
-    @builtins.property
     def get_label_align(self) -> float:
         """
         Retrieves the X alignment of the frame’s label.
         """
-    @builtins.property
     def get_label_widget(self) -> Widget | None:
         """
         Retrieves the label widget for the frame.
@@ -51655,26 +51331,22 @@ class GLArea(Widget):
         [signal`Gtk`.GLArea::render] signal, and doesn't normally need to be
         called by application code.
         """
-    @builtins.property
     def get_allowed_apis(self) -> Gdk.GLAPI:
         """
             Gets the allowed APIs.
 
         See [method`Gtk`.GLArea.set_allowed_apis].
         """
-    @builtins.property
     def get_api(self) -> Gdk.GLAPI:
         """
             Gets the API that is currently in use.
 
         If the GL area has not been realized yet, 0 is returned.
         """
-    @builtins.property
     def get_auto_render(self) -> bool:
         """
         Returns whether the area is in auto render mode or not.
         """
-    @builtins.property
     def get_context(self) -> Gdk.GLContext | None:
         """
         Retrieves the `GdkGLContext` used by `area`.
@@ -51683,12 +51355,10 @@ class GLArea(Widget):
         """
         Gets the current error set on the `area`.
         """
-    @builtins.property
     def get_has_depth_buffer(self) -> bool:
         """
         Returns whether the area has a depth buffer.
         """
-    @builtins.property
     def get_has_stencil_buffer(self) -> bool:
         """
         Returns whether the area has a stencil buffer.
@@ -51700,7 +51370,6 @@ class GLArea(Widget):
         See [method`Gtk`.GLArea.set_required_version].
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_use_es(self) -> bool:
         """
             Returns whether the `GtkGLArea` should use OpenGL ES.
@@ -53148,7 +52817,6 @@ class GestureLongPress(GestureSingle):
         """
         Initialize GestureLongPress object with properties.
         """
-    @builtins.property
     def get_delay_factor(self) -> float:
         """
         Returns the delay factor.
@@ -53346,7 +53014,6 @@ class GesturePan(GestureDrag):
         """
         Initialize GesturePan object with properties.
         """
-    @builtins.property
     def get_orientation(self) -> Orientation:
         """
         Returns the orientation of the pan gestures that this `gesture` expects.
@@ -53696,7 +53363,6 @@ class GestureSingle(Gesture):
         """
         Initialize GestureSingle object with properties.
         """
-    @builtins.property
     def get_button(self) -> int:
         """
             Returns the button number `gesture` listens for.
@@ -53715,14 +53381,12 @@ class GestureSingle(Gesture):
         This is only meaningful if [method`Gtk`.Gesture.is_active]
         returns True.
         """
-    @builtins.property
     def get_exclusive(self) -> bool:
         """
             Gets whether a gesture is exclusive.
 
         For more information, see [method`Gtk`.GestureSingle.set_exclusive].
         """
-    @builtins.property
     def get_touch_only(self) -> bool:
         """
         Returns True if the gesture is only triggered by touch events.
@@ -53933,7 +53597,6 @@ class GestureStylus(GestureSingle):
         [signal`Gtk`.GestureStylus::up] or [signal`Gtk`.GestureStylus::proximity]
         signals.
         """
-    @builtins.property
     def get_stylus_only(self) -> bool:
         """
             Checks whether the gesture is for styluses only.
@@ -54514,19 +54177,16 @@ class GraphicsOffload(Widget):
         """
         Initialize GraphicsOffload object with properties.
         """
-    @builtins.property
     def get_black_background(self) -> bool:
         """
             Returns whether the widget draws a black background.
 
         See [method`Gtk`.GraphicsOffload.set_black_background].
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child of `self`.
         """
-    @builtins.property
     def get_enabled(self) -> GraphicsOffloadEnabled:
         """
         Returns whether offload is enabled for `self`.
@@ -55116,7 +54776,6 @@ class Grid(Widget):
         Attaching widgets labeled `[1]`, `[2]`, `[3]` with ``sibling` == None` and
         ``side` == Gtk.POS_LEFT` yields a layout of `[3][2][1]`.
         """
-    @builtins.property
     def get_baseline_row(self) -> int:
         """
         Returns which row defines the global baseline of `grid`.
@@ -55126,12 +54785,10 @@ class Grid(Widget):
             Gets the child of `grid` whose area covers the grid
         cell at `column`, `row`.
         """
-    @builtins.property
     def get_column_homogeneous(self) -> bool:
         """
         Returns whether all columns of `grid` have the same width.
         """
-    @builtins.property
     def get_column_spacing(self) -> int:
         """
         Returns the amount of space between the columns of `grid`.
@@ -55142,12 +54799,10 @@ class Grid(Widget):
 
         See [method`Gtk`.Grid.set_row_baseline_position].
         """
-    @builtins.property
     def get_row_homogeneous(self) -> bool:
         """
         Returns whether all rows of `grid` have the same height.
         """
-    @builtins.property
     def get_row_spacing(self) -> int:
         """
         Returns the amount of space between the rows of `grid`.
@@ -55691,17 +55346,14 @@ class GridLayout(LayoutManager):
         """
         Initialize GridLayout object with properties.
         """
-    @builtins.property
     def get_baseline_row(self) -> int:
         """
         Retrieves the row set with `Gtk.GridLayout.set_baseline_row`.
         """
-    @builtins.property
     def get_column_homogeneous(self) -> bool:
         """
         Checks whether all columns of `grid` should have the same width.
         """
-    @builtins.property
     def get_column_spacing(self) -> int:
         """
         Retrieves the spacing set with `Gtk.GridLayout.set_column_spacing`.
@@ -55715,12 +55367,10 @@ class GridLayout(LayoutManager):
         the default value of Gtk.BASELINE_POSITION_CENTER
         is returned.
         """
-    @builtins.property
     def get_row_homogeneous(self) -> bool:
         """
         Checks whether all rows of `grid` should have the same height.
         """
-    @builtins.property
     def get_row_spacing(self) -> int:
         """
         Retrieves the spacing set with `Gtk.GridLayout.set_row_spacing`.
@@ -55853,22 +55503,18 @@ class GridLayoutChild(LayoutChild):
         """
         Initialize GridLayoutChild object with properties.
         """
-    @builtins.property
     def get_column(self) -> int:
         """
         Retrieves the column number to which `child` attaches its left side.
         """
-    @builtins.property
     def get_column_span(self) -> int:
         """
         Retrieves the number of columns that `child` spans to.
         """
-    @builtins.property
     def get_row(self) -> int:
         """
         Retrieves the row number to which `child` attaches its top side.
         """
-    @builtins.property
     def get_row_span(self) -> int:
         """
         Retrieves the number of rows that `child` spans to.
@@ -56089,38 +55735,31 @@ class GridView(ListBase):
         """
         Initialize GridView object with properties.
         """
-    @builtins.property
     def get_enable_rubberband(self) -> bool:
         """
         Returns whether rows can be selected by dragging with the mouse.
         """
-    @builtins.property
     def get_factory(self) -> ListItemFactory | None:
         """
         Gets the factory that's currently used to populate list items.
         """
-    @builtins.property
     def get_max_columns(self) -> int:
         """
         Gets the maximum number of columns that the grid will use.
         """
-    @builtins.property
     def get_min_columns(self) -> int:
         """
         Gets the minimum number of columns that the grid will use.
         """
-    @builtins.property
     def get_model(self) -> SelectionModel | None:
         """
         Gets the model that's currently used to read the items displayed.
         """
-    @builtins.property
     def get_single_click_activate(self) -> bool:
         """
             Returns whether items will be activated on single click and
         selected on hover.
         """
-    @builtins.property
     def get_tab_behavior(self) -> ListTabBehavior:
         """
         Gets the behavior set for the <kbd>Tab</kbd> key.
@@ -56780,25 +56419,21 @@ class HeaderBar(Widget):
         """
         Initialize HeaderBar object with properties.
         """
-    @builtins.property
     def get_decoration_layout(self) -> str | None:
         """
         Gets the decoration layout of the header bar.
         """
-    @builtins.property
     def get_show_title_buttons(self) -> bool:
         """
             Returns whether this header bar shows the standard window
         title buttons.
         """
-    @builtins.property
     def get_title_widget(self) -> Widget | None:
         """
             Retrieves the title widget of the header bar.
 
         See [method`Gtk`.HeaderBar.set_title_widget].
         """
-    @builtins.property
     def get_use_native_controls(self) -> bool:
         """
             Returns whether this header bar shows platform
@@ -58006,14 +57641,12 @@ class IconPaintable(GObject.Object):
         """
         Initialize IconPaintable object with properties.
         """
-    @builtins.property
     def get_file(self) -> Gio.File | None:
         """
             Gets the `GFile` that was used to load the icon.
 
         Returns None if the icon was not loaded from a file.
         """
-    @builtins.property
     def get_icon_name(self) -> str | None:
         """
             Get the icon name being used for this icon.
@@ -58026,7 +57659,6 @@ class IconPaintable(GObject.Object):
         If the icon was created without an icon theme, this function
         returns None.
         """
-    @builtins.property
     def is_symbolic(self) -> bool:
         """
             Checks if the icon is symbolic or not.
@@ -58202,7 +57834,6 @@ class IconTheme(GObject.Object):
 
         See [method`Gtk`.IconTheme.set_search_path].
         """
-    @builtins.property
     def get_display(self) -> Gdk.Display | None:
         """
             Returns the display that the `GtkIconTheme` object was
@@ -58220,7 +57851,6 @@ class IconTheme(GObject.Object):
         [ctor`Gtk`.IconTheme.new] and setting the display yourself; by using
         this function a single icon theme object will be shared between users.
         """
-    @builtins.property
     def get_icon_names(self) -> list:
         """
         Lists the names of icons in the current icon theme.
@@ -58233,21 +57863,18 @@ class IconTheme(GObject.Object):
         A size of -1 means that the icon is available in a scalable
         format. The array is zero-terminated.
         """
-    @builtins.property
     def get_resource_path(self) -> list | None:
         """
             Gets the current resource path.
 
         See [method`Gtk`.IconTheme.set_resource_path].
         """
-    @builtins.property
     def get_search_path(self) -> list | None:
         """
             Gets the current search path.
 
         See [method`Gtk`.IconTheme.set_search_path].
         """
-    @builtins.property
     def get_theme_name(self) -> str:
         """
         Gets the current icon theme name.
@@ -58622,7 +58249,6 @@ class IconView(Widget):
         method sets `GtkIconView`:reorderable to False.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_activate_on_single_click(self) -> bool:
         """
         Gets the setting set by `Gtk.IconView.set_activate_on_single_click`.
@@ -58636,13 +58262,11 @@ class IconView(Widget):
         This function is only valid if `icon_view` is realized.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_column_spacing(self) -> int:
         """
         Returns the value of the ::column-spacing property.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_columns(self) -> int:
         """
         Returns the value of the ::columns property.
@@ -58668,14 +58292,12 @@ class IconView(Widget):
         displayed. Column numbers start at 0.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_item_orientation(self) -> Orientation:
         """
             Returns the value of the ::item-orientation property which determines
         whether the labels are drawn beside the icons instead of below.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_item_padding(self) -> int:
         """
         Returns the value of the ::item-padding property.
@@ -58687,25 +58309,21 @@ class IconView(Widget):
         displayed. Row numbers start at 0.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_item_width(self) -> int:
         """
         Returns the value of the ::item-width property.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_margin(self) -> int:
         """
         Returns the value of the ::margin property.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_markup_column(self) -> int:
         """
         Returns the column with markup text for `icon_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_model(self) -> TreeModel | None:
         """
             Returns the model the `GtkIconView` is based on.  Returns None if the
@@ -58717,20 +58335,17 @@ class IconView(Widget):
         Gets the path for the icon at the given position.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_pixbuf_column(self) -> int:
         """
         Returns the column with pixbufs for `icon_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_reorderable(self) -> bool:
         """
             Retrieves whether the user can reorder the list via drag-and-drop.
         See `Gtk.IconView.set_reorderable`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_row_spacing(self) -> int:
         """
         Returns the value of the ::row-spacing property.
@@ -58757,25 +58372,21 @@ class IconView(Widget):
         ```
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_selection_mode(self) -> SelectionMode:
         """
         Gets the selection mode of the `icon_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_spacing(self) -> int:
         """
         Returns the value of the ::spacing property.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_text_column(self) -> int:
         """
         Returns the column with text for `icon_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_tooltip_column(self) -> int:
         """
             Returns the column of `icon_view`’s model which is being used for
@@ -59833,7 +59444,6 @@ class Image(Widget):
         """
         Resets the image to be empty.
         """
-    @builtins.property
     def get_gicon(self) -> Gio.Icon | None:
         """
             Gets the `GIcon` being displayed by the `GtkImage`.
@@ -59843,7 +59453,6 @@ class Image(Widget):
         The caller of this function does not own a reference to the
         returned `GIcon`.
         """
-    @builtins.property
     def get_icon_name(self) -> str | None:
         """
             Gets the icon name and size being displayed by the `GtkImage`.
@@ -59853,12 +59462,10 @@ class Image(Widget):
         The returned string is owned by the `GtkImage` and should not
         be freed.
         """
-    @builtins.property
     def get_icon_size(self) -> IconSize:
         """
         Gets the icon size used by the `image` when rendering icons.
         """
-    @builtins.property
     def get_paintable(self) -> Gdk.Paintable | None:
         """
             Gets the image `GdkPaintable` being displayed by the `GtkImage`.
@@ -59868,12 +59475,10 @@ class Image(Widget):
         The caller of this function does not own a reference to the
         returned paintable.
         """
-    @builtins.property
     def get_pixel_size(self) -> int:
         """
         Gets the pixel size used for named icons.
         """
-    @builtins.property
     def get_storage_type(self) -> ImageType:
         """
             Gets the type of representation being used by the `GtkImage`
@@ -60570,19 +60175,16 @@ class InfoBar(Widget):
         Adds a widget to the content area of the info bar.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_message_type(self) -> MessageType:
         """
         Returns the message type of the message area.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_revealed(self) -> bool:
         """
         Returns whether the info bar is currently revealed.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_close_button(self) -> bool:
         """
         Returns whether the widget will display a standard close button.
@@ -61209,64 +60811,54 @@ class Inscription(Widget):
         """
         Initialize Inscription object with properties.
         """
-    @builtins.property
     def get_attributes(self) -> Pango.AttrList | None:
         """
         Gets the inscription's attribute list.
         """
-    @builtins.property
     def get_min_chars(self) -> int:
         """
             Gets the `min-chars` of the inscription.
 
         See the [property`Gtk`.Inscription:min-chars] property.
         """
-    @builtins.property
     def get_min_lines(self) -> int:
         """
             Gets the `min-lines` of the inscription.
 
         See the [property`Gtk`.Inscription:min-lines] property.
         """
-    @builtins.property
     def get_nat_chars(self) -> int:
         """
             Gets the `nat-chars` of the inscription.
 
         See the [property`Gtk`.Inscription:nat-chars] property.
         """
-    @builtins.property
     def get_nat_lines(self) -> int:
         """
             Gets the `nat-lines` of the inscription.
 
         See the [property`Gtk`.Inscription:nat-lines] property.
         """
-    @builtins.property
     def get_text(self) -> str | None:
         """
         Gets the text that is displayed.
         """
-    @builtins.property
     def get_text_overflow(self) -> InscriptionOverflow:
         """
         Gets the inscription's overflow method.
         """
-    @builtins.property
     def get_wrap_mode(self) -> Pango.WrapMode:
         """
             Returns line wrap mode used by the inscription.
 
         See [method`Gtk`.Inscription.set_wrap_mode].
         """
-    @builtins.property
     def get_xalign(self) -> float:
         """
             Gets the `xalign` of the inscription.
 
         See the [property`Gtk`.Inscription:xalign] property.
         """
-    @builtins.property
     def get_yalign(self) -> float:
         """
             Gets the `yalign` of the inscription.
@@ -61788,13 +61380,11 @@ class KeyvalTrigger(ShortcutTrigger):
         """
         Initialize KeyvalTrigger object with properties.
         """
-    @builtins.property
     def get_keyval(self) -> int:
         """
             Gets the keyval that must be pressed to succeed
         triggering `self`.
         """
-    @builtins.property
     def get_modifiers(self) -> Gdk.ModifierType:
         """
             Gets the modifiers that must be present to succeed
@@ -62282,7 +61872,6 @@ class Label(Widget):
         """
         Initialize Label object with properties.
         """
-    @builtins.property
     def get_attributes(self) -> Pango.AttrList | None:
         """
             Gets the label's attribute list.
@@ -62305,28 +61894,24 @@ class Label(Widget):
         This function is intended for use in a [signal`Gtk`.Label::activate-link]
         handler or for use in a [signal`Gtk`.Widget::query-tooltip] handler.
         """
-    @builtins.property
     def get_ellipsize(self) -> Pango.EllipsizeMode:
         """
             Returns the ellipsization mode of the label.
 
         See [method`Gtk`.Label.set_ellipsize].
         """
-    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None:
         """
             Gets the extra menu model of the label.
 
         See [method`Gtk`.Label.set_extra_menu].
         """
-    @builtins.property
     def get_justify(self) -> Justification:
         """
             Returns the justification of the label.
 
         See [method`Gtk`.Label.set_justify].
         """
-    @builtins.property
     def get_label(self) -> str:
         """
             Fetches the text from a label.
@@ -62354,7 +61939,6 @@ class Label(Widget):
         functions you need to convert to and from pixels using ``PANGO_PIXELS``
         or [const`Pango`.SCALE].
         """
-    @builtins.property
     def get_lines(self) -> int:
         """
             Gets the number of lines to which an ellipsized, wrapping
@@ -62362,14 +61946,12 @@ class Label(Widget):
 
         See [method`Gtk`.Label.set_lines].
         """
-    @builtins.property
     def get_max_width_chars(self) -> int:
         """
             Retrieves the maximum width of the label in characters.
 
         See [method`Gtk`.Label.set_width_chars].
         """
-    @builtins.property
     def get_mnemonic_keyval(self) -> int:
         """
             Return the mnemonic accelerator.
@@ -62378,21 +61960,18 @@ class Label(Widget):
         returns the keyval used for the mnemonic accelerator. If there is no
         mnemonic set up it returns `GDK_KEY_VoidSymbol`.
         """
-    @builtins.property
     def get_mnemonic_widget(self) -> Widget | None:
         """
             Retrieves the mnemonic target of this label.
 
         See [method`Gtk`.Label.set_mnemonic_widget].
         """
-    @builtins.property
     def get_natural_wrap_mode(self) -> NaturalWrapMode:
         """
             Returns natural line wrap mode used by the label.
 
         See [method`Gtk`.Label.set_natural_wrap_mode].
         """
-    @builtins.property
     def get_selectable(self) -> bool:
         """
         Returns whether the label is selectable.
@@ -62403,12 +61982,10 @@ class Label(Widget):
 
         The returned `start` and `end` positions are in characters.
         """
-    @builtins.property
     def get_single_line_mode(self) -> bool:
         """
         Returns whether the label is in single line mode.
         """
-    @builtins.property
     def get_tabs(self) -> Pango.TabArray | None:
         """
             Gets the tab stops for the label.
@@ -62423,49 +62000,42 @@ class Label(Widget):
         any embedded underlines indicating mnemonics or Pango markup. (See
         [method`Gtk`.Label.get_label])
         """
-    @builtins.property
     def get_use_markup(self) -> bool:
         """
             Returns whether the label’s text is interpreted as Pango markup.
 
         See [method`Gtk`.Label.set_use_markup].
         """
-    @builtins.property
     def get_use_underline(self) -> bool:
         """
             Returns whether underlines in the label indicate mnemonics.
 
         See [method`Gtk`.Label.set_use_underline].
         """
-    @builtins.property
     def get_width_chars(self) -> int:
         """
             Retrieves the desired width of the label in characters.
 
         See [method`Gtk`.Label.set_width_chars].
         """
-    @builtins.property
     def get_wrap(self) -> bool:
         """
             Returns whether lines in the label are automatically wrapped.
 
         See [method`Gtk`.Label.set_wrap].
         """
-    @builtins.property
     def get_wrap_mode(self) -> Pango.WrapMode:
         """
             Returns line wrap mode used by the label.
 
         See [method`Gtk`.Label.set_wrap_mode].
         """
-    @builtins.property
     def get_xalign(self) -> float:
         """
             Gets the `xalign` of the label.
 
         See the [property`Gtk`.Label:xalign] property.
         """
-    @builtins.property
     def get_yalign(self) -> float:
         """
             Gets the `yalign` of the label.
@@ -63290,12 +62860,10 @@ class LayoutChild(GObject.Object):
         """
         Initialize LayoutChild object with properties.
         """
-    @builtins.property
     def get_child_widget(self) -> Widget:
         """
         Retrieves the `GtkWidget` associated to the given `layout_child`.
         """
-    @builtins.property
     def get_layout_manager(self) -> LayoutManager:
         """
             Retrieves the `GtkLayoutManager` instance that created the
@@ -63748,22 +63316,18 @@ class LevelBar(Widget):
         If another offset marker named `name` exists, its value will be
         replaced by `value`.
         """
-    @builtins.property
     def get_inverted(self) -> bool:
         """
         Returns whether the levelbar is inverted.
         """
-    @builtins.property
     def get_max_value(self) -> float:
         """
         Returns the `max-value` of the `GtkLevelBar`.
         """
-    @builtins.property
     def get_min_value(self) -> float:
         """
         Returns the `min-value` of the `GtkLevelBar`.
         """
-    @builtins.property
     def get_mode(self) -> LevelBarMode:
         """
         Returns the `mode` of the `GtkLevelBar`.
@@ -63772,7 +63336,6 @@ class LevelBar(Widget):
         """
         Fetches the value specified for the offset marker `name` in `self`.
         """
-    @builtins.property
     def get_value(self) -> float:
         """
         Returns the `value` of the `GtkLevelBar`.
@@ -64336,12 +63899,10 @@ class LinkButton(Button):
         """
         Initialize LinkButton object with properties.
         """
-    @builtins.property
     def get_uri(self) -> str:
         """
         Retrieves the URI of the `GtkLinkButton`.
         """
-    @builtins.property
     def get_visited(self) -> bool:
         """
             Retrieves the “visited” state of the `GtkLinkButton`.
@@ -65475,7 +65036,6 @@ class ListBox(Widget):
             If a row has previously been highlighted via `Gtk.ListBox.drag_highlight_row`,
         it will have the highlight removed.
         """
-    @builtins.property
     def get_activate_on_single_click(self) -> bool:
         """
         Returns whether rows activate on single clicks.
@@ -65508,18 +65068,15 @@ class ListBox(Widget):
         """
         Creates a list of all selected children.
         """
-    @builtins.property
     def get_selection_mode(self) -> SelectionMode:
         """
         Gets the selection mode of the listbox.
         """
-    @builtins.property
     def get_show_separators(self) -> bool:
         """
             Returns whether the list box should show separators
         between rows.
         """
-    @builtins.property
     def get_tab_behavior(self) -> ListTabBehavior:
         """
         Returns the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
@@ -66272,12 +65829,10 @@ class ListBoxRow(Widget):
         is to call [method`Gtk`.ListBox.invalidate_sort] on any model change,
         but that is more expensive.
         """
-    @builtins.property
     def get_activatable(self) -> bool:
         """
         Gets whether the row is activatable.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `row`.
@@ -66295,7 +65850,6 @@ class ListBoxRow(Widget):
         """
         Gets the current index of the `row` in its `GtkListBox` container.
         """
-    @builtins.property
     def get_selectable(self) -> bool:
         """
         Gets whether the row can be selected.
@@ -66776,13 +66330,11 @@ class ListHeader(GObject.Object):
         """
         Initialize ListHeader object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
             Gets the child previously set via `Gtk.ListHeader.set_child` or
         None if none was set.
         """
-    @builtins.property
     def get_end(self) -> int:
         """
             Gets the end position in the model of the section that `self` is
@@ -66790,7 +66342,6 @@ class ListHeader(GObject.Object):
 
         If `self` is unbound, Gtk.INVALID_LIST_POSITION is returned.
         """
-    @builtins.property
     def get_item(self) -> GObject.Object | None:
         """
             Gets the model item at the start of the section.
@@ -66799,14 +66350,12 @@ class ListHeader(GObject.Object):
 
         If `self` is unbound, this function returns None.
         """
-    @builtins.property
     def get_n_items(self) -> int:
         """
             Gets the the number of items in the section.
 
         If `self` is unbound, 0 is returned.
         """
-    @builtins.property
     def get_start(self) -> int:
         """
             Gets the start position in the model of the section that `self` is
@@ -66945,49 +66494,41 @@ class ListItem(GObject.Object):
         """
         Initialize ListItem object with properties.
         """
-    @builtins.property
     def get_accessible_description(self) -> str:
         """
         Gets the accessible description of `self`.
         """
-    @builtins.property
     def get_accessible_label(self) -> str:
         """
         Gets the accessible label of `self`.
         """
-    @builtins.property
     def get_activatable(self) -> bool:
         """
             Checks if a listitem has been set to be activatable via
         [method`Gtk`.ListItem.set_activatable].
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
             Gets the child previously set via [method`Gtk`.ListItem.set_child]
         or `None` if none was set.
         """
-    @builtins.property
     def get_focusable(self) -> bool:
         """
             Checks if a listitem has been set to be focusable via
         [method`Gtk`.ListItem.set_focusable].
         """
-    @builtins.property
     def get_item(self) -> GObject.Object | None:
         """
             Gets the model item that associated with `self`.
 
         If `self` is unbound, this function returns `None`.
         """
-    @builtins.property
     def get_position(self) -> int:
         """
             Gets the position in the model that `self` currently displays.
 
         If `self` is unbound, `GTK_INVALID_LIST_POSITION` is returned.
         """
-    @builtins.property
     def get_selectable(self) -> bool:
         """
             Checks if a listitem has been set to be selectable via
@@ -66995,7 +66536,6 @@ class ListItem(GObject.Object):
 
         Do not confuse this function with [method`Gtk`.ListItem.get_selected].
         """
-    @builtins.property
     def get_selected(self) -> bool:
         """
             Checks if the item is displayed as selected.
@@ -67813,39 +67353,32 @@ class ListView(ListBase):
         """
         Initialize ListView object with properties.
         """
-    @builtins.property
     def get_enable_rubberband(self) -> bool:
         """
         Returns whether rows can be selected by dragging with the mouse.
         """
-    @builtins.property
     def get_factory(self) -> ListItemFactory | None:
         """
         Gets the factory that's currently used to populate list items.
         """
-    @builtins.property
     def get_header_factory(self) -> ListItemFactory | None:
         """
         Gets the factory that's currently used to populate section headers.
         """
-    @builtins.property
     def get_model(self) -> SelectionModel | None:
         """
         Gets the model that's currently used to read the items displayed.
         """
-    @builtins.property
     def get_show_separators(self) -> bool:
         """
             Returns whether the listview should show separators
         between rows.
         """
-    @builtins.property
     def get_single_click_activate(self) -> bool:
         """
             Returns whether rows will be activated on single click and
         selected on hover.
         """
-    @builtins.property
     def get_tab_behavior(self) -> ListTabBehavior:
         """
         Gets the behavior set for the <kbd>Tab</kbd> key.
@@ -68485,7 +68018,6 @@ class LockButton(Button):
         Initialize LockButton object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_permission(self) -> Gio.Permission | None:
         """
         Obtains the `GPermission` object that controls `button`.
@@ -69008,12 +68540,10 @@ class MapListModel(GObject.Object):
         """
         Initialize MapListModel object with properties.
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
         Gets the model that is currently being mapped or None if none.
         """
-    @builtins.property
     def has_map(self) -> bool:
         """
         Checks if a map function is currently set on `self`.
@@ -69179,7 +68709,6 @@ class MediaControls(Widget):
         """
         Initialize MediaControls object with properties.
         """
-    @builtins.property
     def get_media_stream(self) -> MediaStream | None:
         """
         Gets the media stream managed by `controls` or None if none.
@@ -69596,7 +69125,6 @@ class MediaFile(MediaStream):
         """
         Resets the media file to be empty.
         """
-    @builtins.property
     def get_file(self) -> Gio.File | None:
         """
             Returns the file that `self` is currently playing from.
@@ -69604,7 +69132,6 @@ class MediaFile(MediaStream):
         When `self` is not playing or not playing from a file,
         None is returned.
         """
-    @builtins.property
     def get_input_stream(self) -> Gio.InputStream | None:
         """
             Returns the stream that `self` is currently playing from.
@@ -69961,19 +69488,16 @@ class MediaStream(GObject.Object):
         To unset an error, the stream must be reset via a call to
         [method`Gtk`.MediaStream.unprepared].
         """
-    @builtins.property
     def get_duration(self) -> int:
         """
             Gets the duration of the stream.
 
         If the duration is not known, 0 will be returned.
         """
-    @builtins.property
     def get_ended(self) -> bool:
         """
         Returns whether the streams playback is finished.
         """
-    @builtins.property
     def get_error(self) -> GLib.Error | None:
         """
             If the stream is in an error state, returns the `GError`
@@ -69991,55 +69515,46 @@ class MediaStream(GObject.Object):
         a [class`Gtk`.MediaFile] will unset errors when a new source is
         set, e.g. with [method`Gtk`.MediaFile.set_file].
         """
-    @builtins.property
     def get_loop(self) -> bool:
         """
             Returns whether the stream is set to loop.
 
         See [method`Gtk`.MediaStream.set_loop] for details.
         """
-    @builtins.property
     def get_muted(self) -> bool:
         """
             Returns whether the audio for the stream is muted.
 
         See [method`Gtk`.MediaStream.set_muted] for details.
         """
-    @builtins.property
     def get_playing(self) -> bool:
         """
         Return whether the stream is currently playing.
         """
-    @builtins.property
     def get_timestamp(self) -> int:
         """
         Returns the current presentation timestamp in microseconds.
         """
-    @builtins.property
     def get_volume(self) -> float:
         """
             Returns the volume of the audio for the stream.
 
         See [method`Gtk`.MediaStream.set_volume] for details.
         """
-    @builtins.property
     def has_audio(self) -> bool:
         """
         Returns whether the stream has audio.
         """
-    @builtins.property
     def has_video(self) -> bool:
         """
         Returns whether the stream has video.
         """
-    @builtins.property
     def is_prepared(self) -> bool:
         """
             Returns whether the stream has finished initializing.
 
         At this point the existence of audio and video is known.
         """
-    @builtins.property
     def is_seekable(self) -> bool:
         """
             Checks if a stream may be seekable.
@@ -70052,7 +69567,6 @@ class MediaStream(GObject.Object):
         It is allowed to call [method`Gtk`.MediaStream.seek] on a non-seekable
         stream, though it will not do anything.
         """
-    @builtins.property
     def is_seeking(self) -> bool:
         """
         Checks if there is currently a seek operation going on.
@@ -70580,54 +70094,44 @@ class MenuButton(Widget):
         """
         Initialize MenuButton object with properties.
         """
-    @builtins.property
     def get_active(self) -> bool:
         """
         Returns whether the menu button is active.
         """
-    @builtins.property
     def get_always_show_arrow(self) -> bool:
         """
             Gets whether to show a dropdown arrow even when using an icon or a custom
         child.
         """
-    @builtins.property
     def get_can_shrink(self) -> bool:
         """
             Retrieves whether the button can be smaller than the natural
         size of its contents.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `menu_button`.
         """
-    @builtins.property
     def get_direction(self) -> ArrowType:
         """
         Returns the direction the popup will be pointing at when popped up.
         """
-    @builtins.property
     def get_has_frame(self) -> bool:
         """
         Returns whether the button has a frame.
         """
-    @builtins.property
     def get_icon_name(self) -> str | None:
         """
         Gets the name of the icon shown in the button.
         """
-    @builtins.property
     def get_label(self) -> str | None:
         """
         Gets the label shown in the button
         """
-    @builtins.property
     def get_menu_model(self) -> Gio.MenuModel | None:
         """
         Returns the `GMenuModel` used to generate the popup.
         """
-    @builtins.property
     def get_popover(self) -> Popover | None:
         """
             Returns the `GtkPopover` that pops out of the button.
@@ -70635,12 +70139,10 @@ class MenuButton(Widget):
         If the button is not using a `GtkPopover`, this function
         returns None.
         """
-    @builtins.property
     def get_primary(self) -> bool:
         """
         Returns whether the menu button acts as a primary menu.
         """
-    @builtins.property
     def get_use_underline(self) -> bool:
         """
             Returns whether an embedded underline in the text indicates a
@@ -71387,7 +70889,6 @@ class MessageDialog(Dialog):
         Initialize MessageDialog object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_message_area(self) -> Widget:
         """
             Returns the message area of the dialog.
@@ -72066,7 +71567,6 @@ class MnemonicTrigger(ShortcutTrigger):
         """
         Initialize MnemonicTrigger object with properties.
         """
-    @builtins.property
     def get_keyval(self) -> int:
         """
         Gets the keyval that must be pressed to succeed triggering `self`.
@@ -72164,18 +71664,15 @@ class MountOperation(Gio.MountOperation):
         """
         Initialize MountOperation object with properties.
         """
-    @builtins.property
     def get_display(self) -> Gdk.Display:
         """
             Gets the display on which windows of the `GtkMountOperation`
         will be shown.
         """
-    @builtins.property
     def get_parent(self) -> Window | None:
         """
         Gets the transient parent used by the `GtkMountOperation`.
         """
-    @builtins.property
     def is_showing(self) -> bool:
         """
             Returns whether the `GtkMountOperation` is currently displaying
@@ -72466,7 +71963,6 @@ class MultiSelection(GObject.Object):
         """
         Initialize MultiSelection object with properties.
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
         Returns the underlying model of `self`.
@@ -72671,7 +72167,6 @@ class NamedAction(ShortcutAction):
         """
         Initialize NamedAction object with properties.
         """
-    @builtins.property
     def get_action_name(self) -> str:
         """
         Returns the name of the action that will be activated.
@@ -72843,22 +72338,18 @@ class NativeDialog(GObject.Object):
         to destroying a `GtkWindow`) because there is no reference from the
         windowing system to the `GtkNativeDialog`.
         """
-    @builtins.property
     def get_modal(self) -> bool:
         """
         Returns whether the dialog is modal.
         """
-    @builtins.property
     def get_title(self) -> str | None:
         """
         Gets the title of the `GtkNativeDialog`.
         """
-    @builtins.property
     def get_transient_for(self) -> Window | None:
         """
         Fetches the transient parent for this window.
         """
-    @builtins.property
     def get_visible(self) -> bool:
         """
         Determines whether the dialog is visible.
@@ -73080,7 +72571,6 @@ class NoSelection(GObject.Object):
         """
         Initialize NoSelection object with properties.
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
         Gets the model that `self` is wrapping.
@@ -73393,12 +72883,10 @@ class Notebook(Widget):
 
         See [method`Gtk`.Notebook.set_action_widget].
         """
-    @builtins.property
     def get_current_page(self) -> int:
         """
         Returns the page number of the current page.
         """
-    @builtins.property
     def get_group_name(self) -> str | None:
         """
         Gets the current group name for `notebook`.
@@ -73424,7 +72912,6 @@ class Notebook(Widget):
         """
         Returns the `GtkNotebookPage` for `child`.
         """
-    @builtins.property
     def get_pages(self) -> Gio.ListModel:
         """
             Returns a `GListModel` that contains the pages of the notebook.
@@ -73433,17 +72920,14 @@ class Notebook(Widget):
         implements [iface`Gtk`.SelectionModel] and can be used to track
         and modify the visible page.
         """
-    @builtins.property
     def get_scrollable(self) -> bool:
         """
         Returns whether the tab label area has arrows for scrolling.
         """
-    @builtins.property
     def get_show_border(self) -> bool:
         """
         Returns whether a bevel will be drawn around the notebook pages.
         """
-    @builtins.property
     def get_show_tabs(self) -> bool:
         """
         Returns whether the tabs of the notebook are shown.
@@ -73464,7 +72948,6 @@ class Notebook(Widget):
             Retrieves the text of the tab label for the page containing
         `child`.
         """
-    @builtins.property
     def get_tab_pos(self) -> PositionType:
         """
         Gets the edge at which the tabs are drawn.
@@ -74252,7 +73735,6 @@ class NotebookPage(GObject.Object):
         """
         Initialize NotebookPage object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget:
         """
         Returns the notebook child to which `page` belongs.
@@ -74401,12 +73883,10 @@ class NumericSorter(Sorter):
         """
         Initialize NumericSorter object with properties.
         """
-    @builtins.property
     def get_expression(self) -> Expression | None:
         """
         Gets the expression that is evaluated to obtain numbers from items.
         """
-    @builtins.property
     def get_sort_order(self) -> SortType:
         """
         Gets whether this sorter will sort smaller numbers first.
@@ -74528,7 +74008,6 @@ class Orientable(builtins.object):
         """
         Initialize Orientable object with properties.
         """
-    @builtins.property
     def get_orientation(self) -> Orientation:
         """
         Retrieves the orientation of the `orientable`.
@@ -74653,7 +74132,6 @@ class Overlay(Widget):
         from its [property`Gtk`.Widget:halign] and
         [property`Gtk`.Widget:valign] properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `overlay`.
@@ -75135,12 +74613,10 @@ class OverlayLayoutChild(LayoutChild):
         """
         Initialize OverlayLayoutChild object with properties.
         """
-    @builtins.property
     def get_clip_overlay(self) -> bool:
         """
         Retrieves whether the child is clipped.
         """
-    @builtins.property
     def get_measure(self) -> bool:
         """
         Retrieves whether the child is measured.
@@ -76503,42 +75979,34 @@ class Paned(Widget):
         """
         Initialize Paned object with properties.
         """
-    @builtins.property
     def get_end_child(self) -> Widget | None:
         """
         Retrieves the end child of the given `GtkPaned`.
         """
-    @builtins.property
     def get_position(self) -> int:
         """
         Obtains the position of the divider between the two panes.
         """
-    @builtins.property
     def get_resize_end_child(self) -> bool:
         """
         Returns whether the [property`Gtk`.Paned:end-child] can be resized.
         """
-    @builtins.property
     def get_resize_start_child(self) -> bool:
         """
         Returns whether the [property`Gtk`.Paned:start-child] can be resized.
         """
-    @builtins.property
     def get_shrink_end_child(self) -> bool:
         """
         Returns whether the [property`Gtk`.Paned:end-child] can shrink.
         """
-    @builtins.property
     def get_shrink_start_child(self) -> bool:
         """
         Returns whether the [property`Gtk`.Paned:start-child] can shrink.
         """
-    @builtins.property
     def get_start_child(self) -> Widget | None:
         """
         Retrieves the start child of the given `GtkPaned`.
         """
-    @builtins.property
     def get_wide_handle(self) -> bool:
         """
         Gets whether the separator should be wide.
@@ -77397,12 +76865,10 @@ class PasswordEntry(Widget):
         """
         Initialize PasswordEntry object with properties.
         """
-    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None:
         """
         Gets the menu model set with `Gtk.PasswordEntry.set_extra_menu`.
         """
-    @builtins.property
     def get_show_peek_icon(self) -> bool:
         """
             Returns whether the entry is showing an icon to
@@ -78085,26 +77551,22 @@ class Picture(Widget):
         """
         Initialize Picture object with properties.
         """
-    @builtins.property
     def get_alternative_text(self) -> str | None:
         """
             Gets the alternative textual description of the picture.
 
         The returned string will be None if the picture cannot be described textually.
         """
-    @builtins.property
     def get_can_shrink(self) -> bool:
         """
         Returns whether the `GtkPicture` respects its contents size.
         """
-    @builtins.property
     def get_content_fit(self) -> ContentFit:
         """
             Returns the fit mode for the content of the `GtkPicture`.
 
         See [enum`Gtk`.ContentFit] for details.
         """
-    @builtins.property
     def get_file(self) -> Gio.File | None:
         """
             Gets the `GFile` currently displayed if `self` is displaying a file.
@@ -78113,12 +77575,10 @@ class Picture(Widget):
         [method`Gtk`.Picture.set_paintable] was used, then None is returned.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_keep_aspect_ratio(self) -> bool:
         """
         Returns whether the `GtkPicture` preserves its contents aspect ratio.
         """
-    @builtins.property
     def get_paintable(self) -> Gdk.Paintable | None:
         """
         Gets the `GdkPaintable` being displayed by the `GtkPicture`.
@@ -78828,7 +78288,6 @@ class Popover(Widget):
         """
         Initialize Popover object with properties.
         """
-    @builtins.property
     def get_autohide(self) -> bool:
         """
             Returns whether the popover is modal.
@@ -78836,23 +78295,19 @@ class Popover(Widget):
         See [method`Gtk`.Popover.set_autohide] for the
         implications of this.
         """
-    @builtins.property
     def get_cascade_popdown(self) -> bool:
         """
         Returns whether the popover will close after a modal child is closed.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `popover`.
         """
-    @builtins.property
     def get_has_arrow(self) -> bool:
         """
             Gets whether this popover is showing an arrow
         pointing at the widget that it is relative to.
         """
-    @builtins.property
     def get_mnemonics_visible(self) -> bool:
         """
         Gets whether mnemonics are visible.
@@ -78870,7 +78325,6 @@ class Popover(Widget):
         it will return False and fill in `rect` with the parent
         widget coordinates.
         """
-    @builtins.property
     def get_position(self) -> PositionType:
         """
         Returns the preferred position of `popover`.
@@ -79605,12 +79059,10 @@ class PopoverMenu(Popover):
         For this to work, the menu model of `popover` must have
         an item with a `custom` attribute that matches `id`.
         """
-    @builtins.property
     def get_flags(self) -> PopoverMenuFlags:
         """
         Returns the flags that `popover` uses to create/display a menu from its model.
         """
-    @builtins.property
     def get_menu_model(self) -> Gio.MenuModel | None:
         """
         Returns the menu model used to populate the popover.
@@ -80174,7 +79626,6 @@ class PopoverMenuBar(Widget):
         For this to work, the menu model of `bar` must have an
         item with a `custom` attribute that matches `id`.
         """
-    @builtins.property
     def get_menu_model(self) -> Gio.MenuModel | None:
         """
         Returns the model from which the contents of `bar` are taken.
@@ -80754,30 +80205,25 @@ class PrintDialog(GObject.Object):
         """
         Initialize PrintDialog object with properties.
         """
-    @builtins.property
     def get_accept_label(self) -> str:
         """
             Returns the label that will be shown on the
         accept button of the print dialog.
         """
-    @builtins.property
     def get_modal(self) -> bool:
         """
             Returns whether the print dialog blocks
         interaction with the parent window while
         it is presented.
         """
-    @builtins.property
     def get_page_setup(self) -> PageSetup | None:
         """
         Returns the page setup.
         """
-    @builtins.property
     def get_print_settings(self) -> PrintSettings | None:
         """
         Returns the print settings for the print dialog.
         """
-    @builtins.property
     def get_title(self) -> str:
         """
             Returns the title that will be shown on the
@@ -81023,7 +80469,6 @@ class PrintJob(GObject.Object):
         """
         Gets the `GtkPrintPages` setting for this job.
         """
-    @builtins.property
     def get_printer(self) -> Printer:
         """
         Gets the `GtkPrinter` of the print job.
@@ -81040,7 +80485,6 @@ class PrintJob(GObject.Object):
         """
         Gets the scale for this job.
         """
-    @builtins.property
     def get_settings(self) -> PrintSettings:
         """
         Gets the `GtkPrintSettings` of the print job.
@@ -81054,12 +80498,10 @@ class PrintJob(GObject.Object):
             Gets a cairo surface onto which the pages of
         the print job should be rendered.
         """
-    @builtins.property
     def get_title(self) -> str:
         """
         Gets the job title.
         """
-    @builtins.property
     def get_track_print_status(self) -> bool:
         """
             Returns whether jobs will be tracked after printing.
@@ -81495,12 +80937,10 @@ class PrintOperation(GObject.Object):
         was called before, then this function has to be called by application.
         Otherwise it is called by GTK itself.
         """
-    @builtins.property
     def get_default_page_setup(self) -> PageSetup:
         """
         Returns the default page setup.
         """
-    @builtins.property
     def get_embed_page_setup(self) -> bool:
         """
         Gets whether page setup selection combos are embedded
@@ -81516,12 +80956,10 @@ class PrintOperation(GObject.Object):
 
         The returned `GError` will contain more details on what went wrong.
         """
-    @builtins.property
     def get_has_selection(self) -> bool:
         """
         Gets whether there is a selection.
         """
-    @builtins.property
     def get_n_pages_to_print(self) -> int:
         """
             Returns the number of pages that will be printed.
@@ -81535,7 +80973,6 @@ class PrintOperation(GObject.Object):
 
         This is typically used to track the progress of print operation.
         """
-    @builtins.property
     def get_print_settings(self) -> PrintSettings | None:
         """
             Returns the current print settings.
@@ -81544,14 +80981,12 @@ class PrintOperation(GObject.Object):
         [method`Gtk`.PrintOperation.set_print_settings] or
         [method`Gtk`.PrintOperation.run] have been called.
         """
-    @builtins.property
     def get_status(self) -> PrintStatus:
         """
             Returns the status of the print operation.
 
         Also see [method`Gtk`.PrintOperation.get_status_string].
         """
-    @builtins.property
     def get_status_string(self) -> str:
         """
             Returns a string representation of the status of the
@@ -81563,7 +80998,6 @@ class PrintOperation(GObject.Object):
         Use [method`Gtk`.PrintOperation.get_status] to obtain
         a status value that is suitable for programmatic use.
         """
-    @builtins.property
     def get_support_selection(self) -> bool:
         """
         Gets whether the application supports print of selection
@@ -83043,27 +82477,22 @@ class PrintUnixDialog(Dialog):
         """
         Adds a custom tab to the print dialog.
         """
-    @builtins.property
     def get_current_page(self) -> int:
         """
         Gets the current page of the `GtkPrintUnixDialog`.
         """
-    @builtins.property
     def get_embed_page_setup(self) -> bool:
         """
         Gets whether to embed the page setup.
         """
-    @builtins.property
     def get_has_selection(self) -> bool:
         """
         Gets whether there is a selection.
         """
-    @builtins.property
     def get_manual_capabilities(self) -> PrintCapabilities:
         """
         Gets the capabilities that have been set on this `GtkPrintUnixDialog`.
         """
-    @builtins.property
     def get_page_setup(self) -> PageSetup:
         """
         Gets the page setup that is used by the `GtkPrintUnixDialog`.
@@ -83072,12 +82501,10 @@ class PrintUnixDialog(Dialog):
         """
         Gets whether a page setup was set by the user.
         """
-    @builtins.property
     def get_selected_printer(self) -> Printer | None:
         """
         Gets the currently selected printer.
         """
-    @builtins.property
     def get_settings(self) -> PrintSettings:
         """
             Gets a new `GtkPrintSettings` object that represents the
@@ -83086,7 +82513,6 @@ class PrintUnixDialog(Dialog):
         Note that this creates a new object, and you need to unref
         it if don’t want to keep it.
         """
-    @builtins.property
     def get_support_selection(self) -> bool:
         """
         Gets whether the print dialog allows user to print a selection.
@@ -83829,13 +83255,11 @@ class Printer(GObject.Object):
         """
         Initialize Printer object with properties.
         """
-    @builtins.property
     def accepts_pdf(self) -> bool:
         """
             Returns whether the printer accepts input in
         PDF format.
         """
-    @builtins.property
     def accepts_ps(self) -> bool:
         """
             Returns whether the printer accepts input in
@@ -83891,27 +83315,22 @@ class Printer(GObject.Object):
         available, see [method`Gtk`.Printer.has_details] and
         [method`Gtk`.Printer.request_details].
         """
-    @builtins.property
     def get_icon_name(self) -> str:
         """
         Gets the name of the icon to use for the printer.
         """
-    @builtins.property
     def get_job_count(self) -> int:
         """
         Gets the number of jobs currently queued on the printer.
         """
-    @builtins.property
     def get_location(self) -> str:
         """
         Returns a description of the location of the printer.
         """
-    @builtins.property
     def get_name(self) -> str:
         """
         Returns the name of the printer.
         """
-    @builtins.property
     def get_state_message(self) -> str:
         """
             Returns the state message describing the current state
@@ -83921,7 +83340,6 @@ class Printer(GObject.Object):
         """
         Returns whether the printer details are available.
         """
-    @builtins.property
     def is_accepting_jobs(self) -> bool:
         """
         Returns whether the printer is accepting jobs
@@ -83935,7 +83353,6 @@ class Printer(GObject.Object):
         """
         Returns whether the printer is the default printer.
         """
-    @builtins.property
     def is_paused(self) -> bool:
         """
             Returns whether the printer is currently paused.
@@ -83943,7 +83360,6 @@ class Printer(GObject.Object):
         A paused printer still accepts jobs, but it is not
         printing them.
         """
-    @builtins.property
     def is_virtual(self) -> bool:
         """
             Returns whether the printer is virtual (i.e. does not
@@ -84221,38 +83637,32 @@ class ProgressBar(Widget):
         """
         Initialize ProgressBar object with properties.
         """
-    @builtins.property
     def get_ellipsize(self) -> Pango.EllipsizeMode:
         """
             Returns the ellipsizing position of the progress bar.
 
         See [method`Gtk`.ProgressBar.set_ellipsize].
         """
-    @builtins.property
     def get_fraction(self) -> float:
         """
         Returns the current fraction of the task that’s been completed.
         """
-    @builtins.property
     def get_inverted(self) -> bool:
         """
         Returns whether the progress bar is inverted.
         """
-    @builtins.property
     def get_pulse_step(self) -> float:
         """
             Retrieves the pulse step.
 
         See [method`Gtk`.ProgressBar.set_pulse_step].
         """
-    @builtins.property
     def get_show_text(self) -> bool:
         """
             Returns whether the `GtkProgressBar` shows text.
 
         See [method`Gtk`.ProgressBar.set_show_text].
         """
-    @builtins.property
     def get_text(self) -> str | None:
         """
             Retrieves the text that is displayed with the progress bar.
@@ -84865,12 +84275,10 @@ class Range(Widget):
         """
         Initialize Range object with properties.
         """
-    @builtins.property
     def get_adjustment(self) -> Adjustment:
         """
         Get the adjustment which is the “model” object for `GtkRange`.
         """
-    @builtins.property
     def get_fill_level(self) -> float:
         """
         Gets the current position of the fill level indicator.
@@ -84881,7 +84289,6 @@ class Range(Widget):
 
         See [method`Gtk`.Range.set_flippable].
         """
-    @builtins.property
     def get_inverted(self) -> bool:
         """
             Gets whether the range is inverted.
@@ -84895,12 +84302,10 @@ class Range(Widget):
 
         This function is useful mainly for `GtkRange` subclasses.
         """
-    @builtins.property
     def get_restrict_to_fill_level(self) -> bool:
         """
         Gets whether the range is restricted to the fill level.
         """
-    @builtins.property
     def get_round_digits(self) -> int:
         """
             Gets the number of digits to round the value to when
@@ -84908,7 +84313,6 @@ class Range(Widget):
 
         See [signal`Gtk`.Range::change-value].
         """
-    @builtins.property
     def get_show_fill_level(self) -> bool:
         """
         Gets whether the range displays the fill level graphically.
@@ -86101,12 +85505,10 @@ class Revealer(Widget):
         """
         Initialize Revealer object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `revealer`.
         """
-    @builtins.property
     def get_child_revealed(self) -> bool:
         """
             Returns whether the child is fully revealed.
@@ -86114,7 +85516,6 @@ class Revealer(Widget):
         In other words, this returns whether the transition
         to the revealed state is completed.
         """
-    @builtins.property
     def get_reveal_child(self) -> bool:
         """
             Returns whether the child is currently revealed.
@@ -86124,13 +85525,11 @@ class Revealer(Widget):
         the child is fully revealed (ie the transition is completed),
         use [method`Gtk`.Revealer.get_child_revealed].
         """
-    @builtins.property
     def get_transition_duration(self) -> int:
         """
             Returns the amount of time (in milliseconds) that
         transitions will take.
         """
-    @builtins.property
     def get_transition_type(self) -> RevealerTransitionType:
         """
             Gets the type of animation that will be used
@@ -86780,18 +86179,15 @@ class Scale(Range):
         """
         Removes any marks that have been added.
         """
-    @builtins.property
     def get_digits(self) -> int:
         """
         Gets the number of decimal places that are displayed in the value.
         """
-    @builtins.property
     def get_draw_value(self) -> bool:
         """
             Returns whether the current value is displayed as a string
         next to the slider.
         """
-    @builtins.property
     def get_has_origin(self) -> bool:
         """
         Returns whether the scale has an origin.
@@ -86814,7 +86210,6 @@ class Scale(Range):
         If the [property`Gtk`.Scale:draw-value] property is False, the return
         values are undefined.
         """
-    @builtins.property
     def get_value_pos(self) -> PositionType:
         """
         Gets the position in which the current value is displayed.
@@ -87445,7 +86840,6 @@ class ScaleButton(Widget):
         """
         Initialize ScaleButton object with properties.
         """
-    @builtins.property
     def get_active(self) -> bool:
         """
             Queries a `GtkScaleButton` and returns its current state.
@@ -87453,14 +86847,12 @@ class ScaleButton(Widget):
         Returns True if the scale button is pressed in and False
         if it is raised.
         """
-    @builtins.property
     def get_adjustment(self) -> Adjustment:
         """
             Gets the `GtkAdjustment` associated with the `GtkScaleButton`’s scale.
 
         See [method`Gtk`.Range.get_adjustment] for details.
         """
-    @builtins.property
     def get_has_frame(self) -> bool:
         """
         Returns whether the button has a frame.
@@ -87477,7 +86869,6 @@ class ScaleButton(Widget):
         """
         Retrieves the popup of the `GtkScaleButton`.
         """
-    @builtins.property
     def get_value(self) -> float:
         """
         Gets the current value of the scale button.
@@ -88087,22 +87478,18 @@ class Scrollable(builtins.object):
         this information to display overlaid graphics, like the
         overshoot indication, at the right position.
         """
-    @builtins.property
     def get_hadjustment(self) -> Adjustment | None:
         """
         Retrieves the `GtkAdjustment` used for horizontal scrolling.
         """
-    @builtins.property
     def get_hscroll_policy(self) -> ScrollablePolicy:
         """
         Gets the horizontal `GtkScrollablePolicy`.
         """
-    @builtins.property
     def get_vadjustment(self) -> Adjustment | None:
         """
         Retrieves the `GtkAdjustment` used for vertical scrolling.
         """
-    @builtins.property
     def get_vscroll_policy(self) -> ScrollablePolicy:
         """
         Gets the vertical `GtkScrollablePolicy`.
@@ -88269,7 +87656,6 @@ class Scrollbar(Widget):
         """
         Initialize Scrollbar object with properties.
         """
-    @builtins.property
     def get_adjustment(self) -> Adjustment:
         """
         Returns the scrollbar's adjustment.
@@ -88870,7 +88256,6 @@ class ScrolledWindow(Widget):
         """
         Initialize ScrolledWindow object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
             Gets the child widget of `scrolled_window`.
@@ -88879,7 +88264,6 @@ class ScrolledWindow(Widget):
         function will return the viewport widget, and you can retrieve its child
         using [method`Gtk`.Viewport.get_child].
         """
-    @builtins.property
     def get_hadjustment(self) -> Adjustment:
         """
             Returns the horizontal scrollbar’s adjustment.
@@ -88887,7 +88271,6 @@ class ScrolledWindow(Widget):
         This is the adjustment used to connect the horizontal scrollbar
         to the child widget’s horizontal scroll functionality.
         """
-    @builtins.property
     def get_has_frame(self) -> bool:
         """
         Gets whether the scrolled window draws a frame.
@@ -88896,37 +88279,30 @@ class ScrolledWindow(Widget):
         """
         Returns the horizontal scrollbar of `scrolled_window`.
         """
-    @builtins.property
     def get_kinetic_scrolling(self) -> bool:
         """
         Returns the specified kinetic scrolling behavior.
         """
-    @builtins.property
     def get_max_content_height(self) -> int:
         """
         Returns the maximum content height set.
         """
-    @builtins.property
     def get_max_content_width(self) -> int:
         """
         Returns the maximum content width set.
         """
-    @builtins.property
     def get_min_content_height(self) -> int:
         """
         Gets the minimal content height of `scrolled_window`.
         """
-    @builtins.property
     def get_min_content_width(self) -> int:
         """
         Gets the minimum content width of `scrolled_window`.
         """
-    @builtins.property
     def get_overlay_scrolling(self) -> bool:
         """
         Returns whether overlay scrolling is enabled for this scrolled window.
         """
-    @builtins.property
     def get_placement(self) -> CornerType:
         """
         Gets the placement of the contents with respect to the scrollbars.
@@ -88938,19 +88314,16 @@ class ScrolledWindow(Widget):
 
         See [method`Gtk`.ScrolledWindow.set_policy].
         """
-    @builtins.property
     def get_propagate_natural_height(self) -> bool:
         """
             Reports whether the natural height of the child will be calculated
         and propagated through the scrolled window’s requested natural height.
         """
-    @builtins.property
     def get_propagate_natural_width(self) -> bool:
         """
             Reports whether the natural width of the child will be calculated
         and propagated through the scrolled window’s requested natural width.
         """
-    @builtins.property
     def get_vadjustment(self) -> Adjustment:
         """
             Returns the vertical scrollbar’s adjustment.
@@ -89723,22 +89096,18 @@ class SearchBar(Widget):
         function manually is only required if the entry isn’t the direct
         child of the search bar (as in our main example).
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `bar`.
         """
-    @builtins.property
     def get_key_capture_widget(self) -> Widget | None:
         """
         Gets the widget that `bar` is capturing key events from.
         """
-    @builtins.property
     def get_search_mode(self) -> bool:
         """
         Returns whether the search mode is on or off.
         """
-    @builtins.property
     def get_show_close_button(self) -> bool:
         """
         Returns whether the close button is shown.
@@ -90286,12 +89655,10 @@ class SearchEntry(Widget):
         """
         Initialize SearchEntry object with properties.
         """
-    @builtins.property
     def get_input_hints(self) -> InputHints:
         """
         Gets the input purpose for `entry`.
         """
-    @builtins.property
     def get_input_purpose(self) -> InputPurpose:
         """
         Gets the input purpose of `entry`.
@@ -90300,12 +89667,10 @@ class SearchEntry(Widget):
         """
         Gets the widget that `entry` is capturing key events from.
         """
-    @builtins.property
     def get_placeholder_text(self) -> str | None:
         """
         Gets the placeholder text associated with `entry`.
         """
-    @builtins.property
     def get_search_delay(self) -> int:
         """
             Get the delay to be used between the last keypress and the
@@ -91000,7 +90365,6 @@ class SelectionFilterModel(GObject.Object):
         """
         Initialize SelectionFilterModel object with properties.
         """
-    @builtins.property
     def get_model(self) -> SelectionModel | None:
         """
         Gets the model currently filtered or None if none.
@@ -92673,17 +92037,14 @@ class Shortcut(GObject.Object):
         """
         Initialize Shortcut object with properties.
         """
-    @builtins.property
     def get_action(self) -> ShortcutAction | None:
         """
         Gets the action that is activated by this shortcut.
         """
-    @builtins.property
     def get_arguments(self) -> GLib.Variant | None:
         """
         Gets the arguments that are passed when activating the shortcut.
         """
-    @builtins.property
     def get_trigger(self) -> ShortcutTrigger | None:
         """
         Gets the trigger used to trigger `self`.
@@ -92923,12 +92284,10 @@ class ShortcutController(EventController):
         If this controller uses an external shortcut list, this
         function does nothing.
         """
-    @builtins.property
     def get_mnemonics_modifiers(self) -> Gdk.ModifierType:
         """
         Gets the mnemonics modifiers for when this controller activates its shortcuts.
         """
-    @builtins.property
     def get_scope(self) -> ShortcutScope:
         """
             Gets the scope for when this controller activates its shortcuts.
@@ -93141,13 +92500,11 @@ class ShortcutLabel(Widget):
         Initialize ShortcutLabel object with properties.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_accelerator(self) -> str | None:
         """
         Retrieves the current accelerator of `self`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_disabled_text(self) -> str | None:
         """
         Retrieves the text that is displayed when no accelerator is set.
@@ -96090,7 +95447,6 @@ class SignalAction(ShortcutAction):
         """
         Initialize SignalAction object with properties.
         """
-    @builtins.property
     def get_signal_name(self) -> str:
         """
         Returns the name of the signal that will be emitted.
@@ -96329,31 +95685,26 @@ class SingleSelection(GObject.Object):
         """
         Initialize SingleSelection object with properties.
         """
-    @builtins.property
     def get_autoselect(self) -> bool:
         """
             Checks if autoselect has been enabled or disabled via
         `Gtk.SingleSelection.set_autoselect`.
         """
-    @builtins.property
     def get_can_unselect(self) -> bool:
         """
             If True, `Gtk.SelectionModel.unselect_item` is supported and allows
         unselecting the selected item.
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
         Gets the model that `self` is wrapping.
         """
-    @builtins.property
     def get_selected(self) -> int:
         """
             Gets the position of the selected item.
 
         If no item is selected, Gtk.INVALID_LIST_POSITION is returned.
         """
-    @builtins.property
     def get_selected_item(self) -> GObject.Object | None:
         """
             Gets the selected item.
@@ -96636,7 +95987,6 @@ class SizeGroup(GObject.Object):
         When the widget is destroyed or no longer referenced elsewhere, it
         will be removed from the size group.
         """
-    @builtins.property
     def get_mode(self) -> SizeGroupMode:
         """
         Gets the current mode of the size group.
@@ -96733,17 +96083,14 @@ class SliceListModel(GObject.Object):
         """
         Initialize SliceListModel object with properties.
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
         Gets the model that is currently being used or None if none.
         """
-    @builtins.property
     def get_offset(self) -> int:
         """
         Gets the offset set via `Gtk.SliceListModel.set_offset`.
         """
-    @builtins.property
     def get_size(self) -> int:
         """
         Gets the size set via `Gtk.SliceListModel.set_size`.
@@ -97393,19 +96740,16 @@ class SortListModel(GObject.Object):
         """
         Initialize SortListModel object with properties.
         """
-    @builtins.property
     def get_incremental(self) -> bool:
         """
             Returns whether incremental sorting is enabled.
 
         See [method`Gtk`.SortListModel.set_incremental].
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel | None:
         """
         Gets the model currently sorted or None if none.
         """
-    @builtins.property
     def get_pending(self) -> int:
         """
             Estimates progress of an ongoing sorting operation.
@@ -97426,13 +96770,11 @@ class SortListModel(GObject.Object):
         [property`Gtk`.SortListModel:incremental] is False - this
         function returns 0.
         """
-    @builtins.property
     def get_section_sorter(self) -> Sorter | None:
         """
             Gets the section sorter that is used to sort items of `self` into
         sections.
         """
-    @builtins.property
     def get_sorter(self) -> Sorter | None:
         """
         Gets the sorter that is used to sort `self`.
@@ -97953,22 +97295,18 @@ class SpinButton(Widget):
         The adjustment, climb rate, and number of decimal places
         are updated accordingly.
         """
-    @builtins.property
     def get_activates_default(self) -> bool:
         """
         Retrieves the value set by [method`Gtk`.SpinButton.set_activates_default].
         """
-    @builtins.property
     def get_adjustment(self) -> Adjustment:
         """
         Get the adjustment associated with a `GtkSpinButton`.
         """
-    @builtins.property
     def get_climb_rate(self) -> float:
         """
         Returns the acceleration rate for repeated changes.
         """
-    @builtins.property
     def get_digits(self) -> int:
         """
         Fetches the precision of `spin_button`.
@@ -97980,7 +97318,6 @@ class SpinButton(Widget):
 
         See [method`Gtk`.SpinButton.set_increments].
         """
-    @builtins.property
     def get_numeric(self) -> bool:
         """
         Returns whether non-numeric text can be typed into the spin button.
@@ -97991,19 +97328,16 @@ class SpinButton(Widget):
 
         See [method`Gtk`.SpinButton.set_range].
         """
-    @builtins.property
     def get_snap_to_ticks(self) -> bool:
         """
         Returns whether the values are corrected to the nearest step.
         """
-    @builtins.property
     def get_update_policy(self) -> SpinButtonUpdatePolicy:
         """
             Gets the update behavior of a spin button.
 
         See [method`Gtk`.SpinButton.set_update_policy].
         """
-    @builtins.property
     def get_value(self) -> float:
         """
         Get the value in the `spin_button`.
@@ -98012,7 +97346,6 @@ class SpinButton(Widget):
         """
         Get the value `spin_button` represented as an integer.
         """
-    @builtins.property
     def get_wrap(self) -> bool:
         """
             Returns whether the spin button’s value wraps around to the
@@ -98772,7 +98105,6 @@ class Spinner(Widget):
         """
         Initialize Spinner object with properties.
         """
-    @builtins.property
     def get_spinning(self) -> bool:
         """
         Returns whether the spinner is spinning.
@@ -99308,12 +98640,10 @@ class Stack(Widget):
 
         Returns None if there is no child with this name.
         """
-    @builtins.property
     def get_hhomogeneous(self) -> bool:
         """
         Gets whether `stack` is horizontally homogeneous.
         """
-    @builtins.property
     def get_interpolate_size(self) -> bool:
         """
             Returns whether the `GtkStack` is set up to interpolate between
@@ -99323,7 +98653,6 @@ class Stack(Widget):
         """
         Returns the `GtkStackPage` object for `child`.
         """
-    @builtins.property
     def get_pages(self) -> SelectionModel:
         """
             Returns a `GListModel` that contains the pages of the stack.
@@ -99332,37 +98661,31 @@ class Stack(Widget):
         implements [iface`Gtk`.SelectionModel] and can be used to track
         and modify the visible page.
         """
-    @builtins.property
     def get_transition_duration(self) -> int:
         """
             Returns the amount of time (in milliseconds) that
         transitions between pages in `stack` will take.
         """
-    @builtins.property
     def get_transition_running(self) -> bool:
         """
             Returns whether the `stack` is currently in a transition from one page to
         another.
         """
-    @builtins.property
     def get_transition_type(self) -> StackTransitionType:
         """
             Gets the type of animation that will be used
         for transitions between pages in `stack`.
         """
-    @builtins.property
     def get_vhomogeneous(self) -> bool:
         """
         Gets whether `stack` is vertically homogeneous.
         """
-    @builtins.property
     def get_visible_child(self) -> Widget | None:
         """
             Gets the currently visible child of `stack`.
 
         Returns None if there are no visible children.
         """
-    @builtins.property
     def get_visible_child_name(self) -> str | None:
         """
             Returns the name of the currently visible child of `stack`.
@@ -99914,37 +99237,30 @@ class StackPage(GObject.Object):
         """
         Initialize StackPage object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget:
         """
         Returns the stack child to which `self` belongs.
         """
-    @builtins.property
     def get_icon_name(self) -> str | None:
         """
         Returns the icon name of the page.
         """
-    @builtins.property
     def get_name(self) -> str | None:
         """
         Returns the name of the page.
         """
-    @builtins.property
     def get_needs_attention(self) -> bool:
         """
         Returns whether the page is marked as “needs attention”.
         """
-    @builtins.property
     def get_title(self) -> str | None:
         """
         Gets the page title.
         """
-    @builtins.property
     def get_use_underline(self) -> bool:
         """
         Gets whether underlines in the page title indicate mnemonics.
         """
-    @builtins.property
     def get_visible(self) -> bool:
         """
             Returns whether `page` is visible in its `GtkStack`.
@@ -100118,7 +99434,6 @@ class StackSidebar(Widget):
         """
         Initialize StackSidebar object with properties.
         """
-    @builtins.property
     def get_stack(self) -> Stack | None:
         """
         Retrieves the stack.
@@ -100572,7 +99887,6 @@ class StackSwitcher(Widget):
         """
         Initialize StackSwitcher object with properties.
         """
-    @builtins.property
     def get_stack(self) -> Stack | None:
         """
         Retrieves the stack.
@@ -101474,23 +100788,19 @@ class StringFilter(Filter):
         """
         Initialize StringFilter object with properties.
         """
-    @builtins.property
     def get_expression(self) -> Expression | None:
         """
             Gets the expression that the string filter uses to
         obtain strings from items.
         """
-    @builtins.property
     def get_ignore_case(self) -> bool:
         """
         Returns whether the filter ignores case differences.
         """
-    @builtins.property
     def get_match_mode(self) -> StringFilterMatchMode:
         """
         Returns the match mode that the filter is using.
         """
-    @builtins.property
     def get_search(self) -> str | None:
         """
         Gets the search term.
@@ -101771,7 +101081,6 @@ class StringObject(GObject.Object):
         """
         Initialize StringObject object with properties.
         """
-    @builtins.property
     def get_string(self) -> str:
         """
         Returns the string contained in a `GtkStringObject`.
@@ -101859,17 +101168,14 @@ class StringSorter(Sorter):
         """
         Initialize StringSorter object with properties.
         """
-    @builtins.property
     def get_collation(self) -> Collation:
         """
         Gets which collation method the sorter uses.
         """
-    @builtins.property
     def get_expression(self) -> Expression | None:
         """
         Gets the expression that is evaluated to obtain strings from items.
         """
-    @builtins.property
     def get_ignore_case(self) -> bool:
         """
         Gets whether the sorter ignores case differences.
@@ -102063,7 +101369,6 @@ class StyleContext(GObject.Object):
         Gets the foreground color for a given state.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_display(self) -> Gdk.Display:
         """
         Returns the `GdkDisplay` to which `context` is attached.
@@ -102365,12 +101670,10 @@ class Switch(Widget):
         """
         Initialize Switch object with properties.
         """
-    @builtins.property
     def get_active(self) -> bool:
         """
         Gets whether the `GtkSwitch` is in its “on” or “off” state.
         """
-    @builtins.property
     def get_state(self) -> bool:
         """
         Gets the underlying state of the `GtkSwitch`.
@@ -103135,7 +102438,6 @@ class Text(Widget):
 
         The rectangle positions are in widget coordinates.
         """
-    @builtins.property
     def get_activates_default(self) -> bool:
         """
             Returns whether pressing <kbd>Enter</kbd> will activate
@@ -103143,42 +102445,35 @@ class Text(Widget):
 
         See [method`Gtk`.Text.set_activates_default].
         """
-    @builtins.property
     def get_attributes(self) -> Pango.AttrList | None:
         """
             Gets the attribute list that was set on the text widget.
 
         See [method`Gtk`.Text.set_attributes].
         """
-    @builtins.property
     def get_buffer(self) -> EntryBuffer:
         """
             Get the entry buffer object which holds the text for
         this widget.
         """
-    @builtins.property
     def get_enable_emoji_completion(self) -> bool:
         """
         Returns whether Emoji completion is enabled.
         """
-    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel | None:
         """
             Gets the extra menu model of the text widget.
 
         See [method`Gtk`.Text.set_extra_menu].
         """
-    @builtins.property
     def get_input_hints(self) -> InputHints:
         """
         Gets the input hints of the text widget.
         """
-    @builtins.property
     def get_input_purpose(self) -> InputPurpose:
         """
         Gets the input purpose of the text widget.
         """
-    @builtins.property
     def get_invisible_char(self) -> str:
         """
             Retrieves the character displayed when visibility is set to false.
@@ -103187,7 +102482,6 @@ class Text(Widget):
         so the value returned by this function is not very useful unless
         it has been explicitly set with [method`Gtk`.Text.set_invisible_char].
         """
-    @builtins.property
     def get_max_length(self) -> int:
         """
             Retrieves the maximum allowed length of the contents.
@@ -103197,14 +102491,12 @@ class Text(Widget):
         This is equivalent to getting `self`'s `GtkEntryBuffer` and
         calling [method`Gtk`.EntryBuffer.get_max_length] on it.
         """
-    @builtins.property
     def get_overwrite_mode(self) -> bool:
         """
             Gets whether text is overwritten when typing.
 
         See [method`Gtk`.Text.set_overwrite_mode].
         """
-    @builtins.property
     def get_placeholder_text(self) -> str | None:
         """
             Retrieves the text that will be displayed when the text widget
@@ -103212,13 +102504,11 @@ class Text(Widget):
 
         See [method`Gtk`.Text.set_placeholder_text].
         """
-    @builtins.property
     def get_propagate_text_width(self) -> bool:
         """
             Returns whether the text widget will grow and shrink
         with the content.
         """
-    @builtins.property
     def get_tabs(self) -> Pango.TabArray | None:
         """
             Gets the tab stops for the text widget.
@@ -103232,12 +102522,10 @@ class Text(Widget):
         This is equivalent to getting `self`'s `GtkEntryBuffer`
         and calling [method`Gtk`.EntryBuffer.get_length] on it.
         """
-    @builtins.property
     def get_truncate_multiline(self) -> bool:
         """
         Returns whether pasted text will be truncated to the first line.
         """
-    @builtins.property
     def get_visibility(self) -> bool:
         """
         Retrieves whether the text is visible.
@@ -104345,12 +103633,10 @@ class TextBuffer(GObject.Object):
             Retrieves the first and last iterators in the buffer, i.e. the
         entire buffer lies within the range [`start`,`end`).
         """
-    @builtins.property
     def get_can_redo(self) -> bool:
         """
         Gets whether there is a redoable action in the history.
         """
-    @builtins.property
     def get_can_undo(self) -> bool:
         """
         Gets whether there is an undoable action in the history.
@@ -104365,7 +103651,6 @@ class TextBuffer(GObject.Object):
 
         The character count is cached, so this function is very fast.
         """
-    @builtins.property
     def get_enable_undo(self) -> bool:
         """
             Gets whether the buffer is saving modifications to the buffer
@@ -104386,7 +103671,6 @@ class TextBuffer(GObject.Object):
         the buffer (call [method`Gtk`.TextBuffer.get_start_iter] to get
         character position 0) to the end iterator.
         """
-    @builtins.property
     def get_has_selection(self) -> bool:
         """
         Indicates whether the buffer has some text currently selected.
@@ -104514,7 +103798,6 @@ class TextBuffer(GObject.Object):
         This is the same as using [method`Gtk`.TextBuffer.get_iter_at_offset]
         to get the iter at character offset 0.
         """
-    @builtins.property
     def get_tag_table(self) -> TextTagTable:
         """
         Get the `GtkTextTagTable` associated with this buffer.
@@ -106237,12 +105520,10 @@ class TextMark(GObject.Object):
         See [method`Gtk`.TextBuffer.add_mark] for a way to add it
         to a buffer again.
         """
-    @builtins.property
     def get_left_gravity(self) -> bool:
         """
         Determines whether the mark has left gravity.
         """
-    @builtins.property
     def get_name(self) -> str | None:
         """
             Returns the mark name.
@@ -108001,19 +107282,16 @@ class TextView(Widget):
         they depend on the view’s width; paragraphs are the same in all
         views, since they depend on the contents of the `GtkTextBuffer`.
         """
-    @builtins.property
     def get_accepts_tab(self) -> bool:
         """
             Returns whether pressing the <kbd>Tab</kbd> key inserts a tab characters.
 
         See [method`Gtk`.TextView.set_accepts_tab].
         """
-    @builtins.property
     def get_bottom_margin(self) -> int:
         """
         Gets the bottom margin for text in the `text_view`.
         """
-    @builtins.property
     def get_buffer(self) -> TextBuffer:
         """
             Returns the `GtkTextBuffer` being displayed by this text view.
@@ -108044,19 +107322,16 @@ class TextView(Widget):
         [method`Gtk`.TextView.buffer_to_window_coords] to convert these
         coordinates to coordinates for one of the windows in the text view.
         """
-    @builtins.property
     def get_cursor_visible(self) -> bool:
         """
         Find out whether the cursor should be displayed.
         """
-    @builtins.property
     def get_editable(self) -> bool:
         """
             Returns the default editability of the `GtkTextView`.
 
         Tags in the buffer may override this setting for some ranges of text.
         """
-    @builtins.property
     def get_extra_menu(self) -> Gio.MenuModel:
         """
             Gets the menu model that gets added to the context menu
@@ -108071,7 +107346,6 @@ class TextView(Widget):
         `win` must be one of Gtk.TEXT_WINDOW_LEFT, Gtk.TEXT_WINDOW_RIGHT,
         Gtk.TEXT_WINDOW_TOP, or Gtk.TEXT_WINDOW_BOTTOM.
         """
-    @builtins.property
     def get_indent(self) -> int:
         """
             Gets the default indentation of paragraphs in `text_view`.
@@ -108079,12 +107353,10 @@ class TextView(Widget):
         Tags in the view’s buffer may override the default.
         The indentation may be negative.
         """
-    @builtins.property
     def get_input_hints(self) -> InputHints:
         """
         Gets the `input-hints` of the `GtkTextView`.
         """
-    @builtins.property
     def get_input_purpose(self) -> InputPurpose:
         """
         Gets the `input-purpose` of the `GtkTextView`.
@@ -108119,14 +107391,12 @@ class TextView(Widget):
         [method`Gtk`.TextView.buffer_to_window_coords] to convert these
         coordinates to coordinates for one of the windows in the text view.
         """
-    @builtins.property
     def get_justification(self) -> Justification:
         """
             Gets the default justification of paragraphs in `text_view`.
 
         Tags in the buffer may override the default.
         """
-    @builtins.property
     def get_left_margin(self) -> int:
         """
             Gets the default left margin size of paragraphs in the `text_view`.
@@ -108158,17 +107428,14 @@ class TextView(Widget):
 
         The context may be replaced when CSS changes occur.
         """
-    @builtins.property
     def get_monospace(self) -> bool:
         """
         Gets whether the `GtkTextView` uses monospace styling.
         """
-    @builtins.property
     def get_overwrite(self) -> bool:
         """
         Returns whether the `GtkTextView` is in overwrite mode or not.
         """
-    @builtins.property
     def get_pixels_above_lines(self) -> int:
         """
             Gets the default number of pixels to put above paragraphs.
@@ -108176,7 +107443,6 @@ class TextView(Widget):
         Adding this function with [method`Gtk`.TextView.get_pixels_below_lines]
         is equal to the line space between each paragraph.
         """
-    @builtins.property
     def get_pixels_below_lines(self) -> int:
         """
             Gets the default number of pixels to put below paragraphs.
@@ -108184,13 +107450,11 @@ class TextView(Widget):
         The line space is the sum of the value returned by this function and
         the value returned by [method`Gtk`.TextView.get_pixels_above_lines].
         """
-    @builtins.property
     def get_pixels_inside_wrap(self) -> int:
         """
             Gets the default number of pixels to put between wrapped lines
         inside a paragraph.
         """
-    @builtins.property
     def get_right_margin(self) -> int:
         """
             Gets the default right margin for text in `text_view`.
@@ -108204,7 +107468,6 @@ class TextView(Widget):
 
         The context may be replaced when CSS changes occur.
         """
-    @builtins.property
     def get_tabs(self) -> Pango.TabArray | None:
         """
             Gets the default tabs for `text_view`.
@@ -108213,7 +107476,6 @@ class TextView(Widget):
         will be None if “standard” (8-space) tabs are used. Free the
         return value with [method`Pango`.TabArray.free].
         """
-    @builtins.property
     def get_top_margin(self) -> int:
         """
         Gets the top margin for text in the `text_view`.
@@ -108238,7 +107500,6 @@ class TextView(Widget):
         Convert to window coordinates with
         [method`Gtk`.TextView.buffer_to_window_coords].
         """
-    @builtins.property
     def get_wrap_mode(self) -> WrapMode:
         """
         Gets the line wrapping for the view.
@@ -109618,7 +108879,6 @@ class ToggleButton(Button):
         """
         Initialize ToggleButton object with properties.
         """
-    @builtins.property
     def get_active(self) -> bool:
         """
             Queries a `GtkToggleButton` and returns its current state.
@@ -110495,27 +109755,22 @@ class TreeExpander(Widget):
         """
         Initialize TreeExpander object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget displayed by `self`.
         """
-    @builtins.property
     def get_hide_expander(self) -> bool:
         """
         Gets whether the TreeExpander should be hidden in a GtkTreeListRow.
         """
-    @builtins.property
     def get_indent_for_depth(self) -> bool:
         """
         TreeExpander indents each level of depth with an additional indent.
         """
-    @builtins.property
     def get_indent_for_icon(self) -> bool:
         """
         TreeExpander indents the child by the width of an expander-icon if it is not expandable.
         """
-    @builtins.property
     def get_item(self) -> GObject.Object | None:
         """
             Forwards the item set on the `GtkTreeListRow` that `self` is managing.
@@ -110526,7 +109781,6 @@ class TreeExpander(Widget):
         gtk_tree_list_row_get_item (gtk_tree_expander_get_list_row (`self`));
         ```
         """
-    @builtins.property
     def get_list_row(self) -> TreeListRow | None:
         """
         Gets the list row managed by `self`.
@@ -111030,7 +110284,6 @@ class TreeListModel(GObject.Object):
         """
         Initialize TreeListModel object with properties.
         """
-    @builtins.property
     def get_autoexpand(self) -> bool:
         """
             Gets whether the model is set to automatically expand new rows
@@ -111049,12 +110302,10 @@ class TreeListModel(GObject.Object):
 
         Do not confuse this function with [method`Gtk`.TreeListModel.get_row].
         """
-    @builtins.property
     def get_model(self) -> Gio.ListModel:
         """
         Gets the root model that `self` was created with.
         """
-    @builtins.property
     def get_passthrough(self) -> bool:
         """
             Gets whether the model is passing through original row items.
@@ -111223,7 +110474,6 @@ class TreeListRow(GObject.Object):
             If `self` is not expanded or `position` is greater than the
         number of children, None is returned.
         """
-    @builtins.property
     def get_children(self) -> Gio.ListModel | None:
         """
             If the row is expanded, gets the model holding the children of `self`.
@@ -111233,7 +110483,6 @@ class TreeListRow(GObject.Object):
         and contains the original items, no matter what value
         [property`Gtk`.TreeListModel:passthrough] is set to.
         """
-    @builtins.property
     def get_depth(self) -> int:
         """
             Gets the depth of this row.
@@ -111245,12 +110494,10 @@ class TreeListRow(GObject.Object):
         The depth of a row never changes until the row is removed from its model
         at which point it will forever return 0.
         """
-    @builtins.property
     def get_expanded(self) -> bool:
         """
         Gets if a row is currently expanded.
         """
-    @builtins.property
     def get_item(self) -> GObject.Object | None:
         """
         Gets the item corresponding to this row,
@@ -111274,7 +110521,6 @@ class TreeListRow(GObject.Object):
             Returns the position in the `GtkTreeListModel` that `self` occupies
         at the moment.
         """
-    @builtins.property
     def is_expandable(self) -> bool:
         """
             Checks if a row can be expanded.
@@ -111380,7 +110626,6 @@ class TreeListRowSorter(Sorter):
         """
         Initialize TreeListRowSorter object with properties.
         """
-    @builtins.property
     def get_sorter(self) -> Sorter | None:
         """
         Returns the sorter used by `self`.
@@ -112521,7 +111766,6 @@ class TreeModelSort(GObject.Object):
         sorted.  If `sorted_path` does not point to a location in the child model,
         None is returned.
         """
-    @builtins.property
     def get_model(self) -> TreeModel:
         """
         Returns the model the `GtkTreeModelSort` is sorting.
@@ -112892,7 +112136,6 @@ class TreeSelection(GObject.Object):
         Returns the number of rows that have been selected in `tree`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_mode(self) -> SelectionMode:
         """
             Gets the selection mode for `selection`. See
@@ -113789,7 +113032,6 @@ class TreeView(Widget):
         `path` as necessary.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_activate_on_single_click(self) -> bool:
         """
         Gets the setting set by `Gtk.TreeView.set_activate_on_single_click`.
@@ -113834,20 +113076,17 @@ class TreeView(Widget):
         Gets information about the row that is highlighted for feedback.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_enable_search(self) -> bool:
         """
             Returns whether or not the tree allows to start interactive searching
         by typing in text.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_enable_tree_lines(self) -> bool:
         """
         Returns whether or not tree lines are drawn in `tree_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_expander_column(self) -> TreeViewColumn | None:
         """
             Returns the column that is the current expander column,
@@ -113855,7 +113094,6 @@ class TreeView(Widget):
         This column has the expander arrow drawn next to it.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_fixed_height_mode(self) -> bool:
         """
         Returns whether fixed height mode is turned on for `tree_view`.
@@ -113866,38 +113104,32 @@ class TreeView(Widget):
         Returns which grid lines are enabled in `tree_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_headers_clickable(self) -> bool:
         """
         Returns whether all header columns are clickable.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_headers_visible(self) -> bool:
         """
         Returns True if the headers on the `tree_view` are visible.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_hover_expand(self) -> bool:
         """
         Returns whether hover expansion mode is turned on for `tree_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_hover_selection(self) -> bool:
         """
         Returns whether hover selection mode is turned on for `tree_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_level_indentation(self) -> int:
         """
             Returns the amount, in pixels, of extra indentation for child levels
         in `tree_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_model(self) -> TreeModel | None:
         """
             Returns the model the `GtkTreeView` is based on.  Returns None if the
@@ -113909,14 +113141,12 @@ class TreeView(Widget):
         Queries the number of columns in the given `tree_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_reorderable(self) -> bool:
         """
             Retrieves whether the user can reorder the tree via drag-and-drop. See
         `Gtk.TreeView.set_reorderable`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_rubber_banding(self) -> bool:
         """
             Returns whether rubber banding is turned on for `tree_view`.  If the
@@ -113924,7 +113154,6 @@ class TreeView(Widget):
         user to select multiple rows by dragging the mouse.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_search_column(self) -> int:
         """
         Gets the column searched on by the interactive search code.
@@ -113942,13 +113171,11 @@ class TreeView(Widget):
         Gets the `GtkTreeSelection` associated with `tree_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_show_expanders(self) -> bool:
         """
         Returns whether or not expanders are drawn in `tree_view`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_tooltip_column(self) -> int:
         """
             Returns the column of `tree_view`’s model which is being used for
@@ -115168,7 +114395,6 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         2 or more editable and activatable cells.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_alignment(self) -> float:
         """
             Returns the current x alignment of `tree_column`.  This value can range
@@ -115180,58 +114406,49 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         Returns the button used in the treeview column header
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_clickable(self) -> bool:
         """
         Returns True if the user can click on the header for the column.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_expand(self) -> bool:
         """
         Returns True if the column expands to fill available space.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_fixed_width(self) -> int:
         """
             Gets the fixed width of the column.  This may not be the actual displayed
         width of the column; for that, use `Gtk.TreeViewColumn.get_width`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_max_width(self) -> int:
         """
             Returns the maximum width in pixels of the `tree_column`, or -1 if no maximum
         width is set.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_min_width(self) -> int:
         """
             Returns the minimum width in pixels of the `tree_column`, or -1 if no minimum
         width is set.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_reorderable(self) -> bool:
         """
         Returns True if the `tree_column` can be reordered by the user.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_resizable(self) -> bool:
         """
         Returns True if the `tree_column` can be resized by the end user.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_sizing(self) -> TreeViewColumnSizing:
         """
         Returns the current type of `tree_column`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_sort_column_id(self) -> int:
         """
             Gets the logical `sort_column_id` that the model sorts on
@@ -115240,25 +114457,21 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         See [method`Gtk`.TreeViewColumn.set_sort_column_id].
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_sort_indicator(self) -> bool:
         """
         Gets the value set by `Gtk.TreeViewColumn.set_sort_indicator`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_sort_order(self) -> SortType:
         """
         Gets the value set by `Gtk.TreeViewColumn.set_sort_order`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_spacing(self) -> int:
         """
         Returns the spacing of `tree_column`.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_title(self) -> str:
         """
         Returns the title of the widget.
@@ -115271,13 +114484,11 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         returned.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_visible(self) -> bool:
         """
         Returns True if `tree_column` is visible.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_widget(self) -> Widget | None:
         """
             Returns the `GtkWidget` in the button on the column header.
@@ -115285,13 +114496,11 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         If a custom widget has not been set then None is returned.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_width(self) -> int:
         """
         Returns the current size of `tree_column` in pixels.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_x_offset(self) -> int:
         """
         Returns the current X offset of `tree_column` in pixels.
@@ -115673,7 +114882,6 @@ class UriLauncher(GObject.Object):
         """
         Initialize UriLauncher object with properties.
         """
-    @builtins.property
     def get_uri(self) -> str | None:
         """
         Gets the uri that will be opened.
@@ -115826,30 +115034,25 @@ class Video(Widget):
         """
         Initialize Video object with properties.
         """
-    @builtins.property
     def get_autoplay(self) -> bool:
         """
         Returns True if videos have been set to loop.
         """
-    @builtins.property
     def get_file(self) -> Gio.File | None:
         """
             Gets the file played by `self` or None if not playing back
         a file.
         """
-    @builtins.property
     def get_graphics_offload(self) -> GraphicsOffloadEnabled:
         """
             Returns whether graphics offload is enabled.
 
         See [class`Gtk`.GraphicsOffload] for more information on graphics offload.
         """
-    @builtins.property
     def get_loop(self) -> bool:
         """
         Returns True if videos have been set to loop.
         """
-    @builtins.property
     def get_media_stream(self) -> MediaStream | None:
         """
         Gets the media stream managed by `self` or None if none.
@@ -116406,12 +115609,10 @@ class Viewport(Widget):
         """
         Initialize Viewport object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `viewport`.
         """
-    @builtins.property
     def get_scroll_to_focus(self) -> bool:
         """
             Gets whether the viewport is scrolling to keep the focused
@@ -118290,7 +117491,6 @@ class Widget(GObject.InitiallyUnowned):
         for the `GtkWidgetClass.`snapshot`` function, and when allocating
         child widgets in `GtkWidgetClass.`size_allocate``.
         """
-    @builtins.property
     def get_can_focus(self) -> bool:
         """
             Determines whether the input focus can enter the widget or any
@@ -118298,7 +117498,6 @@ class Widget(GObject.InitiallyUnowned):
 
         See [method`Gtk`.Widget.set_can_focus].
         """
-    @builtins.property
     def get_can_target(self) -> bool:
         """
         Queries whether the widget can be the target of pointer events.
@@ -118331,17 +117530,14 @@ class Widget(GObject.InitiallyUnowned):
         implementations that need to do custom drawing
         with the foreground color.
         """
-    @builtins.property
     def get_css_classes(self) -> list:
         """
         Returns the list of style classes applied to the widget.
         """
-    @builtins.property
     def get_css_name(self) -> str:
         """
         Returns the CSS name of the widget.
         """
-    @builtins.property
     def get_cursor(self) -> Gdk.Cursor | None:
         """
             Gets the cursor set on the widget.
@@ -118382,7 +117578,6 @@ class Widget(GObject.InitiallyUnowned):
         """
         Returns the focus child of the widget.
         """
-    @builtins.property
     def get_focus_on_click(self) -> bool:
         """
             Returns whether the widget should grab focus when it is clicked
@@ -118390,7 +117585,6 @@ class Widget(GObject.InitiallyUnowned):
 
         See [method`Gtk`.Widget.set_focus_on_click].
         """
-    @builtins.property
     def get_focusable(self) -> bool:
         """
             Determines whether the widget can own the input focus.
@@ -118435,7 +117629,6 @@ class Widget(GObject.InitiallyUnowned):
 
         Unrealized widgets do not have a frame clock.
         """
-    @builtins.property
     def get_halign(self) -> Align:
         """
             Gets the horizontal alignment of the widget.
@@ -118446,7 +117639,6 @@ class Widget(GObject.InitiallyUnowned):
 
         Baselines are not supported for horizontal alignment.
         """
-    @builtins.property
     def get_has_tooltip(self) -> bool:
         """
         Returns the current value of the `has-tooltip` property.
@@ -118464,7 +117656,6 @@ class Widget(GObject.InitiallyUnowned):
         To learn more about widget sizes, see the coordinate
         system [overview](coordinates.html).
         """
-    @builtins.property
     def get_hexpand(self) -> bool:
         """
             Gets whether the widget would like any available extra horizontal
@@ -118483,7 +117674,6 @@ class Widget(GObject.InitiallyUnowned):
         than computing whether the entire widget tree rooted at this widget
         wants to expand.
         """
-    @builtins.property
     def get_hexpand_set(self) -> bool:
         """
             Gets whether the `hexpand` flag has been explicitly set.
@@ -118502,14 +117692,12 @@ class Widget(GObject.InitiallyUnowned):
 
         This function is primarily meant for widget implementations.
         """
-    @builtins.property
     def get_layout_manager(self) -> LayoutManager | None:
         """
             Retrieves the layout manager of the widget.
 
         See [method`Gtk`.Widget.set_layout_manager].
         """
-    @builtins.property
     def get_limit_events(self) -> bool:
         """
         Gets the value of the [property`Gtk`.Widget:limit-events] property.
@@ -118518,27 +117706,22 @@ class Widget(GObject.InitiallyUnowned):
         """
         Returns whether the widget is mapped.
         """
-    @builtins.property
     def get_margin_bottom(self) -> int:
         """
         Gets the bottom margin of the widget.
         """
-    @builtins.property
     def get_margin_end(self) -> int:
         """
         Gets the end margin of the widget.
         """
-    @builtins.property
     def get_margin_start(self) -> int:
         """
         Gets the start margin of the widget.
         """
-    @builtins.property
     def get_margin_top(self) -> int:
         """
         Gets the top margin of the widget.
         """
-    @builtins.property
     def get_name(self) -> str:
         """
             Retrieves the name of a widget.
@@ -118560,14 +117743,12 @@ class Widget(GObject.InitiallyUnowned):
 
         This function is primarily meant for widget implementations.
         """
-    @builtins.property
     def get_opacity(self) -> float:
         """
             Fetches the requested opacity for the widget.
 
         See [method`Gtk`.Widget.set_opacity].
         """
-    @builtins.property
     def get_overflow(self) -> Overflow:
         """
         Returns the widget’s overflow value.
@@ -118586,7 +117767,6 @@ class Widget(GObject.InitiallyUnowned):
         This can be tracked by listening to changes of the
         [property`Gtk`.Widget:root] property on the widget.
         """
-    @builtins.property
     def get_parent(self) -> Widget | None:
         """
         Returns the parent widget of the widget.
@@ -118628,7 +117808,6 @@ class Widget(GObject.InitiallyUnowned):
         """
         Determines whether the widget is realized.
         """
-    @builtins.property
     def get_receives_default(self) -> bool:
         """
             Determines whether the widget is always treated as the default widget
@@ -118647,7 +117826,6 @@ class Widget(GObject.InitiallyUnowned):
         either in context of their children or in context of their
         allocation capabilities.
         """
-    @builtins.property
     def get_root(self) -> Root | None:
         """
             Returns the `GtkRoot` widget of the widget.
@@ -118657,7 +117835,6 @@ class Widget(GObject.InitiallyUnowned):
 
         `GtkRoot` widgets will return themselves here.
         """
-    @builtins.property
     def get_scale_factor(self) -> int:
         """
             Retrieves the internal scale factor that maps from window
@@ -118674,7 +117851,6 @@ class Widget(GObject.InitiallyUnowned):
         but you probably want to use [method`Gdk`.Surface.get_scale]
         to get the fractional scale value.
         """
-    @builtins.property
     def get_sensitive(self) -> bool:
         """
             Returns the widget’s sensitivity.
@@ -118756,7 +117932,6 @@ class Widget(GObject.InitiallyUnowned):
         to the `widget_type` which declared the child and is meant for language
         bindings which cannot easily make use of the GObject structure offsets.
         """
-    @builtins.property
     def get_tooltip_markup(self) -> str | None:
         """
             Gets the contents of the tooltip for the widget.
@@ -118765,7 +117940,6 @@ class Widget(GObject.InitiallyUnowned):
         [method`Gtk`.Widget.set_tooltip_markup], this
         function returns `None`.
         """
-    @builtins.property
     def get_tooltip_text(self) -> str | None:
         """
             Gets the contents of the tooltip for the widget.
@@ -118774,12 +117948,10 @@ class Widget(GObject.InitiallyUnowned):
         [method`Gtk`.Widget.set_tooltip_markup],
         this function will return the escaped text.
         """
-    @builtins.property
     def get_valign(self) -> Align:
         """
         Gets the vertical alignment of the widget.
         """
-    @builtins.property
     def get_vexpand(self) -> bool:
         """
             Gets whether the widget would like any available extra vertical
@@ -118787,14 +117959,12 @@ class Widget(GObject.InitiallyUnowned):
 
         See [method`Gtk`.Widget.get_hexpand] for more detail.
         """
-    @builtins.property
     def get_vexpand_set(self) -> bool:
         """
             Gets whether the `vexpand` flag has been explicitly set.
 
         See [method`Gtk`.Widget.get_hexpand_set] for more detail.
         """
-    @builtins.property
     def get_visible(self) -> bool:
         """
             Determines whether the widget is visible.
@@ -118837,13 +118007,11 @@ class Widget(GObject.InitiallyUnowned):
         """
         Returns whether a style class is currently applied to the widget.
         """
-    @builtins.property
     def has_default(self) -> bool:
         """
             Determines whether the widget is the current default widget
         within its toplevel.
         """
-    @builtins.property
     def has_focus(self) -> bool:
         """
             Determines if the widget has the global input focus.
@@ -120527,7 +119695,6 @@ class WidgetPaintable(GObject.Object):
         """
         Initialize WidgetPaintable object with properties.
         """
-    @builtins.property
     def get_widget(self) -> Widget | None:
         """
         Returns the widget that is observed or None if none.
@@ -120849,17 +120016,14 @@ class Window(Widget):
         [property`Gdk`.Toplevel:state] property, or by listening to
         notifications of the [property`Gtk`.Window:fullscreened] property.
         """
-    @builtins.property
     def get_application(self) -> Application | None:
         """
         Gets the application object associated with the window.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of the window.
         """
-    @builtins.property
     def get_decorated(self) -> bool:
         """
         Returns whether the window has been set to have decorations.
@@ -120884,22 +120048,18 @@ class Window(Widget):
         This function is the recommended way for [saving window state
         across restarts of applications](https://developer.gnome.org/documentation/tutorials/save-state.html).
         """
-    @builtins.property
     def get_default_widget(self) -> Widget | None:
         """
         Returns the default widget for `window`.
         """
-    @builtins.property
     def get_deletable(self) -> bool:
         """
         Returns whether the window has been set to have a close button.
         """
-    @builtins.property
     def get_destroy_with_parent(self) -> bool:
         """
         Returns whether the window will be destroyed with its transient parent.
         """
-    @builtins.property
     def get_focus(self) -> Widget | None:
         """
             Retrieves the current focused widget within the window.
@@ -120909,7 +120069,6 @@ class Window(Widget):
         is not focused then `gtk_widget_has_focus (widget)` will
         not be false for the widget.
         """
-    @builtins.property
     def get_focus_visible(self) -> bool:
         """
         Gets whether “focus rectangles” are supposed to be visible.
@@ -120920,44 +120079,36 @@ class Window(Widget):
 
         If the window has no group, then the default group is returned.
         """
-    @builtins.property
     def get_handle_menubar_accel(self) -> bool:
         """
             Returns whether this window reacts to <kbd>F10</kbd>
         presses by activating a menubar it contains.
         """
-    @builtins.property
     def get_hide_on_close(self) -> bool:
         """
             Returns whether the window will be hidden instead of destroyed when the close
         button is clicked.
         """
-    @builtins.property
     def get_icon_name(self) -> str | None:
         """
         Returns the name of the themed icon for the window.
         """
-    @builtins.property
     def get_mnemonics_visible(self) -> bool:
         """
         Gets whether mnemonics are supposed to be visible.
         """
-    @builtins.property
     def get_modal(self) -> bool:
         """
         Returns whether the window is modal.
         """
-    @builtins.property
     def get_resizable(self) -> bool:
         """
         Gets whether the user can resize the window.
         """
-    @builtins.property
     def get_title(self) -> str | None:
         """
         Retrieves the title of the window.
         """
-    @builtins.property
     def get_titlebar(self) -> Widget | None:
         """
             Returns the titlebar that has been set with
@@ -120972,7 +120123,6 @@ class Window(Widget):
         callbacks that might destroy the widgets or add new ones, be aware that
         the list of toplevels will change and emit the "items-changed" signal.
         """
-    @builtins.property
     def get_transient_for(self) -> Window | None:
         """
         Fetches the transient parent for this window.
@@ -120981,7 +120131,6 @@ class Window(Widget):
         """
         Returns whether the window has an explicit window group.
         """
-    @builtins.property
     def is_active(self) -> bool:
         """
             Returns whether the window is part of the current active toplevel.
@@ -120992,7 +120141,6 @@ class Window(Widget):
         You might use this function if you wanted to draw a widget
         differently in an active window from a widget in an inactive window.
         """
-    @builtins.property
     def is_fullscreen(self) -> bool:
         """
             Retrieves the current fullscreen state of the window.
@@ -121006,7 +120154,6 @@ class Window(Widget):
         If the window isn't yet mapped, the value returned will whether the
         initial requested state is fullscreen.
         """
-    @builtins.property
     def is_maximized(self) -> bool:
         """
             Retrieves the current maximized state of the window.
@@ -121020,7 +120167,6 @@ class Window(Widget):
         If the window isn't yet mapped, the value returned will whether the
         initial requested state is maximized.
         """
-    @builtins.property
     def is_suspended(self) -> bool:
         """
             Retrieves the current suspended state of the window.
@@ -122182,22 +121328,18 @@ class WindowControls(Widget):
         """
         Initialize WindowControls object with properties.
         """
-    @builtins.property
     def get_decoration_layout(self) -> str | None:
         """
         Gets the decoration layout of this window controls widget
         """
-    @builtins.property
     def get_empty(self) -> bool:
         """
         Gets whether the widget has any window buttons.
         """
-    @builtins.property
     def get_side(self) -> PackType:
         """
         Gets the side to which this window controls widget belongs.
         """
-    @builtins.property
     def get_use_native_controls(self) -> bool:
         """
         Returns whether platform native window controls are shown.
@@ -122768,7 +121910,6 @@ class WindowHandle(Widget):
         """
         Initialize WindowHandle object with properties.
         """
-    @builtins.property
     def get_child(self) -> Widget | None:
         """
         Gets the child widget of `self`.

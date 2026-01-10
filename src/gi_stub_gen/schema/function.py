@@ -301,6 +301,12 @@ class FunctionSchema(BaseSchema):
     """Whether this function belongs to a class (as opposed to being a module-level function).
     Used to determine if @staticmethod decorator should be added."""
 
+    is_property: bool = False
+    """Whether this function should be rendered as a @property.
+    This is used for explicit property overrides (e.g., GEnum.value_name).
+    Note: is_getter flag from GI does NOT mean it's a Python property - it just means
+    it's a C getter function, which is still a regular method in Python."""
+
     @property
     def decorators(self) -> list[str]:
         """
@@ -317,7 +323,7 @@ class FunctionSchema(BaseSchema):
         if self.is_class_member and not self.is_constructor and not self.is_method:
             decs.append("@staticmethod")
 
-        if self.is_getter and len(self.args) == 0:
+        if self.is_property:
             decs.append("@builtins.property")
 
         if self.is_overload:
@@ -359,7 +365,7 @@ class FunctionSchema(BaseSchema):
         # check decorators
         if self.is_overload:  # we add typing.overload
             gi_imports.add("typing")
-        if self.is_getter and len(self.args) == 0:  # we add builtins.property
+        if self.is_property:  # we add builtins.property
             gi_imports.add("builtins")
         return gi_imports
 

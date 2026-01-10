@@ -2474,13 +2474,11 @@ class Binding(Object):
         strong reference to the target. If the target is destroyed before the
         binding then this function will return None.
         """
-    @builtins.property
     def get_flags(self) -> BindingFlags:
         """
         Retrieves the flags passed when constructing the GBinding.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_source(self) -> Object | None:
         """
             Retrieves the GObject. instance used as the source of the binding.
@@ -2493,14 +2491,12 @@ class Binding(Object):
         threads as otherwise the pointer returned from this function might become
         invalid if the source is finalized from another thread in the meantime.
         """
-    @builtins.property
     def get_source_property(self) -> str:
         """
             Retrieves the name of the property of GBinding:source used as the source
         of the binding.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_target(self) -> Object | None:
         """
             Retrieves the GObject. instance used as the target of the binding.
@@ -2513,7 +2509,6 @@ class Binding(Object):
         threads as otherwise the pointer returned from this function might become
         invalid if the target is finalized from another thread in the meantime.
         """
-    @builtins.property
     def get_target_property(self) -> str:
         """
             Retrieves the name of the property of GBinding:target used as the target

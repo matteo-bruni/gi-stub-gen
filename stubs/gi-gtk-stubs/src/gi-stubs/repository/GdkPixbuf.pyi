@@ -564,7 +564,6 @@ class Pixbuf(GObject.Object):
             Flips a pixbuf horizontally or vertically and returns the
         result in a new pixbuf.
         """
-    @builtins.property
     def get_bits_per_sample(self) -> int:
         """
         Queries the number of bits per color sample in a pixbuf.
@@ -573,7 +572,6 @@ class Pixbuf(GObject.Object):
         """
         Returns the length of the pixel data, in bytes.
         """
-    @builtins.property
     def get_colorspace(self) -> Colorspace:
         """
         Queries the color space of a pixbuf.
@@ -613,17 +611,14 @@ class Pixbuf(GObject.Object):
             Obtains the available information about the image formats supported
         by GdkPixbuf.
         """
-    @builtins.property
     def get_has_alpha(self) -> bool:
         """
         Queries whether a pixbuf has an alpha channel (opacity information).
         """
-    @builtins.property
     def get_height(self) -> int:
         """
         Queries the height of a pixbuf.
         """
-    @builtins.property
     def get_n_channels(self) -> int:
         """
         Queries the number of channels of a pixbuf.
@@ -662,13 +657,11 @@ class Pixbuf(GObject.Object):
         Please see the section on [image data](class.Pixbuf.html#image-data) for information
         about how the pixel data is stored in memory.
         """
-    @builtins.property
     def get_rowstride(self) -> int:
         """
             Queries the rowstride of a pixbuf, which is the number of bytes between
         the start of a row and the start of the next row.
         """
-    @builtins.property
     def get_width(self) -> int:
         """
         Queries the width of a pixbuf.
@@ -2239,7 +2232,6 @@ class PixbufSimpleAnim(PixbufAnimation):
         have the dimensions specified when the animation
         was constructed.
         """
-    @builtins.property
     def get_loop(self) -> bool:
         """
         Gets whether `animation` should loop indefinitely when it reaches the end.

@@ -1870,7 +1870,6 @@ class AppLaunchContext(Gio.AppLaunchContext):
         """
         Initialize AppLaunchContext object with properties.
         """
-    @builtins.property
     def get_display(self) -> Display:
         """
         Gets the `GdkDisplay` that `context` is for.
@@ -2122,23 +2121,19 @@ class CicpParams(GObject.Object):
         supported by GTK. In that case, `None` is returned, and `error` is set
         with an error message that can be presented to the user.
         """
-    @builtins.property
     def get_color_primaries(self) -> int:
         """
             Returns the value of the color-primaries property
         of `self`.
         """
-    @builtins.property
     def get_matrix_coefficients(self) -> int:
         """
         Gets the matrix-coefficients property of `self`.
         """
-    @builtins.property
     def get_range(self) -> CicpRange:
         """
         Gets the range property of `self`.
         """
-    @builtins.property
     def get_transfer_function(self) -> int:
         """
         Gets the transfer-function property of `self`.
@@ -2262,7 +2257,6 @@ class Clipboard(GObject.Object):
         """
         Initialize Clipboard object with properties.
         """
-    @builtins.property
     def get_content(self) -> ContentProvider | None:
         """
             Returns the `GdkContentProvider` currently set on `clipboard`.
@@ -2270,17 +2264,14 @@ class Clipboard(GObject.Object):
         If the `clipboard` is empty or its contents are not owned by the
         current process, None will be returned.
         """
-    @builtins.property
     def get_display(self) -> Display:
         """
         Gets the `GdkDisplay` that the clipboard was created for.
         """
-    @builtins.property
     def get_formats(self) -> ContentFormats:
         """
         Gets the formats that the clipboard can provide its current contents in.
         """
-    @builtins.property
     def is_local(self) -> bool:
         """
             Returns if the clipboard is local.
@@ -2943,12 +2934,10 @@ class ContentProvider(GObject.Object):
         given `GType` is not supported, this operation can fail and
         `G_IO_ERROR_NOT_SUPPORTED` will be reported.
         """
-    @builtins.property
     def ref_formats(self) -> ContentFormats:
         """
         Gets the formats that the provider can provide its current contents in.
         """
-    @builtins.property
     def ref_storable_formats(self) -> ContentFormats:
         """
             Gets the formats that the provider suggests other applications to store
@@ -3324,7 +3313,6 @@ class Cursor(GObject.Object):
         """
         Initialize Cursor object with properties.
         """
-    @builtins.property
     def get_fallback(self) -> Cursor | None:
         """
             Returns the fallback for this `cursor`.
@@ -3335,7 +3323,6 @@ class Cursor(GObject.Object):
         this can happen when the texture is too large or when the `GdkDisplay`
         it is used on does not support textured cursors.
         """
-    @builtins.property
     def get_hotspot_x(self) -> int:
         """
             Returns the horizontal offset of the hotspot.
@@ -3346,7 +3333,6 @@ class Cursor(GObject.Object):
         will only return the hotspot position for cursors created with
         [ctor`Gdk`.Cursor.new_from_texture].
         """
-    @builtins.property
     def get_hotspot_y(self) -> int:
         """
             Returns the vertical offset of the hotspot.
@@ -3357,14 +3343,12 @@ class Cursor(GObject.Object):
         will only return the hotspot position for cursors created with
         [ctor`Gdk`.Cursor.new_from_texture].
         """
-    @builtins.property
     def get_name(self) -> str | None:
         """
             Returns the name of the cursor.
 
         If the cursor is not a named cursor, None will be returned.
         """
-    @builtins.property
     def get_texture(self) -> Texture | None:
         """
             Returns the texture for the cursor.
@@ -3601,7 +3585,6 @@ class Device(GObject.Object):
         """
         Initialize Device object with properties.
         """
-    @builtins.property
     def get_active_layout_index(self) -> int:
         """
             Retrieves the index of the active layout of the keyboard.
@@ -3611,19 +3594,16 @@ class Device(GObject.Object):
 
         This is only relevant for keyboard devices.
         """
-    @builtins.property
     def get_caps_lock_state(self) -> bool:
         """
             Retrieves whether the Caps Lock modifier of the keyboard is locked.
 
         This is only relevant for keyboard devices.
         """
-    @builtins.property
     def get_device_tool(self) -> DeviceTool | None:
         """
         Retrieves the current tool for `device`.
         """
-    @builtins.property
     def get_direction(self) -> Pango.Direction:
         """
             Returns the direction of effective layout of the keyboard.
@@ -3633,12 +3613,10 @@ class Device(GObject.Object):
         The direction of a layout is the direction of the majority
         of its symbols. See [func`Pango`.unichar_direction].
         """
-    @builtins.property
     def get_display(self) -> Display:
         """
         Returns the `GdkDisplay` to which `device` pertains.
         """
-    @builtins.property
     def get_has_cursor(self) -> bool:
         """
             Determines whether the pointer follows device motion.
@@ -3646,38 +3624,32 @@ class Device(GObject.Object):
         This is not meaningful for keyboard devices, which
         don't have a pointer.
         """
-    @builtins.property
     def get_layout_names(self) -> list | None:
         """
             Retrieves the names of the layouts of the keyboard.
 
         This is only relevant for keyboard devices.
         """
-    @builtins.property
     def get_modifier_state(self) -> ModifierType:
         """
             Retrieves the current modifier state of the keyboard.
 
         This is only relevant for keyboard devices.
         """
-    @builtins.property
     def get_name(self) -> str:
         """
         The name of the device, suitable for showing in a user interface.
         """
-    @builtins.property
     def get_num_lock_state(self) -> bool:
         """
             Retrieves whether the Num Lock modifier of the keyboard is locked.
 
         This is only relevant for keyboard devices.
         """
-    @builtins.property
     def get_num_touches(self) -> int:
         """
         Retrieves the number of touch points associated to `device`.
         """
-    @builtins.property
     def get_product_id(self) -> str | None:
         """
             Returns the product ID of this device.
@@ -3685,19 +3657,16 @@ class Device(GObject.Object):
         This ID is retrieved from the device, and does not change.
         See [method`Gdk`.Device.get_vendor_id] for more information.
         """
-    @builtins.property
     def get_scroll_lock_state(self) -> bool:
         """
             Retrieves whether the Scroll Lock modifier of the keyboard is locked.
 
         This is only relevant for keyboard devices.
         """
-    @builtins.property
     def get_seat(self) -> Seat:
         """
         Returns the `GdkSeat` the device belongs to.
         """
-    @builtins.property
     def get_source(self) -> InputSource:
         """
         Determines the type of the device.
@@ -3719,7 +3688,6 @@ class Device(GObject.Object):
         events for a device that are not received from the OS, and will not
         update the timestamp).
         """
-    @builtins.property
     def get_vendor_id(self) -> str | None:
         """
             Returns the vendor ID of this device.
@@ -3750,7 +3718,6 @@ class Device(GObject.Object):
          }
         ```
         """
-    @builtins.property
     def has_bidi_layouts(self) -> bool:
         """
             Determines if layouts for both right-to-left and
@@ -4013,12 +3980,10 @@ class DeviceTool(GObject.Object):
         """
         Initialize DeviceTool object with properties.
         """
-    @builtins.property
     def get_axes(self) -> AxisFlags:
         """
         Gets the axes of the tool.
         """
-    @builtins.property
     def get_hardware_id(self) -> int:
         """
             Gets the hardware ID of this tool, or 0 if it's not known.
@@ -4033,7 +3998,6 @@ class DeviceTool(GObject.Object):
         as a tablet may support multiple devices with the same
         `GdkDeviceToolType`, but different hardware identifiers.
         """
-    @builtins.property
     def get_serial(self) -> int:
         """
             Gets the serial number of this tool.
@@ -4041,7 +4005,6 @@ class DeviceTool(GObject.Object):
         This value can be used to identify a physical tool
         (eg. a tablet pen) across program executions.
         """
-    @builtins.property
     def get_tool_type(self) -> DeviceToolType:
         """
         Gets the `GdkDeviceToolType` of the tool.
@@ -4200,7 +4163,6 @@ class Display(GObject.Object):
         Note that a display may not have a seat. In this case,
         this function will return None.
         """
-    @builtins.property
     def get_dmabuf_formats(self) -> DmabufFormats:
         """
             Returns the dma-buf formats that are supported on this display.
@@ -4254,7 +4216,6 @@ class Display(GObject.Object):
         """
         Finds out if the display has been closed.
         """
-    @builtins.property
     def is_composited(self) -> bool:
         """
             Returns whether surfaces can reasonably be expected to have
@@ -4268,7 +4229,6 @@ class Display(GObject.Object):
 
         On modern displays, this value is always True.
         """
-    @builtins.property
     def is_rgba(self) -> bool:
         """
             Returns whether surfaces on this `display` are created with an
@@ -4357,7 +4317,6 @@ class Display(GObject.Object):
         """
         Adds the given event to the event queue for `display`.
         """
-    @builtins.property
     def supports_input_shapes(self) -> bool:
         """
             Returns True if the display supports input shapes.
@@ -4367,7 +4326,6 @@ class Display(GObject.Object):
 
         On modern displays, this value is always True.
         """
-    @builtins.property
     def supports_shadow_width(self) -> bool:
         """
             Returns whether it's possible for a surface to draw outside of the window area.
@@ -4580,7 +4538,6 @@ class DisplayManager(GObject.Object):
         Applications can use [func`set_allowed_backends`] to limit what
         backends will be used.
         """
-    @builtins.property
     def get_default_display(self) -> Display | None:
         """
         Gets the default `GdkDisplay`.
@@ -4896,12 +4853,10 @@ class DmabufTextureBuilder(GObject.Object):
         It is possible to call this function multiple times to create multiple textures,
         possibly with changing properties in between.
         """
-    @builtins.property
     def get_color_state(self) -> ColorState | None:
         """
         Gets the color state previously set via `Gdk.DmabufTextureBuilder.set_color_state`.
         """
-    @builtins.property
     def get_display(self) -> Display:
         """
             Returns the display that this texture builder is
@@ -4911,7 +4866,6 @@ class DmabufTextureBuilder(GObject.Object):
         """
         Gets the file descriptor for a plane.
         """
-    @builtins.property
     def get_fourcc(self) -> int:
         """
             Gets the format previously set via `Gdk.DmabufTextureBuilder.set_fourcc`
@@ -4919,18 +4873,15 @@ class DmabufTextureBuilder(GObject.Object):
 
         The format is specified as a fourcc code.
         """
-    @builtins.property
     def get_height(self) -> int:
         """
             Gets the height previously set via `Gdk.DmabufTextureBuilder.set_height` or
         0 if the height wasn't set.
         """
-    @builtins.property
     def get_modifier(self) -> int:
         """
         Gets the modifier value.
         """
-    @builtins.property
     def get_n_planes(self) -> int:
         """
         Gets the number of planes.
@@ -4939,7 +4890,6 @@ class DmabufTextureBuilder(GObject.Object):
         """
         Gets the offset value for a plane.
         """
-    @builtins.property
     def get_premultiplied(self) -> bool:
         """
         Whether the data is premultiplied.
@@ -4948,19 +4898,16 @@ class DmabufTextureBuilder(GObject.Object):
         """
         Gets the stride value for a plane.
         """
-    @builtins.property
     def get_update_region(self) -> cairo.Region | None:
         """
             Gets the region previously set via `Gdk.DmabufTextureBuilder.set_update_region` or
         None if none was set.
         """
-    @builtins.property
     def get_update_texture(self) -> Texture | None:
         """
             Gets the texture previously set via `Gdk.DmabufTextureBuilder.set_update_texture` or
         None if none was set.
         """
-    @builtins.property
     def get_width(self) -> int:
         """
             Gets the width previously set via `Gdk.DmabufTextureBuilder.set_width` or
@@ -5241,22 +5188,18 @@ class Drag(GObject.Object):
         call as effective, if this function is called multiple times,
         all subsequent calls will be ignored.
         """
-    @builtins.property
     def get_actions(self) -> DragAction:
         """
         Determines the bitmask of possible actions proposed by the source.
         """
-    @builtins.property
     def get_content(self) -> ContentProvider:
         """
         Returns the `GdkContentProvider` associated to the `GdkDrag` object.
         """
-    @builtins.property
     def get_device(self) -> Device:
         """
         Returns the `GdkDevice` associated to the `GdkDrag` object.
         """
-    @builtins.property
     def get_display(self) -> Display:
         """
         Gets the `GdkDisplay` that the drag object was created for.
@@ -5271,17 +5214,14 @@ class Drag(GObject.Object):
         drag operation. The surface is owned by `drag` and will be destroyed
         when the drag operation is over.
         """
-    @builtins.property
     def get_formats(self) -> ContentFormats:
         """
         Retrieves the formats supported by this `GdkDrag` object.
         """
-    @builtins.property
     def get_selected_action(self) -> DragAction:
         """
         Determines the action chosen by the drag destination.
         """
-    @builtins.property
     def get_surface(self) -> Surface:
         """
         Returns the `GdkSurface` where the drag originates.
@@ -5519,7 +5459,6 @@ class DrawContext(GObject.Object):
         implicitly before returning; it is not recommended to call ``glFlush``
         explicitly before calling this function.
         """
-    @builtins.property
     def get_display(self) -> Display | None:
         """
         Retrieves the `GdkDisplay` the `context` is created for
@@ -5536,7 +5475,6 @@ class DrawContext(GObject.Object):
         If `context` is not in between calls to [method`Gdk`.DrawContext.begin_frame]
         and [method`Gdk`.DrawContext.end_frame], None will be returned.
         """
-    @builtins.property
     def get_surface(self) -> Surface | None:
         """
         Retrieves the surface that `context` is bound to.
@@ -5644,7 +5582,6 @@ class Drop(GObject.Object):
         The `action` must be a single action selected from the actions
         available via [method`Gdk`.Drop.get_actions].
         """
-    @builtins.property
     def get_actions(self) -> DragAction:
         """
             Returns the possible actions for this `GdkDrop`.
@@ -5662,17 +5599,14 @@ class Drop(GObject.Object):
         [method`Gdk`.Drop.status] or [method`Gdk`.Drop.finish]. The source
         side will not change this value anymore once a drop has started.
         """
-    @builtins.property
     def get_device(self) -> Device:
         """
         Returns the `GdkDevice` performing the drop.
         """
-    @builtins.property
     def get_display(self) -> Display:
         """
         Gets the `GdkDisplay` that `self` was created for.
         """
-    @builtins.property
     def get_drag(self) -> Drag | None:
         """
             If this is an in-app drag-and-drop operation, returns the `GdkDrag`
@@ -5680,13 +5614,11 @@ class Drop(GObject.Object):
 
         If it is not, None is returned.
         """
-    @builtins.property
     def get_formats(self) -> ContentFormats:
         """
             Returns the `GdkContentFormats` that the drop offers the data
         to be read in.
         """
-    @builtins.property
     def get_surface(self) -> Surface:
         """
         Returns the `GdkSurface` performing the drop.
@@ -6395,12 +6327,10 @@ class GLContext(DrawContext):
         Any OpenGL call after this function returns will be ignored
         until [method`Gdk`.GLContext.make_current] is called.
         """
-    @builtins.property
     def get_allowed_apis(self) -> GLAPI:
         """
         Gets the allowed APIs set via `Gdk.gl_context_set_allowed_apis`.
         """
-    @builtins.property
     def get_api(self) -> GLAPI:
         """
             Gets the API currently in use.
@@ -6438,7 +6368,6 @@ class GLContext(DrawContext):
         See [method`Gdk`.GLContext.set_required_version].
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_shared_context(self) -> GLContext | None:
         """
             Used to retrieves the `GdkGLContext` that this `context` share data with.
@@ -6790,57 +6719,47 @@ class GLTextureBuilder(GObject.Object):
         It is possible to call this function multiple times to create multiple textures,
         possibly with changing properties in between.
         """
-    @builtins.property
     def get_color_state(self) -> ColorState:
         """
         Gets the color state previously set via `Gdk.gl_texture_builder_set_color_state`.
         """
-    @builtins.property
     def get_context(self) -> GLContext | None:
         """
             Gets the context previously set via `Gdk.gl_texture_builder_set_context` or
         None if none was set.
         """
-    @builtins.property
     def get_format(self) -> MemoryFormat:
         """
         Gets the format previously set via `Gdk.gl_texture_builder_set_format`.
         """
-    @builtins.property
     def get_has_mipmap(self) -> bool:
         """
         Gets whether the texture has a mipmap.
         """
-    @builtins.property
     def get_height(self) -> int:
         """
             Gets the height previously set via `Gdk.gl_texture_builder_set_height` or
         0 if the height wasn't set.
         """
-    @builtins.property
     def get_id(self) -> int:
         """
             Gets the texture id previously set via `Gdk.gl_texture_builder_set_id` or
         0 if the id wasn't set.
         """
-    @builtins.property
     def get_sync(self) -> object | None:
         """
         Gets the `GLsync` previously set via `Gdk.gl_texture_builder_set_sync`.
         """
-    @builtins.property
     def get_update_region(self) -> cairo.Region | None:
         """
             Gets the region previously set via `Gdk.gl_texture_builder_set_update_region` or
         None if none was set.
         """
-    @builtins.property
     def get_update_texture(self) -> Texture | None:
         """
             Gets the texture previously set via `Gdk.gl_texture_builder_set_update_texture` or
         None if none was set.
         """
-    @builtins.property
     def get_width(self) -> int:
         """
             Gets the width previously set via `Gdk.gl_texture_builder_set_width` or
@@ -7279,46 +7198,38 @@ class MemoryTextureBuilder(GObject.Object):
         It is possible to call this function multiple times to create multiple textures,
         possibly with changing properties in between.
         """
-    @builtins.property
     def get_bytes(self) -> GLib.Bytes | None:
         """
             Gets the bytes previously set via `Gdk.MemoryTextureBuilder.set_bytes`
         or None if none was set.
         """
-    @builtins.property
     def get_color_state(self) -> ColorState:
         """
         Gets the colorstate previously set via `Gdk.MemoryTextureBuilder.set_color_state`.
         """
-    @builtins.property
     def get_format(self) -> MemoryFormat:
         """
         Gets the format previously set via `Gdk.MemoryTextureBuilder.set_format`.
         """
-    @builtins.property
     def get_height(self) -> int:
         """
             Gets the height previously set via `Gdk.MemoryTextureBuilder.set_height`
         or 0 if the height wasn't set.
         """
-    @builtins.property
     def get_stride(self) -> int:
         """
         Gets the stride previously set via `Gdk.MemoryTextureBuilder.set_stride`.
         """
-    @builtins.property
     def get_update_region(self) -> cairo.Region | None:
         """
             Gets the region previously set via `Gdk.MemoryTextureBuilder.set_update_region`
         or None if none was set.
         """
-    @builtins.property
     def get_update_texture(self) -> Texture | None:
         """
             Gets the texture previously set via `Gdk.MemoryTextureBuilder.set_update_texture`
         or None if none was set.
         """
-    @builtins.property
     def get_width(self) -> int:
         """
             Gets the width previously set via `Gdk.MemoryTextureBuilder.set_width`
@@ -7540,7 +7451,6 @@ class Monitor(GObject.Object):
         """
         Initialize Monitor object with properties.
         """
-    @builtins.property
     def get_connector(self) -> str | None:
         """
             Gets the name of the monitor's connector, if available.
@@ -7549,14 +7459,12 @@ class Monitor(GObject.Object):
         on software and hardware configuration, and should not be
         relied on as stable identifiers of a specific monitor.
         """
-    @builtins.property
     def get_description(self) -> str | None:
         """
             Gets a string describing the monitor, if available.
 
         This can be used to identify a monitor in the UI.
         """
-    @builtins.property
     def get_display(self) -> Display:
         """
         Gets the display that this monitor belongs to.
@@ -7569,12 +7477,10 @@ class Monitor(GObject.Object):
         The returned geometry is in  ”application pixels”, not in
         ”device pixels” (see [method`Gdk`.Monitor.get_scale]).
         """
-    @builtins.property
     def get_height_mm(self) -> int:
         """
         Gets the height in millimeters of the monitor.
         """
-    @builtins.property
     def get_manufacturer(self) -> str | None:
         """
             Gets the name or PNP ID of the monitor's manufacturer.
@@ -7585,12 +7491,10 @@ class Monitor(GObject.Object):
         The PNP ID registry is located at
         [https://uefi.org/pnp_id_list](https://uefi.org/pnp_id_list).
         """
-    @builtins.property
     def get_model(self) -> str | None:
         """
         Gets the string identifying the monitor model, if available.
         """
-    @builtins.property
     def get_refresh_rate(self) -> int:
         """
             Gets the refresh rate of the monitor, if available.
@@ -7598,7 +7502,6 @@ class Monitor(GObject.Object):
         The value is in milli-Hertz, so a refresh rate of 60Hz
         is returned as 60000.
         """
-    @builtins.property
     def get_scale(self) -> float:
         """
             Gets the internal scale factor that maps from monitor coordinates
@@ -7608,7 +7511,6 @@ class Monitor(GObject.Object):
         particular monitor, but most of the time you’re drawing to a surface
         where it is better to use [method`Gdk`.Surface.get_scale] instead.
         """
-    @builtins.property
     def get_scale_factor(self) -> int:
         """
             Gets the internal scale factor that maps from monitor coordinates
@@ -7621,18 +7523,15 @@ class Monitor(GObject.Object):
         particular monitor, but most of the time you’re drawing to a surface
         where it is better to use [method`Gdk`.Surface.get_scale_factor] instead.
         """
-    @builtins.property
     def get_subpixel_layout(self) -> SubpixelLayout:
         """
             Gets information about the layout of red, green and blue
         primaries for pixels.
         """
-    @builtins.property
     def get_width_mm(self) -> int:
         """
         Gets the width in millimeters of the monitor.
         """
-    @builtins.property
     def is_valid(self) -> bool:
         """
             Returns True if the `monitor` object corresponds to a
@@ -8088,12 +7987,10 @@ class Popup(builtins.object):
         """
         Initialize Popup object with properties.
         """
-    @builtins.property
     def get_autohide(self) -> bool:
         """
         Returns whether this popup is set to hide on outside clicks.
         """
-    @builtins.property
     def get_parent(self) -> Surface | None:
         """
         Returns the parent surface of a popup.
@@ -8555,7 +8452,6 @@ class Seat(GObject.Object):
         """
         Returns the devices that match the given capabilities.
         """
-    @builtins.property
     def get_display(self) -> Display:
         """
         Returns the `GdkDisplay` this seat belongs to.
@@ -8784,7 +8680,6 @@ class Surface(GObject.Object):
         reference count reaches zero. You must call this function yourself
         before that happens.
         """
-    @builtins.property
     def get_cursor(self) -> Cursor | None:
         """
             Retrieves a `GdkCursor` pointer for the cursor currently set on the
@@ -8812,12 +8707,10 @@ class Surface(GObject.Object):
         The position is given in coordinates relative to the upper
         left corner of `surface`.
         """
-    @builtins.property
     def get_display(self) -> Display:
         """
         Gets the `GdkDisplay` associated with a `GdkSurface`.
         """
-    @builtins.property
     def get_frame_clock(self) -> FrameClock:
         """
             Gets the frame clock for the surface.
@@ -8825,7 +8718,6 @@ class Surface(GObject.Object):
         The frame clock for a surface never changes unless the surface is
         reparented to a new toplevel surface.
         """
-    @builtins.property
     def get_height(self) -> int:
         """
             Returns the height of the given `surface`.
@@ -8833,7 +8725,6 @@ class Surface(GObject.Object):
         Surface size is reported in ”application pixels”, not
         ”device pixels” (see [method`Gdk`.Surface.get_scale_factor]).
         """
-    @builtins.property
     def get_mapped(self) -> bool:
         """
             Checks whether the surface has been mapped.
@@ -8841,7 +8732,6 @@ class Surface(GObject.Object):
         A surface is mapped with [method`Gdk`.Toplevel.present]
         or [method`Gdk`.Popup.present].
         """
-    @builtins.property
     def get_scale(self) -> float:
         """
             Returns the internal scale that maps from surface coordinates
@@ -8856,7 +8746,6 @@ class Surface(GObject.Object):
 
         The scale may change during the lifetime of the surface.
         """
-    @builtins.property
     def get_scale_factor(self) -> int:
         """
             Returns the internal scale factor that maps from surface coordinates
@@ -8871,7 +8760,6 @@ class Surface(GObject.Object):
 
         The scale factor may change during the lifetime of the surface.
         """
-    @builtins.property
     def get_width(self) -> int:
         """
             Returns the width of the given `surface`.
@@ -9198,7 +9086,6 @@ class Texture(GObject.Object):
         For more flexible download capabilities, see
         [struct`Gdk`.TextureDownloader].
         """
-    @builtins.property
     def get_color_state(self) -> ColorState:
         """
         Returns the color state associated with the texture.
@@ -9215,12 +9102,10 @@ class Texture(GObject.Object):
         of the texture and is useful to determine the best format for
         downloading the texture.
         """
-    @builtins.property
     def get_height(self) -> int:
         """
         Returns the height of the `texture`, in pixels.
         """
-    @builtins.property
     def get_width(self) -> int:
         """
         Returns the width of `texture`, in pixels.
@@ -9576,7 +9461,6 @@ class Toplevel(builtins.object):
         should be used on a [GtkWindow](../gtk4/class.Window.html), rather than
         calling this function.
         """
-    @builtins.property
     def get_state(self) -> ToplevelState:
         """
             Gets the bitwise or of the currently active surface state flags,

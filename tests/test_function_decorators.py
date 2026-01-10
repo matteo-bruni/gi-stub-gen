@@ -249,3 +249,41 @@ class TestNoFromClassMeansModuleLevel:
         assert parsed.is_from_class is False
         assert "@staticmethod" not in parsed.decorators
         assert "@classmethod" not in parsed.decorators
+
+
+class TestPropertyDecorator:
+    """Test @property decorator for getter methods."""
+
+    def test_gi_getter_is_not_property(self):
+        """
+        GI methods with IS_GETTER flag should NOT be marked as @property.
+        They are regular methods in Python, even though they are getters in C.
+        Example: Gst.Pad.get_direction has IS_GETTER=True but is a method.
+        """
+        parsed_class, _ = parse_class("Gst", Gst.Pad)
+        assert parsed_class is not None
+
+        get_direction = next((m for m in parsed_class.methods if m.name == "get_direction"), None)
+        assert get_direction is not None, "Gst.Pad.get_direction not found"
+
+        # Should be a getter in GI terms
+        assert get_direction.is_getter is True
+
+        # But should NOT be a property in Python terms
+        assert get_direction.is_property is False
+        assert "@builtins.property" not in get_direction.decorators
+
+    def test_explicit_property_override(self):
+        """
+        Methods explicitly marked as is_property=True should have @property decorator.
+        Example: GObject.GEnum.value_name is defined with is_property=True in overrides.
+        """
+        from gi_stub_gen.overrides.class_.GObject import GENUM_SCHEMA
+
+        # Check the override schema
+        value_name = next((m for m in GENUM_SCHEMA.methods if m.name == "value_name"), None)
+        assert value_name is not None, "value_name not found in GENUM_SCHEMA"
+
+        # Should be explicitly marked as property
+        assert value_name.is_property is True
+        assert "@builtins.property" in value_name.decorators

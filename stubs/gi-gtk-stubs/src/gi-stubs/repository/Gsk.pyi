@@ -1500,14 +1500,12 @@ class GLShader(GObject.Object):
         Get the number of declared uniforms for this shader.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_resource(self) -> str | None:
         """
             Gets the resource path for the GLSL sourcecode being used
         to render this shader.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_source(self) -> GLib.Bytes:
         """
         Gets the GLSL sourcecode being used to render this shader.
@@ -2744,14 +2742,12 @@ class Renderer(GObject.Object):
         """
         Initialize Renderer object with properties.
         """
-    @builtins.property
     def get_surface(self) -> Gdk.Surface | None:
         """
             Retrieves the surface that the renderer is associated with.
 
         If the renderer has not been realized yet, `None` will be returned.
         """
-    @builtins.property
     def is_realized(self) -> bool:
         """
         Checks whether the renderer is realized or not.

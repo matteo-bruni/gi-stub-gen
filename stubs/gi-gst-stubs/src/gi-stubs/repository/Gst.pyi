@@ -8364,7 +8364,6 @@ class Clock(Object):
         monotonically increasing and adjusted according to the current
         offset and rate.
         """
-    @builtins.property
     def get_timeout(self) -> int:
         """
         Gets the amount of time that master and slave clocks are sampled.
@@ -9447,24 +9446,20 @@ class Device(Object):
             Creates the element with all of the required parameters set to use
         this device.
         """
-    @builtins.property
     def get_caps(self) -> Caps | None:
         """
         Getter for the Gst.Caps that this device supports.
         """
-    @builtins.property
     def get_device_class(self) -> str:
         """
             Gets the "class" of a device. This is a "/" separated list of
         classes that represent this device. They are a subset of the
         classes of the Gst.DeviceProvider that produced this device.
         """
-    @builtins.property
     def get_display_name(self) -> str:
         """
         Gets the user-friendly name of the device.
         """
-    @builtins.property
     def get_properties(self) -> Structure | None:
         """
         Gets the extra properties of a device.
@@ -14503,7 +14498,6 @@ class Object(GObject.InitiallyUnowned):
         This function is useful if one wants to e.g. draw a graph of the control
         curve or apply a control curve sample by sample.
         """
-    @builtins.property
     def get_name(self) -> str | None:
         """
             Returns a copy of the name of `object`.
@@ -14513,7 +14507,6 @@ class Object(GObject.InitiallyUnowned):
 
         Free-function: g_free
         """
-    @builtins.property
     def get_parent(self) -> Object | None:
         """
             Returns the parent of `object`. This function increases the refcount
@@ -15001,7 +14994,6 @@ class Pad(Object):
             Gets the capabilities currently configured on `pad` with the last
         GST_EVENT_CAPS event.
         """
-    @builtins.property
     def get_direction(self) -> PadDirection:
         """
             Gets the direction of the pad. The direction of the pad is
@@ -15017,7 +15009,6 @@ class Pad(Object):
         """
         Gets the Gst.FlowReturn return from the last data passed by this pad.
         """
-    @builtins.property
     def get_offset(self) -> int:
         """
             Get the offset applied to the running time of `pad`. `pad` has to be a source
@@ -15854,7 +15845,6 @@ class PadTemplate(Object):
         """
         Initialize PadTemplate object with properties.
         """
-    @builtins.property
     def get_caps(self) -> Caps:
         """
         Gets the capabilities of the pad template.
@@ -16251,7 +16241,6 @@ class Pipeline(Bin):
 
         MT safe.
         """
-    @builtins.property
     def get_auto_flush_bus(self) -> bool:
         """
             Check if `pipeline` will automatically flush messages when going to
@@ -16266,12 +16255,10 @@ class Pipeline(Bin):
         """
         Return the configured latency on `pipeline`.
         """
-    @builtins.property
     def get_delay(self) -> int:
         """
         Get the configured delay (see `Gst.Pipeline.set_delay`).
         """
-    @builtins.property
     def get_latency(self) -> int:
         """
             Gets the latency that should be configured on the pipeline. See
@@ -19023,27 +19010,22 @@ class Stream(Object):
         """
         Initialize Stream object with properties.
         """
-    @builtins.property
     def get_caps(self) -> Caps | None:
         """
         Retrieve the caps for `stream`, if any
         """
-    @builtins.property
     def get_stream_flags(self) -> StreamFlags:
         """
         Retrieve the current stream flags for `stream`
         """
-    @builtins.property
     def get_stream_id(self) -> str | None:
         """
         Returns the stream ID of `stream`.
         """
-    @builtins.property
     def get_stream_type(self) -> StreamType:
         """
         Retrieve the stream type for `stream`
         """
-    @builtins.property
     def get_tags(self) -> TagList | None:
         """
         Retrieve the tags for `stream`, if any
@@ -19221,7 +19203,6 @@ class StreamCollection(Object):
 
         The caller should not modify the returned Gst.Stream
         """
-    @builtins.property
     def get_upstream_id(self) -> str | None:
         """
         Returns the upstream id of the `collection`.

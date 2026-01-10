@@ -4647,7 +4647,6 @@ class FontFamily(GObject.Object):
         """
         Gets the `PangoFontFace` of `family` with the given name.
         """
-    @builtins.property
     def get_name(self) -> str:
         """
             Gets the name of the family.
@@ -4656,7 +4655,6 @@ class FontFamily(GObject.Object):
         be used in a `PangoFontDescription` to specify that a face from
         this family is desired.
         """
-    @builtins.property
     def is_monospace(self) -> bool:
         """
             A monospace font is a font designed for text display where the the
@@ -4674,7 +4672,6 @@ class FontFamily(GObject.Object):
         results of [method`Pango`.FontMetrics.get_approximate_char_width] may
         be affected by double-width characters.
         """
-    @builtins.property
     def is_variable(self) -> bool:
         """
             A variable font is a font which has axes that can be modified to

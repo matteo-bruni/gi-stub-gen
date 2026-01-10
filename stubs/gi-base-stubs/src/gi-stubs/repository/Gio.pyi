@@ -4984,7 +4984,6 @@ class Action(builtins.object):
 
         If the `value` [type`GLib`.Variant] is floating, it is consumed.
         """
-    @builtins.property
     def get_enabled(self) -> bool:
         """
             Checks if `action` is currently enabled.
@@ -4992,12 +4991,10 @@ class Action(builtins.object):
         An action must be enabled in order to be activated or in order to
         have its state changed from outside callers.
         """
-    @builtins.property
     def get_name(self) -> str:
         """
         Queries the name of `action`.
         """
-    @builtins.property
     def get_parameter_type(self) -> GLib.VariantType | None:
         """
             Queries the type of the parameter that must be given when activating
@@ -5010,7 +5007,6 @@ class Action(builtins.object):
         In the case that this function returns `None`, you must not give any
         [type`GLib`.Variant], but `None` instead.
         """
-    @builtins.property
     def get_state(self) -> GLib.Variant | None:
         """
             Queries the current state of `action`.
@@ -5043,7 +5039,6 @@ class Action(builtins.object):
         The return value (if non-`None`) should be freed with
         [method`GLib`.Variant.unref] when it is no longer required.
         """
-    @builtins.property
     def get_state_type(self) -> GLib.VariantType | None:
         """
             Queries the type of the state of `action`.
@@ -6960,7 +6955,6 @@ class Application(GObject.Object):
         not to `object`. Instead, the binding is destroyed when `object` is
         finalized.
         """
-    @builtins.property
     def get_application_id(self) -> str | None:
         """
         Gets the unique identifier for `application`.
@@ -7009,14 +7003,12 @@ class Application(GObject.Object):
 
         If there is no default application then None is returned.
         """
-    @builtins.property
     def get_flags(self) -> ApplicationFlags:
         """
             Gets the flags for `application`.
 
         See GApplicationFlags.
         """
-    @builtins.property
     def get_inactivity_timeout(self) -> int:
         """
             Gets the current inactivity timeout for the application.
@@ -7024,13 +7016,11 @@ class Application(GObject.Object):
         This is the amount of time (in milliseconds) after the last call to
         `g_application_release` before the application stops running.
         """
-    @builtins.property
     def get_is_busy(self) -> bool:
         """
             Gets the application's current busy state, as set through
         `g_application_mark_busy` or `g_application_bind_busy_property`.
         """
-    @builtins.property
     def get_is_registered(self) -> bool:
         """
             Checks if `application` is registered.
@@ -7038,7 +7028,6 @@ class Application(GObject.Object):
         An application is registered if `g_application_register` has been
         successfully called.
         """
-    @builtins.property
     def get_is_remote(self) -> bool:
         """
             Checks if `application` is remote.
@@ -7052,14 +7041,12 @@ class Application(GObject.Object):
         `g_application_register` has been called.  See
         `g_application_get_is_registered`.
         """
-    @builtins.property
     def get_resource_base_path(self) -> str | None:
         """
             Gets the resource base path of `application`.
 
         See `g_application_set_resource_base_path` for more information.
         """
-    @builtins.property
     def get_version(self) -> str | None:
         """
         Gets the version of `application`.
@@ -8046,7 +8033,6 @@ class ApplicationCommandLine(GObject.Object):
             Gets the exit status of `cmdline`.  See
         `g_application_command_line_set_exit_status` for more information.
         """
-    @builtins.property
     def get_is_remote(self) -> bool:
         """
         Determines if `cmdline` represents a remote invocation.
@@ -8703,7 +8689,6 @@ class BufferedInputStream(FilterInputStream):
         """
         Gets the size of the available data within the stream.
         """
-    @builtins.property
     def get_buffer_size(self) -> int:
         """
         Gets the size of the input buffer.
@@ -8895,12 +8880,10 @@ class BufferedOutputStream(FilterOutputStream):
         """
         Initialize BufferedOutputStream object with properties.
         """
-    @builtins.property
     def get_auto_grow(self) -> bool:
         """
         Checks if the buffer automatically grows as data is added.
         """
-    @builtins.property
     def get_buffer_size(self) -> int:
         """
         Gets the size of the buffer in the `stream`.
@@ -9012,7 +8995,6 @@ class BytesIcon(GObject.Object):
         """
         Initialize BytesIcon object with properties.
         """
-    @builtins.property
     def get_bytes(self) -> GLib.Bytes:
         """
         Gets the GBytes associated with the given `icon`.
@@ -9340,7 +9322,6 @@ class CharsetConverter(GObject.Object):
         """
         Gets the number of fallbacks that `converter` has applied so far.
         """
-    @builtins.property
     def get_use_fallback(self) -> bool:
         """
         Gets the GCharsetConverter:use-fallback property.
@@ -9581,7 +9562,6 @@ class ConverterInputStream(FilterInputStream):
         """
         Initialize ConverterInputStream object with properties.
         """
-    @builtins.property
     def get_converter(self) -> Converter:
         """
         Gets the GConverter that is used by `converter_stream`.
@@ -9685,7 +9665,6 @@ class ConverterOutputStream(FilterOutputStream):
         """
         Initialize ConverterOutputStream object with properties.
         """
-    @builtins.property
     def get_converter(self) -> Converter:
         """
         Gets the GConverter that is used by `converter_stream`.
@@ -10671,24 +10650,20 @@ class DBusConnection(GObject.Object):
         asynchronous version of this method and more details about what it
         does.
         """
-    @builtins.property
     def get_capabilities(self) -> DBusCapabilityFlags:
         """
         Gets the capabilities negotiated with the remote peer
         """
-    @builtins.property
     def get_exit_on_close(self) -> bool:
         """
             Gets whether the process is terminated when `connection` is
         closed by the remote peer. See
         GDBusConnection:exit-on-close for more details.
         """
-    @builtins.property
     def get_flags(self) -> DBusConnectionFlags:
         """
         Gets the flags used to construct this connection
         """
-    @builtins.property
     def get_guid(self) -> str:
         """
             The GUID of the peer performing the role of server when
@@ -10714,7 +10689,6 @@ class DBusConnection(GObject.Object):
         each application is a client. So this method will always return
         None for message bus clients.
         """
-    @builtins.property
     def get_stream(self) -> IOStream:
         """
             Gets the underlying stream used for IO.
@@ -10723,14 +10697,12 @@ class DBusConnection(GObject.Object):
         stream from a worker thread, so it is not safe to interact with
         the stream directly.
         """
-    @builtins.property
     def get_unique_name(self) -> str | None:
         """
             Gets the unique name of `connection` as assigned by the message
         bus. This can also be used to figure out if `connection` is a
         message bus connection.
         """
-    @builtins.property
     def is_closed(self) -> bool:
         """
         Gets whether `connection` is closed.
@@ -11932,7 +11904,6 @@ class DBusMessage(GObject.Object):
         """
         Convenience getter for the G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE header field.
         """
-    @builtins.property
     def get_locked(self) -> bool:
         """
             Checks whether `message` is locked. To monitor changes to this
@@ -12799,23 +12770,19 @@ class DBusObjectManagerClient(GObject.Object):
         """
         Initialize DBusObjectManagerClient object with properties.
         """
-    @builtins.property
     def get_connection(self) -> DBusConnection:
         """
         Gets the GDBusConnection used by `manager`.
         """
-    @builtins.property
     def get_flags(self) -> DBusObjectManagerClientFlags:
         """
         Gets the flags that `manager` was constructed with.
         """
-    @builtins.property
     def get_name(self) -> str:
         """
             Gets the name that `manager` is for, or None if not a message bus
         connection.
         """
-    @builtins.property
     def get_name_owner(self) -> str | None:
         """
             The unique name that owns the name that `manager` is for or None if
@@ -13232,7 +13199,6 @@ class DBusObjectManagerServer(GObject.Object):
         if an object with the given path already exists. As such, the
         GDBusObjectProxy:g-object-path property of `object` may be modified.
         """
-    @builtins.property
     def get_connection(self) -> DBusConnection | None:
         """
         Gets the GDBusConnection used by `manager`.
@@ -14353,7 +14319,6 @@ class DBusServer(GObject.Object):
         """
         Initialize DBusServer object with properties.
         """
-    @builtins.property
     def get_client_address(self) -> str:
         """
             Gets a
@@ -14362,17 +14327,14 @@ class DBusServer(GObject.Object):
 
         This is valid and non-empty if initializing the GDBusServer succeeded.
         """
-    @builtins.property
     def get_flags(self) -> DBusServerFlags:
         """
         Gets the flags for `server`.
         """
-    @builtins.property
     def get_guid(self) -> str:
         """
         Gets the GUID for `server`, as provided to `g_dbus_server_new_sync`.
         """
-    @builtins.property
     def is_active(self) -> bool:
         """
         Gets whether `server` is active.
@@ -14591,12 +14553,10 @@ class DataInputStream(BufferedInputStream):
         """
         Initialize DataInputStream object with properties.
         """
-    @builtins.property
     def get_byte_order(self) -> DataStreamByteOrder:
         """
         Gets the byte order for the data input stream.
         """
-    @builtins.property
     def get_newline_type(self) -> DataStreamNewlineType:
         """
         Gets the current newline type for the `stream`.
@@ -14924,7 +14884,6 @@ class DataOutputStream(FilterOutputStream):
         """
         Initialize DataOutputStream object with properties.
         """
-    @builtins.property
     def get_byte_order(self) -> DataStreamByteOrder:
         """
         Gets the byte order for the stream.
@@ -15336,7 +15295,6 @@ class DebugController(builtins.object):
         """
         Initialize DebugController object with properties.
         """
-    @builtins.property
     def get_debug_enabled(self) -> bool:
         """
         Get the value of GDebugController:debug-enabled.
@@ -15662,7 +15620,6 @@ class DesktopAppInfo(GObject.Object):
         """
         Gets the categories from the desktop file.
         """
-    @builtins.property
     def get_filename(self) -> str | None:
         """
             When `info` was created from a known filename, return it.  In some
@@ -16453,7 +16410,6 @@ class DtlsClientConnection(builtins.object):
         """
         Initialize DtlsClientConnection object with properties.
         """
-    @builtins.property
     def get_accepted_cas(self) -> list:
         """
             Gets the list of distinguished names of the Certificate Authorities
@@ -16464,13 +16420,11 @@ class DtlsClientConnection(builtins.object):
         Each item in the list is a GByteArray which contains the complete
         subject DN of the certificate authority.
         """
-    @builtins.property
     def get_server_identity(self) -> SocketConnectable:
         """
         Gets `conn`'s expected server identity
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_validation_flags(self) -> TlsCertificateFlags:
         """
             Gets `conn`'s validation flags
@@ -16722,7 +16676,6 @@ class DtlsConnection(builtins.object):
             Used by GDtlsConnection implementations to emit the
         GDtlsConnection::accept-certificate signal.
         """
-    @builtins.property
     def get_certificate(self) -> TlsCertificate | None:
         """
             Gets `conn`'s certificate, as set by
@@ -16744,7 +16697,6 @@ class DtlsConnection(builtins.object):
         support `type` or the binding data is not available yet due to additional
         negotiation or input required.
         """
-    @builtins.property
     def get_ciphersuite_name(self) -> str | None:
         """
             Returns the name of the current DTLS ciphersuite, or None if the
@@ -16756,20 +16708,17 @@ class DtlsConnection(builtins.object):
         displayed to the user for informative purposes only, and parsing it
         is not recommended.
         """
-    @builtins.property
     def get_database(self) -> TlsDatabase | None:
         """
             Gets the certificate database that `conn` uses to verify
         peer certificates. See `g_dtls_connection_set_database`.
         """
-    @builtins.property
     def get_interaction(self) -> TlsInteraction | None:
         """
             Get the object that will be used to interact with the user. It will be used
         for things like prompting the user for passwords. If None is returned, then
         no user interaction will occur for this connection.
         """
-    @builtins.property
     def get_negotiated_protocol(self) -> str | None:
         """
             Gets the name of the application-layer protocol negotiated during
@@ -16780,21 +16729,18 @@ class DtlsConnection(builtins.object):
         does not support ALPN, then this will be None. See
         `g_dtls_connection_set_advertised_protocols`.
         """
-    @builtins.property
     def get_peer_certificate(self) -> TlsCertificate | None:
         """
             Gets `conn`'s peer's certificate after the handshake has completed
         or failed. (It is not set during the emission of
         GDtlsConnection::accept-certificate.)
         """
-    @builtins.property
     def get_peer_certificate_errors(self) -> TlsCertificateFlags:
         """
             Gets the errors associated with validating `conn`'s peer's
         certificate, after the handshake has completed or failed. (It is
         not set during the emission of GDtlsConnection::accept-certificate.)
         """
-    @builtins.property
     def get_protocol_version(self) -> TlsProtocolVersion:
         """
             Returns the current DTLS protocol version, which may be
@@ -16803,13 +16749,11 @@ class DtlsConnection(builtins.object):
         that is not a recognized GTlsProtocolVersion.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_rehandshake_mode(self) -> TlsRehandshakeMode:
         """
             Gets `conn` rehandshaking mode. See
         `g_dtls_connection_set_rehandshake_mode` for details.
         """
-    @builtins.property
     def get_require_close_notify(self) -> bool:
         """
             Tests whether or not `conn` expects a proper TLS close notification
@@ -17278,12 +17222,10 @@ class Emblem(GObject.Object):
         """
         Initialize Emblem object with properties.
         """
-    @builtins.property
     def get_icon(self) -> Icon:
         """
         Gives back the icon from `emblem`.
         """
-    @builtins.property
     def get_origin(self) -> EmblemOrigin:
         """
         Gets the origin of the emblem.
@@ -20172,7 +20114,6 @@ class FileIcon(GObject.Object):
         """
         Initialize FileIcon object with properties.
         """
-    @builtins.property
     def get_file(self) -> File:
         """
         Gets the GFile associated with the given `icon`.
@@ -21473,7 +21414,6 @@ class FileMonitor(GObject.Object):
         thread-default main context (see [method`GLib`.MainContext.push_thread_default])
         of the thread that the monitor was created in.
         """
-    @builtins.property
     def is_cancelled(self) -> bool:
         """
         Returns whether the monitor is canceled.
@@ -21891,12 +21831,10 @@ class FilterInputStream(InputStream):
         """
         Initialize FilterInputStream object with properties.
         """
-    @builtins.property
     def get_base_stream(self) -> InputStream:
         """
         Gets the base stream for the filter stream.
         """
-    @builtins.property
     def get_close_base_stream(self) -> bool:
         """
             Returns whether the base stream will be closed when `stream` is
@@ -21977,12 +21915,10 @@ class FilterOutputStream(OutputStream):
         """
         Initialize FilterOutputStream object with properties.
         """
-    @builtins.property
     def get_base_stream(self) -> OutputStream:
         """
         Gets the base stream for the filter stream.
         """
-    @builtins.property
     def get_close_base_stream(self) -> bool:
         """
             Returns whether the base stream will be closed when `stream` is
@@ -22414,13 +22350,11 @@ class IOStream(GObject.Object):
         """
         Closes a stream.
         """
-    @builtins.property
     def get_input_stream(self) -> InputStream:
         """
             Gets the input stream for this object. This is used
         for reading.
         """
-    @builtins.property
     def get_output_stream(self) -> OutputStream:
         """
             Gets the output stream for this object. This is used for
@@ -22430,7 +22364,6 @@ class IOStream(GObject.Object):
         """
         Checks if a stream has pending actions.
         """
-    @builtins.property
     def is_closed(self) -> bool:
         """
         Checks if a stream is closed.
@@ -22806,59 +22739,48 @@ class InetAddress(GObject.Object):
         """
         Checks if two GInetAddress instances are equal, e.g. the same address.
         """
-    @builtins.property
     def get_family(self) -> SocketFamily:
         """
         Gets `address`'s family
         """
-    @builtins.property
     def get_is_any(self) -> bool:
         """
         Tests whether `address` is the "any" address for its family.
         """
-    @builtins.property
     def get_is_link_local(self) -> bool:
         """
             Tests whether `address` is a link-local address (that is, if it
         identifies a host on a local network that is not connected to the
         Internet).
         """
-    @builtins.property
     def get_is_loopback(self) -> bool:
         """
         Tests whether `address` is the loopback address for its family.
         """
-    @builtins.property
     def get_is_mc_global(self) -> bool:
         """
         Tests whether `address` is a global multicast address.
         """
-    @builtins.property
     def get_is_mc_link_local(self) -> bool:
         """
         Tests whether `address` is a link-local multicast address.
         """
-    @builtins.property
     def get_is_mc_node_local(self) -> bool:
         """
         Tests whether `address` is a node-local multicast address.
         """
-    @builtins.property
     def get_is_mc_org_local(self) -> bool:
         """
         Tests whether `address` is an organization-local multicast address.
         """
-    @builtins.property
     def get_is_mc_site_local(self) -> bool:
         """
         Tests whether `address` is a site-local multicast address.
         """
-    @builtins.property
     def get_is_multicast(self) -> bool:
         """
         Tests whether `address` is a multicast address.
         """
-    @builtins.property
     def get_is_site_local(self) -> bool:
         """
             Tests whether `address` is a site-local address such as 10.0.0.1
@@ -23071,17 +22993,14 @@ class InetAddressMask(GObject.Object):
         """
         Tests if `mask` and `mask2` are the same mask.
         """
-    @builtins.property
     def get_address(self) -> InetAddress:
         """
         Gets `mask`'s base address
         """
-    @builtins.property
     def get_family(self) -> SocketFamily:
         """
         Gets the GSocketFamily of `mask`'s address
         """
-    @builtins.property
     def get_length(self) -> int:
         """
         Gets `mask`'s length
@@ -23207,23 +23126,19 @@ class InetSocketAddress(SocketAddress):
         """
         Initialize InetSocketAddress object with properties.
         """
-    @builtins.property
     def get_address(self) -> InetAddress:
         """
         Gets `address`'s GInetAddress.
         """
-    @builtins.property
     def get_flowinfo(self) -> int:
         """
             Gets the `sin6_flowinfo` field from `address`,
         which must be an IPv6 address.
         """
-    @builtins.property
     def get_port(self) -> int:
         """
         Gets `address`'s port.
         """
-    @builtins.property
     def get_scope_id(self) -> int:
         """
             Gets the `sin6_scope_id` field from `address`,
@@ -24606,7 +24521,6 @@ class MemoryOutputStream(OutputStream):
         """
         Initialize MemoryOutputStream object with properties.
         """
-    @builtins.property
     def get_data(self) -> object | None:
         """
             Gets any loaded data from the `ostream`.
@@ -24614,13 +24528,11 @@ class MemoryOutputStream(OutputStream):
         Note that the returned pointer may become invalid on the next
         write or truncate operation on the stream.
         """
-    @builtins.property
     def get_data_size(self) -> int:
         """
             Returns the number of bytes from the start up to including the last
         byte written in the stream that has not been truncated away.
         """
-    @builtins.property
     def get_size(self) -> int:
         """
             Gets the size of the currently allocated data area (available from
@@ -26201,50 +26113,41 @@ class MountOperation(GObject.Object):
         """
         Initialize MountOperation object with properties.
         """
-    @builtins.property
     def get_anonymous(self) -> bool:
         """
             Check to see whether the mount operation is being used
         for an anonymous user.
         """
-    @builtins.property
     def get_choice(self) -> int:
         """
         Gets a choice from the mount operation.
         """
-    @builtins.property
     def get_domain(self) -> str | None:
         """
         Gets the domain of the mount operation.
         """
-    @builtins.property
     def get_is_tcrypt_hidden_volume(self) -> bool:
         """
             Check to see whether the mount operation is being used
         for a TCRYPT hidden volume.
         """
-    @builtins.property
     def get_is_tcrypt_system_volume(self) -> bool:
         """
             Check to see whether the mount operation is being used
         for a TCRYPT system volume.
         """
-    @builtins.property
     def get_password(self) -> str | None:
         """
         Gets a password from the mount operation.
         """
-    @builtins.property
     def get_password_save(self) -> PasswordSave:
         """
         Gets the state of saving passwords for the mount operation.
         """
-    @builtins.property
     def get_pim(self) -> int:
         """
         Gets a PIM from the mount operation.
         """
-    @builtins.property
     def get_username(self) -> str | None:
         """
         Get the user name from the mount operation.
@@ -26776,18 +26679,15 @@ class NetworkAddress(GObject.Object):
         """
         Initialize NetworkAddress object with properties.
         """
-    @builtins.property
     def get_hostname(self) -> str:
         """
             Gets `addr`'s hostname. This might be either UTF-8 or ASCII-encoded,
         depending on what `addr` was created with.
         """
-    @builtins.property
     def get_port(self) -> int:
         """
         Gets `addr`'s port number
         """
-    @builtins.property
     def get_scheme(self) -> str | None:
         """
         Gets `addr`'s scheme
@@ -27005,7 +26905,6 @@ class NetworkMonitor(builtins.object):
             Finishes an async network connectivity test.
         See `g_network_monitor_can_reach_async`.
         """
-    @builtins.property
     def get_connectivity(self) -> NetworkConnectivity:
         """
             Gets a more detailed networking state than
@@ -27033,7 +26932,6 @@ class NetworkMonitor(builtins.object):
         """
         Gets the default GNetworkMonitor for the system.
         """
-    @builtins.property
     def get_network_available(self) -> bool:
         """
             Checks if the network is available. "Available" here means that the
@@ -27041,7 +26939,6 @@ class NetworkMonitor(builtins.object):
         IPv6. It does not necessarily imply that the public Internet is
         reachable. See GNetworkMonitor:network-available for more details.
         """
-    @builtins.property
     def get_network_metered(self) -> bool:
         """
             Checks if the network is metered.
@@ -27171,24 +27068,20 @@ class NetworkService(GObject.Object):
         """
         Initialize NetworkService object with properties.
         """
-    @builtins.property
     def get_domain(self) -> str:
         """
             Gets the domain that `srv` serves. This might be either UTF-8 or
         ASCII-encoded, depending on what `srv` was created with.
         """
-    @builtins.property
     def get_protocol(self) -> str:
         """
         Gets `srv`'s protocol name (eg, "tcp").
         """
-    @builtins.property
     def get_scheme(self) -> str:
         """
             Gets the URI scheme used to resolve proxies. By default, the service name
         is used as scheme.
         """
-    @builtins.property
     def get_service(self) -> str:
         """
         Gets `srv`'s service name (eg, "ldap").
@@ -28240,21 +28133,18 @@ class Permission(GObject.Object):
         This is the second half of the asynchronous version of
         `g_permission_acquire`.
         """
-    @builtins.property
     def get_allowed(self) -> bool:
         """
             Gets the value of the 'allowed' property.  This property is True if
         the caller currently has permission to perform the action that
         `permission` represents the permission to perform.
         """
-    @builtins.property
     def get_can_acquire(self) -> bool:
         """
             Gets the value of the 'can-acquire' property.  This property is True
         if it is generally possible to acquire the permission by calling
         `g_permission_acquire`.
         """
-    @builtins.property
     def get_can_release(self) -> bool:
         """
             Gets the value of the 'can-release' property.  This property is True
@@ -28740,7 +28630,6 @@ class PowerProfileMonitor(builtins.object):
         """
         Gets a reference to the default GPowerProfileMonitor for the system.
         """
-    @builtins.property
     def get_power_saver_enabled(self) -> bool:
         """
             Gets whether the system is in “Power Saver” mode.
@@ -29102,42 +28991,35 @@ class ProxyAddress(InetSocketAddress):
         """
         Initialize ProxyAddress object with properties.
         """
-    @builtins.property
     def get_destination_hostname(self) -> str:
         """
             Gets `proxy`'s destination hostname; that is, the name of the host
         that will be connected to via the proxy, not the name of the proxy
         itself.
         """
-    @builtins.property
     def get_destination_port(self) -> int:
         """
             Gets `proxy`'s destination port; that is, the port on the
         destination host that will be connected to via the proxy, not the
         port number of the proxy itself.
         """
-    @builtins.property
     def get_destination_protocol(self) -> str:
         """
             Gets the protocol that is being spoken to the destination
         server; eg, "http" or "ftp".
         """
-    @builtins.property
     def get_password(self) -> str | None:
         """
         Gets `proxy`'s password.
         """
-    @builtins.property
     def get_protocol(self) -> str:
         """
         Gets `proxy`'s protocol. eg, "socks" or "http"
         """
-    @builtins.property
     def get_uri(self) -> str | None:
         """
         Gets the proxy URI that `proxy` was constructed from.
         """
-    @builtins.property
     def get_username(self) -> str | None:
         """
         Gets `proxy`'s username.
@@ -29664,7 +29546,6 @@ class Resolver(GObject.Object):
         with it. GResolver may use its reference count as a hint about how
         many threads it should allocate for concurrent DNS resolutions.
         """
-    @builtins.property
     def get_timeout(self) -> int:
         """
         Get the timeout applied to all resolver lookups. See GResolver:timeout.
@@ -31095,7 +30976,6 @@ class Settings(GObject.Object):
         value for the flags type then this function will return the default
         value.
         """
-    @builtins.property
     def get_has_unapplied(self) -> bool:
         """
             Returns whether the [class`Gio`.Settings] object has any unapplied
@@ -33600,13 +33480,11 @@ class Socket(GObject.Object):
         `g_socket_get_available_bytes` first and then doing a receive of
         exactly the right size.
         """
-    @builtins.property
     def get_blocking(self) -> bool:
         """
             Gets the blocking mode of the socket. For details on blocking I/O,
         see `g_socket_set_blocking`.
         """
-    @builtins.property
     def get_broadcast(self) -> bool:
         """
             Gets the broadcast setting on `socket`; if True,
@@ -33636,12 +33514,10 @@ class Socket(GObject.Object):
         `g_unix_connection_send_credentials` /
         `g_unix_connection_receive_credentials` functions.
         """
-    @builtins.property
     def get_family(self) -> SocketFamily:
         """
         Gets the socket family of the socket.
         """
-    @builtins.property
     def get_fd(self) -> int:
         """
             Returns the underlying OS socket object. On unix this
@@ -33650,33 +33526,28 @@ class Socket(GObject.Object):
         doing platform specific or otherwise unusual operations
         on the socket.
         """
-    @builtins.property
     def get_keepalive(self) -> bool:
         """
             Gets the keepalive mode of the socket. For details on this,
         see `g_socket_set_keepalive`.
         """
-    @builtins.property
     def get_listen_backlog(self) -> int:
         """
             Gets the listen backlog setting of the socket. For details on this,
         see `g_socket_set_listen_backlog`.
         """
-    @builtins.property
     def get_local_address(self) -> SocketAddress:
         """
             Try to get the local address of a bound socket. This is only
         useful if the socket has been bound to a local address,
         either explicitly or implicitly when connecting.
         """
-    @builtins.property
     def get_multicast_loopback(self) -> bool:
         """
             Gets the multicast loopback setting on `socket`; if True (the
         default), outgoing multicast packets will be looped back to
         multicast listeners on the same host.
         """
-    @builtins.property
     def get_multicast_ttl(self) -> int:
         """
             Gets the multicast time-to-live setting on `socket`; see
@@ -33698,13 +33569,11 @@ class Socket(GObject.Object):
         `value` is still a pointer to a #gint variable, not a #guchar;
         `g_socket_get_option` will handle the conversion internally.
         """
-    @builtins.property
     def get_protocol(self) -> SocketProtocol:
         """
             Gets the socket protocol id the socket was created with.
         In case the protocol is unknown, -1 is returned.
         """
-    @builtins.property
     def get_remote_address(self) -> SocketAddress:
         """
             Try to get the remote address of a connected socket. This is only
@@ -33714,13 +33583,11 @@ class Socket(GObject.Object):
         """
         Gets the socket type of the socket.
         """
-    @builtins.property
     def get_timeout(self) -> int:
         """
             Gets the timeout setting of the socket. For details on this, see
         `g_socket_set_timeout`.
         """
-    @builtins.property
     def get_ttl(self) -> int:
         """
             Gets the unicast time-to-live setting on `socket`; see
@@ -34328,7 +34195,6 @@ class SocketAddress(GObject.Object):
         """
         Initialize SocketAddress object with properties.
         """
-    @builtins.property
     def get_family(self) -> SocketFamily:
         """
         Gets the socket family type of `address`.
@@ -34864,33 +34730,28 @@ class SocketClient(GObject.Object):
         """
         Finishes an async connect operation. See `g_socket_client_connect_to_uri_async`
         """
-    @builtins.property
     def get_enable_proxy(self) -> bool:
         """
         Gets the proxy enable state; see `g_socket_client_set_enable_proxy`
         """
-    @builtins.property
     def get_family(self) -> SocketFamily:
         """
             Gets the socket family of the socket client.
 
         See `g_socket_client_set_family` for details.
         """
-    @builtins.property
     def get_local_address(self) -> SocketAddress | None:
         """
             Gets the local address of the socket client.
 
         See `g_socket_client_set_local_address` for details.
         """
-    @builtins.property
     def get_protocol(self) -> SocketProtocol:
         """
             Gets the protocol name type of the socket client.
 
         See `g_socket_client_set_protocol` for details.
         """
-    @builtins.property
     def get_proxy_resolver(self) -> ProxyResolver:
         """
             Gets the GProxyResolver being used by `client`. Normally, this will
@@ -34903,21 +34764,18 @@ class SocketClient(GObject.Object):
 
         See `g_socket_client_set_socket_type` for details.
         """
-    @builtins.property
     def get_timeout(self) -> int:
         """
             Gets the I/O timeout time for sockets created by `client`.
 
         See `g_socket_client_set_timeout` for details.
         """
-    @builtins.property
     def get_tls(self) -> bool:
         """
             Gets whether `client` creates TLS connections. See
         `g_socket_client_set_tls` for details.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_tls_validation_flags(self) -> TlsCertificateFlags:
         """
             Gets the TLS validation flags used creating TLS connections via
@@ -35288,7 +35146,6 @@ class SocketConnection(IOStream):
         applications to print e.g. "Connecting to example.com
         (10.42.77.3)...".
         """
-    @builtins.property
     def get_socket(self) -> Socket:
         """
             Gets the underlying GSocket object of the connection.
@@ -35807,7 +35664,6 @@ class SocketService(SocketListener):
         """
         Initialize SocketService object with properties.
         """
-    @builtins.property
     def is_active(self) -> bool:
         """
             Check whether the service is active or not. An active
@@ -37267,7 +37123,6 @@ class Task(GObject.Object):
             Gets `task`'s check-cancellable flag. See
         `g_task_set_check_cancellable` for more details.
         """
-    @builtins.property
     def get_completed(self) -> bool:
         """
             Gets the value of GTask:completed. This changes from False to True after
@@ -37664,7 +37519,6 @@ class TcpConnection(SocketConnection):
         """
         Initialize TcpConnection object with properties.
         """
-    @builtins.property
     def get_graceful_disconnect(self) -> bool:
         """
             Checks if graceful disconnects are used. See
@@ -37773,7 +37627,6 @@ class TcpWrapperConnection(TcpConnection):
         """
         Initialize TcpWrapperConnection object with properties.
         """
-    @builtins.property
     def get_base_io_stream(self) -> IOStream:
         """
         Gets `conn`'s base GIOStream
@@ -37970,7 +37823,6 @@ class TestDBus(GObject.Object):
         been called yet, None is returned. This can be used with
         `g_dbus_connection_new_for_address`.
         """
-    @builtins.property
     def get_flags(self) -> TestDBusFlags:
         """
         Get the flags of the GTestDBus object.
@@ -38096,7 +37948,6 @@ class ThemedIcon(GObject.Object):
         Note that doing so invalidates the hash computed by prior calls
         to `g_icon_hash`.
         """
-    @builtins.property
     def get_names(self) -> list:
         """
         Gets the names of icons from within `icon`.
@@ -38651,37 +38502,30 @@ class TlsCertificate(GObject.Object):
         """
         Initialize TlsCertificate object with properties.
         """
-    @builtins.property
     def get_dns_names(self) -> list | None:
         """
         Gets the value of GTlsCertificate:dns-names.
         """
-    @builtins.property
     def get_ip_addresses(self) -> list | None:
         """
         Gets the value of GTlsCertificate:ip-addresses.
         """
-    @builtins.property
     def get_issuer(self) -> TlsCertificate | None:
         """
         Gets the GTlsCertificate representing `cert`'s issuer, if known
         """
-    @builtins.property
     def get_issuer_name(self) -> str | None:
         """
         Returns the issuer name from the certificate.
         """
-    @builtins.property
     def get_not_valid_after(self) -> GLib.DateTime | None:
         """
         Returns the time at which the certificate became or will become invalid.
         """
-    @builtins.property
     def get_not_valid_before(self) -> GLib.DateTime | None:
         """
         Returns the time at which the certificate became or will become valid.
         """
-    @builtins.property
     def get_subject_name(self) -> str | None:
         """
         Returns the subject name from the certificate.
@@ -39049,7 +38893,6 @@ class TlsClientConnection(builtins.object):
         reuse would be a privacy weakness. Using this function causes the
         ticket to be copied without regard for privacy considerations.
         """
-    @builtins.property
     def get_accepted_cas(self) -> list:
         """
             Gets the list of distinguished names of the Certificate Authorities
@@ -39060,20 +38903,17 @@ class TlsClientConnection(builtins.object):
         Each item in the list is a GByteArray which contains the complete
         subject DN of the certificate authority.
         """
-    @builtins.property
     def get_server_identity(self) -> SocketConnectable | None:
         """
         Gets `conn`'s expected server identity
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_use_ssl3(self) -> bool:
         """
             SSL 3.0 is no longer supported. See
         `g_tls_client_connection_set_use_ssl3` for details.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_validation_flags(self) -> TlsCertificateFlags:
         """
             Gets `conn`'s validation flags
@@ -39320,7 +39160,6 @@ class TlsConnection(IOStream):
             Used by GTlsConnection implementations to emit the
         GTlsConnection::accept-certificate signal.
         """
-    @builtins.property
     def get_certificate(self) -> TlsCertificate | None:
         """
             Gets `conn`'s certificate, as set by
@@ -39342,7 +39181,6 @@ class TlsConnection(IOStream):
         support `type` or the binding data is not available yet due to additional
         negotiation or input required.
         """
-    @builtins.property
     def get_ciphersuite_name(self) -> str | None:
         """
             Returns the name of the current TLS ciphersuite, or None if the
@@ -39354,20 +39192,17 @@ class TlsConnection(IOStream):
         displayed to the user for informative purposes only, and parsing it
         is not recommended.
         """
-    @builtins.property
     def get_database(self) -> TlsDatabase | None:
         """
             Gets the certificate database that `conn` uses to verify
         peer certificates. See `g_tls_connection_set_database`.
         """
-    @builtins.property
     def get_interaction(self) -> TlsInteraction | None:
         """
             Get the object that will be used to interact with the user. It will be used
         for things like prompting the user for passwords. If None is returned, then
         no user interaction will occur for this connection.
         """
-    @builtins.property
     def get_negotiated_protocol(self) -> str | None:
         """
             Gets the name of the application-layer protocol negotiated during
@@ -39378,14 +39213,12 @@ class TlsConnection(IOStream):
         does not support ALPN, then this will be None. See
         `g_tls_connection_set_advertised_protocols`.
         """
-    @builtins.property
     def get_peer_certificate(self) -> TlsCertificate | None:
         """
             Gets `conn`'s peer's certificate after the handshake has completed
         or failed. (It is not set during the emission of
         GTlsConnection::accept-certificate.)
         """
-    @builtins.property
     def get_peer_certificate_errors(self) -> TlsCertificateFlags:
         """
             Gets the errors associated with validating `conn`'s peer's
@@ -39394,7 +39227,6 @@ class TlsConnection(IOStream):
 
         See GTlsConnection:peer-certificate-errors for more information.
         """
-    @builtins.property
     def get_protocol_version(self) -> TlsProtocolVersion:
         """
             Returns the current TLS protocol version, which may be
@@ -39403,13 +39235,11 @@ class TlsConnection(IOStream):
         that is not a recognized GTlsProtocolVersion.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_rehandshake_mode(self) -> TlsRehandshakeMode:
         """
             Gets `conn` rehandshaking mode. See
         `g_tls_connection_set_rehandshake_mode` for details.
         """
-    @builtins.property
     def get_require_close_notify(self) -> bool:
         """
             Tests whether or not `conn` expects a proper TLS close notification
@@ -39417,7 +39247,6 @@ class TlsConnection(IOStream):
         `g_tls_connection_set_require_close_notify` for details.
         """
     @deprecated("deprecated")
-    @builtins.property
     def get_use_system_certdb(self) -> bool:
         """
             Gets whether `conn` uses the system certificate database to verify
@@ -40769,12 +40598,10 @@ class TlsPassword(GObject.Object):
         """
         Initialize TlsPassword object with properties.
         """
-    @builtins.property
     def get_description(self) -> str:
         """
         Get a description string about what the password will be used for.
         """
-    @builtins.property
     def get_flags(self) -> TlsPasswordFlags:
         """
         Get flags about the password.
@@ -40787,7 +40614,6 @@ class TlsPassword(GObject.Object):
         for `length` in contexts where you know the password will have a
         certain fixed length.)
         """
-    @builtins.property
     def get_warning(self) -> str:
         """
             Get a user readable translated warning. Usually this warning is a
@@ -41209,7 +41035,6 @@ class UnixCredentialsMessage(SocketControlMessage):
         """
         Initialize UnixCredentialsMessage object with properties.
         """
-    @builtins.property
     def get_credentials(self) -> Credentials:
         """
         Gets the credentials stored in `message`.
@@ -41541,7 +41366,6 @@ class UnixSocketAddress(SocketAddress):
         """
         Checks if abstract UNIX domain socket names are supported.
         """
-    @builtins.property
     def get_address_type(self) -> UnixSocketAddressType:
         """
         Gets `address`'s type.
@@ -41551,7 +41375,6 @@ class UnixSocketAddress(SocketAddress):
         """
         Tests if `address` is abstract.
         """
-    @builtins.property
     def get_path(self) -> str:
         """
             Gets `address`'s path, or for abstract sockets the "name".
@@ -42548,7 +42371,6 @@ class ZlibCompressor(GObject.Object):
         """
         Initialize ZlibCompressor object with properties.
         """
-    @builtins.property
     def get_file_info(self) -> FileInfo | None:
         """
         Returns the GZlibCompressor:file-info property.
@@ -42644,7 +42466,6 @@ class ZlibDecompressor(GObject.Object):
         """
         Initialize ZlibDecompressor object with properties.
         """
-    @builtins.property
     def get_file_info(self) -> FileInfo | None:
         """
             Retrieves the GFileInfo constructed from the GZIP header data

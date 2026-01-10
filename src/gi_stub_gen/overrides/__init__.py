@@ -44,10 +44,9 @@ CLASS_OVERRIDES = {
                 "weak_ref": OBJECT_WEAK_REF,
                 "handler_default": OBJECT_HANDLER_DEFAULT,
                 "get_property": OBJECT_GET_PROPERTY,
-                "set_property": OBJECT_SET_PROPERTY,  
+                "set_property": OBJECT_SET_PROPERTY,
             },
         },
-        # "GTypeMeta": 
     },
     "gi.repository.Gst": {
         "Fraction": {
