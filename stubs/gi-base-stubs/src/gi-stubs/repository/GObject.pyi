@@ -1945,27 +1945,23 @@ def variant_get_gtype() -> GType: ...
 # builtin_functions
 ###############################################################
 
-@staticmethod
 def remove_emission_hook(
     obj: typing.Any,
     detailed_signal: typing.Any,
     hook_id: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def signal_accumulator_first_wins(
     ihint: typing.Any,
     return_accu: typing.Any,
     handler_return: typing.Any,
     user_data: typing.Any = None,
 ) -> typing.Any: ...
-@staticmethod
 def signal_accumulator_true_handled(
     ihint: typing.Any,
     return_accu: typing.Any,
     handler_return: typing.Any,
     user_data: typing.Any = None,
 ) -> typing.Any: ...
-@staticmethod
 def signal_handler_block(
     obj: typing.Any,
     handler_id: typing.Any,
@@ -1988,20 +1984,16 @@ def signal_handler_block(
             pass
     """
 
-@staticmethod
 def signal_list_ids(
     type_: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def signal_list_names(
     type_: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def signal_lookup(
     name: typing.Any,
     type_: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def signal_parse_name(
     detailed_signal: typing.Any,
     itype: typing.Any,
@@ -2019,16 +2011,13 @@ def signal_parse_name(
         If the given signal is unknown.
     """
 
-@staticmethod
 def signal_query(
     id_or_name: typing.Any,
     type_: typing.Any = None,
 ) -> typing.Any: ...
-@staticmethod
 def type_from_name(
     name: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def type_parent(
     type_: typing.Any,
 ) -> typing.Any: ...
@@ -3777,8 +3766,8 @@ class Object(builtins.object):
         :returns:
             A signal id which can be used with disconnect.
         """
-    @staticmethod
     def disconnect(
+        self,
         instance: Object,
         handler_id: int,
     ) -> None:
@@ -3836,8 +3825,8 @@ class Object(builtins.object):
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
         """
-    @staticmethod
     def handler_block(
+        self,
         obj: typing.Any,
         handler_id: typing.Any,
     ) -> typing.Any:
@@ -3858,24 +3847,24 @@ class Object(builtins.object):
             with GObject.signal_handler_block(obj, id):
                 pass
         """
-    @staticmethod
     def handler_disconnect(
+        self,
         instance: Object,
         handler_id: int,
     ) -> None:
         """
         signal_handler_disconnect(instance:GObject.Object, handler_id:int)
         """
-    @staticmethod
     def handler_is_connected(
+        self,
         instance: Object,
         handler_id: int,
     ) -> bool:
         """
         signal_handler_is_connected(instance:GObject.Object, handler_id:int) -> bool
         """
-    @staticmethod
     def handler_unblock(
+        self,
         instance: Object,
         handler_id: int,
     ) -> None:
@@ -3971,8 +3960,8 @@ class Object(builtins.object):
         """
         Deprecated, please use stop_emission_by_name.
         """
-    @staticmethod
     def stop_emission_by_name(
+        self,
         instance: Object,
         detailed_signal: str,
     ) -> None:

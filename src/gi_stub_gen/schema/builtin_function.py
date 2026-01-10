@@ -7,13 +7,6 @@ from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.manager.template import TemplateManager
 
 
-class FunctionMethodType(StrEnum):
-    INSTANCE = "INSTANCE"  # def method(self, ...)
-    CLASS = "CLASS"  # @classmethod def method(cls, ...)
-    STATIC = "STATIC"  # @staticmethod def method(...)
-    UNKNOWN = "UNKNOWN"
-
-
 class ArgKind(StrEnum):
     POSITIONAL_OR_KEYWORD = "POS_OR_KW"  # Standard (a)
     POSITIONAL_ONLY = "POS_ONLY"  # Python 3.8+ (a, /)
@@ -115,7 +108,8 @@ class BuiltinFunctionSchema(BaseSchema):
     name: str
     namespace: str
     is_async: bool
-    is_method: bool
+    is_from_class: bool
+    """Whether this function belongs to a class (as opposed to module-level)."""
     is_classmethod: bool
     is_staticmethod: bool
     docstring: str | None
@@ -123,6 +117,11 @@ class BuiltinFunctionSchema(BaseSchema):
     return_hint_namespace: str | None
     return_is_optional: bool
     params: list[BuiltinFunctionArgumentSchema]
+
+    @property
+    def is_method(self) -> bool:
+        """Whether this is an instance method (has self)."""
+        return self.is_from_class and not self.is_staticmethod and not self.is_classmethod
 
     def render(self) -> str:
         return TemplateManager.render_master("builtin_function.jinja", fun=self)
@@ -158,7 +157,7 @@ class BuiltinFunctionSchema(BaseSchema):
         if self.is_classmethod:
             decs.append("@classmethod")
 
-        if not self.is_classmethod and not self.is_method:
+        if self.is_staticmethod:
             decs.append("@staticmethod")
 
         # if self.is_getter:

@@ -9858,14 +9858,12 @@ def variant_type_string_scan(
 # builtin_functions
 ###############################################################
 
-@staticmethod
 def _child_watch_add_get_args(
     priority_or_pid: typing.Any,
     pid_or_callback: typing.Any,
     *args: typing.Any,
     **kwargs: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def _io_add_watch_get_args(
     channel: typing.Any,
     priority_: typing.Any,
@@ -9873,7 +9871,6 @@ def _io_add_watch_get_args(
     *cb_and_user_data: typing.Any,
     **kwargs: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def child_watch_add(
     *args: typing.Any,
     **kwargs: typing.Any,
@@ -9882,20 +9879,16 @@ def child_watch_add(
     child_watch_add(priority, pid, function, *data).
     """
 
-@staticmethod
 def filename_from_utf8(
     utf8string: typing.Any,
     len: typing.Any = -1,
 ) -> typing.Any: ...
-@staticmethod
 def get_current_time() -> typing.Any: ...
-@staticmethod
 def idle_add(
     function: typing.Any,
     *user_data: typing.Any,
     priority: typing.Any = 200,
 ) -> typing.Any: ...
-@staticmethod
 def io_add_watch(
     *args: typing.Any,
     **kwargs: typing.Any,
@@ -9904,21 +9897,17 @@ def io_add_watch(
     io_add_watch(channel, priority, condition, func, *user_data) -> event_source_id.
     """
 
-@staticmethod
 def markup_escape_text(
     text: typing.Any,
     length: typing.Any = -1,
 ) -> typing.Any: ...
-@staticmethod
 def threads_init() -> typing.Any: ...
-@staticmethod
 def timeout_add(
     interval: typing.Any,
     function: typing.Any,
     *user_data: typing.Any,
     priority: typing.Any = 0,
 ) -> typing.Any: ...
-@staticmethod
 def timeout_add_seconds(
     interval: typing.Any,
     function: typing.Any,
@@ -14188,8 +14177,8 @@ class Bytes(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -14978,8 +14967,8 @@ class DateTime(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -16493,8 +16482,8 @@ class KeyFile(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -21936,8 +21925,8 @@ class VariantBuilder(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -22120,8 +22109,8 @@ class VariantDict(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -22542,8 +22531,8 @@ class VariantType(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...

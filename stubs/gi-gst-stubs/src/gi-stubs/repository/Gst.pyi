@@ -2106,21 +2106,16 @@ def version_string() -> str:
 # builtin_functions
 ###############################################################
 
-@staticmethod
 def TIME_ARGS(
     time: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def deinit() -> typing.Any: ...
-@staticmethod
 def init(
     argv: typing.Any = None,
 ) -> typing.Any: ...
-@staticmethod
 def init_check(
     argv: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def init_python() -> typing.Any: ...
 
 ###############################################################
@@ -5300,8 +5295,8 @@ class AllocationParams(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -5530,8 +5525,8 @@ class AtomicQueue(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -6645,8 +6640,8 @@ class BufferList(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -8796,8 +8791,8 @@ class Context(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -9186,8 +9181,8 @@ class DateTime(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -12550,8 +12545,8 @@ class IdStr(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -16133,8 +16128,8 @@ class ParseContext(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -17332,8 +17327,8 @@ class Promise(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -18426,8 +18421,8 @@ class Sample(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -18799,8 +18794,8 @@ class Segment(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -21015,8 +21010,8 @@ class Toc(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -21090,8 +21085,8 @@ class TocEntry(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -21965,8 +21960,8 @@ class Uri(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...

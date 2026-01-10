@@ -279,7 +279,6 @@ def plugins_base_version_string() -> str: ...
 # builtin_functions
 ###############################################################
 
-@staticmethod
 def init() -> typing.Any: ...
 
 ###############################################################
@@ -1078,8 +1077,8 @@ class InstallPluginsContext(GObject.GBoxed):
     def set_xid(self, xid: int) -> None: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...

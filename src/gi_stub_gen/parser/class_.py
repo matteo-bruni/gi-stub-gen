@@ -647,6 +647,7 @@ def parse_class(
                 attribute=attribute,
                 namespace=module_name.removeprefix("gi.repository."),
                 name_override=attribute_name,
+                from_class=class_to_parse,
             ):
                 if f.name == "__init__":
                     # some zelous overrides define __init__ with return type Any..

@@ -19490,8 +19490,8 @@ class FileAttributeInfoList(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -19564,8 +19564,8 @@ class FileAttributeMatcher(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -35995,8 +35995,8 @@ class SrvTarget(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...

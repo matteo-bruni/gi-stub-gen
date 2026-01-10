@@ -2379,8 +2379,8 @@ class PathBuilder(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -2440,8 +2440,8 @@ class PathMeasure(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -3135,8 +3135,8 @@ class ShaderArgsBuilder(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -3326,8 +3326,8 @@ class Stroke(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -3732,8 +3732,8 @@ class Transform(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...

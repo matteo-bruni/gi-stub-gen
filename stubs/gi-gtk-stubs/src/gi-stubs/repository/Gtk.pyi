@@ -13794,8 +13794,8 @@ class Border(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -15441,8 +15441,9 @@ class Builder(GObject.Object):
 
         add_objects_from_string(self, buffer:str, length:int, object_ids:list) -> bool
         """
-    @staticmethod
-    def define_builder_scope() -> typing.Any: ...
+    def define_builder_scope(
+        self,
+    ) -> typing.Any: ...
 
     # Signals
     @typing.overload
@@ -32203,8 +32204,8 @@ class CssSection(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -77201,8 +77202,8 @@ class PaperSize(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -85993,8 +85994,8 @@ class Requisition(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -87994,8 +87995,8 @@ class ScrollInfo(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -112812,8 +112813,8 @@ class TreeRowReference(GObject.GBoxed):
         """
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...

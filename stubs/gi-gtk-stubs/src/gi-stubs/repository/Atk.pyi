@@ -2653,8 +2653,8 @@ class Range(GObject.GBoxed):
     def get_upper_limit(self) -> float: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...

@@ -20,11 +20,9 @@ import typing
 # builtin_functions
 ###############################################################
 
-@staticmethod
 def check_version(
     version: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def disable_legacy_autoinit() -> typing.Any:
     """
     Disable the legacy initialization of Gdk and Gtk.
@@ -37,7 +35,6 @@ def disable_legacy_autoinit() -> typing.Any:
     e.g. `Gtk.Application` manage it when needed.
     """
 
-@staticmethod
 def get_option(
     name: typing.Any,
 ) -> typing.Any:
@@ -48,11 +45,9 @@ def get_option(
         Name of the option.
     """
 
-@staticmethod
 def get_required_version(
     namespace: typing.Any,
 ) -> typing.Any: ...
-@staticmethod
 def require_foreign(
     namespace: typing.Any,
     symbol: typing.Any = None,
@@ -77,7 +72,6 @@ def require_foreign(
         gi.require_foreign("cairo")
     """
 
-@staticmethod
 def require_version(
     namespace: typing.Any,
     version: typing.Any,
@@ -100,7 +94,6 @@ def require_version(
         gi.require_version("Gtk", "3.0")
     """
 
-@staticmethod
 def require_versions(
     requires: typing.Any,
 ) -> typing.Any:

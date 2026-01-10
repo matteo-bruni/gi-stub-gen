@@ -201,8 +201,8 @@ class MIKEYMessage(GObject.GBoxed):
     def to_caps(self, caps: Gst.Caps) -> bool: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...

@@ -3335,13 +3335,13 @@ class VideoInfo(GObject.GBoxed):
     def to_caps(self) -> Gst.Caps: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-    @staticmethod
     def from_caps(
+        self,
         *args: typing.Any,
     ) -> typing.Any:
         """
@@ -3387,8 +3387,8 @@ class VideoInfoDmaDrm(GObject.GBoxed):
     def to_video_info(self) -> tuple[bool, VideoInfo]: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -3545,8 +3545,8 @@ class VideoOverlayComposition(GObject.GBoxed):
     def n_rectangles(self) -> int: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -4110,8 +4110,8 @@ class VideoVBIEncoder(GObject.GBoxed):
     def write_line(self, data: int) -> None: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -4135,8 +4135,8 @@ class VideoVBIParser(GObject.GBoxed):
     def get_ancillary(self) -> tuple[VideoVBIParserResult, VideoAncillary]: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...

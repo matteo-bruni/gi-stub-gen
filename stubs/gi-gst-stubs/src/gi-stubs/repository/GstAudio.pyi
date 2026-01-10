@@ -1878,8 +1878,8 @@ class AudioConverter(GObject.GBoxed):
     def update_config(self, in_rate: int, out_rate: int, config: Gst.Structure | None = None) -> bool: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -2700,13 +2700,13 @@ class AudioInfo(GObject.GBoxed):
     def to_caps(self) -> Gst.Caps: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
-    @staticmethod
     def from_caps(
+        self,
         *args: typing.Any,
     ) -> typing.Any:
         """
@@ -3612,8 +3612,8 @@ class AudioStreamAlign(GObject.GBoxed):
     def set_rate(self, rate: int) -> None: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
@@ -3654,8 +3654,8 @@ class DsdInfo(GObject.GBoxed):
     def to_caps(self) -> Gst.Caps: ...
 
     # python methods (overrides?)
-    @staticmethod
     def __init__(
+        self,
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
