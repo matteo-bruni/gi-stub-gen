@@ -951,6 +951,82 @@ class InputStream(Gio.InputStream):
         """
 
     # python methods (overrides?)
+    def do_close_async(
+        self,
+        io_priority: int,
+        cancellable: Gio.Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> None:
+        """
+        close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
+        """
+    def do_close_finish(
+        self,
+        result: Gio.AsyncResult,
+    ) -> bool:
+        """
+        close_finish(self, result:Gio.AsyncResult) -> bool
+        """
+    def do_close_fn(
+        self,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> bool:
+        """
+        close_fn(self, cancellable:Gio.Cancellable=None) -> bool
+        """
+    def do_read_async(
+        self,
+        io_priority: int,
+        cancellable: Gio.Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> list | None:
+        """
+        read_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None) -> buffer:list
+        """
+    def do_read_finish(
+        self,
+        result: Gio.AsyncResult,
+    ) -> int:
+        """
+        read_finish(self, result:Gio.AsyncResult) -> int
+        """
+    def do_read_fn(
+        self,
+        buffer: typing.Any,
+        count: int,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> int:
+        """
+        read_fn(self, buffer=None, count:int, cancellable:Gio.Cancellable=None) -> int
+        """
+    def do_skip(
+        self,
+        count: int,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> int:
+        """
+        skip(self, count:int, cancellable:Gio.Cancellable=None) -> int
+        """
+    def do_skip_async(
+        self,
+        count: int,
+        io_priority: int,
+        cancellable: Gio.Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> None:
+        """
+        skip_async(self, count:int, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
+        """
+    def do_skip_finish(
+        self,
+        result: Gio.AsyncResult,
+    ) -> int:
+        """
+        skip_finish(self, result:Gio.AsyncResult) -> int
+        """
     @classmethod
     def new(
         cls,
@@ -1359,6 +1435,134 @@ class OutputStream(Gio.OutputStream):
         """
 
     # python methods (overrides?)
+    def do_close_async(
+        self,
+        io_priority: int,
+        cancellable: Gio.Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> None:
+        """
+        close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
+        """
+    def do_close_finish(
+        self,
+        result: Gio.AsyncResult,
+    ) -> bool:
+        """
+        close_finish(self, result:Gio.AsyncResult) -> bool
+        """
+    def do_close_fn(
+        self,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> bool:
+        """
+        close_fn(self, cancellable:Gio.Cancellable=None) -> bool
+        """
+    def do_flush(
+        self,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> bool:
+        """
+        flush(self, cancellable:Gio.Cancellable=None) -> bool
+        """
+    def do_flush_async(
+        self,
+        io_priority: int,
+        cancellable: Gio.Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> None:
+        """
+        flush_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
+        """
+    def do_flush_finish(
+        self,
+        result: Gio.AsyncResult,
+    ) -> bool:
+        """
+        flush_finish(self, result:Gio.AsyncResult) -> bool
+        """
+    def do_splice(
+        self,
+        source: Gio.InputStream,
+        flags: Gio.OutputStreamSpliceFlags,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> int:
+        """
+        splice(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, cancellable:Gio.Cancellable=None) -> int
+        """
+    def do_splice_async(
+        self,
+        source: Gio.InputStream,
+        flags: Gio.OutputStreamSpliceFlags,
+        io_priority: int,
+        cancellable: Gio.Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> None:
+        """
+        splice_async(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
+        """
+    def do_splice_finish(
+        self,
+        result: Gio.AsyncResult,
+    ) -> int:
+        """
+        splice_finish(self, result:Gio.AsyncResult) -> int
+        """
+    def do_write_async(
+        self,
+        buffer: list | None,
+        io_priority: int,
+        cancellable: Gio.Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> None:
+        """
+        write_async(self, buffer:list=None, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
+        """
+    def do_write_finish(
+        self,
+        result: Gio.AsyncResult,
+    ) -> int:
+        """
+        write_finish(self, result:Gio.AsyncResult) -> int
+        """
+    def do_write_fn(
+        self,
+        buffer: list | None = None,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> int:
+        """
+        write_fn(self, buffer:list=None, cancellable:Gio.Cancellable=None) -> int
+        """
+    def do_writev_async(
+        self,
+        vectors: list,
+        io_priority: int,
+        cancellable: Gio.Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> None:
+        """
+        writev_async(self, vectors:list, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
+        """
+    def do_writev_finish(
+        self,
+        result: Gio.AsyncResult,
+    ) -> tuple:
+        """
+        writev_finish(self, result:Gio.AsyncResult) -> bool, bytes_written:int
+        """
+    def do_writev_fn(
+        self,
+        vectors: list,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> tuple:
+        """
+        writev_fn(self, vectors:list, cancellable:Gio.Cancellable=None) -> bool, bytes_written:int
+        """
     @classmethod
     def new(
         cls,

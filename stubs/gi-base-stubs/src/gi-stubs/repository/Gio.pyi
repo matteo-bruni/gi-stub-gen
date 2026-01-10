@@ -7125,17 +7125,6 @@ class Application(GObject.Object):
 
         The application must be registered before calling this function.
         """
-    @classmethod
-    def new(cls, application_id: str | None, flags: ApplicationFlags) -> Application:
-        """
-            Creates a new GApplication instance.
-
-        If non-None, the application id must be valid.  See
-        `g_application_id_is_valid`.
-
-        If no application ID is given then some features of GApplication
-        (most notably application uniqueness) will be disabled.
-        """
     def open(self, files: list, n_files: int, hint: str) -> None:
         """
             Opens the given files.
@@ -7413,6 +7402,119 @@ class Application(GObject.Object):
         You can deal with this by either only storing a weak reference to the
         Task, by explicitly collecting the result, or by only cancelling it if
         it is not done already.
+        """
+    def do_activate(
+        self,
+    ) -> None:
+        """
+        activate(self)
+        """
+    def do_add_platform_data(
+        self,
+        builder: GLib.VariantBuilder,
+    ) -> None:
+        """
+        add_platform_data(self, builder:GLib.VariantBuilder)
+        """
+    def do_after_emit(
+        self,
+        platform_data: GLib.Variant,
+    ) -> None:
+        """
+        after_emit(self, platform_data:GLib.Variant)
+        """
+    def do_before_emit(
+        self,
+        platform_data: GLib.Variant,
+    ) -> None:
+        """
+        before_emit(self, platform_data:GLib.Variant)
+        """
+    def do_command_line(
+        self,
+        command_line: ApplicationCommandLine,
+    ) -> int:
+        """
+        command_line(self, command_line:Gio.ApplicationCommandLine) -> int
+        """
+    def do_dbus_register(
+        self,
+        connection: DBusConnection,
+        object_path: str,
+    ) -> bool:
+        """
+        dbus_register(self, connection:Gio.DBusConnection, object_path:str) -> bool
+        """
+    def do_dbus_unregister(
+        self,
+        connection: DBusConnection,
+        object_path: str,
+    ) -> None:
+        """
+        dbus_unregister(self, connection:Gio.DBusConnection, object_path:str)
+        """
+    def do_handle_local_options(
+        self,
+        options: GLib.VariantDict,
+    ) -> int:
+        """
+        handle_local_options(self, options:GLib.VariantDict) -> int
+        """
+    def do_local_command_line(
+        self,
+        arguments: list,
+    ) -> tuple:
+        """
+        local_command_line(self, arguments:list) -> bool, arguments:list, exit_status:int
+        """
+    def do_name_lost(
+        self,
+    ) -> bool:
+        """
+        name_lost(self) -> bool
+        """
+    def do_open(
+        self,
+        files: list,
+        hint: str,
+    ) -> None:
+        """
+        open(self, files:list, hint:str)
+        """
+    def do_quit_mainloop(
+        self,
+    ) -> None:
+        """
+        quit_mainloop(self)
+        """
+    def do_run_mainloop(
+        self,
+    ) -> None:
+        """
+        run_mainloop(self)
+        """
+    def do_shutdown(
+        self,
+    ) -> None:
+        """
+        shutdown(self)
+        """
+    def do_startup(
+        self,
+    ) -> None:
+        """
+        startup(self)
+        """
+    @classmethod
+    def new(
+        cls,
+        application_id: str | None,
+        flags: ApplicationFlags,
+    ) -> Application:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(application_id:str=None, flags:Gio.ApplicationFlags) -> Gio.Application
         """
     def run(
         self,
@@ -12399,18 +12501,6 @@ class DBusNodeInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
 
         The cost of this function is O(n) in number of interfaces.
         """
-    @classmethod
-    def new_for_xml(cls, xml_data: str) -> DBusNodeInfo:
-        """
-            Parses `xml_data` and returns a GDBusNodeInfo representing the data.
-
-        The introspection XML must contain exactly one top-level
-        `<node>` element.
-
-        Note that this routine is using a
-        [GMarkup](../glib/markup.html)-based
-        parser that only accepts a subset of valid XML documents.
-        """
     def ref(self) -> DBusNodeInfo:
         """
             If `info` is statically allocated does nothing. Otherwise increases
@@ -12429,6 +12519,16 @@ class DBusNodeInfo(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    @classmethod
+    def new_for_xml(
+        cls,
+        xml_data: str,
+    ) -> DBusNodeInfo:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_xml(xml_data:str) -> Gio.DBusNodeInfo
+        """
 
 class DBusObject(builtins.object):
     """
@@ -13988,11 +14088,6 @@ class DBusProxy(GObject.Object):
 
         GDBusProxy is used in this [example][class`Gio`.DBusProxy#a-watch-proxy-example].
         """
-    @classmethod
-    def new_finish(cls, res: AsyncResult) -> DBusProxy:
-        """
-        Finishes creating a GDBusProxy.
-        """
     @staticmethod
     async def new_for_bus(
         bus_type: BusType,
@@ -14007,62 +14102,6 @@ class DBusProxy(GObject.Object):
     ) -> None:
         """
             Like `g_dbus_proxy_new` but takes a GBusType instead of a GDBusConnection.
-
-        GDBusProxy is used in this [example][class`Gio`.DBusProxy#a-watch-proxy-example].
-        """
-    @classmethod
-    def new_for_bus_finish(cls, res: AsyncResult) -> DBusProxy:
-        """
-        Finishes creating a GDBusProxy.
-        """
-    @classmethod
-    def new_for_bus_sync(
-        cls,
-        bus_type: BusType,
-        flags: DBusProxyFlags,
-        info: DBusInterfaceInfo | None,
-        name: str,
-        object_path: str,
-        interface_name: str,
-        cancellable: Cancellable | None = None,
-    ) -> DBusProxy:
-        """
-            Like `g_dbus_proxy_new_sync` but takes a GBusType instead of a GDBusConnection.
-
-        GDBusProxy is used in this [example][class`Gio`.DBusProxy#a-watch-proxy-example].
-        """
-    @classmethod
-    def new_sync(
-        cls,
-        connection: DBusConnection,
-        flags: DBusProxyFlags,
-        info: DBusInterfaceInfo | None,
-        name: str | None,
-        object_path: str,
-        interface_name: str,
-        cancellable: Cancellable | None = None,
-    ) -> DBusProxy:
-        """
-            Creates a proxy for accessing `interface_name` on the remote object
-        at `object_path` owned by `name` at `connection` and synchronously
-        loads D-Bus properties unless the
-        G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES flag is used.
-
-        If the G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS flag is not set, also sets up
-        match rules for signals. Connect to the GDBusProxy::g-signal signal
-        to handle signals from the remote object.
-
-        If both G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES and
-        G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS are set, this constructor is
-        guaranteed to return immediately without blocking.
-
-        If `name` is a well-known name and the
-        G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START and G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START_AT_CONSTRUCTION
-        flags aren't set and no name owner currently exists, the message bus
-        will be requested to launch a name owner for the name.
-
-        This is a synchronous failable constructor. See `g_dbus_proxy_new`
-        and `g_dbus_proxy_new_finish` for the asynchronous version.
 
         GDBusProxy is used in this [example][class`Gio`.DBusProxy#a-watch-proxy-example].
         """
@@ -14115,6 +14154,77 @@ class DBusProxy(GObject.Object):
             Ensure that interactions with `proxy` conform to the given
         interface. See the GDBusProxy:g-interface-info property for more
         details.
+        """
+
+    # python methods (overrides?)
+    def do_g_properties_changed(
+        self,
+        changed_properties: GLib.Variant,
+        invalidated_properties: str,
+    ) -> None:
+        """
+        g_properties_changed(self, changed_properties:GLib.Variant, invalidated_properties:str)
+        """
+    def do_g_signal(
+        self,
+        sender_name: str,
+        signal_name: str,
+        parameters: GLib.Variant,
+    ) -> None:
+        """
+        g_signal(self, sender_name:str, signal_name:str, parameters:GLib.Variant)
+        """
+    @classmethod
+    def new_finish(
+        cls,
+        res: AsyncResult,
+    ) -> DBusProxy:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_finish(res:Gio.AsyncResult) -> Gio.DBusProxy
+        """
+    @classmethod
+    def new_for_bus_finish(
+        cls,
+        res: AsyncResult,
+    ) -> DBusProxy:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_bus_finish(res:Gio.AsyncResult) -> Gio.DBusProxy
+        """
+    @classmethod
+    def new_for_bus_sync(
+        cls,
+        bus_type: BusType,
+        flags: DBusProxyFlags,
+        info: DBusInterfaceInfo | None,
+        name: str,
+        object_path: str,
+        interface_name: str,
+        cancellable: Cancellable | None = None,
+    ) -> DBusProxy:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_for_bus_sync(bus_type:Gio.BusType, flags:Gio.DBusProxyFlags, info:Gio.DBusInterfaceInfo=None, name:str, object_path:str, interface_name:str, cancellable:Gio.Cancellable=None) -> Gio.DBusProxy
+        """
+    @classmethod
+    def new_sync(
+        cls,
+        connection: DBusConnection,
+        flags: DBusProxyFlags,
+        info: DBusInterfaceInfo | None,
+        name: str | None,
+        object_path: str,
+        interface_name: str,
+        cancellable: Cancellable | None = None,
+    ) -> DBusProxy:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_sync(connection:Gio.DBusConnection, flags:Gio.DBusProxyFlags, info:Gio.DBusInterfaceInfo=None, name:str=None, object_path:str, interface_name:str, cancellable:Gio.Cancellable=None) -> Gio.DBusProxy
         """
 
     # Signals
@@ -14561,11 +14671,6 @@ class DataInputStream(BufferedInputStream):
         """
         Gets the current newline type for the `stream`.
         """
-    @classmethod
-    def new(cls, base_stream: InputStream) -> DataInputStream:
-        """
-        Creates a new data input stream for the `base_stream`.
-        """
     def read_byte(self, cancellable: Cancellable | None = None) -> int:
         """
         Reads an unsigned 8-bit/1-byte value from `stream`.
@@ -14785,6 +14890,18 @@ class DataInputStream(BufferedInputStream):
         Note that using G_DATA_STREAM_NEWLINE_TYPE_ANY is slightly unsafe. If a read
         chunk ends in "CR" we must read an additional byte to know if this is "CR" or
         "CR LF", and this might block if there is no more data available.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        base_stream: InputStream,
+    ) -> DataInputStream:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(base_stream:Gio.InputStream) -> Gio.DataInputStream
         """
 
     # Signals
@@ -19819,6 +19936,57 @@ class FileEnumerator(GObject.Object):
         Sets the file enumerator as having pending operations.
         """
 
+    # python methods (overrides?)
+    def do_close_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> None:
+        """
+        close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
+        """
+    def do_close_finish(
+        self,
+        result: AsyncResult,
+    ) -> bool:
+        """
+        close_finish(self, result:Gio.AsyncResult) -> bool
+        """
+    def do_close_fn(
+        self,
+        cancellable: Cancellable | None = None,
+    ) -> bool:
+        """
+        close_fn(self, cancellable:Gio.Cancellable=None) -> bool
+        """
+    def do_next_file(
+        self,
+        cancellable: Cancellable | None = None,
+    ) -> FileInfo | None:
+        """
+        next_file(self, cancellable:Gio.Cancellable=None) -> Gio.FileInfo or None
+        """
+    def do_next_files_async(
+        self,
+        num_files: int,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        callback: typing.Callable | None = None,
+        user_data: typing.Any = None,
+    ) -> None:
+        """
+        next_files_async(self, num_files:int, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
+        """
+    def do_next_files_finish(
+        self,
+        result: AsyncResult,
+    ) -> list:
+        """
+        next_files_finish(self, result:Gio.AsyncResult) -> list
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -24109,12 +24277,6 @@ class ListStore(GObject.Object):
         Use `g_list_store_splice` to insert multiple items at the same time
         efficiently.
         """
-    @classmethod
-    def new(cls, item_type: GObject.GType) -> ListStore:
-        """
-            Creates a new GListStore with items of type `item_type`. `item_type`
-        must be a subclass of GObject.
-        """
     def remove(self, position: int) -> None:
         """
             Removes the item from `store` that is at `position`. `position` must be
@@ -24166,6 +24328,16 @@ class ListStore(GObject.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         insert_sorted(self, item:GObject.Object, compare_func:GLib.CompareDataFunc, user_data=None) -> int
+        """
+    @classmethod
+    def new(
+        cls,
+        item_type: GObject.GType,
+    ) -> ListStore:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(item_type:GType) -> Gio.ListStore
         """
     def sort(
         self,
@@ -24905,99 +25077,6 @@ class MenuItem(GObject.Object):
         """
         Queries the named `link` on `menu_item`.
         """
-    @classmethod
-    def new(cls, label: str | None = None, detailed_action: str | None = None) -> MenuItem:
-        """
-            Creates a new GMenuItem.
-
-        If `label` is non-None it is used to set the "label" attribute of the
-        new item.
-
-        If `detailed_action` is non-None it is used to set the "action" and
-        possibly the "target" attribute of the new item.  See
-        `g_menu_item_set_detailed_action` for more information.
-        """
-    @classmethod
-    def new_from_model(cls, model: MenuModel, item_index: int) -> MenuItem:
-        """
-            Creates a GMenuItem as an exact copy of an existing menu item in a
-        GMenuModel.
-
-        `item_index` must be valid (ie: be sure to call
-        `g_menu_model_get_n_items` first).
-        """
-    @classmethod
-    def new_section(cls, label: str | None, section: MenuModel) -> MenuItem:
-        """
-            Creates a new GMenuItem representing a section.
-
-        This is a convenience API around `g_menu_item_new` and
-        `g_menu_item_set_section`.
-
-        The effect of having one menu appear as a section of another is
-        exactly as it sounds: the items from `section` become a direct part of
-        the menu that `menu_item` is added to.
-
-        Visual separation is typically displayed between two non-empty
-        sections.  If `label` is non-None then it will be incorporated into
-        this visual indication.  This allows for labeled subsections of a
-        menu.
-
-        As a simple example, consider a typical "Edit" menu from a simple
-        program.  It probably contains an "Undo" and "Redo" item, followed by
-        a separator, followed by "Cut", "Copy" and "Paste".
-
-        This would be accomplished by creating three GMenu instances.  The
-        first would be populated with the "Undo" and "Redo" items, and the
-        second with the "Cut", "Copy" and "Paste" items.  The first and
-        second menus would then be added as submenus of the third.  In XML
-        format, this would look something like the following:
-        |[
-        <menu id='edit-menu'>
-          <section>
-            <item label='Undo'/>
-            <item label='Redo'/>
-          </section>
-          <section>
-            <item label='Cut'/>
-            <item label='Copy'/>
-            <item label='Paste'/>
-          </section>
-        </menu>
-        ]|
-
-        The following example is exactly equivalent.  It is more illustrative
-        of the exact relationship between the menus and items (keeping in
-        mind that the 'link' element defines a new menu that is linked to the
-        containing one).  The style of the second example is more verbose and
-        difficult to read (and therefore not recommended except for the
-        purpose of understanding what is really going on).
-        |[
-        <menu id='edit-menu'>
-          <item>
-            <link name='section'>
-              <item label='Undo'/>
-              <item label='Redo'/>
-            </link>
-          </item>
-          <item>
-            <link name='section'>
-              <item label='Cut'/>
-              <item label='Copy'/>
-              <item label='Paste'/>
-            </link>
-          </item>
-        </menu>
-        ]|
-        """
-    @classmethod
-    def new_submenu(cls, label: str | None, submenu: MenuModel) -> MenuItem:
-        """
-            Creates a new GMenuItem representing a submenu.
-
-        This is a convenience API around `g_menu_item_new` and
-        `g_menu_item_set_submenu`.
-        """
     def set_action_and_target_value(self, action: str | None = None, target_value: GLib.Variant | None = None) -> None:
         """
             Sets or unsets the "action" and "target" attributes of `menu_item`.
@@ -25130,6 +25209,50 @@ class MenuItem(GObject.Object):
         """
 
     # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        label: str | None = None,
+        detailed_action: str | None = None,
+    ) -> MenuItem:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(label:str=None, detailed_action:str=None) -> Gio.MenuItem
+        """
+    @classmethod
+    def new_from_model(
+        cls,
+        model: MenuModel,
+        item_index: int,
+    ) -> MenuItem:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_model(model:Gio.MenuModel, item_index:int) -> Gio.MenuItem
+        """
+    @classmethod
+    def new_section(
+        cls,
+        label: str | None,
+        section: MenuModel,
+    ) -> MenuItem:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_section(label:str=None, section:Gio.MenuModel) -> Gio.MenuItem
+        """
+    @classmethod
+    def new_submenu(
+        cls,
+        label: str | None,
+        submenu: MenuModel,
+    ) -> MenuItem:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_submenu(label:str=None, submenu:Gio.MenuModel) -> Gio.MenuItem
+        """
     def set_attribute(
         self,
         attributes: typing.Any,
@@ -31143,90 +31266,6 @@ class Settings(GObject.Object):
         """
         Deprecated.
         """
-    @classmethod
-    def new(cls, schema_id: str) -> Settings:
-        """
-            Creates a new [class`Gio`.Settings] object with the schema specified by
-        `schema_id`.
-
-        It is an error for the schema to not exist: schemas are an
-        essential part of a program, as they provide type information.
-        If schemas need to be dynamically loaded (for example, from an
-        optional runtime dependency), [method`Gio`.SettingsSchemaSource.lookup]
-        can be used to test for their existence before loading them.
-
-        Signals on the newly created [class`Gio`.Settings] object will be dispatched
-        via the thread-default [struct`GLib`.MainContext] in effect at the time of the
-        call to [ctor`Gio`.Settings.new].  The new [class`Gio`.Settings] will hold a reference
-        on the context.  See [method`GLib`.MainContext.push_thread_default].
-        """
-    @classmethod
-    def new_full(
-        cls, schema: SettingsSchema, backend: SettingsBackend | None = None, path: str | None = None
-    ) -> Settings:
-        """
-            Creates a new [class`Gio`.Settings] object with a given schema, backend and
-        path.
-
-        It should be extremely rare that you ever want to use this function.
-        It is made available for advanced use-cases (such as plugin systems
-        that want to provide access to schemas loaded from custom locations,
-        etc).
-
-        At the most basic level, a [class`Gio`.Settings] object is a pure composition of
-        four things: a [struct`Gio`.SettingsSchema], a [class`Gio`.SettingsBackend], a path within that
-        backend, and a [struct`GLib`.MainContext] to which signals are dispatched.
-
-        This constructor therefore gives you full control over constructing
-        [class`Gio`.Settings] instances.  The first 3 parameters are given directly as
-        `schema`, `backend` and `path`, and the main context is taken from the
-        thread-default (as per [ctor`Gio`.Settings.new]).
-
-        If `backend` is `None` then the default backend is used.
-
-        If `path` is `None` then the path from the schema is used.  It is an
-        error if `path` is `None` and the schema has no path of its own or if
-        `path` is non-`None` and not equal to the path that the schema does
-        have.
-        """
-    @classmethod
-    def new_with_backend(cls, schema_id: str, backend: SettingsBackend) -> Settings:
-        """
-            Creates a new [class`Gio`.Settings] object with the schema specified by
-        `schema_id` and a given [class`Gio`.SettingsBackend].
-
-        Creating a [class`Gio`.Settings] object with a different backend allows accessing
-        settings from a database other than the usual one. For example, it may make
-        sense to pass a backend corresponding to the ‘defaults’ settings database on
-        the system to get a settings object that modifies the system default
-        settings instead of the settings for this user.
-        """
-    @classmethod
-    def new_with_backend_and_path(cls, schema_id: str, backend: SettingsBackend, path: str) -> Settings:
-        """
-            Creates a new [class`Gio`.Settings] object with the schema specified by
-        `schema_id` and a given [class`Gio`.SettingsBackend] and path.
-
-        This is a mix of [ctor`Gio`.Settings.new_with_backend] and
-        [ctor`Gio`.Settings.new_with_path].
-        """
-    @classmethod
-    def new_with_path(cls, schema_id: str, path: str) -> Settings:
-        """
-            Creates a new [class`Gio`.Settings] object with the relocatable schema specified
-        by `schema_id` and a given path.
-
-        You only need to do this if you want to directly create a settings
-        object with a schema that doesn’t have a specified path of its own.
-        That’s quite rare.
-
-        It is a programmer error to call this function for a schema that
-        has an explicitly specified path.
-
-        It is a programmer error if `path` is not a valid path.  A valid path
-        begins and ends with `/` and does not contain two consecutive `/`
-        characters.
-        """
     @deprecated("deprecated")
     def range_check(self, key: str, value: GLib.Variant) -> bool:
         """
@@ -31397,9 +31436,94 @@ class Settings(GObject.Object):
         Initializer for a GObject based classes with support for property
         sets through the use of explicit keyword arguments.
         """
+    def do_change_event(
+        self,
+        keys: int,
+        n_keys: int,
+    ) -> bool:
+        """
+        change_event(self, keys:int, n_keys:int) -> bool
+        """
+    def do_changed(
+        self,
+        key: str,
+    ) -> None:
+        """
+        changed(self, key:str)
+        """
+    def do_writable_change_event(
+        self,
+        key: int,
+    ) -> bool:
+        """
+        writable_change_event(self, key:int) -> bool
+        """
+    def do_writable_changed(
+        self,
+        key: str,
+    ) -> None:
+        """
+        writable_changed(self, key:str)
+        """
     def keys(
         self,
     ) -> typing.Any: ...
+    @classmethod
+    def new(
+        cls,
+        schema_id: str,
+    ) -> Settings:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(schema_id:str) -> Gio.Settings
+        """
+    @classmethod
+    def new_full(
+        cls,
+        schema: SettingsSchema,
+        backend: SettingsBackend | None = None,
+        path: str | None = None,
+    ) -> Settings:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_full(schema:Gio.SettingsSchema, backend:Gio.SettingsBackend=None, path:str=None) -> Gio.Settings
+        """
+    @classmethod
+    def new_with_backend(
+        cls,
+        schema_id: str,
+        backend: SettingsBackend,
+    ) -> Settings:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_backend(schema_id:str, backend:Gio.SettingsBackend) -> Gio.Settings
+        """
+    @classmethod
+    def new_with_backend_and_path(
+        cls,
+        schema_id: str,
+        backend: SettingsBackend,
+        path: str,
+    ) -> Settings:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_backend_and_path(schema_id:str, backend:Gio.SettingsBackend, path:str) -> Gio.Settings
+        """
+    @classmethod
+    def new_with_path(
+        cls,
+        schema_id: str,
+        path: str,
+    ) -> Settings:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_path(schema_id:str, path:str) -> Gio.Settings
+        """
 
     # Signals
     @typing.overload
@@ -42143,6 +42267,122 @@ class VolumeMonitor(GObject.Object):
         *args: typing.Any,
         **kwargs: typing.Any,
     ) -> None: ...
+    def do_drive_changed(
+        self,
+        drive: Drive,
+    ) -> None:
+        """
+        drive_changed(self, drive:Gio.Drive)
+        """
+    def do_drive_connected(
+        self,
+        drive: Drive,
+    ) -> None:
+        """
+        drive_connected(self, drive:Gio.Drive)
+        """
+    def do_drive_disconnected(
+        self,
+        drive: Drive,
+    ) -> None:
+        """
+        drive_disconnected(self, drive:Gio.Drive)
+        """
+    def do_drive_eject_button(
+        self,
+        drive: Drive,
+    ) -> None:
+        """
+        drive_eject_button(self, drive:Gio.Drive)
+        """
+    def do_drive_stop_button(
+        self,
+        drive: Drive,
+    ) -> None:
+        """
+        drive_stop_button(self, drive:Gio.Drive)
+        """
+    def do_get_connected_drives(
+        self,
+    ) -> list:
+        """
+        get_connected_drives(self) -> list
+        """
+    def do_get_mount_for_uuid(
+        self,
+        uuid: str,
+    ) -> Mount | None:
+        """
+        get_mount_for_uuid(self, uuid:str) -> Gio.Mount or None
+        """
+    def do_get_mounts(
+        self,
+    ) -> list:
+        """
+        get_mounts(self) -> list
+        """
+    def do_get_volume_for_uuid(
+        self,
+        uuid: str,
+    ) -> Volume | None:
+        """
+        get_volume_for_uuid(self, uuid:str) -> Gio.Volume or None
+        """
+    def do_get_volumes(
+        self,
+    ) -> list:
+        """
+        get_volumes(self) -> list
+        """
+    def do_mount_added(
+        self,
+        mount: Mount,
+    ) -> None:
+        """
+        mount_added(self, mount:Gio.Mount)
+        """
+    def do_mount_changed(
+        self,
+        mount: Mount,
+    ) -> None:
+        """
+        mount_changed(self, mount:Gio.Mount)
+        """
+    def do_mount_pre_unmount(
+        self,
+        mount: Mount,
+    ) -> None:
+        """
+        mount_pre_unmount(self, mount:Gio.Mount)
+        """
+    def do_mount_removed(
+        self,
+        mount: Mount,
+    ) -> None:
+        """
+        mount_removed(self, mount:Gio.Mount)
+        """
+    def do_volume_added(
+        self,
+        volume: Volume,
+    ) -> None:
+        """
+        volume_added(self, volume:Gio.Volume)
+        """
+    def do_volume_changed(
+        self,
+        volume: Volume,
+    ) -> None:
+        """
+        volume_changed(self, volume:Gio.Volume)
+        """
+    def do_volume_removed(
+        self,
+        volume: Volume,
+    ) -> None:
+        """
+        volume_removed(self, volume:Gio.Volume)
+        """
 
     # Signals
     @typing.overload

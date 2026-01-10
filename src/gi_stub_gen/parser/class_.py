@@ -58,8 +58,26 @@ logger = logging.getLogger(__name__)
 
 def is_local(py_class: type, method_name: str) -> bool:
     """
-    Determines if a method/attribute is defined in the given class (not inherited)."""
-    return method_name in py_class.__dict__
+    Determines if a method/attribute is defined in the given class (not inherited).
+
+    Also considers as "local" attributes defined in the corresponding gi.repository class
+    if the class is an override (gi.overrides.*). This handles cases like find_property
+    which is defined in gi.repository.GObject.Object but not in gi.overrides.GObject.Object.
+    """
+    # Check direct __dict__
+    if method_name in py_class.__dict__:
+        return True
+
+    # Check if there's a gi.repository version of this class in MRO
+    for parent in py_class.__mro__[1:]:  # skip self
+        # If it's the same class name in gi.repository, consider it local
+        if parent.__module__.startswith("gi.repository.") and parent.__name__ == py_class.__name__:
+            if method_name in parent.__dict__:
+                return True
+        # Stop when we hit a different class name (parent classes)
+        elif parent.__name__ != py_class.__name__:
+            break
+    return False
 
 
 def get_all_properties_flattened(

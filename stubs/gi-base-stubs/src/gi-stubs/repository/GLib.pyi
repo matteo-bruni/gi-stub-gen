@@ -15585,15 +15585,6 @@ class IOChannel(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         GIOChannel, and so is not often needed by the application
         programmer (unless you are creating a new type of GIOChannel).
         """
-    @classmethod
-    def new_file(cls, filename: str, mode: str) -> IOChannel:
-        """
-            Open a file `filename` as a GIOChannel using mode `mode`. This
-        channel will be closed when the last reference to it is dropped,
-        so there is no need to call `g_io_channel_close` (though doing
-        so will not cause problems, as long as no attempt is made to
-        access the channel after it is closed).
-        """
     def read_line(self) -> tuple[IOStatus, str, int, int]:
         """
             Reads a line, including the terminating character(s),
@@ -15716,32 +15707,6 @@ class IOChannel(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         On Windows this function returns the file descriptor or socket of
         the GIOChannel.
         """
-    @classmethod
-    def unix_new(cls, fd: int) -> IOChannel:
-        """
-            Creates a new GIOChannel given a file descriptor. On UNIX systems
-        this works for plain files, pipes, and sockets.
-
-        The returned GIOChannel has a reference count of 1.
-
-        The default encoding for GIOChannel is UTF-8. If your application
-        is reading output from a command using via pipe, you may need to set
-        the encoding to the encoding of the current locale (see
-        `g_get_charset`) with the `g_io_channel_set_encoding` function.
-        By default, the fd passed will not be closed when the final reference
-        to the GIOChannel data structure is dropped.
-
-        If you want to read raw binary data without interpretation, then
-        call the `g_io_channel_set_encoding` function with None for the
-        encoding argument.
-
-        This function is available in GLib on Windows, too, but you should
-        avoid using it on Windows. The domain of file descriptors and
-        sockets overlap. There is no way for GLib to know which one you mean
-        in case the argument you pass to this function happens to be both a
-        valid file descriptor and socket. If that happens a warning is
-        issued, and GLib assumes that it is the file descriptor you mean.
-        """
     def unref(self) -> None:
         """
         Decrements the reference count of a GIOChannel.
@@ -15777,6 +15742,17 @@ class IOChannel(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         *user_data: typing.Any,
         priority: typing.Any = 0,
     ) -> typing.Any: ...
+    @classmethod
+    def new_file(
+        cls,
+        filename: str,
+        mode: str,
+    ) -> IOChannel:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_file(filename:str, mode:str) -> GLib.IOChannel
+        """
     def read(
         self,
         max_count: typing.Any = -1,
@@ -15812,6 +15788,16 @@ class IOChannel(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         seek(self, offset:int, type:GLib.SeekType) -> GLib.IOError
+        """
+    @classmethod
+    def unix_new(
+        cls,
+        fd: int,
+    ) -> IOChannel:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        unix_new(fd:int) -> GLib.IOChannel
         """
     def write(
         self,
@@ -16671,16 +16657,6 @@ class MainContext(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         know before waiting on another thread that may be
         blocking to get ownership of `context`.
         """
-    @classmethod
-    def new(cls) -> MainContext:
-        """
-        Creates a new [struct`GLib`.MainContext] structure.
-        """
-    @classmethod
-    def new_with_flags(cls, flags: MainContextFlags) -> MainContext:
-        """
-        Creates a new [struct`GLib`.MainContext] structure.
-        """
     def pending(self) -> bool:
         """
         Checks if any sources have pending events for the given context.
@@ -16858,6 +16834,11 @@ class MainContext(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         """
 
     # python methods (overrides?)
+    def __init__(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> None: ...
     def iteration(
         self,
         may_block: typing.Any = True,
@@ -16866,6 +16847,25 @@ class MainContext(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         iteration(self, may_block:bool) -> bool
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> MainContext:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> GLib.MainContext
+        """
+    @classmethod
+    def new_with_flags(
+        cls,
+        flags: MainContextFlags,
+    ) -> MainContext:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_flags(flags:GLib.MainContextFlags) -> GLib.MainContext
         """
     def query(
         self,
@@ -16901,11 +16901,6 @@ class MainLoop(GObject.GBoxed, metaclass=GObject.GTypeMeta):
             Checks to see if the main loop is currently being run via
         [method`GLib`.MainLoop.run].
         """
-    @classmethod
-    def new(cls, context: MainContext | None, is_running: bool) -> MainLoop:
-        """
-        Creates a new [struct`GLib`.MainLoop] structure.
-        """
     def quit(self) -> None:
         """
             Stops a [struct`GLib`.MainLoop] from running. Any calls to
@@ -16931,6 +16926,17 @@ class MainLoop(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    @classmethod
+    def new(
+        cls,
+        context: MainContext | None,
+        is_running: bool,
+    ) -> MainLoop:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(context:GLib.MainContext=None, is_running:bool) -> GLib.MainLoop
         """
     def run(
         self,
@@ -19063,18 +19069,6 @@ class Source(GObject.GBoxed, metaclass=GObject.GTypeMeta):
 
         As the name suggests, this function is not available on Windows.
         """
-    @classmethod
-    def new(cls, source_funcs: SourceFuncs, struct_size: int) -> Source:
-        """
-            Creates a new [struct`GLib`.Source] structure. The size is specified to
-        allow creating structures derived from [struct`GLib`.Source] that contain
-        additional data. The size passed in must be at least
-        `sizeof (GSource)`.
-
-        The source will not initially be associated with any GMainContext
-        and must be added to one with [method`GLib`.Source.attach] before it will be
-        executed.
-        """
     def query_unix_fd(self, tag: object) -> IOCondition:
         """
             Queries the events reported for the fd corresponding to `tag` on
@@ -19292,6 +19286,17 @@ class Source(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_current_time(self, timeval:GLib.TimeVal)
+        """
+    @classmethod
+    def new(
+        cls,
+        source_funcs: SourceFuncs,
+        struct_size: int,
+    ) -> Source:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(source_funcs:GLib.SourceFuncs, struct_size:int) -> GLib.Source
         """
     def set_callback(
         self,
@@ -21368,244 +21373,6 @@ class Variant(GObject.GPointer, metaclass=GObject.GTypeMeta):
 
         This function is O(1).
         """
-    @classmethod
-    def new_array(cls, child_type: VariantType | None, children: list | None, n_children: int) -> Variant:
-        """
-            Creates a new GVariant array from `children`.
-
-        `child_type` must be non-None if `n_children` is zero.  Otherwise, the
-        child type is determined by inspecting the first element of the
-        `children` array.  If `child_type` is non-None then it must be a
-        definite type.
-
-        The items of the array are taken from the `children` array.  No entry
-        in the `children` array may be None.
-
-        All items in the array must have the same type, which must be the
-        same as `child_type`, if given.
-
-        If the `children` are floating references (see `g_variant_ref_sink`), the
-        new instance takes ownership of them as if via `g_variant_ref_sink`.
-        """
-    @classmethod
-    def new_boolean(cls, value: bool) -> Variant:
-        """
-        Creates a new boolean GVariant instance -- either True or False.
-        """
-    @classmethod
-    def new_byte(cls, value: int) -> Variant:
-        """
-        Creates a new byte GVariant instance.
-        """
-    @classmethod
-    def new_bytestring(cls, string: list) -> Variant:
-        """
-            Creates an array-of-bytes GVariant with the contents of `string`.
-        This function is just like `g_variant_new_string` except that the
-        string need not be valid UTF-8.
-
-        The nul terminator character at the end of the string is stored in
-        the array.
-        """
-    @classmethod
-    def new_bytestring_array(cls, strv: list, length: int) -> Variant:
-        """
-            Constructs an array of bytestring GVariant from the given array of
-        strings.
-
-        If `length` is -1 then `strv` is None-terminated.
-        """
-    @classmethod
-    def new_dict_entry(cls, key: Variant, value: Variant) -> Variant:
-        """
-            Creates a new dictionary entry GVariant. `key` and `value` must be
-        non-None. `key` must be a value of a basic type (ie: not a container).
-
-        If the `key` or `value` are floating references (see `g_variant_ref_sink`),
-        the new instance takes ownership of them as if via `g_variant_ref_sink`.
-        """
-    @classmethod
-    def new_double(cls, value: float) -> Variant:
-        """
-        Creates a new double GVariant instance.
-        """
-    @classmethod
-    def new_fixed_array(
-        cls, element_type: VariantType, elements: object | None, n_elements: int, element_size: int
-    ) -> Variant:
-        """
-            Constructs a new array GVariant instance, where the elements are
-        of `element_type` type.
-
-        `elements` must be an array with fixed-sized elements.  Numeric types are
-        fixed-size as are tuples containing only other fixed-sized types.
-
-        `element_size` must be the size of a single element in the array.
-        For example, if calling this function for an array of 32-bit integers,
-        you might say sizeof(gint32). This value isn't used except for the purpose
-        of a double-check that the form of the serialized data matches the caller's
-        expectation.
-
-        `n_elements` must be the length of the `elements` array.
-        """
-    @classmethod
-    def new_from_bytes(cls, type: VariantType, bytes: Bytes, trusted: bool) -> Variant:
-        """
-            Constructs a new serialized-mode GVariant instance.  This is the
-        inner interface for creation of new serialized values that gets
-        called from various functions in gvariant.c.
-
-        A reference is taken on `bytes`.
-
-        The data in `bytes` must be aligned appropriately for the `type` being loaded.
-        Otherwise this function will internally create a copy of the memory (since
-        GLib 2.60) or (in older versions) fail and exit the process.
-        """
-    @classmethod
-    def new_from_data(
-        cls,
-        type: VariantType,
-        data: list,
-        size: int,
-        trusted: bool,
-        notify: DestroyNotify,
-        user_data: object | None = None,
-    ) -> Variant:
-        """
-            Creates a new GVariant instance from serialized data.
-
-        `type` is the type of GVariant instance that will be constructed.
-        The interpretation of `data` depends on knowing the type.
-
-        `data` is not modified by this function and must remain valid with an
-        unchanging value until such a time as `notify` is called with
-        `user_data`.  If the contents of `data` change before that time then
-        the result is undefined.
-
-        If `data` is trusted to be serialized data in normal form then
-        `trusted` should be True.  This applies to serialized data created
-        within this process or read from a trusted location on the disk (such
-        as a file installed in /usr/lib alongside your application).  You
-        should set trusted to False if `data` is read from the network, a
-        file in the user's home directory, etc.
-
-        If `data` was not stored in this machine's native endianness, any multi-byte
-        numeric values in the returned variant will also be in non-native
-        endianness. `g_variant_byteswap` can be used to recover the original values.
-
-        `notify` will be called with `user_data` when `data` is no longer
-        needed.  The exact time of this call is unspecified and might even be
-        before this function returns.
-
-        Note: `data` must be backed by memory that is aligned appropriately for the
-        `type` being loaded. Otherwise this function will internally create a copy of
-        the memory (since GLib 2.60) or (in older versions) fail and exit the
-        process.
-        """
-    @classmethod
-    def new_handle(cls, value: int) -> Variant:
-        """
-            Creates a new handle GVariant instance.
-
-        By convention, handles are indexes into an array of file descriptors
-        that are sent alongside a D-Bus message.  If you're not interacting
-        with D-Bus, you probably don't need them.
-        """
-    @classmethod
-    def new_int16(cls, value: int) -> Variant:
-        """
-        Creates a new int16 GVariant instance.
-        """
-    @classmethod
-    def new_int32(cls, value: int) -> Variant:
-        """
-        Creates a new int32 GVariant instance.
-        """
-    @classmethod
-    def new_int64(cls, value: int) -> Variant:
-        """
-        Creates a new int64 GVariant instance.
-        """
-    @classmethod
-    def new_maybe(cls, child_type: VariantType | None = None, child: Variant | None = None) -> Variant:
-        """
-            Depending on if `child` is None, either wraps `child` inside of a
-        maybe container or creates a Nothing instance for the given `type`.
-
-        At least one of `child_type` and `child` must be non-None.
-        If `child_type` is non-None then it must be a definite type.
-        If they are both non-None then `child_type` must be the type
-        of `child`.
-
-        If `child` is a floating reference (see `g_variant_ref_sink`), the new
-        instance takes ownership of `child`.
-        """
-    @classmethod
-    def new_object_path(cls, object_path: str) -> Variant:
-        """
-            Creates a D-Bus object path GVariant with the contents of `object_path`.
-        `object_path` must be a valid D-Bus object path.  Use
-        `g_variant_is_object_path` if you're not sure.
-        """
-    @classmethod
-    def new_objv(cls, strv: list, length: int) -> Variant:
-        """
-            Constructs an array of object paths GVariant from the given array of
-        strings.
-
-        Each string must be a valid GVariant object path; see
-        `g_variant_is_object_path`.
-
-        If `length` is -1 then `strv` is None-terminated.
-        """
-    @classmethod
-    def new_signature(cls, signature: str) -> Variant:
-        """
-            Creates a D-Bus type signature GVariant with the contents of
-        `string`.  `string` must be a valid D-Bus type signature.  Use
-        `g_variant_is_signature` if you're not sure.
-        """
-    @classmethod
-    def new_string(cls, string: str) -> Variant:
-        """
-            Creates a string GVariant with the contents of `string`.
-
-        `string` must be valid UTF-8, and must not be None. To encode
-        potentially-None strings, use `g_variant_new` with `ms` as the
-        [format string](gvariant-format-strings.html#maybe-types).
-        """
-    @classmethod
-    def new_strv(cls, strv: list, length: int) -> Variant:
-        """
-            Constructs an array of strings GVariant from the given array of
-        strings.
-
-        If `length` is -1 then `strv` is None-terminated.
-        """
-    @classmethod
-    def new_uint16(cls, value: int) -> Variant:
-        """
-        Creates a new uint16 GVariant instance.
-        """
-    @classmethod
-    def new_uint32(cls, value: int) -> Variant:
-        """
-        Creates a new uint32 GVariant instance.
-        """
-    @classmethod
-    def new_uint64(cls, value: int) -> Variant:
-        """
-        Creates a new uint64 GVariant instance.
-        """
-    @classmethod
-    def new_variant(cls, value: Variant) -> Variant:
-        """
-            Boxes `value`.  The result is a GVariant instance representing a
-        variant containing the original value.
-
-        If `child` is a floating reference (see `g_variant_ref_sink`), the new
-        instance takes ownership of `child`.
-        """
     @staticmethod
     def parse(type: VariantType | None, text: str, limit: str | None = None, endptr: str | None = None) -> Variant:
         """
@@ -21783,6 +21550,218 @@ class Variant(GObject.GPointer, metaclass=GObject.GTypeMeta):
     def keys(
         self,
     ) -> typing.Any: ...
+    @classmethod
+    def new_array(
+        cls,
+        child_type: VariantType | None = None,
+        children: list | None = None,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_array(child_type:GLib.VariantType=None, children:list=None) -> GLib.Variant
+        """
+    @classmethod
+    def new_boolean(
+        cls,
+        value: bool,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_boolean(value:bool) -> GLib.Variant
+        """
+    @classmethod
+    def new_byte(
+        cls,
+        value: int,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_byte(value:int) -> GLib.Variant
+        """
+    @classmethod
+    def new_bytestring(
+        cls,
+        string: list,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_bytestring(string:list) -> GLib.Variant
+        """
+    @classmethod
+    def new_bytestring_array(
+        cls,
+        strv: list,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_bytestring_array(strv:list) -> GLib.Variant
+        """
+    @classmethod
+    def new_dict_entry(
+        cls,
+        key: Variant,
+        value: Variant,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_dict_entry(key:GLib.Variant, value:GLib.Variant) -> GLib.Variant
+        """
+    @classmethod
+    def new_double(
+        cls,
+        value: float,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_double(value:float) -> GLib.Variant
+        """
+    @classmethod
+    def new_fixed_array(
+        cls,
+        element_type: VariantType,
+        elements: typing.Any,
+        n_elements: int,
+        element_size: int,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_fixed_array(element_type:GLib.VariantType, elements=None, n_elements:int, element_size:int) -> GLib.Variant
+        """
+    @classmethod
+    def new_from_bytes(
+        cls,
+        type: VariantType,
+        bytes: Bytes,
+        trusted: bool,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_bytes(type:GLib.VariantType, bytes:GLib.Bytes, trusted:bool) -> GLib.Variant
+        """
+    @classmethod
+    def new_from_data(
+        cls,
+        type: VariantType,
+        data: list,
+        trusted: bool,
+        notify: typing.Callable,
+        user_data: typing.Any = None,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_data(type:GLib.VariantType, data:list, trusted:bool, notify:GLib.DestroyNotify, user_data=None) -> GLib.Variant
+        """
+    @classmethod
+    def new_handle(
+        cls,
+        value: int,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_handle(value:int) -> GLib.Variant
+        """
+    @classmethod
+    def new_int16(
+        cls,
+        value: int,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_int16(value:int) -> GLib.Variant
+        """
+    @classmethod
+    def new_int32(
+        cls,
+        value: int,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_int32(value:int) -> GLib.Variant
+        """
+    @classmethod
+    def new_int64(
+        cls,
+        value: int,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_int64(value:int) -> GLib.Variant
+        """
+    @classmethod
+    def new_maybe(
+        cls,
+        child_type: VariantType | None = None,
+        child: Variant | None = None,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_maybe(child_type:GLib.VariantType=None, child:GLib.Variant=None) -> GLib.Variant
+        """
+    @classmethod
+    def new_object_path(
+        cls,
+        object_path: str,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_object_path(object_path:str) -> GLib.Variant
+        """
+    @classmethod
+    def new_objv(
+        cls,
+        strv: list,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_objv(strv:list) -> GLib.Variant
+        """
+    @classmethod
+    def new_signature(
+        cls,
+        signature: str,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_signature(signature:str) -> GLib.Variant
+        """
+    @classmethod
+    def new_string(
+        cls,
+        string: str,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_string(string:str) -> GLib.Variant
+        """
+    @classmethod
+    def new_strv(
+        cls,
+        strv: list,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_strv(strv:list) -> GLib.Variant
+        """
     @staticmethod
     def new_tuple(
         *elements: typing.Any,
@@ -21791,6 +21770,46 @@ class Variant(GObject.GPointer, metaclass=GObject.GTypeMeta):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_tuple(children:list) -> GLib.Variant
+        """
+    @classmethod
+    def new_uint16(
+        cls,
+        value: int,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_uint16(value:int) -> GLib.Variant
+        """
+    @classmethod
+    def new_uint32(
+        cls,
+        value: int,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_uint32(value:int) -> GLib.Variant
+        """
+    @classmethod
+    def new_uint64(
+        cls,
+        value: int,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_uint64(value:int) -> GLib.Variant
+        """
+    @classmethod
+    def new_variant(
+        cls,
+        value: Variant,
+    ) -> Variant:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_variant(value:GLib.Variant) -> GLib.Variant
         """
     @classmethod
     def split_signature(

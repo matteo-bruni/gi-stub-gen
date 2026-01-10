@@ -7729,13 +7729,6 @@ class Adjustment(GObject.InitiallyUnowned):
         """
         Gets the current value of the adjustment.
         """
-    @classmethod
-    def new(
-        cls, value: float, lower: float, upper: float, step_increment: float, page_increment: float, page_size: float
-    ) -> Adjustment:
-        """
-        Creates a new `GtkAdjustment`.
-        """
     def set_lower(self, lower: float) -> None:
         """
             Sets the minimum value of the adjustment.
@@ -7808,6 +7801,33 @@ class Adjustment(GObject.InitiallyUnowned):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    def do_changed(
+        self,
+    ) -> None:
+        """
+        changed(self)
+        """
+    def do_value_changed(
+        self,
+    ) -> None:
+        """
+        value_changed(self)
+        """
+    @classmethod
+    def new(
+        cls,
+        value: float,
+        lower: float,
+        upper: float,
+        step_increment: float,
+        page_increment: float,
+        page_size: float,
+    ) -> Adjustment:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(value:float, lower:float, upper:float, step_increment:float, page_increment:float, page_size:float) -> Gtk.Adjustment
         """
 
     # Signals
@@ -10567,6 +10587,108 @@ class Application(Gio.Application):
         """
 
     # python methods (overrides?)
+    def do_activate(
+        self,
+    ) -> None:
+        """
+        activate(self)
+        """
+    def do_add_platform_data(
+        self,
+        builder: GLib.VariantBuilder,
+    ) -> None:
+        """
+        add_platform_data(self, builder:GLib.VariantBuilder)
+        """
+    def do_after_emit(
+        self,
+        platform_data: GLib.Variant,
+    ) -> None:
+        """
+        after_emit(self, platform_data:GLib.Variant)
+        """
+    def do_before_emit(
+        self,
+        platform_data: GLib.Variant,
+    ) -> None:
+        """
+        before_emit(self, platform_data:GLib.Variant)
+        """
+    def do_command_line(
+        self,
+        command_line: Gio.ApplicationCommandLine,
+    ) -> int:
+        """
+        command_line(self, command_line:Gio.ApplicationCommandLine) -> int
+        """
+    def do_dbus_register(
+        self,
+        connection: Gio.DBusConnection,
+        object_path: str,
+    ) -> bool:
+        """
+        dbus_register(self, connection:Gio.DBusConnection, object_path:str) -> bool
+        """
+    def do_dbus_unregister(
+        self,
+        connection: Gio.DBusConnection,
+        object_path: str,
+    ) -> None:
+        """
+        dbus_unregister(self, connection:Gio.DBusConnection, object_path:str)
+        """
+    def do_handle_local_options(
+        self,
+        options: GLib.VariantDict,
+    ) -> int:
+        """
+        handle_local_options(self, options:GLib.VariantDict) -> int
+        """
+    def do_local_command_line(
+        self,
+        arguments: list,
+    ) -> tuple:
+        """
+        local_command_line(self, arguments:list) -> bool, arguments:list, exit_status:int
+        """
+    def do_name_lost(
+        self,
+    ) -> bool:
+        """
+        name_lost(self) -> bool
+        """
+    def do_open(
+        self,
+        files: list,
+        hint: str,
+    ) -> None:
+        """
+        open(self, files:list, hint:str)
+        """
+    def do_quit_mainloop(
+        self,
+    ) -> None:
+        """
+        quit_mainloop(self)
+        """
+    def do_run_mainloop(
+        self,
+    ) -> None:
+        """
+        run_mainloop(self)
+        """
+    def do_shutdown(
+        self,
+    ) -> None:
+        """
+        shutdown(self)
+        """
+    def do_startup(
+        self,
+    ) -> None:
+        """
+        startup(self)
+        """
     def do_window_added(
         self,
         window: Window,
@@ -10591,6 +10713,14 @@ class Application(Gio.Application):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(application_id:str=None, flags:Gio.ApplicationFlags) -> Gtk.Application
+        """
+    def run(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        run(self, argv:list=None) -> int
         """
 
     # Signals
@@ -15250,45 +15380,6 @@ class Builder(GObject.Object):
         for that purpose. This is mainly used when implementing
         the `GtkBuildable` interface on a type.
         """
-    @classmethod
-    def new(cls) -> Builder:
-        """
-            Creates a new empty builder object.
-
-        This function is only useful if you intend to make multiple calls
-        to [method`Gtk`.Builder.add_from_file], [method`Gtk`.Builder.add_from_resource]
-        or [method`Gtk`.Builder.add_from_string] in order to merge multiple UI
-        descriptions into a single builder.
-        """
-    @classmethod
-    def new_from_file(cls, filename: str) -> Builder:
-        """
-            Parses the UI definition in the file `filename`.
-
-        If there is an error opening the file or parsing the description then
-        the program will be aborted. You should only ever attempt to parse
-        user interface descriptions that are shipped as part of your program.
-        """
-    @classmethod
-    def new_from_resource(cls, resource_path: str) -> Builder:
-        """
-            Parses the UI definition at `resource_path`.
-
-        If there is an error locating the resource or parsing the
-        description, then the program will be aborted.
-        """
-    @classmethod
-    def new_from_string(cls, string: str, length: int) -> Builder:
-        """
-            Parses the UI definition in `string`.
-
-        If `string` is None-terminated, then `length` should be -1.
-        If `length` is not -1, then it is the length of `string`.
-
-        If there is an error parsing `string` then the program will be
-        aborted. You should not attempt to parse user interface description
-        from untrusted sources.
-        """
     def set_current_object(self, current_object: GObject.Object | None = None) -> None:
         """
             Sets the current object for the `builder`.
@@ -15369,6 +15460,46 @@ class Builder(GObject.Object):
     def define_builder_scope(
         self,
     ) -> typing.Any: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> Builder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Builder
+        """
+    @classmethod
+    def new_from_file(
+        cls,
+        filename: str,
+    ) -> Builder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file(filename:str) -> Gtk.Builder
+        """
+    @classmethod
+    def new_from_resource(
+        cls,
+        resource_path: str,
+    ) -> Builder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_resource(resource_path:str) -> Gtk.Builder
+        """
+    @classmethod
+    def new_from_string(
+        cls,
+        string: str,
+        length: int,
+    ) -> Builder:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(string:str, length:int) -> Gtk.Builder
+        """
 
     # Signals
     @typing.overload
@@ -29613,36 +29744,6 @@ class ComboBox(Widget):
         Gets whether the popup uses a fixed width.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> ComboBox:
-        """
-        Creates a new empty `GtkComboBox`.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_entry(cls) -> ComboBox:
-        """
-            Creates a new empty `GtkComboBox` with an entry.
-
-        In order to use a combo box with entry, you need to tell it
-        which column of the model contains the text for the entry
-        by calling [method`Gtk`.ComboBox.set_entry_text_column].
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_model(cls, model: TreeModel) -> ComboBox:
-        """
-        Creates a new `GtkComboBox` with a model.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_model_and_entry(cls, model: TreeModel) -> ComboBox:
-        """
-            Creates a new empty `GtkComboBox` with an entry and a model.
-
-        See also [ctor`Gtk`.ComboBox.new_with_entry].
-        """
-    @deprecated("deprecated")
     def popdown(self) -> None:
         """
             Hides the menu or dropdown list of `combo_box`.
@@ -29761,6 +29862,25 @@ class ComboBox(Widget):
         """
 
     # python methods (overrides?)
+    def do_activate(
+        self,
+    ) -> None:
+        """
+        activate(self)
+        """
+    def do_changed(
+        self,
+    ) -> None:
+        """
+        changed(self)
+        """
+    def do_format_entry_text(
+        self,
+        path: str,
+    ) -> str:
+        """
+        format_entry_text(self, path:str) -> str
+        """
     def get_active_iter(
         self,
     ) -> tuple:
@@ -29768,6 +29888,44 @@ class ComboBox(Widget):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_active_iter(self) -> bool, iter:Gtk.TreeIter
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_entry(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_entry() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_model(
+        cls,
+        model: TreeModel,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_model(model:Gtk.TreeModel) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_model_and_entry(
+        cls,
+        model: TreeModel,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_model_and_entry(model:Gtk.TreeModel) -> Gtk.Widget
         """
 
     # Signals
@@ -31890,11 +32048,6 @@ class CssProvider(GObject.Object):
         releases, but it is guaranteed that this function uses the same
         mechanism to load the theme that GTK uses for loading its own theme.
         """
-    @classmethod
-    def new(cls) -> CssProvider:
-        """
-        Returns a newly created `GtkCssProvider`.
-        """
     def to_string(self) -> str:
         """
             Converts the `provider` into a string representation in CSS
@@ -31916,6 +32069,15 @@ class CssProvider(GObject.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         load_from_data(self, data:str, length:int)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> CssProvider:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.CssProvider
         """
 
     # Signals
@@ -32500,16 +32662,6 @@ class Dialog(Window):
         of a dialog.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> Dialog:
-        """
-            Creates a new dialog box.
-
-        Widgets should not be packed into the `GtkWindow`
-        directly, but into the `content_area` and `action_area`,
-        as described above.
-        """
-    @deprecated("deprecated")
     def response(self, response_id: int) -> None:
         """
             Emits the ::response signal with the given response ID.
@@ -32549,6 +32701,28 @@ class Dialog(Window):
             dialog.add_buttons(Gtk.STOCK_OPEN, 42, "Close", Gtk.ResponseType.CLOSE)
 
         will add "Open" and "Close" buttons to dialog.
+        """
+    def do_close(
+        self,
+    ) -> None:
+        """
+        close(self)
+        """
+    def do_response(
+        self,
+        response_id: int,
+    ) -> None:
+        """
+        response(self, response_id:int)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals
@@ -57084,6 +57258,141 @@ class IMContext(GObject.Object):
         """
 
     # python methods (overrides?)
+    def do_activate_osk(
+        self,
+    ) -> None:
+        """
+        activate_osk(self)
+        """
+    def do_activate_osk_with_event(
+        self,
+        event: Gdk.Event,
+    ) -> bool:
+        """
+        activate_osk_with_event(self, event:Gdk.Event) -> bool
+        """
+    def do_commit(
+        self,
+        str: str,
+    ) -> None:
+        """
+        commit(self, str:str)
+        """
+    def do_delete_surrounding(
+        self,
+        offset: int,
+        n_chars: int,
+    ) -> bool:
+        """
+        delete_surrounding(self, offset:int, n_chars:int) -> bool
+        """
+    def do_filter_keypress(
+        self,
+        event: Gdk.Event,
+    ) -> bool:
+        """
+        filter_keypress(self, event:Gdk.Event) -> bool
+        """
+    def do_focus_in(
+        self,
+    ) -> None:
+        """
+        focus_in(self)
+        """
+    def do_focus_out(
+        self,
+    ) -> None:
+        """
+        focus_out(self)
+        """
+    def do_get_preedit_string(
+        self,
+    ) -> tuple:
+        """
+        get_preedit_string(self) -> str:str, attrs:Pango.AttrList, cursor_pos:int
+        """
+    def do_get_surrounding(
+        self,
+    ) -> tuple:
+        """
+        get_surrounding(self) -> bool, text:str, cursor_index:int
+        """
+    def do_get_surrounding_with_selection(
+        self,
+    ) -> tuple:
+        """
+        get_surrounding_with_selection(self) -> bool, text:str, cursor_index:int, anchor_index:int
+        """
+    def do_preedit_changed(
+        self,
+    ) -> None:
+        """
+        preedit_changed(self)
+        """
+    def do_preedit_end(
+        self,
+    ) -> None:
+        """
+        preedit_end(self)
+        """
+    def do_preedit_start(
+        self,
+    ) -> None:
+        """
+        preedit_start(self)
+        """
+    def do_reset(
+        self,
+    ) -> None:
+        """
+        reset(self)
+        """
+    def do_retrieve_surrounding(
+        self,
+    ) -> bool:
+        """
+        retrieve_surrounding(self) -> bool
+        """
+    def do_set_client_widget(
+        self,
+        widget: Widget | None = None,
+    ) -> None:
+        """
+        set_client_widget(self, widget:Gtk.Widget=None)
+        """
+    def do_set_cursor_location(
+        self,
+        area: Gdk.Rectangle,
+    ) -> None:
+        """
+        set_cursor_location(self, area:Gdk.Rectangle)
+        """
+    def do_set_surrounding(
+        self,
+        text: str,
+        len: int,
+        cursor_index: int,
+    ) -> None:
+        """
+        set_surrounding(self, text:str, len:int, cursor_index:int)
+        """
+    def do_set_surrounding_with_selection(
+        self,
+        text: str,
+        len: int,
+        cursor_index: int,
+        anchor_index: int,
+    ) -> None:
+        """
+        set_surrounding_with_selection(self, text:str, len:int, cursor_index:int, anchor_index:int)
+        """
+    def do_set_use_preedit(
+        self,
+        use_preedit: bool,
+    ) -> None:
+        """
+        set_use_preedit(self, use_preedit:bool)
+        """
     def get_surrounding(
         self,
     ) -> tuple:
@@ -58412,25 +58721,6 @@ class IconView(Widget):
         Activates the item determined by `path`.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> IconView:
-        """
-        Creates a new `GtkIconView` widget
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_area(cls, area: CellArea) -> IconView:
-        """
-            Creates a new `GtkIconView` widget using the
-        specified `area` to layout cells inside the icons.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_model(cls, model: TreeModel) -> IconView:
-        """
-        Creates a new `GtkIconView` widget with the model `model`.
-        """
-    @deprecated("deprecated")
     def path_is_selected(self, path: TreePath) -> bool:
         """
             Returns True if the icon pointed to by `path` is currently
@@ -58677,6 +58967,35 @@ class IconView(Widget):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_visible_range(self) -> bool, start_path:Gtk.TreePath, end_path:Gtk.TreePath
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_area(
+        cls,
+        area: CellArea,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_area(area:Gtk.CellArea) -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_model(
+        cls,
+        model: TreeModel,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_model(model:Gtk.TreeModel) -> Gtk.Widget
         """
 
     # Signals
@@ -66970,28 +67289,6 @@ class ListStore(GObject.Object):
         will be moved to the end of the list.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, n_columns: int, types: list) -> ListStore:
-        """
-            Creates a new list store.
-
-        The list store will have `n_columns` columns, with each column using
-        the given type passed to this function.
-
-
-        Note that only types derived from standard GObject fundamental types
-        are supported.
-
-        As an example:
-
-        ```c
-        gtk_list_store_new (3, G_TYPE_INT, G_TYPE_STRING, GDK_TYPE_TEXTURE);
-        ```
-
-        will create a new `GtkListStore` with three columns, of type `int`,
-        `gchararray` and `GdkTexture`, respectively.
-        """
-    @deprecated("deprecated")
     def remove(self, iter: TreeIter) -> bool:
         """
             Removes the given row from the list store.  After being removed,
@@ -67069,6 +67366,16 @@ class ListStore(GObject.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         insert_before(self, sibling:Gtk.TreeIter=None) -> iter:Gtk.TreeIter
+        """
+    @classmethod
+    def new(
+        cls,
+        types: list,
+    ) -> ListStore:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(types:list) -> Gtk.ListStore
         """
     def prepend(
         self,
@@ -71689,6 +71996,55 @@ class MountOperation(Gio.MountOperation):
         """
 
     # python methods (overrides?)
+    def do_aborted(
+        self,
+    ) -> None:
+        """
+        aborted(self)
+        """
+    def do_ask_password(
+        self,
+        message: str,
+        default_user: str,
+        default_domain: str,
+        flags: Gio.AskPasswordFlags,
+    ) -> None:
+        """
+        ask_password(self, message:str, default_user:str, default_domain:str, flags:Gio.AskPasswordFlags)
+        """
+    def do_ask_question(
+        self,
+        message: str,
+        choices: list,
+    ) -> None:
+        """
+        ask_question(self, message:str, choices:list)
+        """
+    def do_reply(
+        self,
+        result: Gio.MountOperationResult,
+    ) -> None:
+        """
+        reply(self, result:Gio.MountOperationResult)
+        """
+    def do_show_processes(
+        self,
+        message: str,
+        processes: list,
+        choices: list,
+    ) -> None:
+        """
+        show_processes(self, message:str, processes:list, choices:list)
+        """
+    def do_show_unmount_progress(
+        self,
+        message: str,
+        time_left: int,
+        bytes_left: int,
+    ) -> None:
+        """
+        show_unmount_progress(self, message:str, time_left:int, bytes_left:int)
+        """
     @classmethod
     def new(
         cls,
@@ -103912,11 +104268,6 @@ class TextBuffer(GObject.Object):
 
         See [method`Gtk`.TextBuffer.move_mark] for details.
         """
-    @classmethod
-    def new(cls, table: TextTagTable | None = None) -> TextBuffer:
-        """
-        Creates a new text buffer.
-        """
     def paste_clipboard(
         self, clipboard: Gdk.Clipboard, override_location: TextIter | None, default_editable: bool
     ) -> None:
@@ -104076,6 +104427,115 @@ class TextBuffer(GObject.Object):
         :returns:
             A new tag.
         """
+    def do_apply_tag(
+        self,
+        tag: TextTag,
+        start: TextIter,
+        end: TextIter,
+    ) -> None:
+        """
+        apply_tag(self, tag:Gtk.TextTag, start:Gtk.TextIter, end:Gtk.TextIter)
+        """
+    def do_begin_user_action(
+        self,
+    ) -> None:
+        """
+        begin_user_action(self)
+        """
+    def do_changed(
+        self,
+    ) -> None:
+        """
+        changed(self)
+        """
+    def do_delete_range(
+        self,
+        start: TextIter,
+        end: TextIter,
+    ) -> None:
+        """
+        delete_range(self, start:Gtk.TextIter, end:Gtk.TextIter)
+        """
+    def do_end_user_action(
+        self,
+    ) -> None:
+        """
+        end_user_action(self)
+        """
+    def do_insert_child_anchor(
+        self,
+        iter: TextIter,
+        anchor: TextChildAnchor,
+    ) -> None:
+        """
+        insert_child_anchor(self, iter:Gtk.TextIter, anchor:Gtk.TextChildAnchor)
+        """
+    def do_insert_paintable(
+        self,
+        iter: TextIter,
+        paintable: Gdk.Paintable,
+    ) -> None:
+        """
+        insert_paintable(self, iter:Gtk.TextIter, paintable:Gdk.Paintable)
+        """
+    def do_insert_text(
+        self,
+        pos: TextIter,
+        new_text: str,
+        new_text_length: int,
+    ) -> None:
+        """
+        insert_text(self, pos:Gtk.TextIter, new_text:str, new_text_length:int)
+        """
+    def do_mark_deleted(
+        self,
+        mark: TextMark,
+    ) -> None:
+        """
+        mark_deleted(self, mark:Gtk.TextMark)
+        """
+    def do_mark_set(
+        self,
+        location: TextIter,
+        mark: TextMark,
+    ) -> None:
+        """
+        mark_set(self, location:Gtk.TextIter, mark:Gtk.TextMark)
+        """
+    def do_modified_changed(
+        self,
+    ) -> None:
+        """
+        modified_changed(self)
+        """
+    def do_paste_done(
+        self,
+        clipboard: Gdk.Clipboard,
+    ) -> None:
+        """
+        paste_done(self, clipboard:Gdk.Clipboard)
+        """
+    def do_redo(
+        self,
+    ) -> None:
+        """
+        redo(self)
+        """
+    def do_remove_tag(
+        self,
+        tag: TextTag,
+        start: TextIter,
+        end: TextIter,
+    ) -> None:
+        """
+        remove_tag(self, tag:Gtk.TextTag, start:Gtk.TextIter, end:Gtk.TextIter)
+        """
+    def do_undo(
+        self,
+    ) -> None:
+        """
+        undo(self)
+        """
     def get_selection_bounds(
         self,
     ) -> tuple:
@@ -104117,6 +104577,16 @@ class TextBuffer(GObject.Object):
         text: typing.Any,
         *tags: typing.Any,
     ) -> typing.Any: ...
+    @classmethod
+    def new(
+        cls,
+        table: TextTagTable | None = None,
+    ) -> TextBuffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(table:Gtk.TextTagTable=None) -> Gtk.TextBuffer
+        """
     def set_text(
         self,
         text: typing.Any,
@@ -111357,6 +111827,24 @@ class TreeModelFilter(GObject.Object):
         """
 
     # python methods (overrides?)
+    def do_modify(
+        self,
+        child_model: TreeModel,
+        iter: TreeIter,
+        value: GObject.Value,
+        column: int,
+    ) -> None:
+        """
+        modify(self, child_model:Gtk.TreeModel, iter:Gtk.TreeIter, value:GObject.Value, column:int)
+        """
+    def do_visible(
+        self,
+        child_model: TreeModel,
+        iter: TreeIter,
+    ) -> bool:
+        """
+        visible(self, child_model:Gtk.TreeModel, iter:Gtk.TreeIter) -> bool
+        """
     def set_value(
         self,
         iter: typing.Any,
@@ -111916,39 +112404,6 @@ class TreePath(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         Returns True if `path` is a descendant of `ancestor`.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> TreePath:
-        """
-            Creates a new `GtkTreePath`
-        This refers to a row.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_first(cls) -> TreePath:
-        """
-            Creates a new `GtkTreePath`.
-
-        The string representation of this path is “0”.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_from_indices(cls, indices: list, length: int) -> TreePath:
-        """
-        Creates a new path with `first_index` and `varargs` as indices.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_from_string(cls, path: str) -> TreePath | None:
-        """
-            Creates a new `GtkTreePath` initialized to `path`.
-
-        `path` is expected to be a colon separated list of numbers.
-        For example, the string “10:4:0” would create a path of depth
-        3 pointing to the 11th child of the root node, the 5th
-        child of that 11th child, and the 1st child of that 5th child.
-        If an invalid path string is passed in, None is returned.
-        """
-    @deprecated("deprecated")
     def next(self) -> None:
         """
         Moves the `path` to point to the next node at the current depth.
@@ -111990,6 +112445,44 @@ class TreePath(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> TreePath:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.TreePath
+        """
+    @classmethod
+    def new_first(
+        cls,
+    ) -> TreePath:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_first() -> Gtk.TreePath
+        """
+    @classmethod
+    def new_from_indices(
+        cls,
+        indices: list,
+    ) -> TreePath:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_indices(indices:list) -> Gtk.TreePath
+        """
+    @classmethod
+    def new_from_string(
+        cls,
+        path: str,
+    ) -> TreePath | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(path:str) -> Gtk.TreePath or None
         """
 
 class TreeRowData(GObject.GBoxed, metaclass=GObject.GTypeMeta): ...
@@ -112525,27 +113018,6 @@ class TreeStore(GObject.Object):
         If `position` is None, `iter` will be moved to the end of the level.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls, n_columns: int, types: list) -> TreeStore:
-        """
-            Creates a new tree store.
-
-        The tree store will have `n_columns`, with each column using the
-        corresponding type passed to this function.
-
-        Note that only types derived from standard GObject fundamental types
-        are supported.
-
-        As an example:
-
-        ```c
-        gtk_tree_store_new (3, G_TYPE_INT, G_TYPE_STRING, GDK_TYPE_TEXTURE);
-        ```
-
-        will create a new `GtkTreeStore` with three columns of type
-        `int`, `gchararray`, and `GdkTexture` respectively.
-        """
-    @deprecated("deprecated")
     def remove(self, iter: TreeIter) -> bool:
         """
             Removes `iter` from `tree_store`.
@@ -112624,6 +113096,16 @@ class TreeStore(GObject.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         insert_before(self, parent:Gtk.TreeIter=None, sibling:Gtk.TreeIter=None) -> iter:Gtk.TreeIter
+        """
+    @classmethod
+    def new(
+        cls,
+        types: list,
+    ) -> TreeStore:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(types:list) -> Gtk.TreeStore
         """
     def prepend(
         self,
@@ -113256,18 +113738,6 @@ class TreeView(Widget):
         `column` is placed in the first position.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> TreeView:
-        """
-        Creates a new `GtkTreeView` widget.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_model(cls, model: TreeModel) -> TreeView:
-        """
-        Creates a new `GtkTreeView` widget with the model initialized to `model`.
-        """
-    @deprecated("deprecated")
     def remove_column(self, column: TreeViewColumn) -> int:
         """
         Removes `column` from `tree_view`.
@@ -113550,6 +114020,114 @@ class TreeView(Widget):
         """
 
     # python methods (overrides?)
+    def do_columns_changed(
+        self,
+    ) -> None:
+        """
+        columns_changed(self)
+        """
+    def do_cursor_changed(
+        self,
+    ) -> None:
+        """
+        cursor_changed(self)
+        """
+    def do_expand_collapse_cursor_row(
+        self,
+        logical: bool,
+        expand: bool,
+        open_all: bool,
+    ) -> bool:
+        """
+        expand_collapse_cursor_row(self, logical:bool, expand:bool, open_all:bool) -> bool
+        """
+    def do_move_cursor(
+        self,
+        step: MovementStep,
+        count: int,
+        extend: bool,
+        modify: bool,
+    ) -> bool:
+        """
+        move_cursor(self, step:Gtk.MovementStep, count:int, extend:bool, modify:bool) -> bool
+        """
+    def do_row_activated(
+        self,
+        path: TreePath,
+        column: TreeViewColumn | None = None,
+    ) -> None:
+        """
+        row_activated(self, path:Gtk.TreePath, column:Gtk.TreeViewColumn=None)
+        """
+    def do_row_collapsed(
+        self,
+        iter: TreeIter,
+        path: TreePath,
+    ) -> None:
+        """
+        row_collapsed(self, iter:Gtk.TreeIter, path:Gtk.TreePath)
+        """
+    def do_row_expanded(
+        self,
+        iter: TreeIter,
+        path: TreePath,
+    ) -> None:
+        """
+        row_expanded(self, iter:Gtk.TreeIter, path:Gtk.TreePath)
+        """
+    def do_select_all(
+        self,
+    ) -> bool:
+        """
+        select_all(self) -> bool
+        """
+    def do_select_cursor_parent(
+        self,
+    ) -> bool:
+        """
+        select_cursor_parent(self) -> bool
+        """
+    def do_select_cursor_row(
+        self,
+        start_editing: bool,
+    ) -> bool:
+        """
+        select_cursor_row(self, start_editing:bool) -> bool
+        """
+    def do_start_interactive_search(
+        self,
+    ) -> bool:
+        """
+        start_interactive_search(self) -> bool
+        """
+    def do_test_collapse_row(
+        self,
+        iter: TreeIter,
+        path: TreePath,
+    ) -> bool:
+        """
+        test_collapse_row(self, iter:Gtk.TreeIter, path:Gtk.TreePath) -> bool
+        """
+    def do_test_expand_row(
+        self,
+        iter: TreeIter,
+        path: TreePath,
+    ) -> bool:
+        """
+        test_expand_row(self, iter:Gtk.TreeIter, path:Gtk.TreePath) -> bool
+        """
+    def do_toggle_cursor_row(
+        self,
+    ) -> bool:
+        """
+        toggle_cursor_row(self) -> bool
+        """
+    def do_unselect_all(
+        self,
+    ) -> bool:
+        """
+        unselect_all(self) -> bool
+        """
     def get_cell_area(
         self,
         path: typing.Any,
@@ -113595,6 +114173,25 @@ class TreeView(Widget):
         cell: typing.Any,
         **kwargs: typing.Any,
     ) -> typing.Any: ...
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
+        """
+    @classmethod
+    def new_with_model(
+        cls,
+        model: TreeModel,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_model(model:Gtk.TreeModel) -> Gtk.Widget
+        """
     def scroll_to_cell(
         self,
         path: typing.Any,
@@ -114496,18 +115093,6 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         Returns the current X offset of `tree_column` in pixels.
         """
     @deprecated("deprecated")
-    @classmethod
-    def new(cls) -> TreeViewColumn:
-        """
-        Creates a new `GtkTreeViewColumn`.
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_with_area(cls, area: CellArea) -> TreeViewColumn:
-        """
-        Creates a new `GtkTreeViewColumn` using `area` to render its cells.
-        """
-    @deprecated("deprecated")
     def pack_end(self, cell: CellRenderer, expand: bool) -> None:
         """
             Adds the `cell` to end of the column. If `expand` is False, then the `cell`
@@ -114672,6 +115257,25 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         cell_get_position(self, cell_renderer:Gtk.CellRenderer) -> bool, x_offset:int, width:int
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> TreeViewColumn:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.TreeViewColumn
+        """
+    @classmethod
+    def new_with_area(
+        cls,
+        area: CellArea,
+    ) -> TreeViewColumn:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_with_area(area:Gtk.CellArea) -> Gtk.TreeViewColumn
         """
     def set_attributes(
         self,
@@ -118829,6 +119433,311 @@ class Widget(GObject.InitiallyUnowned):
         """
 
     # python methods (overrides?)
+    @classmethod
+    def add_shortcut(
+        cls,
+        shortcut: Shortcut,
+    ) -> None:
+        """
+        add_shortcut(self, shortcut:Gtk.Shortcut)
+        """
+    @classmethod
+    def bind_template_callback_full(
+        cls,
+        callback_name: str,
+        callback_symbol: typing.Callable,
+    ) -> None:
+        """
+        bind_template_callback_full(self, callback_name:str, callback_symbol:GObject.Callback)
+        """
+    @classmethod
+    def bind_template_child_full(
+        cls,
+        name: str,
+        internal_child: bool,
+        struct_offset: int,
+    ) -> None:
+        """
+        bind_template_child_full(self, name:str, internal_child:bool, struct_offset:int)
+        """
+    def do_compute_expand(
+        self,
+        hexpand_p: bool,
+        vexpand_p: bool,
+    ) -> None:
+        """
+        compute_expand(self, hexpand_p:bool, vexpand_p:bool)
+        """
+    def do_contains(
+        self,
+        x: float,
+        y: float,
+    ) -> bool:
+        """
+        contains(self, x:float, y:float) -> bool
+        """
+    def do_css_changed(
+        self,
+        change: CssStyleChange,
+    ) -> None:
+        """
+        css_changed(self, change:Gtk.CssStyleChange)
+        """
+    def do_direction_changed(
+        self,
+        previous_direction: TextDirection,
+    ) -> None:
+        """
+        direction_changed(self, previous_direction:Gtk.TextDirection)
+        """
+    def do_focus(
+        self,
+        direction: DirectionType,
+    ) -> bool:
+        """
+        focus(self, direction:Gtk.DirectionType) -> bool
+        """
+    def do_get_request_mode(
+        self,
+    ) -> SizeRequestMode:
+        """
+        get_request_mode(self) -> Gtk.SizeRequestMode
+        """
+    def do_grab_focus(
+        self,
+    ) -> bool:
+        """
+        grab_focus(self) -> bool
+        """
+    def do_hide(
+        self,
+    ) -> None:
+        """
+        hide(self)
+        """
+    def do_keynav_failed(
+        self,
+        direction: DirectionType,
+    ) -> bool:
+        """
+        keynav_failed(self, direction:Gtk.DirectionType) -> bool
+        """
+    def do_map(
+        self,
+    ) -> None:
+        """
+        map(self)
+        """
+    def do_measure(
+        self,
+        orientation: Orientation,
+        for_size: int,
+    ) -> tuple:
+        """
+        measure(self, orientation:Gtk.Orientation, for_size:int) -> minimum:int, natural:int, minimum_baseline:int, natural_baseline:int
+        """
+    def do_mnemonic_activate(
+        self,
+        group_cycling: bool,
+    ) -> bool:
+        """
+        mnemonic_activate(self, group_cycling:bool) -> bool
+        """
+    def do_move_focus(
+        self,
+        direction: DirectionType,
+    ) -> None:
+        """
+        move_focus(self, direction:Gtk.DirectionType)
+        """
+    def do_query_tooltip(
+        self,
+        x: int,
+        y: int,
+        keyboard_tooltip: bool,
+        tooltip: Tooltip,
+    ) -> bool:
+        """
+        query_tooltip(self, x:int, y:int, keyboard_tooltip:bool, tooltip:Gtk.Tooltip) -> bool
+        """
+    def do_realize(
+        self,
+    ) -> None:
+        """
+        realize(self)
+        """
+    def do_root(
+        self,
+    ) -> None:
+        """
+        root(self)
+        """
+    def do_set_focus_child(
+        self,
+        child: Widget | None = None,
+    ) -> None:
+        """
+        set_focus_child(self, child:Gtk.Widget=None)
+        """
+    def do_show(
+        self,
+    ) -> None:
+        """
+        show(self)
+        """
+    def do_size_allocate(
+        self,
+        width: int,
+        height: int,
+        baseline: int,
+    ) -> None:
+        """
+        size_allocate(self, width:int, height:int, baseline:int)
+        """
+    def do_snapshot(
+        self,
+        snapshot: Snapshot,
+    ) -> None:
+        """
+        snapshot(self, snapshot:Gtk.Snapshot)
+        """
+    def do_state_flags_changed(
+        self,
+        previous_state_flags: StateFlags,
+    ) -> None:
+        """
+        state_flags_changed(self, previous_state_flags:Gtk.StateFlags)
+        """
+    def do_system_setting_changed(
+        self,
+        settings: SystemSetting,
+    ) -> None:
+        """
+        system_setting_changed(self, settings:Gtk.SystemSetting)
+        """
+    def do_unmap(
+        self,
+    ) -> None:
+        """
+        unmap(self)
+        """
+    def do_unrealize(
+        self,
+    ) -> None:
+        """
+        unrealize(self)
+        """
+    def do_unroot(
+        self,
+    ) -> None:
+        """
+        unroot(self)
+        """
+    @classmethod
+    def get_activate_signal(
+        cls,
+    ) -> int:
+        """
+        get_activate_signal(self) -> int
+        """
+    @classmethod
+    def get_layout_manager_type(
+        cls,
+    ) -> GObject.GType:
+        """
+        get_layout_manager_type(self) -> GType
+        """
+    @classmethod
+    def install_action(
+        cls,
+        action_name: str,
+        parameter_type: str | None,
+        activate: typing.Callable,
+    ) -> None:
+        """
+        install_action(self, action_name:str, parameter_type:str=None, activate:Gtk.WidgetActionActivateFunc)
+        """
+    @classmethod
+    def install_property_action(
+        cls,
+        action_name: str,
+        property_name: str,
+    ) -> None:
+        """
+        install_property_action(self, action_name:str, property_name:str)
+        """
+    @classmethod
+    def query_action(
+        cls,
+        index_: int,
+    ) -> tuple:
+        """
+        query_action(self, index_:int) -> bool, owner:GType, action_name:str, parameter_type:GLib.VariantType, property_name:str
+        """
+    @classmethod
+    def set_accessible_role(
+        cls,
+        accessible_role: AccessibleRole,
+    ) -> None:
+        """
+        set_accessible_role(self, accessible_role:Gtk.AccessibleRole)
+        """
+    @classmethod
+    def set_activate_signal(
+        cls,
+        signal_id: int,
+    ) -> None:
+        """
+        set_activate_signal(self, signal_id:int)
+        """
+    @classmethod
+    def set_activate_signal_from_name(
+        cls,
+        signal_name: str,
+    ) -> None:
+        """
+        set_activate_signal_from_name(self, signal_name:str)
+        """
+    @classmethod
+    def set_css_name(
+        cls,
+        name: str,
+    ) -> None:
+        """
+        set_css_name(self, name:str)
+        """
+    @classmethod
+    def set_layout_manager_type(
+        cls,
+        type: GObject.GType,
+    ) -> None:
+        """
+        set_layout_manager_type(self, type:GType)
+        """
+    @classmethod
+    def set_template(
+        cls,
+        template_bytes: GLib.Bytes,
+    ) -> None:
+        """
+        set_template(self, template_bytes:GLib.Bytes)
+        """
+    @classmethod
+    def set_template_from_resource(
+        cls,
+        resource_name: str,
+    ) -> None:
+        """
+        set_template_from_resource(self, resource_name:str)
+        """
+    @classmethod
+    def set_template_scope(
+        cls,
+        scope: BuilderScope,
+    ) -> None:
+        """
+        set_template_scope(self, scope:Gtk.BuilderScope)
+        """
     def translate_coordinates(
         self,
         dest_widget: Widget,
@@ -120216,22 +121125,6 @@ class Window(Widget):
         You can track result of this operation via the
         [property`Gdk`.Toplevel:state] property.
         """
-    @classmethod
-    def new(cls) -> Window:
-        """
-            Creates a new `GtkWindow`.
-
-        To get an undecorated window (without window borders),
-        use [method`Gtk`.Window.set_decorated].
-
-        All top-level windows created by this function are stored
-        in an internal top-level window list. This list can be obtained
-        from [func`Gtk`.Window.list_toplevels]. Due to GTK keeping a
-        reference to the window internally, this function does not
-        return a reference to the caller.
-
-        To delete a `GtkWindow`, call [method`Gtk`.Window.destroy].
-        """
     def present(self) -> None:
         """
             Presents a window to the user.
@@ -120580,6 +121473,46 @@ class Window(Widget):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    def do_activate_default(
+        self,
+    ) -> None:
+        """
+        activate_default(self)
+        """
+    def do_activate_focus(
+        self,
+    ) -> None:
+        """
+        activate_focus(self)
+        """
+    def do_close_request(
+        self,
+    ) -> bool:
+        """
+        close_request(self) -> bool
+        """
+    def do_enable_debugging(
+        self,
+        toggle: bool,
+    ) -> bool:
+        """
+        enable_debugging(self, toggle:bool) -> bool
+        """
+    def do_keys_changed(
+        self,
+    ) -> None:
+        """
+        keys_changed(self)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Widget:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gtk.Widget
         """
 
     # Signals

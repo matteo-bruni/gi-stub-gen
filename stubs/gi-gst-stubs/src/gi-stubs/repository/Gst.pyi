@@ -5797,11 +5797,6 @@ class Bin(Element):
             Gets an iterator for all elements in the bin that have the
         GST_ELEMENT_FLAG_SOURCE flag set.
         """
-    @classmethod
-    def new(cls, name: str | None = None) -> Bin:
-        """
-        Creates a new bin with the given name.
-        """
     def recalculate_latency(self) -> bool:
         """
             Queries `bin` for the current latency and reconfigures this latency on all the
@@ -5855,6 +5850,63 @@ class Bin(Element):
 
         add(self, element:Gst.Element) -> bool
         """
+    def do_add_element(
+        self,
+        element: Element,
+    ) -> bool:
+        """
+        add_element(self, element:Gst.Element) -> bool
+        """
+    def do_deep_element_added(
+        self,
+        sub_bin: Bin,
+        child: Element,
+    ) -> None:
+        """
+        deep_element_added(self, sub_bin:Gst.Bin, child:Gst.Element)
+        """
+    def do_deep_element_removed(
+        self,
+        sub_bin: Bin,
+        child: Element,
+    ) -> None:
+        """
+        deep_element_removed(self, sub_bin:Gst.Bin, child:Gst.Element)
+        """
+    def do_do_latency(
+        self,
+    ) -> bool:
+        """
+        do_latency(self) -> bool
+        """
+    def do_element_added(
+        self,
+        child: Element,
+    ) -> None:
+        """
+        element_added(self, child:Gst.Element)
+        """
+    def do_element_removed(
+        self,
+        child: Element,
+    ) -> None:
+        """
+        element_removed(self, child:Gst.Element)
+        """
+    def do_handle_message(
+        self,
+        message: Message,
+    ) -> None:
+        """
+        handle_message(self, message:Gst.Message)
+        """
+    def do_remove_element(
+        self,
+        element: Element,
+    ) -> bool:
+        """
+        remove_element(self, element:Gst.Element) -> bool
+        """
     def make_and_add(
         self,
         factoryname: typing.Any,
@@ -5862,6 +5914,16 @@ class Bin(Element):
     ) -> typing.Any:
         """
         @raises: Gst.AddError
+        """
+    @classmethod
+    def new(
+        cls,
+        name: str | None = None,
+    ) -> Element:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None) -> Gst.Element
         """
 
     # Signals
@@ -6414,62 +6476,6 @@ class Buffer(GObject.GBoxed, metaclass=GObject.GTypeMeta):
             Gets the amount of memory blocks that this buffer has. This amount is never
         larger than what `Gst.Buffer.get_max_memory` returns.
         """
-    @classmethod
-    def new(cls) -> Buffer:
-        """
-        Creates a newly allocated buffer without any data.
-        """
-    @classmethod
-    def new_allocate(
-        cls, allocator: Allocator | None, size: int, params: AllocationParams | None = None
-    ) -> Buffer | None:
-        """
-            Tries to create a newly allocated buffer with data of the given size and
-        extra parameters from `allocator`. If the requested amount of memory can't be
-        allocated, None will be returned. The allocated buffer memory is not cleared.
-
-        When `allocator` is None, the default memory allocator will be used.
-
-        Note that when `size` == 0, the buffer will not have memory associated with it.
-        """
-    @classmethod
-    def new_memdup(cls, data: list, size: int) -> Buffer:
-        """
-        Creates a new buffer of size `size` and fills it with a copy of `data`.
-        """
-    @classmethod
-    def new_wrapped(cls, data: list, size: int) -> Buffer:
-        """
-            Creates a new buffer that wraps the given `data`. The memory will be freed
-        with `g_free` and will be marked writable.
-        """
-    @classmethod
-    def new_wrapped_bytes(cls, bytes: GLib.Bytes) -> Buffer:
-        """
-            Creates a new Gst.Buffer that wraps the given `bytes`. The data inside
-        `bytes` cannot be None and the resulting buffer will be marked as read only.
-        """
-    @classmethod
-    def new_wrapped_full(
-        cls,
-        flags: MemoryFlags,
-        data: list,
-        maxsize: int,
-        offset: int,
-        size: int,
-        *user_data: object | None,
-        notify: GLib.DestroyNotify | None = None,
-    ) -> Buffer:
-        """
-            Allocates a new buffer that wraps the given memory. `data` must point to
-        `maxsize` of memory, the wrapped buffer will have the region from `offset` and
-        `size` visible.
-
-        When the buffer is destroyed, `notify` will be called with `user_data`.
-
-        The prefix/padding must be filled with 0 if `flags` contains
-        GST_MEMORY_FLAG_ZERO_PREFIXED and GST_MEMORY_FLAG_ZERO_PADDED respectively.
-        """
     def peek_memory(self, idx: int) -> Memory | None:
         """
             Gets the memory block at `idx` in `buffer`. The memory block stays valid until
@@ -6542,6 +6548,11 @@ class Buffer(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         """
 
     # python methods (overrides?)
+    def __init__(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> None: ...
     def map(
         self,
         flags: typing.Any,
@@ -6561,6 +6572,72 @@ class Buffer(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         map_range(self, idx:int, length:int, flags:Gst.MapFlags) -> bool, info:Gst.MapInfo
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Gst.Buffer
+        """
+    @classmethod
+    def new_allocate(
+        cls,
+        allocator: Allocator | None,
+        size: int,
+        params: AllocationParams | None = None,
+    ) -> Buffer | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_allocate(allocator:Gst.Allocator=None, size:int, params:Gst.AllocationParams=None) -> Gst.Buffer or None
+        """
+    @classmethod
+    def new_memdup(
+        cls,
+        data: list,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_memdup(data:list) -> Gst.Buffer
+        """
+    @classmethod
+    def new_wrapped(
+        cls,
+        data: list,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_wrapped(data:list) -> Gst.Buffer
+        """
+    @classmethod
+    def new_wrapped_bytes(
+        cls,
+        bytes: GLib.Bytes,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_wrapped_bytes(bytes:GLib.Bytes) -> Gst.Buffer
+        """
+    @classmethod
+    def new_wrapped_full(
+        cls,
+        flags: MemoryFlags,
+        data: list,
+        maxsize: int,
+        offset: int,
+        user_data: typing.Any = None,
+        notify: typing.Callable | None = None,
+    ) -> Buffer:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_wrapped_full(flags:Gst.MemoryFlags, data:list, maxsize:int, offset:int, user_data=None, notify:GLib.DestroyNotify=None) -> Gst.Buffer
         """
     def unmap(
         self,
@@ -7721,40 +7798,6 @@ class Caps(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         """
         Appends `structure` with `features` to `caps` if its not already expressed by `caps`.
         """
-    @classmethod
-    def new_any(cls) -> Caps:
-        """
-            Creates a new Gst.Caps that indicates that it is compatible with
-        any media format.
-        """
-    @classmethod
-    def new_empty(cls) -> Caps:
-        """
-            Creates a new Gst.Caps that is empty.  That is, the returned
-        Gst.Caps contains no media formats.
-        The Gst.Caps is guaranteed to be writable.
-        """
-    @classmethod
-    def new_empty_simple(cls, media_type: str) -> Caps:
-        """
-            Creates a new Gst.Caps that contains one Gst.Structure with name
-        `media_type`.
-        """
-    @classmethod
-    def new_id_str_empty_simple(cls, media_type: IdStr) -> Caps:
-        """
-            Creates a new Gst.Caps that contains one Gst.Structure with name
-        `media_type`.
-        """
-    @classmethod
-    def new_static_str_empty_simple(cls, media_type: str) -> Caps:
-        """
-            Creates a new Gst.Caps that contains one Gst.Structure with name
-        `media_type`.
-
-        `media_type` needs to be valid for the remaining lifetime of the process, e.g.
-        has to be a static string.
-        """
     def normalize(self) -> Caps:
         """
             Returns a Gst.Caps that represents the same set of formats as
@@ -7867,6 +7910,54 @@ class Caps(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    @classmethod
+    def new_any(
+        cls,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_any() -> Gst.Caps
+        """
+    @classmethod
+    def new_empty(
+        cls,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty() -> Gst.Caps
+        """
+    @classmethod
+    def new_empty_simple(
+        cls,
+        media_type: str,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty_simple(media_type:str) -> Gst.Caps
+        """
+    @classmethod
+    def new_id_str_empty_simple(
+        cls,
+        media_type: IdStr,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_id_str_empty_simple(media_type:Gst.IdStr) -> Gst.Caps
+        """
+    @classmethod
+    def new_static_str_empty_simple(
+        cls,
+        media_type: str,
+    ) -> Caps:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_static_str_empty_simple(media_type:str) -> Gst.Caps
         """
 
 class CapsFeatures(GObject.GBoxed, metaclass=GObject.GTypeMeta):
@@ -11134,12 +11225,191 @@ class Element(Object):
         """
 
     # python methods (overrides?)
+    @classmethod
+    def add_metadata(
+        cls,
+        key: str,
+        value: str,
+    ) -> None:
+        """
+        add_metadata(self, key:str, value:str)
+        """
+    @classmethod
+    def add_pad_template(
+        cls,
+        templ: PadTemplate,
+    ) -> None:
+        """
+        add_pad_template(self, templ:Gst.PadTemplate)
+        """
+    @classmethod
+    def add_static_metadata(
+        cls,
+        key: str,
+        value: str,
+    ) -> None:
+        """
+        add_static_metadata(self, key:str, value:str)
+        """
+    @classmethod
+    def add_static_pad_template(
+        cls,
+        static_templ: StaticPadTemplate,
+    ) -> None:
+        """
+        add_static_pad_template(self, static_templ:Gst.StaticPadTemplate)
+        """
+    @classmethod
+    def add_static_pad_template_with_gtype(
+        cls,
+        static_templ: StaticPadTemplate,
+        pad_type: GObject.GType,
+    ) -> None:
+        """
+        add_static_pad_template_with_gtype(self, static_templ:Gst.StaticPadTemplate, pad_type:GType)
+        """
+    def do_change_state(
+        self,
+        transition: StateChange,
+    ) -> StateChangeReturn:
+        """
+        change_state(self, transition:Gst.StateChange) -> Gst.StateChangeReturn
+        """
+    def do_get_state(
+        self,
+        timeout: int,
+    ) -> tuple:
+        """
+        get_state(self, timeout:int) -> Gst.StateChangeReturn, state:Gst.State, pending:Gst.State
+        """
+    def do_no_more_pads(
+        self,
+    ) -> None:
+        """
+        no_more_pads(self)
+        """
+    def do_pad_added(
+        self,
+        pad: Pad,
+    ) -> None:
+        """
+        pad_added(self, pad:Gst.Pad)
+        """
+    def do_pad_removed(
+        self,
+        pad: Pad,
+    ) -> None:
+        """
+        pad_removed(self, pad:Gst.Pad)
+        """
+    def do_post_message(
+        self,
+        message: Message,
+    ) -> bool:
+        """
+        post_message(self, message:Gst.Message) -> bool
+        """
+    def do_provide_clock(
+        self,
+    ) -> Clock | None:
+        """
+        provide_clock(self) -> Gst.Clock or None
+        """
+    def do_query(
+        self,
+        query: Query,
+    ) -> bool:
+        """
+        query(self, query:Gst.Query) -> bool
+        """
+    def do_release_pad(
+        self,
+        pad: Pad,
+    ) -> None:
+        """
+        release_pad(self, pad:Gst.Pad)
+        """
+    def do_request_new_pad(
+        self,
+        templ: PadTemplate,
+        name: str | None = None,
+        caps: Caps | None = None,
+    ) -> Pad | None:
+        """
+        request_new_pad(self, templ:Gst.PadTemplate, name:str=None, caps:Gst.Caps=None) -> Gst.Pad or None
+        """
+    def do_send_event(
+        self,
+        event: Event,
+    ) -> bool:
+        """
+        send_event(self, event:Gst.Event) -> bool
+        """
+    def do_set_bus(
+        self,
+        bus: Bus | None = None,
+    ) -> None:
+        """
+        set_bus(self, bus:Gst.Bus=None)
+        """
+    def do_set_clock(
+        self,
+        clock: Clock | None = None,
+    ) -> bool:
+        """
+        set_clock(self, clock:Gst.Clock=None) -> bool
+        """
+    def do_set_context(
+        self,
+        context: Context,
+    ) -> None:
+        """
+        set_context(self, context:Gst.Context)
+        """
+    def do_set_state(
+        self,
+        state: State,
+    ) -> StateChangeReturn:
+        """
+        set_state(self, state:Gst.State) -> Gst.StateChangeReturn
+        """
+    def do_state_changed(
+        self,
+        oldstate: State,
+        newstate: State,
+        pending: State,
+    ) -> None:
+        """
+        state_changed(self, oldstate:Gst.State, newstate:Gst.State, pending:Gst.State)
+        """
     @staticmethod
     def link_many(
         *args: typing.Any,
     ) -> typing.Any:
         """
         @raises: Gst.LinkError
+        """
+    @classmethod
+    def set_metadata(
+        cls,
+        longname: str,
+        classification: str,
+        description: str,
+        author: str,
+    ) -> None:
+        """
+        set_metadata(self, longname:str, classification:str, description:str, author:str)
+        """
+    @classmethod
+    def set_static_metadata(
+        cls,
+        longname: str,
+        classification: str,
+        description: str,
+        author: str,
+    ) -> None:
+        """
+        set_static_metadata(self, longname:str, classification:str, description:str, author:str)
         """
 
     # Signals
@@ -12278,37 +12548,6 @@ class GhostPad(ProxyPad):
             Invoke the default activate mode function of a proxy pad that is
         owned by a ghost pad.
         """
-    @classmethod
-    def new(cls, name: str | None, target: Pad) -> GhostPad | None:
-        """
-            Create a new ghostpad with `target` as the target. The direction will be taken
-        from the target pad. `target` must be unlinked.
-
-        Will ref the target.
-        """
-    @classmethod
-    def new_from_template(cls, name: str | None, target: Pad, templ: PadTemplate) -> GhostPad | None:
-        """
-            Create a new ghostpad with `target` as the target. The direction will be taken
-        from the target pad. The template used on the ghostpad will be `template`.
-
-        Will ref the target.
-        """
-    @classmethod
-    def new_no_target(cls, name: str | None, dir: PadDirection) -> GhostPad | None:
-        """
-            Create a new ghostpad without a target with the given direction.
-        A target can be set on the ghostpad later with the
-        `Gst.GhostPad.set_target` function.
-
-        The created ghostpad will not have a padtemplate.
-        """
-    @classmethod
-    def new_no_target_from_template(cls, name: str | None, templ: PadTemplate) -> GhostPad | None:
-        """
-            Create a new ghostpad based on `templ`, without setting a target. The
-        direction will be taken from the `templ`.
-        """
     def set_target(self, newtarget: Pad | None = None) -> bool:
         """
             Set the new target of the ghostpad `gpad`. Any existing target
@@ -12325,6 +12564,51 @@ class GhostPad(ProxyPad):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    @classmethod
+    def new(
+        cls,
+        name: str | None,
+        target: Pad,
+    ) -> Pad | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None, target:Gst.Pad) -> Gst.Pad or None
+        """
+    @classmethod
+    def new_from_template(
+        cls,
+        name: str | None,
+        target: Pad,
+        templ: PadTemplate,
+    ) -> Pad | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_template(name:str=None, target:Gst.Pad, templ:Gst.PadTemplate) -> Gst.Pad or None
+        """
+    @classmethod
+    def new_no_target(
+        cls,
+        name: str | None,
+        dir: PadDirection,
+    ) -> Pad | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_no_target(name:str=None, dir:Gst.PadDirection) -> Gst.Pad or None
+        """
+    @classmethod
+    def new_no_target_from_template(
+        cls,
+        name: str | None,
+        templ: PadTemplate,
+    ) -> Pad | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_no_target_from_template(name:str=None, templ:Gst.PadTemplate) -> Gst.Pad or None
         """
     def query_caps(
         self,
@@ -12690,14 +12974,6 @@ class Iterator(GObject.GBoxed, metaclass=GObject.GTypeMeta):
 
         MT safe.
         """
-    @classmethod
-    def new_single(cls, type: GObject.GType, object: GObject.Value) -> Iterator:
-        """
-            This Gst.Iterator is a convenient iterator for the common
-        case where a Gst.Iterator needs to be returned but only
-        a single object has to be considered. This happens often
-        for the Gst.PadIterIntLinkFunction.
-        """
     def next(self) -> tuple[IteratorResult, GObject.Value]:
         """
             Get the next item from the iterator in `elem`.
@@ -12740,6 +13016,19 @@ class Iterator(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         with this function.
 
         MT safe.
+        """
+
+    # python methods (overrides?)
+    @classmethod
+    def new_single(
+        cls,
+        type: GObject.GType,
+        object: GObject.Value,
+    ) -> Iterator:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_single(type:GType, object:GObject.Value) -> Gst.Iterator
         """
 
 class IteratorError(builtins.Exception): ...
@@ -12901,23 +13190,6 @@ class Memory(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         This function takes ownership of old `mem` and returns a reference to a new
         Gst.Memory.
         """
-    @classmethod
-    def new_wrapped(
-        cls,
-        flags: MemoryFlags,
-        data: list,
-        maxsize: int,
-        offset: int,
-        size: int,
-        *user_data: object | None,
-        notify: GLib.DestroyNotify | None = None,
-    ) -> Memory | None:
-        """
-            Allocate a new memory block that wraps the given `data`.
-
-        The prefix/padding must be filled with 0 if `flags` contains
-        GST_MEMORY_FLAG_ZERO_PREFIXED and GST_MEMORY_FLAG_ZERO_PADDED respectively.
-        """
     def resize(self, offset: int, size: int) -> None:
         """
             Resize the memory region. `mem` should be writable and offset + size should be
@@ -12943,6 +13215,21 @@ class Memory(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         map(self, flags:Gst.MapFlags) -> bool, info:Gst.MapInfo
+        """
+    @classmethod
+    def new_wrapped(
+        cls,
+        flags: MemoryFlags,
+        data: list,
+        maxsize: int,
+        offset: int,
+        user_data: typing.Any = None,
+        notify: typing.Callable | None = None,
+    ) -> Memory | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_wrapped(flags:Gst.MemoryFlags, data:list, maxsize:int, offset:int, user_data=None, notify:GLib.DestroyNotify=None) -> Gst.Memory or None
         """
     def unmap(
         self,
@@ -14771,6 +15058,12 @@ class Pad(Object):
     @builtins.property
     def chainnotify(self) -> GLib.DestroyNotify: ...
     @builtins.property
+    def direction(self) -> PadDirection:
+        """
+        the direction of the pad, cannot change after creating
+                the pad.
+        """
+    @builtins.property
     def element_private(self) -> object | None:
         """
         private data owned by the parent element
@@ -14807,6 +15100,8 @@ class Pad(Object):
     def num_probes(self) -> int: ...
     @builtins.property
     def object(self) -> Object | None: ...
+    @builtins.property
+    def offset(self) -> int: ...
     @builtins.property
     def padtemplate(self) -> PadTemplate | None:
         """
@@ -15152,30 +15447,6 @@ class Pad(Object):
         """
             Check the GST_PAD_FLAG_NEED_RECONFIGURE flag on `pad` and return True
         if the flag was set.
-        """
-    @classmethod
-    def new(cls, name: str | None, direction: PadDirection) -> Pad:
-        """
-            Creates a new pad with the given name in the given direction.
-        If name is None, a guaranteed unique name (across all pads)
-        will be assigned.
-        This function makes a copy of the name so you can safely free the name.
-        """
-    @classmethod
-    def new_from_static_template(cls, templ: StaticPadTemplate, name: str) -> Pad:
-        """
-            Creates a new pad with the given name from the given static template.
-        If name is None, a guaranteed unique name (across all pads)
-        will be assigned.
-        This function makes a copy of the name so you can safely free the name.
-        """
-    @classmethod
-    def new_from_template(cls, templ: PadTemplate, name: str | None = None) -> Pad:
-        """
-            Creates a new pad with the given name from the given template.
-        If name is None, a guaranteed unique name (across all pads)
-        will be assigned.
-        This function makes a copy of the name so you can safely free the name.
         """
     def pause_task(self) -> bool:
         """
@@ -15529,6 +15800,20 @@ class Pad(Object):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def do_linked(
+        self,
+        peer: Pad,
+    ) -> None:
+        """
+        linked(self, peer:Gst.Pad)
+        """
+    def do_unlinked(
+        self,
+        peer: Pad,
+    ) -> None:
+        """
+        unlinked(self, peer:Gst.Pad)
+        """
     def link(
         self,
         pad: typing.Any,
@@ -15537,6 +15822,39 @@ class Pad(Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         link(self, sinkpad:Gst.Pad) -> Gst.PadLinkReturn
+        """
+    @classmethod
+    def new(
+        cls,
+        name: str | None,
+        direction: PadDirection,
+    ) -> Pad:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None, direction:Gst.PadDirection) -> Gst.Pad
+        """
+    @classmethod
+    def new_from_static_template(
+        cls,
+        templ: StaticPadTemplate,
+        name: str,
+    ) -> Pad:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_static_template(templ:Gst.StaticPadTemplate, name:str) -> Gst.Pad
+        """
+    @classmethod
+    def new_from_template(
+        cls,
+        templ: PadTemplate,
+        name: str | None = None,
+    ) -> Pad:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_template(templ:Gst.PadTemplate, name:str=None) -> Gst.Pad
         """
     def query_caps(
         self,
@@ -16178,6 +16496,12 @@ class Pipeline(Bin):
     @builtins.property
     def bin(self) -> Bin | None: ...
     @builtins.property
+    def delay(self) -> int:
+        """
+        Extra delay added to base_time to compensate for computing delays
+            when setting elements to PLAYING.
+        """
+    @builtins.property
     def fixed_clock(self) -> Clock | None:
         """
         The fixed clock of the pipeline, used when
@@ -16240,11 +16564,6 @@ class Pipeline(Bin):
         """
         Check if `pipeline` is live.
         """
-    @classmethod
-    def new(cls, name: str | None = None) -> Pipeline:
-        """
-        Create a new pipeline with the given name.
-        """
     def set_auto_flush_bus(self, auto_flush: bool) -> None:
         """
             Usually, when a pipeline goes from READY to None state, it automatically
@@ -16304,6 +16623,16 @@ class Pipeline(Bin):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    @classmethod
+    def new(
+        cls,
+        name: str | None = None,
+    ) -> Element:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None) -> Gst.Element
         """
 
     # Signals
@@ -19463,15 +19792,6 @@ class Structure(GObject.GBoxed, metaclass=GObject.GTypeMeta):
             Frees a Gst.Structure and all its fields and values. The structure must not
         have a parent when this function is called.
         """
-    @classmethod
-    def from_string(cls, string: str) -> tuple[Structure | None, str]:
-        """
-            Creates a Gst.Structure from a string representation.
-        If end is not None, a pointer to the place inside the given string
-        where parsing ended will be returned.
-
-        Free-function: gst_structure_free
-        """
     def get_array(self, fieldname: str) -> tuple[bool, GObject.ValueArray]:
         """
             This is useful in language bindings where unknown GValue types are not
@@ -19716,56 +20036,6 @@ class Structure(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         """
         Get the number of fields in the structure.
         """
-    @classmethod
-    def new_empty(cls, name: str) -> Structure:
-        """
-            Creates a new, empty Gst.Structure with the given `name`.
-
-        See `Gst.Structure.set_name` for constraints on the `name` parameter.
-
-        Free-function: gst_structure_free
-        """
-    @classmethod
-    def new_from_string(cls, string: str) -> Structure | None:
-        """
-            Creates a Gst.Structure from a string representation.
-        If end is not None, a pointer to the place inside the given string
-        where parsing ended will be returned.
-
-        The current implementation of serialization will lead to unexpected results
-        when there are nested Gst.Caps / Gst.Structure deeper than one level unless
-        the `Gst.Structure.serialize` function is used (without
-        GST_SERIALIZE_FLAG_BACKWARD_COMPAT)
-
-        Free-function: gst_structure_free
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_id_empty(cls, quark: int) -> Structure:
-        """
-            Creates a new, empty Gst.Structure with the given name as a GQuark.
-
-        Free-function: gst_structure_free
-        """
-    @classmethod
-    def new_id_str_empty(cls, name: IdStr) -> Structure:
-        """
-            Creates a new, empty Gst.Structure with the given name.
-
-        Free-function: gst_structure_free
-        """
-    @classmethod
-    def new_static_str_empty(cls, name: str) -> Structure:
-        """
-            Creates a new, empty Gst.Structure with the given `name`.
-
-        See `Gst.Structure.set_name` for constraints on the `name` parameter.
-
-        `name` needs to be valid for the remaining lifetime of the process, e.g. has
-        to be a static string.
-
-        Free-function: gst_structure_free
-        """
     def nth_field_name(self, index: int) -> str:
         """
         Get the name of the given field number, counting from 0 onwards.
@@ -19909,9 +20179,69 @@ class Structure(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    @classmethod
+    def from_string(
+        cls,
+        string: str,
+    ) -> tuple:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        from_string(string:str) -> Gst.Structure or None, end:str
+        """
     def keys(
         self,
     ) -> typing.Any: ...
+    @classmethod
+    def new_empty(
+        cls,
+        name: str,
+    ) -> Structure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty(name:str) -> Gst.Structure
+        """
+    @classmethod
+    def new_from_string(
+        cls,
+        string: str,
+    ) -> Structure | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(string:str) -> Gst.Structure or None
+        """
+    @classmethod
+    def new_id_empty(
+        cls,
+        quark: int,
+    ) -> Structure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_id_empty(quark:int) -> Gst.Structure
+        """
+    @classmethod
+    def new_id_str_empty(
+        cls,
+        name: IdStr,
+    ) -> Structure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_id_str_empty(name:Gst.IdStr) -> Gst.Structure
+        """
+    @classmethod
+    def new_static_str_empty(
+        cls,
+        name: str,
+    ) -> Structure:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_static_str_empty(name:str) -> Gst.Structure
+        """
 
 class SystemClock(Clock):
     """
@@ -20288,18 +20618,6 @@ class TagList(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         """
         Get the number of tags in `list`.
         """
-    @classmethod
-    def new_empty(cls) -> TagList:
-        """
-            Creates a new empty GstTagList.
-
-        Free-function: gst_tag_list_unref
-        """
-    @classmethod
-    def new_from_string(cls, str: str) -> TagList | None:
-        """
-        Deserializes a tag list.
-        """
     def nth_tag_name(self, index: int) -> str:
         """
         Get the name of the tag in `list` at `index`.
@@ -20340,6 +20658,25 @@ class TagList(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     def keys(
         self,
     ) -> typing.Any: ...
+    @classmethod
+    def new_empty(
+        cls,
+    ) -> TagList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_empty() -> Gst.TagList
+        """
+    @classmethod
+    def new_from_string(
+        cls,
+        str: str,
+    ) -> TagList | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_string(str:str) -> Gst.TagList or None
+        """
 
 class TagSetter(builtins.object):
     """
@@ -23017,6 +23354,18 @@ class set_contextElementClassCB(typing.Protocol):
         context: Context,
     ) -> None: ...
 
+class IteratorItemFunctionIteratorCB(typing.Protocol):
+    """
+    This callback was used in:
+        Iterator.item
+    """
+    #  it
+    def __call__(
+        self,
+        it: Iterator,
+        item: GObject.Value,
+    ) -> IteratorItem: ...
+
 class IteratorFoldFunction(typing.Protocol):
     """
     This callback was used in:
@@ -23041,18 +23390,6 @@ class IteratorForeachFunction(typing.Protocol):
         item: GObject.Value,
         *user_data: object | None,
     ) -> None: ...
-
-class IteratorItemFunctionIteratorCB(typing.Protocol):
-    """
-    This callback was used in:
-        Iterator.item
-    """
-    #  it
-    def __call__(
-        self,
-        it: Iterator,
-        item: GObject.Value,
-    ) -> IteratorItem: ...
 
 class AllocationMetaParamsAggregator(typing.Protocol):
     """
@@ -23207,6 +23544,136 @@ class deep_notifyObjectClassCB(typing.Protocol):
         orig: Object,
         pspec: GObject.ParamSpec,
     ) -> None: ...
+
+class PadActivateFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.activatefunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object,
+    ) -> bool: ...
+
+class PadActivateModeFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.activatemodefunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object,
+        mode: PadMode,
+        active: bool,
+    ) -> bool: ...
+
+class PadLinkFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.linkfunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object | None,
+        peer: Pad,
+    ) -> PadLinkReturn: ...
+
+class PadUnlinkFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.unlinkfunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object | None = None,
+    ) -> None: ...
+
+class PadChainFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.chainfunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object | None,
+        buffer: Buffer,
+    ) -> FlowReturn: ...
+
+class PadChainListFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.chainlistfunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object | None,
+        list: BufferList,
+    ) -> FlowReturn: ...
+
+class PadGetRangeFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.getrangefunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object | None,
+        offset: int,
+        length: int,
+        buffer: Buffer,
+    ) -> FlowReturn: ...
+
+class PadEventFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.eventfunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object | None,
+        event: Event,
+    ) -> bool: ...
+
+class PadQueryFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.queryfunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object | None,
+        query: Query,
+    ) -> bool: ...
+
+class PadIterIntLinkFunctionPadCB(typing.Protocol):
+    """
+    This callback was used in:
+        Pad.iterintlinkfunc
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        parent: Object | None = None,
+    ) -> Iterator: ...
 
 class PadProbeCallback(typing.Protocol):
     """
@@ -23399,136 +23866,6 @@ class PadStickyEventsForeachFunction(typing.Protocol):
         event: Event | None = None,
         *user_data: object | None,
     ) -> bool: ...
-
-class PadActivateFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.activatefunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object,
-    ) -> bool: ...
-
-class PadActivateModeFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.activatemodefunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object,
-        mode: PadMode,
-        active: bool,
-    ) -> bool: ...
-
-class PadLinkFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.linkfunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object | None,
-        peer: Pad,
-    ) -> PadLinkReturn: ...
-
-class PadUnlinkFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.unlinkfunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object | None = None,
-    ) -> None: ...
-
-class PadChainFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.chainfunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object | None,
-        buffer: Buffer,
-    ) -> FlowReturn: ...
-
-class PadChainListFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.chainlistfunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object | None,
-        list: BufferList,
-    ) -> FlowReturn: ...
-
-class PadGetRangeFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.getrangefunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object | None,
-        offset: int,
-        length: int,
-        buffer: Buffer,
-    ) -> FlowReturn: ...
-
-class PadEventFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.eventfunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object | None,
-        event: Event,
-    ) -> bool: ...
-
-class PadQueryFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.queryfunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object | None,
-        query: Query,
-    ) -> bool: ...
-
-class PadIterIntLinkFunctionPadCB(typing.Protocol):
-    """
-    This callback was used in:
-        Pad.iterintlinkfunc
-    """
-    #  pad
-    def __call__(
-        self,
-        pad: Pad,
-        parent: Object | None = None,
-    ) -> Iterator: ...
 
 class linkedPadClassCB(typing.Protocol):
     """

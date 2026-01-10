@@ -4293,11 +4293,6 @@ class FontDescription(GObject.GBoxed, metaclass=GObject.GTypeMeta):
         be used until `desc_to_merge` is modified or freed. This is meant to
         be used when the merged font description is only needed temporarily.
         """
-    @classmethod
-    def new(cls) -> FontDescription:
-        """
-        Creates a new font description structure with all fields unset.
-        """
     def set_absolute_size(self, size: float) -> None:
         """
             Sets the size field of a font description, in device units.
@@ -4481,6 +4476,15 @@ class FontDescription(GObject.GBoxed, metaclass=GObject.GTypeMeta):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> FontDescription:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new() -> Pango.FontDescription
         """
 
 class FontFace(GObject.Object):
@@ -6366,12 +6370,6 @@ class Layout(GObject.Object):
         call to this function may move the cursor over multiple characters
         when multiple characters combine to form a single grapheme.
         """
-    @classmethod
-    def new(cls, context: Context) -> Layout:
-        """
-            Create a new `PangoLayout` object with attributes initialized to
-        default values for a particular `PangoContext`.
-        """
     def serialize(self, flags: LayoutSerializeFlags) -> GLib.Bytes:
         """
             Serializes the `layout` for later deserialization via [func`Pango`.Layout.deserialize].
@@ -6635,6 +6633,16 @@ class Layout(GObject.Object):
         """
 
     # python methods (overrides?)
+    @classmethod
+    def new(
+        cls,
+        context: Context,
+    ) -> Layout:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(context:Pango.Context) -> Pango.Layout
+        """
     def set_markup(
         self,
         text: typing.Any,

@@ -683,184 +683,6 @@ class Pixbuf(GObject.Object):
         with the application in a separate directory from the OS or runtime-
         provided modules.
         """
-    @classmethod
-    def new(
-        cls, colorspace: Colorspace, has_alpha: bool, bits_per_sample: int, width: int, height: int
-    ) -> Pixbuf | None:
-        """
-            Creates a new `GdkPixbuf` structure and allocates a buffer for it.
-
-        If the allocation of the buffer failed, this function will return `None`.
-
-        The buffer has an optimal rowstride. Note that the buffer is not cleared;
-        you will have to fill it completely yourself.
-        """
-    @classmethod
-    def new_from_bytes(
-        cls,
-        data: GLib.Bytes,
-        colorspace: Colorspace,
-        has_alpha: bool,
-        bits_per_sample: int,
-        width: int,
-        height: int,
-        rowstride: int,
-    ) -> Pixbuf:
-        """
-            Creates a new GdkPixbuf. out of in-memory readonly image data.
-
-        Currently only RGB images with 8 bits per sample are supported.
-
-        This is the `GBytes` variant of `gdk_pixbuf_new_from_data`, useful
-        for language bindings.
-        """
-    @classmethod
-    def new_from_file(cls, filename: str) -> Pixbuf | None:
-        """
-            Creates a new pixbuf by loading an image from a file.
-
-        The file format is detected automatically.
-
-        If `None` is returned, then `error` will be set. Possible errors are:
-
-         - the file could not be opened
-         - there is no loader for the file's format
-         - there is not enough memory to allocate the image buffer
-         - the image buffer contains invalid data
-
-        The error domains are `GDK_PIXBUF_ERROR` and `G_FILE_ERROR`.
-        """
-    @classmethod
-    def new_from_file_at_scale(
-        cls, filename: str, width: int, height: int, preserve_aspect_ratio: bool
-    ) -> Pixbuf | None:
-        """
-            Creates a new pixbuf by loading an image from a file.
-
-        The file format is detected automatically.
-
-        If `None` is returned, then `error` will be set. Possible errors are:
-
-         - the file could not be opened
-         - there is no loader for the file's format
-         - there is not enough memory to allocate the image buffer
-         - the image buffer contains invalid data
-
-        The error domains are `GDK_PIXBUF_ERROR` and `G_FILE_ERROR`.
-
-        The image will be scaled to fit in the requested size, optionally preserving
-        the image's aspect ratio.
-
-        When preserving the aspect ratio, a `width` of -1 will cause the image
-        to be scaled to the exact given height, and a `height` of -1 will cause
-        the image to be scaled to the exact given width. When not preserving
-        aspect ratio, a `width` or `height` of -1 means to not scale the image
-        at all in that dimension. Negative values for `width` and `height` are
-        allowed since 2.8.
-        """
-    @classmethod
-    def new_from_file_at_size(cls, filename: str, width: int, height: int) -> Pixbuf | None:
-        """
-            Creates a new pixbuf by loading an image from a file.
-
-        The file format is detected automatically.
-
-        If `None` is returned, then `error` will be set. Possible errors are:
-
-         - the file could not be opened
-         - there is no loader for the file's format
-         - there is not enough memory to allocate the image buffer
-         - the image buffer contains invalid data
-
-        The error domains are `GDK_PIXBUF_ERROR` and `G_FILE_ERROR`.
-
-        The image will be scaled to fit in the requested size, preserving
-        the image's aspect ratio. Note that the returned pixbuf may be smaller
-        than `width` x `height`, if the aspect ratio requires it. To load
-        and image at the requested size, regardless of aspect ratio, use
-        [ctor`GdkPixbuf`.Pixbuf.new_from_file_at_scale].
-        """
-    @deprecated("deprecated")
-    @classmethod
-    def new_from_inline(cls, data_length: int, data: list, copy_pixels: bool) -> Pixbuf:
-        """
-            Creates a `GdkPixbuf` from a flat representation that is suitable for
-        storing as inline data in a program.
-
-        This is useful if you want to ship a program with images, but don't want
-        to depend on any external files.
-
-        GdkPixbuf ships with a program called `gdk-pixbuf-csource`, which allows
-        for conversion of `GdkPixbuf`s into such a inline representation.
-
-        In almost all cases, you should pass the `--raw` option to
-        `gdk-pixbuf-csource`. A sample invocation would be:
-
-        ```
-        gdk-pixbuf-csource --raw --name=myimage_inline myimage.png
-        ```
-
-        For the typical case where the inline pixbuf is read-only static data,
-        you don't need to copy the pixel data unless you intend to write to
-        it, so you can pass `False` for `copy_pixels`. If you pass `--rle` to
-        `gdk-pixbuf-csource`, a copy will be made even if `copy_pixels` is `False`,
-        so using this option is generally a bad idea.
-
-        If you create a pixbuf from const inline data compiled into your
-        program, it's probably safe to ignore errors and disable length checks,
-        since things will always succeed:
-
-        ```c
-        pixbuf = gdk_pixbuf_new_from_inline (-1, myimage_inline, False, None);
-        ```
-
-        For non-const inline data, you could get out of memory. For untrusted
-        inline data located at runtime, you could have corrupt inline data in
-        addition.
-        """
-    @classmethod
-    def new_from_resource(cls, resource_path: str) -> Pixbuf | None:
-        """
-            Creates a new pixbuf by loading an image from an resource.
-
-        The file format is detected automatically. If `None` is returned, then
-        `error` will be set.
-        """
-    @classmethod
-    def new_from_resource_at_scale(
-        cls, resource_path: str, width: int, height: int, preserve_aspect_ratio: bool
-    ) -> Pixbuf | None:
-        """
-            Creates a new pixbuf by loading an image from an resource.
-
-        The file format is detected automatically. If `None` is returned, then
-        `error` will be set.
-
-        The image will be scaled to fit in the requested size, optionally
-        preserving the image's aspect ratio. When preserving the aspect ratio,
-        a `width` of -1 will cause the image to be scaled to the exact given
-        height, and a `height` of -1 will cause the image to be scaled to the
-        exact given width. When not preserving aspect ratio, a `width` or
-        `height` of -1 means to not scale the image at all in that dimension.
-
-        The stream is not closed.
-        """
-    @classmethod
-    def new_from_stream(cls, stream: Gio.InputStream, cancellable: Gio.Cancellable | None = None) -> Pixbuf | None:
-        """
-            Creates a new pixbuf by loading an image from an input stream.
-
-        The file format is detected automatically.
-
-        If `None` is returned, then `error` will be set.
-
-        The `cancellable` can be used to abort the operation from another thread.
-        If the operation was cancelled, the error `G_IO_ERROR_CANCELLED` will be
-        returned. Other possible errors are in the `GDK_PIXBUF_ERROR` and
-        `G_IO_ERROR` domains.
-
-        The stream is not closed.
-        """
     @staticmethod
     def new_from_stream_async(
         stream: Gio.InputStream,
@@ -877,38 +699,6 @@ class Pixbuf(GObject.Object):
         When the operation is finished, `callback` will be called in the main thread.
         You can then call `gdk_pixbuf_new_from_stream_finish` to get the result of
         the operation.
-        """
-    @classmethod
-    def new_from_stream_at_scale(
-        cls,
-        stream: Gio.InputStream,
-        width: int,
-        height: int,
-        preserve_aspect_ratio: bool,
-        cancellable: Gio.Cancellable | None = None,
-    ) -> Pixbuf | None:
-        """
-            Creates a new pixbuf by loading an image from an input stream.
-
-        The file format is detected automatically. If `None` is returned, then
-        `error` will be set. The `cancellable` can be used to abort the operation
-        from another thread. If the operation was cancelled, the error
-        `G_IO_ERROR_CANCELLED` will be returned. Other possible errors are in
-        the `GDK_PIXBUF_ERROR` and `G_IO_ERROR` domains.
-
-        The image will be scaled to fit in the requested size, optionally
-        preserving the image's aspect ratio.
-
-        When preserving the aspect ratio, a `width` of -1 will cause the image to be
-        scaled to the exact given height, and a `height` of -1 will cause the image
-        to be scaled to the exact given width. If both `width` and `height` are
-        given, this function will behave as if the smaller of the two values
-        is passed as -1.
-
-        When not preserving aspect ratio, a `width` or `height` of -1 means to not
-        scale the image at all in that dimension.
-
-        The stream is not closed.
         """
     @staticmethod
     def new_from_stream_at_scale_async(
@@ -928,20 +718,6 @@ class Pixbuf(GObject.Object):
 
         When the operation is finished, `callback` will be called in the main thread.
         You can then call `gdk_pixbuf_new_from_stream_finish` to get the result of the operation.
-        """
-    @classmethod
-    def new_from_stream_finish(cls, async_result: Gio.AsyncResult) -> Pixbuf | None:
-        """
-            Finishes an asynchronous pixbuf creation operation started with
-        `gdk_pixbuf_new_from_stream_async`.
-        """
-    @classmethod
-    def new_from_xpm_data(cls, data: list) -> Pixbuf | None:
-        """
-            Creates a new pixbuf by parsing XPM data in memory.
-
-        This data is commonly the result of including an XPM file into a
-        program's C source.
         """
     def new_subpixbuf(self, src_x: int, src_y: int, width: int, height: int) -> Pixbuf:
         """
@@ -1141,6 +917,36 @@ class Pixbuf(GObject.Object):
 
     # python methods (overrides?)
     @classmethod
+    def new(
+        cls,
+        colorspace: Colorspace,
+        has_alpha: bool,
+        bits_per_sample: int,
+        width: int,
+        height: int,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(colorspace:GdkPixbuf.Colorspace, has_alpha:bool, bits_per_sample:int, width:int, height:int) -> GdkPixbuf.Pixbuf or None
+        """
+    @classmethod
+    def new_from_bytes(
+        cls,
+        data: GLib.Bytes,
+        colorspace: Colorspace,
+        has_alpha: bool,
+        bits_per_sample: int,
+        width: int,
+        height: int,
+        rowstride: int,
+    ) -> Pixbuf:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_bytes(data:GLib.Bytes, colorspace:GdkPixbuf.Colorspace, has_alpha:bool, bits_per_sample:int, width:int, height:int, rowstride:int) -> GdkPixbuf.Pixbuf
+        """
+    @classmethod
     def new_from_data(
         cls,
         data: typing.Any,
@@ -1157,6 +963,120 @@ class Pixbuf(GObject.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_from_data(data:list, colorspace:GdkPixbuf.Colorspace, has_alpha:bool, bits_per_sample:int, width:int, height:int, rowstride:int, destroy_fn:GdkPixbuf.PixbufDestroyNotify=None, destroy_fn_data=None) -> GdkPixbuf.Pixbuf
+        """
+    @classmethod
+    def new_from_file(
+        cls,
+        filename: str,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file(filename:str) -> GdkPixbuf.Pixbuf or None
+        """
+    @classmethod
+    def new_from_file_at_scale(
+        cls,
+        filename: str,
+        width: int,
+        height: int,
+        preserve_aspect_ratio: bool,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file_at_scale(filename:str, width:int, height:int, preserve_aspect_ratio:bool) -> GdkPixbuf.Pixbuf or None
+        """
+    @classmethod
+    def new_from_file_at_size(
+        cls,
+        filename: str,
+        width: int,
+        height: int,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_file_at_size(filename:str, width:int, height:int) -> GdkPixbuf.Pixbuf or None
+        """
+    @classmethod
+    def new_from_inline(
+        cls,
+        data: list,
+        copy_pixels: bool,
+    ) -> Pixbuf:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_inline(data:list, copy_pixels:bool) -> GdkPixbuf.Pixbuf
+        """
+    @classmethod
+    def new_from_resource(
+        cls,
+        resource_path: str,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_resource(resource_path:str) -> GdkPixbuf.Pixbuf or None
+        """
+    @classmethod
+    def new_from_resource_at_scale(
+        cls,
+        resource_path: str,
+        width: int,
+        height: int,
+        preserve_aspect_ratio: bool,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_resource_at_scale(resource_path:str, width:int, height:int, preserve_aspect_ratio:bool) -> GdkPixbuf.Pixbuf or None
+        """
+    @classmethod
+    def new_from_stream(
+        cls,
+        stream: Gio.InputStream,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_stream(stream:Gio.InputStream, cancellable:Gio.Cancellable=None) -> GdkPixbuf.Pixbuf or None
+        """
+    @classmethod
+    def new_from_stream_at_scale(
+        cls,
+        stream: Gio.InputStream,
+        width: int,
+        height: int,
+        preserve_aspect_ratio: bool,
+        cancellable: Gio.Cancellable | None = None,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_stream_at_scale(stream:Gio.InputStream, width:int, height:int, preserve_aspect_ratio:bool, cancellable:Gio.Cancellable=None) -> GdkPixbuf.Pixbuf or None
+        """
+    @classmethod
+    def new_from_stream_finish(
+        cls,
+        async_result: Gio.AsyncResult,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_stream_finish(async_result:Gio.AsyncResult) -> GdkPixbuf.Pixbuf or None
+        """
+    @classmethod
+    def new_from_xpm_data(
+        cls,
+        data: list,
+    ) -> Pixbuf | None:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_xpm_data(data:list) -> GdkPixbuf.Pixbuf or None
         """
 
     # Signals

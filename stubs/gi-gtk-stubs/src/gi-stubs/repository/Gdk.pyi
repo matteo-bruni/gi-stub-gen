@@ -1925,6 +1925,54 @@ class AppLaunchContext(Gio.AppLaunchContext):
         prevention'.
         """
 
+    # python methods (overrides?)
+    def do_get_display(
+        self,
+        info: Gio.AppInfo,
+        files: list,
+    ) -> str | None:
+        """
+        get_display(self, info:Gio.AppInfo, files:list) -> str or None
+        """
+    def do_get_startup_notify_id(
+        self,
+        info: Gio.AppInfo | None = None,
+        files: list | None = None,
+    ) -> str | None:
+        """
+        get_startup_notify_id(self, info:Gio.AppInfo=None, files:list=None) -> str or None
+        """
+    def do_launch_failed(
+        self,
+        startup_notify_id: str,
+    ) -> None:
+        """
+        launch_failed(self, startup_notify_id:str)
+        """
+    def do_launch_started(
+        self,
+        info: Gio.AppInfo,
+        platform_data: GLib.Variant,
+    ) -> None:
+        """
+        launch_started(self, info:Gio.AppInfo, platform_data:GLib.Variant)
+        """
+    def do_launched(
+        self,
+        info: Gio.AppInfo,
+        platform_data: GLib.Variant,
+    ) -> None:
+        """
+        launched(self, info:Gio.AppInfo, platform_data:GLib.Variant)
+        """
+    @classmethod
+    def new(
+        cls,
+    ) -> Gio.AppLaunchContext:
+        """
+        new() -> Gio.AppLaunchContext
+        """
+
     # Signals
     @typing.overload
     def connect(
@@ -5911,20 +5959,27 @@ class FileList(GObject.GBoxed, metaclass=GObject.GTypeMeta):
 
         This function is meant for language bindings.
         """
-    @classmethod
-    def new_from_array(cls, files: list, n_files: int) -> FileList:
-        """
-            Creates a new `GdkFileList` for the given array of files.
 
-        This function is meant to be used by language bindings.
+    # python methods (overrides?)
+    @classmethod
+    def new_from_array(
+        cls,
+        files: list,
+    ) -> FileList:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new_from_array(files:list) -> Gdk.FileList
         """
     @classmethod
-    def new_from_list(cls, files: list) -> FileList:
+    def new_from_list(
+        cls,
+        files: list,
+    ) -> FileList:
         """
-            Creates a new files list container from a singly linked list of
-        `GFile` instances.
+        [is-override: Note this method is an override in Python of the original gi implementation.]
 
-        This function is meant to be used by language bindings
+        new_from_list(files:list) -> Gdk.FileList
         """
 
 class FocusEvent(Event, metaclass=GObject.GTypeMeta):

@@ -1860,6 +1860,16 @@ class Object(GObject.Object):
     def set_role(self, role: Role) -> None: ...
 
     # python methods (overrides?)
+    def bind_property_full(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def compat_control(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
     def do_active_descendant_changed(
         self,
         child: typing.Any = None,
@@ -2017,6 +2027,144 @@ class Object(GObject.Object):
         """
         visible_data_changed(self)
         """
+    @classmethod
+    def find_property(
+        cls,
+        property_name: str,
+    ) -> GObject.ParamSpec:
+        """
+        find_property(self, property_name:str) -> GObject.ParamSpec
+        """
+    def force_floating(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def freeze_notify(
+        self,
+    ) -> typing.Any:
+        """
+        Freezes the object's property-changed notification queue.
+
+        :returns:
+            A context manager which optionally can be used to
+            automatically thaw notifications.
+
+        This will freeze the object so that "notify" signals are blocked until
+        the thaw_notify() method is called.
+
+        .. code-block:: python
+
+            with obj.freeze_notify():
+                pass
+        """
+    def get_data(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def get_qdata(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    @classmethod
+    def install_properties(
+        cls,
+        pspecs: list,
+    ) -> None:
+        """
+        install_properties(self, pspecs:list)
+        """
+    @classmethod
+    def install_property(
+        cls,
+        property_id: int,
+        pspec: GObject.ParamSpec,
+    ) -> None:
+        """
+        install_property(self, property_id:int, pspec:GObject.ParamSpec)
+        """
+    def interface_find_property(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def interface_install_property(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def interface_list_properties(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    @classmethod
+    def list_properties(
+        cls,
+    ) -> list:
+        """
+        list_properties(self) -> list
+        """
+    @classmethod
+    def newv(
+        cls,
+        object_type: GObject.GType,
+        parameters: list,
+    ) -> GObject.Object:
+        """
+        newv(object_type:GType, parameters:list) -> GObject.Object
+        """
+    def notify_by_pspec(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    @classmethod
+    def override_property(
+        cls,
+        property_id: int,
+        name: str,
+    ) -> None:
+        """
+        override_property(self, property_id:int, name:str)
+        """
+    def ref(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def ref_sink(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def set_data(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def steal_data(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def steal_qdata(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def unref(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
+    def watch_closure(
+        self,
+        *args: typing.Any,
+        **kargs: typing.Any,
+    ) -> typing.Any: ...
 
     # Signals
     @typing.overload

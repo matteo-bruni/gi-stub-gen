@@ -3654,15 +3654,6 @@ class Object(builtins.object):
         """
         Checks whether `object` has a [floating][floating-ref] reference.
         """
-    @deprecated("deprecated")
-    @classmethod
-    def newv(cls, object_type: GType, n_parameters: int, parameters: list) -> Object:
-        """
-            Creates a new instance of a GObject. subtype and sets its properties.
-
-        Construction parameters (see G_PARAM_CONSTRUCT, G_PARAM_CONSTRUCT_ONLY)
-        which are not explicitly specified are set to their default values.
-        """
     def notify(self, property_name: str) -> None:
         """
             Emits a "notify" signal for the property `property_name` on `object`.
@@ -3757,6 +3748,14 @@ class Object(builtins.object):
         """
         Deprecated, please use stop_emission_by_name.
         """
+    @classmethod
+    def find_property(
+        cls,
+        property_name: str,
+    ) -> ParamSpec:
+        """
+        find_property(self, property_name:str) -> GObject.ParamSpec
+        """
     def force_floating(
         self,
         *args: typing.Any,
@@ -3847,6 +3846,23 @@ class Object(builtins.object):
         """
         signal_handler_unblock(instance:GObject.Object, handler_id:int)
         """
+    @classmethod
+    def install_properties(
+        cls,
+        pspecs: list,
+    ) -> None:
+        """
+        install_properties(self, pspecs:list)
+        """
+    @classmethod
+    def install_property(
+        cls,
+        property_id: int,
+        pspec: ParamSpec,
+    ) -> None:
+        """
+        install_property(self, property_id:int, pspec:GObject.ParamSpec)
+        """
     def interface_find_property(
         self,
         *args: typing.Any,
@@ -3871,6 +3887,24 @@ class Object(builtins.object):
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
         """
+    @classmethod
+    def list_properties(
+        cls,
+    ) -> list:
+        """
+        list_properties(self) -> list
+        """
+    @classmethod
+    def newv(
+        cls,
+        object_type: GType,
+        parameters: list,
+    ) -> Object:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        newv(object_type:GType, parameters:list) -> GObject.Object
+        """
     def notify_by_pspec(
         self,
         *args: typing.Any,
@@ -3878,6 +3912,15 @@ class Object(builtins.object):
     ) -> typing.Any:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    @classmethod
+    def override_property(
+        cls,
+        property_id: int,
+        name: str,
+    ) -> None:
+        """
+        override_property(self, property_id:int, name:str)
         """
     def ref(
         self,
@@ -4283,7 +4326,7 @@ class ParamSpec(object, metaclass=GTypeMeta):
     @builtins.property
     def _nick(self) -> str: ...
     @builtins.property
-    def flags(self) -> ParamFlags | None:
+    def flags(self) -> ParamFlags:
         """
         `GParamFlags` flags for this parameter
         """
@@ -4392,6 +4435,12 @@ class ParamSpec(object, metaclass=GTypeMeta):
         """
 
     # python methods (overrides?)
+    def do_finalize(
+        self,
+    ) -> None:
+        """
+        finalize(self)
+        """
     def do_get_property(
         self,
         pspec: typing.Any,
@@ -4401,6 +4450,35 @@ class ParamSpec(object, metaclass=GTypeMeta):
         pspec: typing.Any,
         value: typing.Any,
     ) -> typing.Any: ...
+    def do_value_is_valid(
+        self,
+        value: Value,
+    ) -> bool:
+        """
+        value_is_valid(self, value:GObject.Value) -> bool
+        """
+    def do_value_set_default(
+        self,
+        value: Value,
+    ) -> None:
+        """
+        value_set_default(self, value:GObject.Value)
+        """
+    def do_value_validate(
+        self,
+        value: Value,
+    ) -> bool:
+        """
+        value_validate(self, value:GObject.Value) -> bool
+        """
+    def do_values_cmp(
+        self,
+        value1: Value,
+        value2: Value,
+    ) -> int:
+        """
+        values_cmp(self, value1:GObject.Value, value2:GObject.Value) -> int
+        """
 
 class ParamSpecBoolean(ParamSpec, metaclass=GTypeMeta):
     """

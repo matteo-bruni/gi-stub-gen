@@ -797,10 +797,6 @@ class DiscovererVideoInfo(DiscovererStreamInfo):
 
 class EncodingAudioProfile(EncodingProfile):
     # gi Methods
-    @classmethod
-    def new(
-        cls, format: Gst.Caps, preset: str | None, restriction: Gst.Caps | None, presence: int
-    ) -> EncodingAudioProfile: ...
 
     # python methods (overrides?)
     def __init__(
@@ -810,6 +806,19 @@ class EncodingAudioProfile(EncodingProfile):
         restriction: typing.Any = None,
         presence: typing.Any = 0,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        format: Gst.Caps,
+        preset: str | None,
+        restriction: Gst.Caps | None,
+        presence: int,
+    ) -> EncodingAudioProfile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(format:Gst.Caps, preset:str=None, restriction:Gst.Caps=None, presence:int) -> GstPbutils.EncodingAudioProfile
+        """
 
     # Signals
     @typing.overload
@@ -845,10 +854,6 @@ class EncodingContainerProfile(EncodingProfile):
     def add_profile(self, profile: EncodingProfile) -> bool: ...
     def contains_profile(self, profile: EncodingProfile) -> bool: ...
     def get_profiles(self) -> list: ...
-    @classmethod
-    def new(
-        cls, name: str | None, description: str | None, format: Gst.Caps, preset: str | None = None
-    ) -> EncodingContainerProfile: ...
 
     # python methods (overrides?)
     def __init__(
@@ -858,6 +863,19 @@ class EncodingContainerProfile(EncodingProfile):
         format: typing.Any,
         preset: typing.Any = None,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        name: str | None,
+        description: str | None,
+        format: Gst.Caps,
+        preset: str | None = None,
+    ) -> EncodingContainerProfile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(name:str=None, description:str=None, format:Gst.Caps, preset:str=None) -> GstPbutils.EncodingContainerProfile
+        """
 
     # Signals
     @typing.overload
@@ -1021,10 +1039,6 @@ class EncodingVideoProfile(EncodingProfile):
     # gi Methods
     def get_pass(self) -> int: ...
     def get_variableframerate(self) -> bool: ...
-    @classmethod
-    def new(
-        cls, format: Gst.Caps, preset: str | None, restriction: Gst.Caps | None, presence: int
-    ) -> EncodingVideoProfile: ...
     def set_pass(self, pass_: int) -> None: ...
     def set_variableframerate(self, variableframerate: bool) -> None: ...
 
@@ -1036,6 +1050,19 @@ class EncodingVideoProfile(EncodingProfile):
         restriction: typing.Any = None,
         presence: typing.Any = 0,
     ) -> None: ...
+    @classmethod
+    def new(
+        cls,
+        format: Gst.Caps,
+        preset: str | None,
+        restriction: Gst.Caps | None,
+        presence: int,
+    ) -> EncodingVideoProfile:
+        """
+        [is-override: Note this method is an override in Python of the original gi implementation.]
+
+        new(format:Gst.Caps, preset:str=None, restriction:Gst.Caps=None, presence:int) -> GstPbutils.EncodingVideoProfile
+        """
 
     # Signals
     @typing.overload
