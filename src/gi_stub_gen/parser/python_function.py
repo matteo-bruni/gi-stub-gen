@@ -3,7 +3,6 @@ from types import BuiltinFunctionType, FunctionType, MethodType
 
 from typing import Any
 import inspect
-import sys
 
 
 from gi_stub_gen.utils.inspect_utils import extract_inspect_params_type_info
@@ -14,51 +13,17 @@ from gi_stub_gen.schema.builtin_function import (
 from gi_stub_gen.utils.utils import get_redacted_stub_value
 
 
-def _is_from_class(func: Any) -> bool:
-    """
-    Determine if a function is defined inside a class by checking __qualname__.
-
-    Note: This is a heuristic and may fail for dynamically created methods
-    like PyGObject's signal wrappers.
-
-    Examples:
-        - "top_level_func" -> False
-        - "MyClass.method" -> True
-        - "outer.<locals>.inner" -> False (nested function, not a class method)
-    """
-    qualname = getattr(func, "__qualname__", "") or ""
-    return "." in qualname and "<locals>" not in qualname
-
-
-def _get_parent_class(func: Any) -> type | None:
-    """
-    Extract the parent class of a method from __qualname__ and __module__.
-
-    Returns the class object if found, None otherwise.
-    """
-    qualname = getattr(func, "__qualname__", "") or ""
-    module_name = getattr(func, "__module__", "") or ""
-
-    if "." not in qualname or "<locals>" in qualname:
-        return None
-
-    class_name = qualname.rsplit(".", 1)[0]
-
-    # Get the module
-    module = sys.modules.get(module_name)
-    if module is None:
-        return None
-
-    # Get the class from the module
-    parent = getattr(module, class_name, None)
-    return parent if isinstance(parent, type) else None
-
-
-def _detect_method_type(func: Any, name: str, parent_class: type | None = None) -> tuple[bool, bool]:
+def _detect_method_type(func: Any, name: str, parent_class: type) -> tuple[bool, bool]:
     """
     Detect if a function is a classmethod or staticmethod.
 
-    Returns (is_classmethod, is_staticmethod).
+    Args:
+        func: The function/method to check
+        name: The name of the method
+        parent_class: The class containing this method
+
+    Returns:
+        Tuple of (is_classmethod, is_staticmethod).
 
     Detection strategy:
     1. classmethod: check if __self__ exists and is a type (bound to the class)
@@ -69,16 +34,12 @@ def _detect_method_type(func: Any, name: str, parent_class: type | None = None) 
         return True, False
 
     # Check for staticmethod: need to use getattr_static on parent class
-    if parent_class is None:
-        parent_class = _get_parent_class(func)
-
-    if parent_class is not None:
-        try:
-            raw_attr = inspect.getattr_static(parent_class, name, None)
-            if isinstance(raw_attr, staticmethod):
-                return False, True
-        except Exception:
-            pass
+    try:
+        raw_attr = inspect.getattr_static(parent_class, name, None)
+        if isinstance(raw_attr, staticmethod):
+            return False, True
+    except Exception:
+        pass
 
     return False, False
 
@@ -96,9 +57,9 @@ def parse_python_function(
         attribute: The function/method to parse
         namespace: The namespace for the function
         name_override: Optional name override
-        from_class: If provided, the class containing this method.
-                   Used to properly detect @staticmethod and @classmethod,
-                   and to mark as is_from_class for methods with unusual __qualname__.
+        from_class: The class containing this method (required for class methods).
+                   Used to properly detect @staticmethod and @classmethod.
+                   If None, the function is treated as a module-level function.
     """
 
     # pure python function check
@@ -116,15 +77,14 @@ def parse_python_function(
     else:
         name = getattr(attribute, "__name__", "unknown")
 
-    # Determine if this function is from a class
-    # If from_class is provided, use it; otherwise try to detect via __qualname__
-    if from_class is not None:
-        is_from_class = True
-    else:
-        is_from_class = _is_from_class(attribute)
+    # Determine if this function is from a class based on from_class parameter
+    is_from_class = from_class is not None
 
-    # Detect classmethod and staticmethod using proper introspection
-    is_classmethod, is_staticmethod = _detect_method_type(attribute, name, from_class)
+    # Detect classmethod and staticmethod only if we have a parent class
+    if from_class is not None:
+        is_classmethod, is_staticmethod = _detect_method_type(attribute, name, from_class)
+    else:
+        is_classmethod, is_staticmethod = False, False
 
     try:
         sig = inspect.signature(attribute)
