@@ -84,6 +84,9 @@ def parse_alias(
             return GENUM_SCHEMA
         elif sanitized_module_name == "gi._gi" and attribute_name == "GFlags":
             return GFLAG_SCHEMA
+        elif sanitized_module_name == "gi._propertyhelper" and attribute_name == "Property":
+            # will be added later at the end of module parsing via custom overrides
+            return None
 
         # warnings are caught on the expected module and attribute
         w = catch_gi_deprecation_warnings(

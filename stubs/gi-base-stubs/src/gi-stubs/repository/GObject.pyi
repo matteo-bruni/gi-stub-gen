@@ -7450,7 +7450,6 @@ PollFD = GLib.PollFD
 """
 [DEPRECATED] GObject.PollFD is deprecated; use GLib.PollFD instead
 """
-Property = gi._propertyhelper.Property  # type: ignore
 SPAWN_CHILD_INHERITS_STDIN = GLib.SPAWN_CHILD_INHERITS_STDIN
 """
 [DEPRECATED] GObject.SPAWN_CHILD_INHERITS_STDIN is deprecated; use GLib.SPAWN_CHILD_INHERITS_STDIN instead
@@ -7723,3 +7722,9 @@ _version: str = ...
 features: dict[str, bool] = ...
 glib_version: tuple[int, int, int] = ...
 pygobject_version: tuple[int, int, int] = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: type, element not parsed are:
+#     - Property
