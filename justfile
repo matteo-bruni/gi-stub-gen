@@ -103,6 +103,7 @@ diff-gobject:
         "https://github.com/pygobject/pygobject-stubs/blob/master/src/gi-stubs/repository/GObject.pyi" \
         --name1 "gi-stub-gen" \
         --name2 "pygobject-stubs" \
+        --namespace GObject \
         -o docs/GObject_diff.md
 
 diff-gst:
@@ -111,6 +112,7 @@ diff-gst:
         "https://github.com/pygobject/pygobject-stubs/blob/master/src/gi-stubs/repository/Gst.pyi" \
         --name1 "gi-stub-gen" \
         --name2 "pygobject-stubs" \
+        --namespace Gst \
         -o docs/Gst_diff.md
 
 
