@@ -6614,38 +6614,41 @@ class GTypeMeta(type, GType):
     ...
 
 class Property(builtins.property):
+    """
+    Stub for GObject.Property.
+
+    CRITICAL: This class inherits from the built-in 'property' class.
+    This tells static analysis tools (Pylance/MyPy) that this object acts as a
+    descriptor, preventing the "Method declaration is obscured" error when applying the decorator over a method.
+
+
+    """
+
     # python methods (overrides?)
     def __init__(
         self,
-        getter: typing.Any = None,
-        setter: typing.Any = None,
-        type: typing.Any = None,
+        getter: typing.Callable[[typing.Any], typing.Any] | None = None,
+        setter: typing.Callable[[typing.Any, typing.Any], None] | None = None,
+        type: type | None = None,
         default: typing.Any = None,
-        nick: typing.Any = "",
-        blurb: typing.Any = "",
-        flags: typing.Any = 3,
+        nick: str = "",
+        blurb: str = "",
+        flags: ParamFlags = ParamFlags.READABLE | ParamFlags.WRITABLE,
         minimum: typing.Any = None,
         maximum: typing.Any = None,
-    ) -> None:
-        """
-        Initialize self.  See help(type(self)) for accurate signature.
-        """
+    ) -> None: ...
     def get_pspec_args(
         self,
-    ) -> typing.Any: ...
-    def getter(
+    ) -> tuple[typing.Any, ...]:
+        """
+        Get the arguments for the property specification.
+        """
+    def __call__(
         self,
-        fget: typing.Any,
-    ) -> typing.Any:
+        fget: typing.Callable[[typing.Any], typing.Any],
+    ) -> Property:
         """
-        Set the getter function to fget. For use as a decorator.
-        """
-    def setter(
-        self,
-        fset: typing.Any,
-    ) -> typing.Any:
-        """
-        Set the setter function to fset. For use as a decorator.
+        Allow using Property as a decorator.
         """
 
 ###############################################################

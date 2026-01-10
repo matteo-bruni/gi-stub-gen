@@ -17,17 +17,17 @@ class TestObject(GObject.Object):
     def int_prop(self):
         return self._int_prop
 
-    def set_str_prop(self, value):
-        self._str_prop = value
-
     @GObject.Property(
         type=str,
         default="default-string",
-        setter=set_str_prop,
         blurb="A string property",
     )
     def str_prop(self):
         return self._str_prop
+
+    @str_prop.setter
+    def str_prop(self, value):
+        self._str_prop = value
 
     def __init__(self):
         super().__init__()

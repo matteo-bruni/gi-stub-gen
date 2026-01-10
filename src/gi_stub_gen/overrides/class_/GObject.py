@@ -669,64 +669,11 @@ CLASS_GTYPE_META = ClassSchema(
 # minimum: typing.Any = (None,)
 # maximum: typing.Any = (None,)
 
-#     def __init__(
-#         self,
-#         type: typing.Any = None,
-#         default: typing.Any = None,
-#         nick: str = None,
-#         blurb: str = None,
-#         flags: typing.Any = None,
-#         minimum: typing.Any = None,
-#         maximum: typing.Any = None,
-#         # Add '...' to allow any other GParamSpec arguments not explicitly listed
-#         **kwargs: typing.Any
-#     ) -> None:
-#         """
-#         The __init__ method handles the arguments passed to the decorator factory.
-#         Example: @GObject.Property(type=int, default=10)
-#         """
-#         ...
-
-#     def __call__(self, fget: typing.Callable[[typing.Any], _T]) -> "Property":
-#         """
-#         This method is required because GObject.Property is used as a decorator factory.
-
-#         When you write:
-#             @GObject.Property(type=int)
-#             def my_prop(self): ...
-
-#         Python first instantiates Property(...), and then calls that instance
-#         passing the function 'my_prop' as 'fget'.
-
-#         Returns: 'self' (the Property instance) so that .setter can be chained.
-#         """
-#         ...
-
-#     def setter(self, fset: typing.Callable[[typing.Any, _T], None]) -> "Property":
-#         """
-#         Explicit definition of the setter.
-
-#         Even though we inherit from 'property', defining this explicitly ensures
-#         Pylance resolves the "@my_prop.setter" syntax correctly without
-#         "Attribute 'setter' is unknown" errors.
-#         """
-#         ...
-#     def getter(self, fget: typing.Callable[[typing.Any], _T]) -> "Property":
-#         """
-#         Standard getter definition matching the property protocol.
-#         """
-#         ...
-
-#     # --- Descriptor Protocol ---
-#     # These ensure Pylance understands that accessing the property on an instance
-#     # returns the value (_T), not the Property object itself.
-#     def __get__(self, instance: typing.Any, owner: typing.Any) -> _T: ...
-#     def __set__(self, instance: typing.Any, value: _T) -> None: ...
 
 CLASS_PROPERTY = ClassSchema(
     namespace="GObject",
     name="Property",
-    bases=["property"],
+    bases=["builtins.property"],
     docstring="Stub for GObject.Property.\n\n"
     "CRITICAL: This class inherits from the built-in 'property' class.\n"
     "This tells static analysis tools (Pylance/MyPy) that this object acts as a \n"
@@ -750,18 +697,125 @@ CLASS_PROPERTY = ClassSchema(
             return_is_optional=False,
             params=[
                 BuiltinFunctionArgumentSchema(
+                    name="getter",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="Callable[[typing.Any], typing.Any] | None",
+                    type_hint_namespace="typing",
+                    is_optional=False,
+                    default_value="None",
+                    line_comment=None,
+                ),
+                BuiltinFunctionArgumentSchema(
+                    name="setter",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="Callable[[typing.Any, typing.Any], None] | None",
+                    type_hint_namespace="typing",
+                    is_optional=False,
+                    default_value="None",
+                    line_comment=None,
+                ),
+                BuiltinFunctionArgumentSchema(
                     name="type",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="type | None",
+                    type_hint_namespace=None,
+                    is_optional=False,
+                    default_value="None",
+                    line_comment=None,
+                ),
+                BuiltinFunctionArgumentSchema(
+                    name="default",
                     kind=ArgKind.POSITIONAL_OR_KEYWORD,
                     type_hint_name="Any",
                     type_hint_namespace="typing",
-                    is_optional=True,
+                    is_optional=False,
+                    default_value="None",
+                    line_comment=None,
+                ),
+                BuiltinFunctionArgumentSchema(
+                    name="nick",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="str",
+                    type_hint_namespace=None,
+                    is_optional=False,
+                    default_value="''",
+                    line_comment=None,
+                ),
+                BuiltinFunctionArgumentSchema(
+                    name="blurb",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="str",
+                    type_hint_namespace=None,
+                    is_optional=False,
+                    default_value="''",
+                    line_comment=None,
+                ),
+                BuiltinFunctionArgumentSchema(
+                    name="flags",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="ParamFlags",
+                    type_hint_namespace="GObject",
+                    is_optional=False,
+                    default_value="ParamFlags.READABLE | ParamFlags.WRITABLE",
+                    line_comment=None,
+                ),
+                BuiltinFunctionArgumentSchema(
+                    name="minimum",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="Any",
+                    type_hint_namespace="typing",
+                    is_optional=False,
+                    default_value="None",
+                    line_comment=None,
+                ),
+                BuiltinFunctionArgumentSchema(
+                    name="maximum",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="Any",
+                    type_hint_namespace="typing",
+                    is_optional=False,
                     default_value="None",
                     line_comment=None,
                 ),
             ],
         ),
+        BuiltinFunctionSchema(
+            name="get_pspec_args",
+            namespace="GObject",
+            is_async=False,
+            is_from_class=True,
+            is_classmethod=False,
+            is_staticmethod=False,
+            docstring="Get the arguments for the property specification.",
+            return_hint_name="tuple[typing.Any, ...]",
+            return_hint_namespace=None,
+            return_is_optional=False,
+            params=[],
+        ),
+        BuiltinFunctionSchema(
+            name="__call__",
+            namespace="GObject",
+            is_async=False,
+            is_from_class=True,
+            is_classmethod=False,
+            is_staticmethod=False,
+            docstring="Allow using Property as a decorator.",
+            return_hint_name="Property",
+            return_hint_namespace="GObject",
+            return_is_optional=False,
+            params=[
+                BuiltinFunctionArgumentSchema(
+                    name="fget",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="Callable[[typing.Any], typing.Any]",
+                    type_hint_namespace="typing",
+                    is_optional=False,
+                    default_value=None,
+                    line_comment=None,
+                ),
+            ],
+        ),
     ],
-    # args=[], #BuiltinFunctionArgumentSchema
     signals=[],
     extra=[],
     is_deprecated=False,
