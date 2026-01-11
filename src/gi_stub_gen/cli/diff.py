@@ -352,17 +352,33 @@ def check_runtime_existence(name: str, kind: str, namespace_module: Any | None, 
         return "n/a"
     
     try:
-        # Handle class members like "ClassName.method_name"
+        # Handle class members like "ClassName.method_name" or "ClassName.attribute"
         parts = name.split(".")
         obj = namespace_module
         
-        for part in parts:
+        for i, part in enumerate(parts):
             try:
                 has_attr = hasattr(obj, part)
             except NotImplementedError:
                 # GI raises NotImplementedError for callbacks and some other types
                 return "n/a"
+            
             if not has_attr:
+                # For attributes, they might only exist on instances, not the class itself
+                # Try to instantiate and check on the instance
+                if kind == "attribute" and i == len(parts) - 1:
+                    try:
+                        # Try to create an instance with no args
+                        instance = obj()
+                        if hasattr(instance, part):
+                            return "✅"
+                    except Exception:
+                        # Can't instantiate, check if it's in __annotations__ or dir()
+                        if hasattr(obj, "__annotations__") and part in obj.__annotations__:
+                            return "✅"
+                        # Some GI structs have fields accessible via dir() but not hasattr on class
+                        if part in dir(obj):
+                            return "✅"
                 return "❌"
             obj = getattr(obj, part)
         
