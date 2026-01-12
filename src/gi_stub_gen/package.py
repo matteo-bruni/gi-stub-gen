@@ -1,11 +1,46 @@
 import logging
-import shutil
+import re
 import tomlkit
 from pathlib import Path
 
 from gi_stub_gen.utils.utils import format_stub_with_ruff
 
 logger = logging.getLogger(__name__)
+
+
+# Regex to match the Date line in the stub header
+# Example: "Date: 2024-01-11"
+_DATE_LINE_PATTERN = re.compile(r"^Date:\s*\d{4}-\d{2}-\d{2}\s*$", re.MULTILINE)
+
+
+def _normalize_stub_content(content: str) -> str:
+    """
+    Normalize stub content by removing the Date line.
+    This allows comparing stubs ignoring only the generation date.
+    """
+    return _DATE_LINE_PATTERN.sub("Date: <NORMALIZED>", content)
+
+
+def _should_write_stub(existing_path: Path, new_content: str) -> bool:
+    """
+    Check if we should write the stub file.
+    Returns True if the file doesn't exist or if the content has changed
+    (ignoring the Date line in the header).
+    """
+    if not existing_path.exists():
+        return True
+
+    try:
+        existing_content = existing_path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError) as e:
+        logger.warning(f"Could not read existing stub {existing_path}: {e}")
+        return True
+
+    # Compare normalized versions (without date)
+    normalized_existing = _normalize_stub_content(existing_content)
+    normalized_new = _normalize_stub_content(new_content)
+
+    return normalized_existing != normalized_new
 
 
 def create_stub_package(
@@ -80,15 +115,17 @@ packages = ["src/gi-stubs"]"""
     package_folder = folder / "src" / "gi-stubs"
     if not package_folder.exists():
         package_folder.mkdir(parents=True)
-    elif overwrite:
-        logger.info(f"Overwriting existing package folder at {package_folder}")
-        # remove all files in the package folder
-        shutil.rmtree(package_folder)
-        package_folder.mkdir(parents=True)
+    # Note: we no longer delete the folder on overwrite.
+    # Instead, we compare content and only write files that have actually changed.
+    # This avoids unnecessary file modifications when only the date differs.
 
     # gi -> package_folder/__init__.pyi
     # gi.repository.<module> -> package_folder/repository/<module>.pyi
     # gi.<module> -> package_folder/repository/<module>.pyi
+    skipped_count = 0
+    written_count = 0
+    generated_paths: set[Path] = set()  # Track all paths we're generating
+
     for stub_name, stub_content in stubs.items():
         # if / "repository"
 
@@ -101,6 +138,30 @@ packages = ["src/gi-stubs"]"""
             pyi_path = package_folder / Path(*stub_folder) / f"{stub_file}.pyi"
             pyi_path.parent.mkdir(parents=True, exist_ok=True)
 
-        logger.info(f"Creating stub file for {stub_name} at {pyi_path}")
-        with open(pyi_path, "w") as f:
-            f.write(stub_content)
+        generated_paths.add(pyi_path)
+
+        # Check if we should write the stub (content changed, ignoring date)
+        if _should_write_stub(pyi_path, stub_content):
+            logger.info(f"Writing stub file for {stub_name} at {pyi_path}")
+            with open(pyi_path, "w") as f:
+                f.write(stub_content)
+            written_count += 1
+        else:
+            logger.debug(f"Skipping {stub_name}: no changes detected (only date differs)")
+            skipped_count += 1
+
+    # If overwrite is enabled, remove any .pyi files that are no longer being generated
+    removed_count = 0
+    if overwrite and package_folder.exists():
+        for existing_pyi in package_folder.rglob("*.pyi"):
+            if existing_pyi not in generated_paths:
+                logger.info(f"Removing obsolete stub: {existing_pyi}")
+                existing_pyi.unlink()
+                removed_count += 1
+
+    if skipped_count > 0:
+        logger.info(f"Skipped {skipped_count} stub(s) with no changes (only date differs)")
+    if written_count > 0:
+        logger.info(f"Wrote {written_count} stub(s) with changes")
+    if removed_count > 0:
+        logger.info(f"Removed {removed_count} obsolete stub(s)")
