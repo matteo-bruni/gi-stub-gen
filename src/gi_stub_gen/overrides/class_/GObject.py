@@ -717,7 +717,7 @@ CLASS_PROPERTY = ClassSchema(
                 BuiltinFunctionArgumentSchema(
                     name="type",
                     kind=ArgKind.POSITIONAL_OR_KEYWORD,
-                    type_hint_name="type | None",
+                    type_hint_name="type | GType | None",
                     type_hint_namespace=None,
                     is_optional=False,
                     default_value="None",
