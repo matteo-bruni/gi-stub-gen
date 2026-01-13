@@ -7,11 +7,11 @@
 
 | Metric | gi-stub-gen | pygobject-stubs |
 |--------|-----------------|-----------------|
-| **Total unique elements** | 79 | 107 |
+| **Total unique elements** | 78 | 107 |
 | └ attributes | 0 | 6 |
 | └ classes | 55 | 1 |
 | └ constants | 4 | 1 |
-| └ methods | 20 | 99 |
+| └ methods | 19 | 99 |
 | **Elements with differences** | 770 | |
 
 ### Runtime Existence Check
@@ -21,7 +21,7 @@ Checked against `gi.repository.GObject` at runtime:
 | Status | gi-stub-gen | pygobject-stubs |
 |--------|-----------------|-----------------|
 | ✅ Exists | 19 | 47 |
-| ❌ Does not exist | 6 | 60 |
+| ❌ Does not exist | 5 | 60 |
 | n/a Protocol/Callback | 54 | 0 |
 
 ---
@@ -136,7 +136,6 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | method | `Binding.connect` | ✅ | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `BindingGroup.connect` | ✅ | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `GObjectWeakRef.props` | ❌ | <code>@builtins.property<br>def props(self) -> Props</code> |
-| method | `GType.props` | ❌ | <code>@builtins.property<br>def props(self) -> Props</code> |
 | method | `InitiallyUnowned.__init__` | ✅ | <code>def \_\_init\_\_(self) -> None</code> |
 | method | `InitiallyUnowned.connect` | ✅ | <code>@typing.overload<br>def connect(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `Object.handler_default` | ❌ | <code>def handler\_default(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;callback: typing.Callable[[typing.Any], None] \| None = None,<br>) -> None</code> |
@@ -299,7 +298,7 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | class | class | `GObjectWeakRef` | <code>class GObjectWeakRef(builtins.object)</code> | <code>class GObjectWeakRef</code> |
 | constant | class | `GParamSpec` | <code>GParamSpec = ParamSpec</code> | <code>class GParamSpec</code> |
 | class | class | `GPointer` | <code>class GPointer(builtins.object, metaclass=GTypeMeta)</code> | <code>class GPointer</code> |
-| class | class | `GType` | <code>class GType(builtins.object)</code> | <code>class GType</code> |
+| class | class | `GType` | <code>class GType(builtins.type)</code> | <code>class GType</code> |
 | constant | constant | `G_MAXDOUBLE` | <code>G\_MAXDOUBLE: float = ...</code> | <code>G\_MAXDOUBLE: float = 1.7976931348623157e+308</code> |
 | constant | constant | `G_MAXFLOAT` | <code>G\_MAXFLOAT: float = ...</code> | <code>G\_MAXFLOAT: float = 3.4028234663852886e+38</code> |
 | constant | constant | `G_MAXINT` | <code>G\_MAXINT: int = ...</code> | <code>G\_MAXINT: int = 2147483647</code> |

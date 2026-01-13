@@ -192,3 +192,78 @@ def test_namespace_inference():
 
     assert module == "gi.repository.Gtk"
     assert name == "Widget"
+
+
+# ============================================================================
+# Super Override Tests
+# ============================================================================
+
+
+def test_get_super_override_returns_override():
+    """Test that get_super_override returns the override when it exists."""
+    from gi_stub_gen.overrides import get_super_override
+
+    # GType should have builtins.type as super
+    override = get_super_override("gi.repository.GObject", "GType")
+    assert override is not None
+    assert override == ["builtins.type"]
+
+
+def test_get_super_override_returns_none_when_no_override():
+    """Test that get_super_override returns None when no override exists."""
+    from gi_stub_gen.overrides import get_super_override
+
+    # GObject.Object should NOT have a super override
+    override = get_super_override("gi.repository.GObject", "Object")
+    assert override is None
+
+
+def test_get_super_override_returns_none_for_unknown_class():
+    """Test that get_super_override returns None for unknown classes."""
+    from gi_stub_gen.overrides import get_super_override
+
+    override = get_super_override("gi.repository.SomeUnknown", "UnknownClass")
+    assert override is None
+
+
+def test_gtype_class_has_builtins_type_as_super():
+    """
+    Test that GType class gets builtins.type as its super class via override.
+    """
+    from gi.repository import GObject
+    from gi_stub_gen.parser.class_ import parse_class
+
+    class_schema, _ = parse_class("gi.repository.GObject", GObject.GType)
+
+    assert class_schema is not None
+    assert class_schema.name == "GType"
+    # GType should have builtins.type as super (from override)
+    assert "builtins.type" in class_schema.super
+
+
+def test_super_override_replaces_computed_super():
+    """
+    Test that when a super override exists, it replaces the computed super class,
+    not append to it.
+    """
+    from gi.repository import GObject
+    from gi_stub_gen.parser.class_ import parse_class
+
+    class_schema, _ = parse_class("gi.repository.GObject", GObject.GType)
+
+    # The super list should only contain the override, not the original computed super
+    # (which would be something like GObject.Object or similar)
+    assert class_schema.super == ["builtins.type"], f"Expected super to be ['builtins.type'], got {class_schema.super}"
+
+
+def test_class_without_super_override_uses_computed_super():
+    """
+    Test that classes without a super override use the computed super class.
+    """
+    from gi.repository import GObject
+    from gi_stub_gen.parser.class_ import parse_class
+
+    class_schema, _ = parse_class("gi.repository.GObject", GObject.InitiallyUnowned)
+
+    # InitiallyUnowned should have Object as super (computed, no override)
+    assert "Object" in class_schema.super_class

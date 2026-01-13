@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import logging
 
-from typing import Any
+from typing import Any, TYPE_CHECKING
 from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.manager.template import TemplateManager
@@ -12,6 +12,9 @@ from gi_stub_gen.schema.function import FunctionSchema
 from gi_stub_gen.schema.signals import SignalSchema
 from gi_stub_gen.utils.gi_utils import do_class_need_gtype_metaclass
 from gi_stub_gen.utils.utils import get_super_class_name, sanitize_gi_module_name
+
+if TYPE_CHECKING:
+    pass
 
 
 # GObject.remove_emission_hook
@@ -193,6 +196,19 @@ class ClassSchema(BaseSchema):
         builtin_methods: list[BuiltinFunctionSchema],
         extra: list[str],
     ):
+        """
+        Create a ClassSchema from a GI object.
+
+        This method also applies all class overrides (methods, fields, super class)
+        defined in gi_stub_gen.overrides.
+        """
+        # Import here to avoid circular import
+        from gi_stub_gen.overrides import (
+            get_super_override,
+            apply_method_overrides,
+            apply_field_overrides,
+        )
+
         gi_info = None
         if hasattr(obj, "__info__"):
             gi_info = obj.__info__
@@ -213,6 +229,21 @@ class ClassSchema(BaseSchema):
         ## END WIP DEBUGGING PURPOSES
 
         class_docstring = GIRDocs().get_class_docstring(obj.__name__)
+
+        # ================================================================
+        # Apply all overrides (methods, fields, super)
+        # ================================================================
+        methods = apply_method_overrides(methods, namespace, obj.__name__)
+        fields = apply_field_overrides(fields, namespace, obj.__name__)
+
+        # Sort after overrides are applied
+        fields.sort(key=lambda x: x.name)
+        methods.sort(key=lambda x: x.name)
+        props.sort(key=lambda x: x.name)
+
+        # ================================================================
+        # Compute super class
+        # ================================================================
         base_class_namespace, base_class_name = get_super_class_name(
             obj,
             current_namespace=namespace,
@@ -260,6 +291,18 @@ class ClassSchema(BaseSchema):
                 super_list.append("metaclass=GTypeMeta")
             else:
                 super_list.append("metaclass=GObject.GTypeMeta")
+
+        # Check for super class override
+        super_override = get_super_override(namespace, obj.__name__)
+        if super_override is not None:
+            super_list = super_override
+            # Extract required imports from overridden super classes
+            for super_cls in super_override:
+                if "." in super_cls and not super_cls.startswith("builtins."):
+                    # e.g. "GObject.SomeClass" -> need to import GObject
+                    override_namespace = super_cls.split(".")[0]
+                    if override_namespace != sane_namespace:
+                        required_gi_import = override_namespace
 
         instance = cls(
             namespace=namespace,

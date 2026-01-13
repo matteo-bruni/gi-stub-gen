@@ -3375,12 +3375,7 @@ class GObjectWeakRef(builtins.object):
 
 class GPointer(builtins.object, metaclass=GTypeMeta): ...
 
-class GType(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
-
+class GType(builtins.type):
     # gi Fields
     @builtins.property
     def children(self) -> typing.Any | None: ...

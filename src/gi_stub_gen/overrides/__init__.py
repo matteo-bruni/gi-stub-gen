@@ -17,6 +17,14 @@ from gi_stub_gen.schema.class_ import ClassFieldSchema
 from gi_stub_gen.schema.function import FunctionSchema
 
 
+def get_super_override(namespace: str, class_name: str) -> list[str] | None:
+    """
+    Get the super class override for a given class.
+    Returns a list of super class names if an override exists, None otherwise.
+    """
+    return CLASS_OVERRIDES.get(namespace, {}).get(class_name, {}).get("super")
+
+
 CLASS_OVERRIDES = {
     "gi.repository.GIRepository": {
         "TypeInfo": {
@@ -26,7 +34,7 @@ CLASS_OVERRIDES = {
         },
         "CallableInfo": {
             "methods": {
-                "get_arg_info": FUNCTION_INFO_GET_ARGUMENTS,  # (pygobject 3.54)
+                "get_arguments": FUNCTION_INFO_GET_ARGUMENTS,  # (pygobject 3.54)
                 "get_n_args": None,  # present in C api but not in Python (pygobject 3.54)
                 "get_arg": None,  # present in C api but not in Python (pygobject 3.54)
             }

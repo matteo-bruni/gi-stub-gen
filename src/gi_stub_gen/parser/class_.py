@@ -24,7 +24,6 @@ from gi_stub_gen.utils.gi_utils import (
     is_class_field_nullable,
 )
 from gi_stub_gen.manager.gir_docs import GIRDocs
-from gi_stub_gen.overrides import apply_field_overrides, apply_method_overrides
 
 from gi_stub_gen.parser.python_function import parse_python_function
 from gi_stub_gen.parser.constant import parse_constant
@@ -695,21 +694,6 @@ def parse_class(
         else:
             extra.append(f"unknown: {attribute_name}: {attribute_type} local={is_attribute_local}")
 
-    # manual override
-    # i.e. in GIRepository.TypeInfo we add get_tag_as_string method
-    # which is not present in gi.TypeInfo
-    # since it has been injected by pygobject
-    class_methods = apply_method_overrides(
-        class_methods,
-        namespace=module_name,
-        class_name=class_to_parse.__name__,
-    )
-    class_fields = apply_field_overrides(
-        class_fields,
-        namespace=module_name,
-        class_name=class_to_parse.__name__,
-    )
-
     # add __init__ method
     is_init_present_in_methods = any(method.name == "__init__" for method in class_methods)
     is_init_present_in_python_methods = any(method.name == "__init__" for method in class_python_methods)
@@ -720,11 +704,7 @@ def parse_class(
         ):
             class_methods.insert(0, init_method)
 
-    # sort methods by name
-    class_fields.sort(key=lambda x: x.name)
-    class_methods.sort(key=lambda x: x.name)
-    class_props.sort(key=lambda x: x.name)
-
+    # Note: method/field/super overrides and sorting are applied inside from_gi_object
     return ClassSchema.from_gi_object(
         namespace=module_name,
         obj=class_to_parse,

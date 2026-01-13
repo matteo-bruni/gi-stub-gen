@@ -122,8 +122,8 @@ packages = ["src/gi-stubs"]"""
     # gi -> package_folder/__init__.pyi
     # gi.repository.<module> -> package_folder/repository/<module>.pyi
     # gi.<module> -> package_folder/repository/<module>.pyi
-    skipped_count = 0
-    written_count = 0
+    skipped_stubs: list[str] = []
+    written_stubs: list[str] = []
     generated_paths: set[Path] = set()  # Track all paths we're generating
 
     for stub_name, stub_content in stubs.items():
@@ -145,10 +145,10 @@ packages = ["src/gi-stubs"]"""
             logger.info(f"Writing stub file for {stub_name} at {pyi_path}")
             with open(pyi_path, "w") as f:
                 f.write(stub_content)
-            written_count += 1
+            written_stubs.append(stub_name)
         else:
             logger.debug(f"Skipping {stub_name}: no changes detected (only date differs)")
-            skipped_count += 1
+            skipped_stubs.append(stub_name)
 
     # If overwrite is enabled, remove any .pyi files that are no longer being generated
     removed_count = 0
@@ -159,9 +159,9 @@ packages = ["src/gi-stubs"]"""
                 existing_pyi.unlink()
                 removed_count += 1
 
-    if skipped_count > 0:
-        logger.info(f"Skipped {skipped_count} stub(s) with no changes (only date differs)")
-    if written_count > 0:
-        logger.info(f"Wrote {written_count} stub(s) with changes")
+    if skipped_stubs:
+        logger.info(f"Skipped {len(skipped_stubs)} stub(s) with no changes: {', '.join(skipped_stubs)}")
+    if written_stubs:
+        logger.info(f"Wrote {len(written_stubs)} stub(s) with changes: {', '.join(written_stubs)}")
     if removed_count > 0:
         logger.info(f"Removed {removed_count} obsolete stub(s)")
