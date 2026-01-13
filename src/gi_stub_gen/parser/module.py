@@ -2,7 +2,6 @@ from __future__ import annotations
 
 
 from gi_stub_gen.manager.gir_docs import GIRDocs
-from gi_stub_gen.overrides.class_.GObject import CLASS_GTYPE_META
 from gi_stub_gen.overrides.class_.GObject.Property import CLASS_PROPERTY
 from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.python_function import parse_python_function
@@ -233,9 +232,7 @@ def parse_module(
     #########################################################################
 
     if module_name == "gi.repository.GObject":
-        #  add a custom metaclass just for stubs needed to add `GType` to boxed types
-        # that do not inherit from GObject.Object
-        module_classes.append(CLASS_GTYPE_META)
+        #  add a custom Property class override
         module_classes.append(CLASS_PROPERTY)
 
     # add override callbacks, if defined for current module

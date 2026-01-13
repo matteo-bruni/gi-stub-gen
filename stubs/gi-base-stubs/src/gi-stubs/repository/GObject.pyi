@@ -2332,7 +2332,7 @@ class TypeFundamentalFlags(enum.IntFlag):
 # classes
 ###############################################################
 
-class Array(GBoxed, metaclass=GTypeMeta): ...
+class Array(GBoxed, metaclass=GType): ...
 
 class Binding(Object):
     """
@@ -2672,9 +2672,9 @@ class BindingGroup(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class BookmarkFile(GBoxed, metaclass=GTypeMeta): ...
+class BookmarkFile(GBoxed, metaclass=GType): ...
 
-class CClosure(GPointer, metaclass=GTypeMeta):
+class CClosure(GPointer, metaclass=GType):
     """
     A GCClosure is a specialization of GClosure for C function callbacks.
     """
@@ -3001,9 +3001,9 @@ class CClosure(GPointer, metaclass=GTypeMeta):
         but used automatically by GLib when specifying a None marshaller.
         """
 
-class Checksum(GBoxed, metaclass=GTypeMeta): ...
+class Checksum(GBoxed, metaclass=GType): ...
 
-class Closure(GBoxed, metaclass=GTypeMeta):
+class Closure(GBoxed, metaclass=GType):
     """
     A `GClosure` represents a callback supplied by the programmer.
 
@@ -3196,15 +3196,15 @@ class Closure(GBoxed, metaclass=GTypeMeta):
         new_simple(sizeof_closure:int, data=None) -> GObject.Closure
         """
 
-class ClosureNotifyData(GPointer, metaclass=GTypeMeta):
+class ClosureNotifyData(GPointer, metaclass=GType):
     # gi Fields
     data: object | None = ...
     notify: ClosureNotifyClosureNotifyDataCB = ...
 
-class Date(GBoxed, metaclass=GTypeMeta): ...
-class Dir(GBoxed, metaclass=GTypeMeta): ...
+class Date(GBoxed, metaclass=GType): ...
+class Dir(GBoxed, metaclass=GType): ...
 
-class EnumClass(GPointer, metaclass=GTypeMeta):
+class EnumClass(GPointer, metaclass=GType):
     """
     The class of an enumeration type holds information about its
     possible values.
@@ -3233,7 +3233,7 @@ class EnumClass(GPointer, metaclass=GTypeMeta):
      individual values.
     """
 
-class EnumValue(GPointer, metaclass=GTypeMeta):
+class EnumValue(GPointer, metaclass=GType):
     """
     A structure which contains a single enum value, its name, and its
     nickname.
@@ -3253,7 +3253,7 @@ class EnumValue(GPointer, metaclass=GTypeMeta):
     the nickname of the value
     """
 
-class FlagsClass(GPointer, metaclass=GTypeMeta):
+class FlagsClass(GPointer, metaclass=GType):
     """
     The class of a flags type holds information about its
     possible values.
@@ -3278,7 +3278,7 @@ class FlagsClass(GPointer, metaclass=GTypeMeta):
      individual values.
     """
 
-class FlagsValue(GPointer, metaclass=GTypeMeta):
+class FlagsValue(GPointer, metaclass=GType):
     """
     A structure which contains a single flags value, its name, and its
     nickname.
@@ -3298,8 +3298,8 @@ class FlagsValue(GPointer, metaclass=GTypeMeta):
     the nickname of the value
     """
 
-class Float(builtins.float, metaclass=GTypeMeta): ...
-class GBoxed(builtins.object, metaclass=GTypeMeta): ...
+class Float(builtins.float, metaclass=GType): ...
+class GBoxed(builtins.object, metaclass=GType): ...
 
 class GEnum(enum.IntEnum):
     """
@@ -3359,7 +3359,7 @@ class GFlags(enum.IntFlag):
         The nicknames of the values.
         """
 
-class GInterface(builtins.object, metaclass=GTypeMeta): ...
+class GInterface(builtins.object, metaclass=GType): ...
 
 class GObjectWeakRef(builtins.object):
     """
@@ -3373,27 +3373,87 @@ class GObjectWeakRef(builtins.object):
 
     ...
 
-class GPointer(builtins.object, metaclass=GTypeMeta): ...
+class GPointer(builtins.object, metaclass=GType): ...
 
 class GType(builtins.type):
     # gi Fields
     @builtins.property
-    def children(self) -> typing.Any | None: ...
+    def children(self) -> list[GType]:
+        """
+        List of child GTypes.
+        """
     @builtins.property
-    def depth(self) -> typing.Any | None: ...
+    def depth(self) -> int:
+        """
+        The depth in the type hierarchy.
+        """
     @builtins.property
-    def fundamental(self) -> typing.Any | None: ...
+    def fundamental(self) -> GType:
+        """
+        The fundamental type this GType is derived from.
+        """
     @builtins.property
-    def interfaces(self) -> typing.Any | None: ...
+    def interfaces(self) -> list[GType]:
+        """
+        List of interfaces implemented by this GType.
+        """
     @builtins.property
     def name(self) -> str | None:
         """
-        The GType name of the class.
+        The GType name.
         """
     @builtins.property
-    def parent(self) -> typing.Any | None: ...
+    def parent(self) -> GType:
+        """
+        The parent GType.
+        """
     @builtins.property
-    def pytype(self) -> typing.Any | None: ...
+    def pytype(self) -> builtins.type | None:
+        """
+        The Python type associated with this GType, or None.
+        """
+
+    # gi Methods
+    def has_value_table(self) -> bool:
+        """
+        Check if this GType has a value table.
+        """
+    def is_a(self, type: GType) -> bool:
+        """
+        Check if this GType is derived from another GType.
+        """
+    def is_abstract(self) -> bool:
+        """
+        Check if this GType is abstract.
+        """
+    def is_classed(self) -> bool:
+        """
+        Check if this GType is a classed type.
+        """
+    def is_deep_derivable(self) -> bool:
+        """
+        Check if this GType can be deeply derived.
+        """
+    def is_derivable(self) -> bool:
+        """
+        Check if this GType can be derived.
+        """
+    def is_instantiatable(self) -> bool:
+        """
+        Check if this GType can be instantiated.
+        """
+    def is_interface(self) -> bool:
+        """
+        Check if this GType is an interface.
+        """
+    def is_value_abstract(self) -> bool:
+        """
+        Check if this GType is an abstract value type.
+        """
+    def is_value_type(self) -> bool:
+        """
+        Check if this GType is a value type.
+        """
 
     # python methods (overrides?)
     @staticmethod
@@ -3402,8 +3462,8 @@ class GType(builtins.type):
         **kwargs: typing.Any,
     ) -> typing.Any: ...
 
-class HashTable(GBoxed, metaclass=GTypeMeta): ...
-class Hmac(GBoxed, metaclass=GTypeMeta): ...
+class HashTable(GBoxed, metaclass=GType): ...
+class Hmac(GBoxed, metaclass=GType): ...
 
 class InitiallyUnowned(Object):
     """
@@ -3440,7 +3500,7 @@ class InitiallyUnowned(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class InitiallyUnownedClass(GPointer, metaclass=GTypeMeta):
+class InitiallyUnownedClass(GPointer, metaclass=GType):
     """
     The class structure for the GInitiallyUnowned type.
     """
@@ -3527,7 +3587,7 @@ class InitiallyUnownedClass(GPointer, metaclass=GTypeMeta):
         emitted explicitly, the type system will not emit it a second time.
         """
 
-class InterfaceInfo(GPointer, metaclass=GTypeMeta):
+class InterfaceInfo(GPointer, metaclass=GType):
     """
     A structure that provides information to the type system which is
     used specifically for managing interface types.
@@ -3547,9 +3607,9 @@ class InterfaceInfo(GPointer, metaclass=GTypeMeta):
     location of the interface initialization function
     """
 
-class MappedFile(GBoxed, metaclass=GTypeMeta): ...
-class MarkupParseContext(GBoxed, metaclass=GTypeMeta): ...
-class MatchInfo(GBoxed, metaclass=GTypeMeta): ...
+class MappedFile(GBoxed, metaclass=GType): ...
+class MarkupParseContext(GBoxed, metaclass=GType): ...
+class MatchInfo(GBoxed, metaclass=GType): ...
 
 class Object(builtins.object):
     """
@@ -4042,7 +4102,7 @@ class Object(builtins.object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class ObjectClass(GPointer, metaclass=GTypeMeta):
+class ObjectClass(GPointer, metaclass=GType):
     """
     The class structure for the GObject type.
 
@@ -4262,7 +4322,7 @@ class ObjectClass(GPointer, metaclass=GTypeMeta):
         `g_param_spec_get_redirect_target`.
         """
 
-class ObjectConstructParam(GPointer, metaclass=GTypeMeta):
+class ObjectConstructParam(GPointer, metaclass=GType):
     """
     The GObjectConstructParam struct is an auxiliary structure used to hand
     GParamSpec/GValue pairs to the `constructor` of a GObject.Class.
@@ -4302,7 +4362,7 @@ class OptionGroup(builtins.object):
 
     ...
 
-class ParamSpec(object, metaclass=GTypeMeta):
+class ParamSpec(object, metaclass=GType):
     """
     `GParamSpec` encapsulates the metadata required to specify parameters, such as `GObject` properties.
 
@@ -4478,7 +4538,7 @@ class ParamSpec(object, metaclass=GTypeMeta):
         values_cmp(self, value1:GObject.Value, value2:GObject.Value) -> int
         """
 
-class ParamSpecBoolean(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecBoolean(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for boolean properties.
     """
@@ -4495,7 +4555,7 @@ class ParamSpecBoolean(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecBoxed(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecBoxed(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for boxed properties.
     """
@@ -4507,7 +4567,7 @@ class ParamSpecBoxed(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecChar(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecChar(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for character properties.
     """
@@ -4534,7 +4594,7 @@ class ParamSpecChar(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecClass(GPointer, metaclass=GTypeMeta):
+class ParamSpecClass(GPointer, metaclass=GType):
     """
     The class structure for the GParamSpec type.
     Normally, GParamSpec classes are filled by
@@ -4588,7 +4648,7 @@ class ParamSpecClass(GPointer, metaclass=GTypeMeta):
         (recommended, the default is `memcmp`), see `g_param_values_cmp`.
         """
 
-class ParamSpecDouble(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecDouble(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for double properties.
     """
@@ -4621,7 +4681,7 @@ class ParamSpecDouble(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecEnum(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecEnum(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for enum
     properties.
@@ -4655,7 +4715,7 @@ class ParamSpecEnum(ParamSpec, metaclass=GTypeMeta):
         value: typing.Any,
     ) -> typing.Any: ...
 
-class ParamSpecFlags(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecFlags(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for flags
     properties.
@@ -4689,7 +4749,7 @@ class ParamSpecFlags(ParamSpec, metaclass=GTypeMeta):
         value: typing.Any,
     ) -> typing.Any: ...
 
-class ParamSpecFloat(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecFloat(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for float properties.
     """
@@ -4722,7 +4782,7 @@ class ParamSpecFloat(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecGType(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecGType(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for GType properties.
     """
@@ -4739,7 +4799,7 @@ class ParamSpecGType(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecInt(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecInt(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for integer properties.
     """
@@ -4766,7 +4826,7 @@ class ParamSpecInt(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecInt64(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecInt64(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for 64bit integer properties.
     """
@@ -4793,7 +4853,7 @@ class ParamSpecInt64(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecLong(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecLong(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for long integer properties.
     """
@@ -4820,7 +4880,7 @@ class ParamSpecLong(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecObject(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecObject(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for object properties.
     """
@@ -4832,7 +4892,7 @@ class ParamSpecObject(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecOverride(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecOverride(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that redirects operations to
     other types of GParamSpec.
@@ -4853,7 +4913,7 @@ class ParamSpecOverride(ParamSpec, metaclass=GTypeMeta):
     @builtins.property
     def parent_instance(self) -> ParamSpec | None: ...
 
-class ParamSpecParam(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecParam(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for G_TYPE_PARAM
     properties.
@@ -4866,7 +4926,7 @@ class ParamSpecParam(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecPointer(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecPointer(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for pointer properties.
     """
@@ -4878,7 +4938,7 @@ class ParamSpecPointer(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecPool(GPointer, metaclass=GTypeMeta):
+class ParamSpecPool(GPointer, metaclass=GType):
     """
     A GParamSpecPool maintains a collection of GParamSpecs which can be
     quickly accessed by owner and name.
@@ -4915,7 +4975,7 @@ class ParamSpecPool(GPointer, metaclass=GTypeMeta):
         Removes a GParamSpec from the pool.
         """
 
-class ParamSpecString(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecString(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for string
     properties.
@@ -4958,7 +5018,7 @@ class ParamSpecString(ParamSpec, metaclass=GTypeMeta):
         the replacement byte for bytes which don't match `cset_first` or `cset_nth`.
         """
 
-class ParamSpecTypeInfo(GPointer, metaclass=GTypeMeta):
+class ParamSpecTypeInfo(GPointer, metaclass=GType):
     """
     This structure is used to provide the type system with the information
     required to initialize and destruct (finalize) a parameter's class and
@@ -5014,7 +5074,7 @@ class ParamSpecTypeInfo(GPointer, metaclass=GTypeMeta):
         (recommended, the default is `memcmp`), see `g_param_values_cmp`.
         """
 
-class ParamSpecUChar(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecUChar(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for unsigned character properties.
     """
@@ -5041,7 +5101,7 @@ class ParamSpecUChar(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecUInt(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecUInt(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for unsigned integer properties.
     """
@@ -5068,7 +5128,7 @@ class ParamSpecUInt(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecUInt64(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecUInt64(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for unsigned 64bit integer properties.
     """
@@ -5095,7 +5155,7 @@ class ParamSpecUInt64(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecULong(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecULong(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for unsigned long integer properties.
     """
@@ -5122,7 +5182,7 @@ class ParamSpecULong(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecUnichar(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecUnichar(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for unichar (unsigned integer) properties.
     """
@@ -5139,7 +5199,7 @@ class ParamSpecUnichar(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecValueArray(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecValueArray(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for GValueArray properties.
     """
@@ -5161,7 +5221,7 @@ class ParamSpecValueArray(ParamSpec, metaclass=GTypeMeta):
         private GParamSpec portion
         """
 
-class ParamSpecVariant(ParamSpec, metaclass=GTypeMeta):
+class ParamSpecVariant(ParamSpec, metaclass=GType):
     """
     A GParamSpec derived structure that contains the meta data for GVariant properties.
 
@@ -5191,7 +5251,7 @@ class ParamSpecVariant(ParamSpec, metaclass=GTypeMeta):
         a GVariantType, or None
         """
 
-class Parameter(GPointer, metaclass=GTypeMeta):
+class Parameter(GPointer, metaclass=GType):
     """
     The GParameter struct is an auxiliary structure used
     to hand parameter name/value pairs to `g_object_newv`.
@@ -5207,7 +5267,7 @@ class Parameter(GPointer, metaclass=GTypeMeta):
     the parameter value
     """
 
-class PatternSpec(GBoxed, metaclass=GTypeMeta): ...
+class PatternSpec(GBoxed, metaclass=GType): ...
 
 class Pid(builtins.int):
     """
@@ -5216,9 +5276,9 @@ class Pid(builtins.int):
 
     ...
 
-class PtrArray(GBoxed, metaclass=GTypeMeta): ...
-class Rand(GBoxed, metaclass=GTypeMeta): ...
-class Regex(GBoxed, metaclass=GTypeMeta): ...
+class PtrArray(GBoxed, metaclass=GType): ...
+class Rand(GBoxed, metaclass=GType): ...
+class Regex(GBoxed, metaclass=GType): ...
 
 class SignalGroup(Object):
     """
@@ -5378,7 +5438,7 @@ class SignalGroup(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class SignalInvocationHint(GPointer, metaclass=GTypeMeta):
+class SignalInvocationHint(GPointer, metaclass=GType):
     """
     The GSignalInvocationHint structure is used to pass on additional information
     to callbacks during a signal emission.
@@ -5402,7 +5462,7 @@ class SignalInvocationHint(GPointer, metaclass=GTypeMeta):
     The signal id of the signal invoking the callback
     """
 
-class SignalQuery(GPointer, metaclass=GTypeMeta):
+class SignalQuery(GPointer, metaclass=GType):
     """
     A structure holding in-depth information for a specific signal.
 
@@ -5446,19 +5506,19 @@ class SignalQuery(GPointer, metaclass=GTypeMeta):
     The signal name.
     """
 
-class Strv(GBoxed, metaclass=GTypeMeta): ...
-class StrvBuilder(GBoxed, metaclass=GTypeMeta): ...
-class Thread(GBoxed, metaclass=GTypeMeta): ...
-class TimeZone(GBoxed, metaclass=GTypeMeta): ...
+class Strv(GBoxed, metaclass=GType): ...
+class StrvBuilder(GBoxed, metaclass=GType): ...
+class Thread(GBoxed, metaclass=GType): ...
+class TimeZone(GBoxed, metaclass=GType): ...
 
-class TypeCValue(GPointer, metaclass=GTypeMeta):
+class TypeCValue(GPointer, metaclass=GType):
     # gi Fields
     v_double: float = ...
     v_int: int = ...
     v_int64: int = ...
     v_long: int = ...
 
-class TypeClass(GPointer, metaclass=GTypeMeta):
+class TypeClass(GPointer, metaclass=GType):
     """
     An opaque structure used as the base of all classes.
     """
@@ -5597,7 +5657,7 @@ class TypeClass(GPointer, metaclass=GTypeMeta):
         class pointer after `g_type_class_unref` are invalid.
         """
 
-class TypeFundamentalInfo(GPointer, metaclass=GTypeMeta):
+class TypeFundamentalInfo(GPointer, metaclass=GType):
     """
     A structure that provides information to the type system which is
     used specifically for managing fundamental types.
@@ -5609,7 +5669,7 @@ class TypeFundamentalInfo(GPointer, metaclass=GTypeMeta):
     GTypeFundamentalFlags describing the characteristics of the fundamental type
     """
 
-class TypeInfo(GPointer, metaclass=GTypeMeta):
+class TypeInfo(GPointer, metaclass=GType):
     """
     This structure is used to provide the type system with the information
     required to initialize and destruct (finalize) a type's class and
@@ -5672,7 +5732,7 @@ class TypeInfo(GPointer, metaclass=GTypeMeta):
      of this type (usually only useful for fundamental types)
     """
 
-class TypeInstance(GPointer, metaclass=GTypeMeta):
+class TypeInstance(GPointer, metaclass=GType):
     """
     An opaque structure used as the base of all type instances.
     """
@@ -5684,7 +5744,7 @@ class TypeInstance(GPointer, metaclass=GTypeMeta):
     # gi Methods
     def get_private(self, private_type: GType) -> object | None: ...
 
-class TypeInterface(GPointer, metaclass=GTypeMeta):
+class TypeInterface(GPointer, metaclass=GType):
     """
     An opaque structure used as the base of all interface types.
     """
@@ -5900,7 +5960,7 @@ class TypeModule(Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class TypeModuleClass(GPointer, metaclass=GTypeMeta):
+class TypeModuleClass(GPointer, metaclass=GType):
     """
     In order to implement dynamic loading of types based on GTypeModule,
     the `load` and `unload` functions in GTypeModuleClass must be implemented.
@@ -5932,7 +5992,7 @@ class TypeModuleClass(GPointer, metaclass=GTypeMeta):
         unloads the module
         """
 
-class TypePlugin(builtins.object, metaclass=GTypeMeta):
+class TypePlugin(builtins.object, metaclass=GType):
     """
     An interface that handles the lifecycle of dynamically loaded types.
 
@@ -6014,7 +6074,7 @@ class TypePlugin(builtins.object, metaclass=GTypeMeta):
         the GObject type system itself.
         """
 
-class TypePluginClass(GPointer, metaclass=GTypeMeta):
+class TypePluginClass(GPointer, metaclass=GType):
     """
     The GTypePlugin interface is used by the type system in order to handle
     the lifecycle of dynamically loaded types.
@@ -6044,7 +6104,7 @@ class TypePluginClass(GPointer, metaclass=GTypeMeta):
     Increases the use count of the plugin.
     """
 
-class TypeQuery(GPointer, metaclass=GTypeMeta):
+class TypeQuery(GPointer, metaclass=GType):
     """
     A structure holding information for a specific type.
 
@@ -6069,7 +6129,7 @@ class TypeQuery(GPointer, metaclass=GTypeMeta):
     the name of the type
     """
 
-class TypeValueTable(GPointer, metaclass=GTypeMeta):
+class TypeValueTable(GPointer, metaclass=GType):
     """
     - `'i'`: Integers, passed as `collect_values[].v_int`
       - `'l'`: Longs, passed as `collect_values[].v_long`
@@ -6126,9 +6186,9 @@ class TypeValueTable(GPointer, metaclass=GTypeMeta):
       into a pointer
     """
 
-class Uri(GBoxed, metaclass=GTypeMeta): ...
+class Uri(GBoxed, metaclass=GType): ...
 
-class Value(GBoxed, metaclass=GTypeMeta):
+class Value(GBoxed, metaclass=GType):
     """
     An opaque structure used to hold different types of values.
 
@@ -6513,7 +6573,7 @@ class Value(GBoxed, metaclass=GTypeMeta):
         py_value: typing.Any,
     ) -> typing.Any: ...
 
-class ValueArray(GBoxed, metaclass=GTypeMeta):
+class ValueArray(GBoxed, metaclass=GType):
     """
     A `GValueArray` is a container structure to hold an array of generic values.
 
@@ -6611,7 +6671,7 @@ class ValueArray(GBoxed, metaclass=GTypeMeta):
 
 class Warning(builtins.Warning): ...
 
-class WeakRef(GPointer, metaclass=GTypeMeta):
+class WeakRef(GPointer, metaclass=GType):
     """
     A structure containing a weak reference to a GObject..
 
@@ -6641,7 +6701,7 @@ class WeakRef(GPointer, metaclass=GTypeMeta):
 
     ...
 
-class _Value__data__union(GPointer, metaclass=GTypeMeta):
+class _Value__data__union(GPointer, metaclass=GType):
     # gi Fields
     v_double: float = ...
     v_float: float = ...
@@ -6651,19 +6711,6 @@ class _Value__data__union(GPointer, metaclass=GTypeMeta):
     v_uint: int = ...
     v_uint64: int = ...
     v_ulong: int = ...
-
-class GTypeMeta(type, GType):
-    """
-    Metaclass to make a Python class compatible with GObject.GType arguments during static analysis.
-
-    In PyGObject runtime, a Python wrapper class (e.g., Gst.FractionRange) can be directly passed to functions expecting a GObject.GType (like `Gst.Structure.has_field_typed`), because the binding automatically resolves the `__gtype__` property.
-
-    However, static type checkers (e.g., Pylance, MyPy) strictly expect an *instance* of GObject.GType, not a Python *class type*, causing false positive errors.
-
-    By inheriting from both `type` and `GObject.GType`, this metaclass ensures that the class object itself is recognized as an instance of GObject.GType by type checkers, bridging the gap between the Python type system and GObject introspection without affecting runtime behavior. [manual-override]
-    """
-
-    ...
 
 class Property(builtins.property):
     """

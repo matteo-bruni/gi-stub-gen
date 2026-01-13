@@ -469,8 +469,8 @@ def do_class_need_gtype_metaclass(
     However, fundamental types (like structs and boxed types) that do not inherit from GObject.Object
     still have an associated GType in the underlying C library.
     To ensure that these types are correctly recognized as GTypes during static analysis,
-    we need to use a metaclass (GTypeMeta) in the stub definitions.
-    This function determines if a given class requires the GTypeMeta metaclass in its stub definition
+    we need to use `metaclass=GType` in the stub definitions.
+    This function determines if a given class requires the GType metaclass in its stub definition.
     """
 
     info = getattr(cls_obj, "__info__", None)

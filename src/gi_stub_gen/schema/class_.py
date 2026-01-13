@@ -282,15 +282,15 @@ class ClassSchema(BaseSchema):
             if sane_super_namespace != sanitize_gi_module_name(namespace):
                 required_gi_import = sane_super_namespace
 
-        # check if we need to add GTypeMeta as metaclass
+        # check if we need to add GType as metaclass
         is_gtype = do_class_need_gtype_metaclass(obj)
 
         super_list = [base_class]
         if is_gtype:
             if sane_namespace == "GObject":
-                super_list.append("metaclass=GTypeMeta")
+                super_list.append("metaclass=GType")
             else:
-                super_list.append("metaclass=GObject.GTypeMeta")
+                super_list.append("metaclass=GObject.GType")
 
         # Check for super class override
         super_override = get_super_override(namespace, obj.__name__)

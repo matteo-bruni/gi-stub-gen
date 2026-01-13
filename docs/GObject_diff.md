@@ -7,12 +7,12 @@
 
 | Metric | gi-stub-gen | pygobject-stubs |
 |--------|-----------------|-----------------|
-| **Total unique elements** | 78 | 107 |
+| **Total unique elements** | 77 | 97 |
 | └ attributes | 0 | 6 |
-| └ classes | 55 | 1 |
+| └ classes | 54 | 1 |
 | └ constants | 4 | 1 |
-| └ methods | 19 | 99 |
-| **Elements with differences** | 770 | |
+| └ methods | 19 | 89 |
+| **Elements with differences** | 780 | |
 
 ### Runtime Existence Check
 
@@ -20,8 +20,8 @@ Checked against `gi.repository.GObject` at runtime:
 
 | Status | gi-stub-gen | pygobject-stubs |
 |--------|-----------------|-----------------|
-| ✅ Exists | 19 | 47 |
-| ❌ Does not exist | 5 | 60 |
+| ✅ Exists | 19 | 37 |
+| ❌ Does not exist | 4 | 60 |
 | n/a Protocol/Callback | 54 | 0 |
 
 ---
@@ -83,7 +83,6 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | class | `ClassInitFuncTypeInfoCB` | n/a | <code>class ClassInitFuncTypeInfoCB(typing.Protocol)</code> |
 | class | `ClosureMarshal` | n/a | <code>class ClosureMarshal(typing.Protocol)</code> |
 | class | `ClosureNotifyClosureNotifyDataCB` | n/a | <code>class ClosureNotifyClosureNotifyDataCB(typing.Protocol)</code> |
-| class | `GTypeMeta` | ❌ | <code>class GTypeMeta(type, GType)</code> |
 | class | `InstanceInitFuncTypeInfoCB` | n/a | <code>class InstanceInitFuncTypeInfoCB(typing.Protocol)</code> |
 | class | `InterfaceFinalizeFuncInterfaceInfoCB` | n/a | <code>class InterfaceFinalizeFuncInterfaceInfoCB(typing.Protocol)</code> |
 | class | `InterfaceInitFuncInterfaceInfoCB` | n/a | <code>class InterfaceInitFuncInterfaceInfoCB(typing.Protocol)</code> |
@@ -228,16 +227,6 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | method | `GInterface.watch_closure` | ❌ | <code>def watch\_closure(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kargs,<br>)</code> |
 | method | `GInterface.weak_ref` | ❌ | <code>def weak\_ref(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;callback: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> None</code> |
 | method | `GObjectWeakRef.unref` | ✅ | <code>def unref(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | `GType.has_value_table` | ✅ | <code>def has\_value\_table(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | `GType.is_a` | ✅ | <code>def is\_a(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs,<br>)</code> |
-| method | `GType.is_abstract` | ✅ | <code>def is\_abstract(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | `GType.is_classed` | ✅ | <code>def is\_classed(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | `GType.is_deep_derivable` | ✅ | <code>def is\_deep\_derivable(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | `GType.is_derivable` | ✅ | <code>def is\_derivable(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | `GType.is_instantiatable` | ✅ | <code>def is\_instantiatable(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | `GType.is_interface` | ✅ | <code>def is\_interface(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | `GType.is_value_abstract` | ✅ | <code>def is\_value\_abstract(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | `GType.is_value_type` | ✅ | <code>def is\_value\_type(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
 | method | `Object.chain` | ✅ | <code>def chain(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs,<br>)</code> |
 | method | `Object.connect_after` | ✅ | <code>def connect\_after(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;detailed\_signal: str \| Signal,<br>&nbsp;&nbsp;&nbsp;&nbsp;handler: typing.Callable[..., typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>) -> int</code> |
 | method | `Object.connect_object` | ✅ | <code>def connect\_object(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs,<br>)</code> |
@@ -273,31 +262,31 @@ The **Exists** column indicates whether the element actually exists at runtime i
 
 | Type (gi-stub-gen) | Type (pygobject-stubs) | Name | gi-stub-gen | pygobject-stubs |
 |------|------|------|--------|--------|
-| class | class | `Array` | <code>class Array(GBoxed, metaclass=GTypeMeta)</code> | <code>class Array(GBoxed)</code> |
-| class | class | `BookmarkFile` | <code>class BookmarkFile(GBoxed, metaclass=GTypeMeta)</code> | <code>class BookmarkFile(GBoxed)</code> |
+| class | class | `Array` | <code>class Array(GBoxed, metaclass=GType)</code> | <code>class Array(GBoxed)</code> |
+| class | class | `BookmarkFile` | <code>class BookmarkFile(GBoxed, metaclass=GType)</code> | <code>class BookmarkFile(GBoxed)</code> |
 | constant | class | `ByteArray` | <code>ByteArray = GLib.ByteArray</code> | <code>class ByteArray(GBoxed)</code> |
 | constant | class | `Bytes` | <code>Bytes = GLib.Bytes</code> | <code>class Bytes(GBoxed)</code> |
-| class | class | `CClosure` | <code>class CClosure(GPointer, metaclass=GTypeMeta)</code> | <code>class CClosure(GPointer)</code> |
-| class | class | `Checksum` | <code>class Checksum(GBoxed, metaclass=GTypeMeta)</code> | <code>class Checksum(GBoxed)</code> |
-| class | class | `Closure` | <code>class Closure(GBoxed, metaclass=GTypeMeta)</code> | <code>class Closure(GBoxed)</code> |
-| class | class | `ClosureNotifyData` | <code>class ClosureNotifyData(GPointer, metaclass=GTypeMeta)</code> | <code>class ClosureNotifyData(GPointer)</code> |
+| class | class | `CClosure` | <code>class CClosure(GPointer, metaclass=GType)</code> | <code>class CClosure(GPointer)</code> |
+| class | class | `Checksum` | <code>class Checksum(GBoxed, metaclass=GType)</code> | <code>class Checksum(GBoxed)</code> |
+| class | class | `Closure` | <code>class Closure(GBoxed, metaclass=GType)</code> | <code>class Closure(GBoxed)</code> |
+| class | class | `ClosureNotifyData` | <code>class ClosureNotifyData(GPointer, metaclass=GType)</code> | <code>class ClosureNotifyData(GPointer)</code> |
 | class | class | `ConnectFlags` | <code>class ConnectFlags(enum.IntFlag)</code> | <code>class ConnectFlags(GFlags)</code> |
-| class | class | `Date` | <code>class Date(GBoxed, metaclass=GTypeMeta)</code> | <code>class Date(GBoxed)</code> |
+| class | class | `Date` | <code>class Date(GBoxed, metaclass=GType)</code> | <code>class Date(GBoxed)</code> |
 | constant | class | `DateTime` | <code>DateTime = GLib.DateTime</code> | <code>class DateTime(GBoxed)</code> |
-| class | class | `Dir` | <code>class Dir(GBoxed, metaclass=GTypeMeta)</code> | <code>class Dir(GBoxed)</code> |
-| class | class | `EnumClass` | <code>class EnumClass(GPointer, metaclass=GTypeMeta)</code> | <code>class EnumClass(GPointer)</code> |
-| class | class | `EnumValue` | <code>class EnumValue(GPointer, metaclass=GTypeMeta)</code> | <code>class EnumValue(GPointer)</code> |
+| class | class | `Dir` | <code>class Dir(GBoxed, metaclass=GType)</code> | <code>class Dir(GBoxed)</code> |
+| class | class | `EnumClass` | <code>class EnumClass(GPointer, metaclass=GType)</code> | <code>class EnumClass(GPointer)</code> |
+| class | class | `EnumValue` | <code>class EnumValue(GPointer, metaclass=GType)</code> | <code>class EnumValue(GPointer)</code> |
 | constant | class | `Error` | <code>Error = GLib.Error</code> | <code>class Error(GBoxed)</code> |
-| class | class | `FlagsClass` | <code>class FlagsClass(GPointer, metaclass=GTypeMeta)</code> | <code>class FlagsClass(GPointer)</code> |
-| class | class | `FlagsValue` | <code>class FlagsValue(GPointer, metaclass=GTypeMeta)</code> | <code>class FlagsValue(GPointer)</code> |
-| class | class | `Float` | <code>class Float(builtins.float, metaclass=GTypeMeta)</code> | <code>class Float(float)</code> |
-| class | class | `GBoxed` | <code>class GBoxed(builtins.object, metaclass=GTypeMeta)</code> | <code>class GBoxed</code> |
+| class | class | `FlagsClass` | <code>class FlagsClass(GPointer, metaclass=GType)</code> | <code>class FlagsClass(GPointer)</code> |
+| class | class | `FlagsValue` | <code>class FlagsValue(GPointer, metaclass=GType)</code> | <code>class FlagsValue(GPointer)</code> |
+| class | class | `Float` | <code>class Float(builtins.float, metaclass=GType)</code> | <code>class Float(float)</code> |
+| class | class | `GBoxed` | <code>class GBoxed(builtins.object, metaclass=GType)</code> | <code>class GBoxed</code> |
 | constant | class | `GError` | <code>GError = Error</code> | <code>class GError(RuntimeError)</code> |
-| class | class | `GInterface` | <code>class GInterface(builtins.object, metaclass=GTypeMeta)</code> | <code>class GInterface(typing.Protocol)</code> |
+| class | class | `GInterface` | <code>class GInterface(builtins.object, metaclass=GType)</code> | <code>class GInterface(typing.Protocol)</code> |
 | constant | class | `GObject` | <code>GObject = Object</code> | <code>class GObject(Object)</code> |
 | class | class | `GObjectWeakRef` | <code>class GObjectWeakRef(builtins.object)</code> | <code>class GObjectWeakRef</code> |
 | constant | class | `GParamSpec` | <code>GParamSpec = ParamSpec</code> | <code>class GParamSpec</code> |
-| class | class | `GPointer` | <code>class GPointer(builtins.object, metaclass=GTypeMeta)</code> | <code>class GPointer</code> |
+| class | class | `GPointer` | <code>class GPointer(builtins.object, metaclass=GType)</code> | <code>class GPointer</code> |
 | class | class | `GType` | <code>class GType(builtins.type)</code> | <code>class GType</code> |
 | constant | constant | `G_MAXDOUBLE` | <code>G\_MAXDOUBLE: float = ...</code> | <code>G\_MAXDOUBLE: float = 1.7976931348623157e+308</code> |
 | constant | constant | `G_MAXFLOAT` | <code>G\_MAXFLOAT: float = ...</code> | <code>G\_MAXFLOAT: float = 3.4028234663852886e+38</code> |
@@ -329,8 +318,8 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | constant | constant | `G_MINOFFSET` | <code>G\_MINOFFSET: int = ...</code> | <code>G\_MINOFFSET: int = -9223372036854775808</code> |
 | constant | constant | `G_MINSHORT` | <code>G\_MINSHORT: int = ...</code> | <code>G\_MINSHORT: int = -32768</code> |
 | constant | constant | `G_MINSSIZE` | <code>G\_MINSSIZE: int = ...</code> | <code>G\_MINSSIZE: int = -9223372036854775808</code> |
-| class | class | `HashTable` | <code>class HashTable(GBoxed, metaclass=GTypeMeta)</code> | <code>class HashTable(GBoxed)</code> |
-| class | class | `Hmac` | <code>class Hmac(GBoxed, metaclass=GTypeMeta)</code> | <code>class Hmac(GBoxed)</code> |
+| class | class | `HashTable` | <code>class HashTable(GBoxed, metaclass=GType)</code> | <code>class HashTable(GBoxed)</code> |
+| class | class | `Hmac` | <code>class Hmac(GBoxed, metaclass=GType)</code> | <code>class Hmac(GBoxed)</code> |
 | constant | class | `IOChannel` | <code>IOChannel = GLib.IOChannel</code> | <code>class IOChannel(GBoxed)</code> |
 | constant | class | `IOCondition` | <code>IOCondition = GLib.IOCondition</code> | <code>class IOCondition(GFlags)</code> |
 | constant | constant | `IO_ERR` | <code>IO\_ERR = GLib.IO\_ERR</code> | <code>IO\_ERR: int = 8</code> |
@@ -352,14 +341,14 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | constant | constant | `IO_STATUS_ERROR` | <code>IO\_STATUS\_ERROR = GLib.IO\_STATUS\_ERROR</code> | <code>IO\_STATUS\_ERROR: int = 0</code> |
 | constant | constant | `IO_STATUS_NORMAL` | <code>IO\_STATUS\_NORMAL = GLib.IO\_STATUS\_NORMAL</code> | <code>IO\_STATUS\_NORMAL: int = 1</code> |
 | constant | class | `Idle` | <code>Idle = GLib.Idle</code> | <code>class Idle(GBoxed)</code> |
-| class | class | `InitiallyUnownedClass` | <code>class InitiallyUnownedClass(GPointer, metaclass=GTypeMeta)</code> | <code>class InitiallyUnownedClass(GPointer)</code> |
-| class | class | `InterfaceInfo` | <code>class InterfaceInfo(GPointer, metaclass=GTypeMeta)</code> | <code>class InterfaceInfo(GPointer)</code> |
+| class | class | `InitiallyUnownedClass` | <code>class InitiallyUnownedClass(GPointer, metaclass=GType)</code> | <code>class InitiallyUnownedClass(GPointer)</code> |
+| class | class | `InterfaceInfo` | <code>class InterfaceInfo(GPointer, metaclass=GType)</code> | <code>class InterfaceInfo(GPointer)</code> |
 | constant | class | `KeyFile` | <code>KeyFile = GLib.KeyFile</code> | <code>class KeyFile(GBoxed)</code> |
 | constant | class | `MainContext` | <code>MainContext = GLib.MainContext</code> | <code>class MainContext(GBoxed)</code> |
 | constant | class | `MainLoop` | <code>MainLoop = GLib.MainLoop</code> | <code>class MainLoop(GBoxed)</code> |
-| class | class | `MappedFile` | <code>class MappedFile(GBoxed, metaclass=GTypeMeta)</code> | <code>class MappedFile(GBoxed)</code> |
-| class | class | `MarkupParseContext` | <code>class MarkupParseContext(GBoxed, metaclass=GTypeMeta)</code> | <code>class MarkupParseContext(GBoxed)</code> |
-| class | class | `MatchInfo` | <code>class MatchInfo(GBoxed, metaclass=GTypeMeta)</code> | <code>class MatchInfo(GBoxed)</code> |
+| class | class | `MappedFile` | <code>class MappedFile(GBoxed, metaclass=GType)</code> | <code>class MappedFile(GBoxed)</code> |
+| class | class | `MarkupParseContext` | <code>class MarkupParseContext(GBoxed, metaclass=GType)</code> | <code>class MarkupParseContext(GBoxed)</code> |
+| class | class | `MatchInfo` | <code>class MatchInfo(GBoxed, metaclass=GType)</code> | <code>class MatchInfo(GBoxed)</code> |
 | constant | constant | `OPTION_ERROR_BAD_VALUE` | <code>OPTION\_ERROR\_BAD\_VALUE = GLib.OPTION\_ERROR\_BAD\_VALUE</code> | <code>OPTION\_ERROR\_BAD\_VALUE: int = 1</code> |
 | constant | constant | `OPTION_ERROR_FAILED` | <code>OPTION\_ERROR\_FAILED = GLib.OPTION\_ERROR\_FAILED</code> | <code>OPTION\_ERROR\_FAILED: int = 2</code> |
 | constant | constant | `OPTION_ERROR_UNKNOWN_OPTION` | <code>OPTION\_ERROR\_UNKNOWN\_OPTION = GLib.OPTION\_ERROR\_UNKNOWN\_OPTION</code> | <code>OPTION\_ERROR\_UNKNOWN\_OPTION: int = 0</code> |
@@ -372,8 +361,8 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | constant | constant | `OPTION_FLAG_REVERSE` | <code>OPTION\_FLAG\_REVERSE = GLib.OPTION\_FLAG\_REVERSE</code> | <code>OPTION\_FLAG\_REVERSE: int = 4</code> |
 | constant | constant | `OPTION_REMAINING` | <code>OPTION\_REMAINING: str = ...</code> | <code>OPTION\_REMAINING: str = ''</code> |
 | class | class | `Object` | <code>class Object(builtins.object)</code> | <code>class Object</code> |
-| class | class | `ObjectClass` | <code>class ObjectClass(GPointer, metaclass=GTypeMeta)</code> | <code>class ObjectClass(GPointer)</code> |
-| class | class | `ObjectConstructParam` | <code>class ObjectConstructParam(GPointer, metaclass=GTypeMeta)</code> | <code>class ObjectConstructParam(GPointer)</code> |
+| class | class | `ObjectClass` | <code>class ObjectClass(GPointer, metaclass=GType)</code> | <code>class ObjectClass(GPointer)</code> |
+| class | class | `ObjectConstructParam` | <code>class ObjectConstructParam(GPointer, metaclass=GType)</code> | <code>class ObjectConstructParam(GPointer)</code> |
 | class | class | `OptionContext` | <code>class OptionContext(builtins.object)</code> | <code>class OptionContext</code> |
 | class | class | `OptionGroup` | <code>class OptionGroup(builtins.object)</code> | <code>class OptionGroup</code> |
 | constant | constant | `PARAM_CONSTRUCT` | <code>PARAM\_CONSTRUCT = ParamFlags.CONSTRUCT</code> | <code>PARAM\_CONSTRUCT: int = 4</code> |
@@ -391,41 +380,41 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | constant | constant | `PRIORITY_HIGH_IDLE` | <code>PRIORITY\_HIGH\_IDLE: int = ...</code> | <code>PRIORITY\_HIGH\_IDLE: int = 100</code> |
 | constant | constant | `PRIORITY_LOW` | <code>PRIORITY\_LOW: int = ...</code> | <code>PRIORITY\_LOW: int = 300</code> |
 | class | class | `ParamFlags` | <code>class ParamFlags(enum.IntFlag)</code> | <code>class ParamFlags(GFlags)</code> |
-| class | class | `ParamSpec` | <code>class ParamSpec(object, metaclass=GTypeMeta)</code> | <code>class ParamSpec</code> |
-| class | class | `ParamSpecBoolean` | <code>class ParamSpecBoolean(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecBoolean(ParamSpec)</code> |
-| class | class | `ParamSpecBoxed` | <code>class ParamSpecBoxed(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecBoxed(ParamSpec)</code> |
-| class | class | `ParamSpecChar` | <code>class ParamSpecChar(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecChar(ParamSpec)</code> |
-| class | class | `ParamSpecClass` | <code>class ParamSpecClass(GPointer, metaclass=GTypeMeta)</code> | <code>class ParamSpecClass(GPointer)</code> |
-| class | class | `ParamSpecDouble` | <code>class ParamSpecDouble(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecDouble(ParamSpec)</code> |
-| class | class | `ParamSpecEnum` | <code>class ParamSpecEnum(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecEnum(ParamSpec)</code> |
-| class | class | `ParamSpecFlags` | <code>class ParamSpecFlags(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecFlags(ParamSpec)</code> |
-| class | class | `ParamSpecFloat` | <code>class ParamSpecFloat(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecFloat(ParamSpec)</code> |
-| class | class | `ParamSpecGType` | <code>class ParamSpecGType(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecGType(ParamSpec)</code> |
-| class | class | `ParamSpecInt` | <code>class ParamSpecInt(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecInt(ParamSpec)</code> |
-| class | class | `ParamSpecInt64` | <code>class ParamSpecInt64(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecInt64(ParamSpec)</code> |
-| class | class | `ParamSpecLong` | <code>class ParamSpecLong(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecLong(ParamSpec)</code> |
-| class | class | `ParamSpecObject` | <code>class ParamSpecObject(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecObject(ParamSpec)</code> |
-| class | class | `ParamSpecOverride` | <code>class ParamSpecOverride(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecOverride(ParamSpec)</code> |
-| class | class | `ParamSpecParam` | <code>class ParamSpecParam(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecParam(ParamSpec)</code> |
-| class | class | `ParamSpecPointer` | <code>class ParamSpecPointer(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecPointer(ParamSpec)</code> |
-| class | class | `ParamSpecPool` | <code>class ParamSpecPool(GPointer, metaclass=GTypeMeta)</code> | <code>class ParamSpecPool(GPointer)</code> |
-| class | class | `ParamSpecString` | <code>class ParamSpecString(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecString(ParamSpec)</code> |
-| class | class | `ParamSpecTypeInfo` | <code>class ParamSpecTypeInfo(GPointer, metaclass=GTypeMeta)</code> | <code>class ParamSpecTypeInfo(GPointer)</code> |
-| class | class | `ParamSpecUChar` | <code>class ParamSpecUChar(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecUChar(ParamSpec)</code> |
-| class | class | `ParamSpecUInt` | <code>class ParamSpecUInt(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecUInt(ParamSpec)</code> |
-| class | class | `ParamSpecUInt64` | <code>class ParamSpecUInt64(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecUInt64(ParamSpec)</code> |
-| class | class | `ParamSpecULong` | <code>class ParamSpecULong(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecULong(ParamSpec)</code> |
-| class | class | `ParamSpecUnichar` | <code>class ParamSpecUnichar(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecUnichar(ParamSpec)</code> |
-| class | class | `ParamSpecValueArray` | <code>class ParamSpecValueArray(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecValueArray(ParamSpec)</code> |
-| class | class | `ParamSpecVariant` | <code>class ParamSpecVariant(ParamSpec, metaclass=GTypeMeta)</code> | <code>class ParamSpecVariant(ParamSpec)</code> |
-| class | class | `Parameter` | <code>class Parameter(GPointer, metaclass=GTypeMeta)</code> | <code>class Parameter(GPointer)</code> |
-| class | class | `PatternSpec` | <code>class PatternSpec(GBoxed, metaclass=GTypeMeta)</code> | <code>class PatternSpec(GBoxed)</code> |
+| class | class | `ParamSpec` | <code>class ParamSpec(object, metaclass=GType)</code> | <code>class ParamSpec</code> |
+| class | class | `ParamSpecBoolean` | <code>class ParamSpecBoolean(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecBoolean(ParamSpec)</code> |
+| class | class | `ParamSpecBoxed` | <code>class ParamSpecBoxed(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecBoxed(ParamSpec)</code> |
+| class | class | `ParamSpecChar` | <code>class ParamSpecChar(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecChar(ParamSpec)</code> |
+| class | class | `ParamSpecClass` | <code>class ParamSpecClass(GPointer, metaclass=GType)</code> | <code>class ParamSpecClass(GPointer)</code> |
+| class | class | `ParamSpecDouble` | <code>class ParamSpecDouble(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecDouble(ParamSpec)</code> |
+| class | class | `ParamSpecEnum` | <code>class ParamSpecEnum(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecEnum(ParamSpec)</code> |
+| class | class | `ParamSpecFlags` | <code>class ParamSpecFlags(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecFlags(ParamSpec)</code> |
+| class | class | `ParamSpecFloat` | <code>class ParamSpecFloat(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecFloat(ParamSpec)</code> |
+| class | class | `ParamSpecGType` | <code>class ParamSpecGType(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecGType(ParamSpec)</code> |
+| class | class | `ParamSpecInt` | <code>class ParamSpecInt(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecInt(ParamSpec)</code> |
+| class | class | `ParamSpecInt64` | <code>class ParamSpecInt64(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecInt64(ParamSpec)</code> |
+| class | class | `ParamSpecLong` | <code>class ParamSpecLong(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecLong(ParamSpec)</code> |
+| class | class | `ParamSpecObject` | <code>class ParamSpecObject(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecObject(ParamSpec)</code> |
+| class | class | `ParamSpecOverride` | <code>class ParamSpecOverride(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecOverride(ParamSpec)</code> |
+| class | class | `ParamSpecParam` | <code>class ParamSpecParam(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecParam(ParamSpec)</code> |
+| class | class | `ParamSpecPointer` | <code>class ParamSpecPointer(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecPointer(ParamSpec)</code> |
+| class | class | `ParamSpecPool` | <code>class ParamSpecPool(GPointer, metaclass=GType)</code> | <code>class ParamSpecPool(GPointer)</code> |
+| class | class | `ParamSpecString` | <code>class ParamSpecString(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecString(ParamSpec)</code> |
+| class | class | `ParamSpecTypeInfo` | <code>class ParamSpecTypeInfo(GPointer, metaclass=GType)</code> | <code>class ParamSpecTypeInfo(GPointer)</code> |
+| class | class | `ParamSpecUChar` | <code>class ParamSpecUChar(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecUChar(ParamSpec)</code> |
+| class | class | `ParamSpecUInt` | <code>class ParamSpecUInt(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecUInt(ParamSpec)</code> |
+| class | class | `ParamSpecUInt64` | <code>class ParamSpecUInt64(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecUInt64(ParamSpec)</code> |
+| class | class | `ParamSpecULong` | <code>class ParamSpecULong(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecULong(ParamSpec)</code> |
+| class | class | `ParamSpecUnichar` | <code>class ParamSpecUnichar(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecUnichar(ParamSpec)</code> |
+| class | class | `ParamSpecValueArray` | <code>class ParamSpecValueArray(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecValueArray(ParamSpec)</code> |
+| class | class | `ParamSpecVariant` | <code>class ParamSpecVariant(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecVariant(ParamSpec)</code> |
+| class | class | `Parameter` | <code>class Parameter(GPointer, metaclass=GType)</code> | <code>class Parameter(GPointer)</code> |
+| class | class | `PatternSpec` | <code>class PatternSpec(GBoxed, metaclass=GType)</code> | <code>class PatternSpec(GBoxed)</code> |
 | class | class | `Pid` | <code>class Pid(builtins.int)</code> | <code>class Pid(int)</code> |
 | constant | class | `PollFD` | <code>PollFD = GLib.PollFD</code> | <code>class PollFD(GBoxed)</code> |
 | class | class | `Property` | <code>class Property(builtins.property)</code> | <code>class Property</code> |
-| class | class | `PtrArray` | <code>class PtrArray(GBoxed, metaclass=GTypeMeta)</code> | <code>class PtrArray(GBoxed)</code> |
-| class | class | `Rand` | <code>class Rand(GBoxed, metaclass=GTypeMeta)</code> | <code>class Rand(GBoxed)</code> |
-| class | class | `Regex` | <code>class Regex(GBoxed, metaclass=GTypeMeta)</code> | <code>class Regex(GBoxed)</code> |
+| class | class | `PtrArray` | <code>class PtrArray(GBoxed, metaclass=GType)</code> | <code>class PtrArray(GBoxed)</code> |
+| class | class | `Rand` | <code>class Rand(GBoxed, metaclass=GType)</code> | <code>class Rand(GBoxed)</code> |
+| class | class | `Regex` | <code>class Regex(GBoxed, metaclass=GType)</code> | <code>class Regex(GBoxed)</code> |
 | constant | constant | `SIGNAL_ACTION` | <code>SIGNAL\_ACTION = SignalFlags.ACTION</code> | <code>SIGNAL\_ACTION: int = 32</code> |
 | constant | constant | `SIGNAL_DETAILED` | <code>SIGNAL\_DETAILED = SignalFlags.DETAILED</code> | <code>SIGNAL\_DETAILED: int = 16</code> |
 | constant | constant | `SIGNAL_FLAGS_MASK` | <code>SIGNAL\_FLAGS\_MASK: int = ...</code> | <code>SIGNAL\_FLAGS\_MASK: int = 511</code> |
@@ -444,14 +433,14 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | constant | constant | `SPAWN_STDOUT_TO_DEV_NULL` | <code>SPAWN\_STDOUT\_TO\_DEV\_NULL = GLib.SPAWN\_STDOUT\_TO\_DEV\_NULL</code> | <code>SPAWN\_STDOUT\_TO\_DEV\_NULL: int = 8</code> |
 | constant | class | `Signal` | <code>Signal = gi.\_signalhelper.Signal</code> | <code>class Signal(str)</code> |
 | class | class | `SignalFlags` | <code>class SignalFlags(enum.IntFlag)</code> | <code>class SignalFlags(GFlags)</code> |
-| class | class | `SignalInvocationHint` | <code>class SignalInvocationHint(GPointer, metaclass=GTypeMeta)</code> | <code>class SignalInvocationHint(GPointer)</code> |
+| class | class | `SignalInvocationHint` | <code>class SignalInvocationHint(GPointer, metaclass=GType)</code> | <code>class SignalInvocationHint(GPointer)</code> |
 | class | class | `SignalMatchType` | <code>class SignalMatchType(enum.IntFlag)</code> | <code>class SignalMatchType(GFlags)</code> |
 | constant | class | `SignalOverride` | <code>SignalOverride = gi.\_signalhelper.SignalOverride</code> | <code>class SignalOverride(Signal)</code> |
-| class | class | `SignalQuery` | <code>class SignalQuery(GPointer, metaclass=GTypeMeta)</code> | <code>class SignalQuery(GPointer)</code> |
+| class | class | `SignalQuery` | <code>class SignalQuery(GPointer, metaclass=GType)</code> | <code>class SignalQuery(GPointer)</code> |
 | constant | class | `Source` | <code>Source = GLib.Source</code> | <code>class Source(GBoxed)</code> |
 | constant | class | `String` | <code>String = GLib.String</code> | <code>class String(GBoxed)</code> |
-| class | class | `Strv` | <code>class Strv(GBoxed, metaclass=GTypeMeta)</code> | <code>class Strv(GBoxed)</code> |
-| class | class | `StrvBuilder` | <code>class StrvBuilder(GBoxed, metaclass=GTypeMeta)</code> | <code>class StrvBuilder(GBoxed)</code> |
+| class | class | `Strv` | <code>class Strv(GBoxed, metaclass=GType)</code> | <code>class Strv(GBoxed)</code> |
+| class | class | `StrvBuilder` | <code>class StrvBuilder(GBoxed, metaclass=GType)</code> | <code>class StrvBuilder(GBoxed)</code> |
 | constant | constant | `TYPE_BOOLEAN` | <code>TYPE\_BOOLEAN: GType = ...</code> | <code>TYPE\_BOOLEAN = ...</code> |
 | constant | constant | `TYPE_BOXED` | <code>TYPE\_BOXED: GType = ...</code> | <code>TYPE\_BOXED = ...</code> |
 | constant | constant | `TYPE_CHAR` | <code>TYPE\_CHAR: GType = ...</code> | <code>TYPE\_CHAR = ...</code> |
@@ -488,37 +477,37 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | constant | constant | `TYPE_UNICHAR` | <code>TYPE\_UNICHAR: GType = ...</code> | <code>TYPE\_UNICHAR = ...</code> |
 | constant | constant | `TYPE_VALUE` | <code>TYPE\_VALUE: GType = ...</code> | <code>TYPE\_VALUE = ...</code> |
 | constant | constant | `TYPE_VARIANT` | <code>TYPE\_VARIANT: GType = ...</code> | <code>TYPE\_VARIANT = ...</code> |
-| class | class | `Thread` | <code>class Thread(GBoxed, metaclass=GTypeMeta)</code> | <code>class Thread(GBoxed)</code> |
-| class | class | `TimeZone` | <code>class TimeZone(GBoxed, metaclass=GTypeMeta)</code> | <code>class TimeZone(GBoxed)</code> |
+| class | class | `Thread` | <code>class Thread(GBoxed, metaclass=GType)</code> | <code>class Thread(GBoxed)</code> |
+| class | class | `TimeZone` | <code>class TimeZone(GBoxed, metaclass=GType)</code> | <code>class TimeZone(GBoxed)</code> |
 | constant | class | `Timeout` | <code>Timeout = GLib.Timeout</code> | <code>class Timeout(GBoxed)</code> |
 | constant | class | `Tree` | <code>Tree = GLib.Tree</code> | <code>class Tree(GBoxed)</code> |
-| class | class | `TypeCValue` | <code>class TypeCValue(GPointer, metaclass=GTypeMeta)</code> | <code>class TypeCValue(GPointer)</code> |
-| class | class | `TypeClass` | <code>class TypeClass(GPointer, metaclass=GTypeMeta)</code> | <code>class TypeClass(GPointer)</code> |
+| class | class | `TypeCValue` | <code>class TypeCValue(GPointer, metaclass=GType)</code> | <code>class TypeCValue(GPointer)</code> |
+| class | class | `TypeClass` | <code>class TypeClass(GPointer, metaclass=GType)</code> | <code>class TypeClass(GPointer)</code> |
 | class | class | `TypeDebugFlags` | <code>class TypeDebugFlags(enum.IntFlag)</code> | <code>class TypeDebugFlags(GFlags)</code> |
 | class | class | `TypeFlags` | <code>class TypeFlags(enum.IntFlag)</code> | <code>class TypeFlags(GFlags)</code> |
 | class | class | `TypeFundamentalFlags` | <code>class TypeFundamentalFlags(enum.IntFlag)</code> | <code>class TypeFundamentalFlags(GFlags)</code> |
-| class | class | `TypeFundamentalInfo` | <code>class TypeFundamentalInfo(GPointer, metaclass=GTypeMeta)</code> | <code>class TypeFundamentalInfo(GPointer)</code> |
-| class | class | `TypeInfo` | <code>class TypeInfo(GPointer, metaclass=GTypeMeta)</code> | <code>class TypeInfo(GPointer)</code> |
-| class | class | `TypeInstance` | <code>class TypeInstance(GPointer, metaclass=GTypeMeta)</code> | <code>class TypeInstance(GPointer)</code> |
-| class | class | `TypeInterface` | <code>class TypeInterface(GPointer, metaclass=GTypeMeta)</code> | <code>class TypeInterface(GPointer)</code> |
+| class | class | `TypeFundamentalInfo` | <code>class TypeFundamentalInfo(GPointer, metaclass=GType)</code> | <code>class TypeFundamentalInfo(GPointer)</code> |
+| class | class | `TypeInfo` | <code>class TypeInfo(GPointer, metaclass=GType)</code> | <code>class TypeInfo(GPointer)</code> |
+| class | class | `TypeInstance` | <code>class TypeInstance(GPointer, metaclass=GType)</code> | <code>class TypeInstance(GPointer)</code> |
+| class | class | `TypeInterface` | <code>class TypeInterface(GPointer, metaclass=GType)</code> | <code>class TypeInterface(GPointer)</code> |
 | class | class | `TypeModule` | <code>class TypeModule(Object)</code> | <code>class TypeModule(TypePlugin)</code> |
-| class | class | `TypeModuleClass` | <code>class TypeModuleClass(GPointer, metaclass=GTypeMeta)</code> | <code>class TypeModuleClass(GPointer)</code> |
-| class | class | `TypePlugin` | <code>class TypePlugin(builtins.object, metaclass=GTypeMeta)</code> | <code>class TypePlugin(Object)</code> |
-| class | class | `TypePluginClass` | <code>class TypePluginClass(GPointer, metaclass=GTypeMeta)</code> | <code>class TypePluginClass(GPointer)</code> |
-| class | class | `TypeQuery` | <code>class TypeQuery(GPointer, metaclass=GTypeMeta)</code> | <code>class TypeQuery(GPointer)</code> |
-| class | class | `TypeValueTable` | <code>class TypeValueTable(GPointer, metaclass=GTypeMeta)</code> | <code>class TypeValueTable(GPointer)</code> |
-| class | class | `Uri` | <code>class Uri(GBoxed, metaclass=GTypeMeta)</code> | <code>class Uri(GBoxed)</code> |
+| class | class | `TypeModuleClass` | <code>class TypeModuleClass(GPointer, metaclass=GType)</code> | <code>class TypeModuleClass(GPointer)</code> |
+| class | class | `TypePlugin` | <code>class TypePlugin(builtins.object, metaclass=GType)</code> | <code>class TypePlugin(Object)</code> |
+| class | class | `TypePluginClass` | <code>class TypePluginClass(GPointer, metaclass=GType)</code> | <code>class TypePluginClass(GPointer)</code> |
+| class | class | `TypeQuery` | <code>class TypeQuery(GPointer, metaclass=GType)</code> | <code>class TypeQuery(GPointer)</code> |
+| class | class | `TypeValueTable` | <code>class TypeValueTable(GPointer, metaclass=GType)</code> | <code>class TypeValueTable(GPointer)</code> |
+| class | class | `Uri` | <code>class Uri(GBoxed, metaclass=GType)</code> | <code>class Uri(GBoxed)</code> |
 | constant | constant | `VALUE_COLLECT_FORMAT_MAX_LENGTH` | <code>VALUE\_COLLECT\_FORMAT\_MAX\_LENGTH: int = ...</code> | <code>VALUE\_COLLECT\_FORMAT\_MAX\_LENGTH: int = 8</code> |
 | constant | constant | `VALUE_INTERNED_STRING` | <code>VALUE\_INTERNED\_STRING: int = ...</code> | <code>VALUE\_INTERNED\_STRING: int = 268435456</code> |
 | constant | constant | `VALUE_NOCOPY_CONTENTS` | <code>VALUE\_NOCOPY\_CONTENTS: int = ...</code> | <code>VALUE\_NOCOPY\_CONTENTS: int = 134217728</code> |
-| class | class | `Value` | <code>class Value(GBoxed, metaclass=GTypeMeta)</code> | <code>class Value(GBoxed)</code> |
-| class | class | `ValueArray` | <code>class ValueArray(GBoxed, metaclass=GTypeMeta)</code> | <code>class ValueArray(GBoxed)</code> |
+| class | class | `Value` | <code>class Value(GBoxed, metaclass=GType)</code> | <code>class Value(GBoxed)</code> |
+| class | class | `ValueArray` | <code>class ValueArray(GBoxed, metaclass=GType)</code> | <code>class ValueArray(GBoxed)</code> |
 | constant | class | `VariantBuilder` | <code>VariantBuilder = GLib.VariantBuilder</code> | <code>class VariantBuilder(GBoxed)</code> |
 | constant | class | `VariantDict` | <code>VariantDict = GLib.VariantDict</code> | <code>class VariantDict(GBoxed)</code> |
 | constant | class | `VariantType` | <code>VariantType = GLib.VariantType</code> | <code>class VariantType(GBoxed)</code> |
 | class | class | `Warning` | <code>class Warning(builtins.Warning)</code> | <code>class Warning(Warning)</code> |
-| class | class | `WeakRef` | <code>class WeakRef(GPointer, metaclass=GTypeMeta)</code> | <code>class WeakRef(GPointer)</code> |
-| class | class | `_Value__data__union` | <code>class \_Value\_\_data\_\_union(GPointer, metaclass=GTypeMeta)</code> | <code>class \_Value\_\_data\_\_union(GPointer)</code> |
+| class | class | `WeakRef` | <code>class WeakRef(GPointer, metaclass=GType)</code> | <code>class WeakRef(GPointer)</code> |
+| class | class | `_Value__data__union` | <code>class \_Value\_\_data\_\_union(GPointer, metaclass=GType)</code> | <code>class \_Value\_\_data\_\_union(GPointer)</code> |
 | constant | function | `add_emission_hook` | <code>add\_emission\_hook = gi.\_gi.add\_emission\_hook</code> | <code>def add\_emission\_hook(<br>&nbsp;&nbsp;&nbsp;&nbsp;*args,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs,<br>)</code> |
 | function | function | `boxed_copy` | <code>def boxed\_copy(<br>&nbsp;&nbsp;&nbsp;&nbsp;boxed\_type: GType,<br>&nbsp;&nbsp;&nbsp;&nbsp;src\_boxed: object,<br>) -> object</code> | <code>def boxed\_copy(<br>&nbsp;&nbsp;&nbsp;&nbsp;boxed\_type: typing.Type[typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;src\_boxed: None,<br>) -> None</code> |
 | function | function | `boxed_free` | <code>def boxed\_free(<br>&nbsp;&nbsp;&nbsp;&nbsp;boxed\_type: GType,<br>&nbsp;&nbsp;&nbsp;&nbsp;boxed: object,<br>) -> None</code> | <code>def boxed\_free(<br>&nbsp;&nbsp;&nbsp;&nbsp;boxed\_type: typing.Type[typing.Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;boxed: None,<br>) -> None</code> |
@@ -728,14 +717,24 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | method | attribute | `GFlags.first_value_nick` | <code>@builtins.property<br>def first\_value\_nick(self) -> str</code> | <code>first\_value\_nick: str</code> |
 | method | attribute | `GFlags.value_names` | <code>@builtins.property<br>def value\_names(self) -> list[str]</code> | <code>value\_names: list[str]</code> |
 | method | attribute | `GFlags.value_nicks` | <code>@builtins.property<br>def value\_nicks(self) -> list[str]</code> | <code>value\_nicks: list[str]</code> |
-| method | attribute | `GType.children` | <code>@builtins.property<br>def children(self) -> typing.Any \| None</code> | <code>children = ...</code> |
-| method | attribute | `GType.depth` | <code>@builtins.property<br>def depth(self) -> typing.Any \| None</code> | <code>depth = ...</code> |
+| method | attribute | `GType.children` | <code>@builtins.property<br>def children(self) -> list[GType]</code> | <code>children = ...</code> |
+| method | attribute | `GType.depth` | <code>@builtins.property<br>def depth(self) -> int</code> | <code>depth = ...</code> |
 | method | method | `GType.from_name` | <code>@staticmethod<br>def from\_name(<br>&nbsp;&nbsp;&nbsp;&nbsp;*args: typing.Any,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs: typing.Any,<br>) -> typing.Any</code> | <code>@staticmethod<br>def from\_name(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs,<br>)</code> |
-| method | attribute | `GType.fundamental` | <code>@builtins.property<br>def fundamental(self) -> typing.Any \| None</code> | <code>fundamental = ...</code> |
-| method | attribute | `GType.interfaces` | <code>@builtins.property<br>def interfaces(self) -> typing.Any \| None</code> | <code>interfaces = ...</code> |
+| method | attribute | `GType.fundamental` | <code>@builtins.property<br>def fundamental(self) -> GType</code> | <code>fundamental = ...</code> |
+| method | method | `GType.has_value_table` | <code>def has\_value\_table(self) -> bool</code> | <code>def has\_value\_table(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
+| method | attribute | `GType.interfaces` | <code>@builtins.property<br>def interfaces(self) -> list[GType]</code> | <code>interfaces = ...</code> |
+| method | method | `GType.is_a` | <code>def is\_a(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;type: GType,<br>) -> bool</code> | <code>def is\_a(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;*args,<br>&nbsp;&nbsp;&nbsp;&nbsp;**kwargs,<br>)</code> |
+| method | method | `GType.is_abstract` | <code>def is\_abstract(self) -> bool</code> | <code>def is\_abstract(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
+| method | method | `GType.is_classed` | <code>def is\_classed(self) -> bool</code> | <code>def is\_classed(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
+| method | method | `GType.is_deep_derivable` | <code>def is\_deep\_derivable(self) -> bool</code> | <code>def is\_deep\_derivable(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
+| method | method | `GType.is_derivable` | <code>def is\_derivable(self) -> bool</code> | <code>def is\_derivable(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
+| method | method | `GType.is_instantiatable` | <code>def is\_instantiatable(self) -> bool</code> | <code>def is\_instantiatable(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
+| method | method | `GType.is_interface` | <code>def is\_interface(self) -> bool</code> | <code>def is\_interface(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
+| method | method | `GType.is_value_abstract` | <code>def is\_value\_abstract(self) -> bool</code> | <code>def is\_value\_abstract(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
+| method | method | `GType.is_value_type` | <code>def is\_value\_type(self) -> bool</code> | <code>def is\_value\_type(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
 | method | attribute | `GType.name` | <code>@builtins.property<br>def name(self) -> str \| None</code> | <code>name = ...</code> |
-| method | attribute | `GType.parent` | <code>@builtins.property<br>def parent(self) -> typing.Any \| None</code> | <code>parent = ...</code> |
-| method | attribute | `GType.pytype` | <code>@builtins.property<br>def pytype(self) -> typing.Any \| None</code> | <code>pytype = ...</code> |
+| method | attribute | `GType.parent` | <code>@builtins.property<br>def parent(self) -> GType</code> | <code>parent = ...</code> |
+| method | attribute | `GType.pytype` | <code>@builtins.property<br>def pytype(self) -> builtins.type \| None</code> | <code>pytype = ...</code> |
 | method | attribute | `InitiallyUnowned.g_type_instance` | <code>@builtins.property<br>def g\_type\_instance(self) -> TypeInstance \| None</code> | <code>g\_type\_instance: TypeInstance = ...</code> |
 | method | attribute | `InitiallyUnowned.qdata` | <code>@builtins.property<br>def qdata(self) -> GLib.Data \| None</code> | <code>qdata: GLib.Data = ...</code> |
 | method | attribute | `InitiallyUnowned.ref_count` | <code>@builtins.property<br>def ref\_count(self) -> int</code> | <code>ref\_count: int = ...</code> |

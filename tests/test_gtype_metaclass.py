@@ -86,7 +86,7 @@ class TestClassSchemaMetaclass:
 
     def test_boxed_class_has_metaclass_in_super(self):
         """
-        When parsing a boxed class, the super list should include metaclass=GObject.GTypeMeta
+        When parsing a boxed class, the super list should include metaclass=GObject.GType
         """
         Gst.init(None)
         schema, _ = parse_class("gi.repository.Gst", Gst.Buffer)
@@ -94,7 +94,7 @@ class TestClassSchemaMetaclass:
 
         # Check that metaclass is in the super list
         assert any("metaclass=" in s for s in schema.super), f"Expected metaclass in super list, got: {schema.super}"
-        assert any("GTypeMeta" in s for s in schema.super), f"Expected GTypeMeta in super list, got: {schema.super}"
+        assert any("GType" in s for s in schema.super), f"Expected GType in super list, got: {schema.super}"
 
     def test_gobject_class_no_metaclass_in_super(self):
         """
@@ -122,29 +122,29 @@ class TestClassSchemaMetaclass:
 
     def test_metaclass_namespace_in_gobject_module(self):
         """
-        When in GObject namespace, metaclass should be just 'GTypeMeta', not 'GObject.GTypeMeta'.
+        When in GObject namespace, metaclass should be just 'GType', not 'GObject.GType'.
         """
         # GObject.GPointer is a boxed type in GObject namespace
         schema, _ = parse_class("gi.repository.GObject", GObject.GPointer)
         assert schema is not None
 
-        # If it needs metaclass, it should use 'metaclass=GTypeMeta' (without GObject. prefix)
-        gtype_meta_entries = [s for s in schema.super if "GTypeMeta" in s]
-        if gtype_meta_entries:
-            assert "GObject.GTypeMeta" not in gtype_meta_entries[0], (
-                f"In GObject namespace, should use GTypeMeta without prefix, got: {schema.super}"
+        # If it needs metaclass, it should use 'metaclass=GType' (without GObject. prefix)
+        gtype_entries = [s for s in schema.super if "metaclass=GType" in s]
+        if gtype_entries:
+            assert "GObject.GType" not in gtype_entries[0], (
+                f"In GObject namespace, should use GType without prefix, got: {schema.super}"
             )
 
     def test_metaclass_namespace_outside_gobject(self):
         """
-        When outside GObject namespace, metaclass should be 'GObject.GTypeMeta'.
+        When outside GObject namespace, metaclass should be 'GObject.GType'.
         """
         Gst.init(None)
         schema, _ = parse_class("gi.repository.Gst", Gst.Buffer)
         assert schema is not None
 
-        gtype_meta_entries = [s for s in schema.super if "GTypeMeta" in s]
-        assert len(gtype_meta_entries) > 0, "Gst.Buffer should have GTypeMeta"
-        assert "GObject.GTypeMeta" in gtype_meta_entries[0], (
-            f"Outside GObject namespace, should use GObject.GTypeMeta, got: {schema.super}"
+        gtype_entries = [s for s in schema.super if "metaclass=" in s and "GType" in s]
+        assert len(gtype_entries) > 0, "Gst.Buffer should have metaclass=GObject.GType"
+        assert "GObject.GType" in gtype_entries[0], (
+            f"Outside GObject namespace, should use GObject.GType, got: {schema.super}"
         )

@@ -4,7 +4,27 @@ from gi_stub_gen.overrides.class_.GIRepositoryy.FunctionInfo import FUNCTION_INF
 from gi_stub_gen.overrides.class_.GIRepositoryy.TypeInfo import (
     TYPE_INFO_GET_TAG_AS_STRING,
 )
-from gi_stub_gen.overrides.class_.GObject.GType import GTYPE_NAME
+from gi_stub_gen.overrides.class_.GObject.GType import (
+    # Fields
+    GTYPE_NAME,
+    GTYPE_PARENT,
+    GTYPE_CHILDREN,
+    GTYPE_DEPTH,
+    GTYPE_FUNDAMENTAL,
+    GTYPE_INTERFACES,
+    GTYPE_PYTYPE,
+    # Methods
+    GTYPE_IS_A,
+    GTYPE_IS_ABSTRACT,
+    GTYPE_IS_CLASSED,
+    GTYPE_IS_DEEP_DERIVABLE,
+    GTYPE_IS_DERIVABLE,
+    GTYPE_IS_INSTANTIATABLE,
+    GTYPE_IS_INTERFACE,
+    GTYPE_IS_VALUE_ABSTRACT,
+    GTYPE_IS_VALUE_TYPE,
+    GTYPE_HAS_VALUE_TABLE,
+)
 from gi_stub_gen.overrides.class_.GObject.Object import (
     OBJECT_EMIT,
     OBJECT_GET_PROPERTY,
@@ -58,6 +78,24 @@ CLASS_OVERRIDES = {
             "super": ["builtins.type"],
             "fields": {
                 "name": GTYPE_NAME,
+                "parent": GTYPE_PARENT,
+                "children": GTYPE_CHILDREN,
+                "depth": GTYPE_DEPTH,
+                "fundamental": GTYPE_FUNDAMENTAL,
+                "interfaces": GTYPE_INTERFACES,
+                "pytype": GTYPE_PYTYPE,
+            },
+            "methods": {
+                "is_a": GTYPE_IS_A,
+                "is_abstract": GTYPE_IS_ABSTRACT,
+                "is_classed": GTYPE_IS_CLASSED,
+                "is_deep_derivable": GTYPE_IS_DEEP_DERIVABLE,
+                "is_derivable": GTYPE_IS_DERIVABLE,
+                "is_instantiatable": GTYPE_IS_INSTANTIATABLE,
+                "is_interface": GTYPE_IS_INTERFACE,
+                "is_value_abstract": GTYPE_IS_VALUE_ABSTRACT,
+                "is_value_type": GTYPE_IS_VALUE_TYPE,
+                "has_value_table": GTYPE_HAS_VALUE_TABLE,
             },
         },
     },
