@@ -278,7 +278,7 @@ class TestPropertyDecorator:
         Methods explicitly marked as is_property=True should have @property decorator.
         Example: GObject.GEnum.value_name is defined with is_property=True in overrides.
         """
-        from gi_stub_gen.overrides.class_.GObject import GENUM_SCHEMA
+        from gi_stub_gen.overrides.class_.GObject.GEnum import GENUM_SCHEMA
 
         # Check the override schema
         value_name = next((m for m in GENUM_SCHEMA.methods if m.name == "value_name"), None)

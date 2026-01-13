@@ -1,21 +1,20 @@
 # TODO if it happens more than once consider a more generic structure
 from gi_stub_gen.adapter import get_callback_schema
-from gi_stub_gen.overrides.class_.GIRepository import (
-    FUNCTION_INFO_GET_ARGUMENTS,
+from gi_stub_gen.overrides.class_.GIRepositoryy.FunctionInfo import FUNCTION_INFO_GET_ARGUMENTS
+from gi_stub_gen.overrides.class_.GIRepositoryy.TypeInfo import (
     TYPE_INFO_GET_TAG_AS_STRING,
 )
-from gi_stub_gen.overrides.class_.Gst import GST_FRACTION_DEN_SCHEMA, GST_FRACTION_NUM_SCHEMA
-from gi_stub_gen.schema.class_ import ClassFieldSchema
-from gi_stub_gen.schema.function import FunctionSchema
-
-# Import OBJECT_* schemas from class_/GObject.py
-from gi_stub_gen.overrides.class_.GObject import (
+from gi_stub_gen.overrides.class_.GObject.GType import GTYPE_NAME
+from gi_stub_gen.overrides.class_.GObject.Object import (
     OBJECT_EMIT,
     OBJECT_GET_PROPERTY,
-    OBJECT_SET_PROPERTY,
-    OBJECT_WEAK_REF,
     OBJECT_HANDLER_DEFAULT,
+    OBJECT_WEAK_REF,
+    OBJECT_SET_PROPERTY,
 )
+from gi_stub_gen.overrides.class_.Gst.Fraction import GST_FRACTION_DEN_SCHEMA, GST_FRACTION_NUM_SCHEMA
+from gi_stub_gen.schema.class_ import ClassFieldSchema
+from gi_stub_gen.schema.function import FunctionSchema
 
 
 CLASS_OVERRIDES = {
@@ -45,6 +44,12 @@ CLASS_OVERRIDES = {
                 "handler_default": OBJECT_HANDLER_DEFAULT,
                 "get_property": OBJECT_GET_PROPERTY,
                 "set_property": OBJECT_SET_PROPERTY,
+            },
+        },
+        "GType": {
+            "super": ["builtins.type"],
+            "fields": {
+                "name": GTYPE_NAME,
             },
         },
     },

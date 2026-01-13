@@ -2,7 +2,8 @@ from __future__ import annotations
 
 
 from gi_stub_gen.manager.gir_docs import GIRDocs
-from gi_stub_gen.overrides.class_.GObject import CLASS_GTYPE_META, CLASS_PROPERTY
+from gi_stub_gen.overrides.class_.GObject import CLASS_GTYPE_META
+from gi_stub_gen.overrides.class_.GObject.Property import CLASS_PROPERTY
 from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.python_function import parse_python_function
 from gi_stub_gen.parser.constant import parse_constant
