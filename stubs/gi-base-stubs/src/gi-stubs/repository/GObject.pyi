@@ -3299,7 +3299,13 @@ class FlagsValue(GPointer, metaclass=GType):
     """
 
 class Float(builtins.float, metaclass=GType): ...
-class GBoxed(builtins.object, metaclass=GType): ...
+
+class GBoxed(builtins.object, metaclass=GType):
+    # gi Methods
+    def copy(self) -> typing_extensions.Self:
+        """
+        Create a copy of this boxed type.
+        """
 
 class GEnum(enum.IntEnum):
     """
@@ -3371,7 +3377,16 @@ class GObjectWeakRef(builtins.object):
     @builtins.property
     def props(self) -> Props: ...
 
-    ...
+    # python methods (overrides?)
+    def unref(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
 
 class GPointer(builtins.object, metaclass=GType): ...
 
@@ -3459,13 +3474,6 @@ class GType(builtins.type):
         """
         Check if this GType is a value type.
         """
-
-    # python methods (overrides?)
-    @staticmethod
-    def from_name(
-        *args: typing.Any,
-        **kwargs: typing.Any,
-    ) -> typing.Any: ...
 
 class HashTable(GBoxed, metaclass=GType): ...
 class Hmac(GBoxed, metaclass=GType): ...
@@ -3694,9 +3702,33 @@ class Object(builtins.object):
 
         A GObject. can have multiple bindings.
         """
+    def chain(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
+        """
+        Chain up to parent class method implementation.
+        """
+    def connect_after(self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any) -> int:
+        """
+        Connect a handler to a signal, to be called after the default handler.
+        """
+    def connect_object(self, *args: typing.Any, **kwargs: typing.Any) -> int:
+        """
+        Connect a handler to a signal with object as first argument.
+        """
+    def connect_object_after(self, *args: typing.Any, **kwargs: typing.Any) -> int:
+        """
+        Connect a handler to a signal with object as first argument, called after default handler.
+        """
+    def disconnect_by_func(self, handler: typing.Callable[..., typing.Any]) -> None:
+        """
+        Disconnect a handler by function reference.
+        """
     def emit(self, detailed_signal: str, *args: typing.Any) -> typing.Any:
         """
         Emit a signal.
+        """
+    def get_properties(self, *args: str) -> typing.Any:
+        """
+        Get multiple property values by name.
         """
     def get_property(self, property_name: str) -> typing.Any:
         """
@@ -3709,9 +3741,13 @@ class Object(builtins.object):
         Warnings will be emitted and undefined behaviour may result if invalid
         properties are passed in.
         """
-    def handler_default(self, callback: typing.Callable[[typing.Any], None] | None = None) -> None:
+    def handler_block_by_func(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
         """
-        Set the default handler for a signal.
+        Block handlers by function reference.
+        """
+    def handler_unblock_by_func(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
+        """
+        Unblock handlers by function reference.
         """
     def is_floating(self) -> bool:
         """
@@ -3736,6 +3772,10 @@ class Object(builtins.object):
         reference cycles.
 
         This function should only be called from object system implementations.
+        """
+    def set_properties(self, **kwargs: typing.Any) -> None:
+        """
+        Set multiple property values by keyword arguments.
         """
     def set_property(self, property_name: str, value: builtins.object) -> None:
         """
@@ -3774,6 +3814,15 @@ class Object(builtins.object):
     ) -> typing.Any:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
+        """
+    def connect(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
         """
     def connect_data(
         self,
@@ -4353,7 +4402,79 @@ class OptionContext(builtins.object):
     @builtins.property
     def props(self) -> Props: ...
 
-    ...
+    # python methods (overrides?)
+    def add_group(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
+    def get_help_enabled(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
+    def get_ignore_unknown_options(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
+    def get_main_group(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
+    def parse(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
+    def set_help_enabled(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
+    def set_ignore_unknown_options(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
+    def set_main_group(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
 
 class OptionGroup(builtins.object):
     """
@@ -4365,7 +4486,25 @@ class OptionGroup(builtins.object):
     @builtins.property
     def props(self) -> Props: ...
 
-    ...
+    # python methods (overrides?)
+    def add_entries(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
+    def set_translation_domain(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
 
 class ParamSpec(builtins.object, metaclass=GType):
     """
@@ -5279,7 +5418,16 @@ class Pid(builtins.int):
     Alias to gi._gi.Pid. May Be incomplete since gi._gi is a private module.
     """
 
-    ...
+    # python methods (overrides?)
+    def close(
+        self,
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any:
+        """
+        [method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.
+        For a more detailed stub signature, add a manual override.
+        """
 
 class PtrArray(GBoxed, metaclass=GType): ...
 class Rand(GBoxed, metaclass=GType): ...

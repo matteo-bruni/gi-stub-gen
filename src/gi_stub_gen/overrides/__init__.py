@@ -27,12 +27,21 @@ from gi_stub_gen.overrides.class_.GObject.GType import (
     GTYPE_FROM_NAME,
 )
 from gi_stub_gen.overrides.class_.GObject.Object import (
+    OBJECT_CHAIN,
+    OBJECT_CONNECT_AFTER,
+    OBJECT_CONNECT_OBJECT,
+    OBJECT_CONNECT_OBJECT_AFTER,
+    OBJECT_DISCONNECT_BY_FUNC,
     OBJECT_EMIT,
+    OBJECT_GET_PROPERTIES,
     OBJECT_GET_PROPERTY,
-    OBJECT_HANDLER_DEFAULT,
-    OBJECT_WEAK_REF,
+    OBJECT_HANDLER_BLOCK_BY_FUNC,
+    OBJECT_HANDLER_UNBLOCK_BY_FUNC,
+    OBJECT_SET_PROPERTIES,
     OBJECT_SET_PROPERTY,
+    OBJECT_WEAK_REF,
 )
+from gi_stub_gen.overrides.class_.GObject.GBoxed import GBOXED_COPY
 from gi_stub_gen.overrides.class_.Gst.Fraction import GST_FRACTION_DEN_SCHEMA, GST_FRACTION_NUM_SCHEMA
 from gi_stub_gen.schema.class_ import ClassFieldSchema
 from gi_stub_gen.schema.function import FunctionSchema
@@ -65,14 +74,22 @@ CLASS_OVERRIDES = {
         "Object": {
             "methods": {
                 # "connect": OBJECT_CONNECT,
+                "chain": OBJECT_CHAIN,
+                "connect_after": OBJECT_CONNECT_AFTER,
+                "connect_object": OBJECT_CONNECT_OBJECT,
+                "connect_object_after": OBJECT_CONNECT_OBJECT_AFTER,
+                "disconnect_by_func": OBJECT_DISCONNECT_BY_FUNC,
                 "emit": OBJECT_EMIT,
                 # "disconnect": OBJECT_DISCONNECT,
                 # "handler_block": OBJECT_HANDLER_BLOCK,
                 # "handler_unblock": OBJECT_HANDLER_UNBLOCK,
-                "weak_ref": OBJECT_WEAK_REF,
-                "handler_default": OBJECT_HANDLER_DEFAULT,
+                "get_properties": OBJECT_GET_PROPERTIES,
                 "get_property": OBJECT_GET_PROPERTY,
+                "handler_block_by_func": OBJECT_HANDLER_BLOCK_BY_FUNC,
+                "handler_unblock_by_func": OBJECT_HANDLER_UNBLOCK_BY_FUNC,
+                "set_properties": OBJECT_SET_PROPERTIES,
                 "set_property": OBJECT_SET_PROPERTY,
+                "weak_ref": OBJECT_WEAK_REF,
             },
         },
         "GType": {
@@ -98,6 +115,11 @@ CLASS_OVERRIDES = {
                 "is_value_type": GTYPE_IS_VALUE_TYPE,
                 "has_value_table": GTYPE_HAS_VALUE_TABLE,
                 "from_name": GTYPE_FROM_NAME,
+            },
+        },
+        "GBoxed": {
+            "methods": {
+                "copy": GBOXED_COPY,
             },
         },
     },
@@ -128,6 +150,16 @@ CALLBACK_OVERRIDES = {
 """List of manual overrides for callback functions. 
 These are usually discovered while parsing other elements. If we never encounter them,
 we can add them here to ensure they are present in the stubs."""
+
+
+def has_method_override(namespace: str, class_name: str, method_name: str) -> bool:
+    """
+    Check if a method has a manual override defined.
+
+    This is used to skip generating fallback stubs for method_descriptors
+    that already have a proper override.
+    """
+    return method_name in CLASS_OVERRIDES.get(namespace, {}).get(class_name, {}).get("methods", {})
 
 
 def apply_method_overrides(

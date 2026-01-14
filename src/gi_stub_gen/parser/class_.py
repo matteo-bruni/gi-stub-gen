@@ -28,9 +28,11 @@ from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.parser.python_function import parse_python_function
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.function import parse_function
-
-
-from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
+from gi_stub_gen.schema.builtin_function import (
+    ArgKind,
+    BuiltinFunctionArgumentSchema,
+    BuiltinFunctionSchema,
+)
 from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
 from gi_stub_gen.schema.function import (
     CallbackSchema,
@@ -48,6 +50,7 @@ from gi_stub_gen.utils.utils import (
 )
 from gi.repository import GIRepository
 
+from gi_stub_gen.overrides import has_method_override
 from gi_stub_gen.schema.function import FunctionSchema
 
 import logging
@@ -660,6 +663,11 @@ def parse_class(
             )
 
         elif attribute_type in {MethodType, FunctionType, BuiltinFunctionType}:
+            # Skip if there's a manual override defined - it will be applied later
+            if has_method_override(module_name, class_to_parse.__name__, attribute_name):
+                extra.append(f"python_method: {attribute_name} (skipped, has manual override)")
+                continue
+
             if f := parse_python_function(
                 attribute=attribute,
                 namespace=module_name.removeprefix("gi.repository."),
@@ -688,7 +696,72 @@ def parse_class(
                 class_parsed_elements.append(attribute_name)
 
         elif attribute_type is MethodDescriptorType:
-            extra.append(f"method_descriptor: {attribute_name} local={is_attribute_local}")
+            # method_descriptor are C-level methods added by PyGObject that are not
+            # introspectable via GI. We generate a fallback stub with *args, **kwargs.
+            # Skip if already parsed (e.g., via manual override)
+            if attribute_name in class_parsed_elements:
+                extra.append(f"method_descriptor: {attribute_name} (skipped, already parsed)")
+                continue
+
+            # Skip if there's a manual override defined - it will be applied later
+            if has_method_override(module_name, class_to_parse.__name__, attribute_name):
+                extra.append(f"method_descriptor: {attribute_name} (skipped, has manual override)")
+                continue
+
+            # Skip inherited method_descriptors from Object - they are defined once in Object
+            # and inherited by all GObject subclasses. We only want them in Object itself.
+            if class_to_parse.__name__ != "Object" and attribute_name == "connect":
+                continue
+
+            # Create fallback stub for method_descriptor
+            fallback_method = BuiltinFunctionSchema(
+                name=attribute_name,
+                namespace=module_name.removeprefix("gi.repository."),
+                is_async=False,
+                is_from_class=True,
+                is_classmethod=False,
+                is_staticmethod=False,
+                docstring=(
+                    "[method_descriptor] This method is implemented in C by PyGObject and cannot be introspected.\n"
+                    "For a more detailed stub signature, add a manual override."
+                ),
+                return_hint_name="Any",
+                return_hint_namespace="typing",
+                return_is_optional=False,
+                params=[
+                    BuiltinFunctionArgumentSchema(
+                        name="self",
+                        type_hint_name="Any",
+                        type_hint_namespace="typing",
+                        kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                        default_value=None,
+                        is_optional=False,
+                        line_comment=None,
+                    ),
+                    BuiltinFunctionArgumentSchema(
+                        name="args",
+                        type_hint_name="Any",
+                        type_hint_namespace="typing",
+                        kind=ArgKind.VAR_POSITIONAL,
+                        default_value=None,
+                        is_optional=False,
+                        line_comment=None,
+                    ),
+                    BuiltinFunctionArgumentSchema(
+                        name="kwargs",
+                        type_hint_name="Any",
+                        type_hint_namespace="typing",
+                        kind=ArgKind.VAR_KEYWORD,
+                        default_value=None,
+                        is_optional=False,
+                        line_comment=None,
+                    ),
+                ],
+            )
+            class_python_methods.append(fallback_method)
+            class_parsed_elements.append(attribute_name)
+            extra.append(f"method_descriptor: {attribute_name} (fallback stub generated)")
+
         elif attribute_type is property:
             extra.append(f"property: {attribute_name} local={is_attribute_local}")
         else:
