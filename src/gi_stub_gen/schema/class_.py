@@ -269,7 +269,7 @@ class ClassSchema(BaseSchema):
 
             elif base_class_name == "Fundamental":
                 sane_super_namespace = None
-                base_class_name = "object"
+                base_class_name = "builtins.object"
 
         # build the super class name in the template
         # TODO: move to runtime function

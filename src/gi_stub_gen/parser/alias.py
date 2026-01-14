@@ -42,8 +42,14 @@ def parse_alias(
 
         if hasattr(attribute, "__module__"):
             sanitized_module_name = sanitize_gi_module_name(str(attribute.__module__))
+            # Add type: ignore for aliases pointing to private gi modules,
+            # but NOT when the target will be present in the same generated stub
+            # (e.g., property = Property where Property is added via manual override)
             if str(sanitized_module_name).startswith(("gi.", "_thread")):
-                line_comment = "type: ignore"
+                # Property is added to GObject.pyi via CLASS_PROPERTY override,
+                # so "property = Property" doesn't need type: ignore
+                if not (sanitized_module_name == "gi._propertyhelper" and actual_attribute_name == "Property"):
+                    line_comment = "type: ignore"
 
         if type(attribute) is ModuleType:
             if target.startswith("gi._"):

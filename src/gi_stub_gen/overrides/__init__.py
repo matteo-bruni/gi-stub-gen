@@ -24,6 +24,7 @@ from gi_stub_gen.overrides.class_.GObject.GType import (
     GTYPE_IS_VALUE_ABSTRACT,
     GTYPE_IS_VALUE_TYPE,
     GTYPE_HAS_VALUE_TABLE,
+    GTYPE_FROM_NAME,
 )
 from gi_stub_gen.overrides.class_.GObject.Object import (
     OBJECT_EMIT,
@@ -96,6 +97,7 @@ CLASS_OVERRIDES = {
                 "is_value_abstract": GTYPE_IS_VALUE_ABSTRACT,
                 "is_value_type": GTYPE_IS_VALUE_TYPE,
                 "has_value_table": GTYPE_HAS_VALUE_TABLE,
+                "from_name": GTYPE_FROM_NAME,
             },
         },
     },
