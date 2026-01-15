@@ -708,9 +708,8 @@ def parse_class(
                 extra.append(f"method_descriptor: {attribute_name} (skipped, has manual override)")
                 continue
 
-            # Skip inherited method_descriptors from Object - they are defined once in Object
-            # and inherited by all GObject subclasses. We only want them in Object itself.
-            if class_to_parse.__name__ != "Object" and attribute_name == "connect":
+            # skip will be added in the template later
+            if class_to_parse.__name__ == "Object" and attribute_name == "connect":
                 continue
 
             # Create fallback stub for method_descriptor

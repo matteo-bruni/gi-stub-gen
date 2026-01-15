@@ -12,7 +12,7 @@ GTYPE_NAME = ClassFieldSchema(
     name="name",
     type_hint_name="str",
     type_hint_namespace=None,
-    may_be_null=True,
+    may_be_null=False,
     line_comment=None,
     is_deprecated=False,
     deprecation_warnings=None,
@@ -20,6 +20,10 @@ GTYPE_NAME = ClassFieldSchema(
     is_readable=True,
     is_writable=False,
 )
+"""
+see https://gitlab.gnome.org/GNOME/glib/-/blob/b83da6726fe155f5ad3c512ed18bd258c5e764d0/gobject/gtype.c#L2547
+may be null is False since `g_return_val_if_fail (type_name != NULL, 0);` 
+"""
 
 GTYPE_PARENT = ClassFieldSchema(
     name="parent",

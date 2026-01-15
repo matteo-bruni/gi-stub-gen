@@ -711,7 +711,7 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | method | method | `GType.is_interface` | <code>def is\_interface(self) -> bool</code> | <code>def is\_interface(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
 | method | method | `GType.is_value_abstract` | <code>def is\_value\_abstract(self) -> bool</code> | <code>def is\_value\_abstract(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
 | method | method | `GType.is_value_type` | <code>def is\_value\_type(self) -> bool</code> | <code>def is\_value\_type(<br>&nbsp;&nbsp;&nbsp;&nbsp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;/,<br>)</code> |
-| method | attribute | `GType.name` | <code>@builtins.property<br>def name(self) -> str \| None</code> | <code>name = ...</code> |
+| method | attribute | `GType.name` | <code>@builtins.property<br>def name(self) -> str</code> | <code>name = ...</code> |
 | method | attribute | `GType.parent` | <code>@builtins.property<br>def parent(self) -> GType</code> | <code>parent = ...</code> |
 | method | attribute | `GType.pytype` | <code>@builtins.property<br>def pytype(self) -> builtins.type \| None</code> | <code>pytype = ...</code> |
 | method | attribute | `InitiallyUnowned.g_type_instance` | <code>@builtins.property<br>def g\_type\_instance(self) -> TypeInstance \| None</code> | <code>g\_type\_instance: TypeInstance = ...</code> |
