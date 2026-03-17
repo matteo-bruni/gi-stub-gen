@@ -49,7 +49,8 @@ sudo apt install \
   build-essential \
   python3-dev \
   libcairo2-dev \
-  libgirepository-2.0-dev
+  libgirepository-2.0-dev \ 
+  gir1.2-girepository-3.0
 ```
 
 ### Installation & Development

@@ -200,22 +200,47 @@ if __name__ == "__main__":
     #     print("Property:", property_info.get_name())
 
     repo = GIRepo()
-    pygobject_adapter = repo.find_callable(
-        "GObject",
-        "ClosureMarshal",
-        namespace_version="2.0",
-    )
-    if pygobject_adapter is None:
-        raise RuntimeError("Could not find ClosureMarshal")
 
-    from gi_stub_gen.schema.function import FunctionSchema, CallbackSchema
-
-    c = CallbackSchema(
-        function=FunctionSchema.from_gi_object(
-            obj=pygobject_adapter,
-            docstring=None,
-        ),
-        originated_from={"Manual from GIRepository"},
-        name="ClosureMarshal",
+    ti_info = repo.find_by_name(
+        "Gst",
+        "MapInfo",
+        namespace_version="1.0",
+        target_type=GIRepository.StructInfo,
     )
+    assert ti_info is not None
+    for i in range(ti_info.get_n_fields()):
+        field_info = ti_info.get_field(i)
+        print(f"Field ({i}): {field_info.get_name()}")
+
+    data_field = ti_info.get_field(2)
+    print("Field Name:", data_field.get_name())
+    data_tinfo = data_field.get_type_info()
+    print("Field Type Info:", data_tinfo.get_tag())
+
+    # tinfo.get_array_length_index
+    data_tinfo_array_length_index = data_tinfo.get_array_length_index()
+    print("Field Type Info Array Length Index:", data_tinfo_array_length_index)
+    # data_tinfo.get_array_fixed_size
+    data_tinfo_array_fixed_size = data_tinfo.get_array_fixed_size()
+    print("Field Type Info Array Fixed Size:", data_tinfo_array_fixed_size)
+
+    # # example with adapter
+    # pygobject_adapter = repo.find_callable(
+    #     "GObject",
+    #     "ClosureMarshal",
+    #     namespace_version="2.0",
+    # )
+    # if pygobject_adapter is None:
+    #     raise RuntimeError("Could not find ClosureMarshal")
+
+    # from gi_stub_gen.schema.function import FunctionSchema, CallbackSchema
+
+    # c = CallbackSchema(
+    #     function=FunctionSchema.from_gi_object(
+    #         obj=pygobject_adapter,
+    #         docstring=None,
+    #     ),
+    #     originated_from={"Manual from GIRepository"},
+    #     name="ClosureMarshal",
+    # )
     breakpoint()
