@@ -29,32 +29,170 @@ def module_build_path(
     module_name: str,
 ) -> str:
     """
-    A portable way to build the filename of a module. The platform-specific
-    prefix and suffix are added to the filename, if needed, and the result
-    is added to the directory, using the correct separator character.
-
-    The directory should specify the directory where the module can be found.
-    It can be None or an empty string to indicate that the module is in a
-    standard platform-specific directory, though this is not recommended
-    since the wrong module may be found.
-
-    For example, calling `g_module_build_path` on a Linux system with a
-    `directory` of `/lib` and a `module_name` of "mylibrary" will return
-    `/lib/libmylibrary.so`. On a Windows system, using `\\Windows` as the
-    directory it will return `\\Windows\\mylibrary.dll`.
+    [DEBUG]
+    {
+      "namespace": "GModule",
+      "name": "module_build_path",
+      "args": [
+        {
+          "namespace": "GModule",
+          "name": "directory",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": true,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "utf8",
+          "get_array_length": -1,
+          "py_type_name": "str",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        },
+        {
+          "namespace": "GModule",
+          "name": "module_name",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "utf8",
+          "get_array_length": -1,
+          "py_type_name": "str",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": true,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
 def module_error() -> str:
     """
-    Gets a string describing the last module error.
+    [DEBUG]
+    {
+      "namespace": "GModule",
+      "name": "module_error",
+      "args": [],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
-def module_error_quark() -> int: ...
+def module_error_quark() -> int:
+    """
+    [DEBUG]
+    {
+      "namespace": "GModule",
+      "name": "module_error_quark",
+      "args": [],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "int",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
+    """
+    ...
+
 def module_supported() -> bool:
     """
-    Checks if modules are supported on the current platform.
+    [DEBUG]
+    {
+      "namespace": "GModule",
+      "name": "module_supported",
+      "args": [],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -64,39 +202,108 @@ def module_supported() -> bool:
 
 class ModuleError(enum.IntEnum):
     """
-    Errors returned by `g_module_open_full`."""
+    [DEBUG]
+    {
+      "enum_type": "enum",
+      "py_mro": [
+        "gi.repository.GModule.ModuleError",
+        "enum.IntEnum",
+        "builtins.int",
+        "enum.ReprEnum",
+        "enum.Enum",
+        "builtins.object"
+      ],
+      "namespace": "GModule",
+      "name": "ModuleError",
+      "docstring": null,
+      "is_deprecated": false,
+      "fields": [
+        {
+          "name": "FAILED",
+          "value": 0,
+          "value_repr": "0",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "line_comment": null,
+          "docstring": null
+        },
+        {
+          "name": "CHECK_FAILED",
+          "value": 1,
+          "value_repr": "1",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "line_comment": null,
+          "docstring": null
+        }
+      ],
+      "super_name": "IntEnum",
+      "super_namespace": "enum",
+      "extra_super_name": null,
+      "extra_super_namespace": null
+    }
+    """
 
     FAILED = 0
-    """
-    there was an error loading or opening a module file
-    """
     CHECK_FAILED = 1
-    """
-    a module returned an error from its ``g_module_check_init`` function
-    """
 
 class ModuleFlags(enum.IntFlag):
     """
-    Flags passed to `g_module_open`.
-    Note that these flags are not supported on all platforms."""
+    [DEBUG]
+    {
+      "enum_type": "flags",
+      "py_mro": [
+        "gi.repository.GModule.ModuleFlags",
+        "enum.IntFlag",
+        "builtins.int",
+        "enum.ReprEnum",
+        "enum.Flag",
+        "enum.Enum",
+        "builtins.object"
+      ],
+      "namespace": "GModule",
+      "name": "ModuleFlags",
+      "docstring": null,
+      "is_deprecated": false,
+      "fields": [
+        {
+          "name": "LAZY",
+          "value": 1,
+          "value_repr": "1",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "line_comment": null,
+          "docstring": null
+        },
+        {
+          "name": "LOCAL",
+          "value": 2,
+          "value_repr": "2",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "line_comment": null,
+          "docstring": null
+        },
+        {
+          "name": "MASK",
+          "value": 3,
+          "value_repr": "3",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "line_comment": null,
+          "docstring": null
+        }
+      ],
+      "super_name": "IntFlag",
+      "super_namespace": "enum",
+      "extra_super_name": null,
+      "extra_super_namespace": null
+    }
+    """
 
     LAZY = 1
-    """
-    specifies that symbols are only resolved when
-        needed. The default action is to bind all symbols when the module
-        is loaded.
-    """
     LOCAL = 2
-    """
-    specifies that symbols in the module should
-        not be added to the global name space. The default action on most
-        platforms is to place symbols in the module in the global name space,
-        which may cause conflicts with existing symbols.
-    """
     MASK = 3
-    """
-    mask for all flags.
-    """
 
 ###############################################################
 # classes
@@ -104,75 +311,488 @@ class ModuleFlags(enum.IntFlag):
 
 class Module(GObject.GPointer, metaclass=GObject.GType):
     """
-    The GModule. struct is an opaque data structure to represent a
-    [dynamically-loaded module][glib-Dynamic-Loading-of-Modules].
-    It should only be accessed via the following functions.
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GModule",
+      "name": "Module",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [
+        {
+          "namespace": "GModule",
+          "name": "build_path",
+          "args": [
+            {
+              "namespace": "GModule",
+              "name": "directory",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GModule",
+              "name": "module_name",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": true,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GModule",
+          "name": "close",
+          "args": [],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GModule",
+          "name": "error",
+          "args": [],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GModule",
+          "name": "error_quark",
+          "args": [],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "int",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GModule",
+          "name": "make_resident",
+          "args": [],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": null,
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GModule",
+          "name": "name",
+          "args": [],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GModule",
+          "name": "supported",
+          "args": [],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GModule",
+          "name": "symbol",
+          "args": [
+            {
+              "namespace": "GModule",
+              "name": "symbol_name",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GModule",
+              "name": "symbol",
+              "direction": "OUT",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "void",
+              "get_array_length": -1,
+              "py_type_name": "object",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        }
+      ],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "unknown: build_path: <class 'gi.FunctionInfo'> local=True",
+        "unknown: close: <class 'gi.FunctionInfo'> local=True",
+        "unknown: error: <class 'gi.FunctionInfo'> local=True",
+        "unknown: error_quark: <class 'gi.FunctionInfo'> local=True",
+        "unknown: make_resident: <class 'gi.FunctionInfo'> local=True",
+        "unknown: name: <class 'gi.FunctionInfo'> local=True",
+        "unknown: supported: <class 'gi.FunctionInfo'> local=True",
+        "unknown: symbol: <class 'gi.FunctionInfo'> local=True",
+        "mro=(<class 'gi.repository.GModule.Module'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GModule.Module"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    unknown: build_path: <class 'gi.FunctionInfo'> local=True
+    unknown: close: <class 'gi.FunctionInfo'> local=True
+    unknown: error: <class 'gi.FunctionInfo'> local=True
+    unknown: error_quark: <class 'gi.FunctionInfo'> local=True
+    unknown: make_resident: <class 'gi.FunctionInfo'> local=True
+    unknown: name: <class 'gi.FunctionInfo'> local=True
+    unknown: supported: <class 'gi.FunctionInfo'> local=True
+    unknown: symbol: <class 'gi.FunctionInfo'> local=True
+    mro=(<class 'gi.repository.GModule.Module'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GModule.Module
+
     """
 
     # gi Methods
     @deprecated("deprecated")
     @staticmethod
-    def build_path(directory: str | None, module_name: str) -> str:
-        """
-            A portable way to build the filename of a module. The platform-specific
-        prefix and suffix are added to the filename, if needed, and the result
-        is added to the directory, using the correct separator character.
-
-        The directory should specify the directory where the module can be found.
-        It can be None or an empty string to indicate that the module is in a
-        standard platform-specific directory, though this is not recommended
-        since the wrong module may be found.
-
-        For example, calling `g_module_build_path` on a Linux system with a
-        `directory` of `/lib` and a `module_name` of "mylibrary" will return
-        `/lib/libmylibrary.so`. On a Windows system, using `\\Windows` as the
-        directory it will return `\\Windows\\mylibrary.dll`.
-        """
-    def close(self) -> bool:
-        """
-        Closes a module.
-        """
+    def build_path(directory: str | None, module_name: str) -> str: ...
+    def close(self) -> bool: ...
     @staticmethod
-    def error() -> str:
-        """
-        Gets a string describing the last module error.
-        """
+    def error() -> str: ...
     @staticmethod
     def error_quark() -> int: ...
-    def make_resident(self) -> None:
-        """
-            Ensures that a module will never be unloaded.
-        Any future `g_module_close` calls on the module will be ignored.
-        """
-    def name(self) -> str:
-        """
-            Returns the filename that the module was opened with.
-
-        If `module` refers to the application itself, "main" is returned.
-        """
+    def make_resident(self) -> None: ...
+    def name(self) -> str: ...
     @staticmethod
-    def supported() -> bool:
-        """
-        Checks if modules are supported on the current platform.
-        """
-    def symbol(self, symbol_name: str) -> tuple[bool, object | None]:
-        """
-            Gets a symbol pointer from a module, such as one exported
-        by G_MODULE_EXPORT. Note that a valid symbol can be None.
-        """
+    def supported() -> bool: ...
+    def symbol(self, symbol_name: str) -> tuple[bool, object | None]: ...
 
 ###############################################################
 # Aliases
 ###############################################################
 
 _lock = _thread._lock  # type: ignore
+"""
+[DEBUG]
+{
+  "name": "_lock",
+  "target_name": "_lock",
+  "target_namespace": "_thread",
+  "deprecation_warning": null,
+  "line_comment": "type: ignore ",
+  "alias_to": "other_module"
+}
+
+
+"""
 ###############################################################
 # Constants
 ###############################################################
 
 MODULE_IMPL_AR: int = ...
+"""
+[DEBUG]
+{
+  "namespace": "GModule",
+  "name": "MODULE_IMPL_AR",
+  "value": 7,
+  "is_deprecated": false,
+  "deprecation_warnings": null,
+  "type_hint": "int",
+  "value_repr": "...",
+  "gir_docstring": null,
+  "is_enum_or_flags": false,
+  "line_comment": null,
+  "variable_type": "PYTHON_TYPE"
+}
+
+None 
+"""
 MODULE_IMPL_DL: int = ...
+"""
+[DEBUG]
+{
+  "namespace": "GModule",
+  "name": "MODULE_IMPL_DL",
+  "value": 1,
+  "is_deprecated": false,
+  "deprecation_warnings": null,
+  "type_hint": "int",
+  "value_repr": "...",
+  "gir_docstring": null,
+  "is_enum_or_flags": false,
+  "line_comment": null,
+  "variable_type": "PYTHON_TYPE"
+}
+
+None 
+"""
 MODULE_IMPL_NONE: int = ...
+"""
+[DEBUG]
+{
+  "namespace": "GModule",
+  "name": "MODULE_IMPL_NONE",
+  "value": 0,
+  "is_deprecated": false,
+  "deprecation_warnings": null,
+  "type_hint": "int",
+  "value_repr": "...",
+  "gir_docstring": null,
+  "is_enum_or_flags": false,
+  "line_comment": null,
+  "variable_type": "PYTHON_TYPE"
+}
+
+None 
+"""
 MODULE_IMPL_WIN32: int = ...
+"""
+[DEBUG]
+{
+  "namespace": "GModule",
+  "name": "MODULE_IMPL_WIN32",
+  "value": 3,
+  "is_deprecated": false,
+  "deprecation_warnings": null,
+  "type_hint": "int",
+  "value_repr": "...",
+  "gir_docstring": null,
+  "is_enum_or_flags": false,
+  "line_comment": null,
+  "variable_type": "PYTHON_TYPE"
+}
+
+None 
+"""
 _namespace: str = ...
+"""
+[DEBUG]
+{
+  "namespace": "GModule",
+  "name": "_namespace",
+  "value": "GModule",
+  "is_deprecated": false,
+  "deprecation_warnings": null,
+  "type_hint": "str",
+  "value_repr": "...",
+  "gir_docstring": null,
+  "is_enum_or_flags": false,
+  "line_comment": null,
+  "variable_type": "PYTHON_TYPE"
+}
+
+None 
+"""
 _version: str = ...
+"""
+[DEBUG]
+{
+  "namespace": "GModule",
+  "name": "_version",
+  "value": "2.0",
+  "is_deprecated": false,
+  "deprecation_warnings": null,
+  "type_hint": "str",
+  "value_repr": "...",
+  "gir_docstring": null,
+  "is_enum_or_flags": false,
+  "line_comment": null,
+  "variable_type": "PYTHON_TYPE"
+}
+
+None 
+"""

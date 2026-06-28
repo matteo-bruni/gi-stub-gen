@@ -606,7 +606,7 @@ class FunctionSchema(BaseSchema):
             # depending on glib version this may not be available,
             # so we check if the flag exists
             try:
-                is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)
+                is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC) # type: ignore
             except AttributeError:
                 is_async = False
             wrap_vfunc = bool(flags & GIRepository.FunctionInfoFlags.WRAPS_VFUNC)

@@ -32,14 +32,74 @@ def desktop_app_info_lookup_get_default_for_uri_scheme(
     uri_scheme: str,
 ) -> Gio.AppInfo | None:
     """
-    Gets the default application for launching applications
-    using this URI scheme for a particular GDesktopAppInfoLookup
-    implementation.
-
-    The GDesktopAppInfoLookup interface and this function is used
-    to implement `g_app_info_get_default_for_uri_scheme` backends
-    in a GIO module. There is no reason for applications to use it
-    directly. Applications should use `g_app_info_get_default_for_uri_scheme`.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "desktop_app_info_lookup_get_default_for_uri_scheme",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "lookup",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "DesktopAppInfoLookup",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "uri_scheme",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "utf8",
+          "get_array_length": -1,
+          "py_type_name": "str",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": true,
+      "can_throw_gerror": false,
+      "may_return_null": true,
+      "deprecation_warnings": null,
+      "return_hint": "AppInfo",
+      "return_hint_namespace": "Gio",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -47,7 +107,54 @@ def file_descriptor_based_get_fd(
     fd_based: FileDescriptorBased,
 ) -> int:
     """
-    Gets the underlying file descriptor.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "file_descriptor_based_get_fd",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "fd_based",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "FileDescriptorBased",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "int",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -55,10 +162,54 @@ def is_mount_path_system_internal(
     mount_path: str,
 ) -> bool:
     """
-    Determines if `mount_path` is considered an implementation of the
-    OS. This is primarily used for hiding mountable and mounted volumes
-    that only are used in the OS and has little to no relevance to the
-    casual user.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "is_mount_path_system_internal",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_path",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "filename",
+          "get_array_length": -1,
+          "py_type_name": "str",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -66,13 +217,54 @@ def is_system_device_path(
     device_path: str,
 ) -> bool:
     """
-    Determines if `device_path` is considered a block device path which is only
-    used in implementation of the OS. This is primarily used for hiding
-    mounted volumes that are intended as APIs for programs to read, and system
-    administrators at a shell; rather than something that should, for example,
-    appear in a GUI. For example, the Linux `/proc` filesystem.
-
-    The list of device paths considered ‘system’ ones may change over time.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "is_system_device_path",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "device_path",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "utf8",
+          "get_array_length": -1,
+          "py_type_name": "str",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -80,13 +272,54 @@ def is_system_fs_type(
     fs_type: str,
 ) -> bool:
     """
-    Determines if `fs_type` is considered a type of file system which is only
-    used in implementation of the OS. This is primarily used for hiding
-    mounted volumes that are intended as APIs for programs to read, and system
-    administrators at a shell; rather than something that should, for example,
-    appear in a GUI. For example, the Linux `/proc` filesystem.
-
-    The list of file system types considered ‘system’ ones may change over time.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "is_system_fs_type",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "fs_type",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "utf8",
+          "get_array_length": -1,
+          "py_type_name": "str",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -94,14 +327,74 @@ def mount_at(
     mount_path: str,
 ) -> tuple[MountEntry | None, int]:
     """
-    Gets a GUnixMountEntry for a given mount path. If `time_read`
-    is set, it will be filled with a unix timestamp for checking
-    if the mounts have changed since with `g_unix_mounts_changed_since`.
-
-    If more mounts have the same mount path, the last matching mount
-    is returned.
-
-    This will return None if there is no mount point at `mount_path`.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_at",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_path",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "filename",
+          "get_array_length": -1,
+          "py_type_name": "str",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "time_read",
+          "direction": "OUT",
+          "is_optional": true,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "guint64",
+          "get_array_length": -1,
+          "py_type_name": "int",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": false,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": true,
+      "deprecation_warnings": null,
+      "return_hint": "MountEntry",
+      "return_hint_namespace": "GioUnix",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -110,7 +403,74 @@ def mount_compare(
     mount2: MountEntry,
 ) -> int:
     """
-    Compares two unix mounts.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_compare",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount1",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "mount2",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "int",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -118,7 +478,54 @@ def mount_copy(
     mount_entry: MountEntry,
 ) -> MountEntry:
     """
-    Makes a copy of `mount_entry`.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_copy",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "MountEntry",
+      "return_hint_namespace": "GioUnix",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -126,15 +533,74 @@ def mount_for(
     file_path: str,
 ) -> tuple[MountEntry | None, int]:
     """
-    Gets a GUnixMountEntry for a given file path. If `time_read`
-    is set, it will be filled with a unix timestamp for checking
-    if the mounts have changed since with `g_unix_mounts_changed_since`.
-
-    If more mounts have the same mount path, the last matching mount
-    is returned.
-
-    This will return None if looking up the mount entry fails, if
-    `file_path` doesn’t exist or there is an I/O error.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_for",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "file_path",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "filename",
+          "get_array_length": -1,
+          "py_type_name": "str",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "time_read",
+          "direction": "OUT",
+          "is_optional": true,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "guint64",
+          "get_array_length": -1,
+          "py_type_name": "int",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": false,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": true,
+      "deprecation_warnings": null,
+      "return_hint": "MountEntry",
+      "return_hint_namespace": "GioUnix",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -142,7 +608,54 @@ def mount_free(
     mount_entry: MountEntry,
 ) -> None:
     """
-    Frees a unix mount.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_free",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": null,
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -150,7 +663,54 @@ def mount_get_device_path(
     mount_entry: MountEntry,
 ) -> str:
     """
-    Gets the device path for a unix mount.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_get_device_path",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -158,7 +718,54 @@ def mount_get_fs_type(
     mount_entry: MountEntry,
 ) -> str:
     """
-    Gets the filesystem type for the unix mount.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_get_fs_type",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -166,7 +773,54 @@ def mount_get_mount_path(
     mount_entry: MountEntry,
 ) -> str:
     """
-    Gets the mount path for a unix mount.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_get_mount_path",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -174,11 +828,54 @@ def mount_get_options(
     mount_entry: MountEntry,
 ) -> str | None:
     """
-    Gets a comma-separated list of mount options for the unix mount. For example,
-    `rw,relatime,seclabel,data=ordered`.
-
-    This is similar to `g_unix_mount_point_get_options`, but it takes
-    a GUnixMountEntry as an argument.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_get_options",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": true,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -186,12 +883,54 @@ def mount_get_root_path(
     mount_entry: MountEntry,
 ) -> str | None:
     """
-    Gets the root of the mount within the filesystem. This is useful e.g. for
-    mounts created by bind operation, or btrfs subvolumes.
-
-    For example, the root path is equal to "/" for mount created by
-    "mount /dev/sda1 /mnt/foo" and "/bar" for
-    "mount --bind /mnt/foo/bar /mnt/bar".
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_get_root_path",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": true,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -199,7 +938,54 @@ def mount_guess_can_eject(
     mount_entry: MountEntry,
 ) -> bool:
     """
-    Guesses whether a Unix mount can be ejected.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_guess_can_eject",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -207,7 +993,54 @@ def mount_guess_icon(
     mount_entry: MountEntry,
 ) -> Gio.Icon:
     """
-    Guesses the icon of a Unix mount.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_guess_icon",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "Icon",
+      "return_hint_namespace": "Gio",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -215,8 +1048,54 @@ def mount_guess_name(
     mount_entry: MountEntry,
 ) -> str:
     """
-    Guesses the name of a Unix mount.
-    The result is a translated string.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_guess_name",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -224,7 +1103,54 @@ def mount_guess_should_display(
     mount_entry: MountEntry,
 ) -> bool:
     """
-    Guesses whether a Unix mount should be displayed in the UI.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_guess_should_display",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -232,7 +1158,54 @@ def mount_guess_symbolic_icon(
     mount_entry: MountEntry,
 ) -> Gio.Icon:
     """
-    Guesses the symbolic icon of a Unix mount.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_guess_symbolic_icon",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "Icon",
+      "return_hint_namespace": "Gio",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -240,7 +1213,54 @@ def mount_is_readonly(
     mount_entry: MountEntry,
 ) -> bool:
     """
-    Checks if a unix mount is mounted read only.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_is_readonly",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -248,12 +1268,54 @@ def mount_is_system_internal(
     mount_entry: MountEntry,
 ) -> bool:
     """
-    Checks if a Unix mount is a system mount. This is the Boolean OR of
-    `g_unix_is_system_fs_type`, `g_unix_is_system_device_path` and
-    `g_unix_is_mount_path_system_internal` on `mount_entry`’s properties.
-
-    The definition of what a ‘system’ mount entry is may change over time as new
-    file system types and device paths are ignored.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_is_system_internal",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_entry",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountEntry",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -261,12 +1323,74 @@ def mount_point_at(
     mount_path: str,
 ) -> tuple[MountPoint | None, int]:
     """
-    Gets a GUnixMountPoint for a given mount path. If `time_read` is set, it
-    will be filled with a unix timestamp for checking if the mount points have
-    changed since with `g_unix_mount_points_changed_since`.
-
-    If more mount points have the same mount path, the last matching mount point
-    is returned.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_at",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_path",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "filename",
+          "get_array_length": -1,
+          "py_type_name": "str",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "time_read",
+          "direction": "OUT",
+          "is_optional": true,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "guint64",
+          "get_array_length": -1,
+          "py_type_name": "int",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": false,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": true,
+      "deprecation_warnings": null,
+      "return_hint": "MountPoint",
+      "return_hint_namespace": "GioUnix",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -275,7 +1399,74 @@ def mount_point_compare(
     mount2: MountPoint,
 ) -> int:
     """
-    Compares two unix mount points.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_compare",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount1",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "mount2",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "int",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -283,7 +1474,54 @@ def mount_point_copy(
     mount_point: MountPoint,
 ) -> MountPoint:
     """
-    Makes a copy of `mount_point`.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_copy",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "MountPoint",
+      "return_hint_namespace": "GioUnix",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -291,7 +1529,54 @@ def mount_point_free(
     mount_point: MountPoint,
 ) -> None:
     """
-    Frees a unix mount point.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_free",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": null,
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -299,7 +1584,54 @@ def mount_point_get_device_path(
     mount_point: MountPoint,
 ) -> str:
     """
-    Gets the device path for a unix mount point.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_get_device_path",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -307,7 +1639,54 @@ def mount_point_get_fs_type(
     mount_point: MountPoint,
 ) -> str:
     """
-    Gets the file system type for the mount point.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_get_fs_type",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -315,7 +1694,54 @@ def mount_point_get_mount_path(
     mount_point: MountPoint,
 ) -> str:
     """
-    Gets the mount path for a unix mount point.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_get_mount_path",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -323,7 +1749,54 @@ def mount_point_get_options(
     mount_point: MountPoint,
 ) -> str | None:
     """
-    Gets the options for the mount point.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_get_options",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": true,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -331,7 +1804,54 @@ def mount_point_guess_can_eject(
     mount_point: MountPoint,
 ) -> bool:
     """
-    Guesses whether a Unix mount point can be ejected.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_guess_can_eject",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -339,7 +1859,54 @@ def mount_point_guess_icon(
     mount_point: MountPoint,
 ) -> Gio.Icon:
     """
-    Guesses the icon of a Unix mount point.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_guess_icon",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "Icon",
+      "return_hint_namespace": "Gio",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -347,8 +1914,54 @@ def mount_point_guess_name(
     mount_point: MountPoint,
 ) -> str:
     """
-    Guesses the name of a Unix mount point.
-    The result is a translated string.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_guess_name",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "str",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -356,7 +1969,54 @@ def mount_point_guess_symbolic_icon(
     mount_point: MountPoint,
 ) -> Gio.Icon:
     """
-    Guesses the symbolic icon of a Unix mount point.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_guess_symbolic_icon",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "Icon",
+      "return_hint_namespace": "Gio",
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -364,7 +2024,54 @@ def mount_point_is_loopback(
     mount_point: MountPoint,
 ) -> bool:
     """
-    Checks if a unix mount point is a loopback device.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_is_loopback",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -372,7 +2079,54 @@ def mount_point_is_readonly(
     mount_point: MountPoint,
 ) -> bool:
     """
-    Checks if a unix mount point is read only.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_is_readonly",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -380,7 +2134,54 @@ def mount_point_is_user_mountable(
     mount_point: MountPoint,
 ) -> bool:
     """
-    Checks if a unix mount point is mountable by the user.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_point_is_user_mountable",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "mount_point",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "interface",
+          "get_array_length": -1,
+          "py_type_name": "MountPoint",
+          "py_type_namespace": "GioUnix",
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": true,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -388,16 +2189,107 @@ def mount_points_changed_since(
     time: int,
 ) -> bool:
     """
-    Checks if the unix mount points have changed since a given unix time.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_points_changed_since",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "time",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "guint64",
+          "get_array_length": -1,
+          "py_type_name": "int",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": false,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
 def mount_points_get() -> tuple[list, int]:
     """
-    Gets a GList of GUnixMountPoint containing the unix mount points.
-    If `time_read` is set, it will be filled with the mount timestamp,
-    allowing for checking if the mounts have changed with
-    `g_unix_mount_points_changed_since`.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mount_points_get",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "time_read",
+          "direction": "OUT",
+          "is_optional": true,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "guint64",
+          "get_array_length": -1,
+          "py_type_name": "int",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": false,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "list",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -405,16 +2297,107 @@ def mounts_changed_since(
     time: int,
 ) -> bool:
     """
-    Checks if the unix mounts have changed since a given unix time.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mounts_changed_since",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "time",
+          "direction": "IN",
+          "is_optional": false,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "guint64",
+          "get_array_length": -1,
+          "py_type_name": "int",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": false,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "bool",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
 def mounts_get() -> tuple[list, int]:
     """
-    Gets a GList of GUnixMountEntry containing the unix mounts.
-    If `time_read` is set, it will be filled with the mount
-    timestamp, allowing for checking if the mounts have changed
-    with `g_unix_mounts_changed_since`.
+    [DEBUG]
+    {
+      "namespace": "GioUnix",
+      "name": "mounts_get",
+      "args": [
+        {
+          "namespace": "GioUnix",
+          "name": "time_read",
+          "direction": "OUT",
+          "is_optional": true,
+          "is_callback": false,
+          "may_be_null": false,
+          "is_deprecated": false,
+          "is_caller_allocates": false,
+          "tag_as_string": "guint64",
+          "get_array_length": -1,
+          "py_type_name": "int",
+          "py_type_namespace": null,
+          "line_comment": null,
+          "default_value": null,
+          "is_pointer": false,
+          "is_variadic": false,
+          "type_hint_cb_return_name": null,
+          "type_hint_cb_return_namespace": null
+        }
+      ],
+      "docstring": null,
+      "is_callback": false,
+      "skip_return": false,
+      "is_deprecated": false,
+      "can_throw_gerror": false,
+      "may_return_null": false,
+      "deprecation_warnings": null,
+      "return_hint": "list",
+      "return_hint_namespace": null,
+      "is_method": false,
+      "is_async": false,
+      "is_getter": false,
+      "is_setter": false,
+      "is_constructor": false,
+      "wrap_vfunc": false,
+      "line_comment": null,
+      "function_type": "FunctionInfo",
+      "is_overload": false,
+      "is_overridden": false,
+      "is_class_member": false,
+      "is_property": false
+    }
     """
     ...
 
@@ -424,19 +2407,2631 @@ def mounts_get() -> tuple[list, int]:
 
 class DesktopAppInfo(GObject.Object):
     """
-    `GDesktopAppInfo` is an implementation of [iface`Gio`.AppInfo] based on
-    desktop files.
+    [DEBUG]
+    {
+      "super": [
+        "GObject.Object"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "DesktopAppInfo",
+      "docstring": null,
+      "props": [
+        {
+          "name": "filename",
+          "is_deprecated": false,
+          "readable": true,
+          "writable": true,
+          "docstring": null,
+          "line_comment": null,
+          "type_hint_namespace": null,
+          "type_hint_name": "str",
+          "may_be_null": false
+        }
+      ],
+      "fields": [],
+      "methods": [
+        {
+          "namespace": "GioUnix",
+          "name": "__init__",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "filename",
+              "direction": "IN",
+              "is_optional": true,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": "None",
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": "Initialize DesktopAppInfo object with properties.",
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "None",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_action_name",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "action_name",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_boolean",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "key",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_categories",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_filename",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_generic_name",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_implementations",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "interface",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "list",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_is_hidden",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_keywords",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "list",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_locale_string",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "key",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_nodisplay",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_show_in",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "desktop_env",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_startup_wm_class",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_string",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "key",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_string_list",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "key",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "length",
+              "direction": "OUT",
+              "is_optional": true,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "guint64",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "list",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "has_key",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "key",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "launch_action",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "action_name",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "launch_context",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "AppLaunchContext",
+              "py_type_namespace": "Gio",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": null,
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "launch_uris_as_manager",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "appinfo",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "uris",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "glist",
+              "get_array_length": -1,
+              "py_type_name": "list",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "launch_context",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "AppLaunchContext",
+              "py_type_namespace": "Gio",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "spawn_flags",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "SpawnFlags",
+              "py_type_namespace": "GLib",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "user_setup",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": true,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "SpawnChildSetupFunc",
+              "py_type_namespace": "GLib",
+              "line_comment": "type: ignore",
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "user_setup_data",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "void",
+              "get_array_length": -1,
+              "py_type_name": "object",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "pid_callback",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": true,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppLaunchCallback",
+              "py_type_namespace": "Gio",
+              "line_comment": "type: ignore",
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "pid_callback_data",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "void",
+              "get_array_length": -1,
+              "py_type_name": "object",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": true,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": true,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "launch_uris_as_manager_with_fds",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "appinfo",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "uris",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "glist",
+              "get_array_length": -1,
+              "py_type_name": "list",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "launch_context",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "AppLaunchContext",
+              "py_type_namespace": "Gio",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "spawn_flags",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "SpawnFlags",
+              "py_type_namespace": "GLib",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "user_setup",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": true,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "SpawnChildSetupFunc",
+              "py_type_namespace": "GLib",
+              "line_comment": "type: ignore",
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "user_setup_data",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "void",
+              "get_array_length": -1,
+              "py_type_name": "object",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "pid_callback",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": true,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppLaunchCallback",
+              "py_type_namespace": "Gio",
+              "line_comment": "type: ignore",
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "pid_callback_data",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "void",
+              "get_array_length": -1,
+              "py_type_name": "object",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": true,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "stdin_fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gint32",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "stdout_fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gint32",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "stderr_fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gint32",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": true,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "list_actions",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "info",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfo",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "list",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "new",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "desktop_id",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "DesktopAppInfo",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": true,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "new_from_filename",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "filename",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "filename",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "DesktopAppInfo",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": true,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "new_from_keyfile",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "key_file",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "KeyFile",
+              "py_type_namespace": "GLib",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "DesktopAppInfo",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": true,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "search",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "search_string",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "list",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "set_desktop_env",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "desktop_env",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": true,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": null,
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        }
+      ],
+      "python_methods": [
+        {
+          "name": "get_action_name",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_action_name(info:Gio.DesktopAppInfo, action_name:str) -> str",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "action_name",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_boolean",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_boolean(info:Gio.DesktopAppInfo, key:str) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_categories",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_categories(info:Gio.DesktopAppInfo) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_filename",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_filename(info:Gio.DesktopAppInfo) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_generic_name",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_generic_name(info:Gio.DesktopAppInfo) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_is_hidden",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_is_hidden(info:Gio.DesktopAppInfo) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_keywords",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_keywords(info:Gio.DesktopAppInfo) -> list",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_locale_string",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_locale_string(info:Gio.DesktopAppInfo, key:str) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_nodisplay",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_nodisplay(info:Gio.DesktopAppInfo) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_show_in",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_show_in(info:Gio.DesktopAppInfo, desktop_env:str=None) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "desktop_env",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_startup_wm_class",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_startup_wm_class(info:Gio.DesktopAppInfo) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_string",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_string(info:Gio.DesktopAppInfo, key:str) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_string_list",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_string_list(info:Gio.DesktopAppInfo, key:str) -> list",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "has_key",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nhas_key(info:Gio.DesktopAppInfo, key:str) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "launch_action",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nlaunch_action(info:Gio.DesktopAppInfo, action_name:str, launch_context:Gio.AppLaunchContext=None)",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "action_name",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "launch_context",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "launch_uris_as_manager",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nlaunch_uris_as_manager(appinfo:Gio.DesktopAppInfo, uris:list, launch_context:Gio.AppLaunchContext=None, spawn_flags:GLib.SpawnFlags, user_setup:GLib.SpawnChildSetupFunc=None, user_setup_data=None, pid_callback:Gio.DesktopAppLaunchCallback=None, pid_callback_data=None) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "uris",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "launch_context",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "spawn_flags",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "user_setup",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "user_setup_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "pid_callback",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "pid_callback_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "launch_uris_as_manager_with_fds",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nlaunch_uris_as_manager_with_fds(appinfo:Gio.DesktopAppInfo, uris:list, launch_context:Gio.AppLaunchContext=None, spawn_flags:GLib.SpawnFlags, user_setup:GLib.SpawnChildSetupFunc=None, user_setup_data=None, pid_callback:Gio.DesktopAppLaunchCallback=None, pid_callback_data=None, stdin_fd:int, stdout_fd:int, stderr_fd:int) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "uris",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "launch_context",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "spawn_flags",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "user_setup",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "user_setup_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "pid_callback",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "pid_callback_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "stdin_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "stdout_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "stderr_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "list_actions",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nlist_actions(info:Gio.DesktopAppInfo) -> list",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew(desktop_id:str) -> Gio.DesktopAppInfo or None",
+          "return_hint_name": "DesktopAppInfo",
+          "return_hint_namespace": "GioUnix",
+          "return_is_optional": true,
+          "params": [
+            {
+              "name": "desktop_id",
+              "type_hint_name": "str",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "new_from_filename",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew_from_filename(filename:str) -> Gio.DesktopAppInfo or None",
+          "return_hint_name": "DesktopAppInfo",
+          "return_hint_namespace": "GioUnix",
+          "return_is_optional": true,
+          "params": [
+            {
+              "name": "filename",
+              "type_hint_name": "str",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "new_from_keyfile",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew_from_keyfile(key_file:GLib.KeyFile) -> Gio.DesktopAppInfo or None",
+          "return_hint_name": "DesktopAppInfo",
+          "return_hint_namespace": "GioUnix",
+          "return_is_optional": true,
+          "params": [
+            {
+              "name": "key_file",
+              "type_hint_name": "KeyFile",
+              "type_hint_namespace": "GLib",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "name": "notify",
+          "name_unescaped": "notify",
+          "namespace": "GObject",
+          "handler": {
+            "namespace": "GObject",
+            "name": "notify",
+            "args": [
+              {
+                "namespace": "GObject",
+                "name": "pspec",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "interface",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": null,
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": null,
+            "return_hint_namespace": null,
+            "is_method": false,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": false,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": true,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": true,
+          "detailed": true,
+          "action": true,
+          "no_hooks": true,
+          "must_collect": false,
+          "is_deprecated": false
+        },
+        {
+          "name": "notify::filename",
+          "name_unescaped": "notify::filename",
+          "namespace": "GioUnix",
+          "handler": {
+            "namespace": "GioUnix",
+            "name": "notify::filename",
+            "args": [
+              {
+                "namespace": "GioUnix",
+                "name": "arg1",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              },
+              {
+                "namespace": "GioUnix",
+                "name": "arg2",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "Any",
+                "py_type_namespace": "typing",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": "Signal emitted when the 'filename' property changes.",
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": "None",
+            "return_hint_namespace": null,
+            "is_method": true,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": true,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": false,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": false,
+          "detailed": false,
+          "action": false,
+          "no_hooks": false,
+          "must_collect": false,
+          "is_deprecated": false
+        }
+      ],
+      "extra": [
+        "unknown: get_implementations: <class 'gi.FunctionInfo'> local=True",
+        "unknown: search: <class 'gi.FunctionInfo'> local=True",
+        "unknown: set_desktop_env: <class 'gi.FunctionInfo'> local=True",
+        "mro=(<class 'gi.overrides.GioUnix.DesktopAppInfo'>, <class 'gi.repository.GioUnix.DesktopAppInfo'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'gi.repository.Gio.AppInfo'>, <class 'gobject.GInterface'>, <class 'object'>)",
+        "self=gi.overrides.GioUnix.DesktopAppInfo"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    unknown: get_implementations: <class 'gi.FunctionInfo'> local=True
+    unknown: search: <class 'gi.FunctionInfo'> local=True
+    unknown: set_desktop_env: <class 'gi.FunctionInfo'> local=True
+    mro=(<class 'gi.overrides.GioUnix.DesktopAppInfo'>, <class 'gi.repository.GioUnix.DesktopAppInfo'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'gi.repository.Gio.AppInfo'>, <class 'gobject.GInterface'>, <class 'object'>)
+    self=gi.overrides.GioUnix.DesktopAppInfo
 
-    Note that `<gio/gdesktopappinfo.h>` belongs to the UNIX-specific
-    GIO interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
-    file or the `GioUnix-2.0` GIR namespace when using it.
     """
 
     class Props(GObject.Object.Props):
         filename: str
-        """
-        The origin filename of this GDesktopAppInfo
-        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -447,44 +5042,12 @@ class DesktopAppInfo(GObject.Object):
         Initialize DesktopAppInfo object with properties.
         """
     @staticmethod
-    def get_implementations(interface: str) -> list:
-        """
-            Gets all applications that implement `interface`.
-
-        An application implements an interface if that interface is listed in
-        the Implements= line of the desktop file of the application.
-        """
+    def get_implementations(interface: str) -> list: ...
     @staticmethod
-    def search(search_string: str) -> list:
-        """
-            Searches desktop files for ones that match `search_string`.
-
-        The return value is an array of strvs.  Each strv contains a list of
-        applications that matched `search_string` with an equal score.  The
-        outer list is sorted by score so that the first strv contains the
-        best-matching applications, and so on.
-        The algorithm for determining matches is undefined and may change at
-        any time.
-
-        None of the search results are subjected to the normal validation
-        checks performed by `g_desktop_app_info_new` (for example, checking that
-        the executable referenced by a result exists), and so it is possible for
-        `g_desktop_app_info_new` to return None when passed an app ID returned by
-        this function. It is expected that calling code will do this when
-        subsequently creating a GDesktopAppInfo for each result.
-        """
+    def search(search_string: str) -> list: ...
     @deprecated("deprecated")
     @staticmethod
-    def set_desktop_env(desktop_env: str) -> None:
-        """
-            Sets the name of the desktop that the application is running in.
-        This is used by `g_app_info_should_show` and
-        `g_desktop_app_info_get_show_in` to evaluate the
-        `OnlyShowIn` and `NotShowIn`
-        desktop entry fields.
-
-        Should be called only once; subsequent calls are ignored.
-        """
+    def set_desktop_env(desktop_env: str) -> None: ...
 
     # python methods (overrides?)
     def get_action_name(
@@ -492,6 +5055,40 @@ class DesktopAppInfo(GObject.Object):
         action_name: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_action_name",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_action_name(info:Gio.DesktopAppInfo, action_name:str) -> str",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "action_name",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_action_name(info:Gio.DesktopAppInfo, action_name:str) -> str
@@ -501,6 +5098,40 @@ class DesktopAppInfo(GObject.Object):
         key: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_boolean",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_boolean(info:Gio.DesktopAppInfo, key:str) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_boolean(info:Gio.DesktopAppInfo, key:str) -> bool
@@ -509,6 +5140,31 @@ class DesktopAppInfo(GObject.Object):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_categories",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_categories(info:Gio.DesktopAppInfo) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_categories(info:Gio.DesktopAppInfo) -> str or None
@@ -517,6 +5173,31 @@ class DesktopAppInfo(GObject.Object):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_filename",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_filename(info:Gio.DesktopAppInfo) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_filename(info:Gio.DesktopAppInfo) -> str or None
@@ -525,6 +5206,31 @@ class DesktopAppInfo(GObject.Object):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_generic_name",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_generic_name(info:Gio.DesktopAppInfo) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_generic_name(info:Gio.DesktopAppInfo) -> str or None
@@ -533,6 +5239,31 @@ class DesktopAppInfo(GObject.Object):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_is_hidden",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_is_hidden(info:Gio.DesktopAppInfo) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_is_hidden(info:Gio.DesktopAppInfo) -> bool
@@ -541,6 +5272,31 @@ class DesktopAppInfo(GObject.Object):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_keywords",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_keywords(info:Gio.DesktopAppInfo) -> list",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_keywords(info:Gio.DesktopAppInfo) -> list
@@ -550,6 +5306,40 @@ class DesktopAppInfo(GObject.Object):
         key: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_locale_string",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_locale_string(info:Gio.DesktopAppInfo, key:str) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_locale_string(info:Gio.DesktopAppInfo, key:str) -> str or None
@@ -558,6 +5348,31 @@ class DesktopAppInfo(GObject.Object):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_nodisplay",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_nodisplay(info:Gio.DesktopAppInfo) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_nodisplay(info:Gio.DesktopAppInfo) -> bool
@@ -567,6 +5382,40 @@ class DesktopAppInfo(GObject.Object):
         desktop_env: typing.Any = None,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_show_in",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_show_in(info:Gio.DesktopAppInfo, desktop_env:str=None) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "desktop_env",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_show_in(info:Gio.DesktopAppInfo, desktop_env:str=None) -> bool
@@ -575,6 +5424,31 @@ class DesktopAppInfo(GObject.Object):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_startup_wm_class",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_startup_wm_class(info:Gio.DesktopAppInfo) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_startup_wm_class(info:Gio.DesktopAppInfo) -> str or None
@@ -584,6 +5458,40 @@ class DesktopAppInfo(GObject.Object):
         key: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_string",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_string(info:Gio.DesktopAppInfo, key:str) -> str or None",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_string(info:Gio.DesktopAppInfo, key:str) -> str or None
@@ -593,6 +5501,40 @@ class DesktopAppInfo(GObject.Object):
         key: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_string_list",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_string_list(info:Gio.DesktopAppInfo, key:str) -> list",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_string_list(info:Gio.DesktopAppInfo, key:str) -> list
@@ -602,6 +5544,40 @@ class DesktopAppInfo(GObject.Object):
         key: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "has_key",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nhas_key(info:Gio.DesktopAppInfo, key:str) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "key",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         has_key(info:Gio.DesktopAppInfo, key:str) -> bool
@@ -612,6 +5588,49 @@ class DesktopAppInfo(GObject.Object):
         launch_context: typing.Any = None,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "launch_action",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nlaunch_action(info:Gio.DesktopAppInfo, action_name:str, launch_context:Gio.AppLaunchContext=None)",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "action_name",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "launch_context",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         launch_action(info:Gio.DesktopAppInfo, action_name:str, launch_context:Gio.AppLaunchContext=None)
@@ -627,6 +5646,94 @@ class DesktopAppInfo(GObject.Object):
         pid_callback_data: typing.Any = None,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "launch_uris_as_manager",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nlaunch_uris_as_manager(appinfo:Gio.DesktopAppInfo, uris:list, launch_context:Gio.AppLaunchContext=None, spawn_flags:GLib.SpawnFlags, user_setup:GLib.SpawnChildSetupFunc=None, user_setup_data=None, pid_callback:Gio.DesktopAppLaunchCallback=None, pid_callback_data=None) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "uris",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "launch_context",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "spawn_flags",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "user_setup",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "user_setup_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "pid_callback",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "pid_callback_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         launch_uris_as_manager(appinfo:Gio.DesktopAppInfo, uris:list, launch_context:Gio.AppLaunchContext=None, spawn_flags:GLib.SpawnFlags, user_setup:GLib.SpawnChildSetupFunc=None, user_setup_data=None, pid_callback:Gio.DesktopAppLaunchCallback=None, pid_callback_data=None) -> bool
@@ -645,6 +5752,121 @@ class DesktopAppInfo(GObject.Object):
         stderr_fd: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "launch_uris_as_manager_with_fds",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nlaunch_uris_as_manager_with_fds(appinfo:Gio.DesktopAppInfo, uris:list, launch_context:Gio.AppLaunchContext=None, spawn_flags:GLib.SpawnFlags, user_setup:GLib.SpawnChildSetupFunc=None, user_setup_data=None, pid_callback:Gio.DesktopAppLaunchCallback=None, pid_callback_data=None, stdin_fd:int, stdout_fd:int, stderr_fd:int) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "uris",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "launch_context",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "spawn_flags",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "user_setup",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "user_setup_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "pid_callback",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "pid_callback_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "stdin_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "stdout_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "stderr_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         launch_uris_as_manager_with_fds(appinfo:Gio.DesktopAppInfo, uris:list, launch_context:Gio.AppLaunchContext=None, spawn_flags:GLib.SpawnFlags, user_setup:GLib.SpawnChildSetupFunc=None, user_setup_data=None, pid_callback:Gio.DesktopAppLaunchCallback=None, pid_callback_data=None, stdin_fd:int, stdout_fd:int, stderr_fd:int) -> bool
@@ -653,6 +5875,31 @@ class DesktopAppInfo(GObject.Object):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "list_actions",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nlist_actions(info:Gio.DesktopAppInfo) -> list",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         list_actions(info:Gio.DesktopAppInfo) -> list
@@ -663,6 +5910,31 @@ class DesktopAppInfo(GObject.Object):
         desktop_id: str,
     ) -> DesktopAppInfo | None:
         """
+        [DEBUG]
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew(desktop_id:str) -> Gio.DesktopAppInfo or None",
+          "return_hint_name": "DesktopAppInfo",
+          "return_hint_namespace": "GioUnix",
+          "return_is_optional": true,
+          "params": [
+            {
+              "name": "desktop_id",
+              "type_hint_name": "str",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(desktop_id:str) -> Gio.DesktopAppInfo or None
@@ -673,6 +5945,31 @@ class DesktopAppInfo(GObject.Object):
         filename: str,
     ) -> DesktopAppInfo | None:
         """
+        [DEBUG]
+        {
+          "name": "new_from_filename",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew_from_filename(filename:str) -> Gio.DesktopAppInfo or None",
+          "return_hint_name": "DesktopAppInfo",
+          "return_hint_namespace": "GioUnix",
+          "return_is_optional": true,
+          "params": [
+            {
+              "name": "filename",
+              "type_hint_name": "str",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_from_filename(filename:str) -> Gio.DesktopAppInfo or None
@@ -683,6 +5980,31 @@ class DesktopAppInfo(GObject.Object):
         key_file: GLib.KeyFile,
     ) -> DesktopAppInfo | None:
         """
+        [DEBUG]
+        {
+          "name": "new_from_keyfile",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew_from_keyfile(key_file:GLib.KeyFile) -> Gio.DesktopAppInfo or None",
+          "return_hint_name": "DesktopAppInfo",
+          "return_hint_namespace": "GioUnix",
+          "return_is_optional": true,
+          "params": [
+            {
+              "name": "key_file",
+              "type_hint_name": "KeyFile",
+              "type_hint_namespace": "GLib",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_from_keyfile(key_file:GLib.KeyFile) -> Gio.DesktopAppInfo or None
@@ -709,14 +6031,175 @@ class DesktopAppInfo(GObject.Object):
     ) -> int: ...
 
 class DesktopAppInfoClass(GObject.GPointer, metaclass=GObject.GType):
+    """
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "DesktopAppInfoClass",
+      "docstring": null,
+      "props": [],
+      "fields": [
+        {
+          "name": "parent_class",
+          "type_hint_name": "ObjectClass",
+          "type_hint_namespace": "GObject",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        }
+      ],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "property: parent_class local=True",
+        "mro=(<class 'gi.repository.GioUnix.DesktopAppInfoClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.DesktopAppInfoClass"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    property: parent_class local=True
+    mro=(<class 'gi.repository.GioUnix.DesktopAppInfoClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.DesktopAppInfoClass
+
+    """
+
     # gi Fields
     @builtins.property
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
 class DesktopAppInfoLookup(builtins.object):
     """
-    GDesktopAppInfoLookup is an opaque data structure and can only be accessed
-    using the following functions.
+    [DEBUG]
+    {
+      "super": [
+        "builtins.object"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "DesktopAppInfoLookup",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [
+        {
+          "namespace": "GioUnix",
+          "name": "__init__",
+          "args": [],
+          "docstring": "Initialize DesktopAppInfoLookup object with properties.",
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "None",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_default_for_uri_scheme",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "lookup",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "DesktopAppInfoLookup",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "uri_scheme",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "utf8",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": true,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "AppInfo",
+          "return_hint_namespace": "Gio",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        }
+      ],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "unknown: get_default_for_uri_scheme: <class 'gi.FunctionInfo'> local=True",
+        "mro=(<class 'gi.repository.GioUnix.DesktopAppInfoLookup'>, <class 'gobject.GInterface'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.DesktopAppInfoLookup"
+      ],
+      "is_deprecated": true,
+      "required_gi_import": "builtins"
+    }
+    [EXTRA]
+    unknown: get_default_for_uri_scheme: <class 'gi.FunctionInfo'> local=True
+    mro=(<class 'gi.repository.GioUnix.DesktopAppInfoLookup'>, <class 'gobject.GInterface'>, <class 'object'>)
+    self=gi.repository.GioUnix.DesktopAppInfoLookup
+
     """
 
     class Props: ...
@@ -731,56 +6214,705 @@ class DesktopAppInfoLookup(builtins.object):
         """
     @deprecated("deprecated")
     @staticmethod
-    def get_default_for_uri_scheme(lookup: DesktopAppInfoLookup, uri_scheme: str) -> Gio.AppInfo | None:
-        """
-            Gets the default application for launching applications
-        using this URI scheme for a particular GDesktopAppInfoLookup
-        implementation.
-
-        The GDesktopAppInfoLookup interface and this function is used
-        to implement `g_app_info_get_default_for_uri_scheme` backends
-        in a GIO module. There is no reason for applications to use it
-        directly. Applications should use `g_app_info_get_default_for_uri_scheme`.
-        """
+    def get_default_for_uri_scheme(lookup: DesktopAppInfoLookup, uri_scheme: str) -> Gio.AppInfo | None: ...
 
 class DesktopAppInfoLookupIface(GObject.GPointer, metaclass=GObject.GType):
     """
-    Interface that is used by backends to associate default
-    handlers with URI schemes.
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "DesktopAppInfoLookupIface",
+      "docstring": null,
+      "props": [],
+      "fields": [
+        {
+          "name": "g_iface",
+          "type_hint_name": "TypeInterface",
+          "type_hint_namespace": "GObject",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "get_default_for_uri_scheme",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        }
+      ],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "property: g_iface local=True",
+        "property: get_default_for_uri_scheme local=True",
+        "mro=(<class 'gi.repository.GioUnix.DesktopAppInfoLookupIface'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.DesktopAppInfoLookupIface"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    property: g_iface local=True
+    property: get_default_for_uri_scheme local=True
+    mro=(<class 'gi.repository.GioUnix.DesktopAppInfoLookupIface'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.DesktopAppInfoLookupIface
+
     """
 
     # gi Fields
     @builtins.property
     def g_iface(self) -> GObject.TypeInterface | None: ...
     @builtins.property
-    def get_default_for_uri_scheme(self) -> object | None:
-        """
-           Virtual method for
-        `g_desktop_app_info_lookup_get_default_for_uri_scheme`.
-        """
+    def get_default_for_uri_scheme(self) -> object | None: ...
 
 class FDMessage(Gio.SocketControlMessage):
     """
-    This [class`Gio`.SocketControlMessage] contains a [class`Gio`.UnixFDList].
-    It may be sent using [method`Gio`.Socket.send_message] and received using
-    [method`Gio`.Socket.receive_message] over UNIX sockets (ie: sockets in the
-    `G_SOCKET_FAMILY_UNIX` family). The file descriptors are copied
-    between processes by the kernel.
+    [DEBUG]
+    {
+      "super": [
+        "Gio.SocketControlMessage"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "FDMessage",
+      "docstring": null,
+      "props": [
+        {
+          "name": "fd_list",
+          "is_deprecated": false,
+          "readable": true,
+          "writable": true,
+          "docstring": null,
+          "line_comment": "[fd-list]: changed because contained invalid characters",
+          "type_hint_namespace": "Gio",
+          "type_hint_name": "UnixFDList",
+          "may_be_null": true
+        }
+      ],
+      "fields": [
+        {
+          "name": "parent_instance",
+          "type_hint_name": "SocketControlMessage",
+          "type_hint_namespace": "Gio",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "priv",
+          "type_hint_name": "UnixFDMessagePrivate",
+          "type_hint_namespace": "Gio",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        }
+      ],
+      "methods": [
+        {
+          "namespace": "GioUnix",
+          "name": "__init__",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "fd_list",
+              "direction": "IN",
+              "is_optional": true,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "",
+              "get_array_length": -1,
+              "py_type_name": "UnixFDList",
+              "py_type_namespace": "Gio",
+              "line_comment": "[fd-list]: changed because contained invalid characters",
+              "default_value": "None",
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": "Initialize FDMessage object with properties.",
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "None",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "append_fd",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "message",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "FDMessage",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gint32",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": true,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_fd_list",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "message",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "FDMessage",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "UnixFDList",
+          "return_hint_namespace": "Gio",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "new",
+          "args": [],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "FDMessage",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": true,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "new_with_fd_list",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "fd_list",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "UnixFDList",
+              "py_type_namespace": "Gio",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "FDMessage",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": true,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "steal_fds",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "message",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "FDMessage",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "length",
+              "direction": "OUT",
+              "is_optional": true,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gint32",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "list",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        }
+      ],
+      "python_methods": [
+        {
+          "name": "append_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nappend_fd(message:Gio.UnixFDMessage, fd:int) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_fd_list",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_fd_list(message:Gio.UnixFDMessage) -> Gio.UnixFDList",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew() -> Gio.SocketControlMessage",
+          "return_hint_name": "SocketControlMessage",
+          "return_hint_namespace": "Gio",
+          "return_is_optional": false,
+          "params": []
+        },
+        {
+          "name": "new_with_fd_list",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew_with_fd_list(fd_list:Gio.UnixFDList) -> Gio.SocketControlMessage",
+          "return_hint_name": "SocketControlMessage",
+          "return_hint_namespace": "Gio",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "fd_list",
+              "type_hint_name": "UnixFDList",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "steal_fds",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nsteal_fds(message:Gio.UnixFDMessage) -> list",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "name": "notify",
+          "name_unescaped": "notify",
+          "namespace": "GObject",
+          "handler": {
+            "namespace": "GObject",
+            "name": "notify",
+            "args": [
+              {
+                "namespace": "GObject",
+                "name": "pspec",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "interface",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": null,
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": null,
+            "return_hint_namespace": null,
+            "is_method": false,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": false,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": true,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": true,
+          "detailed": true,
+          "action": true,
+          "no_hooks": true,
+          "must_collect": false,
+          "is_deprecated": false
+        },
+        {
+          "name": "notify::fd_list",
+          "name_unescaped": "notify::fd-list",
+          "namespace": "GioUnix",
+          "handler": {
+            "namespace": "GioUnix",
+            "name": "notify::fd_list",
+            "args": [
+              {
+                "namespace": "GioUnix",
+                "name": "arg1",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              },
+              {
+                "namespace": "GioUnix",
+                "name": "arg2",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "Any",
+                "py_type_namespace": "typing",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": "Signal emitted when the 'fd_list' property changes.",
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": "None",
+            "return_hint_namespace": null,
+            "is_method": true,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": true,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": false,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": false,
+          "detailed": false,
+          "action": false,
+          "no_hooks": false,
+          "must_collect": false,
+          "is_deprecated": false
+        }
+      ],
+      "extra": [
+        "property: parent_instance local=True",
+        "property: priv local=True",
+        "mro=(<class 'gi.overrides.GioUnix.FDMessage'>, <class 'gi.repository.GioUnix.FDMessage'>, <class 'gi.repository.Gio.SocketControlMessage'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'object'>)",
+        "self=gi.overrides.GioUnix.FDMessage"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "Gio"
+    }
+    [EXTRA]
+    property: parent_instance local=True
+    property: priv local=True
+    mro=(<class 'gi.overrides.GioUnix.FDMessage'>, <class 'gi.repository.GioUnix.FDMessage'>, <class 'gi.repository.Gio.SocketControlMessage'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'object'>)
+    self=gi.overrides.GioUnix.FDMessage
 
-    For an easier way to send and receive file descriptors over
-    stream-oriented UNIX sockets, see [method`Gio`.UnixConnection.send_fd] and
-    [method`Gio`.UnixConnection.receive_fd].
-
-    Note that `<gio/gunixfdmessage.h>` belongs to the UNIX-specific GIO
-    interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
-    file or the `GioUnix-2.0` GIR namespace when using it.
     """
 
     class Props(Gio.SocketControlMessage.Props):
         fd_list: Gio.UnixFDList | None  # [fd-list]: changed because contained invalid characters
-        """
-        The [class`Gio`.UnixFDList] object to send with the message.
-        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -803,6 +6935,40 @@ class FDMessage(Gio.SocketControlMessage):
         fd: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "append_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nappend_fd(message:Gio.UnixFDMessage, fd:int) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         append_fd(message:Gio.UnixFDMessage, fd:int) -> bool
@@ -811,6 +6977,31 @@ class FDMessage(Gio.SocketControlMessage):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_fd_list",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_fd_list(message:Gio.UnixFDMessage) -> Gio.UnixFDList",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_fd_list(message:Gio.UnixFDMessage) -> Gio.UnixFDList
@@ -820,6 +7011,21 @@ class FDMessage(Gio.SocketControlMessage):
         cls,
     ) -> Gio.SocketControlMessage:
         """
+        [DEBUG]
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew() -> Gio.SocketControlMessage",
+          "return_hint_name": "SocketControlMessage",
+          "return_hint_namespace": "Gio",
+          "return_is_optional": false,
+          "params": []
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> Gio.SocketControlMessage
@@ -830,6 +7036,31 @@ class FDMessage(Gio.SocketControlMessage):
         fd_list: Gio.UnixFDList,
     ) -> Gio.SocketControlMessage:
         """
+        [DEBUG]
+        {
+          "name": "new_with_fd_list",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew_with_fd_list(fd_list:Gio.UnixFDList) -> Gio.SocketControlMessage",
+          "return_hint_name": "SocketControlMessage",
+          "return_hint_namespace": "Gio",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "fd_list",
+              "type_hint_name": "UnixFDList",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_with_fd_list(fd_list:Gio.UnixFDList) -> Gio.SocketControlMessage
@@ -838,6 +7069,31 @@ class FDMessage(Gio.SocketControlMessage):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "steal_fds",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nsteal_fds(message:Gio.UnixFDMessage) -> list",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         steal_fds(message:Gio.UnixFDMessage) -> list
@@ -864,6 +7120,73 @@ class FDMessage(Gio.SocketControlMessage):
     ) -> int: ...
 
 class FDMessageClass(GObject.GPointer, metaclass=GObject.GType):
+    """
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "FDMessageClass",
+      "docstring": null,
+      "props": [],
+      "fields": [
+        {
+          "name": "_g_reserved1",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "_g_reserved2",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "parent_class",
+          "type_hint_name": "SocketControlMessageClass",
+          "type_hint_namespace": "Gio",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        }
+      ],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "property: parent_class local=True",
+        "mro=(<class 'gi.repository.GioUnix.FDMessageClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.FDMessageClass"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    property: parent_class local=True
+    mro=(<class 'gi.repository.GioUnix.FDMessageClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.FDMessageClass
+
+    """
+
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -872,18 +7195,137 @@ class FDMessageClass(GObject.GPointer, metaclass=GObject.GType):
     @builtins.property
     def parent_class(self) -> Gio.SocketControlMessageClass | None: ...
 
-class FDMessagePrivate(GObject.GPointer, metaclass=GObject.GType): ...
+class FDMessagePrivate(GObject.GPointer, metaclass=GObject.GType):
+    """
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "FDMessagePrivate",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "mro=(<class 'gi.repository.GioUnix.FDMessagePrivate'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.FDMessagePrivate"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    mro=(<class 'gi.repository.GioUnix.FDMessagePrivate'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.FDMessagePrivate
+
+    """
 
 class FileDescriptorBased(builtins.object):
     """
-    `GFileDescriptorBased` is an interface for file descriptor based IO.
+    [DEBUG]
+    {
+      "super": [
+        "builtins.object"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "FileDescriptorBased",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [
+        {
+          "namespace": "GioUnix",
+          "name": "__init__",
+          "args": [],
+          "docstring": "Initialize FileDescriptorBased object with properties.",
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "None",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_fd",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "fd_based",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "FileDescriptorBased",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "int",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        }
+      ],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "unknown: get_fd: <class 'gi.FunctionInfo'> local=True",
+        "mro=(<class 'gi.repository.GioUnix.FileDescriptorBased'>, <class 'gobject.GInterface'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.FileDescriptorBased"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "builtins"
+    }
+    [EXTRA]
+    unknown: get_fd: <class 'gi.FunctionInfo'> local=True
+    mro=(<class 'gi.repository.GioUnix.FileDescriptorBased'>, <class 'gobject.GInterface'>, <class 'object'>)
+    self=gi.repository.GioUnix.FileDescriptorBased
 
-    It is implemented by streams (implementations of [class`Gio`.InputStream] or
-    [class`Gio`.OutputStream]) that are based on file descriptors.
-
-    Note that `<gio/gfiledescriptorbased.h>` belongs to the UNIX-specific
-    GIO interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
-    file or the `GioUnix-2.0` GIR namespace when using it.
     """
 
     class Props: ...
@@ -897,50 +7339,1232 @@ class FileDescriptorBased(builtins.object):
         Initialize FileDescriptorBased object with properties.
         """
     @staticmethod
-    def get_fd(fd_based: FileDescriptorBased) -> int:
-        """
-        Gets the underlying file descriptor.
-        """
+    def get_fd(fd_based: FileDescriptorBased) -> int: ...
 
 class FileDescriptorBasedIface(GObject.GPointer, metaclass=GObject.GType):
     """
-    An interface for file descriptor based io objects.
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "FileDescriptorBasedIface",
+      "docstring": null,
+      "props": [],
+      "fields": [
+        {
+          "name": "g_iface",
+          "type_hint_name": "TypeInterface",
+          "type_hint_namespace": "GObject",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "get_fd",
+          "type_hint_name": "get_fdFileDescriptorBasedIfaceCB",
+          "type_hint_namespace": "GioUnix",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": false,
+          "is_readable": true,
+          "is_writable": false
+        }
+      ],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "property: g_iface local=True",
+        "property: get_fd local=True",
+        "mro=(<class 'gi.repository.GioUnix.FileDescriptorBasedIface'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.FileDescriptorBasedIface"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    property: g_iface local=True
+    property: get_fd local=True
+    mro=(<class 'gi.repository.GioUnix.FileDescriptorBasedIface'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.FileDescriptorBasedIface
+
     """
 
     # gi Fields
     @builtins.property
-    def g_iface(self) -> GObject.TypeInterface | None:
-        """
-        The parent interface.
-        """
+    def g_iface(self) -> GObject.TypeInterface | None: ...
     @builtins.property
-    def get_fd(self) -> get_fdFileDescriptorBasedIfaceCB:
-        """
-        Gets the underlying file descriptor.
-        """
+    def get_fd(self) -> get_fdFileDescriptorBasedIfaceCB: ...
 
 class InputStream(Gio.InputStream):
     """
-    `GUnixInputStream` implements [class`Gio`.InputStream] for reading from a UNIX
-    file descriptor, including asynchronous operations. (If the file
-    descriptor refers to a socket or pipe, this will use ``poll`` to do
-    asynchronous I/O. If it refers to a regular file, it will fall back
-    to doing asynchronous I/O in another thread.)
+    [DEBUG]
+    {
+      "super": [
+        "Gio.InputStream"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "InputStream",
+      "docstring": null,
+      "props": [
+        {
+          "name": "close_fd",
+          "is_deprecated": false,
+          "readable": true,
+          "writable": true,
+          "docstring": null,
+          "line_comment": "[close-fd]: changed because contained invalid characters",
+          "type_hint_namespace": null,
+          "type_hint_name": "bool",
+          "may_be_null": false
+        },
+        {
+          "name": "fd",
+          "is_deprecated": false,
+          "readable": true,
+          "writable": true,
+          "docstring": null,
+          "line_comment": null,
+          "type_hint_namespace": null,
+          "type_hint_name": "int",
+          "may_be_null": false
+        }
+      ],
+      "fields": [
+        {
+          "name": "parent_instance",
+          "type_hint_name": "InputStream",
+          "type_hint_namespace": "Gio",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "priv",
+          "type_hint_name": "UnixInputStreamPrivate",
+          "type_hint_namespace": "Gio",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        }
+      ],
+      "methods": [
+        {
+          "namespace": "GioUnix",
+          "name": "__init__",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "close_fd",
+              "direction": "IN",
+              "is_optional": true,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "",
+              "get_array_length": -1,
+              "py_type_name": "bool",
+              "py_type_namespace": null,
+              "line_comment": "[close-fd]: changed because contained invalid characters",
+              "default_value": "None",
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "fd",
+              "direction": "IN",
+              "is_optional": true,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": "None",
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": "Initialize InputStream object with properties.",
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "None",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_close_fd",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "stream",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "InputStream",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_fd",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "stream",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "InputStream",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "int",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "new",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gint32",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "close_fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gboolean",
+              "get_array_length": -1,
+              "py_type_name": "bool",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "InputStream",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": true,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "set_close_fd",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "stream",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "InputStream",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "close_fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gboolean",
+              "get_array_length": -1,
+              "py_type_name": "bool",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": null,
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        }
+      ],
+      "python_methods": [
+        {
+          "name": "do_close_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_close_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_finish(self, result:Gio.AsyncResult) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_close_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_fn(self, cancellable:Gio.Cancellable=None) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_read_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "read_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None) -> buffer:list",
+          "return_hint_name": "list[int]",
+          "return_hint_namespace": null,
+          "return_is_optional": true,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_read_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "read_finish(self, result:Gio.AsyncResult) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_read_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "read_fn(self, buffer=None, count:int, cancellable:Gio.Cancellable=None) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "buffer",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "count",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_skip",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "skip(self, count:int, cancellable:Gio.Cancellable=None) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "count",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_skip_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "skip_async(self, count:int, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "count",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_skip_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "skip_finish(self, result:Gio.AsyncResult) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_close_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_close_fd(stream:Gio.UnixInputStream) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_fd(stream:Gio.UnixInputStream) -> int",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew(fd:int, close_fd:bool) -> Gio.InputStream",
+          "return_hint_name": "InputStream",
+          "return_hint_namespace": "Gio",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "fd",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "close_fd",
+              "type_hint_name": "bool",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "set_close_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nset_close_fd(stream:Gio.UnixInputStream, close_fd:bool)",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "close_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "name": "notify",
+          "name_unescaped": "notify",
+          "namespace": "GObject",
+          "handler": {
+            "namespace": "GObject",
+            "name": "notify",
+            "args": [
+              {
+                "namespace": "GObject",
+                "name": "pspec",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "interface",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": null,
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": null,
+            "return_hint_namespace": null,
+            "is_method": false,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": false,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": true,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": true,
+          "detailed": true,
+          "action": true,
+          "no_hooks": true,
+          "must_collect": false,
+          "is_deprecated": false
+        },
+        {
+          "name": "notify::close_fd",
+          "name_unescaped": "notify::close-fd",
+          "namespace": "GioUnix",
+          "handler": {
+            "namespace": "GioUnix",
+            "name": "notify::close_fd",
+            "args": [
+              {
+                "namespace": "GioUnix",
+                "name": "arg1",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              },
+              {
+                "namespace": "GioUnix",
+                "name": "arg2",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "Any",
+                "py_type_namespace": "typing",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": "Signal emitted when the 'close_fd' property changes.",
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": "None",
+            "return_hint_namespace": null,
+            "is_method": true,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": true,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": false,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": false,
+          "detailed": false,
+          "action": false,
+          "no_hooks": false,
+          "must_collect": false,
+          "is_deprecated": false
+        },
+        {
+          "name": "notify::fd",
+          "name_unescaped": "notify::fd",
+          "namespace": "GioUnix",
+          "handler": {
+            "namespace": "GioUnix",
+            "name": "notify::fd",
+            "args": [
+              {
+                "namespace": "GioUnix",
+                "name": "arg1",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              },
+              {
+                "namespace": "GioUnix",
+                "name": "arg2",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "Any",
+                "py_type_namespace": "typing",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": "Signal emitted when the 'fd' property changes.",
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": "None",
+            "return_hint_namespace": null,
+            "is_method": true,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": true,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": false,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": false,
+          "detailed": false,
+          "action": false,
+          "no_hooks": false,
+          "must_collect": false,
+          "is_deprecated": false
+        }
+      ],
+      "extra": [
+        "property: parent_instance local=True",
+        "property: priv local=True",
+        "unknown: clear_pending: <class 'gi.FunctionInfo'> local=True",
+        "unknown: close: <class 'gi.FunctionInfo'> local=True",
+        "unknown: close_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: close_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: has_pending: <class 'gi.FunctionInfo'> local=True",
+        "unknown: is_closed: <class 'gi.FunctionInfo'> local=True",
+        "unknown: read: <class 'gi.FunctionInfo'> local=True",
+        "unknown: read_all: <class 'gi.FunctionInfo'> local=True",
+        "unknown: read_all_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: read_all_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: read_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: read_bytes: <class 'gi.FunctionInfo'> local=True",
+        "unknown: read_bytes_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: read_bytes_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: read_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: set_pending: <class 'gi.FunctionInfo'> local=True",
+        "unknown: skip: <class 'gi.FunctionInfo'> local=True",
+        "unknown: skip_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: skip_finish: <class 'gi.FunctionInfo'> local=True",
+        "mro=(<class 'gi.overrides.GioUnix.InputStream'>, <class 'gi.repository.GioUnix.InputStream'>, <class 'gi.repository.Gio.InputStream'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'gi.repository.Gio.PollableInputStream'>, <class 'gi.repository.GioUnix.FileDescriptorBased'>, <class 'gobject.GInterface'>, <class 'object'>)",
+        "self=gi.overrides.GioUnix.InputStream"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "Gio"
+    }
+    [EXTRA]
+    property: parent_instance local=True
+    property: priv local=True
+    unknown: clear_pending: <class 'gi.FunctionInfo'> local=True
+    unknown: close: <class 'gi.FunctionInfo'> local=True
+    unknown: close_async: <class 'gi.FunctionInfo'> local=True
+    unknown: close_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: has_pending: <class 'gi.FunctionInfo'> local=True
+    unknown: is_closed: <class 'gi.FunctionInfo'> local=True
+    unknown: read: <class 'gi.FunctionInfo'> local=True
+    unknown: read_all: <class 'gi.FunctionInfo'> local=True
+    unknown: read_all_async: <class 'gi.FunctionInfo'> local=True
+    unknown: read_all_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: read_async: <class 'gi.FunctionInfo'> local=True
+    unknown: read_bytes: <class 'gi.FunctionInfo'> local=True
+    unknown: read_bytes_async: <class 'gi.FunctionInfo'> local=True
+    unknown: read_bytes_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: read_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: set_pending: <class 'gi.FunctionInfo'> local=True
+    unknown: skip: <class 'gi.FunctionInfo'> local=True
+    unknown: skip_async: <class 'gi.FunctionInfo'> local=True
+    unknown: skip_finish: <class 'gi.FunctionInfo'> local=True
+    mro=(<class 'gi.overrides.GioUnix.InputStream'>, <class 'gi.repository.GioUnix.InputStream'>, <class 'gi.repository.Gio.InputStream'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'gi.repository.Gio.PollableInputStream'>, <class 'gi.repository.GioUnix.FileDescriptorBased'>, <class 'gobject.GInterface'>, <class 'object'>)
+    self=gi.overrides.GioUnix.InputStream
 
-    Note that `<gio/gunixinputstream.h>` belongs to the UNIX-specific GIO
-    interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
-    file or the `GioUnix-2.0` GIR namespace when using it.
     """
 
     class Props(Gio.InputStream.Props):
         close_fd: bool  # [close-fd]: changed because contained invalid characters
-        """
-        Whether to close the file descriptor when the stream is closed.
-        """
         fd: int
-        """
-        The file descriptor that the stream reads from.
-        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -962,11 +8586,71 @@ class InputStream(Gio.InputStream):
         self,
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
-        | None = None,
+        callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
     ) -> None:
         """
+        [DEBUG]
+        {
+          "name": "do_close_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
         """
     def do_close_finish(
@@ -974,6 +8658,40 @@ class InputStream(Gio.InputStream):
         result: Gio.AsyncResult,
     ) -> bool:
         """
+        [DEBUG]
+        {
+          "name": "do_close_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_finish(self, result:Gio.AsyncResult) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         close_finish(self, result:Gio.AsyncResult) -> bool
         """
     def do_close_fn(
@@ -981,17 +8699,111 @@ class InputStream(Gio.InputStream):
         cancellable: Gio.Cancellable | None = None,
     ) -> bool:
         """
+        [DEBUG]
+        {
+          "name": "do_close_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_fn(self, cancellable:Gio.Cancellable=None) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         close_fn(self, cancellable:Gio.Cancellable=None) -> bool
         """
     def do_read_async(
         self,
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
-        | None = None,
+        callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
     ) -> list[int] | None:
         """
+        [DEBUG]
+        {
+          "name": "do_read_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "read_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None) -> buffer:list",
+          "return_hint_name": "list[int]",
+          "return_hint_namespace": null,
+          "return_is_optional": true,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         read_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None) -> buffer:list
         """
     def do_read_finish(
@@ -999,6 +8811,40 @@ class InputStream(Gio.InputStream):
         result: Gio.AsyncResult,
     ) -> int:
         """
+        [DEBUG]
+        {
+          "name": "do_read_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "read_finish(self, result:Gio.AsyncResult) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         read_finish(self, result:Gio.AsyncResult) -> int
         """
     def do_read_fn(
@@ -1008,6 +8854,58 @@ class InputStream(Gio.InputStream):
         cancellable: Gio.Cancellable | None = None,
     ) -> int:
         """
+        [DEBUG]
+        {
+          "name": "do_read_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "read_fn(self, buffer=None, count:int, cancellable:Gio.Cancellable=None) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "buffer",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "count",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         read_fn(self, buffer=None, count:int, cancellable:Gio.Cancellable=None) -> int
         """
     def do_skip(
@@ -1016,6 +8914,49 @@ class InputStream(Gio.InputStream):
         cancellable: Gio.Cancellable | None = None,
     ) -> int:
         """
+        [DEBUG]
+        {
+          "name": "do_skip",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "skip(self, count:int, cancellable:Gio.Cancellable=None) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "count",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         skip(self, count:int, cancellable:Gio.Cancellable=None) -> int
         """
     def do_skip_async(
@@ -1023,11 +8964,80 @@ class InputStream(Gio.InputStream):
         count: int,
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
-        | None = None,
+        callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
     ) -> None:
         """
+        [DEBUG]
+        {
+          "name": "do_skip_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "skip_async(self, count:int, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "count",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         skip_async(self, count:int, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
         """
     def do_skip_finish(
@@ -1035,12 +9045,71 @@ class InputStream(Gio.InputStream):
         result: Gio.AsyncResult,
     ) -> int:
         """
+        [DEBUG]
+        {
+          "name": "do_skip_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "skip_finish(self, result:Gio.AsyncResult) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         skip_finish(self, result:Gio.AsyncResult) -> int
         """
     def get_close_fd(
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_close_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_close_fd(stream:Gio.UnixInputStream) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_close_fd(stream:Gio.UnixInputStream) -> bool
@@ -1049,6 +9118,31 @@ class InputStream(Gio.InputStream):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_fd(stream:Gio.UnixInputStream) -> int",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_fd(stream:Gio.UnixInputStream) -> int
@@ -1060,6 +9154,40 @@ class InputStream(Gio.InputStream):
         close_fd: bool,
     ) -> Gio.InputStream:
         """
+        [DEBUG]
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew(fd:int, close_fd:bool) -> Gio.InputStream",
+          "return_hint_name": "InputStream",
+          "return_hint_namespace": "Gio",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "fd",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "close_fd",
+              "type_hint_name": "bool",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(fd:int, close_fd:bool) -> Gio.InputStream
@@ -1069,6 +9197,40 @@ class InputStream(Gio.InputStream):
         close_fd: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "set_close_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nset_close_fd(stream:Gio.UnixInputStream, close_fd:bool)",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "close_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         set_close_fd(stream:Gio.UnixInputStream, close_fd:bool)
@@ -1102,6 +9264,109 @@ class InputStream(Gio.InputStream):
     ) -> int: ...
 
 class InputStreamClass(GObject.GPointer, metaclass=GObject.GType):
+    """
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "InputStreamClass",
+      "docstring": null,
+      "props": [],
+      "fields": [
+        {
+          "name": "_g_reserved1",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "_g_reserved2",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "_g_reserved3",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "_g_reserved4",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "_g_reserved5",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "parent_class",
+          "type_hint_name": "InputStreamClass",
+          "type_hint_namespace": "Gio",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        }
+      ],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "property: parent_class local=True",
+        "mro=(<class 'gi.repository.GioUnix.InputStreamClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.InputStreamClass"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    property: parent_class local=True
+    mro=(<class 'gi.repository.GioUnix.InputStreamClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.InputStreamClass
+
+    """
+
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -1116,19 +9381,429 @@ class InputStreamClass(GObject.GPointer, metaclass=GObject.GType):
     @builtins.property
     def parent_class(self) -> Gio.InputStreamClass | None: ...
 
-class InputStreamPrivate(GObject.GPointer, metaclass=GObject.GType): ...
+class InputStreamPrivate(GObject.GPointer, metaclass=GObject.GType):
+    """
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "InputStreamPrivate",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "mro=(<class 'gi.repository.GioUnix.InputStreamPrivate'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.InputStreamPrivate"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    mro=(<class 'gi.repository.GioUnix.InputStreamPrivate'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.InputStreamPrivate
+
+    """
 
 class MountEntry(GObject.GBoxed, metaclass=GObject.GType):
     """
-    Defines a Unix mount entry (e.g. <filename>/media/cdrom</filename>).
-    This corresponds roughly to a mtab entry.
-    """
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GBoxed",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "MountEntry",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "mro=(<class 'gi.repository.GioUnix.MountEntry'>, <class 'gi.Boxed'>, <class 'gobject.GBoxed'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.MountEntry"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    mro=(<class 'gi.repository.GioUnix.MountEntry'>, <class 'gi.Boxed'>, <class 'gobject.GBoxed'>, <class 'object'>)
+    self=gi.repository.GioUnix.MountEntry
 
-    ...
+    """
 
 class MountMonitor(GObject.Object):
     """
-    Watches GUnixMounts for changes.
+    [DEBUG]
+    {
+      "super": [
+        "GObject.Object"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "MountMonitor",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [
+        {
+          "namespace": "GioUnix",
+          "name": "__init__",
+          "args": [],
+          "docstring": "Initialize MountMonitor object with properties.",
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "None",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get",
+          "args": [],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "MountMonitor",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "new",
+          "args": [],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": true,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "MountMonitor",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": true,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "set_rate_limit",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_monitor",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountMonitor",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "limit_msec",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gint32",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": true,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": null,
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        }
+      ],
+      "python_methods": [
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew() -> Gio.UnixMountMonitor",
+          "return_hint_name": "MountMonitor",
+          "return_hint_namespace": "GioUnix",
+          "return_is_optional": false,
+          "params": []
+        },
+        {
+          "name": "set_rate_limit",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nset_rate_limit(mount_monitor:Gio.UnixMountMonitor, limit_msec:int)",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "limit_msec",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "name": "mountpoints-changed",
+          "name_unescaped": "mountpoints-changed",
+          "namespace": "GioUnix",
+          "handler": {
+            "namespace": "GioUnix",
+            "name": "mountpoints_changed",
+            "args": [],
+            "docstring": null,
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": null,
+            "return_hint_namespace": null,
+            "is_method": false,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": false,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": false,
+          "run_last": true,
+          "run_cleanup": false,
+          "no_recurse": false,
+          "detailed": false,
+          "action": false,
+          "no_hooks": false,
+          "must_collect": false,
+          "is_deprecated": false
+        },
+        {
+          "name": "mounts-changed",
+          "name_unescaped": "mounts-changed",
+          "namespace": "GioUnix",
+          "handler": {
+            "namespace": "GioUnix",
+            "name": "mounts_changed",
+            "args": [],
+            "docstring": null,
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": null,
+            "return_hint_namespace": null,
+            "is_method": false,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": false,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": false,
+          "run_last": true,
+          "run_cleanup": false,
+          "no_recurse": false,
+          "detailed": false,
+          "action": false,
+          "no_hooks": false,
+          "must_collect": false,
+          "is_deprecated": false
+        },
+        {
+          "name": "notify",
+          "name_unescaped": "notify",
+          "namespace": "GObject",
+          "handler": {
+            "namespace": "GObject",
+            "name": "notify",
+            "args": [
+              {
+                "namespace": "GObject",
+                "name": "pspec",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "interface",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": null,
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": null,
+            "return_hint_namespace": null,
+            "is_method": false,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": false,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": true,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": true,
+          "detailed": true,
+          "action": true,
+          "no_hooks": true,
+          "must_collect": false,
+          "is_deprecated": false
+        }
+      ],
+      "extra": [
+        "unknown: get: <class 'gi.FunctionInfo'> local=True",
+        "mro=(<class 'gi.overrides.GioUnix.MountMonitor'>, <class 'gi.repository.GioUnix.MountMonitor'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'object'>)",
+        "self=gi.overrides.GioUnix.MountMonitor"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    unknown: get: <class 'gi.FunctionInfo'> local=True
+    mro=(<class 'gi.overrides.GioUnix.MountMonitor'>, <class 'gi.repository.GioUnix.MountMonitor'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'object'>)
+    self=gi.overrides.GioUnix.MountMonitor
+
     """
 
     # gi Methods
@@ -1137,18 +9812,7 @@ class MountMonitor(GObject.Object):
         Initialize MountMonitor object with properties.
         """
     @staticmethod
-    def get() -> MountMonitor:
-        """
-            Gets the GUnixMountMonitor for the current thread-default main
-        context.
-
-        The mount monitor can be used to monitor for changes to the list of
-        mounted filesystems as well as the list of mount points (ie: fstab
-        entries).
-
-        You must only call `g_object_unref` on the return value from under
-        the same main context as you called this function.
-        """
+    def get() -> MountMonitor: ...
 
     # python methods (overrides?)
     @classmethod
@@ -1156,6 +9820,21 @@ class MountMonitor(GObject.Object):
         cls,
     ) -> MountMonitor:
         """
+        [DEBUG]
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew() -> Gio.UnixMountMonitor",
+          "return_hint_name": "MountMonitor",
+          "return_hint_namespace": "GioUnix",
+          "return_is_optional": false,
+          "params": []
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> Gio.UnixMountMonitor
@@ -1165,6 +9844,40 @@ class MountMonitor(GObject.Object):
         limit_msec: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "set_rate_limit",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nset_rate_limit(mount_monitor:Gio.UnixMountMonitor, limit_msec:int)",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "limit_msec",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         set_rate_limit(mount_monitor:Gio.UnixMountMonitor, limit_msec:int)
@@ -1177,17 +9890,11 @@ class MountMonitor(GObject.Object):
         detailed_signal: typing.Literal["mountpoints-changed"],
         handler: typing.Callable[..., None],
         *args: typing.Any,
-    ) -> int:
-        """
-        Emitted when the unix mount points have changed.
-        """
+    ) -> int: ...
     @typing.overload
     def connect(
         self, detailed_signal: typing.Literal["mounts-changed"], handler: typing.Callable[..., None], *args: typing.Any
-    ) -> int:
-        """
-        Emitted when the unix mounts have changed.
-        """
+    ) -> int: ...
     @typing.overload
     def connect(
         self,
@@ -1200,119 +9907,2334 @@ class MountMonitor(GObject.Object):
         self, detailed_signal: str, handler: typing.Callable[..., typing.Any], *args: typing.Any
     ) -> int: ...
 
-class MountMonitorClass(GObject.GPointer, metaclass=GObject.GType): ...
+class MountMonitorClass(GObject.GPointer, metaclass=GObject.GType):
+    """
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "MountMonitorClass",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "mro=(<class 'gi.repository.GioUnix.MountMonitorClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.MountMonitorClass"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    mro=(<class 'gi.repository.GioUnix.MountMonitorClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.MountMonitorClass
+
+    """
 
 class MountPoint(GObject.GBoxed, metaclass=GObject.GType):
     """
-    Defines a Unix mount point (e.g. <filename>/dev</filename>).
-    This corresponds roughly to a fstab entry.
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GBoxed",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "MountPoint",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [
+        {
+          "namespace": "GioUnix",
+          "name": "at",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_path",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "filename",
+              "get_array_length": -1,
+              "py_type_name": "str",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "time_read",
+              "direction": "OUT",
+              "is_optional": true,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "guint64",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "MountPoint",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "compare",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount1",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "mount2",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "int",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "copy",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "MountPoint",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "free",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": null,
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_device_path",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_fs_type",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_mount_path",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_options",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": true,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "guess_can_eject",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "guess_icon",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "Icon",
+          "return_hint_namespace": "Gio",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "guess_name",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "str",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "guess_symbolic_icon",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "Icon",
+          "return_hint_namespace": "Gio",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "is_loopback",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "is_readonly",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "is_user_mountable",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "mount_point",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "MountPoint",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        }
+      ],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "unknown: at: <class 'gi.FunctionInfo'> local=True",
+        "unknown: compare: <class 'gi.FunctionInfo'> local=True",
+        "unknown: copy: <class 'gi.FunctionInfo'> local=True",
+        "unknown: free: <class 'gi.FunctionInfo'> local=True",
+        "unknown: get_device_path: <class 'gi.FunctionInfo'> local=True",
+        "unknown: get_fs_type: <class 'gi.FunctionInfo'> local=True",
+        "unknown: get_mount_path: <class 'gi.FunctionInfo'> local=True",
+        "unknown: get_options: <class 'gi.FunctionInfo'> local=True",
+        "unknown: guess_can_eject: <class 'gi.FunctionInfo'> local=True",
+        "unknown: guess_icon: <class 'gi.FunctionInfo'> local=True",
+        "unknown: guess_name: <class 'gi.FunctionInfo'> local=True",
+        "unknown: guess_symbolic_icon: <class 'gi.FunctionInfo'> local=True",
+        "unknown: is_loopback: <class 'gi.FunctionInfo'> local=True",
+        "unknown: is_readonly: <class 'gi.FunctionInfo'> local=True",
+        "unknown: is_user_mountable: <class 'gi.FunctionInfo'> local=True",
+        "mro=(<class 'gi.repository.GioUnix.MountPoint'>, <class 'gi.Boxed'>, <class 'gobject.GBoxed'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.MountPoint"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    unknown: at: <class 'gi.FunctionInfo'> local=True
+    unknown: compare: <class 'gi.FunctionInfo'> local=True
+    unknown: copy: <class 'gi.FunctionInfo'> local=True
+    unknown: free: <class 'gi.FunctionInfo'> local=True
+    unknown: get_device_path: <class 'gi.FunctionInfo'> local=True
+    unknown: get_fs_type: <class 'gi.FunctionInfo'> local=True
+    unknown: get_mount_path: <class 'gi.FunctionInfo'> local=True
+    unknown: get_options: <class 'gi.FunctionInfo'> local=True
+    unknown: guess_can_eject: <class 'gi.FunctionInfo'> local=True
+    unknown: guess_icon: <class 'gi.FunctionInfo'> local=True
+    unknown: guess_name: <class 'gi.FunctionInfo'> local=True
+    unknown: guess_symbolic_icon: <class 'gi.FunctionInfo'> local=True
+    unknown: is_loopback: <class 'gi.FunctionInfo'> local=True
+    unknown: is_readonly: <class 'gi.FunctionInfo'> local=True
+    unknown: is_user_mountable: <class 'gi.FunctionInfo'> local=True
+    mro=(<class 'gi.repository.GioUnix.MountPoint'>, <class 'gi.Boxed'>, <class 'gobject.GBoxed'>, <class 'object'>)
+    self=gi.repository.GioUnix.MountPoint
+
     """
 
     # gi Methods
     @staticmethod
-    def at(mount_path: str) -> tuple[MountPoint | None, int]:
-        """
-            Gets a GUnixMountPoint for a given mount path. If `time_read` is set, it
-        will be filled with a unix timestamp for checking if the mount points have
-        changed since with `g_unix_mount_points_changed_since`.
-
-        If more mount points have the same mount path, the last matching mount point
-        is returned.
-        """
+    def at(mount_path: str) -> tuple[MountPoint | None, int]: ...
     @staticmethod
-    def compare(mount1: MountPoint, mount2: MountPoint) -> int:
-        """
-        Compares two unix mount points.
-        """
+    def compare(mount1: MountPoint, mount2: MountPoint) -> int: ...
     @staticmethod
-    def copy(mount_point: MountPoint) -> MountPoint:
-        """
-        Makes a copy of `mount_point`.
-        """
+    def copy(mount_point: MountPoint) -> MountPoint: ...
     @staticmethod
-    def free(mount_point: MountPoint) -> None:
-        """
-        Frees a unix mount point.
-        """
+    def free(mount_point: MountPoint) -> None: ...
     @staticmethod
-    def get_device_path(mount_point: MountPoint) -> str:
-        """
-        Gets the device path for a unix mount point.
-        """
+    def get_device_path(mount_point: MountPoint) -> str: ...
     @staticmethod
-    def get_fs_type(mount_point: MountPoint) -> str:
-        """
-        Gets the file system type for the mount point.
-        """
+    def get_fs_type(mount_point: MountPoint) -> str: ...
     @staticmethod
-    def get_mount_path(mount_point: MountPoint) -> str:
-        """
-        Gets the mount path for a unix mount point.
-        """
+    def get_mount_path(mount_point: MountPoint) -> str: ...
     @staticmethod
-    def get_options(mount_point: MountPoint) -> str | None:
-        """
-        Gets the options for the mount point.
-        """
+    def get_options(mount_point: MountPoint) -> str | None: ...
     @staticmethod
-    def guess_can_eject(mount_point: MountPoint) -> bool:
-        """
-        Guesses whether a Unix mount point can be ejected.
-        """
+    def guess_can_eject(mount_point: MountPoint) -> bool: ...
     @staticmethod
-    def guess_icon(mount_point: MountPoint) -> Gio.Icon:
-        """
-        Guesses the icon of a Unix mount point.
-        """
+    def guess_icon(mount_point: MountPoint) -> Gio.Icon: ...
     @staticmethod
-    def guess_name(mount_point: MountPoint) -> str:
-        """
-            Guesses the name of a Unix mount point.
-        The result is a translated string.
-        """
+    def guess_name(mount_point: MountPoint) -> str: ...
     @staticmethod
-    def guess_symbolic_icon(mount_point: MountPoint) -> Gio.Icon:
-        """
-        Guesses the symbolic icon of a Unix mount point.
-        """
+    def guess_symbolic_icon(mount_point: MountPoint) -> Gio.Icon: ...
     @staticmethod
-    def is_loopback(mount_point: MountPoint) -> bool:
-        """
-        Checks if a unix mount point is a loopback device.
-        """
+    def is_loopback(mount_point: MountPoint) -> bool: ...
     @staticmethod
-    def is_readonly(mount_point: MountPoint) -> bool:
-        """
-        Checks if a unix mount point is read only.
-        """
+    def is_readonly(mount_point: MountPoint) -> bool: ...
     @staticmethod
-    def is_user_mountable(mount_point: MountPoint) -> bool:
-        """
-        Checks if a unix mount point is mountable by the user.
-        """
+    def is_user_mountable(mount_point: MountPoint) -> bool: ...
 
 class OutputStream(Gio.OutputStream):
     """
-    `GUnixOutputStream` implements [class`Gio`.OutputStream] for writing to a UNIX
-    file descriptor, including asynchronous operations. (If the file
-    descriptor refers to a socket or pipe, this will use ``poll`` to do
-    asynchronous I/O. If it refers to a regular file, it will fall back
-    to doing asynchronous I/O in another thread.)
+    [DEBUG]
+    {
+      "super": [
+        "Gio.OutputStream"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "OutputStream",
+      "docstring": null,
+      "props": [
+        {
+          "name": "close_fd",
+          "is_deprecated": false,
+          "readable": true,
+          "writable": true,
+          "docstring": null,
+          "line_comment": "[close-fd]: changed because contained invalid characters",
+          "type_hint_namespace": null,
+          "type_hint_name": "bool",
+          "may_be_null": false
+        },
+        {
+          "name": "fd",
+          "is_deprecated": false,
+          "readable": true,
+          "writable": true,
+          "docstring": null,
+          "line_comment": null,
+          "type_hint_namespace": null,
+          "type_hint_name": "int",
+          "may_be_null": false
+        }
+      ],
+      "fields": [
+        {
+          "name": "parent_instance",
+          "type_hint_name": "OutputStream",
+          "type_hint_namespace": "Gio",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "priv",
+          "type_hint_name": "UnixOutputStreamPrivate",
+          "type_hint_namespace": "Gio",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        }
+      ],
+      "methods": [
+        {
+          "namespace": "GioUnix",
+          "name": "__init__",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "close_fd",
+              "direction": "IN",
+              "is_optional": true,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "",
+              "get_array_length": -1,
+              "py_type_name": "bool",
+              "py_type_namespace": null,
+              "line_comment": "[close-fd]: changed because contained invalid characters",
+              "default_value": "None",
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "fd",
+              "direction": "IN",
+              "is_optional": true,
+              "is_callback": false,
+              "may_be_null": true,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": "None",
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": "Initialize OutputStream object with properties.",
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "None",
+          "return_hint_namespace": null,
+          "is_method": true,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": false,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_close_fd",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "stream",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "OutputStream",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "bool",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "get_fd",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "stream",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "OutputStream",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "int",
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "new",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gint32",
+              "get_array_length": -1,
+              "py_type_name": "int",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "close_fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gboolean",
+              "get_array_length": -1,
+              "py_type_name": "bool",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": "OutputStream",
+          "return_hint_namespace": "GioUnix",
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": true,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        },
+        {
+          "namespace": "GioUnix",
+          "name": "set_close_fd",
+          "args": [
+            {
+              "namespace": "GioUnix",
+              "name": "stream",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "interface",
+              "get_array_length": -1,
+              "py_type_name": "OutputStream",
+              "py_type_namespace": "GioUnix",
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": true,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            },
+            {
+              "namespace": "GioUnix",
+              "name": "close_fd",
+              "direction": "IN",
+              "is_optional": false,
+              "is_callback": false,
+              "may_be_null": false,
+              "is_deprecated": false,
+              "is_caller_allocates": false,
+              "tag_as_string": "gboolean",
+              "get_array_length": -1,
+              "py_type_name": "bool",
+              "py_type_namespace": null,
+              "line_comment": null,
+              "default_value": null,
+              "is_pointer": false,
+              "is_variadic": false,
+              "type_hint_cb_return_name": null,
+              "type_hint_cb_return_namespace": null
+            }
+          ],
+          "docstring": null,
+          "is_callback": false,
+          "skip_return": false,
+          "is_deprecated": false,
+          "can_throw_gerror": false,
+          "may_return_null": false,
+          "deprecation_warnings": null,
+          "return_hint": null,
+          "return_hint_namespace": null,
+          "is_method": false,
+          "is_async": false,
+          "is_getter": false,
+          "is_setter": false,
+          "is_constructor": false,
+          "wrap_vfunc": false,
+          "line_comment": null,
+          "function_type": "FunctionInfo",
+          "is_overload": false,
+          "is_overridden": true,
+          "is_class_member": true,
+          "is_property": false
+        }
+      ],
+      "python_methods": [
+        {
+          "name": "do_close_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_close_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_finish(self, result:Gio.AsyncResult) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_close_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_fn(self, cancellable:Gio.Cancellable=None) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_flush",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "flush(self, cancellable:Gio.Cancellable=None) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_flush_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "flush_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_flush_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "flush_finish(self, result:Gio.AsyncResult) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_splice",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "splice(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, cancellable:Gio.Cancellable=None) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "source",
+              "type_hint_name": "InputStream",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "flags",
+              "type_hint_name": "OutputStreamSpliceFlags",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_splice_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "splice_async(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "source",
+              "type_hint_name": "InputStream",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "flags",
+              "type_hint_name": "OutputStreamSpliceFlags",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_splice_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "splice_finish(self, result:Gio.AsyncResult) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_write_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "write_async(self, buffer:list=None, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "buffer",
+              "type_hint_name": "list[int]",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_write_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "write_finish(self, result:Gio.AsyncResult) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_write_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "write_fn(self, buffer:list=None, cancellable:Gio.Cancellable=None) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "buffer",
+              "type_hint_name": "list[int]",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_writev_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "writev_async(self, vectors:list, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "vectors",
+              "type_hint_name": "list[Gio.OutputVector]",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_writev_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "writev_finish(self, result:Gio.AsyncResult) -> bool, bytes_written:int",
+          "return_hint_name": "tuple[bool, int]",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "do_writev_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "writev_fn(self, vectors:list, cancellable:Gio.Cancellable=None) -> bool, bytes_written:int",
+          "return_hint_name": "tuple[bool, int]",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "vectors",
+              "type_hint_name": "list[Gio.OutputVector]",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_close_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_close_fd(stream:Gio.UnixOutputStream) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "get_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_fd(stream:Gio.UnixOutputStream) -> int",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew(fd:int, close_fd:bool) -> Gio.OutputStream",
+          "return_hint_name": "OutputStream",
+          "return_hint_namespace": "Gio",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "fd",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "close_fd",
+              "type_hint_name": "bool",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        },
+        {
+          "name": "set_close_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nset_close_fd(stream:Gio.UnixOutputStream, close_fd:bool)",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "close_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "name": "notify",
+          "name_unescaped": "notify",
+          "namespace": "GObject",
+          "handler": {
+            "namespace": "GObject",
+            "name": "notify",
+            "args": [
+              {
+                "namespace": "GObject",
+                "name": "pspec",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "interface",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": null,
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": null,
+            "return_hint_namespace": null,
+            "is_method": false,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": false,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": true,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": true,
+          "detailed": true,
+          "action": true,
+          "no_hooks": true,
+          "must_collect": false,
+          "is_deprecated": false
+        },
+        {
+          "name": "notify::close_fd",
+          "name_unescaped": "notify::close-fd",
+          "namespace": "GioUnix",
+          "handler": {
+            "namespace": "GioUnix",
+            "name": "notify::close_fd",
+            "args": [
+              {
+                "namespace": "GioUnix",
+                "name": "arg1",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              },
+              {
+                "namespace": "GioUnix",
+                "name": "arg2",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "Any",
+                "py_type_namespace": "typing",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": "Signal emitted when the 'close_fd' property changes.",
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": "None",
+            "return_hint_namespace": null,
+            "is_method": true,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": true,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": false,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": false,
+          "detailed": false,
+          "action": false,
+          "no_hooks": false,
+          "must_collect": false,
+          "is_deprecated": false
+        },
+        {
+          "name": "notify::fd",
+          "name_unescaped": "notify::fd",
+          "namespace": "GioUnix",
+          "handler": {
+            "namespace": "GioUnix",
+            "name": "notify::fd",
+            "args": [
+              {
+                "namespace": "GioUnix",
+                "name": "arg1",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "ParamSpec",
+                "py_type_namespace": "GObject",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              },
+              {
+                "namespace": "GioUnix",
+                "name": "arg2",
+                "direction": "IN",
+                "is_optional": false,
+                "is_callback": false,
+                "may_be_null": false,
+                "is_deprecated": false,
+                "is_caller_allocates": false,
+                "tag_as_string": "??",
+                "get_array_length": -1,
+                "py_type_name": "Any",
+                "py_type_namespace": "typing",
+                "line_comment": null,
+                "default_value": null,
+                "is_pointer": false,
+                "is_variadic": false,
+                "type_hint_cb_return_name": null,
+                "type_hint_cb_return_namespace": null
+              }
+            ],
+            "docstring": "Signal emitted when the 'fd' property changes.",
+            "is_callback": false,
+            "skip_return": false,
+            "is_deprecated": false,
+            "can_throw_gerror": false,
+            "may_return_null": false,
+            "deprecation_warnings": null,
+            "return_hint": "None",
+            "return_hint_namespace": null,
+            "is_method": true,
+            "is_async": false,
+            "is_getter": false,
+            "is_setter": false,
+            "is_constructor": false,
+            "wrap_vfunc": false,
+            "line_comment": null,
+            "function_type": "SignalInfo",
+            "is_overload": true,
+            "is_overridden": false,
+            "is_class_member": true,
+            "is_property": false
+          },
+          "docstring": null,
+          "run_first": false,
+          "run_last": false,
+          "run_cleanup": false,
+          "no_recurse": false,
+          "detailed": false,
+          "action": false,
+          "no_hooks": false,
+          "must_collect": false,
+          "is_deprecated": false
+        }
+      ],
+      "extra": [
+        "property: parent_instance local=True",
+        "property: priv local=True",
+        "unknown: clear_pending: <class 'gi.FunctionInfo'> local=True",
+        "unknown: close: <class 'gi.FunctionInfo'> local=True",
+        "unknown: close_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: close_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: flush: <class 'gi.FunctionInfo'> local=True",
+        "unknown: flush_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: flush_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: has_pending: <class 'gi.FunctionInfo'> local=True",
+        "unknown: is_closed: <class 'gi.FunctionInfo'> local=True",
+        "unknown: is_closing: <class 'gi.FunctionInfo'> local=True",
+        "unknown: set_pending: <class 'gi.FunctionInfo'> local=True",
+        "unknown: splice: <class 'gi.FunctionInfo'> local=True",
+        "unknown: splice_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: splice_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: write: <class 'gi.FunctionInfo'> local=True",
+        "unknown: write_all: <class 'gi.FunctionInfo'> local=True",
+        "unknown: write_all_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: write_all_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: write_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: write_bytes: <class 'gi.FunctionInfo'> local=True",
+        "unknown: write_bytes_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: write_bytes_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: write_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: writev: <class 'gi.FunctionInfo'> local=True",
+        "unknown: writev_all: <class 'gi.FunctionInfo'> local=True",
+        "unknown: writev_all_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: writev_all_finish: <class 'gi.FunctionInfo'> local=True",
+        "unknown: writev_async: <class 'gi.FunctionInfo'> local=True",
+        "unknown: writev_finish: <class 'gi.FunctionInfo'> local=True",
+        "mro=(<class 'gi.overrides.GioUnix.OutputStream'>, <class 'gi.repository.GioUnix.OutputStream'>, <class 'gi.repository.Gio.OutputStream'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'gi.repository.Gio.PollableOutputStream'>, <class 'gi.repository.GioUnix.FileDescriptorBased'>, <class 'gobject.GInterface'>, <class 'object'>)",
+        "self=gi.overrides.GioUnix.OutputStream"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "Gio"
+    }
+    [EXTRA]
+    property: parent_instance local=True
+    property: priv local=True
+    unknown: clear_pending: <class 'gi.FunctionInfo'> local=True
+    unknown: close: <class 'gi.FunctionInfo'> local=True
+    unknown: close_async: <class 'gi.FunctionInfo'> local=True
+    unknown: close_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: flush: <class 'gi.FunctionInfo'> local=True
+    unknown: flush_async: <class 'gi.FunctionInfo'> local=True
+    unknown: flush_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: has_pending: <class 'gi.FunctionInfo'> local=True
+    unknown: is_closed: <class 'gi.FunctionInfo'> local=True
+    unknown: is_closing: <class 'gi.FunctionInfo'> local=True
+    unknown: set_pending: <class 'gi.FunctionInfo'> local=True
+    unknown: splice: <class 'gi.FunctionInfo'> local=True
+    unknown: splice_async: <class 'gi.FunctionInfo'> local=True
+    unknown: splice_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: write: <class 'gi.FunctionInfo'> local=True
+    unknown: write_all: <class 'gi.FunctionInfo'> local=True
+    unknown: write_all_async: <class 'gi.FunctionInfo'> local=True
+    unknown: write_all_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: write_async: <class 'gi.FunctionInfo'> local=True
+    unknown: write_bytes: <class 'gi.FunctionInfo'> local=True
+    unknown: write_bytes_async: <class 'gi.FunctionInfo'> local=True
+    unknown: write_bytes_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: write_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: writev: <class 'gi.FunctionInfo'> local=True
+    unknown: writev_all: <class 'gi.FunctionInfo'> local=True
+    unknown: writev_all_async: <class 'gi.FunctionInfo'> local=True
+    unknown: writev_all_finish: <class 'gi.FunctionInfo'> local=True
+    unknown: writev_async: <class 'gi.FunctionInfo'> local=True
+    unknown: writev_finish: <class 'gi.FunctionInfo'> local=True
+    mro=(<class 'gi.overrides.GioUnix.OutputStream'>, <class 'gi.repository.GioUnix.OutputStream'>, <class 'gi.repository.Gio.OutputStream'>, <class 'gi.overrides.GObject.Object'>, <class 'gi.repository.GObject.Object'>, <class 'gi._gi.GObject'>, <class 'gi.repository.Gio.PollableOutputStream'>, <class 'gi.repository.GioUnix.FileDescriptorBased'>, <class 'gobject.GInterface'>, <class 'object'>)
+    self=gi.overrides.GioUnix.OutputStream
 
-    Note that `<gio/gunixoutputstream.h>` belongs to the UNIX-specific GIO
-    interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config file
-    file or the `GioUnix-2.0` GIR namespace when using it.
     """
 
     class Props(Gio.OutputStream.Props):
         close_fd: bool  # [close-fd]: changed because contained invalid characters
-        """
-        Whether to close the file descriptor when the stream is closed.
-        """
         fd: int
-        """
-        The file descriptor that the stream writes to.
-        """
 
     @builtins.property
     def props(self) -> Props: ...
@@ -1334,11 +12256,71 @@ class OutputStream(Gio.OutputStream):
         self,
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
-        | None = None,
+        callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
     ) -> None:
         """
+        [DEBUG]
+        {
+          "name": "do_close_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
         """
     def do_close_finish(
@@ -1346,6 +12328,40 @@ class OutputStream(Gio.OutputStream):
         result: Gio.AsyncResult,
     ) -> bool:
         """
+        [DEBUG]
+        {
+          "name": "do_close_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_finish(self, result:Gio.AsyncResult) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         close_finish(self, result:Gio.AsyncResult) -> bool
         """
     def do_close_fn(
@@ -1353,6 +12369,40 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
     ) -> bool:
         """
+        [DEBUG]
+        {
+          "name": "do_close_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "close_fn(self, cancellable:Gio.Cancellable=None) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         close_fn(self, cancellable:Gio.Cancellable=None) -> bool
         """
     def do_flush(
@@ -1360,17 +12410,111 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
     ) -> bool:
         """
+        [DEBUG]
+        {
+          "name": "do_flush",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "flush(self, cancellable:Gio.Cancellable=None) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         flush(self, cancellable:Gio.Cancellable=None) -> bool
         """
     def do_flush_async(
         self,
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
-        | None = None,
+        callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
     ) -> None:
         """
+        [DEBUG]
+        {
+          "name": "do_flush_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "flush_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         flush_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
         """
     def do_flush_finish(
@@ -1378,6 +12522,40 @@ class OutputStream(Gio.OutputStream):
         result: Gio.AsyncResult,
     ) -> bool:
         """
+        [DEBUG]
+        {
+          "name": "do_flush_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "flush_finish(self, result:Gio.AsyncResult) -> bool",
+          "return_hint_name": "bool",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         flush_finish(self, result:Gio.AsyncResult) -> bool
         """
     def do_splice(
@@ -1387,6 +12565,58 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
     ) -> int:
         """
+        [DEBUG]
+        {
+          "name": "do_splice",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "splice(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, cancellable:Gio.Cancellable=None) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "source",
+              "type_hint_name": "InputStream",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "flags",
+              "type_hint_name": "OutputStreamSpliceFlags",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         splice(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, cancellable:Gio.Cancellable=None) -> int
         """
     def do_splice_async(
@@ -1395,11 +12625,89 @@ class OutputStream(Gio.OutputStream):
         flags: Gio.OutputStreamSpliceFlags,
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
-        | None = None,
+        callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
     ) -> None:
         """
+        [DEBUG]
+        {
+          "name": "do_splice_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "splice_async(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "source",
+              "type_hint_name": "InputStream",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "flags",
+              "type_hint_name": "OutputStreamSpliceFlags",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         splice_async(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
         """
     def do_splice_finish(
@@ -1407,6 +12715,40 @@ class OutputStream(Gio.OutputStream):
         result: Gio.AsyncResult,
     ) -> int:
         """
+        [DEBUG]
+        {
+          "name": "do_splice_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "splice_finish(self, result:Gio.AsyncResult) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         splice_finish(self, result:Gio.AsyncResult) -> int
         """
     def do_write_async(
@@ -1414,11 +12756,80 @@ class OutputStream(Gio.OutputStream):
         buffer: list[int] | None,
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
-        | None = None,
+        callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
     ) -> None:
         """
+        [DEBUG]
+        {
+          "name": "do_write_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "write_async(self, buffer:list=None, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "buffer",
+              "type_hint_name": "list[int]",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         write_async(self, buffer:list=None, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
         """
     def do_write_finish(
@@ -1426,6 +12837,40 @@ class OutputStream(Gio.OutputStream):
         result: Gio.AsyncResult,
     ) -> int:
         """
+        [DEBUG]
+        {
+          "name": "do_write_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "write_finish(self, result:Gio.AsyncResult) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         write_finish(self, result:Gio.AsyncResult) -> int
         """
     def do_write_fn(
@@ -1434,6 +12879,49 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
     ) -> int:
         """
+        [DEBUG]
+        {
+          "name": "do_write_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "write_fn(self, buffer:list=None, cancellable:Gio.Cancellable=None) -> int",
+          "return_hint_name": "int",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "buffer",
+              "type_hint_name": "list[int]",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         write_fn(self, buffer:list=None, cancellable:Gio.Cancellable=None) -> int
         """
     def do_writev_async(
@@ -1441,11 +12929,80 @@ class OutputStream(Gio.OutputStream):
         vectors: list[Gio.OutputVector],
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
-        | None = None,
+        callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
     ) -> None:
         """
+        [DEBUG]
+        {
+          "name": "do_writev_async",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "writev_async(self, vectors:list, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)",
+          "return_hint_name": "None",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "vectors",
+              "type_hint_name": "list[Gio.OutputVector]",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "io_priority",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "callback",
+              "type_hint_name": "Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None]",
+              "type_hint_namespace": "collections.abc",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            },
+            {
+              "name": "user_data",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         writev_async(self, vectors:list, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
         """
     def do_writev_finish(
@@ -1453,6 +13010,40 @@ class OutputStream(Gio.OutputStream):
         result: Gio.AsyncResult,
     ) -> tuple[bool, int]:
         """
+        [DEBUG]
+        {
+          "name": "do_writev_finish",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "writev_finish(self, result:Gio.AsyncResult) -> bool, bytes_written:int",
+          "return_hint_name": "tuple[bool, int]",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "result",
+              "type_hint_name": "AsyncResult",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         writev_finish(self, result:Gio.AsyncResult) -> bool, bytes_written:int
         """
     def do_writev_fn(
@@ -1461,12 +13052,80 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
     ) -> tuple[bool, int]:
         """
+        [DEBUG]
+        {
+          "name": "do_writev_fn",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "writev_fn(self, vectors:list, cancellable:Gio.Cancellable=None) -> bool, bytes_written:int",
+          "return_hint_name": "tuple[bool, int]",
+          "return_hint_namespace": null,
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "vectors",
+              "type_hint_name": "list[Gio.OutputVector]",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "cancellable",
+              "type_hint_name": "Cancellable",
+              "type_hint_namespace": "Gio",
+              "kind": "POS_OR_KW",
+              "default_value": "None",
+              "is_optional": true,
+              "line_comment": null
+            }
+          ]
+        }
+
         writev_fn(self, vectors:list, cancellable:Gio.Cancellable=None) -> bool, bytes_written:int
         """
     def get_close_fd(
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_close_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_close_fd(stream:Gio.UnixOutputStream) -> bool",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_close_fd(stream:Gio.UnixOutputStream) -> bool
@@ -1475,6 +13134,31 @@ class OutputStream(Gio.OutputStream):
         self,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "get_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nget_fd(stream:Gio.UnixOutputStream) -> int",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         get_fd(stream:Gio.UnixOutputStream) -> int
@@ -1486,6 +13170,40 @@ class OutputStream(Gio.OutputStream):
         close_fd: bool,
     ) -> Gio.OutputStream:
         """
+        [DEBUG]
+        {
+          "name": "new",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": true,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nnew(fd:int, close_fd:bool) -> Gio.OutputStream",
+          "return_hint_name": "OutputStream",
+          "return_hint_namespace": "Gio",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "fd",
+              "type_hint_name": "int",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "close_fd",
+              "type_hint_name": "bool",
+              "type_hint_namespace": null,
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(fd:int, close_fd:bool) -> Gio.OutputStream
@@ -1495,6 +13213,40 @@ class OutputStream(Gio.OutputStream):
         close_fd: typing.Any,
     ) -> typing.Any:
         """
+        [DEBUG]
+        {
+          "name": "set_close_fd",
+          "namespace": "GioUnix",
+          "is_async": false,
+          "is_from_class": true,
+          "is_classmethod": false,
+          "is_staticmethod": false,
+          "docstring": "[is-override: Note this method is an override in Python of the original gi implementation.]\n\nset_close_fd(stream:Gio.UnixOutputStream, close_fd:bool)",
+          "return_hint_name": "Any",
+          "return_hint_namespace": "typing",
+          "return_is_optional": false,
+          "params": [
+            {
+              "name": "self",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            },
+            {
+              "name": "close_fd",
+              "type_hint_name": "Any",
+              "type_hint_namespace": "typing",
+              "kind": "POS_OR_KW",
+              "default_value": null,
+              "is_optional": false,
+              "line_comment": null
+            }
+          ]
+        }
+
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         set_close_fd(stream:Gio.UnixOutputStream, close_fd:bool)
@@ -1528,6 +13280,109 @@ class OutputStream(Gio.OutputStream):
     ) -> int: ...
 
 class OutputStreamClass(GObject.GPointer, metaclass=GObject.GType):
+    """
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "OutputStreamClass",
+      "docstring": null,
+      "props": [],
+      "fields": [
+        {
+          "name": "_g_reserved1",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "_g_reserved2",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "_g_reserved3",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "_g_reserved4",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "_g_reserved5",
+          "type_hint_name": "object",
+          "type_hint_namespace": null,
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        },
+        {
+          "name": "parent_class",
+          "type_hint_name": "OutputStreamClass",
+          "type_hint_namespace": "Gio",
+          "is_deprecated": false,
+          "deprecation_warnings": null,
+          "docstring": null,
+          "line_comment": null,
+          "may_be_null": true,
+          "is_readable": true,
+          "is_writable": false
+        }
+      ],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "property: parent_class local=True",
+        "mro=(<class 'gi.repository.GioUnix.OutputStreamClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.OutputStreamClass"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    property: parent_class local=True
+    mro=(<class 'gi.repository.GioUnix.OutputStreamClass'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.OutputStreamClass
+
+    """
+
     # gi Fields
     @builtins.property
     def _g_reserved1(self) -> object | None: ...
@@ -1542,7 +13397,34 @@ class OutputStreamClass(GObject.GPointer, metaclass=GObject.GType):
     @builtins.property
     def parent_class(self) -> Gio.OutputStreamClass | None: ...
 
-class OutputStreamPrivate(GObject.GPointer, metaclass=GObject.GType): ...
+class OutputStreamPrivate(GObject.GPointer, metaclass=GObject.GType):
+    """
+    [DEBUG]
+    {
+      "super": [
+        "GObject.GPointer",
+        "metaclass=GObject.GType"
+      ],
+      "namespace": "gi.repository.GioUnix",
+      "name": "OutputStreamPrivate",
+      "docstring": null,
+      "props": [],
+      "fields": [],
+      "methods": [],
+      "python_methods": [],
+      "signals": [],
+      "extra": [
+        "mro=(<class 'gi.repository.GioUnix.OutputStreamPrivate'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)",
+        "self=gi.repository.GioUnix.OutputStreamPrivate"
+      ],
+      "is_deprecated": false,
+      "required_gi_import": "GObject"
+    }
+    [EXTRA]
+    mro=(<class 'gi.repository.GioUnix.OutputStreamPrivate'>, <class 'gi.Struct'>, <class 'gobject.GPointer'>, <class 'object'>)
+    self=gi.repository.GioUnix.OutputStreamPrivate
+
+    """
 
 ###############################################################
 # Callbacks
@@ -1550,6 +13432,61 @@ class OutputStreamPrivate(GObject.GPointer, metaclass=GObject.GType): ...
 
 class get_fdFileDescriptorBasedIfaceCB(typing.Protocol):
     """
+    [DEBUG]
+    {
+      "name": "get_fdFileDescriptorBasedIfaceCB",
+      "function": {
+        "namespace": "GioUnix",
+        "name": "get_fd",
+        "args": [
+          {
+            "namespace": "GioUnix",
+            "name": "fd_based",
+            "direction": "IN",
+            "is_optional": false,
+            "is_callback": false,
+            "may_be_null": false,
+            "is_deprecated": false,
+            "is_caller_allocates": false,
+            "tag_as_string": "interface",
+            "get_array_length": -1,
+            "py_type_name": "FileDescriptorBased",
+            "py_type_namespace": "GioUnix",
+            "line_comment": null,
+            "default_value": null,
+            "is_pointer": true,
+            "is_variadic": false,
+            "type_hint_cb_return_name": null,
+            "type_hint_cb_return_namespace": null
+          }
+        ],
+        "docstring": null,
+        "is_callback": true,
+        "skip_return": false,
+        "is_deprecated": false,
+        "can_throw_gerror": false,
+        "may_return_null": false,
+        "deprecation_warnings": null,
+        "return_hint": "int",
+        "return_hint_namespace": null,
+        "is_method": false,
+        "is_async": false,
+        "is_getter": false,
+        "is_setter": false,
+        "is_constructor": false,
+        "wrap_vfunc": false,
+        "line_comment": null,
+        "function_type": "CallbackInfo",
+        "is_overload": false,
+        "is_overridden": false,
+        "is_class_member": false,
+        "is_property": false
+      },
+      "originated_from": [
+        "FileDescriptorBasedIface.get_fd"
+      ]
+    }
+
     This callback was used in:
         FileDescriptorBasedIface.get_fd
     """
@@ -1564,11 +13501,91 @@ class get_fdFileDescriptorBasedIfaceCB(typing.Protocol):
 ###############################################################
 
 _lock = _thread._lock  # type: ignore
+"""
+[DEBUG]
+{
+  "name": "_lock",
+  "target_name": "_lock",
+  "target_namespace": "_thread",
+  "deprecation_warning": null,
+  "line_comment": "type: ignore ",
+  "alias_to": "other_module"
+}
+
+
+"""
 _overrides_module = ...  # this very module ...
+"""
+[DEBUG]
+{
+  "name": "_overrides_module",
+  "target_name": "...",
+  "target_namespace": null,
+  "deprecation_warning": null,
+  "line_comment": "this very module ...",
+  "alias_to": "same_module"
+}
+
+
+"""
 ###############################################################
 # Constants
 ###############################################################
 
 DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME: str = ...
+"""
+[DEBUG]
+{
+  "namespace": "GioUnix",
+  "name": "DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME",
+  "value": "gio-desktop-app-info-lookup",
+  "is_deprecated": false,
+  "deprecation_warnings": null,
+  "type_hint": "str",
+  "value_repr": "...",
+  "gir_docstring": null,
+  "is_enum_or_flags": false,
+  "line_comment": null,
+  "variable_type": "PYTHON_TYPE"
+}
+
+None 
+"""
 _namespace: str = ...
+"""
+[DEBUG]
+{
+  "namespace": "GioUnix",
+  "name": "_namespace",
+  "value": "GioUnix",
+  "is_deprecated": false,
+  "deprecation_warnings": null,
+  "type_hint": "str",
+  "value_repr": "...",
+  "gir_docstring": null,
+  "is_enum_or_flags": false,
+  "line_comment": null,
+  "variable_type": "PYTHON_TYPE"
+}
+
+None 
+"""
 _version: str = ...
+"""
+[DEBUG]
+{
+  "namespace": "GioUnix",
+  "name": "_version",
+  "value": "2.0",
+  "is_deprecated": false,
+  "deprecation_warnings": null,
+  "type_hint": "str",
+  "value_repr": "...",
+  "gir_docstring": null,
+  "is_enum_or_flags": false,
+  "line_comment": null,
+  "variable_type": "PYTHON_TYPE"
+}
+
+None 
+"""

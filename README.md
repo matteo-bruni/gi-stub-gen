@@ -180,7 +180,8 @@ As an example:
 ## ✅ Todo
 - [ ] Add comprehensive test suite.
 - [ ] Create Docker-based build system for consistent environment reproduction.
-- [ ] add local identifier version for glib to pygobject wheels
+- [ ] handle generics, ie Gio.ListStore[T:GObject.GObject] and the funcion insert_sorted
+
 
 ## Bug GObject
 
