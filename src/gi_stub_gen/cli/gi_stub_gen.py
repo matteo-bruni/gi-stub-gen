@@ -70,7 +70,7 @@ def main(
         typer.Option(
             help="Minimum Python version required by the stub package.",
         ),
-    ] = "3.10",
+    ] = "3.12",
     pkg_dependencies: Annotated[
         list[str],
         typer.Option(
