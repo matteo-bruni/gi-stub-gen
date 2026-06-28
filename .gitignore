@@ -14,3 +14,7 @@ ignore/
 test.pyi
 zold/
 .ruff_cache/
+
+# devcontainer
+.devcontainer/bash/.bash_history
+.devcontainer/bash/.bashrc_custom*.bash

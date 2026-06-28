@@ -603,7 +603,12 @@ class FunctionSchema(BaseSchema):
             is_constructor = bool(flags & GIRepository.FunctionInfoFlags.IS_CONSTRUCTOR)
             is_getter = bool(flags & GIRepository.FunctionInfoFlags.IS_GETTER)
             is_setter = bool(flags & GIRepository.FunctionInfoFlags.IS_SETTER)
-            is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)
+            # depending on glib version this may not be available, 
+            # so we check if the flag exists
+            try:
+                is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)
+            except AttributeError:
+                is_async = False
             wrap_vfunc = bool(flags & GIRepository.FunctionInfoFlags.WRAPS_VFUNC)
 
         # Return type hint logic

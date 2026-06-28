@@ -1,52 +1,81 @@
 # Allow for positional arguments in Just receipes.
+
 set positional-arguments := true
 set dotenv-load := true
 
 # python code to find gi overrides paths
-sys_overrides := ` /usr/bin/python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
-venv_overrides := ` uv run python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
+
+sys_overrides := `/usr/bin/python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
+venv_overrides := `uv run python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
 
 # Default recipe that runs if you type "just".
-default: 
+default:
     just --list
 
 # Build all the stub packages. accepts --debug flag
 build *args:
-    just build-base {{args}}
-    just build-graphics-core {{args}}
-    just build-gst {{args}}
-    just build-gtk {{args}}
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    just build-base {{ args }}
+    just build-graphics-core {{ args }}
+    # just build-gst {{ args }}
+    just build-gtk {{ args }}
     @echo "All stub packages have been built, running tests.."
     just test || (echo "❌ Test failed! check the tests output above." && exit 1)
     @echo "✅ Tests passed."
 
 # Build all and install in current environment
 build-and-install *args:
-    just build {{args}}
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    just build {{ args }}
     just install
 
 # build base stub package. accepts --debug flag
 build-base *args:
-    bash ./build-base-stubs.sh {{args}}
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    bash ./build-base-stubs.sh {{ args }}
     just diff-gobject
 
 # build graphics-core stub package. accepts --debug flag
 build-graphics-core *args:
-    bash ./build-graphics-core-stubs.sh {{args}}
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    bash ./build-graphics-core-stubs.sh {{ args }}
 
 # build gst stub package. accepts --debug flag
 build-gst *args:
-    bash ./build-gst-stubs.sh {{args}}
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    docker run --rm \
+        -v $(pwd):/app \
+        -w /app \
+        -e USER_ID=$(id -u) \
+        -e USER_GROUP_ID=$(id -g) \
+        --env-file .env \
+        ghcr.io/matteo-bruni/gstreamer:1.28.3-ubuntu.24.04-base-py-3.12 \
+        bash ./build-gst-stubs-in-container.sh {{ args }}
+
     just diff-gst
 
 # build gtk stub package. accepts --debug flag
 build-gtk *args:
-    bash ./build-gtk-stubs.sh {{args}}
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    bash ./build-gtk-stubs.sh {{ args }}
 
 # Install all generated stub packages in the current environment.
 install:
-    #!/bin/bash
-    set -e
+    #!/usr/bin/env bash
+    set -euo pipefail
+
     uv pip install --force-reinstall \
         stubs/gi-base-stubs \
         stubs/gi-graphics-core-stubs \
@@ -115,18 +144,29 @@ diff-gst:
         --namespace Gst \
         -o docs/Gst_diff.md
 
-
 # Sync degli override
 sync-gst:
     @echo "🔄 Synchronizing GStreamer Overrides from ubuntu system to venv"
-    @echo "  📂 Source: {{sys_overrides}}"
-    @echo "  📂 Destination: {{venv_overrides}}"
-    
+    # --- Check Python Versions ---
+    @SYS_VER=$(/usr/bin/python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")'); \
+    VENV_VER=$(uv run python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")'); \
+    if [ "$SYS_VER" != "$VENV_VER" ]; then \
+        echo "❌ Error: Version Mismatch !"; \
+        echo "   System: $SYS_VER"; \
+        echo "   Venv:   $VENV_VER"; \
+        exit 1; \
+    fi
+    @echo "✅ Venv and System Python versions aligned ($SYS_VER). Proceeding..."
+    # ---------------------------------
+
+    @echo "  📂 Source: {{ sys_overrides }}"
+    @echo "  📂 Destination: {{ venv_overrides }}"
+
     # Create the directory if it doesn't exist
-    mkdir -p "{{venv_overrides}}"
-    
+    mkdir -p "{{ venv_overrides }}"
+
     # Copy the files (handles error if none found)
-    cp -v "{{sys_overrides}}"/Gst* "{{venv_overrides}}/"
-    cp -v "{{sys_overrides}}"/_gi_gst* "{{venv_overrides}}/"
-    
+    cp -v "{{ sys_overrides }}"/Gst* "{{ venv_overrides }}/"
+    cp -v "{{ sys_overrides }}"/_gi_gst* "{{ venv_overrides }}/"
+
     @echo "✅ Completed."

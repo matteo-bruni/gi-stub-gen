@@ -39,8 +39,19 @@ def gi_parse_field(
     """callbacks found during field parsing, saved to be parsed later"""
 
     flags = field.get_flags()
-    is_readable = bool(flags & GIRepository.FieldInfoFlags.READABLE)
-    is_writable = bool(flags & GIRepository.FieldInfoFlags.WRITABLE)
+
+    try:
+        # in newer library version is is_* on older is without the is
+        is_readable = bool(flags & GIRepository.FieldInfoFlags.IS_READABLE)
+        is_writable = bool(flags & GIRepository.FieldInfoFlags.IS_WRITABLE)
+    except Exception:
+        try:
+            is_readable = bool(flags & GIRepository.FieldInfoFlags.READABLE)
+            is_writable = bool(flags & GIRepository.FieldInfoFlags.WRITABLE)
+        except Exception:
+            raise RuntimeError(
+                f"Failed to determine field readability/writability for field {field_name} in class {class_name}"
+            )
 
     field_name, line_comment = sanitize_variable_name(field_name)
     field_gi_type_info = get_gi_type_info(field)
@@ -115,7 +126,18 @@ def should_expose_class_field(
     if name in ("parent", "parent_instance", "g_type_instance", "priv"):
         return False
 
-    if not (flags & GIRepository.FieldInfoFlags.READABLE):
+    # this is different in depending on glib version,
+    # in newer library version is is_* on older is without the is
+    # but we can check both to be safe
+    try:
+        is_readable = bool(flags & GIRepository.FieldInfoFlags.IS_READABLE)
+    except Exception:
+        try:
+            is_readable = bool(flags & GIRepository.FieldInfoFlags.READABLE)
+        except Exception:
+            raise RuntimeError(f"Failed to determine field readability for field {field_name} in class {class_name}")
+
+    if not is_readable:
         return False
 
     type_info = get_gi_type_info(field_info)

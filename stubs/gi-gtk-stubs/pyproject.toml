@@ -1,6 +1,6 @@
 [project]
 name = "gi-gtk-stubs"
-version = "4.0.0"
+version = "3.56.3+gtk4.22"
 description = "GI Stubs for GTK"
 readme = "README.md"
 authors = [

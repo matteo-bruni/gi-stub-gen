@@ -22,7 +22,6 @@
       "source.fixAll": "never"
     }
   },
-  "python.defaultInterpreterPath": "./venv/bin/python3",
   "cSpell.words": [
     "docstrings",
     "ipython",

@@ -269,14 +269,8 @@ def gi_type_to_py_type(
         return None
 
     if py_type is list:
-        # TODO: how to handle list?
-        # what is the type of the sequence?
-        # i.e
-        # Gst.meta_register_custom
-        # Gst.meta_register_custom.get_arguments()[1].get_type().get_tag_as_string()
-
         # internal type:
-        if gi_type_info.get_param_type(0).get_tag().value == 3:
+        if gi_type_info.get_param_type(0).get_tag() == 3:
             # list[uint8] is actually bytes
             return bytes
 

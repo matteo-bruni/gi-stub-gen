@@ -1,6 +1,6 @@
 [project]
 name = "gi-graphics-core-stubs"
-version = "3.54.0"
+version = "3.56.3+glib2.88.cairo1.18"
 description = "Type stubs for GI libraries"
 readme = "README.md"
 authors = [

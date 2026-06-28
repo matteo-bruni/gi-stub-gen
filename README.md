@@ -179,6 +179,7 @@ As an example:
 ## ✅ Todo
 - [ ] Add comprehensive test suite.
 - [ ] Create Docker-based build system for consistent environment reproduction.
+- [ ] add local identifier version for glib to pygobject wheels
 
 ## Bug GObject
 
