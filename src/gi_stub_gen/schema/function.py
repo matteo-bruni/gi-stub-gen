@@ -603,7 +603,7 @@ class FunctionSchema(BaseSchema):
             is_constructor = bool(flags & GIRepository.FunctionInfoFlags.IS_CONSTRUCTOR)
             is_getter = bool(flags & GIRepository.FunctionInfoFlags.IS_GETTER)
             is_setter = bool(flags & GIRepository.FunctionInfoFlags.IS_SETTER)
-            # depending on glib version this may not be available, 
+            # depending on glib version this may not be available,
             # so we check if the flag exists
             try:
                 is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)

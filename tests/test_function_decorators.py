@@ -45,6 +45,13 @@ class TestGIFunctionDecorators:
         assert parsed.is_class_member is False
         assert "@staticmethod" not in parsed.decorators
 
+    def test_gobject_unintrospectable_function_is_skipped(self):
+        """
+        GObject.signal_set_va_marshaller references VaClosureMarshal, which is
+        marked introspectable=0 in the GIR and should be skipped.
+        """
+        assert parse_function(GObject.signal_set_va_marshaller, None) is None # type: ignore
+
     def test_class_static_method_has_decorator(self):
         """
         Static methods inside classes SHOULD have @staticmethod decorator.

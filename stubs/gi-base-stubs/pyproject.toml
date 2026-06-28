@@ -1,6 +1,6 @@
 [project]
 name = "gi-base-stubs"
-version = "3.56+glib2.88"
+version = "3.56.3+glib2.80"
 description = "Type stubs for GI libraries"
 readme = "README.md"
 authors = [

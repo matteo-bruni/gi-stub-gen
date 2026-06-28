@@ -53,6 +53,7 @@ apt-get update && apt-get install -y --no-install-recommends \
     libcairo2-dev \
     libgirepository-2.0-dev \
     gir1.2-girepository-3.0 \
+    gir1.2-glib-2.0-dev \
     util-linux
 
 # install stubs dependencies

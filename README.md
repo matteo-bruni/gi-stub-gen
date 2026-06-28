@@ -50,7 +50,8 @@ sudo apt install \
   python3-dev \
   libcairo2-dev \
   libgirepository-2.0-dev \ 
-  gir1.2-girepository-3.0
+  gir1.2-girepository-3.0 \
+  gir1.2-glib-2.0-dev
 ```
 
 ### Installation & Development
