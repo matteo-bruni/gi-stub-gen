@@ -15,6 +15,7 @@ import typing_extensions  # noqa: F401
 
 import _thread
 import builtins
+import enum
 import typing
 
 # gi.repository imports needed by this Stub
@@ -403,7 +404,7 @@ def rtp_source_meta_get_info() -> Gst.MetaInfo: ...
 # Enums/Flags
 ###############################################################
 
-class RTCPFBType(GObject.GEnum):
+class RTCPFBType(GObject.GEnum, enum.IntEnum):
     """
     Different types of feedback messages."""
 
@@ -463,7 +464,7 @@ class RTCPFBType(GObject.GEnum):
     Video Back Channel Message
     """
 
-class RTCPSDESType(GObject.GEnum):
+class RTCPSDESType(GObject.GEnum, enum.IntEnum):
     """
     Different types of SDES content."""
 
@@ -536,7 +537,7 @@ class RTCPSDESType(GObject.GEnum):
     MID SDES item (RFC8843).
     """
 
-class RTCPType(GObject.GEnum):
+class RTCPType(GObject.GEnum, enum.IntEnum):
     """
     Different RTCP packet types."""
 
@@ -577,7 +578,7 @@ class RTCPType(GObject.GEnum):
     Extended report.
     """
 
-class RTCPXRType(GObject.GEnum):
+class RTCPXRType(GObject.GEnum, enum.IntEnum):
     """
     Types of RTCP Extended Reports, those are defined in RFC 3611 and other RFCs
     according to the [IANA registry](https://www.iana.org/assignments/rtcp-xr-block-types/rtcp-xr-block-types.xhtml)."""
@@ -615,7 +616,7 @@ class RTCPXRType(GObject.GEnum):
     VoIP Metrics Report Block
     """
 
-class RTPBufferFlags(GObject.GFlags):
+class RTPBufferFlags(GObject.GFlags, enum.IntFlag):
     """
     Additional RTP buffer flags. These flags can potentially be used on any
     buffers carrying RTP packets.
@@ -640,7 +641,7 @@ class RTPBufferFlags(GObject.GFlags):
     Offset to define more flags.
     """
 
-class RTPBufferMapFlags(GObject.GFlags):
+class RTPBufferMapFlags(GObject.GFlags, enum.IntFlag):
     """
     Additional mapping flags for `gst_rtp_buffer_map`."""
 
@@ -655,7 +656,7 @@ class RTPBufferMapFlags(GObject.GFlags):
     Offset to define more flags
     """
 
-class RTPHeaderExtensionDirection(GObject.GFlags):
+class RTPHeaderExtensionDirection(GObject.GFlags, enum.IntFlag):
     """
     Direction to which to apply the RTP Header Extension"""
 
@@ -682,7 +683,7 @@ class RTPHeaderExtensionDirection(GObject.GFlags):
     direction is inherited from the stream
     """
 
-class RTPHeaderExtensionFlags(GObject.GFlags):
+class RTPHeaderExtensionFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags that apply to a RTP Audio/Video header extension."""
 
@@ -699,7 +700,7 @@ class RTPHeaderExtensionFlags(GObject.GFlags):
                  including appbits) extensions in total.
     """
 
-class RTPPayload(GObject.GEnum):
+class RTPPayload(GObject.GEnum, enum.IntEnum):
     """
     Standard predefined fixed payload types.
 
@@ -819,7 +820,7 @@ class RTPPayload(GObject.GEnum):
     Video H263 (RFC 2190)
     """
 
-class RTPProfile(GObject.GEnum):
+class RTPProfile(GObject.GEnum, enum.IntEnum):
     """
     The transfer profile to use."""
 
@@ -2974,7 +2975,7 @@ class RTPHeaderExtension(Gst.Element):
     def do_read(
         self,
         read_flags: RTPHeaderExtensionFlags,
-        data: list,
+        data: list[int],
         buffer: Gst.Buffer,
     ) -> bool:
         """
@@ -3014,7 +3015,7 @@ class RTPHeaderExtension(Gst.Element):
         input_meta: Gst.Buffer,
         write_flags: RTPHeaderExtensionFlags,
         output: Gst.Buffer,
-        data: list,
+        data: list[int],
     ) -> int:
         """
         write(self, input_meta:Gst.Buffer, write_flags:GstRtp.RTPHeaderExtensionFlags, output:Gst.Buffer, data:list) -> int

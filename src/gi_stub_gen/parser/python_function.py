@@ -87,7 +87,10 @@ def parse_python_function(
         is_classmethod, is_staticmethod = False, False
 
     try:
-        sig = inspect.signature(attribute)
+        try:
+            sig = inspect.signature(attribute, eval_str=True)
+        except (AttributeError, NameError):
+            sig = inspect.signature(attribute)
     except (ValueError, TypeError):
         # Fallback logic for C-extensions/GObject
         params = [

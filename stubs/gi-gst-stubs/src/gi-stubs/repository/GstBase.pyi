@@ -250,7 +250,7 @@ def type_find_list_factories_for_caps(
 # Enums/Flags
 ###############################################################
 
-class AggregatorStartTimeSelection(GObject.GEnum):
+class AggregatorStartTimeSelection(GObject.GEnum, enum.IntEnum):
     ZERO = 0
     """
     Start at running time 0.
@@ -1177,7 +1177,7 @@ class Aggregator(Gst.Element):
     def do_update_src_caps(
         self,
         caps: Gst.Caps,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, typing.Union[Gst.Caps, NoneType]]:
         """
         update_src_caps(self, caps:Gst.Caps) -> Gst.FlowReturn, ret:Gst.Caps
         """
@@ -2056,7 +2056,7 @@ class BaseParse(Gst.Element):
     def do_handle_frame(
         self,
         frame: BaseParseFrame,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, int]:
         """
         handle_frame(self, frame:GstBase.BaseParseFrame) -> Gst.FlowReturn, skipsize:int
         """
@@ -2874,7 +2874,7 @@ class BaseSink(Gst.Element):
     def do_get_times(
         self,
         buffer: Gst.Buffer,
-    ) -> tuple:
+    ) -> tuple[int, int]:
         """
         get_times(self, buffer:Gst.Buffer) -> start:int, end:int
         """
@@ -3608,7 +3608,7 @@ class BaseSrc(Gst.Element):
         self,
         offset: int,
         size: int,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, typing.Union[Gst.Buffer, NoneType]]:
         """
         alloc(self, offset:int, size:int) -> Gst.FlowReturn, buf:Gst.Buffer
         """
@@ -3617,7 +3617,7 @@ class BaseSrc(Gst.Element):
         offset: int,
         size: int,
         buf: Gst.Buffer | None = None,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, typing.Union[Gst.Buffer, NoneType]]:
         """
         create(self, offset:int, size:int, buf:Gst.Buffer=None) -> Gst.FlowReturn, buf:Gst.Buffer
         """
@@ -3667,14 +3667,14 @@ class BaseSrc(Gst.Element):
         """
     def do_get_size(
         self,
-    ) -> tuple:
+    ) -> tuple[bool, int]:
         """
         get_size(self) -> bool, size:int
         """
     def do_get_times(
         self,
         buffer: Gst.Buffer,
-    ) -> tuple:
+    ) -> tuple[int, int]:
         """
         get_times(self, buffer:Gst.Buffer) -> start:int, end:int
         """
@@ -4269,21 +4269,21 @@ class BaseTransform(Gst.Element):
         """
     def do_generate_output(
         self,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, Gst.Buffer]:
         """
         generate_output(self) -> Gst.FlowReturn, outbuf:Gst.Buffer
         """
     def do_get_unit_size(
         self,
         caps: Gst.Caps,
-    ) -> tuple:
+    ) -> tuple[bool, int]:
         """
         get_unit_size(self, caps:Gst.Caps) -> bool, size:int
         """
     def do_prepare_output_buffer(
         self,
         input: Gst.Buffer,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, Gst.Buffer]:
         """
         prepare_output_buffer(self, input:Gst.Buffer) -> Gst.FlowReturn, outbuf:Gst.Buffer
         """
@@ -4384,7 +4384,7 @@ class BaseTransform(Gst.Element):
         caps: Gst.Caps,
         size: int,
         othercaps: Gst.Caps,
-    ) -> tuple:
+    ) -> tuple[bool, int]:
         """
         transform_size(self, direction:Gst.PadDirection, caps:Gst.Caps, size:int, othercaps:Gst.Caps) -> bool, othersize:int
         """
@@ -6095,14 +6095,14 @@ class PushSrc(BaseSrc):
     # python methods (overrides?)
     def do_alloc(
         self,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, typing.Union[Gst.Buffer, NoneType]]:
         """
         alloc(self) -> Gst.FlowReturn, buf:Gst.Buffer
         """
     def do_create(
         self,
         buf: Gst.Buffer | None = None,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, typing.Union[Gst.Buffer, NoneType]]:
         """
         create(self, buf:Gst.Buffer=None) -> Gst.FlowReturn, buf:Gst.Buffer
         """

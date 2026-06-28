@@ -42,12 +42,12 @@ def gi_parse_field(
 
     try:
         # in newer library version is is_* on older is without the is
-        is_readable = bool(flags & GIRepository.FieldInfoFlags.IS_READABLE)
-        is_writable = bool(flags & GIRepository.FieldInfoFlags.IS_WRITABLE)
+        is_readable = bool(flags & GIRepository.FieldInfoFlags.IS_READABLE)  # type: ignore
+        is_writable = bool(flags & GIRepository.FieldInfoFlags.IS_WRITABLE)  # type: ignore
     except Exception:
         try:
-            is_readable = bool(flags & GIRepository.FieldInfoFlags.READABLE)
-            is_writable = bool(flags & GIRepository.FieldInfoFlags.WRITABLE)
+            is_readable = bool(flags & GIRepository.FieldInfoFlags.READABLE)  # type: ignore
+            is_writable = bool(flags & GIRepository.FieldInfoFlags.WRITABLE)  # type: ignore
         except Exception:
             raise RuntimeError(
                 f"Failed to determine field readability/writability for field {field_name} in class {class_name}"
@@ -130,12 +130,12 @@ def should_expose_class_field(
     # in newer library version is is_* on older is without the is
     # but we can check both to be safe
     try:
-        is_readable = bool(flags & GIRepository.FieldInfoFlags.IS_READABLE)
+        is_readable = bool(flags & GIRepository.FieldInfoFlags.IS_READABLE)  # type: ignore
     except Exception:
         try:
-            is_readable = bool(flags & GIRepository.FieldInfoFlags.READABLE)
+            is_readable = bool(flags & GIRepository.FieldInfoFlags.READABLE)  # type: ignore
         except Exception:
-            raise RuntimeError(f"Failed to determine field readability for field {field_name} in class {class_name}")
+            raise RuntimeError(f"Failed to determine field readability for field {name}")
 
     if not is_readable:
         return False

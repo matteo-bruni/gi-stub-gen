@@ -9,7 +9,11 @@ These tests ensure that:
 5. PyGObject wrapper methods (like disconnect) are correctly parsed as instance methods
 """
 
-from gi.repository import GObject, Gst
+import gi
+
+gi.require_version("GstAudio", "1.0")
+
+from gi.repository import GObject, Gst, GstAudio
 
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.parser.function import parse_function
@@ -156,6 +160,39 @@ class TestPythonFunctionDecorators:
 
         # Should NOT have @staticmethod
         assert "@staticmethod" not in disconnect.decorators
+
+    def test_python_override_keeps_gst_iterator_type(self):
+        """
+        Python Gst overrides can use postponed annotations such as Iterator[Element].
+        Those should resolve to Gst.Iterator, not typing.Iterator.
+        """
+        parsed = parse_python_function(
+            Gst.Bin.iterate_all_by_element_factory_name,
+            "Gst",
+            from_class=Gst.Bin,
+        )
+        assert parsed is not None
+
+        assert parsed.return_hint_namespace == "Gst"
+        assert parsed.return_hint_name == "Iterator[Element]"
+        assert parsed.return_hint("Gst") == "Iterator[Element]"
+
+    def test_python_override_keeps_callable_argument_types(self):
+        """
+        Callable annotations from overrides expose their parameter list as a literal
+        list in typing.get_args(); those entries still need proper type rendering.
+        """
+        parsed = parse_python_function(
+            GstAudio.AudioClock.new,
+            "GstAudio",
+            from_class=GstAudio.AudioClock,
+        )
+        assert parsed is not None
+
+        func_param = next(param for param in parsed.params if param.name == "func")
+        assert func_param.type_hint_namespace == "collections.abc"
+        assert func_param.type_hint_name == "Callable[[Gst.Clock, typing.Any], int]"
+        assert func_param.type_hint("GstAudio") == "collections.abc.Callable[[Gst.Clock, typing.Any], int]"
 
 
 class TestClassMethodDetection:

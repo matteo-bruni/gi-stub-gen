@@ -5,6 +5,7 @@ if [ -f .env ]; then
     set +a
 fi
 
+STUB_PACKAGE_NAME=${STUB_PACKAGE_NAME:-"gi-gst-stubs"}
 STUB_AUTHOR_NAME=${STUB_AUTHOR_NAME:-"Unknown Author"}
 STUB_AUTHOR_EMAIL=${STUB_AUTHOR_EMAIL:-"unknown@example.com"}
 
@@ -31,13 +32,11 @@ while [ "$#" -gt 0 ]; do
 done
 
 
-###########################################################
-# we can assume bindings compatibility within the same minor version
-# e.g. 1.26.x
-# we keep the patch version for the stub package versioning
-GST_VERSION=1.26
-GST_STUB_VERSION=0
-PKG_GST_STUBS_VERSION=${GST_VERSION}.${GST_STUB_VERSION}
+# Build the actual stub ####################################
+PKG_GST_STUBS_VERSION=$(uv run python3 -c 'import gi; gi.require_version("Gst", "1.0"); from gi.repository import Gst; Gst.init(None); v = Gst.version(); print(f"{v.major}.{v.minor}.{v.micro}")')
+WHEEL_PACKAGE_NAME=${STUB_PACKAGE_NAME//-/_}
+
+
 uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     gi.repository.Gst:1.0 \
     gi.repository.GstApp:1.0 \
@@ -52,7 +51,7 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     --preload gi.repository.Gio:2.0 \
     --preload gi.repository.GObject:2.0 \
     --preload gi.repository.GIRepository:3.0 \
-    --pkg-name gi-gst-stubs \
+    --pkg-name ${STUB_PACKAGE_NAME} \
     --pkg-version ${PKG_GST_STUBS_VERSION} \
     --pkg-dependencies gi-base-stubs \
     --pkg-author "${STUB_AUTHOR_NAME}" \
@@ -65,3 +64,18 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
 # todo test
 # GstWebRTC:1.0 \
 # GstRtspServer:1.0 \
+
+uv build --wheel --out-dir ./stubs/wheel ./stubs/${STUB_PACKAGE_NAME}
+
+# not needed right now to platform tag
+# # add platform tags
+# PYTAG=$(run_as_target_user uv run python -c "import sys; print(f'cp{sys.version_info.major}{sys.version_info.minor}')")
+# PLAT=$(run_as_target_user uv run python -c "import sysconfig; print(sysconfig.get_platform().replace('-','_').replace('.','_'))")
+
+# # set the abi tag and the platform tag
+# run_as_target_user uv run python -m wheel tags \
+#     --python-tag "${PYTAG}" \
+#     --abi-tag "${PYTAG}" \
+#     --platform-tag "${PLAT}" \
+#     --remove \
+#     ./stubs/wheel/${WHEEL_PACKAGE_NAME}-${PKG_GST_STUBS_VERSION}*.whl

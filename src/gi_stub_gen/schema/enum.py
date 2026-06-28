@@ -105,6 +105,10 @@ class EnumSchema(BaseSchema):
     """Return the super type name only"""
     super_namespace: str
     """Return the super type namespace only"""
+    extra_super_name: str | None = None
+    """Optional second base type name for static-analysis-friendly multiple inheritance."""
+    extra_super_namespace: str | None = None
+    """Optional second base namespace for static-analysis-friendly multiple inheritance."""
 
     def render(self) -> str:
         return TemplateManager.render_master("enum.jinja", enum=self)
@@ -118,10 +122,33 @@ class EnumSchema(BaseSchema):
             return f"{self.super_namespace}.{self.super_name}"
         return self.super_name
 
+    def extra_super_full_type_str(self, module_name: str) -> str | None:
+        """Return the optional second base type string, if present."""
+        if self.extra_super_name is None or self.extra_super_namespace is None:
+            return None
+        if self.extra_super_namespace != module_name:
+            return f"{self.extra_super_namespace}.{self.extra_super_name}"
+        return self.extra_super_name
+
+    def super_types_str(self, module_name: str) -> str:
+        """Return the comma-separated list of base classes for the rendered enum."""
+        base_types = [self.super_full_type_str(module_name)]
+        if extra_base := self.extra_super_full_type_str(module_name):
+            base_types.append(extra_base)
+        return ", ".join(base_types)
+
     @property
     def required_import(self) -> str:
         """Return the required imports for this enum/flags. (without gi.repository. prefix)"""
         return self.super_namespace
+
+    @property
+    def required_imports(self) -> set[str]:
+        """Return all required imports for this enum/flags. (without gi.repository. prefix)"""
+        imports = {self.super_namespace}
+        if self.extra_super_namespace:
+            imports.add(self.extra_super_namespace)
+        return imports
 
     @classmethod
     def from_gi_object(
@@ -138,8 +165,16 @@ class EnumSchema(BaseSchema):
 
         super_name: str
         super_namespace: str
+        extra_super_name: str | None = None
+        extra_super_namespace: str | None = None
+
         if enum_type == "enum":
-            if GObject.GEnum in obj.mro():
+            if GObject.GEnum in obj.mro() and enum.IntEnum in obj.mro():
+                super_name = "GEnum"
+                super_namespace = "GObject"
+                extra_super_name = "IntEnum"
+                extra_super_namespace = "enum"
+            elif GObject.GEnum in obj.mro():
                 super_name = "GEnum"
                 super_namespace = "GObject"
             elif enum.IntEnum in obj.mro():
@@ -148,7 +183,12 @@ class EnumSchema(BaseSchema):
             else:
                 raise AssertionError(f"Enum {gi_info.get_name()} does not inherit from GObject.GEnum or enum.IntEnum")
         else:
-            if GObject.GFlags in obj.mro():
+            if GObject.GFlags in obj.mro() and enum.IntFlag in obj.mro():
+                super_name = "GFlags"
+                super_namespace = "GObject"
+                extra_super_name = "IntFlag"
+                extra_super_namespace = "enum"
+            elif GObject.GFlags in obj.mro():
                 super_name = "GFlags"
                 super_namespace = "GObject"
             elif enum.IntFlag in obj.mro():
@@ -167,6 +207,8 @@ class EnumSchema(BaseSchema):
             py_mro=[f"{o.__module__}.{o.__name__}" for o in obj.mro()],
             super_name=super_name,
             super_namespace=super_namespace,
+            extra_super_name=extra_super_name,
+            extra_super_namespace=extra_super_namespace,
         )
 
     # @computed_field

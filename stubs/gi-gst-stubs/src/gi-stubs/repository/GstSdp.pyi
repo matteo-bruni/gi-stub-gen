@@ -669,7 +669,7 @@ class MIKEYMessage(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_from_data(
         cls,
-        data: list,
+        data: list[int],
         info: MIKEYDecryptInfo,
     ) -> MIKEYMessage:
         """

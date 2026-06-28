@@ -53,7 +53,7 @@ class ModuleSchema(BaseSchema):
         for c in self.classes:
             gi_imports.update(c.required_imports)
         for e in self.enum:
-            gi_imports.add(e.required_import)
+            gi_imports.update(e.required_imports)
         for f in self.function:
             gi_imports.update(f.required_imports)
         for c in self.callbacks:

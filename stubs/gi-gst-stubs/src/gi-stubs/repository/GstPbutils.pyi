@@ -15,6 +15,7 @@ import typing_extensions  # noqa: F401
 
 import _thread
 import builtins
+import enum
 import typing
 
 # gi.repository imports needed by this Stub
@@ -839,7 +840,7 @@ def init() -> typing.Any: ...
 # Enums/Flags
 ###############################################################
 
-class AudioVisualizerShader(GObject.GEnum):
+class AudioVisualizerShader(GObject.GEnum, enum.IntEnum):
     """
     Different types of supported background shading functions."""
 
@@ -884,7 +885,7 @@ class AudioVisualizerShader(GObject.GEnum):
     fade and move vertically in
     """
 
-class DiscovererResult(GObject.GEnum):
+class DiscovererResult(GObject.GEnum, enum.IntEnum):
     """
     Result values for the discovery process."""
 
@@ -913,7 +914,7 @@ class DiscovererResult(GObject.GEnum):
     Some plugins are missing for full discovery
     """
 
-class DiscovererSerializeFlags(GObject.GFlags):
+class DiscovererSerializeFlags(GObject.GFlags, enum.IntFlag):
     """
     You can use these flags to control what is serialized by
     `gst_discoverer_info_to_variant`"""
@@ -941,7 +942,7 @@ class DiscovererSerializeFlags(GObject.GFlags):
     caps, tags and miscellaneous information
     """
 
-class InstallPluginsReturn(GObject.GEnum):
+class InstallPluginsReturn(GObject.GEnum, enum.IntEnum):
     """
     Result codes returned by `gst_install_plugins_async` and
     `gst_install_plugins_sync`, and also the result code passed to the
@@ -1008,7 +1009,7 @@ class InstallPluginsReturn(GObject.GEnum):
         installation is still in progress, try again later
     """
 
-class PbUtilsCapsDescriptionFlags(GObject.GFlags):
+class PbUtilsCapsDescriptionFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags that are returned by `gst_pb_utils_get_caps_description_flags` and
     describe the format of the caps."""
@@ -2061,7 +2062,7 @@ class EncodingTarget(GObject.Object):
         name: str,
         category: str,
         description: str,
-        profiles: list,
+        profiles: list[GstPbutils.EncodingProfile],
     ) -> EncodingTarget | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]

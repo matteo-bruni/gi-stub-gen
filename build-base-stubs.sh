@@ -64,14 +64,15 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
 # create the wheel package
 uv build --wheel --out-dir ./stubs/wheel ./stubs/${STUB_PACKAGE_NAME}
 
-# add platform tags
-PYTAG=$(uv run python -c "import sys; print(f'cp{sys.version_info.major}{sys.version_info.minor}')")
-PLAT=$(uv run python -c "import sysconfig; print(sysconfig.get_platform().replace('-','_').replace('.','_'))")
+# not needed right now to platform tag
+# # add platform tags
+# PYTAG=$(uv run python -c "import sys; print(f'cp{sys.version_info.major}{sys.version_info.minor}')")
+# PLAT=$(uv run python -c "import sysconfig; print(sysconfig.get_platform().replace('-','_').replace('.','_'))")
 
-# set the abi tag and the platform tag
-uv run python -m wheel tags \
-    --python-tag "${PYTAG}" \
-    --abi-tag "${PYTAG}" \
-    --platform-tag "${PLAT}" \
-    --remove \
-    ./stubs/wheel/${WHEEL_PACKAGE_NAME}-${PKG_GI_BASE_STUBS_VERSION}*.whl
+# # set the abi tag and the platform tag
+# uv run python -m wheel tags \
+#     --python-tag "${PYTAG}" \
+#     --abi-tag "${PYTAG}" \
+#     --platform-tag "${PLAT}" \
+#     --remove \
+#     ./stubs/wheel/${WHEEL_PACKAGE_NAME}-${PKG_GI_BASE_STUBS_VERSION}*.whl

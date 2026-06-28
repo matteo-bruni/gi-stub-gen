@@ -17,6 +17,7 @@ import _gi_gst  # type: ignore
 import _thread
 import builtins
 import collections.abc
+import enum
 import typing
 
 # gi.repository imports needed by this Stub
@@ -2302,18 +2303,18 @@ def TIME_ARGS(
 ) -> str: ...
 def deinit() -> None: ...
 def init(
-    argv: typing.Optional[list[str]] | None = None,
+    argv: list[str] | None = None,
 ) -> None: ...
 def init_check(
-    argv: typing.Optional[list[str]] | None = None,
-) -> typing.Tuple[bool, typing.Optional[list[str]]]: ...
+    argv: list[str] | None = None,
+) -> tuple[bool, typing.Union[list[str], NoneType]]: ...
 def init_python() -> typing.Any: ...
 
 ###############################################################
 # Enums/Flags
 ###############################################################
 
-class AllocatorFlags(GObject.GFlags):
+class AllocatorFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags for allocators."""
 
@@ -2336,7 +2337,7 @@ class AllocatorFlags(GObject.GFlags):
     first flag that can be used for custom purposes
     """
 
-class BinFlags(GObject.GFlags):
+class BinFlags(GObject.GFlags, enum.IntFlag):
     """
     GstBinFlags are a set of flags specific to bins. Most are set/used
     internally. They can be checked using the `GST_OBJECT_FLAG_IS_SET` macro,
@@ -2357,7 +2358,7 @@ class BinFlags(GObject.GFlags):
     as first value in a list of flags.
     """
 
-class BufferCopyFlags(GObject.GFlags):
+class BufferCopyFlags(GObject.GFlags, enum.IntFlag):
     """
     A set of flags that can be provided to the `Gst.Buffer.copy_into`
     function to specify which items should be copied."""
@@ -2397,7 +2398,7 @@ class BufferCopyFlags(GObject.GFlags):
     flag indicating that memory should always be copied instead of reffed
     """
 
-class BufferFlags(GObject.GFlags):
+class BufferFlags(GObject.GFlags, enum.IntFlag):
     """
     A set of buffer flags used to describe properties of a Gst.Buffer."""
 
@@ -2482,7 +2483,7 @@ class BufferFlags(GObject.GFlags):
                                     this flag.
     """
 
-class BufferPoolAcquireFlags(GObject.GFlags):
+class BufferPoolAcquireFlags(GObject.GFlags, enum.IntFlag):
     """
     Additional flags to control the allocation of a buffer"""
 
@@ -2510,7 +2511,7 @@ class BufferPoolAcquireFlags(GObject.GFlags):
        starting from this value.
     """
 
-class BufferingMode(GObject.GEnum):
+class BufferingMode(GObject.GEnum, enum.IntEnum):
     """
     The different types of buffering methods."""
 
@@ -2531,7 +2532,7 @@ class BufferingMode(GObject.GEnum):
     the stream is a live stream
     """
 
-class BusFlags(GObject.GFlags):
+class BusFlags(GObject.GFlags, enum.IntFlag):
     """
     The standard flags that a bus may have."""
 
@@ -2544,7 +2545,7 @@ class BusFlags(GObject.GFlags):
     offset to define more flags
     """
 
-class BusSyncReply(GObject.GEnum):
+class BusSyncReply(GObject.GEnum, enum.IntEnum):
     """
     The result values for a GstBusSyncHandler."""
 
@@ -2555,7 +2556,7 @@ class BusSyncReply(GObject.GEnum):
     PASS = 1
     ASYNC = 2
 
-class CapsFlags(GObject.GFlags):
+class CapsFlags(GObject.GFlags, enum.IntFlag):
     """
     Extra flags for a caps."""
 
@@ -2565,7 +2566,7 @@ class CapsFlags(GObject.GFlags):
        anything.
     """
 
-class CapsIntersectMode(GObject.GEnum):
+class CapsIntersectMode(GObject.GEnum, enum.IntEnum):
     """
     Modes of caps intersection
 
@@ -2598,7 +2599,7 @@ class CapsIntersectMode(GObject.GEnum):
     Keeps the first caps order.
     """
 
-class ClockEntryType(GObject.GEnum):
+class ClockEntryType(GObject.GEnum, enum.IntEnum):
     """
     The type of the clock entry"""
 
@@ -2611,7 +2612,7 @@ class ClockEntryType(GObject.GEnum):
     a periodic timeout request
     """
 
-class ClockFlags(GObject.GFlags):
+class ClockFlags(GObject.GFlags, enum.IntFlag):
     """
     The capabilities of this clock"""
 
@@ -2648,7 +2649,7 @@ class ClockFlags(GObject.GFlags):
     subclasses can add additional flags starting from this flag
     """
 
-class ClockReturn(GObject.GEnum):
+class ClockReturn(GObject.GEnum, enum.IntEnum):
     """
     The return value of a clock operation."""
 
@@ -2685,7 +2686,7 @@ class ClockReturn(GObject.GEnum):
     The ClockID is done waiting
     """
 
-class ClockType(GObject.GEnum):
+class ClockType(GObject.GEnum, enum.IntEnum):
     """
     The different kind of clocks."""
 
@@ -2708,7 +2709,7 @@ class ClockType(GObject.GEnum):
                          as reference (Since: 1.18)
     """
 
-class CoreError(GObject.GEnum):
+class CoreError(GObject.GEnum, enum.IntEnum):
     """
     Core errors are errors inside the core GStreamer library."""
 
@@ -2777,7 +2778,7 @@ class CoreError(GObject.GEnum):
     the number of core error types.
     """
 
-class DebugColorFlags(GObject.GFlags):
+class DebugColorFlags(GObject.GFlags, enum.IntFlag):
     """
     These are some terminal style flags you can use when creating your
     debugging categories to make them stand out in debugging output."""
@@ -2855,7 +2856,7 @@ class DebugColorFlags(GObject.GFlags):
     Underline the output.
     """
 
-class DebugColorMode(GObject.GEnum):
+class DebugColorMode(GObject.GEnum, enum.IntEnum):
     OFF = 0
     """
     Do not use colors in logs.
@@ -2870,7 +2871,7 @@ class DebugColorMode(GObject.GEnum):
                                 no matter what platform GStreamer is running on.
     """
 
-class DebugGraphDetails(GObject.GFlags):
+class DebugGraphDetails(GObject.GFlags, enum.IntFlag):
     """
     Available details for pipeline graphs produced by `GST_DEBUG_BIN_TO_DOT_FILE`
     and `GST_DEBUG_BIN_TO_DOT_FILE_WITH_TS`."""
@@ -2907,7 +2908,7 @@ class DebugGraphDetails(GObject.GFlags):
                                    verbose they make the resulting output
     """
 
-class DebugLevel(GObject.GEnum):
+class DebugLevel(GObject.GEnum, enum.IntEnum):
     """
     The level defines the importance of a debugging message. The more important a
     message is, the greater the probability that the debugging system outputs it."""
@@ -2980,7 +2981,7 @@ class DebugLevel(GObject.GEnum):
     The number of defined debugging levels.
     """
 
-class ElementFlags(GObject.GFlags):
+class ElementFlags(GObject.GFlags, enum.IntFlag):
     """
     The standard flags that an element may have."""
 
@@ -3013,7 +3014,7 @@ class ElementFlags(GObject.GFlags):
     offset to define more flags
     """
 
-class EventType(GObject.GEnum):
+class EventType(GObject.GEnum, enum.IntEnum):
     """
     Gst.EventType lists the standard event types that can be sent in a pipeline.
 
@@ -3180,7 +3181,7 @@ class EventType(GObject.GEnum):
     Custom upstream or downstream out-of-band event.
     """
 
-class EventTypeFlags(GObject.GFlags):
+class EventTypeFlags(GObject.GFlags, enum.IntFlag):
     """
     Gst.EventTypeFlags indicate the aspects of the different Gst.EventType
     values. You can get the type flags of a Gst.EventType with the
@@ -3209,7 +3210,7 @@ class EventTypeFlags(GObject.GFlags):
                                   identified by the event name.
     """
 
-class FlowReturn(GObject.GEnum):
+class FlowReturn(GObject.GEnum, enum.IntEnum):
     """
     The result of passing data to a pad.
 
@@ -3278,7 +3279,7 @@ class FlowReturn(GObject.GEnum):
     Pre-defined custom error code.
     """
 
-class Format(GObject.GEnum):
+class Format(GObject.GEnum, enum.IntEnum):
     """
     Standard predefined formats"""
 
@@ -3312,7 +3313,7 @@ class Format(GObject.GEnum):
         this as of May 2009)
     """
 
-class GapFlags(GObject.GFlags):
+class GapFlags(GObject.GFlags, enum.IntFlag):
     """
     The different flags that can be set on GST_EVENT_GAP events. See
     `Gst.Event.set_gap_flags` for details."""
@@ -3323,7 +3324,7 @@ class GapFlags(GObject.GFlags):
        for example because of packet loss.
     """
 
-class IteratorItem(GObject.GEnum):
+class IteratorItem(GObject.GEnum, enum.IntEnum):
     """
     The result of a Gst.IteratorItemFunction."""
 
@@ -3337,7 +3338,7 @@ class IteratorItem(GObject.GEnum):
     Stop after this item.
     """
 
-class IteratorResult(GObject.GEnum):
+class IteratorResult(GObject.GEnum, enum.IntEnum):
     """
     The result of `Gst.Iterator.next`."""
 
@@ -3358,7 +3359,7 @@ class IteratorResult(GObject.GEnum):
     An error happened
     """
 
-class LibraryError(GObject.GEnum):
+class LibraryError(GObject.GEnum, enum.IntEnum):
     """
     Library errors are for errors from the library being used by elements
     (initializing, finalizing, settings, ...)"""
@@ -3394,7 +3395,7 @@ class LibraryError(GObject.GEnum):
     the number of library error types.
     """
 
-class LockFlags(GObject.GFlags):
+class LockFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags used when locking miniobjects"""
 
@@ -3415,7 +3416,7 @@ class LockFlags(GObject.GFlags):
     first flag that can be used for custom purposes
     """
 
-class LogContextFlags(GObject.GFlags):
+class LogContextFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags to control the behavior of a Gst.LogContext."""
 
@@ -3432,7 +3433,7 @@ class LogContextFlags(GObject.GFlags):
      of whether they've been logged before.
     """
 
-class LogContextHashFlags(GObject.GFlags):
+class LogContextHashFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags to control how the message hash is calculated in a Gst.LogContext.
     The message hash is used to determine if a message is a duplicate of a previously
@@ -3465,7 +3466,7 @@ class LogContextHashFlags(GObject.GFlags):
     Use the arguments part of the string message (not used by default)
     """
 
-class MapFlags(GObject.GFlags):
+class MapFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags used when mapping memory"""
 
@@ -3488,7 +3489,7 @@ class MapFlags(GObject.GFlags):
     first flag that can be used for custom purposes
     """
 
-class MemoryFlags(GObject.GFlags):
+class MemoryFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags for wrapped memory."""
 
@@ -3528,7 +3529,7 @@ class MemoryFlags(GObject.GFlags):
     first flag that can be used for custom purposes
     """
 
-class MessageType(GObject.GFlags):
+class MessageType(GObject.GFlags, enum.IntFlag):
     """
     The different message types that are available."""
 
@@ -3760,7 +3761,7 @@ class MessageType(GObject.GFlags):
     mask for all of the above messages.
     """
 
-class MetaFlags(GObject.GFlags):
+class MetaFlags(GObject.GFlags, enum.IntFlag):
     """
     Extra metadata flags."""
 
@@ -3785,7 +3786,7 @@ class MetaFlags(GObject.GFlags):
     additional flags can be added starting from this flag.
     """
 
-class MiniObjectFlags(GObject.GFlags):
+class MiniObjectFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags for the mini object"""
 
@@ -3810,7 +3811,7 @@ class MiniObjectFlags(GObject.GFlags):
     first flag that can be used by subclasses.
     """
 
-class ObjectFlags(GObject.GFlags):
+class ObjectFlags(GObject.GFlags, enum.IntFlag):
     """
     The standard flags that an gstobject may have."""
 
@@ -3834,7 +3835,7 @@ class ObjectFlags(GObject.GFlags):
     subclasses can add additional flags starting from this flag
     """
 
-class PadDirection(GObject.GEnum):
+class PadDirection(GObject.GEnum, enum.IntEnum):
     """
     The direction of a pad."""
 
@@ -3851,7 +3852,7 @@ class PadDirection(GObject.GEnum):
     the pad is a sink pad.
     """
 
-class PadFlags(GObject.GFlags):
+class PadFlags(GObject.GFlags, enum.IntFlag):
     """
     Pad state flags"""
 
@@ -3929,7 +3930,7 @@ class PadFlags(GObject.GFlags):
     offset to define more flags
     """
 
-class PadLinkCheck(GObject.GFlags):
+class PadLinkCheck(GObject.GFlags, enum.IntFlag):
     """
     The amount of checking to be done when linking pads. `GST_PAD_LINK_CHECK_CAPS`
     and `GST_PAD_LINK_CHECK_TEMPLATE_CAPS` are mutually exclusive. If both are
@@ -3972,7 +3973,7 @@ class PadLinkCheck(GObject.GFlags):
       pads (i.e. the ones used by `Gst.Pad.link`).
     """
 
-class PadLinkReturn(GObject.GEnum):
+class PadLinkReturn(GObject.GEnum, enum.IntEnum):
     """
     Result values from gst_pad_link and friends."""
 
@@ -4005,7 +4006,7 @@ class PadLinkReturn(GObject.GEnum):
     refused for some reason
     """
 
-class PadMode(GObject.GEnum):
+class PadMode(GObject.GEnum, enum.IntEnum):
     """
     The status of a GstPad. After activating a pad, which usually happens when the
     parent element goes from READY to PAUSED, the GstPadMode defines if the
@@ -4024,7 +4025,7 @@ class PadMode(GObject.GEnum):
     Pad handles dataflow in upstream pull mode
     """
 
-class PadPresence(GObject.GEnum):
+class PadPresence(GObject.GEnum, enum.IntEnum):
     """
     Indicates when this pad will become available."""
 
@@ -4042,7 +4043,7 @@ class PadPresence(GObject.GEnum):
      `Gst.Element.request_pad`.
     """
 
-class PadProbeReturn(GObject.GEnum):
+class PadProbeReturn(GObject.GEnum, enum.IntEnum):
     """
     Different return values for the Gst.PadProbeCallback."""
 
@@ -4081,7 +4082,7 @@ class PadProbeReturn(GObject.GEnum):
            Since: 1.6
     """
 
-class PadProbeType(GObject.GFlags):
+class PadProbeType(GObject.GFlags, enum.IntFlag):
     """
     The different probing types that can occur. When either one of
     `GST_PAD_PROBE_TYPE_IDLE` or `GST_PAD_PROBE_TYPE_BLOCK` is used, the probe will be a
@@ -4179,7 +4180,7 @@ class PadProbeType(GObject.GFlags):
     probe push and pull
     """
 
-class PadTemplateFlags(GObject.GFlags):
+class PadTemplateFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags for the padtemplate"""
 
@@ -4188,7 +4189,7 @@ class PadTemplateFlags(GObject.GFlags):
     first flag that can be used by subclasses.
     """
 
-class ParseError(GObject.GEnum):
+class ParseError(GObject.GEnum, enum.IntEnum):
     """
     The different parsing errors that can occur."""
 
@@ -4225,7 +4226,7 @@ class ParseError(GObject.GEnum):
     A delayed link did not get resolved.
     """
 
-class ParseFlags(GObject.GFlags):
+class ParseFlags(GObject.GFlags, enum.IntFlag):
     """
     Parsing options."""
 
@@ -4251,7 +4252,7 @@ class ParseFlags(GObject.GFlags):
         Gst.Pipeline. (Since: 1.10)
     """
 
-class PipelineFlags(GObject.GFlags):
+class PipelineFlags(GObject.GFlags, enum.IntFlag):
     """
     Pipeline flags"""
 
@@ -4264,7 +4265,7 @@ class PipelineFlags(GObject.GFlags):
     offset to define more flags
     """
 
-class PluginAPIFlags(GObject.GFlags):
+class PluginAPIFlags(GObject.GFlags, enum.IntFlag):
     MEMBERS = 1
     """
     Ignore enum members when generating
@@ -4272,7 +4273,7 @@ class PluginAPIFlags(GObject.GFlags):
       dynamically, in order not to expose incorrect documentation to the end user.
     """
 
-class PluginDependencyFlags(GObject.GFlags):
+class PluginDependencyFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags used in connection with `Gst.Plugin.add_dependency`."""
 
@@ -4308,7 +4309,7 @@ class PluginDependencyFlags(GObject.GFlags):
       1.14.
     """
 
-class PluginError(GObject.GEnum):
+class PluginError(GObject.GEnum, enum.IntEnum):
     """
     The plugin loading errors"""
 
@@ -4325,7 +4326,7 @@ class PluginError(GObject.GEnum):
     The plugin has already be loaded from a different file
     """
 
-class PluginFlags(GObject.GFlags):
+class PluginFlags(GObject.GFlags, enum.IntFlag):
     """
     The plugin loading state"""
 
@@ -4338,7 +4339,7 @@ class PluginFlags(GObject.GFlags):
     The plugin won't be scanned (again)
     """
 
-class ProgressType(GObject.GEnum):
+class ProgressType(GObject.GEnum, enum.IntEnum):
     """
     The type of a Gst.MESSAGE_PROGRESS. The progress messages inform the
     application of the status of asynchronous tasks."""
@@ -4362,7 +4363,7 @@ class ProgressType(GObject.GEnum):
              posted on the bus.
     """
 
-class PromiseResult(GObject.GEnum):
+class PromiseResult(GObject.GEnum, enum.IntEnum):
     """
     The result of a Gst.Promise"""
 
@@ -4386,7 +4387,7 @@ class PromiseResult(GObject.GEnum):
     	lost all refs) and the promise will never be fulfilled.
     """
 
-class QOSType(GObject.GEnum):
+class QOSType(GObject.GEnum, enum.IntEnum):
     """
     The different types of QoS events that can be given to the
     `Gst.Event.new_qos` method."""
@@ -4410,7 +4411,7 @@ class QOSType(GObject.GEnum):
        application enabled throttling to limit the data rate.
     """
 
-class QueryType(GObject.GEnum):
+class QueryType(GObject.GEnum, enum.IntEnum):
     """
     Standard predefined Query types"""
 
@@ -4500,7 +4501,7 @@ class QueryType(GObject.GEnum):
     Query stream selection capability.
     """
 
-class QueryTypeFlags(GObject.GFlags):
+class QueryTypeFlags(GObject.GFlags, enum.IntFlag):
     """
     Gst.QueryTypeFlags indicate the aspects of the different Gst.QueryType
     values. You can get the type flags of a Gst.QueryType with the
@@ -4520,7 +4521,7 @@ class QueryTypeFlags(GObject.GFlags):
                                   flow.
     """
 
-class Rank(GObject.GEnum):
+class Rank(GObject.GEnum, enum.IntEnum):
     """
     Element priority ranks. Defines the order in which the autoplugger (or
     similar rank-picking mechanisms, such as e.g. `Gst.Element.make_from_uri`)
@@ -4547,7 +4548,7 @@ class Rank(GObject.GEnum):
     will be chosen first
     """
 
-class ResourceError(GObject.GEnum):
+class ResourceError(GObject.GEnum, enum.IntEnum):
     """
     Resource errors are for any resource used by an element:
     memory, files, network connections, process space, ...
@@ -4623,7 +4624,7 @@ class ResourceError(GObject.GEnum):
     the number of resource error types.
     """
 
-class SchedulingFlags(GObject.GFlags):
+class SchedulingFlags(GObject.GFlags, enum.IntFlag):
     """
     The different scheduling flags."""
 
@@ -4640,7 +4641,7 @@ class SchedulingFlags(GObject.GFlags):
     if bandwidth is limited and buffering possible (since 1.2)
     """
 
-class SearchMode(GObject.GEnum):
+class SearchMode(GObject.GEnum, enum.IntEnum):
     """
     The different search modes."""
 
@@ -4657,7 +4658,7 @@ class SearchMode(GObject.GEnum):
     Search for an exact match or the element just after.
     """
 
-class SeekFlags(GObject.GFlags):
+class SeekFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags to be used with `Gst.Element.seek` or `Gst.Event.new_seek`. All flags
     can be used together.
@@ -4792,7 +4793,7 @@ class SeekFlags(GObject.GFlags):
                         and the seek is not flushing. (Since: 1.18)
     """
 
-class SeekType(GObject.GEnum):
+class SeekType(GObject.GEnum, enum.IntEnum):
     """
     The different types of seek events. When constructing a seek event with
     `Gst.Event.new_seek` or when doing gst_segment_do_seek ()."""
@@ -4810,7 +4811,7 @@ class SeekType(GObject.GEnum):
     relative position to duration is requested
     """
 
-class SegmentFlags(GObject.GFlags):
+class SegmentFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags for the GstSegment structure. Currently mapped to the corresponding
     values of the seek flags."""
@@ -4853,7 +4854,7 @@ class SegmentFlags(GObject.GFlags):
                                            possible (Since: 1.6)
     """
 
-class SerializeFlags(GObject.GFlags):
+class SerializeFlags(GObject.GFlags, enum.IntFlag):
     NONE = 0
     """
     No special flags specified.
@@ -4869,7 +4870,7 @@ class SerializeFlags(GObject.GFlags):
     placeholder "None" value (e.g. pointers, objects).
     """
 
-class StackTraceFlags(GObject.GFlags):
+class StackTraceFlags(GObject.GFlags, enum.IntFlag):
     NONE = 0
     """
     Try to retrieve the minimum information
@@ -4883,7 +4884,7 @@ class StackTraceFlags(GObject.GFlags):
                                 stack trace
     """
 
-class State(GObject.GEnum):
+class State(GObject.GEnum, enum.IntEnum):
     """
     The possible states an element can be in. States can be changed using
     `Gst.Element.set_state` and checked using `Gst.Element.get_state`."""
@@ -4912,7 +4913,7 @@ class State(GObject.GEnum):
                              the data is flowing.
     """
 
-class StateChange(GObject.GEnum):
+class StateChange(GObject.GEnum, enum.IntEnum):
     """
     These are the different state changes an element goes through.
     Gst.STATE_NULL &rArr; Gst.STATE_PLAYING is called an upwards state change
@@ -5011,7 +5012,7 @@ class StateChange(GObject.GEnum):
     state change from PLAYING to PLAYING. (Since: 1.14)
     """
 
-class StateChangeReturn(GObject.GEnum):
+class StateChangeReturn(GObject.GEnum, enum.IntEnum):
     """
     The possible return values from a state change function such as
     `Gst.Element.set_state`. Only `GST_STATE_CHANGE_FAILURE` is a real failure."""
@@ -5032,7 +5033,7 @@ class StateChangeReturn(GObject.GEnum):
                                   This typically happens with live sources.
     """
 
-class StreamError(GObject.GEnum):
+class StreamError(GObject.GEnum, enum.IntEnum):
     """
     Stream errors are for anything related to the stream being processed:
     format errors, media type errors, ...
@@ -5104,7 +5105,7 @@ class StreamError(GObject.GEnum):
     the number of stream error types.
     """
 
-class StreamFlags(GObject.GFlags):
+class StreamFlags(GObject.GFlags, enum.IntFlag):
     NONE = 0
     """
     This stream has no special attributes
@@ -5130,7 +5131,7 @@ class StreamFlags(GObject.GFlags):
        a director's commentary track).
     """
 
-class StreamStatusType(GObject.GEnum):
+class StreamStatusType(GObject.GEnum, enum.IntEnum):
     """
     The type of a Gst.MESSAGE_STREAM_STATUS. The stream status messages inform the
     application of new streaming threads and their status."""
@@ -5164,7 +5165,7 @@ class StreamStatusType(GObject.GEnum):
     a thread is stopped
     """
 
-class StreamType(GObject.GFlags):
+class StreamType(GObject.GFlags, enum.IntFlag):
     """
     Gst.StreamType describes a high level classification set for
     flows of data in Gst.Stream objects.
@@ -5198,7 +5199,7 @@ class StreamType(GObject.GFlags):
     The stream contains metadata.
     """
 
-class StructureChangeType(GObject.GEnum):
+class StructureChangeType(GObject.GEnum, enum.IntEnum):
     """
     The type of a Gst.MESSAGE_STRUCTURE_CHANGE."""
 
@@ -5211,7 +5212,7 @@ class StructureChangeType(GObject.GEnum):
     Pad unlinking is starting or done.
     """
 
-class TagFlag(GObject.GEnum):
+class TagFlag(GObject.GEnum, enum.IntEnum):
     """
     Extra tag flags used when registering tags."""
 
@@ -5236,7 +5237,7 @@ class TagFlag(GObject.GEnum):
     number of tag flags
     """
 
-class TagMergeMode(GObject.GEnum):
+class TagMergeMode(GObject.GEnum, enum.IntEnum):
     """
     The different tag merging modes are basically replace, overwrite and append,
     but they can be seen from two directions. Given two taglists: (A) the tags
@@ -5288,7 +5289,7 @@ class TagMergeMode(GObject.GEnum):
     the number of merge modes
     """
 
-class TagScope(GObject.GEnum):
+class TagScope(GObject.GEnum, enum.IntEnum):
     """
     GstTagScope specifies if a taglist applies to the complete
     medium or only to one single stream."""
@@ -5299,7 +5300,7 @@ class TagScope(GObject.GEnum):
     """
     GLOBAL = 1
 
-class TaskState(GObject.GEnum):
+class TaskState(GObject.GEnum, enum.IntEnum):
     """
     The different states a task can be in"""
 
@@ -5316,7 +5317,7 @@ class TaskState(GObject.GEnum):
     the task is paused
     """
 
-class TocEntryType(GObject.GEnum):
+class TocEntryType(GObject.GEnum, enum.IntEnum):
     """
     The different types of TOC entries (see Gst.TocEntry).
 
@@ -5351,7 +5352,7 @@ class TocEntryType(GObject.GEnum):
     entry is a chapter (i.e. a part of a sequence)
     """
 
-class TocLoopType(GObject.GEnum):
+class TocLoopType(GObject.GEnum, enum.IntEnum):
     """
     How a Gst.TocEntry should be repeated. By default, entries are played a
     single time."""
@@ -5373,7 +5374,7 @@ class TocLoopType(GObject.GEnum):
     repeat forward and backward
     """
 
-class TocScope(GObject.GEnum):
+class TocScope(GObject.GEnum, enum.IntEnum):
     """
     The scope of a TOC."""
 
@@ -5388,7 +5389,7 @@ class TocScope(GObject.GEnum):
         current title)
     """
 
-class TracerValueFlags(GObject.GFlags):
+class TracerValueFlags(GObject.GFlags, enum.IntFlag):
     """
     Flag that describe the value. These flags help applications processing the
     logs to understand the values."""
@@ -5409,7 +5410,7 @@ class TracerValueFlags(GObject.GFlags):
       start of tracing. Examples are averages or timestamps.
     """
 
-class TracerValueScope(GObject.GEnum):
+class TracerValueScope(GObject.GEnum, enum.IntEnum):
     """
     Tracing record will contain fields that contain a measured value or extra
     meta-data. One such meta data are values that tell where a measurement was
@@ -5434,7 +5435,7 @@ class TracerValueScope(GObject.GEnum):
     the value is related to a Gst.Pad
     """
 
-class TypeFindProbability(GObject.GEnum):
+class TypeFindProbability(GObject.GEnum, enum.IntEnum):
     """
     The probability of the typefind function. Higher values have more certainty
     in doing a reliable typefind."""
@@ -5464,7 +5465,7 @@ class TypeFindProbability(GObject.GEnum):
     very certain a type was detected.
     """
 
-class URIError(GObject.GEnum):
+class URIError(GObject.GEnum, enum.IntEnum):
     """
     Different URI-related errors that can occur."""
 
@@ -5487,7 +5488,7 @@ class URIError(GObject.GEnum):
         the URI references
     """
 
-class URIType(GObject.GEnum):
+class URIType(GObject.GEnum, enum.IntEnum):
     """
     The different types of URI direction."""
 
@@ -6057,7 +6058,7 @@ class Bin(Element):
     # python methods (overrides?)
     def __init__(
         self,
-        name: typing.Optional[str] | None = None,
+        name: str | None = None,
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
@@ -6180,7 +6181,7 @@ class Bin(Element):
     def make_and_add(
         self,
         factoryname: str,
-        name: typing.Optional[str] | None = None,
+        name: str | None = None,
     ) -> Element:
         """
         :raises Gst.AddError:
@@ -7240,14 +7241,14 @@ class BufferPool(Object):
     def do_acquire_buffer(
         self,
         params: BufferPoolAcquireParams | None = None,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, typing.Union[Gst.Buffer, NoneType]]:
         """
         acquire_buffer(self, params:Gst.BufferPoolAcquireParams=None) -> Gst.FlowReturn, buffer:Gst.Buffer
         """
     def do_alloc_buffer(
         self,
         params: BufferPoolAcquireParams | None = None,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, typing.Union[Gst.Buffer, NoneType]]:
         """
         alloc_buffer(self, params:Gst.BufferPoolAcquireParams=None) -> Gst.FlowReturn, buffer:Gst.Buffer
         """
@@ -7272,7 +7273,7 @@ class BufferPool(Object):
         """
     def do_get_options(
         self,
-    ) -> list:
+    ) -> list[str]:
         """
         get_options(self) -> list
         """
@@ -8962,7 +8963,7 @@ class Clock(Object):
     def do_wait(
         self,
         entry: ClockEntry,
-    ) -> tuple:
+    ) -> tuple[Gst.ClockReturn, int]:
         """
         wait(self, entry:Gst.ClockEntry) -> Gst.ClockReturn, jitter:int
         """
@@ -9308,7 +9309,7 @@ class ControlBinding(Object):
         self,
         timestamp: int,
         interval: int,
-        values: list,
+        values: list[GObject.Value],
     ) -> bool:
         """
         get_g_value_array(self, timestamp:int, interval:int, values:list) -> bool
@@ -11608,7 +11609,7 @@ class Element(Object):
     def do_get_state(
         self,
         timeout: int,
-    ) -> tuple:
+    ) -> tuple[Gst.StateChangeReturn, Gst.State, Gst.State]:
         """
         get_state(self, timeout:int) -> Gst.StateChangeReturn, state:Gst.State, pending:Gst.State
         """
@@ -11714,7 +11715,7 @@ class Element(Object):
         """
     def iterate_pads(
         self,
-    ) -> Iterator[Gst.Pad]:
+    ) -> Iterator[Pad]:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -11722,7 +11723,7 @@ class Element(Object):
         """
     def iterate_sink_pads(
         self,
-    ) -> typing.Iterator[Pad]:
+    ) -> Iterator[Pad]:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -11730,7 +11731,7 @@ class Element(Object):
         """
     def iterate_src_pads(
         self,
-    ) -> Iterator[Gst.Pad]:
+    ) -> Iterator[Pad]:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -12160,17 +12161,17 @@ class ElementFactory(PluginFeature):
     # python methods (overrides?)
     def get_description(
         self,
-    ) -> typing.Optional[str]: ...
+    ) -> str | None: ...
     def get_klass(
         self,
-    ) -> typing.Optional[str]: ...
+    ) -> str | None: ...
     def get_longname(
         self,
-    ) -> typing.Optional[str]: ...
+    ) -> str | None: ...
     @staticmethod
     def make(
         factoryname: str,
-        name: typing.Optional[str] | None = None,
+        name: str | None = None,
     ) -> Element:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -12919,7 +12920,7 @@ class Event(GObject.GBoxed, metaclass=GObject.GType):
     # python methods (overrides?)
     def get_structure(
         self,
-    ) -> typing.Optional[Structure]:
+    ) -> Structure | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -13128,7 +13129,7 @@ class GhostPad(ProxyPad):
         """
     def query_caps(
         self,
-        filter: typing.Optional[Caps] | None = None,
+        filter: Caps | None = None,
     ) -> Caps:
         """
         query_caps(self, filter:Gst.Caps=None) -> Gst.Caps
@@ -13828,11 +13829,11 @@ class Memory(GObject.GBoxed, metaclass=GObject.GType):
     def new_wrapped(
         cls,
         flags: MemoryFlags,
-        data: list,
+        data: list[int],
         maxsize: int,
         offset: int,
         user_data: typing.Any = None,
-        notify: collections.abc.Callable | None = None,
+        notify: collections.abc.Callable[[typing.Any], None] | None = None,
     ) -> Memory | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -17428,7 +17429,7 @@ class Pipeline(Bin):
     # python methods (overrides?)
     def __init__(
         self,
-        name: typing.Optional[str] | None = None,
+        name: str | None = None,
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
@@ -18438,7 +18439,7 @@ class Promise(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_with_change_func(
         cls,
-        func: collections.abc.Callable,
+        func: collections.abc.Callable[[Gst.Promise, typing.Any], None],
         user_data: typing.Any = None,
     ) -> Promise:
         """
@@ -19173,7 +19174,7 @@ class Query(GObject.GBoxed, metaclass=GObject.GType):
     # python methods (overrides?)
     def get_structure(
         self,
-    ) -> typing.Optional[Structure]:
+    ) -> Structure | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -21047,7 +21048,7 @@ class Structure(GObject.GBoxed, metaclass=GObject.GType):
     def from_string(
         cls,
         string: str,
-    ) -> tuple:
+    ) -> tuple[typing.Union[Gst.Structure, NoneType], str]:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -21055,10 +21056,10 @@ class Structure(GObject.GBoxed, metaclass=GObject.GType):
         """
     def items(
         self,
-    ) -> typing.Iterator[typing.Tuple[str, typing.Any]]: ...
+    ) -> collections.abc.Iterator[tuple[str, typing.Any]]: ...
     def keys(
         self,
-    ) -> typing.Iterator[str]: ...
+    ) -> collections.abc.Iterator[str]: ...
     @classmethod
     def new_empty(
         cls,
@@ -21584,10 +21585,12 @@ class TagList(GObject.GBoxed, metaclass=GObject.GType):
         """
     def enumerate(
         self,
-    ) -> map[tuple[str, typing.Any]]: ...
+        *args: typing.Any,
+        **kwargs: typing.Any,
+    ) -> typing.Any: ...
     def keys(
         self,
-    ) -> typing.Iterable[str]: ...
+    ) -> collections.abc.Iterable[str]: ...
     @classmethod
     def new_empty(
         cls,
@@ -21896,7 +21899,7 @@ class Task(Object):
     @classmethod
     def new(
         cls,
-        func: collections.abc.Callable,
+        func: collections.abc.Callable[[typing.Any], None],
         user_data: typing.Any = None,
     ) -> Task:
         """
@@ -22037,7 +22040,7 @@ class TaskPool(Object):
         """
     def do_push(
         self,
-        func: collections.abc.Callable,
+        func: collections.abc.Callable[[typing.Any], None],
         user_data: typing.Any = None,
     ) -> typing.Any:
         """
@@ -23229,7 +23232,7 @@ class ValueArray(builtins.object, metaclass=GObject.GType):
     # python methods (overrides?)
     def __init__(
         self,
-        array: typing.Optional[typing.List[typing.Any]] | None = None,
+        array: list[typing.Any] | None = None,
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
@@ -23315,7 +23318,7 @@ class ValueList(builtins.object, metaclass=GObject.GType):
     # python methods (overrides?)
     def __init__(
         self,
-        array: typing.Optional[typing.List[typing.Any]] | None = None,
+        array: list[typing.Any] | None = None,
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.

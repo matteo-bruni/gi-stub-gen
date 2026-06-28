@@ -571,7 +571,7 @@ def stream_volume_convert_volume(
 # Enums/Flags
 ###############################################################
 
-class AudioBaseSinkDiscontReason(GObject.GEnum):
+class AudioBaseSinkDiscontReason(GObject.GEnum, enum.IntEnum):
     """
     Different possible reasons for discontinuities. This enum is useful for the custom
     slave method."""
@@ -601,7 +601,7 @@ class AudioBaseSinkDiscontReason(GObject.GEnum):
     Audio output device experienced and recovered from an error but introduced latency in the process (see also `gst_audio_base_sink_report_device_failure`)
     """
 
-class AudioBaseSinkSlaveMethod(GObject.GEnum):
+class AudioBaseSinkSlaveMethod(GObject.GEnum, enum.IntEnum):
     """
     Different possible clock slaving algorithms used when the internal audio
     clock is not selected as the pipeline master clock."""
@@ -624,7 +624,7 @@ class AudioBaseSinkSlaveMethod(GObject.GEnum):
     Use custom clock slaving algorithm (Since: 1.6)
     """
 
-class AudioBaseSrcSlaveMethod(GObject.GEnum):
+class AudioBaseSrcSlaveMethod(GObject.GEnum, enum.IntEnum):
     """
     Different possible clock slaving algorithms when the internal audio clock was
     not selected as the pipeline clock."""
@@ -648,7 +648,7 @@ class AudioBaseSrcSlaveMethod(GObject.GEnum):
     No adjustment is done.
     """
 
-class AudioCdSrcMode(GObject.GEnum):
+class AudioCdSrcMode(GObject.GEnum, enum.IntEnum):
     """
     Mode in which the CD audio source operates. Influences timestamping,
     EOS handling and seeking."""
@@ -662,7 +662,7 @@ class AudioCdSrcMode(GObject.GEnum):
     the entire disc is a single stream
     """
 
-class AudioChannelMixerFlags(GObject.GFlags):
+class AudioChannelMixerFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags passed to `gst_audio_channel_mixer_new`"""
 
@@ -687,7 +687,7 @@ class AudioChannelMixerFlags(GObject.GFlags):
     output channels are explicitly unpositioned
     """
 
-class AudioChannelPosition(GObject.GEnum):
+class AudioChannelPosition(GObject.GEnum, enum.IntEnum):
     """
     Audio channel positions.
 
@@ -850,7 +850,7 @@ class AudioChannelPosition(GObject.GEnum):
     Top surround right (between rear right and side right).
     """
 
-class AudioConverterFlags(GObject.GFlags):
+class AudioConverterFlags(GObject.GFlags, enum.IntFlag):
     """
     Extra flags passed to `gst_audio_converter_new` and `gst_audio_converter_samples`."""
 
@@ -869,7 +869,7 @@ class AudioConverterFlags(GObject.GFlags):
        `gst_audio_converter_update_config`.
     """
 
-class AudioDitherMethod(GObject.GEnum):
+class AudioDitherMethod(GObject.GEnum, enum.IntEnum):
     """
     Set of available dithering methods."""
 
@@ -890,7 +890,7 @@ class AudioDitherMethod(GObject.GEnum):
     High frequency triangular dithering
     """
 
-class AudioFlags(GObject.GFlags):
+class AudioFlags(GObject.GFlags, enum.IntFlag):
     """
     Extra audio flags"""
 
@@ -904,7 +904,7 @@ class AudioFlags(GObject.GFlags):
         contains unpositioned channels.
     """
 
-class AudioFormat(GObject.GEnum):
+class AudioFormat(GObject.GEnum, enum.IntEnum):
     """
     Enum value describing the most common audio formats."""
 
@@ -1117,7 +1117,7 @@ class AudioFormat(GObject.GEnum):
     64-bit floating point samples, native endianness
     """
 
-class AudioFormatFlags(GObject.GFlags):
+class AudioFormatFlags(GObject.GFlags, enum.IntFlag):
     """
     The different audio flags that a format info can have."""
 
@@ -1143,7 +1143,7 @@ class AudioFormatFlags(GObject.GFlags):
     GstAudio.FormatUnpack and GstAudio.FormatPack functions
     """
 
-class AudioLayout(GObject.GEnum):
+class AudioLayout(GObject.GEnum, enum.IntEnum):
     """
     Layout of the audio samples for the different channels."""
 
@@ -1156,7 +1156,7 @@ class AudioLayout(GObject.GEnum):
     non-interleaved audio
     """
 
-class AudioNoiseShapingMethod(GObject.GEnum):
+class AudioNoiseShapingMethod(GObject.GEnum, enum.IntEnum):
     """
     Set of available noise shaping methods"""
 
@@ -1181,7 +1181,7 @@ class AudioNoiseShapingMethod(GObject.GEnum):
     High 8-pole noise shaping
     """
 
-class AudioPackFlags(GObject.GFlags):
+class AudioPackFlags(GObject.GFlags, enum.IntFlag):
     """
     The different flags that can be used when packing and unpacking."""
 
@@ -1198,7 +1198,7 @@ class AudioPackFlags(GObject.GFlags):
       in the least significant bits of the destination.
     """
 
-class AudioQuantizeFlags(GObject.GFlags):
+class AudioQuantizeFlags(GObject.GFlags, enum.IntFlag):
     """
     Extra flags that can be passed to `gst_audio_quantize_new`"""
 
@@ -1211,7 +1211,7 @@ class AudioQuantizeFlags(GObject.GFlags):
     samples are non-interleaved
     """
 
-class AudioResamplerFilterInterpolation(GObject.GEnum):
+class AudioResamplerFilterInterpolation(GObject.GEnum, enum.IntEnum):
     """
     The different filter interpolation methods."""
 
@@ -1230,7 +1230,7 @@ class AudioResamplerFilterInterpolation(GObject.GEnum):
       filter coefficients.
     """
 
-class AudioResamplerFilterMode(GObject.GEnum):
+class AudioResamplerFilterMode(GObject.GEnum, enum.IntEnum):
     """
     Select for the filter tables should be set up."""
 
@@ -1251,7 +1251,7 @@ class AudioResamplerFilterMode(GObject.GEnum):
         and full filter tables.
     """
 
-class AudioResamplerFlags(GObject.GFlags):
+class AudioResamplerFlags(GObject.GFlags, enum.IntFlag):
     """
     Different resampler flags."""
 
@@ -1278,7 +1278,7 @@ class AudioResamplerFlags(GObject.GFlags):
        when GST_AUDIO_RESAMPLER_FILTER_MODE_AUTO is configured.
     """
 
-class AudioResamplerMethod(GObject.GEnum):
+class AudioResamplerMethod(GObject.GEnum, enum.IntEnum):
     """
     Different subsampling and upsampling methods"""
 
@@ -1305,7 +1305,7 @@ class AudioResamplerMethod(GObject.GEnum):
     Uses Kaiser windowed sinc interpolation
     """
 
-class AudioRingBufferFormatType(GObject.GEnum):
+class AudioRingBufferFormatType(GObject.GEnum, enum.IntEnum):
     """
     The format of the samples in the ringbuffer."""
 
@@ -1374,7 +1374,7 @@ class AudioRingBufferFormatType(GObject.GEnum):
     samples in DSD format (Since: 1.24)
     """
 
-class AudioRingBufferState(GObject.GEnum):
+class AudioRingBufferState(GObject.GEnum, enum.IntEnum):
     """
     The state of the ringbuffer."""
 
@@ -1397,7 +1397,7 @@ class AudioRingBufferState(GObject.GEnum):
         disconnected (Since: 1.2)
     """
 
-class DsdFormat(GObject.GEnum):
+class DsdFormat(GObject.GEnum, enum.IntEnum):
     """
     Enum value describing how DSD bits are grouped."""
 
@@ -3287,7 +3287,7 @@ class AudioClock(Gst.SystemClock):
     def new(
         cls,
         name: str,
-        func: collections.abc.Callable,
+        func: collections.abc.Callable[[Gst.Clock, typing.Any], int],
         user_data: typing.Any = None,
     ) -> Gst.Clock:
         """
@@ -3838,7 +3838,7 @@ class AudioDecoder(Gst.Element):
     def do_parse(
         self,
         adapter: GstBase.Adapter,
-    ) -> tuple:
+    ) -> tuple[Gst.FlowReturn, int, int]:
         """
         parse(self, adapter:GstBase.Adapter) -> Gst.FlowReturn, offset:int, length:int
         """
@@ -5666,10 +5666,10 @@ class AudioRingBuffer(Gst.Object):
     def do_commit(
         self,
         sample: int,
-        data: list,
+        data: list[int],
         out_samples: int,
         accum: int,
-    ) -> tuple:
+    ) -> tuple[int, int, int]:
         """
         commit(self, sample:int, data:list, out_samples:int, accum:int) -> int, sample:int, accum:int
         """
@@ -5994,7 +5994,7 @@ class AudioSink(AudioBaseSink):
         """
     def do_write(
         self,
-        data: list,
+        data: list[int],
     ) -> int:
         """
         write(self, data:list) -> int
@@ -6352,8 +6352,8 @@ class AudioSrc(AudioBaseSrc):
         """
     def do_read(
         self,
-        data: list,
-    ) -> tuple:
+        data: list[int],
+    ) -> tuple[int, int]:
         """
         read(self, data:list) -> int, timestamp:int
         """

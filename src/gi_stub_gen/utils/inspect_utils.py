@@ -1,8 +1,37 @@
 import inspect
+from types import UnionType
 import typing
 from typing import Any, get_origin, get_args
 
+from gi_stub_gen.utils.utils import get_py_type_name_repr, get_py_type_namespace_repr
 from gi_stub_gen.utils.utils import sanitize_gi_module_name
+
+
+def _format_annotation_expr(annotation: Any, relative_namespace: str | None = None) -> str:
+    type_name, type_namespace = _extract_annotation_type_info(annotation)
+    if type_namespace and type_namespace != relative_namespace:
+        return f"{type_namespace}.{type_name}"
+    return type_name
+
+
+def _extract_annotation_type_info(annotation: Any) -> tuple[str, str | None]:
+    if isinstance(annotation, list):
+        return f"[{', '.join(_format_annotation_expr(item) for item in annotation)}]", None
+
+    if annotation is Ellipsis:
+        return "...", None
+
+    origin = get_origin(annotation)
+    if origin is not None:
+        origin_name = get_py_type_name_repr(origin)
+        origin_namespace = get_py_type_namespace_repr(origin)
+        arg_reprs = [_format_annotation_expr(arg, relative_namespace=origin_namespace) for arg in get_args(annotation)]
+        return f"{origin_name}[{', '.join(arg_reprs)}]", origin_namespace
+
+    if isinstance(annotation, str):
+        return annotation, None
+
+    return get_py_type_name_repr(annotation), get_py_type_namespace_repr(annotation)
 
 
 def extract_inspect_params_type_info(
@@ -20,7 +49,7 @@ def extract_inspect_params_type_info(
     origin = get_origin(annotation)
     real_type = annotation
 
-    if origin is typing.Union:
+    if origin in (typing.Union, UnionType):
         args = get_args(annotation)
         if type(None) in args:
             is_optional = True
@@ -28,21 +57,14 @@ def extract_inspect_params_type_info(
             non_none_args = [a for a in args if a is not type(None)]
             if len(non_none_args) == 1:
                 real_type = non_none_args[0]
+            elif non_none_args:
+                return " | ".join(_format_annotation_expr(arg) for arg in non_none_args), None, is_optional
             else:
-                # TODO: Handle multiple types excluding None
-                real_type = non_none_args[0]
+                return "Any", "typing", is_optional
 
-    if isinstance(real_type, str):
-        base_name = real_type
-        namespace = None
-    else:
-        base_name = getattr(real_type, "__name__", str(real_type).replace("typing.", ""))
-        module_name = getattr(real_type, "__module__", "")
-        namespace = None
+    base_name, namespace = _extract_annotation_type_info(real_type)
 
-        if module_name == "builtins":
-            namespace = None
-        elif module_name:
-            namespace = sanitize_gi_module_name(module_name)
+    if namespace:
+        namespace = sanitize_gi_module_name(namespace)
 
     return base_name, namespace, is_optional

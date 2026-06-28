@@ -15,6 +15,7 @@ import typing_extensions  # noqa: F401
 
 import _thread
 import builtins
+import enum
 import typing
 
 # gi.repository imports needed by this Stub
@@ -336,7 +337,7 @@ def rtsp_version_as_text(
 # Enums/Flags
 ###############################################################
 
-class RTSPAuthMethod(GObject.GEnum):
+class RTSPAuthMethod(GObject.GEnum, enum.IntEnum):
     """
     Authentication methods, ordered by strength"""
 
@@ -353,7 +354,7 @@ class RTSPAuthMethod(GObject.GEnum):
     digest authentication
     """
 
-class RTSPEvent(GObject.GFlags):
+class RTSPEvent(GObject.GFlags, enum.IntFlag):
     """
     The possible events for the connection."""
 
@@ -366,7 +367,7 @@ class RTSPEvent(GObject.GFlags):
     connection is writable
     """
 
-class RTSPFamily(GObject.GEnum):
+class RTSPFamily(GObject.GEnum, enum.IntEnum):
     """
     The possible network families."""
 
@@ -383,7 +384,7 @@ class RTSPFamily(GObject.GEnum):
     internet V6
     """
 
-class RTSPHeaderField(GObject.GEnum):
+class RTSPHeaderField(GObject.GEnum, enum.IntEnum):
     """
     Enumeration of rtsp header fields"""
 
@@ -478,7 +479,7 @@ class RTSPHeaderField(GObject.GEnum):
     RATE_CONTROL = 88
     LAST = 89
 
-class RTSPLowerTrans(GObject.GFlags):
+class RTSPLowerTrans(GObject.GFlags, enum.IntFlag):
     """
     The different transport methods."""
 
@@ -507,7 +508,7 @@ class RTSPLowerTrans(GObject.GFlags):
     encrypt TCP and HTTP with TLS
     """
 
-class RTSPMethod(GObject.GFlags):
+class RTSPMethod(GObject.GFlags, enum.IntFlag):
     """
     The different supported RTSP methods."""
 
@@ -568,7 +569,7 @@ class RTSPMethod(GObject.GFlags):
     the POST method (HTTP).
     """
 
-class RTSPMsgType(GObject.GEnum):
+class RTSPMsgType(GObject.GEnum, enum.IntEnum):
     """
     The type of a message."""
 
@@ -597,7 +598,7 @@ class RTSPMsgType(GObject.GEnum):
     data message
     """
 
-class RTSPProfile(GObject.GFlags):
+class RTSPProfile(GObject.GFlags, enum.IntFlag):
     """
     The transfer profile to use."""
 
@@ -622,7 +623,7 @@ class RTSPProfile(GObject.GFlags):
     the secure Audio/Visual profile with feedback (RFC 5124)
     """
 
-class RTSPRangeUnit(GObject.GEnum):
+class RTSPRangeUnit(GObject.GEnum, enum.IntEnum):
     """
     Different possible time range units."""
 
@@ -647,7 +648,7 @@ class RTSPRangeUnit(GObject.GEnum):
     Absolute time expressed as ISO 8601 timestamps
     """
 
-class RTSPResult(GObject.GEnum):
+class RTSPResult(GObject.GEnum, enum.IntEnum):
     """
     Result codes from the RTSP functions."""
 
@@ -728,7 +729,7 @@ class RTSPResult(GObject.GEnum):
     last error
     """
 
-class RTSPState(GObject.GEnum):
+class RTSPState(GObject.GEnum, enum.IntEnum):
     """
     The different RTSP states."""
 
@@ -757,7 +758,7 @@ class RTSPState(GObject.GEnum):
     recording
     """
 
-class RTSPStatusCode(GObject.GEnum):
+class RTSPStatusCode(GObject.GEnum, enum.IntEnum):
     """
     Enumeration of rtsp status codes"""
 
@@ -816,7 +817,7 @@ class RTSPStatusCode(GObject.GEnum):
     RTSP_VERSION_NOT_SUPPORTED = 505
     OPTION_NOT_SUPPORTED = 551
 
-class RTSPTimeType(GObject.GEnum):
+class RTSPTimeType(GObject.GEnum, enum.IntEnum):
     """
     Possible time types."""
 
@@ -841,7 +842,7 @@ class RTSPTimeType(GObject.GEnum):
     UTC time
     """
 
-class RTSPTransMode(GObject.GFlags):
+class RTSPTransMode(GObject.GFlags, enum.IntFlag):
     """
     The transfer mode to use."""
 
@@ -858,7 +859,7 @@ class RTSPTransMode(GObject.GFlags):
     transfer RDT (RealMedia) data
     """
 
-class RTSPVersion(GObject.GEnum):
+class RTSPVersion(GObject.GEnum, enum.IntEnum):
     """
     The supported RTSP versions."""
 

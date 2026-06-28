@@ -237,7 +237,9 @@ def gi_type_to_py_type(
             return f"{ns}.{iface_name}"
 
         elif isinstance(iface, GI.UnresolvedInfo):
-            raise NotImplementedError("UnresolvedInfo to Python type conversion not possible")
+            raise NotImplementedError(
+                f"UnresolvedInfo to Python type conversion not possible, found {type(iface)}, iface: {iface}, ns: {ns}, iface_name: {iface_name}"
+            )
             # TODO: like Callback cannot be resolved, create a Protocol
             return f"{ns}.{iface_name} # TODO: unresolved"
 

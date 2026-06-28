@@ -15,6 +15,7 @@ import typing_extensions  # noqa: F401
 
 import _thread
 import builtins
+import enum
 import typing
 
 # gi.repository imports needed by this Stub
@@ -25,7 +26,7 @@ from gi.repository import GstBase
 # Enums/Flags
 ###############################################################
 
-class AppLeakyType(GObject.GEnum):
+class AppLeakyType(GObject.GEnum, enum.IntEnum):
     """
     Buffer dropping scheme to avoid the element's internal queue to block when
     full."""
@@ -43,7 +44,7 @@ class AppLeakyType(GObject.GEnum):
     Leaky on downstream (old buffers)
     """
 
-class AppStreamType(GObject.GEnum):
+class AppStreamType(GObject.GEnum, enum.IntEnum):
     """
     The stream type."""
 

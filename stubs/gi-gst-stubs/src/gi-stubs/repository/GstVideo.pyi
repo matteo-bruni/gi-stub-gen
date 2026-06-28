@@ -15,6 +15,7 @@ import typing_extensions  # noqa: F401
 
 import _thread
 import builtins
+import enum
 import typing
 
 # gi.repository imports needed by this Stub
@@ -1606,7 +1607,7 @@ def video_transfer_function_to_iso(
 # Enums/Flags
 ###############################################################
 
-class AncillaryMetaField(GObject.GEnum):
+class AncillaryMetaField(GObject.GEnum, enum.IntEnum):
     """
     Location of a `GstAncillaryMeta`."""
 
@@ -1623,7 +1624,7 @@ class AncillaryMetaField(GObject.GEnum):
     Interlaced second field
     """
 
-class ColorBalanceType(GObject.GEnum):
+class ColorBalanceType(GObject.GEnum, enum.IntEnum):
     """
     An enumeration indicating whether an element implements color balancing
     operations in software or in dedicated hardware. In general, dedicated
@@ -1641,7 +1642,7 @@ class ColorBalanceType(GObject.GEnum):
             processing.
     """
 
-class NavigationCommand(GObject.GEnum):
+class NavigationCommand(GObject.GEnum, enum.IntEnum):
     """
     A set of commands that may be issued to an element providing the
     GstNavigation interface. The available commands can be queried via
@@ -1731,7 +1732,7 @@ class NavigationCommand(GObject.GEnum):
     feature.
     """
 
-class NavigationEventType(GObject.GEnum):
+class NavigationEventType(GObject.GEnum, enum.IntEnum):
     """
     Enum values for the various events that an element implementing the
     GstNavigation interface might send up the pipeline. Touch events have been
@@ -1815,7 +1816,7 @@ class NavigationEventType(GObject.GEnum):
     from the event.
     """
 
-class NavigationMessageType(GObject.GEnum):
+class NavigationMessageType(GObject.GEnum, enum.IntEnum):
     """
     A set of notifications that may be received on the bus when navigation
     related status changes."""
@@ -1848,7 +1849,7 @@ class NavigationMessageType(GObject.GEnum):
     by any element in the pipeline (Since: 1.6)
     """
 
-class NavigationModifierType(GObject.GFlags):
+class NavigationModifierType(GObject.GFlags, enum.IntFlag):
     """
     Flags to indicate the state of modifier keys and mouse buttons
     in events.
@@ -1923,7 +1924,7 @@ class NavigationModifierType(GObject.GFlags):
     A mask covering all entries in GdkModifierType.
     """
 
-class NavigationQueryType(GObject.GEnum):
+class NavigationQueryType(GObject.GEnum, enum.IntEnum):
     """
     Types of navigation interface queries."""
 
@@ -1940,7 +1941,7 @@ class NavigationQueryType(GObject.GEnum):
     viewing angle query
     """
 
-class VideoAFDSpec(GObject.GEnum):
+class VideoAFDSpec(GObject.GEnum, enum.IntEnum):
     """
     Enumeration of the different standards that may apply to AFD data:
 
@@ -1962,7 +1963,7 @@ class VideoAFDSpec(GObject.GEnum):
     """
     SMPTE_ST2016_1 = 2
 
-class VideoAFDValue(GObject.GEnum):
+class VideoAFDValue(GObject.GEnum, enum.IntEnum):
     """
     Enumeration of the various values for Active Format Description (AFD)
 
@@ -2059,7 +2060,7 @@ class VideoAFDValue(GObject.GEnum):
          center. For 16:9 coded frame, full frame 16:9 image, with alternative 4:3 center.
     """
 
-class VideoAlphaMode(GObject.GEnum):
+class VideoAlphaMode(GObject.GEnum, enum.IntEnum):
     """
     Different alpha modes."""
 
@@ -2082,7 +2083,7 @@ class VideoAlphaMode(GObject.GEnum):
             alpha value will be set to GST_VIDEO_CONVERTER_OPT_ALPHA_VALUE
     """
 
-class VideoAncillaryDID(GObject.GEnum):
+class VideoAncillaryDID(GObject.GEnum, enum.IntEnum):
     UNDEFINED = 0
     DELETION = 128
     HANC_3G_AUDIO_DATA_FIRST = 160
@@ -2096,7 +2097,7 @@ class VideoAncillaryDID(GObject.GEnum):
     HANC_SDTV_AUDIO_DATA_2_FIRST = 248
     HANC_SDTV_AUDIO_DATA_2_LAST = 255
 
-class VideoAncillaryDID16(GObject.GEnum):
+class VideoAncillaryDID16(GObject.GEnum, enum.IntEnum):
     """
     Some know types of Ancillary Data identifiers."""
 
@@ -2113,7 +2114,7 @@ class VideoAncillaryDID16(GObject.GEnum):
     AFD/Bar Ancillary data according to SMPTE 2016-3 (Since: 1.18)
     """
 
-class VideoBufferFlags(GObject.GFlags):
+class VideoBufferFlags(GObject.GFlags, enum.IntFlag):
     """
     Additional video buffer flags. These flags can potentially be used on any
     buffers carrying closed caption data, or video data - even encoded data.
@@ -2184,7 +2185,7 @@ class VideoBufferFlags(GObject.GFlags):
     Offset to define more flags
     """
 
-class VideoCaptionType(GObject.GEnum):
+class VideoCaptionType(GObject.GEnum, enum.IntEnum):
     """
     The various known types of Closed Caption (CC)."""
 
@@ -2226,7 +2227,7 @@ class VideoCaptionType(GObject.GEnum):
          Contains the whole CDP (starting with 0x9669).
     """
 
-class VideoChromaFlags(GObject.GFlags):
+class VideoChromaFlags(GObject.GFlags, enum.IntFlag):
     """
     Extra flags that influence the result from `gst_video_chroma_resample_new`."""
 
@@ -2239,7 +2240,7 @@ class VideoChromaFlags(GObject.GFlags):
     the input is interlaced
     """
 
-class VideoChromaMethod(GObject.GEnum):
+class VideoChromaMethod(GObject.GEnum, enum.IntEnum):
     """
     Different subsampling and upsampling methods"""
 
@@ -2254,7 +2255,7 @@ class VideoChromaMethod(GObject.GEnum):
        missing chroma and averaging to subsample
     """
 
-class VideoChromaMode(GObject.GEnum):
+class VideoChromaMode(GObject.GEnum, enum.IntEnum):
     """
     Different chroma downsampling and upsampling modes"""
 
@@ -2275,7 +2276,7 @@ class VideoChromaMode(GObject.GEnum):
     disable chroma resampling
     """
 
-class VideoChromaSite(GObject.GFlags):
+class VideoChromaSite(GObject.GFlags, enum.IntFlag):
     """
     Various Chroma sitings."""
 
@@ -2316,7 +2317,7 @@ class VideoChromaSite(GObject.GFlags):
     DV style cositing
     """
 
-class VideoCodecFrameFlags(GObject.GFlags):
+class VideoCodecFrameFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags for GstVideo.CodecFrame"""
 
@@ -2341,7 +2342,7 @@ class VideoCodecFrameFlags(GObject.GFlags):
     The buffer data is corrupted.
     """
 
-class VideoColorMatrix(GObject.GEnum):
+class VideoColorMatrix(GObject.GEnum, enum.IntEnum):
     """
     The color matrix is used to convert between Y'PbPr and
     non-linear RGB (R'G'B')"""
@@ -2377,7 +2378,7 @@ class VideoColorMatrix(GObject.GEnum):
     ITU-R BT.2020 color matrix. Since: 1.6
     """
 
-class VideoColorPrimaries(GObject.GEnum):
+class VideoColorPrimaries(GObject.GEnum, enum.IntEnum):
     """
     The color primaries define the how to transform linear RGB values to and from
     the CIE XYZ colorspace."""
@@ -2444,7 +2445,7 @@ class VideoColorPrimaries(GObject.GEnum):
     phosphors). Since: 1.16
     """
 
-class VideoColorRange(GObject.GEnum):
+class VideoColorRange(GObject.GEnum, enum.IntEnum):
     """
     Possible color range values. These constants are defined for 8 bit color
     values and can be scaled for other bit depths."""
@@ -2463,7 +2464,7 @@ class VideoColorRange(GObject.GEnum):
                     [16..240] range.
     """
 
-class VideoDecoderRequestSyncPointFlags(GObject.GFlags):
+class VideoDecoderRequestSyncPointFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags to be used in combination with `gst_video_decoder_request_sync_point`.
     See the function documentation for more details."""
@@ -2479,7 +2480,7 @@ class VideoDecoderRequestSyncPointFlags(GObject.GFlags):
         output until the next sync point.
     """
 
-class VideoDitherFlags(GObject.GFlags):
+class VideoDitherFlags(GObject.GFlags, enum.IntFlag):
     """
     Extra flags that influence the result from `gst_video_chroma_resample_new`."""
 
@@ -2496,7 +2497,7 @@ class VideoDitherFlags(GObject.GFlags):
     quantize values in addition to adding dither.
     """
 
-class VideoDitherMethod(GObject.GEnum):
+class VideoDitherMethod(GObject.GEnum, enum.IntEnum):
     """
     Different dithering methods to use."""
 
@@ -2521,7 +2522,7 @@ class VideoDitherMethod(GObject.GEnum):
     ordered dither using a bayer pattern
     """
 
-class VideoFieldOrder(GObject.GEnum):
+class VideoFieldOrder(GObject.GEnum, enum.IntEnum):
     """
     Field order of interlaced content. This is only valid for
     interlace-mode=interleaved and not interlace-mode=mixed. In the case of
@@ -2542,7 +2543,7 @@ class VideoFieldOrder(GObject.GEnum):
     bottom field is first
     """
 
-class VideoFlags(GObject.GFlags):
+class VideoFlags(GObject.GFlags, enum.IntFlag):
     """
     Extra video flags"""
 
@@ -2561,7 +2562,7 @@ class VideoFlags(GObject.GFlags):
         value.
     """
 
-class VideoFormat(GObject.GEnum):
+class VideoFormat(GObject.GEnum, enum.IntEnum):
     """
     Enum value describing the most common video formats.
 
@@ -3155,7 +3156,7 @@ class VideoFormat(GObject.GEnum):
     packed 4:4:4 RGB (R-G-B-x), 10 bits for R/G/B channel and MSB 2 bits for padding.
     """
 
-class VideoFormatFlags(GObject.GFlags):
+class VideoFormatFlags(GObject.GFlags, enum.IntFlag):
     """
     The different video flags that a format info can have."""
 
@@ -3209,7 +3210,7 @@ class VideoFormatFlags(GObject.GFlags):
     The tile size varies per plane according to the subsampling.
     """
 
-class VideoFrameFlags(GObject.GFlags):
+class VideoFrameFlags(GObject.GFlags, enum.IntFlag):
     """
     Extra video frame flags"""
 
@@ -3258,7 +3259,7 @@ class VideoFrameFlags(GObject.GFlags):
         (GST_VIDEO_FRAME_FLAG_TFF flag unset) (Since: 1.16).
     """
 
-class VideoFrameMapFlags(GObject.GFlags):
+class VideoFrameMapFlags(GObject.GFlags, enum.IntFlag):
     """
     Additional mapping flags for `gst_video_frame_map`."""
 
@@ -3274,7 +3275,7 @@ class VideoFrameMapFlags(GObject.GFlags):
     Offset to define more flags
     """
 
-class VideoGLTextureOrientation(GObject.GEnum):
+class VideoGLTextureOrientation(GObject.GEnum, enum.IntEnum):
     """
     The orientation of the GL texture."""
 
@@ -3295,7 +3296,7 @@ class VideoGLTextureOrientation(GObject.GEnum):
     Bottom line first in memory, right row first
     """
 
-class VideoGLTextureType(GObject.GEnum):
+class VideoGLTextureType(GObject.GEnum, enum.IntEnum):
     """
     The GL texture type."""
 
@@ -3328,7 +3329,7 @@ class VideoGLTextureType(GObject.GEnum):
     RG texture, GL_RG_EXT
     """
 
-class VideoGammaMode(GObject.GEnum):
+class VideoGammaMode(GObject.GEnum, enum.IntEnum):
     NONE = 0
     """
     disable gamma handling
@@ -3339,7 +3340,7 @@ class VideoGammaMode(GObject.GEnum):
     Different gamma conversion modes
     """
 
-class VideoInterlaceMode(GObject.GEnum):
+class VideoInterlaceMode(GObject.GEnum, enum.IntEnum):
     """
     The possible values of the GstVideo.InterlaceMode describing the interlace
     mode of the stream."""
@@ -3377,7 +3378,7 @@ class VideoInterlaceMode(GObject.GEnum):
         (Since: 1.16).
     """
 
-class VideoMatrixMode(GObject.GEnum):
+class VideoMatrixMode(GObject.GEnum, enum.IntEnum):
     """
     Different color matrix conversion modes"""
 
@@ -3400,7 +3401,7 @@ class VideoMatrixMode(GObject.GEnum):
     disable color matrix conversion.
     """
 
-class VideoMultiviewFlags(GObject.GFlags):
+class VideoMultiviewFlags(GObject.GFlags, enum.IntFlag):
     """
     GstVideoMultiviewFlags are used to indicate extra properties of a
     stereo/multiview stream beyond the frame layout and buffer mapping
@@ -3455,7 +3456,7 @@ class VideoMultiviewFlags(GObject.GFlags):
         buffer flag.
     """
 
-class VideoMultiviewFramePacking(GObject.GEnum):
+class VideoMultiviewFramePacking(GObject.GEnum, enum.IntEnum):
     """
     GstVideo.MultiviewFramePacking represents the subset of GstVideo.MultiviewMode
     values that can be applied to any video frame without needing extra metadata.
@@ -3518,7 +3519,7 @@ class VideoMultiviewFramePacking(GObject.GEnum):
     checkerboard fashion.
     """
 
-class VideoMultiviewMode(GObject.GEnum):
+class VideoMultiviewMode(GObject.GEnum, enum.IntEnum):
     """
     All possible stereoscopic 3D and multiview representations.
     In conjunction with GstVideo.MultiviewFlags, describes how
@@ -3597,7 +3598,7 @@ class VideoMultiviewMode(GObject.GEnum):
     and GstVideo.Meta(s)
     """
 
-class VideoOrientationMethod(GObject.GEnum):
+class VideoOrientationMethod(GObject.GEnum, enum.IntEnum):
     """
     The different video orientation methods."""
 
@@ -3642,7 +3643,7 @@ class VideoOrientationMethod(GObject.GEnum):
     Current status depends on plugin internal setup
     """
 
-class VideoOverlayFormatFlags(GObject.GFlags):
+class VideoOverlayFormatFlags(GObject.GFlags, enum.IntFlag):
     """
     Overlay format flags."""
 
@@ -3659,7 +3660,7 @@ class VideoOverlayFormatFlags(GObject.GFlags):
     a global-alpha value != 1 is set.
     """
 
-class VideoPackFlags(GObject.GFlags):
+class VideoPackFlags(GObject.GFlags, enum.IntFlag):
     """
     The different flags that can be used when packing and unpacking."""
 
@@ -3682,7 +3683,7 @@ class VideoPackFlags(GObject.GFlags):
       information from alternating fields. (Since: 1.2)
     """
 
-class VideoPrimariesMode(GObject.GEnum):
+class VideoPrimariesMode(GObject.GEnum, enum.IntEnum):
     """
     Different primaries conversion modes"""
 
@@ -3700,7 +3701,7 @@ class VideoPrimariesMode(GObject.GEnum):
     fast conversion between primaries
     """
 
-class VideoResamplerFlags(GObject.GFlags):
+class VideoResamplerFlags(GObject.GFlags, enum.IntFlag):
     """
     Different resampler flags."""
 
@@ -3715,7 +3716,7 @@ class VideoResamplerFlags(GObject.GFlags):
                  for the different fields of an interlaced picture. Since: 1.10
     """
 
-class VideoResamplerMethod(GObject.GEnum):
+class VideoResamplerMethod(GObject.GEnum, enum.IntEnum):
     """
     Different subsampling and upsampling methods"""
 
@@ -3742,7 +3743,7 @@ class VideoResamplerMethod(GObject.GEnum):
     Uses lanczos interpolation
     """
 
-class VideoScalerFlags(GObject.GFlags):
+class VideoScalerFlags(GObject.GFlags, enum.IntFlag):
     """
     Different scale flags."""
 
@@ -3755,7 +3756,7 @@ class VideoScalerFlags(GObject.GFlags):
     Set up a scaler for interlaced content
     """
 
-class VideoTileMode(GObject.GEnum):
+class VideoTileMode(GObject.GEnum, enum.IntEnum):
     """
     Enum value describing the available tiling modes."""
 
@@ -3775,7 +3776,7 @@ class VideoTileMode(GObject.GEnum):
     Tiles are in row order.
     """
 
-class VideoTileType(GObject.GEnum):
+class VideoTileType(GObject.GEnum, enum.IntEnum):
     """
     Enum value describing the most common tiling types."""
 
@@ -3786,7 +3787,7 @@ class VideoTileType(GObject.GEnum):
       coordinates.
     """
 
-class VideoTimeCodeFlags(GObject.GFlags):
+class VideoTimeCodeFlags(GObject.GFlags, enum.IntFlag):
     """
     Flags related to the time code information.
     For drop frame, only 30000/1001 and 60000/1001 frame rates are supported."""
@@ -3804,7 +3805,7 @@ class VideoTimeCodeFlags(GObject.GFlags):
     Whether we have interlaced video
     """
 
-class VideoTransferFunction(GObject.GEnum):
+class VideoTransferFunction(GObject.GEnum, enum.IntEnum):
     """
     The video transfer function defines the formula for converting between
     non-linear RGB (R'G'B') and linear RGB"""
@@ -3893,7 +3894,7 @@ class VideoTransferFunction(GObject.GEnum):
     also known as SMPTE170M / ITU-R BT1358 525 or 625 / ITU-R BT1700 NTSC
     """
 
-class VideoVBIParserResult(GObject.GEnum):
+class VideoVBIParserResult(GObject.GEnum, enum.IntEnum):
     """
     Return values for GstVideo.VBIParser"""
 
