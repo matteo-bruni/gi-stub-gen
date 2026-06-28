@@ -11,9 +11,10 @@ These tests ensure that:
 
 import gi
 
+gi.require_version("Gio", "2.0")
 gi.require_version("GstAudio", "1.0")
 
-from gi.repository import GObject, Gst, GstAudio
+from gi.repository import GObject, Gio, Gst, GstAudio
 
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.parser.function import parse_function
@@ -50,7 +51,7 @@ class TestGIFunctionDecorators:
         GObject.signal_set_va_marshaller references VaClosureMarshal, which is
         marked introspectable=0 in the GIR and should be skipped.
         """
-        assert parse_function(GObject.signal_set_va_marshaller, None) is None # type: ignore
+        assert parse_function(GObject.signal_set_va_marshaller, None) is None  # type: ignore
 
     def test_class_static_method_has_decorator(self):
         """
@@ -200,6 +201,22 @@ class TestPythonFunctionDecorators:
         assert func_param.type_hint_namespace == "collections.abc"
         assert func_param.type_hint_name == "Callable[[Gst.Clock, typing.Any], int]"
         assert func_param.type_hint("GstAudio") == "collections.abc.Callable[[Gst.Clock, typing.Any], int]"
+
+    def test_python_override_avoids_same_module_prefix_in_generics(self):
+        """
+        Generic arguments from the current module should not be redundantly prefixed.
+        """
+        parsed = parse_python_function(
+            Gio.AppLaunchContext.do_get_display,
+            "Gio",
+            from_class=Gio.AppLaunchContext,
+        )
+        assert parsed is not None
+
+        files_param = next(param for param in parsed.params if param.name == "files")
+        assert files_param.type_hint_name == "list[File]"
+        assert files_param.type_hint_namespace is None
+        assert files_param.type_hint("Gio") == "list[File]"
 
 
 class TestClassMethodDetection:

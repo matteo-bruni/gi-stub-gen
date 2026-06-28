@@ -6271,7 +6271,7 @@ class AppLaunchContext(GObject.Object):
     def do_get_display(
         self,
         info: AppInfo,
-        files: list[Gio.File],
+        files: list[File],
     ) -> str | None:
         """
         get_display(self, info:Gio.AppInfo, files:list) -> str or None
@@ -6279,7 +6279,7 @@ class AppLaunchContext(GObject.Object):
     def do_get_startup_notify_id(
         self,
         info: AppInfo,
-        files: list[Gio.File],
+        files: list[File],
     ) -> str | None:
         """
         get_startup_notify_id(self, info:Gio.AppInfo, files:list) -> str or None
@@ -7250,7 +7250,7 @@ class Application(GObject.Object):
         """
     def do_open(
         self,
-        files: list[Gio.File],
+        files: list[File],
         hint: str,
     ) -> None:
         """
@@ -8617,7 +8617,7 @@ class BufferedInputStream(FilterInputStream):
         count: int,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -12682,7 +12682,7 @@ class DBusObjectManagerClient(GObject.Object):
         name: str,
         object_path: str,
         get_proxy_type_func: collections.abc.Callable[
-            [Gio.DBusObjectManagerClient, str, typing.Union[str, NoneType], typing.Any], GObject.GType
+            [DBusObjectManagerClient, str, typing.Union[str, NoneType], typing.Any], GObject.GType
         ]
         | None = None,
         get_proxy_type_user_data: typing.Any = None,
@@ -12701,7 +12701,7 @@ class DBusObjectManagerClient(GObject.Object):
         name: str | None,
         object_path: str,
         get_proxy_type_func: collections.abc.Callable[
-            [Gio.DBusObjectManagerClient, str, typing.Union[str, NoneType], typing.Any], GObject.GType
+            [DBusObjectManagerClient, str, typing.Union[str, NoneType], typing.Any], GObject.GType
         ]
         | None = None,
         get_proxy_type_user_data: typing.Any = None,
@@ -19291,7 +19291,7 @@ class FileEnumerator(GObject.Object):
         self,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -19324,7 +19324,7 @@ class FileEnumerator(GObject.Object):
         num_files: int,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -19334,7 +19334,7 @@ class FileEnumerator(GObject.Object):
     def do_next_files_finish(
         self,
         result: AsyncResult,
-    ) -> list[Gio.FileInfo]:
+    ) -> list[FileInfo]:
         """
         next_files_finish(self, result:Gio.AsyncResult) -> list
         """
@@ -19506,7 +19506,7 @@ class FileIOStream(IOStream):
         attributes: str,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -20789,7 +20789,7 @@ class FileInputStream(InputStream):
         attributes: str,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -21137,7 +21137,7 @@ class FileOutputStream(OutputStream):
         attributes: str,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -21903,7 +21903,7 @@ class IOStream(GObject.Object):
         self,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -23222,7 +23222,7 @@ class InputStream(GObject.Object):
         self,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -23247,7 +23247,7 @@ class InputStream(GObject.Object):
         self,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> list[int] | None:
@@ -23283,7 +23283,7 @@ class InputStream(GObject.Object):
         count: int,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -24663,7 +24663,7 @@ class MenuLinkIter(GObject.Object):
     # python methods (overrides?)
     def do_get_next(
         self,
-    ) -> tuple[bool, str, Gio.MenuModel]:
+    ) -> tuple[bool, str, MenuModel]:
         """
         get_next(self) -> bool, out_link:str, value:Gio.MenuModel
         """
@@ -24915,7 +24915,7 @@ class MenuModel(GObject.Object):
     def do_get_item_links(
         self,
         item_index: int,
-    ) -> dict[str, Gio.MenuModel]:
+    ) -> dict[str, MenuModel]:
         """
         get_item_links(self, item_index:int) -> links:dict
         """
@@ -27287,7 +27287,7 @@ class OutputStream(GObject.Object):
         self,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -27319,7 +27319,7 @@ class OutputStream(GObject.Object):
         self,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -27348,7 +27348,7 @@ class OutputStream(GObject.Object):
         flags: OutputStreamSpliceFlags,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -27367,7 +27367,7 @@ class OutputStream(GObject.Object):
         buffer: list[int] | None,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -27391,10 +27391,10 @@ class OutputStream(GObject.Object):
         """
     def do_writev_async(
         self,
-        vectors: list[Gio.OutputVector],
+        vectors: list[OutputVector],
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -27410,7 +27410,7 @@ class OutputStream(GObject.Object):
         """
     def do_writev_fn(
         self,
-        vectors: list[Gio.OutputVector],
+        vectors: list[OutputVector],
         cancellable: Cancellable | None = None,
     ) -> tuple[bool, int]:
         """
@@ -27659,7 +27659,7 @@ class Permission(GObject.Object):
     def do_acquire_async(
         self,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -27683,7 +27683,7 @@ class Permission(GObject.Object):
     def do_release_async(
         self,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -29232,7 +29232,7 @@ class Resolver(GObject.Object):
         self,
         address: InetAddress,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -29250,7 +29250,7 @@ class Resolver(GObject.Object):
         self,
         hostname: str,
         cancellable: Cancellable | None = None,
-    ) -> list[Gio.InetAddress]:
+    ) -> list[InetAddress]:
         """
         lookup_by_name(self, hostname:str, cancellable:Gio.Cancellable=None) -> list
         """
@@ -29258,7 +29258,7 @@ class Resolver(GObject.Object):
         self,
         hostname: str,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -29268,7 +29268,7 @@ class Resolver(GObject.Object):
     def do_lookup_by_name_finish(
         self,
         result: AsyncResult,
-    ) -> list[Gio.InetAddress]:
+    ) -> list[InetAddress]:
         """
         lookup_by_name_finish(self, result:Gio.AsyncResult) -> list
         """
@@ -29277,7 +29277,7 @@ class Resolver(GObject.Object):
         hostname: str,
         flags: ResolverNameLookupFlags,
         cancellable: Cancellable | None = None,
-    ) -> list[Gio.InetAddress]:
+    ) -> list[InetAddress]:
         """
         lookup_by_name_with_flags(self, hostname:str, flags:Gio.ResolverNameLookupFlags, cancellable:Gio.Cancellable=None) -> list
         """
@@ -29286,7 +29286,7 @@ class Resolver(GObject.Object):
         hostname: str,
         flags: ResolverNameLookupFlags,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -29296,7 +29296,7 @@ class Resolver(GObject.Object):
     def do_lookup_by_name_with_flags_finish(
         self,
         result: AsyncResult,
-    ) -> list[Gio.InetAddress]:
+    ) -> list[InetAddress]:
         """
         lookup_by_name_with_flags_finish(self, result:Gio.AsyncResult) -> list
         """
@@ -29314,7 +29314,7 @@ class Resolver(GObject.Object):
         rrname: str,
         record_type: ResolverRecordType,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -29332,7 +29332,7 @@ class Resolver(GObject.Object):
         self,
         rrname: str,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -29342,7 +29342,7 @@ class Resolver(GObject.Object):
     def do_lookup_service_finish(
         self,
         result: AsyncResult,
-    ) -> list[Gio.SrvTarget]:
+    ) -> list[SrvTarget]:
         """
         lookup_service_finish(self, result:Gio.AsyncResult) -> list
         """
@@ -32121,7 +32121,7 @@ class SimpleAsyncResult(GObject.Object):
     def new(
         cls,
         source_object: GObject.Object | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
         source_tag: typing.Any = None,
@@ -32135,7 +32135,7 @@ class SimpleAsyncResult(GObject.Object):
     def new_from_error(
         cls,
         source_object: GObject.Object | None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None,
         user_data: typing.Any,
         error: GLib.Error,
@@ -33666,7 +33666,7 @@ class SocketAddressEnumerator(GObject.Object):
     def do_next_async(
         self,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -36764,7 +36764,7 @@ class Task(GObject.Object):
         cls,
         source_object: GObject.Object | None = None,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         callback_data: typing.Any = None,
     ) -> Task:
@@ -38746,7 +38746,7 @@ class TlsConnection(IOStream):
         self,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -39268,7 +39268,7 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -39298,7 +39298,7 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -39318,7 +39318,7 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
-    ) -> list[Gio.TlsCertificate]:
+    ) -> list[TlsCertificate]:
         """
         lookup_certificates_issued_by(self, issuer_raw_dn:list, interaction:Gio.TlsInteraction=None, flags:Gio.TlsDatabaseLookupFlags, cancellable:Gio.Cancellable=None) -> list
         """
@@ -39328,7 +39328,7 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -39338,7 +39338,7 @@ class TlsDatabase(GObject.Object):
     def do_lookup_certificates_issued_by_finish(
         self,
         result: AsyncResult,
-    ) -> list[Gio.TlsCertificate]:
+    ) -> list[TlsCertificate]:
         """
         lookup_certificates_issued_by_finish(self, result:Gio.AsyncResult) -> list
         """
@@ -39362,7 +39362,7 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseVerifyFlags,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -39745,7 +39745,7 @@ class TlsInteraction(GObject.Object):
         self,
         password: TlsPassword,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -39773,7 +39773,7 @@ class TlsInteraction(GObject.Object):
         connection: TlsConnection,
         flags: TlsCertificateRequestFlags,
         cancellable: Cancellable | None = None,
-        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], Gio.AsyncResult, typing.Any], None]
+        callback: collections.abc.Callable[[typing.Union[GObject.Object, NoneType], AsyncResult, typing.Any], None]
         | None = None,
         user_data: typing.Any = None,
     ) -> None:
@@ -41484,7 +41484,7 @@ class VolumeMonitor(GObject.Object):
         """
     def do_get_connected_drives(
         self,
-    ) -> list[Gio.Drive]:
+    ) -> list[Drive]:
         """
         get_connected_drives(self) -> list
         """
@@ -41497,7 +41497,7 @@ class VolumeMonitor(GObject.Object):
         """
     def do_get_mounts(
         self,
-    ) -> list[Gio.Mount]:
+    ) -> list[Mount]:
         """
         get_mounts(self) -> list
         """
@@ -41510,7 +41510,7 @@ class VolumeMonitor(GObject.Object):
         """
     def do_get_volumes(
         self,
-    ) -> list[Gio.Volume]:
+    ) -> list[Volume]:
         """
         get_volumes(self) -> list
         """

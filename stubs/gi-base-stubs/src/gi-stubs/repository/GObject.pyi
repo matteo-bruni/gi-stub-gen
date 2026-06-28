@@ -1958,18 +1958,18 @@ def signal_handler_block(
     """
 
 def signal_list_ids(
-    type_: types.UnionType[GObject.GType, GObject.Object],
+    type_: types.UnionType[GType, Object],
 ) -> tuple[int, ...]: ...
 def signal_list_names(
-    type_: types.UnionType[GObject.GType, GObject.Object],
+    type_: types.UnionType[GType, Object],
 ) -> tuple[str, ...]: ...
 def signal_lookup(
     name: str,
-    type_: types.UnionType[GObject.GType, GObject.Object],
+    type_: types.UnionType[GType, Object],
 ) -> int: ...
 def signal_parse_name(
     detailed_signal: str,
-    itype: types.UnionType[GObject.GType, GObject.Object],
+    itype: types.UnionType[GType, Object],
     force_detail_quark: bool,
 ) -> tuple[int, int]:
     """
@@ -1986,13 +1986,13 @@ def signal_parse_name(
 
 def signal_query(
     id_or_name: types.UnionType[int, str],
-    type_: GObject.GType | GObject.Object | None = None,
+    type_: GType | Object | None = None,
 ) -> SignalQuery | None: ...
 def type_from_name(
     name: str,
 ) -> GType: ...
 def type_parent(
-    type_: types.UnionType[GObject.GType, GObject.Object],
+    type_: types.UnionType[GType, Object],
 ) -> GType: ...
 
 ###############################################################
@@ -3920,7 +3920,7 @@ class Object(builtins.object):
     @classmethod
     def install_properties(
         cls,
-        pspecs: list[GObject.ParamSpec],
+        pspecs: list[ParamSpec],
     ) -> None:
         """
         install_properties(self, pspecs:list)
@@ -3961,7 +3961,7 @@ class Object(builtins.object):
     @classmethod
     def list_properties(
         cls,
-    ) -> list[GObject.ParamSpec]:
+    ) -> list[ParamSpec]:
         """
         list_properties(self) -> list
         """
@@ -3969,7 +3969,7 @@ class Object(builtins.object):
     def newv(
         cls,
         object_type: GType,
-        parameters: list[GObject.Parameter],
+        parameters: list[Parameter],
     ) -> Object:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]

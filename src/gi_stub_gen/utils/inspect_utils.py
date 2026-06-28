@@ -7,16 +7,36 @@ from gi_stub_gen.utils.utils import get_py_type_name_repr, get_py_type_namespace
 from gi_stub_gen.utils.utils import sanitize_gi_module_name
 
 
-def _format_annotation_expr(annotation: Any, relative_namespace: str | None = None) -> str:
-    type_name, type_namespace = _extract_annotation_type_info(annotation)
-    if type_namespace and type_namespace != relative_namespace:
+def _normalize_namespace(namespace: str | None) -> str | None:
+    if namespace is None:
+        return None
+    return sanitize_gi_module_name(namespace)
+
+
+def _format_annotation_expr(
+    annotation: Any,
+    relative_namespace: str | None = None,
+    current_namespace: str | None = None,
+) -> str:
+    normalized_relative_namespace = _normalize_namespace(relative_namespace)
+    normalized_current_namespace = _normalize_namespace(current_namespace)
+    type_name, type_namespace = _extract_annotation_type_info(
+        annotation, current_namespace=normalized_current_namespace
+    )
+    if type_namespace and type_namespace not in {normalized_relative_namespace, normalized_current_namespace}:
         return f"{type_namespace}.{type_name}"
     return type_name
 
 
-def _extract_annotation_type_info(annotation: Any) -> tuple[str, str | None]:
+def _extract_annotation_type_info(
+    annotation: Any,
+    current_namespace: str | None = None,
+) -> tuple[str, str | None]:
     if isinstance(annotation, list):
-        return f"[{', '.join(_format_annotation_expr(item) for item in annotation)}]", None
+        return (
+            f"[{', '.join(_format_annotation_expr(item, current_namespace=current_namespace) for item in annotation)}]",
+            None,
+        )
 
     if annotation is Ellipsis:
         return "...", None
@@ -25,18 +45,26 @@ def _extract_annotation_type_info(annotation: Any) -> tuple[str, str | None]:
     if origin is not None:
         origin_name = get_py_type_name_repr(origin)
         origin_namespace = get_py_type_namespace_repr(origin)
-        arg_reprs = [_format_annotation_expr(arg, relative_namespace=origin_namespace) for arg in get_args(annotation)]
-        return f"{origin_name}[{', '.join(arg_reprs)}]", origin_namespace
+        arg_reprs = [
+            _format_annotation_expr(
+                arg,
+                relative_namespace=origin_namespace,
+                current_namespace=current_namespace,
+            )
+            for arg in get_args(annotation)
+        ]
+        return f"{origin_name}[{', '.join(arg_reprs)}]", _normalize_namespace(origin_namespace)
 
     if isinstance(annotation, str):
         return annotation, None
 
-    return get_py_type_name_repr(annotation), get_py_type_namespace_repr(annotation)
+    return get_py_type_name_repr(annotation), _normalize_namespace(get_py_type_namespace_repr(annotation))
 
 
 def extract_inspect_params_type_info(
     annotation: Any,
     default_value: Any = inspect.Parameter.empty,
+    current_namespace: str | None = None,
 ) -> tuple[str, str | None, bool]:
     # no annotation -> Any
     if annotation is inspect.Parameter.empty:
@@ -58,13 +86,16 @@ def extract_inspect_params_type_info(
             if len(non_none_args) == 1:
                 real_type = non_none_args[0]
             elif non_none_args:
-                return " | ".join(_format_annotation_expr(arg) for arg in non_none_args), None, is_optional
+                return (
+                    " | ".join(
+                        _format_annotation_expr(arg, current_namespace=current_namespace) for arg in non_none_args
+                    ),
+                    None,
+                    is_optional,
+                )
             else:
                 return "Any", "typing", is_optional
 
-    base_name, namespace = _extract_annotation_type_info(real_type)
-
-    if namespace:
-        namespace = sanitize_gi_module_name(namespace)
+    base_name, namespace = _extract_annotation_type_info(real_type, current_namespace=current_namespace)
 
     return base_name, namespace, is_optional

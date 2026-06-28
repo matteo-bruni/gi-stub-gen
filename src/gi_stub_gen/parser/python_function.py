@@ -149,7 +149,11 @@ def parse_python_function(
             def_val = get_redacted_stub_value(param.default)
 
         # 2. Estrazione Tipo Robusta
-        t_name, t_ns, t_opt = extract_inspect_params_type_info(param.annotation, param.default)
+        t_name, t_ns, t_opt = extract_inspect_params_type_info(
+            param.annotation,
+            param.default,
+            current_namespace=namespace,
+        )
         arg = BuiltinFunctionArgumentSchema(
             name=param_name,
             type_hint_name=t_name,
@@ -162,7 +166,10 @@ def parse_python_function(
         args_schema.append(arg)
 
     # 3. Parsing del Return Type
-    ret_name, ret_ns, ret_opt = extract_inspect_params_type_info(sig.return_annotation)
+    ret_name, ret_ns, ret_opt = extract_inspect_params_type_info(
+        sig.return_annotation,
+        current_namespace=namespace,
+    )
 
     return BuiltinFunctionSchema(
         name=name,

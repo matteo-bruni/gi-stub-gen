@@ -16543,7 +16543,7 @@ class MainContext(GObject.GBoxed, metaclass=GObject.GType):
     def query(
         self,
         max_priority: int,
-    ) -> tuple[int, list[GLib.PollFD]]:
+    ) -> tuple[int, list[PollFD]]:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -21452,7 +21452,7 @@ class Variant(GObject.GPointer, metaclass=GObject.GType):
     def new_array(
         cls,
         child_type: VariantType | None = None,
-        children: list[GLib.Variant] | None = None,
+        children: list[Variant] | None = None,
     ) -> Variant:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -22473,7 +22473,7 @@ class VariantType(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_tuple(
         cls,
-        items: list[GLib.VariantType],
+        items: list[VariantType],
     ) -> VariantType:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
