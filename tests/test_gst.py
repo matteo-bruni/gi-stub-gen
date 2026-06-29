@@ -70,4 +70,4 @@ def test_fraction_values():
     assert frac.denom == 100
 
     value = get_fraction_value(frac)
-    assert value == "Gst.Fraction(num=1.0, denom=100.0)"
+    assert value == "Gst.Fraction(num=1, denom=100)"

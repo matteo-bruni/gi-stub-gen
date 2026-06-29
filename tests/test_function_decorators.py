@@ -234,6 +234,29 @@ class TestPythonFunctionDecorators:
         assert "def __iter__(" in rendered
         assert ") -> collections.abc.Iterator[T]:" in rendered
 
+    def test_gst_context_managers_render_enter_exit(self):
+        """Gst override context managers should expose the context manager protocol."""
+        TemplateManager.set_module_name("Gst")
+
+        for context_manager, enter_return in (
+            (Gst.PadProbeInfoObjectContextManager, "MiniObject"),
+            (Gst.StructureContextManager, "Structure"),
+        ):
+            parsed_class, _ = parse_class("Gst", context_manager)
+            assert parsed_class is not None
+
+            enter_method = next(method for method in parsed_class.python_methods if method.name == "__enter__")
+            exit_method = next(method for method in parsed_class.python_methods if method.name == "__exit__")
+
+            assert enter_method.return_hint("Gst") == enter_return
+            assert exit_method.return_hint("Gst") == "None"
+
+            rendered = parsed_class.render()
+            assert "def __enter__(" in rendered
+            assert f") -> {enter_return}:" in rendered
+            assert "def __exit__(" in rendered
+            assert ") -> None:" in rendered
+
     def test_python_override_keeps_callable_argument_types(self):
         """
         Callable annotations from overrides expose their parameter list as a literal

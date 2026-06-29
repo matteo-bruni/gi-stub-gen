@@ -13714,6 +13714,15 @@ class MapInfo(builtins.object):
     """
 
     # python methods (overrides?)
+    def __enter__(
+        self,
+    ) -> typing_extensions.Self: ...
+    def __exit__(
+        self,
+        type: typing.Any,
+        value: typing.Any,
+        tb: typing.Any,
+    ) -> None: ...
     def __init__(
         self,
     ) -> None:
@@ -16864,6 +16873,15 @@ class PadProbeInfoObjectContextManager(builtins.object):
     def props(self) -> Props: ...
 
     # python methods (overrides?)
+    def __enter__(
+        self,
+    ) -> MiniObject: ...
+    def __exit__(
+        self,
+        _type: typing.Any,
+        _value: typing.Any,
+        _tb: typing.Any,
+    ) -> None: ...
     def __init__(
         self,
         object: MiniObject,
@@ -21099,6 +21117,15 @@ class Structure(GObject.GBoxed, metaclass=GObject.GType):
         """
 
     # python methods (overrides?)
+    def __enter__(
+        self,
+    ) -> typing_extensions.Self: ...
+    def __exit__(
+        self,
+        _type: typing.Any,
+        _value: typing.Any,
+        _tb: typing.Any,
+    ) -> None: ...
     def __iter__(
         self,
     ) -> collections.abc.Iterator[str]: ...
@@ -21186,6 +21213,15 @@ class StructureContextManager(builtins.object):
     def props(self) -> Props: ...
 
     # python methods (overrides?)
+    def __enter__(
+        self,
+    ) -> Structure: ...
+    def __exit__(
+        self,
+        _type: typing.Any,
+        _value: typing.Any,
+        _tb: typing.Any,
+    ) -> None: ...
     def __init__(
         self,
         structure: Structure,

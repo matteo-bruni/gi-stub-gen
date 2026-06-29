@@ -599,7 +599,7 @@ def parse_class(
     # do a second pass to get all the attributes not parsed by get_properties/get_methods
     # i.e class not from GI but added in overrides
     for attribute_name in dir(class_to_parse):
-        if attribute_name.startswith("_") and attribute_name not in {"__init__", "__iter__"}:
+        if attribute_name.startswith("_") and attribute_name not in {"__init__", "__iter__", "__enter__", "__exit__"}:
             # skip dunder methods
             continue
         try:
@@ -674,8 +674,8 @@ def parse_class(
                 name_override=attribute_name,
                 from_class=class_to_parse,
             ):
-                if f.name == "__init__":
-                    # some zelous overrides define __init__ with return type Any..
+                if f.name in {"__init__", "__exit__"}:
+                    # some zealous overrides leave these methods with return type Any..
                     # we fix that here
                     if f.return_hint_name == "Any":
                         f.return_hint_name = "None"
