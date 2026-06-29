@@ -124,6 +124,10 @@ def parse_alias(
         if sanitized_module_name == "gi":
             return None
 
+        # skip the overrides aliases
+        if sanitized_module_name == "gi.overrides":
+            return None
+
         if sanitized_module_name == "gi._gi":
             # we try to parse the class from gi._gi module
             # and fake it to being in this module

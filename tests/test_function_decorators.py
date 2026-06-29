@@ -16,6 +16,7 @@ gi.require_version("GstAudio", "1.0")
 
 from gi.repository import GObject, Gio, Gst, GstAudio
 
+from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.parser.python_function import parse_python_function
@@ -184,6 +185,23 @@ class TestPythonFunctionDecorators:
         assert parsed.return_hint_namespace == "Gst"
         assert parsed.return_hint_name == "Iterator[Element]"
         assert parsed.return_hint("Gst") == "Iterator[Element]"
+
+    def test_gst_iterator_renders_pep695_typevar(self):
+        """Gst.Iterator should render as generic so Iterator[Element] is valid."""
+        parsed_class, _ = parse_class("Gst", Gst.Iterator)
+
+        assert parsed_class is not None
+        assert [type_var.name for type_var in parsed_class.type_vars] == ["T"]
+
+        iter_method = next(method for method in parsed_class.python_methods if method.name == "__iter__")
+        assert iter_method.return_hint("Gst") == "collections.abc.Iterator[T]"
+
+        TemplateManager.set_module_name("Gst")
+        rendered = parsed_class.render()
+
+        assert "class Iterator[T](GObject.GBoxed, metaclass=GObject.GType):" in rendered
+        assert "def __iter__(" in rendered
+        assert ") -> collections.abc.Iterator[T]:" in rendered
 
     def test_python_override_keeps_callable_argument_types(self):
         """

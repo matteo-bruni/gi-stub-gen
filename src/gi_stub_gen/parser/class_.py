@@ -599,7 +599,7 @@ def parse_class(
     # do a second pass to get all the attributes not parsed by get_properties/get_methods
     # i.e class not from GI but added in overrides
     for attribute_name in dir(class_to_parse):
-        if attribute_name.startswith("_") and attribute_name != "__init__":
+        if attribute_name.startswith("_") and attribute_name not in {"__init__", "__iter__"}:
             # skip dunder methods
             continue
         try:
