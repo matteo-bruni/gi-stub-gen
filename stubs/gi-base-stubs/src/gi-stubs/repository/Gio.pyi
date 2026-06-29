@@ -23428,6 +23428,11 @@ class ListModel[ObjectItemType: GObject.Object]:
     ```
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """

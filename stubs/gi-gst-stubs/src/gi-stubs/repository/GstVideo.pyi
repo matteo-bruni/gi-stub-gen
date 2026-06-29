@@ -3986,6 +3986,11 @@ class ColorBalance(builtins.object, metaclass=GObject.GType):
     Example elements are 'xvimagesink' and 'colorbalance'
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -4191,6 +4196,11 @@ class Navigation(builtins.object, metaclass=GObject.GType):
     The GstNavigation message functions provide functions for creating and
     parsing custom bus messages for signaling GstNavigation changes.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -6976,7 +6986,7 @@ class VideoDirection(builtins.object, metaclass=GObject.GType):
     operations of video-sources or operators.
     """
 
-    class Props(builtins.object, metaclass=GObject.GType.Props):
+    class Props:
         video_direction: VideoOrientationMethod  # [video-direction]: changed because contained invalid characters
 
     @builtins.property
@@ -8735,6 +8745,11 @@ class VideoOrientation(builtins.object, metaclass=GObject.GType):
     operation of video-sources or operators.
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -9092,6 +9107,11 @@ class VideoOverlay(builtins.object, metaclass=GObject.GType):
     }
     ]|
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:

@@ -5336,6 +5336,11 @@ class Event(builtins.object, metaclass=GObject.GType):
     so using `GdkEvent` and its related API is rarely needed.
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def _get_angle(self, event2: Event) -> tuple[bool, float]:
         """
@@ -5495,6 +5500,9 @@ class FileList(GObject.GBoxed, metaclass=GObject.GType):
         """
 
     # python methods (overrides?)
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
     @classmethod
     def new_from_array(
         cls,
@@ -7610,6 +7618,12 @@ class RGBA(GObject.GBoxed, metaclass=GObject.GType):
     ) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
+        """
+    def __iter__(
+        self,
+    ) -> typing.Any:
+        """
+        Iterator which allows easy conversion to tuple and list types.
         """
 
 class Rectangle(GObject.GBoxed, metaclass=GObject.GType):

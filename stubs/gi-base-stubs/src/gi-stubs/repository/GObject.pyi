@@ -3268,6 +3268,11 @@ class FlagsValue(GPointer, metaclass=GType):
 class Float(builtins.float, metaclass=GType): ...
 
 class GBoxed(builtins.object, metaclass=GType):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def copy(self) -> typing_extensions.Self:
         """
@@ -3332,7 +3337,13 @@ class GFlags(enum.IntFlag):
         The nicknames of the values.
         """
 
-class GInterface(builtins.object, metaclass=GType): ...
+class GInterface(builtins.object, metaclass=GType):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
+    ...
 
 class GObjectWeakRef(builtins.object):
     """
@@ -3355,7 +3366,13 @@ class GObjectWeakRef(builtins.object):
         For a more detailed stub signature, add a manual override.
         """
 
-class GPointer(builtins.object, metaclass=GType): ...
+class GPointer(builtins.object, metaclass=GType):
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
+    ...
 
 class GType(builtins.type):
     # gi Fields
@@ -4365,6 +4382,11 @@ class ParamSpec(builtins.object, metaclass=GType):
     used, but they cannot be mixed. Using `-` is considerably more
     efficient, and is the ‘canonical form’. Using `_` is discouraged.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Fields
     @builtins.property
@@ -6020,6 +6042,11 @@ class TypePlugin(builtins.object, metaclass=GType):
     already implements most of this except for the actual module loading and
     unloading. It even handles multiple registered types per module.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:

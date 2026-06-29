@@ -453,6 +453,16 @@ class ClassSchema(BaseSchema):
             super_classes = [super_cls for super_cls in super_classes if not super_cls.startswith("typing.Generic")]
         return ", ".join(super_classes) or None
 
+    @property
+    def props_super_class(self) -> str | None:
+        for super_cls in self.super:
+            if super_cls.startswith(("metaclass=", "typing.Generic")):
+                continue
+            if super_cls == "builtins.object":
+                return None
+            return f"{super_cls}.Props"
+        return None
+
     def render(self) -> str:
         return TemplateManager.render_master("class.jinja", cls_=self)
 
@@ -472,7 +482,7 @@ class ClassSchema(BaseSchema):
         return TemplateManager.render_master(
             "class_props.jinja",
             props=self.props,
-            super_class=self.super_class,
+            props_super_class=self.props_super_class,
         )
 
     @property

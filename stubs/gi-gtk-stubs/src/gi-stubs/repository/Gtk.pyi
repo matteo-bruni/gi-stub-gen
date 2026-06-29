@@ -41450,6 +41450,11 @@ class Expression(builtins.object, metaclass=GObject.GType):
     ```
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def bind(self, target: GObject.Object, property: str, this_: GObject.Object | None = None) -> ExpressionWatch:
         """
@@ -107711,6 +107716,11 @@ class TreeDragDest(builtins.object, metaclass=GObject.GType):
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -107758,6 +107768,11 @@ class TreeDragSource(builtins.object, metaclass=GObject.GType):
     """
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self) -> None:
@@ -109181,6 +109196,9 @@ class TreeModel(builtins.object):
         """
 
     # python methods (overrides?)
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
     def get(
         self,
         treeiter: typing.Any,
@@ -109802,6 +109820,9 @@ class TreeModelRowIter(builtins.object):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
 
 class TreeModelSort(GObject.Object):
     """
@@ -110161,6 +110182,9 @@ class TreePath(GObject.GBoxed, metaclass=GObject.GType):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
     @classmethod
     def new(
         cls,
@@ -117057,6 +117081,9 @@ class Widget(GObject.InitiallyUnowned):
         """
 
     # python methods (overrides?)
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
     @classmethod
     def add_shortcut(
         cls,

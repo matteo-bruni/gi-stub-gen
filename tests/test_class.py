@@ -320,3 +320,20 @@ def test_gio_listmodel_renders_pep695_typevar():
     assert "class ListModel[ObjectItemType: GObject.Object]:" in rendered
     assert "def get_item(self, position: int) -> ObjectItemType | None:" in rendered
     assert "typing.Generic" not in rendered
+
+
+def test_props_do_not_inherit_from_metaclass_argument():
+    """Nested Props should not append .Props to class definition keyword arguments."""
+    gi.require_version("GstVideo", "1.0")
+    from gi.repository import GstVideo
+
+    class_schema, _ = parse_class("GstVideo", GstVideo.VideoDirection)
+
+    assert class_schema is not None
+
+    TemplateManager.set_module_name("GstVideo")
+    rendered = class_schema.render()
+
+    assert "class VideoDirection(builtins.object, metaclass=GObject.GType):" in rendered
+    assert "class Props:" in rendered
+    assert "GObject.GType.Props" not in rendered

@@ -6063,6 +6063,12 @@ class Bin(Element):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def __iter__(
+        self,
+    ) -> collections.abc.Iterator[Element]:
+        """
+        Iterate over all elements in the bin, non-recursive.
+        """
     def add(
         self,
         *args: Element,
@@ -6383,6 +6389,11 @@ class Bitmask(builtins.object, metaclass=GObject.GType):
     """
     A fundamental type that describes a 64-bit bitmask
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # python methods (overrides?)
     def __init__(
@@ -8238,6 +8249,9 @@ class Caps(GObject.GBoxed, metaclass=GObject.GType):
         """
 
     # python methods (overrides?)
+    def __iter__(
+        self,
+    ) -> collections.abc.Iterator[Structure]: ...
     def get_structure(
         self,
         index: int,
@@ -10663,6 +10677,11 @@ class DoubleRange(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes a #gdouble range
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # python methods (overrides?)
     def __init__(
         self,
@@ -12941,6 +12960,11 @@ class FlagSet(builtins.object, metaclass=GObject.GType):
     mask indicating which of the bits in the field are explicitly set.
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     @staticmethod
     def register(flags_type: GObject.GType) -> GObject.GType:
@@ -12981,6 +13005,11 @@ class Fraction(builtins.object, metaclass=GObject.GType):
     over an integer denominator
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Fields
     denom: int = ...
     """
@@ -13005,6 +13034,11 @@ class FractionRange(builtins.object, metaclass=GObject.GType):
     """
     A fundamental type that describes a Gst.FractionRange range
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # python methods (overrides?)
     def __init__(
@@ -13336,6 +13370,11 @@ class Int64Range(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes a #gint64 range
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # python methods (overrides?)
     def __init__(
         self,
@@ -13349,6 +13388,11 @@ class IntRange(builtins.object, metaclass=GObject.GType):
     """
     A fundamental type that describes a #gint range
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # python methods (overrides?)
     def __init__(
@@ -13538,8 +13582,7 @@ class Iterator[T](GObject.GBoxed, metaclass=GObject.GType):
     # python methods (overrides?)
     def __iter__(
         self,
-    ) -> collections.abc.Iterator[T]:
-        ...
+    ) -> collections.abc.Iterator[T]: ...
     @classmethod
     def new_single(
         cls,
@@ -13677,6 +13720,9 @@ class MapInfo(builtins.object):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
     def get_data(
         self,
     ) -> typing.Any: ...
@@ -18205,6 +18251,11 @@ class Preset(builtins.object, metaclass=GObject.GType):
     Presets found in those paths will be considered as "app presets".
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -21048,6 +21099,9 @@ class Structure(GObject.GBoxed, metaclass=GObject.GType):
         """
 
     # python methods (overrides?)
+    def __iter__(
+        self,
+    ) -> collections.abc.Iterator[str]: ...
     @classmethod
     def from_string(
         cls,
@@ -22799,6 +22853,11 @@ class URIHandler(builtins.object, metaclass=GObject.GType):
     Source and Sink plugins should implement this interface when possible.
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     def __init__(self) -> None:
         """
@@ -23215,6 +23274,11 @@ class ValueArray(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes an ordered list of GValue
     """
 
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
+
     # gi Methods
     @staticmethod
     def append_and_take_value(value: GObject.Value, append_value: GObject.Value) -> None:
@@ -23241,6 +23305,9 @@ class ValueArray(builtins.object, metaclass=GObject.GType):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def __iter__(
+        self,
+    ) -> collections.abc.Iterator[typing.Any]: ...
     def append(
         self,
         item: typing.Any,
@@ -23283,6 +23350,11 @@ class ValueList(builtins.object, metaclass=GObject.GType):
     """
     A fundamental type that describes an unordered list of GValue
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     @staticmethod
@@ -23327,6 +23399,9 @@ class ValueList(builtins.object, metaclass=GObject.GType):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def __iter__(
+        self,
+    ) -> collections.abc.Iterator[typing.Any]: ...
     def append(
         self,
         item: typing.Any,
@@ -23402,6 +23477,11 @@ class ValueUniqueList(builtins.object, metaclass=GObject.GType):
     """
     A fundamental type that describes a set of GValue
     """
+
+    class Props: ...
+
+    @builtins.property
+    def props(self) -> Props: ...
 
     # gi Methods
     @staticmethod
