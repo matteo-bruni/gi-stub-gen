@@ -218,6 +218,26 @@ class TestPythonFunctionDecorators:
         assert files_param.type_hint_namespace is None
         assert files_param.type_hint("Gio") == "list[File]"
 
+    def test_python_override_detects_typevar_bound(self):
+        """Gio.ListStore.insert_sorted exposes ObjectItemType bound to GObject.Object."""
+        parsed = parse_python_function(
+            Gio.ListStore.insert_sorted,
+            "Gio",
+            from_class=Gio.ListStore,
+        )
+        assert parsed is not None
+
+        item_param = next(param for param in parsed.params if param.name == "item")
+        assert item_param.type_hint_name == "ObjectItemType"
+        assert item_param.type_hint_namespace is None
+        assert item_param.type_var_names == ["ObjectItemType"]
+
+        assert len(parsed.type_vars) == 1
+        type_var = parsed.type_vars[0]
+        assert type_var.name == "ObjectItemType"
+        assert type_var.bound_hint_name == "Object"
+        assert type_var.bound_hint_namespace == "GObject"
+
 
 class TestClassMethodDetection:
     """Test @classmethod detection for Python methods."""

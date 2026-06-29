@@ -86,6 +86,9 @@ class FunctionArgumentSchema(BaseSchema):
     type_hint_cb_return_namespace: str | None = None
     """If is a callback, the callback return namespace for type hinting"""
 
+    type_var_name: str | None = None
+    """TypeVar name to render instead of the GI argument type, if any."""
+
     # @property
     # def default_value(self) -> str | None:
     #     """Get the default value representation for optional arguments."""
@@ -202,7 +205,7 @@ class FunctionArgumentSchema(BaseSchema):
         if is in the same we avoid adding the namespace prefix.
         """
 
-        base_type = self.py_type_name
+        base_type = self.type_var_name or self.py_type_name
 
         if self.direction == "INOUT":
             # INOUT in Python non è tipato diversamente in ingresso,
@@ -212,7 +215,7 @@ class FunctionArgumentSchema(BaseSchema):
 
         full_type = base_type
 
-        if self.py_type_namespace and self.py_type_namespace != namespace:
+        if self.type_var_name is None and self.py_type_namespace and self.py_type_namespace != namespace:
             full_type = f"{self.py_type_namespace}.{base_type}"
 
         if self.may_be_null or (self.is_optional and self.direction in ("IN", "INOUT")):
@@ -360,7 +363,7 @@ class FunctionSchema(BaseSchema):
             gi_imports.add(self.return_hint_namespace)
         # check arguments
         for arg in self.args:
-            if arg.py_type_namespace:
+            if arg.py_type_namespace and arg.type_var_name is None:
                 gi_imports.add(arg.py_type_namespace)
         # check decorators
         if self.is_overload:  # we add typing.overload

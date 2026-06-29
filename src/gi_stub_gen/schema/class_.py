@@ -4,11 +4,12 @@ from __future__ import annotations
 import logging
 
 from typing import Any, TYPE_CHECKING
+from pydantic import Field
 from gi_stub_gen.manager.gir_docs import GIRDocs
-from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
+from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema, TypeVarSchema
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.schema.function import FunctionSchema
+from gi_stub_gen.schema.function import FunctionArgumentSchema, FunctionSchema
 from gi_stub_gen.schema.signals import SignalSchema
 from gi_stub_gen.utils.gi_utils import do_class_need_gtype_metaclass
 from gi_stub_gen.utils.utils import get_super_class_name, sanitize_gi_module_name
@@ -126,10 +127,114 @@ class ClassFieldSchema(BaseSchema):
         return self.is_readable and not self.is_writable
 
 
+def _normalize_type_namespace(namespace: str | None) -> str | None:
+    if namespace is None:
+        return None
+    return sanitize_gi_module_name(namespace)
+
+
+def _hint_matches_class(
+    hint_name: str | None,
+    hint_namespace: str | None,
+    class_name: str,
+    class_namespace: str,
+) -> bool:
+    if hint_name != class_name:
+        return False
+
+    normalized_hint_namespace = _normalize_type_namespace(hint_namespace)
+    normalized_class_namespace = _normalize_type_namespace(class_namespace)
+    return normalized_hint_namespace in {None, normalized_class_namespace}
+
+
+def _collect_class_type_vars(
+    builtin_methods: list[BuiltinFunctionSchema],
+) -> tuple[list[TypeVarSchema], dict[str, set[str]]]:
+    type_vars_by_name: dict[str, TypeVarSchema] = {}
+    param_names_by_type_var: dict[str, set[str]] = {}
+
+    for method in builtin_methods:
+        for type_var in method.type_vars:
+            existing = type_vars_by_name.get(type_var.name)
+            if existing is None or (existing.bound_hint_name is None and type_var.bound_hint_name is not None):
+                type_vars_by_name[type_var.name] = type_var
+
+        for param in method.params:
+            for type_var_name in param.type_var_names:
+                param_names_by_type_var.setdefault(type_var_name, set()).add(param.name)
+
+    return list(type_vars_by_name.values()), param_names_by_type_var
+
+
+def _arg_matches_type_var_bound(arg: FunctionArgumentSchema, type_var: TypeVarSchema) -> bool:
+    if type_var.bound_hint_name is None:
+        return False
+
+    return (
+        arg.py_type_name == type_var.bound_hint_name
+        and _normalize_type_namespace(arg.py_type_namespace) == _normalize_type_namespace(type_var.bound_hint_namespace)
+    )
+
+
+def _apply_class_type_vars(
+    namespace: str,
+    class_name: str,
+    methods: list[FunctionSchema],
+    builtin_methods: list[BuiltinFunctionSchema],
+) -> list[TypeVarSchema]:
+    type_vars, param_names_by_type_var = _collect_class_type_vars(builtin_methods)
+    if not type_vars and _normalize_type_namespace(namespace) == "Gio" and class_name == "ListModel":
+        type_vars = [
+            TypeVarSchema(
+                name="ObjectItemType",
+                bound_hint_name="Object",
+                bound_hint_namespace="GObject",
+            )
+        ]
+    if not type_vars:
+        return []
+
+    generic_class_name = f"{class_name}[{', '.join(type_var.name for type_var in type_vars)}]"
+    sane_namespace = _normalize_type_namespace(namespace)
+
+    for method in methods:
+        if _hint_matches_class(method.return_hint, method.return_hint_namespace, class_name, namespace):
+            method.return_hint = generic_class_name
+            method.return_hint_namespace = sane_namespace
+
+        if (
+            _normalize_type_namespace(namespace) == "Gio"
+            and class_name == "ListModel"
+            and method.name == "get_item"
+            and _hint_matches_class(method.return_hint, method.return_hint_namespace, "Object", "GObject")
+        ):
+            method.return_hint = "ObjectItemType"
+            method.return_hint_namespace = None
+
+        for arg in method.args:
+            if arg.direction == "OUT":
+                continue
+
+            for type_var in type_vars:
+                if arg.name not in param_names_by_type_var.get(type_var.name, set()):
+                    continue
+                if _arg_matches_type_var_bound(arg, type_var):
+                    arg.type_var_name = type_var.name
+                    break
+
+    for method in builtin_methods:
+        if _hint_matches_class(method.return_hint_name, method.return_hint_namespace, class_name, namespace):
+            method.return_hint_name = generic_class_name
+            method.return_hint_namespace = sane_namespace
+
+    return type_vars
+
+
 class ClassSchema(BaseSchema):
     super: list[str]
     namespace: str
     name: str
+    type_vars: list[TypeVarSchema] = Field(default_factory=list)
     docstring: str | None
     props: list[ClassPropSchema]
 
@@ -180,6 +285,9 @@ class ClassSchema(BaseSchema):
             gi_imports.update(method.required_imports)
         for method in self.python_methods:
             gi_imports.update(method.required_imports)
+        for type_var in self.type_vars:
+            if type_var.bound_hint_namespace:
+                gi_imports.add(type_var.bound_hint_namespace)
         for signal in self.signals:
             gi_imports.update(signal.required_gi_imports)
         return gi_imports
@@ -304,10 +412,18 @@ class ClassSchema(BaseSchema):
                     if override_namespace != sane_namespace:
                         required_gi_import = override_namespace
 
+        type_vars = _apply_class_type_vars(
+            namespace=namespace,
+            class_name=obj.__name__,
+            methods=methods,
+            builtin_methods=builtin_methods,
+        )
+
         instance = cls(
             namespace=namespace,
             name=obj.__name__,
             super=super_list,
+            type_vars=type_vars,
             docstring=class_docstring,
             props=props,
             fields=fields,
@@ -322,11 +438,20 @@ class ClassSchema(BaseSchema):
         return instance
 
     @property
+    def type_parameters(self) -> str | None:
+        if not self.type_vars:
+            return None
+        return ", ".join(type_var.type_parameter(self.namespace) for type_var in self.type_vars)
+
+    @property
     def super_class(self) -> str | None:
         """
         Get the super class name, if any.
         """
-        return ", ".join(self.super)
+        super_classes = self.super
+        if self.type_vars:
+            super_classes = [super_cls for super_cls in super_classes if not super_cls.startswith("typing.Generic")]
+        return ", ".join(super_classes) or None
 
     def render(self) -> str:
         return TemplateManager.render_master("class.jinja", cls_=self)

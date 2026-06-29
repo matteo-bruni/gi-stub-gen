@@ -5,6 +5,25 @@ from pydantic import BaseModel, Field
 
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.manager.template import TemplateManager
+from gi_stub_gen.utils.utils import sanitize_gi_module_name
+
+
+class TypeVarSchema(BaseModel):
+    name: str
+    bound_hint_name: str | None = None
+    bound_hint_namespace: str | None = None
+
+    def type_parameter(self, namespace: str) -> str:
+        if self.bound_hint_name is None:
+            return self.name
+
+        bound = self.bound_hint_name
+        if self.bound_hint_namespace and sanitize_gi_module_name(self.bound_hint_namespace) != sanitize_gi_module_name(
+            namespace
+        ):
+            bound = f"{self.bound_hint_namespace}.{bound}"
+
+        return f"{self.name}: {bound}"
 
 
 class ArgKind(StrEnum):
@@ -47,6 +66,10 @@ class BuiltinFunctionArgumentSchema(BaseModel):
     is_optional: bool
     line_comment: str | None = Field(
         description="Optional line comment for the argument.",
+    )
+    type_var_names: list[str] = Field(
+        default_factory=list,
+        description="TypeVars referenced by this argument annotation.",
     )
 
     @property
@@ -117,6 +140,8 @@ class BuiltinFunctionSchema(BaseSchema):
     return_hint_namespace: str | None
     return_is_optional: bool
     params: list[BuiltinFunctionArgumentSchema]
+    type_vars: list[TypeVarSchema] = Field(default_factory=list)
+    return_type_var_names: list[str] = Field(default_factory=list)
 
     @property
     def is_method(self) -> bool:

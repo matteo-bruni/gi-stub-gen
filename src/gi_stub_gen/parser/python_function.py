@@ -5,12 +5,35 @@ from typing import Any
 import inspect
 
 
-from gi_stub_gen.utils.inspect_utils import extract_inspect_params_type_info
-from gi_stub_gen.schema.builtin_function import ArgKind, BuiltinFunctionArgumentSchema
+from gi_stub_gen.utils.inspect_utils import extract_inspect_params_type_info, extract_inspect_type_vars
+from gi_stub_gen.schema.builtin_function import ArgKind, BuiltinFunctionArgumentSchema, TypeVarSchema
 from gi_stub_gen.schema.builtin_function import (
     BuiltinFunctionSchema,
 )
 from gi_stub_gen.utils.utils import get_redacted_stub_value
+
+
+def _collect_type_var_schemas(
+    annotation: Any,
+    namespace: str,
+    type_vars_by_name: dict[str, TypeVarSchema],
+) -> list[str]:
+    type_var_names: list[str] = []
+
+    for type_var_name, bound_name, bound_namespace in extract_inspect_type_vars(
+        annotation,
+        current_namespace=namespace,
+    ):
+        type_var_names.append(type_var_name)
+        existing = type_vars_by_name.get(type_var_name)
+        if existing is None or (existing.bound_hint_name is None and bound_name is not None):
+            type_vars_by_name[type_var_name] = TypeVarSchema(
+                name=type_var_name,
+                bound_hint_name=bound_name,
+                bound_hint_namespace=bound_namespace,
+            )
+
+    return type_var_names
 
 
 def _detect_method_type(func: Any, name: str, parent_class: type) -> tuple[bool, bool]:
@@ -142,6 +165,7 @@ def parse_python_function(
         )
 
     args_schema: list[BuiltinFunctionArgumentSchema] = []
+    type_vars_by_name: dict[str, TypeVarSchema] = {}
     for param_name, param in sig.parameters.items():
         # 1. Parsing del valore di default
         def_val = None
@@ -154,6 +178,11 @@ def parse_python_function(
             param.default,
             current_namespace=namespace,
         )
+        type_var_names = _collect_type_var_schemas(
+            param.annotation,
+            namespace,
+            type_vars_by_name,
+        )
         arg = BuiltinFunctionArgumentSchema(
             name=param_name,
             type_hint_name=t_name,
@@ -162,13 +191,21 @@ def parse_python_function(
             kind=ArgKind.from_inspect(param.kind),
             default_value=def_val,
             line_comment=None,
+            type_var_names=type_var_names,
         )
+        # if name == "insert_sorted" and param_name == "item":
+        #     breakpoint()
         args_schema.append(arg)
 
     # 3. Parsing del Return Type
     ret_name, ret_ns, ret_opt = extract_inspect_params_type_info(
         sig.return_annotation,
         current_namespace=namespace,
+    )
+    return_type_var_names = _collect_type_var_schemas(
+        sig.return_annotation,
+        namespace,
+        type_vars_by_name,
     )
 
     return BuiltinFunctionSchema(
@@ -183,4 +220,6 @@ def parse_python_function(
         return_hint_namespace=ret_ns,
         return_is_optional=ret_opt,
         params=args_schema,
+        type_vars=list(type_vars_by_name.values()),
+        return_type_var_names=return_type_var_names,
     )

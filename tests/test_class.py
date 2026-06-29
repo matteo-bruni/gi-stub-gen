@@ -1,5 +1,6 @@
 import gi
 from gi.repository import GObject
+from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.utils.utils import get_super_class_name
 
@@ -251,6 +252,7 @@ def test_super_override_replaces_computed_super():
 
     class_schema, _ = parse_class("gi.repository.GObject", GObject.GType)
 
+    assert class_schema is not None
     # The super list should only contain the override, not the original computed super
     # (which would be something like GObject.Object or similar)
     assert class_schema.super == ["builtins.type"], f"Expected super to be ['builtins.type'], got {class_schema.super}"
@@ -267,3 +269,54 @@ def test_class_without_super_override_uses_computed_super():
 
     # InitiallyUnowned should have Object as super (computed, no override)
     assert "Object" in class_schema.super_class
+
+
+def test_gio_liststore_renders_pep695_typevar():
+    """Gio.ListStore should render as a PEP 695 generic over its object item type."""
+    gi.require_version("Gio", "2.0")
+    from gi.repository import Gio
+
+    class_schema, _ = parse_class("Gio", Gio.ListStore)
+
+    assert class_schema is not None
+    assert [type_var.name for type_var in class_schema.type_vars] == ["ObjectItemType"]
+
+    append_method = next(method for method in class_schema.methods if method.name == "append")
+    append_item = next(arg for arg in append_method.args if arg.name == "item")
+    assert append_item.type_hint("Gio") == "ObjectItemType"
+
+    insert_method = next(method for method in class_schema.methods if method.name == "insert")
+    insert_item = next(arg for arg in insert_method.args if arg.name == "item")
+    assert insert_item.type_hint("Gio") == "ObjectItemType"
+
+    new_method = next(method for method in class_schema.python_methods if method.name == "new")
+    assert new_method.return_hint("Gio") == "ListStore[ObjectItemType]"
+
+    TemplateManager.set_module_name("Gio")
+    rendered = class_schema.render()
+
+    assert "class ListStore[ObjectItemType: GObject.Object](GObject.Object):" in rendered
+    assert "def append(self, item: ObjectItemType) -> None: ..." in rendered
+    assert "def insert(self, position: int, item: ObjectItemType) -> None: ..." in rendered
+    assert ") -> ListStore[ObjectItemType]:" in rendered
+
+
+def test_gio_listmodel_renders_pep695_typevar():
+    """Gio.ListModel should render as a PEP 695 generic over its object item type."""
+    gi.require_version("Gio", "2.0")
+    from gi.repository import Gio
+
+    class_schema, _ = parse_class("Gio", Gio.ListModel)
+
+    assert class_schema is not None
+    assert [type_var.name for type_var in class_schema.type_vars] == ["ObjectItemType"]
+
+    get_item_method = next(method for method in class_schema.methods if method.name == "get_item")
+    assert get_item_method.complete_return_hint("Gio") == "ObjectItemType | None"
+
+    TemplateManager.set_module_name("Gio")
+    rendered = class_schema.render()
+
+    assert "class ListModel[ObjectItemType: GObject.Object]:" in rendered
+    assert "def get_item(self, position: int) -> ObjectItemType | None:" in rendered
+    assert "typing.Generic" not in rendered

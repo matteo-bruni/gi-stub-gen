@@ -30,11 +30,18 @@ def parse_alias(
 
     # alias in the same module
     actual_attribute_name = attribute.__name__.split(".")[-1] if hasattr(attribute, "__name__") else attribute_name
+    actual_attribute_module = (str(attribute.__module__)) if hasattr(attribute, "__module__") else None
+
     ########################################################################
     # check for aliases in same module
     ########################################################################
 
-    if actual_attribute_name != attribute_name:
+    actual_attribute_name_is_different = actual_attribute_name != attribute_name
+    actual_attribute_module_is_different = (
+        actual_attribute_module and module_name.split(".")[-1].lower() != actual_attribute_module.split(".")[-1].lower()
+    )
+
+    if actual_attribute_name_is_different and not actual_attribute_module_is_different:
         # we found an alias, ie GObject.Object is an alias for GObject.GObject
 
         line_comment = None
@@ -75,9 +82,9 @@ def parse_alias(
     ########################################################################
     # check for aliases to other module
     ########################################################################
-    actual_attribute_module = (str(attribute.__module__)) if hasattr(attribute, "__module__") else None
 
-    if actual_attribute_module and module_name.split(".")[-1].lower() != actual_attribute_module.split(".")[-1].lower():
+    # if actual_attribute_module and module_name.split(".")[-1].lower() != actual_attribute_module.split(".")[-1].lower():
+    if actual_attribute_module_is_different:
         sanitized_module_name = sanitize_gi_module_name(str(attribute.__module__))
         #######################################################################
         # manual override just for GEnum and Flags.

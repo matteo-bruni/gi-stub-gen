@@ -6,6 +6,8 @@ from typing import Any, get_args, get_origin
 from gi_stub_gen.utils.utils import get_py_type_name_repr, get_py_type_namespace_repr
 from gi_stub_gen.utils.utils import sanitize_gi_module_name
 
+_TypeVarType = type(typing.TypeVar("_TypeVar"))
+
 
 def _normalize_namespace(namespace: str | None) -> str | None:
     if namespace is None:
@@ -15,6 +17,10 @@ def _normalize_namespace(namespace: str | None) -> str | None:
 
 def _is_none_type(annotation: Any) -> bool:
     return annotation is None or annotation is type(None)
+
+
+def _is_type_var(annotation: Any) -> bool:
+    return isinstance(annotation, _TypeVarType)
 
 
 def _format_annotation_expr(
@@ -72,6 +78,9 @@ def _extract_annotation_type_info(
 
     if isinstance(annotation, str):
         return annotation, None
+
+    if _is_type_var(annotation):
+        return annotation.__name__, None
 
     origin = get_origin(annotation)
 
@@ -147,3 +156,44 @@ def extract_inspect_params_type_info(
     )
 
     return base_name, namespace, is_optional
+
+
+def extract_inspect_type_vars(
+    annotation: Any,
+    current_namespace: str | None = None,
+) -> list[tuple[str, str | None, str | None]]:
+    """
+    Extract TypeVars referenced by an annotation.
+
+    Returns tuples of (type_var_name, bound_name, bound_namespace). The bound
+    entries are None when the TypeVar is unconstrained or unbound.
+    """
+    found: dict[str, tuple[str, str | None, str | None]] = {}
+
+    def visit(value: Any) -> None:
+        if value is inspect.Parameter.empty or value is inspect.Signature.empty:
+            return
+
+        if isinstance(value, list):
+            for item in value:
+                visit(item)
+            return
+
+        if _is_type_var(value):
+            bound = getattr(value, "__bound__", None)
+            if bound is None:
+                found[value.__name__] = (value.__name__, None, None)
+                return
+
+            bound_name, bound_namespace = _extract_annotation_type_info(
+                bound,
+                current_namespace=current_namespace,
+            )
+            found[value.__name__] = (value.__name__, bound_name, bound_namespace)
+            return
+
+        for arg in get_args(value):
+            visit(arg)
+
+    visit(annotation)
+    return list(found.values())

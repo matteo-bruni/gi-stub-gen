@@ -1,4 +1,4 @@
-class {{ cls_.name }}{{ cls_.super_class | if_exists('({})') }}:
+class {{ cls_.name }}{{ cls_.type_parameters | if_exists('[{}]') }}{{ cls_.super_class | if_exists('({})') }}:
     {% if cls_.docstring or debug %}
     """
     {{ cls_.debug | if_true(debug, "{}\n") | indent(4, blank=True) -}}
