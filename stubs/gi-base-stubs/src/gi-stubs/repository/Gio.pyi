@@ -14592,6 +14592,9 @@ class DataInputStream(BufferedInputStream):
         """
 
     # python methods (overrides?)
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
     @classmethod
     def new(
         cls,
@@ -19286,6 +19289,9 @@ class FileEnumerator(GObject.Object):
         """
 
     # python methods (overrides?)
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
     def do_close_async(
         self,
         io_priority: int,
@@ -23481,6 +23487,11 @@ class ListModel[ObjectItemType: GObject.Object]:
         mainloop, and without calling other code, will continue to view the
         same contents of the model.
         """
+
+    # python methods (overrides?)
+    def __iter__(
+        self,
+    ) -> collections.abc.Generator[ObjectItemType, None, None]: ...
 
     # Signals
     @typing.overload
@@ -30603,6 +30614,9 @@ class Settings(GObject.Object):
         Initializer for a GObject based classes with support for property
         sets through the use of explicit keyword arguments.
         """
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
     def do_change_event(
         self,
         keys: int,

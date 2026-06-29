@@ -14,7 +14,7 @@ import gi
 gi.require_version("Gio", "2.0")
 gi.require_version("GstAudio", "1.0")
 
-from gi.repository import GObject, Gio, Gst, GstAudio
+from gi.repository import GLib, GObject, Gio, Gst, GstAudio
 
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.parser.class_ import parse_class
@@ -169,6 +169,37 @@ class TestPythonFunctionDecorators:
 
         # Should NOT have @staticmethod
         assert "@staticmethod" not in disconnect.decorators
+
+    def test_python_override_renders_enum_default_name(self):
+        """connect_data should render ConnectFlags.DEFAULT instead of the raw 0 value."""
+        assert int(GObject.ConnectFlags.DEFAULT) == 0
+
+        parsed = parse_python_function(
+            GObject.Object.connect_data,
+            "GObject",
+            from_class=GObject.Object,
+        )
+        assert parsed is not None
+
+        connect_flags = next(param for param in parsed.params if param.name == "connect_flags")
+        assert connect_flags.type_hint_name == "ConnectFlags"
+        assert connect_flags.default_value == "ConnectFlags.DEFAULT"
+
+    def test_python_override_renders_self_namespace(self):
+        """GLib.Error.copy annotates return as string Self and should qualify it."""
+        parsed = parse_python_function(GLib.Error.copy, "GLib", from_class=GLib.Error)
+        assert parsed is not None
+
+        assert parsed.return_hint_name == "Self"
+        assert parsed.return_hint_namespace == "typing_extensions"
+        assert parsed.return_hint("GLib") == "typing_extensions.Self"
+
+        parsed_class, _ = parse_class("GLib", GLib.Error)
+        assert parsed_class is not None
+
+        TemplateManager.set_module_name("GLib")
+        rendered = parsed_class.render()
+        assert ") -> typing_extensions.Self:" in rendered
 
     def test_python_override_keeps_gst_iterator_type(self):
         """

@@ -14929,7 +14929,7 @@ class Error(builtins.RuntimeError, metaclass=GObject.GType):
         """
     def copy(
         self,
-    ) -> Self: ...
+    ) -> typing_extensions.Self: ...
     def matches(
         self,
         domain: str | int,
@@ -15493,6 +15493,9 @@ class IOChannel(GObject.GBoxed, metaclass=GObject.GType):
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
+    def __iter__(
+        self,
+    ) -> typing.Any: ...
     def add_watch(
         self,
         condition: IOCondition,

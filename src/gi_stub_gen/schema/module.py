@@ -113,6 +113,7 @@ class ModuleSchema(BaseSchema):
 
         # add builtins if needed
         not_gi_imports.add("builtins")
+        not_gi_imports.discard("typing_extensions")
 
         logger.info(f"Module: {self.name}")
         logger.info(f"Importing gi.repository imports: {valid_gi_imports}")

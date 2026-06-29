@@ -77,6 +77,8 @@ def _extract_annotation_type_info(
         return "None", None
 
     if isinstance(annotation, str):
+        if annotation == "Self":
+            return "Self", "typing_extensions"
         return annotation, None
 
     if _is_type_var(annotation):

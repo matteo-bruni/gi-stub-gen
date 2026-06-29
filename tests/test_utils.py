@@ -31,3 +31,22 @@ def test_expected_failure_on_empty_name():
 
     with pytest.raises(ValueError):
         sane_variable, comment = sanitize_variable_name(None)  # type: ignore
+
+
+def test_module_imports_do_not_duplicate_typing_extensions():
+    from gi_stub_gen.schema.module import ModuleSchema
+
+    module = ModuleSchema(
+        name="gi.repository.GLib",
+        classes=[],
+        constant=[],
+        enum=[],
+        function=[],
+        builtin_function=[],
+        callbacks=[],
+        aliases=[],
+    )
+
+    _, extra_imports = module.collect_imports(extra_imports=["typing_extensions"])
+
+    assert "typing_extensions" not in extra_imports

@@ -1,4 +1,6 @@
 from __future__ import annotations
+import enum
+import importlib
 from types import BuiltinFunctionType, FunctionType, MethodType
 
 from typing import Any
@@ -10,7 +12,7 @@ from gi_stub_gen.schema.builtin_function import ArgKind, BuiltinFunctionArgument
 from gi_stub_gen.schema.builtin_function import (
     BuiltinFunctionSchema,
 )
-from gi_stub_gen.utils.utils import get_redacted_stub_value
+from gi_stub_gen.utils.utils import get_redacted_stub_value, sanitize_gi_module_name
 
 
 def _collect_type_var_schemas(
@@ -34,6 +36,49 @@ def _collect_type_var_schemas(
             )
 
     return type_var_names
+
+
+def _format_enum_default(
+    default_value: Any,
+    type_hint_name: str,
+    type_hint_namespace: str | None,
+    namespace: str,
+) -> str | None:
+    if isinstance(default_value, bool) or not isinstance(default_value, int):
+        return None
+    if not type_hint_name.isidentifier():
+        return None
+
+    enum_namespace = sanitize_gi_module_name(type_hint_namespace or namespace)
+    if enum_namespace in {"builtins", "collections.abc", "typing"}:
+        return None
+
+    try:
+        module = importlib.import_module(f"gi.repository.{enum_namespace}")
+        enum_type = getattr(module, type_hint_name)
+    except (ImportError, AttributeError):
+        return None
+
+    if not isinstance(enum_type, type) or not issubclass(enum_type, (enum.IntEnum, enum.IntFlag)):
+        return None
+
+    try:
+        member = enum_type(default_value)
+    except (TypeError, ValueError):
+        return None
+    member_name = getattr(member, "name", None)
+    if member_name is None:
+        return None
+
+    member_names = member_name.split("|")
+    if not all(name.isidentifier() for name in member_names):
+        return None
+
+    rendered_type = type_hint_name
+    if type_hint_namespace and enum_namespace != sanitize_gi_module_name(namespace):
+        rendered_type = f"{enum_namespace}.{rendered_type}"
+
+    return " | ".join(f"{rendered_type}.{name}" for name in member_names)
 
 
 def _detect_method_type(func: Any, name: str, parent_class: type) -> tuple[bool, bool]:
@@ -167,17 +212,19 @@ def parse_python_function(
     args_schema: list[BuiltinFunctionArgumentSchema] = []
     type_vars_by_name: dict[str, TypeVarSchema] = {}
     for param_name, param in sig.parameters.items():
-        # 1. Parsing del valore di default
-        def_val = None
-        if param.default is not inspect.Parameter.empty:
-            def_val = get_redacted_stub_value(param.default)
-
-        # 2. Estrazione Tipo Robusta
+        # 1. Estrazione Tipo Robusta
         t_name, t_ns, t_opt = extract_inspect_params_type_info(
             param.annotation,
             param.default,
             current_namespace=namespace,
         )
+        # 2. Parsing del valore di default
+        def_val = None
+        if param.default is not inspect.Parameter.empty:
+            def_val = _format_enum_default(param.default, t_name, t_ns, namespace)
+            if def_val is None:
+                def_val = get_redacted_stub_value(param.default)
+
         type_var_names = _collect_type_var_schemas(
             param.annotation,
             namespace,

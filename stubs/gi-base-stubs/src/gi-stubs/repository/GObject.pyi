@@ -3787,7 +3787,7 @@ class Object(builtins.object):
         detailed_signal: str,
         handler: typing.Callable,
         *data: typing.Any,
-        connect_flags: ConnectFlags = 0,
+        connect_flags: ConnectFlags = ConnectFlags.DEFAULT,
     ) -> int:
         """
         Connect a callback to the given signal with optional user data.
