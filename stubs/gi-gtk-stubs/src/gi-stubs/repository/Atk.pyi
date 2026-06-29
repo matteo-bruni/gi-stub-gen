@@ -3177,7 +3177,7 @@ class NoOpObject(Object):
     def new(
         cls,
         obj: GObject.Object,
-    ) -> Object:
+    ) -> NoOpObject:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -3582,7 +3582,7 @@ class NoOpObjectFactory(ObjectFactory):
     @classmethod
     def new(
         cls,
-    ) -> ObjectFactory:
+    ) -> NoOpObjectFactory:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -4675,7 +4675,7 @@ class Plug(Object):
     @classmethod
     def new(
         cls,
-    ) -> Object:
+    ) -> Plug:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -5444,7 +5444,7 @@ class Socket(Object):
     @classmethod
     def new(
         cls,
-    ) -> Object:
+    ) -> Socket:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 

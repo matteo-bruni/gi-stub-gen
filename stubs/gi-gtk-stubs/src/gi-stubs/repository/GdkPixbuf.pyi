@@ -958,7 +958,7 @@ class Pixbuf(GObject.Object):
         rowstride: typing.Any,
         destroy_fn: typing.Any = None,
         *destroy_fn_data: typing.Any,
-    ) -> typing.Any:
+    ) -> Pixbuf:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -2107,7 +2107,7 @@ class PixbufNonAnim(PixbufAnimation):
     def new(
         cls,
         pixbuf: Pixbuf,
-    ) -> PixbufAnimation:
+    ) -> PixbufNonAnim:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 

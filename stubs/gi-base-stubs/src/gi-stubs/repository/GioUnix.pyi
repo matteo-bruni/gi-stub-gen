@@ -818,7 +818,7 @@ class FDMessage(Gio.SocketControlMessage):
     @classmethod
     def new(
         cls,
-    ) -> Gio.SocketControlMessage:
+    ) -> FDMessage:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -828,7 +828,7 @@ class FDMessage(Gio.SocketControlMessage):
     def new_with_fd_list(
         cls,
         fd_list: Gio.UnixFDList,
-    ) -> Gio.SocketControlMessage:
+    ) -> FDMessage:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -1055,7 +1055,7 @@ class InputStream(Gio.InputStream):
         cls,
         fd: int,
         close_fd: bool,
-    ) -> Gio.InputStream:
+    ) -> InputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -1476,7 +1476,7 @@ class OutputStream(Gio.OutputStream):
         cls,
         fd: int,
         close_fd: bool,
-    ) -> Gio.OutputStream:
+    ) -> OutputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 

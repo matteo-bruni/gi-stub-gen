@@ -5589,7 +5589,7 @@ class VideoBufferPool(Gst.BufferPool):
     @classmethod
     def new(
         cls,
-    ) -> Gst.BufferPool:
+    ) -> VideoBufferPool:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -7056,7 +7056,7 @@ class VideoDmabufPool(VideoBufferPool):
     @classmethod
     def new(
         cls,
-    ) -> Gst.BufferPool | None:
+    ) -> VideoDmabufPool | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 

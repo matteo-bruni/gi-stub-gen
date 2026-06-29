@@ -1,5 +1,6 @@
 from gi.repository import Gst
 
+from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.utils.gst import get_fraction_value
@@ -9,26 +10,34 @@ def test_gst_environment():
     assert Gst.version()[0] >= 1
 
 
-def test_constructor_gst_pipeline_new():
+def test_constructor_gst_new_returns_class_type():
     """
     class constructor should return the class type properly.
     """
-    class_to_test = Gst.Pipeline
     constructor_to_test = "new"
 
-    parsed_class, _ = parse_class("Gst", class_to_test)
-    assert parsed_class is not None, "Failed to parse Gst.Pipeline class"
+    for class_to_test, return_hint in ((Gst.Bin, "Bin"), (Gst.Pipeline, "Pipeline")):
+        parsed_class, _ = parse_class("Gst", class_to_test)
+        assert parsed_class is not None, f"Failed to parse Gst.{return_hint} class"
 
-    # find the constructor
-    constructor = [m for m in parsed_class.methods if m.name == constructor_to_test]
-    assert len(constructor) == 1, "Failed to find Gst.Pipeline.new constructor method"
-    parsed_constructor = constructor[0]
+        # find the constructor
+        constructor = [m for m in parsed_class.methods if m.name == constructor_to_test]
+        assert len(constructor) == 1, f"Failed to find Gst.{return_hint}.new constructor method"
+        parsed_constructor = constructor[0]
 
-    # check the return hint
-    assert parsed_constructor.complete_return_hint(namespace="GObject") == "Gst.Pipeline"
-    assert parsed_constructor.complete_return_hint(namespace="Gst") == "Pipeline"
-    # should have no parameters
-    assert parsed_constructor.render_args(namespace="Gst", one_line=True) == "cls, name: str | None = None"
+        # check the return hint
+        assert parsed_constructor.complete_return_hint(namespace="GObject") == f"Gst.{return_hint}"
+        assert parsed_constructor.complete_return_hint(namespace="Gst") == return_hint
+        # should have no parameters
+        assert parsed_constructor.render_args(namespace="Gst", one_line=True) == "cls, name: str | None = None"
+
+        python_constructor = [m for m in parsed_class.python_methods if m.name == constructor_to_test]
+        assert len(python_constructor) == 1, f"Failed to find Gst.{return_hint}.new python override"
+        assert python_constructor[0].return_hint(namespace="Gst") == return_hint
+
+        TemplateManager.set_module_name("Gst")
+        rendered = parsed_class.render()
+        assert f") -> {return_hint}:" in rendered
 
 
 def test_function_gst_version():

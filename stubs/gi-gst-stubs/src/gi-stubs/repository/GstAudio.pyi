@@ -3289,7 +3289,7 @@ class AudioClock(Gst.SystemClock):
         name: str,
         func: collections.abc.Callable[[Gst.Clock, typing.Any], int],
         user_data: typing.Any = None,
-    ) -> Gst.Clock:
+    ) -> AudioClock:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 

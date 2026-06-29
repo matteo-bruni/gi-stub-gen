@@ -686,6 +686,9 @@ def parse_class(
                     # set the previously parsed element as overridden
                     for m in class_methods:
                         if m.name == attribute_name:
+                            if m.is_constructor and m.return_hint is not None:
+                                f.return_hint_name = m.return_hint
+                                f.return_hint_namespace = m.return_hint_namespace
                             m.is_overridden = True
                             if f.docstring:
                                 f.docstring = f"[is-override: Note this method is an override in Python of the original gi implementation.]\n\n{f.docstring}"

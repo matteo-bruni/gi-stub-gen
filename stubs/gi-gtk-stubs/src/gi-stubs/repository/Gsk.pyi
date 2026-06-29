@@ -816,7 +816,7 @@ class BroadwayRenderer(Renderer):
     @classmethod
     def new(
         cls,
-    ) -> Renderer:
+    ) -> BroadwayRenderer:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -901,7 +901,7 @@ class CairoRenderer(Renderer):
     @classmethod
     def new(
         cls,
-    ) -> Renderer:
+    ) -> CairoRenderer:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -1219,7 +1219,7 @@ class GLRenderer(Renderer):
     @classmethod
     def new(
         cls,
-    ) -> Renderer:
+    ) -> GLRenderer:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -1712,7 +1712,7 @@ class NglRenderer(Renderer):
     @classmethod
     def new(
         cls,
-    ) -> Renderer:
+    ) -> NglRenderer:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -3685,7 +3685,7 @@ class VulkanRenderer(Renderer):
     @classmethod
     def new(
         cls,
-    ) -> Renderer:
+    ) -> VulkanRenderer:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 

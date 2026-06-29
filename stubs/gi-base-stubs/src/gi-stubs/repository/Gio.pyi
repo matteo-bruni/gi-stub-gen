@@ -8634,7 +8634,7 @@ class BufferedInputStream(FilterInputStream):
     def new(
         cls,
         base_stream: InputStream,
-    ) -> InputStream:
+    ) -> BufferedInputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -8645,7 +8645,7 @@ class BufferedInputStream(FilterInputStream):
         cls,
         base_stream: InputStream,
         size: int,
-    ) -> InputStream:
+    ) -> BufferedInputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -8781,7 +8781,7 @@ class BufferedOutputStream(FilterOutputStream):
     def new(
         cls,
         base_stream: OutputStream,
-    ) -> OutputStream:
+    ) -> BufferedOutputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -8792,7 +8792,7 @@ class BufferedOutputStream(FilterOutputStream):
         cls,
         base_stream: OutputStream,
         size: int,
-    ) -> OutputStream:
+    ) -> BufferedOutputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -9410,7 +9410,7 @@ class ConverterInputStream(FilterInputStream):
         cls,
         base_stream: InputStream,
         converter: Converter,
-    ) -> InputStream:
+    ) -> ConverterInputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -9513,7 +9513,7 @@ class ConverterOutputStream(FilterOutputStream):
         cls,
         base_stream: OutputStream,
         converter: Converter,
-    ) -> OutputStream:
+    ) -> ConverterOutputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -22651,7 +22651,7 @@ class InetSocketAddress(SocketAddress):
         cls,
         address: InetAddress,
         port: int,
-    ) -> SocketAddress:
+    ) -> InetSocketAddress:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -22662,7 +22662,7 @@ class InetSocketAddress(SocketAddress):
         cls,
         address: str,
         port: int,
-    ) -> SocketAddress | None:
+    ) -> InetSocketAddress | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -23824,7 +23824,7 @@ class MemoryInputStream(InputStream):
     @classmethod
     def new(
         cls,
-    ) -> InputStream:
+    ) -> MemoryInputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -23834,7 +23834,7 @@ class MemoryInputStream(InputStream):
     def new_from_bytes(
         cls,
         bytes: GLib.Bytes,
-    ) -> InputStream:
+    ) -> MemoryInputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -23845,7 +23845,7 @@ class MemoryInputStream(InputStream):
         cls,
         data: list[int],
         destroy: collections.abc.Callable[[typing.Any], None] | None = None,
-    ) -> InputStream:
+    ) -> MemoryInputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -24079,7 +24079,7 @@ class MemoryOutputStream(OutputStream):
     @classmethod
     def new_resizable(
         cls,
-    ) -> OutputStream:
+    ) -> MemoryOutputStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -25939,7 +25939,7 @@ class NativeSocketAddress(SocketAddress):
         cls,
         native: typing.Any,
         len: int,
-    ) -> SocketAddress:
+    ) -> NativeSocketAddress:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -28486,7 +28486,7 @@ class ProxyAddress(InetSocketAddress):
         dest_port: int,
         username: str | None = None,
         password: str | None = None,
-    ) -> SocketAddress:
+    ) -> ProxyAddress:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -32195,7 +32195,7 @@ class SimpleIOStream(IOStream):
         cls,
         input_stream: InputStream,
         output_stream: OutputStream,
-    ) -> IOStream:
+    ) -> SimpleIOStream:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -32257,7 +32257,7 @@ class SimplePermission(Permission):
     def new(
         cls,
         allowed: bool,
-    ) -> Permission:
+    ) -> SimplePermission:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -36934,7 +36934,7 @@ class TcpWrapperConnection(TcpConnection):
         cls,
         base_io_stream: IOStream,
         socket: Socket,
-    ) -> SocketConnection:
+    ) -> TcpWrapperConnection:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -37421,7 +37421,7 @@ class ThreadedSocketService(SocketService):
     def new(
         cls,
         max_threads: int,
-    ) -> SocketService:
+    ) -> ThreadedSocketService:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40345,7 +40345,7 @@ class UnixCredentialsMessage(SocketControlMessage):
     @classmethod
     def new(
         cls,
-    ) -> SocketControlMessage:
+    ) -> UnixCredentialsMessage:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40355,7 +40355,7 @@ class UnixCredentialsMessage(SocketControlMessage):
     def new_with_credentials(
         cls,
         credentials: Credentials,
-    ) -> SocketControlMessage:
+    ) -> UnixCredentialsMessage:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40692,7 +40692,7 @@ class UnixSocketAddress(SocketAddress):
     def new(
         cls,
         path: str,
-    ) -> SocketAddress:
+    ) -> UnixSocketAddress:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40702,7 +40702,7 @@ class UnixSocketAddress(SocketAddress):
     def new_abstract(
         cls,
         path: list[int],
-    ) -> SocketAddress:
+    ) -> UnixSocketAddress:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40713,7 +40713,7 @@ class UnixSocketAddress(SocketAddress):
         cls,
         path: list[int],
         type: UnixSocketAddressType,
-    ) -> SocketAddress:
+    ) -> UnixSocketAddress:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 

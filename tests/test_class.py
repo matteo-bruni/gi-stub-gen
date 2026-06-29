@@ -267,6 +267,9 @@ def test_class_without_super_override_uses_computed_super():
 
     class_schema, _ = parse_class("gi.repository.GObject", GObject.InitiallyUnowned)
 
+    assert class_schema is not None
+    assert class_schema.super_class is not None
+
     # InitiallyUnowned should have Object as super (computed, no override)
     assert "Object" in class_schema.super_class
 

@@ -6197,7 +6197,7 @@ class Bin(Element):
     def new(
         cls,
         name: str | None = None,
-    ) -> Element:
+    ) -> Bin:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -13121,7 +13121,7 @@ class GhostPad(ProxyPad):
         cls,
         name: str | None,
         target: Pad,
-    ) -> Pad | None:
+    ) -> GhostPad | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -13133,7 +13133,7 @@ class GhostPad(ProxyPad):
         name: str | None,
         target: Pad,
         templ: PadTemplate,
-    ) -> Pad | None:
+    ) -> GhostPad | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -13144,7 +13144,7 @@ class GhostPad(ProxyPad):
         cls,
         name: str | None,
         dir: PadDirection,
-    ) -> Pad | None:
+    ) -> GhostPad | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -13155,7 +13155,7 @@ class GhostPad(ProxyPad):
         cls,
         name: str | None,
         templ: PadTemplate,
-    ) -> Pad | None:
+    ) -> GhostPad | None:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -17506,7 +17506,7 @@ class Pipeline(Bin):
     def new(
         cls,
         name: str | None = None,
-    ) -> Element:
+    ) -> Pipeline:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -20065,7 +20065,7 @@ class SharedTaskPool(TaskPool):
     @classmethod
     def new(
         cls,
-    ) -> TaskPool:
+    ) -> SharedTaskPool:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -21133,7 +21133,7 @@ class Structure(GObject.GBoxed, metaclass=GObject.GType):
     def from_string(
         cls,
         string: str,
-    ) -> tuple[Structure | None, str]:
+    ) -> Structure:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 

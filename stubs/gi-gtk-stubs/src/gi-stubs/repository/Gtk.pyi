@@ -5683,7 +5683,7 @@ class AboutDialog(Window):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> AboutDialog:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -6864,7 +6864,7 @@ class ActionBar(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ActionBar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -7948,7 +7948,7 @@ class AlternativeTrigger(ShortcutTrigger):
         cls,
         first: ShortcutTrigger,
         second: ShortcutTrigger,
-    ) -> ShortcutTrigger:
+    ) -> AlternativeTrigger:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -8300,7 +8300,7 @@ class AppChooserButton(Widget):
     def new(
         cls,
         content_type: str,
-    ) -> Widget:
+    ) -> AppChooserButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -8828,7 +8828,7 @@ class AppChooserDialog(Dialog):
         parent: Window | None,
         flags: DialogFlags,
         file: Gio.File,
-    ) -> Widget:
+    ) -> AppChooserDialog:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -8840,7 +8840,7 @@ class AppChooserDialog(Dialog):
         parent: Window | None,
         flags: DialogFlags,
         content_type: str,
-    ) -> Widget:
+    ) -> AppChooserDialog:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -9609,7 +9609,7 @@ class AppChooserWidget(Widget):
     def new(
         cls,
         content_type: str,
-    ) -> Widget:
+    ) -> AppChooserWidget:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -10865,7 +10865,7 @@ class ApplicationWindow(Window):
     def new(
         cls,
         application: Application,
-    ) -> Widget:
+    ) -> ApplicationWindow:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -11590,7 +11590,7 @@ class AspectFrame(Widget):
         yalign: float,
         ratio: float,
         obey_child: bool,
-    ) -> Widget:
+    ) -> AspectFrame:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -12245,7 +12245,7 @@ class Assistant(Window):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Assistant:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -12957,7 +12957,7 @@ class BinLayout(LayoutManager):
     @classmethod
     def new(
         cls,
-    ) -> LayoutManager:
+    ) -> BinLayout:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -13754,7 +13754,7 @@ class Box(Widget):
         cls,
         orientation: Orientation,
         spacing: int,
-    ) -> Widget:
+    ) -> Box:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -14241,7 +14241,7 @@ class BoxLayout(LayoutManager):
     def new(
         cls,
         orientation: Orientation,
-    ) -> LayoutManager:
+    ) -> BoxLayout:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -15339,7 +15339,7 @@ class BuilderListItemFactory(ListItemFactory):
         cls,
         scope: BuilderScope | None,
         bytes: GLib.Bytes,
-    ) -> ListItemFactory:
+    ) -> BuilderListItemFactory:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -15350,7 +15350,7 @@ class BuilderListItemFactory(ListItemFactory):
         cls,
         scope: BuilderScope | None,
         resource_path: str,
-    ) -> ListItemFactory:
+    ) -> BuilderListItemFactory:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -15680,7 +15680,7 @@ class Button(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Button:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -15690,7 +15690,7 @@ class Button(Widget):
     def new_from_icon_name(
         cls,
         icon_name: str,
-    ) -> Widget:
+    ) -> Button:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -15700,7 +15700,7 @@ class Button(Widget):
     def new_with_label(
         cls,
         label: str,
-    ) -> Widget:
+    ) -> Button:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -15710,7 +15710,7 @@ class Button(Widget):
     def new_with_mnemonic(
         cls,
         label: str,
-    ) -> Widget:
+    ) -> Button:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -16403,7 +16403,7 @@ class Calendar(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Calendar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -17898,7 +17898,7 @@ class CellAreaBox(CellArea):
     @classmethod
     def new(
         cls,
-    ) -> CellArea:
+    ) -> CellAreaBox:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -19461,7 +19461,7 @@ class CellRendererAccel(CellRendererText):
     @classmethod
     def new(
         cls,
-    ) -> CellRenderer:
+    ) -> CellRendererAccel:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -20160,7 +20160,7 @@ class CellRendererCombo(CellRendererText):
     @classmethod
     def new(
         cls,
-    ) -> CellRenderer:
+    ) -> CellRendererCombo:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -20748,7 +20748,7 @@ class CellRendererPixbuf(CellRenderer):
     @classmethod
     def new(
         cls,
-    ) -> CellRenderer:
+    ) -> CellRendererPixbuf:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -21022,7 +21022,7 @@ class CellRendererProgress(CellRenderer):
     @classmethod
     def new(
         cls,
-    ) -> CellRenderer:
+    ) -> CellRendererProgress:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -21320,7 +21320,7 @@ class CellRendererSpin(CellRendererText):
     @classmethod
     def new(
         cls,
-    ) -> CellRenderer:
+    ) -> CellRendererSpin:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -21872,7 +21872,7 @@ class CellRendererSpinner(CellRenderer):
     @classmethod
     def new(
         cls,
-    ) -> CellRenderer:
+    ) -> CellRendererSpinner:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -22238,7 +22238,7 @@ class CellRendererText(CellRenderer):
     @classmethod
     def new(
         cls,
-    ) -> CellRenderer:
+    ) -> CellRendererText:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -22808,7 +22808,7 @@ class CellRendererToggle(CellRenderer):
     @classmethod
     def new(
         cls,
-    ) -> CellRenderer:
+    ) -> CellRendererToggle:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -23171,7 +23171,7 @@ class CellView(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> CellView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -23182,7 +23182,7 @@ class CellView(Widget):
         cls,
         area: CellArea,
         context: CellAreaContext,
-    ) -> Widget:
+    ) -> CellView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -23192,7 +23192,7 @@ class CellView(Widget):
     def new_with_markup(
         cls,
         markup: str,
-    ) -> Widget:
+    ) -> CellView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -23202,7 +23202,7 @@ class CellView(Widget):
     def new_with_text(
         cls,
         text: str,
-    ) -> Widget:
+    ) -> CellView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -23212,7 +23212,7 @@ class CellView(Widget):
     def new_with_texture(
         cls,
         texture: Gdk.Texture,
-    ) -> Widget:
+    ) -> CellView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -23774,7 +23774,7 @@ class CenterBox(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> CenterBox:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -24251,7 +24251,7 @@ class CenterLayout(LayoutManager):
     @classmethod
     def new(
         cls,
-    ) -> LayoutManager:
+    ) -> CenterLayout:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -24521,7 +24521,7 @@ class CheckButton(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> CheckButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -24531,7 +24531,7 @@ class CheckButton(Widget):
     def new_with_label(
         cls,
         label: str | None = None,
-    ) -> Widget:
+    ) -> CheckButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -24541,7 +24541,7 @@ class CheckButton(Widget):
     def new_with_mnemonic(
         cls,
         label: str | None = None,
-    ) -> Widget:
+    ) -> CheckButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -25099,7 +25099,7 @@ class ColorButton(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ColorButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -25109,7 +25109,7 @@ class ColorButton(Widget):
     def new_with_rgba(
         cls,
         rgba: Gdk.RGBA,
-    ) -> Widget:
+    ) -> ColorButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -25728,7 +25728,7 @@ class ColorChooserDialog(Dialog):
         cls,
         title: str | None = None,
         parent: Window | None = None,
-    ) -> Widget:
+    ) -> ColorChooserDialog:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -26409,7 +26409,7 @@ class ColorChooserWidget(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ColorChooserWidget:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -27021,7 +27021,7 @@ class ColorDialogButton(Widget):
     def new(
         cls,
         dialog: ColorDialog | None = None,
-    ) -> Widget:
+    ) -> ColorDialogButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -27723,7 +27723,7 @@ class ColumnView(Widget):
     def new(
         cls,
         model: SelectionModel | None = None,
-    ) -> Widget:
+    ) -> ColumnView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -29407,7 +29407,7 @@ class ComboBox(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ComboBox:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -29416,7 +29416,7 @@ class ComboBox(Widget):
     @classmethod
     def new_with_entry(
         cls,
-    ) -> Widget:
+    ) -> ComboBox:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -29426,7 +29426,7 @@ class ComboBox(Widget):
     def new_with_model(
         cls,
         model: TreeModel,
-    ) -> Widget:
+    ) -> ComboBox:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -29436,7 +29436,7 @@ class ComboBox(Widget):
     def new_with_model_and_entry(
         cls,
         model: TreeModel,
-    ) -> Widget:
+    ) -> ComboBox:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -30169,7 +30169,7 @@ class ComboBoxText(ComboBox):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ComboBoxText:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -30178,7 +30178,7 @@ class ComboBoxText(ComboBox):
     @classmethod
     def new_with_entry(
         cls,
-    ) -> Widget:
+    ) -> ComboBoxText:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -31365,7 +31365,7 @@ class ConstraintLayout(LayoutManager):
     @classmethod
     def new(
         cls,
-    ) -> LayoutManager:
+    ) -> ConstraintLayout:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -31776,7 +31776,7 @@ class CustomLayout(LayoutManager):
         request_mode: collections.abc.Callable[[Widget], SizeRequestMode] | None,
         measure: collections.abc.Callable[[Widget, Orientation, int], tuple[int, int, int, int]],
         allocate: collections.abc.Callable[[Widget, int, int, int], None],
-    ) -> LayoutManager:
+    ) -> CustomLayout:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -31819,7 +31819,7 @@ class CustomSorter(Sorter):
         cls,
         sort_func: typing.Any,
         user_data: typing.Any = None,
-    ) -> typing.Any:
+    ) -> CustomSorter:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -32182,7 +32182,7 @@ class Dialog(Window):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Dialog:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -34010,7 +34010,7 @@ class DrawingArea(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> DrawingArea:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -34465,7 +34465,7 @@ class DropControllerMotion(EventController):
     @classmethod
     def new(
         cls,
-    ) -> EventController:
+    ) -> DropControllerMotion:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -34823,7 +34823,7 @@ class DropDown(Widget):
         cls,
         model: Gio.ListModel | None = None,
         expression: Expression | None = None,
-    ) -> Widget:
+    ) -> DropDown:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -34833,7 +34833,7 @@ class DropDown(Widget):
     def new_from_strings(
         cls,
         strings: list[str],
-    ) -> Widget:
+    ) -> DropDown:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -36517,7 +36517,7 @@ class EditableLabel(Widget):
     def new(
         cls,
         str: str,
-    ) -> Widget:
+    ) -> EditableLabel:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -37020,7 +37020,7 @@ class EmojiChooser(Popover):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> EmojiChooser:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -38253,7 +38253,7 @@ class Entry(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Entry:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -38263,7 +38263,7 @@ class Entry(Widget):
     def new_with_buffer(
         cls,
         buffer: EntryBuffer,
-    ) -> Widget:
+    ) -> Entry:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -39924,7 +39924,7 @@ class EventControllerFocus(EventController):
     @classmethod
     def new(
         cls,
-    ) -> EventController:
+    ) -> EventControllerFocus:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40063,7 +40063,7 @@ class EventControllerKey(EventController):
     @classmethod
     def new(
         cls,
-    ) -> EventController:
+    ) -> EventControllerKey:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40178,7 +40178,7 @@ class EventControllerLegacy(EventController):
     @classmethod
     def new(
         cls,
-    ) -> EventController:
+    ) -> EventControllerLegacy:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40300,7 +40300,7 @@ class EventControllerMotion(EventController):
     @classmethod
     def new(
         cls,
-    ) -> EventController:
+    ) -> EventControllerMotion:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40471,7 +40471,7 @@ class EventControllerScroll(EventController):
     def new(
         cls,
         flags: EventControllerScrollFlags,
-    ) -> EventController:
+    ) -> EventControllerScroll:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40896,7 +40896,7 @@ class Expander(Widget):
     def new(
         cls,
         label: str | None = None,
-    ) -> Widget:
+    ) -> Expander:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -40906,7 +40906,7 @@ class Expander(Widget):
     def new_with_mnemonic(
         cls,
         label: str | None = None,
-    ) -> Widget:
+    ) -> Expander:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -43186,7 +43186,7 @@ class FileChooserWidget(Widget):
     def new(
         cls,
         action: FileChooserAction,
-    ) -> Widget:
+    ) -> FileChooserWidget:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -44976,7 +44976,7 @@ class Fixed(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Fixed:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -45363,7 +45363,7 @@ class FixedLayout(LayoutManager):
     @classmethod
     def new(
         cls,
-    ) -> LayoutManager:
+    ) -> FixedLayout:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -45952,7 +45952,7 @@ class FlowBox(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> FlowBox:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -46555,7 +46555,7 @@ class FlowBoxChild(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> FlowBoxChild:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -47057,7 +47057,7 @@ class FontButton(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> FontButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -47067,7 +47067,7 @@ class FontButton(Widget):
     def new_with_font(
         cls,
         fontname: str,
-    ) -> Widget:
+    ) -> FontButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -47888,7 +47888,7 @@ class FontChooserDialog(Dialog):
         cls,
         title: str | None = None,
         parent: Window | None = None,
-    ) -> Widget:
+    ) -> FontChooserDialog:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -48602,7 +48602,7 @@ class FontChooserWidget(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> FontChooserWidget:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -49468,7 +49468,7 @@ class FontDialogButton(Widget):
     def new(
         cls,
         dialog: FontDialog | None = None,
-    ) -> Widget:
+    ) -> FontDialogButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -50042,7 +50042,7 @@ class Frame(Widget):
     def new(
         cls,
         label: str | None = None,
-    ) -> Widget:
+    ) -> Frame:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -50786,7 +50786,7 @@ class GLArea(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> GLArea:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -51723,7 +51723,7 @@ class GestureClick(GestureSingle):
     @classmethod
     def new(
         cls,
-    ) -> Gesture:
+    ) -> GestureClick:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -51931,7 +51931,7 @@ class GestureDrag(GestureSingle):
     @classmethod
     def new(
         cls,
-    ) -> Gesture:
+    ) -> GestureDrag:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -52133,7 +52133,7 @@ class GestureLongPress(GestureSingle):
     @classmethod
     def new(
         cls,
-    ) -> Gesture:
+    ) -> GestureLongPress:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -52328,7 +52328,7 @@ class GesturePan(GestureDrag):
     def new(
         cls,
         orientation: Orientation,
-    ) -> Gesture:
+    ) -> GesturePan:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -52511,7 +52511,7 @@ class GestureRotate(Gesture):
     @classmethod
     def new(
         cls,
-    ) -> Gesture:
+    ) -> GestureRotate:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -52917,7 +52917,7 @@ class GestureStylus(GestureSingle):
     @classmethod
     def new(
         cls,
-    ) -> Gesture:
+    ) -> GestureStylus:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -53120,7 +53120,7 @@ class GestureSwipe(GestureSingle):
     @classmethod
     def new(
         cls,
-    ) -> Gesture:
+    ) -> GestureSwipe:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -53279,7 +53279,7 @@ class GestureZoom(Gesture):
     @classmethod
     def new(
         cls,
-    ) -> Gesture:
+    ) -> GestureZoom:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -53496,7 +53496,7 @@ class GraphicsOffload(Widget):
     def new(
         cls,
         child: Widget | None = None,
-    ) -> Widget:
+    ) -> GraphicsOffload:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -54153,7 +54153,7 @@ class Grid(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Grid:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -54659,7 +54659,7 @@ class GridLayout(LayoutManager):
     @classmethod
     def new(
         cls,
-    ) -> LayoutManager:
+    ) -> GridLayout:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -55060,7 +55060,7 @@ class GridView(ListBase):
         cls,
         model: SelectionModel | None = None,
         factory: ListItemFactory | None = None,
-    ) -> Widget:
+    ) -> GridView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -55711,7 +55711,7 @@ class HeaderBar(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> HeaderBar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -56733,7 +56733,7 @@ class IMContextSimple(IMContext):
     @classmethod
     def new(
         cls,
-    ) -> IMContext:
+    ) -> IMContextSimple:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -56852,7 +56852,7 @@ class IMMulticontext(IMContext):
     @classmethod
     def new(
         cls,
-    ) -> IMContext:
+    ) -> IMMulticontext:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -57974,7 +57974,7 @@ class IconView(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> IconView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -57984,7 +57984,7 @@ class IconView(Widget):
     def new_with_area(
         cls,
         area: CellArea,
-    ) -> Widget:
+    ) -> IconView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -57994,7 +57994,7 @@ class IconView(Widget):
     def new_with_model(
         cls,
         model: TreeModel,
-    ) -> Widget:
+    ) -> IconView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -58855,7 +58855,7 @@ class Image(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Image:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -58865,7 +58865,7 @@ class Image(Widget):
     def new_from_file(
         cls,
         filename: str,
-    ) -> Widget:
+    ) -> Image:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -58875,7 +58875,7 @@ class Image(Widget):
     def new_from_gicon(
         cls,
         icon: Gio.Icon,
-    ) -> Widget:
+    ) -> Image:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -58885,7 +58885,7 @@ class Image(Widget):
     def new_from_icon_name(
         cls,
         icon_name: str | None = None,
-    ) -> Widget:
+    ) -> Image:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -58895,7 +58895,7 @@ class Image(Widget):
     def new_from_paintable(
         cls,
         paintable: Gdk.Paintable | None = None,
-    ) -> Widget:
+    ) -> Image:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -58905,7 +58905,7 @@ class Image(Widget):
     def new_from_pixbuf(
         cls,
         pixbuf: GdkPixbuf.Pixbuf | None = None,
-    ) -> Widget:
+    ) -> Image:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -58915,7 +58915,7 @@ class Image(Widget):
     def new_from_resource(
         cls,
         resource_path: str,
-    ) -> Widget:
+    ) -> Image:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -59558,7 +59558,7 @@ class InfoBar(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> InfoBar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -60219,7 +60219,7 @@ class Inscription(Widget):
     def new(
         cls,
         text: str | None = None,
-    ) -> Widget:
+    ) -> Inscription:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -60678,7 +60678,7 @@ class KeyvalTrigger(ShortcutTrigger):
         cls,
         keyval: int,
         modifiers: Gdk.ModifierType,
-    ) -> ShortcutTrigger:
+    ) -> KeyvalTrigger:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -61503,7 +61503,7 @@ class Label(Widget):
     def new(
         cls,
         str: str | None = None,
-    ) -> Widget:
+    ) -> Label:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -61513,7 +61513,7 @@ class Label(Widget):
     def new_with_mnemonic(
         cls,
         str: str | None = None,
-    ) -> Widget:
+    ) -> Label:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -62607,7 +62607,7 @@ class LevelBar(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> LevelBar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -62618,7 +62618,7 @@ class LevelBar(Widget):
         cls,
         min_value: float,
         max_value: float,
-    ) -> Widget:
+    ) -> LevelBar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -63135,7 +63135,7 @@ class LinkButton(Button):
     def new(
         cls,
         uri: str,
-    ) -> Widget:
+    ) -> LinkButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -63146,7 +63146,7 @@ class LinkButton(Button):
         cls,
         uri: str,
         label: str | None = None,
-    ) -> Widget:
+    ) -> LinkButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -64375,7 +64375,7 @@ class ListBox(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ListBox:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -64971,7 +64971,7 @@ class ListBoxRow(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ListBoxRow:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -66483,7 +66483,7 @@ class ListView(ListBase):
         cls,
         model: SelectionModel | None = None,
         factory: ListItemFactory | None = None,
-    ) -> Widget:
+    ) -> ListView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -67056,7 +67056,7 @@ class LockButton(Button):
     def new(
         cls,
         permission: Gio.Permission | None = None,
-    ) -> Widget:
+    ) -> LockButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -67735,7 +67735,7 @@ class MediaControls(Widget):
     def new(
         cls,
         stream: MediaStream | None = None,
-    ) -> Widget:
+    ) -> MediaControls:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -69278,7 +69278,7 @@ class MenuButton(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> MenuButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -70722,7 +70722,7 @@ class MountOperation(Gio.MountOperation):
     def new(
         cls,
         parent: Window | None = None,
-    ) -> Gio.MountOperation:
+    ) -> MountOperation:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -72139,7 +72139,7 @@ class Notebook(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Notebook:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -73125,7 +73125,7 @@ class Overlay(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Overlay:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -73511,7 +73511,7 @@ class OverlayLayout(LayoutManager):
     @classmethod
     def new(
         cls,
-    ) -> LayoutManager:
+    ) -> OverlayLayout:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -74160,7 +74160,7 @@ class PageSetupUnixDialog(Dialog):
         cls,
         title: str | None = None,
         parent: Window | None = None,
-    ) -> Widget:
+    ) -> PageSetupUnixDialog:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -74970,7 +74970,7 @@ class Paned(Widget):
     def new(
         cls,
         orientation: Orientation,
-    ) -> Widget:
+    ) -> Paned:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -75790,7 +75790,7 @@ class PasswordEntry(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> PasswordEntry:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -76254,7 +76254,7 @@ class PasswordEntryBuffer(EntryBuffer):
     @classmethod
     def new(
         cls,
-    ) -> EntryBuffer:
+    ) -> PasswordEntryBuffer:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -76553,7 +76553,7 @@ class Picture(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Picture:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -76563,7 +76563,7 @@ class Picture(Widget):
     def new_for_file(
         cls,
         file: Gio.File | None = None,
-    ) -> Widget:
+    ) -> Picture:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -76573,7 +76573,7 @@ class Picture(Widget):
     def new_for_filename(
         cls,
         filename: str | None = None,
-    ) -> Widget:
+    ) -> Picture:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -76583,7 +76583,7 @@ class Picture(Widget):
     def new_for_paintable(
         cls,
         paintable: Gdk.Paintable | None = None,
-    ) -> Widget:
+    ) -> Picture:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -76593,7 +76593,7 @@ class Picture(Widget):
     def new_for_pixbuf(
         cls,
         pixbuf: GdkPixbuf.Pixbuf | None = None,
-    ) -> Widget:
+    ) -> Picture:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -76603,7 +76603,7 @@ class Picture(Widget):
     def new_for_resource(
         cls,
         resource_path: str | None = None,
-    ) -> Widget:
+    ) -> Picture:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -77298,7 +77298,7 @@ class Popover(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Popover:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -77942,7 +77942,7 @@ class PopoverMenu(Popover):
     def new_from_model(
         cls,
         model: Gio.MenuModel | None = None,
-    ) -> Widget:
+    ) -> PopoverMenu:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -77953,7 +77953,7 @@ class PopoverMenu(Popover):
         cls,
         model: Gio.MenuModel,
         flags: PopoverMenuFlags,
-    ) -> Widget:
+    ) -> PopoverMenu:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -78485,7 +78485,7 @@ class PopoverMenuBar(Widget):
     def new_from_model(
         cls,
         model: Gio.MenuModel | None = None,
-    ) -> Widget:
+    ) -> PopoverMenuBar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -81393,7 +81393,7 @@ class PrintUnixDialog(Dialog):
         cls,
         title: str | None = None,
         parent: Window | None = None,
-    ) -> Widget:
+    ) -> PrintUnixDialog:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -82557,7 +82557,7 @@ class ProgressBar(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ProgressBar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -84357,7 +84357,7 @@ class Revealer(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Revealer:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -85045,7 +85045,7 @@ class Scale(Range):
         cls,
         orientation: Orientation,
         adjustment: Adjustment | None = None,
-    ) -> Widget:
+    ) -> Scale:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -85058,7 +85058,7 @@ class Scale(Range):
         min: float,
         max: float,
         step: float,
-    ) -> Widget:
+    ) -> Scale:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -85675,7 +85675,7 @@ class ScaleButton(Widget):
         max: float,
         step: float,
         icons: list[str] | None = None,
-    ) -> Widget:
+    ) -> ScaleButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -86422,7 +86422,7 @@ class Scrollbar(Widget):
         cls,
         orientation: Orientation,
         adjustment: Adjustment | None = None,
-    ) -> Widget:
+    ) -> Scrollbar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -87177,7 +87177,7 @@ class ScrolledWindow(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ScrolledWindow:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -87856,7 +87856,7 @@ class SearchBar(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> SearchBar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -88407,7 +88407,7 @@ class SearchEntry(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> SearchEntry:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -89404,7 +89404,7 @@ class Separator(Widget):
     def new(
         cls,
         orientation: Orientation,
-    ) -> Widget:
+    ) -> Separator:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -90969,7 +90969,7 @@ class ShortcutController(EventController):
     @classmethod
     def new(
         cls,
-    ) -> EventController:
+    ) -> ShortcutController:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -90979,7 +90979,7 @@ class ShortcutController(EventController):
     def new_for_model(
         cls,
         model: Gio.ListModel,
-    ) -> EventController:
+    ) -> ShortcutController:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -91155,7 +91155,7 @@ class ShortcutLabel(Widget):
     def new(
         cls,
         accelerator: str,
-    ) -> Widget:
+    ) -> ShortcutLabel:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -94098,7 +94098,7 @@ class SignalListItemFactory(ListItemFactory):
     @classmethod
     def new(
         cls,
-    ) -> ListItemFactory:
+    ) -> SignalListItemFactory:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -95924,7 +95924,7 @@ class SpinButton(Widget):
         adjustment: Adjustment | None,
         climb_rate: float,
         digits: int,
-    ) -> Widget:
+    ) -> SpinButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -95936,7 +95936,7 @@ class SpinButton(Widget):
         min: float,
         max: float,
         step: float,
-    ) -> Widget:
+    ) -> SpinButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -96606,7 +96606,7 @@ class Spinner(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Spinner:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -97243,7 +97243,7 @@ class Stack(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Stack:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -97905,7 +97905,7 @@ class StackSidebar(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> StackSidebar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -98345,7 +98345,7 @@ class StackSwitcher(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> StackSwitcher:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -98811,7 +98811,7 @@ class Statusbar(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Statusbar:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -100101,7 +100101,7 @@ class Switch(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Switch:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -101011,7 +101011,7 @@ class Text(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Text:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -101021,7 +101021,7 @@ class Text(Widget):
     def new_with_buffer(
         cls,
         buffer: EntryBuffer,
-    ) -> Widget:
+    ) -> Text:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -106121,7 +106121,7 @@ class TextView(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> TextView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -106131,7 +106131,7 @@ class TextView(Widget):
     def new_with_buffer(
         cls,
         buffer: TextBuffer,
-    ) -> Widget:
+    ) -> TextView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -107161,7 +107161,7 @@ class ToggleButton(Button):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> ToggleButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -107171,7 +107171,7 @@ class ToggleButton(Button):
     def new_with_label(
         cls,
         label: str,
-    ) -> Widget:
+    ) -> ToggleButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -107181,7 +107181,7 @@ class ToggleButton(Button):
     def new_with_mnemonic(
         cls,
         label: str,
-    ) -> Widget:
+    ) -> ToggleButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -108015,7 +108015,7 @@ class TreeExpander(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> TreeExpander:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -111909,7 +111909,7 @@ class TreeView(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> TreeView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -111919,7 +111919,7 @@ class TreeView(Widget):
     def new_with_model(
         cls,
         model: TreeModel,
-    ) -> Widget:
+    ) -> TreeView:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -113425,7 +113425,7 @@ class Video(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Video:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -113435,7 +113435,7 @@ class Video(Widget):
     def new_for_file(
         cls,
         file: Gio.File | None = None,
-    ) -> Widget:
+    ) -> Video:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -113445,7 +113445,7 @@ class Video(Widget):
     def new_for_filename(
         cls,
         filename: str | None = None,
-    ) -> Widget:
+    ) -> Video:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -113455,7 +113455,7 @@ class Video(Widget):
     def new_for_media_stream(
         cls,
         stream: MediaStream | None = None,
-    ) -> Widget:
+    ) -> Video:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -113465,7 +113465,7 @@ class Video(Widget):
     def new_for_resource(
         cls,
         resource_path: str | None = None,
-    ) -> Widget:
+    ) -> Video:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -113954,7 +113954,7 @@ class Viewport(Widget):
         cls,
         hadjustment: Adjustment | None = None,
         vadjustment: Adjustment | None = None,
-    ) -> Widget:
+    ) -> Viewport:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -114403,7 +114403,7 @@ class VolumeButton(ScaleButton):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> VolumeButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -119113,7 +119113,7 @@ class Window(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> Window:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -119874,7 +119874,7 @@ class WindowControls(Widget):
     def new(
         cls,
         side: PackType,
-    ) -> Widget:
+    ) -> WindowControls:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
@@ -120396,7 +120396,7 @@ class WindowHandle(Widget):
     @classmethod
     def new(
         cls,
-    ) -> Widget:
+    ) -> WindowHandle:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
