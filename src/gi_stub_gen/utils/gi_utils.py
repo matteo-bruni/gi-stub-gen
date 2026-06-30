@@ -93,7 +93,22 @@ def get_safe_gi_array_length(
         return -1
 
     try:
-        return gi_type.get_array_length()
+        array_length = gi_type.get_array_length()
+        if isinstance(array_length, tuple):
+            if len(array_length) == 2 and isinstance(array_length[0], bool):
+                return array_length[1] if array_length[0] else -1
+            return array_length[-1]
+        return array_length
+    except AttributeError:
+        pass
+
+    try:
+        array_length = gi_type.get_array_length_index()
+        if isinstance(array_length, tuple):
+            if len(array_length) == 2 and isinstance(array_length[0], bool):
+                return array_length[1] if array_length[0] else -1
+            return array_length[-1]
+        return array_length
     except AttributeError:
         # Fallback per versioni dove il metodo manca su certi oggetti
         return -1

@@ -5,6 +5,7 @@ import logging
 
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
+from gi_stub_gen.schema.function import FunctionSchema
 from gi_stub_gen.utils.utils import sanitize_variable_name
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 from gi.repository import GObject
@@ -100,6 +101,7 @@ class EnumSchema(BaseSchema):
     docstring: str | None = None
     is_deprecated: bool
     fields: list[EnumFieldSchema]
+    methods: list[FunctionSchema]
 
     super_name: str
     """Return the super type name only"""
@@ -148,6 +150,8 @@ class EnumSchema(BaseSchema):
         imports = {self.super_namespace}
         if self.extra_super_namespace:
             imports.add(self.extra_super_namespace)
+        for method in self.methods:
+            imports.update(method.required_imports)
         return imports
 
     @classmethod
@@ -156,6 +160,7 @@ class EnumSchema(BaseSchema):
         obj: Any,
         enum_type: Literal["enum", "flags"],
         fields: list[EnumFieldSchema],
+        methods: list[FunctionSchema],
         docstring: str | None,
     ):
         assert hasattr(obj, "__info__"), "An Enum/Flags Object must have __info__ attribute"
@@ -203,6 +208,7 @@ class EnumSchema(BaseSchema):
             enum_type=enum_type,
             docstring=docstring,
             fields=fields,
+            methods=methods,
             is_deprecated=gi_info.is_deprecated(),
             py_mro=[f"{o.__module__}.{o.__name__}" for o in obj.mro()],
             super_name=super_name,

@@ -13,14 +13,11 @@ from gi_stub_gen.utils.gi_utils import (
 )
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.utils.utils import (
-    get_py_type_name_repr,
-    get_py_type_namespace_repr,
-    sanitize_variable_name,
-)
+from gi_stub_gen.utils.utils import sanitize_variable_name
 from gi_stub_gen.utils.gi_utils import (
     gi_type_to_py_type,
 )
+from gi_stub_gen.utils.inspect_utils import _extract_annotation_type_info
 from pydantic import (
     PrivateAttr,
 )
@@ -164,8 +161,10 @@ class FunctionArgumentSchema(BaseSchema):
             # Standard type logic
             # we can get the python type from the gi type
             py_type = gi_type_to_py_type(gi_type)
-            type_hint_namespace = get_py_type_namespace_repr(py_type)
-            type_hint_name = get_py_type_name_repr(py_type)
+            type_hint_name, type_hint_namespace = _extract_annotation_type_info(
+                py_type,
+                current_namespace=function_namespace,
+            )
 
         array_length: int = get_safe_gi_array_length(gi_type)
         return cls(
@@ -640,8 +639,10 @@ class FunctionSchema(BaseSchema):
                 py_return_hint_name = None
             else:
                 # get the repr of the return type
-                py_return_hint_namespace = get_py_type_namespace_repr(py_return_type)
-                py_return_hint_name = get_py_type_name_repr(py_return_type)
+                py_return_hint_name, py_return_hint_namespace = _extract_annotation_type_info(
+                    py_return_type,
+                    current_namespace=function_namespace,
+                )
 
             if py_return_hint_namespace and py_return_hint_namespace.startswith("gi._"):
                 line_comment = "type: ignore"

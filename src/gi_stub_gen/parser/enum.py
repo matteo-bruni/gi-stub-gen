@@ -6,6 +6,7 @@ from typing import Any
 from gi.repository import GObject
 
 from gi_stub_gen.manager.gir_docs import GIRDocs
+from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.schema.enum import EnumFieldSchema, EnumSchema
 from gi.repository import GIRepository
 
@@ -52,10 +53,17 @@ def parse_enum(
                     continue
                 args[parsed_field.name] = parsed_field
 
+            methods = []
+            for method_info in _type_info.get_methods():  # type: ignore added by pygobject
+                if parsed_method := parse_function(method_info, docstring=None):
+                    parsed_method.is_class_member = True
+                    methods.append(parsed_method)
+
             return EnumSchema.from_gi_object(
                 obj=attribute,
                 enum_type="flags" if is_flags else "enum",
                 fields=[a for a in args.values()],
+                methods=methods,
                 docstring=class_docstring,
             )
         else:

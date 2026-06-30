@@ -40,6 +40,19 @@ def test_constructor_gst_new_returns_class_type():
         assert f") -> {return_hint}:" in rendered
 
 
+def test_gst_object_parent_renders_direct_property():
+    parsed_class, _ = parse_class("Gst", Gst.Object)
+    assert parsed_class is not None
+
+    parent = next(field for field in parsed_class.fields if field.name == "parent")
+    assert parent.type_hint("Gst") == "Object | None"
+    assert parent.is_property is True
+
+    TemplateManager.set_module_name("Gst")
+    rendered = parsed_class.render()
+    assert "def parent(self) -> Object | None:" in rendered
+
+
 def test_function_gst_version():
     function_to_test = Gst.version
 

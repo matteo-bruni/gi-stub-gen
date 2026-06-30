@@ -542,6 +542,8 @@ def parse_class(
         class_props.append(c)
         class_parsed_elements.append(p_name)
 
+    class_props_by_name = {prop.name: prop for prop in class_props}
+
     # also add the notify signal #########################################
     # notify::<property_name>
     # we add for all props also those inherited from parents/interfaces
@@ -765,6 +767,22 @@ def parse_class(
             extra.append(f"method_descriptor: {attribute_name} (fallback stub generated)")
 
         elif attribute_type is property:
+            if attribute_name in class_props_by_name and all(field.name != attribute_name for field in class_fields):
+                prop = class_props_by_name[attribute_name]
+                class_fields.append(
+                    ClassFieldSchema(
+                        name=attribute_name,
+                        type_hint_name=prop.type_hint_name,
+                        type_hint_namespace=prop.type_hint_namespace,
+                        is_deprecated=prop.is_deprecated,
+                        docstring=prop.docstring,
+                        line_comment=prop.line_comment,
+                        deprecation_warnings=None,
+                        may_be_null=prop.may_be_null,
+                        is_readable=True,
+                        is_writable=False,
+                    )
+                )
             extra.append(f"property: {attribute_name} local={is_attribute_local}")
         else:
             extra.append(f"unknown: {attribute_name}: {attribute_type} local={is_attribute_local}")

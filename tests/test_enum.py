@@ -1,8 +1,10 @@
 import gi
 
 gi.require_version("GstAudio", "1.0")
+gi.require_version("Gst", "1.0")
+gi.require_version("GstVideo", "1.0")
 
-from gi.repository import GObject, GLib, GstAudio
+from gi.repository import GObject, GLib, Gst, GstAudio, GstVideo
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.parser.enum import parse_enum
 
@@ -57,3 +59,27 @@ def test_render_enum_uses_genum_and_intenum_bases_when_available():
 
     assert "class AudioBaseSrcSlaveMethod(GObject.GEnum, enum.IntEnum):" in rendered
     assert "SKEW = 2" in rendered
+
+
+def test_render_enum_methods():
+    resource_error = parse_enum(Gst.ResourceError)
+    assert resource_error is not None
+
+    quark = next(method for method in resource_error.methods if method.name == "quark")
+    assert quark.complete_return_hint("Gst") == "int"
+
+    TemplateManager.set_module_name("Gst")
+    rendered = resource_error.render()
+    assert "@staticmethod" in rendered
+    assert "def quark() -> int:" in rendered
+
+    video_format = parse_enum(GstVideo.VideoFormat)
+    assert video_format is not None
+
+    from_string = next(method for method in video_format.methods if method.name == "from_string")
+    assert from_string.complete_return_hint("GstVideo") == "VideoFormat"
+    assert from_string.render_args("GstVideo", one_line=True) == "format: str"
+
+    TemplateManager.set_module_name("GstVideo")
+    rendered = video_format.render()
+    assert "def from_string(format: str) -> VideoFormat:" in rendered

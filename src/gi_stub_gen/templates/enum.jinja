@@ -14,5 +14,10 @@ class {{enum.name}}({{enum.super_types_str(module_name)}}):
     """
     {% endif %}
     {% endfor %}
+    {% if enum.methods %}
+    # gi Methods
+    {% for method in enum.methods %}
+    {{ method.render_compact() | indent(4, first=False) }}
+    {% endfor %}
+    {% endif %}
     
-
