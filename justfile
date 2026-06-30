@@ -1,12 +1,12 @@
 # Allow for positional arguments in Just receipes.
 
-set positional-arguments := true
-set dotenv-load := true
+set positional-arguments
+set dotenv-load
 
 # python code to find gi overrides paths
 
-sys_overrides := `/usr/bin/python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
-venv_overrides := `uv run python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
+# sys_overrides := `/usr/bin/python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
+# venv_overrides := `uv run python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
 
 # Default recipe that runs if you type "just".
 default:
@@ -144,29 +144,29 @@ diff-gst:
         --namespace Gst \
         -o docs/Gst_diff.md
 
-# Sync degli override
-sync-gst:
-    @echo "🔄 Synchronizing GStreamer Overrides from ubuntu system to venv"
-    # --- Check Python Versions ---
-    @SYS_VER=$(/usr/bin/python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")'); \
-    VENV_VER=$(uv run python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")'); \
-    if [ "$SYS_VER" != "$VENV_VER" ]; then \
-        echo "❌ Error: Version Mismatch !"; \
-        echo "   System: $SYS_VER"; \
-        echo "   Venv:   $VENV_VER"; \
-        exit 1; \
-    fi
-    @echo "✅ Venv and System Python versions aligned ($SYS_VER). Proceeding..."
-    # ---------------------------------
+# # Sync degli override
+# sync-gst:
+#     @echo "🔄 Synchronizing GStreamer Overrides from ubuntu system to venv"
+#     # --- Check Python Versions ---
+#     @SYS_VER=$(/usr/bin/python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")'); \
+#     VENV_VER=$(uv run python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")'); \
+#     if [ "$SYS_VER" != "$VENV_VER" ]; then \
+#         echo "❌ Error: Version Mismatch !"; \
+#         echo "   System: $SYS_VER"; \
+#         echo "   Venv:   $VENV_VER"; \
+#         exit 1; \
+#     fi
+#     @echo "✅ Venv and System Python versions aligned ($SYS_VER). Proceeding..."
+#     # ---------------------------------
 
-    @echo "  📂 Source: {{ sys_overrides }}"
-    @echo "  📂 Destination: {{ venv_overrides }}"
+#     @echo "  📂 Source: {{ sys_overrides }}"
+#     @echo "  📂 Destination: {{ venv_overrides }}"
 
-    # Create the directory if it doesn't exist
-    mkdir -p "{{ venv_overrides }}"
+#     # Create the directory if it doesn't exist
+#     mkdir -p "{{ venv_overrides }}"
 
-    # Copy the files (handles error if none found)
-    cp -v "{{ sys_overrides }}"/Gst* "{{ venv_overrides }}/"
-    cp -v "{{ sys_overrides }}"/_gi_gst* "{{ venv_overrides }}/"
+#     # Copy the files (handles error if none found)
+#     cp -v "{{ sys_overrides }}"/Gst* "{{ venv_overrides }}/"
+#     cp -v "{{ sys_overrides }}"/_gi_gst* "{{ venv_overrides }}/"
 
-    @echo "✅ Completed."
+#     @echo "✅ Completed."
