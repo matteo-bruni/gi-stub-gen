@@ -21543,9 +21543,9 @@ class Structure(GObject.GBoxed, metaclass=GObject.GType):
         given field. Caller is responsible for making sure the field exists
         and has the correct type.
         """
-    def get_value(self, fieldname: str) -> GObject.Value | None:
+    def get_value(self, fieldname: str) -> typing.Any:
         """
-        Get the value of the field with name `fieldname`.
+        Return the Python value for a structure field. PyGObject unwraps the underlying GObject.Value at runtime.
         """
     def has_field(self, fieldname: str) -> bool:
         """

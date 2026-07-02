@@ -1,6 +1,6 @@
 import gi
 import pytest
-from gi.repository import Gst
+from gi.repository import GObject, Gst
 
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.parser.alias import parse_alias
@@ -129,6 +129,41 @@ def test_nested_callbacks_are_returned_from_class_parsing():
     callback_names = {callback.name for callback in callbacks}
     assert "dispatchPlayerSignalDispatcherInterfaceCB" in callback_names
     assert "PlayerSignalDispatcherFunc" in callback_names
+
+
+def test_gst_structure_get_value_returns_python_values_at_runtime():
+    structure = Gst.Structure.new_empty("test")
+    structure.set_value("string", "hello")
+    structure.set_value("int", 42)
+    structure.set_value("bool", True)
+    structure.set_value("fraction", Gst.Fraction(1, 2))
+
+    for fieldname, expected_type in (
+        ("string", str),
+        ("int", int),
+        ("bool", bool),
+        ("fraction", Gst.Fraction),
+    ):
+        value = structure.get_value(fieldname)
+        assert isinstance(value, expected_type)
+        assert not isinstance(value, GObject.Value)
+
+    assert structure.get_value("missing") is None
+
+
+def test_gst_structure_get_value_override_returns_any():
+    parsed_class, _ = parse_class("gi.repository.Gst", Gst.Structure)
+    assert parsed_class is not None
+
+    get_value = next(method for method in parsed_class.methods if method.name == "get_value")
+    assert get_value.render_args("Gst", one_line=True) == "self, fieldname: str"
+    assert get_value.complete_return_hint("Gst") == "typing.Any"
+
+    assert not any(method.name == "get_value" for method in parsed_class.python_methods)
+
+    TemplateManager.set_module_name("Gst")
+    rendered = parsed_class.render()
+    assert "def get_value(self, fieldname: str) -> typing.Any:" in rendered
 
 
 def test_function_gst_version():
