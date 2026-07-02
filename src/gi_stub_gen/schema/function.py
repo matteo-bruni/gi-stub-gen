@@ -564,6 +564,7 @@ class FunctionSchema(BaseSchema):
                 # append to its originated_from info
                 found_callback.originated_from = {f"{obj.get_namespace()}.{obj.get_name()}"}
                 args_as_callbacks_found.append(found_callback)
+                args_as_callbacks_found.extend(found_callback.function._gi_callbacks)
 
         function_namespace: str = obj.get_namespace()
 

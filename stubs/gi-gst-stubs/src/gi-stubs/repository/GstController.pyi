@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -109,7 +108,7 @@ class ARGBControlBinding(Gst.ControlBinding):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def cs_a(self) -> Gst.ControlSource | None: ...
     @builtins.property
@@ -155,6 +154,9 @@ class ARGBControlBinding(Gst.ControlBinding):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(object:Gst.Object, property_name:str, cs_a:Gst.ControlSource, cs_r:Gst.ControlSource, cs_g:Gst.ControlSource, cs_b:Gst.ControlSource) -> Gst.ControlBinding
+
+        Create a new control-binding that attaches the given GstControlSource to the
+        GObject property.
         """
 
     # Signals
@@ -233,7 +235,7 @@ class ARGBControlBindingClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.ControlBindingClass | None:
         """
@@ -288,9 +290,9 @@ class DirectControlBinding(Gst.ControlBinding):
     @builtins.property
     def byte_size(self) -> int: ...
     @builtins.property
-    def convert_g_value(self) -> DirectControlBindingConvertGValueDirectControlBindingCB: ...
+    def convert_g_value(self) -> DirectControlBindingConvertGValue: ...
     @builtins.property
-    def convert_value(self) -> DirectControlBindingConvertValueDirectControlBindingCB: ...
+    def convert_value(self) -> DirectControlBindingConvertValue: ...
     @builtins.property
     def cs(self) -> Gst.ControlSource | None: ...
     @builtins.property
@@ -325,6 +327,10 @@ class DirectControlBinding(Gst.ControlBinding):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(object:Gst.Object, property_name:str, cs:Gst.ControlSource) -> Gst.ControlBinding
+
+        Create a new control-binding that attaches the GstControlSource to the
+        GObject property. It will map the control source range [0.0 ... 1.0] to
+        the full target property range, and clip all values outside this range.
         """
     @classmethod
     def new_absolute(
@@ -337,6 +343,10 @@ class DirectControlBinding(Gst.ControlBinding):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_absolute(object:Gst.Object, property_name:str, cs:Gst.ControlSource) -> Gst.ControlBinding
+
+        Create a new control-binding that attaches the GstControlSource to the
+        GObject property. It will directly map the control source values to the
+        target property range without any transformations.
         """
 
     # Signals
@@ -401,7 +411,7 @@ class DirectControlBindingClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.ControlBindingClass | None:
         """
@@ -428,7 +438,7 @@ class InterpolationControlSource(TimedValueControlSource):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> TimedValueControlSource | None: ...
     @builtins.property
@@ -454,6 +464,8 @@ class InterpolationControlSource(TimedValueControlSource):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> Gst.ControlSource
+
+        This returns a new, unbound GstInterpolationControlSource.
         """
 
     # Signals
@@ -521,7 +533,7 @@ class InterpolationControlSource(TimedValueControlSource):
 class InterpolationControlSourceClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> TimedValueControlSourceClass | None: ...
 
@@ -572,7 +584,7 @@ class LFOControlSource(Gst.ControlSource):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def lock(self) -> GLib.Mutex | None: ...
     @builtins.property
@@ -604,6 +616,8 @@ class LFOControlSource(Gst.ControlSource):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> Gst.ControlSource
+
+        This returns a new, unbound GstLFOControlSource.
         """
 
     # Signals
@@ -678,7 +692,7 @@ class LFOControlSource(Gst.ControlSource):
 class LFOControlSourceClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.ControlSourceClass | None: ...
 
@@ -691,7 +705,7 @@ class ProxyControlBinding(Gst.ControlBinding):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> Gst.ControlBinding | None: ...
     @builtins.property
@@ -720,6 +734,10 @@ class ProxyControlBinding(Gst.ControlBinding):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(object:Gst.Object, property_name:str, ref_object:Gst.Object, ref_property_name:str) -> Gst.ControlBinding
+
+        GstProxyControlBinding forwards all access to data or ``sync_values``
+        requests from `property_name` on `object` to the control binding at
+        `ref_property_name` on `ref_object`.
         """
 
     # Signals
@@ -770,7 +788,7 @@ class ProxyControlBindingClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.ControlBindingClass | None: ...
 
@@ -786,7 +804,7 @@ class TimedValueControlSource(Gst.ControlSource):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def lock(self) -> GLib.Mutex | None: ...
     @builtins.property
@@ -914,7 +932,7 @@ class TimedValueControlSource(Gst.ControlSource):
 class TimedValueControlSourceClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.ControlSourceClass | None: ...
 
@@ -940,7 +958,7 @@ class TriggerControlSource(TimedValueControlSource):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> TimedValueControlSource | None: ...
     @builtins.property
@@ -961,6 +979,8 @@ class TriggerControlSource(TimedValueControlSource):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> Gst.ControlSource
+
+        This returns a new, unbound GstTriggerControlSource.
         """
 
     # Signals
@@ -1028,7 +1048,7 @@ class TriggerControlSource(TimedValueControlSource):
 class TriggerControlSourceClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> TimedValueControlSourceClass | None: ...
 
@@ -1038,7 +1058,7 @@ class TriggerControlSourcePrivate(GObject.GPointer, metaclass=GObject.GType): ..
 # Callbacks
 ###############################################################
 
-class DirectControlBindingConvertValueDirectControlBindingCB(typing.Protocol):
+class DirectControlBindingConvertValue(typing.Protocol):
     """
     This callback was used in:
         DirectControlBinding.convert_value
@@ -1050,7 +1070,7 @@ class DirectControlBindingConvertValueDirectControlBindingCB(typing.Protocol):
         dest_value: object | None = None,
     ) -> None: ...
 
-class DirectControlBindingConvertGValueDirectControlBindingCB(typing.Protocol):
+class DirectControlBindingConvertGValue(typing.Protocol):
     """
     This callback was used in:
         DirectControlBinding.convert_g_value
@@ -1063,13 +1083,14 @@ class DirectControlBindingConvertGValueDirectControlBindingCB(typing.Protocol):
     ) -> None: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

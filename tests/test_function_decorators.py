@@ -16,6 +16,7 @@ gi.require_version("GstAudio", "1.0")
 
 from gi.repository import GLib, GObject, Gio, Gst, GstAudio
 
+from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.parser.function import parse_function
@@ -289,6 +290,35 @@ class TestPythonFunctionDecorators:
         assert files_param.type_hint_name == "list[File]"
         assert files_param.type_hint_namespace is None
         assert files_param.type_hint("Gio") == "list[File]"
+
+    def test_python_override_uses_gir_docstring_when_python_doc_missing(self, tmp_path):
+        gir_file = tmp_path / "Gst-1.0.gir"
+        gir_file.write_text(
+            """<?xml version="1.0"?>
+<repository version="1.2" xmlns="http://www.gtk.org/introspection/core/1.0" xmlns:c="http://www.gtk.org/introspection/c/1.0" xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <namespace name="Gst" version="1.0" shared-library="libgstreamer-1.0.so" c:identifier-prefixes="Gst" c:symbol-prefixes="gst">
+    <record name="Buffer">
+      <method name="map" c:identifier="gst_buffer_map">
+        <doc xml:space="preserve">Maps the buffer for test docs.</doc>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+      </method>
+    </record>
+  </namespace>
+</repository>
+""",
+            encoding="utf-8",
+        )
+        assert GIRDocs().load(gir_file)
+
+        parsed_class, _ = parse_class("Gst", Gst.Buffer)
+        assert parsed_class is not None
+
+        map_method = next(method for method in parsed_class.python_methods if method.name == "map")
+        assert map_method.docstring is not None
+        assert "[is-override: Note this method is an override in Python of the original gi implementation.]" in map_method.docstring
+        assert "Maps the buffer for test docs." in map_method.docstring
 
     def test_python_override_detects_typevar_bound(self):
         """Gio.ListStore.insert_sorted exposes ObjectItemType bound to GObject.Object."""

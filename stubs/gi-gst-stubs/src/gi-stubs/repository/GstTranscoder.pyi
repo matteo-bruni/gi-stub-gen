@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -486,13 +485,14 @@ class TranscoderSignalAdapterClass(GObject.GPointer, metaclass=GObject.GType):
     def parent_class(self) -> GObject.ObjectClass | None: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

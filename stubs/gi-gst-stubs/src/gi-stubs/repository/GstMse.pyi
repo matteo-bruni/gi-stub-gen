@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -318,6 +317,12 @@ class MediaSource(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMse.MediaSource
+
+        Creates a new GstMediaSource instance. The instance is in the
+        GST_MEDIA_SOURCE_READY_STATE_CLOSED state and is not associated with any
+        media player.
+
+        [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-constructor)
         """
 
     # Signals
@@ -1159,13 +1164,14 @@ class SourceBufferListClass(GObject.GPointer, metaclass=GObject.GType):
     def parent_class(self) -> Gst.ObjectClass | None: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

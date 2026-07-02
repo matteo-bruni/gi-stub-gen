@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -203,7 +202,7 @@ class CudaAllocator(Gst.Allocator):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> Gst.Allocator | None: ...
     @builtins.property
@@ -305,7 +304,7 @@ class CudaAllocator(Gst.Allocator):
 class CudaAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.AllocatorClass | None: ...
     @builtins.property
@@ -465,6 +464,8 @@ class CudaContext(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(device_id:int) -> GstCuda.CudaContext or None
+
+        Create GstCuda.Context with given device_id
         """
     @classmethod
     def new_wrapped(
@@ -476,6 +477,10 @@ class CudaContext(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_wrapped(handler, device:int) -> GstCuda.CudaContext or None
+
+        Note: The caller is responsible for ensuring that the CUcontext and CUdevice
+        represented by `handle` and `device` stay alive while the returned
+        GstCuda.Context is active.
         """
 
     # Signals
@@ -581,7 +586,7 @@ class CudaGraphicsResource(GObject.GPointer, metaclass=GObject.GType):
 class CudaMemory(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     context: CudaContext | None = ...
     info: GstVideo.VideoInfo | None = ...  # type: ignore
     mem: Gst.Memory | None = ...  # type: ignore
@@ -665,6 +670,9 @@ class CudaMemoryPool(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(context:GstCuda.CudaContext, props:CudaGst.memPoolProps=None) -> GstCuda.CudaMemoryPool or None
+
+        Creates a new GstCuda.MemoryPool with `props`. If `props` is None,
+        non-exportable pool property will be used.
         """
 
 class CudaMemoryPoolPrivate(GObject.GPointer, metaclass=GObject.GType): ...
@@ -677,7 +685,7 @@ class CudaPoolAllocator(CudaAllocator):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> CudaContext | None: ...
     @builtins.property
@@ -712,6 +720,8 @@ class CudaPoolAllocator(CudaAllocator):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(context:GstCuda.CudaContext, stream:GstCuda.CudaStream=None, info:GstVideo.VideoInfo) -> GstCuda.CudaPoolAllocator
+
+        Creates a new GstCuda.PoolAllocator instance.
         """
     @classmethod
     def new_for_virtual_memory(
@@ -726,6 +736,8 @@ class CudaPoolAllocator(CudaAllocator):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_for_virtual_memory(context:GstCuda.CudaContext, stream:GstCuda.CudaStream=None, info:GstVideo.VideoInfo, prop:CudaGst.memAllocationProp, granularity_flags:CudaGst.memAllocationGranularity_flags) -> GstCuda.CudaPoolAllocator
+
+        Creates a new GstCuda.PoolAllocator instance for virtual memory allocation.
         """
     @classmethod
     def new_full(
@@ -739,6 +751,8 @@ class CudaPoolAllocator(CudaAllocator):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_full(context:GstCuda.CudaContext, stream:GstCuda.CudaStream=None, info:GstVideo.VideoInfo, config:Gst.Structure=None) -> GstCuda.CudaPoolAllocator
+
+        Creates a new GstCuda.PoolAllocator instance with given `config`
         """
 
     # Signals
@@ -778,7 +792,7 @@ class CudaPoolAllocator(CudaAllocator):
 class CudaPoolAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> CudaAllocatorClass | None: ...
 
@@ -815,6 +829,8 @@ class CudaStream(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(context:GstCuda.CudaContext) -> GstCuda.CudaStream or None
+
+        Creates a new GstCuda.Stream
         """
 
 class CudaStreamPrivate(GObject.GPointer, metaclass=GObject.GType): ...
@@ -836,13 +852,6 @@ class set_activeCudaAllocatorClassCB(typing.Protocol):
     ) -> bool: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-MAP_READ_CUDA = Gst.MAP_READ_CUDA
-MAP_WRITE_CUDA = Gst.MAP_WRITE_CUDA
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
@@ -851,5 +860,19 @@ CUDA_ALLOCATOR_OPT_STREAM_ORDERED: str = ...
 CUDA_CONTEXT_TYPE: str = ...
 CUDA_MEMORY_TYPE_NAME: str = ...
 MAP_CUDA: int = ...
+MAP_READ_CUDA = Gst.MapFlags(0)
+"""
+GstMapFlags value alias for GST_MAP_READ | GST_MAP_CUDA 
+"""
+MAP_WRITE_CUDA = Gst.MapFlags(0)
+"""
+GstMapFlags value alias for GST_MAP_WRITE | GST_MAP_CUDA 
+"""
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

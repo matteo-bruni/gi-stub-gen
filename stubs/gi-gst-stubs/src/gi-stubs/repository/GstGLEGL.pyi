@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import collections.abc
 import typing
@@ -148,13 +147,13 @@ class EGLImage(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GstGL.GLContext | None: ...
     @builtins.property
     def destroy_data(self) -> object | None: ...
     @builtins.property
-    def destroy_notify(self) -> EGLImageDestroyNotifyEGLImageCB: ...
+    def destroy_notify(self) -> EGLImageDestroyNotify: ...
     @builtins.property
     def format(self) -> GstGL.GLFormat: ...
     @builtins.property
@@ -259,7 +258,7 @@ class GLDisplayEGL(GstGL.GLDisplay):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def display(self) -> object | None: ...
     @builtins.property
@@ -319,6 +318,12 @@ class GLDisplayEGL(GstGL.GLDisplay):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstGLEGL.GLDisplayEGL or None
+
+        Create a new GstGLDisplayEGL using the default EGL_DEFAULT_DISPLAY.
+
+        The returned GstGLDisplayEGL will by default free all EGL resources when
+        finalized. See `gst_gl_display_egl_set_foreign` for details on if you need
+        the EGLDisplay to remain alive.
         """
     @classmethod
     def new_surfaceless(
@@ -328,6 +333,9 @@ class GLDisplayEGL(GstGL.GLDisplay):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_surfaceless() -> GstGLEGL.GLDisplayEGL or None
+
+        Create a new surfaceless GstGLDisplayEGL using the Mesa3D
+        EGL_PLATFORM_SURFACELESS_MESA extension.
         """
     @classmethod
     def new_with_egl_display(
@@ -384,7 +392,7 @@ class GLDisplayEGL(GstGL.GLDisplay):
 class GLDisplayEGLClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def object_class(self) -> GstGL.GLDisplayClass | None: ...
 
@@ -396,7 +404,7 @@ class GLDisplayEGLDevice(GstGL.GLDisplay):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def device(self) -> object | None: ...
     @builtins.property
@@ -418,6 +426,8 @@ class GLDisplayEGLDevice(GstGL.GLDisplay):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(device_index:int) -> GstGLEGL.GLDisplayEGLDevice or None
+
+        Create a new GstGLDisplayEGLDevice with an EGLDevice supported device
         """
     @classmethod
     def new_with_egl_device(
@@ -428,6 +438,9 @@ class GLDisplayEGLDevice(GstGL.GLDisplay):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_with_egl_device(device=None) -> GstGLEGL.GLDisplayEGLDevice
+
+        Creates a new GstGLDisplayEGLDevice with EGLDeviceEXT .
+        The `device` must be created using EGLDevice enumeration.
         """
 
     # Signals
@@ -478,7 +491,7 @@ class GLDisplayEGLDeviceClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def object_class(self) -> GstGL.GLDisplayClass | None: ...
 
@@ -490,7 +503,7 @@ class GLMemoryEGL(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def image(self) -> EGLImage | None: ...
     @builtins.property
@@ -513,7 +526,7 @@ class GLMemoryEGLAllocator(GstGL.GLMemoryAllocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> GstGL.GLMemoryAllocator | None: ...
 
@@ -564,7 +577,7 @@ class GLMemoryEGLAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> GstGL.GLMemoryAllocatorClass | None: ...
 
@@ -572,22 +585,10 @@ class GLMemoryEGLAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
 # Callbacks
 ###############################################################
 
-class EGLImageDestroyNotifyEGLImageCB(typing.Protocol):
-    """
-    This callback was used in:
-        EGLImage.destroy_notify
-    """
-    #  image
-    def __call__(
-        self,
-        image: EGLImage,
-        data: object | None = None,
-    ) -> None: ...
-
 class EGLImageDestroyNotify(typing.Protocol):
     """
     This callback was used in:
-        GstGLEGL.new_wrapped
+        EGLImage.destroy_notify, GstGLEGL.new_wrapped
     """
     #  image
     def __call__(
@@ -596,11 +597,6 @@ class EGLImageDestroyNotify(typing.Protocol):
         data: object | None = None,
     ) -> None: ...
 
-###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
 ###############################################################
 # Constants
 ###############################################################
@@ -609,3 +605,9 @@ GL_DISPLAY_EGL_NAME: str = ...
 GL_MEMORY_EGL_ALLOCATOR_NAME: str = ...
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

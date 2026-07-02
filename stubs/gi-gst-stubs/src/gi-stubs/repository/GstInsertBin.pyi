@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import typing
 
@@ -129,6 +128,8 @@ class InsertBin(Gst.Bin):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(name:str=None) -> Gst.Element
+
+        Creates a new GstInsertBin.
         """
 
     # Signals
@@ -342,13 +343,14 @@ class InsertBinCallback(typing.Protocol):
     ) -> None: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

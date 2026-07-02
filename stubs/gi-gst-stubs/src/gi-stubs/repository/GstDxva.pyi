@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -1713,13 +1712,14 @@ class output_pictureDxvaVp9DecoderClassCB(typing.Protocol):
     ) -> Gst.FlowReturn: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

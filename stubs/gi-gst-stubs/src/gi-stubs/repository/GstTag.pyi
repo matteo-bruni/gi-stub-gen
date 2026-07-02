@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -692,7 +691,7 @@ class TagDemux(Gst.Element):
     @builtins.property
     def priv(self) -> TagDemuxPrivate | None: ...
     @builtins.property
-    def reserved(self) -> list | None: ...
+    def reserved(self) -> list[object] | None: ...
 
     # gi Methods
     def __init__(self, name: str | None = None, parent: Gst.Object | None = None) -> None:
@@ -833,7 +832,7 @@ class TagDemuxClass(GObject.GPointer, metaclass=GObject.GType):
         Subclassed MUST override the parse_tag vfunc in their class_init function.
         """
     @builtins.property
-    def reserved(self) -> list | None: ...
+    def reserved(self) -> list[object] | None: ...
 
 class TagDemuxPrivate(GObject.GPointer, metaclass=GObject.GType): ...
 
@@ -857,7 +856,7 @@ class TagMux(Gst.Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None:
         """
@@ -948,7 +947,7 @@ class TagMuxClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.ElementClass | None:
         """
@@ -1090,11 +1089,6 @@ class render_end_tagTagMuxClassCB(typing.Protocol):
     ) -> Gst.Buffer: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
@@ -1140,3 +1134,9 @@ TAG_MUSICBRAINZ_TRACKID: str = ...
 TAG_MUSICBRAINZ_TRMID: str = ...
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -421,6 +420,17 @@ class Player(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(video_renderer:GstPlayer.PlayerVideoRenderer=None, signal_dispatcher:GstPlayer.PlayerSignalDispatcher=None) -> GstPlayer.Player
+
+        Creates a new GstPlayer. instance that uses `signal_dispatcher` to dispatch
+        signals to some event loop system, or emits signals directly if None is
+        passed. See `gst_player_g_main_context_signal_dispatcher_new`.
+
+        Video is going to be rendered by `video_renderer`, or if None is provided
+        no special video set up will be done and some default handling will be
+        performed.
+
+        This also initializes GStreamer via ``gst_init`` on the first call if this
+        didn't happen before.
         """
 
     # Signals
@@ -1049,14 +1059,26 @@ class dispatchPlayerSignalDispatcherInterfaceCB(typing.Protocol):
         *data: object | None,
     ) -> None: ...
 
-###############################################################
-# Aliases
-###############################################################
+class PlayerSignalDispatcherFunc(typing.Protocol):
+    """
+    This callback was used in:
+        GstPlayer.dispatch
+    """
+    #  data
+    def __call__(
+        self,
+        data: object | None = None,
+    ) -> None: ...
 
-_lock = _thread._lock  # type: ignore
 ###############################################################
 # Constants
 ###############################################################
 
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

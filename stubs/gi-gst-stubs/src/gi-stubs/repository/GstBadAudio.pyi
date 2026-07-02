@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -577,7 +576,7 @@ class NonstreamAudioDecoderClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def decide_allocation(self) -> decide_allocationNonstreamAudioDecoderClassCB:
         """
@@ -891,6 +890,8 @@ class PlanarAudioAdapter(GObject.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstBadAudio.PlanarAudioAdapter
+
+        Creates a new GstPlanarAudioAdapter. Free with `g_object_unref`.
         """
 
     # Signals
@@ -1147,11 +1148,6 @@ class propose_allocationNonstreamAudioDecoderClassCB(typing.Protocol):
     ) -> bool: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
@@ -1159,3 +1155,9 @@ NONSTREAM_AUDIO_DECODER_SINK_NAME: str = ...
 NONSTREAM_AUDIO_DECODER_SRC_NAME: str = ...
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

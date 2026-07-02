@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -162,6 +161,10 @@ class DRMDumbAllocator(Gst.Allocator):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_with_device_path(drm_device_path:str) -> Gst.Allocator or None
+
+        Creates a new GstDRMDumbAllocator for the specific device path. This
+        function can fail if the path does not exist, is not a DRM device or if
+        the DRM device doesnot support DUMB allocation.
         """
     @classmethod
     def new_with_fd(
@@ -172,6 +175,10 @@ class DRMDumbAllocator(Gst.Allocator):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_with_fd(drm_fd:int) -> Gst.Allocator or None
+
+        Creates a new GstDRMDumbAllocator for the specific file desciptor. This
+        function can fail if the file descriptor is not a DRM device or if
+        the DRM device does not support DUMB allocation.
         """
 
     # Signals
@@ -237,7 +244,7 @@ class DmaBufAllocator(FdAllocator):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> FdAllocator | None: ...
 
@@ -266,6 +273,8 @@ class DmaBufAllocator(FdAllocator):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> Gst.Allocator
+
+        Return a new dmabuf allocator.
         """
 
     # Signals
@@ -305,7 +314,7 @@ class DmaBufAllocator(FdAllocator):
 class DmaBufAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> FdAllocatorClass | None: ...
 
@@ -345,6 +354,8 @@ class FdAllocator(Gst.Allocator):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> Gst.Allocator
+
+        Return a new fd allocator.
         """
 
     # Signals
@@ -576,11 +587,6 @@ class get_phys_addrPhysMemoryAllocatorInterfaceCB(typing.Protocol):
     ) -> int: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
@@ -591,3 +597,9 @@ ALLOCATOR_UDMABUF: str = ...
 CAPS_FEATURE_MEMORY_DMABUF: str = ...
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

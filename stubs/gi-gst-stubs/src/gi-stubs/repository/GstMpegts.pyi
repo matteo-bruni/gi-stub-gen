@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -1677,7 +1676,7 @@ class AtscEIT(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    events: list | None = ...
+    events: list[AtscEITEvent] | None = ...
     """
     Events
     """
@@ -1696,7 +1695,7 @@ class AtscEITEvent(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     descriptors
     """
@@ -1716,7 +1715,7 @@ class AtscEITEvent(GObject.GBoxed, metaclass=GObject.GType):
     """
     The start time
     """
-    titles: list | None = ...
+    titles: list[AtscMultString] | None = ...
     """
     the titles
     """
@@ -1732,7 +1731,7 @@ class AtscETT(GObject.GBoxed, metaclass=GObject.GType):
     The etm id
     """
     ett_table_id_extension: int = ...
-    messages: list | None = ...
+    messages: list[AtscMultString] | None = ...
     """
     List of texts
     """
@@ -1747,7 +1746,7 @@ class AtscMGT(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     descriptors
     """
@@ -1755,7 +1754,7 @@ class AtscMGT(GObject.GBoxed, metaclass=GObject.GType):
     """
     The protocol version
     """
-    tables: list | None = ...
+    tables: list[AtscMGTTable] | None = ...
     """
     the tables
     """
@@ -1788,7 +1787,7 @@ class AtscMGTTable(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     descriptors
     """
@@ -1808,11 +1807,11 @@ class AtscMGTTable(GObject.GBoxed, metaclass=GObject.GType):
 
 class AtscMultString(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
-    iso_639_langcode: list | None = ...
+    iso_639_langcode: list[int] | None = ...
     """
     The ISO639 language code
     """
-    segments: list | None = ...
+    segments: list[AtscStringSegment] | None = ...
 
 class AtscRRT(GObject.GBoxed, metaclass=GObject.GType):
     """
@@ -1820,11 +1819,11 @@ class AtscRRT(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[object] | None = ...
     """
     descriptors
     """
-    dimensions: list | None = ...
+    dimensions: list[AtscRRTDimension] | None = ...
     """
     A set of dimensions
     """
@@ -1832,7 +1831,7 @@ class AtscRRT(GObject.GBoxed, metaclass=GObject.GType):
     """
     the number of dimensions defined for this rating table
     """
-    names: list | None = ...
+    names: list[AtscMultString] | None = ...
     """
     the names
     """
@@ -1865,11 +1864,11 @@ class AtscRRTDimension(GObject.GBoxed, metaclass=GObject.GType):
     """
     whether the ratings represent a graduated scale
     """
-    names: list | None = ...
+    names: list[AtscMultString] | None = ...
     """
     the names
     """
-    values: list | None = ...
+    values: list[AtscRRTDimensionValue] | None = ...
     """
     set of values
     """
@@ -1898,11 +1897,11 @@ class AtscRRTDimension(GObject.GBoxed, metaclass=GObject.GType):
 
 class AtscRRTDimensionValue(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
-    abbrev_ratings: list | None = ...
+    abbrev_ratings: list[AtscMultString] | None = ...
     """
     the abbreviated ratings
     """
-    ratings: list | None = ...
+    ratings: list[AtscMultString] | None = ...
     """
     the ratings
     """
@@ -1931,7 +1930,7 @@ class AtscSTT(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     descriptors
     """
@@ -2016,7 +2015,7 @@ class AtscVCT(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     descriptors
     """
@@ -2024,7 +2023,7 @@ class AtscVCT(GObject.GBoxed, metaclass=GObject.GType):
     """
     The protocol version
     """
-    sources: list | None = ...
+    sources: list[AtscVCTSource] | None = ...
     """
     sources
     """
@@ -2055,7 +2054,7 @@ class AtscVCTSource(GObject.GBoxed, metaclass=GObject.GType):
     """
     The transport stream ID
     """
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     an array of GstMpegts.Descriptor
     """
@@ -2144,12 +2143,12 @@ class BAT(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
-    streams: list | None = ...
+    descriptors: list[Descriptor] | None = ...
+    streams: list[BATStream] | None = ...
 
 class BATStream(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[object] | None = ...
     original_network_id: int = ...
     transport_stream_id: int = ...
 
@@ -2312,7 +2311,7 @@ class Descriptor(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     data: int = ...
     """
     the full descriptor data (including tag, extension, length). The first
@@ -2631,7 +2630,7 @@ class EIT(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     actual_stream: bool = ...
-    events: list | None = ...
+    events: list[EITEvent] | None = ...
     """
     List of events
     """
@@ -2647,7 +2646,7 @@ class EITEvent(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     List of descriptors
     """
@@ -2664,7 +2663,7 @@ class ExtendedEventDescriptor(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     descriptor_number: int = ...
-    items: list | None = ...
+    items: list[ExtendedEventItem] | None = ...
     """
     the GstMpegts.ExtendedEventItem
     """
@@ -2685,8 +2684,8 @@ class ExtendedEventItem(GObject.GBoxed, metaclass=GObject.GType):
 
 class ISO639LanguageDescriptor(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
-    audio_type: list | None = ...
-    language: list | None = ...
+    audio_type: list[Iso639AudioType] | None = ...
+    language: list[str] | None = ...
     nb_language: int = ...
 
     # gi Methods
@@ -2735,7 +2734,7 @@ class LogicalChannel(GObject.GBoxed, metaclass=GObject.GType):
 
 class LogicalChannelDescriptor(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
-    channels: list | None = ...
+    channels: list[LogicalChannel] | None = ...
     nb_channels: int = ...
 
 class MetadataDescriptor(GObject.GBoxed, metaclass=GObject.GType):
@@ -2818,7 +2817,7 @@ class NIT(GObject.GBoxed, metaclass=GObject.GType):
     """
     Whether this NIT corresponds to the actual stream
     """
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     the global descriptors
     """
@@ -2826,7 +2825,7 @@ class NIT(GObject.GBoxed, metaclass=GObject.GType):
     """
     ID of the network that this NIT describes
     """
-    streams: list | None = ...
+    streams: list[NITStream] | None = ...
     """
     the streams
     """
@@ -2847,11 +2846,13 @@ class NIT(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMpegts.NIT
+
+        Allocates and initializes a GstMpegts.NIT.
         """
 
 class NITStream(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     original_network_id: int = ...
     transport_stream_id: int = ...
 
@@ -2871,6 +2872,8 @@ class NITStream(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMpegts.NITStream
+
+        Allocates and initializes a GstMpegts.NITStream
         """
 
 class PESMetadataMeta(GObject.GPointer, metaclass=GObject.GType):
@@ -2913,7 +2916,7 @@ class PMT(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     Array of GstMpegts.Descriptor
     """
@@ -2925,7 +2928,7 @@ class PMT(GObject.GBoxed, metaclass=GObject.GType):
     """
     The program to which this PMT is applicable.
     """
-    streams: list | None = ...
+    streams: list[PMTStream] | None = ...
     """
     Array of GstMpegts.PMTStream
     """
@@ -2946,6 +2949,10 @@ class PMT(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMpegts.PMT
+
+        Allocates and initializes a new GstMpegts.PMT. GstMpegts.PMTStream can be
+        added to the streams array, and global PMT GstMpegts.Descriptor to the
+        descriptors array.
         """
 
 class PMTStream(GObject.GBoxed, metaclass=GObject.GType):
@@ -2954,7 +2961,7 @@ class PMTStream(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     the descriptors of the
     stream
@@ -2984,6 +2991,8 @@ class PMTStream(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMpegts.PMTStream
+
+        Allocates and initializes a new GstMpegts.PMTStream.
         """
 
 class PatProgram(GObject.GBoxed, metaclass=GObject.GType):
@@ -3017,12 +3026,14 @@ class PatProgram(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMpegts.PatProgram
+
+        Allocates a new GstMpegts.PatProgram.
         """
 
 class SCTESIT(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
     cw_index: int = ...
-    descriptors: list | None = ...
+    descriptors: list[object] | None = ...
     encrypted_packet: bool = ...
     encryption_algorithm: int = ...
     fully_parsed: bool = ...
@@ -3040,7 +3051,7 @@ class SCTESIT(GObject.GBoxed, metaclass=GObject.GType):
     splice_command_type: SCTESpliceCommandType = ...
     splice_time: int = ...
     splice_time_specified: bool = ...
-    splices: list | None = ...
+    splices: list[object] | None = ...
     tier: int = ...
 
     # gi Methods
@@ -3059,6 +3070,8 @@ class SCTESIT(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMpegts.SCTESIT
+
+        Allocates and initializes a GstMpegts.SCTESIT.
         """
 
 class SCTESpliceComponent(GObject.GBoxed, metaclass=GObject.GType):
@@ -3096,6 +3109,8 @@ class SCTESpliceComponent(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(tag:int) -> GstMpegts.SCTESpliceComponent
+
+        Allocates and initializes a GstMpegts.SCTESpliceComponent.
         """
 
 class SCTESpliceEvent(GObject.GBoxed, metaclass=GObject.GType):
@@ -3104,7 +3119,7 @@ class SCTESpliceEvent(GObject.GBoxed, metaclass=GObject.GType):
     avails_expected: int = ...
     break_duration: int = ...
     break_duration_auto_return: bool = ...
-    components: list | None = ...
+    components: list[object] | None = ...
     """
     Per-PID splice time information
     """
@@ -3139,6 +3154,8 @@ class SCTESpliceEvent(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMpegts.SCTESpliceEvent
+
+        Allocates and initializes a GstMpegts.SCTESpliceEvent.
         """
 
 class SDT(GObject.GBoxed, metaclass=GObject.GType):
@@ -3155,7 +3172,7 @@ class SDT(GObject.GBoxed, metaclass=GObject.GType):
     """
     Network ID of the originating delivery system
     """
-    services: list | None = ...
+    services: list[SDTService] | None = ...
     """
     List of services
     """
@@ -3180,6 +3197,8 @@ class SDT(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMpegts.SDT
+
+        Allocates and initializes a GstMpegts.SDT.
         """
 
 class SDTService(GObject.GBoxed, metaclass=GObject.GType):
@@ -3192,7 +3211,7 @@ class SDTService(GObject.GBoxed, metaclass=GObject.GType):
     """
     EIT schedule information is present in this transport stream
     """
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     List of descriptors
     """
@@ -3225,6 +3244,8 @@ class SDTService(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> GstMpegts.SDTService
+
+        Allocates and initializes a GstMpegts.SDTService.
         """
 
 class SIT(GObject.GBoxed, metaclass=GObject.GType):
@@ -3233,11 +3254,11 @@ class SIT(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     List of descriptors
     """
-    services: list | None = ...
+    services: list[SITService] | None = ...
     """
     List of services
     """
@@ -3248,7 +3269,7 @@ class SITService(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     List of descriptors
     """
@@ -3355,7 +3376,7 @@ class Section(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def cached_parsed(self) -> object | None: ...
     crc: int = ...
@@ -3377,7 +3398,7 @@ class Section(GObject.GBoxed, metaclass=GObject.GType):
     @builtins.property
     def offset(self) -> int: ...
     @builtins.property
-    def packetizer(self) -> PacketizeFuncSectionCB: ...
+    def packetizer(self) -> PacketizeFunc: ...
     @builtins.property
     def parent(self) -> Gst.MiniObject | None: ...
     pid: int = ...
@@ -3556,6 +3577,15 @@ class Section(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(pid:int, data:list) -> GstMpegts.Section
+
+        Creates a new GstMpegts.Section from the provided `data`.
+
+        Note: Ensuring `data` is big enough to contain the full section is the
+        responsibility of the caller. If it is not big enough, None will be
+        returned.
+
+        Note: it is the responsibility of the caller to ensure `data` does point
+        to the beginning of the section.
         """
 
 class T2DeliverySystemCell(GObject.GBoxed, metaclass=GObject.GType):
@@ -3564,11 +3594,11 @@ class T2DeliverySystemCell(GObject.GBoxed, metaclass=GObject.GType):
     """
     id of the cell
     """
-    centre_frequencies: list | None = ...
+    centre_frequencies: list[int] | None = ...
     """
     centre frequencies in Hz
     """
-    sub_cells: list | None = ...
+    sub_cells: list[T2DeliverySystemCellExtension] | None = ...
 
 class T2DeliverySystemCellExtension(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
@@ -3588,7 +3618,7 @@ class T2DeliverySystemDescriptor(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     bandwidth: int = ...
-    cells: list | None = ...
+    cells: list[T2DeliverySystemCell] | None = ...
     guard_interval: TerrestrialGuardInterval = ...
     other_frequency: bool = ...
     plp_id: int = ...
@@ -3606,7 +3636,7 @@ class TOT(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Fields
-    descriptors: list | None = ...
+    descriptors: list[Descriptor] | None = ...
     """
     List of descriptors
     """
@@ -3661,7 +3691,7 @@ class TerrestrialDeliverySystemDescriptor(GObject.GBoxed, metaclass=GObject.GTyp
 
 DestroyNotify = GLib.DestroyNotify  # type: ignore
 
-class PacketizeFuncSectionCB(typing.Protocol):
+class PacketizeFunc(typing.Protocol):
     """
     This callback was used in:
         Section.packetizer
@@ -3673,13 +3703,14 @@ class PacketizeFuncSectionCB(typing.Protocol):
     ) -> bool: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

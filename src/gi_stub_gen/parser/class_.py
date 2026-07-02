@@ -449,6 +449,7 @@ def parse_class(
         )
         if cb is not None:
             callbacks_found.append(cb)
+            callbacks_found.extend(cb.function._gi_callbacks)
         class_fields.append(f)
         class_parsed_elements.append(field_name)
 
@@ -606,6 +607,7 @@ def parse_class(
                 )
                 if cb is not None:
                     callbacks_found.append(cb)
+                    callbacks_found.extend(cb.function._gi_callbacks)
                 class_fields.append(f)
                 class_parsed_elements.append(field_name)
 
@@ -706,8 +708,21 @@ def parse_class(
                                 f.return_hint_name = m.return_hint
                                 f.return_hint_namespace = m.return_hint_namespace
                             m.is_overridden = True
-                            if f.docstring:
-                                f.docstring = f"[is-override: Note this method is an override in Python of the original gi implementation.]\n\n{f.docstring}"
+                            gi_docstring = m.docstring or GIRDocs().get_class_method_docstring(
+                                class_to_parse.__name__,
+                                attribute_name,
+                            )
+                            override_docstring = f.docstring
+                            if gi_docstring and (
+                                override_docstring is None or gi_docstring not in override_docstring
+                            ):
+                                override_docstring = (
+                                    f"{override_docstring}\n\n{gi_docstring}"
+                                    if override_docstring
+                                    else gi_docstring
+                                )
+                            if override_docstring:
+                                f.docstring = f"[is-override: Note this method is an override in Python of the original gi implementation.]\n\n{override_docstring}"
                             else:
                                 f.docstring = "[is-override: Note this method is an override in Python of the original gi implementation.]"
                             break

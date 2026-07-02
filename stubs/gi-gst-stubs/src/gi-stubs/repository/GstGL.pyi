@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import collections.abc
 import enum
@@ -1033,7 +1032,7 @@ class GLWindowError(GObject.GEnum, enum.IntEnum):
 class GLAllocationParams(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     alloc_flags: int = ...
     """
     allocation flags
@@ -1096,9 +1095,9 @@ class GLAsyncDebug(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
-    def callback(self) -> GLAsyncDebugLogGetMessageGLAsyncDebugCB: ...
+    def callback(self) -> GLAsyncDebugLogGetMessage: ...
     @builtins.property
     def cat(self) -> Gst.DebugCategory | None: ...
     @builtins.property
@@ -1167,7 +1166,7 @@ class GLBaseFilter(GstBase.BaseTransform):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None:
         """
@@ -1296,7 +1295,7 @@ class GLBaseFilterClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def gl_set_caps(self) -> gl_set_capsGLBaseFilterClassCB:
         """
@@ -1334,7 +1333,7 @@ class GLBaseMemory(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def alloc_size(self) -> int: ...
     context: GLContext | None = ...
@@ -1393,7 +1392,7 @@ class GLBaseMemoryAllocator(Gst.Allocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def fallback_mem_copy(self) -> Gst.MemoryCopyFunction: ...
     @builtins.property
@@ -1451,29 +1450,29 @@ class GLBaseMemoryAllocator(Gst.Allocator):
 class GLBaseMemoryAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
-    def alloc(self) -> GLBaseMemoryAllocatorAllocFunctionGLBaseMemoryAllocatorClassCB | None:
+    def alloc(self) -> GLBaseMemoryAllocatorAllocFunction | None:
         """
         a GstGL.BaseMemoryAllocatorAllocFunction
         """
     @builtins.property
-    def copy(self) -> GLBaseMemoryAllocatorCopyFunctionGLBaseMemoryAllocatorClassCB | None:
+    def copy(self) -> GLBaseMemoryAllocatorCopyFunction | None:
         """
         a GstGL.BaseMemoryAllocatorCopyFunction
         """
     @builtins.property
-    def create(self) -> GLBaseMemoryAllocatorCreateFunctionGLBaseMemoryAllocatorClassCB:
+    def create(self) -> GLBaseMemoryAllocatorCreateFunction:
         """
         a GstGL.BaseMemoryAllocatorCreateFunction
         """
     @builtins.property
-    def destroy(self) -> GLBaseMemoryAllocatorDestroyFunctionGLBaseMemoryAllocatorClassCB:
+    def destroy(self) -> GLBaseMemoryAllocatorDestroyFunction:
         """
         a GstGL.BaseMemoryAllocatorDestroyFunction
         """
     @builtins.property
-    def map(self) -> GLBaseMemoryAllocatorMapFunctionGLBaseMemoryAllocatorClassCB | None:
+    def map(self) -> GLBaseMemoryAllocatorMapFunction | None:
         """
         a GstGL.BaseMemoryAllocatorMapFunction
         """
@@ -1483,7 +1482,7 @@ class GLBaseMemoryAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
         the parent class
         """
     @builtins.property
-    def unmap(self) -> GLBaseMemoryAllocatorUnmapFunctionGLBaseMemoryAllocatorClassCB:
+    def unmap(self) -> GLBaseMemoryAllocatorUnmapFunction:
         """
         a GstGL.BaseMemoryAllocatorUnmapFunction
         """
@@ -1506,7 +1505,7 @@ class GLBaseMixer(GstVideo.VideoAggregator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None:
         """
@@ -1667,7 +1666,7 @@ class GLBaseMixer(GstVideo.VideoAggregator):
 class GLBaseMixerClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def gl_start(self) -> gl_startGLBaseMixerClassCB: ...
     @builtins.property
@@ -1686,7 +1685,7 @@ class GLBaseMixerClass(GObject.GPointer, metaclass=GObject.GType):
 class GLBaseMixerPad(GstVideo.VideoAggregatorPad):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> GstVideo.VideoAggregatorPad | None:
         """
@@ -1845,7 +1844,7 @@ class GLBaseMixerPad(GstVideo.VideoAggregatorPad):
 class GLBaseMixerPadClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> GstVideo.VideoAggregatorPadClass | None:
         """
@@ -1870,7 +1869,7 @@ class GLBaseSrc(GstBase.PushSrc):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None:
         """
@@ -2040,7 +2039,7 @@ class GLBaseSrcClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def fill_gl_memory(self) -> fill_gl_memoryGLBaseSrcClassCB:
         """
@@ -2103,7 +2102,7 @@ class GLBuffer(GObject.GBoxed, metaclass=GObject.GType):
 class GLBufferAllocationParams(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     gl_target: int = ...
     """
     the OpenGL target to bind the buffer to
@@ -2142,7 +2141,7 @@ class GLBufferAllocator(GLBaseMemoryAllocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> GLBaseMemoryAllocator | None: ...
 
@@ -2193,7 +2192,7 @@ class GLBufferAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> GLBaseMemoryAllocatorClass | None: ...
 
@@ -2211,7 +2210,7 @@ class GLBufferPool(Gst.BufferPool):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def bufferpool(self) -> Gst.BufferPool | None: ...
     @builtins.property
@@ -2285,7 +2284,7 @@ class GLBufferPoolClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.BufferPoolClass | None: ...
 
@@ -2306,7 +2305,7 @@ class GLColorConvert(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list | None: ...
+    def _reserved(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -2425,7 +2424,7 @@ class GLColorConvertClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def object_class(self) -> Gst.ObjectClass | None: ...
 
@@ -2456,7 +2455,7 @@ class GLContext(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list | None: ...
+    def _reserved(self) -> list[object] | None: ...
     @builtins.property
     def display(self) -> GLDisplay | None: ...
     @builtins.property
@@ -2761,6 +2760,8 @@ class GLContext(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(display:GstGL.GLDisplay) -> GstGL.GLContext
+
+        Create a new GstGL.Context with the specified `display`
         """
     @classmethod
     def new_wrapped(
@@ -2774,6 +2775,16 @@ class GLContext(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_wrapped(display:GstGL.GLDisplay, handle:int, context_type:GstGL.GLPlatform, available_apis:GstGL.GLAPI) -> GstGL.GLContext or None
+
+        Wraps an existing OpenGL context into a GstGL.Context.
+
+        Note: The caller is responsible for ensuring that the OpenGL context
+        represented by `handle` stays alive while the returned GstGL.Context is
+        active.
+
+        `context_type` must not be GST_GL_PLATFORM_NONE or GST_GL_PLATFORM_ANY
+
+        `available_apis` must not be GST_GL_API_NONE or GST_GL_API_ANY
         """
 
     # Signals
@@ -2813,7 +2824,7 @@ class GLContext(Gst.Object):
 class GLContextClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list | None: ...
+    def _reserved(self) -> list[object] | None: ...
     @builtins.property
     def activate(self) -> activateGLContextClassCB:
         """
@@ -2909,7 +2920,7 @@ class GLDisplay(Gst.Object):
     @builtins.property
     def type(self) -> GLDisplayType: ...
     @builtins.property
-    def windows(self) -> list | None: ...
+    def windows(self) -> list[object] | None: ...
 
     # gi Methods
     def __init__(self, name: str | None = None, parent: Gst.Object | None = None) -> None:
@@ -2994,6 +3005,11 @@ class GLDisplay(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_with_type(type:GstGL.GLDisplayType) -> GstGL.GLDisplay or None
+
+        Will always return a GstGL.Display of a single type.  This differs from
+        `gst_gl_display_new` and the seemingly equivalent call
+        gst_gl_display_new_with_type (GST_GL_DISPLAY_TYPE_ANY) in that the latter
+        may return None.
         """
 
     # Signals
@@ -3045,7 +3061,7 @@ class GLDisplay(Gst.Object):
 class GLDisplayClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def create_window(self) -> create_windowGLDisplayClassCB | None: ...
     @builtins.property
@@ -3063,7 +3079,7 @@ class GLFilter(GLBaseFilter):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def default_shader(self) -> GLShader | None: ...
     @builtins.property
@@ -3258,7 +3274,7 @@ class GLFilter(GLBaseFilter):
 class GLFilterClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def filter(self) -> filterGLFilterClassCB:
         """
@@ -3308,9 +3324,9 @@ class GLFramebuffer(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
-    def attachments(self) -> list | None: ...
+    def attachments(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -3368,6 +3384,9 @@ class GLFramebuffer(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(context:GstGL.GLContext) -> GstGL.GLFramebuffer
+
+        This function will internally create an OpenGL framebuffer object and must
+        be called on `context`'s OpenGL thread.
         """
     @classmethod
     def new_with_default_depth(
@@ -3380,6 +3399,9 @@ class GLFramebuffer(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_with_default_depth(context:GstGL.GLContext, width:int, height:int) -> GstGL.GLFramebuffer
+
+        This function will internally create an OpenGL framebuffer object and must
+        be called on `context`'s OpenGL thread.
         """
 
     # Signals
@@ -3423,7 +3445,7 @@ class GLFramebufferClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def object_class(self) -> Gst.ObjectClass | None: ...
 
@@ -3458,7 +3480,7 @@ class GLMemory(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     info: GstVideo.VideoInfo | None = ...  # type: ignore
     """
     the texture's GstVideoInfo
@@ -3479,7 +3501,7 @@ class GLMemory(GObject.GBoxed, metaclass=GObject.GType):
     """
     the GL texture id for this memory
     """
-    tex_scaling: list | None = ...
+    tex_scaling: list[float] | None = ...
     """
     GL shader scaling parameters for `valign` and/or width/height
     """
@@ -3559,7 +3581,7 @@ class GLMemoryAllocator(GLBaseMemoryAllocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> GLBaseMemoryAllocator | None: ...
 
@@ -3608,21 +3630,21 @@ class GLMemoryAllocator(GLBaseMemoryAllocator):
 class GLMemoryAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
-    def copy(self) -> GLBaseMemoryAllocatorCopyFunctionGLMemoryAllocatorClassCB | None:
+    def copy(self) -> GLBaseMemoryAllocatorCopyFunction | None:
         """
         provide a custom copy implementation
         """
     @builtins.property
-    def map(self) -> GLBaseMemoryAllocatorMapFunctionGLMemoryAllocatorClassCB | None:
+    def map(self) -> GLBaseMemoryAllocatorMapFunction | None:
         """
         provide a custom map implementation
         """
     @builtins.property
     def parent_class(self) -> GLBaseMemoryAllocatorClass | None: ...
     @builtins.property
-    def unmap(self) -> GLBaseMemoryAllocatorUnmapFunctionGLMemoryAllocatorClassCB:
+    def unmap(self) -> GLBaseMemoryAllocatorUnmapFunction:
         """
         provide a custom unmap implementation
         """
@@ -3637,7 +3659,7 @@ class GLMemoryPBO(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def mem(self) -> GLMemory | None: ...
     @builtins.property
@@ -3687,7 +3709,7 @@ class GLMemoryPBOAllocator(GLMemoryAllocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> GLMemoryAllocator | None: ...
 
@@ -3738,7 +3760,7 @@ class GLMemoryPBOAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> GLMemoryAllocatorClass | None: ...
 
@@ -3749,7 +3771,7 @@ class GLMixer(GLBaseMixer):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def out_caps(self) -> Gst.Caps | None:
         """
@@ -3917,7 +3939,7 @@ class GLMixer(GLBaseMixer):
 class GLMixerClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> GLBaseMixerClass | None: ...
     @builtins.property
@@ -3937,7 +3959,7 @@ class GLMixerClass(GObject.GPointer, metaclass=GObject.GType):
 class GLMixerPad(GLBaseMixerPad):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def current_texture(self) -> int:
         """
@@ -4101,7 +4123,7 @@ class GLMixerPad(GLBaseMixerPad):
 class GLMixerPadClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> GLBaseMixerPadClass | None:
         """
@@ -4123,7 +4145,7 @@ class GLOverlayCompositor(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -4208,7 +4230,7 @@ class GLOverlayCompositor(Gst.Object):
 class GLOverlayCompositorClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def object_class(self) -> Gst.ObjectClass | None: ...
 
@@ -4220,7 +4242,7 @@ class GLQuery(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -4278,7 +4300,7 @@ class GLRenderbuffer(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     height: int = ...
     """
     the height
@@ -4318,7 +4340,7 @@ class GLRenderbufferAllocationParams(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     height: int = ...
     """
     the height
@@ -4376,7 +4398,7 @@ class GLRenderbufferAllocator(GLBaseMemoryAllocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> GLBaseMemoryAllocator | None: ...
 
@@ -4427,7 +4449,7 @@ class GLRenderbufferAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> GLBaseMemoryAllocatorClass | None: ...
 
@@ -4438,7 +4460,7 @@ class GLSLStage(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -4563,7 +4585,7 @@ class GLSLStageClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> Gst.ObjectClass | None: ...
 
@@ -4578,7 +4600,7 @@ class GLShader(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -4793,6 +4815,8 @@ class GLShader(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(context:GstGL.GLContext) -> GstGL.GLShader
+
+        Note: must be called in the GL thread
         """
     @classmethod
     def new_default(
@@ -4803,6 +4827,8 @@ class GLShader(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_default(context:GstGL.GLContext) -> GstGL.GLShader
+
+        Note: must be called in the GL thread
         """
 
     # Signals
@@ -4936,7 +4962,7 @@ class GLUpload(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list | None: ...
+    def _reserved(self) -> list[object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -5027,7 +5053,7 @@ class GLUploadClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def object_class(self) -> Gst.ObjectClass | None: ...
 
@@ -5036,7 +5062,7 @@ class GLUploadPrivate(GObject.GPointer, metaclass=GObject.GType): ...
 class GLVideoAllocationParams(GObject.GBoxed, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     parent: GLAllocationParams | None = ...
     """
     the parent GstGL.AllocationParams structure
@@ -5128,6 +5154,10 @@ class GLVideoAllocationParams(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_wrapped_gl_handle(context:GstGL.GLContext, alloc_params:Gst.AllocationParams=None, v_info:GstVideo.VideoInfo, plane:int, valign:GstVideo.VideoAlignment=None, target:GstGL.GLTextureTarget, tex_format:GstGL.GLFormat, gl_handle=None, user_data=None, notify:GLib.DestroyNotify=None) -> GstGL.GLVideoAllocationParams
+
+        `gl_handle` is defined by the specific OpenGL handle being wrapped
+        For GstGL.Memory and GstGL.MemoryPBO it is an OpenGL texture id.
+        Other memory types may define it to require a different type of parameter.
         """
     @classmethod
     def new_wrapped_texture(
@@ -5174,7 +5204,7 @@ class GLViewConvert(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def caps_passthrough(self) -> bool: ...
     @builtins.property
@@ -5346,7 +5376,7 @@ class GLViewConvertClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list | None: ...
+    def _padding(self) -> list[object] | None: ...
     @builtins.property
     def object_class(self) -> Gst.ObjectClass | None: ...
 
@@ -5360,9 +5390,9 @@ class GLWindow(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list | None: ...
+    def _reserved(self) -> list[object] | None: ...
     @builtins.property
-    def close(self) -> GLWindowCBGLWindowCB: ...
+    def close(self) -> GLWindowCB: ...
     @builtins.property
     def close_data(self) -> object | None: ...
     @builtins.property
@@ -5695,7 +5725,7 @@ class GLWindow(Gst.Object):
 class GLWindowClass(GObject.GPointer, metaclass=GObject.GType):
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list | None: ...
+    def _reserved(self) -> list[object] | None: ...
     @builtins.property
     def close(self) -> closeGLWindowClassCB:
         """
@@ -5802,7 +5832,7 @@ class GLWindowPrivate(GObject.GPointer, metaclass=GObject.GType): ...
 
 DestroyNotify = GLib.DestroyNotify  # type: ignore
 
-class GLAsyncDebugLogGetMessageGLAsyncDebugCB(typing.Protocol):
+class GLAsyncDebugLogGetMessage(typing.Protocol):
     """
     This callback was used in:
         GLAsyncDebug.callback
@@ -5850,7 +5880,7 @@ class gl_set_capsGLBaseFilterClassCB(typing.Protocol):
 
 MemoryCopyFunction = Gst.MemoryCopyFunction  # type: ignore
 
-class GLBaseMemoryAllocatorAllocFunctionGLBaseMemoryAllocatorClassCB(typing.Protocol):
+class GLBaseMemoryAllocatorAllocFunction(typing.Protocol):
     """
     This callback was used in:
         GLBaseMemoryAllocatorClass.alloc
@@ -5862,7 +5892,7 @@ class GLBaseMemoryAllocatorAllocFunctionGLBaseMemoryAllocatorClassCB(typing.Prot
         params: GLAllocationParams,
     ) -> GLBaseMemory | None: ...
 
-class GLBaseMemoryAllocatorCreateFunctionGLBaseMemoryAllocatorClassCB(typing.Protocol):
+class GLBaseMemoryAllocatorCreateFunction(typing.Protocol):
     """
     This callback was used in:
         GLBaseMemoryAllocatorClass.create
@@ -5873,10 +5903,10 @@ class GLBaseMemoryAllocatorCreateFunctionGLBaseMemoryAllocatorClassCB(typing.Pro
         mem: GLBaseMemory,
     ) -> bool: ...
 
-class GLBaseMemoryAllocatorMapFunctionGLBaseMemoryAllocatorClassCB(typing.Protocol):
+class GLBaseMemoryAllocatorMapFunction(typing.Protocol):
     """
     This callback was used in:
-        GLBaseMemoryAllocatorClass.map
+        GLBaseMemoryAllocatorClass.map, GLMemoryAllocatorClass.map
     """
     #  mem
     def __call__(
@@ -5886,10 +5916,10 @@ class GLBaseMemoryAllocatorMapFunctionGLBaseMemoryAllocatorClassCB(typing.Protoc
         maxsize: int,
     ) -> object | None: ...
 
-class GLBaseMemoryAllocatorUnmapFunctionGLBaseMemoryAllocatorClassCB(typing.Protocol):
+class GLBaseMemoryAllocatorUnmapFunction(typing.Protocol):
     """
     This callback was used in:
-        GLBaseMemoryAllocatorClass.unmap
+        GLBaseMemoryAllocatorClass.unmap, GLMemoryAllocatorClass.unmap
     """
     #  mem
     def __call__(
@@ -5898,10 +5928,10 @@ class GLBaseMemoryAllocatorUnmapFunctionGLBaseMemoryAllocatorClassCB(typing.Prot
         info: Gst.MapInfo,
     ) -> None: ...
 
-class GLBaseMemoryAllocatorCopyFunctionGLBaseMemoryAllocatorClassCB(typing.Protocol):
+class GLBaseMemoryAllocatorCopyFunction(typing.Protocol):
     """
     This callback was used in:
-        GLBaseMemoryAllocatorClass.copy
+        GLBaseMemoryAllocatorClass.copy, GLMemoryAllocatorClass.copy
     """
     #  mem
     def __call__(
@@ -5911,7 +5941,7 @@ class GLBaseMemoryAllocatorCopyFunctionGLBaseMemoryAllocatorClassCB(typing.Proto
         size: int,
     ) -> GLBaseMemory | None: ...
 
-class GLBaseMemoryAllocatorDestroyFunctionGLBaseMemoryAllocatorClassCB(typing.Protocol):
+class GLBaseMemoryAllocatorDestroyFunction(typing.Protocol):
     """
     This callback was used in:
         GLBaseMemoryAllocatorClass.destroy
@@ -6259,44 +6289,6 @@ class GLFramebufferFunc(typing.Protocol):
         stuff: object | None = None,
     ) -> bool: ...
 
-class GLBaseMemoryAllocatorMapFunctionGLMemoryAllocatorClassCB(typing.Protocol):
-    """
-    This callback was used in:
-        GLMemoryAllocatorClass.map
-    """
-    #  mem
-    def __call__(
-        self,
-        mem: GLBaseMemory,
-        info: Gst.MapInfo,
-        maxsize: int,
-    ) -> object | None: ...
-
-class GLBaseMemoryAllocatorCopyFunctionGLMemoryAllocatorClassCB(typing.Protocol):
-    """
-    This callback was used in:
-        GLMemoryAllocatorClass.copy
-    """
-    #  mem
-    def __call__(
-        self,
-        mem: GLBaseMemory,
-        offset: int,
-        size: int,
-    ) -> GLBaseMemory | None: ...
-
-class GLBaseMemoryAllocatorUnmapFunctionGLMemoryAllocatorClassCB(typing.Protocol):
-    """
-    This callback was used in:
-        GLMemoryAllocatorClass.unmap
-    """
-    #  mem
-    def __call__(
-        self,
-        mem: GLBaseMemory,
-        info: Gst.MapInfo,
-    ) -> None: ...
-
 class process_buffersGLMixerClassCB(typing.Protocol):
     """
     This callback was used in:
@@ -6407,21 +6399,10 @@ class free_glGLSyncMetaCB(typing.Protocol):
         context: GLContext,
     ) -> None: ...
 
-class GLWindowCBGLWindowCB(typing.Protocol):
-    """
-    This callback was used in:
-        GLWindow.close
-    """
-    #  data
-    def __call__(
-        self,
-        data: object | None = None,
-    ) -> None: ...
-
 class GLWindowCB(typing.Protocol):
     """
     This callback was used in:
-        GstGL.send_message, GstGL.send_message_async, GstGL.set_close_callback, GstGL.set_draw_callback
+        GLWindow.close, GstGL.send_message, GstGL.send_message_async, GstGL.set_close_callback, GstGL.set_draw_callback
     """
     #  data
     def __call__(
@@ -6642,11 +6623,6 @@ class has_output_surfaceGLWindowClassCB(typing.Protocol):
     ) -> bool: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
@@ -6687,3 +6663,9 @@ GL_TEXTURE_TARGET_RECTANGLE_STR: str = ...
 MAP_GL: int = ...
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

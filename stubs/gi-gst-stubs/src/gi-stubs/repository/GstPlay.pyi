@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -793,6 +792,15 @@ class Play(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(video_renderer:GstPlay.PlayVideoRenderer=None) -> GstPlay.Play
+
+        Creates a new GstPlay. instance.
+
+        Video is going to be rendered by `video_renderer`, or if None is provided
+        no special video set up will be done and some default handling will be
+        performed.
+
+        This also initializes GStreamer via ``gst_init`` on the first call if this
+        didn't happen before.
         """
 
     # Signals
@@ -1050,6 +1058,11 @@ class PlaySignalAdapter(GObject.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(play:GstPlay.Play) -> GstPlay.PlaySignalAdapter
+
+        A bus-watching GSource will be created and attached to the the
+        thread-default GMainContext. The attached callback will emit the
+        corresponding signal for the message received. Matching signals for play
+        messages from the bus will be emitted by it on the created adapter object.
         """
     @classmethod
     def new_sync_emit(
@@ -1060,6 +1073,9 @@ class PlaySignalAdapter(GObject.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_sync_emit(play:GstPlay.Play) -> GstPlay.PlaySignalAdapter
+
+        Create an adapter that synchronously emits its signals, from the thread in
+        which the messages have been posted.
         """
     @classmethod
     def new_with_main_context(
@@ -1071,6 +1087,11 @@ class PlaySignalAdapter(GObject.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_with_main_context(play:GstPlay.Play, context:GLib.MainContext) -> GstPlay.PlaySignalAdapter
+
+        A bus-watching GSource will be created and attached to the `context`. The
+        attached callback will emit the corresponding signal for the message
+        received. Matching signals for play messages from the bus will be emitted by
+        it on the created adapter object.
         """
 
     # Signals
@@ -1422,13 +1443,14 @@ class PlayVisualization(GObject.GBoxed, metaclass=GObject.GType):
         """
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

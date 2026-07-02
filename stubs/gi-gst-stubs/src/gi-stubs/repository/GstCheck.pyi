@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import typing
 
@@ -1315,6 +1314,10 @@ class TestClock(Gst.Clock):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new() -> Gst.Clock
+
+        Creates a new test clock with its time set to zero.
+
+        MT safe.
         """
     @classmethod
     def new_with_start_time(
@@ -1325,6 +1328,10 @@ class TestClock(Gst.Clock):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new_with_start_time(start_time:int) -> Gst.Clock
+
+        Creates a new test clock with its time set to the specified time.
+
+        MT safe.
         """
 
     # Signals
@@ -1418,13 +1425,14 @@ class TestClockClass(GObject.GPointer, metaclass=GObject.GType):
 class TestClockPrivate(GObject.GPointer, metaclass=GObject.GType): ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

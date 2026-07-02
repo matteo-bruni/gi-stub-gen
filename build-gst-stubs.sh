@@ -49,7 +49,7 @@ for search_path in GIRepository.Repository().get_search_path():
     base = Path(search_path)
     if not base.exists():
         continue
-    for typelib in base.glob("Gst*.typelib"):
+    for typelib in base.glob("*Gst*.typelib"):
         namespace, version = typelib.stem.rsplit("-", 1)
         modules.setdefault(namespace, set()).add(version)
 

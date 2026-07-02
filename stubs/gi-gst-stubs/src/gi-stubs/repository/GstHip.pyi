@@ -13,7 +13,6 @@ from __future__ import annotations
 from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
-import _thread
 import builtins
 import enum
 import typing
@@ -119,7 +118,7 @@ class HipAllocator(Gst.Allocator):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def allocator(self) -> Gst.Allocator | None: ...
     @builtins.property
@@ -189,7 +188,7 @@ class HipAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def allocator_class(self) -> Gst.AllocatorClass | None: ...
     @builtins.property
@@ -204,7 +203,7 @@ class HipBufferPool(Gst.BufferPool):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def device(self) -> HipDevice | None: ...
     @builtins.property
@@ -228,6 +227,8 @@ class HipBufferPool(Gst.BufferPool):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(device:GstHip.HipDevice) -> Gst.BufferPool
+
+        Creates new GstHip.BufferPool instance
         """
 
     # Signals
@@ -271,7 +272,7 @@ class HipBufferPoolClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.BufferPoolClass | None: ...
 
@@ -292,7 +293,7 @@ class HipDevice(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def object(self) -> Gst.Object | None: ...
     @builtins.property
@@ -335,6 +336,8 @@ class HipDevice(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(vendor:GstHip.HipVendor, device_id:int) -> GstHip.HipDevice or None
+
+        Creates a new device instance with `vendor` and `device_id`.
         """
 
     # Signals
@@ -399,7 +402,7 @@ class HipDeviceClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.ObjectClass | None: ...
 
@@ -431,7 +434,7 @@ class HipEventPool(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent(self) -> Gst.Object | None: ...
     @builtins.property
@@ -458,6 +461,8 @@ class HipEventPool(Gst.Object):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(vendor:GstHip.HipVendor, device_id:int) -> GstHip.HipEventPool or None
+
+        Creates a new event pool instance with `vendor` and `device_id`.
         """
 
     # Signals
@@ -501,7 +506,7 @@ class HipEventPoolClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> Gst.ObjectClass | None: ...
 
@@ -525,7 +530,7 @@ class HipMemory(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     device: HipDevice | None = ...
     info: GstVideo.VideoInfo | None = ...  # type: ignore
     mem: Gst.Memory | None = ...  # type: ignore
@@ -560,7 +565,7 @@ class HipPoolAllocator(HipAllocator):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def device(self) -> HipDevice | None: ...
     @builtins.property
@@ -592,6 +597,8 @@ class HipPoolAllocator(HipAllocator):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(device:GstHip.HipDevice, info:GstVideo.VideoInfo) -> GstHip.HipPoolAllocator
+
+        Creates a new GstHip.PoolAllocator instance
         """
 
     # Signals
@@ -635,7 +642,7 @@ class HipPoolAllocatorClass(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list | None: ...
+    def _gst_reserved(self) -> list[object] | None: ...
     @builtins.property
     def parent_class(self) -> HipAllocatorClass | None: ...
 
@@ -684,6 +691,8 @@ class HipStream(GObject.GBoxed, metaclass=GObject.GType):
         [is-override: Note this method is an override in Python of the original gi implementation.]
 
         new(vendor:GstHip.HipVendor, device_id:int) -> GstHip.HipStream or None
+
+        Creates a new GstHip.Stream object
         """
 
 ###############################################################
@@ -703,19 +712,20 @@ class set_activeHipAllocatorClassCB(typing.Protocol):
     ) -> bool: ...
 
 ###############################################################
-# Aliases
-###############################################################
-
-MAP_HIP = Gst.MAP_HIP
-MAP_READ_HIP = Gst.MAP_READ_HIP
-MAP_WRITE_HIP = Gst.MAP_WRITE_HIP
-_lock = _thread._lock  # type: ignore
-###############################################################
 # Constants
 ###############################################################
 
 CAPS_FEATURE_MEMORY_HIP_MEMORY: str = ...
 HIP_DEVICE_CONTEXT_TYPE: str = ...
 HIP_MEMORY_NAME: str = ...
+MAP_HIP = Gst.MapFlags(0)
+MAP_READ_HIP = Gst.MapFlags(0)
+MAP_WRITE_HIP = Gst.MapFlags(0)
 _namespace: str = ...
 _version: str = ...
+###############################################################
+# Unknowns/Not Parsed
+###############################################################
+
+# type: lock, element not parsed are:
+#     - _lock

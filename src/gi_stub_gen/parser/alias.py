@@ -1,5 +1,7 @@
 from types import ModuleType
 from typing import Any
+import importlib
+
 from gi_stub_gen.utils.gi_utils import catch_gi_deprecation_warnings
 from gi_stub_gen.overrides.class_.GObject.GFlag import GFLAG_SCHEMA
 from gi_stub_gen.overrides.class_.GObject.GEnum import GENUM_SCHEMA
@@ -144,6 +146,17 @@ def parse_alias(
                 )
                 return class_schema
             # breakpoint()
+
+        try:
+            target_module = importlib.import_module(str(attribute.__module__))
+            try:
+                getattr(target_module, actual_attribute_name)
+            except NotImplementedError:
+                pass
+            except AttributeError:
+                return None
+        except ImportError:
+            return None
 
         return AliasSchema(
             name=attribute_name,

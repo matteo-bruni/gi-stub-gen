@@ -1,17 +1,20 @@
 import gi._gi as GI  # type: ignore
+import gi
 from gi.repository import GIRepository
 
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
+from gi_stub_gen.manager.gi_repo import GIRepo
 from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.schema.class_ import ClassFieldSchema
 from gi_stub_gen.schema.function import CallbackSchema, FunctionSchema
+from gi_stub_gen.utils.inspect_utils import _extract_annotation_type_info
 from gi_stub_gen.utils.gi_utils import (
     get_gi_type_info,
     gi_type_is_callback,
     gi_type_to_py_type,
     is_class_field_nullable,
 )
-from gi_stub_gen.utils.utils import get_py_type_name_repr, get_py_type_namespace_repr, sanitize_variable_name
+from gi_stub_gen.utils.utils import sanitize_variable_name
 
 
 def gi_parse_field(
@@ -59,13 +62,19 @@ def gi_parse_field(
     if gi_type_is_callback(field_gi_type_info):
         cb_info = field_gi_type_info.get_interface()
         cb_namespace = cb_info.get_namespace()
+        cb_info_name = cb_info.get_name()
+        assert cb_info_name is not None
 
-        # if callback is from another namespace, keep original name
-        # otherwise append class name to avoid name clashes
-        if cb_namespace != module_name.removeprefix("gi.repository."):
-            cb_name = cb_info.get_name()
+        try:
+            named_cb_info = GIRepo().find_by_name(cb_namespace, cb_info_name, gi.get_required_version(cb_namespace))
+        except ValueError:
+            named_cb_info = GIRepo().find_by_name(cb_namespace, cb_info_name)
+
+        current_namespace = module_name.removeprefix("gi.repository.")
+        if cb_namespace != current_namespace or isinstance(named_cb_info, GIRepository.CallbackInfo):
+            cb_name = cb_info_name
         else:
-            cb_name = cb_info.get_name() + f"{class_name}CB"
+            cb_name = cb_info_name + f"{class_name}CB"
 
         if isinstance(cb_info, GIRepository.CallbackInfo):
             # wrap in adapter to make GIRepository.CallbackInfo compatible
@@ -73,8 +82,6 @@ def gi_parse_field(
             cb_info = GIRepositoryCallableAdapter(cb_info)
 
         cb_schema = FunctionSchema.from_gi_object(cb_info)
-        # TODO: callback can have callback as param? handle that case
-        # cb_schema._gi_callbacks <- extend with found_callback and return list?
         found_callback = CallbackSchema(
             name=cb_name,
             function=cb_schema,
@@ -85,8 +92,10 @@ def gi_parse_field(
         may_be_null = found_callback.function.may_return_null
     else:
         field_py_type = gi_type_to_py_type(field_gi_type_info)
-        prop_type_hint_namespace = get_py_type_namespace_repr(field_py_type)
-        prop_type_hint_name = get_py_type_name_repr(field_py_type)
+        prop_type_hint_name, prop_type_hint_namespace = _extract_annotation_type_info(
+            field_py_type,
+            current_namespace=module_name.removeprefix("gi.repository."),
+        )
         may_be_null = is_class_field_nullable(field)
 
     return ClassFieldSchema(

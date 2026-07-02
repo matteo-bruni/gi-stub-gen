@@ -3,7 +3,9 @@ import pytest
 from gi.repository import Gst
 
 from gi_stub_gen.manager.template import TemplateManager
+from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.class_ import create_init_method, parse_class
+from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.utils.gst import get_fraction_value
 
@@ -69,6 +71,64 @@ def test_gstbadaudio_init_uses_c_prefix_for_enum_properties():
     assert output_mode.py_type_name == "NonstreamAudioOutputMode"
     assert output_mode.py_type_namespace == "GstBadAudio"
     assert output_mode.default_value == "NonstreamAudioOutputMode.STEADY"
+
+
+def test_gstvideo_array_fields_keep_item_type():
+    try:
+        gi.require_version("GstVideo", "1.0")
+        from gi.repository import GstVideo
+    except (ImportError, ValueError) as exc:
+        pytest.skip(f"GstVideo typelib not available: {exc}")
+
+    parsed_class, _ = parse_class("GstVideo", GstVideo.VideoInfo)
+    assert parsed_class is not None
+
+    stride = next(field for field in parsed_class.fields if field.name == "stride")
+    assert stride.type_hint_name == "list[int]"
+    assert stride.type_hint("GstVideo") == "list[int] | None"
+
+
+def test_gstcuda_invalid_cross_namespace_alias_falls_back_to_constant():
+    try:
+        gi.require_version("GstCuda", "1.0")
+        from gi.repository import GstCuda
+    except (ImportError, ValueError) as exc:
+        pytest.skip(f"GstCuda typelib not available: {exc}")
+
+    assert parse_alias("gi.repository.GstCuda", "MAP_READ_CUDA", GstCuda.MAP_READ_CUDA) is None
+
+    constant = parse_constant(
+        module_name="gi.repository.GstCuda",
+        name="MAP_READ_CUDA",
+        obj=GstCuda.MAP_READ_CUDA,
+        docstring=None,
+    )
+    assert constant is not None
+    assert constant.name == "MAP_READ_CUDA"
+
+
+def test_named_field_callbacks_keep_public_callback_name():
+    parsed_class, callbacks = parse_class("Gst", Gst.Allocator)
+    assert parsed_class is not None
+
+    callback_names = {callback.name for callback in callbacks}
+    assert "MemoryCopyFunction" in callback_names
+    assert "MemoryCopyFunctionAllocatorCB" not in callback_names
+
+
+def test_nested_callbacks_are_returned_from_class_parsing():
+    try:
+        gi.require_version("GstPlayer", "1.0")
+        from gi.repository import GstPlayer
+    except (ImportError, ValueError) as exc:
+        pytest.skip(f"GstPlayer typelib not available: {exc}")
+
+    parsed_class, callbacks = parse_class("GstPlayer", GstPlayer.PlayerSignalDispatcherInterface)
+    assert parsed_class is not None
+
+    callback_names = {callback.name for callback in callbacks}
+    assert "dispatchPlayerSignalDispatcherInterfaceCB" in callback_names
+    assert "PlayerSignalDispatcherFunc" in callback_names
 
 
 def test_function_gst_version():

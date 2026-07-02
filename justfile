@@ -19,11 +19,11 @@ build *args:
 
     just build-base {{ args }}
     just build-graphics-core {{ args }}
-    # just build-gst {{ args }}
+    just build-gst {{ args }}
     just build-gtk {{ args }}
-    @echo "All stub packages have been built, running tests.."
+    echo "All stub packages have been built, running tests.."
     just test || (echo "❌ Test failed! check the tests output above." && exit 1)
-    @echo "✅ Tests passed."
+    echo "✅ Tests passed."
 
 # Build all and install in current environment
 build-and-install *args:
@@ -49,7 +49,7 @@ build-graphics-core *args:
     bash ./build-graphics-core-stubs.sh {{ args }}
 
 # build gst stub package. accepts --debug flag
-build-gst *args:
+build-gst-in-container *args:
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -63,6 +63,13 @@ build-gst *args:
         bash ./build-gst-stubs-in-container.sh {{ args }}
 
     just diff-gst
+
+# build gtk stub package. accepts --debug flag
+build-gst *args:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    bash ./build-gst-stubs.sh {{ args }}
 
 # build gtk stub package. accepts --debug flag
 build-gtk *args:
