@@ -1,0 +1,78 @@
+{
+    "name": "gi-stub-gen-devcontainer",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "BASE_IMAGE": "ghcr.io/matteo-bruni/gstreamer",
+            "BASE_IMAGE_TAG": "1.28.3-ubuntu.24.04-base-py-3.12",
+            "USER": "${localEnv:USER}",
+            "UID": "${localEnv:UID}",
+            "GID": "${localEnv:GID}"
+        }
+    },
+    "containerEnv": {
+        "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt", // needed by requests
+        "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt", // needed by urllib3
+        "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}"
+    },
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/home/${localEnv:USER}/.local/bin/",
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+        "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY:wayland-display-missing}",
+        "LANG": "${localEnv:LANG}"
+    },
+    "workspaceMount": "source=${localWorkspaceFolder}/,target=/code,type=bind",
+    "workspaceFolder": "/code",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "python.defaultInterpreterPath": "/opt/uv/venv/bin/python"
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "tamasfe.even-better-toml",
+                "GitHub.copilot",
+                "charliermarsh.ruff",
+                "nefrob.vscode-just-syntax",
+                "ionutvmi.path-autocomplete",
+                "openai.chatgpt"
+                // "meta.pyrefly"
+            ]
+        }
+    },
+    "mounts": [
+        // .bashrc & .bash_history
+        "source=${localWorkspaceFolder}/.devcontainer/bash/.bashrc,target=/home/${localEnv:USER}/.bashrc,type=bind",
+        "source=${localWorkspaceFolder}/.devcontainer/bash/.bashrc_custom_${localEnv:USER}.bash,target=/home/${localEnv:USER}/.bashrc_custom_${localEnv:USER}.bash,type=bind",
+        "source=${localWorkspaceFolder}/.devcontainer/bash/.bash_history,target=/home/${localEnv:USER}/.bash_history,type=bind",
+        // SSL
+        "source=/usr/lib/ssl/certs/ca-certificates.crt,target=/usr/lib/ssl/certs/ca-certificates.crt,type=bind,readonly",
+        // host filesystem in readonly mode
+        "source=/,target=/host/,type=bind,readonly",
+        "source=/tmp/gi-stub-tmp/,target=/cache/,type=bind",
+        // gh config
+        "source=${localEnv:HOME}/.config/gh/,target=/home/${localEnv:USER}/.config/gh/,type=bind",
+        // Wayland and X11 forwarding
+        "source=${localEnv:XDG_RUNTIME_DIR},target=${localEnv:XDG_RUNTIME_DIR},type=bind",
+        "source=/tmp/.X11-unix/,target=/tmp/.X11-unix/,type=bind",
+        // dri
+        "source=/dev/dri/,target=/dev/dri/,type=bind",
+        // timezone
+        "source=/etc/localtime,target=/etc/localtime,type=bind,readonly",
+        // locale
+        "source=/usr/lib/locale,target=/usr/lib/locale,type=bind,readonly"
+    ],
+    "secrets": {},
+    "appPort": [],
+    "runArgs": [
+        "--hostname=gi-stub-gen-devcontainer",
+        "--name=${localEnv:USER}_gi-stub-gen-devcontainer",
+        "--shm-size=50gb",
+        "--privileged"
+    ],
+    "initializeCommand": ".devcontainer/initialize.sh",
+    "postCreateCommand": ".devcontainer/postCreate.sh",
+    "remoteUser": "${localEnv:USER}"
+}
