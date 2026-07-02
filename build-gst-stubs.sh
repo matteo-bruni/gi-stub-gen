@@ -36,17 +36,42 @@ done
 PKG_GST_STUBS_VERSION=$(uv run python3 -c 'import gi; gi.require_version("Gst", "1.0"); from gi.repository import Gst; Gst.init(None); v = Gst.version(); print(f"{v.major}.{v.minor}.{v.micro}")')
 WHEEL_PACKAGE_NAME=${STUB_PACKAGE_NAME//-/_}
 
+mapfile -t GST_MODULES < <(uv run --quiet python3 <<'PY'
+from pathlib import Path
+
+import gi
+
+gi.require_version("GIRepository", "3.0")
+from gi.repository import GIRepository
+
+modules: dict[str, set[str]] = {}
+for search_path in GIRepository.Repository().get_search_path():
+    base = Path(search_path)
+    if not base.exists():
+        continue
+    for typelib in base.glob("Gst*.typelib"):
+        namespace, version = typelib.stem.rsplit("-", 1)
+        modules.setdefault(namespace, set()).add(version)
+
+for namespace, versions in sorted(modules.items()):
+    for version in sorted(versions):
+        try:
+            gi.require_version(namespace, version)
+            __import__(f"gi.repository.{namespace}", fromlist=[namespace])
+        except (ImportError, ValueError):
+            continue
+        print(f"gi.repository.{namespace}:{version}")
+PY
+)
+
+if [ "${#GST_MODULES[@]}" -eq 0 ]; then
+    echo "Error: no importable Gst typelibs found."
+    exit 1
+fi
+
 
 uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
-    gi.repository.Gst:1.0 \
-    gi.repository.GstApp:1.0 \
-    gi.repository.GstAudio:1.0 \
-    gi.repository.GstBase:1.0 \
-    gi.repository.GstPbutils:1.0 \
-    gi.repository.GstRtp:1.0 \
-    gi.repository.GstRtsp:1.0 \
-    gi.repository.GstSdp:1.0 \
-    gi.repository.GstVideo:1.0 \
+    "${GST_MODULES[@]}" \
     --preload gi.repository.GioUnix:2.0 \
     --preload gi.repository.Gio:2.0 \
     --preload gi.repository.GObject:2.0 \
@@ -60,10 +85,6 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0 \
     --overwrite
-
-# todo test
-# GstWebRTC:1.0 \
-# GstRtspServer:1.0 \
 
 uv build --wheel --out-dir ./stubs/wheel ./stubs/${STUB_PACKAGE_NAME}
 

@@ -1,7 +1,9 @@
+import gi
+import pytest
 from gi.repository import Gst
 
 from gi_stub_gen.manager.template import TemplateManager
-from gi_stub_gen.parser.class_ import parse_class
+from gi_stub_gen.parser.class_ import create_init_method, parse_class
 from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.utils.gst import get_fraction_value
 
@@ -51,6 +53,22 @@ def test_gst_object_parent_renders_direct_property():
     TemplateManager.set_module_name("Gst")
     rendered = parsed_class.render()
     assert "def parent(self) -> Object | None:" in rendered
+
+
+def test_gstbadaudio_init_uses_c_prefix_for_enum_properties():
+    try:
+        gi.require_version("GstBadAudio", "1.0")
+        from gi.repository import GstBadAudio
+    except (ImportError, ValueError) as exc:
+        pytest.skip(f"GstBadAudio typelib not available: {exc}")
+
+    init_method = create_init_method("GstBadAudio", GstBadAudio.NonstreamAudioDecoder)
+    assert init_method is not None
+
+    output_mode = next(arg for arg in init_method.args if arg.name == "output_mode")
+    assert output_mode.py_type_name == "NonstreamAudioOutputMode"
+    assert output_mode.py_type_namespace == "GstBadAudio"
+    assert output_mode.default_value == "NonstreamAudioOutputMode.STEADY"
 
 
 def test_function_gst_version():

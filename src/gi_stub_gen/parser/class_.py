@@ -1,4 +1,5 @@
 from __future__ import annotations
+import enum
 import importlib
 
 import gi
@@ -210,8 +211,20 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
                 # we try  via find_by_name guessing the name
                 # eg. Gtk.PrintBackend has no gtype registered but it exists in the GIR
                 c_name = gtype.name  # Es: "GtkPrintBackend"
-                if c_name and c_name.startswith(namespace):
-                    guessed_name = c_name[len(namespace) :]
+                prefixes = [namespace]
+                try:
+                    GIRepo().require(namespace, gi.get_required_version(namespace))
+                    c_prefix = GIRepo().raw.get_c_prefix(namespace)
+                    if c_prefix and c_prefix not in prefixes:
+                        prefixes.append(c_prefix)
+                except Exception:
+                    pass
+
+                for prefix in prefixes:
+                    if not c_name or not c_name.startswith(prefix):
+                        continue
+
+                    guessed_name = c_name[len(prefix) :]
                     info_by_name = GIRepo().find_by_name(namespace, guessed_name)
                     if info_by_name:
                         gi_ns = info_by_name.get_namespace()  # es. "Gtk"
@@ -220,6 +233,7 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
                         try:
                             module = importlib.import_module(f"gi.repository.{gi_ns}")
                             pytype = getattr(module, gi_name)
+                            break
                         except (ImportError, AttributeError):
                             pass
 
@@ -241,7 +255,7 @@ def create_init_method(namespace: str, real_cls: Any) -> FunctionSchema | None:
                 py_type_hint_name = pytype.__name__
                 py_type_hint_namespace = get_py_type_namespace_repr(pytype)
 
-            elif issubclass(pytype, (GObject.GEnum, GObject.GFlags)):
+            elif issubclass(pytype, (GObject.GEnum, GObject.GFlags, enum.IntEnum, enum.IntFlag)):
                 # Enum/Flag type
                 py_type_hint_name = pytype.__name__
                 py_type_hint_namespace = get_py_type_namespace_repr(pytype)
