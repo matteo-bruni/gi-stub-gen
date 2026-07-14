@@ -2,6 +2,7 @@ from __future__ import annotations
 
 
 from gi_stub_gen.manager.gir_docs import GIRDocs
+from gi_stub_gen.overrides.class_.GObject.GEnumMeta import GENUM_META_SCHEMA, GFLAGS_META_SCHEMA
 from gi_stub_gen.overrides.class_.GObject.Property import CLASS_PROPERTY
 from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.python_function import parse_python_function
@@ -232,6 +233,23 @@ def parse_module(
     #########################################################################
 
     if module_name == "gi.repository.GObject":
+        # GType must be defined before the enum metaclasses that inherit from it.
+        # Some type checkers otherwise lose Enum semantics for every generated
+        # GEnum/GFlags subclass and infer their members as plain integer literals.
+        gtype_index = next(
+            (index for index, schema in enumerate(module_classes) if schema.name == "GType"),
+            None,
+        )
+        gtype_schema = module_classes.pop(gtype_index) if gtype_index is not None else None
+        enum_class_index = min(
+            (index for index, schema in enumerate(module_classes) if schema.name in {"GEnum", "GFlags"}),
+            default=len(module_classes),
+        )
+        enum_support_classes = [GENUM_META_SCHEMA, GFLAGS_META_SCHEMA]
+        if gtype_schema is not None:
+            enum_support_classes.insert(0, gtype_schema)
+        module_classes[enum_class_index:enum_class_index] = enum_support_classes
+
         #  add a custom Property class override
         module_classes.append(CLASS_PROPERTY)
 

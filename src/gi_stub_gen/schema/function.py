@@ -13,7 +13,10 @@ from gi_stub_gen.utils.gi_utils import (
 )
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.utils.utils import sanitize_variable_name
+from gi_stub_gen.utils.utils import (
+    is_gobject_type_hint,
+    sanitize_variable_name,
+)
 from gi_stub_gen.utils.gi_utils import (
     gi_type_to_py_type,
 )
@@ -85,6 +88,9 @@ class FunctionArgumentSchema(BaseSchema):
 
     type_var_name: str | None = None
     """TypeVar name to render instead of the GI argument type, if any."""
+
+    is_unwrapped_gvalue: bool = False
+    """Whether a caller-allocated OUT GValue is unwrapped by PyGObject."""
 
     # @property
     # def default_value(self) -> str | None:
@@ -167,6 +173,21 @@ class FunctionArgumentSchema(BaseSchema):
             )
 
         array_length: int = get_safe_gi_array_length(gi_type)
+        is_caller_allocates = obj.is_caller_allocates()
+        is_unwrapped_gvalue = (
+            direction == "OUT"
+            and is_caller_allocates
+            and is_gobject_type_hint(
+                type_hint_name,
+                type_hint_namespace,
+                "Value",
+                function_namespace,
+            )
+        )
+        if is_unwrapped_gvalue:
+            type_hint_name = "Any"
+            type_hint_namespace = "typing"
+
         return cls(
             namespace=argument_namespace,
             name=argument_name,
@@ -180,12 +201,13 @@ class FunctionArgumentSchema(BaseSchema):
             tag_as_string=gi_type.get_tag_as_string(),
             get_array_length=array_length,
             line_comment=type_hint_comment,
-            is_caller_allocates=obj.is_caller_allocates(),
+            is_caller_allocates=is_caller_allocates,
             default_value=None,
             is_pointer=gi_type.is_pointer(),
             is_variadic=variadic,
             type_hint_cb_return_name=type_hint_cb_return_name,
             type_hint_cb_return_namespace=type_hint_cb_return_namespace,
+            is_unwrapped_gvalue=is_unwrapped_gvalue,
         ), found_callback
 
     @property
@@ -609,7 +631,7 @@ class FunctionSchema(BaseSchema):
             # depending on glib version this may not be available,
             # so we check if the flag exists
             try:
-                is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC) # type: ignore
+                is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)  # type: ignore
             except AttributeError:
                 is_async = False
             wrap_vfunc = bool(flags & GIRepository.FunctionInfoFlags.WRAPS_VFUNC)

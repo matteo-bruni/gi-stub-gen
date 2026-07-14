@@ -106,7 +106,10 @@ class BuiltinFunctionArgumentSchema(BaseModel):
                               Used to fix syntax errors when optional args precede required ones.
         """
 
-        if self.name in ("self", "cls") and self.kind == ArgKind.POSITIONAL_OR_KEYWORD:
+        if self.name in ("self", "cls") and self.kind in (
+            ArgKind.POSITIONAL_ONLY,
+            ArgKind.POSITIONAL_OR_KEYWORD,
+        ):
             return self.name
 
         prefix = {ArgKind.VAR_POSITIONAL: "*", ArgKind.VAR_KEYWORD: "**"}.get(self.kind, "")

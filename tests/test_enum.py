@@ -17,8 +17,6 @@ def test_parse_enum_glib_user_directory():
     assert enum_schema.name == "UserDirectory"
     assert enum_schema.super_namespace == "enum"
     assert enum_schema.super_name == "IntEnum"
-    assert enum_schema.extra_super_namespace is None
-    assert enum_schema.extra_super_name is None
     assert len(enum_schema.fields) > 0
     # Verify a known member
     assert any(m.name == "DIRECTORY_DESKTOP" for m in enum_schema.fields)
@@ -32,24 +30,20 @@ def test_parse_flags_gobject_param_flags():
     assert flag_schema.name == "ParamFlags"
     assert flag_schema.super_namespace == "enum"
     assert flag_schema.super_name == "IntFlag"
-    assert flag_schema.extra_super_namespace is None
-    assert flag_schema.extra_super_name is None
     assert any(m.name == "READABLE" for m in flag_schema.fields)
 
 
-def test_parse_enum_gstaudio_uses_double_inheritance_when_available():
-    """PyGObject enums that expose both GEnum and IntEnum should keep both bases."""
+def test_parse_enum_gstaudio_uses_direct_runtime_base():
+    """GI enum schemas should keep GEnum as their single direct base."""
     enum_schema = parse_enum(GstAudio.AudioBaseSrcSlaveMethod)
 
     assert enum_schema is not None
     assert enum_schema.super_namespace == "GObject"
     assert enum_schema.super_name == "GEnum"
-    assert enum_schema.extra_super_namespace == "enum"
-    assert enum_schema.extra_super_name == "IntEnum"
 
 
-def test_render_enum_uses_genum_and_intenum_bases_when_available():
-    """Rendered GI enums should expose both GObject.GEnum and enum.IntEnum bases when runtime MRO does."""
+def test_render_enum_uses_only_direct_genum_base():
+    """IntEnum is inherited through GEnum and must not be repeated."""
     enum_schema = parse_enum(GstAudio.AudioBaseSrcSlaveMethod)
 
     assert enum_schema is not None
@@ -57,7 +51,8 @@ def test_render_enum_uses_genum_and_intenum_bases_when_available():
     TemplateManager.set_module_name("GstAudio")
     rendered = enum_schema.render()
 
-    assert "class AudioBaseSrcSlaveMethod(GObject.GEnum, enum.IntEnum):" in rendered
+    assert "class AudioBaseSrcSlaveMethod(GObject.GEnum):" in rendered
+    assert "GObject.GEnum, enum.IntEnum" not in rendered
     assert "SKEW = 2" in rendered
 
 

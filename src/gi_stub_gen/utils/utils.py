@@ -41,6 +41,20 @@ def is_gflags(attribute):
     return isinstance(attribute, type) and issubclass(attribute, GObject.GFlags)
 
 
+def is_gobject_type_hint(
+    type_hint_name: str | None,
+    type_hint_namespace: str | None,
+    expected_name: str,
+    current_namespace: str,
+) -> bool:
+    """Return whether a hint names a type from the GObject namespace."""
+    if type_hint_name != expected_name:
+        return False
+
+    namespace = type_hint_namespace or current_namespace
+    return sanitize_gi_module_name(namespace) == "GObject"
+
+
 def get_super_class_name(
     obj,
     current_namespace: str | None = None,

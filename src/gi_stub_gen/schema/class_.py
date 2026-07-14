@@ -170,10 +170,9 @@ def _arg_matches_type_var_bound(arg: FunctionArgumentSchema, type_var: TypeVarSc
     if type_var.bound_hint_name is None:
         return False
 
-    return (
-        arg.py_type_name == type_var.bound_hint_name
-        and _normalize_type_namespace(arg.py_type_namespace) == _normalize_type_namespace(type_var.bound_hint_namespace)
-    )
+    return arg.py_type_name == type_var.bound_hint_name and _normalize_type_namespace(
+        arg.py_type_namespace
+    ) == _normalize_type_namespace(type_var.bound_hint_namespace)
 
 
 def _apply_class_type_vars(
@@ -196,6 +195,12 @@ def _apply_class_type_vars(
 
     generic_class_name = f"{class_name}[{', '.join(type_var.name for type_var in type_vars)}]"
     sane_namespace = _normalize_type_namespace(namespace)
+    iterator_item_type_vars = {
+        method.return_type_var_names[0]
+        for method in builtin_methods
+        if method.name == "__iter__" and len(method.return_type_var_names) == 1
+    }
+    iterator_item_type_var = next(iter(iterator_item_type_vars)) if len(iterator_item_type_vars) == 1 else None
 
     for method in methods:
         if _hint_matches_class(method.return_hint, method.return_hint_namespace, class_name, namespace):
@@ -212,6 +217,10 @@ def _apply_class_type_vars(
             method.return_hint_namespace = None
 
         for arg in method.args:
+            if arg.direction == "OUT" and arg.is_unwrapped_gvalue and iterator_item_type_var is not None:
+                arg.type_var_name = iterator_item_type_var
+                continue
+
             if arg.direction == "OUT":
                 continue
 
@@ -255,6 +264,9 @@ class ClassSchema(BaseSchema):
 
     is_deprecated: bool
     """Whether the class is deprecated."""
+
+    line_comment: str | None = None
+    """Optional comment rendered immediately before the class declaration."""
 
     required_gi_import: str | None
     """required gi.repository<NAME> import for the property type, if any"""

@@ -12,7 +12,10 @@ from gi_stub_gen.schema.builtin_function import ArgKind, BuiltinFunctionArgument
 from gi_stub_gen.schema.builtin_function import (
     BuiltinFunctionSchema,
 )
-from gi_stub_gen.utils.utils import get_redacted_stub_value, sanitize_gi_module_name
+from gi_stub_gen.utils.utils import (
+    get_redacted_stub_value,
+    sanitize_gi_module_name,
+)
 
 
 def _collect_type_var_schemas(
@@ -243,6 +246,20 @@ def parse_python_function(
         # if name == "insert_sorted" and param_name == "item":
         #     breakpoint()
         args_schema.append(arg)
+
+    # Python overrides sometimes expose a module-level helper signature even
+    # when installed as an instance method (for example Object.disconnect has
+    # ``instance`` as its first parameter). That parameter is the bound
+    # receiver, so canonicalize it instead of adding a second implicit self.
+    if is_from_class and not is_staticmethod and not is_classmethod and args_schema:
+        receiver = args_schema[0]
+        if receiver.kind in (ArgKind.POSITIONAL_ONLY, ArgKind.POSITIONAL_OR_KEYWORD):
+            receiver.name = "self"
+            receiver.type_hint_name = "Any"
+            receiver.type_hint_namespace = "typing"
+            receiver.is_optional = False
+            receiver.default_value = None
+            receiver.type_var_names = []
 
     # 3. Parsing del Return Type
     ret_name, ret_ns, ret_opt = extract_inspect_params_type_info(

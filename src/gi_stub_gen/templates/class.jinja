@@ -1,3 +1,6 @@
+{% if cls_.line_comment -%}
+# {{ cls_.line_comment }}
+{% endif -%}
 class {{ cls_.name }}{{ cls_.type_parameters | if_exists('[{}]') }}{{ cls_.super_class | if_exists('({})') }}:
     {% if cls_.docstring or debug %}
     """

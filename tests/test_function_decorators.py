@@ -141,6 +141,32 @@ class TestPythonFunctionDecorators:
         assert "@staticmethod" not in parsed.decorators
         assert "@classmethod" not in parsed.decorators
 
+    def test_gobject_signal_wrappers_consume_bound_receiver(self):
+        """Module helper signatures copied onto Object must not duplicate self."""
+        expected_parameters = {
+            "disconnect": ["self", "handler_id: int"],
+            "handler_disconnect": ["self", "handler_id: int"],
+            "handler_block": ["self", "handler_id: int"],
+            "handler_unblock": ["self", "handler_id: int"],
+            "handler_is_connected": ["self", "handler_id: int"],
+            "stop_emission_by_name": ["self", "detailed_signal: str"],
+        }
+
+        for method_name, expected in expected_parameters.items():
+            parsed = parse_python_function(
+                getattr(GObject.Object, method_name),
+                "GObject",
+                from_class=GObject.Object,
+            )
+            assert parsed is not None
+            assert parsed.param_signature("GObject") == expected
+
+    def test_gobject_module_signal_helper_keeps_instance_argument(self):
+        """The unbound GI helper still requires its explicit instance."""
+        parsed = parse_function(GObject.signal_handler_disconnect, None)
+        assert parsed is not None
+        assert parsed.render_args("GObject") == "instance: Object, handler_id: int"
+
     def test_gobject_handler_block(self):
         """
         GObject.Object.handler_block is a PyGObject wrapper method.
@@ -235,6 +261,51 @@ class TestPythonFunctionDecorators:
         assert "def __iter__(" in rendered
         assert ") -> collections.abc.Iterator[T]:" in rendered
 
+        next_method = next(method for method in parsed_class.methods if method.name == "next")
+        find_custom = next(method for method in parsed_class.methods if method.name == "find_custom")
+        assert next_method.complete_return_hint("Gst") == "tuple[IteratorResult, T]"
+        assert find_custom.complete_return_hint("Gst") == "tuple[bool, T]"
+
+    def test_caller_allocated_out_gvalue_is_unwrapped_to_any(self):
+        """PyGObject returns the Python payload, not a GObject.Value wrapper."""
+        parsed = parse_function(Gio.Task.propagate_value, None)
+        assert parsed is not None
+
+        value = next(arg for arg in parsed.args if arg.name == "value")
+        assert value.is_unwrapped_gvalue is True
+        assert value.type_hint("Gio") == "typing.Any"
+        assert parsed.complete_return_hint("Gio") == "tuple[bool, typing.Any]"
+
+    def test_gtype_function_inputs_remain_gtype(self):
+        """The enum metaclasses make a separate widened input alias unnecessary."""
+        parsed = parse_function(GObject.type_is_a, None)
+        assert parsed is not None
+        assert [arg.type_hint("GObject") for arg in parsed.input_args] == [
+            "GType",
+            "GType",
+        ]
+
+        signal_newv = parse_function(GObject.signal_newv, None)
+        assert signal_newv is not None
+        param_types = next(arg for arg in signal_newv.input_args if arg.name == "param_types")
+        assert param_types.type_hint("GObject") == "list[GType] | None"
+
+    def test_gtype_virtual_function_inputs_remain_gtype(self):
+        """Virtual handler arguments are delivered by GI, not supplied by callers."""
+
+        class VirtualHandler:
+            def do_handle(self, value: GObject.GType) -> None:
+                pass
+
+        parsed = parse_python_function(
+            VirtualHandler.do_handle,
+            "GObject",
+            from_class=VirtualHandler,
+        )
+        assert parsed is not None
+        value = next(param for param in parsed.params if param.name == "value")
+        assert value.type_hint("GObject") == "GType"
+
     def test_gst_context_managers_render_enter_exit(self):
         """Gst override context managers should expose the context manager protocol."""
         TemplateManager.set_module_name("Gst")
@@ -317,7 +388,10 @@ class TestPythonFunctionDecorators:
 
         map_method = next(method for method in parsed_class.python_methods if method.name == "map")
         assert map_method.docstring is not None
-        assert "[is-override: Note this method is an override in Python of the original gi implementation.]" in map_method.docstring
+        assert (
+            "[is-override: Note this method is an override in Python of the original gi implementation.]"
+            in map_method.docstring
+        )
         assert "Maps the buffer for test docs." in map_method.docstring
 
     def test_python_override_detects_typevar_bound(self):

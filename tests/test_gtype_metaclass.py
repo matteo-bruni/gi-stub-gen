@@ -14,6 +14,10 @@ from gi.repository import GObject, Gst, GLib, Gtk
 
 from gi_stub_gen.utils.gi_utils import do_class_need_gtype_metaclass
 from gi_stub_gen.parser.class_ import parse_class
+from gi_stub_gen.manager.template import TemplateManager
+from gi_stub_gen.overrides.class_.GObject.GEnum import GENUM_SCHEMA
+from gi_stub_gen.overrides.class_.GObject.GFlag import GFLAG_SCHEMA
+from gi_stub_gen.overrides.class_.GObject.GEnumMeta import GENUM_META_SCHEMA, GFLAGS_META_SCHEMA
 
 
 class TestGTypeMetaclassDetection:
@@ -83,6 +87,24 @@ class TestGTypeMetaclassDetection:
 
 class TestClassSchemaMetaclass:
     """Test ClassSchema generation with metaclass via parse_class."""
+
+    def test_enum_typing_metaclasses(self):
+        """Enum metaclasses combine runtime EnumType behavior with GType compatibility."""
+        TemplateManager.set_module_name("GObject")
+
+        assert GENUM_META_SCHEMA.super == ["enum.EnumType", "GType"]
+        assert GFLAGS_META_SCHEMA.super == ["enum.EnumType", "GType"]
+        assert GENUM_SCHEMA.super == ["enum.IntEnum", "metaclass=_GEnumMeta"]
+        assert GFLAG_SCHEMA.super == ["enum.IntFlag", "metaclass=_GFlagsMeta"]
+
+        rendered_meta = GENUM_META_SCHEMA.render()
+        assert "# Typing-only model of gi._enum.GEnumMeta" in rendered_meta
+        assert "class _GEnumMeta(enum.EnumType, GType):" in rendered_meta
+        assert "Stub-only static typing model" in rendered_meta
+        assert "def __gtype__(self) -> GType:" in rendered_meta
+
+        assert "class GEnum(enum.IntEnum, metaclass=_GEnumMeta):" in GENUM_SCHEMA.render()
+        assert "class GFlags(enum.IntFlag, metaclass=_GFlagsMeta):" in GFLAG_SCHEMA.render()
 
     def test_boxed_class_has_metaclass_in_super(self):
         """

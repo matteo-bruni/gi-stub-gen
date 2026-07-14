@@ -5,7 +5,7 @@ from gi_stub_gen.schema.function import FunctionSchema
 GFLAG_SCHEMA = ClassSchema(
     namespace="GObject",
     name="GFlags",
-    super=["enum.IntFlag"],
+    super=["enum.IntFlag", "metaclass=_GFlagsMeta"],
     docstring="From pygobject 3.52 GFlags "
     "are integrated with enum.Flag"
     " see https://pygobject.gnome.org/changelog.html [manual-override]",

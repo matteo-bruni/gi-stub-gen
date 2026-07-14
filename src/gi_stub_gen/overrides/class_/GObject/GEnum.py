@@ -5,7 +5,7 @@ from gi_stub_gen.schema.function import FunctionSchema
 GENUM_SCHEMA = ClassSchema(
     namespace="GObject",
     name="GEnum",
-    super=["enum.IntEnum"],
+    super=["enum.IntEnum", "metaclass=_GEnumMeta"],
     docstring="From pygobject 3.52 GEnum are integrated with enum.IntEnum"
     " see https://pygobject.gnome.org/changelog.html [manual-override]",
     props=[],
