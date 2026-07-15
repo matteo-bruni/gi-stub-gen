@@ -6514,6 +6514,9 @@ class Bitmask(builtins.object, metaclass=GObject.GType):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    v: int = ...
+
     # python methods (overrides?)
     def __init__(
         self,
@@ -10914,6 +10917,10 @@ class DoubleRange(builtins.object, metaclass=GObject.GType):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    start: float = ...
+    stop: float = ...
+
     # python methods (overrides?)
     def __init__(
         self,
@@ -13283,6 +13290,10 @@ class FractionRange(builtins.object, metaclass=GObject.GType):
     @builtins.property
     def props(self) -> Props: ...
 
+    # gi Fields
+    start: Fraction = ...
+    stop: Fraction = ...
+
     # python methods (overrides?)
     def __init__(
         self,
@@ -13956,11 +13967,11 @@ class MapInfo(builtins.object):
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list[object] | None: ...
-    data: bytes | None = ...
+    data: memoryview | None = ...
     """
     a pointer to the mapped data
     """
-    flags: MapFlags | None = ...
+    flags: MapFlags = ...
     """
     flags used when mapping the memory
     """

@@ -1,10 +1,13 @@
 import sys
+import typing
 from types import ModuleType
 
 import gi
 from gi.repository import GObject
 from gi_stub_gen.manager.template import TemplateManager
+import gi_stub_gen.parser.class_ as class_parser
 from gi_stub_gen.parser.class_ import parse_class
+from gi_stub_gen.schema.class_ import ClassFieldSchema
 from gi_stub_gen.utils.utils import get_super_class_name
 
 
@@ -41,6 +44,32 @@ class _PythonPropertyCases:
     @property
     def unannotated(self):
         raise NotImplementedError
+
+
+class _PythonAnnotatedFieldsBase:
+    inherited: int
+
+
+class _PythonAnnotatedFieldCases(_PythonAnnotatedFieldsBase):
+    python_only: int
+    forward: "_ForwardPropertyType"
+    optional: "typing.Optional[_ForwardPropertyType]"
+    _private: str
+    constant: int = 1
+
+    @property
+    def accessor_wins(self) -> int:
+        raise NotImplementedError
+
+    def method(self) -> None:
+        raise NotImplementedError
+
+
+_PythonAnnotatedFieldCases.__annotations__.update(
+    unresolved="MissingAnnotation",
+    accessor_wins=str,
+    method=int,
+)
 
 
 def test_parse_class_gobject_object():
@@ -233,6 +262,114 @@ def test_python_only_property_access_and_annotations():
     assert fields["disagreeing"].type_hint_namespace == "typing"
     assert fields["unannotated"].type_hint_name == "Any"
     assert fields["unannotated"].type_hint_namespace == "typing"
+
+
+def test_python_class_annotations_add_only_public_instance_fields():
+    parsed_class, _ = parse_class(__name__, _PythonAnnotatedFieldCases)
+
+    assert parsed_class is not None
+    fields = {field.name: field for field in parsed_class.fields}
+
+    assert fields["python_only"].type_hint("tests.test_class") == "int"
+    assert fields["forward"].type_hint("tests.test_class") == "_ForwardPropertyType"
+    assert fields["optional"].type_hint("tests.test_class") == "_ForwardPropertyType | None"
+    assert fields["unresolved"].type_hint("tests.test_class") == "typing.Any"
+    assert fields["accessor_wins"].type_hint("tests.test_class") == "int"
+    assert fields["python_only"].is_readable is True
+    assert fields["python_only"].is_writable is True
+    assert not {"_private", "inherited", "constant", "method"} & fields.keys()
+    assert len(parsed_class.fields) == len(fields)
+
+
+def test_python_class_annotations_refine_gir_fields_without_losing_metadata(monkeypatch):
+    class FakeField:
+        def __init__(self, name: str):
+            self.name = name
+
+        def get_name(self) -> str:
+            return self.name
+
+    class FakeInfo:
+        fields = [FakeField("corrected"), FakeField("unresolved_existing")]
+
+        def get_fields(self):
+            return self.fields
+
+        def get_properties(self):
+            return []
+
+        def get_methods(self):
+            return []
+
+        def is_deprecated(self) -> bool:
+            return False
+
+    class SyntheticAnnotatedFields:
+        __info__ = FakeInfo()
+        __gtype__ = GObject.TYPE_INT
+        corrected: "typing.Optional[_ForwardPropertyType]"
+        python_only: int
+
+        def __init__(self):
+            pass
+
+    SyntheticAnnotatedFields.__annotations__["unresolved_existing"] = "MissingAnnotation"
+
+    gir_fields = {
+        "corrected": ClassFieldSchema(
+            name="corrected",
+            type_hint_name="bytes",
+            type_hint_namespace=None,
+            is_deprecated=True,
+            deprecation_warnings="deprecated",
+            docstring="GIR documentation",
+            line_comment="GIR comment",
+            may_be_null=False,
+            is_readable=True,
+            is_writable=False,
+        ),
+        "unresolved_existing": ClassFieldSchema(
+            name="unresolved_existing",
+            type_hint_name="str",
+            type_hint_namespace=None,
+            is_deprecated=False,
+            deprecation_warnings=None,
+            docstring=None,
+            line_comment=None,
+            may_be_null=False,
+            is_readable=True,
+            is_writable=True,
+        ),
+    }
+
+    monkeypatch.setattr(class_parser, "should_expose_class_field", lambda field: True)
+    original_is_local = class_parser.is_local
+    monkeypatch.setattr(
+        class_parser,
+        "is_local",
+        lambda cls, name: cls is SyntheticAnnotatedFields and name in gir_fields or original_is_local(cls, name),
+    )
+    monkeypatch.setattr(
+        class_parser,
+        "gi_parse_field",
+        lambda field, module_name, class_name: (gir_fields[field.get_name()].model_copy(), None),
+    )
+    monkeypatch.setattr(class_parser.GIRepo, "find_by_name", lambda self, *args, **kwargs: None)
+
+    parsed_class, _ = parse_class(__name__, SyntheticAnnotatedFields)
+
+    assert parsed_class is not None
+    fields = {field.name: field for field in parsed_class.fields}
+    corrected = fields["corrected"]
+    assert corrected.type_hint(__name__) == "_ForwardPropertyType | None"
+    assert corrected.docstring == "GIR documentation"
+    assert corrected.is_deprecated is True
+    assert corrected.deprecation_warnings == "deprecated"
+    assert corrected.line_comment == "GIR comment"
+    assert corrected.is_readable is True
+    assert corrected.is_writable is False
+    assert fields["unresolved_existing"].type_hint(__name__) == "str"
+    assert fields["python_only"].type_hint(__name__) == "int"
 
 
 def test_parse_class_gobject_initially_unowned():

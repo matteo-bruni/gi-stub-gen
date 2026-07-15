@@ -7,6 +7,7 @@ from gi.repository import GObject, Gst
 
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.manager.gir_docs import GIRDocs
+from gi_stub_gen.manager.gi_repo import GIRepo
 from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.class_ import create_init_method, parse_class
 from gi_stub_gen.parser.constant import parse_constant
@@ -110,6 +111,58 @@ def test_gst_override_properties_keep_the_most_informative_types():
     assert probe_fields["id"].type_hint("Gst") == "int"
     assert probe_fields["offset"].type_hint("Gst") == "int"
     assert probe_fields["size"].type_hint("Gst") == "int"
+
+
+def test_gst_override_class_annotations_refine_fields_and_add_python_only_attributes():
+    assert GIRDocs().load(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
+    GIRepo().require("Gst", "1.0")
+    parsed_map_info, _ = parse_class("Gst", Gst.MapInfo)
+    assert parsed_map_info is not None
+    map_info_fields = {field.name: field for field in parsed_map_info.fields}
+
+    assert map_info_fields["data"].type_hint("Gst") == "memoryview | None"
+    assert map_info_fields["flags"].type_hint("Gst") == "MapFlags"
+    assert map_info_fields["maxsize"].type_hint("Gst") == "int"
+    assert map_info_fields["memory"].type_hint("Gst") == "Memory | None"
+    assert map_info_fields["size"].type_hint("Gst") == "int"
+    assert map_info_fields["data"].docstring == "a pointer to the mapped data"
+    assert map_info_fields["data"].is_readable is True
+    assert map_info_fields["data"].is_writable is True
+
+    for cls, expected_fields in (
+        (Gst.Bitmask, {"v": "int"}),
+        (Gst.DoubleRange, {"start": "float", "stop": "float"}),
+        (Gst.FractionRange, {"start": "Fraction", "stop": "Fraction"}),
+    ):
+        parsed_class, _ = parse_class("Gst", cls)
+        assert parsed_class is not None
+        fields = {field.name: field.type_hint("Gst") for field in parsed_class.fields}
+        assert expected_fields.items() <= fields.items()
+
+
+@pytest.mark.parametrize(
+    ("flags", "readonly"),
+    (
+        (Gst.MapFlags.READ, True),
+        (Gst.MapFlags.WRITE, False),
+        (Gst.MapFlags.READ | Gst.MapFlags.WRITE, False),
+    ),
+)
+def test_gst_map_info_data_runtime_mutability(flags: Gst.MapFlags, readonly: bool):
+    buffer = Gst.Buffer.new_allocate(None, 4, None)
+    assert buffer is not None
+    map_info = buffer.map(flags)
+    try:
+        assert isinstance(map_info.data, memoryview)
+        assert map_info.data.readonly is readonly
+        if readonly:
+            with pytest.raises(TypeError):
+                map_info.data[:] = b"test"
+        else:
+            map_info.data[:] = b"test"
+            assert bytes(map_info.data) == b"test"
+    finally:
+        buffer.unmap(map_info)
 
 
 def test_gstbadaudio_init_uses_c_prefix_for_enum_properties():

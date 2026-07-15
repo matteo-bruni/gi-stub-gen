@@ -15073,7 +15073,7 @@ class Error(builtins.RuntimeError, metaclass=GObject.GType):
     """
     error code, e.g. G_FILE_ERROR_NOENT
     """
-    domain: int = ...
+    domain: str = ...
     """
     error domain, e.g. G_FILE_ERROR
     """

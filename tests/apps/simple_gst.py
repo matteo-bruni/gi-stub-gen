@@ -15,6 +15,15 @@ def check_mini_object_mixin_types(buffer: Gst.Buffer, caps: Gst.Caps) -> None:
     caps.flags = Gst.MiniObjectFlags.LOCKABLE
 
 
+def write_mapped_buffer(buffer: Gst.Buffer) -> None:
+    map_info = buffer.map(Gst.MapFlags.WRITE)
+    try:
+        if map_info.data is not None:
+            map_info.data[:] = b"\0" * len(map_info.data)
+    finally:
+        buffer.unmap(map_info)
+
+
 class GstTester:
     def __init__(self):
         # 1. Test Constructor and Inheritance

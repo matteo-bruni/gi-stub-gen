@@ -1,4 +1,5 @@
 from __future__ import annotations
+import ast
 from dataclasses import dataclass
 import enum
 import importlib
@@ -156,22 +157,8 @@ def _property_accessor_annotation(
     if accessor is None:
         return None
 
-    eval_globals = dict(getattr(accessor, "__globals__", {}))
-    repository_module = None
     try:
-        repository_module = importlib.import_module(f"gi.repository.{sanitize_gi_module_name(namespace)}")
-    except ImportError:
-        pass
-    else:
-        eval_globals.update(vars(repository_module))
-
-    try:
-        signature = inspect.signature(accessor, eval_str=True, globals=eval_globals)
-    except (AttributeError, NameError):
-        try:
-            signature = inspect.signature(accessor)
-        except (TypeError, ValueError):
-            return None
+        signature = inspect.signature(accessor)
     except (TypeError, ValueError):
         return None
 
@@ -185,17 +172,49 @@ def _property_accessor_annotation(
 
     if annotation is inspect.Signature.empty:
         return None
-    if isinstance(annotation, str):
-        if repository_module is not None:
+
+    return _resolve_python_annotation(
+        annotation,
+        namespace=namespace,
+        eval_globals=getattr(accessor, "__globals__", {}),
+    )
+
+
+def _resolve_python_annotation(
+    annotation: Any,
+    *,
+    namespace: str,
+    eval_globals: dict[str, Any],
+    eval_locals: dict[str, Any] | None = None,
+) -> Any | None:
+    if not isinstance(annotation, str):
+        return annotation
+
+    globals_with_repository: dict[str, Any] = {}
+    repository_module = None
+    try:
+        repository_module = importlib.import_module(f"gi.repository.{sanitize_gi_module_name(namespace)}")
+    except ImportError:
+        pass
+    else:
+        globals_with_repository.update(vars(repository_module))
+    globals_with_repository.update(eval_globals)
+
+    if repository_module is not None:
+        try:
+            names = {node.id for node in ast.walk(ast.parse(annotation, mode="eval")) if isinstance(node, ast.Name)}
+        except SyntaxError:
+            names = set()
+        for name in names - globals_with_repository.keys():
             try:
-                eval_globals[annotation] = getattr(repository_module, annotation)
+                globals_with_repository[name] = getattr(repository_module, name)
             except AttributeError:
                 pass
-        try:
-            return eval(annotation, eval_globals)
-        except (NameError, SyntaxError, TypeError):
-            pass
-    return annotation
+
+    try:
+        return eval(annotation, globals_with_repository, eval_locals)
+    except (AttributeError, NameError, SyntaxError, TypeError):
+        return None
 
 
 def _python_property_annotation(prop: property, *, namespace: str) -> Any | None:
@@ -310,23 +329,8 @@ def _property_accessor_type(
     if accessor is None:
         return None
 
-    try:
-        try:
-            signature = inspect.signature(accessor, eval_str=True)
-        except (AttributeError, NameError):
-            signature = inspect.signature(accessor)
-    except (TypeError, ValueError):
-        return None
-
-    if is_getter:
-        annotation = signature.return_annotation
-    else:
-        parameters = list(signature.parameters.values())
-        if len(parameters) < 2:
-            return None
-        annotation = parameters[-1].annotation
-
-    if annotation is inspect.Signature.empty:
+    annotation = _property_accessor_annotation(accessor, is_getter=is_getter, namespace=namespace)
+    if annotation is None:
         return None
     return extract_inspect_params_type_info(
         annotation,
@@ -1165,6 +1169,74 @@ def parse_class(
             extra.append(f"property: {attribute_name} local={is_attribute_local}")
         else:
             extra.append(f"unknown: {attribute_name}: {attribute_type} local={is_attribute_local}")
+
+    #######################################################################################
+    # APPLY DIRECT CLASS ANNOTATIONS FROM PYTHON OVERRIDES
+    #######################################################################################
+    try:
+        annotation_globals = vars(importlib.import_module(class_to_parse.__module__))
+    except ImportError:
+        annotation_globals = {}
+
+    for attribute_name, annotation in class_to_parse.__dict__.get("__annotations__", {}).items():
+        if attribute_name.startswith("_"):
+            continue
+
+        runtime_attribute = class_to_parse.__dict__.get(attribute_name, inspect.Signature.empty)
+        if runtime_attribute is not inspect.Signature.empty and parse_constant(
+            module_name="",
+            name=attribute_name,
+            obj=runtime_attribute,
+            docstring=None,
+        ):
+            continue
+        if attribute_name in {method.name for method in (*class_methods, *class_python_methods)}:
+            continue
+
+        existing_field = next((field for field in class_fields if field.name == attribute_name), None)
+        if isinstance(runtime_attribute, property) and _python_property_type(
+            runtime_attribute,
+            namespace=module_name.removeprefix("gi.repository."),
+        ) is not None:
+            continue
+
+        resolved_annotation = _resolve_python_annotation(
+            annotation,
+            namespace=module_name.removeprefix("gi.repository."),
+            eval_globals=annotation_globals,
+            eval_locals=dict(class_to_parse.__dict__),
+        )
+        annotation_type = (
+            extract_inspect_params_type_info(
+                resolved_annotation,
+                current_namespace=module_name.removeprefix("gi.repository."),
+            )
+            if resolved_annotation is not None
+            else None
+        )
+
+        if existing_field is not None:
+            if annotation_type is not None:
+                existing_field.type_hint_name, existing_field.type_hint_namespace, existing_field.may_be_null = (
+                    annotation_type
+                )
+            continue
+
+        type_hint_name, type_hint_namespace, may_be_null = annotation_type or ("Any", "typing", False)
+        class_fields.append(
+            ClassFieldSchema(
+                name=attribute_name,
+                type_hint_name=type_hint_name,
+                type_hint_namespace=type_hint_namespace,
+                is_deprecated=False,
+                docstring=None,
+                line_comment=None,
+                deprecation_warnings=None,
+                may_be_null=may_be_null,
+                is_readable=True,
+                is_writable=True,
+            )
+        )
 
     # add __init__ method
     is_init_present_in_methods = any(method.name == "__init__" for method in class_methods)
