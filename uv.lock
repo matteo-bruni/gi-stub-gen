@@ -106,6 +106,9 @@ dev = [
     { name = "rust-just" },
     { name = "wheel" },
 ]
+gst = [
+    { name = "gst-python-binding" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -127,6 +130,25 @@ dev = [
     { name = "lxml-stubs", specifier = ">=0.5.1" },
     { name = "rust-just", specifier = ">=1.45.0" },
     { name = "wheel", specifier = ">=0.47.0" },
+]
+gst = [{ name = "gst-python-binding", url = "https://github.com/matteo-bruni/gstreamer-oci/releases/download/gst-python-binding-1.28.3-ubuntu-24.04-base/gst_python_binding-1.28.3-cp312-cp312-linux_x86_64.whl" }]
+
+[[package]]
+name = "gst-python-binding"
+version = "1.28.3"
+source = { url = "https://github.com/matteo-bruni/gstreamer-oci/releases/download/gst-python-binding-1.28.3-ubuntu-24.04-base/gst_python_binding-1.28.3-cp312-cp312-linux_x86_64.whl" }
+dependencies = [
+    { name = "pygobject" },
+    { name = "typing-extensions" },
+]
+wheels = [
+    { url = "https://github.com/matteo-bruni/gstreamer-oci/releases/download/gst-python-binding-1.28.3-ubuntu-24.04-base/gst_python_binding-1.28.3-cp312-cp312-linux_x86_64.whl", hash = "sha256:ab98bee2301e65df3cf06cb0c6c8b5b05b30f4b8bcba22a14ea470cce9e9aad8" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "pygobject", specifier = ">=3.50.0" },
+    { name = "typing-extensions", specifier = ">=4.15.0" },
 ]
 
 [[package]]

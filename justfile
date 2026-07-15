@@ -115,7 +115,7 @@ clean-gst-cache:
 
 # Run tests.
 test:
-    uv run pytest -rA --tb=short  tests/
+    uv run --group gst --locked pytest -rA --tb=short tests/
 
 # Run Astra TY type checking ignoring some known issues.
 ty:

@@ -6523,7 +6523,7 @@ class Bitmask(builtins.object, metaclass=GObject.GType):
         Initialize self.  See help(type(self)) for accurate signature.
         """
 
-class Buffer(GObject.GBoxed, metaclass=GObject.GType):
+class Buffer(MiniObjectMixin[BufferFlags], GObject.GBoxed, metaclass=GObject.GType):
     """
     Buffers are the basic unit of data transfer in GStreamer. They contain the
     timing and offset along with other arbitrary metadata that is associated
@@ -6628,6 +6628,7 @@ class Buffer(GObject.GBoxed, metaclass=GObject.GType):
     duration in time of the buffer data, can be GST_CLOCK_TIME_NONE
         when the duration is not known or relevant.
     """
+    flags: BufferFlags = ...
     mini_object: MiniObject | None = ...
     """
     the parent structure
@@ -8026,7 +8027,7 @@ class ByteArrayInterface(GObject.GPointer, metaclass=GObject.GType):
         Reallocate `data`.
         """
 
-class Caps(GObject.GBoxed, metaclass=GObject.GType):
+class Caps(MiniObjectMixin[MiniObjectFlags], GObject.GBoxed, metaclass=GObject.GType):
     """
     Caps (capabilities) are lightweight refcounted objects describing media types.
     They are composed of an array of Gst.Structure.
@@ -8225,25 +8226,6 @@ class Caps(GObject.GBoxed, metaclass=GObject.GType):
         """
             Checks if `structure` is a subset of `caps`. See `Gst.Caps.is_subset`
         for more information.
-        """
-    def is_writable(self) -> bool:
-        """
-            Tests if you can safely modify `caps`. It is only safe to modify caps when
-        there is only one owner of the caps - ie, the object is writable.
-        """
-    def make_writable(self) -> Caps:
-        """
-            Returns a writable copy of `caps`.
-
-        If there is only one reference count on `caps`, the caller must be the owner,
-        and so this function will return the caps object unchanged. If on the other
-        hand there is more than one reference on the object, a new caps object will
-        be returned. The caller's reference on `caps` will be removed, and instead the
-        caller will own a reference to the returned object.
-
-        In short, this function unrefs the caps in the argument and refs the caps
-        that it returns. Don't access the argument after calling this function. See
-        also: `Gst.Caps.ref`.
         """
     def map_in_place(self, func: CapsMapFunc, *user_data: object | None) -> bool:
         """
@@ -9304,7 +9286,7 @@ class ClockEntry(GObject.GPointer, metaclass=GObject.GType):
 
 class ClockPrivate(GObject.GPointer, metaclass=GObject.GType): ...
 
-class Context(GObject.GBoxed, metaclass=GObject.GType):
+class Context(MiniObjectMixin[MiniObjectFlags], GObject.GBoxed, metaclass=GObject.GType):
     """
     Gst.Context is a container object used to store contexts like a device
     context, a display server connection and similar concepts that should
@@ -9357,25 +9339,6 @@ class Context(GObject.GBoxed, metaclass=GObject.GType):
     def is_persistent(self) -> bool:
         """
         Checks if `context` is persistent.
-        """
-    def is_writable(self) -> bool:
-        """
-            Tests if you can safely modify `context`. It is only safe to modify context when
-        there is only one owner of the context - ie, the object is writable.
-        """
-    def make_writable(self) -> Context:
-        """
-            Returns a writable copy of `context`.
-
-        If there is only one reference count on `context`, the caller must be the owner,
-        and so this function will return the context object unchanged. If on the other
-        hand there is more than one reference on the object, a new context object will
-        be returned. The caller's reference on `context` will be removed, and instead the
-        caller will own a reference to the returned object.
-
-        In short, this function unrefs the context in the argument and refs the context
-        that it returns. Don't access the argument after calling this function. See
-        also: `Gst.Context.ref`.
         """
     @classmethod
     def new(cls, context_type: str, persistent: bool) -> Context:
@@ -12529,7 +12492,7 @@ class ElementFactory(PluginFeature):
 
 class ElementFactoryClass(GObject.GPointer, metaclass=GObject.GType): ...
 
-class Event(GObject.GBoxed, metaclass=GObject.GType):
+class Event(MiniObjectMixin[MiniObjectFlags], GObject.GBoxed, metaclass=GObject.GType):
     """
     The event class provides factory methods to construct events for sending
     and functions to query (parse) received events.
@@ -12635,25 +12598,6 @@ class Event(GObject.GBoxed, metaclass=GObject.GType):
         """
             Checks if `event` has the given `name`. This function is usually used to
         check the name of a custom event.
-        """
-    def is_writable(self) -> bool:
-        """
-            Tests if you can safely modify `event`. It is only safe to modify event when
-        there is only one owner of the event - ie, the object is writable.
-        """
-    def make_writable(self) -> Event:
-        """
-            Returns a writable copy of `event`.
-
-        If there is only one reference count on `event`, the caller must be the owner,
-        and so this function will return the event object unchanged. If on the other
-        hand there is more than one reference on the object, a new event object will
-        be returned. The caller's reference on `event` will be removed, and instead the
-        caller will own a reference to the returned object.
-
-        In short, this function unrefs the event in the argument and refs the event
-        that it returns. Don't access the argument after calling this function. See
-        also: `Gst.Event.ref`.
         """
     @classmethod
     def new_buffer_size(cls, format: Format, minsize: int, maxsize: int, async_: bool) -> Event:
@@ -15950,11 +15894,9 @@ class MiniObject(GObject.GBoxed, metaclass=GObject.GType):
         Unlock the mini-object with the specified access mode in `flags`.
         """
 
-class MiniObjectMixin(builtins.object):
-    class Props: ...
-
-    @builtins.property
-    def props(self) -> Props: ...
+class MiniObjectMixin[FlagsType: GObject.GFlags]:
+    # gi Fields
+    flags: FlagsType = ...
 
     # python methods (overrides?)
     def is_writable(
@@ -16437,11 +16379,11 @@ class Pad(Object):
 
     # gi Fields
     @builtins.property
-    def activatedata(self) -> object | None: ...
+    def activatedata(self) -> typing.Any: ...
     @builtins.property
     def activatefunc(self) -> PadActivateFunction: ...
     @builtins.property
-    def activatemodedata(self) -> object | None: ...
+    def activatemodedata(self) -> typing.Any: ...
     @builtins.property
     def activatemodefunc(self) -> PadActivateModeFunction: ...
     @builtins.property
@@ -16451,11 +16393,11 @@ class Pad(Object):
     @builtins.property
     def block_cond(self) -> GLib.Cond | None: ...
     @builtins.property
-    def chaindata(self) -> object | None: ...
+    def chaindata(self) -> typing.Any: ...
     @builtins.property
     def chainfunc(self) -> PadChainFunction: ...
     @builtins.property
-    def chainlistdata(self) -> object | None: ...
+    def chainlistdata(self) -> typing.Any: ...
     @builtins.property
     def chainlistfunc(self) -> PadChainListFunction: ...
     @builtins.property
@@ -16469,30 +16411,30 @@ class Pad(Object):
                 the pad.
         """
     @builtins.property
-    def element_private(self) -> object | None:
+    def element_private(self) -> typing.Any:
         """
         private data owned by the parent element
         """
     @builtins.property
-    def eventdata(self) -> object | None: ...
+    def eventdata(self) -> typing.Any: ...
     @builtins.property
     def eventfunc(self) -> PadEventFunction: ...
     @builtins.property
     def eventnotify(self) -> GLib.DestroyNotify: ...
     @builtins.property
-    def getrangedata(self) -> object | None: ...
+    def getrangedata(self) -> typing.Any: ...
     @builtins.property
     def getrangefunc(self) -> PadGetRangeFunction: ...
     @builtins.property
     def getrangenotify(self) -> GLib.DestroyNotify: ...
     @builtins.property
-    def iterintlinkdata(self) -> object | None: ...
+    def iterintlinkdata(self) -> typing.Any: ...
     @builtins.property
     def iterintlinkfunc(self) -> PadIterIntLinkFunction: ...
     @builtins.property
     def iterintlinknotify(self) -> GLib.DestroyNotify: ...
     @builtins.property
-    def linkdata(self) -> object | None: ...
+    def linkdata(self) -> typing.Any: ...
     @builtins.property
     def linkfunc(self) -> PadLinkFunction: ...
     @builtins.property
@@ -16519,7 +16461,7 @@ class Pad(Object):
     @builtins.property
     def probes(self) -> GLib.HookList | None: ...
     @builtins.property
-    def querydata(self) -> object | None: ...
+    def querydata(self) -> typing.Any: ...
     @builtins.property
     def queryfunc(self) -> PadQueryFunction: ...
     @builtins.property
@@ -16529,7 +16471,7 @@ class Pad(Object):
     @builtins.property
     def task(self) -> Task | None: ...
     @builtins.property
-    def unlinkdata(self) -> object | None: ...
+    def unlinkdata(self) -> typing.Any: ...
     @builtins.property
     def unlinkfunc(self) -> PadUnlinkFunction: ...
     @builtins.property
@@ -17421,7 +17363,7 @@ class PadProbeInfo(GObject.GPointer, metaclass=GObject.GType):
     """
 
     # gi Fields
-    data: object | None = ...
+    data: typing.Any = ...  # type: ignore
     """
     type specific data, check the `type` field to know the
        datatype.  This field can be None.
@@ -19312,7 +19254,7 @@ class ProxyPadClass(GObject.GPointer, metaclass=GObject.GType):
 
 class ProxyPadPrivate(GObject.GPointer, metaclass=GObject.GType): ...
 
-class Query(GObject.GBoxed, metaclass=GObject.GType):
+class Query(MiniObjectMixin[MiniObjectFlags], GObject.GBoxed, metaclass=GObject.GType):
     """
     Queries can be performed on pads (`Gst.Pad.query`) and elements
     (`Gst.Element.query`). Please note that some queries might need a running
@@ -19421,25 +19363,6 @@ class Query(GObject.GBoxed, metaclass=GObject.GType):
         """
             Check if `query` has scheduling mode set and `flags` is set in
         query scheduling flags.
-        """
-    def is_writable(self) -> bool:
-        """
-            Tests if you can safely modify `query`. It is only safe to modify query when
-        there is only one owner of the query - ie, the object is writable.
-        """
-    def make_writable(self) -> Query:
-        """
-            Returns a writable copy of `query`.
-
-        If there is only one reference count on `query`, the caller must be the owner,
-        and so this function will return the query object unchanged. If on the other
-        hand there is more than one reference on the object, a new query object will
-        be returned. The caller's reference on `query` will be removed, and instead the
-        caller will own a reference to the returned object.
-
-        In short, this function unrefs the query in the argument and refs the query
-        that it returns. Don't access the argument after calling this function. See
-        also: `Gst.Query.ref`.
         """
     @classmethod
     def new_accept_caps(cls, caps: Caps) -> Query:

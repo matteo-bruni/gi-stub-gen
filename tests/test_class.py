@@ -1,8 +1,46 @@
+import sys
+from types import ModuleType
+
 import gi
 from gi.repository import GObject
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.utils.utils import get_super_class_name
+
+
+class _ForwardPropertyType:
+    pass
+
+
+class _PythonPropertyCases:
+    @property
+    def read_only(self) -> int:
+        raise NotImplementedError
+
+    def _set_write_only(self, value: str) -> None:
+        raise NotImplementedError
+
+    write_only = property(fset=_set_write_only)
+
+    @property
+    def read_write(self) -> _ForwardPropertyType:
+        raise NotImplementedError
+
+    @read_write.setter
+    def read_write(self, value: _ForwardPropertyType) -> None:
+        raise NotImplementedError
+
+    @property
+    def disagreeing(self) -> int:
+        raise NotImplementedError
+
+    @disagreeing.setter
+    def disagreeing(self, value: str) -> None:
+        raise NotImplementedError
+
+    @property
+    def unannotated(self):
+        raise NotImplementedError
 
 
 def test_parse_class_gobject_object():
@@ -23,6 +61,178 @@ def test_parse_class_gobject_object():
     # Check for properties (GObject.Object doesn't have many props, but let's check attributes/props lists exist)
     # assert isinstance(class_schema.props, list)
     # assert isinstance(class_schema.attributes, list)
+
+
+def test_public_override_mixins_are_rendered_as_bases(monkeypatch):
+    override_module_name = "gi.overrides.SyntheticTest"
+    override_module = ModuleType(override_module_name)
+    setattr(override_module, "__all__", ["PublicMixin"])
+    monkeypatch.setitem(sys.modules, override_module_name, override_module)
+
+    repository_class = type(
+        "Example",
+        (object,),
+        {"__module__": "gi.repository.SyntheticTest"},
+    )
+    public_mixin = type(
+        "PublicMixin",
+        (object,),
+        {"__module__": override_module_name, "public_method": lambda self: None},
+    )
+    internal_mixin = type(
+        "InternalMixin",
+        (object,),
+        {"__module__": override_module_name, "internal_method": lambda self: None},
+    )
+    override_class = type(
+        "Example",
+        (public_mixin, internal_mixin, repository_class),
+        {"__module__": override_module_name},
+    )
+
+    parsed_class, _ = parse_class("gi.repository.SyntheticTest", override_class)
+
+    assert parsed_class is not None
+    assert parsed_class.super == ["PublicMixin", "builtins.object"]
+    parsed_methods = {method.name for method in parsed_class.python_methods}
+    assert "public_method" not in parsed_methods
+    assert "internal_method" not in parsed_methods
+
+
+def test_public_override_mixin_specializes_writable_property_and_omits_props(monkeypatch):
+    class ValueBase:
+        pass
+
+    class DefaultValue(ValueBase):
+        pass
+
+    class SpecializedValue(ValueBase):
+        pass
+
+    class DefaultUnbound:
+        pass
+
+    class SpecializedUnbound:
+        pass
+
+    for value_type in (ValueBase, DefaultValue, SpecializedValue, DefaultUnbound, SpecializedUnbound):
+        value_type.__module__ = "gi.repository.SyntheticGenericMixin"
+
+    def get_default(self) -> DefaultValue:
+        raise NotImplementedError
+
+    def set_default(self, value: DefaultValue) -> None:
+        raise NotImplementedError
+
+    def get_specialized(self) -> SpecializedValue:
+        raise NotImplementedError
+
+    def set_specialized(self, value: SpecializedValue) -> None:
+        raise NotImplementedError
+
+    def get_default_unbound(self) -> DefaultUnbound:
+        raise NotImplementedError
+
+    def set_default_unbound(self, value: DefaultUnbound) -> None:
+        raise NotImplementedError
+
+    def get_specialized_unbound(self) -> SpecializedUnbound:
+        raise NotImplementedError
+
+    def set_specialized_unbound(self, value: SpecializedUnbound) -> None:
+        raise NotImplementedError
+
+    override_module_name = "gi.overrides.SyntheticGenericMixin"
+    override_module = ModuleType(override_module_name)
+    monkeypatch.setitem(sys.modules, override_module_name, override_module)
+
+    public_mixin = type(
+        "PublicMixin",
+        (object,),
+        {
+            "__module__": override_module_name,
+            "value": property(get_default, set_default),
+            "unbound": property(get_default_unbound, set_default_unbound),
+        },
+    )
+    repository_specialized = type(
+        "Specialized",
+        (object,),
+        {"__module__": "gi.repository.SyntheticGenericMixin"},
+    )
+    specialized = type(
+        "Specialized",
+        (public_mixin, repository_specialized),
+        {
+            "__module__": override_module_name,
+            "value": property(get_specialized, set_specialized),
+            "unbound": property(get_specialized_unbound, set_specialized_unbound),
+        },
+    )
+    repository_default = type(
+        "Default",
+        (object,),
+        {"__module__": "gi.repository.SyntheticGenericMixin"},
+    )
+    default = type(
+        "Default",
+        (public_mixin, repository_default),
+        {"__module__": override_module_name},
+    )
+    internal_mixin = type(
+        "InternalMixin",
+        (object,),
+        {"__module__": override_module_name},
+    )
+
+    setattr(override_module, "__all__", ["PublicMixin", "Specialized", "Default"])
+    setattr(override_module, "PublicMixin", public_mixin)
+    setattr(override_module, "Specialized", specialized)
+    setattr(override_module, "Default", default)
+    setattr(override_module, "InternalMixin", internal_mixin)
+
+    parsed_mixin, _ = parse_class("gi.repository.SyntheticGenericMixin", public_mixin)
+    parsed_specialized, _ = parse_class("gi.repository.SyntheticGenericMixin", specialized)
+    parsed_default, _ = parse_class("gi.repository.SyntheticGenericMixin", default)
+    parsed_internal, _ = parse_class("gi.repository.SyntheticGenericMixin", internal_mixin)
+
+    assert parsed_mixin is not None
+    assert parsed_specialized is not None
+    assert parsed_default is not None
+    assert parsed_internal is not None
+    assert parsed_mixin.type_parameters == "ValueType: ValueBase, UnboundType"
+    assert next(field for field in parsed_mixin.fields if field.name == "value").type_hint_name == "ValueType"
+    assert next(field for field in parsed_mixin.fields if field.name == "unbound").type_hint_name == "UnboundType"
+    assert parsed_specialized.super[0] == "PublicMixin[SpecializedValue, SpecializedUnbound]"
+    assert parsed_default.super[0] == "PublicMixin[DefaultValue, DefaultUnbound]"
+
+    TemplateManager.set_module_name("SyntheticGenericMixin")
+    assert "class Props" not in parsed_mixin.render()
+    assert "class Props" in parsed_internal.render()
+
+
+def test_python_only_property_access_and_annotations():
+    parsed_class, _ = parse_class(__name__, _PythonPropertyCases)
+
+    assert parsed_class is not None
+    fields = {field.name: field for field in parsed_class.fields}
+
+    assert fields["read_only"].type_hint_name == "int"
+    assert fields["read_only"].is_readable is True
+    assert fields["read_only"].is_writable is False
+
+    assert fields["write_only"].type_hint_name == "str"
+    assert fields["write_only"].is_readable is False
+    assert fields["write_only"].is_writable is True
+
+    assert fields["read_write"].type_hint_name == "_ForwardPropertyType"
+    assert fields["read_write"].is_readable is True
+    assert fields["read_write"].is_writable is True
+
+    assert fields["disagreeing"].type_hint_name == "Any"
+    assert fields["disagreeing"].type_hint_namespace == "typing"
+    assert fields["unannotated"].type_hint_name == "Any"
+    assert fields["unannotated"].type_hint_namespace == "typing"
 
 
 def test_parse_class_gobject_initially_unowned():

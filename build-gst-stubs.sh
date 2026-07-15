@@ -33,10 +33,12 @@ done
 
 
 # Build the actual stub ####################################
-PKG_GST_STUBS_VERSION=$(uv run python3 -c 'import gi; gi.require_version("Gst", "1.0"); from gi.repository import Gst; Gst.init(None); v = Gst.version(); print(f"{v.major}.{v.minor}.{v.micro}")')
+UV_RUN=(uv run --group gst --locked)
+
+PKG_GST_STUBS_VERSION=$("${UV_RUN[@]}" python3 -c 'import gi; gi.require_version("Gst", "1.0"); from gi.repository import Gst; Gst.init(None); v = Gst.version(); print(f"{v.major}.{v.minor}.{v.micro}")')
 WHEEL_PACKAGE_NAME=${STUB_PACKAGE_NAME//-/_}
 
-mapfile -t GST_MODULES < <(uv run --quiet python3 <<'PY'
+mapfile -t GST_MODULES < <("${UV_RUN[@]}" --quiet python3 <<'PY'
 from pathlib import Path
 
 import gi
@@ -70,7 +72,7 @@ if [ "${#GST_MODULES[@]}" -eq 0 ]; then
 fi
 
 
-uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
+"${UV_RUN[@]}" gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     "${GST_MODULES[@]}" \
     --preload gi.repository.GioUnix:2.0 \
     --preload gi.repository.Gio:2.0 \

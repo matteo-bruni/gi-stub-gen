@@ -61,6 +61,57 @@ def test_gst_object_parent_renders_direct_property():
     assert "def parent(self) -> Object | None:" in rendered
 
 
+def test_gst_mini_object_mixin_inheritance_and_properties():
+    parsed_mixin, _ = parse_class("Gst", Gst.MiniObjectMixin)
+    assert parsed_mixin is not None
+
+    mixin_fields = {field.name: field for field in parsed_mixin.fields}
+    assert parsed_mixin.type_parameters == "FlagsType: GObject.GFlags"
+    assert mixin_fields["flags"].type_hint("Gst") == "FlagsType"
+    assert mixin_fields["flags"].is_readable is True
+    assert mixin_fields["flags"].is_writable is True
+    assert {"is_writable", "make_writable"} <= {method.name for method in parsed_mixin.python_methods}
+
+    TemplateManager.set_module_name("Gst")
+    rendered_mixin = parsed_mixin.render()
+    assert "class MiniObjectMixin[FlagsType: GObject.GFlags]:" in rendered_mixin
+    assert "class Props" not in rendered_mixin
+    assert "flags: FlagsType = ..." in rendered_mixin
+
+    for concrete_class in (Gst.Buffer, Gst.Caps, Gst.Context, Gst.Event, Gst.Query):
+        parsed_class, _ = parse_class("Gst", concrete_class)
+        assert parsed_class is not None
+        expected_flags = "BufferFlags" if concrete_class is Gst.Buffer else "MiniObjectFlags"
+        assert parsed_class.super[0] == f"MiniObjectMixin[{expected_flags}]"
+        assert parsed_class.props_super_class == "GObject.GBoxed.Props"
+        assert "is_writable" not in {method.name for method in parsed_class.methods}
+        assert "make_writable" not in {method.name for method in parsed_class.methods}
+        assert "is_writable" not in {method.name for method in parsed_class.python_methods}
+        assert "make_writable" not in {method.name for method in parsed_class.python_methods}
+
+
+def test_gst_override_properties_keep_the_most_informative_types():
+    parsed_buffer, _ = parse_class("Gst", Gst.Buffer)
+    assert parsed_buffer is not None
+    buffer_fields = {field.name: field for field in parsed_buffer.fields}
+
+    assert buffer_fields["flags"].type_hint("Gst") == "BufferFlags"
+    for field_name in ("dts", "pts", "duration", "offset", "offset_end"):
+        field = buffer_fields[field_name]
+        assert field.type_hint("Gst") == "int"
+        assert field.is_readable is True
+        assert field.is_writable is True
+
+    parsed_probe_info, _ = parse_class("Gst", Gst.PadProbeInfo)
+    assert parsed_probe_info is not None
+    probe_fields = {field.name: field for field in parsed_probe_info.fields}
+    assert probe_fields["data"].type_hint("Gst") == "typing.Any"
+    assert probe_fields["type"].type_hint("Gst") == "PadProbeType"
+    assert probe_fields["id"].type_hint("Gst") == "int"
+    assert probe_fields["offset"].type_hint("Gst") == "int"
+    assert probe_fields["size"].type_hint("Gst") == "int"
+
+
 def test_gstbadaudio_init_uses_c_prefix_for_enum_properties():
     try:
         gi.require_version("GstBadAudio", "1.0")

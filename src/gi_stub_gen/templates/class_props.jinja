@@ -12,7 +12,7 @@ class Props{{ props_super_class | if_exists('({})')  }}:
 
 @builtins.property
 def props(self) -> Props: ...
-{% elif not props_super_class %}
+{% elif not props_super_class and allow_synthetic_props %}
 {# No props in this class but its super is object is a parent class for future inherited class, so we add a fake empty since someone might inherit from this class #}
 class Props: 
     ...

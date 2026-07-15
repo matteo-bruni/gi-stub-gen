@@ -180,8 +180,15 @@ def _apply_class_type_vars(
     class_name: str,
     methods: list[FunctionSchema],
     builtin_methods: list[BuiltinFunctionSchema],
+    initial_type_vars: list[TypeVarSchema] | None = None,
 ) -> list[TypeVarSchema]:
-    type_vars, param_names_by_type_var = _collect_class_type_vars(builtin_methods)
+    method_type_vars, param_names_by_type_var = _collect_class_type_vars(builtin_methods)
+    type_vars_by_name = {type_var.name: type_var for type_var in initial_type_vars or []}
+    for type_var in method_type_vars:
+        existing = type_vars_by_name.get(type_var.name)
+        if existing is None or (existing.bound_hint_name is None and type_var.bound_hint_name is not None):
+            type_vars_by_name[type_var.name] = type_var
+    type_vars = list(type_vars_by_name.values())
     if not type_vars and _normalize_type_namespace(namespace) == "Gio" and class_name == "ListModel":
         type_vars = [
             TypeVarSchema(
@@ -244,6 +251,9 @@ class ClassSchema(BaseSchema):
     namespace: str
     name: str
     type_vars: list[TypeVarSchema] = Field(default_factory=list)
+    props_ignored_super_classes: set[str] = Field(default_factory=set)
+    allow_synthetic_props: bool = True
+    additional_required_imports: set[str] = Field(default_factory=set)
     docstring: str | None
     props: list[ClassPropSchema]
 
@@ -285,6 +295,7 @@ class ClassSchema(BaseSchema):
         Gather from properties and attributes.
         """
         gi_imports: set[str] = set()
+        gi_imports.update(self.additional_required_imports)
         if self.required_gi_import:
             gi_imports.add(self.required_gi_import)
         for prop in self.props:
@@ -314,7 +325,11 @@ class ClassSchema(BaseSchema):
         methods: list[FunctionSchema],
         signals: list[SignalSchema],
         builtin_methods: list[BuiltinFunctionSchema],
+        override_mixins: list[str],
         extra: list[str],
+        inferred_type_vars: list[TypeVarSchema] | None = None,
+        allow_synthetic_props: bool = True,
+        additional_required_imports: set[str] | None = None,
     ):
         """
         Create a ClassSchema from a GI object.
@@ -424,11 +439,17 @@ class ClassSchema(BaseSchema):
                     if override_namespace != sane_namespace:
                         required_gi_import = override_namespace
 
+        super_list = [
+            *override_mixins,
+            *(super_cls for super_cls in super_list if super_cls not in override_mixins),
+        ]
+
         type_vars = _apply_class_type_vars(
             namespace=namespace,
             class_name=obj.__name__,
             methods=methods,
             builtin_methods=builtin_methods,
+            initial_type_vars=inferred_type_vars,
         )
 
         instance = cls(
@@ -436,6 +457,9 @@ class ClassSchema(BaseSchema):
             name=obj.__name__,
             super=super_list,
             type_vars=type_vars,
+            props_ignored_super_classes=set(override_mixins),
+            allow_synthetic_props=allow_synthetic_props,
+            additional_required_imports=additional_required_imports or set(),
             docstring=class_docstring,
             props=props,
             fields=fields,
@@ -462,13 +486,19 @@ class ClassSchema(BaseSchema):
         """
         super_classes = self.super
         if self.type_vars:
-            super_classes = [super_cls for super_cls in super_classes if not super_cls.startswith("typing.Generic")]
+            super_classes = [
+                super_cls
+                for super_cls in super_classes
+                if not super_cls.startswith("typing.Generic") and super_cls != "builtins.object"
+            ]
         return ", ".join(super_classes) or None
 
     @property
     def props_super_class(self) -> str | None:
         for super_cls in self.super:
             if super_cls.startswith(("metaclass=", "typing.Generic")):
+                continue
+            if super_cls in self.props_ignored_super_classes:
                 continue
             if super_cls == "builtins.object":
                 return None
@@ -495,6 +525,7 @@ class ClassSchema(BaseSchema):
             "class_props.jinja",
             props=self.props,
             props_super_class=self.props_super_class,
+            allow_synthetic_props=self.allow_synthetic_props,
         )
 
     @property

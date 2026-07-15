@@ -269,6 +269,24 @@ class TestPythonFunctionDecorators:
         assert next_method.complete_return_hint("Gst") == "tuple[IteratorResult, T]"
         assert find_custom.complete_return_hint("Gst") == "tuple[bool, T]"
 
+    def test_gst_override_mixin_methods_are_inherited(self):
+        """Public override mixins are rendered as bases instead of being flattened."""
+        assert GIRDocs().load(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
+
+        parsed_buffer, _ = parse_class("gi.repository.Gst", Gst.Buffer)
+        assert parsed_buffer is not None
+        assert parsed_buffer.super[:2] == ["MiniObjectMixin[BufferFlags]", "GObject.GBoxed"]
+        assert "is_writable" not in {method.name for method in parsed_buffer.methods}
+        assert "make_writable" not in {method.name for method in parsed_buffer.methods}
+        assert "is_writable" not in {method.name for method in parsed_buffer.python_methods}
+        assert "make_writable" not in {method.name for method in parsed_buffer.python_methods}
+
+        parsed_mixin, _ = parse_class("gi.repository.Gst", Gst.MiniObjectMixin)
+        assert parsed_mixin is not None
+        mixin_methods = {method.name: method for method in parsed_mixin.python_methods}
+        assert mixin_methods["is_writable"].return_hint("Gst") == "bool"
+        assert mixin_methods["make_writable"].return_hint("Gst") == "bool"
+
     def test_caller_allocated_out_gvalue_is_unwrapped_to_any(self):
         """PyGObject returns the Python payload, not a GObject.Value wrapper."""
         assert GIRDocs().load(Path("/usr/share/gir-1.0/Gio-2.0.gir"))

@@ -1,6 +1,8 @@
 from __future__ import annotations
+from dataclasses import dataclass
 import enum
 import importlib
+import inspect
 
 import gi
 import gi._gi as GI  # type: ignore
@@ -27,12 +29,14 @@ from gi_stub_gen.utils.gi_utils import (
 from gi_stub_gen.manager.gir_docs import GIRDocs
 
 from gi_stub_gen.parser.python_function import parse_python_function
+from gi_stub_gen.utils.inspect_utils import extract_inspect_params_type_info
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.schema.builtin_function import (
     ArgKind,
     BuiltinFunctionArgumentSchema,
     BuiltinFunctionSchema,
+    TypeVarSchema,
 )
 from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
 from gi_stub_gen.schema.function import (
@@ -47,6 +51,7 @@ from gi_stub_gen.utils.gst import get_fraction_value
 from gi_stub_gen.utils.utils import (
     get_py_type_name_repr,
     get_py_type_namespace_repr,
+    sanitize_gi_module_name,
     sanitize_variable_name,
 )
 from gi.repository import GIRepository
@@ -81,6 +86,272 @@ def is_local(py_class: type, method_name: str) -> bool:
         elif parent.__name__ != py_class.__name__:
             break
     return False
+
+
+def get_public_override_mixins(py_class: type) -> list[type]:
+    """Return public override mixins between an override and its GI class."""
+    if not py_class.__module__.startswith("gi.overrides."):
+        return []
+
+    try:
+        override_module = importlib.import_module(py_class.__module__)
+    except ImportError:
+        return []
+
+    public_names = set(getattr(override_module, "__all__", ()))
+    if not public_names:
+        return []
+
+    backing_class_index = next(
+        (
+            index
+            for index, parent in enumerate(py_class.__mro__[1:], start=1)
+            if parent.__module__.startswith("gi.repository.") and parent.__name__ == py_class.__name__
+        ),
+        None,
+    )
+    if backing_class_index is None:
+        return []
+
+    return [
+        parent
+        for parent in py_class.__mro__[1:backing_class_index]
+        if parent.__module__.startswith("gi.overrides.") and parent.__name__ in public_names
+    ]
+
+
+def get_public_override_mixin_users(mixin: type) -> list[type]:
+    """Return public override classes that use ``mixin`` before their GI class."""
+    if not mixin.__module__.startswith("gi.overrides."):
+        return []
+
+    try:
+        override_module = importlib.import_module(mixin.__module__)
+    except ImportError:
+        return []
+
+    users: list[type] = []
+    for public_name in getattr(override_module, "__all__", ()):
+        candidate = getattr(override_module, public_name, None)
+        if isinstance(candidate, type) and mixin in get_public_override_mixins(candidate):
+            users.append(candidate)
+    return users
+
+
+@dataclass(frozen=True)
+class OverrideMixinPropertySpec:
+    name: str
+    type_var: TypeVarSchema
+    default_type_hint_name: str
+    default_type_hint_namespace: str | None
+    default_may_be_null: bool
+
+
+def _property_accessor_annotation(
+    accessor: Any | None,
+    *,
+    is_getter: bool,
+    namespace: str,
+) -> Any | None:
+    if accessor is None:
+        return None
+
+    eval_globals = dict(getattr(accessor, "__globals__", {}))
+    repository_module = None
+    try:
+        repository_module = importlib.import_module(f"gi.repository.{sanitize_gi_module_name(namespace)}")
+    except ImportError:
+        pass
+    else:
+        eval_globals.update(vars(repository_module))
+
+    try:
+        signature = inspect.signature(accessor, eval_str=True, globals=eval_globals)
+    except (AttributeError, NameError):
+        try:
+            signature = inspect.signature(accessor)
+        except (TypeError, ValueError):
+            return None
+    except (TypeError, ValueError):
+        return None
+
+    if is_getter:
+        annotation = signature.return_annotation
+    else:
+        parameters = list(signature.parameters.values())
+        if len(parameters) < 2:
+            return None
+        annotation = parameters[-1].annotation
+
+    if annotation is inspect.Signature.empty:
+        return None
+    if isinstance(annotation, str):
+        if repository_module is not None:
+            try:
+                eval_globals[annotation] = getattr(repository_module, annotation)
+            except AttributeError:
+                pass
+        try:
+            return eval(annotation, eval_globals)
+        except (NameError, SyntaxError, TypeError):
+            pass
+    return annotation
+
+
+def _python_property_annotation(prop: property, *, namespace: str) -> Any | None:
+    getter_annotation = _property_accessor_annotation(prop.fget, is_getter=True, namespace=namespace)
+    setter_annotation = _property_accessor_annotation(prop.fset, is_getter=False, namespace=namespace)
+    if getter_annotation is not None and setter_annotation is not None and getter_annotation != setter_annotation:
+        return None
+    return getter_annotation or setter_annotation
+
+
+def _nearest_common_annotation_base(annotations: list[Any]) -> type | None:
+    if not annotations or not all(isinstance(annotation, type) for annotation in annotations):
+        return None
+
+    first_annotation = annotations[0]
+    for candidate in first_annotation.__mro__:
+        if candidate is object:
+            continue
+        if all(issubclass(annotation, candidate) for annotation in annotations[1:]):
+            return candidate
+    return None
+
+
+def _property_type_var_name(property_name: str) -> str:
+    prefix = "".join(part.capitalize() for part in property_name.split("_") if part)
+    return f"{prefix or 'Property'}Type"
+
+
+def get_public_override_mixin_property_specs(
+    mixin: type,
+    *,
+    namespace: str,
+) -> list[OverrideMixinPropertySpec]:
+    """Find writable mixin properties whose public users specialize their type."""
+    users = get_public_override_mixin_users(mixin)
+    if not users:
+        return []
+
+    specs: list[OverrideMixinPropertySpec] = []
+    for name, attribute in mixin.__dict__.items():
+        if not isinstance(attribute, property) or attribute.fset is None:
+            continue
+
+        default_type = _python_property_type(attribute, namespace=namespace)
+        default_annotation = _python_property_annotation(attribute, namespace=namespace)
+        if default_type is None or default_type[:2] == ("Any", "typing") or default_annotation is None:
+            continue
+
+        specialized_annotations: list[Any] = []
+        for user in users:
+            user_attribute = user.__dict__.get(name)
+            if not isinstance(user_attribute, property) or user_attribute.fset is None:
+                continue
+            specialized_type = _python_property_type(user_attribute, namespace=namespace)
+            specialized_annotation = _python_property_annotation(user_attribute, namespace=namespace)
+            if (
+                specialized_type is not None
+                and specialized_type[:2] != ("Any", "typing")
+                and specialized_type != default_type
+                and specialized_annotation is not None
+            ):
+                specialized_annotations.append(specialized_annotation)
+
+        if not specialized_annotations:
+            continue
+
+        common_base = _nearest_common_annotation_base([default_annotation, *specialized_annotations])
+        bound_hint_name = None
+        bound_hint_namespace = None
+        if common_base is not None:
+            bound_hint_name, bound_hint_namespace, _ = extract_inspect_params_type_info(
+                common_base,
+                current_namespace=namespace,
+            )
+
+        specs.append(
+            OverrideMixinPropertySpec(
+                name=name,
+                type_var=TypeVarSchema(
+                    name=_property_type_var_name(name),
+                    bound_hint_name=bound_hint_name,
+                    bound_hint_namespace=bound_hint_namespace,
+                ),
+                default_type_hint_name=default_type[0],
+                default_type_hint_namespace=default_type[1],
+                default_may_be_null=default_type[2],
+            )
+        )
+    return specs
+
+
+def _render_property_type(
+    type_hint_name: str,
+    type_hint_namespace: str | None,
+    may_be_null: bool,
+    *,
+    namespace: str,
+) -> str:
+    if type_hint_namespace and sanitize_gi_module_name(type_hint_namespace) != sanitize_gi_module_name(namespace):
+        type_hint = f"{type_hint_namespace}.{type_hint_name}"
+    else:
+        type_hint = type_hint_name
+    return f"{type_hint} | None" if may_be_null else type_hint
+
+
+def _property_accessor_type(
+    accessor: Any | None,
+    *,
+    is_getter: bool,
+    namespace: str,
+) -> tuple[str, str | None, bool] | None:
+    if accessor is None:
+        return None
+
+    try:
+        try:
+            signature = inspect.signature(accessor, eval_str=True)
+        except (AttributeError, NameError):
+            signature = inspect.signature(accessor)
+    except (TypeError, ValueError):
+        return None
+
+    if is_getter:
+        annotation = signature.return_annotation
+    else:
+        parameters = list(signature.parameters.values())
+        if len(parameters) < 2:
+            return None
+        annotation = parameters[-1].annotation
+
+    if annotation is inspect.Signature.empty:
+        return None
+    return extract_inspect_params_type_info(
+        annotation,
+        current_namespace=namespace,
+    )
+
+
+def _python_property_type(
+    prop: property,
+    namespace: str,
+) -> tuple[str, str | None, bool] | None:
+    getter_type = _property_accessor_type(
+        prop.fget,
+        is_getter=True,
+        namespace=namespace,
+    )
+    setter_type = _property_accessor_type(
+        prop.fset,
+        is_getter=False,
+        namespace=namespace,
+    )
+
+    if getter_type is not None and setter_type is not None and getter_type != setter_type:
+        return "Any", "typing", False
+    return getter_type or setter_type
 
 
 def get_all_properties_flattened(
@@ -405,6 +676,13 @@ def parse_class(
     class_signals: list[SignalSchema] = []
     class_parsed_elements: list[str] = []
     extra: list[str] = []
+    override_mixins = get_public_override_mixins(class_to_parse)
+    public_mixin_users = get_public_override_mixin_users(class_to_parse)
+    public_mixin_property_specs = get_public_override_mixin_property_specs(
+        class_to_parse,
+        namespace=module_name.removeprefix("gi.repository."),
+    )
+    override_mixin_members = {member_name for mixin in override_mixins for member_name in mixin.__dict__}
 
     # retrieve GI info object and parse its properties/methods/signals
     class_info = class_to_parse.__info__ if hasattr(class_to_parse, "__info__") else None
@@ -412,6 +690,9 @@ def parse_class(
     class_fields_to_parse: list[GIRepository.FieldInfo] = (
         class_info.get_fields() if class_info and hasattr(class_info, "get_fields") else []
     )
+    class_field_info_by_name = {
+        field.get_name(): field for field in class_fields_to_parse if field.get_name() is not None
+    }
     class_properties_to_parse: list[GIRepository.PropertyInfo] = (
         class_info.get_properties() if class_info and hasattr(class_info, "get_properties") else []
     )
@@ -459,6 +740,8 @@ def parse_class(
     for met in class_methods_to_parse:
         m_name = met.get_name()
         assert m_name is not None, "Method name is None"
+        if m_name in override_mixin_members:
+            continue
         parsed_method = parse_function(
             met,
             docstring=GIRDocs().get_class_method_docstring(
@@ -599,6 +882,7 @@ def parse_class(
             field = type_info.get_field(i)
             field_name = field.get_name()
             assert field_name is not None
+            class_field_info_by_name.setdefault(field_name, field)
             if field_name not in class_parsed_elements:
                 f, cb = gi_parse_field(
                     field=field,
@@ -796,22 +1080,88 @@ def parse_class(
             extra.append(f"method_descriptor: {attribute_name} (fallback stub generated)")
 
         elif attribute_type is property:
-            if attribute_name in class_props_by_name and all(field.name != attribute_name for field in class_fields):
-                prop = class_props_by_name[attribute_name]
-                class_fields.append(
-                    ClassFieldSchema(
-                        name=attribute_name,
-                        type_hint_name=prop.type_hint_name,
-                        type_hint_namespace=prop.type_hint_namespace,
-                        is_deprecated=prop.is_deprecated,
-                        docstring=prop.docstring,
-                        line_comment=prop.line_comment,
-                        deprecation_warnings=None,
-                        may_be_null=prop.may_be_null,
-                        is_readable=True,
-                        is_writable=False,
+            existing_field = next(
+                (field for field in class_fields if field.name == attribute_name),
+                None,
+            )
+            had_existing_field = existing_field is not None
+            gi_prop = class_props_by_name.get(attribute_name)
+            has_python_accessor = any(
+                isinstance(accessor, FunctionType)
+                for accessor in (attribute.fget, attribute.fset)
+                if accessor is not None
+            )
+            is_override_class = class_to_parse.__module__.startswith("gi.overrides.")
+
+            # Native GI field descriptors are already represented by their GIR
+            # field/property schemas. Only override classes need the fallback
+            # below for Python-visible descriptors with no usable GIR type.
+            if not has_python_accessor and not is_override_class:
+                if gi_prop is not None and existing_field is None:
+                    class_fields.append(
+                        ClassFieldSchema(
+                            name=attribute_name,
+                            type_hint_name=gi_prop.type_hint_name,
+                            type_hint_namespace=gi_prop.type_hint_namespace,
+                            is_deprecated=gi_prop.is_deprecated,
+                            docstring=gi_prop.docstring,
+                            line_comment=gi_prop.line_comment,
+                            deprecation_warnings=None,
+                            may_be_null=gi_prop.may_be_null,
+                            is_readable=True,
+                            is_writable=False,
+                        )
                     )
+                extra.append(f"property: {attribute_name} local={is_attribute_local}")
+                continue
+
+            override_type = _python_property_type(
+                attribute,
+                namespace=module_name.removeprefix("gi.repository."),
+            )
+
+            if existing_field is None:
+                if override_type is not None:
+                    type_hint_name, type_hint_namespace, may_be_null = override_type
+                elif gi_prop is not None:
+                    type_hint_name = gi_prop.type_hint_name
+                    type_hint_namespace = gi_prop.type_hint_namespace
+                    may_be_null = gi_prop.may_be_null
+                else:
+                    type_hint_name, type_hint_namespace, may_be_null = "Any", "typing", False
+
+                existing_field = ClassFieldSchema(
+                    name=attribute_name,
+                    type_hint_name=type_hint_name,
+                    type_hint_namespace=type_hint_namespace,
+                    is_deprecated=gi_prop.is_deprecated if gi_prop else False,
+                    docstring=gi_prop.docstring if gi_prop else inspect.getdoc(attribute),
+                    line_comment=gi_prop.line_comment if gi_prop else None,
+                    deprecation_warnings=None,
+                    may_be_null=may_be_null,
+                    is_readable=(attribute.fget is not None if has_python_accessor or gi_prop is None else True),
+                    is_writable=(attribute.fset is not None if has_python_accessor or gi_prop is None else False),
                 )
+                class_fields.append(existing_field)
+            else:
+                if override_type is not None:
+                    (
+                        existing_field.type_hint_name,
+                        existing_field.type_hint_namespace,
+                        existing_field.may_be_null,
+                    ) = override_type
+                else:
+                    field_info = class_field_info_by_name.get(attribute_name)
+                    if field_info is None or get_gi_type_info(field_info).get_tag() == GIRepository.TypeTag.VOID:
+                        existing_field.type_hint_name = "Any"
+                        existing_field.type_hint_namespace = "typing"
+                        existing_field.may_be_null = False
+                if has_python_accessor or not had_existing_field:
+                    existing_field.is_readable = attribute.fget is not None
+                    existing_field.is_writable = attribute.fset is not None
+
+            if attribute_name not in class_parsed_elements:
+                class_parsed_elements.append(attribute_name)
             extra.append(f"property: {attribute_name} local={is_attribute_local}")
         else:
             extra.append(f"unknown: {attribute_name}: {attribute_type} local={is_attribute_local}")
@@ -826,6 +1176,66 @@ def parse_class(
         ):
             class_methods.insert(0, init_method)
 
+    inferred_type_vars: list[TypeVarSchema] = []
+    used_type_var_names = {
+        type_var.name for method in class_python_methods for type_var in method.type_vars
+    }
+    for spec in public_mixin_property_specs:
+        type_var = spec.type_var
+        if type_var.name in used_type_var_names:
+            type_var = type_var.model_copy(update={"name": f"{class_to_parse.__name__}{type_var.name}"})
+        used_type_var_names.add(type_var.name)
+        inferred_type_vars.append(type_var)
+
+        field = next((field for field in class_fields if field.name == spec.name), None)
+        if field is not None:
+            field.type_hint_name = type_var.name
+            field.type_hint_namespace = None
+            field.may_be_null = False
+
+    rendered_override_mixins: list[str] = []
+    additional_required_imports: set[str] = set()
+    sane_namespace = sanitize_gi_module_name(module_name)
+    for mixin in override_mixins:
+        mixin_specs = get_public_override_mixin_property_specs(
+            mixin,
+            namespace=module_name.removeprefix("gi.repository."),
+        )
+        type_arguments: list[str] = []
+        for spec in mixin_specs:
+            specialized_attribute = class_to_parse.__dict__.get(spec.name)
+            specialized_type = (
+                _python_property_type(
+                    specialized_attribute,
+                    namespace=module_name.removeprefix("gi.repository."),
+                )
+                if isinstance(specialized_attribute, property)
+                else None
+            )
+            if specialized_type is None or specialized_type[:2] == ("Any", "typing"):
+                selected_type = (
+                    spec.default_type_hint_name,
+                    spec.default_type_hint_namespace,
+                    spec.default_may_be_null,
+                )
+            else:
+                selected_type = specialized_type
+
+            type_arguments.append(
+                _render_property_type(
+                    *selected_type,
+                    namespace=module_name,
+                )
+            )
+            selected_namespace = selected_type[1]
+            if selected_namespace and sanitize_gi_module_name(selected_namespace) != sane_namespace:
+                additional_required_imports.add(selected_namespace)
+
+        rendered_mixin = mixin.__name__
+        if type_arguments:
+            rendered_mixin += f"[{', '.join(type_arguments)}]"
+        rendered_override_mixins.append(rendered_mixin)
+
     # Note: method/field/super overrides and sorting are applied inside from_gi_object
     return ClassSchema.from_gi_object(
         namespace=module_name,
@@ -834,6 +1244,10 @@ def parse_class(
         fields=class_fields,
         methods=class_methods,
         builtin_methods=class_python_methods,
+        override_mixins=rendered_override_mixins,
+        inferred_type_vars=inferred_type_vars,
+        allow_synthetic_props=not public_mixin_users,
+        additional_required_imports=additional_required_imports,
         signals=class_signals,
         extra=sorted(extra),
     ), callbacks_found

@@ -1,10 +1,18 @@
 import sys
+from typing import assert_type
 import gi
 
 gi.require_version("Gst", "1.0")
 from gi.repository import Gst  # noqa: E402
 
 Gst.init()
+
+
+def check_mini_object_mixin_types(buffer: Gst.Buffer, caps: Gst.Caps) -> None:
+    assert_type(buffer.flags, Gst.BufferFlags)
+    buffer.flags = Gst.BufferFlags.LIVE
+    assert_type(caps.flags, Gst.MiniObjectFlags)
+    caps.flags = Gst.MiniObjectFlags.LOCKABLE
 
 
 class GstTester:

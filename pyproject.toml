@@ -13,7 +13,6 @@ readme = "README.md"
 authors = [{ name = "Matteo Bruni", email = "matteo.bruni@gmail.com" }]
 requires-python = ">=3.12"
 dependencies = [
-    # "gst-python-binding",
     "jinja2>=3.1.5",
     "lxml>=5.3.1",
     "pydantic>=2.10.6",
@@ -61,6 +60,9 @@ dev = [
     "lxml-stubs>=0.5.1",
     "rust-just>=1.45.0",
     "wheel>=0.47.0",
+]
+gst = [
+    "gst-python-binding",
 ]
 
 [project.scripts]
