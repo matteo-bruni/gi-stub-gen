@@ -8,10 +8,21 @@ from pathlib import Path
 import logging
 
 from lxml import etree
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 logger = logging.getLogger(__name__)
+
+
+class GirTypeMetadata(BaseModel):
+    """ABI metadata for a callable parameter or return value."""
+
+    name: str | None = None
+    c_type: str | None = None
+    is_array: bool = False
+    element_c_type: str | None = None
+    transfer_ownership: str | None = None
+    caller_allocates: bool = False
 
 
 class GirFunctionDocs(BaseModel):
@@ -22,6 +33,8 @@ class GirFunctionDocs(BaseModel):
     docstring: str
     params: dict[str, str]
     return_doc: str
+    param_types: dict[str, GirTypeMetadata] = Field(default_factory=dict)
+    return_type: GirTypeMetadata | None = None
 
 
 class GirClassDocs(BaseModel):
@@ -44,6 +57,7 @@ class ModuleDocs(BaseModel):
     functions: dict[str, GirFunctionDocs]  # Global functions
     enums: dict[str, GirClassDocs]  # Enums and Bitfields
     classes: dict[str, GirClassDocs]  # Classes, Records, Interfaces
+    callbacks: dict[str, GirFunctionDocs] = Field(default_factory=dict)
 
 
 def _get_first_doc_text(
@@ -70,6 +84,7 @@ def _extract_function_docs(
 
     # Extract parameters
     params_docs: dict[str, str] = {}
+    param_types: dict[str, GirTypeMetadata] = {}
     parameters = element.find("core:parameters", namespaces=namespace)
     if parameters is not None:
         # We iterate over <parameter> and <instance-parameter> (for methods)
@@ -78,6 +93,7 @@ def _extract_function_docs(
             param_name = param.attrib.get("name")
             if param_name:
                 params_docs[param_name] = _get_first_doc_text(param, namespace)
+                param_types[param_name] = _extract_type_metadata(param, namespace)
 
         # Optionally handle instance-parameter if needed (usually 'self', often ignored)
         for param in parameters.findall("core:instance-parameter", namespaces=namespace):
@@ -95,6 +111,31 @@ def _extract_function_docs(
         docstring=docstring,
         params=params_docs,
         return_doc=return_docstring,
+        param_types=param_types,
+        return_type=_extract_type_metadata(return_val, namespace) if return_val is not None else None,
+    )
+
+
+def _extract_type_metadata(
+    element: etree._Element,
+    namespace: dict[str, str],
+) -> GirTypeMetadata:
+    """Extract the C type and ownership data without guessing when GIR omits it."""
+    array = element.find("core:array", namespaces=namespace)
+    type_element = element.find("core:type", namespaces=namespace)
+    is_array = array is not None
+    if array is not None:
+        type_element = array.find("core:type", namespaces=namespace)
+
+    c_type_attr = f"{{{namespace['c']}}}type"
+    c_type_element = array if array is not None else type_element
+    return GirTypeMetadata(
+        name=type_element.attrib.get("name") if type_element is not None else None,
+        c_type=c_type_element.attrib.get(c_type_attr) if c_type_element is not None else None,
+        is_array=is_array,
+        element_c_type=type_element.attrib.get(c_type_attr) if is_array and type_element is not None else None,
+        transfer_ownership=element.attrib.get("transfer-ownership"),
+        caller_allocates=element.attrib.get("caller-allocates") == "1",
     )
 
 
@@ -127,6 +168,15 @@ def parse_global_functions(
         function_docs[name] = _extract_function_docs(f, namespace)  # type: ignore
 
     return function_docs
+
+
+def parse_callbacks(
+    path: str,
+    root: etree._ElementTree,
+    namespace: dict[str, str],
+) -> dict[str, GirFunctionDocs]:
+    """Parse namespace-level callbacks."""
+    return parse_global_functions(path, root, namespace)
 
 
 def _parse_simple_container(
@@ -256,6 +306,7 @@ def parse_gir_docs(path: Path) -> ModuleDocs | None:
     # Parse different sections of the GIR file
     constant_docs = parse_constants("core:namespace/core:constant", root, ns)
     function_docs = parse_global_functions("core:namespace/core:function", root, ns)
+    callback_docs = parse_callbacks("core:namespace/core:callback", root, ns)
 
     # Parse Enums and Bitfields (simple key-value members)
     bitfield_docs = _parse_simple_container("core:namespace/core:bitfield", root, ns, "core:member")
@@ -276,4 +327,5 @@ def parse_gir_docs(path: Path) -> ModuleDocs | None:
         functions=function_docs,
         enums={**bitfield_docs, **enumeration_docs},
         classes=all_classes,
+        callbacks=callback_docs,
     )

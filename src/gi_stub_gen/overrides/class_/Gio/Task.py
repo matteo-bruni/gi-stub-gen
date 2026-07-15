@@ -1,9 +1,9 @@
 from gi_stub_gen.schema.function import FunctionArgumentSchema, FunctionSchema
 
 
-GST_STRUCTURE_SET_VALUE = FunctionSchema(
-    name="set_value",
-    namespace="Gst",
+GIO_TASK_RETURN_VALUE = FunctionSchema(
+    name="return_value",
+    namespace="Gio",
     is_method=True,
     is_class_member=True,
     is_deprecated=False,
@@ -11,28 +11,11 @@ GST_STRUCTURE_SET_VALUE = FunctionSchema(
     docstring=None,
     args=[
         FunctionArgumentSchema(
-            namespace="Gst",
-            name="key",
+            namespace="Gio",
+            name="result",
             direction="IN",
             is_callback=False,
-            may_be_null=False,
-            is_optional=False,
-            is_deprecated=False,
-            is_caller_allocates=False,
-            tag_as_string="",
-            get_array_length=-1,
-            py_type_name="str",
-            py_type_namespace=None,
-            line_comment=None,
-            default_value=None,
-            is_pointer=False,
-        ),
-        FunctionArgumentSchema(
-            namespace="Gst",
-            name="value",
-            direction="IN",
-            is_callback=False,
-            may_be_null=False,
+            may_be_null=True,
             is_optional=False,
             is_deprecated=False,
             is_caller_allocates=False,
@@ -41,7 +24,7 @@ GST_STRUCTURE_SET_VALUE = FunctionSchema(
             py_type_name="Any",
             py_type_namespace="typing",
             line_comment=None,
-            default_value=None,
+            default_value="None",
             is_pointer=True,
             is_marshaled_gvalue_payload=True,
         ),
@@ -51,7 +34,7 @@ GST_STRUCTURE_SET_VALUE = FunctionSchema(
     is_async=False,
     is_constructor=False,
     is_getter=False,
-    is_setter=True,
+    is_setter=False,
     may_return_null=False,
     return_hint=None,
     return_hint_namespace=None,

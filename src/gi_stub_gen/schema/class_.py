@@ -217,7 +217,7 @@ def _apply_class_type_vars(
             method.return_hint_namespace = None
 
         for arg in method.args:
-            if arg.direction == "OUT" and arg.is_unwrapped_gvalue and iterator_item_type_var is not None:
+            if arg.direction == "OUT" and arg.is_marshaled_gvalue_payload and iterator_item_type_var is not None:
                 arg.type_var_name = iterator_item_type_var
                 continue
 

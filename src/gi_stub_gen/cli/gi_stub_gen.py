@@ -176,6 +176,10 @@ def main(
     for n in name:
         module_name, gi_version = split_gi_name_version(n)
 
+        # GIR metadata is namespace-specific. Never reuse the previous module's
+        # singleton state when a GIR file is missing or documentation is disabled.
+        GIRDocs.reset()
+
         module = get_gi_module_from_name(
             module_name=module_name,
             gi_version=gi_version,

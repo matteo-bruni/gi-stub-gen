@@ -9,6 +9,8 @@ These tests ensure that:
 5. PyGObject wrapper methods (like disconnect) are correctly parsed as instance methods
 """
 
+from pathlib import Path
+
 import gi
 
 gi.require_version("Gio", "2.0")
@@ -246,6 +248,7 @@ class TestPythonFunctionDecorators:
 
     def test_gst_iterator_renders_pep695_typevar(self):
         """Gst.Iterator should render as generic so Iterator[Element] is valid."""
+        assert GIRDocs().load(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
         parsed_class, _ = parse_class("Gst", Gst.Iterator)
 
         assert parsed_class is not None
@@ -268,13 +271,31 @@ class TestPythonFunctionDecorators:
 
     def test_caller_allocated_out_gvalue_is_unwrapped_to_any(self):
         """PyGObject returns the Python payload, not a GObject.Value wrapper."""
+        assert GIRDocs().load(Path("/usr/share/gir-1.0/Gio-2.0.gir"))
         parsed = parse_function(Gio.Task.propagate_value, None)
         assert parsed is not None
 
         value = next(arg for arg in parsed.args if arg.name == "value")
-        assert value.is_unwrapped_gvalue is True
+        assert value.is_marshaled_gvalue_payload is True
         assert value.type_hint("Gio") == "typing.Any"
         assert parsed.complete_return_hint("Gio") == "tuple[bool, typing.Any]"
+
+        parsed_class, _ = parse_class("gi.repository.Gio", Gio.Task)
+        assert parsed_class is not None
+        return_value = next(method for method in parsed_class.methods if method.name == "return_value")
+        assert return_value.render_args("Gio") == "self, result: typing.Any = None"
+        assert return_value.complete_return_hint("Gio") == "None"
+
+        assert GIRDocs().load(Path("/usr/share/gir-1.0/GObject-2.0.gir"))
+        invoke = parse_function(GObject.Closure.invoke, None)
+        assert invoke is not None
+        param_values = next(arg for arg in invoke.args if arg.name == "param_values")
+        assert param_values.type_hint("GObject") == "list[typing.Any]"
+
+        getv = parse_function(GObject.Object.getv, None)
+        assert getv is not None
+        values = next(arg for arg in getv.args if arg.name == "values")
+        assert values.type_hint("GObject") == "list[Value]"
 
     def test_gtype_function_inputs_remain_gtype(self):
         """The enum metaclasses make a separate widened input alias unnecessary."""

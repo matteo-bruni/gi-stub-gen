@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import keyword
 import logging
+import re
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi_stub_gen.utils.gi_utils import (
     catch_gi_deprecation_warnings,
@@ -14,7 +15,6 @@ from gi_stub_gen.utils.gi_utils import (
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.utils.utils import (
-    is_gobject_type_hint,
     sanitize_variable_name,
 )
 from gi_stub_gen.utils.gi_utils import (
@@ -26,12 +26,59 @@ from pydantic import (
 )
 from gi.repository import GIRepository
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from typing import Literal
+from typing import TYPE_CHECKING, Literal
 from typing_extensions import Self
+
+if TYPE_CHECKING:
+    from gi_stub_gen.parser.gir import GirTypeMetadata
 
 
 # GObject.remove_emission_hook
 logger = logging.getLogger(__name__)
+
+
+def _is_gvalue_type(gir_type: GirTypeMetadata | None) -> bool:
+    if gir_type is None or gir_type.c_type is None:
+        return False
+    c_types = (gir_type.c_type, gir_type.element_c_type or "")
+    return any(re.search(r"\bGValue\b", c_type) for c_type in c_types)
+
+
+def _ownership_is_transferred(gir_type: GirTypeMetadata) -> bool:
+    return gir_type.transfer_ownership not in (None, "none")
+
+
+def _is_marshaled_gvalue_argument(
+    gir_type: GirTypeMetadata | None,
+    direction: Literal["IN", "OUT", "INOUT"],
+    callable_type: str,
+) -> bool:
+    """Classify GValues that PyGObject exposes as their unpacked payload."""
+    if not _is_gvalue_type(gir_type):
+        return False
+    assert gir_type is not None
+
+    if callable_type in ("CallbackInfo", "SignalInfo"):
+        return True
+    if direction == "OUT":
+        return True
+    c_type = gir_type.c_type
+    return (c_type is not None and "const" in c_type) or _ownership_is_transferred(gir_type)
+
+
+def _is_marshaled_gvalue_return(
+    gir_type: GirTypeMetadata | None,
+    callable_type: str,
+) -> bool:
+    if not _is_gvalue_type(gir_type):
+        return False
+    assert gir_type is not None
+    c_type = gir_type.c_type
+    return (
+        callable_type in ("CallbackInfo", "SignalInfo")
+        or (c_type is not None and "const" in c_type)
+        or _ownership_is_transferred(gir_type)
+    )
 
 
 class FunctionArgumentSchema(BaseSchema):
@@ -89,8 +136,8 @@ class FunctionArgumentSchema(BaseSchema):
     type_var_name: str | None = None
     """TypeVar name to render instead of the GI argument type, if any."""
 
-    is_unwrapped_gvalue: bool = False
-    """Whether a caller-allocated OUT GValue is unwrapped by PyGObject."""
+    is_marshaled_gvalue_payload: bool = False
+    """Whether PyGObject marshals a GValue as its Python payload."""
 
     # @property
     # def default_value(self) -> str | None:
@@ -105,6 +152,8 @@ class FunctionArgumentSchema(BaseSchema):
         obj: GIRepository.ArgInfo,
         direction: Literal["IN", "OUT", "INOUT"],
         variadic: bool = False,  # i.e in case of (*args) -> (arg0, arg1, ...)
+        gir_type: GirTypeMetadata | None = None,
+        callable_type: str = "FunctionInfo",
     ) -> tuple[Self, CallbackSchema | None]:
         found_callback: CallbackSchema | None = None
 
@@ -174,19 +223,18 @@ class FunctionArgumentSchema(BaseSchema):
 
         array_length: int = get_safe_gi_array_length(gi_type)
         is_caller_allocates = obj.is_caller_allocates()
-        is_unwrapped_gvalue = (
-            direction == "OUT"
-            and is_caller_allocates
-            and is_gobject_type_hint(
-                type_hint_name,
-                type_hint_namespace,
-                "Value",
-                function_namespace,
-            )
+        is_marshaled_gvalue_payload = _is_marshaled_gvalue_argument(
+            gir_type,
+            direction,
+            callable_type,
         )
-        if is_unwrapped_gvalue:
-            type_hint_name = "Any"
-            type_hint_namespace = "typing"
+        if is_marshaled_gvalue_payload:
+            if gir_type is not None and gir_type.is_array:
+                type_hint_name = "list[typing.Any]"
+                type_hint_namespace = None
+            else:
+                type_hint_name = "Any"
+                type_hint_namespace = "typing"
 
         return cls(
             namespace=argument_namespace,
@@ -207,7 +255,7 @@ class FunctionArgumentSchema(BaseSchema):
             is_variadic=variadic,
             type_hint_cb_return_name=type_hint_cb_return_name,
             type_hint_cb_return_namespace=type_hint_cb_return_namespace,
-            is_unwrapped_gvalue=is_unwrapped_gvalue,
+            is_marshaled_gvalue_payload=is_marshaled_gvalue_payload,
         ), found_callback
 
     @property
@@ -239,7 +287,7 @@ class FunctionArgumentSchema(BaseSchema):
         if self.type_var_name is None and self.py_type_namespace and self.py_type_namespace != namespace:
             full_type = f"{self.py_type_namespace}.{base_type}"
 
-        if self.may_be_null or (self.is_optional and self.direction in ("IN", "INOUT")):
+        if full_type != "typing.Any" and (self.may_be_null or (self.is_optional and self.direction in ("IN", "INOUT"))):
             full_type = f"{full_type} | None"
 
         if (
@@ -382,10 +430,14 @@ class FunctionSchema(BaseSchema):
         # check return type
         if self.return_hint_namespace:
             gi_imports.add(self.return_hint_namespace)
+        if self.return_hint and "typing." in self.return_hint:
+            gi_imports.add("typing")
         # check arguments
         for arg in self.args:
             if arg.py_type_namespace and arg.type_var_name is None:
                 gi_imports.add(arg.py_type_namespace)
+            if "typing." in arg.py_type_name:
+                gi_imports.add("typing")
         # check decorators
         if self.is_overload:  # we add typing.overload
             gi_imports.add("typing")
@@ -409,7 +461,7 @@ class FunctionSchema(BaseSchema):
             if self.return_hint_namespace and self.return_hint_namespace != namespace:
                 return_value = f"{self.return_hint_namespace}.{return_value}"
 
-            if self.may_return_null:
+            if self.may_return_null and return_value != "typing.Any":
                 return_value = f"{return_value} | None"
 
             return_parts.append(return_value)
@@ -519,6 +571,19 @@ class FunctionSchema(BaseSchema):
         else:
             raise ValueError(f"Not a valid GI function or callback object or signal. Got: {type(obj)}")
 
+        raw_function_name = obj.get_name()
+        assert raw_function_name is not None, "Function name is None"
+        container = obj.get_container()
+        container_name = container.get_name() if container is not None else None
+
+        from gi_stub_gen.manager.gir_docs import GIRDocs
+
+        gir_callable = GIRDocs().get_callable_metadata(
+            raw_function_name,
+            container_name,
+            function_type,
+        )
+
         function_args: list[FunctionArgumentSchema] = []
 
         # --- 1. Identify Arguments to Skip ---
@@ -571,6 +636,7 @@ class FunctionSchema(BaseSchema):
                 raise ValueError(f"Unknown GI.Direction: {arg.get_direction()}")
 
             is_variadic = i == last_closure_index
+            arg_name = arg.get_name()
             # IMPORTANT: For standard Function Stubs, arguments marked as 'OUT'
             # are NOT part of the Python input signature. They are returned in the tuple.
             # However, 'INOUT' arguments ARE passed as input (and returned modified).
@@ -578,6 +644,10 @@ class FunctionSchema(BaseSchema):
                 obj=arg,
                 direction=direction,
                 variadic=is_variadic,
+                gir_type=gir_callable.param_types.get(arg_name)
+                if gir_callable is not None and arg_name is not None
+                else None,
+                callable_type=function_type,
             )
 
             function_args.append(function_arg)
@@ -590,8 +660,7 @@ class FunctionSchema(BaseSchema):
 
         function_namespace: str = obj.get_namespace()
 
-        f_name = obj.get_name()
-        assert f_name is not None, "Function name is None"
+        f_name = raw_function_name
         sane_function_name, name_unsafe_comment = sanitize_variable_name(f_name)
         assert sane_function_name is not None, "Function name is None"
 
@@ -669,6 +738,17 @@ class FunctionSchema(BaseSchema):
 
             if py_return_hint_namespace and py_return_hint_namespace.startswith("gi._"):
                 line_comment = "type: ignore"
+
+            gir_return_type = gir_callable.return_type if gir_callable is not None else None
+            if _is_marshaled_gvalue_return(gir_return_type, function_type):
+                return_type = gir_return_type
+                assert return_type is not None
+                if return_type.is_array:
+                    py_return_hint_name = "list[typing.Any]"
+                    py_return_hint_namespace = None
+                else:
+                    py_return_hint_name = "Any"
+                    py_return_hint_namespace = "typing"
 
         to_return = cls(
             namespace=function_namespace,

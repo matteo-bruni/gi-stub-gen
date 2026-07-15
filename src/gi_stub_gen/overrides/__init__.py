@@ -43,7 +43,8 @@ from gi_stub_gen.overrides.class_.GObject.Object import (
 )
 from gi_stub_gen.overrides.class_.GObject.GBoxed import GBOXED_COPY
 from gi_stub_gen.overrides.class_.Gst.Fraction import GST_FRACTION_DEN_SCHEMA, GST_FRACTION_NUM_SCHEMA
-from gi_stub_gen.overrides.class_.Gst.Structure import GST_STRUCTURE_GET_VALUE
+from gi_stub_gen.overrides.class_.Gio.Task import GIO_TASK_RETURN_VALUE
+from gi_stub_gen.overrides.class_.Gst.Structure import GST_STRUCTURE_SET_VALUE
 from gi_stub_gen.schema.class_ import ClassFieldSchema
 from gi_stub_gen.schema.function import FunctionSchema
 
@@ -124,6 +125,13 @@ CLASS_OVERRIDES = {
             },
         },
     },
+    "gi.repository.Gio": {
+        "Task": {
+            "methods": {
+                "return_value": GIO_TASK_RETURN_VALUE,
+            },
+        },
+    },
     "gi.repository.Gst": {
         "Fraction": {
             "fields": {
@@ -133,9 +141,9 @@ CLASS_OVERRIDES = {
         },
         "Structure": {
             "methods": {
-                "get_value": GST_STRUCTURE_GET_VALUE,
+                "set_value": GST_STRUCTURE_SET_VALUE,
             },
-        }
+        },
     },
 }
 """List of manual overrides for classes and their methods.

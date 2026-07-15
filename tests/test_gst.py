@@ -1,8 +1,12 @@
+from pathlib import Path
+from typing import Any, cast
+
 import gi
 import pytest
 from gi.repository import GObject, Gst
 
 from gi_stub_gen.manager.template import TemplateManager
+from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.class_ import create_init_method, parse_class
 from gi_stub_gen.parser.constant import parse_constant
@@ -151,7 +155,34 @@ def test_gst_structure_get_value_returns_python_values_at_runtime():
     assert structure.get_value("missing") is None
 
 
-def test_gst_structure_get_value_override_returns_any():
+def test_gst_gvalue_inputs_and_callbacks_use_python_payloads_at_runtime():
+    caps = Gst.Caps.new_empty_simple("audio/x-raw")
+    assert cast(Any, caps).set_value("rate", 48_000) is None
+    assert caps.get_structure(0).get_value("rate") == 48_000
+
+    structure = Gst.Structure.new_empty("test")
+    assert structure.set_value("answer", 42) is None
+    received: list[Any] = []
+
+    def collect_value(field_id: int, value: Any, *user_data: object | None) -> bool:
+        del field_id, user_data
+        received.append(value)
+        return True
+
+    assert structure.foreach(collect_value)
+    assert received == [42]
+    assert not isinstance(received[0], GObject.Value)
+
+    value = GObject.Value()
+    value.init(Gst.Caps)
+    native_caps = Gst.Caps.from_string("video/x-raw")
+    assert native_caps is not None
+    assert Gst.value_set_caps(value, native_caps) is None
+    assert value.get_value() == native_caps
+
+
+def test_gst_gvalue_marshalling_signatures():
+    assert GIRDocs().load(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
     parsed_class, _ = parse_class("gi.repository.Gst", Gst.Structure)
     assert parsed_class is not None
 
@@ -164,6 +195,43 @@ def test_gst_structure_get_value_override_returns_any():
     TemplateManager.set_module_name("Gst")
     rendered = parsed_class.render()
     assert "def get_value(self, fieldname: str) -> typing.Any:" in rendered
+
+    set_value = next(method for method in parsed_class.methods if method.name == "set_value")
+    assert set_value.render_args("Gst", one_line=True) == "self, key: str, value: typing.Any"
+    assert set_value.complete_return_hint("Gst") == "None"
+
+    caps, _ = parse_class("gi.repository.Gst", Gst.Caps)
+    assert caps is not None
+    caps_set_value = next(method for method in caps.methods if method.name == "set_value")
+    assert caps_set_value.render_args("Gst") == "self, field: str, value: typing.Any"
+
+    compare = parse_function(Gst.value_compare, None)
+    fixate = parse_function(Gst.value_fixate, None)
+    assert compare is not None and fixate is not None
+    assert compare.render_args("Gst") == "value1: typing.Any, value2: typing.Any"
+    assert fixate.render_args("Gst") == "dest: GObject.Value, src: typing.Any"
+
+    element_factory, _ = parse_class("gi.repository.Gst", Gst.ElementFactory)
+    assert element_factory is not None
+    make = next(method for method in element_factory.methods if method.name == "make_with_properties")
+    values = next(arg for arg in make.args if arg.name == "values")
+    assert values.type_hint("Gst") == "list[typing.Any] | None"
+
+    callbacks = {callback.name: callback for callback in parse_class("gi.repository.Gst", Gst.Structure)[1]}
+    for callback_name in ("StructureForeachFunc", "StructureMapFunc"):
+        value = next(arg for arg in callbacks[callback_name].function.args if arg.name == "value")
+        assert value.type_hint("Gst") == "typing.Any"
+
+    value_list, _ = parse_class("gi.repository.Gst", Gst.ValueList)
+    assert value_list is not None
+    init = next(method for method in value_list.methods if method.name == "init")
+    assert next(arg for arg in init.args if arg.name == "value").type_hint("Gst") == "GObject.Value"
+
+
+def test_gvalue_without_gir_metadata_is_kept_conservatively():
+    compare = parse_function(Gst.value_compare, None)
+    assert compare is not None
+    assert compare.render_args("Gst") == "value1: GObject.Value, value2: GObject.Value"
 
 
 def test_function_gst_version():

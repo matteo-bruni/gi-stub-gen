@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 
 from gi_stub_gen.manager.gi_repo import GIRepo
-from gi_stub_gen.parser.gir import ModuleDocs, parse_gir_docs
+from gi_stub_gen.parser.gir import GirFunctionDocs, ModuleDocs, parse_gir_docs
 
 # from gi_stub_gen.parser.gir import ModuleDocs, parse_gir_docs
 from gi_stub_gen.utils.utils import SingletonMeta
@@ -126,6 +126,29 @@ class GIRDocs(metaclass=SingletonMeta):
             return self.translate_c_doc_to_python(docstring)
 
         return None
+
+    def get_callable_metadata(
+        self,
+        function_name: str,
+        container_name: str | None,
+        function_type: str,
+    ) -> GirFunctionDocs | None:
+        """Return GIR callable data used for ABI-sensitive type classification."""
+        if not self._module_gir_docs:
+            return None
+
+        if function_type == "CallbackInfo":
+            return self._module_gir_docs.callbacks.get(function_name)
+
+        if container_name is None:
+            return self._module_gir_docs.functions.get(function_name)
+
+        class_docs = self._module_gir_docs.classes.get(container_name)
+        if class_docs is None:
+            return None
+        if function_type == "SignalInfo":
+            return class_docs.signals.get(function_name)
+        return class_docs.methods.get(function_name)
 
     def get_class_docstring(self, class_name: str) -> str | None:
         """
