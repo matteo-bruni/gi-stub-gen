@@ -6992,7 +6992,7 @@ class _Value__data__union(GPointer, metaclass=GType):
     v_uint64: int = ...
     v_ulong: int = ...
 
-class Property(builtins.property):
+class Property[ValueT](builtins.property):
     """
     Stub for GObject.Property.
 
@@ -7006,9 +7006,9 @@ class Property(builtins.property):
     # python methods (overrides?)
     def __init__(
         self,
-        getter: typing.Callable[[typing.Any], typing.Any] | None = None,
-        setter: typing.Callable[[typing.Any, typing.Any], None] | None = None,
-        type: type | GType | None = None,
+        getter: typing.Callable[[typing.Any], ValueT] | None = None,
+        setter: typing.Callable[[typing.Any, ValueT], None] | None = None,
+        type: type[ValueT] | GType | None = None,
         default: typing.Any = None,
         nick: str = "",
         blurb: str = "",
@@ -7022,13 +7022,38 @@ class Property(builtins.property):
         """
         Get the arguments for the property specification.
         """
-    def __call__(
+    def __call__[GetterT](
         self,
-        fget: typing.Callable[[typing.Any], typing.Any],
-    ) -> Property:
+        fget: typing.Callable[[typing.Any], GetterT],
+    ) -> Property[GetterT]:
         """
         Allow using Property as a decorator.
         """
+    def getter[GetterT](
+        self,
+        fget: typing.Callable[[typing.Any], GetterT],
+    ) -> Property[GetterT]: ...
+    def setter(
+        self,
+        fset: typing.Callable[[typing.Any, ValueT], None],
+    ) -> Property[ValueT]: ...
+    @typing.overload
+    def __get__(
+        self,
+        instance: None,
+        owner: type | None = None,
+    ) -> Property[ValueT]: ...
+    @typing.overload
+    def __get__(
+        self,
+        instance: object,
+        owner: type | None = None,
+    ) -> ValueT: ...
+    def __set__(
+        self,
+        instance: object,
+        value: ValueT,
+    ) -> None: ...
 
 ###############################################################
 # Callbacks

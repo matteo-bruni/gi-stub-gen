@@ -144,7 +144,9 @@ class BuiltinFunctionSchema(BaseSchema):
     return_is_optional: bool
     params: list[BuiltinFunctionArgumentSchema]
     type_vars: list[TypeVarSchema] = Field(default_factory=list)
+    method_type_vars: list[TypeVarSchema] = Field(default_factory=list)
     return_type_var_names: list[str] = Field(default_factory=list)
+    is_overload: bool = False
 
     @property
     def is_method(self) -> bool:
@@ -153,6 +155,12 @@ class BuiltinFunctionSchema(BaseSchema):
 
     def render(self) -> str:
         return TemplateManager.render_master("builtin_function.jinja", fun=self)
+
+    @property
+    def type_parameters(self) -> str | None:
+        if not self.method_type_vars:
+            return None
+        return ", ".join(type_var.type_parameter(self.namespace) for type_var in self.method_type_vars)
 
     def return_hint(self, namespace: str) -> str:
         """
@@ -188,11 +196,11 @@ class BuiltinFunctionSchema(BaseSchema):
         if self.is_staticmethod:
             decs.append("@staticmethod")
 
+        if self.is_overload:
+            decs.append("@typing.overload")
+
         # if self.is_getter:
         #     decs.append("@property")
-
-        # if self.is_overload:
-        #     decs.append("@typing.overload")
 
         return decs
 
@@ -207,6 +215,11 @@ class BuiltinFunctionSchema(BaseSchema):
         for param in self.params:
             if param.type_hint_namespace:
                 gi_imports.add(param.type_hint_namespace)
+        for type_var in self.method_type_vars:
+            if type_var.bound_hint_namespace:
+                gi_imports.add(type_var.bound_hint_namespace)
+        if self.is_overload:
+            gi_imports.add("typing")
         return gi_imports
 
     def param_signature(self, namespace: str) -> list[str]:

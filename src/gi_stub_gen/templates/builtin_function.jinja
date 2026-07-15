@@ -1,7 +1,7 @@
 {% for d in fun.decorators %}
 {{ d }}
 {% endfor %}
-{% if fun.is_async %}async{% endif %}def {{fun.name}}(
+{% if fun.is_async %}async{% endif %}def {{fun.name}}{{ fun.type_parameters | if_exists('[{}]') }}(
     {% for a in fun.param_signature(module_name) %}
     {{a}},
     {% endfor %}

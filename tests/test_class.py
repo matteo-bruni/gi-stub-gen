@@ -5,6 +5,7 @@ from types import ModuleType
 import gi
 from gi.repository import GObject
 from gi_stub_gen.manager.template import TemplateManager
+from gi_stub_gen.overrides.class_.GObject.Property import CLASS_PROPERTY
 import gi_stub_gen.parser.class_ as class_parser
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.schema.class_ import ClassFieldSchema
@@ -70,6 +71,32 @@ _PythonAnnotatedFieldCases.__annotations__.update(
     accessor_wins=str,
     method=int,
 )
+
+
+def test_gobject_property_override_renders_generic_descriptor():
+    TemplateManager.set_module_name("GObject")
+
+    rendered = CLASS_PROPERTY.render()
+
+    assert "class Property[ValueT](builtins.property):" in rendered
+    assert "getter: typing.Callable[[typing.Any], ValueT] | None = None" in rendered
+    assert "setter: typing.Callable[[typing.Any, ValueT], None] | None = None" in rendered
+    assert "type: type[ValueT] | GType | None = None" in rendered
+    assert "nick: str = ''" in rendered
+    assert "blurb: str = ''" in rendered
+    assert "flags: ParamFlags = ParamFlags.READABLE | ParamFlags.WRITABLE" in rendered
+    assert "minimum: typing.Any = None" in rendered
+    assert "maximum: typing.Any = None" in rendered
+    assert "def __call__[GetterT](" in rendered
+    assert "def getter[GetterT](" in rendered
+    assert "def setter(" in rendered
+    assert ") -> Property[GetterT]:" in rendered
+    assert ") -> Property[ValueT]:" in rendered
+    assert rendered.count("@typing.overload") == 2
+    assert "instance: None" in rendered
+    assert ") -> ValueT:" in rendered
+    assert "def __set__(" in rendered
+    assert "value: ValueT" in rendered
 
 
 def test_parse_class_gobject_object():
