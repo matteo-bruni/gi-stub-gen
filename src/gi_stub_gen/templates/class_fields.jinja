@@ -4,14 +4,14 @@
 {% if field.is_property %}
 {% if field.is_deprecated %}@deprecated{% endif  %}
 @builtins.property
-def {{ field.name }}(self) -> {{ field.type_hint(module_name) }}:{{ ' ...' | if_true(not field.docstring)}}{{ field.line_comment | if_exists("# ")}}
+def {{ field.name }}(self) -> {{ field.render_type_annotation(module_name) }}:{{ ' ...' | if_true(not field.docstring)}}{{ field.line_comment | if_exists("# ")}}
     {% if field.docstring or field.is_deprecated %}
     """
     {{ field.docstring | if_exists }}
     """
     {% endif %}
 {% else %}
-{{ field.name }}: {{ field.type_hint(module_name) }} = ...{{ " # type: ignore" | if_true(field.type_hint_namespace and module_name != field.type_hint_namespace) }}{{ field.line_comment | if_exists("# ")}}
+{{ field.name }}: {{ field.render_type_annotation(module_name) }} = ...{{ " # type: ignore" | if_true(field.type_hint_namespace and module_name != field.type_hint_namespace) }}{{ field.line_comment | if_exists("# ")}}
 {% if field.docstring or field.is_deprecated %}
 """
 {{ (field.docstring | if_exists | trim) ~ ("\n\n    @deprecated" if field.is_deprecated else "") }}

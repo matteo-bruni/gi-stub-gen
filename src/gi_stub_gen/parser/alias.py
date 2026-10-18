@@ -1,3 +1,4 @@
+from gi_stub_gen.manager.gir_docs import GIRDocs
 from types import ModuleType
 from typing import Any
 import importlib
@@ -15,6 +16,7 @@ def parse_alias(
     module_name: str,  # name of the module where the attribute is located
     attribute_name: str,  # name of the attribute
     attribute: Any,  # object to be parsed
+    docs: GIRDocs | None = None,
 ) -> AliasSchema | ClassSchema | None:
     """
     Parse an attribute and return an AliasSchema if it is an alias.
@@ -136,6 +138,7 @@ def parse_alias(
             class_schema, class_callbacks_found = parse_class(
                 module_name="gi._gi",
                 class_to_parse=attribute,
+                docs=docs,
             )
             if class_schema:
                 extra_docstring = (

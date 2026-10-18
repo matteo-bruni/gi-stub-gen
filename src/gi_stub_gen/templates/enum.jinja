@@ -1,4 +1,4 @@
-class {{enum.name}}({{enum.super_full_type_str(module_name)}}):
+class {{enum.name}}({{enum.render_base(module_name)}}):
     {% if enum.docstring or debug %}
     """
     {{ enum.debug | if_true(debug, "{}\n") | indent(4, blank=True) -}}
@@ -17,7 +17,7 @@ class {{enum.name}}({{enum.super_full_type_str(module_name)}}):
     {% if enum.methods %}
     # gi Methods
     {% for method in enum.methods %}
-    {{ method.render_compact() | indent(4, first=False) }}
+    {{ method.render_stub_compact() | indent(4, first=False) }}
     {% endfor %}
     {% endif %}
     

@@ -4,9 +4,10 @@ from gi.repository import GIRepository
 
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi_stub_gen.manager.gi_repo import GIRepo
+from gi_stub_gen.parser.function import parse_callable
 from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.schema.class_ import ClassFieldSchema
-from gi_stub_gen.schema.function import CallbackSchema, FunctionSchema
+from gi_stub_gen.schema.function import CallbackSchema
 from gi_stub_gen.utils.inspect_utils import _extract_annotation_type_info
 from gi_stub_gen.utils.gi_utils import (
     get_gi_type_info,
@@ -21,6 +22,7 @@ def gi_parse_field(
     field: GIRepository.FieldInfo | GI.FieldInfo,
     module_name: str,
     class_name: str,
+    docs: GIRDocs | None = None,
 ) -> tuple[ClassFieldSchema, CallbackSchema | None]:
     """
     Parse a struct/class field.
@@ -78,10 +80,10 @@ def gi_parse_field(
 
         if isinstance(cb_info, GIRepository.CallbackInfo):
             # wrap in adapter to make GIRepository.CallbackInfo compatible
-            # with GI.CallbackInfo used in FunctionSchema.from_gi_object
+            # with GI.CallbackInfo used in parse_callable
             cb_info = GIRepositoryCallableAdapter(cb_info)
 
-        cb_schema = FunctionSchema.from_gi_object(cb_info)
+        cb_schema = parse_callable(cb_info, docs=docs)
         found_callback = CallbackSchema(
             name=cb_name,
             function=cb_schema,
@@ -103,9 +105,13 @@ def gi_parse_field(
         type_hint_name=prop_type_hint_name,
         type_hint_namespace=prop_type_hint_namespace,
         is_deprecated=field.is_deprecated(),
-        docstring=GIRDocs().get_class_field_docstring(
-            class_name=class_name,
-            field_name=field_name,
+        docstring=(
+            docs.get_class_field_docstring(
+                class_name=class_name,
+                field_name=field_name,
+            )
+            if docs is not None
+            else None
         ),
         line_comment=line_comment,
         deprecation_warnings=None,

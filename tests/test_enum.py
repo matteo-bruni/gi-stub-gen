@@ -49,7 +49,7 @@ def test_render_enum_uses_only_direct_genum_base():
     assert enum_schema is not None
 
     TemplateManager.set_module_name("GstAudio")
-    rendered = enum_schema.render()
+    rendered = enum_schema.render_stub()
 
     assert "class AudioBaseSrcSlaveMethod(GObject.GEnum):" in rendered
     assert "GObject.GEnum, enum.IntEnum" not in rendered
@@ -61,10 +61,10 @@ def test_render_enum_methods():
     assert resource_error is not None
 
     quark = next(method for method in resource_error.methods if method.name == "quark")
-    assert quark.complete_return_hint("Gst") == "int"
+    assert quark.render_return_annotation("Gst") == "int"
 
     TemplateManager.set_module_name("Gst")
-    rendered = resource_error.render()
+    rendered = resource_error.render_stub()
     assert "@staticmethod" in rendered
     assert "def quark() -> int:" in rendered
 
@@ -72,9 +72,9 @@ def test_render_enum_methods():
     assert video_format is not None
 
     from_string = next(method for method in video_format.methods if method.name == "from_string")
-    assert from_string.complete_return_hint("GstVideo") == "VideoFormat"
-    assert from_string.render_args("GstVideo", one_line=True) == "format: str"
+    assert from_string.render_return_annotation("GstVideo") == "VideoFormat"
+    assert from_string.render_parameter_list("GstVideo", one_line=True) == "format: str"
 
     TemplateManager.set_module_name("GstVideo")
-    rendered = video_format.render()
+    rendered = video_format.render_stub()
     assert "def from_string(format: str) -> VideoFormat:" in rendered

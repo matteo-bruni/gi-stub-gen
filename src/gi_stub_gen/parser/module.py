@@ -12,19 +12,13 @@ from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.parser.class_ import parse_class
 
 import logging
-from rich.progress import (
-    Progress,
-    SpinnerColumn,
-    TextColumn,
-    BarColumn,
-    TaskProgressColumn,
-    TimeRemainingColumn,
-)
+
 
 from types import ModuleType
 import gi._gi as GI  # pyright: ignore[reportMissingImports]
 
 from typing import TYPE_CHECKING
+from collections.abc import Callable
 
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 
@@ -45,14 +39,16 @@ logger = logging.getLogger(__name__)
 
 def parse_module(
     m: ModuleType,
-    debug: bool = False,
+    on_progress: Callable[[str, int, int], None] | None = None,
+    docs: GIRDocs | None = None,
 ) -> tuple[ModuleSchema, dict[str, list[str]]]:
     """
     Check the module and parse its attributes into a Module object.
 
     Args:
         m (ModuleType): The module to check.
-        gir_f_docs (ModuleDocs): The documentation for the module (parsed from gir files).
+        docs: Optional GIR documentation. None disables documentation lookup.
+        on_progress: Optional callback receiving attribute name, completed count and total.
 
     Returns:
         tuple[Module, dict[str, list[str]]]: A tuple containing the parsed Module object and a dictionary of unknown types.
@@ -90,140 +86,109 @@ def parse_module(
     logger.info(f"Parsing module {module_name} with {len(module_attributes)} attributes")
     logger.info("#" * 80)
 
-    # retrieve console from the rich logging handler
-    logging_console = logger.root.handlers[0].console  # type: ignore
-    progress_columns = [
-        SpinnerColumn(),
-        TextColumn(f"[green][progress.description]Parsing module {module_name}"),
-        BarColumn(),
-        TaskProgressColumn(),
-        TimeRemainingColumn(),
-        TextColumn("[progress.description]{task.description}"),
-    ]
-
     from gi_stub_gen.schema.alias import AliasSchema
     from gi_stub_gen.schema.class_ import ClassSchema
 
-    with Progress(
-        *progress_columns,
-        console=logging_console,
-        disable=debug,
-    ) as progress:
-        task = progress.add_task("[red]Processing...", total=len(module_attributes))
+    for attribute_idx, attribute_name in enumerate(module_attributes):
+        if on_progress is not None:
+            on_progress(attribute_name, attribute_idx + 1, len(module_attributes))
 
-        for attribute_idx, attribute_name in enumerate(module_attributes):
-            progress.update(
-                task,
-                description=f"[green]{module_name}.{attribute_name}...",
-                advance=1,
-            )
+        if attribute_name.startswith("__"):
+            logger.debug(f"\t[SKIP][{module_name}] skipping dunder attribute {attribute_name}")
+            continue
 
-            if attribute_name.startswith("__"):
-                logger.debug(f"\t[SKIP][{module_name}] skipping dunder attribute {attribute_name}")
-                continue
+        attribute = getattr(m, attribute_name)
+        attribute_type = type(attribute)
 
-            attribute = getattr(m, attribute_name)
-            attribute_type = type(attribute)
-
-            # ########################################################################
-            # # check for aliases in same or other modules
-            # ########################################################################
-            if a := parse_alias(
-                module_name=module_name,
-                attribute_name=attribute_name,
-                attribute=attribute,
-            ):
-                if isinstance(a, AliasSchema):
-                    module_aliases.append(a)
-                elif isinstance(a, ClassSchema):
-                    # this is a manual override for GEnum/GFlags
-                    # that are inserted as classes
-                    # GEnum and GFlags are normally alias to gi._gi.GEnum and gi._gi.GFlags
-                    # but we fake them as real classes in the GObject module
-                    module_classes.append(a)
-                else:
-                    raise ValueError(f"Expected AliasSchema or ClassSchema but got {type(a)}")
-
-                continue
-            #########################################################################
-            # check if the attribute is a constant
-            #########################################################################
-            if c := parse_constant(
-                module_name=module_name,
-                name=attribute_name,
-                obj=attribute,
-                docstring=GIRDocs().get_constant_docs(attribute_name),
-            ):
-                module_constants.append(c)
-                # logger.debug(f"\t[CONSTANT] {attribute_name}\n")
-                continue
-
-            #########################################################################
-            # check if builtin function
-            #########################################################################
-            if f := parse_python_function(
-                attribute,
-                module_name,
-            ):
-                module_builtin_functions.append(f)
-                continue
-
-            #########################################################################
-            # check if the attribute is a function
-            #########################################################################
-            if isinstance(attribute, GI.VFuncInfo):
-                # GIVFuncInfo
-                # represents a virtual function.
-                # A virtual function is a callable object that belongs to either a
-                # GIObjectInfo or a GIInterfaceInfo.
-                # TODO: could not find any example of this ??
-                raise NotImplementedError("VFuncInfo not implemented, open an issue?")
-
-            # docstring.get(attribute.get_name(), None)
-            if f := parse_function(
-                attribute,
-                docstring=GIRDocs().get_function_docstring(attribute_name),
-            ):
-                module_functions.append(f)
-                # callbacks can be found as arguments of functions,
-                # save them to be parsed later
-                callbacks_found.extend(f._gi_callbacks)
-                continue
-
-            #########################################################################
-            # check if the attribute is an Enum/Flags
-            #########################################################################
-            if e := parse_enum(
-                attribute,
-            ):
-                # if e.name in gir_f_docs["enums"]:
-                #    e.docstring = gir_f_docs["enums"][e.name]
-                module_enums.append(e)
-                # logger.debug(f"\t[ENUM] {attribute_name}\n")
-                continue
-
-            #########################################################################
-            # check if the attribute is a class (GObjectMeta, StructMeta and type)
-            #########################################################################
-            class_schema, class_callbacks_found = parse_class(
-                module_name=module_name,
-                class_to_parse=attribute,
-            )
-            if class_schema:
-                module_classes.append(class_schema)
-                callbacks_found.extend(class_callbacks_found)
-                continue
-
-            #########################################################################
-            # unknown/not parsed types
-            #########################################################################
-            # if we reach this point, we could not parse the attribute
-            attribute_type_name = attribute_type.__name__
-            unknown_key = f"{attribute_type_name}"  # [{attribute_type}]"
-            if unknown_key in unknown_module_map_types:
-                unknown_module_map_types[unknown_key].append(attribute_name)
+        # ########################################################################
+        # # check for aliases in same or other modules
+        # ########################################################################
+        if a := parse_alias(module_name=module_name, attribute_name=attribute_name, attribute=attribute, docs=docs):
+            if isinstance(a, AliasSchema):
+                module_aliases.append(a)
+            elif isinstance(a, ClassSchema):
+                # this is a manual override for GEnum/GFlags
+                # that are inserted as classes
+                # GEnum and GFlags are normally alias to gi._gi.GEnum and gi._gi.GFlags
+                # but we fake them as real classes in the GObject module
+                module_classes.append(a)
             else:
-                unknown_module_map_types[unknown_key] = [attribute_name]
+                raise ValueError(f"Expected AliasSchema or ClassSchema but got {type(a)}")
+
+            continue
+        #########################################################################
+        # check if the attribute is a constant
+        #########################################################################
+        if c := parse_constant(
+            module_name=module_name,
+            name=attribute_name,
+            obj=attribute,
+            docstring=(docs.get_constant_docs(attribute_name) if docs is not None else None),
+        ):
+            module_constants.append(c)
+            # logger.debug(f"\t[CONSTANT] {attribute_name}\n")
+            continue
+
+        #########################################################################
+        # check if builtin function
+        #########################################################################
+        if f := parse_python_function(
+            attribute,
+            module_name,
+        ):
+            module_builtin_functions.append(f)
+            continue
+
+        #########################################################################
+        # check if the attribute is a function
+        #########################################################################
+        if isinstance(attribute, GI.VFuncInfo):
+            # GIVFuncInfo
+            # represents a virtual function.
+            # A virtual function is a callable object that belongs to either a
+            # GIObjectInfo or a GIInterfaceInfo.
+            # TODO: could not find any example of this ??
+            raise NotImplementedError("VFuncInfo not implemented, open an issue?")
+
+        # docstring.get(attribute.get_name(), None)
+        if f := parse_function(
+            attribute, docstring=(docs.get_function_docstring(attribute_name) if docs is not None else None), docs=docs
+        ):
+            module_functions.append(f)
+            # callbacks can be found as arguments of functions,
+            # save them to be parsed later
+            callbacks_found.extend(f._gi_callbacks)
+            continue
+
+        #########################################################################
+        # check if the attribute is an Enum/Flags
+        #########################################################################
+        if e := parse_enum(attribute, docs=docs):
+            # if e.name in gir_f_docs["enums"]:
+            #    e.docstring = gir_f_docs["enums"][e.name]
+            module_enums.append(e)
+            # logger.debug(f"\t[ENUM] {attribute_name}\n")
+            continue
+
+        #########################################################################
+        # check if the attribute is a class (GObjectMeta, StructMeta and type)
+        #########################################################################
+        class_schema, class_callbacks_found = parse_class(module_name=module_name, class_to_parse=attribute, docs=docs)
+        if class_schema:
+            module_classes.append(class_schema)
+            callbacks_found.extend(class_callbacks_found)
+            continue
+
+        #########################################################################
+        # unknown/not parsed types
+        #########################################################################
+        # if we reach this point, we could not parse the attribute
+        attribute_type_name = attribute_type.__name__
+        unknown_key = f"{attribute_type_name}"  # [{attribute_type}]"
+        if unknown_key in unknown_module_map_types:
+            unknown_module_map_types[unknown_key].append(attribute_name)
+        else:
+            unknown_module_map_types[unknown_key] = [attribute_name]
 
     # end for attribute in module_attributes
     #########################################################################

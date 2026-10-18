@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 def parse_enum(
     attribute: Any,
+    docs: GIRDocs | None = None,
 ) -> EnumSchema | None:
     """
     Parse a GI enum/flag class.
@@ -32,14 +33,14 @@ def parse_enum(
 
             # to retrieve its docstring we need to get the name of the class
             class_name = attribute.__info__.get_name()  # type: ignore
-            class_docstring = GIRDocs().get_enum_docstring(class_name)
+            class_docstring = docs.get_enum_docstring(class_name) if docs is not None else None
             ##############################
 
             # parse all possible enum/flag values
             # and retrieve their docstrings
             args: dict[str, EnumFieldSchema] = {}
             for v in _type_info.get_values():  # type: ignore added by pygobject
-                field_docstring = GIRDocs().get_enum_field_docstring(class_name, v.get_name())
+                field_docstring = docs.get_enum_field_docstring(class_name, v.get_name()) if docs is not None else None
                 parsed_field = EnumFieldSchema.from_gi_value_info(
                     value_info=v,
                     docstring=field_docstring,
@@ -55,7 +56,7 @@ def parse_enum(
 
             methods = []
             for method_info in _type_info.get_methods():  # type: ignore added by pygobject
-                if parsed_method := parse_function(method_info, docstring=None):
+                if parsed_method := parse_function(method_info, docstring=None, docs=docs):
                     parsed_method.is_class_member = True
                     methods.append(parsed_method)
 

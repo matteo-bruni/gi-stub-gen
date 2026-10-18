@@ -1,11 +1,11 @@
-{% for d in fun.decorators %}
+{% for d in fun.render_decorators() %}
 {{ d }}
 {% endfor %}
-{% if fun.is_async %}async{% endif %}def {{fun.name}}{{ fun.type_parameters | if_exists('[{}]') }}(
-    {% for a in fun.param_signature(module_name) %}
+{% if fun.is_async %}async{% endif %}def {{fun.name}}{{ fun.render_type_parameters() | if_exists('[{}]') }}(
+    {% for a in fun.render_parameter_list(module_name) %}
     {{a}},
     {% endfor %}
-) -> {{fun.return_hint(module_name)}}:
+) -> {{fun.render_return_annotation(module_name)}}:
     {% if fun.docstring or debug %}
     """
     {{ fun.debug | if_true(debug, "{}\n\n") | indent(4, blank=True) -}}

@@ -233,10 +233,11 @@ if __name__ == "__main__":
     # if pygobject_adapter is None:
     #     raise RuntimeError("Could not find ClosureMarshal")
 
-    # from gi_stub_gen.schema.function import FunctionSchema, CallbackSchema
+    # from gi_stub_gen.schema.function import CallbackSchema
+    # from gi_stub_gen.parser.function import parse_callable
 
     # c = CallbackSchema(
-    #     function=FunctionSchema.from_gi_object(
+    #     function=parse_callable(
     #         obj=pygobject_adapter,
     #         docstring=None,
     #     ),

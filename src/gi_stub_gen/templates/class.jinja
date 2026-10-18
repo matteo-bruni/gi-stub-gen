@@ -1,7 +1,7 @@
 {% if cls_.line_comment -%}
 # {{ cls_.line_comment }}
 {% endif -%}
-class {{ cls_.name }}{{ cls_.type_parameters | if_exists('[{}]') }}{{ cls_.super_class | if_exists('({})') }}:
+class {{ cls_.name }}{{ cls_.render_type_parameters() | if_exists('[{}]') }}{{ cls_.render_bases() | if_exists('({})') }}:
     {% if cls_.docstring or debug %}
     """
     {{ cls_.debug | if_true(debug, "{}\n") | indent(4, blank=True) -}}
@@ -16,7 +16,7 @@ class {{ cls_.name }}{{ cls_.type_parameters | if_exists('[{}]') }}{{ cls_.super
     # gi Methods
     {% for method in cls_.methods %}
     {% if not method.is_overridden %}
-    {{ method.render_compact() | indent(4, first=False) }}
+    {{ method.render_stub_compact() | indent(4, first=False) }}
     {% endif %}
     {% endfor %}
     {% endif %}
@@ -24,7 +24,7 @@ class {{ cls_.name }}{{ cls_.type_parameters | if_exists('[{}]') }}{{ cls_.super
     {% if cls_.python_methods %}
     # python methods (overrides?)
     {% for method in cls_.python_methods %}
-    {{ method.render() | indent(4, first=False) }}
+    {{ method.render_stub() | indent(4, first=False) }}
     {% endfor %}
     {% endif %}
 

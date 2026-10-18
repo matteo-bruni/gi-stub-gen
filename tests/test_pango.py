@@ -13,8 +13,8 @@ def test_font_map_list_families_returns_typed_list():
     assert parsed_class is not None
 
     list_families = next(method for method in parsed_class.methods if method.name == "list_families")
-    assert list_families.complete_return_hint("Pango") == "list[FontFamily]"
+    assert list_families.render_return_annotation("Pango") == "list[FontFamily]"
 
     TemplateManager.set_module_name("Pango")
-    rendered = parsed_class.render()
+    rendered = parsed_class.render_stub()
     assert "def list_families(self) -> list[FontFamily]:" in rendered

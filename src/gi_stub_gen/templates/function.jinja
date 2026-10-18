@@ -1,9 +1,9 @@
-{% for d in fun.decorators %}
+{% for d in fun.render_decorators() %}
 {{ d }}
 {% endfor %}
 {{ 'async ' | if_true(fun.is_async) }}def {{fun.name}}(
-    {{ fun.render_args(module_name, False) | indent(4, first=False) }}
-) -> {{fun.complete_return_hint(module_name)}}:
+    {{ fun.render_parameter_list(module_name, False) | indent(4, first=False) }}
+) -> {{fun.render_return_annotation(module_name)}}:
     {% if fun.docstring or debug %}
     """
     {{ fun.debug | if_true(debug, "{}\n") | trim | indent(4, blank=True) -}}

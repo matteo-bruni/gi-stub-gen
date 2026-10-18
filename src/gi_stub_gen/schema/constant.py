@@ -79,7 +79,8 @@ class VariableSchema(BaseSchema):
 
         return "\n".join(docstring_str) or None
 
-    def render(self) -> str:
+    def render_stub(self) -> str:
+        """Return stub text as a string."""
         return TemplateManager.render_master("constant.jinja", constant=self)
 
     @classmethod

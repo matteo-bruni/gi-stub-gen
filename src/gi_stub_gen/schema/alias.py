@@ -32,8 +32,7 @@ class AliasSchema(BaseSchema):
 
     alias_to: Literal["same_module", "other_module"]
 
-    @property
-    def target_repr(self):
+    def render_target(self) -> str:
         """
         Return the target representation in template
         """
@@ -51,5 +50,6 @@ class AliasSchema(BaseSchema):
 
         return None
 
-    def render(self) -> str:
+    def render_stub(self) -> str:
+        """Return stub text as a string."""
         return TemplateManager.render_master("alias.jinja", alias=self)

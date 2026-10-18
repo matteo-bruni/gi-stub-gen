@@ -1,84 +1,10 @@
 from __future__ import annotations
 
 import keyword
-import logging
-import re
-from gi_stub_gen.adapter import GIRepositoryCallableAdapter
-from gi_stub_gen.utils.gi_utils import (
-    catch_gi_deprecation_warnings,
-    get_gi_type_info,
-    get_safe_gi_arg_closure_index,
-    get_safe_gi_array_length,
-    get_safe_gi_destroy_index,
-    gi_type_is_callback,
-)
+from typing import Literal
+from pydantic import PrivateAttr
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
-from gi_stub_gen.utils.utils import (
-    sanitize_variable_name,
-)
-from gi_stub_gen.utils.gi_utils import (
-    gi_type_to_py_type,
-)
-from gi_stub_gen.utils.inspect_utils import _extract_annotation_type_info
-from pydantic import (
-    PrivateAttr,
-)
-from gi.repository import GIRepository
-import gi._gi as GI  # pyright: ignore[reportMissingImports]
-from typing import TYPE_CHECKING, Literal
-from typing_extensions import Self
-
-if TYPE_CHECKING:
-    from gi_stub_gen.parser.gir import GirTypeMetadata
-
-
-# GObject.remove_emission_hook
-logger = logging.getLogger(__name__)
-
-
-def _is_gvalue_type(gir_type: GirTypeMetadata | None) -> bool:
-    if gir_type is None or gir_type.c_type is None:
-        return False
-    c_types = (gir_type.c_type, gir_type.element_c_type or "")
-    return any(re.search(r"\bGValue\b", c_type) for c_type in c_types)
-
-
-def _ownership_is_transferred(gir_type: GirTypeMetadata) -> bool:
-    return gir_type.transfer_ownership not in (None, "none")
-
-
-def _is_marshaled_gvalue_argument(
-    gir_type: GirTypeMetadata | None,
-    direction: Literal["IN", "OUT", "INOUT"],
-    callable_type: str,
-) -> bool:
-    """Classify GValues that PyGObject exposes as their unpacked payload."""
-    if not _is_gvalue_type(gir_type):
-        return False
-    assert gir_type is not None
-
-    if callable_type in ("CallbackInfo", "SignalInfo"):
-        return True
-    if direction == "OUT":
-        return True
-    c_type = gir_type.c_type
-    return (c_type is not None and "const" in c_type) or _ownership_is_transferred(gir_type)
-
-
-def _is_marshaled_gvalue_return(
-    gir_type: GirTypeMetadata | None,
-    callable_type: str,
-) -> bool:
-    if not _is_gvalue_type(gir_type):
-        return False
-    assert gir_type is not None
-    c_type = gir_type.c_type
-    return (
-        callable_type in ("CallbackInfo", "SignalInfo")
-        or (c_type is not None and "const" in c_type)
-        or _ownership_is_transferred(gir_type)
-    )
 
 
 class FunctionArgumentSchema(BaseSchema):
@@ -146,118 +72,6 @@ class FunctionArgumentSchema(BaseSchema):
     #         return "None"
     #     return None
 
-    @classmethod
-    def from_gi_object(
-        cls,
-        obj: GIRepository.ArgInfo,
-        direction: Literal["IN", "OUT", "INOUT"],
-        variadic: bool = False,  # i.e in case of (*args) -> (arg0, arg1, ...)
-        gir_type: GirTypeMetadata | None = None,
-        callable_type: str = "FunctionInfo",
-    ) -> tuple[Self, CallbackSchema | None]:
-        found_callback: CallbackSchema | None = None
-
-        function_namespace: str = obj.get_container().get_namespace()
-        argument_namespace: str = obj.get_namespace()
-        argument_name = obj.get_name()
-        assert argument_name is not None, "Argument name is None"
-
-        gi_type: GIRepository.TypeInfo = get_gi_type_info(obj)
-        type_hint_namespace: str | None
-        type_hint_name: str
-        type_hint_comment: str | None = None
-
-        # if is a callback, we record its return type for type hinting
-        # to create something like arg: Callback | typing.Callable[..., PadProbeReturn]
-        type_hint_cb_return_name = None
-        type_hint_cb_return_namespace = None
-
-        is_callback = gi_type_is_callback(gi_type)
-
-        # callback cant be instantiated directly to python objects
-        # so we need to get the interface and create a CallbackSchema
-        if is_callback:
-            # Get the interface (The actual CallbackInfo)
-            cb_info = gi_type.get_interface()
-            assert cb_info is not None, "CallbackInfo is None for Callback type"
-
-            cb_name = cb_info.get_name()
-            assert cb_name is not None, "CallbackInfo has no name"
-
-            cb_namespace = cb_info.get_namespace()
-
-            # we found all the info to create the type hint
-            type_hint_namespace = cb_namespace
-            type_hint_name = cb_name
-
-            # retrieve the cb return type
-            cb_schema = FunctionSchema.from_gi_object(cb_info)  # type: ignore
-            type_hint_cb_return_name = cb_schema.return_hint
-            type_hint_cb_return_namespace = cb_schema.return_hint_namespace
-
-            if cb_namespace != function_namespace:
-                # The callback is defined in another namespace
-                # use the fully qualified name
-                # since we don't know it is defined in that stub
-                # (callback stubs are generated only if found as args during parsing)
-                # we just add a line comment to avoid typing errors
-                type_hint_comment = "type: ignore"
-            else:
-                # the callback is defined in the same namespace
-                # create the CallbackSchema so we later generate its stub
-                found_callback = CallbackSchema(
-                    name=cb_name,
-                    function=cb_schema,
-                )
-                # TODO: callback can have callback as param? handle that case
-                # cb_schema._gi_callbacks <- extend with found_callback and return list?
-
-        else:
-            # Standard type logic
-            # we can get the python type from the gi type
-            py_type = gi_type_to_py_type(gi_type)
-            type_hint_name, type_hint_namespace = _extract_annotation_type_info(
-                py_type,
-                current_namespace=function_namespace,
-            )
-
-        array_length: int = get_safe_gi_array_length(gi_type)
-        is_caller_allocates = obj.is_caller_allocates()
-        is_marshaled_gvalue_payload = _is_marshaled_gvalue_argument(
-            gir_type,
-            direction,
-            callable_type,
-        )
-        if is_marshaled_gvalue_payload:
-            if gir_type is not None and gir_type.is_array:
-                type_hint_name = "list[typing.Any]"
-                type_hint_namespace = None
-            else:
-                type_hint_name = "Any"
-                type_hint_namespace = "typing"
-
-        return cls(
-            namespace=argument_namespace,
-            name=argument_name,
-            is_callback=is_callback,
-            is_optional=obj.is_optional(),
-            may_be_null=obj.may_be_null(),
-            direction=direction,
-            py_type_namespace=type_hint_namespace,
-            py_type_name=type_hint_name,
-            is_deprecated=gi_type.is_deprecated(),
-            tag_as_string=gi_type.get_tag_as_string(),
-            get_array_length=array_length,
-            line_comment=type_hint_comment,
-            is_caller_allocates=is_caller_allocates,
-            default_value=None,
-            is_pointer=gi_type.is_pointer(),
-            is_variadic=variadic,
-            type_hint_cb_return_name=type_hint_cb_return_name,
-            type_hint_cb_return_namespace=type_hint_cb_return_namespace,
-            is_marshaled_gvalue_payload=is_marshaled_gvalue_payload,
-        ), found_callback
-
     @property
     def name_is_keyword(self):
         """
@@ -266,7 +80,7 @@ class FunctionArgumentSchema(BaseSchema):
         """
         return keyword.iskeyword(self.name)
 
-    def type_hint(self, namespace: str) -> str:
+    def render_type_annotation(self, namespace: str) -> str:
         """
         type representation in template.
         computed with respect to the given namespace.
@@ -303,6 +117,17 @@ class FunctionArgumentSchema(BaseSchema):
             full_type = f"{full_type} | typing.Callable[..., {cb_return_type}]"
 
         return full_type
+
+    def render_parameter(self, namespace: str, force_no_default: bool = False) -> str:
+        """Return one Python parameter as a string, without a trailing comment."""
+        annotation = self.render_type_annotation(namespace)
+        if self.is_variadic:
+            return f"*{self.name}: {annotation}"
+        parameter = f"{self.name}: {annotation}"
+        if not force_no_default and (self.may_be_null or self.is_optional or self.default_value is not None):
+            default = self.default_value if self.default_value is not None else "None"
+            parameter += f" = {default}"
+        return parameter
 
 
 class FunctionSchema(BaseSchema):
@@ -379,10 +204,9 @@ class FunctionSchema(BaseSchema):
     Note: is_getter flag from GI does NOT mean it's a Python property - it just means
     it's a C getter function, which is still a regular method in Python."""
 
-    @property
-    def decorators(self) -> list[str]:
+    def render_decorators(self) -> list[str]:
         """
-        Generate decorators for the function based on its properties.
+        Return a list of decorator strings based on the function properties.
         """
         decs = []
         if self.is_deprecated:
@@ -403,8 +227,8 @@ class FunctionSchema(BaseSchema):
 
         return decs
 
-    @property
-    def first_arg(self) -> str | None:
+    def render_receiver(self) -> str | None:
+        """Return stub text, or None when absent."""
         if self.is_method:
             return "self"
         elif self.is_constructor:
@@ -445,7 +269,7 @@ class FunctionSchema(BaseSchema):
             gi_imports.add("builtins")
         return gi_imports
 
-    def complete_return_hint(self, namespace: str) -> str:
+    def render_return_annotation(self, namespace: str) -> str:
         """
         Compute the real Python return hint combining C return and OUT arguments.
 
@@ -469,7 +293,7 @@ class FunctionSchema(BaseSchema):
         # if direction is out or inout, add to return type
         for i, arg in enumerate(self.args):
             if arg.direction in ("OUT", "INOUT"):
-                return_parts.append(arg.type_hint(namespace=namespace))
+                return_parts.append(arg.render_type_annotation(namespace=namespace))
 
         if not return_parts:
             return "None"
@@ -479,13 +303,15 @@ class FunctionSchema(BaseSchema):
 
         return f"tuple[{', '.join(return_parts)}]"
 
-    def render(self) -> str:
+    def render_stub(self) -> str:
+        """Return stub text as a string."""
         return TemplateManager.render_master("function.jinja", fun=self)
 
-    def render_compact(self) -> str:
+    def render_stub_compact(self) -> str:
+        """Return stub text as a string."""
         return TemplateManager.render_master("function_compact.jinja", fun=self)
 
-    def render_args(self, namespace: str, one_line: bool = True) -> str:
+    def render_parameter_list(self, namespace: str, one_line: bool = True) -> str:
         """
         Render the function arguments for the template.
         We need to reverse the args to add default values correctly.
@@ -503,23 +329,10 @@ class FunctionSchema(BaseSchema):
             if arg.direction == "OUT":
                 continue
 
-            type_str = arg.type_hint(namespace)
-            if arg.is_variadic:
-                arg_repr = f"*{arg.name}: {type_str}"
-            else:
-                arg_repr = f"{arg.name}: {type_str}"
-                # default_value
-                # add default value for optional arguments
-                is_nullable = arg.may_be_null or arg.is_optional
-                has_default_value = arg.default_value is not None
-                if (is_nullable or has_default_value) and allow_default:
-                    if has_default_value:
-                        arg_repr = f"{arg_repr} = {arg.default_value}"
-                    else:
-                        arg_repr = f"{arg_repr} = None"
-                else:
-                    # once we find a non-optional, stop adding defaults
-                    allow_default = False
+            arg_repr = arg.render_parameter(namespace, force_no_default=not allow_default)
+            if not arg.is_variadic and not (arg.may_be_null or arg.is_optional or arg.default_value is not None):
+                # Once we find a required parameter, preceding parameters cannot have defaults.
+                allow_default = False
 
             # add line comment if any
             if not one_line and arg.line_comment:
@@ -529,8 +342,9 @@ class FunctionSchema(BaseSchema):
             argument_list.append((arg_repr, arg_comment))
 
         # add self or cls if method
-        if self.first_arg is not None:
-            argument_list.append((self.first_arg, None))
+        receiver = self.render_receiver()
+        if receiver is not None:
+            argument_list.append((receiver, None))
 
         # restore the order
         argument_list.reverse()
@@ -539,242 +353,6 @@ class FunctionSchema(BaseSchema):
             argument_list=argument_list,
             one_line=one_line,
         )
-
-    @classmethod
-    def from_gi_object(
-        cls,
-        obj: GIRepository.FunctionInfo
-        | GIRepository.CallbackInfo
-        | GIRepository.SignalInfo
-        | GIRepositoryCallableAdapter,
-        docstring: str | None = None,
-    ):
-        # Note cant do isinstance on GIRepository.FunctionInfo!!
-        # they are different object, we use GIRepository.FunctionInfo
-        # just for the type hinting
-        # when parsing existing object we pass through pygobject that enhance the gi objects
-        # adding pythonic methods and properties but removes somes of the original gi types
-        # for example GIRepository.FunctionInfo has the c methods get_n_args and get_arg
-        # while pygobject removes them adding instead get_arguments() that return a list of ArgInfo
-
-        function_type: str
-        if isinstance(obj, GI.SignalInfo):
-            function_type = "SignalInfo"
-        elif isinstance(obj, GI.CallbackInfo):
-            function_type = "CallbackInfo"
-        elif isinstance(obj, GI.VFuncInfo):
-            raise NotImplementedError("VFuncInfo parsing not implemented yet. Please open issue with an example.")
-        elif isinstance(obj, GI.FunctionInfo):
-            function_type = "FunctionInfo"
-        elif isinstance(obj, GIRepositoryCallableAdapter):
-            function_type = obj.callable_type
-        else:
-            raise ValueError(f"Not a valid GI function or callback object or signal. Got: {type(obj)}")
-
-        raw_function_name = obj.get_name()
-        assert raw_function_name is not None, "Function name is None"
-        container = obj.get_container()
-        container_name = container.get_name() if container is not None else None
-
-        from gi_stub_gen.manager.gir_docs import GIRDocs
-
-        gir_callable = GIRDocs().get_callable_metadata(
-            raw_function_name,
-            container_name,
-            function_type,
-        )
-
-        function_args: list[FunctionArgumentSchema] = []
-
-        # --- 1. Identify Arguments to Skip ---
-        # In C, arrays often come as pairs: (data_pointer, length).
-        # In Python, we only pass the list/array. PyGObject hides the length argument automatically.
-        # We must identify which argument indices correspond to these lengths to exclude them from the signature.
-        indices_to_skip: set[int] = set()
-
-        # keep track of callbacks found during function argument parsing
-        args_as_callbacks_found: list[CallbackSchema] = []
-        """callbacks found during function argument parsing"""
-
-        # first loop to identify indices to skip
-        obj_arguments = list(obj.get_arguments())
-        closure_indices = set()
-        for i, arg in enumerate(obj_arguments):
-            arg_type = get_gi_type_info(arg)
-            array_length: int = get_safe_gi_array_length(arg_type)
-            if array_length >= 0:
-                indices_to_skip.add(array_length)
-
-            # ask to this arg if another arg is its destroy notifier
-            # WARNING!! in GIRepository.ArgInfo this returns a (bool, int)
-            # while in pygobject GI.ArgInfo it returns just the int
-            destroy_idx = get_safe_gi_destroy_index(arg)
-            if destroy_idx >= 0:
-                indices_to_skip.add(destroy_idx)
-
-            # get closure indices
-            closure_idx = get_safe_gi_arg_closure_index(arg)
-            if closure_idx >= 0:
-                closure_indices.add(closure_idx)
-
-        # only the last closure index is variadic
-        last_closure_index = max(closure_indices) if closure_indices else -1
-        for i, arg in enumerate(obj_arguments):
-            # Skip this argument if it was identified as an internal C
-            # implementation detail (like array length)
-            if i in indices_to_skip:
-                continue
-
-            direction: Literal["IN", "OUT", "INOUT"]
-            if arg.get_direction() == GI.Direction.OUT:
-                direction = "OUT"
-            elif arg.get_direction() == GI.Direction.IN:
-                direction = "IN"
-            elif arg.get_direction() == GI.Direction.INOUT:
-                direction = "INOUT"
-            else:
-                raise ValueError(f"Unknown GI.Direction: {arg.get_direction()}")
-
-            is_variadic = i == last_closure_index
-            arg_name = arg.get_name()
-            # IMPORTANT: For standard Function Stubs, arguments marked as 'OUT'
-            # are NOT part of the Python input signature. They are returned in the tuple.
-            # However, 'INOUT' arguments ARE passed as input (and returned modified).
-            function_arg, found_callback = FunctionArgumentSchema.from_gi_object(
-                obj=arg,
-                direction=direction,
-                variadic=is_variadic,
-                gir_type=gir_callable.param_types.get(arg_name)
-                if gir_callable is not None and arg_name is not None
-                else None,
-                callable_type=function_type,
-            )
-
-            function_args.append(function_arg)
-            if found_callback:
-                # Found a callback argument
-                # append to its originated_from info
-                found_callback.originated_from = {f"{obj.get_namespace()}.{obj.get_name()}"}
-                args_as_callbacks_found.append(found_callback)
-                args_as_callbacks_found.extend(found_callback.function._gi_callbacks)
-
-        function_namespace: str = obj.get_namespace()
-
-        f_name = raw_function_name
-        sane_function_name, name_unsafe_comment = sanitize_variable_name(f_name)
-        assert sane_function_name is not None, "Function name is None"
-
-        if name_unsafe_comment and function_type == "FunctionInfo":
-            # in callback and signal we dont care about keywords
-            logger.warning(
-                f"Function name '{f_name}' in namespace '{function_namespace}' "
-                f"invalid name: '{name_unsafe_comment} -> {sane_function_name}'."
-            )
-            # we alert via deprecated warning
-            is_deprecated = True
-            deprecation_warnings = f"Function name '{f_name}' is a Python keyword. Renamed to '{sane_function_name}' in stub. Please use `{f_name}` in your code and add a # type: ignore."
-        else:
-            is_deprecated = obj.is_deprecated()
-            deprecation_warnings = catch_gi_deprecation_warnings(
-                function_namespace,
-                sane_function_name,
-            )
-
-        may_return_null = obj.may_return_null()
-        # is_callback = isinstance(obj, GI.CallbackInfo)
-        is_callback = function_type == "CallbackInfo"
-
-        # Callbacks do not have these flags
-        is_constructor = False
-        is_getter = False
-        is_setter = False
-        is_async = False
-        wrap_vfunc = False
-        is_method = obj.is_method() if hasattr(obj, "is_method") else False  # SignalInfo has no is_method()
-
-        if function_type == "FunctionInfo":
-            flags = obj.get_flags()  # type: ignore
-            is_constructor = bool(flags & GIRepository.FunctionInfoFlags.IS_CONSTRUCTOR)
-            is_getter = bool(flags & GIRepository.FunctionInfoFlags.IS_GETTER)
-            is_setter = bool(flags & GIRepository.FunctionInfoFlags.IS_SETTER)
-            # depending on glib version this may not be available,
-            # so we check if the flag exists
-            try:
-                is_async = bool(flags & GIRepository.FunctionInfoFlags.IS_ASYNC)  # type: ignore
-            except AttributeError:
-                is_async = False
-            wrap_vfunc = bool(flags & GIRepository.FunctionInfoFlags.WRAPS_VFUNC)
-
-        # Return type hint logic
-        line_comment: str | None = None
-        if is_constructor and not is_callback:
-            # if it is a constructor, the return type is the class itself
-            # this happens in new() functions which in reality are static methods
-            # that are polymorphic: e.g. Gst.Pipeline.new() -> Gst.Pipeline in python
-            # but in C: GstElement* gst_pipeline_new (const gchar *name);
-            # in C it is fine due to polimorphism, but with PyGObject this correctly
-            # returns the actual class type.
-            # we need to get the container
-            # NOTE: we are going to set it as a @classmethod (see decorators property)
-            # since in python constructors are classmethods
-            # but in reality it should be @staticmethod
-            # but there are some new() functions that are actually methods like GObject.new()
-            # so for simplicity we set all constructors as classmethods
-            class_container = obj.get_container()
-            assert class_container is not None, "Function container is None for constructor"
-            py_return_hint_namespace = class_container.get_namespace()
-            py_return_hint_name = class_container.get_name()
-        else:
-            py_return_type = gi_type_to_py_type(obj.get_return_type())
-            if py_return_type is None:
-                py_return_hint_namespace = None
-                py_return_hint_name = None
-            else:
-                # get the repr of the return type
-                py_return_hint_name, py_return_hint_namespace = _extract_annotation_type_info(
-                    py_return_type,
-                    current_namespace=function_namespace,
-                )
-
-            if py_return_hint_namespace and py_return_hint_namespace.startswith("gi._"):
-                line_comment = "type: ignore"
-
-            gir_return_type = gir_callable.return_type if gir_callable is not None else None
-            if _is_marshaled_gvalue_return(gir_return_type, function_type):
-                return_type = gir_return_type
-                assert return_type is not None
-                if return_type.is_array:
-                    py_return_hint_name = "list[typing.Any]"
-                    py_return_hint_namespace = None
-                else:
-                    py_return_hint_name = "Any"
-                    py_return_hint_namespace = "typing"
-
-        to_return = cls(
-            namespace=function_namespace,
-            name=sane_function_name,
-            args=function_args,
-            is_callback=is_callback,
-            docstring=docstring,
-            may_return_null=may_return_null,
-            can_throw_gerror=obj.can_throw_gerror(),
-            is_deprecated=is_deprecated,
-            skip_return=obj.skip_return(),
-            deprecation_warnings=deprecation_warnings,
-            is_method=is_method,
-            return_hint=py_return_hint_name,
-            return_hint_namespace=py_return_hint_namespace,
-            is_async=is_async,
-            is_getter=is_getter,
-            is_setter=is_setter,
-            is_constructor=is_constructor,
-            wrap_vfunc=wrap_vfunc,
-            line_comment=line_comment,
-            function_type=function_type,
-            is_overload=True if function_type == "SignalInfo" else False,
-        )
-        to_return._gi_callbacks = args_as_callbacks_found
-        return to_return
 
 
 class CallbackSchema(BaseSchema):
@@ -809,5 +387,6 @@ class CallbackSchema(BaseSchema):
 
         return docstring
 
-    def render(self) -> str:
+    def render_stub(self) -> str:
+        """Return stub text as a string."""
         return TemplateManager.render_master("callback.jinja", cb=self)

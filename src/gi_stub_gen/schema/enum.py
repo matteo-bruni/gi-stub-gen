@@ -108,10 +108,11 @@ class EnumSchema(BaseSchema):
     super_namespace: str
     """Return the super type namespace only"""
 
-    def render(self) -> str:
+    def render_stub(self) -> str:
+        """Return stub text as a string."""
         return TemplateManager.render_master("enum.jinja", enum=self)
 
-    def super_full_type_str(self, module_name: str) -> str:
+    def render_base(self, module_name: str) -> str:
         """
         Return the full python super type as a string
         adding namespace if different from `module_name`

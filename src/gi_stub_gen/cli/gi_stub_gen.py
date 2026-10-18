@@ -5,6 +5,7 @@ import logging
 from pathlib import Path
 from typing import Literal
 from rich.logging import RichHandler
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn, TimeRemainingColumn
 from typing_extensions import Annotated
 
 from gi_stub_gen.manager.gi_repo import GIRepo
@@ -185,6 +186,7 @@ def main(
             gi_version=gi_version,
         )
 
+        doc_manager = None
         # retrieve the docs, check in the provided gir folders
         if gir_folder is not None:
             # remove the prefix
@@ -203,13 +205,33 @@ def main(
                     break
         # #####################################################
 
-        parsed_module, unknown_module_map_types = parse_module(
-            module,
-            debug=debug,
-        )
+        with Progress(
+            SpinnerColumn(),
+            TextColumn(f"[green][progress.description]Parsing module {module_name}"),
+            BarColumn(),
+            TaskProgressColumn(),
+            TimeRemainingColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            disable=debug,
+        ) as progress:
+            task = progress.add_task("[red]Processing...", total=len(dir(module)))
+
+            def report_progress(attribute_name: str, completed: int, total: int) -> None:
+                progress.update(
+                    task,
+                    description=f"[green]{module_name}.{attribute_name}...",
+                    completed=completed,
+                    total=total,
+                )
+
+            parsed_module, unknown_module_map_types = parse_module(
+                module,
+                docs=doc_manager,
+                on_progress=report_progress,
+            )
         unknown[module_name] = unknown_module_map_types
         stub_file_name = module_name
-        pyi_content = parsed_module.to_pyi(
+        pyi_content = parsed_module.render_stub(
             extra_imports=extra_include_per_stub.get(module_name, []),
             debug=debug,
             unknowns=unknown_module_map_types,

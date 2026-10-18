@@ -5,11 +5,13 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from gi_stub_gen.schema.function import CallbackSchema
+    from gi_stub_gen.manager.gir_docs import GIRDocs
 
 
-def get_callback_schema(namespace: str, callback_name: str) -> CallbackSchema:
+def get_callback_schema(namespace: str, callback_name: str, docs: GIRDocs | None = None) -> CallbackSchema:
     from gi_stub_gen.manager.gi_repo import GIRepo
-    from gi_stub_gen.schema.function import FunctionSchema, CallbackSchema
+    from gi_stub_gen.schema.function import CallbackSchema
+    from gi_stub_gen.parser.function import parse_callable
 
     repo = GIRepo()
     pygobject_adapter = repo.find_callable(
@@ -21,9 +23,10 @@ def get_callback_schema(namespace: str, callback_name: str) -> CallbackSchema:
         raise RuntimeError(f"Could not find {callback_name}")
 
     return CallbackSchema(
-        function=FunctionSchema.from_gi_object(
+        function=parse_callable(
             obj=pygobject_adapter,
             docstring=None,
+            docs=docs,
         ),
         originated_from={"Manual from GIRepository"},
         name=callback_name,

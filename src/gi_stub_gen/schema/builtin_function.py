@@ -13,7 +13,8 @@ class TypeVarSchema(BaseModel):
     bound_hint_name: str | None = None
     bound_hint_namespace: str | None = None
 
-    def type_parameter(self, namespace: str) -> str:
+    def render_type_parameter(self, namespace: str) -> str:
+        """Return stub text as a string."""
         if self.bound_hint_name is None:
             return self.name
 
@@ -79,7 +80,7 @@ class BuiltinFunctionArgumentSchema(BaseModel):
             ArgKind.VAR_KEYWORD,
         )
 
-    def type_hint(self, namespace: str) -> str:
+    def render_type_annotation(self, namespace: str) -> str:
         """
         type representation in template.
         computed with respect to the given namespace.
@@ -98,7 +99,7 @@ class BuiltinFunctionArgumentSchema(BaseModel):
 
         return full_type
 
-    def as_str(self, namespace: str, force_no_default: bool = False) -> str:
+    def render_parameter(self, namespace: str, force_no_default: bool = False) -> str:
         """
         Returns the formatted argument string.
         Args:
@@ -127,7 +128,7 @@ class BuiltinFunctionArgumentSchema(BaseModel):
         # elif self.default_value is None and self.is_optional:
         #     default = " = None"
 
-        return f"{prefix}{self.name}: {self.type_hint(namespace)}{default}"
+        return f"{prefix}{self.name}: {self.render_type_annotation(namespace)}{default}"
 
 
 class BuiltinFunctionSchema(BaseSchema):
@@ -153,16 +154,17 @@ class BuiltinFunctionSchema(BaseSchema):
         """Whether this is an instance method (has self)."""
         return self.is_from_class and not self.is_staticmethod and not self.is_classmethod
 
-    def render(self) -> str:
+    def render_stub(self) -> str:
+        """Return stub text as a string."""
         return TemplateManager.render_master("builtin_function.jinja", fun=self)
 
-    @property
-    def type_parameters(self) -> str | None:
+    def render_type_parameters(self) -> str | None:
+        """Return stub text, or None when absent."""
         if not self.method_type_vars:
             return None
-        return ", ".join(type_var.type_parameter(self.namespace) for type_var in self.method_type_vars)
+        return ", ".join(type_var.render_type_parameter(self.namespace) for type_var in self.method_type_vars)
 
-    def return_hint(self, namespace: str) -> str:
+    def render_return_annotation(self, namespace: str) -> str:
         """
         type representation in template.
         computed with respect to the given namespace.
@@ -180,10 +182,9 @@ class BuiltinFunctionSchema(BaseSchema):
 
         return full_type
 
-    @property
-    def decorators(self) -> list[str]:
+    def render_decorators(self) -> list[str]:
         """
-        Generate decorators for the function based on its properties.
+        Return a list of decorator strings based on the function properties.
         """
         decs = []
         # if self.is_deprecated:
@@ -222,8 +223,8 @@ class BuiltinFunctionSchema(BaseSchema):
             gi_imports.add("typing")
         return gi_imports
 
-    def param_signature(self, namespace: str) -> list[str]:
-        """Generates the full parameter string with '/' and '*' separators."""
+    def render_parameter_list(self, namespace: str) -> list[str]:
+        """Return a list of parameter fragments including '/' and '*' separators."""
 
         # 1. Analisi preliminare per SyntaxError (non-default follows default)
         # Prendiamo solo gli argomenti standard (POS_OR_KW)
@@ -254,7 +255,7 @@ class BuiltinFunctionSchema(BaseSchema):
                 current_pos_kw_idx += 1
 
             # Chiamiamo as_str con il flag
-            groups[p.kind].append(p.as_str(namespace, force_no_default=force_no_default))
+            groups[p.kind].append(p.render_parameter(namespace, force_no_default=force_no_default))
 
         # 3. Build the parts list (Identico a prima)
         parts = []

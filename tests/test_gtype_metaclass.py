@@ -97,14 +97,14 @@ class TestClassSchemaMetaclass:
         assert GENUM_SCHEMA.super == ["enum.IntEnum", "metaclass=_GEnumMeta"]
         assert GFLAG_SCHEMA.super == ["enum.IntFlag", "metaclass=_GFlagsMeta"]
 
-        rendered_meta = GENUM_META_SCHEMA.render()
+        rendered_meta = GENUM_META_SCHEMA.render_stub()
         assert "# Typing-only model of gi._enum.GEnumMeta" in rendered_meta
         assert "class _GEnumMeta(enum.EnumType, GType):" in rendered_meta
         assert "Stub-only static typing model" in rendered_meta
         assert "def __gtype__(self) -> GType:" in rendered_meta
 
-        assert "class GEnum(enum.IntEnum, metaclass=_GEnumMeta):" in GENUM_SCHEMA.render()
-        assert "class GFlags(enum.IntFlag, metaclass=_GFlagsMeta):" in GFLAG_SCHEMA.render()
+        assert "class GEnum(enum.IntEnum, metaclass=_GEnumMeta):" in GENUM_SCHEMA.render_stub()
+        assert "class GFlags(enum.IntFlag, metaclass=_GFlagsMeta):" in GFLAG_SCHEMA.render_stub()
 
     def test_boxed_class_has_metaclass_in_super(self):
         """

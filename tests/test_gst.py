@@ -35,17 +35,19 @@ def test_constructor_gst_new_returns_class_type():
         parsed_constructor = constructor[0]
 
         # check the return hint
-        assert parsed_constructor.complete_return_hint(namespace="GObject") == f"Gst.{return_hint}"
-        assert parsed_constructor.complete_return_hint(namespace="Gst") == return_hint
+        assert parsed_constructor.render_return_annotation(namespace="GObject") == f"Gst.{return_hint}"
+        assert parsed_constructor.render_return_annotation(namespace="Gst") == return_hint
         # should have no parameters
-        assert parsed_constructor.render_args(namespace="Gst", one_line=True) == "cls, name: str | None = None"
+        assert (
+            parsed_constructor.render_parameter_list(namespace="Gst", one_line=True) == "cls, name: str | None = None"
+        )
 
         python_constructor = [m for m in parsed_class.python_methods if m.name == constructor_to_test]
         assert len(python_constructor) == 1, f"Failed to find Gst.{return_hint}.new python override"
-        assert python_constructor[0].return_hint(namespace="Gst") == return_hint
+        assert python_constructor[0].render_return_annotation(namespace="Gst") == return_hint
 
         TemplateManager.set_module_name("Gst")
-        rendered = parsed_class.render()
+        rendered = parsed_class.render_stub()
         assert f") -> {return_hint}:" in rendered
 
 
@@ -54,11 +56,11 @@ def test_gst_object_parent_renders_direct_property():
     assert parsed_class is not None
 
     parent = next(field for field in parsed_class.fields if field.name == "parent")
-    assert parent.type_hint("Gst") == "Object | None"
+    assert parent.render_type_annotation("Gst") == "Object | None"
     assert parent.is_property is True
 
     TemplateManager.set_module_name("Gst")
-    rendered = parsed_class.render()
+    rendered = parsed_class.render_stub()
     assert "def parent(self) -> Object | None:" in rendered
 
 
@@ -67,14 +69,14 @@ def test_gst_mini_object_mixin_inheritance_and_properties():
     assert parsed_mixin is not None
 
     mixin_fields = {field.name: field for field in parsed_mixin.fields}
-    assert parsed_mixin.type_parameters == "FlagsType: GObject.GFlags"
-    assert mixin_fields["flags"].type_hint("Gst") == "FlagsType"
+    assert parsed_mixin.render_type_parameters() == "FlagsType: GObject.GFlags"
+    assert mixin_fields["flags"].render_type_annotation("Gst") == "FlagsType"
     assert mixin_fields["flags"].is_readable is True
     assert mixin_fields["flags"].is_writable is True
     assert {"is_writable", "make_writable"} <= {method.name for method in parsed_mixin.python_methods}
 
     TemplateManager.set_module_name("Gst")
-    rendered_mixin = parsed_mixin.render()
+    rendered_mixin = parsed_mixin.render_stub()
     assert "class MiniObjectMixin[FlagsType: GObject.GFlags]:" in rendered_mixin
     assert "class Props" not in rendered_mixin
     assert "flags: FlagsType = ..." in rendered_mixin
@@ -84,7 +86,7 @@ def test_gst_mini_object_mixin_inheritance_and_properties():
         assert parsed_class is not None
         expected_flags = "BufferFlags" if concrete_class is Gst.Buffer else "MiniObjectFlags"
         assert parsed_class.super[0] == f"MiniObjectMixin[{expected_flags}]"
-        assert parsed_class.props_super_class == "GObject.GBoxed.Props"
+        assert parsed_class.render_props_base() == "GObject.GBoxed.Props"
         assert "is_writable" not in {method.name for method in parsed_class.methods}
         assert "make_writable" not in {method.name for method in parsed_class.methods}
         assert "is_writable" not in {method.name for method in parsed_class.python_methods}
@@ -96,35 +98,35 @@ def test_gst_override_properties_keep_the_most_informative_types():
     assert parsed_buffer is not None
     buffer_fields = {field.name: field for field in parsed_buffer.fields}
 
-    assert buffer_fields["flags"].type_hint("Gst") == "BufferFlags"
+    assert buffer_fields["flags"].render_type_annotation("Gst") == "BufferFlags"
     for field_name in ("dts", "pts", "duration", "offset", "offset_end"):
         field = buffer_fields[field_name]
-        assert field.type_hint("Gst") == "int"
+        assert field.render_type_annotation("Gst") == "int"
         assert field.is_readable is True
         assert field.is_writable is True
 
     parsed_probe_info, _ = parse_class("Gst", Gst.PadProbeInfo)
     assert parsed_probe_info is not None
     probe_fields = {field.name: field for field in parsed_probe_info.fields}
-    assert probe_fields["data"].type_hint("Gst") == "typing.Any"
-    assert probe_fields["type"].type_hint("Gst") == "PadProbeType"
-    assert probe_fields["id"].type_hint("Gst") == "int"
-    assert probe_fields["offset"].type_hint("Gst") == "int"
-    assert probe_fields["size"].type_hint("Gst") == "int"
+    assert probe_fields["data"].render_type_annotation("Gst") == "typing.Any"
+    assert probe_fields["type"].render_type_annotation("Gst") == "PadProbeType"
+    assert probe_fields["id"].render_type_annotation("Gst") == "int"
+    assert probe_fields["offset"].render_type_annotation("Gst") == "int"
+    assert probe_fields["size"].render_type_annotation("Gst") == "int"
 
 
 def test_gst_override_class_annotations_refine_fields_and_add_python_only_attributes():
     assert GIRDocs().load(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
     GIRepo().require("Gst", "1.0")
-    parsed_map_info, _ = parse_class("Gst", Gst.MapInfo)
+    parsed_map_info, _ = parse_class("Gst", Gst.MapInfo, docs=GIRDocs())
     assert parsed_map_info is not None
     map_info_fields = {field.name: field for field in parsed_map_info.fields}
 
-    assert map_info_fields["data"].type_hint("Gst") == "memoryview | None"
-    assert map_info_fields["flags"].type_hint("Gst") == "MapFlags"
-    assert map_info_fields["maxsize"].type_hint("Gst") == "int"
-    assert map_info_fields["memory"].type_hint("Gst") == "Memory | None"
-    assert map_info_fields["size"].type_hint("Gst") == "int"
+    assert map_info_fields["data"].render_type_annotation("Gst") == "memoryview | None"
+    assert map_info_fields["flags"].render_type_annotation("Gst") == "MapFlags"
+    assert map_info_fields["maxsize"].render_type_annotation("Gst") == "int"
+    assert map_info_fields["memory"].render_type_annotation("Gst") == "Memory | None"
+    assert map_info_fields["size"].render_type_annotation("Gst") == "int"
     assert map_info_fields["data"].docstring == "a pointer to the mapped data"
     assert map_info_fields["data"].is_readable is True
     assert map_info_fields["data"].is_writable is True
@@ -134,9 +136,9 @@ def test_gst_override_class_annotations_refine_fields_and_add_python_only_attrib
         (Gst.DoubleRange, {"start": "float", "stop": "float"}),
         (Gst.FractionRange, {"start": "Fraction", "stop": "Fraction"}),
     ):
-        parsed_class, _ = parse_class("Gst", cls)
+        parsed_class, _ = parse_class("Gst", cls, docs=GIRDocs())
         assert parsed_class is not None
-        fields = {field.name: field.type_hint("Gst") for field in parsed_class.fields}
+        fields = {field.name: field.render_type_annotation("Gst") for field in parsed_class.fields}
         assert expected_fields.items() <= fields.items()
 
 
@@ -193,7 +195,7 @@ def test_gstvideo_array_fields_keep_item_type():
 
     stride = next(field for field in parsed_class.fields if field.name == "stride")
     assert stride.type_hint_name == "list[int]"
-    assert stride.type_hint("GstVideo") == "list[int] | None"
+    assert stride.render_type_annotation("GstVideo") == "list[int] | None"
 
 
 def test_gstcuda_invalid_cross_namespace_alias_falls_back_to_constant():
@@ -287,55 +289,57 @@ def test_gst_gvalue_inputs_and_callbacks_use_python_payloads_at_runtime():
 
 def test_gst_gvalue_marshalling_signatures():
     assert GIRDocs().load(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
-    parsed_class, _ = parse_class("gi.repository.Gst", Gst.Structure)
+    parsed_class, _ = parse_class("gi.repository.Gst", Gst.Structure, docs=GIRDocs())
     assert parsed_class is not None
 
     get_value = next(method for method in parsed_class.methods if method.name == "get_value")
-    assert get_value.render_args("Gst", one_line=True) == "self, fieldname: str"
-    assert get_value.complete_return_hint("Gst") == "typing.Any"
+    assert get_value.render_parameter_list("Gst", one_line=True) == "self, fieldname: str"
+    assert get_value.render_return_annotation("Gst") == "typing.Any"
 
     assert not any(method.name == "get_value" for method in parsed_class.python_methods)
 
     TemplateManager.set_module_name("Gst")
-    rendered = parsed_class.render()
+    rendered = parsed_class.render_stub()
     assert "def get_value(self, fieldname: str) -> typing.Any:" in rendered
 
     set_value = next(method for method in parsed_class.methods if method.name == "set_value")
-    assert set_value.render_args("Gst", one_line=True) == "self, key: str, value: typing.Any"
-    assert set_value.complete_return_hint("Gst") == "None"
+    assert set_value.render_parameter_list("Gst", one_line=True) == "self, key: str, value: typing.Any"
+    assert set_value.render_return_annotation("Gst") == "None"
 
-    caps, _ = parse_class("gi.repository.Gst", Gst.Caps)
+    caps, _ = parse_class("gi.repository.Gst", Gst.Caps, docs=GIRDocs())
     assert caps is not None
     caps_set_value = next(method for method in caps.methods if method.name == "set_value")
-    assert caps_set_value.render_args("Gst") == "self, field: str, value: typing.Any"
+    assert caps_set_value.render_parameter_list("Gst") == "self, field: str, value: typing.Any"
 
-    compare = parse_function(Gst.value_compare, None)
-    fixate = parse_function(Gst.value_fixate, None)
+    compare = parse_function(Gst.value_compare, None, docs=GIRDocs())
+    fixate = parse_function(Gst.value_fixate, None, docs=GIRDocs())
     assert compare is not None and fixate is not None
-    assert compare.render_args("Gst") == "value1: typing.Any, value2: typing.Any"
-    assert fixate.render_args("Gst") == "dest: GObject.Value, src: typing.Any"
+    assert compare.render_parameter_list("Gst") == "value1: typing.Any, value2: typing.Any"
+    assert fixate.render_parameter_list("Gst") == "dest: GObject.Value, src: typing.Any"
 
-    element_factory, _ = parse_class("gi.repository.Gst", Gst.ElementFactory)
+    element_factory, _ = parse_class("gi.repository.Gst", Gst.ElementFactory, docs=GIRDocs())
     assert element_factory is not None
     make = next(method for method in element_factory.methods if method.name == "make_with_properties")
     values = next(arg for arg in make.args if arg.name == "values")
-    assert values.type_hint("Gst") == "list[typing.Any] | None"
+    assert values.render_type_annotation("Gst") == "list[typing.Any] | None"
 
-    callbacks = {callback.name: callback for callback in parse_class("gi.repository.Gst", Gst.Structure)[1]}
+    callbacks = {
+        callback.name: callback for callback in parse_class("gi.repository.Gst", Gst.Structure, docs=GIRDocs())[1]
+    }
     for callback_name in ("StructureForeachFunc", "StructureMapFunc"):
         value = next(arg for arg in callbacks[callback_name].function.args if arg.name == "value")
-        assert value.type_hint("Gst") == "typing.Any"
+        assert value.render_type_annotation("Gst") == "typing.Any"
 
-    value_list, _ = parse_class("gi.repository.Gst", Gst.ValueList)
+    value_list, _ = parse_class("gi.repository.Gst", Gst.ValueList, docs=GIRDocs())
     assert value_list is not None
     init = next(method for method in value_list.methods if method.name == "init")
-    assert next(arg for arg in init.args if arg.name == "value").type_hint("Gst") == "GObject.Value"
+    assert next(arg for arg in init.args if arg.name == "value").render_type_annotation("Gst") == "GObject.Value"
 
 
 def test_gvalue_without_gir_metadata_is_kept_conservatively():
     compare = parse_function(Gst.value_compare, None)
     assert compare is not None
-    assert compare.render_args("Gst") == "value1: GObject.Value, value2: GObject.Value"
+    assert compare.render_parameter_list("Gst") == "value1: GObject.Value, value2: GObject.Value"
 
 
 def test_function_gst_version():
@@ -346,9 +350,9 @@ def test_function_gst_version():
     assert parsed_function is not None, "Failed to parse Gst.version function"
 
     # check the return hint
-    assert parsed_function.complete_return_hint(namespace="Gst") == "tuple[int, int, int, int]"
+    assert parsed_function.render_return_annotation(namespace="Gst") == "tuple[int, int, int, int]"
     # should have no parameters
-    assert parsed_function.render_args(namespace="Gst", one_line=True) == ""
+    assert parsed_function.render_parameter_list(namespace="Gst", one_line=True) == ""
 
 
 def test_function_gst_version_string():
@@ -359,9 +363,9 @@ def test_function_gst_version_string():
     assert parsed_function is not None, "Failed to parse Gst.version function"
 
     # check the return hint
-    assert parsed_function.complete_return_hint(namespace="Gst") == "str"
+    assert parsed_function.render_return_annotation(namespace="Gst") == "str"
     # should have no parameters
-    assert parsed_function.render_args(namespace="Gst", one_line=True) == ""
+    assert parsed_function.render_parameter_list(namespace="Gst", one_line=True) == ""
 
 
 def test_fraction():

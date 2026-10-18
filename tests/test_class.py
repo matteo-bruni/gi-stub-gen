@@ -76,7 +76,7 @@ _PythonAnnotatedFieldCases.__annotations__.update(
 def test_gobject_property_override_renders_generic_descriptor():
     TemplateManager.set_module_name("GObject")
 
-    rendered = CLASS_PROPERTY.render()
+    rendered = CLASS_PROPERTY.render_stub()
 
     assert "class Property[ValueT](builtins.property):" in rendered
     assert "getter: typing.Callable[[typing.Any], ValueT] | None = None" in rendered
@@ -256,15 +256,15 @@ def test_public_override_mixin_specializes_writable_property_and_omits_props(mon
     assert parsed_specialized is not None
     assert parsed_default is not None
     assert parsed_internal is not None
-    assert parsed_mixin.type_parameters == "ValueType: ValueBase, UnboundType"
+    assert parsed_mixin.render_type_parameters() == "ValueType: ValueBase, UnboundType"
     assert next(field for field in parsed_mixin.fields if field.name == "value").type_hint_name == "ValueType"
     assert next(field for field in parsed_mixin.fields if field.name == "unbound").type_hint_name == "UnboundType"
     assert parsed_specialized.super[0] == "PublicMixin[SpecializedValue, SpecializedUnbound]"
     assert parsed_default.super[0] == "PublicMixin[DefaultValue, DefaultUnbound]"
 
     TemplateManager.set_module_name("SyntheticGenericMixin")
-    assert "class Props" not in parsed_mixin.render()
-    assert "class Props" in parsed_internal.render()
+    assert "class Props" not in parsed_mixin.render_stub()
+    assert "class Props" in parsed_internal.render_stub()
 
 
 def test_python_only_property_access_and_annotations():
@@ -297,11 +297,11 @@ def test_python_class_annotations_add_only_public_instance_fields():
     assert parsed_class is not None
     fields = {field.name: field for field in parsed_class.fields}
 
-    assert fields["python_only"].type_hint("tests.test_class") == "int"
-    assert fields["forward"].type_hint("tests.test_class") == "_ForwardPropertyType"
-    assert fields["optional"].type_hint("tests.test_class") == "_ForwardPropertyType | None"
-    assert fields["unresolved"].type_hint("tests.test_class") == "typing.Any"
-    assert fields["accessor_wins"].type_hint("tests.test_class") == "int"
+    assert fields["python_only"].render_type_annotation("tests.test_class") == "int"
+    assert fields["forward"].render_type_annotation("tests.test_class") == "_ForwardPropertyType"
+    assert fields["optional"].render_type_annotation("tests.test_class") == "_ForwardPropertyType | None"
+    assert fields["unresolved"].render_type_annotation("tests.test_class") == "typing.Any"
+    assert fields["accessor_wins"].render_type_annotation("tests.test_class") == "int"
     assert fields["python_only"].is_readable is True
     assert fields["python_only"].is_writable is True
     assert not {"_private", "inherited", "constant", "method"} & fields.keys()
@@ -379,7 +379,7 @@ def test_python_class_annotations_refine_gir_fields_without_losing_metadata(monk
     monkeypatch.setattr(
         class_parser,
         "gi_parse_field",
-        lambda field, module_name, class_name: (gir_fields[field.get_name()].model_copy(), None),
+        lambda field, module_name, class_name, docs=None: (gir_fields[field.get_name()].model_copy(), None),
     )
     monkeypatch.setattr(class_parser.GIRepo, "find_by_name", lambda self, *args, **kwargs: None)
 
@@ -388,15 +388,15 @@ def test_python_class_annotations_refine_gir_fields_without_losing_metadata(monk
     assert parsed_class is not None
     fields = {field.name: field for field in parsed_class.fields}
     corrected = fields["corrected"]
-    assert corrected.type_hint(__name__) == "_ForwardPropertyType | None"
+    assert corrected.render_type_annotation(__name__) == "_ForwardPropertyType | None"
     assert corrected.docstring == "GIR documentation"
     assert corrected.is_deprecated is True
     assert corrected.deprecation_warnings == "deprecated"
     assert corrected.line_comment == "GIR comment"
     assert corrected.is_readable is True
     assert corrected.is_writable is False
-    assert fields["unresolved_existing"].type_hint(__name__) == "str"
-    assert fields["python_only"].type_hint(__name__) == "int"
+    assert fields["unresolved_existing"].render_type_annotation(__name__) == "str"
+    assert fields["python_only"].render_type_annotation(__name__) == "int"
 
 
 def test_parse_class_gobject_initially_unowned():
@@ -405,7 +405,7 @@ def test_parse_class_gobject_initially_unowned():
 
     assert class_schema is not None
     assert class_schema.name == "InitiallyUnowned"
-    assert "Object" == class_schema.super_class
+    assert "Object" == class_schema.render_bases()
 
 
 def test_runtime_fields():
@@ -642,10 +642,11 @@ def test_class_without_super_override_uses_computed_super():
     class_schema, _ = parse_class("gi.repository.GObject", GObject.InitiallyUnowned)
 
     assert class_schema is not None
-    assert class_schema.super_class is not None
+    bases = class_schema.render_bases()
+    assert bases is not None
 
     # InitiallyUnowned should have Object as super (computed, no override)
-    assert "Object" in class_schema.super_class
+    assert "Object" in bases
 
 
 def test_gio_liststore_renders_pep695_typevar():
@@ -660,17 +661,17 @@ def test_gio_liststore_renders_pep695_typevar():
 
     append_method = next(method for method in class_schema.methods if method.name == "append")
     append_item = next(arg for arg in append_method.args if arg.name == "item")
-    assert append_item.type_hint("Gio") == "ObjectItemType"
+    assert append_item.render_type_annotation("Gio") == "ObjectItemType"
 
     insert_method = next(method for method in class_schema.methods if method.name == "insert")
     insert_item = next(arg for arg in insert_method.args if arg.name == "item")
-    assert insert_item.type_hint("Gio") == "ObjectItemType"
+    assert insert_item.render_type_annotation("Gio") == "ObjectItemType"
 
     new_method = next(method for method in class_schema.python_methods if method.name == "new")
-    assert new_method.return_hint("Gio") == "ListStore[ObjectItemType]"
+    assert new_method.render_return_annotation("Gio") == "ListStore[ObjectItemType]"
 
     TemplateManager.set_module_name("Gio")
-    rendered = class_schema.render()
+    rendered = class_schema.render_stub()
 
     assert "class ListStore[ObjectItemType: GObject.Object](GObject.Object):" in rendered
     assert "def append(self, item: ObjectItemType) -> None: ..." in rendered
@@ -689,10 +690,10 @@ def test_gio_listmodel_renders_pep695_typevar():
     assert [type_var.name for type_var in class_schema.type_vars] == ["ObjectItemType"]
 
     get_item_method = next(method for method in class_schema.methods if method.name == "get_item")
-    assert get_item_method.complete_return_hint("Gio") == "ObjectItemType | None"
+    assert get_item_method.render_return_annotation("Gio") == "ObjectItemType | None"
 
     TemplateManager.set_module_name("Gio")
-    rendered = class_schema.render()
+    rendered = class_schema.render_stub()
 
     assert "class ListModel[ObjectItemType: GObject.Object]:" in rendered
     assert "def get_item(self, position: int) -> ObjectItemType | None:" in rendered
@@ -709,7 +710,7 @@ def test_props_do_not_inherit_from_metaclass_argument():
     assert class_schema is not None
 
     TemplateManager.set_module_name("GstVideo")
-    rendered = class_schema.render()
+    rendered = class_schema.render_stub()
 
     assert "class VideoDirection(builtins.object, metaclass=GObject.GType):" in rendered
     assert "class Props:" in rendered

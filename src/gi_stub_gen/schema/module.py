@@ -120,12 +120,13 @@ class ModuleSchema(BaseSchema):
         logger.info(f"Not gi.repository imports: {not_gi_imports}")
         return valid_gi_imports, not_gi_imports
 
-    def to_pyi(
+    def render_stub(
         self,
         extra_imports: list[str],
         unknowns: dict[str, list[str]],
         debug=False,
     ) -> str:
+        """Return stub text as a string."""
         sane_module_name = sanitize_gi_module_name(self.name)
 
         # add all the gi.repository imports needed

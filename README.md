@@ -160,6 +160,78 @@ to trigger and overwrite the existing packages with the latest generated stubs.
 
 ## Architecture & Design Decisions
 
+### Parsing, stub text and reusable metadata
+
+`parser/function.py` constructs callable and argument models through `parse_callable`
+and `parse_argument`; `parse_function` filters supported module/class functions.
+`parser/class_.py` assembles classes, applies overrides and resolves their bases and
+generics. The Pydantic stub models retain data, validation, pure calculations and
+rendering methods. Simple enum and constant factories remain in their models.
+
+Parsers accept an explicit `docs: GIRDocs | None`; `None` means no GIR documentation
+or callable metadata lookup. The CLI loads and resets the documentation manager
+for each namespace. `parse_module(module, docs=docs, on_progress=callback)` works
+without Rich logging handlers; its optional callback receives the attribute name,
+completed count and total. The CLI owns the progress display.
+
+Methods that generate stub text use `render_*`: `render_type_annotation`,
+`render_return_annotation`, `render_parameter`, `render_parameter_list`,
+`render_stub` and `render_stub_compact`. Helpers for decorators, bases and generics
+are also methods with this prefix. `FunctionSchema.render_parameter_list` returns
+a string; the builtin equivalent returns a list of fragments including `/` and `*`.
+`FunctionSchema.return_hint` remains a data field. `ModuleSchema.render_stub`
+sets the template context; individual model rendering still uses TemplateManager.
+The previous internal names have been removed, without compatibility aliases.
+
+For metadata consumers, `schema/property.py` provides `PropertyDescriptor`,
+`PropertyDefault` and `PropertyValue` and can be imported without GI, Rich or Jinja.
+`parser/property.py` exposes `describe_property(param_spec)` and
+`describe_properties(gtype)` for runtime ParamSpecs, including inherited properties.
+These describe type defaults and constraints, not the current values of an instance.
+Native objects remain in the runtime adapter; unsupported or unavailable defaults
+are explicit states, distinct from an available JSON null. No arbitrary `repr`
+is serialized. Nullability can be unknown and does not replace stub heuristics.
+
+The GStreamer consumer in `parser/gstreamer.py` builds a catalog with `elements`
+and a shared `types` dictionary containing only enum/flags definitions, keyed by
+registered GType names. Each element
+has its factory `name`, `properties`, referenced `enum_types`, `pad_templates`,
+signals, plugin name, rank and factory metadata. Properties reference their
+`value_type`; enum/flags values live once in `types`. The standalone
+`describe_properties` API still includes inline enum values.
+
+`parser/gobject.py` handles generic GType and runtime signal metadata; it does not
+import GStreamer. Its `describe_type` and `describe_signals` are separate from the
+GIInfo parsing used for stub generation. The corresponding models in
+`schema/gobject.py` and `schema/gstreamer.py` have no runtime dependencies on GI.
+The dictionary lists enum/flags types referenced by properties and signals, not
+types "owned" by an element. Other types (such as `guint`, `void` or `GstBuffer`)
+remain names in the descriptions without entries in `types`. Numeric GType IDs
+are process-local and are not serialized.
+
+The example loads the `videotestsrc` factory and writes this catalog as JSON,
+without requiring a `Gst.VideoTestSrc` class. In the prepared devcontainer:
+
+```sh
+uv run --group gst --locked python examples/describe_videotestsrc.py
+```
+
+For multiple selected factories, call `Gst.init(None)` then
+`describe_catalog(["videotestsrc", "appsrc", "fakesrc"])`. The two latter elements
+share a single `types["GstFormat"]` definition. This does not scan all plugins or
+create element instances. Pad caps are stored in GStreamer's caps syntax and
+describe templates, not runtime negotiation. Signals include native parameter
+GTypes, not Python callback annotations or GIR parameter documentation.
+
+For enums available only through a GType, the runtime parser uses the same private
+`gi._gi.enum_add`/`flags_add` fallback as PyGObject 3.56's ParamSpec overrides.
+This can register Python wrappers; keep catalog inspection in a separate process
+from stub generation when both are needed. No catalog APIs are called by the CLI.
+
+See [the comparison and refactoring notes](docs/GI_parsing_comparison.md) for scope,
+tradeoffs and verification results. OpenAPI and dynamic configuration models are
+separate possible consumers, not part of this refactoring.
+
 ### Why not just parse `.gir` files?
 Parsing only `.gir` (XML) files is insufficient because:
 1.  **Overrides:** PyGObject heavily modifies the API (adding Pythonic methods like `__iter__`, `__enter__`, or custom constructors). GIR files do not reflect these Python-specific overrides.

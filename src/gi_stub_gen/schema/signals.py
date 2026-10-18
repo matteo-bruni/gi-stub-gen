@@ -39,17 +39,18 @@ class SignalSchema(BaseSchema):
             gi_imports.update(self.handler.required_imports)
         return gi_imports
 
-    @property
-    def detailed_signal_type(self) -> str:
+    def render_signal_annotation(self) -> str:
+        """Return stub text as a string."""
         if not self.name:
             return "str"
         return f'typing.Literal["{self.name}"]'
 
-    def params(self, namespace: str) -> str:
+    def render_handler_parameters(self, namespace: str) -> str:
+        """Return stub text as a string."""
         types_types: list[str] = []
         for arg in self.handler.args:
             if arg.direction in ("IN", "INOUT"):
-                types_types.append(arg.type_hint(namespace))
+                types_types.append(arg.render_type_annotation(namespace))
         if len(types_types) > 0:
             # add typing.Self as first param
             types_types.insert(0, "typing_extensions.Self")

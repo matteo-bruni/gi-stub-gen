@@ -1,7 +1,7 @@
 {% if props %}
 class Props{{ props_super_class | if_exists('({})')  }}:
     {% for prop in props %}
-    {{ prop.name }}: {{ prop.type_hint(module_name) }} {{ prop.line_comment | if_exists("# ") | trim }}
+    {{ prop.name }}: {{ prop.render_type_annotation(module_name) }} {{ prop.line_comment | if_exists("# ") | trim }}
     {% if prop.docstring or prop.is_deprecated %}
     """
     {{ prop.docstring | if_exists | trim | indent(4) }}

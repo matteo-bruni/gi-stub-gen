@@ -40,15 +40,15 @@ class TestGIFunctionDecorators:
         assert parsed.is_class_member is False
 
         # Should have no decorators
-        assert "@staticmethod" not in parsed.decorators
-        assert "@classmethod" not in parsed.decorators
+        assert "@staticmethod" not in parsed.render_decorators()
+        assert "@classmethod" not in parsed.render_decorators()
 
     def test_module_level_function_version_string(self):
         """Another module-level function: Gst.version_string()"""
         parsed = parse_function(Gst.version_string, None)
         assert parsed is not None
         assert parsed.is_class_member is False
-        assert "@staticmethod" not in parsed.decorators
+        assert "@staticmethod" not in parsed.render_decorators()
 
     def test_gobject_unintrospectable_function_is_skipped(self):
         """
@@ -71,7 +71,7 @@ class TestGIFunctionDecorators:
 
         # Should be marked as class member and have @staticmethod
         assert find_method.is_class_member is True
-        assert "@staticmethod" in find_method.decorators
+        assert "@staticmethod" in find_method.render_decorators()
 
     def test_class_instance_method_no_staticmethod(self):
         """
@@ -87,7 +87,7 @@ class TestGIFunctionDecorators:
 
         # Should be a class member but NOT static
         assert get_state.is_class_member is True
-        assert "@staticmethod" not in get_state.decorators
+        assert "@staticmethod" not in get_state.render_decorators()
 
     def test_constructor_no_staticmethod(self):
         """
@@ -103,7 +103,7 @@ class TestGIFunctionDecorators:
 
         # Constructors are class members but should not be marked as static
         assert new_method.is_class_member is True
-        assert "@staticmethod" not in new_method.decorators
+        assert "@staticmethod" not in new_method.render_decorators()
 
 
 class TestPythonFunctionDecorators:
@@ -122,8 +122,8 @@ class TestPythonFunctionDecorators:
         assert parsed.is_from_class is False
 
         # Should have no decorators
-        assert "@staticmethod" not in parsed.decorators
-        assert "@classmethod" not in parsed.decorators
+        assert "@staticmethod" not in parsed.render_decorators()
+        assert "@classmethod" not in parsed.render_decorators()
 
     def test_class_method_with_from_class(self):
         """
@@ -140,8 +140,8 @@ class TestPythonFunctionDecorators:
         assert parsed.is_from_class is True
 
         # disconnect is a regular instance method, not static
-        assert "@staticmethod" not in parsed.decorators
-        assert "@classmethod" not in parsed.decorators
+        assert "@staticmethod" not in parsed.render_decorators()
+        assert "@classmethod" not in parsed.render_decorators()
 
     def test_gobject_signal_wrappers_consume_bound_receiver(self):
         """Module helper signatures copied onto Object must not duplicate self."""
@@ -161,13 +161,13 @@ class TestPythonFunctionDecorators:
                 from_class=GObject.Object,
             )
             assert parsed is not None
-            assert parsed.param_signature("GObject") == expected
+            assert parsed.render_parameter_list("GObject") == expected
 
     def test_gobject_module_signal_helper_keeps_instance_argument(self):
         """The unbound GI helper still requires its explicit instance."""
         parsed = parse_function(GObject.signal_handler_disconnect, None)
         assert parsed is not None
-        assert parsed.render_args("GObject") == "instance: Object, handler_id: int"
+        assert parsed.render_parameter_list("GObject") == "instance: Object, handler_id: int"
 
     def test_gobject_handler_block(self):
         """
@@ -180,7 +180,7 @@ class TestPythonFunctionDecorators:
         parsed = parse_python_function(handler_block, "gi.repository.GObject", from_class=GObject.Object)
         assert parsed is not None
         assert parsed.is_from_class is True
-        assert "@staticmethod" not in parsed.decorators
+        assert "@staticmethod" not in parsed.render_decorators()
 
     def test_parsed_class_python_methods_have_self(self):
         """
@@ -197,7 +197,7 @@ class TestPythonFunctionDecorators:
         assert disconnect.is_from_class is True
 
         # Should NOT have @staticmethod
-        assert "@staticmethod" not in disconnect.decorators
+        assert "@staticmethod" not in disconnect.render_decorators()
 
     def test_python_override_renders_enum_default_name(self):
         """connect_data should render ConnectFlags.DEFAULT instead of the raw 0 value."""
@@ -221,13 +221,13 @@ class TestPythonFunctionDecorators:
 
         assert parsed.return_hint_name == "Self"
         assert parsed.return_hint_namespace == "typing_extensions"
-        assert parsed.return_hint("GLib") == "typing_extensions.Self"
+        assert parsed.render_return_annotation("GLib") == "typing_extensions.Self"
 
         parsed_class, _ = parse_class("GLib", GLib.Error)
         assert parsed_class is not None
 
         TemplateManager.set_module_name("GLib")
-        rendered = parsed_class.render()
+        rendered = parsed_class.render_stub()
         assert ") -> typing_extensions.Self:" in rendered
 
     def test_python_override_keeps_gst_iterator_type(self):
@@ -244,21 +244,21 @@ class TestPythonFunctionDecorators:
 
         assert parsed.return_hint_namespace == "Gst"
         assert parsed.return_hint_name == "Iterator[Element]"
-        assert parsed.return_hint("Gst") == "Iterator[Element]"
+        assert parsed.render_return_annotation("Gst") == "Iterator[Element]"
 
     def test_gst_iterator_renders_pep695_typevar(self):
         """Gst.Iterator should render as generic so Iterator[Element] is valid."""
         assert GIRDocs().load(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
-        parsed_class, _ = parse_class("Gst", Gst.Iterator)
+        parsed_class, _ = parse_class("Gst", Gst.Iterator, docs=GIRDocs())
 
         assert parsed_class is not None
         assert [type_var.name for type_var in parsed_class.type_vars] == ["T"]
 
         iter_method = next(method for method in parsed_class.python_methods if method.name == "__iter__")
-        assert iter_method.return_hint("Gst") == "collections.abc.Iterator[T]"
+        assert iter_method.render_return_annotation("Gst") == "collections.abc.Iterator[T]"
 
         TemplateManager.set_module_name("Gst")
-        rendered = parsed_class.render()
+        rendered = parsed_class.render_stub()
 
         assert "class Iterator[T](GObject.GBoxed, metaclass=GObject.GType):" in rendered
         assert "def __iter__(" in rendered
@@ -266,14 +266,14 @@ class TestPythonFunctionDecorators:
 
         next_method = next(method for method in parsed_class.methods if method.name == "next")
         find_custom = next(method for method in parsed_class.methods if method.name == "find_custom")
-        assert next_method.complete_return_hint("Gst") == "tuple[IteratorResult, T]"
-        assert find_custom.complete_return_hint("Gst") == "tuple[bool, T]"
+        assert next_method.render_return_annotation("Gst") == "tuple[IteratorResult, T]"
+        assert find_custom.render_return_annotation("Gst") == "tuple[bool, T]"
 
     def test_gst_override_mixin_methods_are_inherited(self):
         """Public override mixins are rendered as bases instead of being flattened."""
         assert GIRDocs().load(Path("/usr/share/gir-1.0/Gst-1.0.gir"))
 
-        parsed_buffer, _ = parse_class("gi.repository.Gst", Gst.Buffer)
+        parsed_buffer, _ = parse_class("gi.repository.Gst", Gst.Buffer, docs=GIRDocs())
         assert parsed_buffer is not None
         assert parsed_buffer.super[:2] == ["MiniObjectMixin[BufferFlags]", "GObject.GBoxed"]
         assert "is_writable" not in {method.name for method in parsed_buffer.methods}
@@ -281,45 +281,45 @@ class TestPythonFunctionDecorators:
         assert "is_writable" not in {method.name for method in parsed_buffer.python_methods}
         assert "make_writable" not in {method.name for method in parsed_buffer.python_methods}
 
-        parsed_mixin, _ = parse_class("gi.repository.Gst", Gst.MiniObjectMixin)
+        parsed_mixin, _ = parse_class("gi.repository.Gst", Gst.MiniObjectMixin, docs=GIRDocs())
         assert parsed_mixin is not None
         mixin_methods = {method.name: method for method in parsed_mixin.python_methods}
-        assert mixin_methods["is_writable"].return_hint("Gst") == "bool"
-        assert mixin_methods["make_writable"].return_hint("Gst") == "bool"
+        assert mixin_methods["is_writable"].render_return_annotation("Gst") == "bool"
+        assert mixin_methods["make_writable"].render_return_annotation("Gst") == "bool"
 
     def test_caller_allocated_out_gvalue_is_unwrapped_to_any(self):
         """PyGObject returns the Python payload, not a GObject.Value wrapper."""
         assert GIRDocs().load(Path("/usr/share/gir-1.0/Gio-2.0.gir"))
-        parsed = parse_function(Gio.Task.propagate_value, None)
+        parsed = parse_function(Gio.Task.propagate_value, None, docs=GIRDocs())
         assert parsed is not None
 
         value = next(arg for arg in parsed.args if arg.name == "value")
         assert value.is_marshaled_gvalue_payload is True
-        assert value.type_hint("Gio") == "typing.Any"
-        assert parsed.complete_return_hint("Gio") == "tuple[bool, typing.Any]"
+        assert value.render_type_annotation("Gio") == "typing.Any"
+        assert parsed.render_return_annotation("Gio") == "tuple[bool, typing.Any]"
 
-        parsed_class, _ = parse_class("gi.repository.Gio", Gio.Task)
+        parsed_class, _ = parse_class("gi.repository.Gio", Gio.Task, docs=GIRDocs())
         assert parsed_class is not None
         return_value = next(method for method in parsed_class.methods if method.name == "return_value")
-        assert return_value.render_args("Gio") == "self, result: typing.Any = None"
-        assert return_value.complete_return_hint("Gio") == "None"
+        assert return_value.render_parameter_list("Gio") == "self, result: typing.Any = None"
+        assert return_value.render_return_annotation("Gio") == "None"
 
         assert GIRDocs().load(Path("/usr/share/gir-1.0/GObject-2.0.gir"))
-        invoke = parse_function(GObject.Closure.invoke, None)
+        invoke = parse_function(GObject.Closure.invoke, None, docs=GIRDocs())
         assert invoke is not None
         param_values = next(arg for arg in invoke.args if arg.name == "param_values")
-        assert param_values.type_hint("GObject") == "list[typing.Any]"
+        assert param_values.render_type_annotation("GObject") == "list[typing.Any]"
 
-        getv = parse_function(GObject.Object.getv, None)
+        getv = parse_function(GObject.Object.getv, None, docs=GIRDocs())
         assert getv is not None
         values = next(arg for arg in getv.args if arg.name == "values")
-        assert values.type_hint("GObject") == "list[Value]"
+        assert values.render_type_annotation("GObject") == "list[Value]"
 
     def test_gtype_function_inputs_remain_gtype(self):
         """The enum metaclasses make a separate widened input alias unnecessary."""
         parsed = parse_function(GObject.type_is_a, None)
         assert parsed is not None
-        assert [arg.type_hint("GObject") for arg in parsed.input_args] == [
+        assert [arg.render_type_annotation("GObject") for arg in parsed.input_args] == [
             "GType",
             "GType",
         ]
@@ -327,7 +327,7 @@ class TestPythonFunctionDecorators:
         signal_newv = parse_function(GObject.signal_newv, None)
         assert signal_newv is not None
         param_types = next(arg for arg in signal_newv.input_args if arg.name == "param_types")
-        assert param_types.type_hint("GObject") == "list[GType] | None"
+        assert param_types.render_type_annotation("GObject") == "list[GType] | None"
 
     def test_gtype_virtual_function_inputs_remain_gtype(self):
         """Virtual handler arguments are delivered by GI, not supplied by callers."""
@@ -343,7 +343,7 @@ class TestPythonFunctionDecorators:
         )
         assert parsed is not None
         value = next(param for param in parsed.params if param.name == "value")
-        assert value.type_hint("GObject") == "GType"
+        assert value.render_type_annotation("GObject") == "GType"
 
     def test_gst_context_managers_render_enter_exit(self):
         """Gst override context managers should expose the context manager protocol."""
@@ -359,10 +359,10 @@ class TestPythonFunctionDecorators:
             enter_method = next(method for method in parsed_class.python_methods if method.name == "__enter__")
             exit_method = next(method for method in parsed_class.python_methods if method.name == "__exit__")
 
-            assert enter_method.return_hint("Gst") == enter_return
-            assert exit_method.return_hint("Gst") == "None"
+            assert enter_method.render_return_annotation("Gst") == enter_return
+            assert exit_method.render_return_annotation("Gst") == "None"
 
-            rendered = parsed_class.render()
+            rendered = parsed_class.render_stub()
             assert "def __enter__(" in rendered
             assert f") -> {enter_return}:" in rendered
             assert "def __exit__(" in rendered
@@ -383,7 +383,7 @@ class TestPythonFunctionDecorators:
         func_param = next(param for param in parsed.params if param.name == "func")
         assert func_param.type_hint_namespace == "collections.abc"
         assert func_param.type_hint_name == "Callable[[Gst.Clock, typing.Any], int]"
-        assert func_param.type_hint("GstAudio") == "collections.abc.Callable[[Gst.Clock, typing.Any], int]"
+        assert func_param.render_type_annotation("GstAudio") == "collections.abc.Callable[[Gst.Clock, typing.Any], int]"
 
     def test_python_override_avoids_same_module_prefix_in_generics(self):
         """
@@ -399,7 +399,7 @@ class TestPythonFunctionDecorators:
         files_param = next(param for param in parsed.params if param.name == "files")
         assert files_param.type_hint_name == "list[File]"
         assert files_param.type_hint_namespace is None
-        assert files_param.type_hint("Gio") == "list[File]"
+        assert files_param.render_type_annotation("Gio") == "list[File]"
 
     def test_python_override_uses_gir_docstring_when_python_doc_missing(self, tmp_path):
         gir_file = tmp_path / "Gst-1.0.gir"
@@ -422,7 +422,7 @@ class TestPythonFunctionDecorators:
         )
         assert GIRDocs().load(gir_file)
 
-        parsed_class, _ = parse_class("Gst", Gst.Buffer)
+        parsed_class, _ = parse_class("Gst", Gst.Buffer, docs=GIRDocs())
         assert parsed_class is not None
 
         map_method = next(method for method in parsed_class.python_methods if method.name == "map")
@@ -469,8 +469,8 @@ class TestClassMethodDetection:
         parsed = parse_python_function(new_method, "gi.repository.Gst", from_class=Gst.AtomicQueue)
         assert parsed is not None
         assert parsed.is_from_class is True
-        assert "@classmethod" in parsed.decorators
-        assert "@staticmethod" not in parsed.decorators
+        assert "@classmethod" in parsed.render_decorators()
+        assert "@staticmethod" not in parsed.render_decorators()
 
     def test_classmethod_in_parsed_class(self):
         """
@@ -482,7 +482,7 @@ class TestClassMethodDetection:
         # Find 'new' in python_methods
         new_method = next((m for m in parsed_class.python_methods if m.name == "new"), None)
         assert new_method is not None, "AtomicQueue.new not found"
-        assert "@classmethod" in new_method.decorators
+        assert "@classmethod" in new_method.render_decorators()
 
 
 class TestStaticMethodDetection:
@@ -510,22 +510,22 @@ class TestStaticMethodDetection:
         parsed_static = parse_python_function(TestClass.static_func, "test", from_class=TestClass)
         assert parsed_static is not None
         assert parsed_static.is_from_class is True
-        assert "@staticmethod" in parsed_static.decorators
-        assert "@classmethod" not in parsed_static.decorators
+        assert "@staticmethod" in parsed_static.render_decorators()
+        assert "@classmethod" not in parsed_static.render_decorators()
 
         # Test classmethod
         parsed_class = parse_python_function(TestClass.class_func, "test", from_class=TestClass)
         assert parsed_class is not None
         assert parsed_class.is_from_class is True
-        assert "@classmethod" in parsed_class.decorators
-        assert "@staticmethod" not in parsed_class.decorators
+        assert "@classmethod" in parsed_class.render_decorators()
+        assert "@staticmethod" not in parsed_class.render_decorators()
 
         # Test instance method
         parsed_instance = parse_python_function(TestClass.instance_func, "test", from_class=TestClass)
         assert parsed_instance is not None
         assert parsed_instance.is_from_class is True
-        assert "@staticmethod" not in parsed_instance.decorators
-        assert "@classmethod" not in parsed_instance.decorators
+        assert "@staticmethod" not in parsed_instance.render_decorators()
+        assert "@classmethod" not in parsed_instance.render_decorators()
 
 
 class TestNoFromClassMeansModuleLevel:
@@ -543,8 +543,8 @@ class TestNoFromClassMeansModuleLevel:
         parsed = parse_python_function(some_func, "test")
         assert parsed is not None
         assert parsed.is_from_class is False
-        assert "@staticmethod" not in parsed.decorators
-        assert "@classmethod" not in parsed.decorators
+        assert "@staticmethod" not in parsed.render_decorators()
+        assert "@classmethod" not in parsed.render_decorators()
 
 
 class TestPropertyDecorator:
@@ -567,7 +567,7 @@ class TestPropertyDecorator:
 
         # But should NOT be a property in Python terms
         assert get_direction.is_property is False
-        assert "@builtins.property" not in get_direction.decorators
+        assert "@builtins.property" not in get_direction.render_decorators()
 
     def test_explicit_property_override(self):
         """
@@ -582,4 +582,4 @@ class TestPropertyDecorator:
 
         # Should be explicitly marked as property
         assert value_name.is_property is True
-        assert "@builtins.property" in value_name.decorators
+        assert "@builtins.property" in value_name.render_decorators()
