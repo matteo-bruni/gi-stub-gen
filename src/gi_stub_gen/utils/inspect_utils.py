@@ -27,6 +27,7 @@ def _format_annotation_expr(
     annotation: Any,
     relative_namespace: str | None = None,
     current_namespace: str | None = None,
+    required_imports: set[str] | None = None,
 ) -> str:
     normalized_relative_namespace = _normalize_namespace(relative_namespace)
     normalized_current_namespace = _normalize_namespace(current_namespace)
@@ -34,12 +35,15 @@ def _format_annotation_expr(
     type_name, type_namespace = _extract_annotation_type_info(
         annotation,
         current_namespace=normalized_current_namespace,
+        required_imports=required_imports,
     )
 
     if type_namespace and type_namespace not in {
         normalized_relative_namespace,
         normalized_current_namespace,
     }:
+        if required_imports is not None:
+            required_imports.add(type_namespace)
         return f"{type_namespace}.{type_name}"
 
     return type_name
@@ -48,6 +52,7 @@ def _format_annotation_expr(
 def _format_union_args(
     args: tuple[Any, ...],
     current_namespace: str | None = None,
+    required_imports: set[str] | None = None,
 ) -> str:
     return " | ".join(
         "None"
@@ -55,6 +60,7 @@ def _format_union_args(
         else _format_annotation_expr(
             arg,
             current_namespace=current_namespace,
+            required_imports=required_imports,
         )
         for arg in args
     )
@@ -63,10 +69,16 @@ def _format_union_args(
 def _extract_annotation_type_info(
     annotation: Any,
     current_namespace: str | None = None,
+    required_imports: set[str] | None = None,
 ) -> tuple[str, str | None]:
+    """Return a type expression and its outer namespace; collect nested imports when requested."""
     if isinstance(annotation, list):
+        items = (
+            _format_annotation_expr(item, current_namespace=current_namespace, required_imports=required_imports)
+            for item in annotation
+        )
         return (
-            f"[{', '.join(_format_annotation_expr(item, current_namespace=current_namespace) for item in annotation)}]",
+            f"[{', '.join(items)}]",
             None,
         )
 
@@ -88,7 +100,7 @@ def _extract_annotation_type_info(
 
     if origin in (typing.Union, UnionType):
         args = get_args(annotation)
-        return _format_union_args(args, current_namespace=current_namespace), None
+        return _format_union_args(args, current_namespace=current_namespace, required_imports=required_imports), None
 
     if origin is not None:
         origin_name = get_py_type_name_repr(origin)
@@ -99,6 +111,7 @@ def _extract_annotation_type_info(
                 arg,
                 relative_namespace=origin_namespace,
                 current_namespace=current_namespace,
+                required_imports=required_imports,
             )
             for arg in get_args(annotation)
         ]

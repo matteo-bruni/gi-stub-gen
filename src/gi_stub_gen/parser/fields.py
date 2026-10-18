@@ -83,7 +83,7 @@ def gi_parse_field(
             # with GI.CallbackInfo used in parse_callable
             cb_info = GIRepositoryCallableAdapter(cb_info)
 
-        cb_schema = parse_callable(cb_info, docs=docs)
+        cb_schema = parse_callable(cb_info, docs=docs, render_namespace=current_namespace)
         found_callback = CallbackSchema(
             name=cb_name,
             function=cb_schema,

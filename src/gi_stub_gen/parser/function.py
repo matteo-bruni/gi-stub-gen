@@ -35,6 +35,7 @@ def parse_function(
     attribute: Any,
     docstring: str | None,
     docs: GIRDocs | None = None,
+    render_namespace: str | None = None,
 ) -> FunctionSchema | None:
     """Parse supported GI functions; docs=None disables GIR metadata lookup."""
     is_function = isinstance(attribute, GI.FunctionInfo)
@@ -57,7 +58,7 @@ def parse_function(
         )
         return None
 
-    return parse_callable(obj=attribute, docstring=docstring, docs=docs)
+    return parse_callable(obj=attribute, docstring=docstring, docs=docs, render_namespace=render_namespace)
 
 
 def _is_gvalue_type(gir_type: GirTypeMetadata | None) -> bool:
@@ -111,11 +112,13 @@ def parse_argument(
     gir_type: GirTypeMetadata | None = None,
     callable_type: str = "FunctionInfo",
     docs: GIRDocs | None = None,
+    render_namespace: str | None = None,
 ) -> tuple[FunctionArgumentSchema, CallbackSchema | None]:
     """Construct an argument and its optional callback with the same document context."""
     found_callback: CallbackSchema | None = None
 
     function_namespace: str = obj.get_container().get_namespace()
+    annotation_namespace = render_namespace or function_namespace
     argument_namespace: str = obj.get_namespace()
     argument_name = obj.get_name()
     assert argument_name is not None, "Argument name is None"
@@ -124,6 +127,7 @@ def parse_argument(
     type_hint_namespace: str | None
     type_hint_name: str
     type_hint_comment: str | None = None
+    type_imports: set[str] = set()
 
     # if is a callback, we record its return type for type hinting
     # to create something like arg: Callback | typing.Callable[..., PadProbeReturn]
@@ -149,9 +153,12 @@ def parse_argument(
         type_hint_name = cb_name
 
         # retrieve the cb return type
-        cb_schema = parse_callable(cb_info, docs=docs)  # type: ignore
+        cb_schema = parse_callable(cb_info, docs=docs, render_namespace=annotation_namespace)  # type: ignore
         type_hint_cb_return_name = cb_schema.return_hint
         type_hint_cb_return_namespace = cb_schema.return_hint_namespace
+        type_imports.update(cb_schema.return_type_imports)
+        if type_hint_cb_return_namespace:
+            type_imports.add(type_hint_cb_return_namespace)
 
         if cb_namespace != function_namespace:
             # The callback is defined in another namespace
@@ -176,7 +183,8 @@ def parse_argument(
         py_type = gi_type_to_py_type(gi_type)
         type_hint_name, type_hint_namespace = _extract_annotation_type_info(
             py_type,
-            current_namespace=function_namespace,
+            current_namespace=annotation_namespace,
+            required_imports=type_imports,
         )
 
     array_length: int = get_safe_gi_array_length(gi_type)
@@ -187,6 +195,7 @@ def parse_argument(
         callable_type,
     )
     if is_marshaled_gvalue_payload:
+        type_imports.clear()
         if gir_type is not None and gir_type.is_array:
             type_hint_name = "list[typing.Any]"
             type_hint_namespace = None
@@ -203,8 +212,10 @@ def parse_argument(
         direction=direction,
         py_type_namespace=type_hint_namespace,
         py_type_name=type_hint_name,
+        type_imports=type_imports,
         is_deprecated=gi_type.is_deprecated(),
-        tag_as_string=gi_type.get_tag_as_string(),
+        # shortcut: internal PyGObject adds this helper; replace public hints with Protocols when modeled.
+        tag_as_string=gi_type.get_tag_as_string(),  # pyright: ignore[reportAttributeAccessIssue]
         get_array_length=array_length,
         line_comment=type_hint_comment,
         is_caller_allocates=is_caller_allocates,
@@ -221,8 +232,9 @@ def parse_callable(
     obj: GIRepository.FunctionInfo | GIRepository.CallbackInfo | GIRepository.SignalInfo | GIRepositoryCallableAdapter,
     docstring: str | None = None,
     docs: GIRDocs | None = None,
+    render_namespace: str | None = None,
 ) -> FunctionSchema:
-    """Construct a function, callback or signal from PyGObject or a GI adapter."""
+    """Construct a callable, qualifying nested types for its destination module when supplied."""
     # Note cant do isinstance on GIRepository.FunctionInfo!!
     # they are different object, we use GIRepository.FunctionInfo
     # just for the type hinting
@@ -273,7 +285,8 @@ def parse_callable(
     """callbacks found during function argument parsing"""
 
     # first loop to identify indices to skip
-    obj_arguments = list(obj.get_arguments())
+    # shortcut: internal PyGObject/adapters expose get_arguments; replace public hints with Protocols when modeled.
+    obj_arguments = list(obj.get_arguments())  # pyright: ignore[reportAttributeAccessIssue]
     closure_indices = set()
     for i, arg in enumerate(obj_arguments):
         arg_type = get_gi_type_info(arg)
@@ -325,6 +338,7 @@ def parse_callable(
             else None,
             callable_type=function_type,
             docs=docs,
+            render_namespace=render_namespace,
         )
 
         function_args.append(function_arg)
@@ -384,6 +398,7 @@ def parse_callable(
 
     # Return type hint logic
     line_comment: str | None = None
+    return_type_imports: set[str] = set()
     if is_constructor and not is_callback:
         # if it is a constructor, the return type is the class itself
         # this happens in new() functions which in reality are static methods
@@ -410,7 +425,8 @@ def parse_callable(
             # get the repr of the return type
             py_return_hint_name, py_return_hint_namespace = _extract_annotation_type_info(
                 py_return_type,
-                current_namespace=function_namespace,
+                current_namespace=render_namespace or function_namespace,
+                required_imports=return_type_imports,
             )
 
         if py_return_hint_namespace and py_return_hint_namespace.startswith("gi._"):
@@ -418,6 +434,7 @@ def parse_callable(
 
         gir_return_type = gir_callable.return_type if gir_callable is not None else None
         if _is_marshaled_gvalue_return(gir_return_type, function_type):
+            return_type_imports.clear()
             return_type = gir_return_type
             assert return_type is not None
             if return_type.is_array:
@@ -441,6 +458,7 @@ def parse_callable(
         is_method=is_method,
         return_hint=py_return_hint_name,
         return_hint_namespace=py_return_hint_namespace,
+        return_type_imports=return_type_imports,
         is_async=is_async,
         is_getter=is_getter,
         is_setter=is_setter,

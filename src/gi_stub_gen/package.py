@@ -124,6 +124,13 @@ packages = ["src/gi-stubs"]"""
     written_stubs: list[str] = []
     generated_paths: set[Path] = set()  # Track all paths we're generating
 
+    if "gi" in stubs:
+        # Only the distribution owning gi's root owns the shared package markers.
+        stubs = {"gi.repository.__init__": "", **stubs}
+        partial_marker = package_folder / "py.typed"
+        if _should_write_stub(partial_marker, "partial\n"):
+            partial_marker.write_text("partial\n", encoding="utf-8")
+
     for stub_name, stub_content in stubs.items():
         # if / "repository"
 

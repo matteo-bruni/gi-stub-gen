@@ -152,7 +152,10 @@ def parse_module(
 
         # docstring.get(attribute.get_name(), None)
         if f := parse_function(
-            attribute, docstring=(docs.get_function_docstring(attribute_name) if docs is not None else None), docs=docs
+            attribute,
+            docstring=(docs.get_function_docstring(attribute_name) if docs is not None else None),
+            docs=docs,
+            render_namespace=module_name.removeprefix("gi.repository."),
         ):
             module_functions.append(f)
             # callbacks can be found as arguments of functions,

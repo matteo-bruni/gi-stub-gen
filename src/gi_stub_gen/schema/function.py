@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import keyword
 from typing import Literal
-from pydantic import PrivateAttr
+from pydantic import Field, PrivateAttr
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 
@@ -40,6 +40,9 @@ class FunctionArgumentSchema(BaseSchema):
 
     py_type_namespace: str | None
     """The python type namespace of the argument to be used in templates"""
+
+    type_imports: set[str] = Field(default_factory=set)
+    """Namespaces embedded in a container annotation or callback return annotation."""
 
     line_comment: str | None
     """line comment for the argument."""
@@ -163,6 +166,9 @@ class FunctionSchema(BaseSchema):
     return_hint_namespace: str | None
     """namespace of the return hint, e.g. gi.repository.<NAME> import for the property type, if any"""
 
+    return_type_imports: set[str] = Field(default_factory=set)
+    """Namespaces embedded in the return annotation."""
+
     is_method: bool
     """Whether this function is a method of a class"""
 
@@ -250,7 +256,7 @@ class FunctionSchema(BaseSchema):
 
     @property
     def required_imports(self) -> set[str]:
-        gi_imports: set[str] = set()
+        gi_imports = set(self.return_type_imports)
         # check return type
         if self.return_hint_namespace:
             gi_imports.add(self.return_hint_namespace)
@@ -258,6 +264,8 @@ class FunctionSchema(BaseSchema):
             gi_imports.add("typing")
         # check arguments
         for arg in self.args:
+            if arg.type_var_name is None:
+                gi_imports.update(arg.type_imports)
             if arg.py_type_namespace and arg.type_var_name is None:
                 gi_imports.add(arg.py_type_namespace)
             if "typing." in arg.py_type_name:

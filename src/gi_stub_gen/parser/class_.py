@@ -763,6 +763,7 @@ def parse_class(
             continue
         parsed_method = parse_function(
             met,
+            render_namespace=module_name.removeprefix("gi.repository."),
             docstring=(
                 docs.get_class_method_docstring(
                     class_name=class_to_parse.__name__,
@@ -808,7 +809,9 @@ def parse_class(
                 name=signal_name,
                 name_unescaped=signal_name_unescaped,
                 namespace=signal.get_namespace(),
-                handler=parse_callable(signal, docs=docs),
+                handler=parse_callable(
+                    signal, docs=docs, render_namespace=module_name.removeprefix("gi.repository.")
+                ),
                 docstring=(
                     docs.get_class_signal_docstring(
                         class_name=class_to_parse.__name__,
