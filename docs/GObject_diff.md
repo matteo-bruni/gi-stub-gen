@@ -13,7 +13,7 @@
 | └ constants | 2 | 4 |
 | └ functions | 1 | 2 |
 | └ methods | 71 | 1 |
-| **Elements with differences** | 722 | |
+| **Elements with differences** | 721 | |
 
 ### Runtime Existence Check
 
@@ -370,7 +370,6 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | class | class | `ParamSpecVariant` | <code>class ParamSpecVariant(ParamSpec, metaclass=GType)</code> | <code>class ParamSpecVariant(ParamSpec)</code> |
 | class | class | `Parameter` | <code>class Parameter(GPointer, metaclass=GType)</code> | <code>class Parameter(\_gi.Struct)</code> |
 | class | class | `PatternSpec` | <code>class PatternSpec(GBoxed, metaclass=GType)</code> | <code>class PatternSpec(GBoxed)</code> |
-| class | constant | `Pid` | <code>class Pid(builtins.int)</code> | <code>Pid = GLib.Pid</code> |
 | class | constant | `Property` | <code>class Property(builtins.property)</code> | <code>Property = \_Property</code> |
 | class | class | `PtrArray` | <code>class PtrArray(GBoxed, metaclass=GType)</code> | <code>class PtrArray(GBoxed)</code> |
 | class | class | `Rand` | <code>class Rand(GBoxed, metaclass=GType)</code> | <code>class Rand(GBoxed)</code> |
@@ -552,7 +551,7 @@ The **Exists** column indicates whether the element actually exists at runtime i
 | function | function | `signal_type_cclosure_new` | <code>def signal\_type\_cclosure\_new(<br>&nbsp;&nbsp;&nbsp;&nbsp;itype: GType,<br>&nbsp;&nbsp;&nbsp;&nbsp;struct\_offset: int,<br>) -> Closure</code> | <code>def signal\_type\_cclosure\_new(<br>&nbsp;&nbsp;&nbsp;&nbsp;itype: type[Any],<br>&nbsp;&nbsp;&nbsp;&nbsp;struct\_offset: int,<br>) -> Callable[..., Any]</code> |
 | constant | constant | `source_remove` | <code>source\_remove = GLib.source\_remove</code> | <code>source\_remove: Final = GLib.source\_remove</code> |
 | function | function | `source_set_closure` | <code>def source\_set\_closure(<br>&nbsp;&nbsp;&nbsp;&nbsp;source: GLib.Source,<br>&nbsp;&nbsp;&nbsp;&nbsp;closure: Closure,<br>) -> None</code> | <code>def source\_set\_closure(<br>&nbsp;&nbsp;&nbsp;&nbsp;source: GLib.Source,<br>&nbsp;&nbsp;&nbsp;&nbsp;closure: Callable[..., Any],<br>) -> None</code> |
-| constant | constant | `spawn_async` | <code>spawn\_async = gi.\_gi.spawn\_async</code> | <code>spawn\_async: Final = GLib.spawn\_async</code> |
+| constant | constant | `spawn_async` | <code>spawn\_async = GLib.spawn\_async</code> | <code>spawn\_async: Final = GLib.spawn\_async</code> |
 | function | function | `strdup_value_contents` | <code>def strdup\_value\_contents(value: typing.Any) -> str</code> | <code>def strdup\_value\_contents(value: Any) -> str</code> |
 | constant | constant | `threads_init` | <code>threads\_init = GLib.threads\_init</code> | <code>threads\_init: Final = GLib.threads\_init</code> |
 | constant | constant | `timeout_add` | <code>timeout\_add = GLib.timeout\_add</code> | <code>timeout\_add: Final = GLib.timeout\_add</code> |

@@ -24,7 +24,7 @@ RUN apt-get update && \
     libcairo2-dev libgirepository-2.0-dev \
     gir1.2-glib-2.0-dev \
     gir1.2-girepository-3.0 \
-    gir1.2-girepository-3.0-dev
+    gir1.2-girepository-3.0-dev \
     # for gtk4
     libatk1.0-dev libgtk-4-dev gir1.2-gtk-4.0 && \
     rm -rf /var/lib/apt/lists/* && \

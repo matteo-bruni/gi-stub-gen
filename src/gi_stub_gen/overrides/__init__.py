@@ -1,6 +1,7 @@
 """Manual Python API corrections. Rationale and runtime evidence: README.md here."""
 
-from gi_stub_gen.overrides.types import ClassOverride
+from gi_stub_gen.overrides.types import ClassOverride, InitFactory
+from gi_stub_gen.overrides.class_.Gio.DBusConnection import build_dbus_connection_init
 from gi_stub_gen.overrides.class_.GObject.GType import (
     # Fields
     GTYPE_NAME,
@@ -115,6 +116,7 @@ CLASS_OVERRIDES: dict[str, dict[str, ClassOverride]] = {
         },
     },
     "gi.repository.Gio": {
+        "DBusConnection": {"init_factory": build_dbus_connection_init},
         "Task": {
             "method_transforms": {
                 "return_value": transform_return_value,
@@ -152,6 +154,8 @@ REQUIRED_CALLBACKS: dict[str, tuple[str, ...]] = {
 def validate_class_override(namespace: str, class_name: str, config: ClassOverride) -> None:
     """Reject inconsistent declarations without loading GI or checking runtime APIs."""
     methods = config.get("methods", {})
+    if "init_factory" in config and ("__init__" in methods or "__init__" in config.get("method_transforms", {})):
+        raise ValueError(f"{namespace}.{class_name}: init_factory conflicts with an __init__ override")
     conflicts = methods.keys() & config.get("method_transforms", {}).keys()
     if conflicts:
         raise ValueError(f"{namespace}.{class_name}: replacement and transform overlap: {sorted(conflicts)}")
@@ -163,6 +167,13 @@ def validate_class_override(namespace: str, class_name: str, config: ClassOverri
 for _namespace, _classes in CLASS_OVERRIDES.items():
     for _class_name, _config in _classes.items():
         validate_class_override(_namespace, _class_name, _config)
+
+
+def get_init_factory(namespace: str, class_name: str) -> InitFactory | None:
+    """Return the constructor factory after checking registry conflicts."""
+    config = CLASS_OVERRIDES.get(namespace, {}).get(class_name, {})
+    validate_class_override(namespace, class_name, config)
+    return config.get("init_factory")
 
 
 def has_method_override(namespace: str, class_name: str, method_name: str) -> bool:

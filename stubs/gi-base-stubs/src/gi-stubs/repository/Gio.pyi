@@ -10318,7 +10318,9 @@ class DBusConnection(GObject.Object):
         stream: IOStream | None = None,
     ) -> None:
         """
-        Initialize DBusConnection object with properties.
+            Initialize DBusConnection object with properties.
+
+        PyGObject warns that Gio.DBusConnection should not be instantiated directly. Use Gio.DBusConnection.new_sync or Gio.DBusConnection.new_for_address_sync (or their asynchronous counterparts) to create an initialized connection.
         """
     def add_filter(
         self, filter_function: DBusMessageFilterFunction | typing.Callable[..., DBusMessage], *user_data: object | None

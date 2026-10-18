@@ -9,9 +9,11 @@ from gi_stub_gen.schema.function import FunctionSchema
 
 type MethodSchema = FunctionSchema | BuiltinFunctionSchema
 type MethodTransform = Callable[[MethodSchema], MethodSchema]
+type InitFactory = Callable[[str, type], FunctionSchema]
 
 
 class ClassOverride(TypedDict, total=False):
+    init_factory: InitFactory
     super: list[str]
     methods: dict[str, FunctionSchema | None]
     fields: dict[str, ClassFieldSchema | None]

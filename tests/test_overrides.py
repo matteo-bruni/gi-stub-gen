@@ -158,6 +158,7 @@ assert 'gi_stub_gen.overrides' not in sys.modules
 with patch.object(GIRepo, 'find_callable', side_effect=AssertionError('lookup during import')):
     import gi_stub_gen.overrides
 assert 'gi_stub_gen.parser.function' not in sys.modules
+assert 'gi_stub_gen.parser.class_' not in sys.modules
 """,
         ],
         check=True,

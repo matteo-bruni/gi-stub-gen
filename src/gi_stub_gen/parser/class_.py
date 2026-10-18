@@ -61,7 +61,7 @@ from gi_stub_gen.utils.utils import (
 )
 from gi.repository import GIRepository
 
-from gi_stub_gen.overrides import has_method_override
+from gi_stub_gen.overrides import get_init_factory, has_method_override
 from gi_stub_gen.schema.function import FunctionSchema
 
 import logging
@@ -684,6 +684,7 @@ def parse_class(
         )
         return None, []
 
+    init_factory = get_init_factory(module_name, class_to_parse.__name__)
     # callbacks_found: list[GI.TypeInfo] = []
     callbacks_found: list[CallbackSchema] = []
     """callbacks found during class parsing, saved to be parsed later"""
@@ -756,6 +757,8 @@ def parse_class(
     for met in class_methods_to_parse:
         m_name = met.get_name()
         assert m_name is not None, "Method name is None"
+        if m_name == "__init__" and init_factory is not None:
+            continue
         if m_name in override_mixin_members:
             continue
         parsed_method = parse_function(
@@ -928,6 +931,8 @@ def parse_class(
     # do a second pass to get all the attributes not parsed by get_properties/get_methods
     # i.e class not from GI but added in overrides
     for attribute_name in dir(class_to_parse):
+        if attribute_name == "__init__" and init_factory is not None:
+            continue
         if attribute_name.startswith("_") and attribute_name not in {"__init__", "__iter__", "__enter__", "__exit__"}:
             # skip dunder methods
             continue
@@ -1272,7 +1277,14 @@ def parse_class(
     # add __init__ method
     is_init_present_in_methods = any(method.name == "__init__" for method in class_methods)
     is_init_present_in_python_methods = any(method.name == "__init__" for method in class_python_methods)
-    if not (is_init_present_in_methods or is_init_present_in_python_methods):
+    if init_factory is not None:
+        init_method = init_factory(module_name.removeprefix("gi.repository."), class_to_parse)
+        if not isinstance(init_method, FunctionSchema) or init_method.name != "__init__":
+            raise TypeError(
+                f"{module_name}.{class_to_parse.__name__}: init_factory must return an __init__ FunctionSchema"
+            )
+        class_methods.insert(0, init_method)
+    elif not (is_init_present_in_methods or is_init_present_in_python_methods):
         if init_method := create_init_method(
             namespace=module_name.removeprefix("gi.repository."),
             real_cls=class_to_parse,
